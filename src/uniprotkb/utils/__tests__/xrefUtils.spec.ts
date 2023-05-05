@@ -141,7 +141,6 @@ describe('xrefUtils tests', () => {
     expect(getUnconditionalImplicitXrefs(implicitDatabaseXRefs)).toEqual([
       { database: 'ModBase', implicit: true },
       { database: 'MobiDB', implicit: true },
-      { database: 'ProtoNet', implicit: true },
     ]);
   });
 

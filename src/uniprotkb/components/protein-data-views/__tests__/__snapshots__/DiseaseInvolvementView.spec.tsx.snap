@@ -73,7 +73,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           EMBL:
           <a
             class="external-link"
-            href="https://www.ebi.ac.uk/ena/data/view/some ref id"
+            href="https://www.ebi.ac.uk/ena/browser/view/some ref id"
             rel="noopener"
             target="_blank"
           >

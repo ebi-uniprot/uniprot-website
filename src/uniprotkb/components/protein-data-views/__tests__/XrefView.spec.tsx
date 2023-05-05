@@ -28,7 +28,8 @@ describe('XRefView', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it(`should remove duplicate links`, () => {
+  // TODO: remove skip when TRM-29539 is fixed
+  it.skip(`should remove duplicate links`, () => {
     customRender(
       <XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />
     );

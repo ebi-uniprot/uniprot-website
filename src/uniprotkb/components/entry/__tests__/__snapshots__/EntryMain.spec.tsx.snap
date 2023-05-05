@@ -2848,7 +2848,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                      href="https://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
                       rel="noopener"
                       target="_blank"
                     >
@@ -3010,44 +3010,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://mobidb.bio.unipd.it/entries/P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search…
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <a
-                  href="/database?query=(name:ProtoNet)&direct"
-                >
-                  ProtoNet
-                </a>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P21802"
+                      href="https://mobidb.bio.unipd.it/entries/P21802"
                       rel="noopener"
                       target="_blank"
                     >
@@ -5469,7 +5432,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P0DTR4"
+                      href="https://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P0DTR4"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6214,7 +6177,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://pfam.xfam.org/family/PF02368"
+                      href="https://www.ebi.ac.uk/interpro/entry/pfam/PF02368"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6229,7 +6192,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://pfam.xfam.org/family/PF00754"
+                      href="https://www.ebi.ac.uk/interpro/entry/pfam/PF00754"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6319,7 +6282,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6334,7 +6297,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49785"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49785"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6349,7 +6312,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF50939"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF50939"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6364,7 +6327,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6402,44 +6365,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://mobidb.bio.unipd.it/entries/P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search…
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <a
-                  href="/database?query=(name:ProtoNet)&direct"
-                >
-                  ProtoNet
-                </a>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P0DTR4"
+                      href="https://mobidb.bio.unipd.it/entries/P0DTR4"
                       rel="noopener"
                       target="_blank"
                     >

@@ -80,7 +80,6 @@ export const getEntrySectionToDatabaseNames = (
       categories: [DatabaseCategory.PHYLOGENOMIC, DatabaseCategory.DOMAIN],
       include: [
         'MobiDB', // Implicit
-        'ProtoNet', // Implicit
         'GPCRDB', // Implicit
       ],
     })
@@ -195,7 +194,6 @@ export const implicitDatabaseDRAbsence: { [key: string]: string[] } = {
 export const implicitDatabaseAlwaysInclude = [
   'ModBase', // eg P05067
   'MobiDB', // eg P05067
-  'ProtoNet', // eg P05067
 ];
 
 export const implicitDatabaseGenePatternOrganism = {
