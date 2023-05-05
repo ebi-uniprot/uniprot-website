@@ -25,10 +25,6 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
       mainContent && mainContent.offsetWidth - mainContent.clientWidth;
 
     if (scrollBarWidth) {
-      const hjButton = document.querySelector<HTMLElement>(
-        '#_hj_feedback_container div button'
-      );
-
       const sideButton = document?.querySelector<HTMLElement>(
         `.${sideButtonStyles['side-button']}`
       );
@@ -36,9 +32,6 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
         `.${sideButtonStyles.help}`
       );
 
-      if (hjButton) {
-        hjButton.style.right = '17px';
-      }
       if (sideButton) {
         sideButton.style.right = '17px';
       }
@@ -50,6 +43,16 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
     sleep(3000).then(() => {
       // If there's already Hotjar's feedback, don't do anything
       if (document.querySelector('._hj_feedback_container')) {
+        if (scrollBarWidth) {
+          const hjButton = document.querySelector<HTMLElement>(
+            '#_hj_feedback_container div button'
+          );
+
+          if (hjButton) {
+            hjButton.style.right = '17px';
+          }
+        }
+
         return;
       }
       setDisplayFeedback(true);
