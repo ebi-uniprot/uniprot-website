@@ -21,10 +21,11 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
     const mainContent = document?.querySelector<HTMLElement>(
       `.${baseStyles['main-content']}`
     );
-    const scrollBarWidth =
+    let scrollBarWidth =
       mainContent && mainContent.offsetWidth - mainContent.clientWidth;
 
     if (scrollBarWidth) {
+      scrollBarWidth += 2;
       const sideButton = document?.querySelector<HTMLElement>(
         `.${sideButtonStyles['side-button']}`
       );
@@ -33,10 +34,10 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
       );
 
       if (sideButton) {
-        sideButton.style.right = '17px';
+        sideButton.style.right = `${scrollBarWidth.toString()}px`;
       }
       if (sideButtonHelp) {
-        sideButtonHelp.style.right = '17px';
+        sideButtonHelp.style.right = `${scrollBarWidth.toString()}px`;
       }
     }
 
@@ -49,7 +50,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
           );
 
           if (hjButton) {
-            hjButton.style.right = '17px';
+            hjButton.style.right = `${scrollBarWidth.toString()}px`;
           }
         }
 
