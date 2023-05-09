@@ -269,7 +269,7 @@ const HelpEntry = ({
         <HelpEntryContent data={data} />
       </Card>
       {!isReleaseNotes && dateNode}
-      {!loading && accession && data.categories?.length ? (
+      {!loading && !isReleaseNotes && accession && data.categories?.length ? (
         <RelatedArticles current={accession} categories={data.categories} />
       ) : null}
     </SingleColumnLayout>
