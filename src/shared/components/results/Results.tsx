@@ -53,7 +53,7 @@ const Results = () => {
   // Query for results data
   const initialApiUrl = useNSQuery({
     withFacets: false,
-    size: ns === Namespace.uniparc ? 1 : undefined,
+    size: ns === Namespace.uniparc ? 10 : undefined,
   });
   const resultsDataObject = usePagination(initialApiUrl);
   const {
