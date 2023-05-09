@@ -32,6 +32,19 @@ mock
   .onGet(/\/configure\/uniprotkb\/search-fields/)
   .reply(200, configureSearchTerms);
 
+mock.onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Aapp%29/).reply(200, {
+  results: [
+    {
+      entryType: 'UniProtKB reviewed (Swiss-Prot)',
+      primaryAccession: 'P05067',
+    },
+  ],
+});
+
+mock.onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Aerv%29/).reply(200, {
+  results: [],
+});
+
 mock.onGet(/\/uniprotkb\/search\?query=organism_id%3A9606/).reply(200, {
   results: [
     {
@@ -130,6 +143,18 @@ describe('SearchSuggestions', () => {
       '/?query=(gene_exact:app)'
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should not render suggestions for fields that support exact match but without any hits', async () => {
+    const { container } = customRender(
+      <SearchSuggestions
+        query="gene:erv"
+        namespace={Namespace.uniprotkb}
+        total={100}
+      />
+    );
+
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('should render suggestions for fields that has different taxon level', async () => {
