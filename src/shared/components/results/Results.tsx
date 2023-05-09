@@ -23,6 +23,7 @@ import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import {
   searchableNamespaceLabels,
   SearchableNamespace,
+  Namespace,
 } from '../../types/namespaces';
 import { SearchResults } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
@@ -50,7 +51,10 @@ const Results = () => {
   const facetTotal = facetHeaders?.['x-total-results'];
 
   // Query for results data
-  const initialApiUrl = useNSQuery({ withFacets: false });
+  const initialApiUrl = useNSQuery({
+    withFacets: false,
+    size: ns === Namespace.uniparc ? 1 : undefined,
+  });
   const resultsDataObject = usePagination(initialApiUrl);
   const {
     initialLoading: resultsDataInitialLoading,
