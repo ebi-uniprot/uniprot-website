@@ -1,5 +1,5 @@
-import { useState, FC, ChangeEvent, useCallback, useEffect } from 'react';
-import { Link, generatePath, useLocation } from 'react-router-dom';
+import { useState, FC, ChangeEvent } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -22,7 +22,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
-import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
+import ftpUrls, { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -188,18 +188,13 @@ const Download: FC<DownloadProps> = ({
   if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
     extraContentNode = (
       <>
-        <h4>File Available On FTP Server</h4>
-        This file is available compressed on the{' '}
-        <Link
-          to={generatePath(LocationToPath[Location.HelpEntry], {
-            accession: 'downloads',
-          })}
-        >
-          UniProt FTP server
-        </Link>
-        :
-        <br />
-        <ExternalLink url={ftpFilenameAndUrl.url}>
+        <h4 data-article-id="downloads" className={styles['ftp-header']}>
+          File Available On FTP Server
+        </h4>
+        This file is available compressed within the{' '}
+        <ExternalLink url={ftpUrls.uniprotkb}>UniProtKB directory</ExternalLink>{' '}
+        of the UniProt FTP server:
+        <ExternalLink url={ftpFilenameAndUrl.url} className={styles['ftp-url']}>
           {ftpFilenameAndUrl.filename}
         </ExternalLink>
       </>

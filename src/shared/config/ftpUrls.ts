@@ -8,6 +8,7 @@ const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
 const ftpUrls = {
   uniprot: ftpUniProt,
+  uniprotkb: joinUrl(ftpUniProt, 'knowledgebase/complete'),
   referenceProteomes: (id: string, superkingdom: string, taxonId: number) =>
     joinUrl(
       ftpUniProt,
@@ -83,7 +84,7 @@ export const getUniprotkbFtpFilenameAndUrl = (
     return null;
   }
   const filename = `${ftpFilename}.${ftpFormat}.gz`;
-  const url = joinUrl(ftpUniProt, 'knowledgebase/complete', filename);
+  const url = joinUrl(ftpUrls.uniprotkb, filename);
   return { filename, url };
 };
 
