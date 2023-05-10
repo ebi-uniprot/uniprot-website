@@ -22,7 +22,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
-import { getUniprotkbFtpUrl } from '../../config/ftpUrls';
+import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -175,41 +175,17 @@ const Download: FC<DownloadProps> = ({
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
-  const displayExtraContent = useCallback((content: ExtraContent) => {
-    setExtraContent(content);
-  }, []);
-
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isAsyncDownload = isLarge && isUniprotkb;
-  const ftpUrl =
+  const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb
-      ? getUniprotkbFtpUrl(downloadUrl, fileFormat)
+      ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
 
-  useEffect(() => {
-    if (extraContent) {
-      if (ftpUrl) {
-        setExtraContent('ftp');
-      } else if (isAsyncDownload) {
-        setExtraContent('generate');
-      }
-    }
-  }, [extraContent, ftpUrl, isAsyncDownload, onClose]);
-
   let extraContentNode: JSX.Element | undefined;
-  if (extraContent === 'url') {
-    extraContentNode = (
-      <DownloadAPIURL
-        // Remove the download attribute as it's unnecessary for API access
-        apiURL={downloadUrl.replace('download=true&', '')}
-        ftpURL={ftpUrl}
-        onCopy={onClose}
-        count={downloadCount}
-      />
-    );
-  } else if (extraContent === 'ftp' && ftpUrl) {
+  if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
     extraContentNode = (
       <>
         <h4>File Available On FTP Server</h4>
@@ -223,8 +199,20 @@ const Download: FC<DownloadProps> = ({
         </Link>
         :
         <br />
-        <ExternalLink url={ftpUrl}>{ftpUrl}</ExternalLink>
+        <ExternalLink url={ftpFilenameAndUrl.url}>
+          {ftpFilenameAndUrl.filename}
+        </ExternalLink>
       </>
+    );
+  } else if (extraContent === 'url') {
+    extraContentNode = (
+      <DownloadAPIURL
+        // Remove the download attribute as it's unnecessary for API access
+        apiURL={downloadUrl.replace('download=true&', '')}
+        ftpURL={ftpFilenameAndUrl?.url}
+        onCopy={onClose}
+        count={downloadCount}
+      />
     );
   } else if (extraContent === 'generate') {
     extraContentNode = (
@@ -365,14 +353,14 @@ const Download: FC<DownloadProps> = ({
       >
         <Button
           variant="tertiary"
-          onClick={() => displayExtraContent('url')}
+          onClick={() => setExtraContent('url')}
           disabled={redirectToIDMapping}
         >
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
-          onClick={() => displayExtraContent('preview')}
+          onClick={() => setExtraContent('preview')}
           disabled={redirectToIDMapping}
         >
           Preview{' '}
@@ -385,7 +373,7 @@ const Download: FC<DownloadProps> = ({
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={isAsyncDownload || ftpUrl ? undefined : downloadUrl}
+          href={isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl}
           className={cn('button', 'primary')}
           title={
             isAsyncDownload
@@ -395,10 +383,10 @@ const Download: FC<DownloadProps> = ({
           target="_blank"
           rel="noreferrer"
           onClick={() => {
-            if (ftpUrl) {
-              displayExtraContent('ftp');
+            if (ftpFilenameAndUrl) {
+              setExtraContent('ftp');
             } else if (isAsyncDownload) {
-              displayExtraContent('generate');
+              setExtraContent('generate');
             } else {
               onClose();
             }

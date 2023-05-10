@@ -60,7 +60,10 @@ export const simplifyQuery = (query: string) => {
   return null;
 };
 
-export const getUniprotkbFtpUrl = (downloadUrl: string, format: FileFormat) => {
+export const getUniprotkbFtpFilenameAndUrl = (
+  downloadUrl: string,
+  format: FileFormat
+) => {
   const parsed = queryString.parseUrl(downloadUrl);
   const { query } = parsed.query;
   const q = Array.isArray(query) ? query[0] : query;
@@ -79,11 +82,9 @@ export const getUniprotkbFtpUrl = (downloadUrl: string, format: FileFormat) => {
   if (!ftpFormat) {
     return null;
   }
-  return joinUrl(
-    ftpUniProt,
-    'knowledgebase/complete',
-    `${ftpFilename}.${ftpFormat}.gz`
-  );
+  const filename = `${ftpFilename}.${ftpFormat}.gz`;
+  const url = joinUrl(ftpUniProt, 'knowledgebase/complete');
+  return { filename, url };
 };
 
 export default ftpUrls;
