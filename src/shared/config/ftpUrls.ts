@@ -83,7 +83,7 @@ export const getUniprotkbFtpFilenameAndUrl = (
     return null;
   }
   const filename = `${ftpFilename}.${ftpFormat}.gz`;
-  const url = joinUrl(ftpUniProt, 'knowledgebase/complete');
+  const url = joinUrl(ftpUniProt, 'knowledgebase/complete', filename);
   return { filename, url };
 };
 
