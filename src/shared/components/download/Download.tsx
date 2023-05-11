@@ -1,6 +1,12 @@
 import { useState, FC, ChangeEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
+import {
+  Button,
+  DownloadIcon,
+  ExternalLink,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
@@ -194,9 +200,12 @@ const Download: FC<DownloadProps> = ({
         This file is available compressed within the{' '}
         <ExternalLink url={ftpUrls.uniprotkb}>UniProtKB directory</ExternalLink>{' '}
         of the UniProt FTP server:
-        <ExternalLink url={ftpFilenameAndUrl.url} className={styles['ftp-url']}>
-          {ftpFilenameAndUrl.filename}
-        </ExternalLink>
+        <div className={styles['ftp-url']}>
+          <ExternalLink url={ftpFilenameAndUrl.url} noIcon>
+            <DownloadIcon width="1em" />
+            {ftpFilenameAndUrl.filename}
+          </ExternalLink>
+        </div>
       </>
     );
   } else if (extraContent === 'url') {

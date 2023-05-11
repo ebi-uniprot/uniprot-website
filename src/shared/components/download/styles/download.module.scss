@@ -15,5 +15,10 @@
 
 .ftp-url {
   margin: 0.5 * $global-margin 0;
-  display: block;
+
+  svg {
+    margin-top: -0.2rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
 }
