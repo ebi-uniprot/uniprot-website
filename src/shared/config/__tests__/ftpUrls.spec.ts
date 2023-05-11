@@ -53,7 +53,7 @@ describe('getUniprotkbFtpUrl', () => {
       getUniprotkbFtpFilenameAndUrl(
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=fasta&query=(*)',
         FileFormat.fastaCanonical
-      )?.url
+      )
     ).toEqual(null);
   });
 });
