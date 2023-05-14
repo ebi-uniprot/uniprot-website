@@ -16,6 +16,7 @@ import {
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 
 import DidYouMean from './DidYouMean';
+import UniProtKBViewBy from '../../../uniprotkb/components/results/UniProtKBViewBy';
 
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
@@ -67,7 +68,7 @@ const ResultsData = ({
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
-  const [{ query, direct }] = getParamsFromURL(useLocation().search);
+  const [{ query, direct, viewBy }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
@@ -104,7 +105,7 @@ const ResultsData = ({
     setSelectedEntries?.([]);
   }, [setSelectedEntries, viewMode]);
 
-  // redirect to entry when directly when...
+  // redirect to entry directly when...
   useEffect(() => {
     // ... only 1 result and ...
     if (!hasMoreData && allResults.length === 1) {
@@ -163,6 +164,41 @@ const ResultsData = ({
   ) {
     return <Loader progress={progress} />;
   }
+  let content;
+  if (viewBy) {
+    content = <UniProtKBViewBy resultsDataObject={resultsDataObject} />;
+  } else if (viewMode === 'cards' && !displayIdMappingColumns) {
+    // Card view
+    content = (
+      <DataListWithLoader<APIModel>
+        getIdKey={getIdKey}
+        data={allResults}
+        loading={loading}
+        dataRenderer={cardRenderer}
+        onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={loadComponent}
+        className={styles['results-data']}
+      />
+    );
+  } else {
+    // Table view
+    <EllipsisReveal.Provider>
+      <DataTableWithLoader
+        getIdKey={getIdKey}
+        columns={columns}
+        data={allResults}
+        loading={loading}
+        onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
+        onHeaderClick={updateColumnSort}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={loadComponent}
+        className={styles['results-data']}
+      />
+    </EllipsisReveal.Provider>;
+  }
 
   return (
     <>
@@ -188,38 +224,8 @@ const ResultsData = ({
           })}
         </Message>
       )}
-      {viewMode === 'cards' && !displayIdMappingColumns ? (
-        // Card view
-        <DataListWithLoader<APIModel>
-          getIdKey={getIdKey}
-          data={allResults}
-          loading={loading}
-          dataRenderer={cardRenderer}
-          onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-          className={styles['results-data']}
-        />
-      ) : (
-        // Table view
-        <EllipsisReveal.Provider>
-          <DataTableWithLoader
-            getIdKey={getIdKey}
-            columns={columns}
-            data={allResults}
-            loading={loading}
-            onSelectionChange={
-              smallScreen ? undefined : setSelectedItemFromEvent
-            }
-            onHeaderClick={updateColumnSort}
-            onLoadMoreItems={handleLoadMoreRows}
-            hasMoreData={hasMoreData}
-            loaderComponent={loadComponent}
-            className={styles['results-data']}
-          />
-        </EllipsisReveal.Provider>
-      )}
+
+      {content}
       {!hasMoreData && didYouMean && (
         <div className={styles['did-you-mean-wrapper']}>
           <DidYouMean

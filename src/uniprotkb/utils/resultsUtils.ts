@@ -30,6 +30,7 @@ export type URLResultParams = {
   direct?: boolean;
   columns?: Column[];
   viewMode?: ViewMode;
+  viewBy?: string;
 };
 
 export type InvalidParamValue = {
@@ -51,7 +52,8 @@ export const getParamsFromURL = (
     direct,
     fields, // Handled in useColumnNames
     view, // Handled in useViewMode
-    ids, // Handles in ToolsButton
+    ids, // Handled in ToolsButton
+    viewBy, // Handled in UniProtKB/viewBy=...
     ...restParams
   } = parseQueryString(url);
 
@@ -69,6 +71,7 @@ export const getParamsFromURL = (
     sortDirection: sortDirection && SortDirection[sortDirection],
     // flag, so if '?direct' we get null, if not in querystring we get undefined
     direct: direct !== undefined,
+    viewBy: viewBy || undefined,
   };
 
   const unknownParams = Object.keys(restParams);

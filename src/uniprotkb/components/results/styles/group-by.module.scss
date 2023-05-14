@@ -1,0 +1,20 @@
+ul.groupBy {
+  li {
+    display: grid;
+    grid-template-areas: 'count expand label';
+    grid-template-columns: 10ch 1ch 1fr;
+    grid-gap: 1ch;
+
+    .count {
+      grid-area: 'count';
+    }
+
+    .expand {
+      grid-area: 'expand';
+    }
+
+    .label {
+      grid-area: 'label';
+    }
+  }
+}

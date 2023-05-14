@@ -6,9 +6,9 @@ import { apiPrefix } from '../../shared/config/apiUrls';
 type ViewByHow = 'taxonomy';
 
 const apiUrls = {
-  viewBy: (how: ViewByHow, query: string, parent: number) =>
+  viewBy: (how: ViewByHow, query: string, parent?: number) =>
     queryString.stringifyUrl({
-      url: joinUrl(apiPrefix, 'view', how),
+      url: joinUrl(apiPrefix, 'uniprotkb/view', how),
       query: { query, parent },
     }),
 };
