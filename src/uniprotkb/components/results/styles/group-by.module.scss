@@ -2,11 +2,13 @@
   margin-left: 3rem;
 }
 ul.groupBy {
-  // border-left: 1px solid black;
+  border-left: 1px solid lightgray;
   margin-left: 1rem;
 
   li {
     .expand {
+      width: 3.75ch;
+      display: inline-block;
       button {
         border: 0;
         margin-top: -0.4rem;
@@ -17,7 +19,7 @@ ul.groupBy {
     .count {
       width: 10ch;
       display: inline-block;
-      margin-right: 1rem;
+      margin-right: 0.5rem;
     }
   }
 }

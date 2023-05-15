@@ -48,9 +48,13 @@ const GroupByNode = ({
   const row = item && (
     <>
       <span className={styles.expand}>
-        <Button variant="secondary" onClick={() => setOpen((o) => !o)}>
-          {item.expand && '►'}
-        </Button>
+        {item.expand ? (
+          <Button variant="secondary" onClick={() => setOpen((o) => !o)}>
+            ►
+          </Button>
+        ) : (
+          <>&nbsp;</>
+        )}
       </span>
       <span className={styles.count}>
         <LongNumber>{item.count}</LongNumber>
