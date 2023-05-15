@@ -224,7 +224,7 @@ const ResultsData = ({
         <div className={styles['did-you-mean-wrapper']}>
           <DidYouMean
             suggestions={suggestions}
-            heading={<h2>Not what you were looking for?</h2>}
+            heading={<h2 className="small">Not what you were looking for?</h2>}
           />
         </div>
       )}
