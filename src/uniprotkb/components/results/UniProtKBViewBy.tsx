@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import cn from 'classnames';
-import { Button, Loader, LongNumber } from 'franklin-sites';
+import { Button, LongNumber, SpinnerIcon } from 'franklin-sites';
 
 import { useLocation } from 'react-router-dom';
 import apiUrls from '../../config/apiUrls';
@@ -33,12 +33,12 @@ const GroupByNode = ({
 }) => {
   const [open, setOpen] = useState(false);
   const parent = root || !item?.id ? undefined : +item?.id;
-  const { loading, data, progress } = useDataApi<GroupByItem[]>(
+  const { loading, data } = useDataApi<GroupByItem[]>(
     root || open ? apiUrls.viewBy('taxonomy', query, parent) : null
   );
 
   if (loading) {
-    return <Loader progress={progress} />;
+    return <SpinnerIcon width="12" height="12" className={styles.spinner} />;
   }
 
   if (open && !data) {
