@@ -1,9 +1,12 @@
+@import 'franklin-sites/src/styles/colours';
+
 .spinner {
   margin-left: 3rem;
 }
 ul.groupBy {
   border-left: 1px solid lightgray;
   margin-left: 1rem;
+  margin-bottom: 0;
 
   li {
     .expand {
@@ -14,6 +17,11 @@ ul.groupBy {
         margin-top: -0.4rem;
         margin-bottom: 0rem;
         transition: transform 0.25s ease-out;
+        outline: 0;
+        &:hover {
+          background-color: transparent;
+          color: $colour-sapphire-blue;
+        }
 
         &[aria-expanded='true'] {
           transform: rotateZ(90deg);
@@ -22,7 +30,7 @@ ul.groupBy {
     }
 
     .count {
-      width: 10ch;
+      width: 15ch;
       display: inline-block;
       margin-right: 0.5rem;
     }

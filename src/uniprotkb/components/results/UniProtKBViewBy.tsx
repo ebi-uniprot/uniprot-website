@@ -2,13 +2,14 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { Button, LongNumber, SpinnerIcon } from 'franklin-sites';
 
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import apiUrls from '../../config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { PaginatedResults } from '../../../shared/hooks/usePagination';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
 import styles from './styles/group-by.module.scss';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 type Props = {
   resultsDataObject: PaginatedResults;
@@ -61,7 +62,14 @@ const GroupByNode = ({
         )}
       </span>
       <span className={styles.count}>
-        <LongNumber>{item.count}</LongNumber>
+        <Link
+          to={{
+            pathname: LocationToPath[Location.UniProtKBResults],
+            search: `query=${query} AND taxonomy_id:${item.id}`,
+          }}
+        >
+          <LongNumber>{item.count}</LongNumber>
+        </Link>
       </span>
       <span className={styles.label}>{item.label}</span>
     </>
@@ -76,7 +84,6 @@ const GroupByNode = ({
   );
 
   if (root) {
-    console.log(children);
     return children;
   }
 
@@ -96,7 +103,18 @@ const UniProtKBViewByResults = ({ resultsDataObject }: Props) => {
 
   const [{ query }] = getParamsFromURL(useLocation().search);
 
-  return <GroupByNode query={query} root />;
+  return (
+    <>
+      <ul className={cn('no-bullet', styles.groupBy)}>
+        <li>
+          <b className={styles.expand}>&nbsp;</b>
+          <b className={styles.count}>UniProtKB Entries</b>
+          <b className={styles.label}>Taxonomy</b>
+        </li>
+      </ul>
+      <GroupByNode query={query} root />
+    </>
+  );
 };
 
 export default UniProtKBViewByResults;
