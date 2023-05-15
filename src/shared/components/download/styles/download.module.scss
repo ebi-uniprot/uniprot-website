@@ -8,3 +8,17 @@
   // Override .button-group's margin
   margin-block-end: 0;
 }
+
+.ftp-header {
+  display: block !important;
+}
+
+.ftp-url {
+  margin: 0.5 * $global-margin 0;
+
+  svg {
+    margin-top: -0.2rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+}
