@@ -105,7 +105,7 @@ const StructureSection = ({
       data-entry-section
     >
       {displayStructure ? (
-        <LazyComponent rootMargin="100px">
+        <LazyComponent rootMargin="800px 0px">
           <StructureView primaryAccession={primaryAccession} />
         </LazyComponent>
       ) : (

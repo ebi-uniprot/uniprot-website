@@ -165,7 +165,6 @@ export const TaxonomyListView = ({
     infoListData.push({
       title: <span data-article-id="taxonomic_lineage">Taxonomic lineage</span>,
       content: (
-        // Will wait to be in view in order to fetch the lineage data
         <LazyComponent
           fallback={
             <SelfLoadingTaxonomyLineage

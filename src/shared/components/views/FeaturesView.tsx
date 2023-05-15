@@ -108,7 +108,6 @@ const FeaturesView = <
         <managerElement.name attributes="highlight displaystart displayend selectedid">
           {sequence && (
             <LazyComponent
-              rootMargin="50px"
               render={isSmallScreen ? false : undefined}
               fallback={null}
             >

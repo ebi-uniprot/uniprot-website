@@ -252,7 +252,7 @@ const GoRibbon = ({
     <div className="GoRibbon">
       <h3 data-article-id="gene_ontology">GO annotations</h3>
       {!isSmallScreen && (
-        <LazyComponent fallback={null} rootMargin="50px">
+        <LazyComponent fallback={null}>
           <Helmet>
             <script
               type="module"

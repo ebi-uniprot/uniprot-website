@@ -103,7 +103,6 @@ export const SequenceInfo = ({
           {dataToDisplay?.value || null}
         </div>
       }
-      rootMargin="50px"
     >
       <Sequence
         sequence={dataToDisplay?.value}
