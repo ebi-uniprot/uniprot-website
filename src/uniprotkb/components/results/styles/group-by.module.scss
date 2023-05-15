@@ -7,12 +7,17 @@ ul.groupBy {
 
   li {
     .expand {
-      width: 3.75ch;
+      width: 4.5ch;
       display: inline-block;
       button {
         border: 0;
         margin-top: -0.4rem;
         margin-bottom: 0rem;
+        transition: transform 0.25s ease-out;
+
+        &[aria-expanded='true'] {
+          transform: rotateZ(90deg);
+        }
       }
     }
 

@@ -49,7 +49,11 @@ const GroupByNode = ({
     <>
       <span className={styles.expand}>
         {item.expand ? (
-          <Button variant="secondary" onClick={() => setOpen((o) => !o)}>
+          <Button
+            variant="secondary"
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
+          >
             ►
           </Button>
         ) : (
