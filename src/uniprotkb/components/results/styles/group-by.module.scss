@@ -1,20 +1,20 @@
 ul.groupBy {
+  // border-left: 1px solid black;
+  margin-left: 1rem;
+
   li {
-    display: grid;
-    grid-template-areas: 'expand count label';
-    grid-template-columns: 2ch 16ch 1fr;
-    grid-gap: 1ch;
+    .expand {
+      button {
+        border: 0;
+        margin-top: -0.4rem;
+        margin-bottom: 0rem;
+      }
+    }
 
     .count {
-      grid-area: 'count';
-    }
-
-    .expand {
-      grid-area: 'expand';
-    }
-
-    .label {
-      grid-area: 'label';
+      width: 10ch;
+      display: inline-block;
+      margin-right: 1rem;
     }
   }
 }

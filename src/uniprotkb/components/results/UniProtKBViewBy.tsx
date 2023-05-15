@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import cn from 'classnames';
-import { Loader, LongNumber } from 'franklin-sites';
+import { Button, Loader, LongNumber } from 'franklin-sites';
 
 import { useLocation } from 'react-router-dom';
 import apiUrls from '../../config/apiUrls';
@@ -22,12 +22,22 @@ type GroupByItem = {
   count: number;
 };
 
-const GroupByNode = ({ item, query }: { item: GroupByItem; query: string }) => {
+const GroupByNode = ({
+  query,
+  item,
+  root = false,
+}: {
+  query: string;
+  item?: GroupByItem;
+  root?: boolean;
+}) => {
   const [open, setOpen] = useState(false);
+  const parent = root || !item?.id ? undefined : +item?.id;
   const { loading, data, progress } = useDataApi<GroupByItem[]>(
-    open ? apiUrls.viewBy('taxonomy', query) : null
+    root || open ? apiUrls.viewBy('taxonomy', query, parent) : null
   );
-  if (open && loading) {
+
+  if (loading) {
     return <Loader progress={progress} />;
   }
 
@@ -35,13 +45,37 @@ const GroupByNode = ({ item, query }: { item: GroupByItem; query: string }) => {
     return <>oops</>;
   }
 
-  return (
-    <li>
-      <span className={styles.expand}>{item.expand && '►'}</span>
+  const row = item && (
+    <>
+      <span className={styles.expand}>
+        <Button variant="secondary" onClick={() => setOpen((o) => !o)}>
+          {item.expand && '►'}
+        </Button>
+      </span>
       <span className={styles.count}>
         <LongNumber>{item.count}</LongNumber>
       </span>
       <span className={styles.label}>{item.label}</span>
+    </>
+  );
+
+  const children = (root || open) && data && (
+    <ul className={cn('no-bullet', styles.groupBy)}>
+      {data.map((i) => (
+        <GroupByNode item={i} query={query} key={i.id} />
+      ))}
+    </ul>
+  );
+
+  if (root) {
+    console.log(children);
+    return children;
+  }
+
+  return (
+    <li>
+      {row}
+      {children}
     </li>
   );
 };
@@ -54,24 +88,7 @@ const UniProtKBViewByResults = ({ resultsDataObject }: Props) => {
 
   const [{ query }] = getParamsFromURL(useLocation().search);
 
-  const { loading, data, progress } = useDataApi<GroupByItem[]>(
-    apiUrls.viewBy('taxonomy', query)
-  );
-  if (loading) {
-    return <Loader progress={progress} />;
-  }
-
-  if (!data) {
-    return <>oops</>;
-  }
-
-  return (
-    <ul className={cn('no-bullet', styles.groupBy)}>
-      {data.map((item) => (
-        <GroupByNode key={item.id} item={item} query={query} />
-      ))}
-    </ul>
-  );
+  return <GroupByNode query={query} root />;
 };
 
 export default UniProtKBViewByResults;
