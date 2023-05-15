@@ -1,8 +1,8 @@
 ul.groupBy {
   li {
     display: grid;
-    grid-template-areas: 'count expand label';
-    grid-template-columns: 10ch 1ch 1fr;
+    grid-template-areas: 'expand count label';
+    grid-template-columns: 2ch 16ch 1fr;
     grid-gap: 1ch;
 
     .count {

@@ -37,10 +37,10 @@ const GroupByNode = ({ item, query }: { item: GroupByItem; query: string }) => {
 
   return (
     <li>
+      <span className={styles.expand}>{item.expand && '►'}</span>
       <span className={styles.count}>
         <LongNumber>{item.count}</LongNumber>
       </span>
-      <span className={styles.expand}>{item.expand && '►'}</span>
       <span className={styles.label}>{item.label}</span>
     </li>
   );
