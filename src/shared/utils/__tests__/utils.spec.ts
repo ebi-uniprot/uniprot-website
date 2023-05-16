@@ -9,6 +9,7 @@ import {
   deepFindAllByKey,
   addBlastLinksToFreeText,
   keysToLowerCase,
+  getNumberChars,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -175,4 +176,27 @@ describe('keysToLowerCase', () => {
   it('should return empty object with nothing provided', () => {
     expect(keysToLowerCase(undefined)).toEqual({});
   });
+});
+
+describe('getNumberChars', () => {
+  const testCases = [
+    [-1_000, 6],
+    [-10, 3],
+    [0, 1],
+    [1, 1],
+    [9, 1],
+    [10, 2],
+    [11, 2],
+    [100, 3],
+    [1_000, 5],
+    [10_000, 6],
+    [99_999, 6],
+    [100_000, 7],
+  ];
+  test.each(testCases)(
+    'for number %p should count %p characters (including commas)',
+    (int: number, nChars: number) => {
+      expect(getNumberChars(int)).toEqual(nChars);
+    }
+  );
 });
