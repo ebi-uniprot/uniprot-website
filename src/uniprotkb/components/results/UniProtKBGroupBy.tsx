@@ -8,17 +8,12 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import apiUrls from '../../config/apiUrls';
 
 import { getParamsFromURL } from '../../utils/resultsUtils';
+import { getAPIQueryParams } from '../../../shared/config/apiUrls';
 import { getNumberChars } from '../../../shared/utils/utils';
-
-import { PaginatedResults } from '../../../shared/hooks/usePagination';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/group-by.module.scss';
-
-type Props = {
-  resultsDataObject: PaginatedResults;
-};
 
 type GroupByItem = {
   id: string;
@@ -113,14 +108,10 @@ const GroupByNode = ({
   );
 };
 
-const UniProtKBGroupByResults = ({ resultsDataObject }: Props) => {
-  //   const { allResults, initialLoading, hasMoreData, progress } =
-  //     resultsDataObject;
-
-  //   const loading = initialLoading;
-
-  const [{ query }] = getParamsFromURL(useLocation().search);
-
+const UniProtKBGroupByResults = () => {
+  const [params] = getParamsFromURL(useLocation().search);
+  // This includes facets
+  const { query } = getAPIQueryParams(params);
   return (
     <>
       <ul className={cn('no-bullet', styles.groupBy)}>
