@@ -16,7 +16,7 @@ import {
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 
 import DidYouMean from './DidYouMean';
-import UniProtKBViewBy from '../../../uniprotkb/components/results/UniProtKBViewBy';
+import UniProtKBGroupBy from '../../../uniprotkb/components/results/UniProtKBGroupBy';
 
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
@@ -166,7 +166,7 @@ const ResultsData = ({
   }
   let content;
   if (viewBy) {
-    content = <UniProtKBViewBy resultsDataObject={resultsDataObject} />;
+    content = <UniProtKBGroupBy resultsDataObject={resultsDataObject} />;
   } else if (viewMode === 'cards' && !displayIdMappingColumns) {
     // Card view
     content = (

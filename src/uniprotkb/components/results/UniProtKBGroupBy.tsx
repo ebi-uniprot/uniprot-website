@@ -95,7 +95,7 @@ const GroupByNode = ({
   );
 };
 
-const UniProtKBViewByResults = ({ resultsDataObject }: Props) => {
+const UniProtKBGroupByResults = ({ resultsDataObject }: Props) => {
   //   const { allResults, initialLoading, hasMoreData, progress } =
   //     resultsDataObject;
 
@@ -117,4 +117,4 @@ const UniProtKBViewByResults = ({ resultsDataObject }: Props) => {
   );
 };
 
-export default UniProtKBViewByResults;
+export default UniProtKBGroupByResults;

@@ -5,7 +5,7 @@ import useNS from '../../hooks/useNS';
 
 import TaxonomyFacet from './TaxonomyFacet';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
-import UniProtKBViewBySelection from '../../../uniprotkb/components/results/UniProtKBViewBySelection';
+import UniProtKBGroupBySelection from '../../../uniprotkb/components/results/UniProtKBGroupBySelection';
 
 import {
   mainNamespaces,
@@ -91,7 +91,7 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
       {namespace && mainNamespaces.has(namespace) && (
         <TaxonomyFacet namespace={namespace as SearchableNamespace} />
       )}
-      {namespace === Namespace.uniprotkb && <UniProtKBViewBySelection />}
+      {namespace === Namespace.uniprotkb && <UniProtKBGroupBySelection />}
       {after.map(
         (facet) => facet.values && <Facet key={facet.name} data={facet} />
       )}

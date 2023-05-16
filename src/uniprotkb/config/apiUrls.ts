@@ -3,10 +3,10 @@ import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../shared/config/apiUrls';
 
-type ViewByHow = 'taxonomy';
+type GroupByHow = 'taxonomy';
 
 const apiUrls = {
-  viewBy: (how: ViewByHow, query: string, parent?: number) =>
+  viewBy: (how: GroupByHow, query: string, parent?: number) =>
     queryString.stringifyUrl({
       url: joinUrl(apiPrefix, 'uniprotkb/view', how),
       query: { query, parent },
