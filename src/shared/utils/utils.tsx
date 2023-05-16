@@ -131,3 +131,17 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
     Object.entries(o).map(([k, v]) => [k.toLowerCase(), v])
   );
 }
+
+const log1000 = Math.log10(1000);
+
+export const getNumberChars = (int: number) => {
+  // Counts length of integer string eg -1,000 --> 6
+  if (int === 0) {
+    return 1;
+  }
+  const negative = Number(int < 0);
+  const log10 = Math.log10(negative ? -int : int);
+  const numbers = Math.floor(log10) + 1;
+  const commas = Math.floor(log10 / log1000);
+  return negative + numbers + commas;
+};
