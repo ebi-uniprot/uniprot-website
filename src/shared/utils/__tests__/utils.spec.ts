@@ -194,7 +194,7 @@ describe('getNumberChars', () => {
     [100_000, 7],
   ];
   test.each(testCases)(
-    'for number %p should count %p characters (including commas)',
+    'for number %p should count %p characters (including commas and negative symbol)',
     (int: number, nChars: number) => {
       expect(getNumberChars(int)).toEqual(nChars);
     }

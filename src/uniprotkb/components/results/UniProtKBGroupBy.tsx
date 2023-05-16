@@ -83,7 +83,17 @@ const GroupByNode = ({
       ...data.map(({ count }) => getNumberChars(count))
     );
     children = (
-      <ul className={cn('no-bullet', styles.groupBy)}>
+      <ul
+        className={cn('no-bullet', styles.groupBy, {
+          [styles.groupBy__root]: root,
+        })}
+      >
+        {root && (
+          <li className={styles.header}>
+            <h2 className={cn('tiny', styles.count)}>UniProtKB Entries</h2>
+            <h2 className={cn('tiny', styles.label)}>Taxonomy</h2>
+          </li>
+        )}
         {data.map((i) => (
           <GroupByNode
             item={i}
@@ -101,7 +111,7 @@ const GroupByNode = ({
   }
 
   return (
-    <li>
+    <li className={styles.row}>
       {row}
       {children}
     </li>
@@ -112,17 +122,7 @@ const UniProtKBGroupByResults = () => {
   const [params] = getParamsFromURL(useLocation().search);
   // This includes facets
   const { query } = getAPIQueryParams(params);
-  return (
-    <>
-      <ul className={cn('no-bullet', styles.groupBy)}>
-        <li className={styles.header}>
-          <h2 className={cn('tiny', styles.count)}>UniProtKB Entries</h2>
-          <h2 className={cn('tiny', styles.label)}>Taxonomy</h2>
-        </li>
-      </ul>
-      <GroupByNode query={query} root />
-    </>
-  );
+  return <GroupByNode query={query} root />;
 };
 
 export default UniProtKBGroupByResults;

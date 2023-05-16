@@ -4,22 +4,26 @@
   margin-left: 3rem;
 }
 
-.header {
-  h2 {
-    display: inline;
-  }
-  .count {
-    margin-left: 5ch;
-    width: 12ch;
-  }
-}
-
 ul.groupBy {
   border-left: 1px solid lightgray;
   margin-left: 1rem;
   margin-bottom: 0;
 
-  li {
+  &__root {
+    border: 0;
+  }
+
+  li.header {
+    h2 {
+      display: inline-block;
+    }
+    .count {
+      margin-left: 5ch;
+      width: 18ch;
+    }
+  }
+
+  li.row {
     .expand {
       width: 4.5ch;
       display: inline-block;
@@ -42,7 +46,7 @@ ul.groupBy {
 
     .count {
       display: inline-block;
-      margin-right: 2ch;
+      margin-right: 5ch;
     }
   }
 }
