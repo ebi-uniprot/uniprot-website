@@ -31,10 +31,11 @@
 
 .did-you-mean-wrapper {
   /* make sure the wrapper uses 100% of the remaining width */
-  width: calc(100vw - var(--sidebar-size));
+  width: calc(80vw - var(--sidebar-size));
   /* so that DidYouMean component is visually centred _before_ any scrolling */
   display: grid;
   padding-block: 10 * $global-padding 5 * $global-padding;
   justify-items: center;
   align-items: center;
+  margin: auto;
 }
