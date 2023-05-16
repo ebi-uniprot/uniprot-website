@@ -3,6 +3,17 @@
 .spinner {
   margin-left: 3rem;
 }
+
+.header {
+  h2 {
+    display: inline;
+  }
+  .count {
+    margin-left: 5ch;
+    width: 12ch;
+  }
+}
+
 ul.groupBy {
   border-left: 1px solid lightgray;
   margin-left: 1rem;
@@ -30,9 +41,8 @@ ul.groupBy {
     }
 
     .count {
-      width: 15ch;
       display: inline-block;
-      margin-right: 0.5rem;
+      margin-right: 1ch;
     }
   }
 }

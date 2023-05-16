@@ -1,15 +1,20 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { Button, LongNumber, SpinnerIcon } from 'franklin-sites';
 
-import { Link, useLocation } from 'react-router-dom';
-import apiUrls from '../../config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { PaginatedResults } from '../../../shared/hooks/usePagination';
+
+import apiUrls from '../../config/apiUrls';
+
 import { getParamsFromURL } from '../../utils/resultsUtils';
+import { getNumberChars } from '../../../shared/utils/utils';
+
+import { PaginatedResults } from '../../../shared/hooks/usePagination';
+
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/group-by.module.scss';
-import { LocationToPath, Location } from '../../../app/config/urls';
 
 type Props = {
   resultsDataObject: PaginatedResults;
@@ -27,10 +32,12 @@ const GroupByNode = ({
   query,
   item,
   root = false,
+  countWidth = 20,
 }: {
   query: string;
   item?: GroupByItem;
   root?: boolean;
+  countWidth?: number;
 }) => {
   const [open, setOpen] = useState(false);
   const parent = root || !item?.id ? undefined : +item?.id;
@@ -61,7 +68,7 @@ const GroupByNode = ({
           <>&nbsp;</>
         )}
       </span>
-      <span className={styles.count}>
+      <span className={styles.count} style={{ width: `${countWidth}ch` }}>
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
@@ -75,13 +82,24 @@ const GroupByNode = ({
     </>
   );
 
-  const children = (root || open) && data && (
-    <ul className={cn('no-bullet', styles.groupBy)}>
-      {data.map((i) => (
-        <GroupByNode item={i} query={query} key={i.id} />
-      ))}
-    </ul>
-  );
+  let children = null;
+  if (data && (root || open)) {
+    const countWidth = Math.max(
+      ...data.map(({ count }) => getNumberChars(count))
+    );
+    children = (
+      <ul className={cn('no-bullet', styles.groupBy)}>
+        {data.map((i) => (
+          <GroupByNode
+            item={i}
+            query={query}
+            key={i.id}
+            countWidth={countWidth}
+          />
+        ))}
+      </ul>
+    );
+  }
 
   if (root) {
     return children;
@@ -106,10 +124,9 @@ const UniProtKBGroupByResults = ({ resultsDataObject }: Props) => {
   return (
     <>
       <ul className={cn('no-bullet', styles.groupBy)}>
-        <li>
-          <b className={styles.expand}>&nbsp;</b>
-          <b className={styles.count}>UniProtKB Entries</b>
-          <b className={styles.label}>Taxonomy</b>
+        <li className={styles.header}>
+          <h2 className={cn('tiny', styles.count)}>UniProtKB Entries</h2>
+          <h2 className={cn('tiny', styles.label)}>Taxonomy</h2>
         </li>
       </ul>
       <GroupByNode query={query} root />
