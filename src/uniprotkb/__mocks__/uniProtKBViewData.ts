@@ -1,5 +1,7 @@
 import { GroupByItem } from '../components/results/UniProtKBGroupBy';
 
+// Source: https://rest.uniprot.org/uniprotkb/view/taxonomy?query=%28%2A%29
+// Retrieved: 2023-05-18
 const mock: GroupByItem[] = [
   {
     id: '10239',
