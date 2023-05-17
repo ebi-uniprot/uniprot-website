@@ -21,6 +21,9 @@ import { parseQueryString } from '../../../shared/utils/url';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/group-by.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
+import { TaxonomyColumn } from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
+import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type GroupByItem = {
   id: string;
@@ -65,8 +68,8 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
 
   const children = data && open && (
     <ul className={cn('no-bullet', styles.groupBy)}>
-      {data.map((i) => (
-        <GroupByNode item={i} query={query} key={i.id} />
+      {data.map((child) => (
+        <GroupByNode item={child} query={query} key={child.id} />
       ))}
     </ul>
   );
@@ -85,17 +88,21 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
         </Link>
       </span>
       <span className={styles.label}>
-        <Link
-          to={qs.stringifyUrl({
-            url: location.pathname,
-            query: {
-              ...searchParams,
-              parent: item.id,
-            },
-          })}
-        >
-          {item.label}
-        </Link>
+        {item.label}
+        {item.expand && (
+          <Link
+            to={qs.stringifyUrl({
+              url: location.pathname,
+              query: {
+                ...searchParams,
+                parent: item.id,
+              },
+            })}
+            className={styles['link-arrow']}
+          >
+            ↓
+          </Link>
+        )}
       </span>
       {children}
     </li>
@@ -111,19 +118,28 @@ type GroupByRootProps = {
 const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
-  const { loading, data } = useDataApi<GroupByItem[]>(
+  const groupByResponse = useDataApi<GroupByItem[]>(
     apiUrls.groupBy('taxonomy', query, id)
   );
+  const taxonomyResponse = useDataApi<TaxonomyAPIModel>(
+    id
+      ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
+          TaxonomyColumn.scientificName,
+          TaxonomyColumn.parent,
+        ])
+      : null
+  );
 
-  if (loading) {
+  console.log(taxonomyResponse);
+  if (groupByResponse.loading || (id && taxonomyResponse.loading)) {
     return <Loader />;
   }
 
-  if (!data) {
+  if (!groupByResponse.data || (id && !taxonomyResponse.data)) {
     return <>oops</>;
   }
 
-  const count = sumBy(data, 'count');
+  const count = sumBy(groupByResponse.data, 'count');
 
   return (
     <>
@@ -145,6 +161,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
               </Link>
             </span>
             <span className={styles.label}>
+              <LongNumber>Top-level</LongNumber>
               <Link
                 to={qs.stringifyUrl({
                   url: location.pathname,
@@ -153,13 +170,14 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                     parent: undefined,
                   },
                 })}
+                className={styles['link-arrow']}
               >
-                <LongNumber>Top-level</LongNumber>
+                ↑
               </Link>
             </span>
           </li>
         )}
-        {id && (
+        {id && taxonomyResponse.data && (
           <li className={styles.root}>
             <span className={styles.count}>
               <Link
@@ -171,13 +189,27 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                 <LongNumber>{count}</LongNumber>
               </Link>
             </span>
-            <span className={styles.label}>{id}</span>
+            <span className={styles.label}>
+              {taxonomyResponse.data.scientificName}
+            </span>
+            <Link
+              to={qs.stringifyUrl({
+                url: location.pathname,
+                query: {
+                  ...searchParams,
+                  parent: taxonomyResponse.data.parent?.taxonId,
+                },
+              })}
+              className={styles['link-arrow']}
+            >
+              ↑
+            </Link>
           </li>
         )}
       </ul>
       <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__root)}>
-        {data.map((i) => (
-          <GroupByNode item={i} query={query} key={i.id} />
+        {groupByResponse.data.map((child) => (
+          <GroupByNode item={child} query={query} key={child.id} />
         ))}
       </ul>
     </>
@@ -223,10 +255,9 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
           placeholder="Enter taxon name or ID"
           url={sharedApiUrls.taxonomySuggester}
           onSelect={handleTaxonFormValue}
-          title="Taxonomy parent"
+          title="Search for taxonomy node"
         />
       </section>
-      {/* TODO: remove cast  */}
       <GroupByRoot
         query={query}
         id={parent ? +parent : undefined}
