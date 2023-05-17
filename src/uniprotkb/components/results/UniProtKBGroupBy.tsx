@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
-import { Button, LongNumber, SpinnerIcon } from 'franklin-sites';
+import { Button, Loader, LongNumber, SpinnerIcon } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -27,61 +27,63 @@ const GroupByNode = ({
   query,
   item,
   root = false,
-  countWidth = 20,
 }: {
   query: string;
   item?: GroupByItem;
   root?: boolean;
-  countWidth?: number;
 }) => {
   const [open, setOpen] = useState(false);
-  const parent = root || !item?.id ? undefined : +item?.id;
+  const parent = root || !item?.id ? undefined : +item.id;
   const { loading, data } = useDataApi<GroupByItem[]>(
     root || open ? apiUrls.groupBy('taxonomy', query, parent) : null
   );
 
-  if (loading) {
-    return <SpinnerIcon width="12" height="12" className={styles.spinner} />;
+  if (loading && root) {
+    return <Loader />;
   }
 
-  if (open && !data) {
+  if ((root || open) && !loading && !data) {
     return <>oops</>;
   }
 
-  const row = item && (
-    <>
-      <span className={styles.expand}>
-        {item.expand ? (
-          <Button
-            variant="secondary"
-            aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
-          >
-            ►
-          </Button>
-        ) : (
-          <>&nbsp;</>
-        )}
-      </span>
-      <span className={styles.count} style={{ width: `${countWidth}ch` }}>
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: `query=${query} AND taxonomy_id:${item.id}`,
-          }}
+  let row = null;
+  if (item) {
+    let icon = null;
+
+    if (loading) {
+      icon = <SpinnerIcon width="12" height="12" className={styles.spinner} />;
+    } else if (item.expand) {
+      icon = (
+        <Button
+          variant="secondary"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
         >
-          <LongNumber>{item.count}</LongNumber>
-        </Link>
-      </span>
-      <span className={styles.label}>{item.label}</span>
-    </>
-  );
+          ►
+        </Button>
+      );
+    }
+
+    row = (
+      <>
+        <span className={styles.expand}>{icon}</span>
+        <span className={styles.count}>
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=${query} AND taxonomy_id:${item.id}`,
+            }}
+          >
+            <LongNumber>{item.count}</LongNumber>
+          </Link>
+        </span>
+        <span className={styles.label}>{item.label}</span>
+      </>
+    );
+  }
 
   let children = null;
   if (data && (root || open)) {
-    const countWidth = Math.max(
-      ...data.map(({ count }) => getNumberChars(count))
-    );
     children = (
       <ul
         className={cn('no-bullet', styles.groupBy, {
@@ -95,12 +97,7 @@ const GroupByNode = ({
           </li>
         )}
         {data.map((i) => (
-          <GroupByNode
-            item={i}
-            query={query}
-            key={i.id}
-            countWidth={countWidth}
-          />
+          <GroupByNode item={i} query={query} key={i.id} />
         ))}
       </ul>
     );

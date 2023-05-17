@@ -1,16 +1,16 @@
 @import 'franklin-sites/src/styles/colours';
 
-.spinner {
-  margin-left: 3rem;
-}
-
 ul.groupBy {
   border-left: 1px solid lightgray;
   margin-left: 1rem;
   margin-bottom: 0;
 
   &__root {
-    border: 0;
+    border-left: 0;
+  }
+
+  .spinner {
+    margin-left: 1rem;
   }
 
   li.header {
@@ -19,7 +19,7 @@ ul.groupBy {
     }
     .count {
       margin-left: 5ch;
-      width: 18ch;
+      width: 17ch;
     }
   }
 
@@ -27,6 +27,7 @@ ul.groupBy {
     .expand {
       width: 4.5ch;
       display: inline-block;
+
       button {
         border: 0;
         margin-top: -0.4rem;
@@ -46,7 +47,7 @@ ul.groupBy {
 
     .count {
       display: inline-block;
-      margin-right: 5ch;
+      width: 15ch;
     }
   }
 }
