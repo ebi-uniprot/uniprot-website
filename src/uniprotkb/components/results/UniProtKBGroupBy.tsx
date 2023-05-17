@@ -2,7 +2,13 @@
 import { useCallback, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
-import { Button, Loader, LongNumber, SpinnerIcon } from 'franklin-sites';
+import {
+  Button,
+  Loader,
+  LongNumber,
+  SpinnerIcon,
+  WarningTriangleIcon,
+} from 'franklin-sites';
 import qs from 'query-string';
 
 import { sumBy } from 'lodash-es';
@@ -24,6 +30,13 @@ import styles from './styles/group-by.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { TaxonomyColumn } from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
 import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 type GroupByItem = {
   id: string;
@@ -40,28 +53,41 @@ type GroupByNodeProps = {
 
 const GroupByNode = ({ query, item }: GroupByNodeProps) => {
   const location = useLocation();
-  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
+  const messagesDispatch = useMessagesDispatch();
   const [open, setOpen] = useState(false);
+  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const url = open ? apiUrls.groupBy('taxonomy', query, item.id) : null;
   const { loading, data, error } = useDataApi<GroupByItem[]>(url);
 
   if (error) {
-    return <>oops</>;
+    messagesDispatch(
+      addMessage({
+        id: 'groupby-loading-warning',
+        content: `Network error when fetching group information for: ${item.label}`,
+        format: MessageFormat.POP_UP,
+        level: MessageLevel.WARNING,
+      })
+    );
   }
 
-  const icon =
-    item.expand &&
-    (loading ? (
-      <SpinnerIcon width="10" height="10" className={styles.spinner} />
-    ) : (
-      <Button
-        variant="secondary"
-        aria-expanded={open}
-        onClick={() => setOpen((o) => !o)}
-      >
-        ►
-      </Button>
-    ));
+  let icon;
+  if (item.expand) {
+    if (loading) {
+      icon = <SpinnerIcon height="10" className={styles.spinner} />;
+    } else if (error) {
+      icon = <WarningTriangleIcon height="15" className={styles.warning} />;
+    } else {
+      icon = (
+        <Button
+          variant="secondary"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+        >
+          ►
+        </Button>
+      );
+    }
+  }
 
   const children = data && open && (
     <ul className={cn('no-bullet', styles.groupBy)}>
@@ -116,7 +142,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
-  const groupByResponse = useDataApi<GroupByItem[]>(groupByUrl);
+  const groupByResponse = useDataApi<GroupByItem[]>(`${groupByUrl}`);
   const taxonomyUrl = id
     ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
         TaxonomyColumn.scientificName,
@@ -129,13 +155,12 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     return <Loader />;
   }
 
-  if (
-    groupByResponse.error ||
-    taxonomyResponse.error ||
-    !groupByResponse.data ||
-    (id && !taxonomyResponse.data)
-  ) {
-    return <>oops</>;
+  if (groupByResponse.error || !groupByResponse.data) {
+    return <ErrorHandler status={groupByResponse.status} />;
+  }
+
+  if (taxonomyResponse.error || (id && !taxonomyResponse.data)) {
+    return <ErrorHandler status={taxonomyResponse.status} />;
   }
 
   const count = sumBy(groupByResponse.data, 'count');

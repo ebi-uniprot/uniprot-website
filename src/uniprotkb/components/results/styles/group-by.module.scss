@@ -29,6 +29,11 @@ ul.groupBy {
     margin-left: 1rem;
   }
 
+  .warning {
+    margin-left: 0.75rem;
+    color: $colour-warning;
+  }
+
   li.header {
     h3 {
       display: inline-block;
