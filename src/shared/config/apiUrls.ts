@@ -111,7 +111,7 @@ const apiUrls = {
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace, columns?: Column[]) => {
     if (!id) {
-      return null;
+      return undefined;
     }
     const url = joinUrl(apiPrefix, namespace, id);
     if (columns?.length) {

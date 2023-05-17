@@ -158,7 +158,11 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
   const groupByResponse = useDataApi<GroupByItem[]>(`${groupByUrl}`);
   const parentUrl = id
-    ? getAPIQueryUrl({ query: `taxonomy_id:${id}`, size: 0, facets: null })
+    ? getAPIQueryUrl({
+        query: `${query} AND taxonomy_id:${id}`,
+        size: 0,
+        facets: null,
+      })
     : null;
   const parentResponse = useDataApi<UniProtkbAPIModel>(parentUrl);
   // const parenr = useNSQuery({})
