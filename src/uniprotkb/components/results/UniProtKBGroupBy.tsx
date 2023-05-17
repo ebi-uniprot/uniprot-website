@@ -37,7 +37,7 @@ const GroupByNode = ({
   const [open, setOpen] = useState(false);
   const parent = root || !item?.id ? undefined : +item?.id;
   const { loading, data } = useDataApi<GroupByItem[]>(
-    root || open ? apiUrls.viewBy('taxonomy', query, parent) : null
+    root || open ? apiUrls.groupBy('taxonomy', query, parent) : null
   );
 
   if (loading) {

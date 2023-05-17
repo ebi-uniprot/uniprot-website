@@ -68,7 +68,7 @@ const ResultsData = ({
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
-  const [{ query, direct, viewBy }] = getParamsFromURL(useLocation().search);
+  const [{ query, direct, groupBy }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
@@ -164,9 +164,10 @@ const ResultsData = ({
   ) {
     return <Loader progress={progress} />;
   }
+
   let content;
-  if (viewBy) {
-    content = <UniProtKBGroupBy resultsDataObject={resultsDataObject} />;
+  if (groupBy && namespace === Namespace.uniprotkb) {
+    content = <UniProtKBGroupBy />;
   } else if (viewMode === 'cards' && !displayIdMappingColumns) {
     // Card view
     content = (
@@ -184,20 +185,22 @@ const ResultsData = ({
     );
   } else {
     // Table view
-    <EllipsisReveal.Provider>
-      <DataTableWithLoader
-        getIdKey={getIdKey}
-        columns={columns}
-        data={allResults}
-        loading={loading}
-        onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
-        onHeaderClick={updateColumnSort}
-        onLoadMoreItems={handleLoadMoreRows}
-        hasMoreData={hasMoreData}
-        loaderComponent={loadComponent}
-        className={styles['results-data']}
-      />
-    </EllipsisReveal.Provider>;
+    content = (
+      <EllipsisReveal.Provider>
+        <DataTableWithLoader
+          getIdKey={getIdKey}
+          columns={columns}
+          data={allResults}
+          loading={loading}
+          onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
+          onHeaderClick={updateColumnSort}
+          onLoadMoreItems={handleLoadMoreRows}
+          hasMoreData={hasMoreData}
+          loaderComponent={loadComponent}
+          className={styles['results-data']}
+        />
+      </EllipsisReveal.Provider>
+    );
   }
 
   return (

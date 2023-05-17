@@ -3,12 +3,12 @@ import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../shared/config/apiUrls';
 
-type GroupByHow = 'taxonomy';
+type GroupBy = 'taxonomy';
 
 const apiUrls = {
-  viewBy: (how: GroupByHow, query: string, parent?: number) =>
+  groupBy: (by: GroupBy, query: string, parent?: number) =>
     queryString.stringifyUrl({
-      url: joinUrl(apiPrefix, 'uniprotkb/view', how),
+      url: joinUrl(apiPrefix, 'uniprotkb/view', by),
       query: { query, parent },
     }),
 };
