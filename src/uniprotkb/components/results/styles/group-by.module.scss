@@ -57,6 +57,10 @@ ul.groupBy {
     color: $colour-warning;
   }
 
+  .spinner {
+    margin-left: -0.25rem;
+  }
+
   li.node {
     .expand {
       width: 4ch;

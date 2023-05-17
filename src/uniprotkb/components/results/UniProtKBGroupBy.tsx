@@ -1,6 +1,6 @@
 /* eslint-disable uniprot-website/use-config-location */
 import { useCallback, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
@@ -118,7 +118,13 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
         </Link>
       </span>
       <span className={styles.label}>
-        {item.label}
+        <Link
+          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+            accession: item.id,
+          })}
+        >
+          {item.label}
+        </Link>
         {item.expand && (
           <Link
             to={qs.stringifyUrl({
@@ -223,7 +229,13 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
               </Link>
             </span>
             <span className={styles.label}>
-              {taxonomyResponse.data.scientificName}
+              <Link
+                to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+                  accession: id,
+                })}
+              >
+                {taxonomyResponse.data.scientificName}
+              </Link>
             </span>
             <Link
               to={qs.stringifyUrl({
@@ -281,7 +293,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
 
   return (
     <>
-      <h2 className="small">Group By Taxonomy</h2>
+      <h2 className="small">Group by taxonomy</h2>
       <section className={styles.autocomplete}>
         <AutocompleteWrapper
           placeholder="Enter taxon name or ID"
