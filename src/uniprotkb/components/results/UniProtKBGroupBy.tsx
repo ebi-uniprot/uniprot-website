@@ -73,9 +73,16 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
   let icon;
   if (item.expand) {
     if (loading) {
-      icon = <SpinnerIcon height="10" className={styles.spinner} />;
+      icon = <SpinnerIcon height="1em" className={styles.spinner} />;
     } else if (error) {
-      icon = <WarningTriangleIcon height="15" className={styles.warning} />;
+      icon = (
+        <WarningTriangleIcon
+          height="1em"
+          className={styles.warning}
+          // Allow user to retry after warning appears
+          onClick={() => setOpen((o) => !o)}
+        />
+      );
     } else {
       icon = (
         <Button
