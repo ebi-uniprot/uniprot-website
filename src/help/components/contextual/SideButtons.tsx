@@ -58,7 +58,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
       }
       setDisplayFeedback(true);
     });
-  });
+  }, []);
 
   return (
     <span className={sideButtonStyles.container}>
