@@ -229,7 +229,7 @@ const ResultsData = ({
       )}
 
       {content}
-      {!hasMoreData && didYouMean && (
+      {!hasMoreData && !groupBy && didYouMean && (
         <div className={styles['did-you-mean-wrapper']}>
           <DidYouMean
             suggestions={suggestions}
