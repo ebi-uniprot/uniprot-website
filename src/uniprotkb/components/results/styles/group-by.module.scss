@@ -14,15 +14,42 @@ ul.groupBy {
   margin-left: 1rem;
   margin-bottom: 0;
 
-  &__root {
-    border-top: 1px solid lightgray;
-    border-left: 0;
-    margin-left: 0;
-  }
-
   &__header {
     border-left: 0;
     margin-left: 0;
+
+    li.header {
+      h3 {
+        display: inline-block;
+      }
+      .count {
+        display: inline-block;
+        margin-left: 4.5ch;
+        width: 16.5ch;
+      }
+    }
+
+    li.parent {
+      h3 {
+        display: inline-block;
+      }
+      .count {
+        display: inline-block;
+        margin-left: 4ch;
+        width: 14.5ch;
+      }
+    }
+  }
+
+  &__first {
+    border-top: 1px solid lightgray;
+    border-left: 0;
+    margin-left: 0;
+
+    .count {
+      display: inline-block;
+      width: 9.5ch;
+    }
   }
 
   .warning {
@@ -30,28 +57,7 @@ ul.groupBy {
     color: $colour-warning;
   }
 
-  li.header {
-    h3 {
-      display: inline-block;
-    }
-    .count {
-      margin-left: 4.5ch;
-      width: 16.5ch;
-    }
-  }
-
-  li.root {
-    .count {
-      display: inline-block;
-      margin-left: 4ch;
-      width: 9.5ch;
-    }
-    .label {
-      margin-left: 5ch;
-    }
-  }
-
-  li.row {
+  li.node {
     .expand {
       width: 4ch;
       display: inline-block;

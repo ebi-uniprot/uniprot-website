@@ -105,7 +105,7 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
   );
 
   return (
-    <li className={styles.row}>
+    <li className={styles.node}>
       <span className={styles.expand}>{icon}</span>
       <span className={styles.count}>
         <Link
@@ -180,7 +180,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           <h3 className={cn('tiny', styles.label)}>Taxonomy</h3>
         </li>
         {total && (
-          <li className={styles.root}>
+          <li className={styles.parent}>
             <span className={styles.count}>
               <Link
                 to={{
@@ -211,7 +211,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           </li>
         )}
         {id && taxonomyResponse.data && (
-          <li className={styles.root}>
+          <li className={styles.parent}>
             <span className={styles.count}>
               <Link
                 to={{
@@ -240,7 +240,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           </li>
         )}
       </ul>
-      <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__root)}>
+      <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__first)}>
         {groupByResponse.data.map((child) => (
           <GroupByNode item={child} query={query} key={child.id} />
         ))}
