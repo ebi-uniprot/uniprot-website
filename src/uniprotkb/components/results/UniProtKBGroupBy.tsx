@@ -124,7 +124,7 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
             accession: item.id,
           })}
         >
-          {item.label}
+          {`${item.label} [${item.id}]`}
         </Link>
         {item.expand && (
           <Link
@@ -248,7 +248,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   accession: id,
                 })}
               >
-                {taxonomyResponse.data.scientificName}
+                {`${taxonomyResponse.data.scientificName} [${taxonomyResponse.data.taxonId}]`}
               </Link>
             </span>
             <Link
