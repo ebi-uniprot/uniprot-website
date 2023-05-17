@@ -39,7 +39,7 @@ import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
 
-type GroupByItem = {
+export type GroupByItem = {
   id: string;
   label: string;
   link: string;
