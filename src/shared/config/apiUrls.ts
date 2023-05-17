@@ -231,7 +231,7 @@ export const getAPIQueryParams = ({
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }
-
+  console.log(facetField);
   return {
     size,
     query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]

@@ -1,5 +1,9 @@
 @import 'franklin-sites/src/styles/colours';
 
+.autocomplete {
+  width: 50ch;
+}
+
 ul.groupBy {
   border-left: 1px solid lightgray;
   margin-left: 1rem;
@@ -7,6 +11,7 @@ ul.groupBy {
 
   &__root {
     border-left: 0;
+    margin-left: 0;
   }
 
   .spinner {
@@ -14,19 +19,32 @@ ul.groupBy {
   }
 
   li.header {
-    h2 {
+    h3 {
       display: inline-block;
     }
     .count {
+      margin-left: 4.5ch;
+      width: 16.5ch;
+    }
+  }
+
+  li.root {
+    border-bottom: 1px solid lightgray;
+    .count {
+      display: inline-block;
+      margin-left: 4ch;
+      width: 9.5ch;
+    }
+    .label {
       margin-left: 5ch;
-      width: 17ch;
     }
   }
 
   li.row {
     .expand {
-      width: 4.5ch;
+      width: 4ch;
       display: inline-block;
+      height: 1ch;
 
       button {
         border: 0;
@@ -34,10 +52,8 @@ ul.groupBy {
         margin-bottom: 0rem;
         transition: transform 0.25s ease-out;
         outline: 0;
-        &:hover {
-          background-color: transparent;
-          color: $colour-sapphire-blue;
-        }
+        background-color: transparent;
+        color: $colour-sea-blue;
 
         &[aria-expanded='true'] {
           transform: rotateZ(90deg);
@@ -47,7 +63,7 @@ ul.groupBy {
 
     .count {
       display: inline-block;
-      width: 15ch;
+      width: 14.5ch;
     }
   }
 }

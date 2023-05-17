@@ -31,6 +31,7 @@ export type URLResultParams = {
   columns?: Column[];
   viewMode?: ViewMode;
   groupBy?: string;
+  parent?: string;
 };
 
 export type InvalidParamValue = {
@@ -53,7 +54,8 @@ export const getParamsFromURL = (
     fields, // Handled in useColumnNames
     view, // Handled in useViewMode
     ids, // Handled in ToolsButton
-    groupBy, // Handled in UniProtKB/groupBy=...
+    groupBy, // Handled in UniProtKB/groupBy
+    parent, // Handled in UniProtKB/groupBy
     ...restParams
   } = parseQueryString(url);
 
@@ -72,6 +74,7 @@ export const getParamsFromURL = (
     // flag, so if '?direct' we get null, if not in querystring we get undefined
     direct: direct !== undefined,
     groupBy: groupBy || undefined,
+    parent: parent || undefined,
   };
 
   const unknownParams = Object.keys(restParams);
