@@ -11,32 +11,33 @@ import {
 } from 'franklin-sites';
 import qs from 'query-string';
 
-import { sumBy } from 'lodash-es';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import apiUrls from '../../config/apiUrls';
 
+import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import sharedApiUrls, {
   getAPIQueryParams,
+  getAPIQueryUrl,
 } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-
-import styles from './styles/group-by.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { TaxonomyColumn } from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
 import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+
+import styles from './styles/group-by.module.scss';
 
 type GroupByItem = {
   id: string;
@@ -156,6 +157,11 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
   const groupByResponse = useDataApi<GroupByItem[]>(`${groupByUrl}`);
+  const parentUrl = id
+    ? getAPIQueryUrl({ query: `taxonomy_id:${id}`, size: 0, facets: null })
+    : null;
+  const parentResponse = useDataApi<UniProtkbAPIModel>(parentUrl);
+  // const parenr = useNSQuery({})
   const taxonomyUrl = id
     ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
         TaxonomyColumn.scientificName,
@@ -164,7 +170,11 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     : null;
   const taxonomyResponse = useDataApi<TaxonomyAPIModel>(taxonomyUrl);
 
-  if (groupByResponse.loading || (id && taxonomyResponse.loading)) {
+  if (
+    groupByResponse.loading ||
+    (id && taxonomyResponse.loading) ||
+    (id && parentResponse.loading)
+  ) {
     return <Loader />;
   }
 
@@ -176,7 +186,11 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={taxonomyResponse.status} />;
   }
 
-  const count = sumBy(groupByResponse.data, 'count');
+  if (parentResponse.error || (id && !parentResponse.data)) {
+    return <ErrorHandler status={taxonomyResponse.status} />;
+  }
+
+  const parentTotal = +(parentResponse?.headers?.['x-total-results'] || 0);
 
   return (
     <>
@@ -225,7 +239,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   search: `query=${query}${id ? `AND taxonomy_id:${id}` : ''}`,
                 }}
               >
-                <LongNumber>{count}</LongNumber>
+                <LongNumber>{parentTotal}</LongNumber>
               </Link>
             </span>
             <span className={styles.label}>
