@@ -10,6 +10,12 @@ ul.groupBy {
   margin-bottom: 0;
 
   &__root {
+    border-top: 1px solid lightgray;
+    border-left: 0;
+    margin-left: 0;
+  }
+
+  &__header {
     border-left: 0;
     margin-left: 0;
   }
@@ -29,7 +35,6 @@ ul.groupBy {
   }
 
   li.root {
-    border-bottom: 1px solid lightgray;
     .count {
       display: inline-block;
       margin-left: 4ch;

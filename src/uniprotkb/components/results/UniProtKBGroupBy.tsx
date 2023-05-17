@@ -1,3 +1,4 @@
+/* eslint-disable uniprot-website/use-config-location */
 import { useCallback, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
@@ -35,6 +36,8 @@ type GroupByNodeProps = {
 };
 
 const GroupByNode = ({ query, item }: GroupByNodeProps) => {
+  const location = useLocation();
+  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const [open, setOpen] = useState(false);
   const id = !item?.id ? undefined : +item.id;
   const { loading, data } = useDataApi<GroupByItem[]>(
@@ -81,7 +84,19 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
           <LongNumber>{item.count}</LongNumber>
         </Link>
       </span>
-      <span className={styles.label}>{item.label}</span>
+      <span className={styles.label}>
+        <Link
+          to={qs.stringifyUrl({
+            url: location.pathname,
+            query: {
+              ...searchParams,
+              parent: item.id,
+            },
+          })}
+        >
+          {item.label}
+        </Link>
+      </span>
       {children}
     </li>
   );
@@ -90,9 +105,12 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
 type GroupByRootProps = {
   query: string;
   id?: number;
+  total?: number;
 };
 
-const GroupByRoot = ({ query, id }: GroupByRootProps) => {
+const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
+  const location = useLocation();
+  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const { loading, data } = useDataApi<GroupByItem[]>(
     apiUrls.groupBy('taxonomy', query, id)
   );
@@ -109,24 +127,53 @@ const GroupByRoot = ({ query, id }: GroupByRootProps) => {
 
   return (
     <>
-      <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__root)}>
+      <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__header)}>
         <li className={styles.header}>
           <h3 className={cn('tiny', styles.count)}>UniProtKB Entries</h3>
           <h3 className={cn('tiny', styles.label)}>Taxonomy</h3>
         </li>
-        <li className={styles.root}>
-          <span className={styles.count}>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: `query=${query}${id ? `AND taxonomy_id:${id}` : ''}`,
-              }}
-            >
-              <LongNumber>{count}</LongNumber>
-            </Link>
-          </span>
-          <span className={styles.label}>{id || 'Root'}</span>
-        </li>
+        {total && (
+          <li className={styles.root}>
+            <span className={styles.count}>
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `query=${query}`,
+                }}
+              >
+                <LongNumber>{total}</LongNumber>
+              </Link>
+            </span>
+            <span className={styles.label}>
+              <Link
+                to={qs.stringifyUrl({
+                  url: location.pathname,
+                  query: {
+                    ...searchParams,
+                    parent: undefined,
+                  },
+                })}
+              >
+                <LongNumber>Top-level</LongNumber>
+              </Link>
+            </span>
+          </li>
+        )}
+        {id && (
+          <li className={styles.root}>
+            <span className={styles.count}>
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `query=${query}${id ? `AND taxonomy_id:${id}` : ''}`,
+                }}
+              >
+                <LongNumber>{count}</LongNumber>
+              </Link>
+            </span>
+            <span className={styles.label}>{id}</span>
+          </li>
+        )}
       </ul>
       <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__root)}>
         {data.map((i) => (
@@ -136,8 +183,11 @@ const GroupByRoot = ({ query, id }: GroupByRootProps) => {
     </>
   );
 };
+type UniProtKBGroupByResultsProps = {
+  total?: number;
+};
 
-const UniProtKBGroupByResults = () => {
+const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const history = useHistory();
   const locationSearch = useLocation().search;
   const [params] = getParamsFromURL(locationSearch);
@@ -177,7 +227,11 @@ const UniProtKBGroupByResults = () => {
         />
       </section>
       {/* TODO: remove cast  */}
-      <GroupByRoot query={query} id={parent ? +parent : undefined} />
+      <GroupByRoot
+        query={query}
+        id={parent ? +parent : undefined}
+        total={total}
+      />
     </>
   );
 };
