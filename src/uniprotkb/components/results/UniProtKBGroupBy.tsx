@@ -193,18 +193,20 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
             </span>
             <span className={styles.label}>
               <LongNumber>Top-level</LongNumber>
-              <Link
-                to={qs.stringifyUrl({
-                  url: location.pathname,
-                  query: {
-                    ...searchParams,
-                    parent: undefined,
-                  },
-                })}
-                className={styles['link-arrow']}
-              >
-                ↑
-              </Link>
+              {id && (
+                <Link
+                  to={qs.stringifyUrl({
+                    url: location.pathname,
+                    query: {
+                      ...searchParams,
+                      parent: undefined,
+                    },
+                  })}
+                  className={styles['link-arrow']}
+                >
+                  ↑
+                </Link>
+              )}
             </span>
           </li>
         )}
