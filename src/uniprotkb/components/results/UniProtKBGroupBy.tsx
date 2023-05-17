@@ -42,13 +42,10 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const [open, setOpen] = useState(false);
-  const id = !item?.id ? undefined : +item.id;
-  const { loading, data } = useDataApi<GroupByItem[]>(
-    open ? apiUrls.groupBy('taxonomy', query, id) : null
-  );
+  const url = open ? apiUrls.groupBy('taxonomy', query, item.id) : null;
+  const { loading, data, error } = useDataApi<GroupByItem[]>(url);
 
-  console.log(open, !loading, !data);
-  if (open && !loading && !data) {
+  if (error) {
     return <>oops</>;
   }
 
@@ -111,31 +108,33 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
 
 type GroupByRootProps = {
   query: string;
-  id?: number;
+  id?: string;
   total?: number;
 };
 
 const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
-  const groupByResponse = useDataApi<GroupByItem[]>(
-    apiUrls.groupBy('taxonomy', query, id)
-  );
-  const taxonomyResponse = useDataApi<TaxonomyAPIModel>(
-    id
-      ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
-          TaxonomyColumn.scientificName,
-          TaxonomyColumn.parent,
-        ])
-      : null
-  );
+  const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
+  const groupByResponse = useDataApi<GroupByItem[]>(groupByUrl);
+  const taxonomyUrl = id
+    ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
+        TaxonomyColumn.scientificName,
+        TaxonomyColumn.parent,
+      ])
+    : null;
+  const taxonomyResponse = useDataApi<TaxonomyAPIModel>(taxonomyUrl);
 
-  console.log(taxonomyResponse);
   if (groupByResponse.loading || (id && taxonomyResponse.loading)) {
     return <Loader />;
   }
 
-  if (!groupByResponse.data || (id && !taxonomyResponse.data)) {
+  if (
+    groupByResponse.error ||
+    taxonomyResponse.error ||
+    !groupByResponse.data ||
+    (id && !taxonomyResponse.data)
+  ) {
     return <>oops</>;
   }
 
@@ -228,7 +227,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const { parent } = params;
 
   const handleTaxonFormValue = useCallback(
-    (path: string, id?: string) => {
+    (_, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
         history.push(
@@ -242,7 +241,6 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
           }
         );
       }
-      console.log(path, id);
     },
     [history, locationSearch]
   );
@@ -258,11 +256,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
           title="Search for taxonomy node"
         />
       </section>
-      <GroupByRoot
-        query={query}
-        id={parent ? +parent : undefined}
-        total={total}
-      />
+      <GroupByRoot query={query} id={parent} total={total} />
     </>
   );
 };
