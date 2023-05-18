@@ -1,5 +1,6 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
 
 @import '../../../styles/settings';
 
@@ -31,10 +32,15 @@
 
 .did-you-mean-wrapper {
   /* make sure the wrapper uses 100% of the remaining width */
-  width: calc(100vw - var(--sidebar-size));
+  width: 90vw;
   /* so that DidYouMean component is visually centred _before_ any scrolling */
   display: grid;
-  padding-block: 5 * $global-padding;
+  padding-block: 10 * $global-padding 5 * $global-padding;
   justify-items: center;
   align-items: center;
+
+  @include fs-breakpoints('medium') {
+    // a bit of room on the sides on medium screens
+    width: calc(90vw - var(--sidebar-size));
+  }
 }
