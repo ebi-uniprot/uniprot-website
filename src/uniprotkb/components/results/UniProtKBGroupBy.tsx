@@ -75,11 +75,11 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
   let icon;
   if (item.expand) {
     if (loading) {
-      icon = <SpinnerIcon height="1em" className={styles.spinner} />;
+      icon = <SpinnerIcon height="1rem" className={styles.spinner} />;
     } else if (error) {
       icon = (
         <WarningTriangleIcon
-          height="1em"
+          height="1rem"
           className={styles.warning}
           // Allow user to retry after warning appears
           onClick={() => setOpen((o) => !o)}

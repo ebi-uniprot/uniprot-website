@@ -12,10 +12,6 @@ let rendered: ReturnType<typeof customRender>;
 
 const mock = new MockAdapter(axios);
 
-// mock
-//   .onGet(/uniprotkb\/search\?query=%28taxonomy_id%3A10239%29&size=0/)
-//   .reply(200, {}, { 'x-total-results': 5_392_017 });
-
 mock.onGet(/uniprotkb\/view/).reply(200, data);
 
 describe('UniProtKBGroupByResults component', () => {

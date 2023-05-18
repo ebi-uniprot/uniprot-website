@@ -49,7 +49,7 @@ const Entry = () => {
     return <Loader progress={mainData.progress || panProteomeData.progress} />;
   }
 
-  if (mainData.error || panProteomeData.error || !accession) {
+  if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
     return <ErrorHandler status={mainData.status || panProteomeData.status} />;
   }
 
