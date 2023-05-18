@@ -134,8 +134,15 @@ const AsyncDownloadForm = ({
             <h4>
               File Generation Needed <Chip compact>beta</Chip>
             </h4>
-            Your download request is too large (<LongNumber>{count}</LongNumber>
-            ) for immediate download.
+            {downloadUrlOptions.fileFormat === FileFormat.embeddings ? (
+              <>This file format is unavailable</>
+            ) : (
+              <>
+                Your download request is too large (
+                <LongNumber>{count}</LongNumber>)
+              </>
+            )}{' '}
+            for immediate download.
             <br />
             <span data-article-id="file-generation-download">
               Please submit a job to generate this file on the UniProt server

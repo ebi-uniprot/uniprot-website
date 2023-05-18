@@ -38,8 +38,17 @@ import { Namespace } from '../../types/namespaces';
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 
-export const getPreviewFileFormat = (fileFormat: FileFormat) =>
-  fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
+export const getPreviewFileFormat = (
+  fileFormat: FileFormat
+): FileFormat | undefined => {
+  if (fileFormat === FileFormat.excel) {
+    return FileFormat.tsv;
+  }
+  if (fileFormat === FileFormat.embeddings) {
+    return undefined;
+  }
+  return fileFormat;
+};
 
 type DownloadProps = {
   query?: string;
@@ -161,19 +170,19 @@ const Download: FC<DownloadProps> = ({
     downloadAll ? totalNumberResults : nSelectedEntries
   );
   const previewFileFormat = getPreviewFileFormat(fileFormat);
-  const previewOptions: DownloadUrlOptions = {
+  const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
     ...downloadOptions,
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
     base,
   };
-  if (namespace === Namespace.unisave) {
+  if (previewOptions && namespace === Namespace.unisave) {
     // get only the first 10 entries instead of using the size parameters
     previewOptions.selected = previewOptions.selected.slice(0, 10);
   }
 
-  const previewUrl = getDownloadUrl(previewOptions);
+  const previewUrl = previewOptions && getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
@@ -184,7 +193,8 @@ const Download: FC<DownloadProps> = ({
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
-  const isAsyncDownload = isLarge && isUniprotkb;
+  const isEmbeddings = fileFormat === FileFormat.embeddings;
+  const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
