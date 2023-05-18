@@ -46,6 +46,10 @@ import {
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 import './styles/search-container.scss';
+import {
+  PanelFormCloseReason,
+  sendGtagEventPanelAdvancedSearchClose,
+} from '../../utils/gtagEvents';
 
 const QueryBuilder = lazy(
   () =>
@@ -154,7 +158,14 @@ const SearchContainer = ({
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
   // local state to hold the search value without modifying URL
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
+  const handleClose = useCallback(
+    (reason: PanelFormCloseReason) => {
+      const { query } = parseQueryString(location.search, { decode: true });
+      sendGtagEventPanelAdvancedSearchClose(reason, query);
+      setDisplayQueryBuilder(false);
+    },
+    [location.search]
+  );
 
   useStructuredData(webSiteSchemaFor(searchspace));
 
@@ -324,7 +335,7 @@ const SearchContainer = ({
           >
             <ErrorBoundary>
               <QueryBuilder
-                onCancel={handleClose}
+                onCancel={() => handleClose('cancel')}
                 initialSearchspace={searchspace}
               />
             </ErrorBoundary>

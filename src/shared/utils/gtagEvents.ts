@@ -146,12 +146,15 @@ export const sendGtagEventPanelCustomiseColumnsClose = (
 
 export const sendGtagEventPanelAdvancedSearchClose = (
   panelCloseReason: PanelFormCloseReason,
-  query: string
+  query?: string | null
 ) => {
-  sendGtagEvent('panel_advanced_search_close', {
+  const parameters: Record<string, string> = {
     panel_close_reason: panelCloseReason,
-    advanced_query: query,
-  });
+  };
+  if (query) {
+    parameters.advanced_query = query;
+  }
+  sendGtagEvent('panel_advanced_search_close', parameters);
 };
 
 export const sendGtagEventPanelResultsDownloadClose = (
