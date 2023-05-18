@@ -6,6 +6,7 @@ import {
   Button,
   Loader,
   LongNumber,
+  Message,
   SpinnerIcon,
   WarningTriangleIcon,
 } from 'franklin-sites';
@@ -270,11 +271,17 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           </li>
         )}
       </ul>
-      <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__first)}>
-        {groupByResponse.data.map((child) => (
-          <GroupByNode item={child} query={query} key={child.id} />
-        ))}
-      </ul>
+      {groupByResponse.data.length ? (
+        <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__first)}>
+          {groupByResponse.data.map((child) => (
+            <GroupByNode item={child} query={query} key={child.id} />
+          ))}
+        </ul>
+      ) : (
+        <Message level="info" className={styles['no-results']}>
+          No results found with this taxonomy.
+        </Message>
+      )}
     </>
   );
 };
