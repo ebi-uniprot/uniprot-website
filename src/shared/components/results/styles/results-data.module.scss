@@ -39,8 +39,6 @@
   justify-items: center;
   align-items: center;
 
-  position: sticky;
-
   @include fs-breakpoints('medium') {
     // a bit of room on the sides on medium screens
     width: calc(90vw - var(--sidebar-size));
