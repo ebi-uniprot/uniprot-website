@@ -44,7 +44,11 @@ export type PanelCloseReason =
   | Parameters<
       Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
     >[0];
-export type PanelFormCloseReason = PanelCloseReason | 'submit' | 'cancel';
+export type PanelFormCloseReason =
+  | PanelCloseReason
+  | 'submit'
+  | 'cancel'
+  | 'toggle';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -162,8 +166,7 @@ export type DownloadPanelFormCloseReason =
   | 'download'
   | 'submit'
   | 'cancel'
-  | 'copy'
-  | 'toggle';
+  | 'copy';
 
 export type DownloadMethod = 'api-url' | 'sync' | 'async' | 'ftp';
 
