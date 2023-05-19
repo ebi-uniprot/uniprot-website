@@ -88,7 +88,10 @@ const ToolsDashboard = () => {
   }, [tools]);
 
   const [display, setDisplay] = useState(false);
-  const close = useCallback(() => setDisplay(false), []);
+  const close = useCallback((reason: PanelCloseReason) => {
+    sendGtagEventPanelClose('job_dashboard', reason);
+    setDisplay(false);
+  }, []);
   const [buttonX, setButtonX] = useSafeState<number | undefined>(undefined);
 
   const ref = useRef<HTMLAnchorElement>(null);
@@ -142,7 +145,7 @@ const ToolsDashboard = () => {
             <Link
               className={styles['link-in-panel-title']}
               to={LocationToPath[Location.Dashboard]}
-              onClick={close}
+              onClick={() => close('full-view')}
             >
               <ToolboxIcon width="0.8em" /> Tool results
             </Link>
@@ -154,7 +157,7 @@ const ToolsDashboard = () => {
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <Dashboard closePanel={close} />
+              <Dashboard onFullView={() => close('full-view')} />
             </Suspense>
           </ErrorBoundary>
         </SlidingPanel>

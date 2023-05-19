@@ -26,7 +26,7 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
-const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
+const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   const tools = useToolsState();
 
   const [activeJobs, expiredJobs] = useMemo(() => {
@@ -35,7 +35,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
     return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
   }, [tools]);
 
-  const fullPageContent = closePanel ? null : (
+  const fullPageContent = onFullView ? null : (
     <>
       <HTMLHead title="Tool results">
         <meta name="robots" content="noindex" />
@@ -109,7 +109,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
             element={Link}
             variant="secondary"
             to={LocationToPath[Location.Dashboard]}
-            onClick={closePanel}
+            onClick={onFullView}
           >
             <FullViewIcon height="1em" width="1em" />
             Full view
