@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useEffect,
   ChangeEvent,
+  useCallback,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
@@ -37,7 +38,13 @@ import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { sendGtagEventViewMode } from '../../utils/gtagEvents';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+  sendGtagEventPanelOpen,
+  sendGtagEventPanelResultsDownloadClose,
+  sendGtagEventViewMode,
+} from '../../utils/gtagEvents';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -154,6 +161,19 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
   ]);
 
+  const handleToggleDownload = useCallback(
+    (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
+      if (displayDownloadPanel) {
+        sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        setDisplayDownloadPanel(false);
+      } else {
+        sendGtagEventPanelOpen('results_download');
+        setDisplayDownloadPanel(true);
+      }
+    },
+    [displayDownloadPanel]
+  );
+
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
     if (viewMode) {
       sendGtagEventViewMode('mode_click', viewMode);
@@ -176,7 +196,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             title="Download"
             // Meaning, in basket mini view, slide from the right
             position={notCustomisable && inBasket ? 'right' : 'left'}
-            onClose={() => setDisplayDownloadPanel(false)}
+            onClose={handleToggleDownload}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -187,7 +207,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                     : accessions
                 } // Passing all accessions without modifications to Download
                 totalNumberResults={total}
-                onClose={() => setDisplayDownloadPanel(false)}
+                onClose={handleToggleDownload}
                 namespace={namespace}
                 base={base}
                 notCustomisable={notCustomisable}
@@ -216,7 +236,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel((value) => !value)}
+          onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
           Download

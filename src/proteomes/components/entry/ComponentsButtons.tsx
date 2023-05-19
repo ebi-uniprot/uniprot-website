@@ -46,7 +46,7 @@ const ComponentsButtons = ({
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  const handleDownloadToggle = useCallback(
+  const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
       if (displayDownloadPanel) {
         sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
@@ -102,7 +102,7 @@ const ComponentsButtons = ({
           <SlidingPanel
             title="Download"
             position="left"
-            onClose={handleDownloadToggle}
+            onClose={handleToggleDownload}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -111,7 +111,7 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
-                onClose={handleDownloadToggle}
+                onClose={handleToggleDownload}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011
                   proteomeType === 'Redundant proteome'
@@ -135,7 +135,7 @@ const ComponentsButtons = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => handleDownloadToggle('toggle')}
+          onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
           Download
