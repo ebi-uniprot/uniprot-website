@@ -85,7 +85,7 @@ const ContextualHelpRouterContent = ({
 
 type Props = {
   articlePath?: string;
-  onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
+  onClose: (reason: 'outside' | 'x-button' | 'navigation' | 'escape') => void;
 };
 
 const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
