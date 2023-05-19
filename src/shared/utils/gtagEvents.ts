@@ -43,7 +43,8 @@ type GtagEventName =
 export type PanelCloseReason =
   | Parameters<
       Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
-    >[0];
+    >[0]
+  | 'full-view';
 export type PanelFormCloseReason =
   | PanelCloseReason
   | 'submit'
