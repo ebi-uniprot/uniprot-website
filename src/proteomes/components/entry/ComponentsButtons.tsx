@@ -1,10 +1,15 @@
-import { useState, Suspense, useMemo } from 'react';
+import { useState, Suspense, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import lazy from '../../../shared/utils/lazy';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+  sendGtagEventPanelResultsDownloadClose,
+} from '../../../shared/utils/gtagEvents';
 
 import { createSelectedQueryString } from '../../../shared/config/apiUrls';
 import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
@@ -39,6 +44,14 @@ const ComponentsButtons = ({
   proteomeType,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
+  const handleDownloadClose = useCallback(
+    (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
+      sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+      setDisplayDownloadPanel(false);
+    },
+    []
+  );
 
   const allQuery = `(${
     // Excluded not supported at the moment, need to wait for TRM-28011
@@ -83,7 +96,7 @@ const ComponentsButtons = ({
           <SlidingPanel
             title="Download"
             position="left"
-            onClose={() => setDisplayDownloadPanel(false)}
+            onClose={handleDownloadClose}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -92,7 +105,7 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
-                onClose={() => setDisplayDownloadPanel(false)}
+                onClose={handleDownloadClose}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011
                   proteomeType === 'Redundant proteome'

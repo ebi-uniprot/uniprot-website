@@ -157,14 +157,26 @@ export const sendGtagEventPanelAdvancedSearchClose = (
   sendGtagEvent('panel_advanced_search_close', parameters);
 };
 
+export type DownloadPanelFormCloseReason =
+  | PanelCloseReason
+  | 'download'
+  | 'submit'
+  | 'cancel'
+  | 'copy';
+
+export type DownloadMethod = 'api-url' | 'sync' | 'async' | 'ftp';
+
 export const sendGtagEventPanelResultsDownloadClose = (
-  panelCloseReason: PanelFormCloseReason,
-  downloadMethod: 'url' | 'async'
+  panelCloseReason: DownloadPanelFormCloseReason,
+  downloadMethod?: DownloadMethod
 ) => {
-  sendGtagEvent('panel_results_download_close', {
+  const parameters: Record<string, string> = {
     panel_close_reason: panelCloseReason,
-    download_method: downloadMethod,
-  });
+  };
+  if (downloadMethod) {
+    parameters.download_method = downloadMethod;
+  }
+  sendGtagEvent('panel_results_download_close', parameters);
 };
 
 export const sendGtagEventCacheUpdate = (
