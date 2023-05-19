@@ -8,6 +8,7 @@ import lazy from '../../../shared/utils/lazy';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
+  sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
 
@@ -45,12 +46,17 @@ const ComponentsButtons = ({
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  const handleDownloadClose = useCallback(
+  const handleDownloadToggle = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
-      sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
-      setDisplayDownloadPanel(false);
+      if (displayDownloadPanel) {
+        sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        setDisplayDownloadPanel(false);
+      } else {
+        sendGtagEventPanelOpen('results_download');
+        setDisplayDownloadPanel(true);
+      }
     },
-    []
+    [displayDownloadPanel]
   );
 
   const allQuery = `(${
@@ -96,7 +102,7 @@ const ComponentsButtons = ({
           <SlidingPanel
             title="Download"
             position="left"
-            onClose={handleDownloadClose}
+            onClose={handleDownloadToggle}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -105,7 +111,7 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
-                onClose={handleDownloadClose}
+                onClose={handleDownloadToggle}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011
                   proteomeType === 'Redundant proteome'
@@ -129,7 +135,7 @@ const ComponentsButtons = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel((value) => !value)}
+          onClick={() => handleDownloadToggle('toggle')}
         >
           <DownloadIcon />
           Download

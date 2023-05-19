@@ -162,7 +162,8 @@ export type DownloadPanelFormCloseReason =
   | 'download'
   | 'submit'
   | 'cancel'
-  | 'copy';
+  | 'copy'
+  | 'toggle';
 
 export type DownloadMethod = 'api-url' | 'sync' | 'async' | 'ftp';
 
