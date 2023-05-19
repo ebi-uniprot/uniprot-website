@@ -13,6 +13,7 @@ import LazyComponent from '../LazyComponent';
 import useDataApi from '../../hooks/useDataApi';
 
 import { pluralise } from '../../utils/utils';
+import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
 
 import externalUrls from '../../config/externalUrls';
 import apiUrls from '../../config/apiUrls';
@@ -118,6 +119,7 @@ export const SequenceInfo = ({
         addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
         isCollapsible={!openByDefault}
         isLoading={loading}
+        onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
       />
     </LazyComponent>
   );
