@@ -99,7 +99,7 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
   }
 
   const children = data && open && (
-    <ul className={cn('no-bullet', styles.groupBy)}>
+    <ul className={cn('no-bullet', styles.groupby)}>
       {data.map((child) => (
         <GroupByNode item={child} query={query} key={child.id} />
       ))}
@@ -198,8 +198,8 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const parentTotal = +(parentResponse?.headers?.['x-total-results'] || 0);
 
   return (
-    <>
-      <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__header)}>
+    <div className={styles['groupby-container']}>
+      <ul className={cn('no-bullet', styles.groupby, styles.groupby__header)}>
         <li className={styles.header}>
           <h3 className={cn('tiny', styles.count)}>UniProtKB Entries</h3>
           <h3 className={cn('tiny', styles.label)}>Taxonomy</h3>
@@ -272,7 +272,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
         )}
       </ul>
       {groupByResponse.data.length ? (
-        <ul className={cn('no-bullet', styles.groupBy, styles.groupBy__first)}>
+        <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
           {groupByResponse.data.map((child) => (
             <GroupByNode item={child} query={query} key={child.id} />
           ))}
@@ -282,7 +282,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           No results found with this taxonomy.
         </Message>
       )}
-    </>
+    </div>
   );
 };
 type UniProtKBGroupByResultsProps = {
