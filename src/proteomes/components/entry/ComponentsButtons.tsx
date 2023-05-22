@@ -48,16 +48,16 @@ const ComponentsButtons = ({
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
-      setDisplayDownloadPanel(displayDownloadPanel => {
+      setDisplayDownloadPanel((displayDownloadPanel) => {
         if (displayDownloadPanel) {
           sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
         } else {
           sendGtagEventPanelOpen('results_download');
         }
-        setDisplayDownloadPanel(!displayDownloadPanel)
+        return !displayDownloadPanel;
       });
     },
-    [displayDownloadPanel]
+    []
   );
 
   const allQuery = `(${
