@@ -53,50 +53,6 @@ export const NameWithEvidence = ({
   </>
 );
 
-type ProteinNamesViewFlatProps = {
-  names?: ProteinNames;
-  noEvidence?: boolean;
-  withLink?: boolean;
-};
-
-const ProteinNamesViewFlat = ({
-  names,
-  noEvidence = false,
-  withLink = false,
-}: ProteinNamesViewFlatProps) => {
-  if (!names) {
-    return null;
-  }
-  return (
-    <>
-      {noEvidence ? (
-        <ProteinName value={names.fullName.value} withLink={withLink} />
-      ) : (
-        <NameWithEvidence data={names.fullName} withLink={withLink} />
-      )}
-      {names.shortNames && (
-        <>
-          {' ('}
-          {names.shortNames.map(
-            (shortName, index): JSX.Element => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                {index > 0 && '; '}
-                {noEvidence ? (
-                  `${shortName.value}`
-                ) : (
-                  <NameWithEvidence data={shortName} />
-                )}
-              </Fragment>
-            )
-          )}
-          {') '}
-        </>
-      )}
-    </>
-  );
-};
-
 type ECNumbersViewProps = {
   ecNumbers?: ValueWithEvidence[];
   noEvidence?: boolean;
@@ -157,6 +113,61 @@ export const ECNumbersView = ({
         ))
       ) : (
         <ExpandableList>{content}</ExpandableList>
+      )}
+    </>
+  );
+};
+
+type ProteinNamesViewFlatProps = {
+  names?: ProteinNames;
+  noEvidence?: boolean;
+  withLink?: boolean;
+};
+
+const ProteinNamesViewFlat = ({
+  names,
+  noEvidence = false,
+  withLink = false,
+}: ProteinNamesViewFlatProps) => {
+  if (!names) {
+    return null;
+  }
+  return (
+    <>
+      {noEvidence ? (
+        <ProteinName value={names.fullName.value} withLink={withLink} />
+      ) : (
+        <NameWithEvidence data={names.fullName} withLink={withLink} />
+      )}
+      {names.shortNames && (
+        <>
+          {' ('}
+          {names.shortNames.map(
+            (shortName, index): JSX.Element => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                {index > 0 && '; '}
+                {noEvidence ? (
+                  `${shortName.value}`
+                ) : (
+                  <NameWithEvidence data={shortName} />
+                )}
+              </Fragment>
+            )
+          )}
+          {') '}
+        </>
+      )}
+      {names.ecNumbers && (
+        <>
+          {' ('}
+          <ECNumbersView
+            ecNumbers={names.ecNumbers}
+            noEvidence={noEvidence}
+            noLinks={!withLink}
+          />
+          {') '}
+        </>
       )}
     </>
   );

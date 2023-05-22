@@ -40,12 +40,14 @@ type Props = {
   initialFormValues: Readonly<AsyncDownloadFormValues>;
   downloadUrlOptions: DownloadUrlOptions;
   count: number;
+  onClose: () => void;
 };
 
 const AsyncDownloadForm = ({
   initialFormValues,
   downloadUrlOptions,
   count,
+  onClose,
 }: Props) => {
   // hooks
   const dispatchTools = useToolsDispatch();
@@ -85,6 +87,7 @@ const AsyncDownloadForm = ({
       // something is happening
       sleep(1000).then(() => {
         history.push(LocationToPath[Location.Dashboard]);
+        onClose();
 
         // We emit an action containing only the parameters and the type of job
         // the reducer will be in charge of generating a proper job object for
@@ -101,7 +104,7 @@ const AsyncDownloadForm = ({
     },
     // NOTE: maybe no point using useCallback if all the values of the form
     // cause this to be re-created. Maybe review submit callback in all 4 forms?
-    [history, dispatchTools, downloadUrlOptions, jobName]
+    [history, onClose, dispatchTools, downloadUrlOptions, jobName.selected]
   );
 
   useEffect(() => {

@@ -2532,9 +2532,9 @@
   integrity sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==
 
 "@popperjs/core@^2.9.0":
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.2.tgz#0798c03351f0dea1a5a4cabddf26a55a7cbee590"
-  integrity sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ==
+  version "2.11.7"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.7.tgz#ccab5c8f7dc557a52ca3288c10075c9ccd37fff7"
+  integrity sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.0"
@@ -6675,10 +6675,10 @@ foundation-sites@6.7.5:
   resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.7.5.tgz#6bc2bdd06819e6ed4d7fd8e3090246a0b6ac81c0"
   integrity sha512-MEjAENdF/IV2XQvlQmg20o+iDTyyWu0N/j440e8fKbEylbKxARzgg5S7vcnxtjukC1Lqg+rRm7ZDSSyGhVVoUQ==
 
-franklin-sites@0.0.212:
-  version "0.0.212"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.212.tgz#9dc57b1660e9aa4a7526fa0910d9a2a30d2605be"
-  integrity sha512-nOJ7MxZsVovozQaSBMYjog8/pVKtbmaju2pw936B/DQtQ3l97hkKTRxI8D7iMX/FXOtHuzhdoXZGb9V0AIZMnQ==
+franklin-sites@0.0.213:
+  version "0.0.213"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.213.tgz#d3e76f6acea1c0894fbaacd0363b05f69d431fb4"
+  integrity sha512-X7X8lTEviWWq4kmDdReNjvONBb8Vos6z7vUjEl4FKxNxCsBkZxQqUjuUbBGaTQbJ12SDbBP7oS3uqGHdAzp0wA==
   dependencies:
     "@tippyjs/react" "4.2.6"
     classnames "2.3.2"

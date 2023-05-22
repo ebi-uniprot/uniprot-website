@@ -34,6 +34,10 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+} from '../../utils/gtagEvents';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -57,7 +61,10 @@ type DownloadProps = {
   totalNumberResults: number;
   numberSelectedEntries?: number;
   namespace: Namespace;
-  onClose: () => void;
+  onClose: (
+    panelCloseReason: DownloadPanelFormCloseReason,
+    downloadMethod?: DownloadMethod
+  ) => void;
   accessions?: string[];
   base?: string;
   supportedFormats?: FileFormat[];
@@ -211,7 +218,11 @@ const Download: FC<DownloadProps> = ({
         <ExternalLink url={ftpUrls.uniprotkb}>UniProtKB directory</ExternalLink>{' '}
         of the UniProt FTP server:
         <div className={styles['ftp-url']}>
-          <ExternalLink url={ftpFilenameAndUrl.url} noIcon>
+          <ExternalLink
+            url={ftpFilenameAndUrl.url}
+            noIcon
+            onClick={() => onClose('download', 'ftp')}
+          >
             <DownloadIcon width="1em" />
             {ftpFilenameAndUrl.filename}
           </ExternalLink>
@@ -224,7 +235,7 @@ const Download: FC<DownloadProps> = ({
         // Remove the download attribute as it's unnecessary for API access
         apiURL={downloadUrl.replace('download=true&', '')}
         ftpURL={ftpFilenameAndUrl?.url}
-        onCopy={onClose}
+        onCopy={() => onClose('copy', 'api-url')}
         count={downloadCount}
       />
     );
@@ -234,6 +245,7 @@ const Download: FC<DownloadProps> = ({
         downloadUrlOptions={downloadOptions}
         count={downloadCount}
         initialFormValues={defaultFormValues}
+        onClose={() => onClose('submit', 'async')}
       />
     );
   } else if (extraContent === 'preview') {
@@ -249,6 +261,9 @@ const Download: FC<DownloadProps> = ({
   const redirectToIDMapping =
     jobResultsLocation === Location.PeptideSearchResult &&
     downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
+  const downloadHref =
+    isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl;
 
   return (
     <>
@@ -382,12 +397,12 @@ const Download: FC<DownloadProps> = ({
             ? 'file'
             : nPreview}
         </Button>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl}
+          href={downloadHref}
           className={cn('button', 'primary')}
           title={
             isAsyncDownload
@@ -402,7 +417,7 @@ const Download: FC<DownloadProps> = ({
             } else if (isAsyncDownload) {
               setExtraContent('generate');
             } else {
-              onClose();
+              onClose('download', 'sync');
             }
           }}
         >

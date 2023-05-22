@@ -245,7 +245,7 @@ const getConfigFor = ({
                     // Block everything if in dev mode, link to sitemap if not
                     (isDev
                       ? '\nDisallow: /'
-                      : '\nSitemap: https://www.uniprot.org/sitemap-index.xml')
+                      : '\nSitemap: https://www.uniprot.org/sitemap-index.xml\nSitemap: https://www.uniprot.org/data-sitemap-index.xml.gz')
                   );
                 }
                 return input;
