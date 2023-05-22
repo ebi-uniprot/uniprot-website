@@ -240,7 +240,7 @@ const getConfigFor = ({
                   return (
                     input +
                     // Block everything if in dev mode, link to sitemap if not
-                    (isDev || isUx
+                    (isDev
                       ? '\nDisallow: /'
                       : '\nSitemap: https://www.uniprot.org/sitemap-index.xml\nSitemap: https://www.uniprot.org/data-sitemap-index.xml.gz')
                   );
@@ -278,8 +278,7 @@ const getConfigFor = ({
           swSrc: `${__dirname}/src/service-worker/service-worker.ts`,
           // TODO: remove limit when we manage to reduce size of entrypoint
           // For now, 3MB in production (molstar chunk is 2.2M!), 16M in dev
-          maximumFileSizeToCacheInBytes:
-            1024 * 1024 * 3 * (isDev || isUx ? 4 : 1),
+          maximumFileSizeToCacheInBytes: 1024 * 1024 * 3 * (isDev ? 4 : 1),
           exclude: [
             // exclude fonts from precaching because one specific browser will
             // never need all fonts formats at the same time, will cache later
@@ -390,10 +389,12 @@ module.exports = (env, argv) => {
     .trim();
   const gitCommitState = childProcess
     .execSync('git status --porcelain')
-    .toString();
-  const gitBranch =
+    .toString()
+    .trim();
+  const gitBranch = (
     env.GIT_BRANCH ||
-    childProcess.execSync('git symbolic-ref --short HEAD').toString();
+    childProcess.execSync('git symbolic-ref --short HEAD').toString()
+  ).trim();
   const isUx = gitBranch === 'ux';
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
