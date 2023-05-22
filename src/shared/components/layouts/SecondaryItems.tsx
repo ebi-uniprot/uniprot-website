@@ -28,7 +28,11 @@ import useToolsState from '../../hooks/useToolsState';
 
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
-import { sendGtagEventPanelOpen } from '../../utils/gtagEvents';
+import {
+  PanelCloseReason,
+  sendGtagEventPanelClose,
+  sendGtagEventPanelOpen,
+} from '../../utils/gtagEvents';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -84,7 +88,10 @@ const ToolsDashboard = () => {
   }, [tools]);
 
   const [display, setDisplay] = useState(false);
-  const close = useCallback(() => setDisplay(false), []);
+  const close = useCallback((reason: PanelCloseReason) => {
+    sendGtagEventPanelClose('job_dashboard', reason);
+    setDisplay(false);
+  }, []);
   const [buttonX, setButtonX] = useSafeState<number | undefined>(undefined);
 
   const ref = useRef<HTMLAnchorElement>(null);
@@ -138,7 +145,7 @@ const ToolsDashboard = () => {
             <Link
               className={styles['link-in-panel-title']}
               to={LocationToPath[Location.Dashboard]}
-              onClick={close}
+              onClick={() => close('full-view')}
             >
               <ToolboxIcon width="0.8em" /> Tool results
             </Link>
@@ -150,7 +157,7 @@ const ToolsDashboard = () => {
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <Dashboard closePanel={close} />
+              <Dashboard onFullView={() => close('full-view')} />
             </Suspense>
           </ErrorBoundary>
         </SlidingPanel>
@@ -163,7 +170,10 @@ export const Basket = () => {
   const [basket] = useBasket();
 
   const [display, setDisplay] = useState(false);
-  const close = useCallback(() => setDisplay(false), []);
+  const close = useCallback((reason: PanelCloseReason) => {
+    sendGtagEventPanelClose('basket', reason);
+    setDisplay(false);
+  }, []);
   const [buttonX, setButtonX] = useSafeState<number | undefined>(undefined);
 
   const ref = useRef<HTMLAnchorElement>(null);
@@ -228,7 +238,7 @@ export const Basket = () => {
               to={generatePath(LocationToPath[Location.Basket], {
                 namespace: Namespace.uniprotkb,
               })}
-              onClick={close}
+              onClick={() => close('full-view')}
             >
               <BasketIcon width="0.8em" /> My Basket
             </Link>
@@ -241,7 +251,7 @@ export const Basket = () => {
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <BasketMiniView closePanel={close} />
+              <BasketMiniView onFullView={() => close('full-view')} />
             </Suspense>
           </ErrorBoundary>
         </SlidingPanel>
