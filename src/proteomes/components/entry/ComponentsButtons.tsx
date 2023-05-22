@@ -48,13 +48,14 @@ const ComponentsButtons = ({
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
-      if (displayDownloadPanel) {
-        sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
-        setDisplayDownloadPanel(false);
-      } else {
-        sendGtagEventPanelOpen('results_download');
-        setDisplayDownloadPanel(true);
-      }
+      setDisplayDownloadPanel(displayDownloadPanel => {
+        if (displayDownloadPanel) {
+          sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        } else {
+          sendGtagEventPanelOpen('results_download');
+        }
+        setDisplayDownloadPanel(!displayDownloadPanel)
+      });
     },
     [displayDownloadPanel]
   );
