@@ -22,8 +22,18 @@
     <% } if (isDev) { %>
     <!-- Prevent indexing when the website is not public -->
     <meta name="robots" content="noindex" />
-    <% } else { %>
+      <% if (isUx) { %>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HBH9SSXCEP"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
+          gtag('config', 'G-HBH9SSXCEP');
+        </script>
+      <% } %>
+    <% } else { %>
     <!-- Loading optimisations -->
     <link rel="preconnect" href="https://fonts.gstatic.com/" />
     <link rel="preconnect" href="https://rest.uniprot.org/" />

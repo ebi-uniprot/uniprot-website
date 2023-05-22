@@ -18,6 +18,7 @@ const legacyModuleSplitPlugin = new LegacyModuleSplitPlugin();
 const getConfigFor = ({
   isModern,
   isDev,
+  isUx,
   isLiveReload,
   isTest,
   hasStats,
@@ -48,10 +49,6 @@ const getConfigFor = ({
       // live reload, slowest first build, fast rebuild, full original source
       if (isLiveReload) {
         return 'eval-cheap-module-source-map';
-      }
-      // dev, slow everything, but original source
-      if (isDev) {
-        return 'source-map';
       }
       // else, prod, slow everything, but original source
       return 'source-map';
@@ -243,7 +240,7 @@ const getConfigFor = ({
                   return (
                     input +
                     // Block everything if in dev mode, link to sitemap if not
-                    (isDev
+                    (isDev || isUx
                       ? '\nDisallow: /'
                       : '\nSitemap: https://www.uniprot.org/sitemap-index.xml\nSitemap: https://www.uniprot.org/data-sitemap-index.xml.gz')
                   );
@@ -259,6 +256,7 @@ const getConfigFor = ({
         inject: isLiveReload,
         templateParameters: (_compilation, assets, _assetTags, options) => ({
           isDev,
+          isUx,
           isLiveReload,
           options,
           assets,
@@ -280,7 +278,8 @@ const getConfigFor = ({
           swSrc: `${__dirname}/src/service-worker/service-worker.ts`,
           // TODO: remove limit when we manage to reduce size of entrypoint
           // For now, 3MB in production (molstar chunk is 2.2M!), 16M in dev
-          maximumFileSizeToCacheInBytes: 1024 * 1024 * 3 * (isDev ? 4 : 1),
+          maximumFileSizeToCacheInBytes:
+            1024 * 1024 * 3 * (isDev || isUx ? 4 : 1),
           exclude: [
             // exclude fonts from precaching because one specific browser will
             // never need all fonts formats at the same time, will cache later
@@ -395,6 +394,7 @@ module.exports = (env, argv) => {
   const gitBranch =
     env.GIT_BRANCH ||
     childProcess.execSync('git symbolic-ref --short HEAD').toString();
+  const isUx = gitBranch === 'ux';
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
     // if we have an array, it means we've probably overriden env in the CLI
@@ -424,6 +424,7 @@ module.exports = (env, argv) => {
   const modernConfig = getConfigFor({
     isModern: true,
     isDev,
+    isUx,
     isLiveReload,
     isTest,
     hasStats: !!env.STATS,
@@ -453,6 +454,7 @@ module.exports = (env, argv) => {
     const legacyConfig = getConfigFor({
       isModern: false,
       isDev,
+      isUx,
       isLiveReload,
       isTest,
       hasStats: !!env.STATS,
