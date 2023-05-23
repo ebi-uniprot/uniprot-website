@@ -156,14 +156,23 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
       })
     : null;
   const parentResponse = useDataApi<UniProtkbAPIModel>(parentUrl);
-  // const parenr = useNSQuery({})
   const taxonomyUrl = id
     ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
         TaxonomyColumn.scientificName,
         TaxonomyColumn.parent,
+        TaxonomyColumn.lineage,
       ])
     : null;
   const taxonomyResponse = useDataApi<TaxonomyAPIModel>(taxonomyUrl);
+  const childrenUrl = id
+    ? getAPIQueryUrl({
+        namespace: Namespace.taxonomy,
+        query: `parent:${id}`,
+        size: 0,
+        facets: null,
+      })
+    : null;
+  const childrenResponse = useDataApi<TaxonomyAPIModel>(childrenUrl);
 
   if (
     groupByResponse.loading ||
@@ -173,9 +182,10 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     return <Loader />;
   }
 
-  if (groupByResponse.error || !groupByResponse.data) {
-    return <ErrorHandler status={groupByResponse.status} />;
-  }
+  // TODO: uncomment as soon as API stops returning 500s for leaf nodes
+  // if (groupByResponse.error || !groupByResponse.data) {
+  //   return <ErrorHandler status={groupByResponse.status} />;
+  // }
 
   if (taxonomyResponse.error || (id && !taxonomyResponse.data)) {
     return <ErrorHandler status={taxonomyResponse.status} />;
@@ -185,7 +195,39 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={taxonomyResponse.status} />;
   }
 
+  if (childrenResponse.error || (id && !childrenResponse.data)) {
+    return <ErrorHandler status={childrenResponse.status} />;
+  }
+
   const parentTotal = +(parentResponse?.headers?.['x-total-results'] || 0);
+  const hasChildren = Boolean(
+    +(childrenResponse?.headers?.['x-total-results'] || 0)
+  );
+
+  let childrenNode;
+
+  if (id && !hasChildren) {
+    childrenNode = (
+      <Message level="info" className={styles['no-results']}>
+        This taxonomy has no children.
+      </Message>
+    );
+  } else if (groupByResponse.data?.length) {
+    // TODO: remove optional changing when API fixes 500s (see TODO above)
+    childrenNode = (
+      <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
+        {groupByResponse.data.map((child) => (
+          <GroupByNode item={child} query={query} key={child.id} />
+        ))}
+      </ul>
+    );
+  } else {
+    childrenNode = (
+      <Message level="info" className={styles['no-results']}>
+        No results found with this combination of taxonomy and query.
+      </Message>
+    );
+  }
 
   return (
     <div className={styles['groupby-container']}>
@@ -252,17 +294,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           </li>
         )}
       </ul>
-      {groupByResponse.data.length ? (
-        <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
-          {groupByResponse.data.map((child) => (
-            <GroupByNode item={child} query={query} key={child.id} />
-          ))}
-        </ul>
-      ) : (
-        <Message level="info" className={styles['no-results']}>
-          No results found with this taxonomy.
-        </Message>
-      )}
+      {childrenNode}
     </div>
   );
 };
