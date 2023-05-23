@@ -184,7 +184,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 
   const isMain = mainNamespaces.has(namespace);
 
-  // Download and ID mapping expects accessions without modifications (applicable in Basket views)
+  // Download expect accessions without modifications (applicable in Basket views)
   const selectedAccWithoutSubset = subsetsMap
     ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
     : selectedEntries;
@@ -229,7 +229,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )}
         {isMain && namespace !== Namespace.proteomes && (
           <MapIDButton
-            selectedEntries={selectedAccWithoutSubset}
+            selectedEntries={selectedEntries}
             namespace={namespace}
           />
         )}
