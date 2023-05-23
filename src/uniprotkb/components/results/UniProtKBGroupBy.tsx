@@ -4,6 +4,7 @@ import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
+  ExpandableList,
   Loader,
   LongNumber,
   Message,
@@ -182,6 +183,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     return <Loader />;
   }
 
+  console.log(taxonomyResponse);
   // TODO: uncomment as soon as API stops returning 500s for leaf nodes
   // if (groupByResponse.error || !groupByResponse.data) {
   //   return <ErrorHandler status={groupByResponse.status} />;
@@ -203,9 +205,9 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const hasChildren = Boolean(
     +(childrenResponse?.headers?.['x-total-results'] || 0)
   );
+  const parents = Array.from(taxonomyResponse?.data?.lineage || []).reverse();
 
   let childrenNode;
-
   if (id && !hasChildren) {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
@@ -268,30 +270,45 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           </li>
         )}
         {id && taxonomyResponse.data && (
-          <li className={styles.parent}>
-            <span className={styles.count}>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: `query=${query}${id ? `AND taxonomy_id:${id}` : ''}`,
-                }}
-              >
-                <LongNumber>{parentTotal}</LongNumber>
-              </Link>
-            </span>
-            <span className={styles.label}>
-              <span className={styles['active-label']}>
-                {taxonomyResponse.data.scientificName}
+          <>
+            {parents.length > 0 && (
+              <li className={styles.grandparents}>
+                <ExpandableList
+                  numberCollapsedItems={0}
+                  descriptionString="parents"
+                  displayNumberOfHiddenItems
+                >
+                  {parents.map((p) => p.scientificName)}
+                </ExpandableList>
+              </li>
+            )}
+            <li className={styles.parent}>
+              <span className={styles.count}>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: `query=${query}${
+                      id ? `AND taxonomy_id:${id}` : ''
+                    }`,
+                  }}
+                >
+                  <LongNumber>{parentTotal}</LongNumber>
+                </Link>
               </span>
-              <Link
-                to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-                  accession: id,
-                })}
-              >
-                Entry (ID: {id})
-              </Link>
-            </span>
-          </li>
+              <span className={styles.label}>
+                <span className={styles['active-label']}>
+                  {taxonomyResponse.data.scientificName}
+                </span>
+                <Link
+                  to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+                    accession: id,
+                  })}
+                >
+                  Entry (ID: {id})
+                </Link>
+              </span>
+            </li>
+          </>
         )}
       </ul>
       {childrenNode}

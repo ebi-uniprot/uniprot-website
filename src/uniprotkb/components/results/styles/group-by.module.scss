@@ -31,9 +31,6 @@
       }
 
       li.parent {
-        h3 {
-          display: inline-block;
-        }
         .count {
           display: inline-block;
           margin-left: 4ch;
@@ -44,7 +41,13 @@
         }
       }
     }
+    li.grandparents {
+      margin-left: 18.5ch;
 
+      button {
+        margin: 0;
+      }
+    }
     &__first {
       border-top: 1px solid lightgray;
       border-left: 0;
