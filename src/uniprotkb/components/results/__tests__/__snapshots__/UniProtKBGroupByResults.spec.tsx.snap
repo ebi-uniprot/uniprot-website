@@ -45,201 +45,201 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
       </div>
     </label>
   </section>
-  <ul
-    class="no-bullet groupBy groupBy__header"
+  <div
+    class="groupby-container"
   >
-    <li
-      class="header"
+    <ul
+      class="no-bullet groupby groupby__header"
     >
-      <h3
-        class="tiny count"
+      <li
+        class="header"
       >
-        UniProtKB Entries
-      </h3>
-      <h3
-        class="tiny label"
+        <h3
+          class="tiny count"
+        >
+          UniProtKB Entries
+        </h3>
+        <h3
+          class="tiny label"
+        >
+          Taxonomy
+        </h3>
+      </li>
+      <li
+        class="parent"
       >
-        Taxonomy
-      </h3>
-    </li>
-    <li
-      class="parent"
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query="
+          >
+            123
+          </a>
+        </span>
+        <span
+          class="label"
+        >
+          Top-level
+        </span>
+      </li>
+    </ul>
+    <ul
+      class="no-bullet groupby groupby__first"
     >
-      <span
-        class="count"
+      <li
+        class="node"
       >
-        <a
-          href="/uniprotkb?query="
+        <span
+          class="expand"
         >
-          123
-        </a>
-      </span>
-      <span
-        class="label"
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:10239"
+          >
+            5,392,718
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/?parent=10239"
+          >
+            Viruses
+          </a>
+        </span>
+        <span
+          class="bar"
+          style="width: 13152970.731707316px;"
+        />
+      </li>
+      <li
+        class="node"
       >
-        Top-level
-      </span>
-    </li>
-  </ul>
-  <ul
-    class="no-bullet groupBy groupBy__first"
-  >
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
+        <span
+          class="expand"
+        >
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:131567"
+          >
+            242,102,520
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/?parent=131567"
+          >
+            cellular organisms
+          </a>
+        </span>
+        <span
+          class="bar"
+          style="width: 590493951.2195122px;"
+        />
+      </li>
+      <li
+        class="node"
       >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
+        <span
+          class="expand"
         >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:2787854"
+          >
+            1,245
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/?parent=2787854"
+          >
+            other entries
+          </a>
+        </span>
+        <span
+          class="bar"
+          style="width: 3036.5853658536585px;"
+        />
+      </li>
+      <li
+        class="node"
       >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:10239"
+        <span
+          class="expand"
         >
-          5,392,718
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/10239"
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
         >
-          Viruses [10239]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=10239"
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:2787823"
+          >
+            2,422,449
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
         >
-          ↓
-        </a>
-      </span>
-    </li>
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
-      >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
-        >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
-      >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:131567"
-        >
-          242,102,520
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/131567"
-        >
-          cellular organisms [131567]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=131567"
-        >
-          ↓
-        </a>
-      </span>
-    </li>
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
-      >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
-        >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
-      >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:2787854"
-        >
-          1,245
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/2787854"
-        >
-          other entries [2787854]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=2787854"
-        >
-          ↓
-        </a>
-      </span>
-    </li>
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
-      >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
-        >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
-      >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:2787823"
-        >
-          2,422,449
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/2787823"
-        >
-          unclassified entries [2787823]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=2787823"
-        >
-          ↓
-        </a>
-      </span>
-    </li>
-  </ul>
+          <a
+            href="/?parent=2787823"
+          >
+            unclassified entries
+          </a>
+        </span>
+        <span
+          class="bar"
+          style="width: 5908412.195121951px;"
+        />
+      </li>
+    </ul>
+  </div>
 </DocumentFragment>
 `;
