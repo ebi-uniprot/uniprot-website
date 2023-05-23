@@ -121,26 +121,16 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
       </span>
       <span className={styles.label}>
         <Link
-          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: item.id,
+          to={qs.stringifyUrl({
+            url: location.pathname,
+            query: {
+              ...searchParams,
+              parent: item.id,
+            },
           })}
         >
-          {`${item.label} [${item.id}]`}
+          {item.label}
         </Link>
-        {item.expand && (
-          <Link
-            to={qs.stringifyUrl({
-              url: location.pathname,
-              query: {
-                ...searchParams,
-                parent: item.id,
-              },
-            })}
-            className={styles['link-arrow']}
-          >
-            ↓
-          </Link>
-        )}
       </span>
       {children}
     </li>
@@ -248,26 +238,15 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
               </Link>
             </span>
             <span className={styles.label}>
+              {taxonomyResponse.data.scientificName}
               <Link
                 to={generatePath(LocationToPath[Location.TaxonomyEntry], {
                   accession: id,
                 })}
               >
-                {`${taxonomyResponse.data.scientificName} [${taxonomyResponse.data.taxonId}]`}
+                Taxon entry (ID: {id})
               </Link>
             </span>
-            <Link
-              to={qs.stringifyUrl({
-                url: location.pathname,
-                query: {
-                  ...searchParams,
-                  parent: taxonomyResponse.data.parent?.taxonId,
-                },
-              })}
-              className={styles['link-arrow']}
-            >
-              ↑
-            </Link>
           </li>
         )}
       </ul>
