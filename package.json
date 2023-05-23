@@ -11,6 +11,7 @@
     "start:fallback": "webpack serve --env API_PREFIX=http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:31393 --mode development",
     "build:dev": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env PUBLIC_PATH=/uniprot/front-end/dev/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
     "build:prod": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode production",
+    "build:ux": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env PUBLIC_PATH=/uniprot/front-end/ux/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
     "lint-fix": "eslint src --ext .ts,.tsx --fix",
     "jest-coverage-ratchet": "jest-coverage-ratchet",
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
