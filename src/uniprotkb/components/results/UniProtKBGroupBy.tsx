@@ -278,7 +278,19 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   descriptionString="parents"
                   displayNumberOfHiddenItems
                 >
-                  {parents.map((p) => p.scientificName)}
+                  {parents.map((p) => (
+                    <Link
+                      to={qs.stringifyUrl({
+                        url: location.pathname,
+                        query: {
+                          ...searchParams,
+                          parent: p.taxonId,
+                        },
+                      })}
+                    >
+                      {p.scientificName}
+                    </Link>
+                  ))}
                 </ExpandableList>
               </li>
             )}
