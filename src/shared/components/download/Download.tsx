@@ -1,17 +1,13 @@
 import { useState, FC, ChangeEvent } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  Button,
-  DownloadIcon,
-  ExternalLink,
-  LongNumber,
-  Message,
-} from 'franklin-sites';
+import { generatePath, Link, useLocation } from 'react-router-dom';
+import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
+import ExternalLink from '../ExternalLink';
+
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
 
 import useColumnNames from '../../hooks/useColumnNames';
@@ -28,7 +24,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
-import ftpUrls, { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
+import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -214,8 +210,14 @@ const Download: FC<DownloadProps> = ({
         <h4 data-article-id="downloads" className={styles['ftp-header']}>
           File Available On FTP Server
         </h4>
-        This file is available compressed within the{' '}
-        <ExternalLink url={ftpUrls.uniprotkb}>UniProtKB directory</ExternalLink>{' '}
+        This file is available {!isEmbeddings && 'compressed'} within the{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'downloads',
+          })}
+        >
+          UniProtKB directory
+        </Link>{' '}
         of the UniProt FTP server:
         <div className={styles['ftp-url']}>
           <ExternalLink
