@@ -41,6 +41,8 @@ import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
 
+const HISTOGRAM_WIDTH = 300;
+
 export type GroupByItem = {
   id: string;
   label: string;
@@ -52,9 +54,18 @@ export type GroupByItem = {
 type GroupByNodeProps = {
   query: string;
   item: GroupByItem;
+  labelWidth?: number;
+  histogram?: boolean;
+  parentTotal?: number;
 };
 
-const GroupByNode = ({ query, item }: GroupByNodeProps) => {
+const GroupByNode = ({
+  query,
+  item,
+  labelWidth,
+  histogram,
+  parentTotal,
+}: GroupByNodeProps) => {
   const location = useLocation();
   const messagesDispatch = useMessagesDispatch();
   const [open, setOpen] = useState(false);
@@ -107,6 +118,13 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
     </ul>
   );
 
+  const style =
+    histogram && parentTotal
+      ? {
+          width: Math.max(HISTOGRAM_WIDTH * (item.count / parentTotal), 0.5),
+        }
+      : undefined;
+
   return (
     <li className={styles.node}>
       <span className={styles.expand}>{icon}</span>
@@ -120,7 +138,10 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
           <LongNumber>{item.count}</LongNumber>
         </Link>
       </span>
-      <span className={styles.label}>
+      <span
+        className={styles.label}
+        style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+      >
         <Link
           to={qs.stringifyUrl({
             url: location.pathname,
@@ -133,6 +154,7 @@ const GroupByNode = ({ query, item }: GroupByNodeProps) => {
           {item.label}
         </Link>
       </span>
+      <span className={styles.bar} style={style} />
       {children}
     </li>
   );
@@ -183,7 +205,6 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     return <Loader />;
   }
 
-  console.log(taxonomyResponse);
   // TODO: uncomment as soon as API stops returning 500s for leaf nodes
   // if (groupByResponse.error || !groupByResponse.data) {
   //   return <ErrorHandler status={groupByResponse.status} />;
@@ -216,10 +237,20 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     );
   } else if (groupByResponse.data?.length) {
     // TODO: remove optional changing when API fixes 500s (see TODO above)
+    const labelWidth = Math.max(
+      ...groupByResponse.data.map((child) => child.label.length)
+    );
     childrenNode = (
       <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
         {groupByResponse.data.map((child) => (
-          <GroupByNode item={child} query={query} key={child.id} />
+          <GroupByNode
+            item={child}
+            query={query}
+            key={child.id}
+            labelWidth={labelWidth}
+            histogram
+            parentTotal={parentTotal || total}
+          />
         ))}
       </ul>
     );
@@ -280,6 +311,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                 >
                   {parents.map((p) => (
                     <Link
+                      key={p.taxonId}
                       to={qs.stringifyUrl({
                         url: location.pathname,
                         query: {

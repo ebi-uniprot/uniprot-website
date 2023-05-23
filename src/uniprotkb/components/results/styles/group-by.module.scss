@@ -95,6 +95,18 @@
         display: inline-block;
         width: 14.5ch;
       }
+
+      .label {
+        display: inline-block;
+      }
+
+      .bar {
+        display: inline-block;
+        background-color: $colour-sea-blue;
+        top: 2px;
+        height: 1.5ch;
+        position: relative;
+      }
     }
   }
 }
