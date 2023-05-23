@@ -15,11 +15,6 @@
     margin-left: 1rem;
     margin-bottom: 0;
 
-    .link-arrow {
-      padding-left: 0.5rem;
-      font-size: small;
-    }
-
     &__header {
       border-left: 0;
       margin-left: 0;
@@ -44,8 +39,8 @@
           margin-left: 4ch;
           width: 14.5ch;
         }
-        .label > a {
-          margin-left: 1rem;
+        .active-label {
+          margin-right: 0.5rem;
         }
       }
     }

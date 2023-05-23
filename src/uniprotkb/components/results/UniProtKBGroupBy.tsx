@@ -207,8 +207,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
               </Link>
             </span>
             <span className={styles.label}>
-              <LongNumber>Top-level</LongNumber>
-              {id && (
+              {id ? (
                 <Link
                   to={qs.stringifyUrl({
                     url: location.pathname,
@@ -217,10 +216,11 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                       parent: undefined,
                     },
                   })}
-                  className={styles['link-arrow']}
                 >
-                  ↑
+                  Top-level
                 </Link>
+              ) : (
+                'Top-level'
               )}
             </span>
           </li>
@@ -238,13 +238,15 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
               </Link>
             </span>
             <span className={styles.label}>
-              {taxonomyResponse.data.scientificName}
+              <span className={styles['active-label']}>
+                {taxonomyResponse.data.scientificName}
+              </span>
               <Link
                 to={generatePath(LocationToPath[Location.TaxonomyEntry], {
                   accession: id,
                 })}
               >
-                Taxon entry (ID: {id})
+                Entry (ID: {id})
               </Link>
             </span>
           </li>
