@@ -27,14 +27,14 @@
         }
         .count {
           display: inline-block;
-          width: 16.5ch;
+          width: 17ch;
         }
       }
 
       li.parent {
         .count {
           display: inline-block;
-          width: 14.5ch;
+          width: 15ch;
         }
         .active-label {
           margin-right: 0.5rem;
@@ -42,7 +42,7 @@
       }
     }
     li.grandparents {
-      margin-left: 14.5ch;
+      margin-left: 15ch;
 
       button {
         margin: 0;
