@@ -27,7 +27,6 @@
         }
         .count {
           display: inline-block;
-          margin-left: 4.5ch;
           width: 16.5ch;
         }
       }
@@ -35,7 +34,6 @@
       li.parent {
         .count {
           display: inline-block;
-          margin-left: 4ch;
           width: 14.5ch;
         }
         .active-label {
@@ -44,7 +42,7 @@
       }
     }
     li.grandparents {
-      margin-left: 18.5ch;
+      margin-left: 14.5ch;
 
       button {
         margin: 0;
@@ -52,7 +50,7 @@
     }
     &__first {
       border-left: 0;
-      margin-left: 3ch;
+      margin-left: -1ch;
       margin-top: 0.5rem;
       margin-bottom: 2rem;
 
