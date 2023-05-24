@@ -28,6 +28,7 @@ import sharedApiUrls, {
   getAPIQueryUrl,
 } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
+import * as logging from '../../../shared/utils/logging';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -40,6 +41,7 @@ import {
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
+import { sumBy } from 'lodash-es';
 
 const HISTOGRAM_WIDTH = 300;
 
@@ -240,6 +242,12 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   }
 
   const parentTotal = +(parentResponse?.headers?.['x-total-results'] || 0);
+  const sumChildren = sumBy(groupByResponse.data, 'count');
+  if (parentTotal !== sumChildren) {
+    logging.warn(
+      `parentTotal !== sumChildren: ${parentTotal} !== ${sumChildren}`
+    );
+  }
   const hasChildren = Boolean(
     +(childrenResponse?.headers?.['x-total-results'] || 0)
   );
@@ -268,7 +276,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
             key={child.id}
             labelWidth={labelWidth}
             histogram
-            parentTotal={parentTotal || total}
+            parentTotal={sumChildren || total}
           />
         ))}
       </ul>
