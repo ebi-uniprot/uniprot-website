@@ -129,7 +129,7 @@ const GroupByNode = ({
             pathname: LocationToPath[Location.UniProtKBResults],
             search: `query=${query} AND taxonomy_id:${item.id}`,
           }}
-          title={`UniProtKB search results with taxonomy:${item.label} and query:${query}`}
+          title={`UniProtKB search results with taxonomy:${item.label} (ID:${item.id}) and query:${query}`}
         >
           <LongNumber>{item.count}</LongNumber>
         </Link>
@@ -146,7 +146,7 @@ const GroupByNode = ({
               parent: item.id,
             },
           })}
-          title={`Set parent node to ${item.label}`}
+          title={`Set parent node to ${item.label} ID:${item.id}`}
         >
           {item.label}
         </Link>
@@ -159,9 +159,9 @@ const GroupByNode = ({
           }}
           title={`Number of UniProtKB search results with taxonomy ${
             item.label
-          } and query ${query}: ${item.count}, ${(100 * proportion).toFixed(
-            2
-          )}% of sibling results.`}
+          } (ID:${item.id}) and query ${query}: ${item.count}, ${(
+            100 * proportion
+          ).toFixed(2)}% of sibling results.`}
         />
       )}
       {children}
@@ -321,6 +321,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   numberCollapsedItems={0}
                   descriptionString="parents"
                   displayNumberOfHiddenItems
+                  title={`Show/hide taxonomy nodes between the top level and ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
                 >
                   {parents.map((p) => (
                     <Link
@@ -332,6 +333,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                           parent: p.taxonId,
                         },
                       })}
+                      title={`Set parent node to ${p.scientificName} (ID:${p.taxonId})`}
                     >
                       {p.scientificName}
                     </Link>
@@ -348,7 +350,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                       id ? `AND taxonomy_id:${id}` : ''
                     }`,
                   }}
-                  title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} and query:${query}`}
+                  title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
                 >
                   <LongNumber>{parentTotal}</LongNumber>
                 </Link>
@@ -356,7 +358,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
               <span className={styles.label}>
                 <span
                   className={styles['active-label']}
-                  title={`Parent node currently set to ${taxonomyResponse.data.scientificName}`}
+                  title={`Parent node currently set to ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
                 >
                   {taxonomyResponse.data.scientificName}
                 </span>
@@ -364,7 +366,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   to={generatePath(LocationToPath[Location.TaxonomyEntry], {
                     accession: id,
                   })}
-                  title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} which has ID ${id}`}
+                  title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} (ID:${id})`}
                 >
                   Taxon ID:{id}
                 </Link>
@@ -416,7 +418,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
           placeholder="Enter taxon name or ID"
           url={sharedApiUrls.taxonomySuggester}
           onSelect={handleTaxonFormValue}
-          title="Search for taxonomy node"
+          title="Search for taxonomy"
         />
       </section>
       <GroupByRoot query={query} id={parent} total={total} />
