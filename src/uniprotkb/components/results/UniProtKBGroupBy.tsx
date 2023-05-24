@@ -366,7 +366,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   })}
                   title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} which has ID ${id}`}
                 >
-                  Entry (ID: {id})
+                  Taxon ID:{id}
                 </Link>
               </span>
             </li>
