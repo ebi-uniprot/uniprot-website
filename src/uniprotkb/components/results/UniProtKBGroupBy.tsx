@@ -243,7 +243,9 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const hasChildren = Boolean(
     +(childrenResponse?.headers?.['x-total-results'] || 0)
   );
-  const parents = Array.from(taxonomyResponse?.data?.lineage || []).reverse();
+  const [grandparent, ...parents] = Array.from(
+    taxonomyResponse?.data?.lineage || []
+  );
 
   let childrenNode;
   if (id && !hasChildren) {
@@ -323,7 +325,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
         )}
         {id && taxonomyResponse.data && (
           <>
-            {parents.length > 0 && (
+            {(parents.length > 0 || grandparent) && (
               <li className={styles.grandparents}>
                 <ExpandableList
                   numberCollapsedItems={0}
@@ -331,7 +333,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   displayNumberOfHiddenItems
                   title={`Show/hide taxonomy nodes between the top level and ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
                 >
-                  {parents.map((p) => (
+                  {parents.reverse().map((p) => (
                     <Link
                       key={p.taxonId}
                       to={qs.stringifyUrl({
@@ -347,6 +349,19 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                     </Link>
                   ))}
                 </ExpandableList>
+                <Link
+                  key={grandparent.taxonId}
+                  to={qs.stringifyUrl({
+                    url: location.pathname,
+                    query: {
+                      ...searchParams,
+                      parent: grandparent.taxonId,
+                    },
+                  })}
+                  title={`Set parent node to ${grandparent.scientificName} (ID:${grandparent.taxonId})`}
+                >
+                  {grandparent.scientificName}
+                </Link>
               </li>
             )}
             <li className={styles.parent}>
