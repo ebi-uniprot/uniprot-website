@@ -118,12 +118,7 @@ const GroupByNode = ({
     </ul>
   );
 
-  const style =
-    histogram && parentTotal
-      ? {
-          width: Math.max(HISTOGRAM_WIDTH * (item.count / parentTotal), 0.5),
-        }
-      : undefined;
+  const proportion = histogram && parentTotal && item.count / parentTotal;
 
   return (
     <li className={styles.node}>
@@ -134,6 +129,7 @@ const GroupByNode = ({
             pathname: LocationToPath[Location.UniProtKBResults],
             search: `query=${query} AND taxonomy_id:${item.id}`,
           }}
+          title={`UniProtKB search results with taxonomy:${item.label} and query:${query}`}
         >
           <LongNumber>{item.count}</LongNumber>
         </Link>
@@ -150,11 +146,24 @@ const GroupByNode = ({
               parent: item.id,
             },
           })}
+          title={`Set parent node to ${item.label}`}
         >
           {item.label}
         </Link>
       </span>
-      <span className={styles.bar} style={style} />
+      {proportion && (
+        <span
+          className={styles.bar}
+          style={{
+            width: Math.max(HISTOGRAM_WIDTH * proportion, 1),
+          }}
+          title={`Number of UniProtKB search results with taxonomy ${
+            item.label
+          } and query ${query}: ${item.count}, ${(100 * proportion).toFixed(
+            2
+          )}% of sibling results.`}
+        />
+      )}
       {children}
     </li>
   );
@@ -277,6 +286,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   pathname: LocationToPath[Location.UniProtKBResults],
                   search: `query=${query}`,
                 }}
+                title={`UniProtKB search results for query:${query}`}
               >
                 <LongNumber>{total}</LongNumber>
               </Link>
@@ -291,11 +301,14 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                       parent: undefined,
                     },
                   })}
+                  title="Set parent node to the top level"
                 >
-                  Top-level
+                  Top level
                 </Link>
               ) : (
-                'Top-level'
+                <span title="Parent node currently set to top level">
+                  Top level
+                </span>
               )}
             </span>
           </li>
@@ -335,18 +348,23 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                       id ? `AND taxonomy_id:${id}` : ''
                     }`,
                   }}
+                  title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} and query:${query}`}
                 >
                   <LongNumber>{parentTotal}</LongNumber>
                 </Link>
               </span>
               <span className={styles.label}>
-                <span className={styles['active-label']}>
+                <span
+                  className={styles['active-label']}
+                  title={`Parent node currently set to ${taxonomyResponse.data.scientificName}`}
+                >
                   {taxonomyResponse.data.scientificName}
                 </span>
                 <Link
                   to={generatePath(LocationToPath[Location.TaxonomyEntry], {
                     accession: id,
                   })}
+                  title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} which has ID ${id}`}
                 >
                   Entry (ID: {id})
                 </Link>
