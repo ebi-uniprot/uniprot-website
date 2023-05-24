@@ -119,6 +119,7 @@ const GroupByNode = ({
   );
 
   const proportion = histogram && parentTotal && item.count / parentTotal;
+  const percentage = proportion && 100 * proportion;
 
   return (
     <li className={styles.node}>
@@ -151,19 +152,26 @@ const GroupByNode = ({
           {item.label}
         </Link>
       </span>
-      {proportion && (
+      {proportion && percentage && (
         <span
-          className={styles.bar}
-          style={{
-            width: Math.max(HISTOGRAM_WIDTH * proportion, 1),
-          }}
           title={`Number of UniProtKB search results with taxonomy ${
             item.label
-          } (ID:${item.id}) and query ${query}: ${item.count}, ${(
-            100 * proportion
-          ).toFixed(2)}% of sibling results.`}
-        />
+          } (ID:${item.id}) and query ${query}: ${
+            item.count
+          }, ${percentage.toFixed(2)}% of sibling results.`}
+        >
+          <span
+            className={styles.bar}
+            style={{
+              width: Math.max(HISTOGRAM_WIDTH * proportion, 1),
+            }}
+          />
+          <span className={styles.percentage}>
+            {`${+percentage.toFixed(0) ? percentage.toFixed(0) : '~0'}%`}
+          </span>
+        </span>
       )}
+
       {children}
     </li>
   );
@@ -266,7 +274,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   } else {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        No results found with this combination of taxonomy and query.
+        No results found with this combination of taxonomy, query and facets.
       </Message>
     );
   }
