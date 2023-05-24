@@ -11,7 +11,7 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
     class="autocomplete"
   >
     <label>
-      Search for taxonomy node
+      Search for taxonomy
       <div
         class="autocomplete-container"
       >
@@ -73,6 +73,7 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/uniprotkb?query="
+            title="UniProtKB search results for query:"
           >
             123
           </a>
@@ -80,7 +81,11 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         <span
           class="label"
         >
-          Top-level
+          <span
+            title="Parent node currently set to top level"
+          >
+            Top level
+          </span>
         </span>
       </li>
     </ul>
@@ -106,6 +111,7 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/uniprotkb?query= AND taxonomy_id:10239"
+            title="UniProtKB search results with taxonomy:Viruses (ID:10239) and query:"
           >
             5,392,718
           </a>
@@ -116,14 +122,24 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/?parent=10239"
+            title="Set parent node to Viruses ID:10239"
           >
             Viruses
           </a>
         </span>
         <span
-          class="bar"
-          style="width: 13152970.731707316px;"
-        />
+          title="Number of UniProtKB search results with taxonomy Viruses (ID:10239) and query : 5392718, 4384323.58% of sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 13152970.731707316px;"
+          />
+          <span
+            class="percentage"
+          >
+            4384324%
+          </span>
+        </span>
       </li>
       <li
         class="node"
@@ -144,6 +160,7 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/uniprotkb?query= AND taxonomy_id:131567"
+            title="UniProtKB search results with taxonomy:cellular organisms (ID:131567) and query:"
           >
             242,102,520
           </a>
@@ -154,14 +171,24 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/?parent=131567"
+            title="Set parent node to cellular organisms ID:131567"
           >
             cellular organisms
           </a>
         </span>
         <span
-          class="bar"
-          style="width: 590493951.2195122px;"
-        />
+          title="Number of UniProtKB search results with taxonomy cellular organisms (ID:131567) and query : 242102520, 196831317.07% of sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 590493951.2195122px;"
+          />
+          <span
+            class="percentage"
+          >
+            196831317%
+          </span>
+        </span>
       </li>
       <li
         class="node"
@@ -182,6 +209,7 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/uniprotkb?query= AND taxonomy_id:2787854"
+            title="UniProtKB search results with taxonomy:other entries (ID:2787854) and query:"
           >
             1,245
           </a>
@@ -192,14 +220,24 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/?parent=2787854"
+            title="Set parent node to other entries ID:2787854"
           >
             other entries
           </a>
         </span>
         <span
-          class="bar"
-          style="width: 3036.5853658536585px;"
-        />
+          title="Number of UniProtKB search results with taxonomy other entries (ID:2787854) and query : 1245, 1012.20% of sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 3036.5853658536585px;"
+          />
+          <span
+            class="percentage"
+          >
+            1012%
+          </span>
+        </span>
       </li>
       <li
         class="node"
@@ -220,6 +258,7 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/uniprotkb?query= AND taxonomy_id:2787823"
+            title="UniProtKB search results with taxonomy:unclassified entries (ID:2787823) and query:"
           >
             2,422,449
           </a>
@@ -230,14 +269,24 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
         >
           <a
             href="/?parent=2787823"
+            title="Set parent node to unclassified entries ID:2787823"
           >
             unclassified entries
           </a>
         </span>
         <span
-          class="bar"
-          style="width: 5908412.195121951px;"
-        />
+          title="Number of UniProtKB search results with taxonomy unclassified entries (ID:2787823) and query : 2422449, 1969470.73% of sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 5908412.195121951px;"
+          />
+          <span
+            class="percentage"
+          >
+            1969471%
+          </span>
+        </span>
       </li>
     </ul>
   </div>
