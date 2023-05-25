@@ -12,6 +12,7 @@ import {
   WarningTriangleIcon,
 } from 'franklin-sites';
 import qs from 'query-string';
+import { sumBy } from 'lodash-es';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
@@ -41,7 +42,6 @@ import {
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
-import { sumBy } from 'lodash-es';
 
 const HISTOGRAM_WIDTH = 300;
 
