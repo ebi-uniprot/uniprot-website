@@ -60,6 +60,9 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
 
   const handleSelect = useCallback(
     (inputValue: SelectValue | string) => {
+      if (typeof inputValue === 'undefined') {
+        return;
+      }
       if (typeof inputValue === 'string') {
         onSelect(inputValue);
       } else {
