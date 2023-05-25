@@ -46,6 +46,17 @@ import styles from './styles/group-by.module.scss';
 
 const HISTOGRAM_WIDTH = 300;
 
+const getPercentageLabel = (percentage: number) => {
+  const percentageLabel = percentage?.toFixed(0);
+  if (+percentageLabel === 0) {
+    return '≈0%';
+  }
+  if (percentageLabel === '100' && percentage !== 100) {
+    return '≈100%';
+  }
+  return `${percentageLabel}%`;
+};
+
 export type GroupByItem = {
   id: string;
   label: string;
@@ -170,7 +181,7 @@ const GroupByNode = ({
             }}
           />
           <span className={styles.percentage}>
-            {`${+percentage.toFixed(0) ? percentage.toFixed(0) : '≈0'}%`}
+            {getPercentageLabel(percentage)}
           </span>
         </span>
       )}
