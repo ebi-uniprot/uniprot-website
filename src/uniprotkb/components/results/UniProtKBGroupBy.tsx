@@ -451,6 +451,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
           url={sharedApiUrls.taxonomySuggester}
           onSelect={handleTaxonFormValue}
           title="Search for taxonomy"
+          clearOnSelect
         />
       </section>
       <GroupByRoot query={query} id={parent} total={total} />
