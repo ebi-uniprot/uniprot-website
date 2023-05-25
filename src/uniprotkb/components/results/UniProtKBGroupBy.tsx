@@ -10,6 +10,7 @@ import {
   Message,
   SpinnerIcon,
   WarningTriangleIcon,
+  formatLargeNumber,
 } from 'franklin-sites';
 import qs from 'query-string';
 import { sumBy } from 'lodash-es';
@@ -158,9 +159,9 @@ const GroupByNode = ({
         <span
           title={`Number of UniProtKB search results with taxonomy ${
             item.label
-          } (ID:${item.id}) and query ${query}: ${
+          } (ID:${item.id}) and query ${query} is ${formatLargeNumber(
             item.count
-          }, ${percentage.toFixed(2)}% of sibling results.`}
+          )} which is ${percentage.toFixed(2)}% of all sibling results.`}
         >
           <span
             className={styles.bar}
@@ -169,7 +170,7 @@ const GroupByNode = ({
             }}
           />
           <span className={styles.percentage}>
-            {`${+percentage.toFixed(0) ? percentage.toFixed(0) : '~0'}%`}
+            {`${+percentage.toFixed(0) ? percentage.toFixed(0) : '≈0'}%`}
           </span>
         </span>
       )}
