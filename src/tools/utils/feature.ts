@@ -1,4 +1,4 @@
-import { ReactElement, ReactFragment, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import urljoin from 'url-join';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import {
@@ -43,10 +43,10 @@ export const prepareFeatureForTooltip = (
   if (feature.description) {
     if (feature.type === 'Binding site') {
       const descriptionNode = feature.description as ReactElement;
-      const { ligand, ligandPart, description } = descriptionNode?.props;
-      tooltipFeature.ligand = ligand;
-      tooltipFeature.ligandPart = ligandPart;
-      tooltipFeature.description = description;
+      const descriptionProps = descriptionNode?.props;
+      tooltipFeature.ligand = descriptionProps.ligand;
+      tooltipFeature.ligandPart = descriptionProps.ligandPart;
+      tooltipFeature.description = descriptionProps.description;
     } else {
       tooltipFeature.description = feature.description;
     }
