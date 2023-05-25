@@ -128,16 +128,16 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with taxonomy Viruses (ID:10239) and query : 5392718, 4384323.58% of sibling results."
+          title="Number of UniProtKB search results with taxonomy Viruses (ID:10239) and query  is 5,392,718 which is 2.16% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 13152970.731707316px;"
+            style="width: 6.473360729630519px;"
           />
           <span
             class="percentage"
           >
-            4384324%
+            2%
           </span>
         </span>
       </li>
@@ -177,16 +177,16 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with taxonomy cellular organisms (ID:131567) and query : 242102520, 196831317.07% of sibling results."
+          title="Number of UniProtKB search results with taxonomy cellular organisms (ID:131567) and query  is 242,102,520 which is 96.87% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 590493951.2195122px;"
+            style="width: 290.61726304112085px;"
           />
           <span
             class="percentage"
           >
-            196831317%
+            97%
           </span>
         </span>
       </li>
@@ -226,16 +226,16 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with taxonomy other entries (ID:2787854) and query : 1245, 1012.20% of sibling results."
+          title="Number of UniProtKB search results with taxonomy other entries (ID:2787854) and query  is 1,245 which is 0.00% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 3036.5853658536585px;"
+            style="width: 1px;"
           />
           <span
             class="percentage"
           >
-            1012%
+            ≈0%
           </span>
         </span>
       </li>
@@ -275,16 +275,16 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with taxonomy unclassified entries (ID:2787823) and query : 2422449, 1969470.73% of sibling results."
+          title="Number of UniProtKB search results with taxonomy unclassified entries (ID:2787823) and query  is 2,422,449 which is 0.97% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 5908412.195121951px;"
+            style="width: 2.9078817446290945px;"
           />
           <span
             class="percentage"
           >
-            1969471%
+            1%
           </span>
         </span>
       </li>
