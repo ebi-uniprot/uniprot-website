@@ -252,7 +252,16 @@ exports[`Entry basic should render main 1`] = `
             <div
               class="decorated-list-item__content"
             >
-              10
+              <span>
+                10 
+                <small>
+                  <a
+                    href="/uniprotkb/P21802/entry#sequences"
+                  >
+                    (jump to sequence)
+                  </a>
+                </small>
+              </span>
             </div>
           </div>
         </li>
