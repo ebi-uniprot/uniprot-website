@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'When I was small, I used to visit an elderly lady who lived next door to us. With her, I would make rice-filled frogs. The kind you can fling from one end of a room to land flat, with a plod and no bounce, onto the arm of a chair or the back of a sofa. In the 1970s, these colourful frogs haunted every household in the UK.';
+  'The chairs were rickety. So I rummaged around the kitchen drawer, extracted an old knife and used its tip to drive a few screws back into the wood. The knife kept on losing grip and I kept on swearing.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -378,21 +378,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/257/"
+            url="https://www.proteinspotlight.org/back_issues/258/"
             noIcon
           >
-            The slime inside us
+            A shrewd tweak
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/257/"
+          url="https://www.proteinspotlight.org/back_issues/258/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt257.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt258.jpg"
             alt=""
             width="123"
             height="129"

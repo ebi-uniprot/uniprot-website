@@ -18,6 +18,7 @@ const legacyModuleSplitPlugin = new LegacyModuleSplitPlugin();
 const getConfigFor = ({
   isModern,
   isDev,
+  isUx,
   isLiveReload,
   isTest,
   hasStats,
@@ -48,10 +49,6 @@ const getConfigFor = ({
       // live reload, slowest first build, fast rebuild, full original source
       if (isLiveReload) {
         return 'eval-cheap-module-source-map';
-      }
-      // dev, slow everything, but original source
-      if (isDev) {
-        return 'source-map';
       }
       // else, prod, slow everything, but original source
       return 'source-map';
@@ -259,6 +256,7 @@ const getConfigFor = ({
         inject: isLiveReload,
         templateParameters: (_compilation, assets, _assetTags, options) => ({
           isDev,
+          isUx,
           isLiveReload,
           options,
           assets,
@@ -391,10 +389,13 @@ module.exports = (env, argv) => {
     .trim();
   const gitCommitState = childProcess
     .execSync('git status --porcelain')
-    .toString();
-  const gitBranch =
+    .toString()
+    .trim();
+  const gitBranch = (
     env.GIT_BRANCH ||
-    childProcess.execSync('git symbolic-ref --short HEAD').toString();
+    childProcess.execSync('git symbolic-ref --short HEAD').toString()
+  ).trim();
+  const isUx = gitBranch === 'ux';
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
     // if we have an array, it means we've probably overriden env in the CLI
@@ -424,6 +425,7 @@ module.exports = (env, argv) => {
   const modernConfig = getConfigFor({
     isModern: true,
     isDev,
+    isUx,
     isLiveReload,
     isTest,
     hasStats: !!env.STATS,
@@ -453,6 +455,7 @@ module.exports = (env, argv) => {
     const legacyConfig = getConfigFor({
       isModern: false,
       isDev,
+      isUx,
       isLiveReload,
       isTest,
       hasStats: !!env.STATS,
