@@ -47,9 +47,16 @@ type Props = {
   ftpURL?: string | null;
   onCopy: () => void;
   count: number;
+  disableAll?: boolean;
 };
 
-const DownloadAPIURL = ({ apiURL, ftpURL, onCopy, count }: Props) => {
+const DownloadAPIURL = ({
+  apiURL,
+  ftpURL,
+  onCopy,
+  count,
+  disableAll,
+}: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
@@ -72,6 +79,19 @@ const DownloadAPIURL = ({ apiURL, ftpURL, onCopy, count }: Props) => {
   const disableStream = isStreamEndpoint && count > DOWNLOAD_SIZE_LIMIT;
   const batchSize = 500;
   const searchURL = getSearchURL(apiURL, batchSize);
+
+  if (disableAll) {
+    return (
+      <div className={styles['api-url']} ref={scrollRef}>
+        <CodeBlock lightMode>
+          {
+            // eslint-disable-next-line react/jsx-curly-brace-presence
+            "// this specific combination of parameters doesn't have a corresponding direct API endpoint"
+          }
+        </CodeBlock>
+      </div>
+    );
+  }
 
   return (
     <div className={styles['api-url']} ref={scrollRef}>

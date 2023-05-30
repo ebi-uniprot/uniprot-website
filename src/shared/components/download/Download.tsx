@@ -203,6 +203,11 @@ const Download: FC<DownloadProps> = ({
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
 
+  // Peptide search download for matches exceeding the threshold
+  const redirectToIDMapping =
+    jobResultsLocation === Location.PeptideSearchResult &&
+    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
   let extraContentNode: JSX.Element | undefined;
   if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
     extraContentNode = (
@@ -239,6 +244,7 @@ const Download: FC<DownloadProps> = ({
         ftpURL={ftpFilenameAndUrl?.url}
         onCopy={() => onClose('copy', 'api-url')}
         count={downloadCount}
+        disableAll={isEmbeddings || redirectToIDMapping}
       />
     );
   } else if (extraContent === 'generate') {
@@ -258,11 +264,6 @@ const Download: FC<DownloadProps> = ({
       />
     );
   }
-
-  // Peptide search download for matches exceeding the threshold
-  const redirectToIDMapping =
-    jobResultsLocation === Location.PeptideSearchResult &&
-    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
   const downloadHref =
     isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl;
@@ -382,16 +383,7 @@ const Download: FC<DownloadProps> = ({
           styles['action-buttons']
         )}
       >
-        <Button
-          variant="tertiary"
-          onClick={() => setExtraContent('url')}
-          disabled={redirectToIDMapping || isEmbeddings}
-          title={
-            redirectToIDMapping || isEmbeddings
-              ? 'Direct API unavailable'
-              : undefined
-          }
-        >
+        <Button variant="tertiary" onClick={() => setExtraContent('url')}>
           Generate URL for API
         </Button>
         <Button
