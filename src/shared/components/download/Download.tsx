@@ -385,7 +385,12 @@ const Download: FC<DownloadProps> = ({
         <Button
           variant="tertiary"
           onClick={() => setExtraContent('url')}
-          disabled={redirectToIDMapping}
+          disabled={redirectToIDMapping || isEmbeddings}
+          title={
+            redirectToIDMapping || isEmbeddings
+              ? 'Direct API unavailable'
+              : undefined
+          }
         >
           Generate URL for API
         </Button>
