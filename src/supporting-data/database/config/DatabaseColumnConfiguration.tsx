@@ -58,11 +58,9 @@ DatabaseColumnConfiguration.set(DatabaseColumn.category, {
       <Link
         to={({ search }) => {
           const [params] = getParamsFromURL(search);
-          const query = params.query ? params.query : '*';
           return getLocationObjForParams({
             pathname: LocationToPath[Location.DatabaseResults],
             ...params,
-            query,
             selectedFacets: [
               ...params.selectedFacets.filter(
                 ({ name }) => name !== 'category_exact'

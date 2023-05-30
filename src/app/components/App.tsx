@@ -16,6 +16,7 @@ import {
   Replay,
 } from '@sentry/react';
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
+import queryString from 'query-string';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
@@ -284,16 +285,31 @@ const BackToTheTop = lazy(() =>
 );
 
 // Helper component to render a landing page or the results page depending on
-// the presence of absence of a querystring
+// the presence or absence of a query string (any URL parameters) eg presence
+// of any of: facets, query, sort will be routed to a results page. In the case
+// of query string is present but no "query=" or this is empty it will be
+// provided as "query=*"
 const ResultsOrLanding =
   (ResultsPage: FC<RouteChildrenProps>, LandingPage: FC<RouteChildrenProps>) =>
-  (props: RouteChildrenProps) =>
-    props.location.search ? (
-      <ResultsPage {...props} />
-    ) : (
-      <LandingPage {...props} />
-    );
-
+  (props: RouteChildrenProps) => {
+    if (props.location.search) {
+      const params = Object.fromEntries(
+        new URLSearchParams(props.location.search)
+      );
+      if (!params.query) {
+        return (
+          <Redirect
+            to={queryString.stringifyUrl({
+              url: props.location.pathname,
+              query: { ...params, query: '*' },
+            })}
+          />
+        );
+      }
+      return <ResultsPage {...props} />;
+    }
+    return <LandingPage {...props} />;
+  };
 // NOTE: remove whenever we start implementing landing pages
 const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
   <Redirect to={{ ...location, search: 'query=*' }} />
