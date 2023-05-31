@@ -134,6 +134,9 @@ export const processFeaturesData = (
       sequence: s,
       source: includeSource ? feature.source || 'UniProt' : undefined,
       confidenceScore: feature.confidenceScore,
+      ligand: feature.ligand,
+      ligandPart: feature.ligandPart,
+      ligandDescription: feature.description,
     };
   });
 
