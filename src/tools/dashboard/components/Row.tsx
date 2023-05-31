@@ -286,7 +286,7 @@ const Actions = ({ job, onDelete }: ActionsProps) => {
           onClick={(event) => {
             event.stopPropagation();
             history.push(jobTypeToPath(job.type), {
-              parameters: job.parameters,
+              parameters: { ...job.parameters, name: job.title },
             });
           }}
         >
