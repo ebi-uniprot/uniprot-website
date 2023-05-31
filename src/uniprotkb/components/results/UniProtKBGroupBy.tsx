@@ -254,9 +254,10 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={childrenResponse.status} />;
   }
 
-  const parentTotal = +(parentResponse?.headers?.['x-total-results'] || 0);
+  const parentTotal = parentResponse?.headers?.['x-total-results'];
   const sumChildren = sumBy(groupByResponse.data, 'count');
-  if (parentTotal !== sumChildren) {
+  // Sanity check
+  if (parentTotal && +parentTotal !== sumChildren) {
     logging.warn(
       `parentTotal !== sumChildren: ${parentTotal} !== ${sumChildren}`
     );
@@ -402,7 +403,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                   }}
                   title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
                 >
-                  <LongNumber>{parentTotal}</LongNumber>
+                  <LongNumber>{parentTotal || 0}</LongNumber>
                 </Link>
               </span>
               <span className={styles.label}>
