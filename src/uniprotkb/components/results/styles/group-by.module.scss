@@ -11,14 +11,14 @@
   }
 
   ul.groupby {
-    border-left: 1px solid lightgray;
+    border-left: 1px solid $colour-gainsborough;
     margin-left: 1rem;
     margin-bottom: 0;
 
     &__header {
       border-left: 0;
       margin-left: 0;
-      border-bottom: 1px solid lightgray;
+      border-bottom: 1px solid $colour-gainsborough;
       padding-bottom: 0.5rem;
 
       li.header {
@@ -71,6 +71,25 @@
 
     li.node {
       white-space: nowrap;
+
+      // "highlight" currently hovered or focused row
+      &:hover,
+      &:focus-within {
+        & > .label > a {
+          position: relative;
+          &::after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            top: -0.25ch;
+            bottom: -0.25ch;
+            left: -0.75ch;
+            right: -0.75ch;
+            opacity: 0.4;
+            background-color: $colour-warning;
+          }
+        }
+      }
 
       .expand {
         width: 4ch;
