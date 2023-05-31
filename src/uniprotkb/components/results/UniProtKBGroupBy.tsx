@@ -43,6 +43,7 @@ import {
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
+import taxonStyles from '../../../shared/components/entry/styles/taxonomy-view.module.css';
 
 const HISTOGRAM_WIDTH = 300;
 
@@ -364,6 +365,9 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                         },
                       })}
                       title={`Set parent node to ${p.scientificName} (ID:${p.taxonId})`}
+                      className={
+                        p.hidden ? taxonStyles['hidden-taxon'] : undefined
+                      }
                     >
                       {p.scientificName}
                     </Link>
@@ -379,6 +383,9 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                     },
                   })}
                   title={`Set parent node to ${grandparent.scientificName} (ID:${grandparent.taxonId})`}
+                  className={
+                    grandparent.hidden ? taxonStyles['hidden-taxon'] : undefined
+                  }
                 >
                   {grandparent.scientificName}
                 </Link>
