@@ -11,7 +11,7 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
     class="autocomplete"
   >
     <label>
-      Search for taxonomy node
+      Search for taxonomy
       <div
         class="autocomplete-container"
       >
@@ -45,201 +45,250 @@ exports[`UniProtKBGroupByResults component should render 1`] = `
       </div>
     </label>
   </section>
-  <ul
-    class="no-bullet groupBy groupBy__header"
+  <div
+    class="groupby-container"
   >
-    <li
-      class="header"
+    <ul
+      class="no-bullet groupby groupby__header"
     >
-      <h3
-        class="tiny count"
+      <li
+        class="header"
       >
-        UniProtKB Entries
-      </h3>
-      <h3
-        class="tiny label"
+        <h3
+          class="tiny count"
+        >
+          UniProtKB Entries
+        </h3>
+        <h3
+          class="tiny label"
+        >
+          Taxonomy
+        </h3>
+      </li>
+      <li
+        class="parent"
       >
-        Taxonomy
-      </h3>
-    </li>
-    <li
-      class="parent"
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query="
+            title="UniProtKB search results for query:"
+          >
+            123
+          </a>
+        </span>
+        <span
+          class="label"
+        >
+          <span
+            title="Parent node currently set to top level"
+          >
+            Top level
+          </span>
+        </span>
+      </li>
+    </ul>
+    <ul
+      class="no-bullet groupby groupby__first"
     >
-      <span
-        class="count"
+      <li
+        class="node"
       >
-        <a
-          href="/uniprotkb?query="
+        <span
+          class="expand"
         >
-          123
-        </a>
-      </span>
-      <span
-        class="label"
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:10239"
+            title="UniProtKB search results with taxonomy:Viruses (ID:10239) and query:"
+          >
+            5,392,718
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/?parent=10239"
+            title="Set parent node to Viruses ID:10239"
+          >
+            Viruses
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with taxonomy Viruses (ID:10239) and query  is 5,392,718 which is 2.16% of all sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 6.473360729630519px;"
+          />
+          <span
+            class="percentage"
+          >
+            2%
+          </span>
+        </span>
+      </li>
+      <li
+        class="node"
       >
-        Top-level
-      </span>
-    </li>
-  </ul>
-  <ul
-    class="no-bullet groupBy groupBy__first"
-  >
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
+        <span
+          class="expand"
+        >
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:131567"
+            title="UniProtKB search results with taxonomy:cellular organisms (ID:131567) and query:"
+          >
+            242,102,520
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/?parent=131567"
+            title="Set parent node to cellular organisms ID:131567"
+          >
+            cellular organisms
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with taxonomy cellular organisms (ID:131567) and query  is 242,102,520 which is 96.87% of all sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 290.61726304112085px;"
+          />
+          <span
+            class="percentage"
+          >
+            97%
+          </span>
+        </span>
+      </li>
+      <li
+        class="node"
       >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
+        <span
+          class="expand"
         >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:2787854"
+            title="UniProtKB search results with taxonomy:other entries (ID:2787854) and query:"
+          >
+            1,245
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/?parent=2787854"
+            title="Set parent node to other entries ID:2787854"
+          >
+            other entries
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with taxonomy other entries (ID:2787854) and query  is 1,245 which is 0.00% of all sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 1px;"
+          />
+          <span
+            class="percentage"
+          >
+            ≈0%
+          </span>
+        </span>
+      </li>
+      <li
+        class="node"
       >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:10239"
+        <span
+          class="expand"
         >
-          5,392,718
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/10239"
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
         >
-          Viruses [10239]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=10239"
+          <a
+            href="/uniprotkb?query= AND taxonomy_id:2787823"
+            title="UniProtKB search results with taxonomy:unclassified entries (ID:2787823) and query:"
+          >
+            2,422,449
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
         >
-          ↓
-        </a>
-      </span>
-    </li>
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
-      >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
+          <a
+            href="/?parent=2787823"
+            title="Set parent node to unclassified entries ID:2787823"
+          >
+            unclassified entries
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with taxonomy unclassified entries (ID:2787823) and query  is 2,422,449 which is 0.97% of all sibling results."
         >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
-      >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:131567"
-        >
-          242,102,520
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/131567"
-        >
-          cellular organisms [131567]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=131567"
-        >
-          ↓
-        </a>
-      </span>
-    </li>
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
-      >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
-        >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
-      >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:2787854"
-        >
-          1,245
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/2787854"
-        >
-          other entries [2787854]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=2787854"
-        >
-          ↓
-        </a>
-      </span>
-    </li>
-    <li
-      class="node"
-    >
-      <span
-        class="expand"
-      >
-        <button
-          aria-expanded="false"
-          class="button secondary"
-          type="button"
-        >
-          ►
-        </button>
-      </span>
-      <span
-        class="count"
-      >
-        <a
-          href="/uniprotkb?query= AND taxonomy_id:2787823"
-        >
-          2,422,449
-        </a>
-      </span>
-      <span
-        class="label"
-      >
-        <a
-          href="/taxonomy/2787823"
-        >
-          unclassified entries [2787823]
-        </a>
-        <a
-          class="link-arrow"
-          href="/?parent=2787823"
-        >
-          ↓
-        </a>
-      </span>
-    </li>
-  </ul>
+          <span
+            class="bar"
+            style="width: 2.9078817446290945px;"
+          />
+          <span
+            class="percentage"
+          >
+            1%
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
 </DocumentFragment>
 `;

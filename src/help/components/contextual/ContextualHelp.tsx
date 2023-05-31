@@ -71,7 +71,7 @@ const ContextualHelp = () => {
   }, [history, smallScreen]);
 
   const handleClose = useCallback<
-    (reason: 'outside' | 'button' | 'navigation' | 'escape') => void
+    (reason: 'outside' | 'x-button' | 'navigation' | 'escape') => void
   >((reason) => {
     if (reason !== 'outside') {
       setArticlePath(undefined);

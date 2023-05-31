@@ -1,97 +1,119 @@
 @import 'franklin-sites/src/styles/colours';
 
-.autocomplete {
-  width: 50ch;
-}
-
-.no-results {
-  width: 20rem;
-  margin: 1rem;
-}
-
-ul.groupBy {
-  border-left: 1px solid lightgray;
-  margin-left: 1rem;
-  margin-bottom: 0;
-
-  .link-arrow {
-    padding-left: 0.5rem;
-    font-size: small;
+.groupby-container {
+  .autocomplete {
+    width: 50ch;
   }
 
-  &__header {
-    border-left: 0;
-    margin-left: 0;
+  .no-results {
+    max-width: 30rem;
+    margin: 1rem;
+  }
 
-    li.header {
-      h3 {
-        display: inline-block;
+  ul.groupby {
+    border-left: 1px solid lightgray;
+    margin-left: 1rem;
+    margin-bottom: 0;
+
+    &__header {
+      border-left: 0;
+      margin-left: 0;
+      border-bottom: 1px solid lightgray;
+      padding-bottom: 0.5rem;
+
+      li.header {
+        h3 {
+          display: inline-block;
+        }
+        .count {
+          display: inline-block;
+          width: 17ch;
+        }
       }
-      .count {
-        display: inline-block;
-        margin-left: 4.5ch;
-        width: 16.5ch;
-      }
-    }
 
-    li.parent {
-      h3 {
-        display: inline-block;
-      }
-      .count {
-        display: inline-block;
-        margin-left: 4ch;
-        width: 14.5ch;
-      }
-    }
-  }
-
-  &__first {
-    border-top: 1px solid lightgray;
-    border-left: 0;
-    margin-left: 0;
-    margin-bottom: 2rem;
-
-    .count {
-      display: inline-block;
-      width: 9.5ch;
-    }
-  }
-
-  .warning {
-    margin-left: 0.75rem;
-    color: $colour-warning;
-  }
-
-  .spinner {
-    margin-left: -0.25rem;
-  }
-
-  li.node {
-    .expand {
-      width: 4ch;
-      display: inline-block;
-      height: 1ch;
-
-      button {
-        border: 0;
-        margin-top: -0.4rem;
-        margin-bottom: 0rem;
-        margin-left: -0.275rem;
-        transition: transform 0.25s ease-out;
-        outline: 0;
-        background-color: transparent;
-        color: $colour-sea-blue;
-
-        &[aria-expanded='true'] {
-          transform: rotateZ(90deg);
+      li.parent {
+        .count {
+          display: inline-block;
+          width: 15ch;
+        }
+        .active-label {
+          margin-right: 0.5rem;
         }
       }
     }
+    li.grandparents {
+      margin-left: 15ch;
 
-    .count {
-      display: inline-block;
-      width: 14.5ch;
+      button {
+        margin: 0;
+      }
+    }
+    &__first {
+      border-left: 0;
+      margin-left: -1ch;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+
+      .count {
+        display: inline-block;
+        width: 9.5ch;
+      }
+    }
+
+    .warning {
+      margin-left: 0.75rem;
+      color: $colour-warning;
+    }
+
+    .spinner {
+      margin-left: -0.25rem;
+    }
+
+    li.node {
+      white-space: nowrap;
+
+      .expand {
+        width: 4ch;
+        display: inline-block;
+        height: 1ch;
+
+        button {
+          border: 0;
+          margin-top: -0.4rem;
+          margin-bottom: 0rem;
+          margin-left: -0.275rem;
+          transition: transform 0.25s ease-out;
+          outline: 0;
+          background-color: transparent;
+          color: $colour-sea-blue;
+
+          &[aria-expanded='true'] {
+            transform: rotateZ(90deg);
+          }
+        }
+      }
+
+      .count {
+        display: inline-block;
+        width: 14.5ch;
+      }
+
+      .label {
+        display: inline-block;
+      }
+
+      .bar {
+        display: inline-block;
+        background-color: $colour-sea-blue;
+        top: 2px;
+        height: 1.5ch;
+        position: relative;
+        margin-right: 0.25rem;
+        text-align: right;
+      }
+      .percentage {
+        margin-right: 1rem;
+      }
     }
   }
 }
