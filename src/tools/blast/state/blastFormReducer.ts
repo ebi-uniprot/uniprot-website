@@ -23,23 +23,23 @@ const isInvalid = (parsedSequences: SequenceObject[]) =>
   parsedSequences.some((parsedSequence) => !parsedSequence.valid);
 
 export const getBlastFormInitialState = (
-  defaultFormValues: Readonly<BlastFormValues>
+  initialFormValues: Readonly<BlastFormValues>
 ): BlastFormState => ({
   formValues: {
-    ...defaultFormValues,
+    ...initialFormValues,
     [BlastFields.name]: {
-      ...defaultFormValues[BlastFields.name],
+      ...initialFormValues[BlastFields.name],
       // default to true if it's been set through the history state
-      userSelected: Boolean(defaultFormValues[BlastFields.name].selected),
+      userSelected: Boolean(initialFormValues[BlastFields.name].selected),
     },
   },
   parsedSequences: sequenceProcessor(
-    `${defaultFormValues[BlastFields.sequence].selected || ''}`
+    `${initialFormValues[BlastFields.sequence].selected || ''}`
   ),
   // used when the form submission needs to be disabled
   submitDisabled: isInvalid(
     sequenceProcessor(
-      `${defaultFormValues[BlastFields.sequence].selected || ''}`
+      `${initialFormValues[BlastFields.sequence].selected || ''}`
     )
   ),
   // used when the form is about to be submitted to the server
