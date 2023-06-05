@@ -38,6 +38,23 @@ describe('SimilarityView component', () => {
       </SimilarityView>
     );
     const links: HTMLAnchorElement[] = screen.getAllByRole('link');
-    expect(links[0].textContent).toEqual('OXA1/ALB3/YidC (TC 2.A.9.2) family');
+    expect(links[0].textContent).toEqual(' OXA1/ALB3/YidC (TC 2.A.9.2) family');
   });
+});
+
+test('should link the whole familt heirarchy from superfamilies to subfamilies', () => {
+  customRender(
+    <SimilarityView>
+      Belongs to the protein kinase superfamily. Tyr protein kinase family.
+      Insulin receptor subfamily
+    </SimilarityView>
+  );
+  const links: HTMLAnchorElement[] = screen.getAllByRole('link');
+  expect(links[0].textContent).toEqual('protein kinase superfamily');
+  expect(links[1].href).toContain(
+    '?query=(family:%22protein%20kinase%20superfamily%20Tyr%20protein%20kinase%20family%22)'
+  );
+  expect(links[2].href).toContain(
+    '?query=(family:%22protein%20kinase%20superfamily%20Tyr%20protein%20kinase%20family%20Insulin%20receptor%20subfamily%22)'
+  );
 });

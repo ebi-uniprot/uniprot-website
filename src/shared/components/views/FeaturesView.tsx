@@ -13,6 +13,10 @@ import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import {
+  Ligand,
+  LigandPart,
+} from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -40,7 +44,12 @@ export type ProcessedFeature = {
   sequence?: string;
   locations?: { fragments: Fragment[] }[];
   source?: string;
+  // PTM specific
   confidenceScore?: ConfidenceScore;
+  // Binding site
+  ligand?: Ligand;
+  ligandPart?: LigandPart;
+  ligandDescription?: string;
 };
 
 type FeatureProps<T> = {

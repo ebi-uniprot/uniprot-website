@@ -1,4 +1,5 @@
 import { Fragment, memo, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { DoughnutChart, InfoList } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
@@ -123,7 +124,20 @@ const ProteinOverview = ({ data, inCard }: Props) => {
       title: <span data-article-id="organism-name">Organism</span>,
       content: organismNameNode,
     },
-    { title: 'Amino acids', content: data.sequence?.length },
+    {
+      title: 'Amino acids',
+      content: (
+        <span>
+          {data.sequence?.length}{' '}
+          <small>
+            {/* eslint-disable-next-line uniprot-website/use-config-location */}
+            <Link to={(location) => ({ ...location, hash: 'sequences' })}>
+              (jump to sequence)
+            </Link>
+          </small>
+        </span>
+      ),
+    },
     {
       title: <span data-article-id="protein_existence">Protein existence</span>,
       content: proteinExistence,

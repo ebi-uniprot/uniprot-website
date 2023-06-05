@@ -7,7 +7,10 @@ import SideButtons from './SideButtons';
 
 import useMatchMedia from '../../../shared/hooks/useMatchMedia';
 
-import { sendGtagEventPanelHelpOpen } from '../../../shared/utils/gtagEvents';
+import {
+  sendGtagEventPanelClose,
+  sendGtagEventPanelHelpOpen,
+} from '../../../shared/utils/gtagEvents';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -76,6 +79,7 @@ const ContextualHelp = () => {
     if (reason !== 'outside') {
       setArticlePath(undefined);
       setDisplayButton(true);
+      sendGtagEventPanelClose('help', reason);
     }
   }, []);
 

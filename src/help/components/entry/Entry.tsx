@@ -59,7 +59,7 @@ const aTransformer: Transformer = (_: string, attribs: Attributes) => {
   if (href) {
     output.attribs.href = href;
     // if external link
-    if (href === attribs.href) {
+    if (href === attribs.href && !href.startsWith('#')) {
       output.attribs.class = styles.external;
       output.attribs.target = '_blank';
       output.attribs.rel = 'noopener noreferrer';

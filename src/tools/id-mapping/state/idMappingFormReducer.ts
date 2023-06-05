@@ -35,21 +35,21 @@ const getJobName = (parsedIDs: string[], formValues: IDMappingFormValues) => {
 };
 
 export const getIDMappingFormInitialState = (
-  defaultFormValues: Readonly<IDMappingFormValues>
+  initialFormValues: Readonly<IDMappingFormValues>
 ): IDMappingFormState => ({
   formValues: {
-    ...defaultFormValues,
+    ...initialFormValues,
     [IDMappingFields.name]: {
-      ...defaultFormValues[IDMappingFields.name],
+      ...initialFormValues[IDMappingFields.name],
       // default to true if it's been set through the history state
-      userSelected: Boolean(defaultFormValues[IDMappingFields.name].selected),
+      userSelected: Boolean(initialFormValues[IDMappingFields.name].selected),
     },
   },
-  textIDs: (defaultFormValues[IDMappingFields.ids]?.selected as string[])?.join(
+  textIDs: (initialFormValues[IDMappingFields.ids]?.selected as string[])?.join(
     '\n'
   ),
   // used when the form submission needs to be disabled
-  submitDisabled: isInvalid(defaultFormValues[IDMappingFields.ids].selected),
+  submitDisabled: isInvalid(initialFormValues[IDMappingFields.ids].selected),
   // used when the form is about to be submitted to the server
   sending: false,
 });
