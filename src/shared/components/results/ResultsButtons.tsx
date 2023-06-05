@@ -6,13 +6,15 @@ import {
   SetStateAction,
   useEffect,
   ChangeEvent,
+  useCallback,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   DownloadIcon,
   // StatisticsIcon,
   Button,
   SlidingPanel,
+  Dropdown,
 } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -37,7 +39,13 @@ import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { sendGtagEventViewMode } from '../../utils/gtagEvents';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+  sendGtagEventPanelOpen,
+  sendGtagEventPanelResultsDownloadClose,
+  sendGtagEventViewMode,
+} from '../../utils/gtagEvents';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -154,6 +162,20 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
   ]);
 
+  const handleToggleDownload = useCallback(
+    (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
+      setDisplayDownloadPanel((displayDownloadPanel) => {
+        if (displayDownloadPanel) {
+          sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        } else {
+          sendGtagEventPanelOpen('results_download');
+        }
+        return !displayDownloadPanel;
+      });
+    },
+    []
+  );
+
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
     if (viewMode) {
       sendGtagEventViewMode('mode_click', viewMode);
@@ -163,7 +185,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 
   const isMain = mainNamespaces.has(namespace);
 
-  // Download and ID mapping expects accessions without modifications (applicable in Basket views)
+  // Download expect accessions without modifications (applicable in Basket views)
   const selectedAccWithoutSubset = subsetsMap
     ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
     : selectedEntries;
@@ -176,7 +198,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             title="Download"
             // Meaning, in basket mini view, slide from the right
             position={notCustomisable && inBasket ? 'right' : 'left'}
-            onClose={() => setDisplayDownloadPanel(false)}
+            onClose={handleToggleDownload}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -187,7 +209,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                     : accessions
                 } // Passing all accessions without modifications to Download
                 totalNumberResults={total}
-                onClose={() => setDisplayDownloadPanel(false)}
+                onClose={handleToggleDownload}
                 namespace={namespace}
                 base={base}
                 notCustomisable={notCustomisable}
@@ -208,7 +230,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )}
         {isMain && namespace !== Namespace.proteomes && (
           <MapIDButton
-            selectedEntries={selectedAccWithoutSubset}
+            selectedEntries={selectedEntries}
             namespace={namespace}
           />
         )}
@@ -216,7 +238,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel((value) => !value)}
+          onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
           Download
@@ -267,6 +289,26 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             </label>
           </span>
         </form>
+        <Dropdown visibleElement={<Button variant="tertiary">Group by</Button>}>
+          <ul>
+            <li>
+              <Link
+                // eslint-disable-next-line uniprot-website/use-config-location
+                to={(location) => {
+                  const search = new URLSearchParams(location.search);
+                  search.set('groupBy', 'taxonomy');
+                  return {
+                    ...location,
+                    pathname: location.pathname,
+                    search: search.toString(),
+                  };
+                }}
+              >
+                Taxonomy
+              </Link>
+            </li>
+          </ul>
+        </Dropdown>
         {!notCustomisable &&
           !sharedUrlMode &&
           // Exception for ID mapping results!

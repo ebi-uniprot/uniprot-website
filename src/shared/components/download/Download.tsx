@@ -1,6 +1,12 @@
-import { useState, FC, ChangeEvent, useCallback, useEffect } from 'react';
-import { Link, generatePath, useLocation } from 'react-router-dom';
-import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
+import { useState, FC, ChangeEvent } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import {
+  Button,
+  DownloadIcon,
+  ExternalLink,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
@@ -22,12 +28,16 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
-import { getUniprotkbFtpUrl } from '../../config/ftpUrls';
+import ftpUrls, { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+} from '../../utils/gtagEvents';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -42,7 +52,10 @@ type DownloadProps = {
   totalNumberResults: number;
   numberSelectedEntries?: number;
   namespace: Namespace;
-  onClose: () => void;
+  onClose: (
+    panelCloseReason: DownloadPanelFormCloseReason,
+    downloadMethod?: DownloadMethod
+  ) => void;
   accessions?: string[];
   base?: string;
   supportedFormats?: FileFormat[];
@@ -175,56 +188,46 @@ const Download: FC<DownloadProps> = ({
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
-  const displayExtraContent = useCallback((content: ExtraContent) => {
-    setExtraContent(content);
-  }, []);
-
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isAsyncDownload = isLarge && isUniprotkb;
-  const ftpUrl =
+  const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb
-      ? getUniprotkbFtpUrl(downloadUrl, fileFormat)
+      ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
 
-  useEffect(() => {
-    if (extraContent) {
-      if (ftpUrl) {
-        setExtraContent('ftp');
-      } else if (isAsyncDownload) {
-        setExtraContent('generate');
-      }
-    }
-  }, [extraContent, ftpUrl, isAsyncDownload, onClose]);
-
   let extraContentNode: JSX.Element | undefined;
-  if (extraContent === 'url') {
+  if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
+    extraContentNode = (
+      <>
+        <h4 data-article-id="downloads" className={styles['ftp-header']}>
+          File Available On FTP Server
+        </h4>
+        This file is available compressed within the{' '}
+        <ExternalLink url={ftpUrls.uniprotkb}>UniProtKB directory</ExternalLink>{' '}
+        of the UniProt FTP server:
+        <div className={styles['ftp-url']}>
+          <ExternalLink
+            url={ftpFilenameAndUrl.url}
+            noIcon
+            onClick={() => onClose('download', 'ftp')}
+          >
+            <DownloadIcon width="1em" />
+            {ftpFilenameAndUrl.filename}
+          </ExternalLink>
+        </div>
+      </>
+    );
+  } else if (extraContent === 'url') {
     extraContentNode = (
       <DownloadAPIURL
         // Remove the download attribute as it's unnecessary for API access
         apiURL={downloadUrl.replace('download=true&', '')}
-        ftpURL={ftpUrl}
-        onCopy={onClose}
+        ftpURL={ftpFilenameAndUrl?.url}
+        onCopy={() => onClose('copy', 'api-url')}
         count={downloadCount}
       />
-    );
-  } else if (extraContent === 'ftp' && ftpUrl) {
-    extraContentNode = (
-      <>
-        <h4>File Available On FTP Server</h4>
-        This file is available compressed on the{' '}
-        <Link
-          to={generatePath(LocationToPath[Location.HelpEntry], {
-            accession: 'downloads',
-          })}
-        >
-          UniProt FTP server
-        </Link>
-        :
-        <br />
-        <ExternalLink url={ftpUrl}>{ftpUrl}</ExternalLink>
-      </>
     );
   } else if (extraContent === 'generate') {
     extraContentNode = (
@@ -232,6 +235,7 @@ const Download: FC<DownloadProps> = ({
         downloadUrlOptions={downloadOptions}
         count={downloadCount}
         initialFormValues={defaultFormValues}
+        onClose={() => onClose('submit', 'async')}
       />
     );
   } else if (extraContent === 'preview') {
@@ -247,6 +251,9 @@ const Download: FC<DownloadProps> = ({
   const redirectToIDMapping =
     jobResultsLocation === Location.PeptideSearchResult &&
     downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
+  const downloadHref =
+    isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl;
 
   return (
     <>
@@ -365,14 +372,14 @@ const Download: FC<DownloadProps> = ({
       >
         <Button
           variant="tertiary"
-          onClick={() => displayExtraContent('url')}
+          onClick={() => setExtraContent('url')}
           disabled={redirectToIDMapping}
         >
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
-          onClick={() => displayExtraContent('preview')}
+          onClick={() => setExtraContent('preview')}
           disabled={redirectToIDMapping}
         >
           Preview{' '}
@@ -380,12 +387,12 @@ const Download: FC<DownloadProps> = ({
             ? 'file'
             : nPreview}
         </Button>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={isAsyncDownload || ftpUrl ? undefined : downloadUrl}
+          href={downloadHref}
           className={cn('button', 'primary')}
           title={
             isAsyncDownload
@@ -395,12 +402,12 @@ const Download: FC<DownloadProps> = ({
           target="_blank"
           rel="noreferrer"
           onClick={() => {
-            if (ftpUrl) {
-              displayExtraContent('ftp');
+            if (ftpFilenameAndUrl) {
+              setExtraContent('ftp');
             } else if (isAsyncDownload) {
-              displayExtraContent('generate');
+              setExtraContent('generate');
             } else {
-              onClose();
+              onClose('download', 'sync');
             }
           }}
         >

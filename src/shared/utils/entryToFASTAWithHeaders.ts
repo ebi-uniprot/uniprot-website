@@ -78,7 +78,14 @@ const entryToFASTAWithHeaders = (
       let optionalProteinName = '';
       if (entry?.proteinDescription?.recommendedName?.fullName) {
         optionalProteinName = `${entry.proteinDescription.recommendedName.fullName.value} `;
+      } else if (
+        entry.proteinDescription &&
+        'submissionNames' in entry.proteinDescription &&
+        entry.proteinDescription.submissionNames?.[0].fullName
+      ) {
+        optionalProteinName = `${entry.proteinDescription.submissionNames[0].fullName.value} `;
       }
+
       let optionalOS = '';
       if (entry?.organism?.scientificName) {
         optionalOS = `OS=${entry.organism.scientificName} `;

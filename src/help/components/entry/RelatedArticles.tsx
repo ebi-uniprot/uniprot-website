@@ -12,7 +12,7 @@ import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
 const getIdKey = (article: HelpUIModel) => article.id;
 
 const cardRenderer = (article: HelpUIModel) => (
-  <HelpCard id={article.id} title={article.title} />
+  <HelpCard id={article.id} title={article.title} headingLevel="h3" />
 );
 
 const RelatedArticles = ({

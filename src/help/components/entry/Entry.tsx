@@ -59,7 +59,7 @@ const aTransformer: Transformer = (_: string, attribs: Attributes) => {
   if (href) {
     output.attribs.href = href;
     // if external link
-    if (href === attribs.href) {
+    if (href === attribs.href && !href.startsWith('#')) {
       output.attribs.class = styles.external;
       output.attribs.target = '_blank';
       output.attribs.rel = 'noopener noreferrer';
@@ -269,7 +269,7 @@ const HelpEntry = ({
         <HelpEntryContent data={data} />
       </Card>
       {!isReleaseNotes && dateNode}
-      {!loading && accession && data.categories?.length ? (
+      {!loading && !isReleaseNotes && accession && data.categories?.length ? (
         <RelatedArticles current={accession} categories={data.categories} />
       ) : null}
     </SingleColumnLayout>

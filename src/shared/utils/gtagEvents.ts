@@ -43,8 +43,13 @@ type GtagEventName =
 export type PanelCloseReason =
   | Parameters<
       Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
-    >[0];
-export type PanelFormCloseReason = PanelCloseReason | 'submit' | 'cancel';
+    >[0]
+  | 'full-view';
+export type PanelFormCloseReason =
+  | PanelCloseReason
+  | 'submit'
+  | 'cancel'
+  | 'toggle';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -146,22 +151,38 @@ export const sendGtagEventPanelCustomiseColumnsClose = (
 
 export const sendGtagEventPanelAdvancedSearchClose = (
   panelCloseReason: PanelFormCloseReason,
-  query: string
+  query?: string | null
 ) => {
-  sendGtagEvent('panel_advanced_search_close', {
+  const parameters: Record<string, string> = {
     panel_close_reason: panelCloseReason,
-    advanced_query: query,
-  });
+  };
+  if (query) {
+    parameters.advanced_query = query;
+  }
+  sendGtagEvent('panel_advanced_search_close', parameters);
 };
 
+export type DownloadPanelFormCloseReason =
+  | PanelCloseReason
+  | 'download'
+  | 'submit'
+  | 'cancel'
+  | 'copy'
+  | 'toggle';
+
+export type DownloadMethod = 'api-url' | 'sync' | 'async' | 'ftp';
+
 export const sendGtagEventPanelResultsDownloadClose = (
-  panelCloseReason: PanelFormCloseReason,
-  downloadMethod: 'url' | 'async'
+  panelCloseReason: DownloadPanelFormCloseReason,
+  downloadMethod?: DownloadMethod
 ) => {
-  sendGtagEvent('panel_results_download_close', {
+  const parameters: Record<string, string> = {
     panel_close_reason: panelCloseReason,
-    download_method: downloadMethod,
-  });
+  };
+  if (downloadMethod) {
+    parameters.download_method = downloadMethod;
+  }
+  sendGtagEvent('panel_results_download_close', parameters);
 };
 
 export const sendGtagEventCacheUpdate = (

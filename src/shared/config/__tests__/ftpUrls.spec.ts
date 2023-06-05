@@ -1,4 +1,4 @@
-import { getUniprotkbFtpUrl, simplifyQuery } from '../ftpUrls';
+import { getUniprotkbFtpFilenameAndUrl, simplifyQuery } from '../ftpUrls';
 import { FileFormat } from '../../types/resultsDownload';
 
 describe('simplifyQuery', () => {
@@ -40,17 +40,17 @@ describe('simplifyQuery', () => {
 describe('getUniprotkbFtpUrl', () => {
   it('should generate FTP link', () => {
     expect(
-      getUniprotkbFtpUrl(
+      getUniprotkbFtpFilenameAndUrl(
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=xml&query=(*) AND (reviewed:true)',
         FileFormat.xml
-      )
+      )?.url
     ).toEqual(
       'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz'
     );
   });
   it('should not generate FTP link', () => {
     expect(
-      getUniprotkbFtpUrl(
+      getUniprotkbFtpFilenameAndUrl(
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=fasta&query=(*)',
         FileFormat.fastaCanonical
       )

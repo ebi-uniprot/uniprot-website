@@ -11,8 +11,9 @@ import lazy from '../../utils/lazy';
 import {
   PanelFormCloseReason,
   sendGtagEventPanelCustomiseColumnsClose,
+  sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
-import { Column, nsToDefaultColumns } from '../../config/columns';
+import { nsToDefaultColumns } from '../../config/columns';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
@@ -25,11 +26,6 @@ const CustomiseTable = lazy(
       /* webpackChunkName: "customise" */ '../customise-table/CustomiseTable'
     )
 );
-
-// Log the way in which users are closing the customise table panel
-const logEvent = (reason: PanelFormCloseReason, columns: Column[]) => {
-  sendGtagEventPanelCustomiseColumnsClose(reason, columns);
-};
 
 const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
@@ -57,7 +53,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    logEvent('submit', columns);
+    sendGtagEventPanelCustomiseColumnsClose('submit', columns);
     save();
   };
 
@@ -68,7 +64,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
       // If user closes but doesn't save, resync component state with local storage state
       setColumns(localStorageColumns);
     }
-    logEvent(reason, columns);
+    sendGtagEventPanelCustomiseColumnsClose(reason, columns);
     close();
   };
 
@@ -109,7 +105,18 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
         variant="tertiary"
         onPointerOver={CustomiseTable.preload}
         onFocus={CustomiseTable.preload}
-        onClick={() => setDisplayCustomisePanel((value) => !value)}
+        onClick={() =>
+          setDisplayCustomisePanel((value) => {
+            if (!value) {
+              sendGtagEventPanelOpen('customise_columns');
+            } else {
+              // Presumably this won't happen as the panel covers the open/close button
+              // but just in case
+              sendGtagEventPanelCustomiseColumnsClose('toggle', columns);
+            }
+            return !value;
+          })
+        }
       >
         <EditIcon />
         Customize columns

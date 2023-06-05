@@ -36,23 +36,26 @@ const getJobName = (parsedSequences: string[]) => {
 };
 
 export const getPeptideSearchFormInitialState = (
-  defaultFormValues: Readonly<PeptideSearchFormValues>
+  initialFormValues: Readonly<PeptideSearchFormValues>
 ): PeptideSearchFormState => ({
   formValues: {
-    ...defaultFormValues,
+    ...initialFormValues,
     [PeptideSearchFields.name]: {
-      ...defaultFormValues[PeptideSearchFields.name],
+      ...initialFormValues[PeptideSearchFields.name],
       // default to true if it's been set through the history state
       userSelected: Boolean(
-        defaultFormValues[PeptideSearchFields.name].selected
+        initialFormValues[PeptideSearchFields.name].selected
       ),
     },
   },
-  parsedSequences: [],
+  parsedSequences:
+    splitAndTidyText(
+      initialFormValues[PeptideSearchFields.peps].selected as string
+    ) || [],
   // used when the form submission needs to be disabled
   submitDisabled: isInvalid(
     splitAndTidyText(
-      defaultFormValues[PeptideSearchFields.peps].selected as string
+      initialFormValues[PeptideSearchFields.peps].selected as string
     )
   ),
   // used when the form is about to be submitted to the server

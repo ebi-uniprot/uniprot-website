@@ -42,6 +42,7 @@ const useGetFASTAFromAccesion = (
               'sequence',
               'sequence_version',
               'protein_existence',
+              'protein_name',
             ],
           }
         )
