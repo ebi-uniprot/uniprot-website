@@ -24,7 +24,7 @@ export type PeptideSearchFormAction = ActionType<
 const isInvalid = (parsedSequences: string[]) =>
   parsedSequences.length === 0 ||
   parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
-  parsedSequences.some((parsedSequence) => parsedSequence.length < 2);
+  parsedSequences.some((parsedSequence) => parsedSequence.length < 7);
 
 const getJobName = (parsedSequences: string[]) => {
   if (parsedSequences.length === 0) {
