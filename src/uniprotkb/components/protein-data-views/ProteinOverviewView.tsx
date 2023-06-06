@@ -10,6 +10,7 @@ import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation } from '../entry/Entry';
+import EntrySection from '../../types/entrySection';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 const existenceRE = /^\d: /;
@@ -143,7 +144,7 @@ const ProteinOverview = ({ data, inCard }: Props) => {
                     data.primaryAccession,
                     TabLocation.Entry
                   ),
-                  hash: 'sequences',
+                  hash: EntrySection.Sequence,
                 }}
               >
                 (go to sequence)
