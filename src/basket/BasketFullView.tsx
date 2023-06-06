@@ -45,10 +45,6 @@ const BasketFullView = () => {
     })
   );
 
-  // Below here similar (but not identical) to the Results component
-  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
-    useItemSelect();
-
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
     // Passing accessions without modifications in case of subsets
@@ -81,6 +77,10 @@ const BasketFullView = () => {
     total: resultsDataTotal,
     progress: resultsDataProgress,
   } = resultsDataObject;
+
+  // Below here similar (but not identical) to the Results component
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect(resultsDataObject.initialLoading);
 
   if (!accessions.length) {
     return (
