@@ -258,7 +258,7 @@ exports[`Entry basic should render main 1`] = `
                   <a
                     href="/uniprotkb/P21802/entry#sequences"
                   >
-                    (jump to sequence)
+                    (go to sequence)
                   </a>
                 </small>
               </span>

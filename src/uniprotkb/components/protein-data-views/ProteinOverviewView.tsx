@@ -4,9 +4,13 @@ import { DoughnutChart, InfoList } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { ECNumbersView } from './ProteinNamesView';
-
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
+import { TabLocation } from '../entry/Entry';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 const existenceRE = /^\d: /;
 
@@ -129,12 +133,23 @@ const ProteinOverview = ({ data, inCard }: Props) => {
       content: (
         <span>
           {data.sequence?.length}{' '}
-          <small>
-            {/* eslint-disable-next-line uniprot-website/use-config-location */}
-            <Link to={(location) => ({ ...location, hash: 'sequences' })}>
-              (jump to sequence)
-            </Link>
-          </small>
+          {data.primaryAccession && (
+            <small>
+              {/* eslint-disable-next-line uniprot-website/use-config-location */}
+              <Link
+                to={{
+                  pathname: getEntryPath(
+                    Namespace.uniprotkb,
+                    data.primaryAccession,
+                    TabLocation.Entry
+                  ),
+                  hash: 'sequences',
+                }}
+              >
+                (go to sequence)
+              </Link>
+            </small>
+          )}
         </span>
       ),
     },
