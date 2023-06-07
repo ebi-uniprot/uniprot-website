@@ -8,6 +8,7 @@ import {
   KeyboardEvent,
   ChangeEvent,
   ReactNode,
+  useMemo,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -35,6 +36,7 @@ import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
+import { databaseValueToName } from '../../blast/config/BlastFormData';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
@@ -43,6 +45,9 @@ import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 import { FormParameters } from '../../types/toolsFormParameters';
 
 import './styles/Dashboard.scss';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
+import apiUrls from '../../../shared/config/apiUrls';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
@@ -258,6 +263,80 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
   }
 };
 
+interface JobSpecificParametersProps {
+  job: Job;
+}
+
+const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
+  if (job.status === Status.FINISHED) {
+    switch (job.type) {
+      case JobTypes.BLAST:
+        const { database, taxIDs } =
+          job.parameters as FormParameters[JobTypes.BLAST];
+        return (
+          <>
+            <span>Target database: {databaseValueToName(database)}</span>
+            {taxIDs?.length && (
+              <span>
+                Selected taxonomy:{' '}
+                {taxIDs.map((taxon) => taxon.label).join(', ')}
+              </span>
+            )}
+          </>
+        );
+      case JobTypes.ID_MAPPING:
+        const { from, to, taxId } =
+          job.parameters as FormParameters[JobTypes.ID_MAPPING];
+        const { data } = useDataApi<IDMappingFormConfig>(
+          apiUrls.idMappingFields
+        );
+
+        const dbNameToDbDisplayName: { [k: string]: string } | undefined =
+          useMemo(() => {
+            if (data) {
+              const dbNameToDbInfo = Object.fromEntries(
+                data.groups.flatMap(({ items }) =>
+                  items.map((item) => [item.name, item.displayName])
+                )
+              );
+              return dbNameToDbInfo;
+            }
+          }, [data]);
+
+        return (
+          <>
+            <span>
+              Source:{' '}
+              {dbNameToDbDisplayName ? dbNameToDbDisplayName[from] : from}
+            </span>
+            <span>
+              Target: {dbNameToDbDisplayName ? dbNameToDbDisplayName[to] : to}
+            </span>
+            {taxId?.label && <>Selected taxonomy: {taxId.label}</>}
+          </>
+        );
+      case JobTypes.PEPTIDE_SEARCH:
+        const { spOnly, taxIds } =
+          job.parameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
+        return (
+          <>
+            {spOnly && spOnly === 'on' && <>Reviewed Only: Yes</>}
+            {taxIDs?.length && (
+              <>
+                Selected taxonomy:{' '}
+                {taxIDs.map((taxon) => taxon.label).join(', ')}
+              </>
+            )}
+          </>
+        );
+      // Include format info for async download
+      // case JobTypes.ASYNC_DOWNLOAD:
+      default:
+        return null;
+    }
+  }
+  return null;
+};
 interface ActionsProps {
   job: Job;
   onDelete(): void;
@@ -478,6 +557,9 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         <Actions job={job} onDelete={handleDelete} />
       </span>
       <span className="dashboard__body__id">{jobIdNode}</span>
+      <span className="dashboard__body__parameters">
+        <JobSpecificParamaters job={job} />
+      </span>
     </Card>
   );
 });

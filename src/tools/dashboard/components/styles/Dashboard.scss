@@ -101,7 +101,7 @@
       display: grid;
       grid-template-areas:
         'type name time status actions'
-        'id   id   time status actions';
+        'id   id   time parameters parameters';
       grid-template-columns: 10ch 27ch 12ch 1fr max-content;
       grid-gap: 1ch;
       grid-template-rows: 1fr 1fr;
@@ -172,6 +172,17 @@
       grid-area: id;
       font-size: 75%;
       align-self: end;
+    }
+
+    &__parameters {
+      grid-area: parameters;
+      font-size: 75%;
+      display: flex;
+      flex-direction: column;
+
+      // & span {
+      //   margin-right: 1rem;
+      // }
     }
     /* end grid areas */
 
