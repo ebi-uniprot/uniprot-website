@@ -49,6 +49,7 @@ import './styles/Dashboard.scss';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
 import apiUrls from '../../../shared/config/apiUrls';
+import { SelectedTaxon } from '../../types/toolsFormData';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
@@ -268,17 +269,17 @@ interface JobSpecificParametersProps {
   job: Job;
 }
 
-const taxonsWithEllipsisReveal = (taxIDs: string) => {
-  let ids = taxIDs.split(',');
-  let visibleID = ids[0];
-  let hiddenIDs = ids.slice(1);
+const taxonsWithEllipsisReveal = (taxIDs: SelectedTaxon[]) => {
+  let visibleID = taxIDs[0];
+  let hiddenIDs = taxIDs.slice(1);
+
   return (
     <span>
-      Selected taxonomy: {visibleID}
+      Selected taxonomy: {visibleID.label}
       {hiddenIDs.length ? (
         <EllipsisReveal>
           {', '}
-          {hiddenIDs.join(', ')}
+          {hiddenIDs.map((taxon) => taxon.label).join(', ')}
         </EllipsisReveal>
       ) : null}
     </span>
@@ -292,19 +293,13 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
         const { database, taxIDs } =
           job.parameters as FormParameters[JobTypes.BLAST];
 
-        const ids = taxIDs?.length
-          ? taxIDs.map((taxon) => taxon.label).join(',')
-          : '';
-
         return (
           <>
             <span>Target database: {databaseValueToName(database)}</span>
-            {ids && taxonsWithEllipsisReveal(ids)}
+            {taxIDs?.length && taxonsWithEllipsisReveal(taxIDs)}
           </>
         );
       case JobTypes.ID_MAPPING:
-        const { from, to, taxId } =
-          job.parameters as FormParameters[JobTypes.ID_MAPPING];
         const { data } = useDataApi<IDMappingFormConfig>(
           apiUrls.idMappingFields
         );
@@ -321,6 +316,9 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
             }
           }, [data]);
 
+        const { from, to, taxId } =
+          job.parameters as FormParameters[JobTypes.ID_MAPPING];
+
         return (
           <>
             <span>
@@ -331,19 +329,17 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
               Target database:{' '}
               {dbNameToDbDisplayName ? dbNameToDbDisplayName[to] : to}
             </span>
-            {taxId?.label && taxonsWithEllipsisReveal(taxId.label)}
+            {taxId?.label && <span>Selected taxonomy: {taxId.label}</span>}
           </>
         );
       case JobTypes.PEPTIDE_SEARCH:
         const { spOnly, taxIds } =
           job.parameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
-        const taxonIds = taxIds?.length
-          ? taxIds.map((taxon) => taxon.label).join(',')
-          : '';
+
         return (
           <>
-            {spOnly && spOnly === 'on' && <>Reviewed only: Yes</>}
-            {taxonIds && taxonsWithEllipsisReveal(taxonIds)}
+            {spOnly && spOnly === 'on' && <span>Reviewed only: Yes</span>}
+            {taxIds?.length ? taxonsWithEllipsisReveal(taxIds) : null}
           </>
         );
       // Include format info for async download
