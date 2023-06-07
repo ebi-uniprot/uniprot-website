@@ -176,7 +176,7 @@
 
     &__parameters {
       grid-area: parameters;
-      font-size: 75%;
+      font-size: 85%;
       display: flex;
       flex-direction: column;
       align-self: end;
@@ -245,7 +245,8 @@
         grid-template-areas:
           'type name   time'
           '.    status time'
-          'id   id     actions';
+          'id   id     actions'
+          'parameters parameters .';
         grid-template-columns: 10ch minmax(27ch, auto) 12ch;
         grid-gap: 0;
         grid-template-rows: 1fr 1fr 1fr;
