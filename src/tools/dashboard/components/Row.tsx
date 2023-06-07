@@ -22,6 +22,7 @@ import {
   Button,
   BytesNumber,
   Chip,
+  EllipsisReveal,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
 
@@ -267,21 +268,38 @@ interface JobSpecificParametersProps {
   job: Job;
 }
 
+const taxonsWithEllipsisReveal = (taxIDs: string) => {
+  let ids = taxIDs.split(',');
+  let visibleID = ids[0];
+  let hiddenIDs = ids.slice(1);
+  return (
+    <span>
+      Selected taxonomy: {visibleID}
+      {hiddenIDs.length ? (
+        <EllipsisReveal>
+          {', '}
+          {hiddenIDs.join(', ')}
+        </EllipsisReveal>
+      ) : null}
+    </span>
+  );
+};
+
 const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
   if (job.status === Status.FINISHED) {
     switch (job.type) {
       case JobTypes.BLAST:
         const { database, taxIDs } =
           job.parameters as FormParameters[JobTypes.BLAST];
+
+        const ids = taxIDs?.length
+          ? taxIDs.map((taxon) => taxon.label).join(',')
+          : '';
+
         return (
           <>
-            <span>Target database: {databaseValueToName(database)}</span>
-            {taxIDs?.length && (
-              <span>
-                Selected taxonomy:{' '}
-                {taxIDs.map((taxon) => taxon.label).join(', ')}
-              </span>
-            )}
+            <span>Target: {databaseValueToName(database)}</span>
+            {ids ? taxonsWithEllipsisReveal(ids) : null}
           </>
         );
       case JobTypes.ID_MAPPING:
@@ -312,21 +330,19 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
             <span>
               Target: {dbNameToDbDisplayName ? dbNameToDbDisplayName[to] : to}
             </span>
-            {taxId?.label && <>Selected taxonomy: {taxId.label}</>}
+            {taxId?.label ? taxonsWithEllipsisReveal(taxId.label) : null}
           </>
         );
       case JobTypes.PEPTIDE_SEARCH:
         const { spOnly, taxIds } =
           job.parameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
+        const taxonIds = taxIds?.length
+          ? taxIds.map((taxon) => taxon.label).join(',')
+          : '';
         return (
           <>
             {spOnly && spOnly === 'on' && <>Reviewed Only: Yes</>}
-            {taxIDs?.length && (
-              <>
-                Selected taxonomy:{' '}
-                {taxIDs.map((taxon) => taxon.label).join(', ')}
-              </>
-            )}
+            {taxonIds && taxonsWithEllipsisReveal(taxonIds)}
           </>
         );
       // Include format info for async download
