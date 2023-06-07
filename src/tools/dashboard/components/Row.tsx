@@ -298,8 +298,8 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
 
         return (
           <>
-            <span>Target: {databaseValueToName(database)}</span>
-            {ids ? taxonsWithEllipsisReveal(ids) : null}
+            <span>Target database: {databaseValueToName(database)}</span>
+            {ids && taxonsWithEllipsisReveal(ids)}
           </>
         );
       case JobTypes.ID_MAPPING:
@@ -324,13 +324,14 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
         return (
           <>
             <span>
-              Source:{' '}
+              Source database:{' '}
               {dbNameToDbDisplayName ? dbNameToDbDisplayName[from] : from}
             </span>
             <span>
-              Target: {dbNameToDbDisplayName ? dbNameToDbDisplayName[to] : to}
+              Target database:{' '}
+              {dbNameToDbDisplayName ? dbNameToDbDisplayName[to] : to}
             </span>
-            {taxId?.label ? taxonsWithEllipsisReveal(taxId.label) : null}
+            {taxId?.label && taxonsWithEllipsisReveal(taxId.label)}
           </>
         );
       case JobTypes.PEPTIDE_SEARCH:
@@ -341,7 +342,7 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
           : '';
         return (
           <>
-            {spOnly && spOnly === 'on' && <>Reviewed Only: Yes</>}
+            {spOnly && spOnly === 'on' && <>Reviewed only: Yes</>}
             {taxonIds && taxonsWithEllipsisReveal(taxonIds)}
           </>
         );
