@@ -291,17 +291,17 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
     apiUrls.idMappingFields
   );
 
-  const idMappingDBToDisplayName: { [k: string]: string } | undefined =
-    useMemo(() => {
-      const dbNameToDbInfo = idMappingFields
+  const idMappingDBToDisplayName: Record<string, string> = useMemo(
+    () =>
+      idMappingFields
         ? Object.fromEntries(
             idMappingFields.groups.flatMap(({ items }) =>
               items.map((item) => [item.name, item.displayName])
             )
           )
-        : {};
-      return dbNameToDbInfo;
-    }, [idMappingFields]);
+        : {},
+    [idMappingFields]
+  );
 
   if (job.status === Status.FINISHED) {
     switch (job.type) {
@@ -323,13 +323,9 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
         return (
           <>
             <span>
-              Source database:{' '}
-              {idMappingDBToDisplayName ? idMappingDBToDisplayName[from] : from}
+              Source database: {idMappingDBToDisplayName[from] || from}
             </span>
-            <span>
-              Target database:{' '}
-              {idMappingDBToDisplayName ? idMappingDBToDisplayName[to] : to}
-            </span>
+            <span>Target database: {idMappingDBToDisplayName[to] || to}</span>
             {taxId?.label && <span>Selected taxonomy: {taxId.label}</span>}
           </>
         );
