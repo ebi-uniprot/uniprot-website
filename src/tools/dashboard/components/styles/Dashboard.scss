@@ -100,9 +100,9 @@
     & .card__content {
       display: grid;
       grid-template-areas:
-        'type name time status actions'
+        'type name time status     actions'
         'id   id   time parameters parameters';
-      grid-template-columns: 10ch 27ch 12ch 1fr max-content;
+      grid-template-columns: 10ch 33ch 12ch 1fr max-content;
       grid-gap: 1ch;
       grid-template-rows: 1fr 1fr;
     }
@@ -243,10 +243,10 @@
       // ".card__content" comes from Franklin
       & .card__content {
         grid-template-areas:
-          'type name   time'
-          '.    status time'
-          'id   id     actions'
-          'parameters parameters .';
+          'type       name       time'
+          '.          status     time'
+          'id         id         actions'
+          'parameters parameters actions';
         grid-template-columns: 10ch minmax(27ch, auto) 12ch;
         grid-gap: 0;
         grid-template-rows: 1fr 1fr 1fr;
@@ -256,6 +256,10 @@
         text-align: end;
         flex-direction: row-reverse;
         justify-content: flex-start;
+      }
+
+      &__actions {
+        align-self: end;
       }
     }
   }
