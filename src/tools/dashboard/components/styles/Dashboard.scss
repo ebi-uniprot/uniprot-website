@@ -249,7 +249,7 @@
           'parameters parameters .';
         grid-template-columns: 10ch minmax(27ch, auto) 12ch;
         grid-gap: 0;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr auto;
       }
 
       &__time {
