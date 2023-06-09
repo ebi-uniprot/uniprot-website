@@ -270,8 +270,7 @@ interface JobSpecificParametersProps {
 }
 
 const taxonsWithEllipsisReveal = (taxIDs: SelectedTaxon[]) => {
-  const visibleID = taxIDs[0];
-  const hiddenIDs = taxIDs.slice(1);
+  const [visibleID, ...hiddenIDs] = taxIDs;
 
   return (
     <span>
@@ -288,7 +287,7 @@ const taxonsWithEllipsisReveal = (taxIDs: SelectedTaxon[]) => {
 
 const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
   const { data: idMappingFields } = useDataApi<IDMappingFormConfig>(
-    apiUrls.idMappingFields
+    job.type === JobTypes.ID_MAPPING ? apiUrls.idMappingFields : undefined
   );
 
   const idMappingDBToDisplayName: Record<string, string> = useMemo(
@@ -303,51 +302,46 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
     [idMappingFields]
   );
 
-  if (job.status === Status.FINISHED) {
-    switch (job.type) {
-      case JobTypes.BLAST: {
-        const { database, taxIDs } =
-          job.parameters as FormParameters[JobTypes.BLAST];
+  switch (job.type) {
+    case JobTypes.BLAST: {
+      const { database, taxIDs } =
+        job.parameters as FormParameters[JobTypes.BLAST];
 
-        return (
-          <>
-            <span>Target database: {databaseValueToName(database)}</span>
-            {taxIDs?.length && taxonsWithEllipsisReveal(taxIDs)}
-          </>
-        );
-      }
-      case JobTypes.ID_MAPPING: {
-        const { from, to, taxId } =
-          job.parameters as FormParameters[JobTypes.ID_MAPPING];
-
-        return (
-          <>
-            <span>
-              Source database: {idMappingDBToDisplayName[from] || from}
-            </span>
-            <span>Target database: {idMappingDBToDisplayName[to] || to}</span>
-            {taxId?.label && <span>Selected taxonomy: {taxId.label}</span>}
-          </>
-        );
-      }
-      case JobTypes.PEPTIDE_SEARCH: {
-        const { spOnly, taxIds } =
-          job.parameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
-
-        return (
-          <>
-            {spOnly && spOnly === 'on' && <span>Reviewed only: Yes</span>}
-            {taxIds?.length ? taxonsWithEllipsisReveal(taxIds) : null}
-          </>
-        );
-      }
-      // Include format info for async download
-      // case JobTypes.ASYNC_DOWNLOAD:
-      default:
-        return null;
+      return (
+        <>
+          <span>Target database: {databaseValueToName(database)}</span>
+          {taxIDs?.length && taxonsWithEllipsisReveal(taxIDs)}
+        </>
+      );
     }
+    case JobTypes.ID_MAPPING: {
+      const { from, to, taxId } =
+        job.parameters as FormParameters[JobTypes.ID_MAPPING];
+
+      return (
+        <>
+          <span>Source database: {idMappingDBToDisplayName[from] || from}</span>
+          <span>Target database: {idMappingDBToDisplayName[to] || to}</span>
+          {taxId?.label && <span>Selected taxonomy: {taxId.label}</span>}
+        </>
+      );
+    }
+    case JobTypes.PEPTIDE_SEARCH: {
+      const { spOnly, taxIds } =
+        job.parameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
+
+      return (
+        <>
+          {spOnly && spOnly === 'on' && <span>Reviewed only: Yes</span>}
+          {taxIds?.length ? taxonsWithEllipsisReveal(taxIds) : null}
+        </>
+      );
+    }
+    // Include format info for async download
+    // case JobTypes.ASYNC_DOWNLOAD:
+    default:
+      return null;
   }
-  return null;
 };
 interface ActionsProps {
   job: Job;
