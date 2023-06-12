@@ -110,7 +110,7 @@ export const blastFormParsedSequencesReducer = (
       : {
           ...formValues[BlastFields.name],
           userSelected: false,
-          // Set the job name empty when there are multiple seqeunces copy-pasted
+          // Set the job name empty when there are multiple sequences copy-pasted
           selected:
             parsedSequences.length === 1 ? parsedSequences[0]?.name : '',
         };
