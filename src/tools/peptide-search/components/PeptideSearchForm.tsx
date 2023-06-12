@@ -223,8 +223,8 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           <section className="text-block">
             <legend>
               Find UniProt entries through parts of their peptide sequences,
-              each more than two amino acids long (e.g. RVLSLGR). Enter one or
-              more sequences ({PEPTIDE_SEARCH_LIMIT} max). You may also
+              each at least 7 amino acids long. Enter one or more sequences (
+              {PEPTIDE_SEARCH_LIMIT} max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />
@@ -235,8 +235,8 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               name={defaultFormValues[PeptideSearchFields.peps].fieldName}
               autoComplete="off"
               spellCheck="false"
-              aria-label="Protein sequence(s) of at least 2 aminoacids"
-              placeholder="Protein sequence(s) of at least 2 aminoacids"
+              aria-label="Protein sequence(s) of at least 7 aminoacids"
+              placeholder="e.g. RVLSLGR"
               className="tools-form-raw-text-input"
               value={formValues[PeptideSearchFields.peps].selected as string}
               onChange={(event) =>

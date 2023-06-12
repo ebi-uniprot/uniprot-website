@@ -53,7 +53,7 @@ exports[`DatabaseCard tests should render the card component 1`] = `
               Category: 
             </strong>
             <a
-              href="/database?facets=category_exact:Sequence databases&query=*"
+              href="/database?facets=category_exact:Sequence databases"
             >
               Sequence databases
             </a>

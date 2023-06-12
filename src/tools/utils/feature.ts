@@ -1,6 +1,10 @@
 import { ReactNode } from 'react';
 import urljoin from 'url-join';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import {
+  Ligand,
+  LigandPart,
+} from '../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
 import FeatureType from '../../uniprotkb/types/featureType';
 
@@ -23,6 +27,8 @@ type TooltipFeature = {
   ftId?: string;
   evidences?: Evidence[];
   description?: ReactNode;
+  ligand?: Ligand;
+  ligandPart?: LigandPart;
 };
 
 export const prepareFeatureForTooltip = (
@@ -35,7 +41,13 @@ export const prepareFeatureForTooltip = (
   };
 
   if (feature.description) {
-    tooltipFeature.description = feature.description;
+    if (feature.type === 'Binding site') {
+      tooltipFeature.ligand = feature.ligand;
+      tooltipFeature.ligandPart = feature.ligandPart;
+      tooltipFeature.description = feature.ligandDescription;
+    } else {
+      tooltipFeature.description = feature.description;
+    }
   }
 
   if (feature.featureId) {

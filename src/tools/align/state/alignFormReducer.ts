@@ -41,23 +41,23 @@ const getJobName = (parsedSequences: SequenceObject[]) => {
 };
 
 export const getAlignFormInitialState = (
-  defaultFormValues: Readonly<AlignFormValues>
+  initialFormValues: Readonly<AlignFormValues>
 ): AlignFormState => ({
   formValues: {
-    ...defaultFormValues,
+    ...initialFormValues,
     [AlignFields.name]: {
-      ...defaultFormValues[AlignFields.name],
+      ...initialFormValues[AlignFields.name],
       // default to true if it's been set through the history state
-      userSelected: Boolean(defaultFormValues[AlignFields.name].selected),
+      userSelected: Boolean(initialFormValues[AlignFields.name].selected),
     },
   },
   parsedSequences: sequenceProcessor(
-    `${defaultFormValues[AlignFields.sequence].selected || ''}`
+    `${initialFormValues[AlignFields.sequence].selected || ''}`
   ),
   // used when the form submission needs to be disabled
   submitDisabled: isInvalid(
     sequenceProcessor(
-      `${defaultFormValues[AlignFields.sequence].selected || ''}`
+      `${initialFormValues[AlignFields.sequence].selected || ''}`
     )
   ),
   // used when the form is about to be submitted to the server
