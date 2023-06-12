@@ -152,7 +152,7 @@ function useInitialFormParameters<
     return Object.freeze(formValues as FormValues<Fields>);
   }, [
     fastaLoading,
-    history.location?.state,
+    history.location,
     parametersFromHistorySearch,
     fasta,
     defaultFormValues,
