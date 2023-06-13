@@ -1,7 +1,7 @@
 import { ActionType } from 'typesafe-actions';
 import { truncate } from 'lodash-es';
 
-import { PEPTIDE_SEARCH_LIMIT } from '../components/PeptideSearchForm';
+import { PEPTIDE_SEARCH_MAXIMUM_LIMIT } from '../components/PeptideSearchForm';
 import * as peptideSearchFormActions from './peptideSearchFormActions';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
@@ -23,7 +23,7 @@ export type PeptideSearchFormAction = ActionType<
 
 const isInvalid = (parsedSequences: string[]) =>
   parsedSequences.length === 0 ||
-  parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
+  parsedSequences.length > PEPTIDE_SEARCH_MAXIMUM_LIMIT ||
   parsedSequences.some((parsedSequence) => parsedSequence.length < 7);
 
 const getJobName = (parsedSequences: string[]) => {

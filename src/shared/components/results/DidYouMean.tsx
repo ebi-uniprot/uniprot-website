@@ -20,6 +20,7 @@ import {
   Location,
 } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
+import { PEPTIDE_SEARCH_MINIMUM_LIMIT } from '../../../tools/peptide-search/components/PeptideSearchForm';
 
 import {
   Namespace,
@@ -197,7 +198,12 @@ const DidYouMean = ({
   }
   // Peptide Search suggestion
   const potentialPeptide = query?.toUpperCase() || '';
-  const [processed] = sequenceProcessor(potentialPeptide);
+  const [processed] = sequenceProcessor(
+    potentialPeptide,
+    PEPTIDE_SEARCH_MINIMUM_LIMIT,
+    true
+  );
+  console.log(processed.valid);
 
   if (potentialPeptide && processed.valid && processed.likelyType === 'aa') {
     suggestionNodes.push(
