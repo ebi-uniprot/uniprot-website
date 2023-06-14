@@ -50,8 +50,8 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 // just because, no actual known limit
-export const PEPTIDE_SEARCH_MINIMUM_LIMIT = 7;
-export const PEPTIDE_SEARCH_MAXIMUM_LIMIT = 100;
+export const PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH = 7;
+export const PEPTIDE_SEARCH_SEQUENCES_COUNT = 100;
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
@@ -224,9 +224,9 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           <section className="text-block">
             <legend>
               Find UniProt entries through parts of their peptide sequences,
-              each at least {PEPTIDE_SEARCH_MINIMUM_LIMIT} amino acids long.
-              Enter one or more sequences ({PEPTIDE_SEARCH_MAXIMUM_LIMIT} max).
-              You may also
+              each at least {PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH} amino acids
+              long. Enter one or more sequences (
+              {PEPTIDE_SEARCH_SEQUENCES_COUNT} max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />

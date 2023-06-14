@@ -19,7 +19,7 @@ import {
   Location,
 } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
-import { PEPTIDE_SEARCH_MINIMUM_LIMIT } from '../../../tools/peptide-search/components/PeptideSearchForm';
+import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../tools/peptide-search/components/PeptideSearchForm';
 
 import {
   Namespace,
@@ -202,7 +202,7 @@ const DidYouMean = ({
   const potentialPeptide = query?.toUpperCase() || '';
   const [processed] = sequenceProcessor(
     potentialPeptide,
-    PEPTIDE_SEARCH_MINIMUM_LIMIT,
+    PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH,
     true
   );
 
@@ -222,7 +222,6 @@ const DidYouMean = ({
         <div className={styles.suggestions}>
           Did you mean to search for:
           {suggestionNodes}
-          {/* <ul className={styles['suggestions-list']}>{suggestionNodes}</ul> */}
         </div>
       );
     }
