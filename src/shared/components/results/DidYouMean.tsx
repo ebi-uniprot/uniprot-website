@@ -77,17 +77,19 @@ const PeptideSearchSuggestion = ({
 }: {
   potentialPeptide: string;
 }) => (
-  <li>
-    <Link
-      to={{
-        pathname: LocationToPath[Location.PeptideSearch],
-        search: `peps=${potentialPeptide}`,
-      }}
-    >
-      {potentialPeptide}
-    </Link>{' '}
-    as a peptide search
-  </li>
+  <ul className={styles['suggestions-list']}>
+    <li>
+      <Link
+        to={{
+          pathname: LocationToPath[Location.PeptideSearch],
+          search: `peps=${potentialPeptide}`,
+        }}
+      >
+        {potentialPeptide}
+      </Link>{' '}
+      as a peptide search
+    </li>
+  </ul>
 );
 
 const didYouMeanNamespaces: SearchableNamespace[] = [
