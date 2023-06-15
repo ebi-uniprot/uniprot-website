@@ -38,6 +38,8 @@ import {
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 
+const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 20_000 as const;
+
 export const getPreviewFileFormat = (
   fileFormat: FileFormat
 ): FileFormat | undefined => {
@@ -197,6 +199,8 @@ const Download: FC<DownloadProps> = ({
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isEmbeddings = fileFormat === FileFormat.embeddings;
+  const tooLargeForEmbeddings =
+    isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
   const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb
@@ -236,7 +240,11 @@ const Download: FC<DownloadProps> = ({
         </div>
       </>
     );
-  } else if (extraContent === 'url') {
+  } else if (
+    extraContent === 'url' ||
+    // Hopefully temporary, this is because of restrictions on embeddings
+    (extraContent === 'generate' && tooLargeForEmbeddings)
+  ) {
     extraContentNode = (
       <DownloadAPIURL
         // Remove the download attribute as it's unnecessary for API access

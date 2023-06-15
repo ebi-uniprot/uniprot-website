@@ -86,7 +86,7 @@ const DownloadAPIURL = ({
         <CodeBlock lightMode>
           {
             // eslint-disable-next-line react/jsx-curly-brace-presence
-            "// this specific combination of parameters doesn't have a corresponding direct API endpoint"
+            "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint"
           }
         </CodeBlock>
       </div>
