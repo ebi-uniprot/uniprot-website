@@ -127,7 +127,7 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
-                reviewedNumberResults={reviewedProteinsCount}
+                filteredNumberResults={reviewedProteinsCount}
                 onClose={handleToggleDownload}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011

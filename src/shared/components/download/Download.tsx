@@ -58,7 +58,7 @@ type DownloadProps = {
   selectedQuery?: string;
   totalNumberResults: number;
   numberSelectedEntries?: number;
-  reviewedNumberResults?: number;
+  filteredNumberResults?: number;
   namespace: Namespace;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
@@ -81,7 +81,7 @@ const Download: FC<DownloadProps> = ({
   selectedQuery,
   selectedEntries = [],
   totalNumberResults,
-  reviewedNumberResults,
+  filteredNumberResults,
   numberSelectedEntries,
   onClose,
   namespace,
@@ -186,7 +186,7 @@ const Download: FC<DownloadProps> = ({
       downloadCount = totalNumberResults;
       break;
     case 'filtered':
-      downloadCount = reviewedNumberResults || 0;
+      downloadCount = filteredNumberResults || 0;
       break;
     case 'selected':
       downloadCount = nSelectedEntries;
@@ -323,12 +323,12 @@ const Download: FC<DownloadProps> = ({
           disabled={redirectToIDMapping}
         />
         Download all{' '}
-        {reviewedNumberResults
+        {filteredNumberResults
           ? 'reviewed (Swiss-Prot) adnd unreviewed (TrEMBL)'
           : ''}{' '}
         (<LongNumber>{totalNumberResults}</LongNumber>)
       </label>
-      {reviewedNumberResults && (
+      {filteredNumberResults && (
         <label htmlFor="data-selection-reviewed">
           <input
             id="data-selection-reviewed"
@@ -340,7 +340,7 @@ const Download: FC<DownloadProps> = ({
             disabled={redirectToIDMapping}
           />
           Download reviewed only (
-          <LongNumber>{reviewedNumberResults}</LongNumber>)
+          <LongNumber>{filteredNumberResults}</LongNumber>)
         </label>
       )}
       <fieldset>
