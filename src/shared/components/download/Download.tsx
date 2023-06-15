@@ -1,17 +1,13 @@
 import { useState, FC, ChangeEvent } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  Button,
-  DownloadIcon,
-  ExternalLink,
-  LongNumber,
-  Message,
-} from 'franklin-sites';
+import { generatePath, Link, useLocation } from 'react-router-dom';
+import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
+import ExternalLink from '../ExternalLink';
+
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
 
 import useColumnNames from '../../hooks/useColumnNames';
@@ -28,7 +24,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
-import ftpUrls, { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
+import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -42,8 +38,19 @@ import {
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 
-export const getPreviewFileFormat = (fileFormat: FileFormat) =>
-  fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
+const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 20_000 as const;
+
+export const getPreviewFileFormat = (
+  fileFormat: FileFormat
+): FileFormat | undefined => {
+  if (fileFormat === FileFormat.excel) {
+    return FileFormat.tsv;
+  }
+  if (fileFormat === FileFormat.embeddings) {
+    return undefined;
+  }
+  return fileFormat;
+};
 
 type DownloadProps = {
   query?: string;
@@ -168,19 +175,19 @@ const Download: FC<DownloadProps> = ({
     downloadAll ? totalNumberResults : nSelectedEntries
   );
   const previewFileFormat = getPreviewFileFormat(fileFormat);
-  const previewOptions: DownloadUrlOptions = {
+  const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
     ...downloadOptions,
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
     base,
   };
-  if (namespace === Namespace.unisave) {
+  if (previewOptions && namespace === Namespace.unisave) {
     // get only the first 10 entries instead of using the size parameters
     previewOptions.selected = previewOptions.selected.slice(0, 10);
   }
 
-  const previewUrl = getDownloadUrl(previewOptions);
+  const previewUrl = previewOptions && getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
@@ -191,11 +198,19 @@ const Download: FC<DownloadProps> = ({
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
-  const isAsyncDownload = isLarge && isUniprotkb;
+  const isEmbeddings = fileFormat === FileFormat.embeddings;
+  const tooLargeForEmbeddings =
+    isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
+  const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
+
+  // Peptide search download for matches exceeding the threshold
+  const redirectToIDMapping =
+    jobResultsLocation === Location.PeptideSearchResult &&
+    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
   let extraContentNode: JSX.Element | undefined;
   if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
@@ -204,8 +219,14 @@ const Download: FC<DownloadProps> = ({
         <h4 data-article-id="downloads" className={styles['ftp-header']}>
           File Available On FTP Server
         </h4>
-        This file is available compressed within the{' '}
-        <ExternalLink url={ftpUrls.uniprotkb}>UniProtKB directory</ExternalLink>{' '}
+        This file is available {!isEmbeddings && 'compressed'} within the{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'downloads',
+          })}
+        >
+          UniProtKB directory
+        </Link>{' '}
         of the UniProt FTP server:
         <div className={styles['ftp-url']}>
           <ExternalLink
@@ -219,7 +240,11 @@ const Download: FC<DownloadProps> = ({
         </div>
       </>
     );
-  } else if (extraContent === 'url') {
+  } else if (
+    extraContent === 'url' ||
+    // Hopefully temporary, this is because of restrictions on embeddings
+    (extraContent === 'generate' && tooLargeForEmbeddings)
+  ) {
     extraContentNode = (
       <DownloadAPIURL
         // Remove the download attribute as it's unnecessary for API access
@@ -227,6 +252,7 @@ const Download: FC<DownloadProps> = ({
         ftpURL={ftpFilenameAndUrl?.url}
         onCopy={() => onClose('copy', 'api-url')}
         count={downloadCount}
+        disableAll={isEmbeddings || redirectToIDMapping}
       />
     );
   } else if (extraContent === 'generate') {
@@ -246,11 +272,6 @@ const Download: FC<DownloadProps> = ({
       />
     );
   }
-
-  // Peptide search download for matches exceeding the threshold
-  const redirectToIDMapping =
-    jobResultsLocation === Location.PeptideSearchResult &&
-    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
   const downloadHref =
     isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl;
@@ -370,11 +391,7 @@ const Download: FC<DownloadProps> = ({
           styles['action-buttons']
         )}
       >
-        <Button
-          variant="tertiary"
-          onClick={() => setExtraContent('url')}
-          disabled={redirectToIDMapping}
-        >
+        <Button variant="tertiary" onClick={() => setExtraContent('url')}>
           Generate URL for API
         </Button>
         <Button

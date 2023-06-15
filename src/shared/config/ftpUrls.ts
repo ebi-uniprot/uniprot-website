@@ -21,6 +21,7 @@ const ftpUrls = {
       ftpUniProt,
       `/current_release/knowledgebase/pan_proteomes/${id}.fasta.gz`
     ),
+  embeddings: joinUrl(ftpUniProt, '/current_release/knowledgebase/embeddings/'),
 };
 
 const restFormatToFtpFormat = new Map([
@@ -32,6 +33,13 @@ const restFormatToFtpFormat = new Map([
 const restQueryToFtpFilename = new Map([
   ['reviewed:true', 'uniprot_sprot'],
   ['reviewed:false', 'uniprot_trembl'],
+  ['proteome:up000006548', 'UP000006548_3702/per-protein.h5'],
+  ['proteome:up000001940', 'UP000001940_6239/per-protein.h5'],
+  ['proteome:up000000625', 'UP000000625_83333/per-protein.h5'],
+  ['proteome:up000005640', 'UP000005640_9606/per-protein.h5'],
+  ['proteome:up000000589', 'UP000000589_10090/per-protein.h5'],
+  ['proteome:up000002494', 'UP000002494_10116/per-protein.h5'],
+  ['proteome:up000464024', 'UP000464024_2697049/per-protein.h5'],
 ]);
 
 // This goes from an array of regexs with named capture groups to a
@@ -44,6 +52,13 @@ const reToSimple = new Map([
       /^(?:\(*\*\)*\s+and\s+)?\(*reviewed:(?<bool>false|true)\)*$/,
     ],
     'reviewed:$<bool>',
+  ],
+  [
+    [
+      /^\(*proteome:(?<upid>up\d+)\)*$/,
+      /^(?:\(*\*\)*\s+and\s+)?\(*proteome:(?<upid>up\d+)\)*$/,
+    ],
+    'proteome:$<upid>',
   ],
 ]);
 
@@ -75,12 +90,21 @@ export const getUniprotkbFtpFilenameAndUrl = (
   if (!simplifiedQuery) {
     return null;
   }
-  const ftpFilename = restQueryToFtpFilename.get(simplifiedQuery);
+  let ftpFilename = restQueryToFtpFilename.get(simplifiedQuery);
   if (!ftpFilename) {
     return null;
   }
+  if (format === FileFormat.embeddings) {
+    if (ftpFilename === 'uniprot_sprot') {
+      ftpFilename += '/per-protein.h5';
+    }
+    return {
+      filename: ftpFilename,
+      url: joinUrl(ftpUrls.embeddings, ftpFilename),
+    };
+  }
   const ftpFormat = restFormatToFtpFormat.get(format);
-  if (!ftpFormat) {
+  if (!ftpFormat || simplifiedQuery.includes('proteome')) {
     return null;
   }
   const filename = `${ftpFilename}.${ftpFormat}.gz`;

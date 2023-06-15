@@ -9,6 +9,7 @@ export enum ContentType {
   list = 'text/plain; format=list',
   json = 'application/json',
   obo = 'text/plain; format=obo',
+  embeddings = 'application/x-hdf5',
 }
 
 export enum FileFormat {
@@ -26,4 +27,5 @@ export enum FileFormat {
   list = 'List',
   json = 'JSON',
   obo = 'OBO',
+  embeddings = 'Embeddings',
 }
