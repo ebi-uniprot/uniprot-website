@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent } from 'react';
+import { useState, FC, ChangeEvent, useEffect } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
@@ -74,6 +74,8 @@ type DownloadProps = {
 
 type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
 
+type DownloadCategories = 'all' | 'selected' | 'filtered';
+
 const Download: FC<DownloadProps> = ({
   query,
   selectedQuery,
@@ -98,11 +100,17 @@ const Download: FC<DownloadProps> = ({
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
   // Defaults to "download all" if no selection
-  const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
+  const [downloadAll, setDownloadAll] = useState<DownloadCategories>(
+    selectedEntries.length ? 'selected' : 'all'
+  );
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
+
+  // useEffect(() => {
+  //   setDownloadAll('filtered');
+  // }, [reviewedNumberResults])
 
   const [
     { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
@@ -113,7 +121,7 @@ const Download: FC<DownloadProps> = ({
   // This logic is needed specifically for the proteomes components
   let urlQuery: string;
   let urlSelected: string[];
-  if (downloadAll) {
+  if (downloadAll === 'all') {
     // If query prop provided use this otherwise fallback to query from URL
     urlQuery = query || queryFromUrl;
     urlSelected = [];
@@ -172,10 +180,22 @@ const Download: FC<DownloadProps> = ({
   const downloadUrl = getDownloadUrl(downloadOptions);
 
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
-  const nPreview = Math.min(
-    10,
-    downloadAll ? totalNumberResults : nSelectedEntries
-  );
+  let downloadCount;
+  switch (downloadAll) {
+    case 'all':
+      downloadCount = totalNumberResults;
+      break;
+    case 'filtered':
+      downloadCount = reviewedNumberResults || 0;
+      break;
+    case 'selected':
+      downloadCount = nSelectedEntries;
+      break;
+    default:
+      downloadCount = 0;
+      break;
+  }
+  const nPreview = Math.min(10, downloadCount);
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
     ...downloadOptions,
@@ -191,13 +211,13 @@ const Download: FC<DownloadProps> = ({
 
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
 
-  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setDownloadAll(e.target.value === 'true');
+  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDownloadAll(e.target.name as DownloadCategories);
+  };
 
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
-  const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isEmbeddings = fileFormat === FileFormat.embeddings;
@@ -284,9 +304,9 @@ const Download: FC<DownloadProps> = ({
         <input
           id="data-selection-false"
           type="radio"
-          name="data-selection"
+          name="selected"
           value="false"
-          checked={!downloadAll}
+          checked={downloadAll === 'selected'}
           onChange={handleDownloadAllChange}
           disabled={nSelectedEntries === 0 || redirectToIDMapping}
         />
@@ -296,9 +316,9 @@ const Download: FC<DownloadProps> = ({
         <input
           id="data-selection-true"
           type="radio"
-          name="data-selection"
+          name="all"
           value="true"
-          checked={downloadAll}
+          checked={downloadAll === 'all'}
           onChange={handleDownloadAllChange}
           disabled={redirectToIDMapping}
         />
@@ -313,9 +333,9 @@ const Download: FC<DownloadProps> = ({
           <input
             id="data-selection-reviewed"
             type="radio"
-            name="data-selection"
+            name="filtered"
             value="false"
-            checked={!downloadAll}
+            checked={downloadAll === 'filtered'}
             onChange={handleDownloadAllChange}
             disabled={redirectToIDMapping}
           />
