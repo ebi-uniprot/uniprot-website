@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -45,12 +45,6 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   );
 
   const hasJobs = Boolean(activeJobs.length || expiredJobs.length);
-
-  useEffect(() => {
-    if (hasJobs && window && typeof window.hj === 'function') {
-      window.hj('event', 'opened_dashboard');
-    }
-  }, [hasJobs]);
 
   if (!hasJobs) {
     return (
