@@ -58,6 +58,7 @@ type DownloadProps = {
   selectedQuery?: string;
   totalNumberResults: number;
   numberSelectedEntries?: number;
+  reviewedNumberResults?: number;
   namespace: Namespace;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
@@ -78,6 +79,7 @@ const Download: FC<DownloadProps> = ({
   selectedQuery,
   selectedEntries = [],
   totalNumberResults,
+  reviewedNumberResults,
   numberSelectedEntries,
   onClose,
   namespace,
@@ -300,8 +302,27 @@ const Download: FC<DownloadProps> = ({
           onChange={handleDownloadAllChange}
           disabled={redirectToIDMapping}
         />
-        Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+        Download all{' '}
+        {reviewedNumberResults
+          ? 'reviewed (Swiss-Prot) adnd unreviewed (TrEMBL)'
+          : ''}{' '}
+        (<LongNumber>{totalNumberResults}</LongNumber>)
       </label>
+      {reviewedNumberResults && (
+        <label htmlFor="data-selection-reviewed">
+          <input
+            id="data-selection-reviewed"
+            type="radio"
+            name="data-selection"
+            value="false"
+            checked={!downloadAll}
+            onChange={handleDownloadAllChange}
+            disabled={redirectToIDMapping}
+          />
+          Download reviewed only (
+          <LongNumber>{reviewedNumberResults}</LongNumber>)
+        </label>
+      )}
       <fieldset>
         <label>
           Format

@@ -1,6 +1,9 @@
 import { useState, Suspense, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
+import queryString from 'query-string';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -12,7 +15,9 @@ import {
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
 
-import { createSelectedQueryString } from '../../../shared/config/apiUrls';
+import apiUrls, {
+  createSelectedQueryString,
+} from '../../../shared/config/apiUrls';
 import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -21,7 +26,9 @@ import {
   Component,
   ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { SearchResults } from '../../../shared/types/results';
 
 const DownloadComponent = lazy(
   () =>
@@ -45,6 +52,14 @@ const ComponentsButtons = ({
   proteomeType,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
+  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+    `${apiUrls.search(Namespace.uniprotkb)}?${queryString.stringify({
+      query: `(proteome=${id}) AND (reviewed=true)`,
+      size: 0,
+    })}`
+  );
+  const reviewedProteinsCount = Number(headers?.['x-total-results']);
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
@@ -112,6 +127,7 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
+                reviewedNumberResults={reviewedProteinsCount}
                 onClose={handleToggleDownload}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011
