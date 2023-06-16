@@ -108,10 +108,6 @@ const Download: FC<DownloadProps> = ({
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
 
-  // useEffect(() => {
-  //   setDownloadAll('filtered');
-  // }, [reviewedNumberResults])
-
   const [
     { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
   ] = getParamsFromURL(queryParamFromUrl);
@@ -124,6 +120,9 @@ const Download: FC<DownloadProps> = ({
   if (downloadAll === 'all') {
     // If query prop provided use this otherwise fallback to query from URL
     urlQuery = query || queryFromUrl;
+    urlSelected = [];
+  } else if (downloadAll === 'filtered') {
+    urlQuery = `${query || queryFromUrl} AND reviewed=true`;
     urlSelected = [];
   } else {
     // Download selected
