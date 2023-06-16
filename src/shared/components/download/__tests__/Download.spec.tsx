@@ -291,3 +291,42 @@ describe('Download with ID mapping results', () => {
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });
 });
+
+describe('Download reviewed proteins for a proteome entry', () => {
+  it('should check the filteredNumberResults and add the additional select options', async () => {
+    const namespace = Namespace.uniprotkb;
+    const onCloseMock = jest.fn();
+    const query = '(proteome:UP000000625)';
+    const totalNumberResults = 4403;
+    const filteredNumberResults = 4401;
+
+    customRender(
+      <Download
+        query={query}
+        totalNumberResults={totalNumberResults}
+        filteredNumberResults={filteredNumberResults}
+        onClose={onCloseMock}
+        namespace={namespace}
+      />,
+      {
+        route: '/proteomes/UP000000625',
+        initialLocalStorage: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
+    );
+    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(queryString.stringify({ query: `(${query})` }))
+    );
+    fireEvent.click(screen.getByLabelText(`Download reviewed only (4,401)`));
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        queryString.stringify({
+          query: `((proteome:UP000000625) AND reviewed=true)`,
+        })
+      )
+    );
+  });
+});

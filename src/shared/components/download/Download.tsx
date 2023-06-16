@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, useEffect } from 'react';
+import { useState, FC, ChangeEvent } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
@@ -25,7 +25,6 @@ import {
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
-
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { FileFormat } from '../../types/resultsDownload';
