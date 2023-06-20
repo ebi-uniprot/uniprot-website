@@ -231,6 +231,7 @@ const VariationView = ({
             significance
           </th>
           <th>Provenance</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -348,6 +349,14 @@ const VariationView = ({
                         </span>
                       </Fragment>
                     ))}
+                </td>
+                {/* TODO: Add more conditions to check for SNP validity */}
+                <td>
+                  <ExternalLink
+                    url={`https://www.ebi.ac.uk/ProtVar/query?accession=${primaryAccession}&protein_position=${variantFeature.start}&reference_AA=${variantFeature.wildType}&variant_AA=${variantFeature.alternativeSequence}`}
+                  >
+                    ProtVar
+                  </ExternalLink>
                 </td>
               </tr>
               <tr
