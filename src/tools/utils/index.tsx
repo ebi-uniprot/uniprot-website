@@ -49,7 +49,6 @@ export const getRemoteIDFromResponse = async (
       break;
     case JobTypes.PEPTIDE_SEARCH:
       // This gets the job info from the "location" header
-      // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers - Needs to be done at the server side for accessing the location in the header
       remoteID =
         response.headers.get('Location')?.match(peptideSearchJobPattern)?.groups
           ?.jobID || null;

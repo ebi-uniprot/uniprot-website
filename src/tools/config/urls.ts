@@ -103,6 +103,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         runUrl: baseURL,
         statusUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
         resultUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
+        detailsUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId, 'parameters'),
       });
     default:
     //
