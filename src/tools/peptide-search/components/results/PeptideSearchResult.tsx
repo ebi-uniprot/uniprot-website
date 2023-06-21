@@ -25,6 +25,7 @@ import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPa
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
+import { apiPrefix } from '../../../../shared/config/apiUrls';
 import {
   Namespace,
   namespaceAndToolsLabels,
@@ -41,14 +42,13 @@ import { SearchResults } from '../../../../shared/types/results';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { FormParameters } from '../../types/peptideSearchFormParameters';
-
-import helper from '../../../../shared/styles/helper.module.scss';
-import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import {
   TaxonomyAPIModel,
   TaxonomyDatum,
 } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { apiPrefix, getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+
+import helper from '../../../../shared/styles/helper.module.scss';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -188,8 +188,8 @@ const PeptideSearchResult = () => {
   const facetTotal = facetHeaders?.['x-total-results'];
 
   const converter = useMemo(() => {
-    const peps = jobInputParameters.peps;
-    return peps ? partialRight(peptideSearchConverter, peps) : undefined;
+    const pepSeq = jobInputParameters.peps;
+    return pepSeq ? partialRight(peptideSearchConverter, pepSeq) : undefined;
   }, [jobInputParameters.peps]);
 
   const resultsDataObject = usePaginatedAccessions(accessions, converter);

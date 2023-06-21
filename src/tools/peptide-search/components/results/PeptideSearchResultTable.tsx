@@ -39,7 +39,7 @@ const PeptideSearchResultTable = ({
         resultsDataObject={resultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
-        displayPeptideSearchMatchColumns={true}
+        displayPeptideSearchMatchColumns
       />
     </>
   );
