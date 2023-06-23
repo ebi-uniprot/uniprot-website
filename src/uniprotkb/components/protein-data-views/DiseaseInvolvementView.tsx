@@ -43,7 +43,13 @@ export const uniprotVariantLink = (variant: FeatureDatum) =>
     <em>missing</em>
   );
 
-export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
+export const DiseaseVariants = ({
+  variants,
+  accession,
+}: {
+  variants: FeatureDatum[];
+  accession: string;
+}) => {
   const table = (
     <table>
       <thead>
@@ -52,6 +58,7 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
           <th>Position(s)</th>
           <th>Change</th>
           <th>Description</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -95,6 +102,22 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
                   )}
+                </td>
+                <td>
+                  {variant.alternativeSequence?.originalSequence?.length ===
+                    1 &&
+                    variant.alternativeSequence?.alternativeSequences
+                      ?.length === 1 &&
+                    variant.alternativeSequence?.alternativeSequences[0]
+                      .length === 1 && (
+                      <ExternalLink
+                        url={externalUrls.ProtVar(
+                          `${accession} ${variant.alternativeSequence.originalSequence}${variant.location.start.value}${variant.alternativeSequence?.alternativeSequences[0]}`
+                        )}
+                      >
+                        ProtVar
+                      </ExternalLink>
+                    )}
                 </td>
               </tr>
             </Fragment>
@@ -226,7 +249,7 @@ export const DiseaseInvolvementEntry = ({
       {diseaseVariants && diseaseVariants.length ? (
         <>
           <h5>Natural variants in {disease?.acronym}</h5>
-          <DiseaseVariants variants={diseaseVariants} />
+          <DiseaseVariants variants={diseaseVariants} accession={accession} />
         </>
       ) : null}
     </>

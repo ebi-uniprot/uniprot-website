@@ -5,7 +5,10 @@ import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
 
-import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
+import {
+  ConsequenceType,
+  ProteinsAPIVariation,
+} from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -21,6 +24,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import { Evidence } from '../../types/modelTypes';
 
 import styles from './styles/variation-view.module.scss';
+import externalUrls from '../../../shared/config/externalUrls';
 
 const VisualVariationView = lazy(
   () =>
@@ -350,13 +354,18 @@ const VariationView = ({
                       </Fragment>
                     ))}
                 </td>
-                {/* TODO: Add more conditions to check for SNP validity */}
                 <td>
-                  <ExternalLink
-                    url={`https://www.ebi.ac.uk/ProtVar/query?accession=${primaryAccession}&protein_position=${variantFeature.start}&reference_AA=${variantFeature.wildType}&variant_AA=${variantFeature.alternativeSequence}`}
-                  >
-                    ProtVar
-                  </ExternalLink>
+                  {variantFeature.consequenceType !== ConsequenceType.Empty &&
+                    variantFeature.wildType.length === 1 &&
+                    variantFeature.alternativeSequence?.length === 1 && (
+                      <ExternalLink
+                        url={externalUrls.ProtVar(
+                          `${primaryAccession} ${variantFeature.wildType}${variantFeature.start}${variantFeature.alternativeSequence}`
+                        )}
+                      >
+                        ProtVar
+                      </ExternalLink>
+                    )}
                 </td>
               </tr>
               <tr
