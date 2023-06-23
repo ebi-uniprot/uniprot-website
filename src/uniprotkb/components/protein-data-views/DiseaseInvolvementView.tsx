@@ -58,7 +58,7 @@ export const DiseaseVariants = ({
           <th>Position(s)</th>
           <th>Change</th>
           <th>Description</th>
-          <th></th>
+          <th aria-label="protvar-link" />
         </tr>
       </thead>
       <tbody>

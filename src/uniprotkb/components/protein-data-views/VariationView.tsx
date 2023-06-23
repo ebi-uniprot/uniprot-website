@@ -235,7 +235,7 @@ const VariationView = ({
             significance
           </th>
           <th>Provenance</th>
-          <th></th>
+          <th aria-label="protvar-link" />
         </tr>
       </thead>
       <tbody>
