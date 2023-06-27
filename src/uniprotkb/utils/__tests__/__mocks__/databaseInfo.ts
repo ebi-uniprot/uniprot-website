@@ -1533,6 +1533,14 @@ const databaseInfo: DatabaseInfo = [
     linkedReason: 'All UniProtKB entries',
   },
   {
+    name: 'ProtoNet',
+    displayName: 'ProtoNet',
+    category: 'FMD',
+    uriLink: 'http://www.protonet.cs.huji.ac.il/sp.php?prot=%primaryAccession',
+    implicit: true,
+    linkedReason: 'All UniProtKB entries',
+  },
+  {
     name: 'GO',
     displayName: 'GO',
     category: 'OTG',
