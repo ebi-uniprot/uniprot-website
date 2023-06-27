@@ -235,7 +235,6 @@ const VariationView = ({
             significance
           </th>
           <th>Provenance</th>
-          <th aria-label="protvar-link" />
         </tr>
       </thead>
       <tbody>
@@ -281,16 +280,29 @@ const VariationView = ({
                 </td>
                 <td>{position}</td>
                 <td className={styles.change}>
-                  {variantFeature.wildType ||
-                  variantFeature.alternativeSequence ? (
+                  {variantFeature.consequenceType !== ConsequenceType.Empty &&
+                  variantFeature.wildType.length === 1 &&
+                  variantFeature.alternativeSequence?.length === 1 ? (
+                    <ExternalLink
+                      url={externalUrls.ProtVar(
+                        `${primaryAccession} ${variantFeature.wildType}${variantFeature.start}${variantFeature.alternativeSequence}`
+                      )}
+                      title="View in ProtVar"
+                      noIcon
+                    >
+                      {variantFeature.wildType}
+                      {'>'}
+                      {variantFeature.alternativeSequence}
+                    </ExternalLink>
+                  ) : (
                     <>
                       {variantFeature.wildType || <em>missing</em>}
                       {'>'}
                       {variantFeature.alternativeSequence || <em>missing</em>}
                     </>
-                  ) : (
-                    <em>missing</em>
                   )}
+                  {!variantFeature.wildType &&
+                    !variantFeature.alternativeSequence && <em>missing</em>}
                 </td>
                 <td>
                   {variantFeature.descriptions?.length ? (
@@ -353,19 +365,6 @@ const VariationView = ({
                         </span>
                       </Fragment>
                     ))}
-                </td>
-                <td>
-                  {variantFeature.consequenceType !== ConsequenceType.Empty &&
-                    variantFeature.wildType.length === 1 &&
-                    variantFeature.alternativeSequence?.length === 1 && (
-                      <ExternalLink
-                        url={externalUrls.ProtVar(
-                          `${primaryAccession} ${variantFeature.wildType}${variantFeature.start}${variantFeature.alternativeSequence}`
-                        )}
-                      >
-                        ProtVar
-                      </ExternalLink>
-                    )}
                 </td>
               </tr>
               <tr

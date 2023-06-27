@@ -29,19 +29,46 @@ const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
   return aStart - bStart;
 };
 
-export const uniprotVariantLink = (variant: FeatureDatum) =>
-  variant.alternativeSequence?.originalSequence ||
-  variant.alternativeSequence?.alternativeSequences?.[0] ? (
-    <ExternalLink url={externalUrls.UniProt(variant.featureId || '')} noIcon>
-      {variant.alternativeSequence?.originalSequence || <em>missing</em>}
-      {'>'}
-      {variant.alternativeSequence?.alternativeSequences?.[0] || (
-        <em>missing</em>
-      )}
-    </ExternalLink>
-  ) : (
-    <em>missing</em>
-  );
+export const protvarVariantLink = (
+  variant: FeatureDatum,
+  accession: string
+) => {
+  let variantEl;
+  if (
+    variant.alternativeSequence?.originalSequence?.length === 1 &&
+    variant.alternativeSequence?.alternativeSequences?.[0].length === 1
+  ) {
+    variantEl = (
+      <ExternalLink
+        url={externalUrls.ProtVar(
+          `${accession} ${variant.alternativeSequence?.originalSequence}${variant.location.start.value}${variant.alternativeSequence?.alternativeSequences?.[0]}`
+        )}
+        title="View in ProtVar"
+        noIcon
+      >
+        {variant.alternativeSequence?.originalSequence}
+        {'>'}
+        {variant.alternativeSequence?.alternativeSequences?.[0]}
+      </ExternalLink>
+    );
+  } else if (
+    !variant.alternativeSequence?.originalSequence &&
+    !variant.alternativeSequence?.alternativeSequences?.[0]
+  ) {
+    variantEl = <em>missing</em>;
+  } else {
+    variantEl = (
+      <>
+        {variant.alternativeSequence?.originalSequence || <em>missing</em>}
+        {'>'}
+        {variant.alternativeSequence?.alternativeSequences?.[0] || (
+          <em>missing</em>
+        )}
+      </>
+    );
+  }
+  return variantEl;
+};
 
 export const DiseaseVariants = ({
   variants,
@@ -58,7 +85,6 @@ export const DiseaseVariants = ({
           <th>Position(s)</th>
           <th>Change</th>
           <th>Description</th>
-          <th aria-label="protvar-link" />
         </tr>
       </thead>
       <tbody>
@@ -89,9 +115,26 @@ export const DiseaseVariants = ({
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={i}>
               <tr>
-                <td>{variant.featureId}</td>
+                <td>
+                  {variant.alternativeSequence?.originalSequence?.length ===
+                    1 &&
+                  variant.alternativeSequence?.alternativeSequences?.[0]
+                    .length === 1 ? (
+                    <ExternalLink
+                      url={externalUrls.UniProt(variant.featureId || '')}
+                      title="View in Expasy"
+                      noIcon
+                    >
+                      {variant.featureId}
+                    </ExternalLink>
+                  ) : (
+                    variant.featureId
+                  )}
+                </td>
                 <td>{position}</td>
-                <td className={styles.change}>{uniprotVariantLink(variant)}</td>
+                <td className={styles.change}>
+                  {protvarVariantLink(variant, accession)}
+                </td>
                 <td>
                   {description}
                   {rsIDs?.map((rsID) => (
@@ -102,22 +145,6 @@ export const DiseaseVariants = ({
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
                   )}
-                </td>
-                <td>
-                  {variant.alternativeSequence?.originalSequence?.length ===
-                    1 &&
-                    variant.alternativeSequence?.alternativeSequences
-                      ?.length === 1 &&
-                    variant.alternativeSequence?.alternativeSequences[0]
-                      .length === 1 && (
-                      <ExternalLink
-                        url={externalUrls.ProtVar(
-                          `${accession} ${variant.alternativeSequence.originalSequence}${variant.location.start.value}${variant.alternativeSequence?.alternativeSequences[0]}`
-                        )}
-                      >
-                        ProtVar
-                      </ExternalLink>
-                    )}
                 </td>
               </tr>
             </Fragment>
