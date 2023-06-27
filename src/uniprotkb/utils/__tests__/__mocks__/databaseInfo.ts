@@ -281,7 +281,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'CAZy',
     displayName: 'CAZy',
     category: 'PFAM',
-    uriLink: 'http://www.cazy.org/fam/%id.html',
+    uriLink: 'http://www.cazy.org/%id.html',
     attributes: [{ name: 'FamilyName', xmlTag: 'family name' }],
   },
   {
@@ -353,7 +353,8 @@ const databaseInfo: DatabaseInfo = [
     name: 'UniLectin',
     displayName: 'UniLectin',
     category: 'PFAM',
-    uriLink: 'https://www.unilectin.eu/curated/protein/%id',
+    uriLink:
+      'https://unilectin.unige.ch/unilectin3D/display_lectin?uniprot=%id',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
   {
