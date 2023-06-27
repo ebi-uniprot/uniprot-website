@@ -64,6 +64,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PROSITE",
       "DisProt",
       "MobiDB",
+      "ProtoNet",
     ],
     "GEP": [
       "Bgee",
@@ -373,6 +374,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "ProMEX": "PROTEOMIC",
     "Proteomes": "PRM",
     "ProteomicsDB": "PROTEOMIC",
+    "ProtoNet": "FMD",
     "PseudoCAP": "ORG",
     "RCSB-PDB": "3DS",
     "REBASE": "PFAM",
@@ -2247,6 +2249,14 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "ProteomicsDB",
       "uriLink": "https://www.proteomicsdb.org/proteomicsdb/#protein/proteinDetails/%id",
     },
+    "ProtoNet": {
+      "category": "FMD",
+      "displayName": "ProtoNet",
+      "implicit": true,
+      "linkedReason": "All UniProtKB entries",
+      "name": "ProtoNet",
+      "uriLink": "http://www.protonet.cs.huji.ac.il/sp.php?prot=%primaryAccession",
+    },
     "PseudoCAP": {
       "attributes": [
         {
@@ -3092,6 +3102,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PROSITE",
       "DisProt",
       "MobiDB",
+      "ProtoNet",
       "MobiDB",
       "GPCRDB",
     ],
@@ -3278,6 +3289,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     },
     "PDBj": {
       "database": "PDBj",
+      "implicit": true,
+    },
+    "ProtoNet": {
+      "database": "ProtoNet",
       "implicit": true,
     },
     "RCSB-PDB": {
