@@ -310,7 +310,7 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
       return (
         <>
           <span>Target database: {databaseValueToName(database)}</span>
-          {taxIDs?.length && taxonsWithEllipsisReveal(taxIDs)}
+          {taxIDs?.length ? taxonsWithEllipsisReveal(taxIDs) : null}
         </>
       );
     }
