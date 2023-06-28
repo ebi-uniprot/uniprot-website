@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2023-05-04
+// Retrieved: 2023-06-27
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
