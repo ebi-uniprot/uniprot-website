@@ -2039,14 +2039,7 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_ctd":
 exports[`UniProtKBColumnConfiguration component should render column "xref_dbsnp": xref_dbsnp 1`] = `
 <DocumentFragment>
   <div>
-    <a
-      class="external-link"
-      href="https://web.expasy.org/variant_pages/id value CHAIN.html"
-      rel="noopener"
-      target="_blank"
-    >
-      original value&gt;alternative value
-    </a>
+    original value&gt;alternative value
     <span
       class="no-wrap"
     >

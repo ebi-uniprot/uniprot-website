@@ -5,10 +5,7 @@ import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
 
-import {
-  ConsequenceType,
-  ProteinsAPIVariation,
-} from 'protvista-variation-adapter/dist/es/variants';
+import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -280,7 +277,7 @@ const VariationView = ({
                 </td>
                 <td>{position}</td>
                 <td className={styles.change}>
-                  {variantFeature.consequenceType !== ConsequenceType.Empty &&
+                  {variantFeature.consequenceType !== '-' &&
                   variantFeature.wildType.length === 1 &&
                   variantFeature.alternativeSequence?.length === 1 ? (
                     <ExternalLink
