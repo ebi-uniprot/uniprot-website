@@ -17,6 +17,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../shared/config/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { Evidence } from '../../types/modelTypes';
 
@@ -276,16 +277,29 @@ const VariationView = ({
                 </td>
                 <td>{position}</td>
                 <td className={styles.change}>
-                  {variantFeature.wildType ||
-                  variantFeature.alternativeSequence ? (
+                  {variantFeature.consequenceType !== '-' &&
+                  variantFeature.wildType.length === 1 &&
+                  variantFeature.alternativeSequence?.length === 1 ? (
+                    <ExternalLink
+                      url={externalUrls.ProtVar(
+                        `${primaryAccession} ${variantFeature.wildType}${variantFeature.start}${variantFeature.alternativeSequence}`
+                      )}
+                      title="View in ProtVar"
+                      noIcon
+                    >
+                      {variantFeature.wildType}
+                      {'>'}
+                      {variantFeature.alternativeSequence}
+                    </ExternalLink>
+                  ) : (
                     <>
                       {variantFeature.wildType || <em>missing</em>}
                       {'>'}
                       {variantFeature.alternativeSequence || <em>missing</em>}
                     </>
-                  ) : (
-                    <em>missing</em>
                   )}
+                  {!variantFeature.wildType &&
+                    !variantFeature.alternativeSequence && <em>missing</em>}
                 </td>
                 <td>
                   {variantFeature.descriptions?.length ? (

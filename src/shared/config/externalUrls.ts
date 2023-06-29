@@ -52,6 +52,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   dbSNP: (id) => `https://www.ncbi.nlm.nih.gov/snp/${id}`,
   Ensembl: (id) =>
     `http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=${id}`,
+  ProtVar: (id) => `https://www.ebi.ac.uk/ProtVar/query?search=${id}`,
   // citations
   DOI: (id) => `https://dx.doi.org/${id}`,
   PubMed: (id) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
