@@ -17,11 +17,11 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../shared/config/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { Evidence } from '../../types/modelTypes';
 
 import styles from './styles/variation-view.module.scss';
-import externalUrls from '../../../shared/config/externalUrls';
 
 const VisualVariationView = lazy(
   () =>
