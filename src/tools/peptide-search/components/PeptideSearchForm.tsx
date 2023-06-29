@@ -30,7 +30,7 @@ import { truncateTaxonLabel } from '../../utils';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/peptideSearchFormParameters';
-import { PepS, LEQi, SpOnly } from '../types/peptideSearchServerParameters';
+import { peps, lEQi, spOnly } from '../types/peptideSearchServerParameters';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -167,11 +167,11 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      peps: formValues[PeptideSearchFields.peps].selected as PepS,
+      peps: formValues[PeptideSearchFields.peps].selected as peps,
       taxIds: formValues[PeptideSearchFields.taxIds]
         .selected as SelectedTaxon[],
-      lEQi: formValues[PeptideSearchFields.lEQi].selected as LEQi,
-      spOnly: formValues[PeptideSearchFields.spOnly].selected as SpOnly,
+      lEQi: formValues[PeptideSearchFields.lEQi].selected as lEQi,
+      spOnly: formValues[PeptideSearchFields.spOnly].selected as spOnly,
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
