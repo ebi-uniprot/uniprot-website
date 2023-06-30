@@ -711,17 +711,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/258/"
+          href="https://www.proteinspotlight.org/back_issues/259/"
           rel="noopener"
           target="_blank"
         >
-          A shrewd tweak
+          On ants, bandicoots and Gilbertian mimicry
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/258/"
+        href="https://www.proteinspotlight.org/back_issues/259/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -730,14 +730,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt258.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt259.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          The  chairs  were  rickety.  So  I  rummaged  around  the  kitchen  drawer,  extracted  an  old  knife  and  used  its  tip  to  drive  a  few  screws  back  into  the  wood.  The  knife  kept  on  losing  grip  and  I  kept  on  swearing.
+          Nature  has  its  way  of  adapting  to  almost  -  if  not  every  -  known  condition  on  Earth.  It  may  take  some  time,  but  she  gets  there  in  the  end.  Adaptation  has  one  sole  aim:  survival  or,  at  the  very  least,  a  little  more  comfort.  One  of  the  most  recent  and…
       </p>
     </article>
   </section>
