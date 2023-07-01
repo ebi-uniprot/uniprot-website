@@ -53,11 +53,12 @@ export const NightingaleManager = forwardRef<HTMLElement, Props>(
           });
         }
       };
-      ref.current?.addEventListener('change', listener as EventListener, {
+      const element = ref.current;
+      element?.addEventListener('change', listener as EventListener, {
         passive: true,
       });
       return () =>
-        ref.current?.removeEventListener('change', listener as EventListener);
+        element?.removeEventListener('change', listener as EventListener);
     }, []);
 
     return (
