@@ -12,7 +12,7 @@ import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
 const getIdKey = (article: HelpUIModel) => article.id;
 
 const cardRenderer = (article: HelpUIModel) => (
-  <HelpCard id={article.id} title={article.title} />
+  <HelpCard id={article.id} title={article.title} headingLevel="h3" />
 );
 
 const RelatedArticles = ({
@@ -26,7 +26,7 @@ const RelatedArticles = ({
   const initialANDApiUrl = helpURL.search({
     query: `${categories
       .map((category) => `category:"${category}"`)
-      .join(' AND ')} AND NOT id:${current}`,
+      .join(' AND ')} NOT id:${current}`,
     facets: null,
     fields: ['id', 'title'],
     size: '5',
@@ -41,7 +41,7 @@ const RelatedArticles = ({
     ? helpURL.search({
         query: `(${categories
           .map((category) => `category:"${category}"`)
-          .join(' OR ')}) AND NOT id:${current}`,
+          .join(' OR ')}) NOT id:${current}`,
         facets: null,
         fields: ['id', 'title'],
         size: '5',

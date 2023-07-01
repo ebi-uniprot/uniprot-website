@@ -60,7 +60,6 @@ describe('submitJob', () => {
           id: createdJob.internalID,
           partialJob: {
             status: Status.FAILURE,
-            timeLastUpdate: Date.now(),
             errorDescription:
               'Could not run job: Request failed with status code 500',
           },
@@ -95,7 +94,6 @@ describe('submitJob', () => {
           id: createdJob.internalID,
           partialJob: {
             status: Status.FAILURE,
-            timeLastUpdate: Date.now(),
             errorDescription:
               "Could not run job: The server didn't return a valid ID",
           },
@@ -130,7 +128,7 @@ describe('submitJob', () => {
     });
   });
 
-  it('should dispatch a running job', async () => {
+  it('should dispatch a job', async () => {
     (window.fetch as jest.Mock).mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
@@ -144,10 +142,9 @@ describe('submitJob', () => {
       payload: {
         id: createdJob.internalID,
         partialJob: {
-          status: Status.RUNNING,
+          status: Status.QUEUED,
           remoteID: serverUUID,
           timeSubmitted: Date.now(),
-          timeLastUpdate: Date.now(),
         },
       },
       type: UPDATE_JOB,

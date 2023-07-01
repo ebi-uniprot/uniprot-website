@@ -3,16 +3,19 @@ import deepFreeze from 'deep-freeze';
 import joinUrl from 'url-join';
 
 import {
-  createFacetsQueryString,
   apiPrefix,
+  DownloadUrlOptions,
+  getAPIQueryParams,
+  getDownloadUrl,
 } from '../../shared/config/apiUrls';
 import {
-  getApiSortDirection,
   SelectedFacet,
   SortDirection,
 } from '../../uniprotkb/types/resultsTypes';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Column } from '../../shared/config/columns';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 type CommonResultFormats =
   | 'out' // raw output of the tool
@@ -30,6 +33,7 @@ export type ResultFormat = {
     | 'phylotree' // Phylogenetic Tree
     | 'pim' // Percent Identity Matrix
     | 'submission'; // Submission Details (according to doc in JSON, but it looks like it's actually XML)
+  [JobTypes.ASYNC_DOWNLOAD]: never;
   [JobTypes.BLAST]:
     | CommonResultFormats
     | 'ids' // e.g. 'TR:F8D2X3_HALXS'
@@ -64,7 +68,7 @@ type Return<T extends JobTypes> = Readonly<{
       size?: number;
       selectedFacets?: SelectedFacet[];
       query?: string;
-      sortColumn?: Column;
+      sortColumn?: SortableColumn;
       sortDirection?: SortDirection;
       columns?: Column[];
     }
@@ -82,57 +86,53 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
     case JobTypes.ID_MAPPING:
-      baseURL = joinUrl(apiPrefix, '/idmapping');
+      baseURL = joinUrl(apiPrefix, 'idmapping');
       return deepFreeze({
         runUrl: `${baseURL}/run`,
-        statusUrl: (jobId) =>
-          // The cachebust extra query is just here to avoid using cached value
-          `${baseURL}/status/${jobId}?cachebust=${new Date().getTime()}`,
-        resultUrl: (
-          redirectUrl,
-          {
-            facets,
-            size,
-            selectedFacets = [],
-            query,
-            sortColumn,
-            sortDirection,
-            columns,
-          }
-        ) =>
-          `${redirectUrl}?${queryString.stringify({
-            size,
-            facets: facets?.join(','),
-            // Similar approach to the one in apiUrls.ts file
-            query: `${[
-              query ? `(${query})` : null,
-              createFacetsQueryString(selectedFacets),
-            ]
-              .filter(Boolean)
-              .join(' AND ')}`,
-            sort:
-              sortColumn && sortDirection
-                ? `${sortColumn} ${getApiSortDirection(sortDirection)}`
-                : undefined,
-            fields: columns?.join(',') || undefined,
-          })}`,
+        statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
+        resultUrl: (redirectUrl, extra) =>
+          queryString.stringifyUrl({
+            url: redirectUrl,
+            query: getAPIQueryParams(extra),
+          }),
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:
-      baseURL =
-        'https://research.bioinformatics.udel.edu/peptidematchws/asyncrest';
+      baseURL = 'https://peptidesearch.uniprot.org/asyncrest';
       return deepFreeze({
         runUrl: baseURL,
-        statusUrl: (jobId) => `${baseURL}/jobs/${jobId}`,
-        resultUrl: (jobId) => `${baseURL}/jobs/${jobId}`,
+        statusUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
+        resultUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
+        detailsUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId, 'parameters'),
       });
     default:
     //
   }
   return deepFreeze({
-    runUrl: `${baseURL}/run`,
-    statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
-    resultUrl: (jobId, { format }) => `${baseURL}/result/${jobId}/${format}`,
+    runUrl: joinUrl(baseURL, 'run'),
+    statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
+    resultUrl: (jobId, { format }) =>
+      joinUrl(baseURL, 'result', jobId, format || ''),
+  });
+}
+
+type AsyncDownloadReturn = Readonly<{
+  runUrl: (options: DownloadUrlOptions) => string;
+  statusUrl: (jobId: string) => string;
+  resultUrl: (redirectUrl: string) => string;
+  detailsUrl?: (jobId: string) => string;
+}>;
+
+export function asyncDownloadUrlObjectCreator(
+  namespace: Namespace
+): AsyncDownloadReturn {
+  const baseURL = joinUrl(apiPrefix, namespace, 'download');
+  return deepFreeze({
+    runUrl: (options) =>
+      getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),
+    statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
+    resultUrl: (jobId) => joinUrl(baseURL, 'results', jobId),
+    detailsUrl: (jobId) => joinUrl(baseURL, 'details', jobId),
   });
 }
 

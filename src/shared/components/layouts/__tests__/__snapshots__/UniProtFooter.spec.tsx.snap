@@ -81,9 +81,14 @@ exports[`HomePage component should render 1`] = `
           class="release-info no-wrap blur-loading__item"
         >
           <span
-            class="blur-loading__placeholder release-info__release_number"
+            class="release-info__release_number"
           >
-            Release 2022_00
+            <a
+              href="/help/downloads"
+              title="UniProt release 2023_01 released on Wed Mar 01 2023"
+            >
+              Release 2023_01
+            </a>
           </span>
            | 
           <a
@@ -100,7 +105,7 @@ exports[`HomePage component should render 1`] = `
           <a
             href="/help/about"
           >
-            © 2002 – 2022 UniProt consortium
+            © 2002 – 2023 UniProt consortium
           </a>
         </p>
         <p>
@@ -435,6 +440,23 @@ exports[`HomePage component should render 1`] = `
               loading="lazy"
               src="test-file-stub"
               width="425"
+            />
+          </a>
+        </p>
+        <p>
+          <a
+            class="external-link"
+            href="https://globalbiodata.org/scientific-activities/global-core-biodata-resources/"
+            rel="noopener"
+            target="_blank"
+          >
+            UniProt is a GBC global core biodata resource
+            <img
+              alt=""
+              height="115"
+              loading="lazy"
+              src="test-file-stub"
+              width="270"
             />
           </a>
         </p>

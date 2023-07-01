@@ -133,7 +133,7 @@ const evidenceUrls: Record<ExternalSource, string> = {
   ZFIN: 'http://zfin.org/cgi-bin/webdriver?MIval=aa-markerview.apg&OID=%value',
 };
 
-export const formatEvidenceContent = (id: string) => {
+export const formatEvidenceContent = (id: string, source?: string) => {
   if (id.match(/^ARBA[0-9]{8}/)) {
     return `ARBA: ${id}`;
   }
@@ -154,9 +154,9 @@ export const formatEvidenceContent = (id: string) => {
   }
   // regexp generated from https://www.ebi.ac.uk/pride/markdownpage/submitdatapage "PXDxxxxxx"
   if (id.match(/^PXD\d{6}/)) {
-    return `PRIDE - ${id}`;
+    return `PRIDE: ${id}`;
   }
-  return id;
+  return `${source}: ${id}`;
 };
 
 export const getEvidenceLink = (
@@ -195,7 +195,7 @@ const EvidenceLink = ({
     return null;
   }
 
-  const content = formatEvidenceContent(value);
+  const content = formatEvidenceContent(value, source);
 
   let renderedURL = url;
   let isInternal = false;

@@ -1,7 +1,6 @@
-import { lazy } from 'react';
-import { Card } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import { Card, FullViewIcon } from 'franklin-sites';
 
-import LazyComponent from '../../../shared/components/LazyComponent';
 import XRefView from '../protein-data-views/XRefView';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
@@ -11,22 +10,24 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 
+import { hasContent } from '../../../shared/utils/utils';
+import { getEntryPath } from '../../../app/config/urls';
+
 import { UIModel } from '../../adapters/sectionConverter';
-
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
+import { Namespace } from '../../../shared/types/namespaces';
+import { TabLocation } from './Entry';
 
-const VariationView = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "variation-view" */ '../protein-data-views/VariationView'
-    )
-);
+import styles from './styles/disease-and-drugs.module.scss';
+
+import variantsImg from '../../../images/variants.jpg';
 
 type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence: string;
   taxId: number | undefined;
+  hasImportedVariants: boolean;
 };
 
 const DiseaseAndDrugsSection = ({
@@ -34,8 +35,11 @@ const DiseaseAndDrugsSection = ({
   primaryAccession,
   sequence,
   taxId,
+  hasImportedVariants,
 }: Props) => {
-  // NOTE: do not check if content is there or not, always display because of variants
+  if (!hasContent(data)) {
+    return null;
+  }
   const nameAndId = getEntrySectionNameAndId(
     EntrySection.DiseaseVariants,
     taxId
@@ -54,6 +58,7 @@ const DiseaseAndDrugsSection = ({
         comments={
           data.commentsData.get('DISEASE') as DiseaseComment[] | undefined
         }
+        features={data.featuresData}
         primaryAccession={primaryAccession}
         includeTitle
       />
@@ -61,7 +66,8 @@ const DiseaseAndDrugsSection = ({
         comments={
           data.commentsData.get('ALLERGEN') as FreeTextComment[] | undefined
         }
-        title="allergen"
+        title="Allergenic properties"
+        articleId="allergenic_properties"
       />
       <FreeTextView
         comments={
@@ -69,7 +75,8 @@ const DiseaseAndDrugsSection = ({
             | FreeTextComment[]
             | undefined
         }
-        title="disruption phenotype"
+        title="Disruption phenotype"
+        articleId="disruption_phenotype"
       />
       <FreeTextView
         comments={
@@ -77,22 +84,56 @@ const DiseaseAndDrugsSection = ({
             | FreeTextComment[]
             | undefined
         }
-        title="pharmaceutical"
+        title="Pharmaceutical"
+        articleId="pharmaceutical_use"
       />
       <FreeTextView
         comments={
           data.commentsData.get('TOXIC DOSE') as FreeTextComment[] | undefined
         }
-        title="toxic dose"
+        title="Toxic dose"
+        articleId="toxic_dose"
       />
       <FeaturesView
         primaryAccession={primaryAccession}
         features={data.featuresData}
         sequence={sequence}
       />
-      <LazyComponent fallback="Variants" rootMargin="50px">
-        <VariationView primaryAccession={primaryAccession} title="Variants" />
-      </LazyComponent>
+      {hasImportedVariants && (
+        <section>
+          <h3>Variants</h3>
+          <div className={styles.variants}>
+            <img
+              src={variantsImg}
+              width="1944"
+              height="1024"
+              alt=""
+              loading="lazy"
+            />
+            <div>
+              <p>
+                We now provide the &quot;Disease & Variants&quot; viewer in its
+                own tab.
+              </p>
+              <p>
+                The viewer provides variants from UniProt as well as other
+                sources including ClinVar and dbSNP.
+              </p>
+              <p>
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    primaryAccession,
+                    TabLocation.VariantViewer
+                  )}
+                >
+                  Go to variant viewer <FullViewIcon width="0.75em" />
+                </Link>
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>

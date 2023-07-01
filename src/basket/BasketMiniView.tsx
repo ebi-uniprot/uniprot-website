@@ -56,7 +56,7 @@ type BasketMiniViewTabProps = {
   namespace: Namespace;
   columnNames: Array<UniProtKBColumn | UniRefColumn | UniParcColumn>;
   setBasket: Dispatch<SetStateAction<Basket>>;
-  closePanel: () => void;
+  onFullView: () => void;
 };
 
 export const updateResultsWithAccessionSubsets = (
@@ -97,7 +97,7 @@ const BasketMiniViewTab = ({
   namespace,
   columnNames,
   setBasket,
-  closePanel,
+  onFullView,
 }: BasketMiniViewTabProps) => {
   const subsetsMap = new Map(
     accessions.map((accession) => {
@@ -105,14 +105,6 @@ const BasketMiniViewTab = ({
       return [accession, id];
     })
   );
-
-  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
-    useItemSelect();
-
-  // reset the selection every time the namespace changes
-  useEffect(() => {
-    setSelectedEntries([]);
-  }, [namespace, setSelectedEntries]);
 
   const initialApiUrl = useNSQuery({
     // Passing accessions without modifications in case of subsets
@@ -124,6 +116,14 @@ const BasketMiniViewTab = ({
     facetsNotApplied: true,
   });
   const resultsDataObject = usePagination(initialApiUrl);
+
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect(resultsDataObject.initialLoading);
+
+  // reset the selection every time the namespace changes
+  useEffect(() => {
+    setSelectedEntries([]);
+  }, [namespace, setSelectedEntries]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
@@ -159,6 +159,7 @@ const BasketMiniViewTab = ({
         namespaceOverride={namespace}
         subsetsMap={subsetsMap}
         inBasket
+        inBasketMini
         notCustomisable
       />
       <ResultsData
@@ -171,6 +172,7 @@ const BasketMiniViewTab = ({
       />
       {/* both classnames from Franklin */}
       <div className="button-group sliding-panel__button-row">
+        {' '}
         <Button
           variant="secondary"
           onClick={() => {
@@ -198,7 +200,7 @@ const BasketMiniViewTab = ({
           element={Link}
           variant="secondary"
           to={generatePath(LocationToPath[Location.Basket], { namespace })}
-          onClick={closePanel}
+          onClick={onFullView}
         >
           <FullViewIcon height="1em" width="1em" />
           Full view
@@ -208,7 +210,7 @@ const BasketMiniViewTab = ({
   );
 };
 
-const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
+const BasketMiniView = ({ onFullView }: { onFullView: () => void }) => {
   const [basket, setBasket] = useBasket();
 
   const uniprotkbIds = basket.get(Namespace.uniprotkb);
@@ -236,7 +238,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             namespace={Namespace.uniprotkb}
             columnNames={uniProtKBColumns}
             setBasket={setBasket}
-            closePanel={closePanel}
+            onFullView={onFullView}
           />
         ) : null}
       </Tab>
@@ -253,7 +255,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             namespace={Namespace.uniref}
             columnNames={uniRefColumns}
             setBasket={setBasket}
-            closePanel={closePanel}
+            onFullView={onFullView}
           />
         ) : null}
       </Tab>
@@ -270,7 +272,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             namespace={Namespace.uniparc}
             columnNames={uniParcColumns}
             setBasket={setBasket}
-            closePanel={closePanel}
+            onFullView={onFullView}
           />
         ) : null}
       </Tab>

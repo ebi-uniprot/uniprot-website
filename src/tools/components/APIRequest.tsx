@@ -12,6 +12,7 @@ import toolsURLs from '../config/urls';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 import { FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
+import { SelectedTaxon } from '../types/toolsFormData';
 
 import styles from './styles/extra-tabs.module.css';
 
@@ -34,9 +35,10 @@ const documentation = new Map<JobTypes, string>([
     JobTypes.ID_MAPPING,
     `${API_PREFIX}/docs/?urls.primaryName=idmapping#/job/submitJob`,
   ],
+  [JobTypes.PEPTIDE_SEARCH, 'https://peptidesearch.uniprot.org/asyncrest/'],
   [
-    JobTypes.PEPTIDE_SEARCH,
-    'https://research.bioinformatics.udel.edu/peptidematchws/',
+    JobTypes.ASYNC_DOWNLOAD,
+    `${API_PREFIX}/docs/?urls.primaryName=asyncdownload#/job/submitJob`, // TODO: determine final URL
   ],
 ]);
 
@@ -67,6 +69,12 @@ function inputToCurl<T extends JobTypes>(
       // append key/value to the URL string
       if (key === 'peps' && value === '<enter_your_peptide_or_peptides_here>') {
         command += `${first ? ' --data "' : '&'}${key}=${value}`;
+      } else if (key === 'taxIds' && Array.isArray(value)) {
+        command += `${first ? ' --data "' : '&'}${key}=${(
+          value as SelectedTaxon[]
+        )
+          .map((taxon) => taxon.id)
+          .join(',')}`;
       } else {
         command += `${first ? ' --data "' : '&'}${key}=${encodeURIComponent(
           value

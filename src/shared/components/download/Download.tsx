@@ -1,14 +1,19 @@
-import { useState, FC, ChangeEvent, useRef, useCallback } from 'react';
+import { useState, FC, ChangeEvent } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
-import { Button, LongNumber, Message } from 'franklin-sites';
+import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
+import ExternalLink from '../ExternalLink';
+
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+
+import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -18,16 +23,34 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
+import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
+import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
+
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+} from '../../utils/gtagEvents';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 
-export const getPreviewFileFormat = (fileFormat: FileFormat) =>
-  fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
+const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
+
+export const getPreviewFileFormat = (
+  fileFormat: FileFormat
+): FileFormat | undefined => {
+  if (fileFormat === FileFormat.excel) {
+    return FileFormat.tsv;
+  }
+  if (fileFormat === FileFormat.embeddings) {
+    return undefined;
+  }
+  return fileFormat;
+};
 
 type DownloadProps = {
   query?: string;
@@ -36,14 +59,19 @@ type DownloadProps = {
   totalNumberResults: number;
   numberSelectedEntries?: number;
   namespace: Namespace;
-  onClose: () => void;
+  onClose: (
+    panelCloseReason: DownloadPanelFormCloseReason,
+    downloadMethod?: DownloadMethod
+  ) => void;
   accessions?: string[];
   base?: string;
   supportedFormats?: FileFormat[];
   notCustomisable?: boolean;
+  excludeColumns?: boolean;
+  inBasketMini?: boolean;
 };
 
-type ExtraContent = 'url' | 'preview';
+type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
 
 const Download: FC<DownloadProps> = ({
   query,
@@ -57,6 +85,8 @@ const Download: FC<DownloadProps> = ({
   base,
   supportedFormats,
   notCustomisable,
+  excludeColumns = false,
+  inBasketMini = false,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
@@ -103,8 +133,8 @@ const Download: FC<DownloadProps> = ({
 
   const hasColumns =
     fileFormatsWithColumns.has(fileFormat) &&
-    namespace !== Namespace.idmapping &&
-    namespace !== Namespace.unisave;
+    !excludeColumns &&
+    namespace !== Namespace.idmapping;
 
   // The ID Mapping URL provided from the job details is for the paginated results
   // endpoint while the stream endpoint is required for downloads
@@ -118,19 +148,22 @@ const Download: FC<DownloadProps> = ({
   }
 
   const downloadOptions: DownloadUrlOptions = {
-    query: urlQuery,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
     fileFormat,
     compressed,
     selected: urlSelected,
     selectedIdField,
-    namespace:
-      namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace,
+    namespace,
     accessions,
     base: downloadBase,
   };
+
+  if (!inBasketMini) {
+    downloadOptions.query = urlQuery;
+    downloadOptions.selectedFacets = selectedFacets;
+    downloadOptions.sortColumn = sortColumn;
+    downloadOptions.sortDirection = sortDirection;
+  }
+
   if (hasColumns) {
     downloadOptions.columns = selectedColumns;
   }
@@ -142,19 +175,19 @@ const Download: FC<DownloadProps> = ({
     downloadAll ? totalNumberResults : nSelectedEntries
   );
   const previewFileFormat = getPreviewFileFormat(fileFormat);
-  const previewOptions: DownloadUrlOptions = {
+  const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
     ...downloadOptions,
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
     base,
   };
-  if (namespace === Namespace.unisave) {
+  if (previewOptions && namespace === Namespace.unisave) {
     // get only the first 10 entries instead of using the size parameters
     previewOptions.selected = previewOptions.selected.slice(0, 10);
   }
 
-  const previewUrl = getDownloadUrl(previewOptions);
+  const previewUrl = previewOptions && getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
@@ -162,21 +195,86 @@ const Download: FC<DownloadProps> = ({
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
-  const extraContentRef = useRef<HTMLElement>(null);
-
-  const scrollExtraIntoView = useCallback(() => {
-    extraContentRef.current?.scrollIntoView();
-  }, []);
-
-  const displayExtraContent = useCallback(
-    (content: ExtraContent) => {
-      setExtraContent(content);
-      scrollExtraIntoView();
-    },
-    [scrollExtraIntoView]
-  );
-
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
+  const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
+  const isUniprotkb = namespace === Namespace.uniprotkb;
+  const isEmbeddings = fileFormat === FileFormat.embeddings;
+  const tooLargeForEmbeddings =
+    isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
+  const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
+  const ftpFilenameAndUrl =
+    namespace === Namespace.uniprotkb
+      ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
+      : null;
+
+  // Peptide search download for matches exceeding the threshold
+  const redirectToIDMapping =
+    jobResultsLocation === Location.PeptideSearchResult &&
+    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
+  let extraContentNode: JSX.Element | undefined;
+  if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
+    extraContentNode = (
+      <>
+        <h4 data-article-id="downloads" className={styles['ftp-header']}>
+          File Available On FTP Server
+        </h4>
+        This file is available {!isEmbeddings && 'compressed'} within the{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'downloads',
+          })}
+        >
+          UniProtKB directory
+        </Link>{' '}
+        of the UniProt FTP server:
+        <div className={styles['ftp-url']}>
+          <ExternalLink
+            url={ftpFilenameAndUrl.url}
+            noIcon
+            onClick={() => onClose('download', 'ftp')}
+          >
+            <DownloadIcon width="1em" />
+            {ftpFilenameAndUrl.filename}
+          </ExternalLink>
+        </div>
+      </>
+    );
+  } else if (
+    extraContent === 'url' ||
+    // Hopefully temporary, this is because of restrictions on embeddings
+    (extraContent === 'generate' && tooLargeForEmbeddings)
+  ) {
+    extraContentNode = (
+      <DownloadAPIURL
+        // Remove the download attribute as it's unnecessary for API access
+        apiURL={downloadUrl.replace('download=true&', '')}
+        ftpURL={ftpFilenameAndUrl?.url}
+        onCopy={() => onClose('copy', 'api-url')}
+        count={downloadCount}
+        disableAll={isEmbeddings || redirectToIDMapping}
+      />
+    );
+  } else if (extraContent === 'generate') {
+    extraContentNode = (
+      <AsyncDownloadForm
+        downloadUrlOptions={downloadOptions}
+        count={downloadCount}
+        initialFormValues={defaultFormValues}
+        onClose={() => onClose('submit', 'async')}
+      />
+    );
+  } else if (extraContent === 'preview') {
+    extraContentNode = (
+      <DownloadPreview
+        previewUrl={previewUrl}
+        previewFileFormat={previewFileFormat}
+      />
+    );
+  }
+
+  const downloadHref =
+    isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl;
 
   return (
     <>
@@ -188,7 +286,7 @@ const Download: FC<DownloadProps> = ({
           value="false"
           checked={!downloadAll}
           onChange={handleDownloadAllChange}
-          disabled={nSelectedEntries === 0}
+          disabled={nSelectedEntries === 0 || redirectToIDMapping}
         />
         Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
       </label>
@@ -200,6 +298,7 @@ const Download: FC<DownloadProps> = ({
           value="true"
           checked={downloadAll}
           onChange={handleDownloadAllChange}
+          disabled={redirectToIDMapping}
         />
         Download all (<LongNumber>{totalNumberResults}</LongNumber>)
       </label>
@@ -211,6 +310,7 @@ const Download: FC<DownloadProps> = ({
             data-testid="file-format-select"
             value={fileFormat}
             onChange={(e) => setFileFormat(e.target.value as FileFormat)}
+            disabled={redirectToIDMapping}
           >
             {fileFormats.map((format) => (
               <option value={format} key={format}>
@@ -232,6 +332,7 @@ const Download: FC<DownloadProps> = ({
               value="true"
               checked={compressed}
               onChange={handleCompressedChange}
+              disabled={redirectToIDMapping}
             />
             Yes
           </label>
@@ -243,11 +344,35 @@ const Download: FC<DownloadProps> = ({
               value="false"
               checked={!compressed}
               onChange={handleCompressedChange}
+              disabled={redirectToIDMapping}
             />
             No
           </label>
         </fieldset>
       )}
+      {/* Peptide search download for matches exceeding the threshold */}
+      {redirectToIDMapping && (
+        <Message level="warning">
+          To download peptide search results of more than{' '}
+          <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber> matches,
+          please use the{' '}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.IDMapping],
+              state: {
+                parameters: {
+                  ids: accessions,
+                  name: `Peptide search matches`,
+                },
+              },
+            }}
+          >
+            ID Mapping
+          </Link>{' '}
+          service.
+        </Message>
+      )}
+
       {hasColumns && (
         <>
           <legend>Customize columns</legend>
@@ -266,72 +391,47 @@ const Download: FC<DownloadProps> = ({
           styles['action-buttons']
         )}
       >
-        <Button variant="tertiary" onClick={() => displayExtraContent('url')}>
+        <Button variant="tertiary" onClick={() => setExtraContent('url')}>
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
-          onClick={() => displayExtraContent('preview')}
+          onClick={() => setExtraContent('preview')}
+          disabled={redirectToIDMapping}
         >
           Preview{' '}
           {namespace === Namespace.unisave && !selectedEntries.length
             ? 'file'
             : nPreview}
         </Button>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : downloadUrl}
-          className={cn('button', 'primary', {
-            disabled: downloadCount > DOWNLOAD_SIZE_LIMIT,
-          })}
+          href={downloadHref}
+          className={cn('button', 'primary')}
           title={
-            downloadCount > DOWNLOAD_SIZE_LIMIT
-              ? 'Download size is too big, please restrict your search'
-              : undefined
+            isAsyncDownload
+              ? 'Download with a File Generation job'
+              : 'Download file'
           }
           target="_blank"
           rel="noreferrer"
-          onClick={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : onClose}
+          onClick={() => {
+            if (ftpFilenameAndUrl) {
+              setExtraContent('ftp');
+            } else if (isAsyncDownload) {
+              setExtraContent('generate');
+            } else {
+              onClose('download', 'sync');
+            }
+          }}
         >
           Download
         </a>
       </section>
-      <section ref={extraContentRef}>
-        {downloadCount > DOWNLOAD_SIZE_LIMIT && (
-          <Message level="info">
-            Download size is too big, please restrict your search. If the
-            results exceeed the download limit of 5,000,000, it is recommended
-            to use{' '}
-            <Link
-              to={generatePath(LocationToPath[Location.HelpEntry], {
-                accession: 'pagination',
-              })}
-            >
-              pagination
-            </Link>
-            .
-          </Message>
-        )}
-        {extraContent === 'url' && (
-          <DownloadAPIURL
-            // Remove the download attribute as it's unnecessary for API access
-            apiURL={downloadUrl.replace('download=true&', '')}
-            onCopy={onClose}
-            onMount={scrollExtraIntoView}
-            count={downloadCount}
-          />
-        )}
-        {extraContent === 'preview' && (
-          <DownloadPreview
-            previewUrl={previewUrl}
-            previewFileFormat={previewFileFormat}
-            onMount={scrollExtraIntoView}
-          />
-        )}
-      </section>
+      <section>{extraContentNode}</section>
     </>
   );
 };

@@ -1,10 +1,16 @@
-import { useState, Suspense, useMemo } from 'react';
+import { useState, Suspense, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import lazy from '../../../shared/utils/lazy';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+  sendGtagEventPanelOpen,
+  sendGtagEventPanelResultsDownloadClose,
+} from '../../../shared/utils/gtagEvents';
 
 import { createSelectedQueryString } from '../../../shared/config/apiUrls';
 import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
@@ -39,6 +45,20 @@ const ComponentsButtons = ({
   proteomeType,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
+  const handleToggleDownload = useCallback(
+    (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
+      setDisplayDownloadPanel((displayDownloadPanel) => {
+        if (displayDownloadPanel) {
+          sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        } else {
+          sendGtagEventPanelOpen('results_download');
+        }
+        return !displayDownloadPanel;
+      });
+    },
+    []
+  );
 
   const allQuery = `(${
     // Excluded not supported at the moment, need to wait for TRM-28011
@@ -83,7 +103,7 @@ const ComponentsButtons = ({
           <SlidingPanel
             title="Download"
             position="left"
-            onClose={() => setDisplayDownloadPanel(false)}
+            onClose={handleToggleDownload}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -92,7 +112,7 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
-                onClose={() => setDisplayDownloadPanel(false)}
+                onClose={handleToggleDownload}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011
                   proteomeType === 'Redundant proteome'
@@ -104,6 +124,8 @@ const ComponentsButtons = ({
                     ? fileFormatsResultsDownloadForRedundant
                     : undefined
                 }
+                // List of proteins has to be downloaded. In that case, the default proteome columns must not be set
+                excludeColumns
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -114,7 +136,7 @@ const ComponentsButtons = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel((value) => !value)}
+          onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
           Download

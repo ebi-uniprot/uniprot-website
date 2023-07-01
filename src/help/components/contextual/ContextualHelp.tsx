@@ -1,5 +1,5 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
-import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory, generatePath } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
 import ContextualHelpContainer from './ContextualHelpContainer';
@@ -7,7 +7,10 @@ import SideButtons from './SideButtons';
 
 import useMatchMedia from '../../../shared/hooks/useMatchMedia';
 
-import { gtagFn } from '../../../shared/utils/logging';
+import {
+  sendGtagEventPanelClose,
+  sendGtagEventPanelHelpOpen,
+} from '../../../shared/utils/gtagEvents';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -49,7 +52,10 @@ const ContextualHelp = () => {
       ) {
         if (smallScreen || element.dataset.articleId.match(/^http(s?)/)) {
           // External link, open in new tab
-          window.open(element.dataset.articleId, 'external_help');
+          const target = generatePath(LocationToPath[Location.HelpEntry], {
+            accession: element.dataset.articleId,
+          });
+          window.open(target.replace('%23', '#'), 'external_help');
         } else {
           setArticlePath(element.dataset.articleId);
           setDisplayButton(false);
@@ -68,18 +74,19 @@ const ContextualHelp = () => {
   }, [history, smallScreen]);
 
   const handleClose = useCallback<
-    (reason: 'outside' | 'button' | 'navigation' | 'escape') => void
+    (reason: 'outside' | 'x-button' | 'navigation' | 'escape') => void
   >((reason) => {
     if (reason !== 'outside') {
       setArticlePath(undefined);
       setDisplayButton(true);
+      sendGtagEventPanelClose('help', reason);
     }
   }, []);
 
   const handleButtonClick = useCallback<MouseEventHandler<HTMLAnchorElement>>(
     (event) => {
-      if (event.metaKey || event.ctrlKey) {
-        return; // default behaviour of opening a new tab
+      if (event.metaKey || event.ctrlKey || event.shiftKey) {
+        return; // default behaviour of opening a new tab or new window
       }
       event.preventDefault();
       setDisplayButton(false);
@@ -95,11 +102,8 @@ const ContextualHelp = () => {
   }, []);
 
   useEffect(() => {
-    if (displayButton === false && shouldBeVisible) {
-      gtagFn('event', 'help render', {
-        event_category: 'panel',
-        event_label: articlePath,
-      });
+    if (displayButton === false && shouldBeVisible && articlePath) {
+      sendGtagEventPanelHelpOpen(articlePath);
     }
   }, [articlePath, displayButton, shouldBeVisible]);
 

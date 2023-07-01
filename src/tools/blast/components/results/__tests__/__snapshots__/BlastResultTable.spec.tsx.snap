@@ -2,71 +2,51 @@
 
 exports[`BlastResultTable tests should render without any hits 1`] = `
 <DocumentFragment>
-  <table
-    class="data-table data-table--compact data-table--fixed"
+  <div
+    class="error-page-container"
+    data-testid="no-results-page"
   >
-    <thead>
-      <tr>
-        <th
-          class="data-table__header-cell--checkbox"
-        >
-          <div
-            class="checkbox-cell"
+    <img
+      alt=""
+      class="error-page-container__art-work"
+      height="400"
+      src="test-file-stub"
+      width="400"
+    />
+    <div
+      class="message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          <h1
+            class="small"
           >
-            <input
-              id="0"
-              type="checkbox"
-            />
-            <label
-              aria-label="Selection control for all visible items"
-              for="0"
-            />
-          </div>
-        </th>
-        <th
-          class=""
-        >
-          Accession
-        </th>
-        <th
-          class=""
-        >
-          Gene
-        </th>
-        <th
-          class=""
-        >
-          Protein
-        </th>
-        <th
-          class=""
-        >
-          Organism
-        </th>
-        <th
-          class=""
-          style="width: 40vw;"
-        >
-          <div
-            class="query-sequence-wrapper"
-          >
-            <protvista-navigation
-              length="6"
-              title="Query"
-            />
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody />
-  </table>
+            Sorry, no results were found!
+          </h1>
+          <span>
+            Please try different criteria
+          </span>
+        </small>
+      </section>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
 <DocumentFragment>
   <table
-    class="data-table data-table--compact data-table--fixed"
+    class="data-table data-table--compact"
   >
     <thead>
       <tr>
@@ -89,22 +69,79 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
         <th
           class=""
         >
-          Accession
+          <span
+            aria-expanded="false"
+          >
+            <span>
+              Entry
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+        />
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="entry_name"
+            >
+              Entry Name
+            </span>
+          </span>
         </th>
         <th
           class=""
         >
-          Gene
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="protein_names"
+            >
+              Protein Names
+            </span>
+          </span>
         </th>
         <th
           class=""
         >
-          Protein
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="gene_name"
+            >
+              Gene Names
+            </span>
+          </span>
         </th>
         <th
           class=""
         >
-          Organism
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="organism-name"
+            >
+              Organism
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span>
+              Length
+            </span>
+          </span>
         </th>
         <th
           class=""
@@ -137,43 +174,29 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
             title="click to select, shift+click for multiple selection"
           />
         </td>
-        <td
-          class="data-table__cell--ellipsis"
-        >
-          <a
-            href="/uniprotkb/U6MKN0"
+        <td>
+          <span
+            class="no-wrap accession-view"
           >
-            <span
-              class="entry-title__status icon--unreviewed"
-              title="This marks an unreviewed UniProtKB entry"
-            >
-              <test-file-stub />
-            </span>
-            U6MKN0
-          </a>
+            <a
+              class="accession"
+              href="/uniprotkb/undefined/entry"
+            />
+          </span>
         </td>
-        <td
-          class="data-table__cell--ellipsis"
-        >
-          ENH_00046930
+        <td />
+        <td>
+          <span />
         </td>
-        <td
-          class="data-table__cell--ellipsis"
-        >
-          Uncharacterized protein
+        <td>
+          <span
+            style="font-weight: initial;"
+          />
         </td>
-        <td
-          class="data-table__cell--ellipsis"
-        >
-          <a
-            href="/taxonomy/51315"
-          >
-            Eimeria necatrix
-          </a>
-        </td>
-        <td
-          class="data-table__cell--ellipsis"
-        >
+        <td />
+        <td />
+        <td />
+        <td>
           <div
             class="data-table__blast-hsp"
           >
@@ -203,10 +226,10 @@ Hit length: 486"
                     7.1%
                   </button>
                   <button
-                    class="chip chip--compact hsp_bit_score secondary"
+                    class="chip chip--compact hsp_score secondary"
                     type="button"
                   >
-                    41.5874
+                    96
                   </button>
                   <button
                     class="chip chip--compact hsp_expect secondary"

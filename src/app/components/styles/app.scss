@@ -1,12 +1,15 @@
 // Used to replace <p> when using EvidenceTag
 .text-block {
-  margin-bottom: 1rem;
   font-size: inherit;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
   display: block;
   margin-block-end: 1em;
   margin-inline: 0;
+
+  .decorated-list-item & {
+    margin-block-end: 0;
+  }
 }
 
 // only show the first loader component when 2 or more are direct siblings
@@ -56,9 +59,37 @@ protvista-datatable:not(:defined) > table {
   }
 }
 
+protvista-manager {
+  &:hover,
+  &:focus-within {
+    & path.rectangle.feature {
+      stroke: gray;
+    }
+  }
+}
+
 // TODO: remove as part of TRM-26871
 .protvista-uniprot-structure__structure protvista-structure {
   z-index: 10 !important;
+
+  & .msp-viewport-controls {
+    display: none;
+  }
+}
+
+.zoom-image-container img {
+  width: 100%;
+}
+
+// margin in order to not have the feedback/help buttons cover the viewer
+.hotjar-margin {
+  margin-inline-end: 1.2rem;
+}
+
+@for $i from 1 through 6 {
+  h#{$i}[data-article-id] {
+    display: inline-block;
+  }
 }
 
 // Debug utility to show heading levels

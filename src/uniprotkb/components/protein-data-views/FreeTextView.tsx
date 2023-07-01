@@ -11,6 +11,7 @@ import {
 } from '../../../app/config/urls';
 import {
   reAC,
+  reIsoform,
   needTextProcessingRE,
   rePubMedID,
   rePubMed,
@@ -26,26 +27,34 @@ import {
   TextWithEvidence,
 } from '../../types/commentTypes';
 
-import helper from '../../../shared/styles/helper.module.scss';
-
 const needsNewLineRE = /^\)\.\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
-export const RichText = ({
-  children,
-  addPeriod,
-}: {
+type RichTextProps = {
+  /**
+   * Text to parse and enrich
+   */
   children?: string;
+  /**
+   * Wether to add periods (if missing) at the end. To be used if it's meant to
+   * be a sentence
+   */
   addPeriod?: boolean;
-}) => (
+  /**
+   * Just do enrichments that don't involve adding links. Only the visual ones
+   */
+  noLink?: boolean;
+};
+
+export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
   <>
-    {children?.split(needTextProcessingRE).map((part, index, { length }) => {
+    {children?.split(needTextProcessingRE).map((part, index, mappedArr) => {
       // Capturing group will allow split to conserve that bit in the split parts
       // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
       // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
       const pubMedID = part.match(rePubMedID)?.[0];
-      if (rePubMed.test(part) && pubMedID) {
+      if (rePubMed.test(part) && pubMedID && !noLink) {
         // PubMed ID, insert a link
         // eg A0A075B6S6
         return (
@@ -56,22 +65,43 @@ export const RichText = ({
           </Fragment>
         );
       }
-      const accession = part.match(reUniProtKBAccession)?.[0];
-      if (reAC.test(part) && accession) {
-        // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
-        // eg A0A075B6S6
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            {/* Somehow the part kept "AC ", so put it back */}
-            {part.startsWith('AC ') ? `AC ` : ''}
-            <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-              {accession}
-            </Link>
-          </Fragment>
-        );
+      if (!noLink) {
+        const accession = part.match(reUniProtKBAccession)?.[0];
+        if (reAC.test(part) && accession) {
+          // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
+          // eg A0A075B6S6
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              {/* Somehow the part kept "AC ", so put it back */}
+              {part.startsWith('AC ') ? `AC ` : ''}
+              <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                {accession}
+              </Link>
+            </Fragment>
+          );
+        }
+        const isoformMatch = part.match(reIsoform)?.[0];
+        if (isoformMatch) {
+          const [text, isoform] = isoformMatch.split(' ');
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              {text}{' '}
+              {/* eslint-disable-next-line uniprot-website/use-config-location */}
+              <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
+            </Fragment>
+          );
+        }
       }
       if (reSubscript.test(part)) {
+        // Exceptional case to handle scientific notations present in kinetic specific constants. Example: 5.38x10(2) has be to superscript
+        if (mappedArr[index - 1].endsWith('x10')) {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <sup key={index}>{part.substring(1, part.length - 1)}</sup>
+          );
+        }
         return (
           // eslint-disable-next-line react/no-array-index-key
           <sub key={index}>{part.substring(1, part.length - 1)}</sub>
@@ -96,7 +126,7 @@ export const RichText = ({
         );
       }
       // If the last section doesn't end with a period, add it
-      if (addPeriod && index + 1 === length && !part.endsWith('.')) {
+      if (addPeriod && index + 1 === mappedArr.length && !part.endsWith('.')) {
         return `${part}.`;
       }
       // use plain text as such
@@ -105,14 +135,15 @@ export const RichText = ({
   </>
 );
 
-export const TextView = ({
-  comments,
-  type,
-}: {
+type TextViewProps = {
   comments: TextWithEvidence[];
   type?: FreeTextType;
-}) => (
+  children?: ReactNode;
+};
+
+export const TextView = ({ comments, type, children }: TextViewProps) => (
   <div className="text-block">
+    {children}
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
@@ -169,11 +200,7 @@ const FreeTextView: FC<FreeTextProps> = ({
 
   return (
     <>
-      {title && (
-        <h3 className={helper.capitalize} data-article-id={articleId}>
-          {title}
-        </h3>
-      )}
+      {title && <h3 data-article-id={articleId}>{title}</h3>}
       {freeTextData}
     </>
   );

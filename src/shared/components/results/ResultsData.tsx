@@ -1,11 +1,21 @@
-import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from 'react';
+import {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
   EllipsisReveal,
+  Message,
 } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
+
+import DidYouMean from './DidYouMean';
 
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
@@ -15,7 +25,11 @@ import { useSmallScreen } from '../../hooks/useMatchMedia';
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
-import { getEntryPathFor } from '../../../app/config/urls';
+import {
+  getEntryPathFor,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import getCardRenderer from '../../config/resultsCardRenderers';
 
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
@@ -23,8 +37,7 @@ import { APIModel } from '../../types/apiModel';
 import { PaginatedResults } from '../../hooks/usePagination';
 import { Basket } from '../../hooks/useBasket';
 
-import './styles/warning.scss';
-import './styles/results-data.scss';
+import styles from './styles/results-data.module.scss';
 
 type Props = {
   resultsDataObject: PaginatedResults;
@@ -34,9 +47,9 @@ type Props = {
   columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
   basketSetter?: Dispatch<SetStateAction<Basket>>;
-  className?: string;
   disableCardToggle?: boolean;
   displayPeptideSearchMatchColumns?: boolean;
+  didYouMean?: boolean;
 };
 
 const ResultsData = ({
@@ -48,8 +61,8 @@ const ResultsData = ({
   displayIdMappingColumns,
   basketSetter,
   disableCardToggle = false,
-  className,
   displayPeptideSearchMatchColumns,
+  didYouMean,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
@@ -69,6 +82,8 @@ const ResultsData = ({
     handleLoadMoreRows,
     hasMoreData,
     progress,
+    warnings,
+    suggestions,
   } = resultsDataObject;
 
   const smallScreen = useSmallScreen();
@@ -150,7 +165,29 @@ const ResultsData = ({
   }
 
   return (
-    <div className="results-data">
+    <>
+      {/* Display warning for wildcard searches. It is not related to any warning from ID mapping */}
+      {warnings && !displayIdMappingColumns && (
+        <Message level="warning">
+          {warnings.map((warning) => {
+            const [firstPart, linkContent, lastPart] =
+              warning.message.split(/(help page)/);
+            return (
+              <Fragment key={warning.code}>
+                {firstPart}
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'wildcard',
+                  })}
+                >
+                  {linkContent}
+                </Link>
+                {lastPart}
+              </Fragment>
+            );
+          })}
+        </Message>
+      )}
       {viewMode === 'cards' && !displayIdMappingColumns ? (
         // Card view
         <DataListWithLoader<APIModel>
@@ -162,7 +199,7 @@ const ResultsData = ({
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}
-          className={className}
+          className={styles['results-data']}
         />
       ) : (
         // Table view
@@ -179,11 +216,19 @@ const ResultsData = ({
             onLoadMoreItems={handleLoadMoreRows}
             hasMoreData={hasMoreData}
             loaderComponent={loadComponent}
-            className={className}
+            className={styles['results-data']}
           />
         </EllipsisReveal.Provider>
       )}
-    </div>
+      {!hasMoreData && didYouMean && (
+        <div className={styles['did-you-mean-wrapper']}>
+          <DidYouMean
+            suggestions={suggestions}
+            heading={<h2 className="small">Not what you were looking for?</h2>}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

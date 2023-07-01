@@ -1,87 +1,71 @@
-import { prepareFieldData, getFieldDataForColumns } from '..';
+import { prepareFieldData, getLabel } from '..';
 
 import { UniProtKBColumn } from '../../../../../uniprotkb/types/columnTypes';
+import { Namespace } from '../../../../types/namespaces';
 
 import fieldData from './__mocks__/fieldData';
 
 describe('prepareFieldData', () => {
-  test('should return prepared field data', () => {
-    expect(prepareFieldData(fieldData)).toEqual({
-      Data: [
-        {
-          id: 'names_&_taxonomy',
-          items: [
-            {
-              id: 'gene_names',
-              key: 'names_&_taxonomy/gene_names',
-              label: 'Gene Names',
-            },
-          ],
-          title: 'Names & Taxonomy',
-        },
-      ],
-      'External links': [
-        {
-          id: 'sequence',
-          items: [
-            {
-              id: 'xref_ccds',
-              key: 'sequence/ccds',
-              label: 'CCDS',
-            },
-          ],
-          title: 'Sequence',
-        },
-      ],
-    });
+  it('should return prepared field data', () => {
+    expect(prepareFieldData(fieldData)).toEqual([
+      {
+        id: 'uniprot-data',
+        items: [
+          {
+            id: 'names_&_taxonomy',
+            items: [
+              {
+                id: 'gene_names',
+                key: 'names_&_taxonomy/gene_names',
+                label: 'Gene Names',
+              },
+            ],
+            label: 'Names & Taxonomy',
+          },
+        ],
+        label: 'UniProt Data',
+      },
+      {
+        id: 'external-resources',
+        items: [
+          {
+            id: 'sequence',
+            items: [{ id: 'xref_ccds', key: 'sequence/ccds', label: 'CCDS' }],
+            label: 'Sequence',
+          },
+        ],
+        label: 'External Resources',
+      },
+    ]);
   });
 
-  test('should exclude column', () => {
-    expect(prepareFieldData(fieldData, [UniProtKBColumn.geneNames])).toEqual({
-      'External links': [
-        {
-          id: 'sequence',
-          items: [
-            {
-              id: 'xref_ccds',
-              key: 'sequence/ccds',
-              label: 'CCDS',
-            },
-          ],
-          title: 'Sequence',
-        },
-      ],
-    });
+  it('should exclude column', () => {
+    expect(prepareFieldData(fieldData, [UniProtKBColumn.geneNames])).toEqual([
+      {
+        id: 'external-resources',
+        items: [
+          {
+            id: 'sequence',
+            items: [{ id: 'xref_ccds', key: 'sequence/ccds', label: 'CCDS' }],
+            label: 'Sequence',
+          },
+        ],
+        label: 'External Resources',
+      },
+    ]);
   });
 });
 
-describe('getFieldDataForColumns', () => {
+describe('getLabel', () => {
   const prepared = prepareFieldData(fieldData);
-  test('should get field data for "data" column', () => {
+  it('should get field data for "UniProt Data" column', () => {
     expect(
-      getFieldDataForColumns([UniProtKBColumn.geneNames], prepared)
-    ).toEqual([
-      {
-        accordionId: 'names_&_taxonomy',
-        itemId: 'gene_names',
-        label: 'Gene Names',
-        tabId: 'Data',
-      },
-    ]);
+      getLabel(prepared, Namespace.uniprotkb, UniProtKBColumn.geneNames)
+    ).toEqual('Gene Names');
   });
-  test('should get field data for "links" column and deal with nonexistent data tab value', () => {
+  it('should get field data for "External Resources" column', () => {
     expect(
-      getFieldDataForColumns([UniProtKBColumn.xrefCcds], {
-        ...prepared,
-        Data: undefined,
-      })
-    ).toEqual([
-      {
-        accordionId: 'sequence',
-        itemId: 'xref_ccds',
-        label: 'CCDS',
-        tabId: 'External links',
-      },
-    ]);
+      getLabel(prepared, Namespace.uniprotkb, UniProtKBColumn.xrefCcds)
+    ).toEqual('CCDS');
   });
 });

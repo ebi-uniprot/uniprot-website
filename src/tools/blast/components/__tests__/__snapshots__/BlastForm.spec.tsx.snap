@@ -201,6 +201,7 @@ exports[`BlastForm test Renders the form 1`] = `
             Name your BLAST job
             <input
               autocomplete="off"
+              data-hj-allow="true"
               maxlength="100"
               name="title"
               placeholder=""my job title""
@@ -461,8 +462,8 @@ exports[`BlastForm test Renders the form 1`] = `
               HSPs per hit
               <select>
                 <option
-                  data-testid="HSPs per hit-undefined"
-                  value="undefined"
+                  data-testid="HSPs per hit-All"
+                  value="All"
                 >
                   All
                 </option>

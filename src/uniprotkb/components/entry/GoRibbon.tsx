@@ -233,9 +233,12 @@ const GoRibbon = ({
                   <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
                     {goTerm.termDescription || goTerm.id}
                   </ExternalLink>
-                  <UniProtKBEvidenceTag evidences={goTerm.evidences} />
                   <GOTermEvidenceTag
                     evidence={goTerm.properties?.GoEvidenceType}
+                  />
+                  <UniProtKBEvidenceTag
+                    evidences={goTerm.evidences}
+                    goTermEvidence
                   />
                 </td>
               </tr>
@@ -247,9 +250,9 @@ const GoRibbon = ({
 
   return (
     <div className="GoRibbon">
-      <h3 data-article-id="gene_ontology">GO Annotations</h3>
+      <h3 data-article-id="gene_ontology">GO annotations</h3>
       {!isSmallScreen && (
-        <LazyComponent fallback={null} rootMargin="50px">
+        <LazyComponent fallback={null}>
           <Helmet>
             <script
               type="module"
@@ -277,6 +280,12 @@ const GoRibbon = ({
       {!!filteredGoTerms.length && (
         <DatatableWithToggle>{table}</DatatableWithToggle>
       )}
+      <ExternalLink
+        url={externalUrls.QuickGOAnnotations(primaryAccession)}
+        className={styles['quickgo-link']}
+      >
+        Complete GO annotation on QuickGO{' '}
+      </ExternalLink>
     </div>
   );
 };

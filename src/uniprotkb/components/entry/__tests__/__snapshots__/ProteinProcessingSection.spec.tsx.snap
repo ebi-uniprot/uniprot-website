@@ -36,7 +36,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
           <span
             data-article-id="mod_res_large_scale"
           >
-            modified residue (large scale)
+            modified residue (large scale data)
           </span>
           .
         </p>
@@ -98,9 +98,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <protvista-datatable
               filter-scroll="true"
             >
-              <table
-                class=""
-              >
+              <table>
                 <thead>
                   <tr>
                     <th
@@ -151,7 +149,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     >
                       UniProt
                     </td>
-                    <td>
+                    <td
+                      id="description2-8"
+                    >
                       Cu
                       <sup>
                         2+
@@ -198,7 +198,13 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                           width="12.5"
                         />
                       </a>
-                      ); Some note; description value 123
+                      ); Some note; In isoform 
+                      <a
+                        href="/#Isoform_sequence"
+                      >
+                        sequence
+                      </a>
+                       1; description value 123
                       <button
                         aria-controls="3"
                         aria-expanded="false"
@@ -263,9 +269,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   >
                     <td
                       data-filter="type"
-                      data-filter-value="Modified residue (large scale)"
+                      data-filter-value="Modified residue (large scale data)"
                     >
-                      Modified residue (large scale)
+                      Modified residue (large scale data)
                     </td>
                     <td />
                     <td>
@@ -277,14 +283,20 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     >
                       PTMeXchange
                     </td>
-                    <td>
+                    <td
+                      id="description209"
+                    >
                       Phosphoserine
-                      <button
-                        class="chip chip--compact secondary"
-                        type="button"
+                      <span
+                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
                       >
-                        Bronze
-                      </button>
+                        <button
+                          class="chip chip--compact secondary Bronze"
+                          type="button"
+                        >
+                          Bronze
+                        </button>
+                      </span>
                       <button
                         aria-controls="4"
                         aria-expanded="false"
@@ -317,9 +329,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   >
                     <td
                       data-filter="type"
-                      data-filter-value="Modified residue (large scale)"
+                      data-filter-value="Modified residue (large scale data)"
                     >
-                      Modified residue (large scale)
+                      Modified residue (large scale data)
                     </td>
                     <td />
                     <td>
@@ -331,14 +343,20 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     >
                       PTMeXchange
                     </td>
-                    <td>
+                    <td
+                      id="description214"
+                    >
                       Phosphoserine
-                      <button
-                        class="chip chip--compact secondary"
-                        type="button"
+                      <span
+                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
                       >
-                        Bronze
-                      </button>
+                        <button
+                          class="chip chip--compact secondary Bronze"
+                          type="button"
+                        >
+                          Bronze
+                        </button>
+                      </span>
                       <button
                         aria-controls="5"
                         aria-expanded="false"
@@ -371,9 +389,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   >
                     <td
                       data-filter="type"
-                      data-filter-value="Modified residue (large scale)"
+                      data-filter-value="Modified residue (large scale data)"
                     >
-                      Modified residue (large scale)
+                      Modified residue (large scale data)
                     </td>
                     <td />
                     <td>
@@ -385,14 +403,20 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     >
                       PTMeXchange
                     </td>
-                    <td>
+                    <td
+                      id="description215"
+                    >
                       Phosphoserine
-                      <button
-                        class="chip chip--compact secondary"
-                        type="button"
+                      <span
+                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
                       >
-                        Bronze
-                      </button>
+                        <button
+                          class="chip chip--compact secondary Bronze"
+                          type="button"
+                        >
+                          Bronze
+                        </button>
+                      </span>
                       <button
                         aria-controls="6"
                         aria-expanded="false"
@@ -533,9 +557,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <protvista-datatable
               filter-scroll="true"
             >
-              <table
-                class=""
-              >
+              <table>
                 <thead>
                   <tr>
                     <th
@@ -571,11 +593,13 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                     <td>
                       1-27
                     </td>
-                    <td>
+                    <td
+                      id="description1-27"
+                    >
                       <button
                         aria-controls="1"
                         aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
+                        class="svg-colour-reviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
                         type="button"
                       >
@@ -586,7 +610,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                         <span
                           class="evidence-tag__label"
                         >
-                          1 automatic annotation
+                          Sequence analysis
                         </span>
                       </button>
                       <div
@@ -648,7 +672,9 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                     <td>
                       28-772
                     </td>
-                    <td>
+                    <td
+                      id="A_type_blood_N-acetyl-alpha-D-galactosamine_deacetylase"
+                    >
                       A type blood N-acetyl-alpha-D-galactosamine deacetylase
                     </td>
                     <td>

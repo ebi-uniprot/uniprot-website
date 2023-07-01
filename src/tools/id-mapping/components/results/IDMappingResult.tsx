@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { partition, uniqBy } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
-import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -48,6 +48,7 @@ import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
 import { MessageLevel } from '../../../../messages/types/messagesTypes';
 
 import styles from './styles/id-mapping-result.module.scss';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -136,6 +137,7 @@ const IDMappingResult = () => {
       sortColumn,
       sortDirection,
       columns: columnNames,
+      facets: [],
     });
 
   const converter = useMemo(
@@ -257,12 +259,12 @@ const IDMappingResult = () => {
   switch (match.params.subPage) {
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
-      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      sidebar = <div className={sidebarStyles['empty-sidebar']} />;
       break;
 
     default:
       if (namespaceOverride === Namespace.idmapping) {
-        sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+        sidebar = <div className={sidebarStyles['empty-sidebar']} />;
       } else {
         sidebar = (
           <ErrorBoundary>
@@ -278,22 +280,7 @@ const IDMappingResult = () => {
   }${match.params.id}/`;
 
   return (
-    <SideBarLayout
-      title={
-        <PageIntro
-          title={namespaceAndToolsLabels[Namespace.idmapping]}
-          titlePostscript={
-            total ? (
-              <small>
-                found for {detailsData?.from} → {detailsData?.to}
-              </small>
-            ) : null
-          }
-          resultsCount={total}
-        />
-      }
-      sidebar={sidebar}
-    >
+    <SidebarLayout sidebar={sidebar}>
       <HTMLHead
         title={[
           title,
@@ -303,6 +290,17 @@ const IDMappingResult = () => {
       >
         <meta name="robots" content="noindex" />
       </HTMLHead>
+      <PageIntro
+        title={namespaceAndToolsLabels[Namespace.idmapping]}
+        titlePostscript={
+          total ? (
+            <small>
+              found for {detailsData?.from} → {detailsData?.to}
+            </small>
+          ) : null
+        }
+        resultsCount={total}
+      />
       {!!warnings.length && (
         <Message level={MessageLevel.WARNING} className={styles.warnings}>
           <ul className="no-bullet">
@@ -373,7 +371,7 @@ const IDMappingResult = () => {
           </Suspense>
         </Tab>
       </Tabs>
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

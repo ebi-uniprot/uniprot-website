@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { lazy } from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {
   DoughnutChart,
@@ -11,7 +11,6 @@ import {
 } from 'franklin-sites';
 import { omit } from 'lodash-es';
 
-import LazyComponent from '../../shared/components/LazyComponent';
 import ExternalLink from '../../shared/components/ExternalLink';
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
@@ -69,7 +68,9 @@ import {
 } from '../types/commentTypes';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 // import { DatabaseList } from '../components/protein-data-views/XRefView';
-import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
+import DiseaseInvolvementView, {
+  protvarVariantLink,
+} from '../components/protein-data-views/DiseaseInvolvementView';
 import CatalyticActivityView, {
   getRheaId,
   isRheaReactionReference,
@@ -84,7 +85,6 @@ import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
-import AlphaFoldView from '../../shared/components/results/AlphaFoldView';
 import CSVView from '../components/protein-data-views/CSVView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
@@ -116,13 +116,6 @@ import { ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
 
-const VariationView = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "variation-view" */ '../components/protein-data-views/VariationView'
-    )
-);
-
 export const defaultColumns = [
   UniProtKBColumn.accession,
   UniProtKBColumn.reviewed,
@@ -148,7 +141,7 @@ const getFeatureColumn = (
         <FeaturesView
           primaryAccession={data.primaryAccession}
           features={featuresData.filter((feature) => feature.type === type)}
-          withDataTable={false}
+          inResultsTable
         />
       )
     );
@@ -178,19 +171,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   render: (data) => (
     <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
   ),
-});
-
-UniProtKBColumnConfiguration.set(UniProtKBColumn.alphafold, {
-  label: (
-    <span
-      style={{ fontFamily: '"IBM Plex Sans", Helvetica, Arial, sans-serif' }}
-    >
-      has AlphaFold
-      <br />
-      prediction?
-    </span>
-  ),
-  render: (data) => <AlphaFoldView accession={data.primaryAccession} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
@@ -488,19 +468,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
-  ...getLabelAndTooltip(
-    'Natural Variants',
-    'Description of a natural variant of the protein',
-    'variant'
-  ),
-  render: (data) => (
-    <LazyComponent fallback="Variants">
-      <VariationView primaryAccession={data.primaryAccession} onlyTable />
-    </LazyComponent>
-  ),
-});
-
 function addFeaturesToConfiguration<T extends FeatureType>(
   featuresToColumns: Record<T, UniProtKBColumn>,
   section: EntrySectionWithFeatures
@@ -791,9 +758,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
     ] as FunctionUIModel;
+
     return (
       bioPhysicoChemicalProperties.kinetics && (
-        <KineticsView data={bioPhysicoChemicalProperties.kinetics} />
+        <>
+          {Object.entries(bioPhysicoChemicalProperties.kinetics).map(
+            ([key, value]) => (
+              <Fragment key={key}>
+                {key !== 'canonical' && <h4 className="tiny">{key}</h4>}
+                <KineticsView data={value} />
+              </Fragment>
+            )
+          )}
+        </>
       )
     );
   },
@@ -923,7 +900,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.commentCount, {
           {Object.keys(counts)
             .sort()
             .map((comment) => (
-              <span className={helper.capitalize} key={comment}>
+              <span key={comment}>
                 {`${comment.toLowerCase()} (${counts[comment as CommentType]})`}
               </span>
             ))}
@@ -1344,21 +1321,27 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   },
 });
 
+// PMIDs currently bounded to 8 digits but no need to be that specific
+// as we basically want to exclude CI-* & IND* citation ID formats
+const rePubMedId = /^\d+$/;
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
-  ...getLabelAndTooltip('Citation ID', 'Mapped PubMed ID'),
+  ...getLabelAndTooltip('PubMed ID', 'Mapped PubMed ID'),
   render: (data) => (
     <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-      {data.references?.map(
-        (reference) =>
-          reference.citation && (
-            <Link
-              key={reference.citation.id}
-              to={getEntryPath(Namespace.citations, reference.citation.id)}
-            >
-              {reference.citation.id}
-            </Link>
-          )
-      )}
+      {data.references
+        ?.filter((reference) => reference.citation?.id.match(rePubMedId))
+        ?.map(
+          (reference) =>
+            reference.citation && (
+              <Link
+                key={reference.citation.id}
+                to={getEntryPath(Namespace.citations, reference.citation.id)}
+              >
+                {reference.citation.id}
+              </Link>
+            )
+        )}
     </ExpandableList>
   ),
 });
@@ -1436,6 +1419,40 @@ const getXrefColumn = (databaseName: string) => {
     const databaseInfoMaps = useDatabaseInfoMaps();
     if (!databaseInfoMaps) {
       return null;
+    }
+
+    if (databaseName === 'dbsnp') {
+      const features = data?.features;
+      return (
+        <>
+          {features?.map((feature) => {
+            const { featureId, featureCrossReferences } = feature;
+            const dbSNPRef = featureCrossReferences?.[0];
+            return (
+              <div key={featureId}>
+                {dbSNPRef?.id && (
+                  <>
+                    {protvarVariantLink(feature, data.primaryAccession)}
+                    <span className={helper['no-wrap']}>
+                      {` ${dbSNPRef.id}`}
+                      {' ( '}
+                      <ExternalLink url={externalUrls.dbSNP(dbSNPRef.id)}>
+                        dbSNP
+                      </ExternalLink>
+                      {' | '}
+                      <ExternalLink url={externalUrls.Ensembl(dbSNPRef.id)}>
+                        Ensembl
+                      </ExternalLink>
+                      {' ) '}
+                    </span>
+                    <br />
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </>
+      );
     }
     const xrefs = data?.uniProtKBCrossReferences?.filter(
       ({ database }) => database?.toLowerCase() === databaseName

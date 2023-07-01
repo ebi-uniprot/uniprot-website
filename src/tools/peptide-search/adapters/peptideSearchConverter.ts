@@ -8,7 +8,7 @@ export const getMatches = (
   const matches: PeptideSearchMatch[] = [];
 
   for (const matchSequence of matchSequences) {
-    let start = entrySequence.indexOf(matchSequence, 0);
+    let start = entrySequence.indexOf(matchSequence.toUpperCase(), 0);
     while (start !== -1) {
       matches.push({
         matchSequence,
@@ -17,7 +17,7 @@ export const getMatches = (
       });
 
       // find the next match
-      start = entrySequence.indexOf(matchSequence, start + 1);
+      start = entrySequence.indexOf(matchSequence.toUpperCase(), start + 1);
     }
   }
 
@@ -32,7 +32,7 @@ const peptideSearchConverter = (
     return results;
   }
 
-  const querySequences = peptides.split('\n');
+  const querySequences = peptides.split(/\s+/).filter(Boolean);
 
   return results.map((result) => {
     const sequence = 'sequence' in result && result.sequence.value;

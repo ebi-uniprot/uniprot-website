@@ -43,11 +43,6 @@ const cardRenderer = (
         <UniProtKBCard data={cardData as UniProtkbAPIModel} />
       );
     }
-    case Namespace.alphafold: {
-      return (cardData) => (
-        <UniProtKBCard data={cardData as UniProtkbAPIModel} alphaFold />
-      );
-    }
     case Namespace.uniref: {
       return (cardData) => <UniRefCard data={cardData as UniRefLiteAPIModel} />;
     }

@@ -78,7 +78,12 @@ const useColumnNames = ({
     columnNames = [UniProtKBColumn.sequence, ...columnNames];
   }
 
-  return { columnNames, setColumnNames, fromUrl, invalidUrlColumnNames };
+  return {
+    columnNames,
+    setColumnNames,
+    fromUrl,
+    invalidUrlColumnNames,
+  };
 };
 
 export default useColumnNames;

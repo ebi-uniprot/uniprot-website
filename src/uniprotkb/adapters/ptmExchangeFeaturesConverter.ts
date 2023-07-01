@@ -30,32 +30,37 @@ const convertPtmExchangePtms = (
         {
           evidenceCode,
           source: 'PRIDE',
-          id,
+          id: id === 'Glue project' ? 'PXD012174' : id, // Glue project dataset is quite old and the 'PXD' ID is provided by PRIDE themselves
         },
       ])
     ),
   ];
   const confidenceScores = new Set(
     ptms.flatMap(({ dbReferences }) =>
-      dbReferences.map(({ properties }) => properties['Confidence score'])
+      dbReferences?.map(({ properties }) => properties['Confidence score'])
     )
   );
   let confidenceScore: ConfidenceScore | undefined;
-  if (!confidenceScores.size) {
-    logging.error('PTMeXchange PTM has no confidence score');
-  } else if (confidenceScores.size > 1) {
-    logging.error(
-      `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
-        confidenceScores
-      )}`
-    );
-  } else {
-    [confidenceScore] = confidenceScores;
+  if (confidenceScores.size) {
+    if (confidenceScores.size > 1) {
+      logging.error(
+        `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
+          confidenceScores
+        )}`
+      );
+    } else {
+      [confidenceScore] = confidenceScores;
+    }
   }
 
+  const sources = ptms.flatMap(({ sources }) =>
+    sources?.map((source) => source)
+  );
+  const [source] = sources || [''];
+
   return {
-    source: 'PTMeXchange',
-    type: 'Modified residue (large scale)',
+    source,
+    type: 'Modified residue (large scale data)',
     location: {
       start: { value: absolutePosition, modifier: 'EXACT' },
       end: { value: absolutePosition, modifier: 'EXACT' },
@@ -73,10 +78,6 @@ export const convertPtmExchangeFeatures = (
     {};
   for (const feature of features) {
     for (const ptm of feature.ptms) {
-      if (!ptm.sources?.includes('PTMeXchange')) {
-        // eslint-disable-next-line no-continue
-        continue;
-      }
       const absolutePosition = +feature.begin + ptm.position - 1;
       if (!Number.isFinite(absolutePosition)) {
         logging.error(

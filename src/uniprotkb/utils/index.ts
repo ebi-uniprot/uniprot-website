@@ -62,6 +62,8 @@ export const transfromProperties = (properties: Property[]) => {
   return o;
 };
 
+export const stringToID = (str: string) => str.replace(/\s/g, '_');
+
 // This function is useful because our API returns arrays of objects of shape: { key: x, value: y}
 export const getPropertyValue = (
   properties: Property[],
@@ -78,12 +80,13 @@ export const reUniProtKBAccession =
   /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
 
 export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
+export const reIsoform = /\bisoform [\w-]+/i;
 export const rePubMedID = /\d{7,8}/;
 export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
 export const needTextProcessingRE = new RegExp(
-  `(${rePubMed.source}|${reAC.source}|By similarity|${reSubscript.source}|${reSuperscript.source})`,
+  `(${rePubMed.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source})`,
   'i'
 );

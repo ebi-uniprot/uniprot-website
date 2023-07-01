@@ -66,7 +66,7 @@ const SubcellularLocationView = ({ comments }: Props) => {
                 )
               )}
               {subcellData.note && (
-                <TextView comments={subcellData.note.texts} />
+                <TextView comments={subcellData.note.texts}>Note: </TextView>
               )}
             </section>
           )

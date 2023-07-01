@@ -17,6 +17,7 @@ export type ServerParameters = {
   [JobTypes.BLAST]: BlastSP;
   [JobTypes.ID_MAPPING]: IDMappingSP;
   [JobTypes.PEPTIDE_SEARCH]: PeptideSearchSP;
+  [JobTypes.ASYNC_DOWNLOAD]: never;
 };
 
 export type PublicServerParameters = {
@@ -26,4 +27,5 @@ export type PublicServerParameters = {
   // No public endpoint to expose this, so for now replace with a "possible"
   // form parameter in order to get going
   [JobTypes.PEPTIDE_SEARCH]: PeptideSearchFP;
+  [JobTypes.ASYNC_DOWNLOAD]: never;
 };

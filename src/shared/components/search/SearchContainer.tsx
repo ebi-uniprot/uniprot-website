@@ -18,7 +18,7 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useIDMappingDetails from '../../hooks/useIDMappingDetails';
 import useStructuredData from '../../hooks/useStructuredData';
-import { useMessagesDispatch } from '../../contexts/Messages';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 
 import lazy from '../../utils/lazy';
@@ -46,6 +46,11 @@ import {
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 import './styles/search-container.scss';
+import {
+  PanelFormCloseReason,
+  sendGtagEventPanelAdvancedSearchClose,
+  sendGtagEventPanelOpen,
+} from '../../utils/gtagEvents';
 
 const QueryBuilder = lazy(
   () =>
@@ -63,13 +68,6 @@ const examples: Record<SearchableNamespace, string[]> = {
     'P05067',
     'organism_id:9606',
   ],
-  [Namespace.alphafold]: [
-    'Insulin',
-    'APP',
-    'Human',
-    'P05067',
-    'organism_id:9606',
-  ], // AlphaFold, same as UniProtKB
   [Namespace.uniref]: [
     'Transcription factors',
     'identity:1.0',
@@ -161,7 +159,6 @@ const SearchContainer = ({
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
   // local state to hold the search value without modifying URL
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
   useStructuredData(webSiteSchemaFor(searchspace));
 
@@ -221,6 +218,20 @@ const SearchContainer = ({
     });
   };
 
+  const handleToggleQueryBuilder = useCallback(
+    (reason: PanelFormCloseReason) => {
+      if (displayQueryBuilder) {
+        const { query } = parseQueryString(location.search, { decode: true });
+        sendGtagEventPanelAdvancedSearchClose(reason, query);
+        setDisplayQueryBuilder(false);
+      } else {
+        sendGtagEventPanelOpen('advanced_search');
+        setDisplayQueryBuilder(true);
+      }
+    },
+    [displayQueryBuilder, location.search]
+  );
+
   const setSearchspace = (searchspace: string) => {
     onSearchspaceChange(searchspace as Searchspace);
   };
@@ -244,7 +255,7 @@ const SearchContainer = ({
             // </span>
             'Advanced',
           action: () => {
-            setDisplayQueryBuilder((value) => !value);
+            handleToggleQueryBuilder('toggle');
           },
         },
         smallScreen
@@ -261,7 +272,7 @@ const SearchContainer = ({
         (x: MainSearchSecondaryButton | null): x is MainSearchSecondaryButton =>
           Boolean(x)
       ),
-    [history, smallScreen]
+    [handleToggleQueryBuilder, history, smallScreen]
   );
 
   // reset the text content when there is a navigation to reflect what is in the
@@ -327,11 +338,11 @@ const SearchContainer = ({
           <SlidingPanel
             title="Advanced Search"
             position="left"
-            onClose={handleClose}
+            onClose={handleToggleQueryBuilder}
           >
             <ErrorBoundary>
               <QueryBuilder
-                onCancel={handleClose}
+                onCancel={() => handleToggleQueryBuilder('cancel')}
                 initialSearchspace={searchspace}
               />
             </ErrorBoundary>

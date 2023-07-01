@@ -5,12 +5,13 @@ import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 
+import { hasContent } from '../../../shared/utils/utils';
+
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
-import { hasContent } from '../../../shared/utils/utils';
 
 type Props = {
   data: UIModel;
@@ -45,7 +46,7 @@ const FamilyAndDomainsSection = ({
         comments={
           data.commentsData.get('DOMAIN') as FreeTextComment[] | undefined
         }
-        title="domain"
+        title="Domain"
         articleId="domain_cc"
       />
       <FreeTextView

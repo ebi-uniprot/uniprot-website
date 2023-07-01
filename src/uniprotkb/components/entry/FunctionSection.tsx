@@ -1,11 +1,14 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, Fragment } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import FreeTextView, { TextView } from '../protein-data-views/FreeTextView';
+import FreeTextView, {
+  RichText,
+  TextView,
+} from '../protein-data-views/FreeTextView';
 import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -20,7 +23,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
-import { hasContent } from '../../../shared/utils/utils';
+import { hasContent, pluralise } from '../../../shared/utils/utils';
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
@@ -37,8 +40,6 @@ import {
   FreeTextComment,
 } from '../../types/commentTypes';
 
-import helper from '../../../shared/styles/helper.module.scss';
-
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
@@ -46,7 +47,8 @@ const GoRibbon = lazy(
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
     <section className="text-block">
-      {`Abs(max) = ${data.approximate && '~'}${data.max}nm`}
+      Abs(max) = {data.approximate && '~'}
+      {data.max}nm
     </section>
     <section className="text-block">
       {data.note && <TextView comments={data.note.texts} />}
@@ -101,31 +103,50 @@ const BioPhysicoChemicalPropertiesView = ({
     <>
       {data.absorption && (
         <>
-          <h3>Absorption</h3>
+          <h3 data-article-id="biophysicochemical_properties#1-absorption">
+            Absorption
+          </h3>
           <AbsorptionView data={data.absorption} />
         </>
       )}
       {data.kinetics && (
         <>
-          <h3>Kinetics</h3>
-          <KineticsTableView data={data.kinetics} />
+          <h3 data-article-id="biophysicochemical_properties#2-kinetic-parameters">
+            Kinetics
+          </h3>
+          {Object.entries(data.kinetics).map(([key, value]) => (
+            <Fragment key={key}>
+              {key !== 'canonical' && (
+                <h4 className="tiny">
+                  <a href={`#${key.replaceAll(' ', '_')}`}>{key}</a>
+                </h4>
+              )}
+              <KineticsTableView data={value} />
+            </Fragment>
+          ))}
         </>
       )}
       {data.pHDependence && (
         <>
-          <h3>pH Dependence</h3>
+          <h3 data-article-id="biophysicochemical_properties#3-ph-dependence">
+            pH Dependence
+          </h3>
           <TextView comments={data.pHDependence} />
         </>
       )}
       {data.redoxPotential && (
         <>
-          <h3>Redox Potential</h3>
+          <h3 data-article-id="biophysicochemical_properties#4-rodex-potential">
+            Redox Potential
+          </h3>
           <TextView comments={data.redoxPotential} />
         </>
       )}
       {data.temperatureDependence && (
         <>
-          <h3>Temperature Dependence</h3>
+          <h3 data-article-id="biophysicochemical_properties#5-temperature-dependence">
+            Temperature Dependence
+          </h3>
           <TextView comments={data.temperatureDependence} />
         </>
       )}
@@ -142,9 +163,14 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   if (!cofactors?.length) {
     return null;
   }
+
   return (
     <>
-      {title && <h3 className={helper.capitalize}>{title}</h3>}
+      {title && <h3 data-article-id="cofactor">{title}</h3>}
+      <div className="text-block">
+        Protein has {cofactors.length} cofactor binding{' '}
+        {pluralise('site', cofactors.length)}:
+      </div>
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
@@ -157,47 +183,50 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
           )}
           {cofactorComment.cofactors &&
             cofactorComment.cofactors.map((cofactor) => (
-              <span key={cofactor.name}>
-                {cofactor.name}{' '}
-                {cofactor.cofactorCrossReference &&
-                  cofactor.cofactorCrossReference.database === 'ChEBI' &&
-                  cofactor.cofactorCrossReference.id && (
-                    <>
-                      {' ('}
-                      <Link
-                        to={{
-                          pathname: LocationToPath[Location.UniProtKBResults],
-                          search: `query=cc_cofactor_chebi:"${cofactor.cofactorCrossReference.id}"`,
-                        }}
-                      >
-                        UniProtKB
-                      </Link>{' '}
-                      |{' '}
-                      <ExternalLink
-                        url={externalUrls.RheaSearch(
-                          cofactor.cofactorCrossReference.id
-                        )}
-                      >
-                        Rhea
-                      </ExternalLink>
-                      |{' '}
-                      <ExternalLink
-                        url={externalUrls.ChEBI(
-                          cofactor.cofactorCrossReference.id
-                        )}
-                      >
-                        {cofactor.cofactorCrossReference.id}
-                      </ExternalLink>{' '}
-                      )
-                    </>
+              <Fragment key={cofactor.name}>
+                <span>
+                  <RichText>{cofactor.name}</RichText>{' '}
+                  {cofactor.cofactorCrossReference &&
+                    cofactor.cofactorCrossReference.database === 'ChEBI' &&
+                    cofactor.cofactorCrossReference.id && (
+                      <>
+                        {' ('}
+                        <Link
+                          to={{
+                            pathname: LocationToPath[Location.UniProtKBResults],
+                            search: `query=cc_cofactor_chebi:"${cofactor.cofactorCrossReference.id}"`,
+                          }}
+                        >
+                          UniProtKB
+                        </Link>{' '}
+                        |{' '}
+                        <ExternalLink
+                          url={externalUrls.RheaSearch(
+                            cofactor.cofactorCrossReference.id
+                          )}
+                        >
+                          Rhea
+                        </ExternalLink>
+                        |{' '}
+                        <ExternalLink
+                          url={externalUrls.ChEBI(
+                            cofactor.cofactorCrossReference.id
+                          )}
+                        >
+                          {cofactor.cofactorCrossReference.id}
+                        </ExternalLink>{' '}
+                        )
+                      </>
+                    )}
+                  {cofactor.evidences && (
+                    <UniProtKBEvidenceTag evidences={cofactor.evidences} />
                   )}
-                {cofactor.evidences && (
-                  <UniProtKBEvidenceTag evidences={cofactor.evidences} />
-                )}
-              </span>
+                </span>
+                <br />
+              </Fragment>
             ))}
           {cofactorComment.note && (
-            <TextView comments={cofactorComment.note.texts} />
+            <TextView comments={cofactorComment.note.texts}>Note: </TextView>
           )}
         </section>
       ))}
@@ -263,7 +292,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       />
       <FreeTextView
         comments={miscellaneousComments as FreeTextComment[] | undefined}
-        title="miscellaneous"
+        title="Miscellaneous"
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
@@ -271,7 +300,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             comments={
               data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
             }
-            title="caution"
+            title="Caution"
           />
         </Message>
       ) : undefined}
@@ -281,14 +310,14 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | CatalyticActivityComment[]
             | undefined
         }
-        title="catalytic activity"
+        title="Catalytic activity"
         defaultHideAllReactions={isSmallScreen}
       />
       <CofactorView
         cofactors={
           data.commentsData.get('COFACTOR') as CofactorComment[] | undefined
         }
-        title="cofactor"
+        title="Cofactor"
       />
       <FreeTextView
         comments={
@@ -296,7 +325,8 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="activity regulation"
+        title="Activity regulation"
+        articleId="activity_regulation"
       />
       <FreeTextView
         comments={
@@ -304,7 +334,8 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="biotechnology"
+        title="Biotechnology"
+        articleId="biotechnological_use"
       />
       <BioPhysicoChemicalPropertiesView
         data={data.bioPhysicoChemicalProperties}
@@ -313,7 +344,8 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         comments={
           data.commentsData.get('PATHWAY') as FreeTextComment[] | undefined
         }
-        title="pathway"
+        title="Pathway"
+        articleId="pathway"
       />
       <FeaturesView
         primaryAccession={primaryAccession}

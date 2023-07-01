@@ -21,11 +21,6 @@ exports[`QueryBuilder should render 1`] = `
             UniProtKB
           </option>
           <option
-            value="alphafold"
-          >
-            UniProtKB (+AlphaFold prediction status)
-          </option>
-          <option
             value="uniref"
           >
             UniRef

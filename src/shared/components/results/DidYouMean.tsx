@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { orderBy } from 'lodash-es';
@@ -11,7 +11,6 @@ import useNS from '../../hooks/useNS';
 import useSafeState from '../../hooks/useSafeState';
 
 import fetchData from '../../utils/fetchData';
-import listFormat from '../../utils/listFormat';
 import { parseQueryString } from '../../utils/url';
 
 import {
@@ -20,6 +19,7 @@ import {
   Location,
 } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
+import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../tools/peptide-search/components/PeptideSearchForm';
 
 import {
   Namespace,
@@ -48,27 +48,28 @@ const QuerySuggestionListItem = ({
   suggestions,
   namespace,
 }: QuerySuggestionListItemProps) => (
-  <li>
-    {suggestions.map(({ query }, i, a) => {
-      const cleanedQuery = query.replace(reCleanUp, '$1');
-      return (
-        <Fragment key={query}>
-          {listFormat(i, a, 'or')}
-          <Link
-            to={{
-              pathname: searchLocations[namespace],
-              search: queryString.stringify({ query: cleanedQuery }),
-            }}
-            key={query}
-            className={styles['query-suggestion-link']}
-          >
-            {cleanedQuery}
-          </Link>
-        </Fragment>
-      );
-    })}
-    {` in ${searchableNamespaceLabels[namespace]}`}
-  </li>
+  <div>
+    {`In ${searchableNamespaceLabels[namespace]}`}
+    <ul className={styles['suggestions-list']}>
+      {suggestions.map(({ query }) => {
+        const cleanedQuery = query.replace(reCleanUp, '$1');
+        return (
+          <li key={query}>
+            <Link
+              to={{
+                pathname: searchLocations[namespace],
+                search: queryString.stringify({ query: cleanedQuery }),
+              }}
+              key={query}
+              className={styles['query-suggestion-link']}
+            >
+              {cleanedQuery}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
 );
 
 const PeptideSearchSuggestion = ({
@@ -76,17 +77,19 @@ const PeptideSearchSuggestion = ({
 }: {
   potentialPeptide: string;
 }) => (
-  <li>
-    <Link
-      to={{
-        pathname: LocationToPath[Location.PeptideSearch],
-        search: `peps=${potentialPeptide}`,
-      }}
-    >
-      {potentialPeptide}
-    </Link>{' '}
-    as a peptide search
-  </li>
+  <ul className={styles['suggestions-list']}>
+    <li>
+      <Link
+        to={{
+          pathname: LocationToPath[Location.PeptideSearch],
+          search: `peps=${potentialPeptide}`,
+        }}
+      >
+        {potentialPeptide}
+      </Link>{' '}
+      as a peptide search
+    </li>
+  </ul>
 );
 
 const didYouMeanNamespaces: SearchableNamespace[] = [
@@ -100,11 +103,17 @@ type NamespaceSuggestions = Map<SearchableNamespace, Suggestion[]>;
 
 const TIMEOUT = 3_000;
 
+const defaultHeading = <h1 className="small">Sorry, no results were found!</h1>;
+
 type DidYouMeanProps = {
   suggestions?: Suggestion[];
+  heading?: ReactNode;
 };
 
-const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
+const DidYouMean = ({
+  suggestions,
+  heading = defaultHeading,
+}: DidYouMeanProps) => {
   const currentNamespace = useNS();
   const location = useLocation();
   // Blocks a render until we have all network results, or we have timed out
@@ -174,10 +183,8 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     );
   }
   // Other namespace suggestions
-  for (const [namespace, suggestions] of orderBy(
-    Array.from(otherNamespaceSuggestions.current.entries()),
-    ([, suggestions]) => suggestions[0].hits,
-    'desc'
+  for (const [namespace, suggestions] of Array.from(
+    otherNamespaceSuggestions.current.entries()
   )) {
     suggestionNodes.push(
       <QuerySuggestionListItem
@@ -186,10 +193,18 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
         key={namespace}
       />
     );
+    // If UniProtKB suggestion available, stop there
+    if (namespace === Namespace.uniprotkb) {
+      break;
+    }
   }
   // Peptide Search suggestion
   const potentialPeptide = query?.toUpperCase() || '';
-  const [processed] = sequenceProcessor(potentialPeptide);
+  const [processed] = sequenceProcessor(
+    potentialPeptide,
+    PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH,
+    true
+  );
 
   if (potentialPeptide && processed.valid && processed.likelyType === 'aa') {
     suggestionNodes.push(
@@ -206,7 +221,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
       content = (
         <div className={styles.suggestions}>
           Did you mean to search for:
-          <ul className={styles['suggestions-list']}>{suggestionNodes}</ul>
+          {suggestionNodes}
         </div>
       );
     }
@@ -216,11 +231,11 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
-      <h1 className="small">Sorry, no results were found!</h1>
+      {heading}
       {content}
       {renderContent && (
         <>
-          Can&apos;t find what you are looking for? Please{' '}
+          If you can&apos;t find what you are looking for, please{' '}
           <ContactLink>contact us</ContactLink>.
           {currentNamespace === Namespace.uniparc ? (
             <p>

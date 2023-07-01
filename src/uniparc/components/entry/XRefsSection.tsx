@@ -21,7 +21,6 @@ import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithSt
 import { Namespace } from '../../../shared/types/namespaces';
 
 import helper from '../../../shared/styles/helper.module.scss';
-import '../../../shared/components/results/styles/results-data.scss';
 import './styles/XRefsSection.scss';
 
 type DataDBModel = Array<{
@@ -40,7 +39,7 @@ type DataDBModel = Array<{
 }>;
 
 const PAGE_SIZE = 25;
-const DATA_IMPORT_LIMIT = 10;
+const DATA_IMPORT_LIMIT = 10_000;
 
 const getIdKey = (xref: UniParcXRef) =>
   `${xref.database}-${xref.id}-${xref.version}-${xref.versionI}-${xref.active}-${xref.chain}`;

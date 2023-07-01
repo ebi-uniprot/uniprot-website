@@ -27,11 +27,21 @@ export type Suggestion = {
   hits: number; // Only an estimate!
 };
 
+export enum SearchResultsWarningCode {
+  WildcardDetected = 41,
+}
+
+export type SearchResultsWarning = {
+  code: SearchResultsWarningCode;
+  message: string;
+};
+
 export type SearchResults<Schema> = {
   facets?: Array<FacetObject>;
   results: Array<Schema>;
   matchedFields?: Array<MatchedField>;
   suggestions?: Array<Suggestion>;
+  warnings?: SearchResultsWarning[];
   // Only if there's any async issue with the payload
   error?: string;
 };

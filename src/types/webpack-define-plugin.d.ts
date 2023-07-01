@@ -1,3 +1,4 @@
+declare const MODERN_BUNDLE: boolean;
 declare const BASE_URL: string;
 declare const API_PREFIX: string;
 declare const LIVE_RELOAD: boolean;

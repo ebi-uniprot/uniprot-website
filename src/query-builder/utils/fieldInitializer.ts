@@ -5,7 +5,8 @@ const dateRange = /^\[(\*|\d{4}-\d{2}-\d{2}) TO (\*|\d{4}-\d{2}-\d{2})\]$/;
 
 const initializer = (
   field: SearchTermType,
-  initialValue?: QueryBit
+  initialValue?: QueryBit,
+  isAutoCompleteQueryId = false
 ): string | [from: string, to: string] => {
   // specific case for free text search
   if (field.term === 'All') {
@@ -16,18 +17,33 @@ const initializer = (
     return initialValue.go_evidence;
   }
 
+  // The presence of the term indicates user only wants experimental evidence
+  if (initialValue && field.fieldType === 'experimental_evidence') {
+    return String(field.term in initialValue);
+  }
+
+  if (initialValue && initialValue[`${field.term}_exp`]) {
+    return initialValue[`${field.term}_exp`];
+  }
+
+  if (initialValue && initialValue[`${field.autoCompleteQueryTerm}_exp`]) {
+    return initialValue[`${field.autoCompleteQueryTerm}_exp`];
+  }
+
   if (field.term === 'xref' && initialValue?.database) {
     return '*';
   }
 
-  // Deal with autocomplete fields (they use 'autoCompleteQueryTerm')
-  // instead of 'term'
-  if (
-    initialValue &&
-    field.autoCompleteQueryTerm &&
-    initialValue[field.autoCompleteQueryTerm]
-  ) {
-    return initialValue[field.autoCompleteQueryTerm];
+  // Deal with autocomplete fields as they have two terms with different behavior:
+  //   1. autoCompleteQueryTerm: for ID searches eg organism_id
+  //   2. term: for text searches eg organism_name
+  if (initialValue && field.autoCompleteQueryTerm) {
+    if (Object.keys(initialValue).includes(field.autoCompleteQueryTerm)) {
+      // ID search
+      return initialValue[field.autoCompleteQueryTerm];
+    }
+    // Text search
+    return isAutoCompleteQueryId ? '' : initialValue[field.term];
   }
 
   // no value? bail

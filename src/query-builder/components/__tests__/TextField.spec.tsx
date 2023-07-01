@@ -2,13 +2,13 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import { FieldProps } from '../Field';
 
-import { idToSearchTerm } from './__mocks__/configureSearchTerms';
+import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 import TextField from '../TextField';
 
 describe('TextField', () => {
   const props: FieldProps = {
-    field: idToSearchTerm.accession_field,
+    field: getSearchTerm('accession_field'),
     handleChange: jest.fn(),
   };
 
@@ -93,7 +93,7 @@ describe('TextField', () => {
 
   test('should generate correct query for database *', () => {
     const propsPrefix: FieldProps = {
-      field: idToSearchTerm.xref_embl,
+      field: getSearchTerm('xref_embl'),
       handleChange: jest.fn(),
     };
     render(<TextField {...propsPrefix} />);
@@ -112,7 +112,7 @@ describe('TextField', () => {
 
   test('should validate initial query with regex', () => {
     const propsPrefix: FieldProps = {
-      field: idToSearchTerm.proteome,
+      field: getSearchTerm('proteome'),
       handleChange: jest.fn(),
       initialValue: { proteome: 'UP000000000' },
     };

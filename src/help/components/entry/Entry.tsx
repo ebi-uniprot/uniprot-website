@@ -18,7 +18,7 @@ import cn from 'classnames';
 import qs from 'query-string';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import RelatedArticles from './RelatedArticles';
 
@@ -35,6 +35,7 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
+import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -58,7 +59,7 @@ const aTransformer: Transformer = (_: string, attribs: Attributes) => {
   if (href) {
     output.attribs.href = href;
     // if external link
-    if (href === attribs.href) {
+    if (href === attribs.href && !href.startsWith('#')) {
       output.attribs.class = styles.external;
       output.attribs.target = '_blank';
       output.attribs.rel = 'noopener noreferrer';
@@ -117,6 +118,9 @@ export const HelpEntryContent = ({
         const { href } = event.target;
         // If clicks are within the UniProt client
         if (sameAppURL.test(href)) {
+          if (event.metaKey || event.ctrlKey || event.shiftKey) {
+            return; // default behaviour of opening a new tab or new window
+          }
           // Don't navigate away!
           event.preventDefault();
           // And just replace the current URL with the next page
@@ -125,11 +129,7 @@ export const HelpEntryContent = ({
         } else {
           // analytics, similar as in InstrumentedExternalLink
           const url = new URL(href);
-          logging.gtagFn('event', url.origin, {
-            event_category: 'outbound link',
-            event_label: url,
-            transport: 'beacon',
-          });
+          sendGtagEventOutboundLinkClick(url.toString());
         }
       }
     },
@@ -269,7 +269,7 @@ const HelpEntry = ({
         <HelpEntryContent data={data} />
       </Card>
       {!isReleaseNotes && dateNode}
-      {!loading && accession && data.categories?.length ? (
+      {!loading && !isReleaseNotes && accession && data.categories?.length ? (
         <RelatedArticles current={accession} categories={data.categories} />
       ) : null}
     </SingleColumnLayout>

@@ -29,6 +29,8 @@ import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 import helper from '../../../../shared/styles/helper.module.scss';
 import './styles/results-view.scss';
 
+type Range = [start: number, end: number];
+
 type LocalFacetProps = {
   facet: BlastFacet;
   bounds: { min: number; max: number };
@@ -38,6 +40,7 @@ type LocalFacetProps = {
   unfilteredValues: Readonly<number[]>;
   optimisedBinNumber: number;
 };
+
 const LocalFacet: FC<LocalFacetProps> = ({
   facet,
   bounds,
@@ -51,12 +54,12 @@ const LocalFacet: FC<LocalFacetProps> = ({
   const { pathname } = useLocation();
 
   // handle modifying querystring to reflect the chosen values in the URL
-  const handleChange = ([min, max]: [min: number, max: number]) => {
+  const handleChange = (range: Range) => {
     const facetsWithoutModified = selectedFacets.filter(
       ({ name }) => name !== facet
     );
-    const value = `[${min <= bounds.min ? '*' : min} TO ${
-      max >= bounds.max ? '*' : max
+    const value = `[${range[0] <= bounds.min ? '*' : range[0]} TO ${
+      range[1] >= bounds.max ? '*' : range[1]
     }]`;
 
     let nextFacets: SelectedFacet[];
@@ -73,7 +76,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
     );
   };
 
-  const selectedRange = useMemo(
+  const selectedRange = useMemo<[start: number, end: number]>(
     () => [
       facetBounds.min === -Infinity ? bounds.min : facetBounds.min,
       facetBounds.max === +Infinity ? bounds.max : facetBounds.max,
@@ -106,8 +109,8 @@ const LocalFacet: FC<LocalFacetProps> = ({
         nBins={optimisedBinNumber}
         onChange={handleChange}
         selectedRange={selectedRange}
-        values={values[facet]}
-        unfilteredValues={unfilteredValues}
+        values={values[facet] as number[]}
+        unfilteredValues={unfilteredValues as number[]}
         unfilteredValuesShadow={0.1}
       />
     </li>

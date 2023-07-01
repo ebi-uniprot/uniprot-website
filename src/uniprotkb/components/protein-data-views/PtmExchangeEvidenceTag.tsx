@@ -92,35 +92,28 @@ const PtmExchangeEvidenceTag = ({
   return (
     <EvidenceTag
       label={
-        originalEvidenceData.labelRender?.(originalEvidences) ||
-        originalEvidenceData.label
+        originalEvidenceData.evidenceTagLabel?.(originalEvidences) ||
+        originalEvidenceData.evidenceTagContentHeading(originalEvidences)
       }
       className={
         originalEvidenceData.manual
           ? 'svg-colour-reviewed'
           : 'svg-colour-unreviewed'
       }
-      key={originalEvidenceCode}
     >
       <section className={style['evidence-tag-content']}>
-        <h5 data-article-id="evidences">
-          {originalEvidenceData.label}{' '}
-          <small>({originalEvidenceData.description})</small>
+        <h5 data-article-id={`evidences#${originalEvidenceCode}`}>
+          {originalEvidenceData.evidenceTagContentHeading(originalEvidences)}
         </h5>
         <section>
-          {/* TODO: confirm final confidence score subsection */}
-          <h5 data-article-id="mod_res_large_scale#confidence-score">
+          <h5 data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
             Confidence score: {confidenceScore || 'Unknown'}
           </h5>
           This score has been used to reflect the strength of the evidence for
           this modified site following reanalysis of available datasets.
         </section>
-        <section>
-          <h5 className="small">Reanalyzed Sources</h5>
-          Coming soon
-        </section>
         <section className="styles.section">
-          <h5 className="small">Original Sources</h5>
+          <h5 className="small">Evidence</h5>
           <PtmExchangeEvidence evidences={originalEvidences} />
         </section>
       </section>

@@ -1,16 +1,9 @@
-import {
-  useMemo,
-  Fragment,
-  useRef,
-  useEffect,
-  useState,
-  lazy,
-  Suspense,
-} from 'react';
+import { useMemo, Fragment, useRef, useEffect, useState, lazy } from 'react';
 import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
+import { PartialDeep, SetRequired } from 'type-fest';
 
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
@@ -24,6 +17,9 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../shared/config/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
+
+import { Evidence } from '../../types/modelTypes';
 
 import styles from './styles/variation-view.module.scss';
 
@@ -45,8 +41,14 @@ const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
   return aStart - bStart;
 };
 
-type Evidence = Exclude<TransformedVariant['evidences'], undefined>[0];
-type Description = Exclude<TransformedVariant['descriptions'], undefined>[0];
+type ProteinsAPIEvidence = SetRequired<
+  PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
+  'code'
+>;
+type Description = Exclude<
+  TransformedVariant['descriptions'],
+  undefined
+>[number];
 type Source = Description['sources'][0];
 
 const isUniProtID = (id: string) => id.startsWith('VAR_');
@@ -61,9 +63,6 @@ const sortDescriptionByUniProtFirst = (a: Description, b: Description) =>
 const isUniProt = (string: string) => string === 'UniProt';
 const sortProvenanceByUniProtFirst = (a: string, b: string) =>
   +isUniProt(b) - +isUniProt(a);
-
-const isUniProtEvidence = (evidence: Evidence) =>
-  evidence.code === 'ECO:0000269';
 
 type ObjWithVariants = { variants: TransformedVariant[] };
 
@@ -199,12 +198,12 @@ const VariationView = ({
     !filteredVariants
   ) {
     return (
-      <div>
+      <section className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <div className={styles['no-data']}>
           No variation information available for {primaryAccession}
         </div>
-      </div>
+      </section>
     );
   }
 
@@ -221,9 +220,9 @@ const VariationView = ({
           <th>Change</th>
           <th>Description</th>
           <th>
-            Disease
+            Clinical
             <br />
-            association
+            significance
           </th>
           <th>Provenance</th>
         </tr>
@@ -234,6 +233,16 @@ const VariationView = ({
           if (variantFeature.start !== variantFeature.end) {
             position += `-${variantFeature.end}`;
           }
+
+          const uniProtEvidences = variantFeature.evidences?.map(
+            (evidence: ProteinsAPIEvidence) =>
+              ({
+                evidenceCode: evidence.code,
+                id: evidence?.source?.id,
+                source: evidence?.source?.name,
+                url: evidence?.source?.url,
+              } as Evidence)
+          );
 
           return (
             <Fragment key={variantFeature.protvistaFeatureId}>
@@ -261,58 +270,69 @@ const VariationView = ({
                 </td>
                 <td>{position}</td>
                 <td className={styles.change}>
-                  {variantFeature.wildType ||
-                  variantFeature.alternativeSequence ? (
+                  {variantFeature.consequenceType !== '-' &&
+                  variantFeature.wildType.length === 1 &&
+                  variantFeature.alternativeSequence?.length === 1 ? (
+                    <ExternalLink
+                      url={externalUrls.ProtVar(
+                        `${primaryAccession} ${variantFeature.wildType}${variantFeature.start}${variantFeature.alternativeSequence}`
+                      )}
+                      title="View in ProtVar"
+                      noIcon
+                    >
+                      {variantFeature.wildType}
+                      {'>'}
+                      {variantFeature.alternativeSequence}
+                    </ExternalLink>
+                  ) : (
                     <>
                       {variantFeature.wildType || <em>missing</em>}
                       {'>'}
                       {variantFeature.alternativeSequence || <em>missing</em>}
                     </>
+                  )}
+                  {!variantFeature.wildType &&
+                    !variantFeature.alternativeSequence && <em>missing</em>}
+                </td>
+                <td>
+                  {variantFeature.descriptions?.length ? (
+                    Array.from(variantFeature.descriptions)
+                      .sort(sortDescriptionByUniProtFirst)
+                      .map((description) => (
+                        <div
+                          key={description.value}
+                          className={cn({
+                            [styles.bold]: hasUniProtSource(description),
+                          })}
+                        >
+                          {`${description.value} (${description.sources.join(
+                            ', '
+                          )})`}
+                          <UniProtKBEvidenceTag evidences={uniProtEvidences} />
+                        </div>
+                      ))
                   ) : (
-                    <em>missing</em>
+                    <UniProtKBEvidenceTag evidences={uniProtEvidences} />
                   )}
                 </td>
                 <td>
-                  {variantFeature.descriptions &&
-                    Array.from(variantFeature.descriptions)
-                      .sort(sortDescriptionByUniProtFirst)
-                      .map((description) => {
-                        const isUniProtDescription =
-                          hasUniProtSource(description);
-                        const uniProtEvidences =
-                          isUniProtDescription &&
-                          variantFeature.evidences
-                            ?.filter(isUniProtEvidence)
-                            .map((evidence) => ({
-                              evidenceCode: evidence.code as `ECO:${number}`,
-                              id: evidence.source.id,
-                              source: evidence.source.name,
-                              url: evidence.source.url,
-                            }));
-                        return (
-                          <div
-                            key={description.value}
-                            className={cn({
-                              [styles.bold]: isUniProtDescription,
-                            })}
-                          >
-                            {`${description.value} (${description.sources.join(
-                              ', '
-                            )})`}
-                            {uniProtEvidences && (
-                              <UniProtKBEvidenceTag
-                                evidences={uniProtEvidences}
-                              />
-                            )}
-                          </div>
-                        );
-                      })}
-                </td>
-                <td>
-                  {variantFeature.association &&
-                  variantFeature.association.length > 0
-                    ? 'Yes'
-                    : 'No'}
+                  {variantFeature.clinicalSignificances?.map(
+                    (clinicalSignificance, i) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <Fragment key={i}>
+                        {i !== 0 && <br />}
+                        <span
+                          key={`${clinicalSignificance.sources.join('-')}-${
+                            clinicalSignificance.type
+                          }`}
+                        >
+                          {`${
+                            clinicalSignificance.type
+                          } (${clinicalSignificance.sources.join(', ')})`}
+                        </span>
+                      </Fragment>
+                    )
+                  )}
                 </td>
                 <td>
                   {Array.from(
@@ -368,24 +388,6 @@ const VariationView = ({
                     <strong>Somatic: </strong>{' '}
                     {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
                   </div>
-                  {variantFeature.clinicalSignificances?.length ? (
-                    <div>
-                      <strong>Clinical significances: </strong>
-                      {variantFeature.clinicalSignificances?.map(
-                        (clinicalSignificance) => (
-                          <div
-                            key={`${clinicalSignificance.sources.join('-')}-${
-                              clinicalSignificance.type
-                            }`}
-                          >
-                            {`- ${
-                              clinicalSignificance.type
-                            } (${clinicalSignificance.sources.join(', ')})`}
-                          </div>
-                        )
-                      )}
-                    </div>
-                  ) : null}
                   {variantFeature.populationFrequencies?.length ? (
                     <div>
                       <strong>Population frequencies: </strong>
@@ -475,30 +477,26 @@ const VariationView = ({
     </table>
   );
 
-  const fallback = (
-    <div>
-      {title && <h3>{title}</h3>}
-      <DatatableWithToggle>{table}</DatatableWithToggle>
-    </div>
-  );
-
   if (onlyTable || isSmallScreen) {
-    return fallback;
+    return (
+      <section>
+        {title && <h2>{title}</h2>}
+        <DatatableWithToggle>{table}</DatatableWithToggle>
+      </section>
+    );
   }
 
   return (
-    <Suspense fallback={fallback}>
-      <div>
-        {title && <h3>{title}</h3>}
-        <NightingaleManager
-          attributes="highlight displaystart displayend activefilters filters selectedid"
-          ref={managerRef}
-        >
-          <VisualVariationView {...transformedData} />
-          <DatatableWithToggle>{table}</DatatableWithToggle>
-        </NightingaleManager>
-      </div>
-    </Suspense>
+    <section className="wider-tab-content hotjar-margin">
+      {title && <h2>{title}</h2>}
+      <NightingaleManager
+        attributes="highlight displaystart displayend activefilters filters selectedid"
+        ref={managerRef}
+      >
+        <VisualVariationView {...transformedData} />
+        <DatatableWithToggle>{table}</DatatableWithToggle>
+      </NightingaleManager>
+    </section>
   );
 };
 

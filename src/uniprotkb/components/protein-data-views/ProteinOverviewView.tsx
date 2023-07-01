@@ -1,11 +1,17 @@
 import { Fragment, memo, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { DoughnutChart, InfoList } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { ECNumbersView } from './ProteinNamesView';
-
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
+import { TabLocation } from '../entry/Entry';
+import EntrySection from '../../types/entrySection';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 const existenceRE = /^\d: /;
 
@@ -34,22 +40,31 @@ const ProteinOverview = ({ data, inCard }: Props) => {
 
   let geneNameListNode: string | undefined;
   if (data.genes) {
-    geneNameListNode = data.genes
-      .map(
-        (geneName) =>
-          `${
-            geneName.geneName?.value ||
-            geneName.orderedLocusNames?.map((name) => name.value).join(', ') ||
-            geneName.orfNames?.map((name) => name.value).join(', ')
-          }${
-            geneName.synonyms
-              ? ` (${geneName.synonyms
-                  ?.map((synonym) => synonym.value)
-                  .join(', ')})`
-              : ''
-          }`
-      )
-      .join('; ');
+    if (inCard) {
+      geneNameListNode = data.genes
+        .map(
+          (geneName) =>
+            `${
+              geneName.geneName?.value ||
+              geneName.orderedLocusNames
+                ?.map((name) => name.value)
+                .join(', ') ||
+              geneName.orfNames?.map((name) => name.value).join(', ')
+            }${
+              geneName.synonyms
+                ? ` (${geneName.synonyms
+                    ?.map((synonym) => synonym.value)
+                    .join(', ')})`
+                : ''
+            }`
+        )
+        .join('; ');
+    } else {
+      geneNameListNode = data.genes
+        .map((geneName) => geneName.geneName?.value)
+        .filter(Boolean)
+        .join('; ');
+    }
   }
 
   const proteinExistence = data.proteinExistence?.replace(existenceRE, '');
@@ -65,13 +80,13 @@ const ProteinOverview = ({ data, inCard }: Props) => {
       <div>
         {[
           name,
-          organismNameNode,
-          ecNumberNode,
           geneNameListNode && (
             <>
               <strong>Gene:</strong> {geneNameListNode}
             </>
           ),
+          organismNameNode,
+          ecNumberNode,
           data.sequence?.length && `${data.sequence.length} amino acids`,
           proteinExistence,
           annotationScoreNode && (
@@ -95,7 +110,11 @@ const ProteinOverview = ({ data, inCard }: Props) => {
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
-      content: name,
+      content: name && <strong>{name}</strong>,
+    },
+    {
+      title: <span data-article-id="gene_name">Gene</span>,
+      content: geneNameListNode && <strong>{geneNameListNode}</strong>,
     },
     {
       title: <span data-article-id="entry_status">Status</span>,
@@ -111,10 +130,30 @@ const ProteinOverview = ({ data, inCard }: Props) => {
       content: organismNameNode,
     },
     {
-      title: <span data-article-id="gene_name">Gene</span>,
-      content: geneNameListNode,
+      title: 'Amino acids',
+      content: (
+        <span>
+          {data.sequence?.length}{' '}
+          {data.primaryAccession && (
+            <small>
+              {/* eslint-disable-next-line uniprot-website/use-config-location */}
+              <Link
+                to={{
+                  pathname: getEntryPath(
+                    Namespace.uniprotkb,
+                    data.primaryAccession,
+                    TabLocation.Entry
+                  ),
+                  hash: EntrySection.Sequence,
+                }}
+              >
+                (go to sequence)
+              </Link>
+            </small>
+          )}
+        </span>
+      ),
     },
-    { title: 'Amino acids', content: data.sequence?.length },
     {
       title: <span data-article-id="protein_existence">Protein existence</span>,
       content: proteinExistence,

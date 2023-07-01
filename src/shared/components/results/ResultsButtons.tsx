@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useEffect,
   ChangeEvent,
+  useCallback,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
@@ -29,7 +30,7 @@ import FirstTimeSelection from './FirstTimeSelection';
 import useNS from '../../hooks/useNS';
 import useViewMode, { ViewMode } from '../../hooks/useViewMode';
 import useColumnNames from '../../hooks/useColumnNames';
-import { useMessagesDispatch } from '../../contexts/Messages';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
@@ -37,7 +38,13 @@ import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { gtagFn } from '../../utils/logging';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+  sendGtagEventPanelOpen,
+  sendGtagEventPanelResultsDownloadClose,
+  sendGtagEventViewMode,
+} from '../../utils/gtagEvents';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -63,9 +70,11 @@ type ResultsButtonsProps = {
   base?: string;
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
   inBasket?: boolean;
+  inBasketMini?: boolean;
   notCustomisable?: boolean;
   subsetsMap?: Map<string, string>;
   supportedFormats?: FileFormat[];
+  excludeColumns?: boolean;
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
@@ -78,9 +87,11 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   base,
   disableCardToggle = false,
   inBasket = false,
+  inBasketMini = false,
   notCustomisable = false,
   subsetsMap,
   supportedFormats,
+  excludeColumns = false,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -150,19 +161,30 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
   ]);
 
+  const handleToggleDownload = useCallback(
+    (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
+      setDisplayDownloadPanel((displayDownloadPanel) => {
+        if (displayDownloadPanel) {
+          sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        } else {
+          sendGtagEventPanelOpen('results_download');
+        }
+        return !displayDownloadPanel;
+      });
+    },
+    []
+  );
+
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
-    gtagFn('event', 'normal selection', {
-      event_category: 'result view',
-      event_label: event.target.value,
-      result_view: event.target.value,
-      result_view_set: 1,
-    });
+    if (viewMode) {
+      sendGtagEventViewMode('mode_click', viewMode);
+    }
     setViewMode(event.target.value as ViewMode);
   };
 
   const isMain = mainNamespaces.has(namespace);
 
-  // Download and ID mapping expects accessions without modifications (applicable in Basket views)
+  // Download expect accessions without modifications (applicable in Basket views)
   const selectedAccWithoutSubset = subsetsMap
     ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
     : selectedEntries;
@@ -175,7 +197,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             title="Download"
             // Meaning, in basket mini view, slide from the right
             position={notCustomisable && inBasket ? 'right' : 'left'}
-            onClose={() => setDisplayDownloadPanel(false)}
+            onClose={handleToggleDownload}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -186,11 +208,13 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                     : accessions
                 } // Passing all accessions without modifications to Download
                 totalNumberResults={total}
-                onClose={() => setDisplayDownloadPanel(false)}
+                onClose={handleToggleDownload}
                 namespace={namespace}
                 base={base}
                 notCustomisable={notCustomisable}
                 supportedFormats={supportedFormats}
+                excludeColumns={excludeColumns}
+                inBasketMini={inBasketMini}
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -205,7 +229,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )}
         {isMain && namespace !== Namespace.proteomes && (
           <MapIDButton
-            selectedEntries={selectedAccWithoutSubset}
+            selectedEntries={selectedEntries}
             namespace={namespace}
           />
         )}
@@ -213,7 +237,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel((value) => !value)}
+          onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
           Download

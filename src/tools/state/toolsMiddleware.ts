@@ -19,10 +19,15 @@ const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 const EXPIRED_INTERVAL = 1000 * 60 * 15; // 15 minutes
 const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
+const checkableJobs = new Set([
+  Status.CREATED,
+  Status.RUNNING,
+  Status.NEW,
+  Status.QUEUED,
+]);
+
 const getJobsToCheck = (state: ToolsState) =>
-  Object.values(state ?? {}).filter(
-    (job) => job.status === Status.CREATED || job.status === Status.RUNNING
-  );
+  Object.values(state ?? {}).filter((job) => checkableJobs.has(job.status));
 
 const toolsMiddleware = (
   dispatch: Dispatch<ToolsAction>,
@@ -45,7 +50,11 @@ const toolsMiddleware = (
     if (job.status === Status.CREATED) {
       return submitJob(job);
     }
-    if (job.status === Status.RUNNING) {
+    if (
+      job.status === Status.RUNNING ||
+      job.status === Status.QUEUED ||
+      job.status === Status.NEW
+    ) {
       return checkJobStatus(job);
     }
   };
@@ -53,7 +62,6 @@ const toolsMiddleware = (
   // main loop to poll job statuses
   const pollJobs = async () => {
     let jobsToCheck = getJobsToCheck(stateRef.current);
-
     await pMap(jobsToCheck, pollJobMapper, { concurrency: 4 });
 
     // reset flag
@@ -88,7 +96,7 @@ const toolsMiddleware = (
     const now = Date.now();
     for (const [internalID, job] of Object.entries(stateRef.current ?? {})) {
       if (now - job.timeCreated > AUTO_DELETE_TIME && !job.saved) {
-        // job is older than 7 days
+        // job is older than 14 days
         dispatch(deleteJob(internalID));
       } else if (job.status === Status.FINISHED) {
         // job is finished and should still be present on the server

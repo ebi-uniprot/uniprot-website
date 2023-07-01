@@ -7,7 +7,11 @@ import useDataApi from './useDataApi';
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 
 import { APIModel } from '../types/apiModel';
-import { SearchResults } from '../types/results';
+import {
+  SearchResults,
+  SearchResultsWarning,
+  Suggestion,
+} from '../types/results';
 
 export type PaginatedResults<R extends APIModel = APIModel> = {
   allResults: R[];
@@ -19,6 +23,8 @@ export type PaginatedResults<R extends APIModel = APIModel> = {
   failedIds?: string[];
   error?: AxiosError<{ messages?: string[] }>;
   status?: number | undefined;
+  warnings?: SearchResultsWarning[];
+  suggestions?: Suggestion[];
 };
 
 const usePagination = <T extends APIModel, R extends APIModel>(
@@ -29,7 +35,14 @@ const usePagination = <T extends APIModel, R extends APIModel>(
   const [metaData, setMetaData] = useState<{
     total?: number;
     nextUrl?: string;
-  }>(() => ({ total: undefined, nextUrl: undefined }));
+    warnings?: SearchResultsWarning[];
+    suggestions?: Suggestion[];
+  }>(() => ({
+    total: undefined,
+    nextUrl: undefined,
+    warnings: undefined,
+    suggesstions: undefined,
+  }));
 
   // usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<R[]>([]);
@@ -51,19 +64,21 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     if (!data) {
       return;
     }
-    const { results } = data;
+    const { results, warnings, suggestions } = data;
     const transformedResults = converter
       ? converter(results as T[])
       : (results as R[]);
     const total: string | undefined = headers?.['x-total-results'];
     setAllResults((allRes) => [...allRes, ...transformedResults]);
-    setMetaData(() => ({
+    setMetaData({
       total: total ? parseInt(total, 10) : 0,
       nextUrl: getNextURLFromHeaders(headers),
-    }));
+      warnings,
+      suggestions,
+    });
   }, [data, headers, converter]);
 
-  const { total, nextUrl } = metaData;
+  const { total, nextUrl, warnings, suggestions } = metaData;
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
@@ -81,6 +96,8 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     failedIds: data?.failedIds,
     error,
     status,
+    warnings,
+    suggestions,
   };
 };
 

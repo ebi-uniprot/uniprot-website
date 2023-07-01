@@ -11,21 +11,14 @@ describe('Kinetics section', () => {
     expect(kmObj).toMatchSnapshot();
   });
 
-  it('Additional notes contain kcat expceptional case while kcat is empty', () => {
-    const { kcats, additionalNotes } = extractFromFreeText(mock.data2);
+  it('Kcat values are shown in notes', () => {
+    const { notes } = extractFromFreeText(mock.data2);
+    expect(notes).toMatchSnapshot();
 
-    expect(kcats).toHaveLength(0);
-    expect(additionalNotes).toMatchSnapshot();
-  });
+    const { notes: kcatNotes } = extractFromFreeText(mock.data3);
+    expect(kcatNotes).toMatchSnapshot();
 
-  it('Kcats should be populated when one or more values are combined in a sentence', () => {
-    const { kcats, additionalNotes } = extractFromFreeText(mock.data3);
-
-    expect(kcats).toHaveLength(2);
-    expect(additionalNotes).toHaveLength(0);
-
-    expect(kcats[0]).toMatchSnapshot();
-
-    expect(kcats[1]).toMatchSnapshot();
+    const { kcatEvidences } = extractFromFreeText(mock.data3);
+    expect(kcatEvidences).toMatchSnapshot();
   });
 });

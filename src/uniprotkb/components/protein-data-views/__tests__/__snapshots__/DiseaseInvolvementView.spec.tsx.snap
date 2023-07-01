@@ -73,7 +73,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           EMBL:
           <a
             class="external-link"
-            href="https://www.ebi.ac.uk/ena/data/view/some ref id"
+            href="https://www.ebi.ac.uk/ena/browser/view/some ref id"
             rel="noopener"
             target="_blank"
           >
@@ -123,7 +123,15 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
         <tbody>
           <tr>
             <td>
-              VAR_019255
+              <a
+                class="external-link"
+                href="https://web.expasy.org/variant_pages/VAR_019255.html"
+                rel="noopener"
+                target="_blank"
+                title="View in Expasy"
+              >
+                VAR_019255
+              </a>
             </td>
             <td>
               23
@@ -131,15 +139,43 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
             <td
               class="change"
             >
-              Q&gt;P
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 Q23P"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                Q&gt;P
+              </a>
             </td>
             <td>
-              in dbSNP:rs13447459
+              in AD; supposed to be rendered with the disease; Italian type; 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/snp/rs63750579"
+                rel="noopener"
+                target="_blank"
+              >
+                dbSNP:rs63750579
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
             </td>
           </tr>
           <tr>
             <td>
-              VAR_019256
+              <a
+                class="external-link"
+                href="https://web.expasy.org/variant_pages/VAR_019256.html"
+                rel="noopener"
+                target="_blank"
+                title="View in Expasy"
+              >
+                VAR_019256
+              </a>
             </td>
             <td>
               99
@@ -147,10 +183,18 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
             <td
               class="change"
             >
-              I&gt;V
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 I99V"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                I&gt;V
+              </a>
             </td>
             <td>
-              in dbSNP:rs13447492
+              in AD
             </td>
           </tr>
         </tbody>

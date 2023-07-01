@@ -6,8 +6,8 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import externalUrls from '../../../shared/config/externalUrls';
-
 import { Location, LocationToPath } from '../../../app/config/urls';
+import { stringToID } from '../../utils';
 
 import {
   ProteinNames,
@@ -16,9 +16,34 @@ import {
 } from '../../adapters/namesAndTaxonomyConverter';
 import { ValueWithEvidence } from '../../types/modelTypes';
 
-export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
+const ProteinName = ({
+  value,
+  withLink,
+}: {
+  value: string;
+  withLink: boolean;
+}) => (
   <>
-    {data.value}
+    {withLink ? (
+      // eslint-disable-next-line uniprot-website/use-config-location
+      <Link to={(location) => ({ ...location, hash: stringToID(value) })}>
+        {value}
+      </Link>
+    ) : (
+      value
+    )}
+  </>
+);
+
+export const NameWithEvidence = ({
+  data,
+  withLink = false,
+}: {
+  data: ValueWithEvidence;
+  withLink?: boolean;
+}) => (
+  <>
+    <ProteinName value={data.value} withLink={withLink} />
     {data.evidences && (
       <>
         {' '}
@@ -27,77 +52,6 @@ export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
     )}
   </>
 );
-
-type ProteinNamesViewFlatProps = {
-  names?: ProteinNames;
-  noEvidence?: boolean;
-};
-
-const ProteinNamesViewFlat = ({
-  names,
-  noEvidence = false,
-}: ProteinNamesViewFlatProps) => {
-  if (!names) {
-    return null;
-  }
-  return (
-    <>
-      {noEvidence ? (
-        `${names.fullName.value}`
-      ) : (
-        <NameWithEvidence data={names.fullName} />
-      )}
-      {names.shortNames && (
-        <>
-          {' ('}
-          {names.shortNames.map(
-            (shortName, index): JSX.Element => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                {index > 0 && '; '}
-                {noEvidence ? (
-                  `${shortName.value}`
-                ) : (
-                  <NameWithEvidence data={shortName} />
-                )}
-              </Fragment>
-            )
-          )}
-          {') '}
-        </>
-      )}
-    </>
-  );
-};
-
-const ProteinDescriptionView = ({
-  proteinDescription,
-}: {
-  proteinDescription?: ProteinDescription;
-}) => {
-  if (!proteinDescription) {
-    return null;
-  }
-  return (
-    <>
-      <ProteinNamesViewFlat names={proteinDescription.recommendedName} />
-      {proteinDescription.alternativeNames && (
-        <>
-          {' '}
-          <strong>Alternative names: </strong>
-          {proteinDescription.alternativeNames.map(
-            (alternativeName): JSX.Element => (
-              <ProteinNamesViewFlat
-                names={alternativeName}
-                key={alternativeName.fullName.value}
-              />
-            )
-          )}
-        </>
-      )}
-    </>
-  );
-};
 
 type ECNumbersViewProps = {
   ecNumbers?: ValueWithEvidence[];
@@ -114,16 +68,7 @@ export const ECNumbersView = ({
 }: ECNumbersViewProps) => {
   const content = ecNumbers?.map((ecNumber) => (
     <Fragment key={ecNumber.value}>
-      {noEvidence ? (
-        `EC:${ecNumber.value}`
-      ) : (
-        <NameWithEvidence
-          data={{
-            ...ecNumber,
-            value: `EC:${ecNumber.value}`,
-          }}
-        />
-      )}
+      {`EC:${ecNumber.value}`}
       {noLinks ? null : (
         <>
           {' ('}
@@ -146,6 +91,9 @@ export const ECNumbersView = ({
           )
         </>
       )}
+      {!noEvidence && ecNumber.evidences?.length && (
+        <UniProtKBEvidenceTag evidences={ecNumber.evidences} />
+      )}
     </Fragment>
   ));
 
@@ -165,6 +113,103 @@ export const ECNumbersView = ({
         ))
       ) : (
         <ExpandableList>{content}</ExpandableList>
+      )}
+    </>
+  );
+};
+
+type ProteinNamesViewFlatProps = {
+  names?: ProteinNames;
+  noEvidence?: boolean;
+  withLink?: boolean;
+};
+
+const ProteinNamesViewFlat = ({
+  names,
+  noEvidence = false,
+  withLink = false,
+}: ProteinNamesViewFlatProps) => {
+  if (!names) {
+    return null;
+  }
+  return (
+    <>
+      {noEvidence ? (
+        <ProteinName value={names.fullName.value} withLink={withLink} />
+      ) : (
+        <NameWithEvidence data={names.fullName} withLink={withLink} />
+      )}
+      {names.shortNames && (
+        <>
+          {' ('}
+          {names.shortNames.map(
+            (shortName, index): JSX.Element => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                {index > 0 && '; '}
+                {noEvidence ? (
+                  `${shortName.value}`
+                ) : (
+                  <NameWithEvidence data={shortName} />
+                )}
+              </Fragment>
+            )
+          )}
+          {') '}
+        </>
+      )}
+      {names.ecNumbers && (
+        <>
+          {' ('}
+          <ECNumbersView
+            ecNumbers={names.ecNumbers}
+            noEvidence={noEvidence}
+            noLinks={!withLink}
+          />
+          {') '}
+        </>
+      )}
+    </>
+  );
+};
+
+const ProteinDescriptionView = ({
+  proteinDescription,
+}: {
+  proteinDescription?: ProteinDescription;
+}) => {
+  if (!proteinDescription) {
+    return null;
+  }
+  return (
+    <>
+      <ProteinNamesViewFlat
+        names={proteinDescription.recommendedName}
+        withLink
+      />
+      {proteinDescription.recommendedName?.ecNumbers?.length && (
+        <small>
+          <ECNumbersView
+            ecNumbers={proteinDescription.recommendedName?.ecNumbers}
+            orientation="vertical"
+          />
+        </small>
+      )}
+      {proteinDescription.alternativeNames && (
+        <>
+          {' '}
+          <i>Alternative names: </i>
+          {proteinDescription.alternativeNames.map(
+            (alternativeName, index): JSX.Element => (
+              <Fragment key={alternativeName.fullName.value}>
+                <ProteinNamesViewFlat names={alternativeName} />
+                {index <
+                  (proteinDescription.alternativeNames?.length || 0) - 1 &&
+                  ', '}
+              </Fragment>
+            )
+          )}
+        </>
       )}
     </>
   );
@@ -304,6 +349,16 @@ const ProteinNamesView = ({
         <>{proteinNames.biotechName.value}</>
       ) : (
         <NameWithEvidence data={proteinNames.biotechName} />
+      ),
+    });
+  }
+  if (proteinNames.allergenName) {
+    infoData.push({
+      title: 'Allergen name',
+      content: noEvidence ? (
+        <>{proteinNames.allergenName.value}</>
+      ) : (
+        <NameWithEvidence data={proteinNames.allergenName} />
       ),
     });
   }

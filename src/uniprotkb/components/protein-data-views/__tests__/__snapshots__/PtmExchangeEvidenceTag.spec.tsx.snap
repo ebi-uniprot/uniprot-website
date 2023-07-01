@@ -28,28 +28,17 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
       class="evidence-tag-content"
     >
       <h5
-        data-article-id="evidences"
+        data-article-id="evidences#ECO:0007829"
       >
-        Automatic assertion inferred from combination of experimental and computational evidence 
-        <small>
-          (Information inferred from a combination of experimental and computational evidence, without manual validation)
-        </small>
+        Automatic assertion inferred from combination of experimental and computational evidence
       </h5>
       <section>
         <h5
-          data-article-id="mod_res_large_scale#confidence-score"
+          data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
         >
           Confidence score: Gold
         </h5>
         This score has been used to reflect the strength of the evidence for this modified site following reanalysis of available datasets.
-      </section>
-      <section>
-        <h5
-          class="small"
-        >
-          Reanalyzed Sources
-        </h5>
-        Coming soon
       </section>
       <section
         class="styles.section"
@@ -57,7 +46,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
         <h5
           class="small"
         >
-          Original Sources
+          Evidence
         </h5>
         <div>
           <ul
@@ -78,7 +67,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE - PXD004939
+                  PRIDE: PXD004939
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"
@@ -94,7 +83,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE - PXD005241
+                  PRIDE: PXD005241
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"
@@ -110,7 +99,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE - PXD004705
+                  PRIDE: PXD004705
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"

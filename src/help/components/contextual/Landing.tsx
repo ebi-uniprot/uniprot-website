@@ -173,7 +173,10 @@ const getAllArticles = () => {
   for (const element of document.querySelectorAll<HTMLElement>(
     '[data-article-id]'
   )) {
-    const { articleId } = element.dataset;
+    let { articleId } = element.dataset;
+    if (articleId?.includes('#')) {
+      [articleId] = articleId.split('#');
+    }
     /* istanbul ignore if */
     if (!articleId) {
       // eslint-disable-next-line no-continue

@@ -1,5 +1,6 @@
 import { JobTypes } from './toolsJobTypes';
 
+import { FormParameters as AsyncDownloadFP } from '../async-download/types/asyncDownloadFormParameters';
 import { FormParameters as AlignFP } from '../align/types/alignFormParameters';
 import { FormParameters as BlastFP } from '../blast/types/blastFormParameters';
 import { FormParameters as IDMappingFP } from '../id-mapping/types/idMappingFormParameters';
@@ -10,4 +11,5 @@ export type FormParameters = {
   [JobTypes.BLAST]: BlastFP;
   [JobTypes.ID_MAPPING]: IDMappingFP;
   [JobTypes.PEPTIDE_SEARCH]: PeptideSearchFP;
+  [JobTypes.ASYNC_DOWNLOAD]: AsyncDownloadFP;
 };

@@ -19,7 +19,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
         class="text-block"
       >
         <legend>
-          Find UniProt entries through parts of their peptide sequences, each more than two amino acids long (e.g. RVLSLGR). Enter one or more sequences (100 max). You may also
+          Find UniProt entries through parts of their peptide sequences, each at least 7 amino acids long. Enter one or more sequences (100 max). You may also
           <label
             class="tools-form-section__file-input"
           >
@@ -31,11 +31,12 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
           .
         </legend>
         <textarea
-          aria-label="Protein sequence(s) of at least 2 aminoacids"
+          aria-label="Protein sequence(s) of at least 7 aminoacids"
           autocomplete="off"
           class="tools-form-raw-text-input"
+          data-hj-allow="true"
           name="peps"
-          placeholder="Protein sequence(s) of at least 2 aminoacids"
+          placeholder="e.g. RVLSLGR"
           spellcheck="false"
         />
       </section>
@@ -94,6 +95,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
             Name your Peptide Search job
             <input
               autocomplete="off"
+              data-hj-allow="true"
               maxlength="100"
               name="title"
               placeholder=""my job title""

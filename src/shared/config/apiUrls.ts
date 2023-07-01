@@ -104,7 +104,10 @@ const apiUrls = {
     joinUrl(apiPrefix, `/${namespace}/stream`),
   variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
   genecentric: (accession: string) =>
-    joinUrl(apiPrefix, '/genecentric/', accession),
+    queryString.stringifyUrl({
+      url: joinUrl(apiPrefix, '/genecentric/search'),
+      query: { query: `accession:${accession}` },
+    }),
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace) =>
     id && joinUrl(apiPrefix, namespace, id),
@@ -199,7 +202,8 @@ export const defaultFacets = new Map<Namespace, Facets[]>([
   [Namespace.unirule, uniRuleDefaultFacets],
   [Namespace.arba, arbaDefaultFacets],
 ]);
-type QueryUrlProps = {
+
+type ApiUrlOptions = {
   namespace?: Namespace;
   query?: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
@@ -210,7 +214,8 @@ type QueryUrlProps = {
   facets?: Facets[] | null;
   size?: number;
 };
-export const getAPIQueryUrl = ({
+
+export const getAPIQueryParams = ({
   namespace = Namespace.uniprotkb,
   query = '*',
   columns = [],
@@ -219,26 +224,32 @@ export const getAPIQueryUrl = ({
   sortDirection = SortDirection.ascend,
   facets,
   size,
-}: QueryUrlProps = {}) => {
+}: ApiUrlOptions = {}) => {
   let facetField = facets;
   // if null or empty list, don't set default, only for undefined
   // note: could this be moved to useNSQuery?
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }
-  return `${apiUrls.search(namespace)}?${queryString.stringify({
+
+  return {
     size,
     query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
       .join(' AND ')}`,
     fields: columns?.join(',') || undefined,
     facets: facetField?.join(','),
-    sort:
-      sortColumn && sortColumn !== ('score' as SortableColumn)
-        ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
-        : undefined,
-  })}`;
+    sort: sortColumn
+      ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
+      : undefined,
+  };
 };
+
+export const getAPIQueryUrl = (options: ApiUrlOptions = {}) =>
+  queryString.stringifyUrl({
+    url: apiUrls.search(options.namespace || Namespace.uniprotkb),
+    query: getAPIQueryParams(options),
+  });
 
 const localBlastFacets = Object.values(BlastFacet) as string[];
 const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
@@ -253,6 +264,7 @@ type GetOptions = {
   facets?: Facets[] | null;
   size?: number;
   query?: string;
+  noSort?: boolean;
 };
 
 export const getAccessionsURL = (
@@ -266,6 +278,7 @@ export const getAccessionsURL = (
     facets,
     size,
     query,
+    noSort,
   }: GetOptions = {}
 ) => {
   if (!(accessions && accessions.length)) {
@@ -280,11 +293,15 @@ export const getAccessionsURL = (
   } else if (namespace === Namespace.uniparc) {
     key = 'upis';
   }
+  let accs = accessions;
+  if (!noSort) {
+    // sort to improve possible cache hit
+    accs = Array.from(accessions).sort();
+  }
   return `${joinUrl(apiPrefix, `/${namespace}/${key}`)}?${queryString.stringify(
     {
       size,
-      // sort to improve possible cache hit
-      [key]: Array.from(accessions).sort().join(','),
+      [key]: accs.join(','),
       query: [
         query && `(${query})`,
         createFacetsQueryString(
@@ -338,14 +355,14 @@ type Parameters = {
   subsequence?: boolean;
   size?: number;
   compressed?: boolean;
-  download: true;
+  download?: true;
 };
 
 export type DownloadUrlOptions = {
   base?: string;
   query?: string;
   columns?: string[];
-  selectedFacets: SelectedFacet[];
+  selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
   fileFormat: FileFormat;
@@ -356,6 +373,7 @@ export type DownloadUrlOptions = {
   namespace: Namespace;
   accessions?: string[];
   idMappingPrefix?: string;
+  download?: boolean;
 };
 
 export const getDownloadUrl = ({
@@ -372,6 +390,7 @@ export const getDownloadUrl = ({
   selectedIdField,
   namespace,
   accessions,
+  download = true,
 }: DownloadUrlOptions) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
@@ -400,8 +419,11 @@ export const getDownloadUrl = ({
   // fallback to json if something goes wrong
   const parameters: Parameters = {
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
-    download: true,
   };
+
+  if (download) {
+    parameters.download = true;
+  }
 
   if (accessions) {
     parameters[accessionKey] = Array.from(
@@ -456,21 +478,21 @@ export const getDownloadUrl = ({
     parameters.compressed = true;
   }
 
-  return `${endpoint}?${queryString.stringify(parameters)}`;
+  return queryString.stringifyUrl({ url: endpoint, query: parameters });
 };
 
 const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
 export const proteinsApi = {
   proteins: (accession: string) =>
-    joinUrl(proteinsApiPrefix, `/proteins/${accession}`),
+    joinUrl(proteinsApiPrefix, 'proteins', accession),
   proteomicsPtm: (accession: string) =>
-    joinUrl(proteinsApiPrefix, `/proteomics-ptm/${accession}`),
+    joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession),
 };
 
 // Help endpoints
 export const help = {
   accession: (accession?: string) =>
-    accession && joinUrl(apiPrefix, '/help', accession),
+    accession && joinUrl(apiPrefix, 'help', accession),
   search: ({
     query,
     sort,
@@ -479,30 +501,33 @@ export const help = {
     facets = helpDefaultFacets,
     size,
   }: queryString.ParsedQuery) =>
-    `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
-      query: [
-        query || '*',
-        ...(Array.isArray(queryFacets)
-          ? queryFacets
-          : (queryFacets || '').split(',')
-        )
+    queryString.stringifyUrl({
+      url: joinUrl(apiPrefix, 'help/search'),
+      query: {
+        query: [
+          query || '*',
+          ...(Array.isArray(queryFacets)
+            ? queryFacets
+            : (queryFacets || '').split(',')
+          )
+            .filter(Boolean)
+            // Sort in order to improve cache hits
+            .sort()
+            .map((facet) => {
+              const [facetName, facetValue] = (facet || '').split(':');
+              return `(${facetName}:${
+                facetValue.includes(' ') ? `"${facetValue}"` : facetValue
+              })`;
+            }),
+        ]
           .filter(Boolean)
-          // Sort in order to improve cache hits
-          .sort()
-          .map((facet) => {
-            const [facetName, facetValue] = (facet || '').split(':');
-            return `(${facetName}:${
-              facetValue.includes(' ') ? `"${facetValue}"` : facetValue
-            })`;
-          }),
-      ]
-        .filter(Boolean)
-        .join(' AND '),
-      sort,
-      fields,
-      facets,
-      size,
-    })}`,
+          .join(' AND '),
+        sort,
+        fields,
+        facets,
+        size,
+      },
+    }),
 };
 
 // News endpoints

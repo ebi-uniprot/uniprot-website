@@ -4,7 +4,7 @@ import { Loader, PageIntro } from 'franklin-sites';
 import HTMLHead from '../shared/components/HTMLHead';
 import ResultsData from '../shared/components/results/ResultsData';
 import EmptyBasket from './EmptyBasket';
-import SideBarLayout from '../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../shared/components/layouts/SideBarLayout';
 import ResultsFacets from '../shared/components/results/ResultsFacets';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 
@@ -45,10 +45,6 @@ const BasketFullView = () => {
     })
   );
 
-  // Below here similar (but not identical) to the Results component
-  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
-    useItemSelect();
-
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
     // Passing accessions without modifications in case of subsets
@@ -82,6 +78,10 @@ const BasketFullView = () => {
     progress: resultsDataProgress,
   } = resultsDataObject;
 
+  // Below here similar (but not identical) to the Results component
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect(resultsDataObject.initialLoading);
+
   if (!accessions.length) {
     return (
       <>
@@ -113,7 +113,7 @@ const BasketFullView = () => {
   );
 
   return (
-    <SideBarLayout
+    <SidebarLayout
       sidebar={
         <ResultsFacets
           dataApiObject={facetApiObject}
@@ -153,7 +153,7 @@ const BasketFullView = () => {
         namespaceOverride={namespace}
         basketSetter={setBasket}
       />
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

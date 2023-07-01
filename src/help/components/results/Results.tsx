@@ -11,9 +11,9 @@ import cn from 'classnames';
 import { debounce } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import HelpCard from './HelpCard';
-import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
 import HelpResultFacets from './HelpResultFacets';
 
 import usePagination from '../../../shared/hooks/usePagination';
@@ -115,7 +115,7 @@ const Results = ({
         alt=""
       />
       <strong className={cn('tiny', styles.title)}>
-        <HelpIcon width="0.7em" height="0.7em" />
+        <HelpIcon width="0.7em" height="0.7em" />{' '}
         {isReleaseNotes ? 'Release notes ' : 'Help '}search results
       </strong>
       <SearchInput
@@ -163,7 +163,7 @@ const Results = ({
   }
 
   return (
-    <SideBarLayout
+    <SidebarLayout
       sidebar={
         <>
           <h1>Help results</h1>
@@ -179,7 +179,7 @@ const Results = ({
       />
       {searchNode}
       {main}
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

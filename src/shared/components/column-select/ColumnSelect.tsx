@@ -1,8 +1,7 @@
 import { FC, useCallback, useMemo } from 'react';
-import { AccordionSearch, Tabs, Tab, Loader } from 'franklin-sites';
+import { AccordionSearch, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
 
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
 import useDataApi from '../../hooks/useDataApi';
@@ -11,15 +10,14 @@ import apiUrls from '../../config/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
-import { getFieldDataForColumns, getTabTitle, prepareFieldData } from './utils';
+import { getLabel, prepareFieldData } from './utils';
 import { Namespace } from '../../types/namespaces';
 
 import {
   ReceivedFieldData,
-  ColumnSelectTab,
+  SelectedColumn,
 } from '../../../uniprotkb/types/resultsTypes';
 
-import sticky from '../../styles/sticky.module.scss';
 import './styles/column-select.scss';
 
 type ColumnSelectProps = {
@@ -74,10 +72,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(
-      namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace,
-      isEntryPage
-    )
+    apiUrls.resultsFields(namespace, isEntryPage)
   );
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
@@ -89,32 +84,17 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   if (loading) {
     return <Loader progress={progress} />;
   }
-
-  const fieldDataForSelectedColumns = getFieldDataForColumns(
-    removableSelectedColumns,
-    fieldData
-  );
-  const tabs = Object.entries(fieldData).map(([tabId, tabData]) => {
-    const selectedColumnsInTab = fieldDataForSelectedColumns.filter(
-      (item) => item.tabId === tabId
-    );
-    return (
-      <Tab
-        key={tabId}
-        title={getTabTitle(tabId as ColumnSelectTab, selectedColumnsInTab)}
-      >
-        <AccordionSearch
-          accordionData={tabData}
-          onSelect={(_accordionId: string, itemId: UniProtKBColumn) =>
-            handleSelect(itemId)
-          }
-          selected={selectedColumnsInTab}
-          placeholder="Search for available columns"
-          columns
-        />
-      </Tab>
-    );
-  });
+  const fieldDataForSelectedColumns = removableSelectedColumns
+    .map((itemId) => {
+      const label = getLabel(fieldData, namespace, itemId);
+      return (
+        label !== null && {
+          itemId,
+          label,
+        }
+      );
+    })
+    .filter((d: SelectedColumn | boolean): d is SelectedColumn => Boolean(d));
 
   return (
     <>
@@ -124,9 +104,15 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
           onDragDrop={handleDragDrop}
           onRemove={handleSelect}
         />
-        {tabs.length ? (
-          <Tabs className={sticky['sticky-tabs-container']}>{tabs}</Tabs>
-        ) : undefined}
+        <AccordionSearch
+          accordionData={fieldData}
+          onSelect={(itemId: string) => {
+            handleSelect(itemId as Column);
+          }}
+          selected={selectedColumns}
+          placeholder="Search for available columns"
+          columns
+        />
       </div>
       {children}
     </>

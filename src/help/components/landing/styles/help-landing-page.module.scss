@@ -5,6 +5,17 @@
   &__tiles {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+
+    // Neither small nor medium
+    @media only screen and (max-width: 930px) and (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    // Small screen
+    @media only screen and (max-width: 640px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
     grid-template-rows: repeat(2, 1fr);
     gap: $global-margin;
     margin-bottom: $global-margin;

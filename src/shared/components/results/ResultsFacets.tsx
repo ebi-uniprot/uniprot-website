@@ -16,7 +16,6 @@ import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import { FacetObject, FacetValue } from '../../types/results';
 
 import helper from '../../styles/helper.module.scss';
-import './styles/results-data.scss';
 
 const getDecoratedFacetLabel = (facetValue: FacetValue) => {
   const { label } = facetValue;
@@ -56,12 +55,20 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const facetsWithIcons = facets.map((facet) =>
     facet.name === 'reviewed' ||
     facet.name === 'proteome_type' ||
-    facet.name === 'types' // Types is Publication's source
+    facet.name === 'types' || // Types is Publication's source
+    facet.name === 'proteome' // Not icon but change letter casing until returned otherwise by the backend (better if there is proteometype returned)
       ? {
           ...facet,
           values: facet.values?.map((facetValue) => ({
             ...facetValue,
-            label: getDecoratedFacetLabel(facetValue),
+            value:
+              facet.name === 'proteome'
+                ? facetValue.value.toUpperCase()
+                : facetValue.value,
+            label:
+              facet.name !== 'proteome'
+                ? getDecoratedFacetLabel(facetValue)
+                : null,
           })),
         }
       : facet

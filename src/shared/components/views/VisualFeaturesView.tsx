@@ -9,7 +9,7 @@ import NightingaleZoomTool, {
 import useCustomElement from '../../hooks/useCustomElement';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { gtagFn } from '../../utils/logging';
+import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
 
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 import { Namespace } from '../../types/namespaces';
@@ -22,10 +22,12 @@ function VisualFeaturesView<T>({
   features,
   sequence,
   trackHeight,
+  noLinkToFullView,
 }: {
   features: T[];
   sequence: string;
   trackHeight?: number;
+  noLinkToFullView?: boolean;
 }) {
   const trackElement = useCustomElement(
     /* istanbul ignore next */
@@ -67,24 +69,22 @@ function VisualFeaturesView<T>({
   return ceDefined ? (
     <>
       <NightingaleZoomTool length={sequence.length} />
-      <Link
-        to={getEntryPath(
-          Namespace.uniprotkb,
-          params.accession,
-          TabLocation.FeatureViewer
-        )}
-        title="View in the Feature Viewer"
-        onClick={() => {
-          gtagFn('event', 'feature viewer', {
-            event_category: 'go to full view',
-            event_label: params.accession,
-          });
-        }}
-        className={styles['full-view']}
-      >
-        <FullViewIcon height={iconSize} />
-      </Link>
-
+      {!noLinkToFullView && (
+        <Link
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            params.accession,
+            TabLocation.FeatureViewer
+          )}
+          title="View in the Feature Viewer"
+          onClick={() => {
+            sendGtagEventFeatureViewerFullViewClick(params.accession);
+          }}
+          className={styles['full-view']}
+        >
+          <FullViewIcon height={iconSize} />
+        </Link>
+      )}
       <navigationElement.name length={sequence.length} />
       <trackElement.name
         ref={setTrackData}

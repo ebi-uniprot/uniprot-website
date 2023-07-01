@@ -22,6 +22,11 @@ jest.mock('../EntryMain', () => ({
   default: () => '{{ EntryMain }}',
 }));
 
+jest.mock('../../../../shared/components/layouts/UniProtFooter', () => ({
+  __esModule: true,
+  default: () => '{{ Footer }}',
+}));
+
 const filteredUrl = getUniProtPublicationsQueryUrl({
   accession: primaryAccession,
   selectedFacets: [{ name: 'study_type', value: 'small_scale' }],

@@ -1,32 +1,29 @@
 import { Link } from 'react-router-dom';
 import { Button, LongNumber } from 'franklin-sites';
 
-import {
-  getEntryPath,
-  LocationToPath,
-  Location,
-} from '../../../../app/config/urls';
+import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
+
+import { LocationToPath, Location } from '../../../../app/config/urls';
 
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
-import { Namespace } from '../../../../shared/types/namespaces';
 
 import styles from './styles/child-navigation.module.css';
+
+type ChildNavigationProps = {
+  taxonId: number;
+  childTaxons: TaxonomyAPIModel[];
+  total: number;
+};
 
 const ChildNavigation = ({
   taxonId,
   childTaxons,
   total,
-}: {
-  taxonId: number;
-  childTaxons: TaxonomyAPIModel[];
-  total: number;
-}) => (
+}: ChildNavigationProps) => (
   <ul className="no-bullet">
     {childTaxons.map((child) => (
       <li key={child.taxonId}>
-        <Link to={getEntryPath(Namespace.taxonomy, child.taxonId)}>
-          {child.commonName || child.scientificName || child.taxonId}
-        </Link>
+        <TaxonomyView data={child} />
       </li>
     ))}
     <li>

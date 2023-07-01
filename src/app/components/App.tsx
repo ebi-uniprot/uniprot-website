@@ -11,12 +11,15 @@ import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import {
   init as SentryInit,
+  setTag as sentrySetTag,
   reactRouterV5Instrumentation,
+  Replay,
 } from '@sentry/react';
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
+import queryString from 'query-string';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
-import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 import DeploymentWarning from './DeploymentWarning';
@@ -47,6 +50,7 @@ if (process.env.NODE_ENV !== 'development') {
       new SentryIntegrations.BrowserTracing({
         routingInstrumentation: reactRouterV5Instrumentation(history),
       }),
+      new Replay(),
     ],
     maxBreadcrumbs: 50,
     // Proportion of sessions being used to track performance
@@ -68,7 +72,10 @@ if (process.env.NODE_ENV !== 'development') {
     //   }
     //   return event;
     // },
+    replaysSessionSampleRate: 0.001,
+    replaysOnErrorSampleRate: 1.0,
   });
+  sentrySetTag('bundle', MODERN_BUNDLE ? 'modern' : 'legacy');
 }
 
 // Async loading of page components
@@ -278,16 +285,31 @@ const BackToTheTop = lazy(() =>
 );
 
 // Helper component to render a landing page or the results page depending on
-// the presence of absence of a querystring
+// the presence or absence of a query string (any URL parameters) eg presence
+// of any of: facets, query, sort will be routed to a results page. In the case
+// of query string is present but no "query=" or this is empty it will be
+// provided as "query=*"
 const ResultsOrLanding =
   (ResultsPage: FC<RouteChildrenProps>, LandingPage: FC<RouteChildrenProps>) =>
-  (props: RouteChildrenProps) =>
-    props.location.search ? (
-      <ResultsPage {...props} />
-    ) : (
-      <LandingPage {...props} />
-    );
-
+  (props: RouteChildrenProps) => {
+    if (props.location.search) {
+      const params = Object.fromEntries(
+        new URLSearchParams(props.location.search)
+      );
+      if (!params.query) {
+        return (
+          <Redirect
+            to={queryString.stringifyUrl({
+              url: props.location.pathname,
+              query: { ...params, query: '*' },
+            })}
+          />
+        );
+      }
+      return <ResultsPage {...props} />;
+    }
+    return <LandingPage {...props} />;
+  };
 // NOTE: remove whenever we start implementing landing pages
 const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
   <Redirect to={{ ...location, search: 'query=*' }} />
@@ -318,7 +340,6 @@ const App = () => {
             />
             {/* Entry pages */}
             {/* Main namespaces */}
-
             <Route
               path={LocationToPath[Location.UniProtKBEntry]}
               component={UniProtKBEntryPage}
@@ -455,6 +476,12 @@ const App = () => {
               component={ResultsOrLanding(HelpResults, HelpLandingPage)}
             />
             {/* Release notes */}
+            <Route
+              path={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                accession: '_preview',
+              })}
+              component={HelpEntryPreviewPage}
+            />
             <Route
               path={LocationToPath[Location.ReleaseNotesEntry]}
               component={HelpEntryPage}

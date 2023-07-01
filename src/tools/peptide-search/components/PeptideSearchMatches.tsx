@@ -21,7 +21,7 @@ export const PeptideSearchMatches = ({
   return (
     <ul className={cn('no-bullet', style['no-wrap'])}>
       {matches.map(({ matchSequence, start, end }) => (
-        <li key={matchSequence}>
+        <li key={`${matchSequence}${start}${end}`}>
           {`Positions ${start + 1}-${end + 1}: `}
           {matchSequence.length < nVisible ? (
             matchSequence

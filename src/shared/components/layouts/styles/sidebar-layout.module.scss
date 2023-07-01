@@ -1,0 +1,69 @@
+@import 'franklin-sites/src/styles/common/z-index';
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/mixins';
+@import '../../../styles/settings';
+@import '../../../styles/mixins';
+
+.sidebar-layout {
+  --sidebar-size: 18ch;
+  @include fs-breakpoints('medium') {
+    --sidebar-size: 25ch;
+  }
+  @include fs-breakpoints('large') {
+    --sidebar-size: 30ch;
+  }
+
+  max-width: 100%;
+  min-height: calc(100vh - var(--top-header-margin));
+  display: grid;
+  align-items: start;
+  grid-template-columns: 3rem calc(var(--sidebar-size) - 3rem) minmax(0, 1fr);
+
+  & > .sidebar {
+    padding: $global-padding;
+    grid-row: 1 / -1;
+    grid-column: 1 / 3;
+    @include scroll-shadow($colour-sky-white);
+    position: sticky;
+    top: 0;
+    max-height: calc(100vh - var(--top-header-margin));
+    overflow-y: auto;
+    // TODO: validate with UX if that's a good thing to do
+    // Hides the scrollbar, but keeps functionality
+    // See https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width#accessibility_concerns
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  & .empty-sidebar {
+    min-height: calc(100vh - var(--top-header-margin) - 2 * #{$global-margin});
+    height: 100%;
+    background-color: $colour-platinum;
+  }
+
+  & > .content {
+    z-index: 1;
+    grid-row: 1 / -1;
+    /* If we want an expanded main content case, make it start on column 2 or less - suitable for smaller screens */
+    grid-column: 1 / 4;
+    @include fs-breakpoints('medium') {
+      grid-column: 3 / 4;
+    }
+    @media print {
+      /* cover the full width when printing */
+      grid-column: 1 / 4;
+    }
+    background-color: $colour-sky-white;
+    padding-inline: $gutter-size;
+
+    /** Allows the results table to grow, and the sticky action bar to stretch,
+      * covering the table when scrolling down */
+    display: grid;
+  }
+  /* but causes Nightingale elements to grow, so need this to cancel that */
+  &.no-overflow > .content {
+    display: initial;
+  }
+}

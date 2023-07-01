@@ -19,9 +19,10 @@ import apiUrls from '../../../shared/config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
+import { SearchResults } from '../../../shared/types/results';
+import { Flag } from '../../adapters/sequenceConverter';
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { Sequence } from '../../../shared/types/sequence';
-import { ProteinExistence } from '../../../tools/blast/types/apiSequenceData';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import helper from '../../../shared/styles/helper.module.scss';
@@ -34,11 +35,12 @@ type ProteinEntryLight = {
   proteinName: string;
   organism: TaxonomyDatum;
   geneName: string;
-  proteinExistence: ProteinExistence;
-  sequenceVersion: number;
+  proteinExistence?: string;
+  sequenceVersion?: number;
+  flagType: Flag;
 };
 
-type GeneCentricData = {
+export type GeneCentricData = {
   canonicalProtein: ProteinEntryLight;
   relatedProteins?: ProteinEntryLight[];
   proteomeId: string;
@@ -87,14 +89,18 @@ const ComputationalyMappedSequences = ({
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   // Hooks
-  const { data, loading, error, status } = useDataApi<GeneCentricData>(
-    apiUrls.genecentric(primaryAccession)
-  );
+  const { data, loading, error, status } = useDataApi<
+    SearchResults<GeneCentricData>
+  >(apiUrls.genecentric(primaryAccession));
 
   const filteredData = useMemo(
     () =>
-      data?.relatedProteins?.filter(
-        ({ id }) => !id.startsWith(primaryAccession)
+      data?.results?.[0] &&
+      [
+        data.results[0].canonicalProtein,
+        ...(data.results[0].relatedProteins || []),
+      ]?.filter(
+        ({ id }) => !(id.startsWith(primaryAccession) || id.includes('-'))
       ),
     [primaryAccession, data]
   );
@@ -104,7 +110,7 @@ const ComputationalyMappedSequences = ({
   }
 
   if (
-    !data?.relatedProteins ||
+    !data?.results?.[0] ||
     (error && status === 404) ||
     !filteredData?.length
   ) {

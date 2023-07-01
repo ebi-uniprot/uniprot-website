@@ -24,7 +24,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && MODERN_BUNDLE) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
@@ -69,4 +69,10 @@ if (process.env.NODE_ENV !== 'development') {
     attributes: true,
     attributeFilter: ['data-loaded'],
   });
+
+  if (window && typeof window.hj === 'function') {
+    window.hj('identify', null, {
+      Bundle: MODERN_BUNDLE ? 'modern' : 'legacy',
+    });
+  }
 }

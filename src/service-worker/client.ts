@@ -1,6 +1,6 @@
 import { Workbox } from 'workbox-window';
 
-import * as logging from '../shared/utils/logging';
+import { sendGtagEventCacheUpdate } from '../shared/utils/gtagEvents';
 
 import { needsReload } from './reload-flag';
 
@@ -15,13 +15,6 @@ type UpdatePayload = {
   updatedURL: string;
 };
 
-// helper function to drop all entries of a specific cache
-const dropCache = async (cacheName: string) => {
-  const cache = await caches.open(cacheName);
-  const keys = await caches.keys();
-  await Promise.all(keys.map((key) => cache.delete(key)));
-};
-
 const ONE_DAY = 1000 * 60 * 60 * 24;
 
 export async function register() {
@@ -32,29 +25,23 @@ export async function register() {
   const workbox = new Workbox(`${BASE_URL}service-worker.js`);
 
   // Data cache management
-  workbox.addEventListener('message', ({ data }) => {
-    if (
-      !(
-        data &&
-        data.type === 'CACHE_UPDATED' &&
-        data.meta === 'workbox-broadcast-update'
-      )
-    ) {
+  workbox.addEventListener('message', async ({ data }) => {
+    if (!(data && data.meta === 'workbox-broadcast-update')) {
       return;
     }
     // Now, we're sure it's a message from 'workbox-broadcast-update' library
     const { cacheName, updatedURL } = data.payload as UpdatePayload;
-    logging.log(
-      `An update to "${updatedURL}" caused the whole "${cacheName}" cache to be dropped`
-    );
+    sendGtagEventCacheUpdate(updatedURL, cacheName);
+
     if (cacheName === CacheName.WebsiteAPI) {
       // drop the quickGO cache whenever we drop the website API cache
       // it should happen on UniProt data update
-      dropCache(CacheName.QuickGO);
-      // drop the static endpoints of the website API too
-      dropCache(CacheName.WebsiteAPIStatic);
+      await caches.delete(CacheName.QuickGO);
+      // drop the static endpoints of the website API too for good measure
+      await caches.delete(CacheName.WebsiteAPIStatic);
+      window.location.reload();
     }
-    dropCache(cacheName);
+    await caches.delete(cacheName);
   });
 
   // Helper function, when the new SW is controlling, set a flag saying to the
@@ -76,9 +63,13 @@ export async function register() {
   try {
     workbox.register();
 
-    // Try to updat the service worker at least once a day
+    // Try to update the service worker at least once a day
     setInterval(() => {
-      workbox.update();
+      try {
+        workbox.update();
+      } catch {
+        /* */
+      }
     }, ONE_DAY);
   } catch {
     // Might fail, it's fine, it's progressive enhancement

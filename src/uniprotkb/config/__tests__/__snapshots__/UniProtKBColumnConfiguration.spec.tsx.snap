@@ -34,21 +34,6 @@ exports[`UniProtKBColumnConfiguration component should render column "accession"
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "alphafold": alphafold 1`] = `
-<DocumentFragment>
-  <span
-    class="no-wrap accession-view"
-    style="color: gray; font-weight: 600; font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;"
-    title="Loading prediction"
-  >
-    AlphaFold 
-    <test-file-stub
-      width="2ch"
-    />
-  </span>
-</DocumentFragment>
-`;
-
 exports[`UniProtKBColumnConfiguration component should render column "annotation_score": annotation_score 1`] = `
 <DocumentFragment>
   <span
@@ -113,9 +98,14 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
     id="Isoform_name"
   >
     <span
-      id="isoID1"
+      id="name"
     >
-      isoID1
+       
+      <span
+        id="isoID1"
+      >
+        isoID1
+      </span>
     </span>
   </h3>
   <ul
@@ -295,6 +285,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_caution
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_cofactor": cc_cofactor 1`] = `
 <DocumentFragment>
+  <div
+    class="text-block"
+  >
+    Protein has 1 cofactor binding site:
+  </div>
   <section
     class="text-block"
   >
@@ -342,10 +337,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
       </a>
        )
     </span>
+    <br />
     <div
       class="text-block"
     >
-      value2.
+      Note: value2.
     </div>
   </section>
 </DocumentFragment>
@@ -595,7 +591,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     <div
       class="text-block"
     >
-      value.
+      Note: value.
     </div>
   </section>
 </DocumentFragment>
@@ -613,37 +609,27 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
     class="expandable-list no-bullet"
   >
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         alternative products (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         biophysicochemical properties (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         catalytic activity (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         cofactor (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disease (1)
       </span>
     </li>
@@ -666,86 +652,62 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
     class="expandable-list no-bullet"
   >
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         alternative products (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         biophysicochemical properties (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         catalytic activity (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         cofactor (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disease (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disruption phenotype (2)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         interaction (2)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         mass spectrometry (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         rna editing (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         sequence caution (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         subcellular location (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         web resource (1)
       </span>
     </li>
@@ -1287,133 +1249,152 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_carbohy
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `
 <DocumentFragment>
-  <table
-    class="data-table--compact"
+  <protvista-manager
+    attributes="highlight displaystart displayend selectedid"
   >
-    <thead>
-      <tr>
-        <th
-          data-filter="type"
-        >
-          Type
-        </th>
-        <th>
-          ID
-        </th>
-        <th>
-          Position(s)
-        </th>
-        <th>
-          Description
-        </th>
-        <th />
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        data-end="8"
-        data-id="id value CHAIN"
-        data-start="2"
+    <div
+      class="datatable-with-toggle"
+    >
+      <protvista-datatable
+        filter-scroll="true"
       >
-        <td
-          data-filter="type"
-          data-filter-value="Chain"
-        >
-          Chain
-        </td>
-        <td
-          id="id value CHAIN"
-        >
-          id value CHAIN
-        </td>
-        <td>
-          2-8
-        </td>
-        <td>
-          Cu
-          <sup>
-            2+
-          </sup>
-           A2 (
-          <a
-            href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
-          >
-            UniProtKB
-          </a>
-           | 
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
-            rel="noopener"
-            target="_blank"
-          >
-            ChEBI
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          ); Some note of Ca
-          <sup>
-            2+
-          </sup>
-           A1 (
-          <a
-            href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
-          >
-            UniProtKB
-          </a>
-           | 
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
-            rel="noopener"
-            target="_blank"
-          >
-            ChEBI
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          ); Some note; description value 123
-        </td>
-        <td>
-          <div
-            class="button-group"
-          >
-            <a
-              class="button tertiary"
-              href="/blast?ids=P21802[2-8]"
-              title="BLAST the sequence corresponding to this feature"
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Type
+              </th>
+              <th>
+                ID
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Description
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-end="8"
+              data-id="id value CHAIN"
+              data-start="2"
             >
-              BLAST
-            </a>
-            <button
-              class="button tertiary no-small"
-              title="Add 1 entry to the basket"
-              type="button"
+              <td>
+                Chain
+              </td>
+              <td
+                id="id value CHAIN"
+              >
+                id value CHAIN
+              </td>
+              <td>
+                2-8
+              </td>
+              <td
+                id="description2-8"
+              >
+                Cu
+                <sup>
+                  2+
+                </sup>
+                 A2 (
+                <a
+                  href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
+                >
+                  UniProtKB
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ChEBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                ); Some note of Ca
+                <sup>
+                  2+
+                </sup>
+                 A1 (
+                <a
+                  href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
+                >
+                  UniProtKB
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ChEBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                ); Some note; In isoform 
+                <a
+                  href="/#Isoform_sequence"
+                >
+                  sequence
+                </a>
+                 1; description value 123
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <a
+                    class="button tertiary"
+                    href="/blast?ids=P21802[2-8]"
+                    title="BLAST the sequence corresponding to this feature"
+                  >
+                    BLAST
+                  </a>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              data-end="8"
+              data-group-for="id value CHAIN"
+              data-start="2"
             >
-              <test-file-stub />
-              Add
-            </button>
-          </div>
-        </td>
-      </tr>
-      <tr
-        data-end="8"
-        data-group-for="id value CHAIN"
-        data-start="2"
+              <td>
+                <strong>
+                  Sequence: 
+                </strong>
+                original value → alternative value
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </protvista-datatable>
+      <button
+        class="button primary toggle-button"
+        type="button"
       >
-        <td>
-          <strong>
-            Sequence: 
-          </strong>
-          original value → alternative value
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        Expand table
+      </button>
+    </div>
+  </protvista-manager>
 </DocumentFragment>
 `;
 
@@ -1477,11 +1458,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_unsure"
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_var_seq": ft_var_seq 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_variant": ft_variant 1`] = `
-<DocumentFragment>
-  Variants
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_variant": ft_variant 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing": ft_zn_fing 1`] = `<DocumentFragment />`;
 
@@ -1574,6 +1551,11 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
 
 exports[`UniProtKBColumnConfiguration component should render column "kinetics": kinetics 1`] = `
 <DocumentFragment>
+  <h4
+    class="tiny"
+  >
+    Isoform 3
+  </h4>
   <section
     class="text-block"
   >
@@ -1992,6 +1974,8 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_abcd": xref_abcd 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_agr": xref_agr 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_allergome": xref_allergome 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_alphafolddb": xref_alphafolddb 1`] = `<DocumentFragment />`;
@@ -2052,7 +2036,45 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_cptc"
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ctd": xref_ctd 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_dbsnp": xref_dbsnp 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "xref_dbsnp": xref_dbsnp 1`] = `
+<DocumentFragment>
+  <div>
+    original value&gt;alternative value
+    <span
+      class="no-wrap"
+    >
+       db id ( 
+      <a
+        class="external-link"
+        href="https://www.ncbi.nlm.nih.gov/snp/db id"
+        rel="noopener"
+        target="_blank"
+      >
+        dbSNP
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=db id"
+        rel="noopener"
+        target="_blank"
+      >
+        Ensembl
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       ) 
+    </span>
+    <br />
+  </div>
+</DocumentFragment>
+`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_depod": xref_depod 1`] = `<DocumentFragment />`;
 
@@ -2163,6 +2185,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_genew
 exports[`UniProtKBColumnConfiguration component should render column "xref_genomernai": xref_genomernai 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_glyconnect": xref_glyconnect 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_glycosmos": xref_glycosmos 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_glygen": xref_glygen 1`] = `<DocumentFragment />`;
 

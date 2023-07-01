@@ -3,7 +3,7 @@
 exports[`CatalyticActivityView component should render catalytic activity 1`] = `
 <DocumentFragment>
   <h3
-    class="capitalize"
+    data-article-id="catalytic_activity"
   >
     Catalytic activity
   </h3>

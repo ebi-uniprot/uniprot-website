@@ -2,6 +2,10 @@
 @import 'franklin-sites/src/styles/mixins';
 
 footer.footer {
+  /* avoid having the footer disappear on scrolling horizontally */
+  position: sticky;
+  left: 0;
+
   padding: 1rem;
   background: $colour-platinum;
   // Wait a bit on the first load to give a chance to the main content to load
@@ -116,7 +120,8 @@ footer.footer {
 
     img {
       margin: 0.5ch;
-      width: 3em;
+      width: auto;
+      height: 3em;
     }
   }
 

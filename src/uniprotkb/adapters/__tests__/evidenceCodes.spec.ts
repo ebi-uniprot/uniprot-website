@@ -20,7 +20,7 @@ afterAll(() => {
 describe('getEvidenceCodeData', () => {
   it('should get correct data', () => {
     const data = getEvidenceCodeData(7005);
-    expect(data).toHaveProperty('label');
+    expect(data).toHaveProperty('evidenceTagContentHeading');
   });
 
   it('should return null', () => {

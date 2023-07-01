@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
+import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -13,7 +14,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
 
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -39,6 +40,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 
+import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
@@ -106,15 +108,11 @@ const Entry = () => {
 
   const entrySidebar = <XRefsFacets xrefs={xrefsDataObject} />;
 
-  const emptySidebar = (
-    <div className="sidebar-layout__sidebar-content--empty" />
-  );
-
   let sidebar;
 
   switch (match.params.subPage) {
     case TabLocation.FeatureViewer:
-      sidebar = emptySidebar;
+      sidebar = null;
       break;
 
     default:
@@ -123,27 +121,26 @@ const Entry = () => {
   }
 
   return (
-    <SideBarLayout
+    <SidebarLayout
       sidebar={sidebar}
-      className="entry-page"
-      title={
-        <ErrorBoundary>
-          <HTMLHead
-            title={[
-              transformedData.uniParcId,
-              searchableNamespaceLabels[Namespace.uniparc],
-            ]}
-          />
-          <h1>
-            <EntryTitle
-              mainTitle="UniParc"
-              optionalTitle={transformedData.uniParcId}
-            />
-            <BasketStatus id={transformedData.uniParcId} className="small" />
-          </h1>
-        </ErrorBoundary>
-      }
+      noOverflow
+      className={cn('entry-page', sticky['sticky-tabs-container'])}
     >
+      <HTMLHead
+        title={[
+          transformedData.uniParcId,
+          searchableNamespaceLabels[Namespace.uniparc],
+        ]}
+      />
+      <ErrorBoundary>
+        <h1>
+          <EntryTitle
+            mainTitle="UniParc"
+            optionalTitle={transformedData.uniParcId}
+          />
+          <BasketStatus id={transformedData.uniParcId} className="small" />
+        </h1>
+      </ErrorBoundary>
       <Tabs active={match.params.subPage}>
         <Tab
           title={
@@ -211,10 +208,12 @@ const Entry = () => {
                 ]}
               />
               {transformedData.sequenceFeatures ? (
-                <UniParcFeaturesView
-                  data={transformedData.sequenceFeatures}
-                  sequence={transformedData.sequence.value}
-                />
+                <div className="wider-tab-content">
+                  <UniParcFeaturesView
+                    data={transformedData.sequenceFeatures}
+                    sequence={transformedData.sequence.value}
+                  />
+                </div>
               ) : (
                 'No features available'
               )}
@@ -222,7 +221,7 @@ const Entry = () => {
           )}
         </Tab>
       </Tabs>
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

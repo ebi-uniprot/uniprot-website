@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 /* Results as given by the server */
-
 import { Program, SType, Filter, Matrix } from './blastServerParameters';
 
 // Definitions taken from https://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_BlastOutput2.mod.dtd

@@ -1,33 +1,54 @@
-import { FC, ReactNode } from 'react';
+import { lazy, Suspense, ReactNode } from 'react';
 import cn from 'classnames';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
-import './styles/side-bar-layout.scss';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
 
-type SideBarLayoutProps = {
-  title?: ReactNode;
+import styles from './styles/sidebar-layout.module.scss';
+
+const UniProtFooter = lazy(
+  () => import(/* webpackChunkName: "footer" */ './UniProtFooter')
+);
+
+type SidebarLayoutProps = {
   sidebar: ReactNode;
   className?: string;
+  noOverflow?: boolean;
+  children: ReactNode;
 };
 
-const SideBarLayout: FC<SideBarLayoutProps> = ({
-  title,
+export const SidebarLayout = ({
   sidebar,
   children,
   className,
-}) => (
-  <div className={cn('sidebar-layout', className)}>
-    <section className="sidebar-layout__sidebar">
-      <ErrorBoundary>{sidebar}</ErrorBoundary>
-    </section>
-    <section className="sidebar-layout__content">
-      <ErrorBoundary>
-        <section className="sidebar-layout__title">{title}</section>
-      </ErrorBoundary>
-      <ErrorBoundary>{children}</ErrorBoundary>
-    </section>
-  </div>
-);
+  noOverflow,
+}: SidebarLayoutProps) => {
+  const smallScreen = useSmallScreen();
 
-export default SideBarLayout;
+  return (
+    <>
+      <div
+        className={cn(
+          styles['sidebar-layout'],
+          { [styles['no-overflow']]: noOverflow },
+          className
+        )}
+      >
+        {!smallScreen && (
+          <aside className={styles.sidebar}>
+            <ErrorBoundary>{sidebar}</ErrorBoundary>
+          </aside>
+        )}
+        <main className={styles.content}>
+          <ErrorBoundary>{children}</ErrorBoundary>
+        </main>
+      </div>
+      <Suspense fallback={null}>
+        <ErrorBoundary>
+          <UniProtFooter />
+        </ErrorBoundary>
+      </Suspense>
+    </>
+  );
+};

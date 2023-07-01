@@ -6,3 +6,4 @@ variables:
   CHART_PROD: 'uniprot-website-prod'
   CHART_FALLBACK: 'uniprot-website-fallback'
   CHART_DEV: 'uniprot-website-dev'
+  CHART_UX: 'uniprot-website-ux'

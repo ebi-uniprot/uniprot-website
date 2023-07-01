@@ -1,6 +1,5 @@
 import { useMemo, Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 import { v1 } from 'uuid';
 import { Button, Chip } from 'franklin-sites';
 
@@ -20,6 +19,7 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
+import { stringToID } from '../../utils';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
@@ -27,6 +27,8 @@ import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
+
+import styles from './styles/uniprotkb-features-view.module.scss';
 
 type FeatureLocation = {
   value: number;
@@ -70,8 +72,7 @@ type FeatureProps = {
   primaryAccession: string;
   sequence?: string;
   features: FeatureDatum[];
-  withTitle?: boolean;
-  withDataTable?: boolean;
+  inResultsTable?: boolean;
   showSourceColumn?: boolean;
 };
 
@@ -100,13 +101,14 @@ export const processFeaturesData = (
       } else {
         s = 'Missing';
       }
-    } else if (feature.location.sequence) {
-      description = `In isoform ${feature.location.sequence}; ${description}`;
     } else {
       s = sequence?.substring(
         feature.location.start.value - 1,
         feature.location.end.value
       );
+    }
+    if (feature.location.sequence) {
+      description = `In isoform ${feature.location.sequence}; ${description}`;
     }
 
     if (feature.ligand) {
@@ -132,6 +134,9 @@ export const processFeaturesData = (
       sequence: s,
       source: includeSource ? feature.source || 'UniProt' : undefined,
       confidenceScore: feature.confidenceScore,
+      ligand: feature.ligand,
+      ligandPart: feature.ligandPart,
+      ligandDescription: feature.description,
     };
   });
 
@@ -139,8 +144,7 @@ const UniProtKBFeaturesView = ({
   primaryAccession,
   sequence,
   features,
-  withTitle = true,
-  withDataTable = true,
+  inResultsTable,
   showSourceColumn = false,
 }: FeatureProps) => {
   const processedData = useMemo(
@@ -159,10 +163,10 @@ const UniProtKBFeaturesView = ({
   );
 
   const table = (
-    <table className={classNames(!withDataTable && 'data-table--compact')}>
+    <table>
       <thead>
         <tr>
-          <th data-filter="type">Type</th>
+          {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
           <th>ID</th>
           <th>Position(s)</th>
           {showSourceColumn && <th data-filter="source">Source</th>}
@@ -221,9 +225,13 @@ const UniProtKBFeaturesView = ({
                 data-start={feature.start}
                 data-end={feature.end}
               >
-                <td data-filter="type" data-filter-value={feature.type}>
-                  {feature.type}
-                </td>
+                {inResultsTable ? (
+                  <td>{feature.type}</td>
+                ) : (
+                  <td data-filter="type" data-filter-value={feature.type}>
+                    {feature.type}
+                  </td>
+                )}
                 <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
                 {showSourceColumn && (
@@ -231,12 +239,26 @@ const UniProtKBFeaturesView = ({
                     {feature.source}
                   </td>
                 )}
-                <td>
+                <td
+                  id={
+                    feature.featureId?.startsWith('PRO') &&
+                    typeof feature.description === 'string'
+                      ? stringToID(feature.description)
+                      : `description${position}`
+                  }
+                >
                   {description}
                   {!!feature.confidenceScore && (
-                    <Chip className="secondary" compact>
-                      {feature.confidenceScore}
-                    </Chip>
+                    <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
+                      <Chip
+                        className={`secondary ${
+                          styles[feature.confidenceScore]
+                        }`}
+                        compact
+                      >
+                        {feature.confidenceScore}
+                      </Chip>
+                    </span>
                   )}
                   {feature.source === 'PTMeXchange' ? (
                     <PtmExchangeEvidenceTag
@@ -294,15 +316,13 @@ const UniProtKBFeaturesView = ({
     </table>
   );
 
-  return withDataTable ? (
+  return (
     <FeaturesView
       features={processedData}
       sequence={sequence}
       table={table}
-      withTitle={withTitle}
+      withTitle={!inResultsTable}
     />
-  ) : (
-    table
   );
 };
 

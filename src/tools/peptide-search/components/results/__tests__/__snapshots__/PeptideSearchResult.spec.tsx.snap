@@ -5,31 +5,27 @@ exports[`PeptideSearchResult should render with the correct number of results in
   <div
     class="sidebar-layout"
   >
-    <section
-      class="sidebar-layout__sidebar"
+    <aside
+      class="sidebar"
     />
-    <section
-      class="sidebar-layout__content"
+    <main
+      class="content"
     >
-      <section
-        class="sidebar-layout__title"
+      <div
+        class="page-intro"
       >
-        <div
-          class="page-intro"
+        <h1
+          class=""
         >
-          <h1
-            class=""
-          >
-            Peptide search
-            <small>
-               2 results 
-            </small>
-            <small>
-              found in UniProtKB
-            </small>
-          </h1>
-        </div>
-      </section>
+          Peptide search
+          <small>
+             2 results 
+          </small>
+          <small>
+            found in UniProtKB
+          </small>
+        </h1>
+      </div>
       <div
         class="tabs"
       >
@@ -38,7 +34,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
           role="tablist"
         >
           <div
-            aria-controls="1"
+            aria-controls="0"
             class="tabs__header__item tabs__header__item--active"
             data-target="overview"
             data-testid="tab-title"
@@ -51,7 +47,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             </a>
           </div>
           <div
-            aria-controls="1"
+            aria-controls="0"
             class="tabs__header__item"
             data-target="input-parameters"
             data-testid="tab-title"
@@ -64,7 +60,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             </a>
           </div>
           <div
-            aria-controls="1"
+            aria-controls="0"
             class="tabs__header__item"
             data-target="api-request"
             data-testid="tab-title"
@@ -79,7 +75,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         </div>
         <div
           data-testid="tab-content"
-          id="1"
+          id="0"
           role="tabpanel"
         >
           <div
@@ -159,269 +155,790 @@ exports[`PeptideSearchResult should render with the correct number of results in
               Customize columns
             </button>
           </div>
-          <div
-            class="results-data"
+          <table
+            class="results-data data-table"
           >
-            <table
-              class="data-table"
-            >
-              <thead>
-                <tr>
-                  <th
-                    class="data-table__header-cell--checkbox"
+            <thead>
+              <tr>
+                <th
+                  class="data-table__header-cell--checkbox"
+                >
+                  <div
+                    class="checkbox-cell"
                   >
-                    <div
-                      class="checkbox-cell"
-                    >
-                      <input
-                        id="3"
-                        type="checkbox"
-                      />
-                      <label
-                        aria-label="Selection control for all visible items"
-                        for="3"
-                      />
-                    </div>
-                  </th>
-                  <th
-                    class=""
+                    <input
+                      id="3"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="Selection control for all visible items"
+                      for="3"
+                    />
+                  </div>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Entry
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Match
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                />
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
                   >
                     <span
-                      aria-expanded="false"
+                      data-article-id="entry_name"
                     >
-                      <span>
-                        Entry
-                      </span>
+                      Entry Name
                     </span>
-                  </th>
-                  <th
-                    class=""
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span
+                      data-article-id="protein_names"
+                    >
+                      Protein Names
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span
+                      data-article-id="gene_name"
+                    >
+                      Gene Names
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span
+                      data-article-id="organism-name"
+                    >
+                      Organism
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Length
+                    </span>
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  class="checkbox-cell"
+                >
+                  <input
+                    data-id="P11413"
+                    id="4"
+                    type="checkbox"
                   />
-                  <th
-                    class=""
+                  <label
+                    aria-label="P11413"
+                    for="4"
+                    title="click to select, shift+click for multiple selection"
+                  />
+                </td>
+                <td>
+                  <span
+                    class="no-wrap accession-view"
                   >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="entry_name"
-                      >
-                        Entry Name
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="protein_names"
-                      >
-                        Protein Names
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="gene_name"
-                      >
-                        Gene Names
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="organism-name"
-                      >
-                        Organism
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span>
-                        Length
-                      </span>
-                    </span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td
-                    class="checkbox-cell"
-                  >
-                    <input
-                      data-id="P11413"
-                      id="6"
-                      type="checkbox"
-                    />
-                    <label
-                      aria-label="P11413"
-                      for="6"
-                      title="click to select, shift+click for multiple selection"
-                    />
-                  </td>
-                  <td>
-                    <span
-                      class="no-wrap accession-view"
-                    >
-                      <a
-                        class="accession"
-                        href="/uniprotkb/P11413/entry"
-                      >
-                        P11413
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      class="entry-title__status icon--reviewed"
-                      title="This marks a reviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                  </td>
-                  <td>
-                    <span>
-                      G6PD_HUMAN
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      style="font-weight: bolder;"
-                    >
-                      Glucose-6-phosphate 1-dehydrogenase
-                    </span>
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </td>
-                  <td>
-                    <span
-                      class="bolder"
-                    >
-                      G6PD
-                    </span>
-                  </td>
-                  <td>
                     <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
+                      class="accession"
+                      href="/uniprotkb/P11413/entry"
                     >
-                      Homo sapiens (Human)
+                      P11413
                     </a>
-                  </td>
-                  <td>
-                    515 AA
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    class="checkbox-cell"
+                  </span>
+                </td>
+                <td />
+                <td>
+                  <span
+                    class="entry-title__status icon--reviewed"
+                    title="This marks a reviewed UniProtKB entry"
                   >
-                    <input
-                      data-id="P19926"
-                      id="7"
-                      type="checkbox"
-                    />
-                    <label
-                      aria-label="P19926"
-                      for="7"
-                      title="click to select, shift+click for multiple selection"
-                    />
-                  </td>
-                  <td>
-                    <span
-                      class="no-wrap accession-view"
-                    >
-                      <a
-                        class="accession"
-                        href="/uniprotkb/P19926/entry"
-                      >
-                        P19926
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      class="entry-title__status icon--reviewed"
-                      title="This marks a reviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                  </td>
-                  <td>
-                    <span>
-                      AGP_ECOLI
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      style="font-weight: bolder;"
-                    >
-                      Glucose-1-phosphatase
-                    </span>
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </td>
-                  <td>
-                    <span
-                      class="bolder"
-                    >
-                      agp
-                    </span>
-                    , b1002, JW0987
-                  </td>
-                  <td>
+                    <test-file-stub />
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    G6PD_HUMAN
+                  </span>
+                </td>
+                <td>
+                  <span
+                    style="font-weight: bolder;"
+                  >
+                    Glucose-6-phosphate 1-dehydrogenase
+                  </span>
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                </td>
+                <td>
+                  <span
+                    class="bolder"
+                  >
+                    G6PD
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/9606"
+                    title="Homo sapiens (Human), taxon ID 9606"
+                  >
+                    Homo sapiens (Human)
+                  </a>
+                </td>
+                <td>
+                  515 AA
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="checkbox-cell"
+                >
+                  <input
+                    data-id="P19926"
+                    id="5"
+                    type="checkbox"
+                  />
+                  <label
+                    aria-label="P19926"
+                    for="5"
+                    title="click to select, shift+click for multiple selection"
+                  />
+                </td>
+                <td>
+                  <span
+                    class="no-wrap accession-view"
+                  >
                     <a
-                      href="/taxonomy/83333"
-                      title="Escherichia coli (strain K12), taxon ID 83333"
+                      class="accession"
+                      href="/uniprotkb/P19926/entry"
                     >
-                      Escherichia coli (strain K12)
+                      P19926
                     </a>
-                  </td>
-                  <td>
-                    413 AA
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div
-              class="data-loader__loading"
-            />
-          </div>
+                  </span>
+                </td>
+                <td />
+                <td>
+                  <span
+                    class="entry-title__status icon--reviewed"
+                    title="This marks a reviewed UniProtKB entry"
+                  >
+                    <test-file-stub />
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    AGP_ECOLI
+                  </span>
+                </td>
+                <td>
+                  <span
+                    style="font-weight: bolder;"
+                  >
+                    Glucose-1-phosphatase
+                  </span>
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                </td>
+                <td>
+                  <span
+                    class="bolder"
+                  >
+                    agp
+                  </span>
+                  , b1002, JW0987
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/83333"
+                    title="Escherichia coli (strain K12), taxon ID 83333"
+                  >
+                    Escherichia coli (strain K12)
+                  </a>
+                </td>
+                <td>
+                  413 AA
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="data-loader__loading"
+          />
         </div>
       </div>
-    </section>
+    </main>
   </div>
+  <footer
+    class="footer"
+  >
+    <div
+      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+    >
+      <div
+        class="consortium"
+      >
+        <a
+          class="consortium__uniprot"
+          href="/"
+          title="UniProt home page"
+        >
+          <img
+            alt=""
+            height="70"
+            loading="lazy"
+            src="test-file-stub"
+            width="152"
+          />
+        </a>
+        <div
+          class="consortium__members"
+        >
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/"
+            rel="noopener"
+            target="_blank"
+            title="European Bioinformatics Institute"
+          >
+            <img
+              alt=""
+              height="218"
+              loading="lazy"
+              src="test-file-stub"
+              width="231"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://pir.georgetown.edu/"
+            rel="noopener"
+            target="_blank"
+            title="Protein Information Resource"
+          >
+            <img
+              alt=""
+              height="218"
+              loading="lazy"
+              src="test-file-stub"
+              width="231"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.sib.swiss/"
+            rel="noopener"
+            target="_blank"
+            title="Swiss Institute of Bioinformatics"
+          >
+            <img
+              alt=""
+              height="152"
+              loading="lazy"
+              src="test-file-stub"
+              width="200"
+            />
+          </a>
+        </div>
+      </div>
+      <div
+        class="stats-release"
+      >
+        <span
+          class="release-info no-wrap blur-loading__item"
+        >
+          <span
+            class="release-info__release_number"
+          >
+            <a
+              href="/help/downloads"
+              title="UniProt release 2023_01 released on Wed Mar 01 2023"
+            >
+              Release 2023_01
+            </a>
+          </span>
+           | 
+          <a
+            href="/help/release-statistics"
+          >
+            Statistics
+          </a>
+        </span>
+      </div>
+      <div
+        class="copyright-misc"
+      >
+        <p>
+          <a
+            href="/help/about"
+          >
+            © 2002 – 2023 UniProt consortium
+          </a>
+        </p>
+        <p>
+          <a
+            href="/help/license"
+          >
+            License & Disclaimer
+          </a>
+           | 
+          <a
+            href="/help/privacy"
+          >
+            Privacy Notice
+          </a>
+        </p>
+      </div>
+      <ul
+        class="no-bullet shortcuts"
+      >
+        <li
+          class="shortcuts__core-data"
+        >
+          <span
+            class="shortcuts__title"
+          >
+            Core data
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?query=*"
+              >
+                Proteins (UniProtKB)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/proteomes?query=*"
+              >
+                Species (Proteomes)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniref?query=*"
+              >
+                Protein clusters (UniRef)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniparc?query=*"
+              >
+                Sequence archive (UniParc)
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Supporting data
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/citations?query=*"
+              >
+                Literature citations
+              </a>
+            </li>
+            <li>
+              <a
+                href="/taxonomy?query=*"
+              >
+                Taxonomy
+              </a>
+            </li>
+            <li>
+              <a
+                href="/keywords?query=*"
+              >
+                Keywords
+              </a>
+            </li>
+            <li>
+              <a
+                href="/locations?query=*"
+              >
+                Subcellular locations
+              </a>
+            </li>
+            <li>
+              <a
+                href="/database?query=*"
+              >
+                Cross-referenced databases
+              </a>
+            </li>
+            <li>
+              <a
+                href="/diseases?query=*"
+              >
+                Diseases
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="no-small"
+        >
+          <span
+            class="shortcuts__title"
+          >
+            Tools
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/blast"
+              >
+                BLAST
+              </a>
+            </li>
+            <li>
+              <a
+                href="/align"
+              >
+                Align
+              </a>
+            </li>
+            <li>
+              <a
+                href="/id-mapping"
+              >
+                Retrieve/ID mapping
+              </a>
+            </li>
+            <li>
+              <a
+                href="/peptide-search"
+              >
+                Peptide search
+              </a>
+            </li>
+            <li>
+              <a
+                href="/tool-dashboard"
+              >
+                Tool results
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Information
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/help/publications"
+              >
+                Cite 
+                <span
+                  class="no-wrap"
+                >
+                  UniProt
+                  <sup>
+                    <test-file-stub
+                      width="1em"
+                    />
+                  </sup>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/about"
+              >
+                About
+              </a>
+               & 
+              <a
+                href="/help"
+              >
+                Help
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help?query=*&facets=category:manual"
+              >
+                UniProtKB manual
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/technical"
+              >
+                Technical corner
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help?query=*&facets=category:biocuration"
+              >
+                Expert biocuration
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/release-statistics"
+              >
+                Statistics
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div
+        class="contact-elixir"
+      >
+        <div>
+          <p>
+            <a
+              href="/contact"
+            >
+              Get in touch 
+              <test-file-stub
+                width="2ch"
+              />
+            </a>
+          </p>
+          <p
+            class="social"
+          >
+            <a
+              class="external-link"
+              href="https://twitter.com/uniprot"
+              rel="noopener"
+              target="_blank"
+              title="UniProt posts on Twitter"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://www.facebook.com/uniprot.org"
+              rel="noopener"
+              target="_blank"
+              title="UniProt posts on Facebook"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://www.youtube.com/user/uniprotvideos"
+              rel="noopener"
+              target="_blank"
+              title="UniProt videos on YouTube"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://insideuniprot.blogspot.com/"
+              rel="noopener"
+              target="_blank"
+              title="UniProt blog"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://groups.google.com/forum/#!forum/ebi-proteins-api"
+              rel="noopener"
+              target="_blank"
+              title="UniProt Google Group"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+          </p>
+        </div>
+        <p>
+          <a
+            class="external-link"
+            href="https://www.elixir-europe.org/platforms/data/core-data-resources"
+            rel="noopener"
+            target="_blank"
+          >
+            UniProt is an ELIXIR core data resource
+            <img
+              alt=""
+              height="115"
+              loading="lazy"
+              src="test-file-stub"
+              width="115"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.coretrustseal.org/wp-content/uploads/2020/05/UniProt.pdf"
+            rel="noopener"
+            target="_blank"
+            title="Core Trust Seal assessment information"
+          >
+            <img
+              alt=""
+              height="401"
+              loading="lazy"
+              src="test-file-stub"
+              width="425"
+            />
+          </a>
+        </p>
+        <p>
+          <a
+            class="external-link"
+            href="https://globalbiodata.org/scientific-activities/global-core-biodata-resources/"
+            rel="noopener"
+            target="_blank"
+          >
+            UniProt is a GBC global core biodata resource
+            <img
+              alt=""
+              height="115"
+              loading="lazy"
+              src="test-file-stub"
+              width="270"
+            />
+          </a>
+        </p>
+      </div>
+      <div
+        class="funding"
+      >
+        <span>
+          Main 
+          <a
+            href="/help/about"
+          >
+            funding
+          </a>
+           by:
+        </span>
+        <a
+          class="external-link"
+          href="https://www.nih.gov/"
+          rel="noopener"
+          target="_blank"
+        >
+          National Institutes of Health
+        </a>
+        <a
+          class="external-link"
+          href="https://www.embl.org/"
+          rel="noopener"
+          target="_blank"
+          title="European Molecular Biology Laboratory"
+        >
+          <img
+            alt=""
+            height="48"
+            loading="lazy"
+            src="test-file-stub"
+            width="156"
+          />
+        </a>
+        <a
+          class="external-link"
+          href="https://www.sbfi.admin.ch/sbfi/en/home.html"
+          rel="noopener"
+          target="_blank"
+          title="State Secretariat for Education, Research and Innovation SERI"
+        >
+          <img
+            alt=""
+            height="48"
+            loading="lazy"
+            src="test-file-stub"
+            width="288"
+          />
+        </a>
+      </div>
+    </div>
+  </footer>
 </DocumentFragment>
 `;
 
@@ -430,31 +947,27 @@ exports[`PeptideSearchResult should render with the correct number of results in
   <div
     class="sidebar-layout"
   >
-    <section
-      class="sidebar-layout__sidebar"
+    <aside
+      class="sidebar"
     />
-    <section
-      class="sidebar-layout__content"
+    <main
+      class="content"
     >
-      <section
-        class="sidebar-layout__title"
+      <div
+        class="page-intro"
       >
-        <div
-          class="page-intro"
+        <h1
+          class=""
         >
-          <h1
-            class=""
-          >
-            Peptide search
-            <small>
-               2 results 
-            </small>
-            <small>
-              found in UniProtKB
-            </small>
-          </h1>
-        </div>
-      </section>
+          Peptide search
+          <small>
+             2 results 
+          </small>
+          <small>
+            found in UniProtKB
+          </small>
+        </h1>
+      </div>
       <div
         class="tabs"
       >
@@ -463,7 +976,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
           role="tablist"
         >
           <div
-            aria-controls="2"
+            aria-controls="0"
             class="tabs__header__item tabs__header__item--active"
             data-target="overview"
             data-testid="tab-title"
@@ -476,7 +989,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             </a>
           </div>
           <div
-            aria-controls="2"
+            aria-controls="0"
             class="tabs__header__item"
             data-target="input-parameters"
             data-testid="tab-title"
@@ -489,7 +1002,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             </a>
           </div>
           <div
-            aria-controls="2"
+            aria-controls="0"
             class="tabs__header__item"
             data-target="api-request"
             data-testid="tab-title"
@@ -504,7 +1017,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         </div>
         <div
           data-testid="tab-content"
-          id="2"
+          id="0"
           role="tabpanel"
         >
           <div
@@ -584,281 +1097,789 @@ exports[`PeptideSearchResult should render with the correct number of results in
               Customize columns
             </button>
           </div>
-          <div
-            class="results-data"
+          <table
+            class="results-data data-table"
           >
-            <table
-              class="data-table"
-            >
-              <thead>
-                <tr>
-                  <th
-                    class="data-table__header-cell--checkbox"
+            <thead>
+              <tr>
+                <th
+                  class="data-table__header-cell--checkbox"
+                >
+                  <div
+                    class="checkbox-cell"
                   >
-                    <div
-                      class="checkbox-cell"
-                    >
-                      <input
-                        id="4"
-                        type="checkbox"
-                      />
-                      <label
-                        aria-label="Selection control for all visible items"
-                        for="4"
-                      />
-                    </div>
-                  </th>
-                  <th
-                    class=""
+                    <input
+                      id="2"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="Selection control for all visible items"
+                      for="2"
+                    />
+                  </div>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Entry
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Match
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                />
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
                   >
                     <span
-                      aria-expanded="false"
+                      data-article-id="entry_name"
                     >
-                      <span>
-                        Entry
-                      </span>
+                      Entry Name
                     </span>
-                  </th>
-                  <th
-                    class=""
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
                   >
                     <span
-                      aria-expanded="false"
+                      data-article-id="protein_names"
                     >
-                      <span>
-                        Match
-                      </span>
+                      Protein Names
                     </span>
-                  </th>
-                  <th
-                    class=""
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span
+                      data-article-id="gene_name"
+                    >
+                      Gene Names
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span
+                      data-article-id="organism-name"
+                    >
+                      Organism
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Length
+                    </span>
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  class="checkbox-cell"
+                >
+                  <input
+                    data-id="P11413"
+                    id="5"
+                    type="checkbox"
                   />
-                  <th
-                    class=""
+                  <label
+                    aria-label="P11413"
+                    for="5"
+                    title="click to select, shift+click for multiple selection"
+                  />
+                </td>
+                <td>
+                  <span
+                    class="no-wrap accession-view"
                   >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="entry_name"
-                      >
-                        Entry Name
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="protein_names"
-                      >
-                        Protein Names
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="gene_name"
-                      >
-                        Gene Names
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span
-                        data-article-id="organism-name"
-                      >
-                        Organism
-                      </span>
-                    </span>
-                  </th>
-                  <th
-                    class=""
-                  >
-                    <span
-                      aria-expanded="false"
-                    >
-                      <span>
-                        Length
-                      </span>
-                    </span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td
-                    class="checkbox-cell"
-                  >
-                    <input
-                      data-id="P11413"
-                      id="7"
-                      type="checkbox"
-                    />
-                    <label
-                      aria-label="P11413"
-                      for="7"
-                      title="click to select, shift+click for multiple selection"
-                    />
-                  </td>
-                  <td>
-                    <span
-                      class="no-wrap accession-view"
-                    >
-                      <a
-                        class="accession"
-                        href="/uniprotkb/P11413/entry"
-                      >
-                        P11413
-                      </a>
-                    </span>
-                  </td>
-                  <td />
-                  <td>
-                    <span
-                      class="entry-title__status icon--reviewed"
-                      title="This marks a reviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                  </td>
-                  <td>
-                    <span>
-                      G6PD_HUMAN
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      style="font-weight: bolder;"
-                    >
-                      Glucose-6-phosphate 1-dehydrogenase
-                    </span>
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </td>
-                  <td>
-                    <span
-                      class="bolder"
-                    >
-                      G6PD
-                    </span>
-                  </td>
-                  <td>
                     <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
+                      class="accession"
+                      href="/uniprotkb/P11413/entry"
                     >
-                      Homo sapiens (Human)
+                      P11413
                     </a>
-                  </td>
-                  <td>
-                    515 AA
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    class="checkbox-cell"
+                  </span>
+                </td>
+                <td />
+                <td>
+                  <span
+                    class="entry-title__status icon--reviewed"
+                    title="This marks a reviewed UniProtKB entry"
                   >
-                    <input
-                      data-id="P19926"
-                      id="8"
-                      type="checkbox"
-                    />
-                    <label
-                      aria-label="P19926"
-                      for="8"
-                      title="click to select, shift+click for multiple selection"
-                    />
-                  </td>
-                  <td>
-                    <span
-                      class="no-wrap accession-view"
-                    >
-                      <a
-                        class="accession"
-                        href="/uniprotkb/P19926/entry"
-                      >
-                        P19926
-                      </a>
-                    </span>
-                  </td>
-                  <td />
-                  <td>
-                    <span
-                      class="entry-title__status icon--reviewed"
-                      title="This marks a reviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                  </td>
-                  <td>
-                    <span>
-                      AGP_ECOLI
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      style="font-weight: bolder;"
-                    >
-                      Glucose-1-phosphatase
-                    </span>
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </td>
-                  <td>
-                    <span
-                      class="bolder"
-                    >
-                      agp
-                    </span>
-                    , b1002, JW0987
-                  </td>
-                  <td>
+                    <test-file-stub />
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    G6PD_HUMAN
+                  </span>
+                </td>
+                <td>
+                  <span
+                    style="font-weight: bolder;"
+                  >
+                    Glucose-6-phosphate 1-dehydrogenase
+                  </span>
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                </td>
+                <td>
+                  <span
+                    class="bolder"
+                  >
+                    G6PD
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/9606"
+                    title="Homo sapiens (Human), taxon ID 9606"
+                  >
+                    Homo sapiens (Human)
+                  </a>
+                </td>
+                <td>
+                  515 AA
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="checkbox-cell"
+                >
+                  <input
+                    data-id="P19926"
+                    id="6"
+                    type="checkbox"
+                  />
+                  <label
+                    aria-label="P19926"
+                    for="6"
+                    title="click to select, shift+click for multiple selection"
+                  />
+                </td>
+                <td>
+                  <span
+                    class="no-wrap accession-view"
+                  >
                     <a
-                      href="/taxonomy/83333"
-                      title="Escherichia coli (strain K12), taxon ID 83333"
+                      class="accession"
+                      href="/uniprotkb/P19926/entry"
                     >
-                      Escherichia coli (strain K12)
+                      P19926
                     </a>
-                  </td>
-                  <td>
-                    413 AA
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div
-              class="data-loader__loading"
-            />
-          </div>
+                  </span>
+                </td>
+                <td />
+                <td>
+                  <span
+                    class="entry-title__status icon--reviewed"
+                    title="This marks a reviewed UniProtKB entry"
+                  >
+                    <test-file-stub />
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    AGP_ECOLI
+                  </span>
+                </td>
+                <td>
+                  <span
+                    style="font-weight: bolder;"
+                  >
+                    Glucose-1-phosphatase
+                  </span>
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                </td>
+                <td>
+                  <span
+                    class="bolder"
+                  >
+                    agp
+                  </span>
+                  , b1002, JW0987
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/83333"
+                    title="Escherichia coli (strain K12), taxon ID 83333"
+                  >
+                    Escherichia coli (strain K12)
+                  </a>
+                </td>
+                <td>
+                  413 AA
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="data-loader__loading"
+          />
         </div>
       </div>
-    </section>
+    </main>
   </div>
+  <footer
+    class="footer"
+  >
+    <div
+      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+    >
+      <div
+        class="consortium"
+      >
+        <a
+          class="consortium__uniprot"
+          href="/"
+          title="UniProt home page"
+        >
+          <img
+            alt=""
+            height="70"
+            loading="lazy"
+            src="test-file-stub"
+            width="152"
+          />
+        </a>
+        <div
+          class="consortium__members"
+        >
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/"
+            rel="noopener"
+            target="_blank"
+            title="European Bioinformatics Institute"
+          >
+            <img
+              alt=""
+              height="218"
+              loading="lazy"
+              src="test-file-stub"
+              width="231"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://pir.georgetown.edu/"
+            rel="noopener"
+            target="_blank"
+            title="Protein Information Resource"
+          >
+            <img
+              alt=""
+              height="218"
+              loading="lazy"
+              src="test-file-stub"
+              width="231"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.sib.swiss/"
+            rel="noopener"
+            target="_blank"
+            title="Swiss Institute of Bioinformatics"
+          >
+            <img
+              alt=""
+              height="152"
+              loading="lazy"
+              src="test-file-stub"
+              width="200"
+            />
+          </a>
+        </div>
+      </div>
+      <div
+        class="stats-release"
+      >
+        <span
+          class="release-info no-wrap blur-loading__item"
+        >
+          <span
+            class="release-info__release_number"
+          >
+            <a
+              href="/help/downloads"
+              title="UniProt release 2023_01 released on Wed Mar 01 2023"
+            >
+              Release 2023_01
+            </a>
+          </span>
+           | 
+          <a
+            href="/help/release-statistics"
+          >
+            Statistics
+          </a>
+        </span>
+      </div>
+      <div
+        class="copyright-misc"
+      >
+        <p>
+          <a
+            href="/help/about"
+          >
+            © 2002 – 2023 UniProt consortium
+          </a>
+        </p>
+        <p>
+          <a
+            href="/help/license"
+          >
+            License & Disclaimer
+          </a>
+           | 
+          <a
+            href="/help/privacy"
+          >
+            Privacy Notice
+          </a>
+        </p>
+      </div>
+      <ul
+        class="no-bullet shortcuts"
+      >
+        <li
+          class="shortcuts__core-data"
+        >
+          <span
+            class="shortcuts__title"
+          >
+            Core data
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?query=*"
+              >
+                Proteins (UniProtKB)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/proteomes?query=*"
+              >
+                Species (Proteomes)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniref?query=*"
+              >
+                Protein clusters (UniRef)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniparc?query=*"
+              >
+                Sequence archive (UniParc)
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Supporting data
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/citations?query=*"
+              >
+                Literature citations
+              </a>
+            </li>
+            <li>
+              <a
+                href="/taxonomy?query=*"
+              >
+                Taxonomy
+              </a>
+            </li>
+            <li>
+              <a
+                href="/keywords?query=*"
+              >
+                Keywords
+              </a>
+            </li>
+            <li>
+              <a
+                href="/locations?query=*"
+              >
+                Subcellular locations
+              </a>
+            </li>
+            <li>
+              <a
+                href="/database?query=*"
+              >
+                Cross-referenced databases
+              </a>
+            </li>
+            <li>
+              <a
+                href="/diseases?query=*"
+              >
+                Diseases
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="no-small"
+        >
+          <span
+            class="shortcuts__title"
+          >
+            Tools
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/blast"
+              >
+                BLAST
+              </a>
+            </li>
+            <li>
+              <a
+                href="/align"
+              >
+                Align
+              </a>
+            </li>
+            <li>
+              <a
+                href="/id-mapping"
+              >
+                Retrieve/ID mapping
+              </a>
+            </li>
+            <li>
+              <a
+                href="/peptide-search"
+              >
+                Peptide search
+              </a>
+            </li>
+            <li>
+              <a
+                href="/tool-dashboard"
+              >
+                Tool results
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Information
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/help/publications"
+              >
+                Cite 
+                <span
+                  class="no-wrap"
+                >
+                  UniProt
+                  <sup>
+                    <test-file-stub
+                      width="1em"
+                    />
+                  </sup>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/about"
+              >
+                About
+              </a>
+               & 
+              <a
+                href="/help"
+              >
+                Help
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help?query=*&facets=category:manual"
+              >
+                UniProtKB manual
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/technical"
+              >
+                Technical corner
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help?query=*&facets=category:biocuration"
+              >
+                Expert biocuration
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/release-statistics"
+              >
+                Statistics
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div
+        class="contact-elixir"
+      >
+        <div>
+          <p>
+            <a
+              href="/contact"
+            >
+              Get in touch 
+              <test-file-stub
+                width="2ch"
+              />
+            </a>
+          </p>
+          <p
+            class="social"
+          >
+            <a
+              class="external-link"
+              href="https://twitter.com/uniprot"
+              rel="noopener"
+              target="_blank"
+              title="UniProt posts on Twitter"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://www.facebook.com/uniprot.org"
+              rel="noopener"
+              target="_blank"
+              title="UniProt posts on Facebook"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://www.youtube.com/user/uniprotvideos"
+              rel="noopener"
+              target="_blank"
+              title="UniProt videos on YouTube"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://insideuniprot.blogspot.com/"
+              rel="noopener"
+              target="_blank"
+              title="UniProt blog"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://groups.google.com/forum/#!forum/ebi-proteins-api"
+              rel="noopener"
+              target="_blank"
+              title="UniProt Google Group"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+          </p>
+        </div>
+        <p>
+          <a
+            class="external-link"
+            href="https://www.elixir-europe.org/platforms/data/core-data-resources"
+            rel="noopener"
+            target="_blank"
+          >
+            UniProt is an ELIXIR core data resource
+            <img
+              alt=""
+              height="115"
+              loading="lazy"
+              src="test-file-stub"
+              width="115"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.coretrustseal.org/wp-content/uploads/2020/05/UniProt.pdf"
+            rel="noopener"
+            target="_blank"
+            title="Core Trust Seal assessment information"
+          >
+            <img
+              alt=""
+              height="401"
+              loading="lazy"
+              src="test-file-stub"
+              width="425"
+            />
+          </a>
+        </p>
+        <p>
+          <a
+            class="external-link"
+            href="https://globalbiodata.org/scientific-activities/global-core-biodata-resources/"
+            rel="noopener"
+            target="_blank"
+          >
+            UniProt is a GBC global core biodata resource
+            <img
+              alt=""
+              height="115"
+              loading="lazy"
+              src="test-file-stub"
+              width="270"
+            />
+          </a>
+        </p>
+      </div>
+      <div
+        class="funding"
+      >
+        <span>
+          Main 
+          <a
+            href="/help/about"
+          >
+            funding
+          </a>
+           by:
+        </span>
+        <a
+          class="external-link"
+          href="https://www.nih.gov/"
+          rel="noopener"
+          target="_blank"
+        >
+          National Institutes of Health
+        </a>
+        <a
+          class="external-link"
+          href="https://www.embl.org/"
+          rel="noopener"
+          target="_blank"
+          title="European Molecular Biology Laboratory"
+        >
+          <img
+            alt=""
+            height="48"
+            loading="lazy"
+            src="test-file-stub"
+            width="156"
+          />
+        </a>
+        <a
+          class="external-link"
+          href="https://www.sbfi.admin.ch/sbfi/en/home.html"
+          rel="noopener"
+          target="_blank"
+          title="State Secretariat for Education, Research and Innovation SERI"
+        >
+          <img
+            alt=""
+            height="48"
+            loading="lazy"
+            src="test-file-stub"
+            width="288"
+          />
+        </a>
+      </div>
+    </div>
+  </footer>
 </DocumentFragment>
 `;

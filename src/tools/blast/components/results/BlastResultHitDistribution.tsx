@@ -82,8 +82,8 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
         return (
           <div className={cn('blast-result-hit-distribution', name)} key={name}>
             <Histogram
-              values={values}
-              unfilteredValues={unfilteredValues[name]}
+              values={values as number[]}
+              unfilteredValues={unfilteredValues[name] as number[]}
               nBins={nBinsValue === 'auto' ? optimisedBinNumber : nBinsValue}
               min={min}
               max={max}

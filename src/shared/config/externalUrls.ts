@@ -9,6 +9,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
     `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=${id}`,
   NCBINucleotide: (id) => `https://www.ncbi.nlm.nih.gov/nuccore/${id}`,
   ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,
+  ENABrowser: (id) => `//www.ebi.ac.uk/ena/browser/view/${id}`,
   // protein centric
   InterPro: (id) => `https://www.ebi.ac.uk/interpro/protein/${id}`,
   Pfam: (id) =>
@@ -46,6 +47,12 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   InterProEntry: (id) => `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm) =>
     `https://www.ebi.ac.uk/interpro/search/text/${searchTerm}`,
+  // variation
+  UniProt: (id) => `https://web.expasy.org/variant_pages/${id}.html`,
+  dbSNP: (id) => `https://www.ncbi.nlm.nih.gov/snp/${id}`,
+  Ensembl: (id) =>
+    `http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=${id}`,
+  ProtVar: (id) => `https://www.ebi.ac.uk/ProtVar/query?search=${id}`,
   // citations
   DOI: (id) => `https://dx.doi.org/${id}`,
   PubMed: (id) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,

@@ -21,7 +21,31 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          Amyloid-beta precursor protein
+          <strong>
+            Amyloid-beta precursor protein
+          </strong>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          <span
+            data-article-id="gene_name"
+          >
+            Gene
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <strong>
+            APP
+          </strong>
         </div>
       </div>
     </li>
@@ -83,32 +107,21 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          <span
-            data-article-id="gene_name"
-          >
-            Gene
-          </span>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          APP (A4, AD1)
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
           Amino acids
         </div>
         <div
           class="decorated-list-item__content"
         >
-          770
+          <span>
+            770 
+            <small>
+              <a
+                href="/uniprotkb/P05067/entry#sequences"
+              >
+                (go to sequence)
+              </a>
+            </small>
+          </span>
         </div>
       </div>
     </li>
@@ -184,17 +197,17 @@ exports[`ProteinOverview component should render, in card variant 1`] = `
 <DocumentFragment>
   <div>
     Amyloid-beta precursor protein · 
+    <strong>
+      Gene:
+    </strong>
+     APP (A4, AD1) · 
     <a
       href="/taxonomy/9606"
       title="Homo sapiens (Human), taxon ID 9606"
     >
       Homo sapiens (Human)
     </a>
-     · 
-    <strong>
-      Gene:
-    </strong>
-     APP (A4, AD1) · 770 amino acids · Evidence at protein level · 
+     · 770 amino acids · Evidence at protein level · 
     <strong>
       Annotation score:
     </strong>

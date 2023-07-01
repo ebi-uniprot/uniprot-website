@@ -225,16 +225,30 @@ const conditionsToInfoData = (
       };
     }
     // Signature match
-    if (condition.type?.endsWith('id')) {
-      const signatureDB = condition.type.replace(' id', '');
+    if (condition.type?.endsWith('id') || condition.type?.endsWith('hits')) {
+      const signatureDB = condition.type.replace(/ (id|hits)$/, '');
+      let range: ReactNode = null;
+      if (condition.range?.start?.value && condition.range.end?.value) {
+        if (condition.range.start.value === condition.range.end.value) {
+          range = ` has exactly ${condition.range.start.value} ${pluralise(
+            'hit',
+            condition.range.start.value
+          )}`;
+        } else {
+          range = ` has between ${condition.range.start.value} and ${
+            condition.range.end.value
+          } ${pluralise('hit', condition.range.end.value)}`;
+        }
+      }
       return {
         // NOTE: don't pluralise, the values are "OR"-separated
-        title: `${signatureDB} signature`,
+        title: `${signatureDB}${
+          condition.type.endsWith('id') ? ' signature' : ''
+        }`,
         content: condition.conditionValues?.map(({ value }, index, array) => {
           if (!value) {
             return null;
           }
-
           let url = externalUrls.InterProSearch(value);
           if (value.startsWith('PS')) {
             url = externalUrls.PROSITEEntry(value);
@@ -253,6 +267,7 @@ const conditionsToInfoData = (
                 </>
               )}
               <ExternalLink url={url}>{value}</ExternalLink>
+              {range}
             </Fragment>
           );
         }),

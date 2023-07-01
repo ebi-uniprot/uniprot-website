@@ -45,11 +45,11 @@ describe('DidYouMean', () => {
     expect(otherNamespaceSuggestions).toHaveLength(2);
     expect(otherNamespaceSuggestions[0]).toHaveAttribute(
       'href',
-      '/uniparc?query=blah'
+      '/uniref?query=blah'
     );
     expect(otherNamespaceSuggestions[1]).toHaveAttribute(
       'href',
-      '/uniref?query=blah'
+      '/uniparc?query=blah'
     );
   });
 });

@@ -25,7 +25,6 @@ import {
   PhysiologicalReaction,
 } from '../../types/commentTypes';
 
-import helper from '../../../shared/styles/helper.module.scss';
 import './styles/catalytic-activity-view.scss';
 
 // example accessions to view this component: P31937, P0A879
@@ -233,7 +232,7 @@ const CatalyticActivityView = ({
   let firstRheaId: number;
   return (
     <>
-      {title && <h3 className={helper.capitalize}>{title}</h3>}
+      {title && <h3 data-article-id="catalytic_activity">{title}</h3>}
       {comments.map(({ molecule, reaction, physiologicalReactions }, index) => {
         if (!reaction) {
           return null;

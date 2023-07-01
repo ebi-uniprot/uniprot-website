@@ -2,10 +2,16 @@
 
 .sticky-tabs-container {
   & :global(.tabs__header) {
-    z-index: 100;
+    z-index: 5000;
     position: sticky;
     top: 0;
-    background: $colour-sky-white;
+    background: rgba($colour-sky-white, 0.75);
+    backdrop-filter: blur(2px);
+  }
+
+  // Not tabs inside tabs...
+  & :global(.tabs) :global(.tabs) :global(.tabs__header) {
+    position: initial;
   }
 }
 

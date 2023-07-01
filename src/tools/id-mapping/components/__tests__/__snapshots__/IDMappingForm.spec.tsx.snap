@@ -19,7 +19,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
         class="tools-form-section__item tools-form-section__item--full-width"
       >
         <legend>
-          Enter your IDs or
+          Enter one of more IDs (100,000 max). You may also
           <label
             class="tools-form-section__file-input"
           >
@@ -33,6 +33,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
         <textarea
           autocomplete="off"
           class="tools-form-raw-text-input"
+          data-hj-allow="true"
           name="ids"
           placeholder="P31946 P62258 ALBU_HUMAN EFTU_ECOLI"
           spellcheck="false"
@@ -94,6 +95,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
             Name your ID Mapping job
             <input
               autocomplete="off"
+              data-hj-allow="true"
               maxlength="100"
               name="title"
               placeholder=""my job title""

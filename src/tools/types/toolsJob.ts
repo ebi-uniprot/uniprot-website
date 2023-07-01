@@ -1,7 +1,6 @@
 import { Status } from './toolsStatuses';
 import { JobTypes } from './toolsJobTypes';
 import { FormParameters } from './toolsFormParameters';
-
 import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
 
 /* Job as defined inside the web application */
@@ -17,6 +16,11 @@ interface BaseJob<T extends JobTypes> {
   seen: boolean;
 }
 
+export interface NewJob extends BaseJob<JobTypes> {
+  status: Status.NEW;
+  remoteID: string;
+}
+
 export interface CreatedJob extends BaseJob<JobTypes> {
   status: Status.CREATED;
 }
@@ -29,7 +33,7 @@ export interface FailedJob extends BaseJob<JobTypes> {
 }
 
 export interface RunningJob extends BaseJob<JobTypes> {
-  status: Status.RUNNING;
+  status: Status.RUNNING | Status.QUEUED;
   remoteID: string;
   timeSubmitted: number;
 }
@@ -39,6 +43,7 @@ export type DataForDashboard = {
   [JobTypes.BLAST]: { hits: number };
   [JobTypes.ID_MAPPING]: { hits: number; idMappingTarget: IDMappingNamespace };
   [JobTypes.PEPTIDE_SEARCH]: never;
+  [JobTypes.ASYNC_DOWNLOAD]: { fileSizeBytes: number };
 };
 
 export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
@@ -50,4 +55,9 @@ export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
   data?: DataForDashboard[T];
 }
 
-export type Job = CreatedJob | FailedJob | RunningJob | FinishedJob<JobTypes>;
+export type Job =
+  | NewJob
+  | CreatedJob
+  | FailedJob
+  | RunningJob
+  | FinishedJob<JobTypes>;

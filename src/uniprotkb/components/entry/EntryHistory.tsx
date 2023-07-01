@@ -23,6 +23,7 @@ import {
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
+import { useMediumScreen } from '../../../shared/hooks/useMatchMedia';
 
 import lazy from '../../../shared/utils/lazy';
 import parseDate from '../../../shared/utils/parseDate';
@@ -30,7 +31,6 @@ import listFormat from '../../../shared/utils/listFormat';
 import { unisave } from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
 import * as logging from '../../../shared/utils/logging';
-import { parseQueryString } from '../../../shared/utils/url';
 
 import { TabLocation } from './Entry';
 import {
@@ -60,10 +60,12 @@ export const EntryHistoryDiff = ({
   accession,
   version1,
   version2,
+  view,
 }: {
   accession: string;
   version1: number;
   version2: number;
+  view: 'unified' | 'split';
 }) => {
   // 2 different calls to improve cache hit when doing multiple comparisons
   const v1Data = useDataApi<UniSaveAccession>(
@@ -103,8 +105,8 @@ export const EntryHistoryDiff = ({
     <ReactDiffViewer
       oldValue={v1Data.data.results[0].content}
       newValue={v2Data.data.results[0].content}
-      splitView={false}
-      compareMethod={DiffMethod.WORDS}
+      splitView={view === 'split'}
+      compareMethod={DiffMethod.LINES}
     />
   );
 };
@@ -389,6 +391,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={Namespace.unisave}
                 base={`/unisave/${accession}`}
+                excludeColumns
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -442,55 +445,75 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 };
 
 const EntryHistory = ({ accession }: { accession: string }) => {
-  const { versions: rawVersions } = parseQueryString(useLocation().search);
+  const { versions: rawVersions, view: rawView } = Object.fromEntries(
+    new URLSearchParams(useLocation().search).entries()
+  );
+  const defaultView = useMediumScreen() ? 'unified' : 'split';
 
   const title = <h2>Entry history</h2>;
 
-  const backToOverview = (
-    <div className="button-group">
-      <Button
-        variant="tertiary"
-        element={Link}
-        to={getEntryPath(Namespace.uniprotkb, accession, TabLocation.History)}
-      >
-        Back to overview
-      </Button>
-    </div>
-  );
-
   const versions = rawVersions?.split(',').map((v) => +v);
+  const view = (rawView || defaultView) as 'split' | 'unified';
 
   if (versions?.length === 2) {
     const v1 = versions[0] || 0;
     const v2 = versions[1] || 0;
     const min = Math.min(v1, v2);
     const max = Math.max(v1, v2);
-    const pathname = getEntryPath(
-      Namespace.uniprotkb,
-      accession,
-      TabLocation.History
-    );
     return (
       <Card
         header={
           <>
             {title}
             <span>
-              {'Comparing version '}
-              <Link to={{ pathname, search: `version=${min}` }}>{min}</Link>
-              {' to version '}
-              <Link to={{ pathname, search: `version=${max}` }}>{max}</Link>
+              Comparing version {min} to version {max}
             </span>
           </>
         }
+        className="wider-tab-content"
       >
-        {backToOverview}
-        <EntryHistoryDiff accession={accession} version1={min} version2={max} />
+        <div className="button-group">
+          <Button
+            variant="tertiary"
+            element={Link}
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              accession,
+              TabLocation.History
+            )}
+          >
+            Back to overview
+          </Button>
+          <Button
+            variant="tertiary"
+            element={Link}
+            to={{
+              pathname: getEntryPath(
+                Namespace.uniprotkb,
+                accession,
+                TabLocation.History
+              ),
+              search: new URLSearchParams({
+                versions: `${min},${max}`,
+                view: view === 'unified' ? 'split' : 'unified',
+              }).toString(),
+            }}
+            replace
+          >
+            Display in {view === 'unified' ? 'split' : 'unified'} view
+          </Button>
+        </div>
+        <EntryHistoryDiff
+          accession={accession}
+          version1={min}
+          version2={max}
+          view={view}
+        />
       </Card>
     );
   }
   return (
-    <Card header={title}>
+    <Card header={title} className="wider-tab-content">
       <EntryHistoryList accession={accession} />
     </Card>
   );

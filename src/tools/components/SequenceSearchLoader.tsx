@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
-import { useMessagesDispatch } from '../../shared/contexts/Messages';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
@@ -167,7 +167,7 @@ const SequenceSearchLoader = forwardRef<
       const pastedContent = event.clipboardData.getData('text/plain');
       // use a Set to remove duplicate
       const potentialAccessions = new Set(
-        pastedContent.split(/\W+/).map((text) => text.toUpperCase())
+        pastedContent.split(/[\s,;]+/).map((text) => text.toUpperCase())
       );
       if (!potentialAccessions.size) {
         return;

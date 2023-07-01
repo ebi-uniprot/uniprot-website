@@ -4,8 +4,20 @@
     <meta charset="utf-8" />
     <title>UniProt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <!-- theming, generated and adapted from https://realfavicongenerator.net/ -->
     <meta name="theme-color" content="#00639a" />
+
+    <!-- Loading optimisations -->
+    <link rel="preconnect" href="https://rest.uniprot.org/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- font loading -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700|Source+Sans+Pro:600,700&display=optional"
+      rel="stylesheet"
+    />
+
     <% if (!isLiveReload) { %>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link
@@ -17,22 +29,45 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/manifest.json" />
-    <% } %> <% if (isDev) { %>
+
+    <% } if (isDev) { %>
     <!-- Prevent indexing when the website is not public -->
     <meta name="robots" content="noindex" />
+      <% if (isUx) { %>
+        <!-- Google tag (gtag.js) -->
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-HBH9SSXCEP">
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-HBH9SSXCEP');
+        </script>
+        <!-- Hotjar Tracking Code for UniProt dev - UX  -->
+        <script>
+          (function (h, o, t, j, a, r) {
+            h.hj =
+              h.hj ||
+              function () {
+                (h.hj.q = h.hj.q || []).push(arguments);
+              };
+            h._hjSettings = { hjid: 3503411, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script');
+            r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+          })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+        </script>
+      <% } %>
     <% } else { %>
-    <!-- Loading optimisations -->
-    <link rel="preconnect" href="https://fonts.gstatic.com/" />
-    <link rel="preconnect" href="https://rest.uniprot.org/" />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css?family=Lato:400,700|Source+Sans+Pro:600,700&display=swap"
-    />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-6228219-1"
+      src="https://www.googletagmanager.com/gtag/js?id=G-V6TXEC4BDF"
     ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -41,6 +76,19 @@
       }
       gtag('js', new Date());
 
+      // GA4
+      gtag('config', 'G-V6TXEC4BDF', {
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        restricted_data_processing: true,
+        custom_map: {
+          dimension1: 'result_view',
+          metric1: 'result_view_set',
+        },
+        send_page_view: false,
+      });
+      // UA
       gtag('config', 'UA-6228219-1', {
         anonymize_ip: true,
         allow_google_signals: false,
@@ -53,6 +101,7 @@
         send_page_view: false,
       });
     </script>
+
     <!-- Hotjar Tracking Code -->
     <script>
       (function (h, o, t, j, a, r) {
@@ -70,6 +119,7 @@
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
     <% } %>
+
     <style>
       #root > .fallback {
         height: 90vh;
@@ -97,6 +147,9 @@
         }
       }
     </style>
+    <% if (!options.inject) { %> <% for (const css of assets.styles) { %>
+    <link rel="stylesheet" href="<%= css %>" />
+    <% } %> <% } %>
   </head>
 
   <body>
@@ -115,7 +168,7 @@
             <li>
               <strong>You might have an outdated browser</strong>: make sure
               that your browser is up to date as older versions might not work
-              with the new website.
+              with the website.
             </li>
             <li>
               <strong>There might have been a network issue</strong>: ensure
@@ -127,5 +180,39 @@
         </div>
       </div>
     </div>
+    <% if (!options.inject) { %>
+    <script nomodule type="text/javascript">
+      // workaround for Safari 10.1 supporting module but ignoring nomodule
+      // From https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc
+      (function () {
+        var d = document;
+        var c = d.createElement('script');
+        if (!('noModule' in c) && 'onbeforeload' in c) {
+          var s = false;
+          d.addEventListener(
+            'beforeload',
+            function (e) {
+              if (e.target === c) {
+                s = true;
+              } else if (!e.target.hasAttribute('nomodule') || !s) {
+                return;
+              }
+              e.preventDefault();
+            },
+            true
+          );
+
+          c.type = 'module';
+          c.src = '.';
+          d.head.appendChild(c);
+          c.remove();
+        }
+      })();
+    </script>
+    <% for (const file of assets.modernScripts || []) { %>
+    <script type="module" src="<%= file %>"></script>
+    <% } for (const file of assets.legacyScripts || []) { %>
+    <script nomodule defer src="<%= file %>"></script>
+    <% } %> <% } %>
   </body>
 </html>

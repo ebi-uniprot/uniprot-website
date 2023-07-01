@@ -2,10 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import EnumField from '../EnumField';
 
-import { idToSearchTerm } from './__mocks__/configureSearchTerms';
+import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const props = {
-  field: idToSearchTerm.existence,
+  field: getSearchTerm('existence'),
   handleChange: jest.fn(),
   queryInput: { stringValue: '1' },
 };

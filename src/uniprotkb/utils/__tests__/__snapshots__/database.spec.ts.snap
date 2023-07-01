@@ -125,6 +125,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GeneCards",
       "GeneReviews",
       "HGNC",
+      "AGR",
       "GenAtlas",
       "HPA",
       "LegioList",
@@ -216,6 +217,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CarbonylDB",
       "DEPOD",
       "GlyConnect",
+      "GlyCosmos",
       "GlyGen",
       "iPTMnet",
       "PhosphoSitePlus",
@@ -234,6 +236,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   },
   "databaseNameToCategory": {
     "ABCD": "PAM",
+    "AGR": "ORG",
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
     "Antibodypedia": "PAM",
@@ -304,6 +307,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "Genevisible": "GEP",
     "GenomeRNAi": "MISC",
     "GlyConnect": "PTM",
+    "GlyCosmos": "PTM",
     "GlyGen": "PTM",
     "Gramene": "GMA",
     "GuidetoPHARMACOLOGY": "CHEMISTRY",
@@ -437,6 +441,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "ABCD",
       "uriLink": "https://web.expasy.org/cgi-bin/abcd/search_abcd.pl?input=%id",
     },
+    "AGR": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "ORG",
+      "displayName": "AGR",
+      "name": "AGR",
+      "uriLink": "https://alliancegenome.org/gene/%id",
+    },
     "Allergome": {
       "attributes": [
         {
@@ -471,7 +487,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PAM",
       "displayName": "Antibodypedia",
       "name": "Antibodypedia",
-      "uriLink": "https://www.antibodypedia.com/protein/%id",
+      "uriLink": "https://antibodypedia.com/gene/%id",
     },
     "ArachnoServer": {
       "attributes": [
@@ -495,7 +511,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "Araport",
       "name": "Araport",
-      "uriLink": "https://apps.araport.org/thalemine/portal.do?externalids=%id",
+      "uriLink": "https://bar.utoronto.ca/thalemine/portal.do?externalids=%id",
     },
     "BMRB": {
       "attributes": [
@@ -507,7 +523,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "3DS",
       "displayName": "BMRB",
       "name": "BMRB",
-      "uriLink": "http://www.bmrb.wisc.edu/data_library/summary/protein.php?uniprot=%id",
+      "uriLink": "https://bmrb.io/data_library/summary/protein.php?uniprot=%id",
     },
     "BRENDA": {
       "attributes": [
@@ -531,7 +547,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GEP",
       "displayName": "Bgee",
       "name": "Bgee",
-      "uriLink": "https://bgee.org/?page=gene&gene_id=%id",
+      "uriLink": "https://bgee.org/gene/%id",
     },
     "BindingDB": {
       "attributes": [
@@ -543,7 +559,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "CHEMISTRY",
       "displayName": "BindingDB",
       "name": "BindingDB",
-      "uriLink": "http://www.bindingdb.org/uniprot/%id",
+      "uriLink": "https://www.bindingdb.org/uniprot/%id",
     },
     "BioCyc": {
       "attributes": [
@@ -603,7 +619,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PFAM",
       "displayName": "CAZy",
       "name": "CAZy",
-      "uriLink": "http://www.cazy.org/fam/%id.html",
+      "uriLink": "http://www.cazy.org/%id.html",
     },
     "CCDS": {
       "attributes": [
@@ -655,7 +671,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PFAM",
       "displayName": "CLAE",
       "name": "CLAE",
-      "uriLink": "https://mycoclap.fungalgenomics.ca/mycoCLAP/clap/GeneView/%id",
+      "uriLink": "https://clae.fungalgenomics.ca/enzyme/%id",
     },
     "COMPLUYEAST-2DPAGE": {
       "attributes": [
@@ -715,7 +731,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "CTD",
       "name": "CTD",
-      "uriLink": "http://ctdbase.org/detail.go?type=gene&db=GENE&acc=%id",
+      "uriLink": "https://ctdbase.org/detail.go?type=gene&db=GENE&acc=%id",
     },
     "CarbonylDB": {
       "attributes": [
@@ -751,7 +767,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "MISC",
       "displayName": "ChiTaRS",
       "name": "ChiTaRS",
-      "uriLink": "http://chitars.md.biu.ac.il/bin/search.pl?searchtype=gene_name&searchstr=%id&%d=1",
+      "uriLink": "http://biosrv.org/chmb/search?GEN=%id",
     },
     "CleanEx": {
       "attributes": [
@@ -836,7 +852,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "implicit": true,
       "linkedReason": "DR:EMBL",
       "name": "DDBJ",
-      "uriLink": "http://getentry.ddbj.nig.ac.jp/getentry/dad/%id",
+      "uriLink": "http://getentry.ddbj.nig.ac.jp/search/get_entry?accnumber=%id",
     },
     "DEPOD": {
       "attributes": [
@@ -848,7 +864,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "DEPOD",
       "name": "DEPOD",
-      "uriLink": "http://depod.bioss.uni-freiburg.de/showp.php?AC=%id",
+      "uriLink": "http://depod.bioss.uni-freiburg.de/showp.php?name=%id",
     },
     "DIP": {
       "attributes": [
@@ -872,7 +888,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GVD",
       "displayName": "DMDM",
       "name": "DMDM",
-      "uriLink": "http://bioinf.umbc.edu/dmdm/gene_prot_page.php?search_type=protein&id=%id",
+      "uriLink": "https://bioinf.umbc.edu/dmdm/gene_prot_page.php?search_type=protein&id=%id",
     },
     "DNASU": {
       "attributes": [
@@ -908,7 +924,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "DisGeNET",
       "name": "DisGeNET",
-      "uriLink": "http://disgenet.org/search?q=%id",
+      "uriLink": "https://disgenet.org/search?q=%id",
     },
     "DisProt": {
       "attributes": [
@@ -944,7 +960,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "CHEMISTRY",
       "displayName": "DrugCentral",
       "name": "DrugCentral",
-      "uriLink": "http://drugcentral.org/target/%id",
+      "uriLink": "https://drugcentral.org/target/%id",
     },
     "ELM": {
       "attributes": [
@@ -977,7 +993,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "SEQ",
       "displayName": "EMBL",
       "name": "EMBL",
-      "uriLink": "https://www.ebi.ac.uk/ena/data/view/%id",
+      "uriLink": "https://www.ebi.ac.uk/ena/browser/view/%id",
     },
     "ENZYME": {
       "attributes": [
@@ -1015,7 +1031,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PFAM",
       "displayName": "ESTHER",
       "name": "ESTHER",
-      "uriLink": "http://bioweb.supagro.inra.fr/ESTHER/gene_locus?name=%id&class=Gene_locus",
+      "uriLink": "https://bioweb.supagro.inra.fr/ESTHER/gene_locus?name=%id&class=Gene_locus",
     },
     "EchoBASE": {
       "attributes": [
@@ -1027,7 +1043,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "EchoBASE",
       "name": "EchoBASE",
-      "uriLink": "http://www.york.ac.uk/res/thomas/Gene.cfm?recordID=%id",
+      "uriLink": "https://www.york.ac.uk/res/thomas/Gene.cfm?recordID=%id",
     },
     "Ensembl": {
       "attributes": [
@@ -1063,7 +1079,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GMA",
       "displayName": "EnsemblBacteria",
       "name": "EnsemblBacteria",
-      "uriLink": "http://www.ensemblgenomes.org/id/%id",
+      "uriLink": "https://www.ensemblgenomes.org/id/%id",
     },
     "EnsemblFungi": {
       "attributes": [
@@ -1081,7 +1097,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GMA",
       "displayName": "EnsemblFungi",
       "name": "EnsemblFungi",
-      "uriLink": "http://www.ensemblgenomes.org/id/%id",
+      "uriLink": "https://www.ensemblgenomes.org/id/%id",
     },
     "EnsemblMetazoa": {
       "attributes": [
@@ -1099,7 +1115,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GMA",
       "displayName": "EnsemblMetazoa",
       "name": "EnsemblMetazoa",
-      "uriLink": "http://www.ensemblgenomes.org/id/%id",
+      "uriLink": "https://www.ensemblgenomes.org/id/%id",
     },
     "EnsemblPlants": {
       "attributes": [
@@ -1117,7 +1133,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GMA",
       "displayName": "EnsemblPlants",
       "name": "EnsemblPlants",
-      "uriLink": "http://www.ensemblgenomes.org/id/%id",
+      "uriLink": "https://www.ensemblgenomes.org/id/%id",
     },
     "EnsemblProtists": {
       "attributes": [
@@ -1135,7 +1151,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GMA",
       "displayName": "EnsemblProtists",
       "name": "EnsemblProtists",
-      "uriLink": "http://www.ensemblgenomes.org/id/%id",
+      "uriLink": "https://www.ensemblgenomes.org/id/%id",
     },
     "EvolutionaryTrace": {
       "attributes": [
@@ -1171,7 +1187,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "FlyBase",
       "name": "FlyBase",
-      "uriLink": "http://flybase.org/reports/%id.html",
+      "uriLink": "https://flybase.org/reports/%id.html",
     },
     "GO": {
       "attributes": [
@@ -1320,7 +1336,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PLG",
       "displayName": "GeneTree",
       "name": "GeneTree",
-      "uriLink": "http://www.ensemblgenomes.org/id-genetree/%id",
+      "uriLink": "https://www.ensemblgenomes.org/id-genetree/%id",
     },
     "GeneWiki": {
       "attributes": [
@@ -1370,6 +1386,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "GlyConnect",
       "uriLink": "https://glyconnect.expasy.org/browser/proteins/%id",
     },
+    "GlyCosmos": {
+      "attributes": [
+        {
+          "name": "glycosylation",
+          "xmlTag": "glycosylation",
+        },
+      ],
+      "category": "PTM",
+      "displayName": "GlyCosmos",
+      "name": "GlyCosmos",
+      "uriLink": "https://glycosmos.org/glycoproteins/show/uniprot/%id",
+    },
     "GlyGen": {
       "attributes": [
         {
@@ -1380,7 +1408,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "GlyGen",
       "name": "GlyGen",
-      "uriLink": "https://www.glygen.org/protein/%id",
+      "uriLink": "https://glygen.org/protein/%id#glycosylation",
     },
     "Gramene": {
       "attributes": [
@@ -1398,7 +1426,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GMA",
       "displayName": "Gramene",
       "name": "Gramene",
-      "uriLink": "http://ensembl.gramene.org/id/%id",
+      "uriLink": "https://ensembl.gramene.org/id/%id",
     },
     "GuidetoPHARMACOLOGY": {
       "attributes": [
@@ -1410,7 +1438,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "CHEMISTRY",
       "displayName": "GuidetoPHARMACOLOGY",
       "name": "GuidetoPHARMACOLOGY",
-      "uriLink": "http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=%id",
+      "uriLink": "https://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=%id",
     },
     "HAMAP": {
       "attributes": [
@@ -1450,7 +1478,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PLG",
       "displayName": "HOGENOM",
       "name": "HOGENOM",
-      "uriLink": "http://doua.prabi.fr/cgi-bin/acnuc-ac2tree?query=%id&db=HOGENOM6",
+      "uriLink": "http://hogenom.univ-lyon1.fr/query_sequence?seq=%primaryAccession",
     },
     "HPA": {
       "attributes": [
@@ -1462,7 +1490,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "HPA",
       "name": "HPA",
-      "uriLink": "http://www.proteinatlas.org/tissue_profile.php?antibody_id=%id",
+      "uriLink": "https://www.proteinatlas.org/%id",
     },
     "HUGE": {
       "attributes": [
@@ -1488,7 +1516,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "FMD",
       "displayName": "IDEAL",
       "name": "IDEAL",
-      "uriLink": "http://idp1.force.cs.is.nagoya-u.ac.jp/IDEAL/ideal.php?id=%id",
+      "uriLink": "https://www.ideal-db.org/ideal.php?id=%id",
     },
     "IMGT_GENE-DB": {
       "attributes": [
@@ -1500,7 +1528,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PFAM",
       "displayName": "IMGT_GENE-DB",
       "name": "IMGT_GENE-DB",
-      "uriLink": "http://www.imgt.org/IMGT_GENE-DB/GENElect?query=2+%id&species=Homo+sapiens",
+      "uriLink": "https://www.imgt.org/IMGT_GENE-DB/GENElect?query=2+%id&species=Homo+sapiens",
     },
     "InParanoid": {
       "attributes": [
@@ -1512,7 +1540,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PLG",
       "displayName": "InParanoid",
       "name": "InParanoid",
-      "uriLink": "http://inparanoid.sbc.su.se/cgi-bin/gene_search.cgi?id=%id",
+      "uriLink": "https://inparanoidb.sbc.su.se/orthologs/%id&1/",
     },
     "IntAct": {
       "attributes": [
@@ -1729,7 +1757,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "implicit": true,
       "linkedReason": "All UniProtKB entries",
       "name": "MobiDB",
-      "uriLink": "http://mobidb.bio.unipd.it/entries/%primaryAccession",
+      "uriLink": "https://mobidb.bio.unipd.it/entries/%primaryAccession",
     },
     "ModBase": {
       "attributes": [
@@ -1743,7 +1771,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "implicit": true,
       "linkedReason": "All UniProtKB entries",
       "name": "ModBase",
-      "uriLink": "http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%primaryAccession",
+      "uriLink": "https://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%primaryAccession",
     },
     "MoonDB": {
       "attributes": [
@@ -1803,7 +1831,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PLG",
       "displayName": "OMA",
       "name": "OMA",
-      "uriLink": "https://omabrowser.org/oma/group/%id",
+      "uriLink": "https://omabrowser.org/oma/group/%primaryAccession",
     },
     "OpenTargets": {
       "attributes": [
@@ -1815,7 +1843,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "OpenTargets",
       "name": "OpenTargets",
-      "uriLink": "https://www.targetvalidation.org/target/%id/associations",
+      "uriLink": "https://platform.opentargets.org/target/%id/associations",
     },
     "Orphanet": {
       "attributes": [
@@ -1839,7 +1867,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PLG",
       "displayName": "OrthoDB",
       "name": "OrthoDB",
-      "uriLink": "https://www.orthodb.org/?query=%id",
+      "uriLink": "https://www.orthodb.org/?gene=%primaryAccession",
     },
     "PANTHER": {
       "attributes": [
@@ -1991,7 +2019,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PROTEOMIC",
       "displayName": "PRIDE",
       "name": "PRIDE",
-      "uriLink": "https://www.ebi.ac.uk/pride/searchSummary.do?queryTypeSelected=identification%20accession%20number&identificationAccessionNumber=%id",
+      "uriLink": "https://www.ebi.ac.uk/pride/peptidome/peptidesearch?keyword=%id",
     },
     "PRINTS": {
       "attributes": [
@@ -2095,7 +2123,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "FMD",
       "displayName": "Pfam",
       "name": "Pfam",
-      "uriLink": "http://pfam.xfam.org/family/%id",
+      "uriLink": "https://www.ebi.ac.uk/interpro/entry/pfam/%id",
     },
     "PharmGKB": {
       "attributes": [
@@ -2143,7 +2171,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PLG",
       "displayName": "PhylomeDB",
       "name": "PhylomeDB",
-      "uriLink": "http://phylomedb.org/?q=search_tree&seqid=%id",
+      "uriLink": "http://phylomedb.org/search_phylome/?seqid=%id",
     },
     "PlantReactome": {
       "attributes": [
@@ -2167,7 +2195,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "PomBase",
       "name": "PomBase",
-      "uriLink": "https://www.pombase.org/spombe/result/%id",
+      "uriLink": "https://www.pombase.org/gene/%id",
     },
     "ProDom": {
       "attributes": [
@@ -2222,12 +2250,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "uriLink": "https://www.proteomicsdb.org/proteomicsdb/#protein/proteinDetails/%id",
     },
     "ProtoNet": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
       "category": "FMD",
       "displayName": "ProtoNet",
       "implicit": true,
@@ -2245,7 +2267,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "PseudoCAP",
       "name": "PseudoCAP",
-      "uriLink": "http://www.pseudomonas.com/feature/show?locus_tag=%id",
+      "uriLink": "https://www.pseudomonas.com/feature/show?locus_tag=%id",
     },
     "RCSB-PDB": {
       "attributes": [
@@ -2295,7 +2317,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "RGD",
       "name": "RGD",
-      "uriLink": "http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%id",
+      "uriLink": "https://rgd.mcw.edu/rgdweb/report/gene/main.html?id=%id",
     },
     "RNAct": {
       "attributes": [
@@ -2494,7 +2516,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "FMD",
       "displayName": "SUPFAM",
       "name": "SUPFAM",
-      "uriLink": "http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=%id",
+      "uriLink": "https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=%id",
     },
     "SWISS-2DPAGE": {
       "attributes": [
@@ -2568,7 +2590,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "TAIR",
       "name": "TAIR",
-      "uriLink": "http://www.arabidopsis.org/servlets/TairObject?accession=%id",
+      "uriLink": "https://www.arabidopsis.org/servlets/TairObject?accession=%id",
     },
     "TCDB": {
       "attributes": [
@@ -2596,7 +2618,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "FMD",
       "displayName": "TIGRFAMs",
       "name": "TIGRFAMs",
-      "uriLink": "http://tigrfams.jcvi.org/cgi-bin/HmmReportPage.cgi?acc=%id",
+      "uriLink": "https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/",
     },
     "TopDownProteomics": {
       "attributes": [
@@ -2644,7 +2666,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "2DG",
       "displayName": "UCD-2DPAGE",
       "name": "UCD-2DPAGE",
-      "uriLink": "http://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id",
+      "uriLink": "https://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id",
     },
     "UCSC": {
       "attributes": [
@@ -2656,7 +2678,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GMA",
       "displayName": "UCSC",
       "name": "UCSC",
-      "uriLink": "https://genome.ucsc.edu/cgi-bin/hgLinkIn?resource=uniprot&id=%id",
+      "uriLink": "https://genome.ucsc.edu/cgi-bin/hgLinkIn?resource=uniprot&id=%primaryAccession",
     },
     "UniCarbKB": {
       "attributes": [
@@ -2680,7 +2702,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PFAM",
       "displayName": "UniLectin",
       "name": "UniLectin",
-      "uriLink": "https://www.unilectin.eu/curated/protein/%id",
+      "uriLink": "https://unilectin.unige.ch/unilectin3D/display_lectin?uniprot=%id",
     },
     "UniPathway": {
       "attributes": [
@@ -2797,7 +2819,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "WormBase",
       "name": "WormBase",
-      "uriLink": "https://wormbase.org/species/c_elegans/cds/%id",
+      "uriLink": "https://wormbase.org/db/seq/protein?name=%id;class=CDS ",
     },
     "Xenbase": {
       "attributes": [
@@ -2809,7 +2831,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "Xenbase",
       "name": "Xenbase",
-      "uriLink": "http://www.xenbase.org/gene/showgene.do?method=display&geneId=%id",
+      "uriLink": "https://www.xenbase.org/gene/showgene.do?method=display&geneId=%id",
     },
     "ZFIN": {
       "attributes": [
@@ -2833,7 +2855,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GVD",
       "displayName": "dbSNP",
       "name": "dbSNP",
-      "uriLink": "https://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?type=rs&rs=%id",
+      "uriLink": "https://www.ncbi.nlm.nih.gov/snp/%id",
     },
     "dictyBase": {
       "attributes": [
@@ -2869,7 +2891,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "euHCVdb",
       "name": "euHCVdb",
-      "uriLink": "https://euhcvdb.ibcp.fr/euHCVdb/do/displayHCVEntry?primaryAC=%id",
+      "uriLink": "https://euhcvdb.lyon.inserm.fr/euHCVdb/do/displayHCVEntry?primaryAC=%id",
     },
     "iPTMnet": {
       "attributes": [
@@ -3003,6 +3025,46 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ABCD",
       "Antibodypedia",
       "CPTC",
+      "ArachnoServer",
+      "Araport",
+      "CGD",
+      "ConoServer",
+      "CTD",
+      "dictyBase",
+      "DisGeNET",
+      "EchoBASE",
+      "euHCVdb",
+      "VEuPathDB",
+      "FlyBase",
+      "GeneCards",
+      "GeneReviews",
+      "HGNC",
+      "AGR",
+      "GenAtlas",
+      "HPA",
+      "LegioList",
+      "Leproma",
+      "MaizeGDB",
+      "MalaCards",
+      "MGI",
+      "MIM",
+      "NIAGADS",
+      "neXtProt",
+      "OpenTargets",
+      "Orphanet",
+      "PharmGKB",
+      "PomBase",
+      "PseudoCAP",
+      "RGD",
+      "SGD",
+      "TAIR",
+      "TubercuList",
+      "VGNC",
+      "WormBase",
+      "Xenbase",
+      "ZFIN",
+      "HUGE",
+      "Rouge",
       "HUGE",
       "Rouge",
       "GenAtlas",
@@ -3042,7 +3104,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MobiDB",
       "ProtoNet",
       "MobiDB",
-      "ProtoNet",
       "GPCRDB",
     ],
     "function": [
@@ -3132,6 +3193,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CarbonylDB",
       "DEPOD",
       "GlyConnect",
+      "GlyCosmos",
       "GlyGen",
       "iPTMnet",
       "PhosphoSitePlus",

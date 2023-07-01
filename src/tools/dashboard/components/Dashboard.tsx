@@ -14,7 +14,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
-import { useToolsState } from '../../../shared/contexts/Tools';
+import useToolsState from '../../../shared/hooks/useToolsState';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -26,7 +26,7 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
-const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
+const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   const tools = useToolsState();
 
   const [activeJobs, expiredJobs] = useMemo(() => {
@@ -35,7 +35,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
     return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
   }, [tools]);
 
-  const fullPageContent = closePanel ? null : (
+  const fullPageContent = onFullView ? null : (
     <>
       <HTMLHead title="Tool results">
         <meta name="robots" content="noindex" />
@@ -44,7 +44,9 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
     </>
   );
 
-  if (!(activeJobs.length || expiredJobs.length)) {
+  const hasJobs = Boolean(activeJobs.length || expiredJobs.length);
+
+  if (!hasJobs) {
     return (
       <>
         {fullPageContent}
@@ -101,7 +103,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
             element={Link}
             variant="secondary"
             to={LocationToPath[Location.Dashboard]}
-            onClick={closePanel}
+            onClick={onFullView}
           >
             <FullViewIcon height="1em" width="1em" />
             Full view

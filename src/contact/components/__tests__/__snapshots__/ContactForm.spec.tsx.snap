@@ -72,6 +72,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="name-0"
           maxlength="100"
           name="name"
@@ -106,6 +107,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="email-0"
           maxlength="100"
           minlength="4"
@@ -142,6 +144,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="subject-0"
           maxlength="100"
           minlength="1"
@@ -178,6 +181,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input input__message"
       >
         <textarea
+          data-hj-allow="true"
           id="message-0"
           minlength="1"
           name="message"
@@ -278,34 +282,6 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         </ul>
       </aside>
     </form>
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
-          If you still need it, the 
-          <a
-            class="external-link"
-            href="https://legacy.uniprot.org"
-            rel="noopener nofollow"
-            target="_blank"
-          >
-            legacy version of the website
-          </a>
-           is available until the 2022_04 release.
-        </small>
-      </section>
-    </div>
   </section>
 </DocumentFragment>
 `;
@@ -343,6 +319,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="name-0"
           maxlength="100"
           name="name"
@@ -377,6 +354,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="email-0"
           maxlength="100"
           minlength="4"
@@ -413,6 +391,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="subject-0"
           maxlength="100"
           minlength="1"
@@ -449,6 +428,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input input__message"
       >
         <textarea
+          data-hj-allow="true"
           id="message-0"
           minlength="1"
           name="message"
@@ -548,34 +528,6 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         </ul>
       </aside>
     </form>
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
-          If you still need it, the 
-          <a
-            class="external-link"
-            href="https://legacy.uniprot.org"
-            rel="noopener nofollow"
-            target="_blank"
-          >
-            legacy version of the website
-          </a>
-           is available until the 2022_04 release.
-        </small>
-      </section>
-    </div>
   </section>
 </DocumentFragment>
 `;
@@ -652,6 +604,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="name-0"
           maxlength="100"
           name="name"
@@ -686,6 +639,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="email-0"
           maxlength="100"
           minlength="4"
@@ -722,6 +676,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="subject-0"
           maxlength="100"
           minlength="1"
@@ -758,6 +713,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input input__message"
       >
         <textarea
+          data-hj-allow="true"
           id="message-0"
           minlength="1"
           name="message"
@@ -857,34 +813,6 @@ exports[`ContactForm should render for generic contact form 1`] = `
         </ul>
       </aside>
     </form>
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
-          If you still need it, the 
-          <a
-            class="external-link"
-            href="https://legacy.uniprot.org"
-            rel="noopener nofollow"
-            target="_blank"
-          >
-            legacy version of the website
-          </a>
-           is available until the 2022_04 release.
-        </small>
-      </section>
-    </div>
   </section>
 </DocumentFragment>
 `;

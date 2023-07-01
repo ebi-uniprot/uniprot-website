@@ -23,9 +23,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
       <protvista-datatable
         filter-scroll="true"
       >
-        <table
-          class=""
-        >
+        <table>
           <thead>
             <tr>
               <th
@@ -61,7 +59,9 @@ exports[`FeaturesView component it renders without crashing 1`] = `
               <td>
                 1-17
               </td>
-              <td />
+              <td
+                id="description1-17"
+              />
               <td>
                 <div
                   class="button-group"

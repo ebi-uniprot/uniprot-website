@@ -19,6 +19,7 @@ type Props = {
   titleMatch?: string;
   contentMatch?: string;
   releaseDate?: string;
+  headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
 };
 
 const HelpCard = ({
@@ -27,6 +28,7 @@ const HelpCard = ({
   titleMatch,
   contentMatch,
   releaseDate,
+  headingLevel = 'h2',
 }: Props) => {
   const isReleaseNote = Boolean(
     useRouteMatch(LocationToPath[Location.ReleaseNotesResults])
@@ -38,15 +40,17 @@ const HelpCard = ({
   const now = new Date();
   const date = releaseDate ? parseDate(releaseDate) : null;
 
+  const HeadingElement = headingLevel;
+
   return (
     <Card
       data-testid="help-card"
       header={
-        <h2 className="small" data-testid="help-title">
+        <HeadingElement className="small" data-testid="help-title">
           <Link to={to}>
             {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
           </Link>
-        </h2>
+        </HeadingElement>
       }
       headerSeparator={false}
     >

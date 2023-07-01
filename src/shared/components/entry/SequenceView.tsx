@@ -13,6 +13,7 @@ import LazyComponent from '../LazyComponent';
 import useDataApi from '../../hooks/useDataApi';
 
 import { pluralise } from '../../utils/utils';
+import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
 
 import externalUrls from '../../config/externalUrls';
 import apiUrls from '../../config/apiUrls';
@@ -103,7 +104,6 @@ export const SequenceInfo = ({
           {dataToDisplay?.value || null}
         </div>
       }
-      rootMargin="50px"
     >
       <Sequence
         sequence={dataToDisplay?.value}
@@ -119,6 +119,7 @@ export const SequenceInfo = ({
         addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
         isCollapsible={!openByDefault}
         isLoading={loading}
+        onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
       />
     </LazyComponent>
   );
@@ -196,7 +197,6 @@ export const IsoformInfo = ({
                     search: `ids=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
                   }}
                 >{`${location.start.value}-${location.end.value}: `}</Link>
-                {`${location.start.value}-${location.end.value}: `}
                 {alternativeSequence && alternativeSequence.originalSequence ? (
                   <span className={styles.modifications}>{`${
                     alternativeSequence.originalSequence
@@ -221,13 +221,14 @@ export const IsoformInfo = ({
         isoformData.note.texts.map((note) => note.value).join(', '),
     },
   ];
-  // TODO isoformData.sequenceIds is used to get the features for
-  // splice variants - they need to be somehow displayed
-  const name = isoformData.isoformIds.join(', ');
+  const [name] = isoformData.isoformIds;
   return (
-    <Fragment key={isoformData.isoformIds.join('')}>
-      <h3 id={`Isoform_${isoformData.name.value || name}`}>
-        <span id={name}>{name}</span>
+    <Fragment key={name}>
+      <h3 id={isoformData.name.value && `Isoform_${isoformData.name.value}`}>
+        <span id={isoformData.name.value}>
+          {' '}
+          <span id={name}>{name}</span>
+        </span>
       </h3>
       {isoformData.isoformSequenceStatus === 'Displayed' && (
         <p>
@@ -469,9 +470,9 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     );
   }
 
-  const allIsoformIds = data.alternativeProducts.isoforms
-    .map((isoform) => isoform.isoformIds)
-    .flat();
+  const allIsoformIds = data.alternativeProducts.isoforms.map(
+    (isoform) => isoform.isoformIds[0]
+  );
 
   return (
     <>

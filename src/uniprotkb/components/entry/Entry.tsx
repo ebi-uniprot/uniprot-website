@@ -1,6 +1,7 @@
 import { useMemo, useEffect, Suspense } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
+import joinUrl from 'url-join';
 import cn from 'classnames';
 import qs from 'query-string';
 import { frame } from 'timing-functions';
@@ -20,7 +21,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../basket/BasketStatus';
@@ -30,7 +31,7 @@ import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -66,22 +67,35 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
+import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
   Entry = 'entry',
+  VariantViewer = 'variant-viewer',
   FeatureViewer = 'feature-viewer',
   Publications = 'publications',
   ExternalLinks = 'external-links',
   History = 'history',
 }
 
-const legacyToNewSubPages = { protvista: TabLocation.FeatureViewer };
+const legacyToNewSubPages = {
+  protvista: TabLocation.FeatureViewer,
+  'features-viewer': TabLocation.FeatureViewer,
+  'variants-viewer': TabLocation.VariantViewer,
+};
 
 const FeatureViewer = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './FeatureViewer'
+    )
+);
+
+const VariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-entry-variation-view" */ '../protein-data-views/VariationView'
     )
 );
 
@@ -123,6 +137,12 @@ const Entry = () => {
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
+  const variantsHeadPayload = useDataApi(
+    match?.params.accession &&
+      joinUrl(apiUrls.variation, match?.params.accession),
+    { method: 'HEAD' }
+  );
+
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const [transformedData, pageTitle] = useMemo(() => {
@@ -152,8 +172,6 @@ const Entry = () => {
             disabled = !hasExternalLinks(transformedData);
             break;
           case EntrySection.SimilarProteins:
-          case EntrySection.DiseaseVariants:
-          case EntrySection.PhenotypesVariants:
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
@@ -233,6 +251,18 @@ const Entry = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, redirectedTo]);
 
+  useEffect(() => {
+    if (match?.params.accession.includes('-')) {
+      const [accession] = match.params.accession.split('-');
+      history.replace(
+        // eslint-disable-next-line uniprot-website/use-config-location
+        `${getEntryPath(Namespace.uniprotkb, accession, TabLocation.Entry)}#${
+          match.params.accession
+        }`
+      );
+    }
+  }, [history, match?.params.accession]);
+
   const isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
@@ -276,23 +306,22 @@ const Entry = () => {
     isObsolete ||
     (redirectedTo && match?.params.subPage === TabLocation.History);
 
+  const hasImportedVariants =
+    !variantsHeadPayload.loading && variantsHeadPayload.status === 200;
+
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
   }
 
   const entrySidebar = (
-    <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
+    <InPageNav sections={sections} rootElement={`.${sidebarStyles.content}`} />
   );
 
   const publicationsSideBar = (
     <EntryPublicationsFacets accession={match.params.accession} />
   );
 
-  const emptySidebar = (
-    <div className="sidebar-layout__sidebar-content--empty" />
-  );
-
-  let sidebar = emptySidebar;
+  let sidebar = null;
   if (!isObsolete) {
     if (match.params.subPage === TabLocation.Publications) {
       sidebar = publicationsSideBar;
@@ -302,36 +331,32 @@ const Entry = () => {
   }
 
   return (
-    <SideBarLayout
+    <SidebarLayout
       sidebar={sidebar}
+      noOverflow
       className={cn('entry-page', sticky['sticky-tabs-container'])}
-      title={
-        historyOldEntry ? (
-          <h1>{match.params.accession}</h1>
-        ) : (
-          <ErrorBoundary>
-            <HTMLHead
-              title={[
-                pageTitle,
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <h1>
-              <EntryTitle
-                mainTitle={data.primaryAccession}
-                optionalTitle={data.uniProtkbId}
-                entryType={data.entryType}
-              />
-              <BasketStatus id={data.primaryAccession} className="small" />
-            </h1>
-            <ProteinOverview data={data} />
-          </ErrorBoundary>
-        )
-      }
     >
       <HTMLHead>
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
+      {historyOldEntry ? (
+        <h1>{match.params.accession}</h1>
+      ) : (
+        <ErrorBoundary>
+          <HTMLHead
+            title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
+          />
+          <h1>
+            <EntryTitle
+              mainTitle={data.primaryAccession}
+              optionalTitle={data.uniProtkbId}
+              entryType={data.entryType}
+            />
+            <BasketStatus id={data.primaryAccession} className="small" />
+          </h1>
+          <ProteinOverview data={data} />
+        </ErrorBoundary>
+      )}
       <Tabs active={match.params.subPage}>
         <Tab
           title={
@@ -353,12 +378,9 @@ const Entry = () => {
             <>
               <div className="button-group">
                 <BlastButton selectedEntries={[match.params.accession]} />
-                <AlignButton
-                  selectedEntries={[
-                    match.params.accession,
-                    ...listOfIsoformAccessions,
-                  ]}
-                />
+                {listOfIsoformAccessions.length > 1 && (
+                  <AlignButton selectedEntries={listOfIsoformAccessions} />
+                )}
                 <EntryDownload />
                 <AddToBasketButton selectedEntries={match.params.accession} />
                 <CommunityAnnotationLink accession={match.params.accession} />
@@ -389,9 +411,44 @@ const Entry = () => {
                   Entry feedback
                 </ContactLink>
               </div>
-              <EntryMain transformedData={transformedData} />
+              <EntryMain
+                transformedData={transformedData}
+                hasImportedVariants={hasImportedVariants}
+              />
             </>
           )}
+        </Tab>
+        <Tab
+          title={
+            <Link
+              className={hasImportedVariants ? undefined : helper.disabled}
+              tabIndex={hasImportedVariants ? undefined : -1}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.VariantViewer
+              )}
+            >
+              Variant viewer
+            </Link>
+          }
+          id={TabLocation.VariantViewer}
+          onPointerOver={VariationView.preload}
+          onFocus={VariationView.preload}
+        >
+          <Suspense fallback={<Loader />}>
+            <HTMLHead
+              title={[
+                pageTitle,
+                'Variants viewer',
+                searchableNamespaceLabels[Namespace.uniprotkb],
+              ]}
+            />
+            <VariationView
+              primaryAccession={match.params.accession}
+              title="Variants"
+            />
+          </Suspense>
         </Tab>
         <Tab
           title={
@@ -531,7 +588,7 @@ const Entry = () => {
           </Suspense>
         </Tab>
       </Tabs>
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

@@ -1,3 +1,5 @@
+// This file is for the tests
+
 // eslint-disable-next-line func-names
 module.exports = function (api) {
   api.cache(true);

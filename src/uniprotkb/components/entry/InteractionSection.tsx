@@ -218,17 +218,14 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {comments && (
         <FreeTextView
           comments={comments}
-          title="subunit"
+          title="Subunit"
           articleId="subunit_structure"
         />
       )}
       {tableData.length ? (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          <LazyComponent
-            rootMargin="50px"
-            render={isSmallScreen ? false : undefined}
-          >
+          <LazyComponent render={isSmallScreen ? false : undefined}>
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
           <DatatableWithToggle>{table}</DatatableWithToggle>

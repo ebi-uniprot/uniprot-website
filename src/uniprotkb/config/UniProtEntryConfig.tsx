@@ -17,7 +17,10 @@ import EntrySection from '../types/entrySection';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
-  sectionContent: (entryData: UniProtkbUIModel) => JSX.Element;
+  sectionContent: (
+    entryData: UniProtkbUIModel,
+    hasImportedVariants: boolean
+  ) => JSX.Element;
 }[] = [
   {
     id: EntrySection.Function,
@@ -54,12 +57,13 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.DiseaseVariants,
-    sectionContent: (data) => (
+    sectionContent: (data, hasImportedVariants) => (
       <DiseaseAndDrugsSection
         data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
+        hasImportedVariants={hasImportedVariants}
         key={EntrySection.DiseaseVariants}
       />
     ),

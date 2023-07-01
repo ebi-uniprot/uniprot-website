@@ -3,10 +3,10 @@
 exports[`Entry basic should render main 1`] = `
 <DocumentFragment>
   <div
-    class="sidebar-layout entry-page sticky-tabs-container"
+    class="sidebar-layout no-overflow entry-page sticky-tabs-container"
   >
-    <section
-      class="sidebar-layout__sidebar"
+    <aside
+      class="sidebar"
     >
       <ul
         class="in-page-nav"
@@ -125,202 +125,211 @@ exports[`Entry basic should render main 1`] = `
           </a>
         </li>
       </ul>
-    </section>
-    <section
-      class="sidebar-layout__content"
+    </aside>
+    <main
+      class="content"
     >
-      <section
-        class="sidebar-layout__title"
-      >
-        <h1>
-          <span
-            class="entry-title"
-          >
-            <span
-              class="entry-title__status icon--reviewed"
-              title="This marks a reviewed UniProtKB entry"
-            >
-              <test-file-stub />
-            </span>
-            P21802 · uniprot_id
-          </span>
-        </h1>
-        <ul
-          class="info-list info-list--columns"
+      <h1>
+        <span
+          class="entry-title"
         >
-          <li>
+          <span
+            class="entry-title__status icon--reviewed"
+            title="This marks a reviewed UniProtKB entry"
+          >
+            <test-file-stub />
+          </span>
+          P21802 · uniprot_id
+        </span>
+      </h1>
+      <ul
+        class="info-list info-list--columns"
+      >
+        <li>
+          <div
+            class="decorated-list-item"
+          >
             <div
-              class="decorated-list-item"
+              class="decorated-list-item__title tiny"
             >
-              <div
-                class="decorated-list-item__title tiny"
+              <span
+                data-article-id="protein_names"
               >
-                <span
-                  data-article-id="protein_names"
-                >
-                  Protein
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
+                Protein
+              </span>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <strong>
                 rec full Name
-              </div>
+              </strong>
             </div>
-          </li>
-          <li>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
             <div
-              class="decorated-list-item"
+              class="decorated-list-item__title tiny"
             >
-              <div
-                class="decorated-list-item__title tiny"
+              <span
+                data-article-id="gene_name"
               >
-                <span
-                  data-article-id="entry_status"
-                >
-                  Status
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-                UniProtKB reviewed (Swiss-Prot)
-              </div>
+                Gene
+              </span>
             </div>
-          </li>
-          <li>
             <div
-              class="decorated-list-item"
+              class="decorated-list-item__content"
             >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <span
-                  data-article-id="organism-name"
-                >
-                  Organism
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <a
-                  href="/taxonomy/9606"
-                  title="scientific name (common name) (synonyms 1), taxon ID 9606"
-                >
-                  scientific name (common name) (synonyms 1)
-                </a>
-              </div>
+              <strong>
+                some Gene
+              </strong>
             </div>
-          </li>
-          <li>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
             <div
-              class="decorated-list-item"
+              class="decorated-list-item__title tiny"
             >
-              <div
-                class="decorated-list-item__title tiny"
+              <span
+                data-article-id="entry_status"
               >
-                <span
-                  data-article-id="gene_name"
-                >
-                  Gene
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                some Gene (some Syn)
-              </div>
+                Status
+              </span>
             </div>
-          </li>
-          <li>
             <div
-              class="decorated-list-item"
+              class="decorated-list-item__content"
             >
-              <div
-                class="decorated-list-item__title tiny"
+              <span
+                class="entry-title__status icon--reviewed"
+                title="This marks a reviewed UniProtKB entry"
               >
-                Amino acids
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                10
-              </div>
+                <test-file-stub />
+              </span>
+              UniProtKB reviewed (Swiss-Prot)
             </div>
-          </li>
-          <li>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
             <div
-              class="decorated-list-item"
+              class="decorated-list-item__title tiny"
             >
-              <div
-                class="decorated-list-item__title tiny"
+              <span
+                data-article-id="organism-name"
               >
-                <span
-                  data-article-id="protein_existence"
-                >
-                  Protein existence
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                Evidence at protein level
-              </div>
+                Organism
+              </span>
             </div>
-          </li>
-          <li>
             <div
-              class="decorated-list-item"
+              class="decorated-list-item__content"
             >
-              <div
-                class="decorated-list-item__title tiny"
+              <a
+                href="/taxonomy/9606"
+                title="scientific name (common name) (synonyms 1), taxon ID 9606"
+              >
+                scientific name (common name) (synonyms 1)
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Amino acids
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <span>
+                10 
+                <small>
+                  <a
+                    href="/uniprotkb/P21802/entry#sequences"
+                  >
+                    (go to sequence)
+                  </a>
+                </small>
+              </span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              <span
+                data-article-id="protein_existence"
+              >
+                Protein existence
+              </span>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              Evidence at protein level
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              <span
+                data-article-id="annotation_score"
+              >
+                Annotation score
+              </span>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <span
+                class="doughnut-chart--small colour-platinum"
               >
                 <span
-                  data-article-id="annotation_score"
-                >
-                  Annotation score
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <span
-                  class="doughnut-chart--small colour-platinum"
+                  class="doughnut-chart--small__left-wrap"
                 >
                   <span
-                    class="doughnut-chart--small__left-wrap"
-                  >
-                    <span
-                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                      style="transform: rotate(0deg);"
-                    />
-                  </span>
-                  <span
-                    class="doughnut-chart--small__right-wrap"
-                  >
-                    <span
-                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                      style="transform: rotate(144deg);"
-                    />
-                  </span>
-                  <span
-                    class="doughnut-chart--small__inner-circle"
-                  >
-                    2/5
-                  </span>
+                    class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                    style="transform: rotate(0deg);"
+                  />
                 </span>
-              </div>
+                <span
+                  class="doughnut-chart--small__right-wrap"
+                >
+                  <span
+                    class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                    style="transform: rotate(144deg);"
+                  />
+                </span>
+                <span
+                  class="doughnut-chart--small__inner-circle"
+                >
+                  2/5
+                </span>
+              </span>
             </div>
-          </li>
-        </ul>
-      </section>
+          </div>
+        </li>
+      </ul>
       <div
         class="tabs"
       >
@@ -339,6 +348,21 @@ exports[`Entry basic should render main 1`] = `
               href="/uniprotkb/P21802/entry"
             >
               Entry
+            </a>
+          </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
+            data-target="variant-viewer"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              class="disabled"
+              href="/uniprotkb/P21802/variant-viewer"
+              tabindex="-1"
+            >
+              Variant viewer
             </a>
           </div>
           <div
@@ -409,13 +433,6 @@ exports[`Entry basic should render main 1`] = `
             >
               BLAST
             </a>
-            <a
-              class="button tertiary no-small"
-              href="/align?ids=P21802%2CisoID1"
-              title="Run an Align job against 2 entries"
-            >
-              Align
-            </a>
             <div
               aria-expanded="false"
               aria-haspopup="true"
@@ -455,7 +472,8 @@ exports[`Entry basic should render main 1`] = `
           {{ EntryMain }}
         </div>
       </div>
-    </section>
+    </main>
   </div>
+  {{ Footer }}
 </DocumentFragment>
 `;

@@ -36,7 +36,11 @@ exports[`ProteomesEntryView component should render 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Component
+              <span
+                data-article-id="proteome_component"
+              >
+                Component
+              </span>
             </div>
             <div
               class="decorated-list-item__content"

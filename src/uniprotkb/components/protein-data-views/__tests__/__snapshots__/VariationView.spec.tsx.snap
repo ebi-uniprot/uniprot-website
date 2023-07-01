@@ -2,10 +2,10 @@
 
 exports[`VariationView component renders on data 1`] = `
 <DocumentFragment>
-  <div>
-    <h3>
+  <section>
+    <h2>
       some title
-    </h3>
+    </h2>
     <div
       class="datatable-with-toggle"
     >
@@ -30,9 +30,9 @@ exports[`VariationView component renders on data 1`] = `
                 Description
               </th>
               <th>
-                Disease
+                Clinical
                 <br />
-                association
+                significance
               </th>
               <th>
                 Provenance
@@ -64,9 +64,7 @@ exports[`VariationView component renders on data 1`] = `
                   a description (uniprot)
                 </div>
               </td>
-              <td>
-                No
-              </td>
+              <td />
               <td />
             </tr>
             <tr
@@ -136,12 +134,18 @@ exports[`VariationView component renders on data 1`] = `
               <td
                 class="change"
               >
-                L&gt;A
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 L10A"
+                  rel="noopener"
+                  target="_blank"
+                  title="View in ProtVar"
+                >
+                  L&gt;A
+                </a>
               </td>
               <td />
-              <td>
-                No
-              </td>
+              <td />
               <td>
                 <span
                   class=""
@@ -279,7 +283,7 @@ exports[`VariationView component renders on data 1`] = `
         Expand table
       </button>
     </div>
-  </div>
+  </section>
 </DocumentFragment>
 `;
 
@@ -309,12 +313,14 @@ exports[`VariationView component renders on loading 1`] = `
 
 exports[`VariationView component renders on no data 1`] = `
 <DocumentFragment>
-  <div>
+  <section
+    class="wider-tab-content hotjar-margin"
+  >
     <div
       class="no-data"
     >
       No variation information available for P05067
     </div>
-  </div>
+  </section>
 </DocumentFragment>
 `;

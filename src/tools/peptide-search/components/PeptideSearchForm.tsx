@@ -1,19 +1,8 @@
-import {
-  FC,
-  useState,
-  FormEvent,
-  MouseEvent,
-  useMemo,
-  useRef,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-} from 'react';
+import { FC, FormEvent, MouseEvent, useRef, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
-import { truncate } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
@@ -21,18 +10,27 @@ import InitialFormParametersProvider from '../../components/InitialFormParameter
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import { useToolsDispatch } from '../../../shared/contexts/Tools';
-import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { createJob } from '../../state/toolsActions';
+import {
+  getPeptideSearchFormDataReducer,
+  getPeptideSearchFormInitialState,
+} from '../state/peptideSearchFormReducer';
+import {
+  resetFormState,
+  updatePeptideSequences,
+  updateSelected,
+  updateSending,
+} from '../state/peptideSearchFormActions';
 
 import { truncateTaxonLabel } from '../../utils';
-import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/peptideSearchFormParameters';
-import { PepS, LEQi, SpOnly } from '../types/peptideSearchServerParameters';
+import { peps, lEQi, spOnly } from '../types/peptideSearchServerParameters';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -52,13 +50,14 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 // just because, no actual known limit
-const PEPTIDE_SEARCH_LIMIT = 100;
+export const PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH = 7;
+export const PEPTIDE_SEARCH_SEQUENCES_COUNT = 100;
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
 const FormSelect: FC<{
   formValue: PeptideSearchFormValue;
-  updateFormValue: Dispatch<SetStateAction<PeptideSearchFormValue>>;
+  updateFormValue: (selected: PeptideSearchFormValue['selected']) => void;
 }> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
@@ -73,9 +72,7 @@ const FormSelect: FC<{
         {label}
         <select
           value={formValue.selected as string}
-          onChange={(e) =>
-            updateFormValue({ ...formValue, selected: e.target.value })
-          }
+          onChange={(e) => updateFormValue(e.target.value)}
         >
           {formValue.values &&
             formValue.values.map((optionItem) => (
@@ -107,43 +104,11 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(true);
-  // used when the form is about to be submitted to the server
-  const [sending, setSending] = useState(false);
-  // flag to see if the user manually changed the title
-  const [jobNameEdited, setJobNameEdited] = useState(false);
-
-  // actual form fields
-  const [peps, setPeps] = useState<
-    PeptideSearchFormValues[PeptideSearchFields.peps]
-  >(
-    initialFormValues[
-      PeptideSearchFields.peps
-    ] as PeptideSearchFormValues[PeptideSearchFields.peps]
-  );
-  const [taxIDs, setTaxIDs] = useState(
-    initialFormValues[
-      PeptideSearchFields.taxIds
-    ] as PeptideSearchFormValues[PeptideSearchFields.taxIds]
-  );
-  const [lEQi, setLEQi] = useState(
-    initialFormValues[
-      PeptideSearchFields.lEQi
-    ] as PeptideSearchFormValues[PeptideSearchFields.lEQi]
-  );
-  const [spOnly, setSpOnly] = useState(
-    initialFormValues[
-      PeptideSearchFields.spOnly
-    ] as PeptideSearchFormValues[PeptideSearchFields.spOnly]
-  );
-
-  // extra job-related fields
-  const [jobName, setJobName] = useState(
-    initialFormValues[
-      PeptideSearchFields.name
-    ] as PeptideSearchFormValues[PeptideSearchFields.name]
-  );
+  const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
+    useReducer(
+      getPeptideSearchFormDataReducer(defaultFormValues),
+      getPeptideSearchFormInitialState(initialFormValues)
+    );
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
@@ -152,7 +117,8 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       return;
     }
 
-    const selected = (taxIDs.selected || []) as SelectedTaxon[];
+    const selected = (formValues[PeptideSearchFields.taxIds].selected ||
+      []) as SelectedTaxon[];
 
     // If already there, don't add again
     if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) {
@@ -162,30 +128,28 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens (Man/Human/HUMAN) [9606]
     const label = truncateTaxonLabel(path);
 
-    setTaxIDs({
-      ...taxIDs,
-      selected: [{ id, label }, ...selected],
-    });
+    dispatch(
+      updateSelected(PeptideSearchFields.taxIds, [{ id, label }, ...selected])
+    );
   };
 
   const removeTaxonFormValue = (id: string | number) => {
-    const selected = (taxIDs.selected || []) as SelectedTaxon[];
-    setTaxIDs({
-      ...taxIDs,
-      selected: selected.filter((taxon: SelectedTaxon) => taxon.id !== id),
-    });
+    const selected = (formValues[PeptideSearchFields.taxIds].selected ||
+      []) as SelectedTaxon[];
+    dispatch(
+      updateSelected(
+        PeptideSearchFields.taxIds,
+        selected.filter((taxon: SelectedTaxon) => taxon.id !== id)
+      )
+    );
   };
 
   // form event handlers
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
 
-    setPeps(defaultFormValues[PeptideSearchFields.peps]);
-    setTaxIDs(defaultFormValues[PeptideSearchFields.taxIds]);
-    setLEQi(defaultFormValues[PeptideSearchFields.lEQi]);
-    setSpOnly(defaultFormValues[PeptideSearchFields.spOnly]);
-
-    setJobName(defaultFormValues[PeptideSearchFields.name]);
+    // reset all form state to defaults
+    dispatch(resetFormState());
   };
 
   // the only thing to do here would be to check the values and prevent
@@ -193,21 +157,21 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const submitPeptideSearchJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!peps.selected) {
+    if (!parsedSequences.length) {
       return;
     }
 
-    setSubmitDisabled(true);
-    setSending(true);
+    dispatch(updateSending());
 
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      peps: peps.selected as PepS,
-      taxIds: taxIDs.selected as SelectedTaxon[],
-      lEQi: lEQi.selected as LEQi,
-      spOnly: spOnly.selected as SpOnly,
+      peps: formValues[PeptideSearchFields.peps].selected as peps,
+      taxIds: formValues[PeptideSearchFields.taxIds]
+        .selected as SelectedTaxon[],
+      lEQi: formValues[PeptideSearchFields.lEQi].selected as lEQi,
+      spOnly: formValues[PeptideSearchFields.spOnly].selected as spOnly,
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
@@ -224,53 +188,18 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
         createJob(
           parameters,
           JobTypes.PEPTIDE_SEARCH,
-          jobName.selected as string
+          formValues[PeptideSearchFields.name].selected as string
         )
       );
     });
   };
 
-  const parsedSequences = useMemo(
-    () => splitAndTidyText(peps.selected as string),
-    [peps.selected]
-  );
-
-  const firstParsedSequence = parsedSequences[0];
-  useEffect(() => {
-    if (jobNameEdited) {
-      return;
-    }
-    if (parsedSequences.length > 0) {
-      const potentialJobName = `${truncate(firstParsedSequence)}${
-        parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
-      }`;
-      setJobName((jobName) => {
-        if (jobName.selected === potentialJobName) {
-          // avoid unecessary rerender by keeping the same object
-          return jobName;
-        }
-        return { ...jobName, selected: potentialJobName };
-      });
-    } else {
-      setJobName((jobName) => ({ ...jobName, selected: '' }));
-    }
-  }, [firstParsedSequence, parsedSequences.length, jobNameEdited]);
-
-  useEffect(() => {
-    setSubmitDisabled(
-      parsedSequences.length === 0 ||
-        parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
-        parsedSequences.some((parsedSequence) => parsedSequence.length < 2)
-    );
-  }, [parsedSequences]);
-
   // file handling
   useTextFileInput({
     inputRef: fileInputRef,
     onFileContent: (content) => {
-      setPeps((peps) => ({ ...peps, selected: content }));
+      dispatch(updatePeptideSequences(content));
     },
-
     onError: (error) =>
       dispatchMessages(
         addMessage({
@@ -295,8 +224,9 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           <section className="text-block">
             <legend>
               Find UniProt entries through parts of their peptide sequences,
-              each more than two amino acids long (e.g. RVLSLGR). Enter one or
-              more sequences ({PEPTIDE_SEARCH_LIMIT} max). You may also
+              each at least {PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH} amino acids
+              long. Enter one or more sequences (
+              {PEPTIDE_SEARCH_SEQUENCES_COUNT} max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />
@@ -307,38 +237,40 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               name={defaultFormValues[PeptideSearchFields.peps].fieldName}
               autoComplete="off"
               spellCheck="false"
-              aria-label="Protein sequence(s) of at least 2 aminoacids"
-              placeholder="Protein sequence(s) of at least 2 aminoacids"
+              aria-label="Protein sequence(s) of at least 7 aminoacids"
+              placeholder="e.g. RVLSLGR"
               className="tools-form-raw-text-input"
-              value={peps.selected as string}
+              value={formValues[PeptideSearchFields.peps].selected as string}
               onChange={(event) =>
-                setPeps((peps) => ({ ...peps, selected: event.target.value }))
+                dispatch(updatePeptideSequences(event.target.value))
               }
+              data-hj-allow
             />
           </section>
           <section className="tools-form-section">
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
-                url={uniProtKBApiUrls.taxonomySuggester}
+                url={uniProtKBApiUrls.organismSuggester}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"
                 clearOnSelect
               />
             </section>
             <section className="tools-form-section__item tools-form-section__item--selected-taxon">
-              {((taxIDs.selected as SelectedTaxon[]) || []).map(
-                ({ label, id }: SelectedTaxon) => (
-                  <div key={label}>
-                    <Chip
-                      onRemove={() => removeTaxonFormValue(id)}
-                      className="secondary"
-                    >
-                      {label}
-                    </Chip>
-                  </div>
-                )
-              )}
+              {(
+                (formValues[PeptideSearchFields.taxIds].selected ||
+                  []) as SelectedTaxon[]
+              ).map(({ label, id }: SelectedTaxon) => (
+                <div key={label}>
+                  <Chip
+                    onRemove={() => removeTaxonFormValue(id)}
+                    className="secondary"
+                  >
+                    {label}
+                  </Chip>
+                </div>
+              ))}
             </section>
           </section>
           <section className="tools-form-section">
@@ -351,19 +283,29 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
                   autoComplete="off"
                   maxLength={100}
                   style={{
-                    width: `${(jobName.selected as string).length + 2}ch`,
+                    width: `${
+                      (formValues[PeptideSearchFields.name].selected as string)
+                        .length + 2
+                    }ch`,
                   }}
                   placeholder={'"my job title"'}
-                  value={jobName.selected as string}
+                  value={
+                    formValues[PeptideSearchFields.name].selected as string
+                  }
                   onFocus={(event) => {
-                    if (!jobNameEdited) {
+                    if (!formValues[PeptideSearchFields.name].userSelected) {
                       event.target.select();
                     }
                   }}
                   onChange={(event) => {
-                    setJobNameEdited(Boolean(event.target.value));
-                    setJobName({ ...jobName, selected: event.target.value });
+                    dispatch(
+                      updateSelected(
+                        PeptideSearchFields.name,
+                        event.target.value
+                      )
+                    );
                   }}
+                  data-hj-allow
                 />
               </label>
             </section>
@@ -373,20 +315,20 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               <span>Advanced parameters</span>
             </summary>
             <section className="tools-form-section">
-              {[
-                [lEQi, setLEQi],
-                [spOnly, setSpOnly],
-              ].map(([stateItem, setStateItem]) => (
-                <FormSelect
-                  key={(stateItem as PeptideSearchFormValue).fieldName}
-                  formValue={stateItem as PeptideSearchFormValue}
-                  updateFormValue={
-                    setStateItem as Dispatch<
-                      SetStateAction<PeptideSearchFormValue>
-                    >
-                  }
-                />
-              ))}
+              {[PeptideSearchFields.lEQi, PeptideSearchFields.spOnly].map(
+                (stateItem) => (
+                  <FormSelect
+                    key={
+                      (formValues[stateItem] as PeptideSearchFormValue)
+                        .fieldName
+                    }
+                    formValue={formValues[stateItem] as PeptideSearchFormValue}
+                    updateFormValue={(
+                      value: PeptideSearchFormValue['selected']
+                    ) => dispatch(updateSelected(stateItem, value))}
+                  />
+                )
+              )}
             </section>
           </details>
           <section

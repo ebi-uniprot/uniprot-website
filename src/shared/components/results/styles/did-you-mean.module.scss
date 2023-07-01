@@ -2,13 +2,17 @@
   text-align: left;
 }
 
+.did-you-mean-message small {
+  font-size: 100%;
+}
+
 .suggestions {
   text-align: left;
   padding: 0.5rem 0.5rem 0rem;
 }
 
 .suggestions-list {
-  padding-top: 0.5rem;
+  padding: 0.5rem 0 0 1rem;
 }
 
 .query-suggestion-link {

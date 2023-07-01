@@ -1,17 +1,5 @@
-import { useContext } from 'react';
+import getContextHook from '../contexts/getContextHook';
 
 import { IDMappingDetailsContext } from '../contexts/IDMappingDetails';
 
-import * as logging from '../utils/logging';
-
-const useIDMappingDetails = () => {
-  const context = useContext(IDMappingDetailsContext);
-  if (context === undefined) {
-    logging.error(
-      'useIDMappingDetails must be used within a IDMappingDetailsProvider'
-    );
-  }
-  return context;
-};
-
-export default useIDMappingDetails;
+export default getContextHook(IDMappingDetailsContext);

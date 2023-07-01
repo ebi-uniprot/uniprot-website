@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Except } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
-import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
@@ -18,6 +18,7 @@ import useDataApi, {
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
+import useColumnNames from '../../../../shared/hooks/useColumnNames';
 
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import {
@@ -49,6 +50,7 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -183,6 +185,7 @@ export const enrich = (
 
 const BlastResult = () => {
   const location = useLocation();
+
   const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
 
   const [hspDetailPanel, setHspDetailPanel] = useState<Except<
@@ -228,11 +231,15 @@ const BlastResult = () => {
   );
 
   let namespace = Namespace.uniprotkb;
-  if (blastData?.dbs[0].name.startsWith('uniref')) {
+  if (location.pathname.includes('uniref')) {
     namespace = Namespace.uniref;
-  } else if (blastData?.dbs[0].name === 'uniparc') {
+  } else if (location.pathname.includes('uniparc')) {
     namespace = Namespace.uniparc;
   }
+
+  const { columnNames: columns } = useColumnNames({
+    namespaceOverride: namespace,
+  });
 
   // get data from accessions endpoint with search applied
   const { loading: accessionsLoading, data: accessionsData } =
@@ -244,24 +251,13 @@ const BlastResult = () => {
             selectedFacets: urlParams.selectedFacets,
             facets: [],
             query,
-            // Most of the needed data is already in the BLAST JSON payload
-            columns: [
-              // UniProtKB
-              namespace === Namespace.uniprotkb && 'accession',
-              // "organism_name" returns the whole taxon object with lineage
-              namespace === Namespace.uniprotkb && 'organism_name',
-              // for the detail panel
-              namespace === Namespace.uniprotkb && 'protein_name',
-              // UniRef
-              namespace === Namespace.uniref && 'id',
-              namespace === Namespace.uniref && 'name',
-              namespace === Namespace.uniref && 'common_taxon',
-              // UniParc
-              namespace === Namespace.uniparc && 'upi',
-            ].filter((x: string | boolean): x is string => Boolean(x)),
+            columns: columns.filter((x: string | boolean): x is string =>
+              Boolean(x)
+            ),
           }),
         [
           accessionsFilteredByLocalFacets,
+          columns,
           namespace,
           query,
           urlParams.selectedFacets,
@@ -319,7 +315,7 @@ const BlastResult = () => {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
-      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      sidebar = <div className={sidebarStyles['empty-sidebar']} />;
       break;
 
     default:
@@ -350,21 +346,19 @@ const BlastResult = () => {
   const basePath = `/blast/${namespace}/${match.params.id}/`;
 
   return (
-    <SideBarLayout
-      title={
-        <PageIntro
-          title={namespaceAndToolsLabels[jobType]}
-          titlePostscript={
-            <small>found in {namespaceAndToolsLabels[namespace]}</small>
-          }
-          resultsCount={hitsFiltered.length}
-        />
-      }
-      sidebar={sidebar}
-    >
+    <SidebarLayout sidebar={sidebar}>
       <HTMLHead title={title}>
         <meta name="robots" content="noindex" />
       </HTMLHead>
+      <PageIntro
+        title={namespaceAndToolsLabels[jobType]}
+        titlePostscript={
+          !loading && (
+            <small>found in {namespaceAndToolsLabels[namespace]}</small>
+          )
+        }
+        resultsCount={loading ? undefined : hitsFiltered.length}
+      />
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
@@ -479,7 +473,7 @@ const BlastResult = () => {
           onClose={() => setHspDetailPanel(null)}
         />
       )}
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

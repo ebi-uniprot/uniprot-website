@@ -7,16 +7,10 @@ export type SequenceFeatures =
   | 'Non-terminal residue'
   | 'Alternative sequence';
 
-export type DiseaseAndDrugsFeatures = 'Mutagenesis';
+export type DiseaseAndDrugsFeatures = 'Mutagenesis' | 'Natural variant';
 
 export type FunctionFeatures =
-  | 'Domain'
-  | 'Repeat'
-  | 'Zinc finger'
   | 'DNA binding'
-  | 'Region'
-  | 'Coiled coil'
-  | 'Motif'
   | 'Active site'
   | 'Binding site'
   | 'Site';
@@ -46,9 +40,11 @@ export type FamilyAndDomainsFeatures =
   | 'Region'
   | 'Repeat'
   | 'Motif'
-  | 'Compositional bias';
+  | 'Compositional bias'
+  | 'Zinc finger'
+  | 'Coiled coil';
 
-type OtherType = 'Natural variant' | 'Modified residue (large scale)' | 'Other'; // For anything else
+type OtherType = 'Modified residue (large scale data)' | 'Other'; // For anything else
 
 type FeatureType =
   | OtherType
