@@ -15,6 +15,10 @@ type State = {
   highlight?: string;
 };
 
+/**
+ * Nightingale context in order to pass the state of the instance down any level
+ * within the wrapper in order to use that state in React components within
+ */
 export const NightingaleContext = createContext<State>({});
 
 type Props = {
@@ -38,6 +42,7 @@ export const NightingaleManager = forwardRef<HTMLElement, Props>(
     useEffect(() => {
       const listener = (event: CustomEvent<Record<string, unknown>>) => {
         if (event.detail) {
+          // Copy the state within the Nightingale manager into this wrapper
           setState((previousState) => {
             const newState = { ...previousState };
             if (event.detail.displaystart) {
