@@ -8,7 +8,7 @@ type GroupBy = 'taxonomy';
 const apiUrls = {
   groupBy: (by: GroupBy, query: string, parent?: string) =>
     queryString.stringifyUrl({
-      url: joinUrl(apiPrefix, 'uniprotkb/view', by),
+      url: joinUrl(apiPrefix, 'uniprotkb/groups', by),
       query: { query, parent },
     }),
 };
