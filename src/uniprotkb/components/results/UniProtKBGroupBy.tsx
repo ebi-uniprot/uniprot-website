@@ -58,17 +58,26 @@ const getPercentageLabel = (percentage: number) => {
   return `${percentageLabel}%`;
 };
 
-export type GroupByItem = {
+export type GroupBy = {
+  ancestors: Ancestor[];
+  groups: Group[];
+};
+
+type Ancestor = {
   id: string;
   label: string;
-  link: string;
-  expand?: boolean;
+};
+
+type Group = {
+  id: string;
+  label: string;
+  expandable?: boolean;
   count: number;
 };
 
 type GroupByNodeProps = {
   query: string;
-  item: GroupByItem;
+  item: Group;
   labelWidth?: number;
   histogram?: boolean;
   parentTotal?: number;
@@ -86,7 +95,7 @@ const GroupByNode = ({
   const [open, setOpen] = useState(false);
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const url = open ? apiUrls.groupBy('taxonomy', query, item.id) : null;
-  const { loading, data, error } = useDataApi<GroupByItem[]>(url);
+  const { loading, data, error } = useDataApi<GroupBy>(url);
 
   if (error) {
     messagesDispatch(
@@ -100,7 +109,7 @@ const GroupByNode = ({
   }
 
   let icon;
-  if (item.expand) {
+  if (item.expandable) {
     if (loading) {
       icon = <SpinnerIcon height="1rem" className={styles.spinner} />;
     } else if (error) {
@@ -127,7 +136,7 @@ const GroupByNode = ({
 
   const children = data && open && (
     <ul className={cn('no-bullet', styles.groupby)}>
-      {data.map((child) => (
+      {data.groups.map((child) => (
         <GroupByNode item={child} query={query} key={child.id} />
       ))}
     </ul>
@@ -202,7 +211,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
-  const groupByResponse = useDataApi<GroupByItem[]>(`${groupByUrl}`);
+  const groupByResponse = useDataApi<GroupBy>(`${groupByUrl}`);
   const parentUrl = id
     ? getAPIQueryUrl({
         query: `${query} AND taxonomy_id:${id}`,
@@ -255,7 +264,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   }
 
   const parentTotal = parentResponse?.headers?.['x-total-results'];
-  const sumChildren = sumBy(groupByResponse.data, 'count');
+  const sumChildren = sumBy(groupByResponse.data?.groups, 'count');
   // Sanity check
   if (parentTotal && +parentTotal !== sumChildren) {
     logging.warn(
@@ -276,14 +285,14 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
         This taxonomy has no children.
       </Message>
     );
-  } else if (groupByResponse.data?.length) {
+  } else if (groupByResponse.data?.groups.length) {
     // TODO: remove optional changing when API fixes 500s (see TODO above)
     const labelWidth = Math.max(
-      ...groupByResponse.data.map((child) => child.label.length)
+      ...groupByResponse.data.groups.map((child) => child.label.length)
     );
     childrenNode = (
       <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
-        {groupByResponse.data.map((child) => (
+        {groupByResponse.data.groups.map((child) => (
           <GroupByNode
             item={child}
             query={query}
