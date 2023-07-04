@@ -4,7 +4,6 @@ import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
-  ExpandableList,
   Loader,
   LongNumber,
   Message,
@@ -43,7 +42,6 @@ import {
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
-import taxonStyles from '../../../shared/components/entry/styles/taxonomy-view.module.css';
 
 const HISTOGRAM_WIDTH = 300;
 
@@ -224,7 +222,6 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
         TaxonomyColumn.scientificName,
         TaxonomyColumn.parent,
-        TaxonomyColumn.lineage,
       ])
     : null;
   const taxonomyResponse = useDataApi<TaxonomyAPIModel>(taxonomyUrl);
@@ -273,9 +270,6 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   }
   const hasChildren = Boolean(
     +(childrenResponse?.headers?.['x-total-results'] || 0)
-  );
-  const [grandparent, ...parents] = Array.from(
-    taxonomyResponse?.data?.lineage || []
   );
 
   let childrenNode;
@@ -355,84 +349,35 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
           </li>
         )}
         {id && taxonomyResponse.data && (
-          <>
-            {(parents.length > 0 || grandparent) && (
-              <li className={styles.grandparents}>
-                <ExpandableList
-                  numberCollapsedItems={0}
-                  descriptionString="parents"
-                  displayNumberOfHiddenItems
-                  title={`Show/hide taxonomy nodes between the top level and ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
-                >
-                  {parents.reverse().map((p) => (
-                    <Link
-                      key={p.taxonId}
-                      to={qs.stringifyUrl({
-                        url: location.pathname,
-                        query: {
-                          ...searchParams,
-                          parent: p.taxonId,
-                        },
-                      })}
-                      title={`Set parent node to ${p.scientificName} (ID:${p.taxonId})`}
-                      className={
-                        p.hidden ? taxonStyles['hidden-taxon'] : undefined
-                      }
-                    >
-                      {p.scientificName}
-                    </Link>
-                  ))}
-                </ExpandableList>
-                <Link
-                  key={grandparent.taxonId}
-                  to={qs.stringifyUrl({
-                    url: location.pathname,
-                    query: {
-                      ...searchParams,
-                      parent: grandparent.taxonId,
-                    },
-                  })}
-                  title={`Set parent node to ${grandparent.scientificName} (ID:${grandparent.taxonId})`}
-                  className={
-                    grandparent.hidden ? taxonStyles['hidden-taxon'] : undefined
-                  }
-                >
-                  {grandparent.scientificName}
-                </Link>
-              </li>
-            )}
-            <li className={styles.parent}>
-              <span className={styles.count}>
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=${query}${
-                      id ? `AND taxonomy_id:${id}` : ''
-                    }`,
-                  }}
-                  title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
-                >
-                  <LongNumber>{parentTotal || 0}</LongNumber>
-                </Link>
+          <li className={styles.parent}>
+            <span className={styles.count}>
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `query=${query}${id ? ` AND taxonomy_id:${id}` : ''}`,
+                }}
+                title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
+              >
+                <LongNumber>{parentTotal || 0}</LongNumber>
+              </Link>
+            </span>
+            <span className={styles.label}>
+              <span
+                className={styles['active-label']}
+                title={`Parent node currently set to ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
+              >
+                {taxonomyResponse.data.scientificName}
               </span>
-              <span className={styles.label}>
-                <span
-                  className={styles['active-label']}
-                  title={`Parent node currently set to ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
-                >
-                  {taxonomyResponse.data.scientificName}
-                </span>
-                <Link
-                  to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-                    accession: id,
-                  })}
-                  title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} (ID:${id})`}
-                >
-                  Taxon ID:{id}
-                </Link>
-              </span>
-            </li>
-          </>
+              <Link
+                to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+                  accession: id,
+                })}
+                title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} (ID:${id})`}
+              >
+                Taxon ID:{id}
+              </Link>
+            </span>
+          </li>
         )}
       </ul>
       {childrenNode}
