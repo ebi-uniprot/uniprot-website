@@ -49,10 +49,15 @@ export const ResubmitButton = ({
     setDisabled(true);
 
     const taxonMapping = new Map();
-    if ('taxids' in inputParamsData || 'negative_taxids' in inputParamsData) {
+    if (
+      'taxids' in inputParamsData ||
+      'negative_taxids' in inputParamsData ||
+      'taxId' in inputParamsData
+    ) {
       const taxonRequests = [
         ...(inputParamsData.taxids || '').split(','),
         ...(inputParamsData.negative_taxids || '').split(','),
+        ...(inputParamsData.taxId || '').split(','),
       ].map((id) => {
         const idCleaned = id.trim();
         if (!idCleaned) {

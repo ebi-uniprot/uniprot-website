@@ -49,6 +49,7 @@ import { MessageLevel } from '../../../../messages/types/messagesTypes';
 
 import styles from './styles/id-mapping-result.module.scss';
 import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import { ServerParameters } from '../../types/idMappingServerParameters';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -335,6 +336,7 @@ const IDMappingResult = () => {
               resultsDataObject={resultsDataObject}
               detailsData={detailsData}
               notCustomisable={notCustomisable}
+              inputParamsData={detailsData as ServerParameters}
             />
           </Suspense>
         </Tab>
