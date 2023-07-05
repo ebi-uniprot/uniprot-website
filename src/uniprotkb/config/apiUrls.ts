@@ -3,7 +3,7 @@ import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../shared/config/apiUrls';
 
-type GroupBy = 'taxonomy';
+export type GroupBy = 'ec' | 'go' | 'keyword' | 'taxonomy';
 
 const apiUrls = {
   groupBy: (by: GroupBy, query: string, parent?: string) =>
