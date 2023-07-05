@@ -29,6 +29,12 @@ import sharedApiUrls, {
   getAPIQueryUrl,
 } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
+import {
+  getPercentageLabel,
+  getParentUrl,
+  getSuggesterTitle,
+  getSuggesterUrl,
+} from './UniProtKBGroupByUtils';
 import * as logging from '../../../shared/utils/logging';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -44,17 +50,6 @@ import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import styles from './styles/group-by.module.scss';
 
 const HISTOGRAM_WIDTH = 300;
-
-const getPercentageLabel = (percentage: number) => {
-  const percentageLabel = percentage?.toFixed(0);
-  if (+percentageLabel === 0) {
-    return '≈0%';
-  }
-  if (percentageLabel === '100' && percentage !== 100) {
-    return '≈100%';
-  }
-  return `${percentageLabel}%`;
-};
 
 export type GroupByAPIModel = {
   ancestors: Ancestor[];
@@ -295,20 +290,6 @@ const GroupByNode = ({
   );
 };
 
-const groupByToTerm: Record<GroupBy, string> = {
-  ec: 'ec',
-  go: 'go',
-  keyword: 'keyword',
-  taxonomy: 'taxonomy_id',
-};
-
-const getParentUrl = (groupBy: GroupBy, id: string, query: string) =>
-  getAPIQueryUrl({
-    query: `${query} AND ${groupByToTerm[groupBy]}:${id}`,
-    size: 0,
-    facets: null,
-  });
-
 type GroupByRootProps = {
   query: string;
   id?: string;
@@ -495,22 +476,10 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
     </div>
   );
 };
+
 type UniProtKBGroupByResultsProps = {
   total?: number;
 };
-
-const getSuggesterUrl = (groupBy: GroupBy) =>
-  `/suggester?dict=${groupBy}&query=?`;
-
-const groupByToLabel: Record<GroupBy, string> = {
-  ec: 'Enzyme Classification [EC]',
-  go: 'Gene Ontology [GO]',
-  keyword: 'Keyword [KW]',
-  taxonomy: 'Taxonomy [OC]',
-};
-
-const getSuggesterTitle = (groupBy: GroupBy) =>
-  `Search for ${groupByToLabel[groupBy]}`;
 
 const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const history = useHistory();
