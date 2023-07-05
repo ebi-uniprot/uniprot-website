@@ -76,7 +76,7 @@ type Group = {
 type GroupByAncestorProps = {
   query: string;
   ancestors: Ancestor[];
-  count: number;
+  count?: number;
   labelWidth?: number;
   children: ReactNode;
 };
@@ -88,65 +88,74 @@ const GroupByAncestor = ({
   labelWidth,
   children,
 }: GroupByAncestorProps) => {
+  const location = useLocation();
+  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const [open, setOpen] = useState(true);
   const [ancestor, ...restAncestors] = ancestors;
+
+  if (!ancestor) {
+    return <>{children}</>;
+  }
+
+  if (!count) {
+    return null;
+  }
+
   return (
-    <li className={styles.node}>
-      <ul className={cn('no-bullet', styles.groupby)}>
-        <li>
-          <span className={styles.expand}>
-            <Button
-              variant="secondary"
-              aria-expanded={open}
-              onClick={() => setOpen((o) => !o)}
-            >
-              ►
-            </Button>
-          </span>
-          <span className={styles.count}>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: `query=${query} AND taxonomy_id:${ancestor.id}`,
-              }}
-              title={`UniProtKB search results with taxonomy:${ancestor.label} (ID:${ancestor.id}) and query:${query}`}
-            >
-              <LongNumber>{count}</LongNumber>
-            </Link>
-          </span>
-          <span
-            className={styles.label}
-            style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+    <ul className={cn('no-bullet', styles.groupby)}>
+      <li className={styles.node}>
+        <span className={styles.expand}>
+          <Button
+            variant="secondary"
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
           >
-            <Link
-              to={qs.stringifyUrl({
-                url: 'location.pathname',
-                query: {
-                  ...{}, // searchParams,
-                  parent: ancestor.id,
-                },
-              })}
-              title={`Set parent node to ${ancestor.label} ID:${ancestor.id}`}
+            ►
+          </Button>
+        </span>
+        <span className={styles.count}>
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=${query} AND taxonomy_id:${ancestor.id}`,
+            }}
+            title={`UniProtKB search results with taxonomy:${ancestor.label} (ID:${ancestor.id}) and query:${query}`}
+          >
+            <LongNumber>{count}</LongNumber>
+          </Link>
+        </span>
+        <span
+          className={styles.label}
+          style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+        >
+          <Link
+            to={qs.stringifyUrl({
+              url: location.pathname,
+              query: {
+                ...searchParams,
+                parent: ancestor.id,
+              },
+            })}
+            title={`Set parent node to ${ancestor.label} ID:${ancestor.id}`}
+          >
+            {ancestor.label}
+          </Link>
+        </span>
+        {open &&
+          (restAncestors.length > 0 ? (
+            <GroupByAncestor
+              ancestors={restAncestors}
+              query={query}
+              count={count}
+              labelWidth={labelWidth}
             >
-              {ancestor.label}
-            </Link>
-          </span>
-          {open &&
-            (restAncestors.length > 0 ? (
-              <GroupByAncestor
-                ancestors={restAncestors}
-                query={query}
-                count={count}
-                labelWidth={labelWidth}
-              >
-                {children}
-              </GroupByAncestor>
-            ) : (
-              <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
-            ))}
-        </li>
-      </ul>
-    </li>
+              {children}
+            </GroupByAncestor>
+          ) : (
+            <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
+          ))}
+      </li>
+    </ul>
   );
 };
 
@@ -208,12 +217,24 @@ const GroupByNode = ({
       );
     }
   }
-
+  const sumChildren = sumBy(data?.groups, 'count');
   const children = data && open && (
     <ul className={cn('no-bullet', styles.groupby)}>
-      {data.groups.map((child) => (
-        <GroupByNode item={child} query={query} key={child.id} />
-      ))}
+      <GroupByAncestor
+        ancestors={data.ancestors}
+        query={query}
+        labelWidth={labelWidth}
+        count={sumChildren}
+      >
+        {data.groups.map((child) => (
+          <GroupByNode
+            item={child}
+            query={query}
+            key={child.id}
+            parentTotal={sumChildren}
+          />
+        ))}
+      </GroupByAncestor>
     </ul>
   );
 
@@ -367,8 +388,8 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
         <GroupByAncestor
           ancestors={groupByResponse.data.ancestors}
           query={query}
-          labelWidth={2}
-          count={sumChildren || total || 0}
+          labelWidth={labelWidth}
+          count={sumChildren || total}
         >
           {groupByResponse.data.groups.map((child) => (
             <GroupByNode
@@ -433,7 +454,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
             </span>
           </li>
         )}
-        {id && taxonomyResponse.data && (
+        {id && taxonomyResponse.data && parentTotal && (
           <li className={styles.parent}>
             <span className={styles.count}>
               <Link
@@ -443,7 +464,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
                 }}
                 title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
               >
-                <LongNumber>{parentTotal || 0}</LongNumber>
+                <LongNumber>{parentTotal}</LongNumber>
               </Link>
             </span>
             <span className={styles.label}>
