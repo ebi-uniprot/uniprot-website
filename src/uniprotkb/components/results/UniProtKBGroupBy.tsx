@@ -1,5 +1,5 @@
 /* eslint-disable uniprot-website/use-config-location */
-import { useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
@@ -71,6 +71,74 @@ type Group = {
   label: string;
   expandable?: boolean;
   count: number;
+};
+
+type GroupByAncestorProps = {
+  query: string;
+  ancestors: Ancestor[];
+  count: number;
+  labelWidth?: number;
+  children: ReactNode;
+};
+
+const GroupByAncestor = ({
+  ancestors,
+  query,
+  count,
+  labelWidth,
+  children,
+}: GroupByAncestorProps) => {
+  const [ancestor, ...restAncestors] = ancestors;
+  console.log(labelWidth);
+  return (
+    <li className={styles.node}>
+      <ul className={cn('no-bullet', styles.groupby)}>
+        <li>
+          <span className={styles.expand}>►</span>
+          <span className={styles.count}>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: `query=${query} AND taxonomy_id:${ancestor.id}`,
+              }}
+              title={`UniProtKB search results with taxonomy:${ancestor.label} (ID:${ancestor.id}) and query:${query}`}
+            >
+              <LongNumber>{count}</LongNumber>
+            </Link>
+          </span>
+          <span
+            className={styles.label}
+            style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+          >
+            <Link
+              to={qs.stringifyUrl({
+                url: 'location.pathname',
+                query: {
+                  ...{}, // searchParams,
+                  parent: ancestor.id,
+                },
+              })}
+              title={`Set parent node to ${ancestor.label} ID:${ancestor.id}`}
+            >
+              {ancestor.label}
+            </Link>
+          </span>
+          {restAncestors.length > 0 ? (
+            <GroupByAncestor
+              ancestors={restAncestors}
+              query={query}
+              count={count}
+              labelWidth={labelWidth}
+            >
+              {children}
+            </GroupByAncestor>
+          ) : (
+            <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
+          )}
+        </li>
+      </ul>
+    </li>
+  );
 };
 
 type GroupByNodeProps = {
@@ -262,6 +330,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
 
   const parentTotal = parentResponse?.headers?.['x-total-results'];
   const sumChildren = sumBy(groupByResponse.data?.groups, 'count');
+  // TODO: evenutally remove sanity check and possibly avoid additional request
   // Sanity check
   if (parentTotal && +parentTotal !== sumChildren) {
     logging.warn(
@@ -286,16 +355,23 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
     );
     childrenNode = (
       <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
-        {groupByResponse.data.groups.map((child) => (
-          <GroupByNode
-            item={child}
-            query={query}
-            key={child.id}
-            labelWidth={labelWidth}
-            histogram
-            parentTotal={sumChildren || total}
-          />
-        ))}
+        <GroupByAncestor
+          ancestors={groupByResponse.data.ancestors}
+          query={query}
+          labelWidth={2}
+          count={sumChildren || total || 0}
+        >
+          {groupByResponse.data.groups.map((child) => (
+            <GroupByNode
+              item={child}
+              query={query}
+              key={child.id}
+              labelWidth={labelWidth}
+              histogram
+              parentTotal={sumChildren || total}
+            />
+          ))}
+        </GroupByAncestor>
       </ul>
     );
   } else {
