@@ -94,9 +94,7 @@ const GroupByAncestor = ({
   const [ancestor, ...restAncestors] = ancestors;
 
   if (!ancestor) {
-    return (
-      <ul className={cn('no-bullet', styles.groupby, 'foo')}>{children}</ul>
-    );
+    return <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>;
   }
 
   if (!count) {
@@ -104,65 +102,60 @@ const GroupByAncestor = ({
   }
 
   return (
-    <li className={styles.node}>
-      <ul className={cn('no-bullet', styles.groupby)}>
-        <li className={styles.node}>
-          <span className={styles.expand}>
-            <Button
-              variant="secondary"
-              aria-expanded={open}
-              onClick={() => setOpen((o) => !o)}
-            >
-              ►
-            </Button>
-          </span>
-          <span className={styles.count}>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: `query=${query} AND taxonomy_id:${ancestor.id}`,
-              }}
-              title={`UniProtKB search results with taxonomy:${ancestor.label} (ID:${ancestor.id}) and query:${query}`}
-            >
-              <LongNumber>{count}</LongNumber>
-            </Link>
-          </span>
-          <span
-            className={styles.label}
-            style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+    <ul className={cn('no-bullet', styles.groupby, styles.ancestor)}>
+      <li className={styles.node}>
+        <span className={styles.expand}>
+          <Button
+            variant="secondary"
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
           >
-            <Link
-              to={qs.stringifyUrl({
-                url: location.pathname,
-                query: {
-                  ...searchParams,
-                  parent: ancestor.id,
-                },
-              })}
-              title={`Set parent node to ${ancestor.label} ID:${ancestor.id}`}
+            ►
+          </Button>
+        </span>
+        <span className={styles.count}>
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=${query} AND taxonomy_id:${ancestor.id}`,
+            }}
+            title={`UniProtKB search results with taxonomy:${ancestor.label} (ID:${ancestor.id}) and query:${query}`}
+          >
+            <LongNumber>{count}</LongNumber>
+          </Link>
+        </span>
+        <span
+          className={styles.label}
+          style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+        >
+          <Link
+            to={qs.stringifyUrl({
+              url: location.pathname,
+              query: {
+                ...searchParams,
+                parent: ancestor.id,
+              },
+            })}
+            title={`Set parent node to ${ancestor.label} ID:${ancestor.id}`}
+          >
+            {ancestor.label}
+          </Link>
+        </span>
+        {open &&
+          (restAncestors.length > 0 ? (
+            <GroupByAncestor
+              ancestors={restAncestors}
+              query={query}
+              count={count}
+              labelWidth={labelWidth}
             >
-              {ancestor.label}
-            </Link>
-          </span>
-          {open && (
-            <ul className={cn('no-bullet', styles.groupby)}>
-              {restAncestors.length > 0 ? (
-                <GroupByAncestor
-                  ancestors={restAncestors}
-                  query={query}
-                  count={count}
-                  labelWidth={labelWidth}
-                >
-                  {children}
-                </GroupByAncestor>
-              ) : (
-                children
-              )}
-            </ul>
-          )}
-        </li>
-      </ul>
-    </li>
+              {children}
+            </GroupByAncestor>
+          ) : (
+            <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
+          ))}
+      </li>
+    </ul>
   );
 };
 
@@ -226,23 +219,21 @@ const GroupByNode = ({
   }
   const sumChildren = sumBy(data?.groups, 'count');
   const children = data && open && (
-    <ul className={cn('no-bullet', styles.groupby)}>
-      <GroupByAncestor
-        ancestors={data.ancestors}
-        query={query}
-        labelWidth={labelWidth}
-        count={sumChildren}
-      >
-        {data.groups.map((child) => (
-          <GroupByNode
-            item={child}
-            query={query}
-            key={child.id}
-            parentTotal={sumChildren}
-          />
-        ))}
-      </GroupByAncestor>
-    </ul>
+    <GroupByAncestor
+      ancestors={data.ancestors}
+      query={query}
+      labelWidth={labelWidth}
+      count={sumChildren}
+    >
+      {data.groups.map((child) => (
+        <GroupByNode
+          item={child}
+          query={query}
+          key={child.id}
+          parentTotal={sumChildren}
+        />
+      ))}
+    </GroupByAncestor>
   );
 
   const proportion = histogram && parentTotal && item.count / parentTotal;
@@ -391,25 +382,23 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
       ...groupByResponse.data.groups.map((child) => child.label.length)
     );
     childrenNode = (
-      <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
-        <GroupByAncestor
-          ancestors={groupByResponse.data.ancestors}
-          query={query}
-          labelWidth={labelWidth}
-          count={sumChildren || total}
-        >
-          {groupByResponse.data.groups.map((child) => (
-            <GroupByNode
-              item={child}
-              query={query}
-              key={child.id}
-              labelWidth={labelWidth}
-              histogram
-              parentTotal={sumChildren || total}
-            />
-          ))}
-        </GroupByAncestor>
-      </ul>
+      <GroupByAncestor
+        ancestors={groupByResponse.data.ancestors}
+        query={query}
+        labelWidth={labelWidth}
+        count={sumChildren || total}
+      >
+        {groupByResponse.data.groups.map((child) => (
+          <GroupByNode
+            item={child}
+            query={query}
+            key={child.id}
+            labelWidth={labelWidth}
+            histogram
+            parentTotal={sumChildren || total}
+          />
+        ))}
+      </GroupByAncestor>
     );
   } else {
     childrenNode = (
