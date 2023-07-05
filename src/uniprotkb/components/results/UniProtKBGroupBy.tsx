@@ -295,24 +295,33 @@ const GroupByNode = ({
   );
 };
 
+const groupByToTerm: Record<GroupBy, string> = {
+  ec: 'ec',
+  go: 'go',
+  keyword: 'keyword',
+  taxonomy: 'taxonomy_id',
+};
+
+const getParentUrl = (groupBy: GroupBy, id: string, query: string) =>
+  getAPIQueryUrl({
+    query: `${query} AND ${groupByToTerm[groupBy]}:${id}`,
+    size: 0,
+    facets: null,
+  });
+
 type GroupByRootProps = {
   query: string;
   id?: string;
   total?: number;
+  groupBy: GroupBy;
 };
 
-const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
+const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
-  const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
+  const groupByUrl = apiUrls.groupBy(groupBy, query, id);
   const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
-  const parentUrl = id
-    ? getAPIQueryUrl({
-        query: `${query} AND taxonomy_id:${id}`,
-        size: 0,
-        facets: null,
-      })
-    : null;
+  const parentUrl = id ? getParentUrl(groupBy, id, query) : null;
   const parentResponse = useDataApi<UniProtkbAPIModel>(parentUrl);
   const taxonomyUrl = id
     ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
@@ -543,7 +552,12 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
             clearOnSelect
           />
         </section>
-        <GroupByRoot query={query} id={parent} total={total} />
+        <GroupByRoot
+          groupBy={groupBy}
+          query={query}
+          id={parent}
+          total={total}
+        />
       </>
     )
   );
