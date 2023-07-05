@@ -88,13 +88,21 @@ const GroupByAncestor = ({
   labelWidth,
   children,
 }: GroupByAncestorProps) => {
+  const [open, setOpen] = useState(true);
   const [ancestor, ...restAncestors] = ancestors;
-  console.log(labelWidth);
   return (
     <li className={styles.node}>
       <ul className={cn('no-bullet', styles.groupby)}>
         <li>
-          <span className={styles.expand}>►</span>
+          <span className={styles.expand}>
+            <Button
+              variant="secondary"
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+            >
+              ►
+            </Button>
+          </span>
           <span className={styles.count}>
             <Link
               to={{
@@ -123,18 +131,19 @@ const GroupByAncestor = ({
               {ancestor.label}
             </Link>
           </span>
-          {restAncestors.length > 0 ? (
-            <GroupByAncestor
-              ancestors={restAncestors}
-              query={query}
-              count={count}
-              labelWidth={labelWidth}
-            >
-              {children}
-            </GroupByAncestor>
-          ) : (
-            <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
-          )}
+          {open &&
+            (restAncestors.length > 0 ? (
+              <GroupByAncestor
+                ancestors={restAncestors}
+                query={query}
+                count={count}
+                labelWidth={labelWidth}
+              >
+                {children}
+              </GroupByAncestor>
+            ) : (
+              <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
+            ))}
         </li>
       </ul>
     </li>
