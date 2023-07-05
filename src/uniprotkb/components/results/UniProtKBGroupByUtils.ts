@@ -18,15 +18,15 @@ export const groupByToTerm: Record<GroupBy, string> = {
   taxonomy: 'taxonomy_id',
 };
 
-export const getSuggesterUrl = (groupBy: GroupBy) =>
+export const getGroupBySuggesterUrl = (groupBy: GroupBy) =>
   `/suggester?dict=${groupBy}&query=?`;
 
 export const groupByToLabel: Record<GroupBy, string> = {
-  ec: 'Enzyme Classification [EC]',
-  go: 'Gene Ontology [GO]',
-  keyword: 'Keyword [KW]',
-  taxonomy: 'Taxonomy [OC]',
+  ec: 'Enzyme Classification',
+  go: 'Gene Ontology',
+  keyword: 'Keyword',
+  taxonomy: 'Taxonomy',
 };
 
-export const getSuggesterTitle = (groupBy: GroupBy) =>
+export const getGroupBySuggesterTitle = (groupBy: GroupBy) =>
   `Search for ${groupByToLabel[groupBy]}`;

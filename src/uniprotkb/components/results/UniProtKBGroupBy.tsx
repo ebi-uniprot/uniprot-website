@@ -15,7 +15,9 @@ import qs from 'query-string';
 import { sumBy } from 'lodash-es';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import AutocompleteWrapper, {
+  Suggestions,
+} from '../../../query-builder/components/AutocompleteWrapper';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
@@ -24,20 +26,19 @@ import apiUrls, { GroupBy } from '../../config/apiUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import sharedApiUrls, {
+import {
   getAPIQueryParams,
+  getSuggesterUrl,
 } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
 import {
+  getGroupBySuggesterUrl,
   getPercentageLabel,
-  getSuggesterTitle,
-  getSuggesterUrl,
+  getGroupBySuggesterTitle,
+  groupByToLabel,
 } from './UniProtKBGroupByUtils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
-import { TaxonomyColumn } from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
-import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   MessageFormat,
   MessageLevel,
@@ -298,15 +299,13 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy(groupBy, query, id);
   const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
-  const taxonomyUrl = id
-    ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
-        TaxonomyColumn.scientificName,
-        TaxonomyColumn.parent,
-      ])
+  // TODO: remove this when backend provides the parent information in the groupby response
+  const parentUrl = id
+    ? getSuggesterUrl(getGroupBySuggesterUrl(groupBy), id)
     : null;
-  const taxonomyResponse = useDataApi<TaxonomyAPIModel>(taxonomyUrl);
+  const parentResponse = useDataApi<Suggestions>(parentUrl);
 
-  if (groupByResponse.loading || (id && taxonomyResponse.loading)) {
+  if (groupByResponse.loading || (id && parentResponse.loading)) {
     return <Loader />;
   }
 
@@ -314,8 +313,8 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={groupByResponse.status} />;
   }
 
-  if (taxonomyResponse.error || (id && !taxonomyResponse.data)) {
-    return <ErrorHandler status={taxonomyResponse.status} />;
+  if (parentResponse.error || (id && !parentResponse.data)) {
+    return <ErrorHandler status={parentResponse.status} />;
   }
 
   const sumChildren = sumBy(groupByResponse.data?.groups, 'count');
@@ -324,11 +323,10 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   if (id && !sumChildren) {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        This taxonomy has no children.
+        This {groupByToLabel[groupBy]} node has no children.
       </Message>
     );
   } else if (groupByResponse.data?.groups.length) {
-    // TODO: remove optional changing when API fixes 500s (see TODO above)
     const labelWidth = Math.max(
       ...groupByResponse.data.groups.map((child) => child.label.length)
     );
@@ -358,6 +356,9 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
       </Message>
     );
   }
+
+  const { value: parentLabel, id: parentId } =
+    parentResponse?.data?.suggestions?.[0] || {};
 
   return (
     <div className={styles['groupby-container']}>
@@ -401,7 +402,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             </span>
           </li>
         )}
-        {id && taxonomyResponse.data && sumChildren && (
+        {id && parentResponse.data && sumChildren && (
           <li className={styles.parent}>
             <span className={styles.count}>
               <Link
@@ -409,7 +410,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
                   pathname: LocationToPath[Location.UniProtKBResults],
                   search: `query=${query}${id ? ` AND taxonomy_id:${id}` : ''}`,
                 }}
-                title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
+                title={`UniProtKB search results with taxonomy:${parentLabel} (ID:${parentId}) and query:${query}`}
               >
                 <LongNumber>{sumChildren}</LongNumber>
               </Link>
@@ -417,15 +418,15 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             <span className={styles.label}>
               <span
                 className={styles['active-label']}
-                title={`Parent node currently set to ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
+                title={`Parent node currently set to ${parentLabel} (ID:${parentId})`}
               >
-                {taxonomyResponse.data.scientificName}
+                {parentLabel}
               </span>
               <Link
                 to={generatePath(LocationToPath[Location.TaxonomyEntry], {
                   accession: id,
                 })}
-                title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} (ID:${id})`}
+                title={`The taxonomy entry page for ${parentLabel} (ID:${id})`}
               >
                 Taxon ID:{id}
               </Link>
@@ -476,9 +477,9 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
         <section className={styles.autocomplete}>
           <AutocompleteWrapper
             placeholder="Enter taxon name or ID"
-            url={getSuggesterUrl(groupBy)}
+            url={getGroupBySuggesterUrl(groupBy)}
             onSelect={handleAutocompleteFormValue}
-            title={getSuggesterTitle(groupBy)}
+            title={getGroupBySuggesterTitle(groupBy)}
             clearOnSelect
           />
         </section>
