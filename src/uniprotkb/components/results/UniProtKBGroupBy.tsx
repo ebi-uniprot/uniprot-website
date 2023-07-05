@@ -20,7 +20,7 @@ import AutocompleteWrapper from '../../../query-builder/components/AutocompleteW
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls, { GroupBy } from '../../config/apiUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
@@ -56,7 +56,7 @@ const getPercentageLabel = (percentage: number) => {
   return `${percentageLabel}%`;
 };
 
-export type GroupBy = {
+export type GroupByAPIModel = {
   ancestors: Ancestor[];
   groups: Group[];
 };
@@ -179,7 +179,7 @@ const GroupByNode = ({
   const [open, setOpen] = useState(false);
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const url = open ? apiUrls.groupBy('taxonomy', query, item.id) : null;
-  const { loading, data, error } = useDataApi<GroupBy>(url);
+  const { loading, data, error } = useDataApi<GroupByAPIModel>(url);
 
   if (error) {
     messagesDispatch(
@@ -305,7 +305,7 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
-  const groupByResponse = useDataApi<GroupBy>(`${groupByUrl}`);
+  const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
   const parentUrl = id
     ? getAPIQueryUrl({
         query: `${query} AND taxonomy_id:${id}`,
@@ -490,15 +490,18 @@ type UniProtKBGroupByResultsProps = {
   total?: number;
 };
 
+const getSuggsterUrl = (groupBy: GroupBy) =>
+  `/suggester?dict=${groupBy}&query=?`;
+
 const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const history = useHistory();
   const locationSearch = useLocation().search;
   const [params] = getParamsFromURL(locationSearch);
   // This query will include facets
   const { query } = getAPIQueryParams(params);
-  const { parent } = params;
+  const { parent, groupBy } = params;
 
-  const handleTaxonFormValue = useCallback(
+  const handleAutocompleteFormValue = useCallback(
     (_, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
@@ -518,19 +521,21 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   );
 
   return (
-    <>
-      <h2 className="small">Group by taxonomy</h2>
-      <section className={styles.autocomplete}>
-        <AutocompleteWrapper
-          placeholder="Enter taxon name or ID"
-          url={sharedApiUrls.taxonomySuggester}
-          onSelect={handleTaxonFormValue}
-          title="Search for taxonomy"
-          clearOnSelect
-        />
-      </section>
-      <GroupByRoot query={query} id={parent} total={total} />
-    </>
+    groupBy && (
+      <>
+        <h2 className="small">Group by taxonomy</h2>
+        <section className={styles.autocomplete}>
+          <AutocompleteWrapper
+            placeholder="Enter taxon name or ID"
+            url={getSuggsterUrl(groupBy)}
+            onSelect={handleAutocompleteFormValue}
+            title="Search for taxonomy"
+            clearOnSelect
+          />
+        </section>
+        <GroupByRoot query={query} id={parent} total={total} />
+      </>
+    )
   );
 };
 
