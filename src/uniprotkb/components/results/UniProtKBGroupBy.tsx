@@ -26,16 +26,13 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import sharedApiUrls, {
   getAPIQueryParams,
-  getAPIQueryUrl,
 } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
 import {
   getPercentageLabel,
-  getParentUrl,
   getSuggesterTitle,
   getSuggesterUrl,
 } from './UniProtKBGroupByUtils';
-import * as logging from '../../../shared/utils/logging';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -45,7 +42,6 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
 
@@ -302,8 +298,6 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy(groupBy, query, id);
   const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
-  const parentUrl = id ? getParentUrl(groupBy, id, query) : null;
-  const parentResponse = useDataApi<UniProtkbAPIModel>(parentUrl);
   const taxonomyUrl = id
     ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
         TaxonomyColumn.scientificName,
@@ -311,56 +305,23 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
       ])
     : null;
   const taxonomyResponse = useDataApi<TaxonomyAPIModel>(taxonomyUrl);
-  const childrenUrl = id
-    ? getAPIQueryUrl({
-        namespace: Namespace.taxonomy,
-        query: `parent:${id}`,
-        size: 0,
-        facets: null,
-      })
-    : null;
-  const childrenResponse = useDataApi<TaxonomyAPIModel>(childrenUrl);
 
-  if (
-    groupByResponse.loading ||
-    (id && taxonomyResponse.loading) ||
-    (id && parentResponse.loading)
-  ) {
+  if (groupByResponse.loading || (id && taxonomyResponse.loading)) {
     return <Loader />;
   }
 
-  // TODO: uncomment as soon as API stops returning 500s for leaf nodes
-  // if (groupByResponse.error || !groupByResponse.data) {
-  //   return <ErrorHandler status={groupByResponse.status} />;
-  // }
+  if (groupByResponse.error || !groupByResponse.data) {
+    return <ErrorHandler status={groupByResponse.status} />;
+  }
 
   if (taxonomyResponse.error || (id && !taxonomyResponse.data)) {
     return <ErrorHandler status={taxonomyResponse.status} />;
   }
 
-  if (parentResponse.error || (id && !parentResponse.data)) {
-    return <ErrorHandler status={taxonomyResponse.status} />;
-  }
-
-  if (childrenResponse.error || (id && !childrenResponse.data)) {
-    return <ErrorHandler status={childrenResponse.status} />;
-  }
-
-  const parentTotal = parentResponse?.headers?.['x-total-results'];
   const sumChildren = sumBy(groupByResponse.data?.groups, 'count');
-  // TODO: evenutally remove sanity check and possibly avoid additional request
-  // Sanity check
-  if (parentTotal && +parentTotal !== sumChildren) {
-    logging.warn(
-      `parentTotal !== sumChildren: ${parentTotal} !== ${sumChildren}`
-    );
-  }
-  const hasChildren = Boolean(
-    +(childrenResponse?.headers?.['x-total-results'] || 0)
-  );
 
   let childrenNode;
-  if (id && !hasChildren) {
+  if (id && !sumChildren) {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
         This taxonomy has no children.
@@ -440,7 +401,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             </span>
           </li>
         )}
-        {id && taxonomyResponse.data && parentTotal && (
+        {id && taxonomyResponse.data && sumChildren && (
           <li className={styles.parent}>
             <span className={styles.count}>
               <Link
@@ -450,7 +411,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
                 }}
                 title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
               >
-                <LongNumber>{parentTotal}</LongNumber>
+                <LongNumber>{sumChildren}</LongNumber>
               </Link>
             </span>
             <span className={styles.label}>
