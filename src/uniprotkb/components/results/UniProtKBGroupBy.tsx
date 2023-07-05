@@ -490,8 +490,18 @@ type UniProtKBGroupByResultsProps = {
   total?: number;
 };
 
-const getSuggsterUrl = (groupBy: GroupBy) =>
+const getSuggesterUrl = (groupBy: GroupBy) =>
   `/suggester?dict=${groupBy}&query=?`;
+
+const groupByToLabel: Record<GroupBy, string> = {
+  ec: 'Enzyme Classification [EC]',
+  go: 'Gene Ontology [GO]',
+  keyword: 'Keyword [KW]',
+  taxonomy: 'Taxonomy [OC]',
+};
+
+const getSuggesterTitle = (groupBy: GroupBy) =>
+  `Search for ${groupByToLabel[groupBy]}`;
 
 const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const history = useHistory();
@@ -527,9 +537,9 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
         <section className={styles.autocomplete}>
           <AutocompleteWrapper
             placeholder="Enter taxon name or ID"
-            url={getSuggsterUrl(groupBy)}
+            url={getSuggesterUrl(groupBy)}
             onSelect={handleAutocompleteFormValue}
-            title="Search for taxonomy"
+            title={getSuggesterTitle(groupBy)}
             clearOnSelect
           />
         </section>
