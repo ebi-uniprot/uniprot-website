@@ -94,7 +94,9 @@ const GroupByAncestor = ({
   const [ancestor, ...restAncestors] = ancestors;
 
   if (!ancestor) {
-    return <>{children}</>;
+    return (
+      <ul className={cn('no-bullet', styles.groupby, 'foo')}>{children}</ul>
+    );
   }
 
   if (!count) {
@@ -102,60 +104,65 @@ const GroupByAncestor = ({
   }
 
   return (
-    <ul className={cn('no-bullet', styles.groupby)}>
-      <li className={styles.node}>
-        <span className={styles.expand}>
-          <Button
-            variant="secondary"
-            aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
-          >
-            ►
-          </Button>
-        </span>
-        <span className={styles.count}>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: `query=${query} AND taxonomy_id:${ancestor.id}`,
-            }}
-            title={`UniProtKB search results with taxonomy:${ancestor.label} (ID:${ancestor.id}) and query:${query}`}
-          >
-            <LongNumber>{count}</LongNumber>
-          </Link>
-        </span>
-        <span
-          className={styles.label}
-          style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
-        >
-          <Link
-            to={qs.stringifyUrl({
-              url: location.pathname,
-              query: {
-                ...searchParams,
-                parent: ancestor.id,
-              },
-            })}
-            title={`Set parent node to ${ancestor.label} ID:${ancestor.id}`}
-          >
-            {ancestor.label}
-          </Link>
-        </span>
-        {open &&
-          (restAncestors.length > 0 ? (
-            <GroupByAncestor
-              ancestors={restAncestors}
-              query={query}
-              count={count}
-              labelWidth={labelWidth}
+    <li className={styles.node}>
+      <ul className={cn('no-bullet', styles.groupby)}>
+        <li className={styles.node}>
+          <span className={styles.expand}>
+            <Button
+              variant="secondary"
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
             >
-              {children}
-            </GroupByAncestor>
-          ) : (
-            <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
-          ))}
-      </li>
-    </ul>
+              ►
+            </Button>
+          </span>
+          <span className={styles.count}>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: `query=${query} AND taxonomy_id:${ancestor.id}`,
+              }}
+              title={`UniProtKB search results with taxonomy:${ancestor.label} (ID:${ancestor.id}) and query:${query}`}
+            >
+              <LongNumber>{count}</LongNumber>
+            </Link>
+          </span>
+          <span
+            className={styles.label}
+            style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+          >
+            <Link
+              to={qs.stringifyUrl({
+                url: location.pathname,
+                query: {
+                  ...searchParams,
+                  parent: ancestor.id,
+                },
+              })}
+              title={`Set parent node to ${ancestor.label} ID:${ancestor.id}`}
+            >
+              {ancestor.label}
+            </Link>
+          </span>
+          {open && (
+            <ul className={cn('no-bullet', styles.groupby)}>
+              {restAncestors.length > 0 ? (
+                <GroupByAncestor
+                  ancestors={restAncestors}
+                  query={query}
+                  count={count}
+                  labelWidth={labelWidth}
+                >
+                  {children}
+                </GroupByAncestor>
+              ) : (
+                children
+              )}
+            </ul>
+          )}
+        </li>
+      </ul>
+    </li>
   );
 };
 
