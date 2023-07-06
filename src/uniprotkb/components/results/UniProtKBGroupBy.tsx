@@ -36,6 +36,7 @@ import {
   getPercentageLabel,
   getGroupBySuggesterTitle,
   groupByToLabel,
+  groupByToTerm,
 } from './UniProtKBGroupByUtils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -65,7 +66,7 @@ type Group = {
   count: number;
 };
 
-type UniProtKBAndNodeSearchLinkProps = {
+type UniProtKBNodeSearchLinkProps = {
   id: string;
   label: string;
   groupBy: GroupBy;
@@ -73,19 +74,22 @@ type UniProtKBAndNodeSearchLinkProps = {
   count: number;
 };
 
-const UniProtKBAndNodeSearchLink = ({
+const UniProtKBNodeSearchLink = ({
   id,
   label,
   groupBy,
   query,
   count,
-}: UniProtKBAndNodeSearchLinkProps) => {
+}: UniProtKBNodeSearchLinkProps) => {
   const groupByLabel = groupByToLabel[groupBy];
+  const groupByTerm = groupByToTerm[groupBy];
+  // GO parent IDs are in the format GO:0008150 and search endpoint doesn't want the "GO:"
+  const groupById = groupBy === 'go' ? id.slice(3) : id;
   return (
     <Link
       to={{
         pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=${query} AND taxonomy_id:${id}`,
+        search: `query=${query} AND (${groupByTerm}:${groupById})`,
       }}
       title={`UniProtKB search results with ${groupByLabel}: ${label} (ID:${id}) and query:${query}`}
     >
@@ -166,7 +170,7 @@ const GroupByAncestor = ({
           </Button>
         </span>
         <span className={styles.count}>
-          <UniProtKBAndNodeSearchLink
+          <UniProtKBNodeSearchLink
             id={ancestor.id}
             label={ancestor.label}
             groupBy={groupBy}
@@ -294,7 +298,7 @@ const GroupByNode = ({
     <li className={styles.node}>
       <span className={styles.expand}>{icon}</span>
       <span className={styles.count}>
-        <UniProtKBAndNodeSearchLink
+        <UniProtKBNodeSearchLink
           id={item.id}
           label={item.label}
           groupBy={groupBy}
@@ -413,8 +417,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
 
   const groupByLabel = groupByToLabel[groupBy];
 
-  const { value: parentLabel, id: parentId } =
-    parentResponse?.data?.suggestions?.[0] || {};
+  const { value: parentLabel } = parentResponse?.data?.suggestions?.[0] || {};
 
   return (
     <div className={styles['groupby-container']}>
@@ -451,11 +454,11 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             </span>
           </li>
         )}
-        {id && parentId && parentLabel && sumChildren && (
+        {id && parentLabel && sumChildren && (
           <li className={styles.parent}>
             <span className={styles.count}>
-              <UniProtKBAndNodeSearchLink
-                id={parentId}
+              <UniProtKBNodeSearchLink
+                id={id}
                 label={parentLabel}
                 groupBy={groupBy}
                 query={query}
@@ -465,7 +468,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             <span className={styles.label}>
               <span
                 className={styles['active-label']}
-                title={`Parent node currently set to ${parentLabel} (ID:${parentId})`}
+                title={`Parent node currently set to ${parentLabel} (ID:${id})`}
               >
                 {parentLabel}
               </span>
