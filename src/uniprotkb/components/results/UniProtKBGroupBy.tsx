@@ -134,6 +134,7 @@ type GroupByAncestorProps = {
   labelWidth?: number;
   children: ReactNode;
   groupBy: GroupBy;
+  first?: boolean;
 };
 
 const GroupByAncestor = ({
@@ -143,6 +144,7 @@ const GroupByAncestor = ({
   labelWidth,
   children,
   groupBy,
+  first = false,
 }: GroupByAncestorProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
@@ -158,25 +160,29 @@ const GroupByAncestor = ({
   }
 
   return (
-    <ul className={cn('no-bullet', styles.groupby, styles.ancestor)}>
+    <ul className={cn('no-bullet', styles.groupby)}>
       <li className={styles.node}>
         <span className={styles.expand}>
-          <Button
-            variant="secondary"
-            aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
-          >
-            ►
-          </Button>
+          {first && (
+            <Button
+              variant="secondary"
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+            >
+              ►
+            </Button>
+          )}
         </span>
         <span className={styles.count}>
-          <UniProtKBNodeSearchLink
-            id={ancestor.id}
-            label={ancestor.label}
-            groupBy={groupBy}
-            query={query}
-            count={count}
-          />
+          {first && (
+            <UniProtKBNodeSearchLink
+              id={ancestor.id}
+              label={ancestor.label}
+              groupBy={groupBy}
+              query={query}
+              count={count}
+            />
+          )}
         </span>
         <span
           className={styles.label}
@@ -277,6 +283,7 @@ const GroupByNode = ({
       labelWidth={labelWidth}
       count={sumChildren}
       groupBy={groupBy}
+      first
     >
       {data.groups.map((child) => (
         <GroupByNode
@@ -393,6 +400,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
         labelWidth={labelWidth}
         count={sumChildren || total}
         groupBy={groupBy}
+        first
       >
         {groupByResponse.data.groups.map((child) => (
           <GroupByNode
