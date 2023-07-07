@@ -6,13 +6,13 @@ import UniProtKBGroupByResults from '../UniProtKBGroupBy';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import data from '../../../__mocks__/uniProtKBViewData';
+import { noParent } from '../../../__mocks__/uniProtKBGroupByData';
 
 let rendered: ReturnType<typeof customRender>;
 
 const mock = new MockAdapter(axios);
 
-mock.onGet(/uniprotkb\/view/).reply(200, data);
+mock.onGet(/uniprotkb\/groups/).reply(200, noParent);
 
 describe('UniProtKBGroupByResults component', () => {
   beforeEach(async () => {

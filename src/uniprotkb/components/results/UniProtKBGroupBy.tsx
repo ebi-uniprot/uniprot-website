@@ -51,11 +51,6 @@ import styles from './styles/group-by.module.scss';
 
 const HISTOGRAM_WIDTH = 300;
 
-export type GroupByAPIModel = {
-  ancestors: Ancestor[];
-  groups: Group[];
-};
-
 type Ancestor = {
   id: string;
   label: string;
@@ -66,6 +61,17 @@ type Group = {
   label: string;
   expandable?: boolean;
   count: number;
+};
+
+type Parent = {
+  label: string;
+  count: number;
+};
+
+export type GroupByAPIModel = {
+  ancestors: Ancestor[];
+  groups: Group[];
+  parent?: Parent;
 };
 
 type GroupByLinkProps = {
