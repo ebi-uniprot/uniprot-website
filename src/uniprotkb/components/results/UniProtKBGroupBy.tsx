@@ -4,6 +4,7 @@ import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
+  ExternalLink,
   Loader,
   LongNumber,
   Message,
@@ -23,6 +24,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import apiUrls, { GroupBy } from '../../config/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
@@ -64,6 +66,70 @@ type Group = {
   label: string;
   expandable?: boolean;
   count: number;
+};
+
+type GroupByLinkProps = {
+  groupBy: GroupBy;
+  id: string;
+  groupByLabel: string;
+  parentLabel: string;
+};
+
+export const GroupByLink = ({
+  groupBy,
+  id,
+  groupByLabel,
+  parentLabel,
+}: GroupByLinkProps) => {
+  const child = `${groupByLabel} ID:${id}`;
+  switch (groupBy) {
+    case 'ec':
+      return (
+        <ExternalLink
+          url={externalUrls.ENZYME(id)}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </ExternalLink>
+      );
+    case 'go':
+      return (
+        <ExternalLink
+          url={externalUrls.QuickGO(id)}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </ExternalLink>
+      );
+    case 'keyword':
+      return (
+        <Link
+          to={{
+            pathname: generatePath(LocationToPath[Location.KeywordsEntry], {
+              accession: id,
+            }),
+          }}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </Link>
+      );
+    case 'taxonomy':
+      return (
+        <Link
+          to={{
+            pathname: generatePath(LocationToPath[Location.TaxonomyEntry], {
+              accession: id,
+            }),
+          }}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </Link>
+      );
+    default:
+      return null;
+  }
 };
 
 type UniProtKBNodeSearchLinkProps = {
@@ -400,7 +466,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
         labelWidth={labelWidth}
         count={sumChildren || total}
         groupBy={groupBy}
-        showDropdownAndCount={groupByResponse.data.ancestors.length === 1}
+        showDropdownAndCount
       >
         {groupByResponse.data.groups.map((child) => (
           <GroupByNode
@@ -462,7 +528,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             </span>
           </li>
         )}
-        {id && parentLabel && Boolean(sumChildren) && (
+        {id && parentLabel && (
           <li className={styles.parent}>
             <span className={styles.count}>
               <UniProtKBNodeSearchLink
@@ -480,14 +546,12 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
               >
                 {parentLabel}
               </span>
-              <Link
-                to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-                  accession: id,
-                })}
-                title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
-              >
-                {groupByLabel} ID:{id}
-              </Link>
+              <GroupByLink
+                id={id}
+                groupBy={groupBy}
+                groupByLabel={groupByLabel}
+                parentLabel={parentLabel}
+              />
             </span>
           </li>
         )}
