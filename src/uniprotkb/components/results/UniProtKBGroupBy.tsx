@@ -134,7 +134,7 @@ type GroupByAncestorProps = {
   labelWidth?: number;
   children: ReactNode;
   groupBy: GroupBy;
-  first?: boolean;
+  showDropdownAndCount?: boolean;
 };
 
 const GroupByAncestor = ({
@@ -144,7 +144,7 @@ const GroupByAncestor = ({
   labelWidth,
   children,
   groupBy,
-  first = false,
+  showDropdownAndCount = false,
 }: GroupByAncestorProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
@@ -163,7 +163,7 @@ const GroupByAncestor = ({
     <ul className={cn('no-bullet', styles.groupby)}>
       <li className={styles.node}>
         <span className={styles.expand}>
-          {first && (
+          {showDropdownAndCount && (
             <Button
               variant="secondary"
               aria-expanded={open}
@@ -174,7 +174,7 @@ const GroupByAncestor = ({
           )}
         </span>
         <span className={styles.count}>
-          {first && (
+          {showDropdownAndCount && (
             <UniProtKBNodeSearchLink
               id={ancestor.id}
               label={ancestor.label}
@@ -283,7 +283,7 @@ const GroupByNode = ({
       labelWidth={labelWidth}
       count={sumChildren}
       groupBy={groupBy}
-      first
+      showDropdownAndCount={data.ancestors.length === 1}
     >
       {data.groups.map((child) => (
         <GroupByNode
@@ -400,7 +400,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
         labelWidth={labelWidth}
         count={sumChildren || total}
         groupBy={groupBy}
-        first
+        showDropdownAndCount={groupByResponse.data.ancestors.length === 1}
       >
         {groupByResponse.data.groups.map((child) => (
           <GroupByNode
@@ -462,7 +462,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             </span>
           </li>
         )}
-        {id && parentLabel && sumChildren && (
+        {id && parentLabel && Boolean(sumChildren) && (
           <li className={styles.parent}>
             <span className={styles.count}>
               <UniProtKBNodeSearchLink
