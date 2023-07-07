@@ -12,7 +12,7 @@ let rendered: ReturnType<typeof customRender>;
 
 const mock = new MockAdapter(axios);
 
-mock.onGet(/uniprotkb\/groups/).reply(200, noParent);
+mock.onGet(/uniprotkb?groupBy=taxonomy&query=%2A/).reply(200, noParent);
 
 describe('UniProtKBGroupByResults component', () => {
   beforeEach(async () => {
