@@ -46,6 +46,7 @@ import {
   sendGtagEventPanelResultsDownloadClose,
   sendGtagEventViewMode,
 } from '../../utils/gtagEvents';
+import { groupByLabelAndParams } from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -291,22 +292,24 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         </form>
         <Dropdown visibleElement={<Button variant="tertiary">Group by</Button>}>
           <ul>
-            <li>
-              <Link
-                // eslint-disable-next-line uniprot-website/use-config-location
-                to={(location) => {
-                  const search = new URLSearchParams(location.search);
-                  search.set('groupBy', 'taxonomy');
-                  return {
-                    ...location,
-                    pathname: location.pathname,
-                    search: search.toString(),
-                  };
-                }}
-              >
-                Taxonomy
-              </Link>
-            </li>
+            {groupByLabelAndParams.map(([label, id]) => (
+              <li key={id}>
+                <Link
+                  // eslint-disable-next-line uniprot-website/use-config-location
+                  to={(location) => {
+                    const search = new URLSearchParams(location.search);
+                    search.set('groupBy', id);
+                    return {
+                      ...location,
+                      pathname: location.pathname,
+                      search: search.toString(),
+                    };
+                  }}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </Dropdown>
         {!notCustomisable &&

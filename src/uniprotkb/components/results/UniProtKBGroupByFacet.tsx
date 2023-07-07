@@ -5,6 +5,13 @@ import queryString from 'query-string';
 import cn from 'classnames';
 import { GroupBy } from '../../config/apiUrls';
 
+export const groupByLabelAndParams: [string, GroupBy][] = [
+  ['Taxonomy', 'taxonomy'],
+  ['Keywords', 'keyword'],
+  ['Gene Ontology', 'go'],
+  ['Enzyme Class', 'ec'],
+];
+
 const UniProtKBGroupByFacet = () => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
@@ -26,42 +33,18 @@ const UniProtKBGroupByFacet = () => {
     <div>
       <span className="facet-name">Group by</span>
       <ul className="expandable-list no-bullet">
-        <li>
-          <Link
-            className={cn({
-              'facet-active': searchParams.groupBy === 'taxonomy',
-            })}
-            to={getTo('taxonomy')}
-          >
-            Taxonomy
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={cn({
-              'facet-active': searchParams.groupBy === 'keyword',
-            })}
-            to={getTo('keyword')}
-          >
-            Keywords
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={cn({ 'facet-active': searchParams.groupBy === 'go' })}
-            to={getTo('go')}
-          >
-            Gene Ontology
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={cn({ 'facet-active': searchParams.groupBy === 'ec' })}
-            to={getTo('ec')}
-          >
-            Enzyme Class
-          </Link>
-        </li>
+        {groupByLabelAndParams.map(([label, param]) => (
+          <li key={param}>
+            <Link
+              className={cn({
+                'facet-active': searchParams.groupBy === param,
+              })}
+              to={getTo(param)}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
