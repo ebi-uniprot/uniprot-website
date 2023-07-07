@@ -134,6 +134,30 @@ exports[`ResultsFacets should render 1`] = `
                 Taxonomy
               </a>
             </li>
+            <li>
+              <a
+                class=""
+                href="/uniprotkb?groupBy=keyword&query=blah"
+              >
+                Keywords
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/uniprotkb?groupBy=go&query=blah"
+              >
+                Gene Ontology
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/uniprotkb?groupBy=ec&query=blah"
+              >
+                Enzyme Class
+              </a>
+            </li>
           </ul>
         </div>
       </li>
