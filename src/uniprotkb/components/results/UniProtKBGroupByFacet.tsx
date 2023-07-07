@@ -15,7 +15,7 @@ const UniProtKBGroupByFacet = () => {
         url: location.pathname,
         query: {
           ...searchParams,
-          groupBy: searchParams.groupBy ? undefined : groupBy,
+          groupBy: searchParams.groupBy === groupBy ? undefined : groupBy,
           parent: undefined,
         },
       }),
