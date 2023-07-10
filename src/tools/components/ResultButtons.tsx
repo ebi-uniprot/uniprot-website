@@ -49,10 +49,23 @@ export const ResubmitButton = ({
     setDisabled(true);
 
     const taxonMapping = new Map();
-    if ('taxids' in inputParamsData || 'negative_taxids' in inputParamsData) {
+    if (
+      'taxids' in inputParamsData ||
+      'negative_taxids' in inputParamsData ||
+      'taxId' in inputParamsData
+    ) {
       const taxonRequests = [
-        ...(inputParamsData.taxids || '').split(','),
-        ...(inputParamsData.negative_taxids || '').split(','),
+        ...(
+          (inputParamsData as PublicServerParameters[JobTypes.BLAST]).taxids ||
+          ''
+        ).split(','),
+        ...(
+          (inputParamsData as PublicServerParameters[JobTypes.BLAST])
+            .negative_taxids || ''
+        ).split(','),
+        (
+          inputParamsData as PublicServerParameters[JobTypes.ID_MAPPING]
+        ).taxId?.toString() || '',
       ].map((id) => {
         const idCleaned = id.trim();
         if (!idCleaned) {

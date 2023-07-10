@@ -310,6 +310,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                     }
                   }
                   dispatch(updateSelected(IDMappingFields.toDb, nextToDb));
+                  dispatch(updateInputTextIDs(textIDs)); // Update the name based on the DB selection
                 }}
                 label={fromDbInfo.displayName}
                 defaultActiveNodes={[

@@ -154,6 +154,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
               <test-file-stub />
               Customize columns
             </button>
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              <test-file-stub />
+              Resubmit
+            </button>
           </div>
           <table
             class="results-data data-table"
@@ -1095,6 +1102,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
             >
               <test-file-stub />
               Customize columns
+            </button>
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              <test-file-stub />
+              Resubmit
             </button>
           </div>
           <table
