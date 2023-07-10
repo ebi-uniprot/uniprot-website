@@ -203,7 +203,8 @@ const Download: FC<DownloadProps> = ({
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
   const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
   const ftpFilenameAndUrl =
-    namespace === Namespace.uniprotkb
+    namespace === Namespace.uniprotkb &&
+    jobResultsLocation !== Location.IDMappingResult
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
 
