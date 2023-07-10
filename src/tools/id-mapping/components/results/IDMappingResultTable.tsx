@@ -14,12 +14,15 @@ import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { MappingDetails } from '../../types/idMappingSearchResults';
+import { JobTypes } from '../../../types/toolsJobTypes';
+import { PublicServerParameters } from '../../types/idMappingServerParameters';
 
 type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
   resultsDataObject: PaginatedResults;
   detailsData?: MappingDetails;
   notCustomisable?: boolean;
+  inputParamsData: PublicServerParameters;
 };
 
 const IDMappingResultTable = ({
@@ -27,6 +30,7 @@ const IDMappingResultTable = ({
   resultsDataObject,
   detailsData,
   notCustomisable = false,
+  inputParamsData,
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
@@ -55,6 +59,8 @@ const IDMappingResultTable = ({
         }
         excludeColumns={namespaceOverride === Namespace.idmapping}
         supportedFormats={supportedFormats}
+        jobType={JobTypes.ID_MAPPING}
+        inputParamsData={inputParamsData}
       />
       {inputIDs && (
         <HeroContainer>
