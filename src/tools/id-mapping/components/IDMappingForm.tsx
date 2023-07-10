@@ -327,6 +327,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 autocompletePlaceholder="Search database name"
                 onSelect={({ id }: TreeDataNode) => {
                   dispatch(updateSelected(IDMappingFields.toDb, id));
+                  dispatch(updateInputTextIDs(textIDs)); // Update the name based on the DB selection
                 }}
                 label={toDbInfo.displayName}
                 defaultActiveNodes={[
