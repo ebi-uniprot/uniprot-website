@@ -37,7 +37,7 @@ import {
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 
-const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 20_000 as const;
+const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
 
 export const getPreviewFileFormat = (
   fileFormat: FileFormat

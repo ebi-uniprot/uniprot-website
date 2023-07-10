@@ -310,7 +310,7 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
       return (
         <>
           <span>Target database: {databaseValueToName(database)}</span>
-          {taxIDs?.length && taxonsWithEllipsisReveal(taxIDs)}
+          {taxIDs?.length ? taxonsWithEllipsisReveal(taxIDs) : null}
         </>
       );
     }
@@ -505,6 +505,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   let jobIdNode;
   if ('remoteID' in job) {
+    jobIdNode = job.remoteID;
     if (!noResults) {
       if (jobUrl) {
         // Async download
@@ -517,8 +518,6 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       if (jobLink) {
         jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
       }
-    } else {
-      jobIdNode = job.remoteID;
     }
   }
 

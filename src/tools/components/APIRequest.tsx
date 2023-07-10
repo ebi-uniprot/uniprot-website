@@ -35,10 +35,7 @@ const documentation = new Map<JobTypes, string>([
     JobTypes.ID_MAPPING,
     `${API_PREFIX}/docs/?urls.primaryName=idmapping#/job/submitJob`,
   ],
-  [
-    JobTypes.PEPTIDE_SEARCH,
-    'https://research.bioinformatics.udel.edu/peptidematchws/',
-  ],
+  [JobTypes.PEPTIDE_SEARCH, 'https://peptidesearch.uniprot.org/asyncrest/'],
   [
     JobTypes.ASYNC_DOWNLOAD,
     `${API_PREFIX}/docs/?urls.primaryName=asyncdownload#/job/submitJob`, // TODO: determine final URL

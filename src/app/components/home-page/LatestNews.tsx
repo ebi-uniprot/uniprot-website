@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'The chairs were rickety. So I rummaged around the kitchen drawer, extracted an old knife and used its tip to drive a few screws back into the wood. The knife kept on losing grip and I kept on swearing.';
+  'Nature has its way of adapting to almost - if not every - known condition on Earth. It may take some time, but she gets there in the end. Adaptation has one sole aim: survival or, at the very least, a little more comfort. One of the most recent and dramatically rapid examples of biological adaptation occurred in Great Britain following the industrial revolution.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -124,6 +124,29 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2023-06-28-release',
+                  })}
+                >
+                  UniProt release 2023_03
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The fair price of an (ant) lunch | Changes to the controlled
+                vocabulary of human diseases | Changes to the controlled
+                vocabulary for PTMs
               </p>
             </article>
           </li>
@@ -378,21 +401,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/258/"
+            url="https://www.proteinspotlight.org/back_issues/259/"
             noIcon
           >
-            A shrewd tweak
+            On ants, bandicoots and Gilbertian mimicry
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/258/"
+          url="https://www.proteinspotlight.org/back_issues/259/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt258.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt259.jpg"
             alt=""
             width="123"
             height="129"
