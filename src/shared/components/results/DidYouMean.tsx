@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { orderBy } from 'lodash-es';
@@ -11,7 +11,6 @@ import useNS from '../../hooks/useNS';
 import useSafeState from '../../hooks/useSafeState';
 
 import fetchData from '../../utils/fetchData';
-import listFormat from '../../utils/listFormat';
 import { parseQueryString } from '../../utils/url';
 
 import {
@@ -20,6 +19,7 @@ import {
   Location,
 } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
+import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../tools/peptide-search/components/PeptideSearchForm';
 
 import {
   Namespace,
@@ -48,27 +48,28 @@ const QuerySuggestionListItem = ({
   suggestions,
   namespace,
 }: QuerySuggestionListItemProps) => (
-  <li>
-    {suggestions.map(({ query }, i, a) => {
-      const cleanedQuery = query.replace(reCleanUp, '$1');
-      return (
-        <Fragment key={query}>
-          {listFormat(i, a, 'or')}
-          <Link
-            to={{
-              pathname: searchLocations[namespace],
-              search: queryString.stringify({ query: cleanedQuery }),
-            }}
-            key={query}
-            className={styles['query-suggestion-link']}
-          >
-            {cleanedQuery}
-          </Link>
-        </Fragment>
-      );
-    })}
-    {` in ${searchableNamespaceLabels[namespace]}`}
-  </li>
+  <div>
+    {`In ${searchableNamespaceLabels[namespace]}`}
+    <ul className={styles['suggestions-list']}>
+      {suggestions.map(({ query }) => {
+        const cleanedQuery = query.replace(reCleanUp, '$1');
+        return (
+          <li key={query}>
+            <Link
+              to={{
+                pathname: searchLocations[namespace],
+                search: queryString.stringify({ query: cleanedQuery }),
+              }}
+              key={query}
+              className={styles['query-suggestion-link']}
+            >
+              {cleanedQuery}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
 );
 
 const PeptideSearchSuggestion = ({
@@ -76,17 +77,19 @@ const PeptideSearchSuggestion = ({
 }: {
   potentialPeptide: string;
 }) => (
-  <li>
-    <Link
-      to={{
-        pathname: LocationToPath[Location.PeptideSearch],
-        search: `peps=${potentialPeptide}`,
-      }}
-    >
-      {potentialPeptide}
-    </Link>{' '}
-    as a peptide search
-  </li>
+  <ul className={styles['suggestions-list']}>
+    <li>
+      <Link
+        to={{
+          pathname: LocationToPath[Location.PeptideSearch],
+          search: `peps=${potentialPeptide}`,
+        }}
+      >
+        {potentialPeptide}
+      </Link>{' '}
+      as a peptide search
+    </li>
+  </ul>
 );
 
 const didYouMeanNamespaces: SearchableNamespace[] = [
@@ -197,7 +200,11 @@ const DidYouMean = ({
   }
   // Peptide Search suggestion
   const potentialPeptide = query?.toUpperCase() || '';
-  const [processed] = sequenceProcessor(potentialPeptide);
+  const [processed] = sequenceProcessor(
+    potentialPeptide,
+    PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH,
+    true
+  );
 
   if (potentialPeptide && processed.valid && processed.likelyType === 'aa') {
     suggestionNodes.push(
@@ -214,7 +221,7 @@ const DidYouMean = ({
       content = (
         <div className={styles.suggestions}>
           Did you mean to search for:
-          <ul className={styles['suggestions-list']}>{suggestionNodes}</ul>
+          {suggestionNodes}
         </div>
       );
     }

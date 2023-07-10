@@ -1,9 +1,9 @@
-import { PepS, LEQi, SpOnly } from './peptideSearchServerParameters';
+import { peps, lEQi, spOnly } from './peptideSearchServerParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
 export type FormParameters = {
-  peps: PepS;
+  peps: peps;
   taxIds?: SelectedTaxon[];
-  lEQi: LEQi;
-  spOnly: SpOnly;
+  lEQi: lEQi;
+  spOnly: spOnly;
 };

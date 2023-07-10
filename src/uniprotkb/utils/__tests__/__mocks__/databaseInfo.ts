@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2023-05-04
+// Retrieved: 2023-06-27
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -281,7 +281,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'CAZy',
     displayName: 'CAZy',
     category: 'PFAM',
-    uriLink: 'http://www.cazy.org/fam/%id.html',
+    uriLink: 'http://www.cazy.org/%id.html',
     attributes: [{ name: 'FamilyName', xmlTag: 'family name' }],
   },
   {
@@ -353,7 +353,8 @@ const databaseInfo: DatabaseInfo = [
     name: 'UniLectin',
     displayName: 'UniLectin',
     category: 'PFAM',
-    uriLink: 'https://www.unilectin.eu/curated/protein/%id',
+    uriLink:
+      'https://unilectin.unige.ch/unilectin3D/display_lectin?uniprot=%id',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
   {
@@ -1528,6 +1529,14 @@ const databaseInfo: DatabaseInfo = [
     category: 'FMD',
     uriLink: 'https://mobidb.bio.unipd.it/entries/%primaryAccession',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
+    implicit: true,
+    linkedReason: 'All UniProtKB entries',
+  },
+  {
+    name: 'ProtoNet',
+    displayName: 'ProtoNet',
+    category: 'FMD',
+    uriLink: 'http://www.protonet.cs.huji.ac.il/sp.php?prot=%primaryAccession',
     implicit: true,
     linkedReason: 'All UniProtKB entries',
   },

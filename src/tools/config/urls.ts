@@ -98,12 +98,12 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:
-      baseURL =
-        'https://research.bioinformatics.udel.edu/peptidematchws/asyncrest';
+      baseURL = 'https://peptidesearch.uniprot.org/asyncrest';
       return deepFreeze({
         runUrl: baseURL,
         statusUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
         resultUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
+        detailsUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId, 'parameters'),
       });
     default:
     //

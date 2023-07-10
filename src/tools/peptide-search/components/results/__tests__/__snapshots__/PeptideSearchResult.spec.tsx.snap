@@ -201,6 +201,17 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </th>
                 <th
                   class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Match
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
                 />
                 <th
                   class=""
@@ -295,6 +306,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </a>
                   </span>
                 </td>
+                <td />
                 <td>
                   <span
                     class="entry-title__status icon--reviewed"
@@ -369,6 +381,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </a>
                   </span>
                 </td>
+                <td />
                 <td>
                   <span
                     class="entry-title__status icon--reviewed"

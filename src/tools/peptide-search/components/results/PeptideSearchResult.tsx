@@ -1,4 +1,4 @@
-import { useMemo, useRef, lazy, Suspense } from 'react';
+import { useMemo, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Loader,
@@ -14,7 +14,6 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import useToolsState from '../../../../shared/hooks/useToolsState';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
 
@@ -26,6 +25,7 @@ import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPa
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
+import { apiPrefix } from '../../../../shared/config/apiUrls';
 import {
   Namespace,
   namespaceAndToolsLabels,
@@ -41,9 +41,11 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import { SearchResults } from '../../../../shared/types/results';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
-import { Status } from '../../../types/toolsStatuses';
-import { FinishedJob } from '../../../types/toolsJob';
-import { ToolsState } from '../../../state/toolsInitialState';
+import { FormParameters } from '../../types/peptideSearchFormParameters';
+import {
+  TaxonomyAPIModel,
+  TaxonomyDatum,
+} from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
@@ -85,21 +87,21 @@ type Params = {
   subPage?: TabLocation;
 };
 
+enum ServerJobParameters {
+  QueryPetides = 'QueryPetides',
+  TaxonIds = 'TaxonIds',
+  lEqi = 'lEqi',
+  swissProtOnly = 'swissProtOnly',
+}
+
 export const MAX_PEPTIDE_FACETS_OR_DOWNLOAD = 1_000;
 
-const PeptideSearchResult = ({
-  toolsState,
-}: {
-  toolsState: NonNullable<ToolsState>;
-}) => {
+const PeptideSearchResult = () => {
   const match = useMatchWithRedirect<Params>(
     Location.PeptideSearchResult,
     TabLocation
   );
 
-  const jobSubmission = useRef<FinishedJob<JobTypes.PEPTIDE_SEARCH> | null>(
-    null
-  );
   const jobID = match?.params.id || '';
   const {
     data: jobResultData,
@@ -110,18 +112,55 @@ const PeptideSearchResult = ({
     headers: { accept: 'text/plain' },
   });
 
-  // Get the job mission from local tools state. Save this in a reference as
-  // the job may change with useMarkJobAsSeen but we don't want to have to
-  // recreate the converter which will cause usePagination to duplicate rows
-  if (!jobSubmission.current) {
-    jobSubmission.current =
-      Object.values(toolsState).find(
-        (
-          jobSubmission
-        ): jobSubmission is FinishedJob<JobTypes.PEPTIDE_SEARCH> =>
-          jobSubmission.status === Status.FINISHED &&
-          jobSubmission?.remoteID === jobID
-      ) || null;
+  const { data: jobParameters } = useDataApi<PeptideSearchResults>(
+    urls.detailsUrl?.(jobID),
+    {
+      headers: { accept: 'text/plain' },
+    }
+  );
+
+  const jobInputParameters: FormParameters = {
+    peps: '',
+    lEQi: 'off',
+    spOnly: 'off',
+  };
+  let taxonIds = '';
+  jobParameters?.split(/\n/)?.forEach((keyValuePair) => {
+    const [key, value] = keyValuePair.split(':');
+    switch (key) {
+      case ServerJobParameters.QueryPetides:
+        jobInputParameters.peps = value;
+        break;
+      case ServerJobParameters.TaxonIds:
+        if (value) {
+          taxonIds = value;
+        }
+        break;
+      case ServerJobParameters.lEqi:
+        jobInputParameters.lEQi = value === 'Y' ? 'on' : 'off';
+        break;
+      case ServerJobParameters.swissProtOnly:
+        jobInputParameters.spOnly = value === 'Y' ? 'on' : 'off';
+        break;
+      default:
+    }
+  });
+
+  const { data: taxonomyData, loading: taxonomyLoading } = useDataApi<
+    SearchResults<TaxonomyAPIModel>
+  >(
+    taxonIds
+      ? `${apiPrefix}/${Namespace.taxonomy}/taxonIds/${taxonIds}?fields=scientific_name`
+      : undefined
+  );
+
+  if (!taxonomyLoading && taxonomyData) {
+    jobInputParameters.taxIds = taxonomyData?.results?.map(
+      (taxon: TaxonomyDatum) => ({
+        id: taxon.taxonId.toString(),
+        label: `${taxon.scientificName} [${taxon.taxonId}]`,
+      })
+    );
   }
 
   const accessions = useMemo(
@@ -149,12 +188,10 @@ const PeptideSearchResult = ({
   const facetTotal = facetHeaders?.['x-total-results'];
 
   const converter = useMemo(() => {
-    const peps = jobSubmission.current?.parameters.peps;
-    return peps ? partialRight(peptideSearchConverter, peps) : undefined;
-  }, [jobSubmission]);
+    const pepSeq = jobInputParameters.peps;
+    return pepSeq ? partialRight(peptideSearchConverter, pepSeq) : undefined;
+  }, [jobInputParameters.peps]);
 
-  // TODO: if the user didn't submit this jobSubmission there is no way to get the initial sequence. In the
-  // future the API may provide this information in which case we would want to fetch and show
   const resultsDataObject = usePaginatedAccessions(accessions, converter);
 
   const {
@@ -277,7 +314,6 @@ const PeptideSearchResult = ({
               total={total}
               resultsDataObject={resultsDataObject}
               accessions={accessions}
-              jobSubmission={jobSubmission}
             />
           </Suspense>
         </Tab>
@@ -295,7 +331,7 @@ const PeptideSearchResult = ({
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
-              inputParamsData={jobSubmission.current?.parameters}
+              inputParamsData={jobInputParameters}
               jobType={jobType}
             />
           </Suspense>
@@ -312,7 +348,7 @@ const PeptideSearchResult = ({
           <Suspense fallback={<Loader />}>
             <APIRequest
               jobType={jobType}
-              inputParamsData={jobSubmission.current?.parameters}
+              inputParamsData={jobInputParameters}
             />
           </Suspense>
         </Tab>
@@ -321,13 +357,4 @@ const PeptideSearchResult = ({
   );
 };
 
-const PeptideSearchResultWithToolsState = () => {
-  const toolsState = useToolsState();
-  return toolsState === null ? (
-    <Loader />
-  ) : (
-    <PeptideSearchResult toolsState={toolsState} />
-  );
-};
-
-export default PeptideSearchResultWithToolsState;
+export default PeptideSearchResult;

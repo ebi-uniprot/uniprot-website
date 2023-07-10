@@ -34,8 +34,21 @@ const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
 
 const mockRequests = new MockAdapter(axios);
 mockRequests
-  .onGet(new RegExp(`/peptidematchws/asyncrest/jobs/${mockJob.remoteID}$`))
+  .onGet(
+    new RegExp(`/peptidesearch.uniprot.org/asyncrest/jobs/${mockJob.remoteID}$`)
+  )
   .reply(200, 'P35575,O43826');
+
+mockRequests
+  .onGet(
+    new RegExp(
+      `/peptidesearch.uniprot.org/asyncrest/jobs/${mockJob.remoteID}/parameters$`
+    )
+  )
+  .reply(
+    200,
+    'QueryPetides:AAQGYGYYRTVIFSAMFGGYSLYYFNRKTFSF\nIQSTHYLQVNYQDSQDWFILVSVIADLRNAFYVLFPIWFHLQEAVGI\nTaxonIds:\nlEqi:Y\nswissProtOnly:Y'
+  );
 
 mockRequests
   .onGet(/uniprotkb\/accessions/)

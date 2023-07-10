@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEventHandler } from 'react';
+import { useEffect, MouseEventHandler, useState } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { sleep } from 'timing-functions';
