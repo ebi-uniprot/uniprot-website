@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import cn from 'classnames';
 import { GroupBy } from '../../config/apiUrls';
 
-export const groupByLabelAndParams: [string, GroupBy][] = [
+const groupByLabelAndParams: [string, GroupBy][] = [
   ['Taxonomy', 'taxonomy'],
   ['Keywords', 'keyword'],
   ['Gene Ontology', 'go'],

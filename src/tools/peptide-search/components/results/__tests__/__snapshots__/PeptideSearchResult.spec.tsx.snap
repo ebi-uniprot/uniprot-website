@@ -147,18 +147,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </label>
               </span>
             </form>
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
-            >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                Group by
-              </button>
-            </div>
             <button
               class="button tertiary"
               type="button"
@@ -1101,18 +1089,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </label>
               </span>
             </form>
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
-            >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                Group by
-              </button>
-            </div>
             <button
               class="button tertiary"
               type="button"
