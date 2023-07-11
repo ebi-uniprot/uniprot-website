@@ -18,7 +18,10 @@ import {
 import apiUrls, {
   createSelectedQueryString,
 } from '../../../shared/config/apiUrls';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
+import {
+  fileFormatsResultsDownload,
+  fileFormatsResultsDownloadForRedundant,
+} from '../../config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -39,9 +42,15 @@ const DownloadComponent = lazy(
 
 type Props = Pick<
   ProteomesAPIModel,
-  'id' | 'components' | 'proteinCount' | 'proteomeType'
+  'id' | 'components' | 'proteinCount' | 'proteomeType' | 'superkingdom'
 > & {
   selectedEntries: string[];
+};
+
+export type IsoformStatistics = {
+  allWithIsoforms: number | undefined;
+  reviewed: number | undefined;
+  reviewedWithIsoforms: number | undefined;
 };
 
 const ComponentsButtons = ({
@@ -50,16 +59,26 @@ const ComponentsButtons = ({
   selectedEntries,
   proteinCount,
   proteomeType,
+  superkingdom,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
+  // Note: all Eukaryotes are not eligible. Having a list of the organisms would be helpful
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${queryString.stringify({
-      query: `(proteome=${id}) AND (reviewed=true)`,
-      size: 0,
-    })}`
+    superkingdom === 'eukaryota'
+      ? `${apiUrls.search(Namespace.uniprotkb)}?${queryString.stringify({
+          query: `(proteome=${id}) AND (reviewed=true)`,
+          size: 0,
+        })}`
+      : null
   );
-  const reviewedProteinsCount = Number(headers?.['x-total-results']);
+
+  // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
+  const isoformStats: IsoformStatistics = {
+    allWithIsoforms: undefined,
+    reviewed: Number(headers?.['x-total-results']) || undefined,
+    reviewedWithIsoforms: undefined,
+  };
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
@@ -111,6 +130,13 @@ const ComponentsButtons = ({
     return null;
   }
 
+  let supportedFormats;
+  if (proteomeType === 'Redundant proteome') {
+    supportedFormats = fileFormatsResultsDownloadForRedundant;
+  } else {
+    supportedFormats = fileFormatsResultsDownload;
+  }
+
   return (
     <>
       {displayDownloadPanel && (
@@ -127,7 +153,6 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
-                filteredNumberResults={reviewedProteinsCount}
                 onClose={handleToggleDownload}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011
@@ -135,11 +160,9 @@ const ComponentsButtons = ({
                     ? Namespace.uniparc
                     : Namespace.uniprotkb
                 }
-                supportedFormats={
-                  proteomeType === 'Redundant proteome'
-                    ? fileFormatsResultsDownloadForRedundant
-                    : undefined
-                }
+                supportedFormats={supportedFormats}
+                showReviewedOption={superkingdom === 'eukaryota'}
+                isoformStats={isoformStats}
                 // List of proteins has to be downloaded. In that case, the default proteome columns must not be set
                 excludeColumns
               />

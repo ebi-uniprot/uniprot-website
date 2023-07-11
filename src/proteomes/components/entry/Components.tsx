@@ -22,8 +22,11 @@ const genomeAccessionDB = 'GenomeAccession' as const;
 const getIdKey = ({ name }: Component) => name;
 
 export const Components: FC<
-  Pick<ProteomesAPIModel, 'components' | 'id' | 'proteinCount' | 'proteomeType'>
-> = ({ components, id, proteinCount, proteomeType }) => {
+  Pick<
+    ProteomesAPIModel,
+    'components' | 'id' | 'proteinCount' | 'proteomeType' | 'superkingdom'
+  >
+> = ({ components, id, proteinCount, proteomeType, superkingdom }) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const columns = useMemo<
@@ -128,6 +131,7 @@ export const Components: FC<
         proteinCount={proteinCount}
         id={id}
         proteomeType={proteomeType}
+        superkingdom={superkingdom}
       />
       <DataTable
         getIdKey={getIdKey}
