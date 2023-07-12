@@ -26,10 +26,7 @@ import {
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import {
-  fileFormatsResultsDownload as fileFormatsProteomeResultsDownload,
-  fileFormatsResultsDownloadForIsoformSequence,
-} from '../../../proteomes/config/download';
+import { fileFormatsResultsDownload as fileFormatsProteomeResultsDownload } from '../../../proteomes/config/download';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
@@ -189,20 +186,19 @@ const Download: FC<DownloadProps> = ({
   switch (downloadSelect) {
     case 'all':
       downloadCount = totalNumberResults;
-      if (showReviewedOption && fileFormat === FileFormat.fasta) {
+      if (showReviewedOption) {
         // downloadCount = isoformStats?.allWithIsoforms;
         downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-        fileFormats = fileFormatsResultsDownloadForIsoformSequence;
+        fileFormats = [FileFormat.fasta];
       }
       break;
     case 'reviewed':
       // Once we have the counts, we should update the downloadCount accordingly
       downloadCount = isoformStats?.reviewed || 0;
-      // TODO Need to check if JSON is still necessary
       if (includeIsoform) {
         // downloadCount = isoformStats?.reviewedWithIsoforms || 0;
         downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-        fileFormats = fileFormatsResultsDownloadForIsoformSequence;
+        fileFormats = [FileFormat.fasta];
       } else {
         // downloadCount = isoformStats?.reviewed || 0;
         downloadOptions.fileFormat = FileFormat.fastaCanonical;
@@ -244,7 +240,7 @@ const Download: FC<DownloadProps> = ({
 
   const handleIsoformSelect = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target.checked) {
-      fileFormats = fileFormatsResultsDownloadForIsoformSequence;
+      fileFormats = [FileFormat.fasta];
       setIncludeIsoform(true);
     } else {
       fileFormats = fileFormatsProteomeResultsDownload;

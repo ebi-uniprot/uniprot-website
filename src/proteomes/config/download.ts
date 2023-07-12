@@ -18,8 +18,3 @@ export const fileFormatEntryDownload = [
 ];
 
 export const fileFormatsResultsDownloadForRedundant = [FileFormat.fasta];
-
-export const fileFormatsResultsDownloadForIsoformSequence = [
-  FileFormat.fasta,
-  FileFormat.json,
-];

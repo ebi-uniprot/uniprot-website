@@ -292,15 +292,15 @@ describe('Download with ID mapping results', () => {
   });
 });
 
-describe('Download reviewed proteins for a proteome entry assuming it is an Eukaryote', () => {
+describe('Download reviewed proteins for a proteome entry that is an Eukaryote', () => {
   it('should check the filteredNumberResults and add the additional select options', async () => {
     const namespace = Namespace.uniprotkb;
     const onCloseMock = jest.fn();
-    const query = '(proteome:UP000000625)';
-    const totalNumberResults = 4403;
+    const query = '(proteome:UP000005640)';
+    const totalNumberResults = 82678;
     const isoformStats = {
       allWithIsoforms: undefined,
-      reviewed: 4401,
+      reviewed: 20408,
       reviewedWithIsoforms: undefined,
     };
 
@@ -314,7 +314,7 @@ describe('Download reviewed proteins for a proteome entry assuming it is an Euka
         isoformStats={isoformStats}
       />,
       {
-        route: '/proteomes/UP000000625',
+        route: '/proteomes/UP000005640',
         initialLocalStorage: {
           'table columns for uniprotkb': initialColumns,
         },
@@ -326,14 +326,14 @@ describe('Download reviewed proteins for a proteome entry assuming it is an Euka
     );
     fireEvent.click(
       screen.getByLabelText(
-        `Download only reviewed (Swiss-Prot) canonical proteins (4,401)`
+        `Download only reviewed (Swiss-Prot) canonical proteins (20,408)`
       )
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
         queryString.stringify({
-          query: `((proteome:UP000000625) AND reviewed=true)`,
+          query: `((proteome:UP000005640) AND reviewed=true)`,
         })
       )
     );
