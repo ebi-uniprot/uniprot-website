@@ -39,8 +39,6 @@ const GenomicCoordinates = ({
     return <div>An error happened</div>;
   }
 
-  console.log(data);
-
   if (status === 404 || !data || !data.sequence || !data.gnCoordinate?.length) {
     return (
       <section className="wider-tab-content hotjar-margin">

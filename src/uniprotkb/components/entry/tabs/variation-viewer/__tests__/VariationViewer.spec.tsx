@@ -4,7 +4,6 @@ import { act } from 'react-dom/test-utils';
 import VariationViewer from '../VariationViewer';
 
 import useDataApi from '../../../../../../shared/hooks/useDataApi';
-import customRender from '../../../../../../shared/__test-helpers__/customRender';
 
 jest.mock('../../../../../../shared/hooks/useDataApi');
 // Mock this because this is only the visual bit and jest has issues with ES
