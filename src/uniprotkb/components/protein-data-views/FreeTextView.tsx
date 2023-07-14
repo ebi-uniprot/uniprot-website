@@ -14,13 +14,13 @@ import externalUrls from '../../../shared/config/externalUrls';
 import {
   reAC,
   reIsoform,
-  needTextProcessingRE,
   rePubMedID,
   rePubMed,
   reUniProtKBAccession,
   reSubscript,
   reSuperscript,
   reDbSnp,
+  getNeedsTextProcessingParts,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -52,7 +52,7 @@ type RichTextProps = {
 
 export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
   <>
-    {children?.split(needTextProcessingRE).map((part, index, mappedArr) => {
+    {getNeedsTextProcessingParts(children)?.map((part, index, mappedArr) => {
       // Capturing group will allow split to conserve that bit in the split parts
       // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
       // it is not supported in Safari yet. It's OK, we just get more chunks when splitting

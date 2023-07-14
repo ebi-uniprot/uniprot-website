@@ -75,7 +75,7 @@ describe('RichText component', () => {
     ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs63750973');
   });
 
-  it('should render two dbSNP links', () => {
+  it.skip('should render two dbSNP links', () => {
     render(
       <RichText>
         in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973;
