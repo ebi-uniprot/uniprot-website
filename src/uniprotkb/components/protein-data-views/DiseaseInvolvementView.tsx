@@ -16,7 +16,7 @@ import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { FeatureDatum } from './UniProtKBFeaturesView';
 
-import styles from './styles/variation-view.module.scss';
+import styles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
 
 const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
   const aStart = +a.location.start.value;

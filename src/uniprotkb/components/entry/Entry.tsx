@@ -74,6 +74,7 @@ export enum TabLocation {
   Entry = 'entry',
   VariantViewer = 'variant-viewer',
   FeatureViewer = 'feature-viewer',
+  GenomicCoordinates = 'genomic-coordinates',
   Publications = 'publications',
   ExternalLinks = 'external-links',
   History = 'history',
@@ -85,37 +86,44 @@ const legacyToNewSubPages = {
   'variants-viewer': TabLocation.VariantViewer,
 };
 
+const VariationViewer = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-entry-variation-viewer" */ './tabs/variation-viewer/VariationViewer'
+    )
+);
+
 const FeatureViewer = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './FeatureViewer'
+      /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './tabs/FeatureViewer'
     )
 );
 
-const VariationView = lazy(
+const GenomicCoordinates = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-variation-view" */ '../protein-data-views/VariationView'
+      /* webpackChunkName: "uniprotkb-entry-genomic-coordinates" */ './tabs/genomic-coordinates/GenomicCoordinates'
     )
 );
 
-const EntryPublications = lazy(
+const PublicationsTab = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-history" */ './EntryPublications'
+      /* webpackChunkName: "uniprotkb-entry-publications" */ './tabs/Publications'
     )
 );
 
-const EntryExternalLinks = lazy(
+const ExternalLinksTab = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-external-links" */ './EntryExternalLinks'
+      /* webpackChunkName: "uniprotkb-entry-external-links" */ './tabs/ExternalLinks'
     )
 );
 
-const EntryHistory = lazy(
+const HistoryTab = lazy(
   () =>
-    import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
+    import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
 );
 
 const Entry = () => {
@@ -140,6 +148,12 @@ const Entry = () => {
   const variantsHeadPayload = useDataApi(
     match?.params.accession &&
       joinUrl(apiUrls.variation, match?.params.accession),
+    { method: 'HEAD' }
+  );
+
+  const coordinatesHeadPayload = useDataApi(
+    match?.params.accession &&
+      joinUrl(apiUrls.coordinates, match?.params.accession),
     { method: 'HEAD' }
   );
 
@@ -309,6 +323,9 @@ const Entry = () => {
   const hasImportedVariants =
     !variantsHeadPayload.loading && variantsHeadPayload.status === 200;
 
+  const hasCoordinates =
+    !coordinatesHeadPayload.loading && coordinatesHeadPayload.status === 200;
+
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
   }
@@ -433,8 +450,8 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.VariantViewer}
-          onPointerOver={VariationView.preload}
-          onFocus={VariationView.preload}
+          onPointerOver={VariationViewer.preload}
+          onFocus={VariationViewer.preload}
         >
           <Suspense fallback={<Loader />}>
             <HTMLHead
@@ -444,7 +461,7 @@ const Entry = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <VariationView
+            <VariationViewer
               primaryAccession={match.params.accession}
               title="Variants"
             />
@@ -494,6 +511,38 @@ const Entry = () => {
         <Tab
           title={
             <Link
+              className={hasCoordinates ? undefined : helper.disabled}
+              tabIndex={hasCoordinates ? undefined : -1}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.GenomicCoordinates
+              )}
+            >
+              Genomic coordinates
+            </Link>
+          }
+          id={TabLocation.GenomicCoordinates}
+          onPointerOver={GenomicCoordinates.preload}
+          onFocus={GenomicCoordinates.preload}
+        >
+          <Suspense fallback={<Loader />}>
+            <HTMLHead
+              title={[
+                pageTitle,
+                'Coordinates viewer',
+                searchableNamespaceLabels[Namespace.uniprotkb],
+              ]}
+            />
+            <GenomicCoordinates
+              primaryAccession={match.params.accession}
+              title="Genomic coordinates"
+            />
+          </Suspense>
+        </Tab>
+        <Tab
+          title={
+            <Link
               className={historyOldEntry ? helper.disabled : undefined}
               tabIndex={historyOldEntry ? -1 : undefined}
               to={getEntryPath(
@@ -506,8 +555,8 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.Publications}
-          onPointerOver={EntryPublications.preload}
-          onFocus={EntryPublications.preload}
+          onPointerOver={PublicationsTab.preload}
+          onFocus={PublicationsTab.preload}
         >
           <Suspense fallback={<Loader />}>
             <div className="button-group">
@@ -528,7 +577,7 @@ const Entry = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <EntryPublications accession={match.params.accession} />
+            <PublicationsTab accession={match.params.accession} />
           </Suspense>
         </Tab>
         <Tab
@@ -546,8 +595,8 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.ExternalLinks}
-          onPointerOver={EntryExternalLinks.preload}
-          onFocus={EntryExternalLinks.preload}
+          onPointerOver={ExternalLinksTab.preload}
+          onFocus={ExternalLinksTab.preload}
         >
           <Suspense fallback={<Loader />}>
             <HTMLHead
@@ -557,7 +606,7 @@ const Entry = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <EntryExternalLinks transformedData={transformedData} />
+            <ExternalLinksTab transformedData={transformedData} />
           </Suspense>
         </Tab>
         <Tab
@@ -573,8 +622,8 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.History}
-          onPointerOver={EntryHistory.preload}
-          onFocus={EntryHistory.preload}
+          onPointerOver={HistoryTab.preload}
+          onFocus={HistoryTab.preload}
         >
           <Suspense fallback={<Loader />}>
             <HTMLHead
@@ -584,7 +633,7 @@ const Entry = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <EntryHistory accession={match.params.accession} />
+            <HistoryTab accession={match.params.accession} />
           </Suspense>
         </Tab>
       </Tabs>
