@@ -1,71 +1,83 @@
 import joinUrl from 'url-join';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
-const externalUrls: Record<string, (id: string | number) => string> = {
-  QuickGO: (id) => `//www.ebi.ac.uk/QuickGO/term/${id}`,
-  QuickGOAnnotations: (id) =>
+const externalUrls = {
+  QuickGO: (id: string | number) => `//www.ebi.ac.uk/QuickGO/term/${id}`,
+  QuickGOAnnotations: (id: string | number) =>
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
-  NCBI: (id) =>
+  NCBI: (id: string | number) =>
     `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=${id}`,
-  NCBINucleotide: (id) => `https://www.ncbi.nlm.nih.gov/nuccore/${id}`,
-  ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,
-  ENABrowser: (id) => `//www.ebi.ac.uk/ena/browser/view/${id}`,
+  NCBINucleotide: (id: string | number) =>
+    `https://www.ncbi.nlm.nih.gov/nuccore/${id}`,
+  ENA: (id: string | number) => `//www.ebi.ac.uk/ena/data/view/${id}`,
+  ENABrowser: (id: string | number) => `//www.ebi.ac.uk/ena/browser/view/${id}`,
   // protein centric
-  InterPro: (id) => `https://www.ebi.ac.uk/interpro/protein/${id}`,
-  Pfam: (id) =>
+  InterPro: (id: string | number) =>
+    `https://www.ebi.ac.uk/interpro/protein/${id}`,
+  Pfam: (id: string | number) =>
     `https://www.ebi.ac.uk/interpro/protein/UniProt/${id}/entry/pfam/`,
-  SMART: (id) => `https://smart.embl.de/smart/show_motifs.pl?ID=${id}`,
-  PROSITE: (id) =>
+  SMART: (id: string | number) =>
+    `https://smart.embl.de/smart/show_motifs.pl?ID=${id}`,
+  PROSITE: (id: string | number) =>
     `https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=${id}&output=nice`,
   // rule
-  HAMAPRule: (id) => `//hamap.expasy.org/unirule/${id}`,
-  ProRule: (id) => `//prosite.expasy.org/unirule/${id}`,
+  HAMAPRule: (id: string | number) => `//hamap.expasy.org/unirule/${id}`,
+  ProRule: (id: string | number) => `//prosite.expasy.org/unirule/${id}`,
   // domain & families centric
-  CDDEntry: (id) =>
+  CDDEntry: (id: string | number) =>
     `//www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=${id}}`,
-  Gene3DEntry: (id) =>
+  Gene3DEntry: (id: string | number) =>
     `http://www.cathdb.info/version/latest/superfamily/${`${id}`.replace(
       'G3DSA:',
       ''
     )}`,
-  HAMAPEntry: (id) => `//hamap.expasy.org/signature/${id}`,
-  PIRSFEntry: (id) =>
+  HAMAPEntry: (id: string | number) => `//hamap.expasy.org/signature/${id}`,
+  PIRSFEntry: (id: string | number) =>
     `https://proteininformationresource.org/cgi-bin/ipcSF?id=${id}`,
-  PRINTSEntry: (id) =>
+  PRINTSEntry: (id: string | number) =>
     `http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?prints_accn=${id}&display_opts=Prints&category=None&queryform=false&regexpr=off`,
-  PANTHEREntry: (id) =>
+  PANTHEREntry: (id: string | number) =>
     `http://www.pantherdb.org/panther/family.do?clsAccession=${id}`,
-  PfamEntry: (id) => `https://www.ebi.ac.uk/interpro/entry/pfam/${id}`,
-  PROSITEEntry: (id) => `//prosite.expasy.org/${id}`,
-  SFLDEntry: (id) => `http://sfld.rbvi.ucsf.edu/django/family/${id}/`,
-  SMARTEntry: (id) =>
+  PfamEntry: (id: string | number) =>
+    `https://www.ebi.ac.uk/interpro/entry/pfam/${id}`,
+  PROSITEEntry: (id: string | number) => `//prosite.expasy.org/${id}`,
+  SFLDEntry: (id: string | number) =>
+    `http://sfld.rbvi.ucsf.edu/django/family/${id}/`,
+  SMARTEntry: (id: string | number) =>
     `http://smart.embl-heidelberg.de/smart/do_annotation.pl?DOMAIN=${id}`,
-  SUPFAMEntry: (id) =>
+  SUPFAMEntry: (id: string | number) =>
     `http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=${id}`,
-  TIGRFAMsEntry: (id) =>
+  TIGRFAMsEntry: (id: string | number) =>
     `http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=${id}`,
-  InterProEntry: (id) => `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
-  InterProSearch: (searchTerm) =>
+  InterProEntry: (id: string | number) =>
+    `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
+  InterProSearch: (searchTerm: string | number) =>
     `https://www.ebi.ac.uk/interpro/search/text/${searchTerm}`,
   // variation
-  UniProt: (id) => `https://web.expasy.org/variant_pages/${id}.html`,
-  dbSNP: (id) => `https://www.ncbi.nlm.nih.gov/snp/${id}`,
-  Ensembl: (id) =>
+  UniProt: (id: string | number) =>
+    `https://web.expasy.org/variant_pages/${id}.html`,
+  dbSNP: (id: string | number) => `https://www.ncbi.nlm.nih.gov/snp/${id}`,
+  EnsemblVariation: (id: string | number) =>
     `http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=${id}`,
-  ProtVar: (id) => `https://www.ebi.ac.uk/ProtVar/query?search=${id}`,
+  EnsemblComponent: (taxid: string | number, id: string | number) =>
+    `https://www.ensembl.org/${taxid}/Location/Overview?r=${id}`,
+  ProtVar: (id: string | number) =>
+    `https://www.ebi.ac.uk/ProtVar/query?search=${id}`,
   // citations
-  DOI: (id) => `https://dx.doi.org/${id}`,
-  PubMed: (id) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
-  EuropePMC: (id) => `//europepmc.org/article/MED/${id}`,
-  CommunityCurationGet: (id) =>
+  DOI: (id: string | number) => `https://dx.doi.org/${id}`,
+  PubMed: (id: string | number) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
+  EuropePMC: (id: string | number) => `//europepmc.org/article/MED/${id}`,
+  CommunityCurationGet: (id: string | number) =>
     `https://community.uniprot.org/cgi-bin/bbsub_query?accession=${id}`,
-  CommunityCurationAdd: (id) =>
+  CommunityCurationAdd: (id: string | number) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
-  ENZYME: (id) => `https://enzyme.expasy.org/EC/${id}`,
-  RheaSearch: (id) => `https://www.rhea-db.org/rhea?query=${id}`,
-  RheaEntry: (id) => `https://www.rhea-db.org/rhea/${id}`,
-  ChEBI: (id) => `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
-  EspacenetPatent: (id) =>
+  ENZYME: (id: string | number) => `https://enzyme.expasy.org/EC/${id}`,
+  RheaSearch: (id: string | number) =>
+    `https://www.rhea-db.org/rhea?query=${id}`,
+  RheaEntry: (id: string | number) => `https://www.rhea-db.org/rhea/${id}`,
+  ChEBI: (id: string | number) =>
+    `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
+  EspacenetPatent: (id: string | number) =>
     `https://worldwide.espacenet.com/textdoc?DB=EPODOC&IDX=${id}`,
 };
 
