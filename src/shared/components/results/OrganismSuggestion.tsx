@@ -13,9 +13,11 @@ import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverte
 const OrganismSuggestion = ({
   query,
   taxonID,
+  total,
 }: {
   query: string;
   taxonID: string;
+  total: number;
 }) => {
   const [organismExists, setOrganismExists] = useState(false);
 
@@ -26,7 +28,9 @@ const OrganismSuggestion = ({
   );
 
   useEffect(() => {
-    if (data?.results.length) {
+    console.log(data?.results.length);
+    console.log(total);
+    if (data?.results.length && data?.results.length !== total) {
       setOrganismExists(true);
     }
   }, [data]);

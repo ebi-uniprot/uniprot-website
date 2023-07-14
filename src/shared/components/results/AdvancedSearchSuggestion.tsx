@@ -23,7 +23,13 @@ type MatchedFieldsResponse = {
 
 const finalBrackets = / \[[A-Z]+\]$/;
 
-const AdvancedSearchSuggestion = ({ query }: { query: string }) => {
+const AdvancedSearchSuggestion = ({
+  query,
+  total,
+}: {
+  query: string;
+  total: number;
+}) => {
   const [linesToDisplay, setLinesToDisplay] = useState(1);
   const [termsToDisplay, setTermsToDisplay] = useState(+Infinity);
   const ref = useRef<HTMLElement>(null);
@@ -103,6 +109,13 @@ const AdvancedSearchSuggestion = ({ query }: { query: string }) => {
   }, [searchTerms, linesToDisplay, termsToDisplay]);
 
   if (!searchTerms?.length) {
+    return null;
+  }
+
+  /*  If the single matched field's number of hits is equal to the existing total that is displayed, do not suggest.
+      Ideally we need to fetch results of the relevant suggestion to compare with the current result set
+  */
+  if (termsToDisplay === 1 && searchTerms[0].hits === total) {
     return null;
   }
 

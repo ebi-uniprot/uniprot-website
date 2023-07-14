@@ -15,7 +15,15 @@ import { Namespace } from '../../types/namespaces';
 import { SearchResults } from '../../types/results';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
-const ExactFieldSuggestion = ({ query }: { query: string }) => {
+const ExactFieldSuggestion = ({
+  query,
+  total,
+  results,
+}: {
+  query: string;
+  total: number;
+  results: UniProtkbAPIModel[];
+}) => {
   const [dataAvailable, setDataAvailable] = useState(false);
   const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
     query,
@@ -30,8 +38,15 @@ const ExactFieldSuggestion = ({ query }: { query: string }) => {
   );
 
   useEffect(() => {
-    if (data?.results.length) {
-      setDataAvailable(true);
+    if (data?.results.length && data.results.length !== total) {
+      const differentResultSet = data.results.filter((r) =>
+        results.some(
+          (existing) => existing.primaryAccession !== r.primaryAccession
+        )
+      );
+      if (differentResultSet.length) {
+        setDataAvailable(true);
+      }
     }
   }, [data]);
 
