@@ -19,8 +19,8 @@ import {
   reUniProtKBAccession,
   reSubscript,
   reSuperscript,
-  reDbSnp,
   getNeedsTextProcessingParts,
+  reDbSnpID,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -96,7 +96,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
             </Fragment>
           );
         }
-        const dbSnpMatch = part.match(reDbSnp);
+        const dbSnpMatch = part.match(reDbSnpID);
         if (dbSnpMatch?.groups) {
           const { rsid } = dbSnpMatch.groups;
           return (

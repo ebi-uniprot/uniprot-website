@@ -83,17 +83,17 @@ export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const reIsoform = /\bisoform [\w-]+/i;
 export const rePubMedID = /\d{7,8}/;
 export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
-export const reDbSnp = /dbSNP:(?<rsid>\d+)/;
+export const reDbSnpID = /dbSNP:(?<rsid>rs\d+)/;
+export const reDbSnp = /dbSNP:rs\d+/;
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
 const needTextProcessingRE = new RegExp(
-  `(${rePubMed.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnp})`,
+  `(${rePubMed.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnp.source})`,
   'i'
 );
 
 export const getNeedsTextProcessingParts = (s?: string) => {
   const foo = s?.split(needTextProcessingRE);
-  console.log(foo);
   return foo;
 };
