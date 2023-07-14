@@ -16,6 +16,7 @@ describe('Components view', () => {
         proteinCount={data.proteinCount}
         proteomeType={data.proteomeType}
         superkingdom={data.superkingdom}
+        taxonomy={data.taxonomy}
       />
     );
     expect(asFragment()).toMatchSnapshot();

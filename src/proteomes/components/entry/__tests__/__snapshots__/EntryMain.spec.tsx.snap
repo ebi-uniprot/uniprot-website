@@ -404,7 +404,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000663"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000663"
                   rel="noopener"
                   target="_blank"
                 >
@@ -450,7 +450,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000664"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000664"
                   rel="noopener"
                   target="_blank"
                 >
@@ -496,7 +496,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000665"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000665"
                   rel="noopener"
                   target="_blank"
                 >
@@ -542,7 +542,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000666"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000666"
                   rel="noopener"
                   target="_blank"
                 >
@@ -588,7 +588,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000667"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000667"
                   rel="noopener"
                   target="_blank"
                 >
@@ -634,7 +634,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000668"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000668"
                   rel="noopener"
                   target="_blank"
                 >
@@ -680,7 +680,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000669"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000669"
                   rel="noopener"
                   target="_blank"
                 >
@@ -726,7 +726,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000670"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000670"
                   rel="noopener"
                   target="_blank"
                 >
@@ -772,7 +772,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000671"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000671"
                   rel="noopener"
                   target="_blank"
                 >
@@ -818,7 +818,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000672"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000672"
                   rel="noopener"
                   target="_blank"
                 >
@@ -864,7 +864,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000673"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000673"
                   rel="noopener"
                   target="_blank"
                 >
@@ -910,7 +910,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000674"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000674"
                   rel="noopener"
                   target="_blank"
                 >
@@ -956,7 +956,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000675"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000675"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1002,7 +1002,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000676"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000676"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1048,7 +1048,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000677"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000677"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1094,7 +1094,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000678"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000678"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1140,7 +1140,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000679"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000679"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1186,7 +1186,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000680"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000680"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1232,7 +1232,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000681"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000681"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1278,7 +1278,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000682"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000682"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1324,7 +1324,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000683"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000683"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1370,7 +1370,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000684"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000684"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1416,7 +1416,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000685"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000685"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1462,7 +1462,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000686"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=CM000686"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1508,7 +1508,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=J01415"
+                  href="https://www.ensembl.org/9606/Location/Overview?r=J01415"
                   rel="noopener"
                   target="_blank"
                 >

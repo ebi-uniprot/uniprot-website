@@ -22,6 +22,7 @@ const ProteomesEntryConfig: {
       proteinCount,
       proteomeType,
       superkingdom,
+      taxonomy,
     }) => (
       <Components
         components={components}
@@ -29,6 +30,7 @@ const ProteomesEntryConfig: {
         proteinCount={proteinCount}
         proteomeType={proteomeType}
         superkingdom={superkingdom}
+        taxonomy={taxonomy}
       />
     ),
   },

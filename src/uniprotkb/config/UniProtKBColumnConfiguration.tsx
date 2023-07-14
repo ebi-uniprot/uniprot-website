@@ -1440,7 +1440,9 @@ const getXrefColumn = (databaseName: string) => {
                         dbSNP
                       </ExternalLink>
                       {' | '}
-                      <ExternalLink url={externalUrls.Ensembl(dbSNPRef.id)}>
+                      <ExternalLink
+                        url={externalUrls.EnsemblVariation(dbSNPRef.id)}
+                      >
                         Ensembl
                       </ExternalLink>
                       {' ) '}
