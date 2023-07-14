@@ -79,7 +79,7 @@ const SearchSuggestions = ({
   query?: string;
   namespace?: Namespace;
   total?: number;
-  loadedResults: APIModel[];
+  loadedResults?: APIModel[];
 }) => {
   // We try to not have a request if not needed, under these conditions:
   const validQueryWithContent = // Only when there are results

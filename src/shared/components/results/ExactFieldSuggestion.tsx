@@ -48,7 +48,7 @@ const ExactFieldSuggestion = ({
         setDataAvailable(true);
       }
     }
-  }, [data]);
+  }, [data, results, total]);
 
   if (dataAvailable && query !== modifiedQuery) {
     return (

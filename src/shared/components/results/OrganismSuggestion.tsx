@@ -28,12 +28,10 @@ const OrganismSuggestion = ({
   );
 
   useEffect(() => {
-    console.log(data?.results.length);
-    console.log(total);
     if (data?.results.length && data?.results.length !== total) {
       setOrganismExists(true);
     }
-  }, [data]);
+  }, [data, total]);
 
   if (organismExists && !query.includes('proteome')) {
     return (

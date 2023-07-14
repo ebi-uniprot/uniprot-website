@@ -41,7 +41,7 @@ const TaxonomyLevelsSuggestion = ({
     if (data?.results.length && data?.results.length !== total) {
       setShowTaxonSuggestion(true);
     }
-  }, [data]);
+  }, [data, total]);
 
   if (query !== modifiedQuery && searchValue) {
     const searchByOrganism = query.includes('organism');
