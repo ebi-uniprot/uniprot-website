@@ -358,7 +358,7 @@ const Download: FC<DownloadProps> = ({
             Download only reviewed (Swiss-Prot) canonical proteins (
             {/* <LongNumber>{includeIsoform ? isoformStats?.reviewedWithIsoforms : isoformStats?.reviewed}</LongNumber>) */}
             <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
-            {includeIsoform ? '+ isoforms' : ''})
+            {includeIsoform ? ' + isoforms' : ''})
           </label>
           <label className={styles['isoform-option']}>
             <input
@@ -387,7 +387,7 @@ const Download: FC<DownloadProps> = ({
           : ''}{' '}
         {/* (<LongNumber>{showReviewedOption ? isoformStats?.allWithIsoforms : totalNumberResults}</LongNumber>) */}
         (<LongNumber>{totalNumberResults}</LongNumber>{' '}
-        {showReviewedOption ? '+ isoforms' : ''})
+        {showReviewedOption ? ' + isoforms' : ''})
       </label>
       <fieldset>
         <label>
