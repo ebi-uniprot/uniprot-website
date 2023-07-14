@@ -1,6 +1,7 @@
 import { Fragment, FC, ReactNode } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
+import { ExternalLink } from 'franklin-sites';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import SimilarityView from './SimilarityView';
 
@@ -9,6 +10,7 @@ import {
   getEntryPathFor,
   allEntryPages,
 } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 import {
   reAC,
   reIsoform,
@@ -18,6 +20,7 @@ import {
   reUniProtKBAccession,
   reSubscript,
   reSuperscript,
+  reDbSnp,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -91,6 +94,15 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
               {/* eslint-disable-next-line uniprot-website/use-config-location */}
               <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
             </Fragment>
+          );
+        }
+        const dbSnpMatch = part.match(reDbSnp);
+        if (dbSnpMatch?.groups) {
+          const { rsid } = dbSnpMatch.groups;
+          return (
+            <ExternalLink url={externalUrls.dbSNP(rsid)} key={rsid}>
+              {`dbSNP:${rsid}`}
+            </ExternalLink>
           );
         }
       }
