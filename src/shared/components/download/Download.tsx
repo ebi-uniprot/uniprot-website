@@ -34,10 +34,10 @@ import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
+import { IsoformStatistics } from '../../../proteomes/components/entry/ComponentsButtons';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
-import { IsoformStatistics } from '../../../proteomes/components/entry/ComponentsButtons';
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
 
