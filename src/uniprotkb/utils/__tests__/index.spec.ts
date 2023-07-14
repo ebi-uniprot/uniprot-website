@@ -1,4 +1,4 @@
-import { getNeedsTextProcessingParts } from '..';
+import { getTextProcessingParts } from '..';
 
 const testCases: [string, string[]][] = [
   [
@@ -41,6 +41,6 @@ const testCases: [string, string[]][] = [
 
 describe('getNeedsTextProcessingParts', () => {
   test.each(testCases)('should return the parts for text', (text, parts) => {
-    expect(getNeedsTextProcessingParts(text)).toEqual(parts);
+    expect(getTextProcessingParts(text)).toEqual(parts);
   });
 });
