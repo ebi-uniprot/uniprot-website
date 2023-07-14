@@ -1,7 +1,7 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import FreeTextView from '../FreeTextView';
+import FreeTextView, { RichText } from '../FreeTextView';
 
 import freeTextUIData from './__mocks__/freeTextUIData';
 
@@ -52,5 +52,26 @@ describe('FreeText component', () => {
     it('should render pubmed and AC links', () => {
       expect(screen.queryAllByRole('link')).toHaveLength(3);
     });
+  });
+});
+
+describe('RichText component', () => {
+  it('should render superscript', () => {
+    const { container } = render(
+      <RichText>Required for Cu(2+) reduction</RichText>
+    );
+    const superscript = container.querySelector('sup');
+    expect(superscript).toHaveTextContent('2+');
+  });
+
+  it('should render dbSNP link', () => {
+    render(
+      <RichText>
+        in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973
+      </RichText>
+    );
+    expect(
+      screen.getByRole('link', { name: 'dbSNP:rs63750973' })
+    ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs63750973');
   });
 });
