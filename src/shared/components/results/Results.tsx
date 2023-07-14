@@ -141,7 +141,6 @@ const Results = () => {
         resultsDataObject={resultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
-        didYouMean
       />
     </SidebarLayout>
   );
