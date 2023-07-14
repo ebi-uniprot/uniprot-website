@@ -83,6 +83,7 @@ export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const reIsoform = /\bisoform [\w-]+/i;
 export const rePubMedID = /\d{7,8}/;
 export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
+export const reDbSnp = /dbSNP:(?<rsid>\w+)/;
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
