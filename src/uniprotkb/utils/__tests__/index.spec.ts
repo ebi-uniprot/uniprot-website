@@ -40,7 +40,7 @@ const testCases: [string, string[]][] = [
 ];
 
 describe('getNeedsTextProcessingParts', () => {
-  test.each(testCases)('foo', (text, parts) => {
+  test.each(testCases)('should return the parts for text', (text, parts) => {
     expect(getNeedsTextProcessingParts(text)).toEqual(parts);
   });
 });

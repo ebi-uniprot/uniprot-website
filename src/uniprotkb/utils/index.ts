@@ -93,7 +93,5 @@ const needTextProcessingRE = new RegExp(
   'i'
 );
 
-export const getNeedsTextProcessingParts = (s?: string) => {
-  const foo = s?.split(needTextProcessingRE);
-  return foo;
-};
+export const getNeedsTextProcessingParts = (s?: string) =>
+  s?.split(needTextProcessingRE);
