@@ -74,4 +74,21 @@ describe('RichText component', () => {
       screen.getByRole('link', { name: 'dbSNP:rs63750973' })
     ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs63750973');
   });
+
+  it('should render two dbSNP links', () => {
+    render(
+      <RichText>
+        in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973;
+        dbSNP:rs12345678
+      </RichText>
+    );
+    expect(
+      screen.getByRole('link', { name: 'dbSNP:rs63750973' })
+    ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs63750973');
+    expect(
+      screen.getByRole('link', { name: 'dbSNP:rs12345678' })
+    ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs12345678');
+  });
+
+  // 	in AD1; dbSNP:rs63750643
 });
