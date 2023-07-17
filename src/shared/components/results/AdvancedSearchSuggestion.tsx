@@ -113,7 +113,7 @@ const AdvancedSearchSuggestion = ({
   }
 
   /*  If the single matched field's number of hits is equal to the existing total that is displayed, do not suggest.
-      Ideally we need to fetch results of the relevant suggestion to compare with the current result set
+      As the results will be a subset of the overall search anyway, comparing by number of hits is enough in this use case.
   */
   if (termsToDisplay === 1 && searchTerms[0].hits === total) {
     return null;
