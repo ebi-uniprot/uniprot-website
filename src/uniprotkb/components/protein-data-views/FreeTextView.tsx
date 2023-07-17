@@ -97,9 +97,12 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
         if (dbSnpMatch?.groups) {
           const { rsid } = dbSnpMatch.groups;
           return (
-            <ExternalLink url={externalUrls.dbSNP(rsid)} key={rsid}>
-              {`dbSNP:${rsid}`}
-            </ExternalLink>
+            <>
+              dbSNP:
+              <ExternalLink url={externalUrls.dbSNP(rsid)} key={rsid}>
+                {rsid}
+              </ExternalLink>
+            </>
           );
         }
       }
