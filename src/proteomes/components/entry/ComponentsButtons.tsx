@@ -1,7 +1,6 @@
 import { useState, Suspense, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
-import queryString from 'query-string';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
