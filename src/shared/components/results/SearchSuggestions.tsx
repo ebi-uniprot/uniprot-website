@@ -11,8 +11,6 @@ import {
 
 import { Namespace } from '../../types/namespaces';
 import { Clause } from '../../../query-builder/types/searchTypes';
-import { APIModel } from '../../types/apiModel';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 const simpleQuery = /^[a-zA-Z0-9]+$/;
 
@@ -74,12 +72,10 @@ const SearchSuggestions = ({
   query,
   namespace,
   total,
-  loadedResults,
 }: {
   query?: string;
   namespace?: Namespace;
   total?: number;
-  loadedResults?: APIModel[];
 }) => {
   // We try to not have a request if not needed, under these conditions:
   const validQueryWithContent = // Only when there are results
@@ -98,13 +94,7 @@ const SearchSuggestions = ({
       hasMatchingQuery(exactMatchSearchTerms, query) &&
       !query.includes('exact')
     ) {
-      return (
-        <ExactFieldSuggestion
-          query={query}
-          total={total}
-          results={loadedResults as UniProtkbAPIModel[]}
-        />
-      );
+      return <ExactFieldSuggestion query={query} total={total} />;
     }
     if (hasMatchingQuery(taxonHierarchySearchTerms, query)) {
       return <TaxonomyLevelsSuggestion query={query} total={total} />;

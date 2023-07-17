@@ -18,11 +18,9 @@ import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverte
 const ExactFieldSuggestion = ({
   query,
   total,
-  results: existingResults,
 }: {
   query: string;
   total: number;
-  results: UniProtkbAPIModel[];
 }) => {
   const [dataAvailable, setDataAvailable] = useState(false);
   const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
@@ -31,24 +29,17 @@ const ExactFieldSuggestion = ({
     exactMatchSearchTerms
   );
 
-  const { data: newData } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+  const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
     `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
       query: modifiedQuery,
     })}`
   );
 
   useEffect(() => {
-    if (newData?.results.length && newData.results.length !== total) {
-      const differentResultSet = newData.results.filter((r) =>
-        existingResults.some(
-          (existing) => existing.primaryAccession !== r.primaryAccession
-        )
-      );
-      if (differentResultSet.length) {
-        setDataAvailable(true);
-      }
+    if (data?.results.length && data.results.length !== total) {
+      setDataAvailable(true);
     }
-  }, [newData, existingResults, total]);
+  }, [data, total]);
 
   if (dataAvailable && query !== modifiedQuery) {
     return (

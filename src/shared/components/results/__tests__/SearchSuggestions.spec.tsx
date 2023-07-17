@@ -57,6 +57,18 @@ mock.onGet(/\/uniprotkb\/search\?query=organism_id%3A9606/).reply(200, {
   ],
 });
 
+mock.onGet(/\/uniprotkb\/search\?query=%28taxonomy_id%3A9606%29/).reply(200, {
+  results: [
+    {
+      organism: {
+        scientificName: 'Homo sapiens',
+        commonName: 'Human',
+        taxonId: 9606,
+      },
+    },
+  ],
+});
+
 mock.onGet(/\/uniprotkb\/search\?organism_id%3A2/).reply(200, {
   results: [],
 });

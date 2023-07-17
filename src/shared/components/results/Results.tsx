@@ -133,7 +133,6 @@ const Results = () => {
               query={params.query}
               namespace={ns}
               total={total}
-              loadedResults={resultsDataObject.allResults}
             />
           )}
         </ErrorBoundary>
