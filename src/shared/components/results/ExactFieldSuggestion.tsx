@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import qs from 'query-string';
 
 import {
   exactMatchSearchTerms,
@@ -29,10 +28,12 @@ const ExactFieldSuggestion = ({
     exactMatchSearchTerms
   );
 
+  const searchParams = new URLSearchParams({
+    query: `${modifiedQuery}`,
+  });
+
   const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
-      query: modifiedQuery,
-    })}`
+    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
   useEffect(() => {

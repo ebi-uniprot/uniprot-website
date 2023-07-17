@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import qs from 'query-string';
 
 import { SearchTextLink } from './SearchSuggestions';
 import useDataApi from '../../hooks/useDataApi';
@@ -21,10 +20,12 @@ const OrganismSuggestion = ({
 }) => {
   const [organismExists, setOrganismExists] = useState(false);
 
+  const searchParams = new URLSearchParams({
+    query: `organism_id:${taxonID}`,
+  });
+
   const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
-      query: `organism_id:${taxonID}`,
-    })}`
+    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
   useEffect(() => {

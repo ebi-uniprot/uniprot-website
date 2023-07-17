@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import qs from 'query-string';
 
 import ProteomeSuggestion from './ProteomeSuggestion';
 import {
@@ -31,10 +30,12 @@ const TaxonomyLevelsSuggestion = ({
     taxonHierarchySearchTerms
   );
 
+  const searchParams = new URLSearchParams({
+    query: `${modifiedQuery}`,
+  });
+
   const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
-      query: modifiedQuery,
-    })}`
+    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import { Fragment, useLayoutEffect, useMemo, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { EllipsisReveal } from 'franklin-sites';
-import qs from 'query-string';
 
 import useDataApi from '../../hooks/useDataApi';
 
@@ -34,12 +33,14 @@ const AdvancedSearchSuggestion = ({
   const [termsToDisplay, setTermsToDisplay] = useState(+Infinity);
   const ref = useRef<HTMLElement>(null);
 
+  const searchParams = new URLSearchParams({
+    size: '0',
+    query: `${query}`,
+    showSingleTermMatchedFields: 'true',
+  });
+
   const { data } = useDataApi<MatchedFieldsResponse>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
-      size: 0,
-      query,
-      showSingleTermMatchedFields: true,
-    })}`
+    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
   // Data to enrich the suggestions with nice labels
