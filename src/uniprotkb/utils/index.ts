@@ -87,7 +87,7 @@ export const rePubMedCapture = new RegExp(
   'i'
 );
 export const rePubMedNonCapture = new RegExp(
-  `(?:pubmed:${rePubMedID.source})`,
+  `pubmed:${rePubMedID.source}`,
   'i'
 );
 const reDbSnpID = /rs\d+/;
@@ -95,10 +95,7 @@ export const reDbSnpCapture = new RegExp(
   `dbSNP:(?<rsid>${reDbSnpID.source})`,
   'i'
 );
-export const reDbSnpNonCapture = new RegExp(
-  `(?:dbSNP:${reDbSnpID.source})`,
-  'i'
-);
+export const reDbSnpNonCapture = new RegExp(`dbSNP:${reDbSnpID.source}`, 'i');
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
