@@ -70,9 +70,10 @@ describe('RichText component', () => {
         in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973
       </RichText>
     );
-    expect(
-      screen.getByRole('link', { name: 'dbSNP:rs63750973' })
-    ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs63750973');
+    expect(screen.getByRole('link', { name: 'rs63750973' })).toHaveAttribute(
+      'href',
+      'https://www.ncbi.nlm.nih.gov/snp/rs63750973'
+    );
   });
 
   it('should render two dbSNP links', () => {
@@ -82,12 +83,14 @@ describe('RichText component', () => {
         dbSNP:rs12345678
       </RichText>
     );
-    expect(
-      screen.getByRole('link', { name: 'dbSNP:rs63750973' })
-    ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs63750973');
-    expect(
-      screen.getByRole('link', { name: 'dbSNP:rs12345678' })
-    ).toHaveAttribute('href', 'https://www.ncbi.nlm.nih.gov/snp/rs12345678');
+    expect(screen.getByRole('link', { name: 'rs63750973' })).toHaveAttribute(
+      'href',
+      'https://www.ncbi.nlm.nih.gov/snp/rs63750973'
+    );
+    expect(screen.getByRole('link', { name: 'rs12345678' })).toHaveAttribute(
+      'href',
+      'https://www.ncbi.nlm.nih.gov/snp/rs12345678'
+    );
   });
 
   // 	in AD1; dbSNP:rs63750643
