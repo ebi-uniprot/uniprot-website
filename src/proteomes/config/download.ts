@@ -1,11 +1,11 @@
 import { FileFormat } from '../../shared/types/resultsDownload';
 
 export const fileFormatsResultsDownload = [
+  FileFormat.fasta,
   FileFormat.tsv,
   FileFormat.excel,
   FileFormat.json,
   FileFormat.xml,
-  FileFormat.rdfXml,
   FileFormat.list,
 ];
 

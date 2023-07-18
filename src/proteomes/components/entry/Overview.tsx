@@ -60,7 +60,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       {
         title: (
           <span data-article-id="proteome_terminology#protein-count">
-            Protein count
+            Number of entries
           </span>
         ),
         content: renderColumnContent(ProteomesColumn.proteinCount),

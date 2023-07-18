@@ -53,7 +53,7 @@ exports[`EntryMain view should render 1`] = `
                 <span
                   data-article-id="proteome_terminology#protein-count"
                 >
-                  Protein count
+                  Number of entries
                 </span>
               </div>
               <div
