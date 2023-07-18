@@ -324,6 +324,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     expect(downloadLink.href).toEqual(
       expect.stringContaining(queryString.stringify({ query: `(${query})` }))
     );
+
     fireEvent.click(
       screen.getByLabelText(
         `Download only reviewed (Swiss-Prot) canonical proteins (20,408)`
@@ -337,5 +338,24 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
         })
       )
     );
+
+    let options = screen.getAllByRole('option');
+    expect(options).toHaveLength(6);
+
+    fireEvent.click(
+      screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
+    );
+
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        queryString.stringify({
+          query: `((proteome:UP000005640) AND reviewed=true)`,
+          includeIsoform: true,
+        })
+      )
+    );
+    options = screen.getAllByRole('option');
+    expect(options).toHaveLength(1);
   });
 });
