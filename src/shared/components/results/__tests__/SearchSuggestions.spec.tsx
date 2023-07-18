@@ -32,42 +32,33 @@ mock
   .onGet(/\/configure\/uniprotkb\/search-fields/)
   .reply(200, configureSearchTerms);
 
-mock.onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Aapp%29/).reply(200, {
-  results: [
-    {
-      entryType: 'UniProtKB reviewed (Swiss-Prot)',
-      primaryAccession: 'P05067',
-    },
-  ],
-});
+mock.onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Aapp%29&size=0/).reply(
+  200,
+  {
+    results: [],
+  },
+  { 'x-total-results': 1704 }
+);
 
 mock.onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Aerv%29/).reply(200, {
   results: [],
 });
 
-mock.onGet(/\/uniprotkb\/search\?query=organism_id%3A9606/).reply(200, {
-  results: [
-    {
-      organism: {
-        scientificName: 'Homo sapiens',
-        commonName: 'Human',
-        taxonId: 9606,
-      },
-    },
-  ],
-});
+mock.onGet(/\/uniprotkb\/search\?query=organism_id%3A9606&size=0/).reply(
+  200,
+  {
+    results: [],
+  },
+  { 'x-total-results': 207892 }
+);
 
-mock.onGet(/\/uniprotkb\/search\?query=%28taxonomy_id%3A9606%29/).reply(200, {
-  results: [
-    {
-      organism: {
-        scientificName: 'Homo sapiens',
-        commonName: 'Human',
-        taxonId: 9606,
-      },
-    },
-  ],
-});
+mock.onGet(/\/uniprotkb\/search\?query=%28taxonomy_id%3A9606%29&size=0/).reply(
+  200,
+  {
+    results: [],
+  },
+  { 'x-total-results': 207981 }
+);
 
 mock.onGet(/\/uniprotkb\/search\?organism_id%3A2/).reply(200, {
   results: [],
@@ -145,7 +136,7 @@ describe('SearchSuggestions', () => {
       <SearchSuggestions
         query="gene:app"
         namespace={Namespace.uniprotkb}
-        total={100}
+        total={5405}
       />
     );
 
@@ -174,7 +165,7 @@ describe('SearchSuggestions', () => {
       <SearchSuggestions
         query="taxonomy_id:9606"
         namespace={Namespace.uniprotkb}
-        total={100}
+        total={207981}
       />
     );
 
@@ -202,7 +193,7 @@ describe('SearchSuggestions', () => {
       <SearchSuggestions
         query="organism_id:9606"
         namespace={Namespace.uniprotkb}
-        total={100}
+        total={207892}
       />
     );
 

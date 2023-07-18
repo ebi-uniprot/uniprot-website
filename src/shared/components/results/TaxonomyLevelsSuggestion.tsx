@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import ProteomeSuggestion from './ProteomeSuggestion';
 import {
   modifyQueryWithSuggestions,
@@ -23,7 +21,6 @@ const TaxonomyLevelsSuggestion = ({
   query: string;
   total: number;
 }) => {
-  const [showTaxonSuggestion, setShowTaxonSuggestion] = useState(false);
   const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
     query,
     'taxon',
@@ -32,17 +29,16 @@ const TaxonomyLevelsSuggestion = ({
 
   const searchParams = new URLSearchParams({
     query: `${modifiedQuery}`,
+    size: '0',
   });
 
-  const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
     `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
-  useEffect(() => {
-    if (data?.results.length && data?.results.length !== total) {
-      setShowTaxonSuggestion(true);
-    }
-  }, [data, total]);
+  const showTaxonSuggestion =
+    headers?.['x-total-results'] &&
+    Number(headers?.['x-total-results']) !== total;
 
   if (query !== modifiedQuery && searchValue) {
     const searchByOrganism = query.includes('organism');

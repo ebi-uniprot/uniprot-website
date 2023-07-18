@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import {
   exactMatchSearchTerms,
   modifyQueryWithSuggestions,
@@ -21,7 +19,6 @@ const ExactFieldSuggestion = ({
   query: string;
   total: number;
 }) => {
-  const [dataAvailable, setDataAvailable] = useState(false);
   const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
     query,
     'exact',
@@ -30,19 +27,18 @@ const ExactFieldSuggestion = ({
 
   const searchParams = new URLSearchParams({
     query: `${modifiedQuery}`,
+    size: '0',
   });
 
-  const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
     `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
-  useEffect(() => {
-    if (data?.results.length && data.results.length !== total) {
-      setDataAvailable(true);
-    }
-  }, [data, total]);
+  const isDataAvailable =
+    headers?.['x-total-results'] &&
+    Number(headers?.['x-total-results']) !== total;
 
-  if (dataAvailable && query !== modifiedQuery) {
+  if (isDataAvailable && query !== modifiedQuery) {
     return (
       <small>
         {' '}

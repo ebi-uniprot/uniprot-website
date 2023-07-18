@@ -35,7 +35,7 @@ const AdvancedSearchSuggestion = ({
 
   const searchParams = new URLSearchParams({
     size: '0',
-    query: `${query}`,
+    query,
     showSingleTermMatchedFields: 'true',
   });
 
