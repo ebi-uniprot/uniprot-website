@@ -29,6 +29,15 @@ mock
   });
 
 mock
+  .onGet(
+    /\/uniprotkb\/search\?size=0&query=bsu06210&showSingleTermMatchedFields=true/
+  )
+  .reply(200, {
+    matchedFields: [{ name: 'gene', hits: 1 }],
+    results: [],
+  });
+
+mock
   .onGet(/\/configure\/uniprotkb\/search-fields/)
   .reply(200, configureSearchTerms);
 
@@ -43,6 +52,24 @@ mock.onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Aapp%29&size=0/).reply(
 mock.onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Aerv%29/).reply(200, {
   results: [],
 });
+
+mock
+  .onGet(/\/uniprotkb\/search\?query=%28gene_exact%3Absu06210%29&size=0/)
+  .reply(
+    200,
+    {
+      results: [],
+    },
+    { 'x-total-results': 1 }
+  );
+
+mock.onGet(/\/uniprotkb\/search\?query=organism_id%3A284812&size=0/).reply(
+  200,
+  {
+    results: [],
+  },
+  { 'x-total-results': 5122 }
+);
 
 mock.onGet(/\/uniprotkb\/search\?query=organism_id%3A9606&size=0/).reply(
   200,
@@ -131,6 +158,18 @@ describe('SearchSuggestions', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('should not render suggestions if there is only one suggestion that has same numb er of hits as the original search', async () => {
+    const { container } = customRender(
+      <SearchSuggestions
+        query="bsu06210"
+        namespace={Namespace.uniprotkb}
+        total={1}
+      />
+    );
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('should render suggestions for fields that support exact match', async () => {
     const { asFragment } = customRender(
       <SearchSuggestions
@@ -160,6 +199,18 @@ describe('SearchSuggestions', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
+  it('should not render suggestions for fields that support exact match but with same number of hits as the original search', async () => {
+    const { container } = customRender(
+      <SearchSuggestions
+        query="gene:bsu06210"
+        namespace={Namespace.uniprotkb}
+        total={1}
+      />
+    );
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('should render suggestions for fields that has different taxon level', async () => {
     const { asFragment } = customRender(
       <SearchSuggestions
@@ -182,6 +233,18 @@ describe('SearchSuggestions', () => {
         query="taxonomy_id:2"
         namespace={Namespace.uniprotkb}
         total={100}
+      />
+    );
+
+    expect(container.querySelector('small')).toHaveTextContent('');
+  });
+
+  it('should not render suggestions if there is an organism with the given taxon id but same number of hits', async () => {
+    const { container } = customRender(
+      <SearchSuggestions
+        query="taxonomy_id:284812"
+        namespace={Namespace.uniprotkb}
+        total={5122}
       />
     );
 
