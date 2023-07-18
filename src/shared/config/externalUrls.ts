@@ -60,7 +60,7 @@ const externalUrls = {
   EnsemblVariation: (id: string | number) =>
     `http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=${id}`,
   EnsemblComponent: (taxid: string | number, id: string | number) =>
-    `https://www.ensembl.org/${taxid}/Location/Overview?r=${id}`,
+    `https://www.ensembl.org/${taxid}/Location/Chromosome?r=${id}`,
   ProtVar: (id: string | number) =>
     `https://www.ebi.ac.uk/ProtVar/query?search=${id}`,
   // citations
