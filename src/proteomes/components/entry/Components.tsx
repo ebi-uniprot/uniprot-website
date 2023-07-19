@@ -29,7 +29,12 @@ const getIdKey = ({ name }: Component) => name;
 
 type ComponentsProps = Pick<
   ProteomesAPIModel,
-  'components' | 'id' | 'proteinCount' | 'proteomeType' | 'taxonomy'
+  | 'components'
+  | 'id'
+  | 'proteinCount'
+  | 'proteomeType'
+  | 'superkingdom'
+  | 'taxonomy'
 >;
 
 export const Components = ({
@@ -37,6 +42,7 @@ export const Components = ({
   id,
   proteinCount,
   proteomeType,
+  superkingdom,
   taxonomy,
 }: ComponentsProps) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
@@ -145,6 +151,7 @@ export const Components = ({
         proteinCount={proteinCount}
         id={id}
         proteomeType={proteomeType}
+        superkingdom={superkingdom}
       />
       <DataTable
         getIdKey={getIdKey}

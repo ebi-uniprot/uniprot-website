@@ -65,6 +65,9 @@ if (process.env.NODE_ENV !== 'development') {
       'chrome-extensions://', // errors caused by an extension
       'Request aborted', // aborted network requests, expected to happen
     ],
+    denyUrls: [
+      /didyoumean=true/i, // errors caused by Did You Mean requests
+    ],
     // Programmatically filter out errors from Sentry
     // beforeSend(event, hint){
     //   if (/* condition to discard error */) {
