@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VariationViewer component renders on error 1`] = `
+<DocumentFragment>
+  <div>
+    An error happened
+  </div>
+</DocumentFragment>
+`;
+
+exports[`VariationViewer component renders on loading 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="loader-container"
+    >
+      <test-file-stub
+        classname="loader"
+        height="100"
+        width="100"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`VariationViewer component renders on no data 1`] = `
+<DocumentFragment>
+  <section
+    class="wider-tab-content hotjar-margin"
+  >
+    <div
+      class="no-data"
+    >
+      No variation information available for P05067
+    </div>
+  </section>
+</DocumentFragment>
+`;

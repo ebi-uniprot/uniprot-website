@@ -1,14 +1,16 @@
-import { Loader } from 'franklin-sites';
+import { Loader, Message } from 'franklin-sites';
 import joinUrl from 'url-join';
 
+import Coordinates from './Coordinates';
+import ContactLink from '../../../../../contact/components/ContactLink';
+
 import useDataApi from '../../../../../shared/hooks/useDataApi';
-// import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../../../shared/config/apiUrls';
 
-import tabsStyles from '../styles/tabs-styles.module.scss';
 import { GenomicEntry } from './types';
-import Coordinates from './Coordinates';
+
+import tabsStyles from '../styles/tabs-styles.module.scss';
 
 type GenomicCoordinatesProps = {
   primaryAccession: string;
@@ -19,8 +21,6 @@ const GenomicCoordinates = ({
   primaryAccession,
   title,
 }: GenomicCoordinatesProps) => {
-  // const isSmallScreen = useSmallScreen();
-
   const { loading, data, progress, error, status } = useDataApi<GenomicEntry>(
     joinUrl(apiUrls.coordinates, primaryAccession)
   );
@@ -53,6 +53,10 @@ const GenomicCoordinates = ({
   return (
     <section className="wider-tab-content hotjar-margin">
       {title && <h2>{title}</h2>}
+      <Message level="info">
+        The content of this tab is in beta, feel free to{' '}
+        <ContactLink>get in touch</ContactLink> to provide feedback about it
+      </Message>
       {data.gnCoordinate.map((coordinates, index) => (
         <Coordinates
           key={coordinates.ensemblTranscriptId}

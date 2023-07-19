@@ -454,17 +454,19 @@ const Entry = () => {
           onFocus={VariationViewer.preload}
         >
           <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'Variants viewer',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <VariationViewer
-              primaryAccession={match.params.accession}
-              title="Variants"
-            />
+            <ErrorBoundary>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'Variants viewer',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <VariationViewer
+                primaryAccession={match.params.accession}
+                title="Variants"
+              />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
@@ -497,14 +499,16 @@ const Entry = () => {
             />
           ) : (
             <Suspense fallback={<Loader />}>
-              <HTMLHead
-                title={[
-                  pageTitle,
-                  'Feature viewer',
-                  searchableNamespaceLabels[Namespace.uniprotkb],
-                ]}
-              />
-              <FeatureViewer accession={match.params.accession} />
+              <ErrorBoundary>
+                <HTMLHead
+                  title={[
+                    pageTitle,
+                    'Feature viewer',
+                    searchableNamespaceLabels[Namespace.uniprotkb],
+                  ]}
+                />
+                <FeatureViewer accession={match.params.accession} />
+              </ErrorBoundary>
             </Suspense>
           )}
         </Tab>
@@ -527,17 +531,19 @@ const Entry = () => {
           onFocus={GenomicCoordinates.preload}
         >
           <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'Coordinates viewer',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <GenomicCoordinates
-              primaryAccession={match.params.accession}
-              title="Genomic coordinates"
-            />
+            <ErrorBoundary>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'Coordinates viewer',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <GenomicCoordinates
+                primaryAccession={match.params.accession}
+                title="Genomic coordinates"
+              />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
@@ -559,25 +565,29 @@ const Entry = () => {
           onFocus={PublicationsTab.preload}
         >
           <Suspense fallback={<Loader />}>
-            <div className="button-group">
-              <CommunityAnnotationLink accession={match.params.accession} />
-              <a
-                href={externalUrls.CommunityCurationAdd(match.params.accession)}
-                className="button tertiary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Add a publication
-              </a>
-            </div>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'Publications',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <PublicationsTab accession={match.params.accession} />
+            <ErrorBoundary>
+              <div className="button-group">
+                <CommunityAnnotationLink accession={match.params.accession} />
+                <a
+                  href={externalUrls.CommunityCurationAdd(
+                    match.params.accession
+                  )}
+                  className="button tertiary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Add a publication
+                </a>
+              </div>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'Publications',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <PublicationsTab accession={match.params.accession} />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
@@ -599,14 +609,16 @@ const Entry = () => {
           onFocus={ExternalLinksTab.preload}
         >
           <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'External links',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <ExternalLinksTab transformedData={transformedData} />
+            <ErrorBoundary>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'External links',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <ExternalLinksTab transformedData={transformedData} />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
@@ -626,14 +638,16 @@ const Entry = () => {
           onFocus={HistoryTab.preload}
         >
           <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                historyOldEntry ? match.params.accession : pageTitle,
-                'History',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <HistoryTab accession={match.params.accession} />
+            <ErrorBoundary>
+              <HTMLHead
+                title={[
+                  historyOldEntry ? match.params.accession : pageTitle,
+                  'History',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <HistoryTab accession={match.params.accession} />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
       </Tabs>

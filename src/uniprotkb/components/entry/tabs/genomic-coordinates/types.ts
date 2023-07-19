@@ -25,7 +25,7 @@ export type GenomicCoordinate = {
   ensemblTranslationId?: string;
 };
 
-type GenomicLocation = {
+export type GenomicLocation = {
   exon: Array<ExonMap>;
   chromosome?: string;
   start?: number;
