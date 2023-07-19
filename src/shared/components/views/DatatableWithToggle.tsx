@@ -22,7 +22,7 @@ const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
   const tableRef = useRef<HTMLElement>(null);
   const firstRenderRef = useRef(true);
 
-  const params = useParams<{ accession: string }>();
+  const params = useParams<{ accession?: string }>();
 
   const datatableElement = useCustomElement(
     /* istanbul ignore next */
@@ -45,7 +45,7 @@ const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
         });
       }
       sendGtagEventFeatureDataTableViewClick(
-        params.accession,
+        params.accession || '',
         expandTable ? 'expanded' : 'collapsed'
       );
     }
