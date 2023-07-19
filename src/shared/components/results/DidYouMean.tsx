@@ -140,7 +140,7 @@ const DidYouMean = ({
       fetchData<{ results: APIModel[] }>(
         queryString.stringifyUrl({
           url: apiUrls.search(ns),
-          query: { query, size: 0 },
+          query: { query, size: 0, didyoumean: true },
         })
       ).then(
         (response) => {
