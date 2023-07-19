@@ -25,11 +25,11 @@ const OrganismSuggestion = ({
     `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
-  const isValidSuggestion =
+  const hasOrganismSuggestion =
     headers?.['x-total-results'] &&
     Number(headers?.['x-total-results']) !== total;
 
-  if (isValidSuggestion && !query.includes('proteome')) {
+  if (hasOrganismSuggestion && !query.includes('proteome')) {
     return (
       <>
         {' '}

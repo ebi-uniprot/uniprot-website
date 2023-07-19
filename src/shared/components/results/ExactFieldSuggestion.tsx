@@ -34,11 +34,11 @@ const ExactFieldSuggestion = ({
     `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
-  const isDataAvailable =
+  const hasExactSuggestion =
     headers?.['x-total-results'] &&
     Number(headers?.['x-total-results']) !== total;
 
-  if (isDataAvailable && query !== modifiedQuery) {
+  if (hasExactSuggestion && query !== modifiedQuery) {
     return (
       <small>
         {' '}

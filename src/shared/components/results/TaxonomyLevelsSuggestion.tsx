@@ -36,7 +36,7 @@ const TaxonomyLevelsSuggestion = ({
     `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
-  const showTaxonSuggestion =
+  const hasTaxonSuggestion =
     headers?.['x-total-results'] &&
     Number(headers?.['x-total-results']) !== total;
 
@@ -46,7 +46,7 @@ const TaxonomyLevelsSuggestion = ({
       <small>
         {searchByOrganism && !query.includes('proteome') ? (
           <>
-            {showTaxonSuggestion ? (
+            {hasTaxonSuggestion ? (
               <>
                 {' '}
                 or expand search to &quot;<b>{searchValue}</b>&quot; to{' '}
