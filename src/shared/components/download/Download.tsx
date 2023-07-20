@@ -410,7 +410,7 @@ const Download: FC<DownloadProps> = ({
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset>
-          <legend>Compressed</legend>
+          <legend data-article-id="compression">Compressed</legend>
           <label>
             <input
               aria-label="compressed"
