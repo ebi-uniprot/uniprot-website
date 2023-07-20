@@ -169,7 +169,20 @@ export const UniProtKBColumnConfiguration: ColumnConfiguration<
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   ...getLabelAndTooltip('Entry', 'Unique and stable entry identifier.'),
   render: (data) => (
-    <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
+    <>
+      <AccessionView
+        id={data.primaryAccession}
+        namespace={Namespace.uniprotkb}
+      />
+      {data.inactiveReason && (
+        <>
+          {' '}
+          <span data-article-id="deleted_accessions">
+            ({data.inactiveReason.inactiveReasonType.toLowerCase()})
+          </span>
+        </>
+      )}
+    </>
   ),
 });
 
