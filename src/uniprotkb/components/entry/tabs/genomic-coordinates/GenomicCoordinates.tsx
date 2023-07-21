@@ -1,12 +1,11 @@
 import { Loader, Message } from 'franklin-sites';
-import joinUrl from 'url-join';
 
 import Coordinates from './Coordinates';
 import ContactLink from '../../../../../contact/components/ContactLink';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../../shared/config/apiUrls';
+import { proteinsApi } from '../../../../../shared/config/apiUrls';
 
 import { GenomicEntry } from './types';
 
@@ -22,7 +21,7 @@ const GenomicCoordinates = ({
   title,
 }: GenomicCoordinatesProps) => {
   const { loading, data, progress, error, status } = useDataApi<GenomicEntry>(
-    joinUrl(apiUrls.coordinates, primaryAccession)
+    proteinsApi.coordinates(primaryAccession)
   );
 
   if (loading) {

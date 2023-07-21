@@ -20,6 +20,7 @@ import { TabLocation } from '../../Entry';
 import { GenomicLocation, GenomicCoordinate, GenomicEntry } from './types';
 import { processUrlTemplate } from '../../../protein-data-views/XRefView';
 import LazyComponent from '../../../../../shared/components/LazyComponent';
+import { proteinsApi } from '../../../../../shared/config/apiUrls';
 
 const getEnsemblLink = (
   taxID: number,
@@ -86,7 +87,7 @@ const Overlapping = ({
   }
 
   const { loading, data } = useDataApi<Array<GenomicEntry>>(
-    `https://www.ebi.ac.uk/proteins/api/coordinates?${sp}`
+    `${proteinsApi.coordinates()}?${sp}`
   );
 
   if (loading) {

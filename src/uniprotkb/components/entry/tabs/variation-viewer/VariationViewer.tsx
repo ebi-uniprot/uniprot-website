@@ -1,6 +1,5 @@
 import { useMemo, Fragment, useRef, useEffect, useState, lazy } from 'react';
 import { Loader } from 'franklin-sites';
-import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
@@ -16,7 +15,7 @@ import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 
-import apiUrls from '../../../../../shared/config/apiUrls';
+import { proteinsApi } from '../../../../../shared/config/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
 
 import { Evidence } from '../../../../types/modelTypes';
@@ -123,9 +122,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
 
   const { loading, data, progress, error, status } =
-    useDataApi<ProteinsAPIVariation>(
-      joinUrl(apiUrls.variation, primaryAccession)
-    );
+    useDataApi<ProteinsAPIVariation>(proteinsApi.variation(primaryAccession));
 
   const [filters, setFilters] = useState([]);
   const managerRef = useRef<HTMLElement>(null);

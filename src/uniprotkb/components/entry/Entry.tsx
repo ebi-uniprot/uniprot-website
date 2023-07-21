@@ -1,7 +1,6 @@
 import { useMemo, useEffect, Suspense } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
-import joinUrl from 'url-join';
 import cn from 'classnames';
 import qs from 'query-string';
 import { frame } from 'timing-functions';
@@ -40,7 +39,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import uniProtKbConverter, {
@@ -146,14 +145,12 @@ const Entry = () => {
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession &&
-      joinUrl(apiUrls.variation, match?.params.accession),
+    match?.params.accession && proteinsApi.variation(match?.params.accession),
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    match?.params.accession &&
-      joinUrl(apiUrls.coordinates, match?.params.accession),
+    match?.params.accession && proteinsApi.coordinates(match?.params.accession),
     { method: 'HEAD' }
   );
 
