@@ -18,13 +18,13 @@ import CustomiseButton from '../../shared/components/action-buttons/CustomiseBut
 import { serverParametersToFormParameters } from '../adapters/parameters';
 
 import { jobTypeToPath } from '../../app/config/urls';
-import uniProtKBApiUrls, { getSuggesterUrl } from '../../shared/config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
 import lazy from '../../shared/utils/lazy';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
-import { Suggestions } from '../../query-builder/components/AutocompleteWrapper';
+import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Namespace } from '../../shared/types/namespaces';
 
@@ -49,26 +49,34 @@ export const ResubmitButton = ({
     setDisabled(true);
 
     const taxonMapping = new Map();
-    if ('taxids' in inputParamsData || 'negative_taxids' in inputParamsData) {
+    if (
+      'taxids' in inputParamsData ||
+      'negative_taxids' in inputParamsData ||
+      'taxId' in inputParamsData
+    ) {
       const taxonRequests = [
-        ...(inputParamsData.taxids || '').split(','),
-        ...(inputParamsData.negative_taxids || '').split(','),
+        ...(
+          (inputParamsData as PublicServerParameters[JobTypes.BLAST]).taxids ||
+          ''
+        ).split(','),
+        ...(
+          (inputParamsData as PublicServerParameters[JobTypes.BLAST])
+            .negative_taxids || ''
+        ).split(','),
+        (
+          inputParamsData as PublicServerParameters[JobTypes.ID_MAPPING]
+        ).taxId?.toString() || '',
       ].map((id) => {
         const idCleaned = id.trim();
-        if (!idCleaned) {
+        const url = apiUrls.entry(idCleaned, Namespace.taxonomy);
+
+        if (!idCleaned || !url) {
           return;
         }
         // eslint-disable-next-line consistent-return
-        return fetchData<Suggestions>(
-          getSuggesterUrl(uniProtKBApiUrls.organismSuggester, idCleaned)
-        ).then((response) => {
-          const firstSuggestion = response?.data?.suggestions?.[0]?.value;
-          if (firstSuggestion) {
-            taxonMapping.set(
-              idCleaned,
-              `${firstSuggestion.replace(/ *\([^)]*\) */g, '')} [${idCleaned}]`
-            );
-          }
+        return fetchData<TaxonomyAPIModel>(url).then((response) => {
+          const taxonName = `${response?.data?.scientificName} [${idCleaned}]`;
+          taxonMapping.set(idCleaned, taxonName);
         });
       });
 

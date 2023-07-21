@@ -314,6 +314,7 @@ const PeptideSearchResult = () => {
               total={total}
               resultsDataObject={resultsDataObject}
               accessions={accessions}
+              inputParamsData={jobInputParameters}
             />
           </Suspense>
         </Tab>

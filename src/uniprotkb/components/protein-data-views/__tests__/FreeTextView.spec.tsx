@@ -1,7 +1,7 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import FreeTextView from '../FreeTextView';
+import FreeTextView, { RichText } from '../FreeTextView';
 
 import freeTextUIData from './__mocks__/freeTextUIData';
 
@@ -53,4 +53,45 @@ describe('FreeText component', () => {
       expect(screen.queryAllByRole('link')).toHaveLength(3);
     });
   });
+});
+
+describe('RichText component', () => {
+  it('should render superscript', () => {
+    const { container } = render(
+      <RichText>Required for Cu(2+) reduction</RichText>
+    );
+    const superscript = container.querySelector('sup');
+    expect(superscript).toHaveTextContent('2+');
+  });
+
+  it('should render dbSNP link', () => {
+    render(
+      <RichText>
+        in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973
+      </RichText>
+    );
+    expect(screen.getByRole('link', { name: 'rs63750973' })).toHaveAttribute(
+      'href',
+      'https://www.ncbi.nlm.nih.gov/snp/rs63750973'
+    );
+  });
+
+  it('should render two dbSNP links', () => {
+    render(
+      <RichText>
+        in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973;
+        dbSNP:rs12345678
+      </RichText>
+    );
+    expect(screen.getByRole('link', { name: 'rs63750973' })).toHaveAttribute(
+      'href',
+      'https://www.ncbi.nlm.nih.gov/snp/rs63750973'
+    );
+    expect(screen.getByRole('link', { name: 'rs12345678' })).toHaveAttribute(
+      'href',
+      'https://www.ncbi.nlm.nih.gov/snp/rs12345678'
+    );
+  });
+
+  // 	in AD1; dbSNP:rs63750643
 });

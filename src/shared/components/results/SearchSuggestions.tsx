@@ -88,16 +88,16 @@ const SearchSuggestions = ({
 
   if (validQueryWithContent) {
     if (simpleQuery.test(query)) {
-      return <AdvancedSearchSuggestion query={query} />;
+      return <AdvancedSearchSuggestion query={query} total={total} />;
     }
     if (
       hasMatchingQuery(exactMatchSearchTerms, query) &&
       !query.includes('exact')
     ) {
-      return <ExactFieldSuggestion query={query} />;
+      return <ExactFieldSuggestion query={query} total={total} />;
     }
     if (hasMatchingQuery(taxonHierarchySearchTerms, query)) {
-      return <TaxonomyLevelsSuggestion query={query} />;
+      return <TaxonomyLevelsSuggestion query={query} total={total} />;
     }
     // Add more suggestions in the future here
   }

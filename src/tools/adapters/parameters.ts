@@ -218,11 +218,16 @@ export function serverParametersToFormParameters<T extends JobTypes>(
         const { from, to, ids, taxId } =
           serverParameters as PublicServerParameters[JobTypes.ID_MAPPING];
 
+        const taxon: SelectedTaxon = {
+          id: taxId?.toString() || '',
+          label: taxId ? taxonMapping.get(taxId.toString()) || '' : '',
+        };
+
         formParameters = {
           from,
           to,
           ids: ids.split(','),
-          taxId, // TODO: check
+          taxId: taxon,
         } as FormParameters[T];
       }
       break;

@@ -140,14 +140,22 @@ const DidYouMean = ({
       fetchData<{ results: APIModel[] }>(
         queryString.stringifyUrl({
           url: apiUrls.search(ns),
-          query: { query, size: 0 },
+          query: { query, size: 0, didyoumean: true },
         })
-      ).then((response) => {
-        const hits = +(response?.headers?.['x-total-results'] || 0);
-        if (hits) {
-          otherNamespaceSuggestions.current.set(ns, [{ query, hits }]);
+      ).then(
+        (response) => {
+          const hits = +(response?.headers?.['x-total-results'] || 0);
+          if (hits) {
+            otherNamespaceSuggestions.current.set(ns, [{ query, hits }]);
+          }
+        },
+        () => {
+          /** In case of error avoid leaving it uncaught, it's fine, suggestions
+           * are a just a plus, and the query might not even be correct in other
+           * namespaces depending on the search fields
+           * */
         }
-      })
+      )
     );
 
     // Race between all of the queries having finished or the timeout triggering
