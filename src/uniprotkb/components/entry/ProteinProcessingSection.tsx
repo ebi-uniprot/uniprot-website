@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card, Loader } from 'franklin-sites';
 
 import EntrySection, {
@@ -71,4 +72,4 @@ const ProteinProcessingSection = ({
   );
 };
 
-export default ProteinProcessingSection;
+export default memo(ProteinProcessingSection);

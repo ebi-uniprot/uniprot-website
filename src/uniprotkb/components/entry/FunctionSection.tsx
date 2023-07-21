@@ -1,4 +1,4 @@
-import { lazy, Suspense, Fragment } from 'react';
+import { lazy, Suspense, Fragment, memo } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -368,4 +368,4 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   );
 };
 
-export default FunctionSection;
+export default memo(FunctionSection);

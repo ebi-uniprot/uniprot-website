@@ -320,7 +320,7 @@ const Entry = () => {
   const hasImportedVariants =
     !variantsHeadPayload.loading && variantsHeadPayload.status === 200;
 
-  const hasCoordinates =
+  const hasGenomicCoordinates =
     !coordinatesHeadPayload.loading && coordinatesHeadPayload.status === 200;
 
   if (error || !match?.params.accession || !transformedData) {
@@ -428,6 +428,7 @@ const Entry = () => {
               <EntryMain
                 transformedData={transformedData}
                 hasImportedVariants={hasImportedVariants}
+                hasGenomicCoordinates={hasGenomicCoordinates}
               />
             </>
           )}
@@ -512,8 +513,8 @@ const Entry = () => {
         <Tab
           title={
             <Link
-              className={hasCoordinates ? undefined : helper.disabled}
-              tabIndex={hasCoordinates ? undefined : -1}
+              className={hasGenomicCoordinates ? undefined : helper.disabled}
+              tabIndex={hasGenomicCoordinates ? undefined : -1}
               to={getEntryPath(
                 Namespace.uniprotkb,
                 match.params.accession,

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, FullViewIcon } from 'franklin-sites';
 
@@ -140,4 +141,4 @@ const DiseaseAndDrugsSection = ({
   );
 };
 
-export default DiseaseAndDrugsSection;
+export default memo(DiseaseAndDrugsSection);
