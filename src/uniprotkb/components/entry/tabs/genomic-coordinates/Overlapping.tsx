@@ -98,7 +98,14 @@ const Overlapping = ({
       }
       const startWithinRange = otherStart >= start && otherStart <= end;
       const endWithinRange = otherEnd >= start && otherEnd <= end;
-      if (!startWithinRange && !endWithinRange) {
+      const startBeforeRange = otherStart <= start;
+      const endAfterRange = otherEnd >= end;
+      if (
+        // No part within the range
+        !(startWithinRange || endWithinRange) &&
+        // This range does not include the current entry range
+        !(startBeforeRange && endAfterRange)
+      ) {
         // This location not within the original location range, skip it
         continue; // eslint-disable-line no-continue
       }
