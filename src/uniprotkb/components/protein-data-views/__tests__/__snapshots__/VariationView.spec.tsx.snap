@@ -134,7 +134,15 @@ exports[`VariationView component renders on data 1`] = `
               <td
                 class="change"
               >
-                L&gt;A
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 L10A"
+                  rel="noopener"
+                  target="_blank"
+                  title="View in ProtVar"
+                >
+                  L&gt;A
+                </a>
               </td>
               <td />
               <td />

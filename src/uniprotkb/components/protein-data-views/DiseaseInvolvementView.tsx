@@ -29,21 +29,54 @@ const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
   return aStart - bStart;
 };
 
-export const uniprotVariantLink = (variant: FeatureDatum) =>
-  variant.alternativeSequence?.originalSequence ||
-  variant.alternativeSequence?.alternativeSequences?.[0] ? (
-    <ExternalLink url={externalUrls.UniProt(variant.featureId || '')} noIcon>
-      {variant.alternativeSequence?.originalSequence || <em>missing</em>}
-      {'>'}
-      {variant.alternativeSequence?.alternativeSequences?.[0] || (
-        <em>missing</em>
-      )}
-    </ExternalLink>
-  ) : (
-    <em>missing</em>
-  );
+export const protvarVariantLink = (
+  variant: FeatureDatum,
+  accession: string
+) => {
+  let variantEl;
+  if (
+    variant.alternativeSequence?.originalSequence?.length === 1 &&
+    variant.alternativeSequence?.alternativeSequences?.[0].length === 1
+  ) {
+    variantEl = (
+      <ExternalLink
+        url={externalUrls.ProtVar(
+          `${accession} ${variant.alternativeSequence?.originalSequence}${variant.location.start.value}${variant.alternativeSequence?.alternativeSequences?.[0]}`
+        )}
+        title="View in ProtVar"
+        noIcon
+      >
+        {variant.alternativeSequence?.originalSequence}
+        {'>'}
+        {variant.alternativeSequence?.alternativeSequences?.[0]}
+      </ExternalLink>
+    );
+  } else if (
+    !variant.alternativeSequence?.originalSequence &&
+    !variant.alternativeSequence?.alternativeSequences?.[0]
+  ) {
+    variantEl = <em>missing</em>;
+  } else {
+    variantEl = (
+      <>
+        {variant.alternativeSequence?.originalSequence || <em>missing</em>}
+        {'>'}
+        {variant.alternativeSequence?.alternativeSequences?.[0] || (
+          <em>missing</em>
+        )}
+      </>
+    );
+  }
+  return variantEl;
+};
 
-export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
+export const DiseaseVariants = ({
+  variants,
+  accession,
+}: {
+  variants: FeatureDatum[];
+  accession: string;
+}) => {
   const table = (
     <table>
       <thead>
@@ -82,9 +115,26 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={i}>
               <tr>
-                <td>{variant.featureId}</td>
+                <td>
+                  {variant.alternativeSequence?.originalSequence?.length ===
+                    1 &&
+                  variant.alternativeSequence?.alternativeSequences?.[0]
+                    .length === 1 ? (
+                    <ExternalLink
+                      url={externalUrls.UniProt(variant.featureId || '')}
+                      title="View in Expasy"
+                      noIcon
+                    >
+                      {variant.featureId}
+                    </ExternalLink>
+                  ) : (
+                    variant.featureId
+                  )}
+                </td>
                 <td>{position}</td>
-                <td className={styles.change}>{uniprotVariantLink(variant)}</td>
+                <td className={styles.change}>
+                  {protvarVariantLink(variant, accession)}
+                </td>
                 <td>
                   {description}
                   {rsIDs?.map((rsID) => (
@@ -226,7 +276,7 @@ export const DiseaseInvolvementEntry = ({
       {diseaseVariants && diseaseVariants.length ? (
         <>
           <h5>Natural variants in {disease?.acronym}</h5>
-          <DiseaseVariants variants={diseaseVariants} />
+          <DiseaseVariants variants={diseaseVariants} accession={accession} />
         </>
       ) : null}
     </>

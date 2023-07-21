@@ -147,18 +147,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </label>
               </span>
             </form>
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
-            >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                Group by
-              </button>
-            </div>
             <button
               class="button tertiary"
               type="button"
@@ -196,6 +184,17 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   >
                     <span>
                       Entry
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Match
                     </span>
                   </span>
                 </th>
@@ -295,6 +294,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </a>
                   </span>
                 </td>
+                <td />
                 <td>
                   <span
                     class="entry-title__status icon--reviewed"
@@ -369,6 +369,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </a>
                   </span>
                 </td>
+                <td />
                 <td>
                   <span
                     class="entry-title__status icon--reviewed"
@@ -1088,18 +1089,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </label>
               </span>
             </form>
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
-            >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                Group by
-              </button>
-            </div>
             <button
               class="button tertiary"
               type="button"

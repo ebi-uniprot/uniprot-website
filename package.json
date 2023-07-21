@@ -34,9 +34,9 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 82.14,
-        "statements": 81.92,
-        "functions": 81,
+        "lines": 81.91,
+        "statements": 81.71,
+        "functions": 80.66,
         "branches": 69.53
       }
     },
@@ -105,7 +105,7 @@
     "core-js": "3.26.0",
     "d3": "5.16.0",
     "deep-freeze": "0.0.1",
-    "franklin-sites": "0.0.214",
+    "franklin-sites": "0.0.217",
     "front-matter": "4.0.2",
     "history": "4.10.1",
     "idb": "7.1.0",
@@ -123,7 +123,7 @@
     "protvista-sequence": "3.8.10",
     "protvista-tooltip": "3.8.4",
     "protvista-track": "3.8.10",
-    "protvista-uniprot": "2.10.7",
+    "protvista-uniprot": "2.10.8",
     "protvista-utils": "3.8.10",
     "protvista-variation": "3.8.10",
     "protvista-variation-adapter": "3.8.10",

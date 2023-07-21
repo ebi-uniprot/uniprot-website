@@ -41,14 +41,9 @@
         }
       }
     }
-    li.grandparents {
-      margin-left: 15ch;
 
-      button {
-        margin: 0;
-      }
-    }
-    &__first {
+    // The first ul to follow the header which may be either "ancestors" or "groups" from the API
+    &__header + ul {
       border-left: 0;
       margin-left: -1ch;
       margin-top: 0.5rem;
@@ -97,10 +92,11 @@
         height: 1ch;
 
         button {
+          padding: 0;
           border: 0;
-          margin-top: -0.4rem;
+          margin-top: -0.1rem;
           margin-bottom: 0rem;
-          margin-left: -0.275rem;
+          margin-left: 0.725rem;
           transition: transform 0.25s ease-out;
           outline: 0;
           background-color: transparent;
@@ -119,6 +115,7 @@
 
       .label {
         display: inline-block;
+        margin-left: 0.55rem;
       }
 
       .bar {

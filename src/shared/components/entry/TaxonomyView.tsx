@@ -84,22 +84,20 @@ export const TaxonomyLineage = ({
 }) => (
   <>
     {lineage?.length
-      ? Array.from(lineage)
-          .reverse()
-          .map((data, index) => (
-            <Fragment key={data.taxonId || index}>
-              {index ? ' > ' : undefined}
-              {data.taxonId ? (
-                <TaxonomyView
-                  data={data as Lineage}
-                  displayOnlyID={displayOnlyID}
-                  className={data.hidden ? styles['hidden-taxon'] : undefined}
-                />
-              ) : (
-                data.scientificName
-              )}
-            </Fragment>
-          ))
+      ? Array.from(lineage).map((data, index) => (
+          <Fragment key={data.taxonId || index}>
+            {index ? ' > ' : undefined}
+            {data.taxonId ? (
+              <TaxonomyView
+                data={data as Lineage}
+                displayOnlyID={displayOnlyID}
+                className={data.hidden ? styles['hidden-taxon'] : undefined}
+              />
+            ) : (
+              data.scientificName
+            )}
+          </Fragment>
+        ))
       : null}
   </>
 );
@@ -117,11 +115,9 @@ const SelfLoadingTaxonomyLineage = ({
     blockLoading ? null : apiUrls.entry(`${taxonId}`, Namespace.taxonomy)
   );
 
-  let lineage: Array<Partial<Lineage>> = fallbackData
-    .map((scientificName) => ({
-      scientificName,
-    }))
-    .reverse(); // Lineage as string and as objects don't have the same order...
+  let lineage: Array<Partial<Lineage>> = fallbackData.map((scientificName) => ({
+    scientificName,
+  }));
   if (data && data.lineage) {
     lineage = data.lineage;
   }

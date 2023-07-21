@@ -116,9 +116,9 @@ exports[`ProteinOverview component should render 1`] = `
             770 
             <small>
               <a
-                href="/#sequences"
+                href="/uniprotkb/P05067/entry#sequences"
               >
-                (jump to sequence)
+                (go to sequence)
               </a>
             </small>
           </span>

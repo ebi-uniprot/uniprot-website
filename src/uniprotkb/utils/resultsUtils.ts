@@ -11,6 +11,7 @@ import {
 import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
 import { ViewMode } from '../../shared/hooks/useViewMode';
+import { GroupBy } from '../config/apiUrls';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -30,7 +31,7 @@ export type URLResultParams = {
   direct?: boolean;
   columns?: Column[];
   viewMode?: ViewMode;
-  groupBy?: string;
+  groupBy?: GroupBy;
   parent?: string;
 };
 
@@ -73,7 +74,7 @@ export const getParamsFromURL = (
     sortDirection: sortDirection && SortDirection[sortDirection],
     // flag, so if '?direct' we get null, if not in querystring we get undefined
     direct: direct !== undefined,
-    groupBy: groupBy || undefined,
+    groupBy: (groupBy as GroupBy) || undefined,
     parent: parent || undefined,
   };
 

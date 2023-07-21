@@ -69,7 +69,7 @@ import {
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 // import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView, {
-  uniprotVariantLink,
+  protvarVariantLink,
 } from '../components/protein-data-views/DiseaseInvolvementView';
 import CatalyticActivityView, {
   getRheaId,
@@ -1432,7 +1432,7 @@ const getXrefColumn = (databaseName: string) => {
               <div key={featureId}>
                 {dbSNPRef?.id && (
                   <>
-                    {uniprotVariantLink(feature)}
+                    {protvarVariantLink(feature, data.primaryAccession)}
                     <span className={helper['no-wrap']}>
                       {` ${dbSNPRef.id}`}
                       {' ( '}

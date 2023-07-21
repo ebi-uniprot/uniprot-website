@@ -11,15 +11,17 @@ import { FileFormat } from '../../types/resultsDownload';
 
 import styles from './styles/download-preview.module.scss';
 
-const DownloadPreview = ({
-  previewUrl,
-  previewFileFormat,
-}: {
-  previewUrl: string;
-  previewFileFormat: FileFormat;
-}) => {
+type Props = {
+  previewUrl?: string;
+  previewFileFormat?: FileFormat;
+};
+
+const DownloadPreview = ({ previewUrl, previewFileFormat }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const options = useMemo(() => {
+    if (!previewFileFormat) {
+      return undefined;
+    }
     const headers: Record<string, string> = {};
     const accept = fileFormatToContentType[previewFileFormat];
     if (accept) {
@@ -40,9 +42,13 @@ const DownloadPreview = ({
   return (
     <div className={styles.preview} ref={scrollRef}>
       <h4>Preview</h4>
-      <CodeBlock lightMode data-testid="download-preview">
-        {typeof data === 'string' ? data : JSON.stringify(data, null, 2)}
-      </CodeBlock>
+      {data ? (
+        <CodeBlock lightMode data-testid="download-preview">
+          {typeof data === 'string' ? data : JSON.stringify(data, null, 2)}
+        </CodeBlock>
+      ) : (
+        'No preview available for this format'
+      )}
     </div>
   );
 };

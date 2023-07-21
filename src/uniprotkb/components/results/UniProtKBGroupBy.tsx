@@ -1,10 +1,10 @@
 /* eslint-disable uniprot-website/use-config-location */
-import { useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
-  ExpandableList,
+  ExternalLink,
   Loader,
   LongNumber,
   Message,
@@ -16,62 +16,284 @@ import qs from 'query-string';
 import { sumBy } from 'lodash-es';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import AutocompleteWrapper, {
+  Suggestions,
+} from '../../../query-builder/components/AutocompleteWrapper';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls, { GroupBy } from '../../config/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import sharedApiUrls, {
+import {
   getAPIQueryParams,
-  getAPIQueryUrl,
+  getSuggesterUrl,
 } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
-import * as logging from '../../../shared/utils/logging';
+import {
+  getGroupBySuggesterUrl,
+  getPercentageLabel,
+  getGroupBySuggesterTitle,
+  groupByToLabel,
+  groupByToTerm,
+} from './UniProtKBGroupByUtils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
-import { TaxonomyColumn } from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
-import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/group-by.module.scss';
-import taxonStyles from '../../../shared/components/entry/styles/taxonomy-view.module.css';
 
 const HISTOGRAM_WIDTH = 300;
 
-const getPercentageLabel = (percentage: number) => {
-  const percentageLabel = percentage?.toFixed(0);
-  if (+percentageLabel === 0) {
-    return '≈0%';
-  }
-  if (percentageLabel === '100' && percentage !== 100) {
-    return '≈100%';
-  }
-  return `${percentageLabel}%`;
-};
-
-export type GroupByItem = {
+type Ancestor = {
   id: string;
   label: string;
-  link: string;
-  expand?: boolean;
+};
+
+type Group = {
+  id: string;
+  label: string;
+  expandable?: boolean;
   count: number;
+};
+
+type Parent = {
+  label: string;
+  count: number;
+};
+
+export type GroupByAPIModel = {
+  ancestors: Ancestor[];
+  groups: Group[];
+  parent?: Parent;
+};
+
+type GroupByLinkProps = {
+  groupBy: GroupBy;
+  id: string;
+  groupByLabel: string;
+  parentLabel: string;
+};
+
+export const GroupByLink = ({
+  groupBy,
+  id,
+  groupByLabel,
+  parentLabel,
+}: GroupByLinkProps) => {
+  const child = `${groupByLabel} ID:${id}`;
+  switch (groupBy) {
+    case 'ec':
+      return (
+        <ExternalLink
+          url={externalUrls.ENZYME(id)}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </ExternalLink>
+      );
+    case 'go':
+      return (
+        <ExternalLink
+          url={externalUrls.QuickGO(id)}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </ExternalLink>
+      );
+    case 'keyword':
+      return (
+        <Link
+          to={{
+            pathname: generatePath(LocationToPath[Location.KeywordsEntry], {
+              accession: id,
+            }),
+          }}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </Link>
+      );
+    case 'taxonomy':
+      return (
+        <Link
+          to={{
+            pathname: generatePath(LocationToPath[Location.TaxonomyEntry], {
+              accession: id,
+            }),
+          }}
+          title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
+        >
+          {child}
+        </Link>
+      );
+    default:
+      return null;
+  }
+};
+
+type UniProtKBNodeSearchLinkProps = {
+  id: string;
+  label: string;
+  groupBy: GroupBy;
+  query: string;
+  count: number;
+};
+
+const UniProtKBNodeSearchLink = ({
+  id,
+  label,
+  groupBy,
+  query,
+  count,
+}: UniProtKBNodeSearchLinkProps) => {
+  const groupByLabel = groupByToLabel[groupBy];
+  const groupByTerm = groupByToTerm[groupBy];
+  // GO parent IDs are in the format GO:0008150 and search endpoint doesn't want the "GO:"
+  const groupById = groupBy === 'go' ? id.slice(3) : id;
+  return (
+    <Link
+      to={{
+        pathname: LocationToPath[Location.UniProtKBResults],
+        search: `query=${query} AND (${groupByTerm}:${groupById})`,
+      }}
+      title={`UniProtKB search results with ${groupByLabel}: ${label} (ID:${id}) and query:${query}`}
+    >
+      <LongNumber>{count}</LongNumber>
+    </Link>
+  );
+};
+
+type ParentNodeLinkProps = {
+  id?: string;
+  label: string;
+  url: string;
+  searchParams: { [k: string]: string };
+  parent?: string;
+};
+
+const ParentNodeLink = ({
+  label,
+  id,
+  url,
+  searchParams,
+  parent,
+}: ParentNodeLinkProps) => (
+  <Link
+    to={qs.stringifyUrl({
+      url,
+      query: {
+        ...searchParams,
+        parent,
+      },
+    })}
+    title={`Set parent node to ${label}${id ? `ID:${id}` : ''}`}
+  >
+    {label}
+  </Link>
+);
+
+type GroupByAncestorProps = {
+  query: string;
+  ancestors: Ancestor[];
+  count?: number;
+  labelWidth?: number;
+  children: ReactNode;
+  groupBy: GroupBy;
+  showDropdownAndCount?: boolean;
+};
+
+const GroupByAncestor = ({
+  ancestors,
+  query,
+  count,
+  labelWidth,
+  children,
+  groupBy,
+  showDropdownAndCount = false,
+}: GroupByAncestorProps) => {
+  const location = useLocation();
+  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
+  const [open, setOpen] = useState(true);
+  const [ancestor, ...restAncestors] = ancestors;
+
+  if (!ancestor) {
+    return <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>;
+  }
+
+  if (!count) {
+    return null;
+  }
+
+  return (
+    <ul className={cn('no-bullet', styles.groupby)}>
+      <li className={styles.node}>
+        <span className={styles.expand}>
+          {showDropdownAndCount && (
+            <Button
+              variant="secondary"
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+            >
+              ►
+            </Button>
+          )}
+        </span>
+        <span className={styles.count}>
+          {showDropdownAndCount && (
+            <UniProtKBNodeSearchLink
+              id={ancestor.id}
+              label={ancestor.label}
+              groupBy={groupBy}
+              query={query}
+              count={count}
+            />
+          )}
+        </span>
+        <span
+          className={styles.label}
+          style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
+        >
+          <ParentNodeLink
+            label={ancestor.label}
+            id={ancestor.id}
+            url={location.pathname}
+            searchParams={searchParams}
+            parent={ancestor.id}
+          />
+        </span>
+        {open &&
+          (restAncestors.length > 0 ? (
+            <GroupByAncestor
+              ancestors={restAncestors}
+              query={query}
+              count={count}
+              labelWidth={labelWidth}
+              groupBy={groupBy}
+            >
+              {children}
+            </GroupByAncestor>
+          ) : (
+            <ul className={cn('no-bullet', styles.groupby)}>{children}</ul>
+          ))}
+      </li>
+    </ul>
+  );
 };
 
 type GroupByNodeProps = {
   query: string;
-  item: GroupByItem;
+  item: Group;
   labelWidth?: number;
   histogram?: boolean;
   parentTotal?: number;
+  groupBy: GroupBy;
 };
 
 const GroupByNode = ({
@@ -80,13 +302,14 @@ const GroupByNode = ({
   labelWidth,
   histogram,
   parentTotal,
+  groupBy,
 }: GroupByNodeProps) => {
   const location = useLocation();
   const messagesDispatch = useMessagesDispatch();
   const [open, setOpen] = useState(false);
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
-  const url = open ? apiUrls.groupBy('taxonomy', query, item.id) : null;
-  const { loading, data, error } = useDataApi<GroupByItem[]>(url);
+  const url = open ? apiUrls.groupBy(groupBy, query, item.id) : null;
+  const { loading, data, error } = useDataApi<GroupByAPIModel>(url);
 
   if (error) {
     messagesDispatch(
@@ -100,7 +323,7 @@ const GroupByNode = ({
   }
 
   let icon;
-  if (item.expand) {
+  if (item.expandable) {
     if (loading) {
       icon = <SpinnerIcon height="1rem" className={styles.spinner} />;
     } else if (error) {
@@ -124,52 +347,59 @@ const GroupByNode = ({
       );
     }
   }
-
+  const sumChildren = sumBy(data?.groups, 'count');
   const children = data && open && (
-    <ul className={cn('no-bullet', styles.groupby)}>
-      {data.map((child) => (
-        <GroupByNode item={child} query={query} key={child.id} />
+    <GroupByAncestor
+      ancestors={data.ancestors}
+      query={query}
+      labelWidth={labelWidth}
+      count={sumChildren}
+      groupBy={groupBy}
+      showDropdownAndCount={data.ancestors.length === 1}
+    >
+      {data.groups.map((child) => (
+        <GroupByNode
+          item={child}
+          query={query}
+          key={child.id}
+          parentTotal={sumChildren}
+          groupBy={groupBy}
+        />
       ))}
-    </ul>
+    </GroupByAncestor>
   );
 
   const proportion = histogram && parentTotal && item.count / parentTotal;
   const percentage = proportion && 100 * proportion;
+  const groupByLabel = groupByToLabel[groupBy];
 
   return (
     <li className={styles.node}>
       <span className={styles.expand}>{icon}</span>
       <span className={styles.count}>
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: `query=${query} AND taxonomy_id:${item.id}`,
-          }}
-          title={`UniProtKB search results with taxonomy:${item.label} (ID:${item.id}) and query:${query}`}
-        >
-          <LongNumber>{item.count}</LongNumber>
-        </Link>
+        <UniProtKBNodeSearchLink
+          id={item.id}
+          label={item.label}
+          groupBy={groupBy}
+          query={query}
+          count={item.count}
+        />
       </span>
       <span
         className={styles.label}
         style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
       >
-        <Link
-          to={qs.stringifyUrl({
-            url: location.pathname,
-            query: {
-              ...searchParams,
-              parent: item.id,
-            },
-          })}
-          title={`Set parent node to ${item.label} ID:${item.id}`}
-        >
-          {item.label}
-        </Link>
+        <ParentNodeLink
+          label={item.label}
+          id={item.id}
+          url={location.pathname}
+          searchParams={searchParams}
+          parent={item.id}
+        />
       </span>
       {proportion && percentage && (
         <span
-          title={`Number of UniProtKB search results with taxonomy ${
+          title={`Number of UniProtKB search results with ${groupByLabel}: ${
             item.label
           } (ID:${item.id}) and query ${query} is ${formatLargeNumber(
             item.count
@@ -196,94 +426,55 @@ type GroupByRootProps = {
   query: string;
   id?: string;
   total?: number;
+  groupBy: GroupBy;
 };
 
-const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
+const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   const location = useLocation();
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
-  const groupByUrl = apiUrls.groupBy('taxonomy', query, id);
-  const groupByResponse = useDataApi<GroupByItem[]>(`${groupByUrl}`);
+  const groupByUrl = apiUrls.groupBy(groupBy, query, id);
+  const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
+  // TODO: remove this when backend provides the parent information in the groupby response
   const parentUrl = id
-    ? getAPIQueryUrl({
-        query: `${query} AND taxonomy_id:${id}`,
-        size: 0,
-        facets: null,
-      })
+    ? getSuggesterUrl(getGroupBySuggesterUrl(groupBy), id)
     : null;
-  const parentResponse = useDataApi<UniProtkbAPIModel>(parentUrl);
-  const taxonomyUrl = id
-    ? sharedApiUrls.entry(String(id), Namespace.taxonomy, [
-        TaxonomyColumn.scientificName,
-        TaxonomyColumn.parent,
-        TaxonomyColumn.lineage,
-      ])
-    : null;
-  const taxonomyResponse = useDataApi<TaxonomyAPIModel>(taxonomyUrl);
-  const childrenUrl = id
-    ? getAPIQueryUrl({
-        namespace: Namespace.taxonomy,
-        query: `parent:${id}`,
-        size: 0,
-        facets: null,
-      })
-    : null;
-  const childrenResponse = useDataApi<TaxonomyAPIModel>(childrenUrl);
+  const parentResponse = useDataApi<Suggestions>(parentUrl);
 
-  if (
-    groupByResponse.loading ||
-    (id && taxonomyResponse.loading) ||
-    (id && parentResponse.loading)
-  ) {
+  if (groupByResponse.loading || (id && parentResponse.loading)) {
     return <Loader />;
   }
 
-  // TODO: uncomment as soon as API stops returning 500s for leaf nodes
-  // if (groupByResponse.error || !groupByResponse.data) {
-  //   return <ErrorHandler status={groupByResponse.status} />;
-  // }
-
-  if (taxonomyResponse.error || (id && !taxonomyResponse.data)) {
-    return <ErrorHandler status={taxonomyResponse.status} />;
+  if (groupByResponse.error || !groupByResponse.data) {
+    return <ErrorHandler status={groupByResponse.status} />;
   }
 
   if (parentResponse.error || (id && !parentResponse.data)) {
-    return <ErrorHandler status={taxonomyResponse.status} />;
+    return <ErrorHandler status={parentResponse.status} />;
   }
 
-  if (childrenResponse.error || (id && !childrenResponse.data)) {
-    return <ErrorHandler status={childrenResponse.status} />;
-  }
-
-  const parentTotal = parentResponse?.headers?.['x-total-results'];
-  const sumChildren = sumBy(groupByResponse.data, 'count');
-  // Sanity check
-  if (parentTotal && +parentTotal !== sumChildren) {
-    logging.warn(
-      `parentTotal !== sumChildren: ${parentTotal} !== ${sumChildren}`
-    );
-  }
-  const hasChildren = Boolean(
-    +(childrenResponse?.headers?.['x-total-results'] || 0)
-  );
-  const [grandparent, ...parents] = Array.from(
-    taxonomyResponse?.data?.lineage || []
-  );
+  const sumChildren = sumBy(groupByResponse.data?.groups, 'count');
 
   let childrenNode;
-  if (id && !hasChildren) {
+  if (id && !sumChildren) {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        This taxonomy has no children.
+        This {groupByToLabel[groupBy]} node has no children.
       </Message>
     );
-  } else if (groupByResponse.data?.length) {
-    // TODO: remove optional changing when API fixes 500s (see TODO above)
+  } else if (groupByResponse.data?.groups.length) {
     const labelWidth = Math.max(
-      ...groupByResponse.data.map((child) => child.label.length)
+      ...groupByResponse.data.groups.map((child) => child.label.length)
     );
     childrenNode = (
-      <ul className={cn('no-bullet', styles.groupby, styles.groupby__first)}>
-        {groupByResponse.data.map((child) => (
+      <GroupByAncestor
+        ancestors={groupByResponse.data.ancestors}
+        query={query}
+        labelWidth={labelWidth}
+        count={sumChildren || total}
+        groupBy={groupBy}
+        showDropdownAndCount
+      >
+        {groupByResponse.data.groups.map((child) => (
           <GroupByNode
             item={child}
             query={query}
@@ -291,24 +482,29 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
             labelWidth={labelWidth}
             histogram
             parentTotal={sumChildren || total}
+            groupBy={groupBy}
           />
         ))}
-      </ul>
+      </GroupByAncestor>
     );
   } else {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        No results found with this combination of taxonomy, query and facets.
+        No results found with this combination of {groupBy}, query and facets.
       </Message>
     );
   }
+
+  const groupByLabel = groupByToLabel[groupBy];
+
+  const { value: parentLabel } = parentResponse?.data?.suggestions?.[0] || {};
 
   return (
     <div className={styles['groupby-container']}>
       <ul className={cn('no-bullet', styles.groupby, styles.groupby__header)}>
         <li className={styles.header}>
           <h3 className={cn('tiny', styles.count)}>UniProtKB Entries</h3>
-          <h3 className={cn('tiny', styles.label)}>Taxonomy</h3>
+          <h3 className={cn('tiny', styles.label)}>{groupByLabel}</h3>
         </li>
         {total && (
           <li className={styles.parent}>
@@ -325,18 +521,11 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
             </span>
             <span className={styles.label}>
               {id ? (
-                <Link
-                  to={qs.stringifyUrl({
-                    url: location.pathname,
-                    query: {
-                      ...searchParams,
-                      parent: undefined,
-                    },
-                  })}
-                  title="Set parent node to the top level"
-                >
-                  Top level
-                </Link>
+                <ParentNodeLink
+                  label="Top level"
+                  url={location.pathname}
+                  searchParams={searchParams}
+                />
               ) : (
                 <span title="Parent node currently set to top level">
                   Top level
@@ -345,91 +534,39 @@ const GroupByRoot = ({ query, id, total }: GroupByRootProps) => {
             </span>
           </li>
         )}
-        {id && taxonomyResponse.data && (
-          <>
-            {(parents.length > 0 || grandparent) && (
-              <li className={styles.grandparents}>
-                <ExpandableList
-                  numberCollapsedItems={0}
-                  descriptionString="parents"
-                  displayNumberOfHiddenItems
-                  title={`Show/hide taxonomy nodes between the top level and ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
-                >
-                  {parents.reverse().map((p) => (
-                    <Link
-                      key={p.taxonId}
-                      to={qs.stringifyUrl({
-                        url: location.pathname,
-                        query: {
-                          ...searchParams,
-                          parent: p.taxonId,
-                        },
-                      })}
-                      title={`Set parent node to ${p.scientificName} (ID:${p.taxonId})`}
-                      className={
-                        p.hidden ? taxonStyles['hidden-taxon'] : undefined
-                      }
-                    >
-                      {p.scientificName}
-                    </Link>
-                  ))}
-                </ExpandableList>
-                <Link
-                  key={grandparent.taxonId}
-                  to={qs.stringifyUrl({
-                    url: location.pathname,
-                    query: {
-                      ...searchParams,
-                      parent: grandparent.taxonId,
-                    },
-                  })}
-                  title={`Set parent node to ${grandparent.scientificName} (ID:${grandparent.taxonId})`}
-                  className={
-                    grandparent.hidden ? taxonStyles['hidden-taxon'] : undefined
-                  }
-                >
-                  {grandparent.scientificName}
-                </Link>
-              </li>
-            )}
-            <li className={styles.parent}>
-              <span className={styles.count}>
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=${query}${
-                      id ? `AND taxonomy_id:${id}` : ''
-                    }`,
-                  }}
-                  title={`UniProtKB search results with taxonomy:${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId}) and query:${query}`}
-                >
-                  <LongNumber>{parentTotal || 0}</LongNumber>
-                </Link>
+        {id && parentLabel && (
+          <li className={styles.parent}>
+            <span className={styles.count}>
+              <UniProtKBNodeSearchLink
+                id={id}
+                label={parentLabel}
+                groupBy={groupBy}
+                query={query}
+                count={sumChildren}
+              />
+            </span>
+            <span className={styles.label}>
+              <span
+                className={styles['active-label']}
+                title={`Parent node currently set to ${parentLabel} (ID:${id})`}
+              >
+                {parentLabel}
               </span>
-              <span className={styles.label}>
-                <span
-                  className={styles['active-label']}
-                  title={`Parent node currently set to ${taxonomyResponse.data.scientificName} (ID:${taxonomyResponse.data.taxonId})`}
-                >
-                  {taxonomyResponse.data.scientificName}
-                </span>
-                <Link
-                  to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-                    accession: id,
-                  })}
-                  title={`The taxonomy entry page for ${taxonomyResponse.data.scientificName} (ID:${id})`}
-                >
-                  Taxon ID:{id}
-                </Link>
-              </span>
-            </li>
-          </>
+              <GroupByLink
+                id={id}
+                groupBy={groupBy}
+                groupByLabel={groupByLabel}
+                parentLabel={parentLabel}
+              />
+            </span>
+          </li>
         )}
       </ul>
       {childrenNode}
     </div>
   );
 };
+
 type UniProtKBGroupByResultsProps = {
   total?: number;
 };
@@ -440,9 +577,9 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const [params] = getParamsFromURL(locationSearch);
   // This query will include facets
   const { query } = getAPIQueryParams(params);
-  const { parent } = params;
+  const { parent, groupBy } = params;
 
-  const handleTaxonFormValue = useCallback(
+  const handleAutocompleteFormValue = useCallback(
     (_, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
@@ -461,19 +598,25 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
     [history, locationSearch]
   );
 
+  if (!groupBy) {
+    return null;
+  }
+
+  const groupByLabel = groupByToLabel[groupBy];
+
   return (
     <>
-      <h2 className="small">Group by taxonomy</h2>
+      <h2 className="small">Group by {groupByLabel}</h2>
       <section className={styles.autocomplete}>
         <AutocompleteWrapper
-          placeholder="Enter taxon name or ID"
-          url={sharedApiUrls.taxonomySuggester}
-          onSelect={handleTaxonFormValue}
-          title="Search for taxonomy"
+          placeholder={`Enter ${groupByLabel} name or ID`}
+          url={getGroupBySuggesterUrl(groupBy)}
+          onSelect={handleAutocompleteFormValue}
+          title={getGroupBySuggesterTitle(groupBy)}
           clearOnSelect
         />
       </section>
-      <GroupByRoot query={query} id={parent} total={total} />
+      <GroupByRoot groupBy={groupBy} query={query} id={parent} total={total} />
     </>
   );
 };

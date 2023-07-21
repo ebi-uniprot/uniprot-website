@@ -106,14 +106,6 @@ const BasketMiniViewTab = ({
     })
   );
 
-  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
-    useItemSelect();
-
-  // reset the selection every time the namespace changes
-  useEffect(() => {
-    setSelectedEntries([]);
-  }, [namespace, setSelectedEntries]);
-
   const initialApiUrl = useNSQuery({
     // Passing accessions without modifications in case of subsets
     accessions: Array.from(new Set(subsetsMap.values())),
@@ -124,6 +116,14 @@ const BasketMiniViewTab = ({
     facetsNotApplied: true,
   });
   const resultsDataObject = usePagination(initialApiUrl);
+
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect(resultsDataObject.initialLoading);
+
+  // reset the selection every time the namespace changes
+  useEffect(() => {
+    setSelectedEntries([]);
+  }, [namespace, setSelectedEntries]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 

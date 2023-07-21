@@ -6675,10 +6675,10 @@ foundation-sites@6.7.5:
   resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.7.5.tgz#6bc2bdd06819e6ed4d7fd8e3090246a0b6ac81c0"
   integrity sha512-MEjAENdF/IV2XQvlQmg20o+iDTyyWu0N/j440e8fKbEylbKxARzgg5S7vcnxtjukC1Lqg+rRm7ZDSSyGhVVoUQ==
 
-franklin-sites@0.0.214:
-  version "0.0.214"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.214.tgz#58632db403c56a993658c0a77d496d6c07c0b0ec"
-  integrity sha512-2iITJmuJ7EWplyNeugF0yawyY65D2xGp5yznDqDEhwF/VOFL8WSjNxwI6NfLBmFjgq+LdG2pEP+S22V45WPSjQ==
+franklin-sites@0.0.217:
+  version "0.0.217"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.217.tgz#4a136f60ba47c674ee26ff7161cf5f134d15be80"
+  integrity sha512-NZSINMZMaKRkmx5rR5OAOfFX7WT0lP8CJrdDXgAgskWEHISn648CH9035/W0mZU5P6sA6j1SXrnKdbrLLz+cRg==
   dependencies:
     "@tippyjs/react" "4.2.6"
     classnames "2.3.2"
@@ -10016,10 +10016,10 @@ protvista-track@3.8.10, protvista-track@^3.8.10:
     lodash-es "^4.17.11"
     protvista-zoomable "^3.8.10"
 
-protvista-uniprot@2.10.7:
-  version "2.10.7"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.10.7.tgz#308f8d774bc76fdd9e972677b89425912d7887fc"
-  integrity sha512-G9hz7njCl5lhAzNPIkqLvRg3djD05ArfEeA1fCvaoeeQCdU+UKc5rKWOu/XJbX6jw9Zkm49rhXb1kbQ9JL0DiQ==
+protvista-uniprot@2.10.8:
+  version "2.10.8"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.10.8.tgz#60b276b86fa74d797935709353cd4b3a3d39a314"
+  integrity sha512-jpUQmniy9Wm+uLBWxDAFZjJTCLpRRBRqlNKj9fDnj1YpFh4nGyGySXM/tpF8s/UjXJ/gGik/aYvW1UF3Xh1sPw==
   dependencies:
     core-js "^3.13.0"
     data-loader "^2.9.1"

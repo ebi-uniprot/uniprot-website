@@ -8,13 +8,12 @@ import {
   ChangeEvent,
   useCallback,
 } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   DownloadIcon,
   // StatisticsIcon,
   Button,
   SlidingPanel,
-  Dropdown,
 } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -289,26 +288,6 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             </label>
           </span>
         </form>
-        <Dropdown visibleElement={<Button variant="tertiary">Group by</Button>}>
-          <ul>
-            <li>
-              <Link
-                // eslint-disable-next-line uniprot-website/use-config-location
-                to={(location) => {
-                  const search = new URLSearchParams(location.search);
-                  search.set('groupBy', 'taxonomy');
-                  return {
-                    ...location,
-                    pathname: location.pathname,
-                    search: search.toString(),
-                  };
-                }}
-              >
-                Taxonomy
-              </Link>
-            </li>
-          </ul>
-        </Dropdown>
         {!notCustomisable &&
           !sharedUrlMode &&
           // Exception for ID mapping results!

@@ -32,6 +32,28 @@ export enum BlastFields {
 
 export type BlastFormValues = Record<BlastFields, Readonly<BlastFormValue>>;
 
+const databases = [
+  {
+    value: 'uniprotkb_refprotswissprot',
+    label: 'UniProtKB reference proteomes + Swiss-Prot',
+  },
+  { value: 'uniprotkb', label: 'UniProtKB' },
+  { value: 'uniprotkb_pdb', label: 'UniProtKB with 3D structure (PDB)' },
+  {
+    value: 'afdb',
+    label: 'UniProtKB with 3D structure predictions (AlphaFold)',
+  },
+  {
+    value: 'uniprotkb_reference_proteomes',
+    label: 'UniProtKB reference proteomes',
+  },
+  { value: 'uniprotkb_swissprot', label: 'UniProtKB Swiss-Prot' },
+  { value: 'uniref100', label: 'UniRef100' },
+  { value: 'uniref90', label: 'UniRef90' },
+  { value: 'uniref50', label: 'UniRef50' },
+  { value: 'uniparc', label: 'UniParc' },
+];
+
 const formData: Readonly<BlastFormValues> = deepFreeze({
   [BlastFields.program]: {
     fieldName: 'program',
@@ -53,27 +75,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   [BlastFields.database]: {
     fieldName: 'database',
     selected: 'uniprotkb_refprotswissprot',
-    values: [
-      {
-        value: 'uniprotkb_refprotswissprot',
-        label: 'UniProtKB reference proteomes + Swiss-Prot',
-      },
-      { value: 'uniprotkb', label: 'UniProtKB' },
-      { value: 'uniprotkb_pdb', label: 'UniProtKB with 3D structure (PDB)' },
-      {
-        value: 'afdb',
-        label: 'UniProtKB with 3D structure predictions (AlphaFold)',
-      },
-      {
-        value: 'uniprotkb_reference_proteomes',
-        label: 'UniProtKB reference proteomes',
-      },
-      { value: 'uniprotkb_swissprot', label: 'UniProtKB Swiss-Prot' },
-      { value: 'uniref100', label: 'UniRef100' },
-      { value: 'uniref90', label: 'UniRef90' },
-      { value: 'uniref50', label: 'UniRef50' },
-      { value: 'uniparc', label: 'UniParc' },
-    ],
+    values: databases,
   },
   [BlastFields.taxons]: {
     fieldName: 'taxIDs',
@@ -176,6 +178,11 @@ export const databaseToNamespace = (
     return Namespace.uniref;
   }
   return undefined;
+};
+
+export const databaseValueToName = (value: string) => {
+  const database = databases.find((database) => database.value === value);
+  return database?.label || '';
 };
 
 export default formData;
