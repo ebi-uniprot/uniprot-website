@@ -108,8 +108,19 @@ const apiUrls = {
       query: { query: `accession:${accession}` },
     }),
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
-  entry: (id: string | undefined, namespace: Namespace) =>
-    id && joinUrl(apiPrefix, namespace, id),
+  entry: (id: string | undefined, namespace: Namespace, columns?: Column[]) => {
+    if (!id) {
+      return undefined;
+    }
+    const url = joinUrl(apiPrefix, namespace, id);
+    if (columns?.length) {
+      return queryString.stringifyUrl({
+        url,
+        query: { fields: columns.join(',') },
+      });
+    }
+    return url;
+  },
   sequenceFasta: (accession: string) =>
     `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
   entryDownload: (
@@ -230,7 +241,6 @@ export const getAPIQueryParams = ({
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }
-
   return {
     size,
     query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]

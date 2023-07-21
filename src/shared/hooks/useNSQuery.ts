@@ -39,15 +39,13 @@ const useNSQuery = ({
   noSort = false,
 }: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
-  const location = useLocation();
+  const { search: queryParamFromUrl } = useLocation();
   const { viewMode } = useViewMode(overrideNS);
-  // TODO: destructure useColumnNames
   const { columnNames } = useColumnNames({
     namespaceOverride: overrideNS,
     getSequence,
   });
 
-  const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
 
