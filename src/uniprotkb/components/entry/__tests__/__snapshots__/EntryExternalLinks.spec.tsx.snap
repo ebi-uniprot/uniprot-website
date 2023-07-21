@@ -113,44 +113,7 @@ exports[`Entry - External Links view should render 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://mobidb.bio.unipd.it/entries/P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search…
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <a
-                  href="/database?query=(name:ProtoNet)&direct"
-                >
-                  ProtoNet
-                </a>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P21802"
+                      href="https://mobidb.bio.unipd.it/entries/P21802"
                       rel="noopener"
                       target="_blank"
                     >
@@ -257,7 +220,7 @@ exports[`Entry - External Links view should render 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                      href="https://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
                       rel="noopener"
                       target="_blank"
                     >

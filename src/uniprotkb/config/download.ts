@@ -11,6 +11,7 @@ export const fileFormatsResultsDownload = [
   FileFormat.text,
   FileFormat.gff,
   FileFormat.list,
+  FileFormat.embeddings,
 ];
 
 export const fileFormatEntryDownload = [

@@ -78,7 +78,7 @@ export const UniParcColumnConfiguration: ColumnConfiguration<
 const familyAndDomainRenderer =
   (
     db: SequenceFeature['database'],
-    externalURLAccessor: keyof typeof externalUrls
+    externalURLAccessor: Exclude<keyof typeof externalUrls, 'EnsemblComponent'>
   ) =>
   (data: UniParcAPIModel) =>
     (

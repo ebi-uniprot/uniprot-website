@@ -252,7 +252,16 @@ exports[`Entry basic should render main 1`] = `
             <div
               class="decorated-list-item__content"
             >
-              10
+              <span>
+                10 
+                <small>
+                  <a
+                    href="/uniprotkb/P21802/entry#sequences"
+                  >
+                    (go to sequence)
+                  </a>
+                </small>
+              </span>
             </div>
           </div>
         </li>
@@ -344,16 +353,16 @@ exports[`Entry basic should render main 1`] = `
           <div
             aria-controls="0"
             class="tabs__header__item"
-            data-target="variants-viewer"
+            data-target="variant-viewer"
             data-testid="tab-title"
             role="tab"
           >
             <a
               class="disabled"
-              href="/uniprotkb/P21802/variants-viewer"
+              href="/uniprotkb/P21802/variant-viewer"
               tabindex="-1"
             >
-              Variants viewer
+              Variant viewer
             </a>
           </div>
           <div

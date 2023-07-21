@@ -130,16 +130,29 @@ function useInitialFormParameters<
         selected: sequences,
       });
       const parsedSequences = sequenceProcessor(sequences);
+
+      let name = parsedSequences[0]?.name;
+      // Job name for Align is taken after the first sequence followed by number of sequences
+      if (LocationToPath[Location.Align] === history.location.pathname) {
+        name = `${parsedSequences[0]?.name} +${parsedSequences.length - 1}`;
+      }
+      // By default, job names should be after each submitted sequence for BLAST, hence do not set the name for multiple sequences.
+      if (
+        LocationToPath[Location.Blast] === history.location.pathname &&
+        parsedSequences.length > 1
+      ) {
+        name = '';
+      }
       formValues['Name' as Fields] = Object.freeze({
         fieldName: 'name',
-        selected: parsedSequences[0]?.name || '',
+        selected: name,
       });
     }
 
     return Object.freeze(formValues as FormValues<Fields>);
   }, [
     fastaLoading,
-    history.location?.state,
+    history.location,
     parametersFromHistorySearch,
     fasta,
     defaultFormValues,

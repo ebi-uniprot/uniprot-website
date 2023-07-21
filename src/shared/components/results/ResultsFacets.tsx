@@ -16,6 +16,7 @@ import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import { FacetObject, FacetValue } from '../../types/results';
 
 import helper from '../../styles/helper.module.scss';
+import baseLayoutStyles from '../layouts/styles/base-layout.module.scss';
 
 const getDecoratedFacetLabel = (facetValue: FacetValue) => {
   const { label } = facetValue;
@@ -82,16 +83,37 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const after =
     splitIndex === -1 ? facetsWithIcons : facetsWithIcons.slice(splitIndex + 1);
 
+  const facetClickHandler: (
+    event: React.MouseEvent<HTMLElement>
+  ) => void = () =>
+    document
+      .querySelector(`.${baseLayoutStyles['main-content']}`)
+      ?.scrollTo(0, 0);
+
   return (
     <Facets className={isStale ? helper.stale : undefined}>
       {before.map(
-        (facet) => facet.values && <Facet key={facet.name} data={facet} />
+        (facet) =>
+          facet.values && (
+            <Facet
+              key={facet.name}
+              data={facet}
+              facetClickHandler={facetClickHandler}
+            />
+          )
       )}
       {namespace && mainNamespaces.has(namespace) && (
         <TaxonomyFacet namespace={namespace as SearchableNamespace} />
       )}
       {after.map(
-        (facet) => facet.values && <Facet key={facet.name} data={facet} />
+        (facet) =>
+          facet.values && (
+            <Facet
+              key={facet.name}
+              data={facet}
+              facetClickHandler={facetClickHandler}
+            />
+          )
       )}
     </Facets>
   );

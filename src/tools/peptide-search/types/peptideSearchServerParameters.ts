@@ -1,19 +1,19 @@
 /* Parameters of a peptide search job as required by the server */
 // http://peptidesearch.uniprot.org/
 
-export type PepS = string;
+export type peps = string;
 
-export type TaxIds = string;
+export type taxIds = string;
 
-export type LEQi = 'on' | 'off';
+export type lEQi = 'on' | 'off';
 
-export type SpOnly = 'on' | 'off';
+export type spOnly = 'on' | 'off';
 
 export type ServerParameters = {
-  peps: PepS;
-  taxIds?: TaxIds;
-  lEQi: LEQi;
-  spOnly: SpOnly;
+  peps: peps;
+  taxIds?: taxIds;
+  lEQi: lEQi;
+  spOnly: spOnly;
 };
 
 // same, because no email was provided before

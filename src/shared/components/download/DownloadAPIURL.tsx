@@ -11,7 +11,7 @@ import {
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
 
-import { gtagFn } from '../../utils/logging';
+import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -44,11 +44,19 @@ export const DOWNLOAD_SIZE_LIMIT = 10_000_000 as const;
 
 type Props = {
   apiURL: string;
+  ftpURL?: string | null;
   onCopy: () => void;
   count: number;
+  disableAll?: boolean;
 };
 
-const DownloadAPIURL = ({ apiURL, onCopy, count }: Props) => {
+const DownloadAPIURL = ({
+  apiURL,
+  ftpURL,
+  onCopy,
+  count,
+  disableAll,
+}: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
@@ -57,10 +65,7 @@ const DownloadAPIURL = ({ apiURL, onCopy, count }: Props) => {
         await navigator.clipboard.writeText(text);
         // Success with Clipboard API, display message
         dispatch(copySuccessMessage());
-        gtagFn('event', 'copy API URL', {
-          event_category: 'copy',
-          event_label: text,
-        });
+        sendGtagEventUrlCopy('api', text);
       } catch {
         // Issue with Clipboard API too, bail with error message
         dispatch(copyFailureMessage());
@@ -75,8 +80,46 @@ const DownloadAPIURL = ({ apiURL, onCopy, count }: Props) => {
   const batchSize = 500;
   const searchURL = getSearchURL(apiURL, batchSize);
 
+  if (disableAll) {
+    return (
+      <div className={styles['api-url']} ref={scrollRef}>
+        <CodeBlock lightMode>
+          {
+            // eslint-disable-next-line react/jsx-curly-brace-presence
+            "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint"
+          }
+        </CodeBlock>
+      </div>
+    );
+  }
+
   return (
     <div className={styles['api-url']} ref={scrollRef}>
+      {ftpURL && (
+        <>
+          <br />
+          <h4>FTP URL</h4>
+          This file is available compressed on the{' '}
+          <Link
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'downloads',
+            })}
+          >
+            UniProt FTP server
+          </Link>
+          <CodeBlock lightMode>{ftpURL}</CodeBlock>
+          <section className="button-group">
+            <Button
+              variant="primary"
+              className={styles['copy-button']}
+              onClick={() => handleCopyURL(ftpURL)}
+            >
+              <CopyIcon />
+              Copy
+            </Button>
+          </section>
+        </>
+      )}
       <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
       {isStreamEndpoint &&
         'This endpoint is resource-heavy but will return all requested results.'}

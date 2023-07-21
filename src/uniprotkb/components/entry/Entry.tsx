@@ -72,14 +72,18 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
   Entry = 'entry',
-  VariantsViewer = 'variants-viewer',
+  VariantViewer = 'variant-viewer',
   FeatureViewer = 'feature-viewer',
   Publications = 'publications',
   ExternalLinks = 'external-links',
   History = 'history',
 }
 
-const legacyToNewSubPages = { protvista: TabLocation.FeatureViewer };
+const legacyToNewSubPages = {
+  protvista: TabLocation.FeatureViewer,
+  'features-viewer': TabLocation.FeatureViewer,
+  'variants-viewer': TabLocation.VariantViewer,
+};
 
 const FeatureViewer = lazy(
   () =>
@@ -422,13 +426,13 @@ const Entry = () => {
               to={getEntryPath(
                 Namespace.uniprotkb,
                 match.params.accession,
-                TabLocation.VariantsViewer
+                TabLocation.VariantViewer
               )}
             >
-              Variants viewer
+              Variant viewer
             </Link>
           }
-          id={TabLocation.VariantsViewer}
+          id={TabLocation.VariantViewer}
           onPointerOver={VariationView.preload}
           onFocus={VariationView.preload}
         >

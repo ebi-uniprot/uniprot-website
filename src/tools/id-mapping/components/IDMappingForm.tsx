@@ -1,11 +1,4 @@
-import {
-  useRef,
-  FormEvent,
-  useState,
-  useMemo,
-  useEffect,
-  useCallback,
-} from 'react';
+import { useRef, FormEvent, useMemo, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   PageIntro,
@@ -32,6 +25,16 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { createJob } from '../../state/toolsActions';
+import {
+  getIDMappingFormDataReducer,
+  getIDMappingFormInitialState,
+} from '../state/idMappingFormReducer';
+import {
+  resetFormState,
+  updateInputTextIDs,
+  updateSelected,
+  updateSending,
+} from '../state/idMappingFormActions';
 
 import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
@@ -41,7 +44,6 @@ import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
-  IDMappingFormValue,
   IDMappingFormValues,
 } from '../config/idMappingFormData';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -62,9 +64,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-const ID_MAPPING_LIMIT = 100_000;
-const isInvalid = (ids: IDMappingFormValue['selected']) =>
-  !Array.isArray(ids) || !ids.length || ids.length > ID_MAPPING_LIMIT;
+export const ID_MAPPING_LIMIT = 100_000;
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 
@@ -98,38 +98,11 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(() =>
-    // default ids value will tell us if submit should be disabled or not
-    isInvalid(initialFormValues[IDMappingFields.ids].selected)
-  );
-  // used when the form is about to be submitted to the server
-  const [sending, setSending] = useState(false);
-  // flag to see if a title has been set (either user, or predefined)
-  const [jobNameEdited, setJobNameEdited] = useState(
-    // default to true if it's been set through the history state
-    Boolean(initialFormValues[IDMappingFields.name].selected)
-  );
-
-  // actual form fields
-  // Text of IDs from textarea
-  const [textIDs, setTextIDs] = useState<string>(
-    (initialFormValues[IDMappingFields.ids]?.selected as string[])?.join('\n')
-  );
-  const [fromDb, setFromDb] = useState(
-    initialFormValues[IDMappingFields.fromDb] as IDMappingFormValue
-  );
-  const [toDb, setToDb] = useState(
-    initialFormValues[IDMappingFields.toDb] as IDMappingFormValue
-  );
-  const [taxID, setTaxID] = useState(
-    initialFormValues[IDMappingFields.taxons] as IDMappingFormValue
-  );
-
-  // extra job-related fields
-  const [jobName, setJobName] = useState(
-    initialFormValues[IDMappingFields.name]
-  );
+  const [{ formValues, textIDs, sending, submitDisabled }, dispatch] =
+    useReducer(
+      getIDMappingFormDataReducer(defaultFormValues),
+      getIDMappingFormInitialState(initialFormValues)
+    );
 
   const [dbNameToDbInfo, ruleIdToRuleInfo]: [
     DbNameToDbInfo | undefined | null,
@@ -151,97 +124,62 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
     [textIDs]
   );
 
-  const submitIDMappingJob = useCallback(
-    (event: FormEvent | MouseEvent) => {
-      event.preventDefault();
+  const submitIDMappingJob = (event: FormEvent | MouseEvent) => {
+    event.preventDefault();
 
-      if (!parsedIDs.length || !dbNameToDbInfo || !ruleIdToRuleInfo) {
-        return;
-      }
-
-      setSubmitDisabled(true);
-      setSending(true);
-
-      const fromDbInfo = dbNameToDbInfo[fromDb.selected as string];
-      const ruleInfo =
-        fromDbInfo?.ruleId && ruleIdToRuleInfo[fromDbInfo.ruleId];
-
-      // here we should just transform input values into FormParameters,
-      // transformation of FormParameters into ServerParameters happens in the
-      // tools middleware
-      const parameters: FormParameters = {
-        from: fromDb.selected as string,
-        to: toDb.selected as string,
-        ids: parsedIDs,
-      };
-
-      if ((ruleInfo as IDMappingRule)?.taxonId && taxID.selected) {
-        parameters.taxId = taxID.selected as SelectedTaxon;
-      }
-
-      // navigate to the dashboard, not immediately, to give the impression that
-      // something is happening
-      sleep(1000).then(() => {
-        history.push(LocationToPath[Location.Dashboard], {
-          parameters: [parameters],
-        });
-
-        // We emit an action containing only the parameters and the type of job
-        // the reducer will be in charge of generating a proper job object for
-        // internal state. Dispatching after history.push so that pop-up messages (as a
-        // side-effect of createJob) cannot mount immediately before navigating away.
-        dispatchTools(
-          createJob(parameters, JobTypes.ID_MAPPING, jobName.selected as string)
-        );
-      });
-    },
-    // NOTE: maybe no point using useCallback if all the values of the form
-    // cause this to be re-created. Maybe review submit callback in all 4 forms?
-    [
-      dbNameToDbInfo,
-      dispatchTools,
-      fromDb.selected,
-      history,
-      parsedIDs,
-      jobName.selected,
-      ruleIdToRuleInfo,
-      taxID.selected,
-      toDb.selected,
-    ]
-  );
-
-  const firstParsedID = parsedIDs[0];
-  useEffect(() => {
-    if (jobNameEdited) {
+    if (!parsedIDs.length || !dbNameToDbInfo || !ruleIdToRuleInfo) {
       return;
     }
-    if (parsedIDs.length > 0) {
-      const potentialJobName = `${firstParsedID}${
-        parsedIDs.length > 1 ? ` +${parsedIDs.length - 1}` : ''
-      } ${fromDb.selected} → ${toDb.selected}`;
-      setJobName((jobName) => {
-        if (jobName.selected === potentialJobName) {
-          // avoid unecessary rerender by keeping the same object
-          return jobName;
-        }
-        return { ...jobName, selected: potentialJobName };
-      });
-    } else {
-      setJobName((jobName) => ({ ...jobName, selected: '' }));
+
+    dispatch(updateSending());
+
+    const fromDbInfo =
+      dbNameToDbInfo[formValues[IDMappingFields.fromDb].selected as string];
+    const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo[fromDbInfo.ruleId];
+
+    // here we should just transform input values into FormParameters,
+    // transformation of FormParameters into ServerParameters happens in the
+    // tools middleware
+    const parameters: FormParameters = {
+      from: formValues[IDMappingFields.fromDb].selected as string,
+      to: formValues[IDMappingFields.toDb].selected as string,
+      ids: parsedIDs,
+    };
+
+    if (
+      (ruleInfo as IDMappingRule)?.taxonId &&
+      formValues[IDMappingFields.taxons].selected
+    ) {
+      parameters.taxId = formValues[IDMappingFields.taxons]
+        .selected as SelectedTaxon;
     }
-  }, [fromDb, firstParsedID, parsedIDs.length, jobNameEdited, toDb]);
+
+    // navigate to the dashboard, not immediately, to give the impression that
+    // something is happening
+    sleep(1000).then(() => {
+      history.push(LocationToPath[Location.Dashboard], {
+        parameters: [parameters],
+      });
+
+      // We emit an action containing only the parameters and the type of job
+      // the reducer will be in charge of generating a proper job object for
+      // internal state. Dispatching after history.push so that pop-up messages (as a
+      // side-effect of createJob) cannot mount immediately before navigating away.
+      dispatchTools(
+        createJob(
+          parameters,
+          JobTypes.ID_MAPPING,
+          formValues[IDMappingFields.name].selected as string
+        )
+      );
+    });
+  };
 
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
 
     // reset all form state to defaults
-    const defaultIDs = defaultFormValues[IDMappingFields.ids]
-      .selected as string[];
-    setTextIDs(defaultIDs.join('\n'));
-    setFromDb(defaultFormValues[IDMappingFields.fromDb]);
-    setToDb(defaultFormValues[IDMappingFields.toDb]);
-    setJobName(defaultFormValues[IDMappingFields.name]);
-    setTaxID(defaultFormValues[IDMappingFields.taxons]);
+    dispatch(resetFormState());
   };
 
   const handleTaxonFormValue = (path: string, id?: string) => {
@@ -252,17 +190,12 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
 
     const label = truncateTaxonLabel(path);
 
-    setTaxID({
-      ...taxID,
-      selected: { id, label },
-    });
+    dispatch(updateSelected(IDMappingFields.taxons, { id, label }));
   };
-
-  useEffect(() => setSubmitDisabled(isInvalid(parsedIDs)), [parsedIDs]);
 
   useTextFileInput({
     inputRef: fileInputRef,
-    onFileContent: setTextIDs,
+    onFileContent: (content) => dispatch(updateInputTextIDs(content)),
     onError: (error) =>
       dispatchMessages(
         addMessage({
@@ -274,8 +207,10 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const fromDbInfo = dbNameToDbInfo?.[fromDb.selected as string];
-  const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
+  const fromDbInfo =
+    dbNameToDbInfo?.[formValues[IDMappingFields.fromDb].selected as string];
+  const toDbInfo =
+    dbNameToDbInfo?.[formValues[IDMappingFields.toDb].selected as string];
   const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo?.[fromDbInfo.ruleId];
   const fromTreeData =
     ruleIdToRuleInfo && getTreeData(formConfigData.groups, ruleIdToRuleInfo);
@@ -327,7 +262,9 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               placeholder="P31946 P62258 ALBU_HUMAN EFTU_ECOLI"
               className="tools-form-raw-text-input"
               value={textIDs}
-              onChange={(event) => setTextIDs(event.target.value)}
+              onChange={(event) => {
+                dispatch(updateInputTextIDs(event.target.value));
+              }}
               data-hj-allow
             />
             {parsedIDs.length > 0 && (
@@ -356,29 +293,29 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 autocompleteFilter
                 autocompletePlaceholder="Search database name"
                 onSelect={({ id }: TreeDataNode) => {
-                  setFromDb((fromDb) => ({ ...fromDb, selected: id }));
-                  setToDb((toDb) => {
-                    const ruleId = dbNameToDbInfo[id]?.ruleId;
-                    let nextToDb = toDb;
-                    if (ruleId) {
-                      const newRuleInfo = ruleIdToRuleInfo[ruleId];
-                      const newTos = newRuleInfo.tos;
-                      // If old "to" is in the new rule's too don't update otherwise select defaultTo
-                      if (
-                        newTos.length > 0 &&
-                        !newTos.includes(toDb.selected as string)
-                      ) {
-                        nextToDb = {
-                          ...toDb,
-                          selected: newRuleInfo.defaultTo,
-                        };
-                      }
+                  dispatch(updateSelected(IDMappingFields.fromDb, id));
+                  const ruleId = dbNameToDbInfo[id]?.ruleId;
+                  let nextToDb = formValues[IDMappingFields.toDb].selected;
+                  if (ruleId) {
+                    const newRuleInfo = ruleIdToRuleInfo[ruleId];
+                    const newTos = newRuleInfo.tos;
+                    // If old "to" is in the new rule's too don't update otherwise select defaultTo
+                    if (
+                      newTos.length > 0 &&
+                      !newTos.includes(
+                        formValues[IDMappingFields.toDb].selected as string
+                      )
+                    ) {
+                      nextToDb = newRuleInfo.defaultTo;
                     }
-                    return nextToDb;
-                  });
+                  }
+                  dispatch(updateSelected(IDMappingFields.toDb, nextToDb));
+                  dispatch(updateInputTextIDs(textIDs)); // Update the name based on the DB selection
                 }}
                 label={fromDbInfo.displayName}
-                defaultActiveNodes={[fromDb.selected as string]}
+                defaultActiveNodes={[
+                  defaultFormValues[IDMappingFields.fromDb].selected as string,
+                ]}
               />
             </section>
             <section className="tools-form-section__item">
@@ -389,10 +326,13 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 autocompleteFilter
                 autocompletePlaceholder="Search database name"
                 onSelect={({ id }: TreeDataNode) => {
-                  setToDb((toDb) => ({ ...toDb, selected: id }));
+                  dispatch(updateSelected(IDMappingFields.toDb, id));
+                  dispatch(updateInputTextIDs(textIDs)); // Update the name based on the DB selection
                 }}
                 label={toDbInfo.displayName}
-                defaultActiveNodes={[toDb.selected as string]}
+                defaultActiveNodes={[
+                  defaultFormValues[IDMappingFields.toDb].selected as string,
+                ]}
               />
             </section>
             {ruleInfo.taxonId && (
@@ -402,7 +342,12 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                   url={apiUrls.taxonomySuggester}
                   onSelect={handleTaxonFormValue}
                   title="Restrict by taxonomy"
-                  value={(taxID.selected as SelectedTaxon)?.label}
+                  value={
+                    (
+                      formValues[IDMappingFields.taxons]
+                        .selected as SelectedTaxon
+                    )?.label
+                  }
                 />
               </section>
             )}
@@ -417,18 +362,22 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                   autoComplete="off"
                   maxLength={100}
                   style={{
-                    width: `${(jobName.selected as string).length + 2}ch`,
+                    width: `${
+                      (formValues[IDMappingFields.name].selected as string)
+                        .length + 2
+                    }ch`,
                   }}
                   placeholder={'"my job title"'}
-                  value={jobName.selected as string}
+                  value={formValues[IDMappingFields.name].selected as string}
                   onFocus={(event) => {
-                    if (!jobNameEdited) {
+                    if (!formValues[IDMappingFields.name].userSelected) {
                       event.target.select();
                     }
                   }}
                   onChange={(event) => {
-                    setJobNameEdited(Boolean(event.target.value));
-                    setJobName({ ...jobName, selected: event.target.value });
+                    dispatch(
+                      updateSelected(IDMappingFields.name, event.target.value)
+                    );
                   }}
                   data-hj-allow
                 />

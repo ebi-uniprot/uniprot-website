@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useEffect,
   ChangeEvent,
+  useCallback,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
@@ -25,6 +26,7 @@ import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import FirstTimeSelection from './FirstTimeSelection';
+import { ResubmitButton } from '../../../tools/components/ResultButtons';
 
 import useNS from '../../hooks/useNS';
 import useViewMode, { ViewMode } from '../../hooks/useViewMode';
@@ -37,7 +39,13 @@ import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { gtagFn } from '../../utils/logging';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+  sendGtagEventPanelOpen,
+  sendGtagEventPanelResultsDownloadClose,
+  sendGtagEventViewMode,
+} from '../../utils/gtagEvents';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -45,6 +53,8 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 import { FileFormat } from '../../types/resultsDownload';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 
 import styles from './styles/results-buttons.module.scss';
 
@@ -53,7 +63,7 @@ const DownloadComponent = lazy(
   () => import(/* webpackChunkName: "download" */ '../download/Download')
 );
 
-type ResultsButtonsProps = {
+type ResultsButtonsProps<T extends JobTypes> = {
   selectedEntries: string[];
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
   total: number;
@@ -68,9 +78,11 @@ type ResultsButtonsProps = {
   subsetsMap?: Map<string, string>;
   supportedFormats?: FileFormat[];
   excludeColumns?: boolean;
+  jobType?: T;
+  inputParamsData?: PublicServerParameters[T];
 };
 
-const ResultsButtons: FC<ResultsButtonsProps> = ({
+const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   selectedEntries,
   setSelectedEntries,
   total,
@@ -85,6 +97,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   subsetsMap,
   supportedFormats,
   excludeColumns = false,
+  jobType,
+  inputParamsData,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -154,19 +168,30 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
   ]);
 
+  const handleToggleDownload = useCallback(
+    (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
+      setDisplayDownloadPanel((displayDownloadPanel) => {
+        if (displayDownloadPanel) {
+          sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        } else {
+          sendGtagEventPanelOpen('results_download');
+        }
+        return !displayDownloadPanel;
+      });
+    },
+    []
+  );
+
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
-    gtagFn('event', 'normal selection', {
-      event_category: 'result view',
-      event_label: event.target.value,
-      result_view: event.target.value,
-      result_view_set: 1,
-    });
+    if (viewMode) {
+      sendGtagEventViewMode('mode_click', viewMode);
+    }
     setViewMode(event.target.value as ViewMode);
   };
 
   const isMain = mainNamespaces.has(namespace);
 
-  // Download and ID mapping expects accessions without modifications (applicable in Basket views)
+  // Download expect accessions without modifications (applicable in Basket views)
   const selectedAccWithoutSubset = subsetsMap
     ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
     : selectedEntries;
@@ -179,7 +204,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             title="Download"
             // Meaning, in basket mini view, slide from the right
             position={notCustomisable && inBasket ? 'right' : 'left'}
-            onClose={() => setDisplayDownloadPanel(false)}
+            onClose={handleToggleDownload}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -190,7 +215,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                     : accessions
                 } // Passing all accessions without modifications to Download
                 totalNumberResults={total}
-                onClose={() => setDisplayDownloadPanel(false)}
+                onClose={handleToggleDownload}
                 namespace={namespace}
                 base={base}
                 notCustomisable={notCustomisable}
@@ -211,7 +236,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )}
         {isMain && namespace !== Namespace.proteomes && (
           <MapIDButton
-            selectedEntries={selectedAccWithoutSubset}
+            selectedEntries={selectedEntries}
             namespace={namespace}
           />
         )}
@@ -219,7 +244,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel((value) => !value)}
+          onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
           Download
@@ -276,6 +301,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           (viewMode === 'table' || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
           )}
+        {jobType && !inBasket && (
+          <ResubmitButton jobType={jobType} inputParamsData={inputParamsData} />
+        )}
         {!notCustomisable && !inBasket && (
           <ShareDropdown
             setDisplayDownloadPanel={setDisplayDownloadPanel}

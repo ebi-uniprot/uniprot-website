@@ -27,6 +27,7 @@ const commentsCategories: CommentType[] = [
   'DISRUPTION PHENOTYPE',
   'TOXIC DOSE',
   'PHARMACEUTICAL',
+  'BIOTECHNOLOGY',
 ];
 
 const convertDiseaseAndDrugs = (

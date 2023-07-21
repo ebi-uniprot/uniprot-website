@@ -154,6 +154,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
               <test-file-stub />
               Customize columns
             </button>
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              <test-file-stub />
+              Resubmit
+            </button>
           </div>
           <table
             class="results-data data-table"
@@ -184,6 +191,17 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   >
                     <span>
                       Entry
+                    </span>
+                  </span>
+                </th>
+                <th
+                  class=""
+                >
+                  <span
+                    aria-expanded="false"
+                  >
+                    <span>
+                      Match
                     </span>
                   </span>
                 </th>
@@ -283,6 +301,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </a>
                   </span>
                 </td>
+                <td />
                 <td>
                   <span
                     class="entry-title__status icon--reviewed"
@@ -357,6 +376,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </a>
                   </span>
                 </td>
+                <td />
                 <td>
                   <span
                     class="entry-title__status icon--reviewed"
@@ -1082,6 +1102,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
             >
               <test-file-stub />
               Customize columns
+            </button>
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              <test-file-stub />
+              Resubmit
             </button>
           </div>
           <table

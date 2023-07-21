@@ -8,6 +8,7 @@ import {
   KeyboardEvent,
   ChangeEvent,
   ReactNode,
+  useMemo,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -21,6 +22,7 @@ import {
   Button,
   BytesNumber,
   Chip,
+  EllipsisReveal,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
 
@@ -30,17 +32,22 @@ import { jobTypeToPath } from '../../../app/config/urls';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
+import { databaseValueToName } from '../../blast/config/BlastFormData';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 import { FormParameters } from '../../types/toolsFormParameters';
+import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
+import { SelectedTaxon } from '../../types/toolsFormData';
 
 import './styles/Dashboard.scss';
 
@@ -258,6 +265,84 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
   }
 };
 
+interface JobSpecificParametersProps {
+  job: Job;
+}
+
+const taxonsWithEllipsisReveal = (taxIDs: SelectedTaxon[]) => {
+  const [visibleID, ...hiddenIDs] = taxIDs;
+
+  return (
+    <span>
+      Selected taxonomy: {visibleID.label}
+      {hiddenIDs.length ? (
+        <EllipsisReveal>
+          {', '}
+          {hiddenIDs.map((taxon) => taxon.label).join(', ')}
+        </EllipsisReveal>
+      ) : null}
+    </span>
+  );
+};
+
+const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
+  const { data: idMappingFields } = useDataApi<IDMappingFormConfig>(
+    job.type === JobTypes.ID_MAPPING ? apiUrls.idMappingFields : undefined
+  );
+
+  const idMappingDBToDisplayName: Record<string, string> = useMemo(
+    () =>
+      idMappingFields
+        ? Object.fromEntries(
+            idMappingFields.groups.flatMap(({ items }) =>
+              items.map((item) => [item.name, item.displayName])
+            )
+          )
+        : {},
+    [idMappingFields]
+  );
+
+  switch (job.type) {
+    case JobTypes.BLAST: {
+      const { database, taxIDs } =
+        job.parameters as FormParameters[JobTypes.BLAST];
+
+      return (
+        <>
+          <span>Target database: {databaseValueToName(database)}</span>
+          {taxIDs?.length ? taxonsWithEllipsisReveal(taxIDs) : null}
+        </>
+      );
+    }
+    case JobTypes.ID_MAPPING: {
+      const { from, to, taxId } =
+        job.parameters as FormParameters[JobTypes.ID_MAPPING];
+
+      return (
+        <>
+          <span>Source database: {idMappingDBToDisplayName[from] || from}</span>
+          <span>Target database: {idMappingDBToDisplayName[to] || to}</span>
+          {taxId?.label && <span>Selected taxonomy: {taxId.label}</span>}
+        </>
+      );
+    }
+    case JobTypes.PEPTIDE_SEARCH: {
+      const { spOnly, taxIds } =
+        job.parameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
+
+      return (
+        <>
+          {spOnly && spOnly === 'on' && <span>Reviewed only: Yes</span>}
+          {taxIds?.length ? taxonsWithEllipsisReveal(taxIds) : null}
+        </>
+      );
+    }
+    // Include format info for async download
+    // case JobTypes.ASYNC_DOWNLOAD:
+    default:
+      return null;
+  }
+};
 interface ActionsProps {
   job: Job;
   onDelete(): void;
@@ -286,7 +371,7 @@ const Actions = ({ job, onDelete }: ActionsProps) => {
           onClick={(event) => {
             event.stopPropagation();
             history.push(jobTypeToPath(job.type), {
-              parameters: job.parameters,
+              parameters: { ...job.parameters, name: job.title },
             });
           }}
         >
@@ -420,6 +505,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   let jobIdNode;
   if ('remoteID' in job) {
+    jobIdNode = job.remoteID;
     if (!noResults) {
       if (jobUrl) {
         // Async download
@@ -432,8 +518,6 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       if (jobLink) {
         jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
       }
-    } else {
-      jobIdNode = job.remoteID;
     }
   }
 
@@ -478,6 +562,9 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         <Actions job={job} onDelete={handleDelete} />
       </span>
       <span className="dashboard__body__id">{jobIdNode}</span>
+      <span className="dashboard__body__parameters">
+        <JobSpecificParamaters job={job} />
+      </span>
     </Card>
   );
 });

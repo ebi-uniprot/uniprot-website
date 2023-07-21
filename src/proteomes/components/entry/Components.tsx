@@ -1,4 +1,4 @@
-import { Fragment, FC, ReactNode, useMemo } from 'react';
+import { Fragment, ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, DataTable, LongNumber } from 'franklin-sites';
 
@@ -10,6 +10,7 @@ import ComponentsButtons from './ComponentsButtons';
 import externalUrls from '../../../shared/config/externalUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
+import { Xref } from '../../../shared/types/apiModel';
 import {
   ProteomesAPIModel,
   Component,
@@ -19,11 +20,31 @@ import '../styles/overview.scss';
 
 const genomeAccessionDB = 'GenomeAccession' as const;
 
+type SpecificXref = Xref & {
+  id: string;
+  database: typeof genomeAccessionDB;
+};
+
 const getIdKey = ({ name }: Component) => name;
 
-export const Components: FC<
-  Pick<ProteomesAPIModel, 'components' | 'id' | 'proteinCount' | 'proteomeType'>
-> = ({ components, id, proteinCount, proteomeType }) => {
+type ComponentsProps = Pick<
+  ProteomesAPIModel,
+  | 'components'
+  | 'id'
+  | 'proteinCount'
+  | 'proteomeType'
+  | 'superkingdom'
+  | 'taxonomy'
+>;
+
+export const Components = ({
+  components,
+  id,
+  proteinCount,
+  proteomeType,
+  superkingdom,
+  taxonomy,
+}: ComponentsProps) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const columns = useMemo<
@@ -46,22 +67,24 @@ export const Components: FC<
         name: 'genome_accession',
         render: ({ proteomeCrossReferences, genomeAnnotation }) =>
           proteomeCrossReferences
-            ?.filter(({ database, id }) => id && database === genomeAccessionDB)
+            ?.filter(
+              (xref: Xref): xref is SpecificXref =>
+                Boolean(xref.id) && xref.database === genomeAccessionDB
+            )
             .map(({ id }, index) => {
               let url;
               switch (genomeAnnotation.source) {
                 case 'Refseq':
-                  url = externalUrls.NCBINucleotide(id as string);
+                  url = externalUrls.NCBINucleotide(id);
                   break;
                 case 'ENA/EMBL':
-                  url = externalUrls.ENABrowser(id as string);
+                  url = externalUrls.ENABrowser(id);
                   break;
                 case 'Ensembl':
-                  url = externalUrls.Ensembl(id as string);
+                  url = externalUrls.EnsemblComponent(taxonomy.taxonId, id);
                   break;
                 default:
-                  url = '';
-                  break;
+                // skip
               }
               return (
                 <Fragment key={id}>
@@ -113,7 +136,7 @@ export const Components: FC<
         },
       },
     ],
-    [id, proteomeType]
+    [id, proteomeType, taxonomy.taxonId]
   );
 
   if (!components?.length) {
@@ -128,6 +151,7 @@ export const Components: FC<
         proteinCount={proteinCount}
         id={id}
         proteomeType={proteomeType}
+        superkingdom={superkingdom}
       />
       <DataTable
         getIdKey={getIdKey}

@@ -1,12 +1,11 @@
-import { MutableRefObject } from 'react';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
 import ResultsData from '../../../../shared/components/results/ResultsData';
 
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
 import { APIModel } from '../../../../shared/types/apiModel';
-import { FinishedJob } from '../../../types/toolsJob';
 import { JobTypes } from '../../../types/toolsJobTypes';
+import { FormParameters } from '../../types/peptideSearchFormParameters';
 
 type PeptideSearchResultTableProps = {
   total?: number;
@@ -20,14 +19,14 @@ type PeptideSearchResultTableProps = {
     failedIds?: string[] | undefined;
   };
   accessions?: string[];
-  jobSubmission: MutableRefObject<FinishedJob<JobTypes.PEPTIDE_SEARCH> | null>;
+  inputParamsData: FormParameters;
 };
 
 const PeptideSearchResultTable = ({
   total,
   resultsDataObject,
   accessions,
-  jobSubmission,
+  inputParamsData,
 }: PeptideSearchResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
@@ -39,13 +38,14 @@ const PeptideSearchResultTable = ({
         loadedTotal={resultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
         accessions={accessions}
+        jobType={JobTypes.PEPTIDE_SEARCH}
+        inputParamsData={inputParamsData}
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
-        // TODO: change logic when peptide search API is able to return submitted jobSubmission information
-        displayPeptideSearchMatchColumns={Boolean(jobSubmission.current)}
+        displayPeptideSearchMatchColumns
       />
     </>
   );

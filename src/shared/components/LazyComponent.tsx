@@ -11,6 +11,8 @@ import { Loader } from 'franklin-sites';
 
 import ErrorBoundary from './error-component/ErrorBoundary';
 
+import baseLayoutStyles from './layouts/styles/base-layout.module.scss';
+
 const defaultFallback = <Loader />;
 
 type Props = {
@@ -25,7 +27,7 @@ const ioSupported = globalThis && 'IntersectionObserver' in globalThis;
 
 const LazyComponent: FC<Props> = ({
   fallback = defaultFallback,
-  rootMargin,
+  rootMargin = '300px 0px',
   children,
   render,
 }) => {
@@ -43,7 +45,11 @@ const LazyComponent: FC<Props> = ({
             setWasShown(true);
           }
         },
-        { rootMargin }
+        {
+          // Need to specify this to have the rootMargin work with new layout
+          root: document.querySelector(`.${baseLayoutStyles['main-content']}`),
+          rootMargin,
+        }
       ),
     [rootMargin, render]
   );

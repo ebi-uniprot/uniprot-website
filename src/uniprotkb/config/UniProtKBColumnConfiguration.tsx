@@ -69,7 +69,7 @@ import {
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 // import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView, {
-  uniprotVariantLink,
+  protvarVariantLink,
 } from '../components/protein-data-views/DiseaseInvolvementView';
 import CatalyticActivityView, {
   getRheaId,
@@ -169,7 +169,20 @@ export const UniProtKBColumnConfiguration: ColumnConfiguration<
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   ...getLabelAndTooltip('Entry', 'Unique and stable entry identifier.'),
   render: (data) => (
-    <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
+    <>
+      <AccessionView
+        id={data.primaryAccession}
+        namespace={Namespace.uniprotkb}
+      />
+      {data.inactiveReason && (
+        <>
+          {' '}
+          <em data-article-id="deleted_accessions">
+            ({data.inactiveReason.inactiveReasonType.toLowerCase()})
+          </em>
+        </>
+      )}
+    </>
   ),
 });
 
@@ -191,11 +204,21 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <CSVView
-        data={omit(proteinNamesData, 'contains')}
-        bolderFirst={Boolean(proteinNamesData?.recommendedName)}
-        contextKey={UniProtKBColumn.proteinName}
-      />
+      <>
+        <CSVView
+          data={omit(proteinNamesData, 'contains')}
+          bolderFirst={Boolean(proteinNamesData?.recommendedName)}
+          contextKey={UniProtKBColumn.proteinName}
+        />
+        {data.inactiveReason && (
+          <>
+            {' '}
+            <em data-article-id="deleted_accessions">
+              ({data.inactiveReason.inactiveReasonType.toLowerCase()})
+            </em>
+          </>
+        )}
+      </>
     );
   },
 });
@@ -1432,7 +1455,7 @@ const getXrefColumn = (databaseName: string) => {
               <div key={featureId}>
                 {dbSNPRef?.id && (
                   <>
-                    {uniprotVariantLink(feature)}
+                    {protvarVariantLink(feature, data.primaryAccession)}
                     <span className={helper['no-wrap']}>
                       {` ${dbSNPRef.id}`}
                       {' ( '}
@@ -1440,7 +1463,9 @@ const getXrefColumn = (databaseName: string) => {
                         dbSNP
                       </ExternalLink>
                       {' | '}
-                      <ExternalLink url={externalUrls.Ensembl(dbSNPRef.id)}>
+                      <ExternalLink
+                        url={externalUrls.EnsemblVariation(dbSNPRef.id)}
+                      >
                         Ensembl
                       </ExternalLink>
                       {' ) '}

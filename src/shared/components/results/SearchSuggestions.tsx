@@ -65,6 +65,9 @@ export const modifyQueryWithSuggestions = (
   return { modifiedQuery, searchValue };
 };
 
+const hasMatchingQuery = (terms: string[], query: string) =>
+  new RegExp(terms.map((w) => `\\b${w}\\b`).join('|'), 'g').test(query);
+
 const SearchSuggestions = ({
   query,
   namespace,
@@ -85,16 +88,16 @@ const SearchSuggestions = ({
 
   if (validQueryWithContent) {
     if (simpleQuery.test(query)) {
-      return <AdvancedSearchSuggestion query={query} />;
+      return <AdvancedSearchSuggestion query={query} total={total} />;
     }
     if (
-      exactMatchSearchTerms.some((term) => query.includes(term)) &&
+      hasMatchingQuery(exactMatchSearchTerms, query) &&
       !query.includes('exact')
     ) {
-      return <ExactFieldSuggestion query={query} />;
+      return <ExactFieldSuggestion query={query} total={total} />;
     }
-    if (taxonHierarchySearchTerms.some((term) => query.includes(term))) {
-      return <TaxonomyLevelsSuggestion query={query} />;
+    if (hasMatchingQuery(taxonHierarchySearchTerms, query)) {
+      return <TaxonomyLevelsSuggestion query={query} total={total} />;
     }
     // Add more suggestions in the future here
   }

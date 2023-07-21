@@ -7,6 +7,17 @@
 
     <!-- theming, generated and adapted from https://realfavicongenerator.net/ -->
     <meta name="theme-color" content="#00639a" />
+
+    <!-- Loading optimisations -->
+    <link rel="preconnect" href="https://rest.uniprot.org/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- font loading -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700|Source+Sans+Pro:600,700&display=optional"
+      rel="stylesheet"
+    />
+
     <% if (!isLiveReload) { %>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link
@@ -22,17 +33,37 @@
     <% } if (isDev) { %>
     <!-- Prevent indexing when the website is not public -->
     <meta name="robots" content="noindex" />
+      <% if (isUx) { %>
+        <!-- Google tag (gtag.js) -->
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-HBH9SSXCEP">
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-HBH9SSXCEP');
+        </script>
+        <!-- Hotjar Tracking Code for UniProt dev - UX  -->
+        <script>
+          (function (h, o, t, j, a, r) {
+            h.hj =
+              h.hj ||
+              function () {
+                (h.hj.q = h.hj.q || []).push(arguments);
+              };
+            h._hjSettings = { hjid: 3503411, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script');
+            r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+          })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+        </script>
+      <% } %>
     <% } else { %>
-
-    <!-- Loading optimisations -->
-    <link rel="preconnect" href="https://fonts.gstatic.com/" />
-    <link rel="preconnect" href="https://rest.uniprot.org/" />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css?family=Lato:400,700|Source+Sans+Pro:600,700&display=swap"
-    />
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async

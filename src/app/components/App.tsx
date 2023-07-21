@@ -16,6 +16,7 @@ import {
   Replay,
 } from '@sentry/react';
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
+import queryString from 'query-string';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
@@ -64,6 +65,9 @@ if (process.env.NODE_ENV !== 'development') {
       'chrome-extension://', // errors caused by an extension
       'chrome-extensions://', // errors caused by an extension
       'Request aborted', // aborted network requests, expected to happen
+    ],
+    denyUrls: [
+      /didyoumean=true/i, // errors caused by Did You Mean requests
     ],
     // Programmatically filter out errors from Sentry
     // beforeSend(event, hint){

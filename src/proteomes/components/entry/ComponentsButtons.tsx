@@ -1,13 +1,26 @@
-import { useState, Suspense, useMemo } from 'react';
+import { useState, Suspense, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import lazy from '../../../shared/utils/lazy';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+  sendGtagEventPanelOpen,
+  sendGtagEventPanelResultsDownloadClose,
+} from '../../../shared/utils/gtagEvents';
 
-import { createSelectedQueryString } from '../../../shared/config/apiUrls';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
+import apiUrls, {
+  createSelectedQueryString,
+} from '../../../shared/config/apiUrls';
+import {
+  fileFormatsResultsDownload,
+  fileFormatsResultsDownloadForRedundant,
+} from '../../config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -15,7 +28,9 @@ import {
   Component,
   ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { SearchResults } from '../../../shared/types/results';
 
 const DownloadComponent = lazy(
   () =>
@@ -26,9 +41,15 @@ const DownloadComponent = lazy(
 
 type Props = Pick<
   ProteomesAPIModel,
-  'id' | 'components' | 'proteinCount' | 'proteomeType'
+  'id' | 'components' | 'proteinCount' | 'proteomeType' | 'superkingdom'
 > & {
   selectedEntries: string[];
+};
+
+export type IsoformStatistics = {
+  allWithIsoforms: number | undefined;
+  reviewed: number | undefined;
+  reviewedWithIsoforms: number | undefined;
 };
 
 const ComponentsButtons = ({
@@ -37,8 +58,42 @@ const ComponentsButtons = ({
   selectedEntries,
   proteinCount,
   proteomeType,
+  superkingdom,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
+  const sp = new URLSearchParams({
+    query: `(proteome=${id}) AND (reviewed=true)`,
+    size: '0',
+  });
+
+  // Note: all Eukaryotes are not eligible. Having a list of the organisms would be helpful
+  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+    superkingdom === 'eukaryota'
+      ? `${apiUrls.search(Namespace.uniprotkb)}?${sp}`
+      : null
+  );
+
+  // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
+  const isoformStats: IsoformStatistics = {
+    allWithIsoforms: undefined,
+    reviewed: Number(headers?.['x-total-results']) || undefined,
+    reviewedWithIsoforms: undefined,
+  };
+
+  const handleToggleDownload = useCallback(
+    (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
+      setDisplayDownloadPanel((displayDownloadPanel) => {
+        if (displayDownloadPanel) {
+          sendGtagEventPanelResultsDownloadClose(reason, downloadMethod);
+        } else {
+          sendGtagEventPanelOpen('results_download');
+        }
+        return !displayDownloadPanel;
+      });
+    },
+    []
+  );
 
   const allQuery = `(${
     // Excluded not supported at the moment, need to wait for TRM-28011
@@ -76,6 +131,13 @@ const ComponentsButtons = ({
     return null;
   }
 
+  let supportedFormats;
+  if (proteomeType === 'Redundant proteome') {
+    supportedFormats = fileFormatsResultsDownloadForRedundant;
+  } else {
+    supportedFormats = fileFormatsResultsDownload;
+  }
+
   return (
     <>
       {displayDownloadPanel && (
@@ -83,7 +145,7 @@ const ComponentsButtons = ({
           <SlidingPanel
             title="Download"
             position="left"
-            onClose={() => setDisplayDownloadPanel(false)}
+            onClose={handleToggleDownload}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -92,18 +154,16 @@ const ComponentsButtons = ({
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
-                onClose={() => setDisplayDownloadPanel(false)}
+                onClose={handleToggleDownload}
                 namespace={
                   // Excluded not supported at the moment, need to wait for TRM-28011
                   proteomeType === 'Redundant proteome'
                     ? Namespace.uniparc
                     : Namespace.uniprotkb
                 }
-                supportedFormats={
-                  proteomeType === 'Redundant proteome'
-                    ? fileFormatsResultsDownloadForRedundant
-                    : undefined
-                }
+                supportedFormats={supportedFormats}
+                showReviewedOption={superkingdom === 'eukaryota'}
+                isoformStats={isoformStats}
                 // List of proteins has to be downloaded. In that case, the default proteome columns must not be set
                 excludeColumns
               />
@@ -116,7 +176,7 @@ const ComponentsButtons = ({
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel((value) => !value)}
+          onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
           Download

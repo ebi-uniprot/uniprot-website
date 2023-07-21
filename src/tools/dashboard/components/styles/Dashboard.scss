@@ -100,9 +100,9 @@
     & .card__content {
       display: grid;
       grid-template-areas:
-        'type name time status actions'
-        'id   id   time status actions';
-      grid-template-columns: 10ch 27ch 12ch 1fr max-content;
+        'type name time status     actions'
+        'id   id   time parameters parameters';
+      grid-template-columns: 10ch 33ch 12ch 1fr max-content;
       grid-gap: 1ch;
       grid-template-rows: 1fr 1fr;
     }
@@ -173,6 +173,14 @@
       font-size: 75%;
       align-self: end;
     }
+
+    &__parameters {
+      grid-area: parameters;
+      font-size: 85%;
+      display: flex;
+      flex-direction: column;
+      align-self: end;
+    }
     /* end grid areas */
 
     &__hours {
@@ -235,18 +243,23 @@
       // ".card__content" comes from Franklin
       & .card__content {
         grid-template-areas:
-          'type name   time'
-          '.    status time'
-          'id   id     actions';
+          'type       name       time'
+          '.          status     time'
+          'id         id         actions'
+          'parameters parameters actions';
         grid-template-columns: 10ch minmax(27ch, auto) 12ch;
         grid-gap: 0;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr auto;
       }
 
       &__time {
         text-align: end;
         flex-direction: row-reverse;
         justify-content: flex-start;
+      }
+
+      &__actions {
+        align-self: end;
       }
     }
   }

@@ -15,5 +15,8 @@
   & img {
     opacity: 0.2;
     filter: blur(1px);
+    max-height: 25vh;
+    object-fit: cover;
+    object-position: top;
   }
 }

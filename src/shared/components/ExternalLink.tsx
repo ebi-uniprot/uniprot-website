@@ -1,7 +1,7 @@
 import { MouseEventHandler, MouseEvent } from 'react';
 import { ExternalLink } from 'franklin-sites';
 
-import { gtagFn } from '../utils/logging';
+import { sendGtagEventOutboundLinkClick } from '../utils/gtagEvents';
 
 const clickHandler = (
   event: MouseEvent<HTMLAnchorElement>,
@@ -9,11 +9,8 @@ const clickHandler = (
 ) => {
   try {
     const url = new URL((event.target as HTMLAnchorElement).href);
-    gtagFn('event', url.origin, {
-      event_category: 'outbound link',
-      event_label: url,
-      transport: 'beacon',
-    });
+    // TODO: double check GA4 uses beacon automatically
+    sendGtagEventOutboundLinkClick(url.toString());
   } catch {
     /**/
   }

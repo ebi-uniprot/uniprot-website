@@ -15,8 +15,6 @@ import {
 } from 'franklin-sites';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 
-import DidYouMean from './DidYouMean';
-
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 import useViewMode from '../../hooks/useViewMode';
@@ -49,7 +47,6 @@ type Props = {
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   disableCardToggle?: boolean;
   displayPeptideSearchMatchColumns?: boolean;
-  didYouMean?: boolean;
 };
 
 const ResultsData = ({
@@ -62,7 +59,6 @@ const ResultsData = ({
   basketSetter,
   disableCardToggle = false,
   displayPeptideSearchMatchColumns,
-  didYouMean,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
@@ -83,7 +79,6 @@ const ResultsData = ({
     hasMoreData,
     progress,
     warnings,
-    suggestions,
   } = resultsDataObject;
 
   const smallScreen = useSmallScreen();
@@ -219,14 +214,6 @@ const ResultsData = ({
             className={styles['results-data']}
           />
         </EllipsisReveal.Provider>
-      )}
-      {!hasMoreData && didYouMean && (
-        <div className={styles['did-you-mean-wrapper']}>
-          <DidYouMean
-            suggestions={suggestions}
-            heading={<h2>Not what you were looking for?</h2>}
-          />
-        </div>
       )}
     </>
   );

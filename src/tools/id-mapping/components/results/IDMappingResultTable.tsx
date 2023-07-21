@@ -9,16 +9,20 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
 import { getSupportedFormats, rawDBToNamespace } from '../../utils';
 import { pluralise } from '../../../../shared/utils/utils';
+import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { MappingDetails } from '../../types/idMappingSearchResults';
+import { JobTypes } from '../../../types/toolsJobTypes';
+import { PublicServerParameters } from '../../types/idMappingServerParameters';
 
 type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
   resultsDataObject: PaginatedResults;
   detailsData?: MappingDetails;
   notCustomisable?: boolean;
+  inputParamsData: PublicServerParameters;
 };
 
 const IDMappingResultTable = ({
@@ -26,6 +30,7 @@ const IDMappingResultTable = ({
   resultsDataObject,
   detailsData,
   notCustomisable = false,
+  inputParamsData,
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
@@ -35,7 +40,7 @@ const IDMappingResultTable = ({
     namespaceOverride
   );
 
-  const inputIDs = detailsData?.ids.split(',');
+  const inputIDs = splitAndTidyText(detailsData?.ids);
 
   const inputLength: number = inputIDs?.length || 0;
   const failedLength: number = resultsDataObject.failedIds?.length || 0;
@@ -54,6 +59,8 @@ const IDMappingResultTable = ({
         }
         excludeColumns={namespaceOverride === Namespace.idmapping}
         supportedFormats={supportedFormats}
+        jobType={JobTypes.ID_MAPPING}
+        inputParamsData={inputParamsData}
       />
       {inputIDs && (
         <HeroContainer>
