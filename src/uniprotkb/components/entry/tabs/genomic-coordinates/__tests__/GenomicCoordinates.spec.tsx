@@ -2,24 +2,23 @@ import { render, screen } from '@testing-library/react';
 
 import customRender from '../../../../../../shared/__test-helpers__/customRender';
 
-import VariationViewer from '../VariationViewer';
+import GenomicCoordinates from '../GenomicCoordinates';
 
 import useDataApi from '../../../../../../shared/hooks/useDataApi';
 
-import P0DPR3 from './__mocks__/P0DPR3';
+import O00560 from './__mocks__/O00560';
 
 jest.mock('../../../../../../shared/hooks/useDataApi');
-// Mock this because this is only the visual bit and jest has issues with ES
-jest.mock('../../../../protein-data-views/VisualVariationView', () => ({
+jest.mock('../Overlapping', () => ({
   __esModule: true,
-  default: () => '{{ VisualVariationView }}',
+  default: () => '{{ Overlapping }}',
 }));
 
-describe('VariationViewer component', () => {
+describe('GenomicCoordinates component', () => {
   it('renders on loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
     const { asFragment } = render(
-      <VariationViewer primaryAccession="P05067" />
+      <GenomicCoordinates primaryAccession="O00560" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -31,7 +30,7 @@ describe('VariationViewer component', () => {
       status: 500,
     });
     const { asFragment } = render(
-      <VariationViewer primaryAccession="P05067" />
+      <GenomicCoordinates primaryAccession="O00560" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -42,7 +41,7 @@ describe('VariationViewer component', () => {
       status: 404,
     });
     const { asFragment } = render(
-      <VariationViewer primaryAccession="P05067" />
+      <GenomicCoordinates primaryAccession="O00560" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -50,14 +49,17 @@ describe('VariationViewer component', () => {
   it('renders on data', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
-      data: P0DPR3,
+      data: O00560,
       status: 200,
     });
     const { asFragment } = customRender(
-      <VariationViewer primaryAccession="P0DPR3" />
+      <GenomicCoordinates primaryAccession="O00560" />
     );
     expect(asFragment()).toMatchSnapshot();
 
-    expect(screen.getAllByRole('row')).toHaveLength(P0DPR3.features.length);
+    expect(screen.getAllByRole('heading')).toHaveLength(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+      O00560.gnCoordinate?.length!
+    );
   });
 });

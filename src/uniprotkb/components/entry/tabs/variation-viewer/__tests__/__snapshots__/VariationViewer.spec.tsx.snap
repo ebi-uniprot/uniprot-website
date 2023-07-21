@@ -1,5 +1,295 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`VariationViewer component renders on data 1`] = `
+<DocumentFragment>
+  <section
+    class="wider-tab-content hotjar-margin"
+  >
+    <protvista-manager
+      attributes="highlight displaystart displayend activefilters filters selectedid"
+    >
+      <div
+        class="datatable-with-toggle"
+      >
+        <protvista-datatable
+          filter-scroll="true"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Variant
+                  <br />
+                  ID(s)
+                </th>
+                <th>
+                  Position(s)
+                </th>
+                <th>
+                  Change
+                </th>
+                <th>
+                  Description
+                </th>
+                <th>
+                  Clinical
+                  <br />
+                  significance
+                </th>
+                <th>
+                  Provenance
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                data-end="10"
+                data-id="featureB"
+                data-start="8"
+              >
+                <td />
+                <td>
+                  8-10
+                </td>
+                <td
+                  class="change"
+                >
+                  B&gt;
+                  <em>
+                    missing
+                  </em>
+                </td>
+                <td>
+                  <div
+                    class=""
+                  >
+                    a description (uniprot)
+                  </div>
+                </td>
+                <td />
+                <td />
+              </tr>
+              <tr
+                data-end="10"
+                data-group-for="featureB"
+                data-start="8"
+              >
+                <td>
+                  <div>
+                    <strong>
+                      Consequence: 
+                    </strong>
+                  </div>
+                  <div>
+                    <strong>
+                      Somatic: 
+                    </strong>
+                     Yes
+                  </div>
+                  <div>
+                    <strong>
+                      Accession: 
+                    </strong>
+                     NC_000021.9:g.26170608A&gt;C
+                  </div>
+                  <div>
+                    <strong>
+                      Consequence type: 
+                    </strong>
+                     
+                  </div>
+                  <div>
+                    <strong>
+                      Cytogenetic band: 
+                    </strong>
+                     
+                  </div>
+                  <div>
+                    <strong>
+                      Genomic location: 
+                    </strong>
+                     
+                  </div>
+                  <div>
+                    <strong>
+                      Source type: 
+                    </strong>
+                     large scale study
+                  </div>
+                </td>
+              </tr>
+              <tr
+                data-end="10"
+                data-id="featureA"
+                data-start="10"
+              >
+                <td>
+                  <span
+                    class=""
+                  >
+                    rs1446208112
+                  </span>
+                </td>
+                <td>
+                  10
+                </td>
+                <td
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 L10A"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    L&gt;A
+                  </a>
+                </td>
+                <td />
+                <td />
+                <td>
+                  <span
+                    class=""
+                  >
+                    TOPMed
+                  </span>
+                  <br />
+                  <span
+                    class=""
+                  >
+                    gnomAD
+                  </span>
+                </td>
+              </tr>
+              <tr
+                data-end="10"
+                data-group-for="featureA"
+                data-start="10"
+              >
+                <td>
+                  <div>
+                    <strong>
+                      Consequence: 
+                    </strong>
+                    missense
+                  </div>
+                  <div>
+                    <strong>
+                      Predictions: 
+                    </strong>
+                    <div>
+                      - PolyPhen: benign (0.001)
+                    </div>
+                    <div>
+                      - SIFT: tolerated (0.26)
+                    </div>
+                  </div>
+                  <div>
+                    <strong>
+                      Somatic: 
+                    </strong>
+                     No
+                  </div>
+                  <div>
+                    <strong>
+                      Accession: 
+                    </strong>
+                     NC_000021.9:g.26170608A&gt;C
+                  </div>
+                  <div>
+                    <strong>
+                      Codon: 
+                    </strong>
+                     TTG/GTG
+                  </div>
+                  <div>
+                    <strong>
+                      Consequence type: 
+                    </strong>
+                     missense
+                  </div>
+                  <div>
+                    <strong>
+                      Cytogenetic band: 
+                    </strong>
+                     21q21.3
+                  </div>
+                  <div>
+                    <strong>
+                      Genomic location: 
+                    </strong>
+                     NC_000021.9:g.26170608A&gt;C
+                  </div>
+                  <div>
+                    <strong>
+                      Locations: 
+                    </strong>
+                    <div>
+                      - p.Leu5Val (Ensembl:ENST00000346798)
+                    </div>
+                    <div>
+                      - c.13T&gt;G (Ensembl:ENST00000346798)
+                    </div>
+                  </div>
+                  <div>
+                    <strong>
+                      Source type: 
+                    </strong>
+                     large scale study
+                  </div>
+                  <div>
+                    <strong>
+                      Cross-references: 
+                    </strong>
+                    <div>
+                      - 
+                      <a
+                        class="external-link"
+                        href=" https://www.ncbi.nlm.nih.gov/snp/rs1446208112#frequency_tab"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        TOPMed: rs1446208112
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                    </div>
+                    <div>
+                      - 
+                      <a
+                        class="external-link"
+                        href=" http://gnomad.broadinstitute.org/awesome?query=rs1446208112"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        gnomAD: rs1446208112
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </protvista-datatable>
+        <button
+          class="button primary toggle-button"
+          type="button"
+        >
+          Expand table
+        </button>
+      </div>
+    </protvista-manager>
+  </section>
+</DocumentFragment>
+`;
+
 exports[`VariationViewer component renders on error 1`] = `
 <DocumentFragment>
   <div>

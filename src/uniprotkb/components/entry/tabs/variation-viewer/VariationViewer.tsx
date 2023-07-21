@@ -1,4 +1,12 @@
-import { useMemo, Fragment, useRef, useEffect, useState, lazy } from 'react';
+import {
+  useMemo,
+  Fragment,
+  useRef,
+  useEffect,
+  useState,
+  lazy,
+  Suspense,
+} from 'react';
 import { Loader } from 'franklin-sites';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
@@ -494,7 +502,9 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
         attributes="highlight displaystart displayend activefilters filters selectedid"
         ref={managerRef}
       >
-        <VisualVariationView {...transformedData} />
+        <Suspense fallback={null}>
+          <VisualVariationView {...transformedData} />
+        </Suspense>
         <DatatableWithToggle>{table}</DatatableWithToggle>
       </managerElement.name>
     </section>
