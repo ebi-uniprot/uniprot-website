@@ -6,6 +6,7 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 import ExternalLink from '../../../shared/components/ExternalLink';
+import { RichText } from './FreeTextView';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -95,17 +96,6 @@ export const DiseaseVariants = ({
           }
 
           let { description } = variant;
-          let rsIDs: string[] | undefined = [];
-
-          const dbSNPRegEx = /dbsnp:rs\d*/gi;
-          if (description && dbSNPRegEx.test(description)) {
-            const matches = description.match(dbSNPRegEx);
-            rsIDs = matches?.map((match) => {
-              const [, rsId] = match.split(/dbsnp:/i);
-              return rsId;
-            });
-            [description] = description.split(dbSNPRegEx).filter(Boolean);
-          }
 
           if (variant.location.sequence) {
             description = `In isoform ${variant.location.sequence}; ${description}`;
@@ -136,12 +126,7 @@ export const DiseaseVariants = ({
                   {protvarVariantLink(variant, accession)}
                 </td>
                 <td>
-                  {description}
-                  {rsIDs?.map((rsID) => (
-                    <ExternalLink url={externalUrls.dbSNP(rsID)} key={rsID}>
-                      dbSNP:{rsID}
-                    </ExternalLink>
-                  ))}
+                  <RichText>{description}</RichText>
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
                   )}
