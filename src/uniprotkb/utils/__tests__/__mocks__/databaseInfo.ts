@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2023-06-27
+// Retrieved: 2023-07-21
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -371,7 +371,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'CarbonylDB',
     category: 'PTM',
     uriLink:
-      'http://digbio.missouri.edu/CarbonylDB/index.php/detail/protein/%id',
+      'http://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
   {
@@ -534,7 +534,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PaxDb',
     displayName: 'PaxDb',
     category: 'PROTEOMIC',
-    uriLink: 'https://pax-db.org/#!protein/%id',
+    uriLink: 'https://pax-db.org/search?q=%id',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
   {
@@ -863,7 +863,8 @@ const databaseInfo: DatabaseInfo = [
     name: 'DisGeNET',
     displayName: 'DisGeNET',
     category: 'ORG',
-    uriLink: 'https://disgenet.org/search?q=%id',
+    uriLink:
+      'https://www.disgenetplus.com/examples?view=GENES&idents=%id&source=ALL&tab=GDA&newSearch=false',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
   {
@@ -1450,8 +1451,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PRINTS',
     displayName: 'PRINTS',
     category: 'FMD',
-    uriLink:
-      'http://umber.sbs.man.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&category=None&queryform=false&prints_accn=%id',
+    uriLink: 'https://www.ebi.ac.uk/interpro/entry/prints/%id',
     attributes: [{ name: 'EntryName', xmlTag: 'entry name' }],
   },
   {
@@ -1529,14 +1529,6 @@ const databaseInfo: DatabaseInfo = [
     category: 'FMD',
     uriLink: 'https://mobidb.bio.unipd.it/entries/%primaryAccession',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
-    implicit: true,
-    linkedReason: 'All UniProtKB entries',
-  },
-  {
-    name: 'ProtoNet',
-    displayName: 'ProtoNet',
-    category: 'FMD',
-    uriLink: 'http://www.protonet.cs.huji.ac.il/sp.php?prot=%primaryAccession',
     implicit: true,
     linkedReason: 'All UniProtKB entries',
   },
