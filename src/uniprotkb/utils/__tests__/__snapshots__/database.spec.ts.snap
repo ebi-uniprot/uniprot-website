@@ -64,7 +64,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PROSITE",
       "DisProt",
       "MobiDB",
-      "ProtoNet",
     ],
     "GEP": [
       "Bgee",
@@ -374,7 +373,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "ProMEX": "PROTEOMIC",
     "Proteomes": "PRM",
     "ProteomicsDB": "PROTEOMIC",
-    "ProtoNet": "FMD",
     "PseudoCAP": "ORG",
     "RCSB-PDB": "3DS",
     "REBASE": "PFAM",
@@ -743,7 +741,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "CarbonylDB",
       "name": "CarbonylDB",
-      "uriLink": "http://digbio.missouri.edu/CarbonylDB/index.php/detail/protein/%id",
+      "uriLink": "http://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id",
     },
     "ChEMBL": {
       "attributes": [
@@ -924,7 +922,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "DisGeNET",
       "name": "DisGeNET",
-      "uriLink": "https://disgenet.org/search?q=%id",
+      "uriLink": "https://www.disgenetplus.com/examples?view=GENES&idents=%id&source=ALL&tab=GDA&newSearch=false",
     },
     "DisProt": {
       "attributes": [
@@ -2031,7 +2029,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "FMD",
       "displayName": "PRINTS",
       "name": "PRINTS",
-      "uriLink": "http://umber.sbs.man.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&category=None&queryform=false&prints_accn=%id",
+      "uriLink": "https://www.ebi.ac.uk/interpro/entry/prints/%id",
     },
     "PRO": {
       "attributes": [
@@ -2083,7 +2081,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PROTEOMIC",
       "displayName": "PaxDb",
       "name": "PaxDb",
-      "uriLink": "https://pax-db.org/#!protein/%id",
+      "uriLink": "https://pax-db.org/search?q=%id",
     },
     "PeptideAtlas": {
       "attributes": [
@@ -2248,14 +2246,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "ProteomicsDB",
       "name": "ProteomicsDB",
       "uriLink": "https://www.proteomicsdb.org/proteomicsdb/#protein/proteinDetails/%id",
-    },
-    "ProtoNet": {
-      "category": "FMD",
-      "displayName": "ProtoNet",
-      "implicit": true,
-      "linkedReason": "All UniProtKB entries",
-      "name": "ProtoNet",
-      "uriLink": "http://www.protonet.cs.huji.ac.il/sp.php?prot=%primaryAccession",
     },
     "PseudoCAP": {
       "attributes": [
@@ -3102,7 +3092,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PROSITE",
       "DisProt",
       "MobiDB",
-      "ProtoNet",
       "MobiDB",
       "GPCRDB",
     ],
@@ -3289,10 +3278,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     },
     "PDBj": {
       "database": "PDBj",
-      "implicit": true,
-    },
-    "ProtoNet": {
-      "database": "ProtoNet",
       "implicit": true,
     },
     "RCSB-PDB": {

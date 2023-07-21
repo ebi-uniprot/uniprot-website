@@ -177,9 +177,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
       {data.inactiveReason && (
         <>
           {' '}
-          <span data-article-id="deleted_accessions">
+          <em data-article-id="deleted_accessions">
             ({data.inactiveReason.inactiveReasonType.toLowerCase()})
-          </span>
+          </em>
         </>
       )}
     </>
@@ -204,11 +204,21 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <CSVView
-        data={omit(proteinNamesData, 'contains')}
-        bolderFirst={Boolean(proteinNamesData?.recommendedName)}
-        contextKey={UniProtKBColumn.proteinName}
-      />
+      <>
+        <CSVView
+          data={omit(proteinNamesData, 'contains')}
+          bolderFirst={Boolean(proteinNamesData?.recommendedName)}
+          contextKey={UniProtKBColumn.proteinName}
+        />
+        {data.inactiveReason && (
+          <>
+            {' '}
+            <em data-article-id="deleted_accessions">
+              ({data.inactiveReason.inactiveReasonType.toLowerCase()})
+            </em>
+          </>
+        )}
+      </>
     );
   },
 });
