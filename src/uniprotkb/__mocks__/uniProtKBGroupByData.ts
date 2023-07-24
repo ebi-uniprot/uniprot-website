@@ -34,6 +34,35 @@ export const taxonomyRoot: GroupByAPIModel = {
     count: 248842690,
   },
 };
+// Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?parent=131567&query=%28%2A%29
+// Retrieved: 2023-07-24
+export const taxonomyCellularOrgranisms = {
+  ancestors: [],
+  groups: [
+    {
+      id: '2157',
+      label: 'Archaea',
+      expandable: true,
+      count: 6802294,
+    },
+    {
+      id: '2',
+      label: 'Bacteria',
+      expandable: true,
+      count: 164314094,
+    },
+    {
+      id: '2759',
+      label: 'Eukaryota',
+      expandable: true,
+      count: 69911065,
+    },
+  ],
+  parent: {
+    label: 'cellular organisms',
+    count: 241027453,
+  },
+};
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/ec?parent=3.-.-.-&query=%28shadab%29
 // Retrieved: 2023-07-24
