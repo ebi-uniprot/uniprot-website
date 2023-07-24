@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ExpandableList, HeroContainer, LongNumber } from 'franklin-sites';
 
 import ResultsData from '../../../../shared/components/results/ResultsData';
@@ -10,12 +11,16 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import { getSupportedFormats, rawDBToNamespace } from '../../utils';
 import { pluralise } from '../../../../shared/utils/utils';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
+import { getEntryPath } from '../../../../app/config/urls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
+import { TabLocation } from '../../../../uniparc/components/entry/Entry';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { MappingDetails } from '../../types/idMappingSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/idMappingServerParameters';
+
+import styles from './styles/id-mapping-result-table.module.scss';
 
 type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
@@ -42,8 +47,11 @@ const IDMappingResultTable = ({
 
   const inputIDs = splitAndTidyText(detailsData?.ids);
 
-  const inputLength: number = inputIDs?.length || 0;
-  const failedLength: number = resultsDataObject.failedIds?.length || 0;
+  const inputLength = inputIDs?.length || 0;
+  const failedLength = resultsDataObject.failedIds?.length || 0;
+  const suggestedLength = resultsDataObject.suggestedIds?.length || 0;
+
+  const mappedLength = inputLength - failedLength - suggestedLength;
 
   return (
     <>
@@ -63,13 +71,13 @@ const IDMappingResultTable = ({
         inputParamsData={inputParamsData}
       />
       {inputIDs && (
-        <HeroContainer>
+        <HeroContainer className={styles.statistics}>
           <div>
             <strong>
-              <LongNumber>{inputLength - failedLength}</LongNumber>
+              <LongNumber>{mappedLength}</LongNumber>
             </strong>{' '}
-            {pluralise('ID', inputLength - failedLength)}{' '}
-            {pluralise('was', inputLength - failedLength, 'were')} mapped to{' '}
+            {pluralise('ID', mappedLength)}{' '}
+            {pluralise('was', mappedLength, 'were')} mapped to{' '}
             <LongNumber>{resultsDataObject.total || 0}</LongNumber>{' '}
             {pluralise('result', resultsDataObject.total || 0)}
           </div>
@@ -77,8 +85,39 @@ const IDMappingResultTable = ({
             <div>
               <strong>{failedLength}</strong> ID{' '}
               {pluralise('was', failedLength, 'were')} not mapped:
-              <ExpandableList descriptionString="IDs" numberCollapsedItems={0}>
+              <ExpandableList
+                descriptionString="IDs"
+                numberCollapsedItems={0}
+                className={styles['expandable-list']}
+              >
                 {resultsDataObject.failedIds}
+              </ExpandableList>
+            </div>
+          )}
+          {suggestedLength > 0 && (
+            <div>
+              <strong>{suggestedLength}</strong> ID{' '}
+              {pluralise('was', suggestedLength, 'were')} mapped to UniParc
+              instead:
+              <ExpandableList
+                descriptionString="IDs"
+                numberCollapsedItems={0}
+                className={styles['expandable-list']}
+              >
+                {resultsDataObject.suggestedIds?.map(({ from, to }) => (
+                  <span key={`${from}|${to}`}>
+                    {from} →{' '}
+                    <Link
+                      to={getEntryPath(
+                        Namespace.uniparc,
+                        to,
+                        TabLocation.Entry
+                      )}
+                    >
+                      {to}
+                    </Link>
+                  </span>
+                ))}
               </ExpandableList>
             </div>
           )}

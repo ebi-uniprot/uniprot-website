@@ -20,7 +20,10 @@ export type PaginatedResults<R extends APIModel = APIModel> = {
   hasMoreData: boolean;
   handleLoadMoreRows: () => void;
   total?: number;
+  // For ID Mapping
   failedIds?: string[];
+  // For ID Mapping
+  suggestedIds?: Array<{ from: string; to: string }>;
   error?: AxiosError<{ messages?: string[] }>;
   status?: number | undefined;
   warnings?: SearchResultsWarning[];
@@ -55,9 +58,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
   }, [initialApiUrl, converter]);
 
   const { data, loading, progress, headers, error, status } = useDataApi<
-    SearchResults<T | R> & {
-      failedIds?: string[];
-    }
+    SearchResults<T | R> & Pick<PaginatedResults, 'failedIds' | 'suggestedIds'>
   >(url);
 
   useEffect(() => {
@@ -94,6 +95,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     handleLoadMoreRows,
     total,
     failedIds: data?.failedIds,
+    suggestedIds: data?.suggestedIds,
     error,
     status,
     warnings,
