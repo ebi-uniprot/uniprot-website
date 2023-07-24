@@ -39,11 +39,13 @@ export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
       const removed = definedColumns.delete(
         databaseInfoPoint.name.toLowerCase()
       );
+      /* istanbul ignore if */
       if (!removed) {
         logging.warn(`Missing column definition for ${databaseInfoPoint.name}`);
       }
     }
   });
+  /* istanbul ignore if */
   if (definedColumns.size > 0) {
     logging.warn(
       `Unused column definition for ${Array.from(definedColumns).join(', ')}`

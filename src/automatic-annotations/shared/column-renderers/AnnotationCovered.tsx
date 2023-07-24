@@ -24,6 +24,7 @@ const AnnotationCovered = ({
       annotations.add('GO term');
     } else {
       // in case we're missing a case
+      /* istanbul ignore next */
       logging.warn('missing case for annotation', {
         extra: { data: annotation },
       });
