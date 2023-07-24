@@ -235,6 +235,9 @@ const GroupByAncestor = ({
               variant="secondary"
               aria-expanded={open}
               onClick={() => setOpen((o) => !o)}
+              title={`${open ? 'Hide' : 'Reveal'} children of ${
+                ancestor.label
+              }`}
             >
               ►
             </Button>
@@ -336,6 +339,7 @@ const GroupByNode = ({
           variant="secondary"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
+          title={`${open ? 'Hide' : 'Reveal'} children of ${item.label}`}
         >
           ►
         </Button>
