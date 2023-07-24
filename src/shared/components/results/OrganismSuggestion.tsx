@@ -26,7 +26,7 @@ const OrganismSuggestion = ({
   );
 
   const hasOrganismSuggestion =
-    headers?.['x-total-results'] &&
+    Number(headers?.['x-total-results']) &&
     Number(headers?.['x-total-results']) !== total;
 
   if (hasOrganismSuggestion && !query.includes('proteome')) {
