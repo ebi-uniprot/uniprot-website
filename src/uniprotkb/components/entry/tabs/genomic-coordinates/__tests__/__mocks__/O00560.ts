@@ -1,5 +1,7 @@
 import { GenomicEntry } from '../../types';
 
+// Source: https://www.ebi.ac.uk/proteins/api/coordinates/O00560
+// Retrieved: 2023-07-14
 const mock: GenomicEntry = {
   accession: 'O00560',
   name: 'SDCB1_HUMAN',
