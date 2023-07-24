@@ -291,3 +291,71 @@ describe('Download with ID mapping results', () => {
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });
 });
+
+describe('Download reviewed proteins for a proteome entry that is an Eukaryote', () => {
+  it('should check the filteredNumberResults and add the additional select options', async () => {
+    const namespace = Namespace.uniprotkb;
+    const onCloseMock = jest.fn();
+    const query = '(proteome:UP000005640)';
+    const totalNumberResults = 82678;
+    const isoformStats = {
+      allWithIsoforms: undefined,
+      reviewed: 20408,
+      reviewedWithIsoforms: undefined,
+    };
+
+    customRender(
+      <Download
+        query={query}
+        totalNumberResults={totalNumberResults}
+        onClose={onCloseMock}
+        namespace={namespace}
+        showReviewedOption
+        isoformStats={isoformStats}
+      />,
+      {
+        route: '/proteomes/UP000005640',
+        initialLocalStorage: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
+    );
+    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(queryString.stringify({ query: `(${query})` }))
+    );
+
+    fireEvent.click(
+      screen.getByLabelText(
+        `Download only reviewed (Swiss-Prot) canonical proteins (20,408)`
+      )
+    );
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        queryString.stringify({
+          query: `((proteome:UP000005640) AND reviewed=true)`,
+        })
+      )
+    );
+
+    let options = screen.getAllByRole('option');
+    expect(options).toHaveLength(6);
+
+    fireEvent.click(
+      screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
+    );
+
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        queryString.stringify({
+          query: `((proteome:UP000005640) AND reviewed=true)`,
+          includeIsoform: true,
+        })
+      )
+    );
+    options = screen.getAllByRole('option');
+    expect(options).toHaveLength(1);
+  });
+});

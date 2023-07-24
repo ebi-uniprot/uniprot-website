@@ -25,8 +25,8 @@ import {
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
-
 import { Location, LocationToPath } from '../../../app/config/urls';
+import { fileFormatsResultsDownload as fileFormatsProteomeResultsDownload } from '../../../proteomes/config/download';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
@@ -34,6 +34,7 @@ import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
+import { IsoformStatistics } from '../../../proteomes/components/entry/ComponentsButtons';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -69,9 +70,13 @@ type DownloadProps = {
   notCustomisable?: boolean;
   excludeColumns?: boolean;
   inBasketMini?: boolean;
+  showReviewedOption?: boolean;
+  isoformStats?: IsoformStatistics;
 };
 
 type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
+
+type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
 
 const Download: FC<DownloadProps> = ({
   query,
@@ -87,19 +92,24 @@ const Download: FC<DownloadProps> = ({
   notCustomisable,
   excludeColumns = false,
   inBasketMini = false,
+  showReviewedOption = false,
+  isoformStats,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
 
-  const fileFormats =
+  let fileFormats =
     supportedFormats || nsToFileFormatsResultsDownload[namespace];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
   // Defaults to "download all" if no selection
-  const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
+  const [downloadSelect, setDownloadSelect] = useState<DownloadSelectOptions>(
+    selectedEntries.length ? 'selected' : 'all'
+  );
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
+  const [includeIsoform, setIncludeIsoform] = useState(false);
   const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
 
   const [
@@ -111,9 +121,12 @@ const Download: FC<DownloadProps> = ({
   // This logic is needed specifically for the proteomes components
   let urlQuery: string;
   let urlSelected: string[];
-  if (downloadAll) {
+  if (downloadSelect === 'all') {
     // If query prop provided use this otherwise fallback to query from URL
     urlQuery = query || queryFromUrl;
+    urlSelected = [];
+  } else if (downloadSelect === 'reviewed') {
+    urlQuery = `${query || queryFromUrl} AND reviewed=true`;
     urlSelected = [];
   } else {
     // Download selected
@@ -167,13 +180,42 @@ const Download: FC<DownloadProps> = ({
   if (hasColumns) {
     downloadOptions.columns = selectedColumns;
   }
-  const downloadUrl = getDownloadUrl(downloadOptions);
 
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
-  const nPreview = Math.min(
-    10,
-    downloadAll ? totalNumberResults : nSelectedEntries
-  );
+  let downloadCount;
+  switch (downloadSelect) {
+    case 'all':
+      downloadCount = totalNumberResults;
+      if (showReviewedOption) {
+        // downloadCount = isoformStats?.allWithIsoforms;
+        downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
+        fileFormats = [FileFormat.fasta];
+      }
+      break;
+    case 'reviewed':
+      // Once we have the counts, we should update the downloadCount accordingly
+      downloadCount = isoformStats?.reviewed || 0;
+      if (includeIsoform) {
+        // downloadCount = isoformStats?.reviewedWithIsoforms || 0;
+        downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
+        fileFormats = [FileFormat.fasta];
+      } else {
+        // downloadCount = isoformStats?.reviewed || 0;
+        downloadOptions.fileFormat = FileFormat.fastaCanonical;
+        fileFormats = fileFormatsProteomeResultsDownload;
+      }
+      break;
+    case 'selected':
+      downloadCount = nSelectedEntries;
+      break;
+    default:
+      downloadCount = 0;
+      break;
+  }
+
+  const downloadUrl = getDownloadUrl(downloadOptions);
+
+  const nPreview = Math.min(10, downloadCount);
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
     ...downloadOptions,
@@ -189,13 +231,23 @@ const Download: FC<DownloadProps> = ({
 
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
 
-  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setDownloadAll(e.target.value === 'true');
+  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDownloadSelect(e.target.name as DownloadSelectOptions);
+  };
 
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
-  const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
+  const handleIsoformSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e?.target.checked) {
+      fileFormats = [FileFormat.fasta];
+      setIncludeIsoform(true);
+    } else {
+      fileFormats = fileFormatsProteomeResultsDownload;
+      setIncludeIsoform(false);
+    }
+  };
+
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isEmbeddings = fileFormat === FileFormat.embeddings;
@@ -203,7 +255,8 @@ const Download: FC<DownloadProps> = ({
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
   const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
   const ftpFilenameAndUrl =
-    namespace === Namespace.uniprotkb
+    namespace === Namespace.uniprotkb &&
+    jobResultsLocation !== Location.IDMappingResult
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
 
@@ -282,25 +335,59 @@ const Download: FC<DownloadProps> = ({
         <input
           id="data-selection-false"
           type="radio"
-          name="data-selection"
+          name="selected"
           value="false"
-          checked={!downloadAll}
+          checked={downloadSelect === 'selected'}
           onChange={handleDownloadAllChange}
           disabled={nSelectedEntries === 0 || redirectToIDMapping}
         />
         Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
       </label>
+      {showReviewedOption && isoformStats && (
+        <div>
+          <label htmlFor="data-selection-reviewed">
+            <input
+              id="data-selection-reviewed"
+              type="radio"
+              name="reviewed"
+              value="false"
+              checked={downloadSelect === 'reviewed'}
+              onChange={handleDownloadAllChange}
+              disabled={redirectToIDMapping}
+            />
+            Download only reviewed (Swiss-Prot) canonical proteins (
+            {/* <LongNumber>{includeIsoform ? isoformStats?.reviewedWithIsoforms : isoformStats?.reviewed}</LongNumber>) */}
+            <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
+            {includeIsoform ? ' + isoforms' : ''})
+          </label>
+          <label className={styles['isoform-option']}>
+            <input
+              type="checkbox"
+              name="reviewed-isoform"
+              onChange={handleIsoformSelect}
+              disabled={downloadSelect !== 'reviewed'}
+            />
+            Include reviewed (Swiss-Prot) isoforms
+          </label>
+        </div>
+      )}
       <label htmlFor="data-selection-true">
         <input
           id="data-selection-true"
           type="radio"
-          name="data-selection"
+          name="all"
           value="true"
-          checked={downloadAll}
+          checked={downloadSelect === 'all'}
           onChange={handleDownloadAllChange}
           disabled={redirectToIDMapping}
         />
-        Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+        Download all{' '}
+        {showReviewedOption
+          ? 'reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins'
+          : ''}{' '}
+        {/* (<LongNumber>{showReviewedOption ? isoformStats?.allWithIsoforms : totalNumberResults}</LongNumber>) */}
+        (<LongNumber>{totalNumberResults}</LongNumber>{' '}
+        {showReviewedOption ? ' + isoforms' : ''})
       </label>
       <fieldset>
         <label>
@@ -323,7 +410,7 @@ const Download: FC<DownloadProps> = ({
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset>
-          <legend>Compressed</legend>
+          <legend data-article-id="compression">Compressed</legend>
           <label>
             <input
               aria-label="compressed"

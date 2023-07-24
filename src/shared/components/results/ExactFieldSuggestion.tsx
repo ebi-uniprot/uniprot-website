@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import qs from 'query-string';
-
 import {
   exactMatchSearchTerms,
   modifyQueryWithSuggestions,
@@ -15,27 +12,33 @@ import { Namespace } from '../../types/namespaces';
 import { SearchResults } from '../../types/results';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
-const ExactFieldSuggestion = ({ query }: { query: string }) => {
-  const [dataAvailable, setDataAvailable] = useState(false);
+const ExactFieldSuggestion = ({
+  query,
+  total,
+}: {
+  query: string;
+  total: number;
+}) => {
   const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
     query,
     'exact',
     exactMatchSearchTerms
   );
 
-  const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
-      query: modifiedQuery,
-    })}`
+  const searchParams = new URLSearchParams({
+    query: `${modifiedQuery}`,
+    size: '0',
+  });
+
+  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
-  useEffect(() => {
-    if (data?.results.length) {
-      setDataAvailable(true);
-    }
-  }, [data]);
+  const hasExactSuggestion =
+    Number(headers?.['x-total-results']) &&
+    Number(headers?.['x-total-results']) !== total;
 
-  if (dataAvailable && query !== modifiedQuery) {
+  if (hasExactSuggestion && query !== modifiedQuery) {
     return (
       <small>
         {' '}

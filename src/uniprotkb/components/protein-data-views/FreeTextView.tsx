@@ -1,6 +1,7 @@
 import { Fragment, FC, ReactNode } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
+import { ExternalLink } from 'franklin-sites';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import SimilarityView from './SimilarityView';
 
@@ -9,15 +10,16 @@ import {
   getEntryPathFor,
   allEntryPages,
 } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 import {
+  getTextProcessingParts,
   reAC,
   reIsoform,
-  needTextProcessingRE,
-  rePubMedID,
-  rePubMed,
   reUniProtKBAccession,
   reSubscript,
   reSuperscript,
+  rePubMedCapture,
+  reDbSnpCapture,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -49,23 +51,21 @@ type RichTextProps = {
 
 export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
   <>
-    {children?.split(needTextProcessingRE).map((part, index, mappedArr) => {
-      // Capturing group will allow split to conserve that bit in the split parts
-      // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
-      // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
-      const pubMedID = part.match(rePubMedID)?.[0];
-      if (rePubMed.test(part) && pubMedID && !noLink) {
-        // PubMed ID, insert a link
-        // eg A0A075B6S6
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            PubMed:
-            <Link to={getEntryPathForCitation(pubMedID)}>{pubMedID}</Link>
-          </Fragment>
-        );
-      }
+    {getTextProcessingParts(children)?.map((part, index, mappedArr) => {
       if (!noLink) {
+        const pubMedMatch = part.match(rePubMedCapture);
+        if (pubMedMatch?.groups) {
+          // PubMed ID, insert a link
+          // eg A0A075B6S6
+          const { pmid } = pubMedMatch.groups;
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              PubMed:
+              <Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
+            </Fragment>
+          );
+        }
         const accession = part.match(reUniProtKBAccession)?.[0];
         if (reAC.test(part) && accession) {
           // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
@@ -90,6 +90,16 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
               {text}{' '}
               {/* eslint-disable-next-line uniprot-website/use-config-location */}
               <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
+            </Fragment>
+          );
+        }
+        const dbSnpMatch = part.match(reDbSnpCapture);
+        if (dbSnpMatch?.groups) {
+          const { rsid } = dbSnpMatch.groups;
+          return (
+            <Fragment key={rsid}>
+              dbSNP:
+              <ExternalLink url={externalUrls.dbSNP(rsid)}>{rsid}</ExternalLink>
             </Fragment>
           );
         }

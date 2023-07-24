@@ -45,7 +45,7 @@ const Entry = () => {
       : null
   );
 
-  if (mainData.loading || panProteomeData.loading || !mainData.data) {
+  if (mainData.loading || panProteomeData.loading) {
     return <Loader progress={mainData.progress || panProteomeData.progress} />;
   }
 

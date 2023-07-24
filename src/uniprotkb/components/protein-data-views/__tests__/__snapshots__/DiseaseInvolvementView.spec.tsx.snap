@@ -150,14 +150,14 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
               </a>
             </td>
             <td>
-              in AD; supposed to be rendered with the disease; Italian type; 
+              in AD; supposed to be rendered with the disease; Italian type; dbSNP:
               <a
                 class="external-link"
                 href="https://www.ncbi.nlm.nih.gov/snp/rs63750579"
                 rel="noopener"
                 target="_blank"
               >
-                dbSNP:rs63750579
+                rs63750579
                 <test-file-stub
                   data-testid="external-link-icon"
                   width="12.5"

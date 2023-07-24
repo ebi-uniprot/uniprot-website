@@ -46,6 +46,7 @@ import {
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
 import { MessageLevel } from '../../../../messages/types/messagesTypes';
+import { ServerParameters } from '../../types/idMappingServerParameters';
 
 import styles from './styles/id-mapping-result.module.scss';
 import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
@@ -335,6 +336,7 @@ const IDMappingResult = () => {
               resultsDataObject={resultsDataObject}
               detailsData={detailsData}
               notCustomisable={notCustomisable}
+              inputParamsData={detailsData as ServerParameters}
             />
           </Suspense>
         </Tab>

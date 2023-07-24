@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import qs from 'query-string';
-
 import { SearchTextLink } from './SearchSuggestions';
 import useDataApi from '../../hooks/useDataApi';
 
@@ -13,25 +10,26 @@ import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverte
 const OrganismSuggestion = ({
   query,
   taxonID,
+  total,
 }: {
   query: string;
   taxonID: string;
+  total: number;
 }) => {
-  const [organismExists, setOrganismExists] = useState(false);
+  const searchParams = new URLSearchParams({
+    query: `organism_id:${taxonID}`,
+    size: '0',
+  });
 
-  const { data } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
-      query: `organism_id:${taxonID}`,
-    })}`
+  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
   );
 
-  useEffect(() => {
-    if (data?.results.length) {
-      setOrganismExists(true);
-    }
-  }, [data]);
+  const hasOrganismSuggestion =
+    Number(headers?.['x-total-results']) &&
+    Number(headers?.['x-total-results']) !== total;
 
-  if (organismExists && !query.includes('proteome')) {
+  if (hasOrganismSuggestion && !query.includes('proteome')) {
     return (
       <>
         {' '}
