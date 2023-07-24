@@ -35,7 +35,7 @@ const ExactFieldSuggestion = ({
   );
 
   const hasExactSuggestion =
-    headers?.['x-total-results'] &&
+    Number(headers?.['x-total-results']) &&
     Number(headers?.['x-total-results']) !== total;
 
   if (hasExactSuggestion && query !== modifiedQuery) {

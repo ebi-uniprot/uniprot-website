@@ -37,7 +37,7 @@ const TaxonomyLevelsSuggestion = ({
   );
 
   const hasTaxonSuggestion =
-    headers?.['x-total-results'] &&
+    Number(headers?.['x-total-results']) &&
     Number(headers?.['x-total-results']) !== total;
 
   if (query !== modifiedQuery && searchValue) {
