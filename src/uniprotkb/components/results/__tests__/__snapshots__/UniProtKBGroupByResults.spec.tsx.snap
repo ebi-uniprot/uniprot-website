@@ -139,6 +139,7 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
           <button
             aria-expanded="true"
             class="button secondary"
+            title="Hide children of Glycosylases"
             type="button"
           >
             ►
@@ -342,6 +343,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           <button
             aria-expanded="false"
             class="button secondary"
+            title="Reveal children of cellular organisms"
             type="button"
           >
             ►
@@ -391,6 +393,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           <button
             aria-expanded="false"
             class="button secondary"
+            title="Reveal children of other entries"
             type="button"
           >
             ►
@@ -440,6 +443,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           <button
             aria-expanded="false"
             class="button secondary"
+            title="Reveal children of unclassified entries"
             type="button"
           >
             ►
@@ -489,6 +493,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           <button
             aria-expanded="false"
             class="button secondary"
+            title="Reveal children of Viruses"
             type="button"
           >
             ►
