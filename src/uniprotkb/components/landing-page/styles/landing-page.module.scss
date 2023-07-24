@@ -1,34 +1,21 @@
-@import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
 
 .landing-page {
-  table {
-    border-spacing: 0;
-    overflow: auto;
-    display: block;
+  &__title {
+    margin-top: 2 * $global-margin;
   }
-
-  thead {
-    color: $colour-sky-white;
-    background: $colour-sea-blue;
-
-    a {
-      color: $colour-sky-white;
+  .introduction-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 2 * $global-margin;
+    .video {
+      margin-bottom: $global-margin;
+      max-width: 30rem;
+      overflow-y: auto;
     }
-  }
-
-  tbody {
-    border: 1px solid $colour-sea-blue;
-  }
-
-  th,
-  td {
-    padding: $global-padding * 0.25 $global-padding * 0.5;
-    border: 1px solid $colour-sea-blue;
-    border-collapse: collapse;
-  }
-
-  .end {
-    text-align: end;
+    .search-link {
+      display: block;
+      margin-top: 1rem;
+    }
   }
 }

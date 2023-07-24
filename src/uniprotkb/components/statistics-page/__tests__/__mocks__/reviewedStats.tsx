@@ -1,4 +1,4 @@
-import { StatisticsPayload } from '../../LandingPage';
+import { StatisticsPayload } from '../../StatisticsPage';
 
 // Retrieved: 2023-04-06
 const reviewedStats: StatisticsPayload = {
