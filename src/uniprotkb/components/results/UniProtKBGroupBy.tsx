@@ -16,9 +16,7 @@ import qs from 'query-string';
 import { sumBy } from 'lodash-es';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import AutocompleteWrapper, {
-  Suggestions,
-} from '../../../query-builder/components/AutocompleteWrapper';
+import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
@@ -28,10 +26,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import {
-  getAPIQueryParams,
-  getSuggesterUrl,
-} from '../../../shared/config/apiUrls';
+import { getAPIQueryParams } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
 import {
   getGroupBySuggesterUrl,
@@ -64,14 +59,14 @@ type Group = {
 };
 
 type Parent = {
-  label: string;
+  label?: string;
   count: number;
 };
 
 export type GroupByAPIModel = {
   ancestors: Ancestor[];
   groups: Group[];
-  parent?: Parent;
+  parent: Parent;
 };
 
 type GroupByLinkProps = {
@@ -434,13 +429,8 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy(groupBy, query, id);
   const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
-  // TODO: remove this when backend provides the parent information in the groupby response
-  const parentUrl = id
-    ? getSuggesterUrl(getGroupBySuggesterUrl(groupBy), id)
-    : null;
-  const parentResponse = useDataApi<Suggestions>(parentUrl);
 
-  if (groupByResponse.loading || (id && parentResponse.loading)) {
+  if (groupByResponse.loading) {
     return <Loader />;
   }
 
@@ -448,12 +438,10 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={groupByResponse.status} />;
   }
 
-  if (parentResponse.error || (id && !parentResponse.data)) {
-    return <ErrorHandler status={parentResponse.status} />;
-  }
-
-  const sumChildren = sumBy(groupByResponse.data?.groups, 'count');
-
+  // TODO: remove sumBy when https://www.ebi.ac.uk/panda/jira/browse/TRM-29956 done
+  const sumChildren =
+    groupByResponse.data?.parent?.count ||
+    sumBy(groupByResponse.data?.groups, 'count');
   let childrenNode;
   if (id && !sumChildren) {
     childrenNode = (
@@ -497,7 +485,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
 
   const groupByLabel = groupByToLabel[groupBy];
 
-  const { value: parentLabel } = parentResponse?.data?.suggestions?.[0] || {};
+  const { label: parentLabel } = groupByResponse?.data?.parent || {};
 
   return (
     <div className={styles['groupby-container']}>
