@@ -78,13 +78,17 @@ const IDMappingResultTable = ({
             </strong>{' '}
             {pluralise('ID', mappedLength)}{' '}
             {pluralise('was', mappedLength, 'were')} mapped to{' '}
-            <LongNumber>{resultsDataObject.total || 0}</LongNumber>{' '}
+            <strong>
+              <LongNumber>{resultsDataObject.total || 0}</LongNumber>
+            </strong>{' '}
             {pluralise('result', resultsDataObject.total || 0)}
           </div>
           {failedLength > 0 && (
             <div>
-              <strong>{failedLength}</strong> ID{' '}
-              {pluralise('was', failedLength, 'were')} not mapped:
+              <strong>
+                <LongNumber>{failedLength}</LongNumber>
+              </strong>{' '}
+              ID {pluralise('was', failedLength, 'were')} not mapped:
               <ExpandableList
                 descriptionString="IDs"
                 numberCollapsedItems={0}
@@ -96,8 +100,10 @@ const IDMappingResultTable = ({
           )}
           {suggestedLength > 0 && (
             <div>
-              <strong>{suggestedLength}</strong> ID{' '}
-              {pluralise('was', suggestedLength, 'were')} mapped to UniParc
+              <strong>
+                <LongNumber>{suggestedLength}</LongNumber>
+              </strong>{' '}
+              ID {pluralise('was', suggestedLength, 'were')} mapped to UniParc
               instead:
               <ExpandableList
                 descriptionString="IDs"
