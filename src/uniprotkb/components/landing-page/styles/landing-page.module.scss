@@ -1,21 +1,65 @@
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
 
 .landing-page {
   &__title {
     margin-top: 2 * $global-margin;
   }
-  .introduction-section {
+
+  &__content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin-top: 2 * $global-margin;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
+    column-gap: 1rem;
+    row-gap: 2rem;
+
+    grid-template-areas:
+      'video summary summary summary'
+      'statistics statistics tutorial download';
     .video {
+      grid-area: video;
+      margin-top: 2 * $global-margin;
       margin-bottom: $global-margin;
       max-width: 30rem;
       overflow-y: auto;
     }
-    .search-link {
-      display: block;
-      margin-top: 1rem;
+    .summary {
+      grid-area: summary;
+      margin-top: 2 * $global-margin;
+
+      .search-link {
+        display: block;
+        margin-top: 1rem;
+      }
+    }
+    .statistics {
+      grid-area: statistics;
+      &__content {
+        display: flex;
+        justify-content: space-between;
+      }
+      .entries-count {
+        &__content {
+          display: flex;
+          justify-content: center;
+          &__text {
+            margin: 1rem 0 0 1.5rem;
+          }
+        }
+        .reviewed-icon {
+          color: $colour-reviewed;
+        }
+        .unreviewed-icon {
+          color: $colour-unreviewed;
+        }
+      }
+    }
+
+    .tutorial {
+      grid-area: tutorial;
+    }
+    .download {
+      grid-area: download;
     }
   }
 }
