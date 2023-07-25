@@ -10,4 +10,5 @@ export default {
     },
   ],
   failedIds: ['P41892', 'P06243'],
+  suggestedIds: [{ from: 'Q11111', to: 'UPI1111111111' }],
 };

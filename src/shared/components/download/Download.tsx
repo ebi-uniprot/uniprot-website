@@ -39,6 +39,11 @@ import { IsoformStatistics } from '../../../proteomes/components/entry/Component
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 
+const proteomesFileFormats = [
+  FileFormat.fasta,
+  ...fileFormatsProteomeResultsDownload,
+];
+
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
 
 export const getPreviewFileFormat = (
@@ -202,7 +207,7 @@ const Download: FC<DownloadProps> = ({
       } else {
         // downloadCount = isoformStats?.reviewed || 0;
         downloadOptions.fileFormat = FileFormat.fastaCanonical;
-        fileFormats = fileFormatsProteomeResultsDownload;
+        fileFormats = proteomesFileFormats;
       }
       break;
     case 'selected':
@@ -243,7 +248,7 @@ const Download: FC<DownloadProps> = ({
       fileFormats = [FileFormat.fasta];
       setIncludeIsoform(true);
     } else {
-      fileFormats = fileFormatsProteomeResultsDownload;
+      fileFormats = proteomesFileFormats;
       setIncludeIsoform(false);
     }
   };
