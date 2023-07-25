@@ -58,18 +58,19 @@ const LandingPage = () => {
         <div className={styles.video}>
           <YouTubeEmbed id="yp1O1gDK8oA" title="How to search UniProtKB" />
         </div>
-        <div className={styles.summary}>
+        <p className={styles.summary}>
           The UniProt Knowledgebase (UniProtKB) is the central hub for the
           collection of functional information on proteins, with accurate,
           consistent and rich annotation. In addition to capturing the core data
           mandatory for each UniProtKB entry (mainly, the amino acid sequence,
           protein name or description, taxonomic data and citation information),
-          as much annotation information as possible is added. The UniProt
-          Knowledgebase consists of two sections: a section containing
-          manually-annotated records with information extracted from literature
-          and curator-evaluated computational analysis (UniProtKB/Swiss-Prot),
-          and a section with computationally analyzed records that await full
-          manual annotation (UniProtKB/TrEMBL).
+          as much annotation information as possible is added. <br />
+          <br />
+          The UniProt Knowledgebase consists of two sections: a section
+          containing manually-annotated records with information extracted from
+          literature and curator-evaluated computational analysis
+          (UniProtKB/Swiss-Prot), and a section with computationally analyzed
+          records that await full manual annotation (UniProtKB/TrEMBL).
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
@@ -79,7 +80,7 @@ const LandingPage = () => {
           >
             Start searching in UniProtKB <small> &gt; &gt;</small>
           </Link>
-        </div>
+        </p>
         <div className={styles.statistics}>
           <h4>Statistics</h4>
           <div className={styles['statistics__content']}>
@@ -128,6 +129,29 @@ const LandingPage = () => {
 
         <div className={styles.tutorial}>
           <h4>How to use UniProtKB</h4>
+          <div className={styles['tutorial__content']}>
+            <YouTubeEmbed id="OwOJmKmc7VM" title="Welcome to UniProt" />
+            <YouTubeEmbed
+              id="BHu88Sv--mc"
+              title="How to explore a UniProt entry"
+            />
+            <YouTubeEmbed
+              id="p4_gGkM-Rfs"
+              title="How to download embeddings in UniProt"
+            />
+            {/* <div className={styles['tutorial__video']}>
+              <YouTubeEmbed id="OwOJmKmc7VM" title="Welcome to UniProt" />
+            </div>
+            <div className={styles['tutorial__title']}>Welcome to UniProt</div>
+            <div className={styles['tutorial__video']}>
+              <YouTubeEmbed id="BHu88Sv--mc" title="How to explore a UniProt entry" />
+            </div>
+            <div className={styles['tutorial__title']}>How to explore a UniProt entry</div>
+            <div className={styles['tutorial__video']}>
+              <YouTubeEmbed id="p4_gGkM-Rfs" title="How to download embeddings in UniProt" />
+            </div>
+            <div className={styles['tutorial__title']}>How to download embeddings in UniProt</div> */}
+          </div>
         </div>
         <div className={styles.download}>
           <h4>Download</h4>
