@@ -1,17 +1,33 @@
 import { Link } from 'react-router-dom';
-import { LongNumber, SwissProtIcon, TremblIcon } from 'franklin-sites';
+import {
+  ExternalLink,
+  LongNumber,
+  SwissProtIcon,
+  TremblIcon,
+} from 'franklin-sites';
 
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getLocationEntryPath,
+} from '../../../app/config/urls';
 import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
+import ftpUrls from '../../../shared/config/ftpUrls';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import styles from './styles/landing-page.module.scss';
+
+const availableFTPFormats = {
+  fasta: 'fasta',
+  text: 'dat',
+  xml: 'xml',
+};
 
 const LandingPage = () => {
   const { data } = useDataApi<SearchResults<never>>(
@@ -61,11 +77,11 @@ const LandingPage = () => {
             }}
             className={styles['search-link']}
           >
-            Start searching in UniProtKB &gt;&gt;
+            Start searching in UniProtKB <small> &gt; &gt;</small>
           </Link>
         </div>
         <div className={styles.statistics}>
-          <h3>Statistics</h3>
+          <h4>Statistics</h4>
           <div className={styles['statistics__content']}>
             <div>chart goes here</div>
             <div className={styles['entries-count']}>
@@ -98,12 +114,48 @@ const LandingPage = () => {
                   entries
                 </div>
               </div>
+              <Link
+                to={getLocationEntryPath(
+                  Location.HelpEntry,
+                  'release-statistics'
+                )}
+              >
+                Explore the latest release <small>&gt; &gt;</small>
+              </Link>
             </div>
           </div>
         </div>
 
-        <div className={styles.tutorial}>Tutorial</div>
-        <div className={styles.download}>Download</div>
+        <div className={styles.tutorial}>
+          <h4>How to use UniProtKB</h4>
+        </div>
+        <div className={styles.download}>
+          <h4>Download</h4>
+          <span>Reviewed(Swiss-Prot)</span>
+          {Object.entries(availableFTPFormats).map(([key, value]) => (
+            <ExternalLink
+              url={`${ftpUrls.uniprotkb_reviewed}.${value}.gz`}
+              key={`reviewed-${key}`}
+            >
+              {key}
+            </ExternalLink>
+          ))}
+          <span>Unreviewed(TrEMBL)</span>
+          {Object.entries(availableFTPFormats).map(([key, value]) => (
+            <ExternalLink
+              url={`${ftpUrls.uniprotkb_unreviewed}.${value}.gz`}
+              key={`unreviewed-${key}`}
+            >
+              {key}
+            </ExternalLink>
+          ))}
+          <ExternalLink
+            url={ftpUrls.uniprotkb}
+            className={styles['download__ftp-link']}
+          >
+            Explore more in FTP
+          </ExternalLink>
+        </div>
       </div>
     </div>
   );

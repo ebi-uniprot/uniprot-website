@@ -9,6 +9,14 @@ const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 const ftpUrls = {
   uniprot: ftpUniProt,
   uniprotkb: joinUrl(ftpUniProt, 'knowledgebase/complete'),
+  uniprotkb_reviewed: joinUrl(
+    ftpUniProt,
+    'knowledgebase/complete/uniprot_sprot'
+  ),
+  uniprotkb_unreviewed: joinUrl(
+    ftpUniProt,
+    'knowledgebase/complete/uniprot_trembl'
+  ),
   referenceProteomes: (id: string, superkingdom: string, taxonId: number) =>
     joinUrl(
       ftpUniProt,

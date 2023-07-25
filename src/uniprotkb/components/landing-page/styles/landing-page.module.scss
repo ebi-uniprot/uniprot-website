@@ -9,13 +9,13 @@
   &__content {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 2fr;
+    // grid-template-rows: 1fr 2fr;
     column-gap: 1rem;
     row-gap: 2rem;
-
     grid-template-areas:
       'video summary summary summary'
       'statistics statistics tutorial download';
+
     .video {
       grid-area: video;
       margin-top: 2 * $global-margin;
@@ -23,6 +23,7 @@
       max-width: 30rem;
       overflow-y: auto;
     }
+
     .summary {
       grid-area: summary;
       margin-top: 2 * $global-margin;
@@ -32,12 +33,15 @@
         margin-top: 1rem;
       }
     }
+
     .statistics {
       grid-area: statistics;
+
       &__content {
         display: flex;
         justify-content: space-between;
       }
+
       .entries-count {
         &__content {
           display: flex;
@@ -46,11 +50,17 @@
             margin: 1rem 0 0 1.5rem;
           }
         }
+
         .reviewed-icon {
           color: $colour-reviewed;
         }
+
         .unreviewed-icon {
           color: $colour-unreviewed;
+        }
+
+        a {
+          align-self: flex-end;
         }
       }
     }
@@ -58,8 +68,23 @@
     .tutorial {
       grid-area: tutorial;
     }
+
     .download {
       grid-area: download;
+
+      span {
+        display: block;
+        margin-top: 0.5rem;
+      }
+
+      a {
+        margin-right: 0.5rem;
+      }
+
+      &__ftp-link {
+        display: block;
+        margin-top: 2rem;
+      }
     }
   }
 }
