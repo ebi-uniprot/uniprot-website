@@ -1,6 +1,7 @@
 import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { InfoList, ExpandableList } from 'franklin-sites';
+import { escapeRegExp } from 'lodash-es';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
@@ -163,7 +164,8 @@ export const DiseaseInvolvementEntry = ({
   }
 
   const diseaseRE =
-    disease?.acronym && new RegExp(` ${disease.acronym}(;|,| |$)`);
+    disease?.acronym &&
+    new RegExp(` ${escapeRegExp(disease.acronym)}(;|,| |$)`);
 
   const diseaseVariants =
     diseaseRE &&
