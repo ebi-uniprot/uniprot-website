@@ -78,7 +78,7 @@ const LandingPage = () => {
             }}
             className={styles['search-link']}
           >
-            Start searching in UniProtKB <small> &gt; &gt;</small>
+            Start searching in UniProtKB <big>»</big>
           </Link>
         </p>
         <div className={styles.statistics}>
@@ -121,7 +121,7 @@ const LandingPage = () => {
                   'release-statistics'
                 )}
               >
-                Explore the latest release <small>&gt; &gt;</small>
+                Explore the latest release <big>»</big>
               </Link>
             </div>
           </div>
