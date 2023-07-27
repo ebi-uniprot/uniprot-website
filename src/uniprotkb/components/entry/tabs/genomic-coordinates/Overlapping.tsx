@@ -12,7 +12,6 @@ import { proteinsApi } from '../../../../../shared/config/apiUrls';
 
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { TabLocation } from '../../Entry';
-
 import { GenomicEntry } from './types';
 
 type OverlappingProps = {
