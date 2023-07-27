@@ -1,4 +1,11 @@
-import { useState, useRef, useEffect, FC } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  ReactNode,
+  useCallback,
+} from 'react';
 import { Button } from 'franklin-sites';
 import { useParams } from 'react-router-dom';
 
@@ -8,13 +15,14 @@ import { sendGtagEventFeatureDataTableViewClick } from '../../utils/gtagEvents';
 
 import './styles/datatable-toggle.scss';
 
-const DatatableWithToggle: FC = ({ children }) => {
+const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
+  const [showButton, setShowButton] = useState(true);
   const [expandTable, setExpandTable] = useState(false);
 
   const tableRef = useRef<HTMLElement>(null);
   const firstRenderRef = useRef(true);
 
-  const params = useParams<{ accession: string }>();
+  const params = useParams<{ accession?: string }>();
 
   const datatableElement = useCustomElement(
     /* istanbul ignore next */
@@ -37,7 +45,7 @@ const DatatableWithToggle: FC = ({ children }) => {
         });
       }
       sendGtagEventFeatureDataTableViewClick(
-        params.accession,
+        params.accession || '',
         expandTable ? 'expanded' : 'collapsed'
       );
     }
@@ -46,6 +54,28 @@ const DatatableWithToggle: FC = ({ children }) => {
       firstRenderRef.current = false;
     }
   }, [expandTable, params.accession]);
+
+  const sizeCheck = useCallback(() => {
+    setShowButton(
+      tableRef.current?.shadowRoot?.firstElementChild?.scrollHeight !==
+        tableRef.current?.shadowRoot?.firstElementChild?.clientHeight
+    );
+  }, []);
+
+  // eslint-disable-next-line consistent-return
+  useLayoutEffect(() => {
+    if (datatableElement.defined && tableRef.current) {
+      const mo = new MutationObserver(sizeCheck);
+      mo.observe(tableRef.current, {
+        childList: true,
+        // Allows to update when classes are applied to hide some rows
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true,
+      });
+      return () => mo.disconnect();
+    }
+  }, [datatableElement.defined, sizeCheck]);
 
   if (datatableElement.defined) {
     return (
@@ -57,18 +87,15 @@ const DatatableWithToggle: FC = ({ children }) => {
         >
           {children}
         </datatableElement.name>
-        {/* TODO show button only when the content exceeds visible area of the table  
-        {tableRef?.current?.rows.length > 7 && (
-          
+        {(showButton || expandTable) && (
+          <Button
+            variant="primary"
+            onClick={() => setExpandTable((current) => !current)}
+            className="toggle-button"
+          >
+            {expandTable ? 'Collapse' : 'Expand'} table
+          </Button>
         )}
-        */}
-        <Button
-          variant="primary"
-          onClick={() => setExpandTable((current) => !current)}
-          className="toggle-button"
-        >
-          {expandTable ? 'Collapse' : 'Expand'} table
-        </Button>
       </div>
     );
   }

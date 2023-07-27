@@ -1,6 +1,6 @@
 /* eslint-disable uniprot-website/use-config-location */
 import { ReactNode, useCallback, useState } from 'react';
-import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
@@ -16,9 +16,7 @@ import qs from 'query-string';
 import { sumBy } from 'lodash-es';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import AutocompleteWrapper, {
-  Suggestions,
-} from '../../../query-builder/components/AutocompleteWrapper';
+import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
@@ -28,10 +26,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import {
-  getAPIQueryParams,
-  getSuggesterUrl,
-} from '../../../shared/config/apiUrls';
+import { getAPIQueryParams } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
 import {
   getGroupBySuggesterUrl,
@@ -41,11 +36,16 @@ import {
   groupByToTerm,
 } from './UniProtKBGroupByUtils';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getEntryPath,
+} from '../../../app/config/urls';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import styles from './styles/group-by.module.scss';
 
@@ -64,14 +64,14 @@ type Group = {
 };
 
 type Parent = {
-  label: string;
+  label?: string;
   count: number;
 };
 
 export type GroupByAPIModel = {
   ancestors: Ancestor[];
   groups: Group[];
-  parent?: Parent;
+  parent: Parent;
 };
 
 type GroupByLinkProps = {
@@ -110,11 +110,7 @@ export const GroupByLink = ({
     case 'keyword':
       return (
         <Link
-          to={{
-            pathname: generatePath(LocationToPath[Location.KeywordsEntry], {
-              accession: id,
-            }),
-          }}
+          to={getEntryPath(Namespace.keywords, id)}
           title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
         >
           {child}
@@ -123,11 +119,7 @@ export const GroupByLink = ({
     case 'taxonomy':
       return (
         <Link
-          to={{
-            pathname: generatePath(LocationToPath[Location.TaxonomyEntry], {
-              accession: id,
-            }),
-          }}
+          to={getEntryPath(Namespace.taxonomy, id)}
           title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
         >
           {child}
@@ -173,26 +165,23 @@ const UniProtKBNodeSearchLink = ({
 type ParentNodeLinkProps = {
   id?: string;
   label: string;
-  url: string;
-  searchParams: { [k: string]: string };
   parent?: string;
 };
 
-const ParentNodeLink = ({
-  label,
-  id,
-  url,
-  searchParams,
-  parent,
-}: ParentNodeLinkProps) => (
+const ParentNodeLink = ({ label, id, parent }: ParentNodeLinkProps) => (
   <Link
-    to={qs.stringifyUrl({
-      url,
-      query: {
-        ...searchParams,
-        parent,
-      },
-    })}
+    to={(location) => {
+      const sp = new URLSearchParams(location.search);
+      if (parent) {
+        sp.set('parent', parent);
+      } else {
+        sp.delete('parent');
+      }
+      return {
+        ...location,
+        search: sp.toString(),
+      };
+    }}
     title={`Set parent node to ${label}${id ? `ID:${id}` : ''}`}
   >
     {label}
@@ -218,8 +207,6 @@ const GroupByAncestor = ({
   groupBy,
   showDropdownAndCount = false,
 }: GroupByAncestorProps) => {
-  const location = useLocation();
-  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const [open, setOpen] = useState(true);
   const [ancestor, ...restAncestors] = ancestors;
 
@@ -240,6 +227,9 @@ const GroupByAncestor = ({
               variant="secondary"
               aria-expanded={open}
               onClick={() => setOpen((o) => !o)}
+              title={`${open ? 'Hide' : 'Reveal'} children of ${
+                ancestor.label
+              }`}
             >
               ►
             </Button>
@@ -263,8 +253,6 @@ const GroupByAncestor = ({
           <ParentNodeLink
             label={ancestor.label}
             id={ancestor.id}
-            url={location.pathname}
-            searchParams={searchParams}
             parent={ancestor.id}
           />
         </span>
@@ -304,10 +292,8 @@ const GroupByNode = ({
   parentTotal,
   groupBy,
 }: GroupByNodeProps) => {
-  const location = useLocation();
   const messagesDispatch = useMessagesDispatch();
   const [open, setOpen] = useState(false);
-  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const url = open ? apiUrls.groupBy(groupBy, query, item.id) : null;
   const { loading, data, error } = useDataApi<GroupByAPIModel>(url);
 
@@ -341,6 +327,7 @@ const GroupByNode = ({
           variant="secondary"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
+          title={`${open ? 'Hide' : 'Reveal'} children of ${item.label}`}
         >
           ►
         </Button>
@@ -389,13 +376,7 @@ const GroupByNode = ({
         className={styles.label}
         style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
       >
-        <ParentNodeLink
-          label={item.label}
-          id={item.id}
-          url={location.pathname}
-          searchParams={searchParams}
-          parent={item.id}
-        />
+        <ParentNodeLink label={item.label} id={item.id} parent={item.id} />
       </span>
       {proportion && percentage && (
         <span
@@ -430,17 +411,10 @@ type GroupByRootProps = {
 };
 
 const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
-  const location = useLocation();
-  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy(groupBy, query, id);
-  const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
-  // TODO: remove this when backend provides the parent information in the groupby response
-  const parentUrl = id
-    ? getSuggesterUrl(getGroupBySuggesterUrl(groupBy), id)
-    : null;
-  const parentResponse = useDataApi<Suggestions>(parentUrl);
+  const groupByResponse = useDataApi<GroupByAPIModel>(groupByUrl);
 
-  if (groupByResponse.loading || (id && parentResponse.loading)) {
+  if (groupByResponse.loading) {
     return <Loader />;
   }
 
@@ -448,12 +422,10 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={groupByResponse.status} />;
   }
 
-  if (parentResponse.error || (id && !parentResponse.data)) {
-    return <ErrorHandler status={parentResponse.status} />;
-  }
-
-  const sumChildren = sumBy(groupByResponse.data?.groups, 'count');
-
+  // TODO: remove sumBy when https://www.ebi.ac.uk/panda/jira/browse/TRM-29956 done
+  const sumChildren =
+    groupByResponse.data?.parent?.count ||
+    sumBy(groupByResponse.data?.groups, 'count');
   let childrenNode;
   if (id && !sumChildren) {
     childrenNode = (
@@ -497,7 +469,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
 
   const groupByLabel = groupByToLabel[groupBy];
 
-  const { value: parentLabel } = parentResponse?.data?.suggestions?.[0] || {};
+  const { label: parentLabel } = groupByResponse?.data?.parent || {};
 
   return (
     <div className={styles['groupby-container']}>
@@ -521,11 +493,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             </span>
             <span className={styles.label}>
               {id ? (
-                <ParentNodeLink
-                  label="Top level"
-                  url={location.pathname}
-                  searchParams={searchParams}
-                />
+                <ParentNodeLink label="Top level" />
               ) : (
                 <span title="Parent node currently set to top level">
                   Top level

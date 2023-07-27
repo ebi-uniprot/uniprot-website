@@ -1,3 +1,540 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniProtKBGroupByResults component should render 1`] = `<DocumentFragment />`;
+exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
+<DocumentFragment>
+  <h2
+    class="small"
+  >
+    Group by Enzyme Classification
+  </h2>
+  <section
+    class="autocomplete"
+  >
+    <label>
+      Search for Enzyme Classification
+      <div
+        class="autocomplete-container"
+      >
+        <span
+          class="search-input"
+        >
+          <input
+            data-testid="search-input"
+            placeholder="Enter Enzyme Classification name or ID"
+            type="text"
+            value=""
+          />
+          <span
+            class="search-input__suffix"
+            data-testid="search-input-suffix"
+            role="presentation"
+          >
+            <test-file-stub
+              height="14"
+              width="14"
+            />
+          </span>
+        </span>
+        <div
+          class="autocomplete-menu"
+        >
+          <div
+            class="dropdown-menu__panel"
+          />
+        </div>
+      </div>
+    </label>
+  </section>
+  <div
+    class="groupby-container"
+  >
+    <ul
+      class="no-bullet groupby groupby__header"
+    >
+      <li
+        class="header"
+      >
+        <h3
+          class="tiny count"
+        >
+          UniProtKB Entries
+        </h3>
+        <h3
+          class="tiny label"
+        >
+          Enzyme Classification
+        </h3>
+      </li>
+      <li
+        class="parent"
+      >
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(shadab)"
+            title="UniProtKB search results for query:(shadab)"
+          >
+            123
+          </a>
+        </span>
+        <span
+          class="label"
+        >
+          <a
+            href="uniprotkb?groupBy=ec&query=shadab"
+            title="Set parent node to Top level"
+          >
+            Top level
+          </a>
+        </span>
+      </li>
+      <li
+        class="parent"
+      >
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(shadab) AND (ec:3.-.-.-)"
+            title="UniProtKB search results with Enzyme Classification: Hydrolases (ID:3.-.-.-) and query:(shadab)"
+          >
+            37
+          </a>
+        </span>
+        <span
+          class="label"
+        >
+          <span
+            class="active-label"
+            title="Parent node currently set to Hydrolases (ID:3.-.-.-)"
+          >
+            Hydrolases
+          </span>
+          <a
+            class="external-link"
+            href="https://enzyme.expasy.org/EC/3.-.-.-"
+            rel="noopener"
+            target="_blank"
+            title="The Enzyme Classification entry page for Hydrolases (ID:3.-.-.-)"
+          >
+            Enzyme Classification ID:3.-.-.-
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </span>
+      </li>
+    </ul>
+    <ul
+      class="no-bullet groupby"
+    >
+      <li
+        class="node"
+      >
+        <span
+          class="expand"
+        >
+          <button
+            aria-expanded="true"
+            class="button secondary"
+            title="Hide children of Glycosylases"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(shadab) AND (ec:3.2.-.-)"
+            title="UniProtKB search results with Enzyme Classification: Glycosylases (ID:3.2.-.-) and query:(shadab)"
+          >
+            37
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 19ch;"
+        >
+          <a
+            href="uniprotkb?groupBy=ec&parent=3.2.-.-&query=shadab"
+            title="Set parent node to GlycosylasesID:3.2.-.-"
+          >
+            Glycosylases
+          </a>
+        </span>
+        <ul
+          class="no-bullet groupby"
+        >
+          <li
+            class="node"
+          >
+            <span
+              class="expand"
+            />
+            <span
+              class="count"
+            />
+            <span
+              class="label"
+              style="width: 19ch;"
+            >
+              <a
+                href="uniprotkb?groupBy=ec&parent=3.2.1.-&query=shadab"
+                title="Set parent node to Glycosidases, i.e. enzymes hydrolyzing O- and S-glycosyl compoundsID:3.2.1.-"
+              >
+                Glycosidases, i.e. enzymes hydrolyzing O- and S-glycosyl compounds
+              </a>
+            </span>
+            <ul
+              class="no-bullet groupby"
+            >
+              <li
+                class="node"
+              >
+                <span
+                  class="expand"
+                />
+                <span
+                  class="count"
+                >
+                  <a
+                    href="/uniprotkb?query=(shadab) AND (ec:3.2.1.18)"
+                    title="UniProtKB search results with Enzyme Classification: exo-alpha-sialidase (ID:3.2.1.18) and query:(shadab)"
+                  >
+                    37
+                  </a>
+                </span>
+                <span
+                  class="label"
+                  style="width: 19ch;"
+                >
+                  <a
+                    href="uniprotkb?groupBy=ec&parent=3.2.1.18&query=shadab"
+                    title="Set parent node to exo-alpha-sialidaseID:3.2.1.18"
+                  >
+                    exo-alpha-sialidase
+                  </a>
+                </span>
+                <span
+                  title="Number of UniProtKB search results with Enzyme Classification: exo-alpha-sialidase (ID:3.2.1.18) and query (shadab) is 37 which is 100.00% of all sibling results."
+                >
+                  <span
+                    class="bar"
+                    style="width: 300px;"
+                  />
+                  <span
+                    class="percentage"
+                  >
+                    100%
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`] = `
+<DocumentFragment>
+  <h2
+    class="small"
+  >
+    Group by Taxonomy
+  </h2>
+  <section
+    class="autocomplete"
+  >
+    <label>
+      Search for Taxonomy
+      <div
+        class="autocomplete-container"
+      >
+        <span
+          class="search-input"
+        >
+          <input
+            data-testid="search-input"
+            placeholder="Enter Taxonomy name or ID"
+            type="text"
+            value=""
+          />
+          <span
+            class="search-input__suffix"
+            data-testid="search-input-suffix"
+            role="presentation"
+          >
+            <test-file-stub
+              height="14"
+              width="14"
+            />
+          </span>
+        </span>
+        <div
+          class="autocomplete-menu"
+        >
+          <div
+            class="dropdown-menu__panel"
+          />
+        </div>
+      </div>
+    </label>
+  </section>
+  <div
+    class="groupby-container"
+  >
+    <ul
+      class="no-bullet groupby groupby__header"
+    >
+      <li
+        class="header"
+      >
+        <h3
+          class="tiny count"
+        >
+          UniProtKB Entries
+        </h3>
+        <h3
+          class="tiny label"
+        >
+          Taxonomy
+        </h3>
+      </li>
+      <li
+        class="parent"
+      >
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(*)"
+            title="UniProtKB search results for query:(*)"
+          >
+            123
+          </a>
+        </span>
+        <span
+          class="label"
+        >
+          <span
+            title="Parent node currently set to top level"
+          >
+            Top level
+          </span>
+        </span>
+      </li>
+    </ul>
+    <ul
+      class="no-bullet groupby"
+    >
+      <li
+        class="node"
+      >
+        <span
+          class="expand"
+        >
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            title="Reveal children of cellular organisms"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(*) AND (taxonomy_id:131567)"
+            title="UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query:(*)"
+          >
+            241,067,738
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/uniprotkb?groupBy=taxonomy&query=*&parent=131567"
+            title="Set parent node to cellular organismsID:131567"
+          >
+            cellular organisms
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 241,067,738 which is 96.88% of all sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 290.62666618818497px;"
+          />
+          <span
+            class="percentage"
+          >
+            97%
+          </span>
+        </span>
+      </li>
+      <li
+        class="node"
+      >
+        <span
+          class="expand"
+        >
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            title="Reveal children of other entries"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(*) AND (taxonomy_id:2787854)"
+            title="UniProtKB search results with Taxonomy: other entries (ID:2787854) and query:(*)"
+          >
+            1,245
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/uniprotkb?groupBy=taxonomy&query=*&parent=2787854"
+            title="Set parent node to other entriesID:2787854"
+          >
+            other entries
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with Taxonomy: other entries (ID:2787854) and query (*) is 1,245 which is 0.00% of all sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 1px;"
+          />
+          <span
+            class="percentage"
+          >
+            ≈0%
+          </span>
+        </span>
+      </li>
+      <li
+        class="node"
+      >
+        <span
+          class="expand"
+        >
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            title="Reveal children of unclassified entries"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(*) AND (taxonomy_id:2787823)"
+            title="UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query:(*)"
+          >
+            2,422,449
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/uniprotkb?groupBy=taxonomy&query=*&parent=2787823"
+            title="Set parent node to unclassified entriesID:2787823"
+          >
+            unclassified entries
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query (*) is 2,422,449 which is 0.97% of all sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 2.920458302391764px;"
+          />
+          <span
+            class="percentage"
+          >
+            1%
+          </span>
+        </span>
+      </li>
+      <li
+        class="node"
+      >
+        <span
+          class="expand"
+        >
+          <button
+            aria-expanded="false"
+            class="button secondary"
+            title="Reveal children of Viruses"
+            type="button"
+          >
+            ►
+          </button>
+        </span>
+        <span
+          class="count"
+        >
+          <a
+            href="/uniprotkb?query=(*) AND (taxonomy_id:10239)"
+            title="UniProtKB search results with Taxonomy: Viruses (ID:10239) and query:(*)"
+          >
+            5,392,244
+          </a>
+        </span>
+        <span
+          class="label"
+          style="width: 20ch;"
+        >
+          <a
+            href="/uniprotkb?groupBy=taxonomy&query=*&parent=10239"
+            title="Set parent node to VirusesID:10239"
+          >
+            Viruses
+          </a>
+        </span>
+        <span
+          title="Number of UniProtKB search results with Taxonomy: Viruses (ID:10239) and query (*) is 5,392,244 which is 2.17% of all sibling results."
+        >
+          <span
+            class="bar"
+            style="width: 6.500786500901433px;"
+          />
+          <span
+            class="percentage"
+          >
+            2%
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
