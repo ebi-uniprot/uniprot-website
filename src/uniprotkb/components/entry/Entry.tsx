@@ -92,7 +92,7 @@ const VariationViewerTab = lazy(
     )
 );
 
-const FeatureViewer = lazy(
+const FeatureViewerTab = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './tabs/FeatureViewer'
@@ -484,8 +484,8 @@ const Entry = () => {
             )
           }
           id={TabLocation.FeatureViewer}
-          onPointerOver={FeatureViewer.preload}
-          onFocus={FeatureViewer.preload}
+          onPointerOver={FeatureViewerTab.preload}
+          onFocus={FeatureViewerTab.preload}
         >
           {smallScreen ? (
             <Redirect
@@ -505,7 +505,7 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewer accession={match.params.accession} />
+                <FeatureViewerTab accession={match.params.accession} />
               </ErrorBoundary>
             </Suspense>
           )}
