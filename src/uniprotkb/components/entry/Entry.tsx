@@ -85,7 +85,7 @@ const legacyToNewSubPages = {
   'variants-viewer': TabLocation.VariantViewer,
 };
 
-const VariationViewer = lazy(
+const VariationViewerTab = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-entry-variation-viewer" */ './tabs/variation-viewer/VariationViewer'
@@ -99,7 +99,7 @@ const FeatureViewer = lazy(
     )
 );
 
-const GenomicCoordinates = lazy(
+const GenomicCoordinatesTab = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-entry-genomic-coordinates" */ './tabs/genomic-coordinates/GenomicCoordinates'
@@ -448,8 +448,8 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.VariantViewer}
-          onPointerOver={VariationViewer.preload}
-          onFocus={VariationViewer.preload}
+          onPointerOver={VariationViewerTab.preload}
+          onFocus={VariationViewerTab.preload}
         >
           <Suspense fallback={<Loader />}>
             <ErrorBoundary>
@@ -460,7 +460,7 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <VariationViewer
+              <VariationViewerTab
                 primaryAccession={match.params.accession}
                 title="Variants"
               />
@@ -525,19 +525,19 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.GenomicCoordinates}
-          onPointerOver={GenomicCoordinates.preload}
-          onFocus={GenomicCoordinates.preload}
+          onPointerOver={GenomicCoordinatesTab.preload}
+          onFocus={GenomicCoordinatesTab.preload}
         >
           <Suspense fallback={<Loader />}>
             <ErrorBoundary>
               <HTMLHead
                 title={[
                   pageTitle,
-                  'Coordinates viewer',
+                  'Genomic coordinates',
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <GenomicCoordinates
+              <GenomicCoordinatesTab
                 primaryAccession={match.params.accession}
                 title="Genomic coordinates"
               />
