@@ -68,21 +68,18 @@
       white-space: nowrap;
 
       // "highlight" currently hovered or focused row
-      &:hover,
-      &:focus-within {
-        & > .label > a {
-          position: relative;
-          &::after {
-            z-index: -1;
-            content: '';
-            position: absolute;
-            top: -0.25ch;
-            bottom: -0.25ch;
-            left: -0.75ch;
-            right: -0.75ch;
-            opacity: 0.4;
-            background-color: $colour-warning;
-          }
+      &:is(:hover, :focus-within) > :is(.label, .count) > a {
+        position: relative;
+        &::after {
+          z-index: -1;
+          content: '';
+          position: absolute;
+          top: -0.25ch;
+          bottom: -0.25ch;
+          left: -0.75ch;
+          right: -0.75ch;
+          opacity: 0.4;
+          background-color: $colour-warning;
         }
       }
 
