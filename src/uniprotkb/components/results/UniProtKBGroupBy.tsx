@@ -1,6 +1,6 @@
 /* eslint-disable uniprot-website/use-config-location */
 import { ReactNode, useCallback, useState } from 'react';
-import { Link, generatePath, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
@@ -36,11 +36,16 @@ import {
   groupByToTerm,
 } from './UniProtKBGroupByUtils';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getEntryPath,
+} from '../../../app/config/urls';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import styles from './styles/group-by.module.scss';
 
@@ -105,11 +110,7 @@ export const GroupByLink = ({
     case 'keyword':
       return (
         <Link
-          to={{
-            pathname: generatePath(LocationToPath[Location.KeywordsEntry], {
-              accession: id,
-            }),
-          }}
+          to={getEntryPath(Namespace.keywords, id)}
           title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
         >
           {child}
@@ -118,11 +119,7 @@ export const GroupByLink = ({
     case 'taxonomy':
       return (
         <Link
-          to={{
-            pathname: generatePath(LocationToPath[Location.TaxonomyEntry], {
-              accession: id,
-            }),
-          }}
+          to={getEntryPath(Namespace.taxonomy, id)}
           title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
         >
           {child}
@@ -168,26 +165,23 @@ const UniProtKBNodeSearchLink = ({
 type ParentNodeLinkProps = {
   id?: string;
   label: string;
-  url: string;
-  searchParams: { [k: string]: string };
   parent?: string;
 };
 
-const ParentNodeLink = ({
-  label,
-  id,
-  url,
-  searchParams,
-  parent,
-}: ParentNodeLinkProps) => (
+const ParentNodeLink = ({ label, id, parent }: ParentNodeLinkProps) => (
   <Link
-    to={qs.stringifyUrl({
-      url,
-      query: {
-        ...searchParams,
-        parent,
-      },
-    })}
+    to={(location) => {
+      const sp = new URLSearchParams(location.search);
+      if (parent) {
+        sp.set('parent', parent);
+      } else {
+        sp.delete('parent');
+      }
+      return {
+        ...location,
+        search: sp.toString(),
+      };
+    }}
     title={`Set parent node to ${label}${id ? `ID:${id}` : ''}`}
   >
     {label}
@@ -213,8 +207,6 @@ const GroupByAncestor = ({
   groupBy,
   showDropdownAndCount = false,
 }: GroupByAncestorProps) => {
-  const location = useLocation();
-  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const [open, setOpen] = useState(true);
   const [ancestor, ...restAncestors] = ancestors;
 
@@ -261,8 +253,6 @@ const GroupByAncestor = ({
           <ParentNodeLink
             label={ancestor.label}
             id={ancestor.id}
-            url={location.pathname}
-            searchParams={searchParams}
             parent={ancestor.id}
           />
         </span>
@@ -302,10 +292,8 @@ const GroupByNode = ({
   parentTotal,
   groupBy,
 }: GroupByNodeProps) => {
-  const location = useLocation();
   const messagesDispatch = useMessagesDispatch();
   const [open, setOpen] = useState(false);
-  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const url = open ? apiUrls.groupBy(groupBy, query, item.id) : null;
   const { loading, data, error } = useDataApi<GroupByAPIModel>(url);
 
@@ -388,13 +376,7 @@ const GroupByNode = ({
         className={styles.label}
         style={labelWidth ? { width: `${labelWidth}ch` } : undefined}
       >
-        <ParentNodeLink
-          label={item.label}
-          id={item.id}
-          url={location.pathname}
-          searchParams={searchParams}
-          parent={item.id}
-        />
+        <ParentNodeLink label={item.label} id={item.id} parent={item.id} />
       </span>
       {proportion && percentage && (
         <span
@@ -429,10 +411,8 @@ type GroupByRootProps = {
 };
 
 const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
-  const location = useLocation();
-  const searchParams = Object.fromEntries(new URLSearchParams(location.search));
   const groupByUrl = apiUrls.groupBy(groupBy, query, id);
-  const groupByResponse = useDataApi<GroupByAPIModel>(`${groupByUrl}`);
+  const groupByResponse = useDataApi<GroupByAPIModel>(groupByUrl);
 
   if (groupByResponse.loading) {
     return <Loader />;
@@ -513,11 +493,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             </span>
             <span className={styles.label}>
               {id ? (
-                <ParentNodeLink
-                  label="Top level"
-                  url={location.pathname}
-                  searchParams={searchParams}
-                />
+                <ParentNodeLink label="Top level" />
               ) : (
                 <span title="Parent node currently set to top level">
                   Top level
