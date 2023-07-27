@@ -68,21 +68,18 @@
       white-space: nowrap;
 
       // "highlight" currently hovered or focused row
-      &:hover,
-      &:focus-within {
-        & > .label > a {
-          position: relative;
-          &::after {
-            z-index: -1;
-            content: '';
-            position: absolute;
-            top: -0.25ch;
-            bottom: -0.25ch;
-            left: -0.75ch;
-            right: -0.75ch;
-            opacity: 0.4;
-            background-color: $colour-warning;
-          }
+      &:is(:hover, :focus-within) > :is(.label, .count) > a {
+        position: relative;
+        &::after {
+          z-index: -1;
+          content: '';
+          position: absolute;
+          top: -0.25ch;
+          bottom: -0.25ch;
+          left: -0.75ch;
+          right: -0.75ch;
+          opacity: 0.4;
+          background-color: $colour-warning;
         }
       }
 
@@ -98,7 +95,6 @@
           margin-bottom: 0rem;
           margin-left: 0.725rem;
           transition: transform 0.25s ease-out;
-          outline: 0;
           background-color: transparent;
           color: $colour-sea-blue;
 
@@ -116,6 +112,7 @@
       .label {
         display: inline-block;
         margin-left: 0.55rem;
+        margin-right: 0.1rem;
       }
 
       .bar {

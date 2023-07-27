@@ -163,6 +163,7 @@ const ResultsData = ({
 
   let content;
   if (groupBy && namespace === Namespace.uniprotkb) {
+    // Group By view
     content = <UniProtKBGroupBy total={resultsDataObject.total} />;
   } else if (viewMode === 'cards' && !displayIdMappingColumns) {
     // Card view
