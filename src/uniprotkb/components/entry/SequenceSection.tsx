@@ -103,7 +103,7 @@ const SequenceSection = ({
           >
             Genomic coordinates
           </Link>{' '}
-          tab with more genomic information about this entry
+          tab which has more genomic information about this entry
         </Message>
       )}
     </Card>
