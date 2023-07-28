@@ -46,6 +46,12 @@ const proteomesFileFormats = [
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
 
+const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
+  Namespace.uniparc,
+  Namespace.uniprotkb,
+  Namespace.uniref,
+]);
+
 export const getPreviewFileFormat = (
   fileFormat: FileFormat
 ): FileFormat | undefined => {
@@ -258,10 +264,12 @@ const Download: FC<DownloadProps> = ({
   const isEmbeddings = fileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
-  const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
+  const isIDMappingResult = jobResultsLocation === Location.IDMappingResult;
+  const isAsyncDownload =
+    ((isLarge || isEmbeddings) && isUniprotkb) ||
+    (isIDMappingResult && ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(namespace));
   const ftpFilenameAndUrl =
-    namespace === Namespace.uniprotkb &&
-    jobResultsLocation !== Location.IDMappingResult
+    namespace === Namespace.uniprotkb && !isIDMappingResult
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
 
