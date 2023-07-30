@@ -43,7 +43,7 @@ const GenomicCoordinates = ({
       <section className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <div className={tabsStyles['no-data']}>
-          No genomic coordinates information available for {primaryAccession}
+          No genomic coordinate information available for {primaryAccession}
         </div>
       </section>
     );
