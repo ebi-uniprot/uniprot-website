@@ -986,7 +986,7 @@ exports[`GenomicCoordinates component renders on no data 1`] = `
     <div
       class="no-data"
     >
-      No genomic coordinates information available for O00560
+      No genomic coordinate information available for O00560
     </div>
   </section>
 </DocumentFragment>
