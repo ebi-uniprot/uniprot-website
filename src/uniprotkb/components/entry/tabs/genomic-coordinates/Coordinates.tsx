@@ -158,7 +158,7 @@ const Coordinates = ({
                         ? exon.genomeLocation?.end?.position
                         : exon.genomeLocation?.begin?.position) ?? ''}
                     </LongNumber>
-                    -
+                    {' - '}
                     <LongNumber>
                       {(gl.reverseStrand
                         ? exon.genomeLocation?.begin?.position

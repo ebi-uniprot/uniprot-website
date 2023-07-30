@@ -4,6 +4,8 @@ import ExternalLink from '../../../../../shared/components/ExternalLink';
 
 import { GenomicLocation } from './types';
 
+import styles from './styles/genomic-loc.module.css';
+
 export const getEnsemblLink = (
   taxID: number,
   chromosome?: string,
@@ -19,6 +21,7 @@ type GenomicLocProps = {
 
 const GenomicLoc = ({ genomicLocation, taxID }: GenomicLocProps) => (
   <ExternalLink
+    className={styles['genomic-loc']}
     url={getEnsemblLink(
       taxID,
       genomicLocation.chromosome,
@@ -36,7 +39,7 @@ const GenomicLoc = ({ genomicLocation, taxID }: GenomicLocProps) => (
         ? genomicLocation.end
         : genomicLocation.start) ?? ''}
     </LongNumber>
-    -
+    {' - '}
     <LongNumber>
       {(genomicLocation.reverseStrand
         ? genomicLocation.start

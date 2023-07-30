@@ -131,12 +131,12 @@ exports[`GenomicCoordinates component renders on data 1`] = `
               class="decorated-list-item__content"
             >
               <a
-                class="external-link"
+                class="external-link genomic-loc"
                 href="https://www.ensembl.org/9606/Location/View?r=8:58565034-58581737"
                 rel="noopener"
                 target="_blank"
               >
-                8:58,565,034-58,581,737
+                8:58,565,034 - 58,581,737
                 <test-file-stub
                   data-testid="external-link-icon"
                   width="12.5"
@@ -240,7 +240,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,565,034-58,565,084
+                    8:58,565,034 - 58,565,084
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -273,7 +273,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,570,887-58,570,965
+                    8:58,570,887 - 58,570,965
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -306,7 +306,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,572,205-58,572,314
+                    8:58,572,205 - 58,572,314
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -339,7 +339,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,575,900-58,576,061
+                    8:58,575,900 - 58,576,061
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -372,7 +372,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,578,033-58,578,208
+                    8:58,578,033 - 58,578,208
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -405,7 +405,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,579,623-58,579,794
+                    8:58,579,623 - 58,579,794
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -438,7 +438,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,580,517-58,580,608
+                    8:58,580,517 - 58,580,608
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -471,7 +471,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,581,686-58,581,737
+                    8:58,581,686 - 58,581,737
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -591,12 +591,12 @@ exports[`GenomicCoordinates component renders on data 1`] = `
               class="decorated-list-item__content"
             >
               <a
-                class="external-link"
+                class="external-link genomic-loc"
                 href="https://www.ensembl.org/9606/Location/View?r=8:58565034-58581737"
                 rel="noopener"
                 target="_blank"
               >
-                8:58,565,034-58,581,737
+                8:58,565,034 - 58,581,737
                 <test-file-stub
                   data-testid="external-link-icon"
                   width="12.5"
@@ -700,7 +700,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,565,034-58,565,084
+                    8:58,565,034 - 58,565,084
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -733,7 +733,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,570,887-58,570,965
+                    8:58,570,887 - 58,570,965
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -766,7 +766,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,572,205-58,572,314
+                    8:58,572,205 - 58,572,314
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -799,7 +799,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,575,900-58,576,061
+                    8:58,575,900 - 58,576,061
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -832,7 +832,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,578,033-58,578,208
+                    8:58,578,033 - 58,578,208
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -865,7 +865,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,579,623-58,579,794
+                    8:58,579,623 - 58,579,794
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -898,7 +898,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,580,517-58,580,608
+                    8:58,580,517 - 58,580,608
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"
@@ -931,7 +931,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     rel="noopener"
                     target="_blank"
                   >
-                    8:58,581,686-58,581,737
+                    8:58,581,686 - 58,581,737
                     <test-file-stub
                       data-testid="external-link-icon"
                       width="12.5"

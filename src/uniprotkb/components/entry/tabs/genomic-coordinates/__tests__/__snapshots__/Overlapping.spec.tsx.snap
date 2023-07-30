@@ -19,25 +19,25 @@ exports[`VariationViewer component renders on data, other than current entry 1`]
       </a>
        (
       <a
-        class="external-link"
+        class="external-link genomic-loc"
         href="https://www.ensembl.org/9606/Location/View?r=8:58565034-58581737"
         rel="noopener"
         target="_blank"
       >
-        8:58,565,034-58,581,737
+        8:58,565,034 - 58,581,737
         <test-file-stub
           data-testid="external-link-icon"
           width="12.5"
         />
       </a>
-      , 
+      ; 
       <a
-        class="external-link"
+        class="external-link genomic-loc"
         href="https://www.ensembl.org/9606/Location/View?r=8:58565034-58581737"
         rel="noopener"
         target="_blank"
       >
-        8:58,565,034-58,581,737
+        8:58,565,034 - 58,581,737
         <test-file-stub
           data-testid="external-link-icon"
           width="12.5"

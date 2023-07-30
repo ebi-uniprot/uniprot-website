@@ -12,7 +12,12 @@ import { proteinsApi } from '../../../../../shared/config/apiUrls';
 
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { TabLocation } from '../../Entry';
-import { GenomicEntry } from './types';
+import { GenomicEntry, GenomicLocation } from './types';
+
+type EntryInfo = {
+  accession: string;
+  locations: Array<GenomicLocation>;
+};
 
 type OverlappingProps = {
   taxID: number;
@@ -63,24 +68,15 @@ const Overlapping = ({
   // Gather minmax coordinates of overlapping entries
   let min = start;
   let max = end;
-  const entryList: JSX.Element[] = [];
+  const entryList: Array<EntryInfo> = [];
 
-  // Render an entry link for each overlapping entry
+  // Get each overlapping entry
   for (const entry of otherEntries) {
-    const entryAndLocations = [
-      <Link
-        to={getEntryPath(
-          Namespace.uniprotkb,
-          entry.accession,
-          TabLocation.Entry
-        )}
-        key={entry.accession}
-      >
-        {entry.accession}
-      </Link>,
-      ' (',
-    ];
-    // Render an Ensembl link for each overlapping entry's overlapping location
+    const entryInfo: EntryInfo = {
+      accession: entry.accession,
+      locations: [],
+    };
+    // Get each overlapping entry's overlapping location
     for (const { genomicLocation } of entry.gnCoordinate || []) {
       if (genomicLocation.chromosome !== chromosome) {
         // This location not even within the original chromosome, skip it
@@ -108,12 +104,7 @@ const Overlapping = ({
         // This location not within the original location range, skip it
         continue; // eslint-disable-line no-continue
       }
-      if (entryAndLocations.length > 2) {
-        entryAndLocations.push(', ');
-      }
-      entryAndLocations.push(
-        <GenomicLoc key="gl" genomicLocation={genomicLocation} taxID={taxID} />
-      );
+      entryInfo.locations.push(genomicLocation);
       if (otherStart < min) {
         min = otherStart;
       }
@@ -121,16 +112,38 @@ const Overlapping = ({
         max = otherEnd;
       }
     }
-    entryAndLocations.push(')');
-    entryList.push(
-      <Fragment key={entry.accession}>{entryAndLocations}</Fragment>
-    );
+    entryList.push(entryInfo);
   }
 
   return (
     <>
       <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
-        {entryList}
+        {/* Render an entry link for each overlapping entry */}
+        {entryList.map((entryInfo) => (
+          <Fragment key={entryInfo.accession}>
+            <Link
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                entryInfo.accession,
+                TabLocation.Entry
+              )}
+              key={entryInfo.accession}
+            >
+              {entryInfo.accession}
+            </Link>
+            {' ('}
+            {/* Render an Ensembl link for each overlapping entry's overlapping location */}
+            {entryInfo.locations.map((location, index) => (
+              // Won't update the list, index is fine
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                {index !== 0 && '; '}
+                <GenomicLoc genomicLocation={location} taxID={taxID} />
+              </Fragment>
+            ))}
+            )
+          </Fragment>
+        ))}
       </ExpandableList>
       {/* If the overlapping entries expand further than the current one, render
       a link to the genome browser to explore the full range */}
