@@ -42,7 +42,7 @@ const GenomicCoordinates = ({
     );
   }
 
-  if (status === 404 || !data || !data.sequence || !data.gnCoordinate?.length) {
+  if (status === 404 || !data || !data.taxid || !data.gnCoordinate?.length) {
     return (
       <section className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
@@ -65,7 +65,8 @@ const GenomicCoordinates = ({
           key={coordinates.ensemblTranscriptId}
           index={index}
           coordinates={coordinates}
-          taxID={data.taxid}
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          taxID={data.taxid!}
           currentEntry={primaryAccession}
         />
       ))}

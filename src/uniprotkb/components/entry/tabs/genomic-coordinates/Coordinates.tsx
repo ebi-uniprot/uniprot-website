@@ -15,7 +15,7 @@ import { GenomicCoordinate } from './types';
 type CoordinatesProps = {
   coordinates: GenomicCoordinate;
   index: number;
-  taxID?: number;
+  taxID: number;
   currentEntry: string;
 };
 
@@ -29,7 +29,7 @@ const Coordinates = ({
 
   const ensemblInfo = useDatabaseInfoMaps()?.databaseToDatabaseInfo.Ensembl;
 
-  if (!taxID || !ensemblInfo?.uriLink) {
+  if (!ensemblInfo?.uriLink) {
     return null;
   }
 
