@@ -18,6 +18,7 @@ import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import DatatableWithToggle from '../../../../../shared/components/views/DatatableWithToggle';
+import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../../shared/hooks/useCustomElement';
@@ -187,7 +188,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
 
   if (loading) {
     return (
-      <div>
+      <div className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
@@ -195,8 +196,11 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
   }
 
   if (error && status !== 404) {
-    // TODO: use in-page error message
-    return <div>An error happened</div>;
+    return (
+      <div className="wider-tab-content hotjar-margin">
+        <ErrorHandler status={status} />
+      </div>
+    );
   }
 
   if (

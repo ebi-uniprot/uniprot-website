@@ -956,15 +956,56 @@ exports[`GenomicCoordinates component renders on data 1`] = `
 
 exports[`GenomicCoordinates component renders on error 1`] = `
 <DocumentFragment>
-  <div>
-    An error happened
+  <div
+    class="wider-tab-content hotjar-margin"
+  >
+    <div
+      class="error-page-container"
+    >
+      <img
+        alt=""
+        class="error-page-container__art-work"
+        height="400"
+        src="test-file-stub"
+        width="400"
+      />
+      <div
+        class="message message--failure"
+        role="status"
+      >
+        <div
+          class="message__side-border"
+        />
+        <test-file-stub
+          height="1.125em"
+          width="1.125em"
+        />
+        <section
+          class="message__content"
+        >
+          <small>
+            <h4>
+              This service is currently unavailable!
+            </h4>
+            <div>
+              Please try again later
+            </div>
+            <small>
+              We will reload this page for you in 5 seconds
+            </small>
+          </small>
+        </section>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
 
 exports[`GenomicCoordinates component renders on loading 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="wider-tab-content hotjar-margin"
+  >
     <div
       class="loader-container"
     >

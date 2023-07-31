@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { HTMLAttributes, useEffect } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 import { createPath } from 'history';
 import { Message } from 'franklin-sites';
@@ -82,7 +82,7 @@ const ErrorMessage = () => {
   );
 };
 
-const ResourceNotFoundPage = () => {
+const ResourceNotFoundPage = (props: HTMLAttributes<HTMLDivElement>) => {
   const location = useLocation();
 
   const newPathname = redirectFromTo(location.pathname);
@@ -111,6 +111,7 @@ const ResourceNotFoundPage = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <ErrorPage
+        {...props}
         artwork={<img src={ArtWork} width="400" height="400" alt="" />}
         message={<ErrorMessage />}
         data-testid="error-page"

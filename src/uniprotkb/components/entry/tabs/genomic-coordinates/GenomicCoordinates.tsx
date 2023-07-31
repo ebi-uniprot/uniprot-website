@@ -2,6 +2,7 @@ import { Loader, Message } from 'franklin-sites';
 
 import Coordinates from './Coordinates';
 import ContactLink from '../../../../../contact/components/ContactLink';
+import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 
@@ -26,7 +27,7 @@ const GenomicCoordinates = ({
 
   if (loading) {
     return (
-      <div>
+      <div className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
@@ -34,8 +35,11 @@ const GenomicCoordinates = ({
   }
 
   if (error && status !== 404) {
-    // TODO: use in-page error message
-    return <div>An error happened</div>;
+    return (
+      <div className="wider-tab-content hotjar-margin">
+        <ErrorHandler status={status} />
+      </div>
+    );
   }
 
   if (status === 404 || !data || !data.sequence || !data.gnCoordinate?.length) {
