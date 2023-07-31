@@ -6,6 +6,7 @@ import { sleep } from 'timing-functions';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
+import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
 
 import {
   getAsyncDownloadFormDataReducer,
@@ -28,6 +29,7 @@ import {
 } from '../config/asyncDownloadFormData';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import { JobTypes } from '../../types/toolsJobTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import '../../styles/ToolsForm.scss';
 
@@ -49,6 +51,7 @@ const AsyncDownloadForm = ({
   const history = useHistory();
   const reducedMotion = useReducedMotion();
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
+  const { jobId } = useJobFromUrl();
 
   const [{ formValues, sending, submitDisabled }, dispatch] = useReducer(
     getAsyncDownloadFormDataReducer(),
@@ -59,7 +62,6 @@ const AsyncDownloadForm = ({
   useEffect(() => {
     dispatch(updateDownloadUrlOptions(downloadUrlOptions));
   }, [downloadUrlOptions]);
-
   const submitAsyncDownloadJob = useCallback(
     (event: FormEvent | MouseEvent) => {
       event.preventDefault();
@@ -77,7 +79,15 @@ const AsyncDownloadForm = ({
         // side-effect of createJob) cannot mount immediately before navigating away.
         dispatchTools(
           createJob(
-            { ...downloadUrlOptions, compressed: false, download: false },
+            {
+              ...downloadUrlOptions,
+              compressed: false,
+              download: false,
+              jobId:
+                downloadUrlOptions.namespace === Namespace.idmapping
+                  ? jobId
+                  : undefined,
+            },
             JobTypes.ASYNC_DOWNLOAD,
             formValues[AsyncDownloadFields.name].selected
           )
@@ -86,26 +96,8 @@ const AsyncDownloadForm = ({
     },
     // NOTE: maybe no point using useCallback if all the values of the form
     // cause this to be re-created. Maybe review submit callback in all 4 forms?
-    [history, onClose, dispatchTools, downloadUrlOptions, formValues]
+    [history, onClose, dispatchTools, downloadUrlOptions, jobId, formValues]
   );
-
-  // useEffect(() => {
-  //   if (jobNameEdited) {
-  //     return;
-  //   }
-  //   const potentialJobName = getPotentialJobName(count, downloadUrlOptions);
-  //   setJobName((jobName: AsyncDownloadFormValue) => {
-  //     if (formValues[AsyncDownloadFields.name].selected === potentialJobName) {
-  //       // avoid unecessary rerender by keeping the same object
-  //       return jobName;
-  //     }
-  //     return { ...jobName, selected: potentialJobName };
-  //   });
-  // }, [count, downloadUrlOptions, downloadUrlOptions.namespace, jobNameEdited]);
-
-  // useEffect(() => {
-  //   setSubmitDisabled(isInvalid(formValues[AsyncDownloadFields.name].selected, downloadUrlOptions));
-  // }, [downloadUrlOptions, jobName]);
 
   return (
     <form

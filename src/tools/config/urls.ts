@@ -126,7 +126,12 @@ type AsyncDownloadReturn = Readonly<{
 export function asyncDownloadUrlObjectCreator(
   namespace: Namespace
 ): AsyncDownloadReturn {
-  const baseURL = joinUrl(apiPrefix, namespace, 'download');
+  // All ID Mapping jobs are under /idmapping/ regardless of underlying namespace
+  const baseURL = joinUrl(
+    apiPrefix,
+    namespace === Namespace.idmapping ? 'idmapping' : namespace,
+    'download'
+  );
   return deepFreeze({
     runUrl: (options) =>
       getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),

@@ -266,8 +266,12 @@ const Download: FC<DownloadProps> = ({
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
   const isIDMappingResult = jobResultsLocation === Location.IDMappingResult;
   const isAsyncDownload =
-    ((isLarge || isEmbeddings) && isUniprotkb) ||
+    (isEmbeddings && isUniprotkb) ||
+    (isLarge && isUniprotkb) ||
+    // TODO: uncomment
+    // (isLarge &&
     (isIDMappingResult && ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(namespace));
+
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb && !isIDMappingResult
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
@@ -324,7 +328,12 @@ const Download: FC<DownloadProps> = ({
   } else if (extraContent === 'generate') {
     extraContentNode = (
       <AsyncDownloadForm
-        downloadUrlOptions={downloadOptions}
+        downloadUrlOptions={{
+          ...downloadOptions,
+          namespace: isIDMappingResult
+            ? Namespace.idmapping
+            : downloadOptions.namespace,
+        }}
         count={downloadCount}
         initialFormValues={defaultFormValues}
         onClose={() => onClose('submit', 'async')}
