@@ -391,7 +391,6 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={Namespace.unisave}
                 base={`/unisave/${accession}`}
-                excludeColumns
               />
             </ErrorBoundary>
           </SlidingPanel>
