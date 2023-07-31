@@ -222,6 +222,8 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
                 supportedFormats={supportedFormats}
                 excludeColumns={excludeColumns}
                 inBasketMini={inBasketMini}
+                inputParamsData={inputParamsData}
+                jobType={jobType}
               />
             </ErrorBoundary>
           </SlidingPanel>

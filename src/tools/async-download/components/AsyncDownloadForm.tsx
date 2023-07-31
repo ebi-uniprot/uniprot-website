@@ -7,6 +7,7 @@ import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
 import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
+import useToolsState from '../../../shared/hooks/useToolsState';
 
 import {
   getAsyncDownloadFormDataReducer,
@@ -20,42 +21,53 @@ import {
   updateSending,
   updateDownloadUrlOptions,
 } from '../state/asyncDownloadFormActions';
+import initialFormValues, {
+  AsyncDownloadFields,
+} from '../config/asyncDownloadFormData';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
-import {
-  AsyncDownloadFields,
-  AsyncDownloadFormValues,
-} from '../config/asyncDownloadFormData';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
+import { Status } from '../../types/toolsStatuses';
+import { PublicServerParameters } from '../../types/toolsServerParameters';
 
 import '../../styles/ToolsForm.scss';
 
-type Props = {
-  initialFormValues: Readonly<AsyncDownloadFormValues>;
+type Props<T extends JobTypes> = {
   downloadUrlOptions: DownloadUrlOptions;
   count: number;
   onClose: () => void;
+  jobType?: T;
+  inputParamsData?: PublicServerParameters[T];
 };
 
 const AsyncDownloadForm = ({
-  initialFormValues,
   downloadUrlOptions,
   count,
   onClose,
-}: Props) => {
+  jobType,
+  inputParamsData,
+}: Props<JobTypes>) => {
   // hooks
   const dispatchTools = useToolsDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
   const { jobId } = useJobFromUrl();
+  const tools = useToolsState();
+  const isIdMappingResult = jobType === JobTypes.ID_MAPPING && jobId;
+  const idMappingJob =
+    isIdMappingResult &&
+    Object.values(tools || {}).find(
+      (job) => job.status === Status.FINISHED && job.remoteID === jobId
+    );
 
+  const title = idMappingJob && 'title' in idMappingJob && idMappingJob.title;
   const [{ formValues, sending, submitDisabled }, dispatch] = useReducer(
     getAsyncDownloadFormDataReducer(),
-    { initialFormValues, downloadUrlOptions, count },
+    { initialFormValues, downloadUrlOptions, count, title },
     getAsyncDownloadFormInitialState
   );
 
@@ -81,12 +93,13 @@ const AsyncDownloadForm = ({
           createJob(
             {
               ...downloadUrlOptions,
+
               compressed: false,
               download: false,
-              jobId:
-                downloadUrlOptions.namespace === Namespace.idmapping
-                  ? jobId
-                  : undefined,
+              namespace: isIdMappingResult
+                ? Namespace.idmapping
+                : downloadUrlOptions.namespace,
+              jobId: isIdMappingResult ? jobId : undefined,
             },
             JobTypes.ASYNC_DOWNLOAD,
             formValues[AsyncDownloadFields.name].selected
@@ -96,7 +109,15 @@ const AsyncDownloadForm = ({
     },
     // NOTE: maybe no point using useCallback if all the values of the form
     // cause this to be re-created. Maybe review submit callback in all 4 forms?
-    [history, onClose, dispatchTools, downloadUrlOptions, jobId, formValues]
+    [
+      history,
+      onClose,
+      dispatchTools,
+      downloadUrlOptions,
+      isIdMappingResult,
+      jobId,
+      formValues,
+    ]
   );
 
   return (

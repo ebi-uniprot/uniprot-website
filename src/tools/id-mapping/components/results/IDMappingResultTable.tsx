@@ -46,7 +46,6 @@ const IDMappingResultTable = ({
   );
 
   const inputIDs = splitAndTidyText(detailsData?.ids);
-
   const inputLength = inputIDs?.length || 0;
   const failedLength = resultsDataObject.failedIds?.length || 0;
   const suggestedLength = resultsDataObject.suggestedIds?.length || 0;

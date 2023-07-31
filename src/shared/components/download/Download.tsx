@@ -23,7 +23,6 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
-import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { fileFormatsResultsDownload as fileFormatsProteomeResultsDownload } from '../../../proteomes/config/download';
@@ -35,6 +34,8 @@ import {
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
 import { IsoformStatistics } from '../../../proteomes/components/entry/ComponentsButtons';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -64,7 +65,7 @@ export const getPreviewFileFormat = (
   return fileFormat;
 };
 
-type DownloadProps = {
+type DownloadProps<T extends JobTypes> = {
   query?: string;
   selectedEntries?: string[];
   selectedQuery?: string;
@@ -83,13 +84,15 @@ type DownloadProps = {
   inBasketMini?: boolean;
   showReviewedOption?: boolean;
   isoformStats?: IsoformStatistics;
+  jobType?: T;
+  inputParamsData?: PublicServerParameters[T];
 };
 
 type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
 
 type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
 
-const Download: FC<DownloadProps> = ({
+const Download: FC<DownloadProps<JobTypes>> = ({
   query,
   selectedQuery,
   selectedEntries = [],
@@ -105,6 +108,8 @@ const Download: FC<DownloadProps> = ({
   inBasketMini = false,
   showReviewedOption = false,
   isoformStats,
+  jobType,
+  inputParamsData,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
@@ -264,7 +269,7 @@ const Download: FC<DownloadProps> = ({
   const isEmbeddings = fileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
-  const isIDMappingResult = jobResultsLocation === Location.IDMappingResult;
+  const isIDMappingResult = jobType === JobTypes.ID_MAPPING;
   const isAsyncDownload =
     (isEmbeddings && isUniprotkb) ||
     (isLarge && isUniprotkb) ||
@@ -328,15 +333,11 @@ const Download: FC<DownloadProps> = ({
   } else if (extraContent === 'generate') {
     extraContentNode = (
       <AsyncDownloadForm
-        downloadUrlOptions={{
-          ...downloadOptions,
-          namespace: isIDMappingResult
-            ? Namespace.idmapping
-            : downloadOptions.namespace,
-        }}
+        downloadUrlOptions={downloadOptions}
         count={downloadCount}
-        initialFormValues={defaultFormValues}
         onClose={() => onClose('submit', 'async')}
+        inputParamsData={inputParamsData}
+        jobType={jobType}
       />
     );
   } else if (extraContent === 'preview') {
