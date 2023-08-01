@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AsyncDownloadForm should render 1`] = `
+<DocumentFragment>
+  <form
+    aria-label="Async download job submission form"
+  >
+    <fieldset>
+      <section
+        class="tools-form-section tools-form-section--compact"
+      >
+        <section
+          class="tools-form-section__item tools-form-section__item--full-width"
+        >
+          <h4>
+            File Generation Needed 
+            <button
+              class="chip chip--compact"
+              type="button"
+            >
+              beta
+            </button>
+          </h4>
+          Your download request is too large (1) for immediate download.
+          <br />
+          <span
+            data-article-id="file-generation-download"
+          >
+            Please submit a job to generate this file on the UniProt server which you can download when ready.
+          </span>
+        </section>
+        <section
+          class="tools-form-section__item tools-form-section__item--compact"
+        >
+          <label>
+            Name your File Generation job
+            <input
+              autocomplete="off"
+              data-hj-allow="true"
+              maxlength="100"
+              name="title"
+              placeholder=""my job title""
+              style="width: 36ch;"
+              type="text"
+              value="P05067 UniProtKB_AC-ID → UniProtKB"
+            />
+          </label>
+        </section>
+      </section>
+      <section
+        class="tools-form-section tools-form-section--right"
+      >
+        <section
+          class="button-group tools-form-section__buttons"
+        >
+          <button
+            class="button primary"
+            type="submit"
+          >
+            Submit
+          </button>
+        </section>
+      </section>
+    </fieldset>
+  </form>
+</DocumentFragment>
+`;
