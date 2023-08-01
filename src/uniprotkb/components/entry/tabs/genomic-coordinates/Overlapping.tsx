@@ -135,7 +135,11 @@ const Overlapping = ({
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={index}>
                 {index !== 0 && '; '}
-                <GenomicLoc genomicLocation={location} taxID={taxID} />
+                <GenomicLoc
+                  genomicLocation={location}
+                  taxID={taxID}
+                  noLink={!location.exon[0].id?.startsWith('ENS')}
+                />
               </Fragment>
             ))}
             )

@@ -20,8 +20,11 @@ export type GenomicCoordinate = {
    * @deprecated shouldn't use this from this endpoint
    */
   feature?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  // Sometimes not from Ensembl
   ensemblGeneId?: string;
+  // Sometimes not from Ensembl
   ensemblTranscriptId?: string;
+  // Sometimes not from Ensembl
   ensemblTranslationId?: string;
 };
 
