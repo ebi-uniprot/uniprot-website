@@ -58,13 +58,22 @@ const AsyncDownloadForm = ({
   const { jobId } = useJobFromUrl();
   const tools = useToolsState();
   const isIdMappingResult = jobType === JobTypes.ID_MAPPING && jobId;
-  const idMappingJob =
-    isIdMappingResult &&
-    Object.values(tools || {}).find(
-      (job) => job.status === Status.FINISHED && job.remoteID === jobId
-    );
 
-  const title = idMappingJob && 'title' in idMappingJob && idMappingJob.title;
+  let title = '';
+  if (isIdMappingResult) {
+    const idMappingJob =
+      isIdMappingResult &&
+      Object.values(tools || {}).find(
+        (job) => job.status === Status.FINISHED && job.remoteID === jobId
+      );
+
+    if (idMappingJob && 'title' in idMappingJob) {
+      title = idMappingJob.title;
+    } else if (inputParamsData) {
+      console.log(inputParamsData);
+    }
+  }
+
   const [{ formValues, sending, submitDisabled }, dispatch] = useReducer(
     getAsyncDownloadFormDataReducer(),
     { initialFormValues, downloadUrlOptions, count, title },
