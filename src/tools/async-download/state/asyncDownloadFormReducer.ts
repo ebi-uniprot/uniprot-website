@@ -13,6 +13,7 @@ type AsyncDownloadFormState = {
   formValues: AsyncDownloadFormValues;
   downloadUrlOptions: DownloadUrlOptions;
   count: number;
+  jobTitle?: string;
   submitDisabled: boolean;
   sending: boolean;
 };
@@ -32,8 +33,37 @@ export const isInvalid = (
   downloadUrlOptions: DownloadUrlOptions
 ) => !name || isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions);
 
-const getJobName = (count: number, downloadUrlOptions: DownloadUrlOptions) =>
-  `${downloadUrlOptions.namespace}-${count}`;
+const getJobName = (
+  count: number,
+  downloadUrlOptions: DownloadUrlOptions,
+  jobTitle?: string
+) => jobTitle || `${downloadUrlOptions.namespace}-${count}`;
+
+export const getAsyncDownloadFormInitialState = ({
+  initialFormValues,
+  downloadUrlOptions,
+  count,
+  jobTitle,
+}: {
+  initialFormValues: Readonly<AsyncDownloadFormValues>;
+  downloadUrlOptions: DownloadUrlOptions;
+  count: number;
+  jobTitle?: string;
+}): AsyncDownloadFormState => ({
+  formValues: {
+    ...initialFormValues,
+    [AsyncDownloadFields.name]: {
+      ...initialFormValues[AsyncDownloadFields.name],
+      selected: getJobName(count, downloadUrlOptions, jobTitle),
+    },
+  },
+  downloadUrlOptions,
+  count,
+  jobTitle,
+  submitDisabled:
+    isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions),
+  sending: false,
+});
 
 export const asyncDownloadFormUpdateUrlOptionsReducer = (
   state: AsyncDownloadFormState,
@@ -54,8 +84,7 @@ export const asyncDownloadFormUpdateUrlOptionsReducer = (
       : {
           ...formValues[AsyncDownloadFields.name],
           userSelected: false,
-          // Set the job name empty when there are multiple sequences copy-pasted
-          selected: getJobName(state.count, downloadUrlOptions),
+          selected: getJobName(state.count, downloadUrlOptions, state.jobTitle),
         };
   return {
     ...state,
@@ -64,29 +93,6 @@ export const asyncDownloadFormUpdateUrlOptionsReducer = (
     formValues: { [AsyncDownloadFields.name]: name },
   };
 };
-
-export const getAsyncDownloadFormInitialState = ({
-  initialFormValues,
-  downloadUrlOptions,
-  count,
-}: {
-  initialFormValues: Readonly<AsyncDownloadFormValues>;
-  downloadUrlOptions: DownloadUrlOptions;
-  count: number;
-}): AsyncDownloadFormState => ({
-  formValues: {
-    ...initialFormValues,
-    [AsyncDownloadFields.name]: {
-      ...initialFormValues[AsyncDownloadFields.name],
-      selected: getJobName(count, downloadUrlOptions),
-    },
-  },
-  downloadUrlOptions,
-  count,
-  submitDisabled:
-    isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions),
-  sending: false,
-});
 
 export const asyncDownloadFormUpdateSelectedReducer = (
   state: AsyncDownloadFormState,

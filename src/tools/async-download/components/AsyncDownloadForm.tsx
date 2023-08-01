@@ -24,6 +24,8 @@ import {
 import initialFormValues, {
   AsyncDownloadFields,
 } from '../config/asyncDownloadFormData';
+import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
@@ -50,7 +52,6 @@ const AsyncDownloadForm = ({
   jobType,
   inputParamsData,
 }: Props<JobTypes>) => {
-  // hooks
   const dispatchTools = useToolsDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
@@ -59,24 +60,30 @@ const AsyncDownloadForm = ({
   const tools = useToolsState();
   const isIdMappingResult = jobType === JobTypes.ID_MAPPING && jobId;
 
-  let title = '';
+  let jobTitle = '';
   if (isIdMappingResult) {
+    // If the user submitted the job, use the name they provided
+    // otherwise recreate from the public server parameters.
     const idMappingJob =
       isIdMappingResult &&
       Object.values(tools || {}).find(
         (job) => job.status === Status.FINISHED && job.remoteID === jobId
       );
-
     if (idMappingJob && 'title' in idMappingJob) {
-      title = idMappingJob.title;
-    } else if (inputParamsData) {
-      console.log(inputParamsData);
+      jobTitle = idMappingJob.title;
+    } else if (inputParamsData && 'from' in inputParamsData) {
+      const { ids, from, to } = inputParamsData;
+      jobTitle = getJobName(
+        Array.from(new Set(splitAndTidyText(ids))),
+        from,
+        to
+      );
     }
   }
 
   const [{ formValues, sending, submitDisabled }, dispatch] = useReducer(
     getAsyncDownloadFormDataReducer(),
-    { initialFormValues, downloadUrlOptions, count, title },
+    { initialFormValues, downloadUrlOptions, count, jobTitle },
     getAsyncDownloadFormInitialState
   );
 
