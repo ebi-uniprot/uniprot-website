@@ -5,6 +5,7 @@ import {
   SwissProtIcon,
   TremblIcon,
 } from 'franklin-sites';
+import cn from 'classnames';
 
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
@@ -28,6 +29,21 @@ const availableFTPFormats = {
   text: 'dat',
   xml: 'xml',
 };
+
+const tutorialsInfo = [
+  {
+    id: 'yp1O1gDK8oA',
+    title: 'How to search UniProtKB',
+  },
+  {
+    id: 'BHu88Sv--mc',
+    title: 'How to explore a UniProt entry',
+  },
+  {
+    id: 'p4_gGkM-Rfs',
+    title: 'How to download embeddings in UniProt',
+  },
+];
 
 const LandingPage = () => {
   const { data } = useDataApi<SearchResults<never>>(
@@ -54,11 +70,21 @@ const LandingPage = () => {
   return (
     <div className={styles['landing-page']}>
       <h2 className={styles['landing-page__title']}>UniProtKB</h2>
-      <div className={styles['landing-page__content']}>
-        <div className={styles.video}>
-          <YouTubeEmbed id="yp1O1gDK8oA" title="How to search UniProtKB" />
+      <div className={cn('uniprot-grid', styles['landing-page__content'])}>
+        <div
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-4'
+          )}
+        >
+          <YouTubeEmbed id="OwOJmKmc7VM" title="Welcome to UniProt" />
         </div>
-        <p className={styles.summary}>
+        <p
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-8'
+          )}
+        >
           The UniProt Knowledgebase (UniProtKB) is the central hub for the
           collection of functional information on proteins, with accurate,
           consistent and rich annotation. In addition to capturing the core data
@@ -81,7 +107,15 @@ const LandingPage = () => {
             Start searching in UniProtKB <big>»</big>
           </Link>
         </p>
-        <div className={styles.statistics}>
+
+        {/* Statistics */}
+        <div
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-6',
+            styles.statistics
+          )}
+        >
           <h4>Statistics</h4>
           <div className={styles['statistics__content']}>
             <div>chart goes here</div>
@@ -127,33 +161,42 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className={styles.tutorial}>
+        {/* Tutorials */}
+        <div
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-3'
+          )}
+        >
           <h4>How to use UniProtKB</h4>
-          <div className={styles['tutorial__content']}>
-            <YouTubeEmbed id="OwOJmKmc7VM" title="Welcome to UniProt" />
-            <YouTubeEmbed
-              id="BHu88Sv--mc"
-              title="How to explore a UniProt entry"
-            />
-            <YouTubeEmbed
-              id="p4_gGkM-Rfs"
-              title="How to download embeddings in UniProt"
-            />
-            {/* <div className={styles['tutorial__video']}>
-              <YouTubeEmbed id="OwOJmKmc7VM" title="Welcome to UniProt" />
-            </div>
-            <div className={styles['tutorial__title']}>Welcome to UniProt</div>
-            <div className={styles['tutorial__video']}>
-              <YouTubeEmbed id="BHu88Sv--mc" title="How to explore a UniProt entry" />
-            </div>
-            <div className={styles['tutorial__title']}>How to explore a UniProt entry</div>
-            <div className={styles['tutorial__video']}>
-              <YouTubeEmbed id="p4_gGkM-Rfs" title="How to download embeddings in UniProt" />
-            </div>
-            <div className={styles['tutorial__title']}>How to download embeddings in UniProt</div> */}
+          <div className={styles['tutorial']}>
+            {tutorialsInfo.map((item) => (
+              <div className={styles['tutorial__info']} key={item.id}>
+                <img
+                  src={`https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`}
+                  className={styles['tutorial__image']}
+                />
+
+                <ExternalLink
+                  noIcon
+                  url={`https://www.youtube.com/watch?v=${item.id}`}
+                  className={styles['tutorial__title']}
+                >
+                  {item.title}
+                </ExternalLink>
+              </div>
+            ))}
           </div>
         </div>
-        <div className={styles.download}>
+
+        {/* Downloads */}
+        <div
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-3',
+            styles.download
+          )}
+        >
           <h4>Download</h4>
           <span>Reviewed(Swiss-Prot)</span>
           {Object.entries(availableFTPFormats).map(([key, value]) => (
