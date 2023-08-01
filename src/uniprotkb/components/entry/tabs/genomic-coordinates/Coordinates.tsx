@@ -14,6 +14,7 @@ import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 import { processUrlTemplate } from '../../../protein-data-views/XRefView';
 
 import { GenomicCoordinate } from './types';
+import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
 
 type NTFeature = NightingaleTrack['data'][number];
 
@@ -32,7 +33,7 @@ const Coordinates = ({
 }: CoordinatesProps) => {
   const { genomicLocation: gl } = coordinates;
 
-  const ensemblInfo = useDatabaseInfoMaps()?.databaseToDatabaseInfo.Ensembl;
+  const { Ensembl } = useDatabaseInfoMaps()?.databaseToDatabaseInfo || {};
 
   const ntRef = useRef<NightingaleTrack>();
   const nt = useCustomElement(
@@ -70,51 +71,65 @@ const Coordinates = ({
       .filter((x: NTFeature | undefined): x is NTFeature => Boolean(x));
   }, [nt.defined, gl]);
 
-  if (!ensemblInfo?.uriLink) {
-    return null;
+  // Mostly from Ensembl
+  let xrefInfo: DatabaseInfoPoint | null = null;
+  if (coordinates.ensemblGeneId?.startsWith('ENS')) {
+    xrefInfo = Ensembl;
   }
 
   const infoData = [
     {
       title: 'Ensembl Gene',
-      content: coordinates.ensemblGeneId && (
-        <ExternalLink
-          url={processUrlTemplate(ensemblInfo.uriLink, {
-            id: coordinates.ensemblGeneId,
-          })}
-        >
-          {coordinates.ensemblGeneId}
-        </ExternalLink>
-      ),
+      content:
+        coordinates.ensemblGeneId &&
+        (xrefInfo?.uriLink ? (
+          <ExternalLink
+            url={processUrlTemplate(xrefInfo.uriLink, {
+              id: coordinates.ensemblGeneId,
+            })}
+          >
+            {coordinates.ensemblGeneId}
+          </ExternalLink>
+        ) : (
+          coordinates.ensemblGeneId
+        )),
     },
     {
       title: 'Ensembl Transcript',
-      content: coordinates.ensemblTranscriptId && (
-        <ExternalLink
-          url={processUrlTemplate(ensemblInfo.uriLink, {
-            id: coordinates.ensemblTranscriptId,
-          })}
-        >
-          {coordinates.ensemblTranscriptId}
-        </ExternalLink>
-      ),
+      content:
+        coordinates.ensemblTranscriptId &&
+        (xrefInfo?.uriLink ? (
+          <ExternalLink
+            url={processUrlTemplate(xrefInfo.uriLink, {
+              id: coordinates.ensemblTranscriptId,
+            })}
+          >
+            {coordinates.ensemblTranscriptId}
+          </ExternalLink>
+        ) : (
+          coordinates.ensemblTranscriptId
+        )),
     },
     {
       title: 'Ensembl Translation',
-      content: coordinates.ensemblTranslationId && (
-        <ExternalLink
-          url={processUrlTemplate(ensemblInfo.uriLink, {
-            id: coordinates.ensemblTranslationId,
-          })}
-        >
-          {coordinates.ensemblTranslationId}
-        </ExternalLink>
-      ),
+      content:
+        coordinates.ensemblTranslationId &&
+        (xrefInfo?.uriLink ? (
+          <ExternalLink
+            url={processUrlTemplate(xrefInfo.uriLink, {
+              id: coordinates.ensemblTranslationId,
+            })}
+          >
+            {coordinates.ensemblTranslationId}
+          </ExternalLink>
+        ) : (
+          coordinates.ensemblTranslationId
+        )),
     },
     {
       title: 'Genomic location',
       content: gl.start && gl.end && (
-        <GenomicLoc genomicLocation={gl} taxID={taxID} />
+        <GenomicLoc genomicLocation={gl} taxID={taxID} noLink={!xrefInfo} />
       ),
     },
     {
@@ -158,57 +173,69 @@ const Coordinates = ({
             </tr>
           </thead>
           <tbody>
-            {coordinates.genomicLocation.exon.map((exon) => (
-              <tr key={exon.id}>
-                <td>
-                  {exon.id && ensemblInfo.uriLink && (
-                    <ExternalLink
-                      url={processUrlTemplate(ensemblInfo.uriLink, {
-                        id: exon.id,
-                      })}
-                    >
-                      {exon.id}
-                    </ExternalLink>
-                  )}
-                </td>
-                <td>
+            {coordinates.genomicLocation.exon.map((exon) => {
+              const location = (
+                <>
+                  {coordinates.genomicLocation.chromosome &&
+                    `${coordinates.genomicLocation.chromosome}:`}
                   <LongNumber>
-                    {exon.proteinLocation?.begin?.position ?? ''}
+                    {gl.reverseStrand
+                      ? exon.genomeLocation.end.position
+                      : exon.genomeLocation.begin.position}
                   </LongNumber>
-                  -
+                  {' - '}
                   <LongNumber>
-                    {exon.proteinLocation?.end?.position ?? ''}
+                    {gl.reverseStrand
+                      ? exon.genomeLocation.begin.position
+                      : exon.genomeLocation.end.position}
                   </LongNumber>
-                </td>
-                <td>
-                  <ExternalLink
-                    url={getEnsemblLink(
-                      taxID,
-                      coordinates.genomicLocation.chromosome,
-                      gl.reverseStrand
-                        ? exon.genomeLocation?.end?.position
-                        : exon.genomeLocation?.begin?.position,
-                      gl.reverseStrand
-                        ? exon.genomeLocation?.begin?.position
-                        : exon.genomeLocation?.end?.position
+                </>
+              );
+              return (
+                <tr key={exon.id}>
+                  <td>
+                    {exon.id && xrefInfo?.uriLink ? (
+                      <ExternalLink
+                        url={processUrlTemplate(xrefInfo.uriLink, {
+                          id: exon.id,
+                        })}
+                      >
+                        {exon.id}
+                      </ExternalLink>
+                    ) : (
+                      exon.id
                     )}
-                  >
-                    {coordinates.genomicLocation.chromosome}:
+                  </td>
+                  <td>
                     <LongNumber>
-                      {(gl.reverseStrand
-                        ? exon.genomeLocation?.end?.position
-                        : exon.genomeLocation?.begin?.position) ?? ''}
+                      {exon.proteinLocation.begin.position}
                     </LongNumber>
-                    {' - '}
-                    <LongNumber>
-                      {(gl.reverseStrand
-                        ? exon.genomeLocation?.begin?.position
-                        : exon.genomeLocation?.end?.position) ?? ''}
-                    </LongNumber>
-                  </ExternalLink>
-                </td>
-              </tr>
-            ))}
+                    -
+                    <LongNumber>{exon.proteinLocation.end.position}</LongNumber>
+                  </td>
+                  <td>
+                    {xrefInfo ? (
+                      <ExternalLink
+                        url={getEnsemblLink(
+                          taxID,
+                          gl.reverseStrand
+                            ? exon.genomeLocation.end.position
+                            : exon.genomeLocation.begin.position,
+                          gl.reverseStrand
+                            ? exon.genomeLocation.begin.position
+                            : exon.genomeLocation.end.position,
+                          coordinates.genomicLocation.chromosome
+                        )}
+                      >
+                        {location}
+                      </ExternalLink>
+                    ) : (
+                      location
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </DatatableWithToggle>
