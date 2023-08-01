@@ -131,38 +131,34 @@ const Coordinates = ({
                   )}
                 </td>
                 <td>
-                  <LongNumber>
-                    {exon.proteinLocation?.begin?.position ?? ''}
-                  </LongNumber>
-                  -
-                  <LongNumber>
-                    {exon.proteinLocation?.end?.position ?? ''}
-                  </LongNumber>
+                  <LongNumber>{exon.proteinLocation.begin.position}</LongNumber>
+                  -<LongNumber>{exon.proteinLocation.end.position}</LongNumber>
                 </td>
                 <td>
                   <ExternalLink
                     url={getEnsemblLink(
                       taxID,
-                      coordinates.genomicLocation.chromosome,
                       gl.reverseStrand
-                        ? exon.genomeLocation?.end?.position
-                        : exon.genomeLocation?.begin?.position,
+                        ? exon.genomeLocation.end.position
+                        : exon.genomeLocation.begin.position,
                       gl.reverseStrand
-                        ? exon.genomeLocation?.begin?.position
-                        : exon.genomeLocation?.end?.position
+                        ? exon.genomeLocation.begin.position
+                        : exon.genomeLocation.end.position,
+                      coordinates.genomicLocation.chromosome
                     )}
                   >
-                    {coordinates.genomicLocation.chromosome}:
+                    {coordinates.genomicLocation.chromosome &&
+                      `${coordinates.genomicLocation.chromosome}:`}
                     <LongNumber>
-                      {(gl.reverseStrand
-                        ? exon.genomeLocation?.end?.position
-                        : exon.genomeLocation?.begin?.position) ?? ''}
+                      {gl.reverseStrand
+                        ? exon.genomeLocation.end.position
+                        : exon.genomeLocation.begin.position}
                     </LongNumber>
                     {' - '}
                     <LongNumber>
-                      {(gl.reverseStrand
-                        ? exon.genomeLocation?.begin?.position
-                        : exon.genomeLocation?.end?.position) ?? ''}
+                      {gl.reverseStrand
+                        ? exon.genomeLocation.begin.position
+                        : exon.genomeLocation.end.position}
                     </LongNumber>
                   </ExternalLink>
                 </td>

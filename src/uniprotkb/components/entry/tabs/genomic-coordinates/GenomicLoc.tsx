@@ -8,11 +8,13 @@ import styles from './styles/genomic-loc.module.css';
 
 export const getEnsemblLink = (
   taxID: number,
-  chromosome?: string,
-  start?: number,
-  end?: number
+  start: number,
+  end: number,
+  chromosome?: string
 ) =>
-  `https://www.ensembl.org/${taxID}/Location/View?r=${chromosome}:${start}-${end}`;
+  `https://www.ensembl.org/${taxID}/Location/View?r=${
+    chromosome && `${chromosome}:`
+  }${start}-${end}`;
 
 type GenomicLocProps = {
   genomicLocation: GenomicLocation;
@@ -24,16 +26,16 @@ const GenomicLoc = ({ genomicLocation, taxID }: GenomicLocProps) => (
     className={styles['genomic-loc']}
     url={getEnsemblLink(
       taxID,
-      genomicLocation.chromosome,
       genomicLocation.reverseStrand
         ? genomicLocation.end
         : genomicLocation.start,
       genomicLocation.reverseStrand
         ? genomicLocation.start
-        : genomicLocation.end
+        : genomicLocation.end,
+      genomicLocation.chromosome
     )}
   >
-    {genomicLocation.chromosome}:
+    {genomicLocation.chromosome && `${genomicLocation.chromosome}:`}
     <LongNumber>
       {(genomicLocation.reverseStrand
         ? genomicLocation.end

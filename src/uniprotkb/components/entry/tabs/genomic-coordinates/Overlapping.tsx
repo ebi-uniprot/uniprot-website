@@ -88,9 +88,6 @@ const Overlapping = ({
       const otherEnd = genomicLocation.reverseStrand
         ? genomicLocation.start
         : genomicLocation.end;
-      if (otherStart === undefined || otherEnd === undefined) {
-        continue; // eslint-disable-line no-continue
-      }
       const startWithinRange = otherStart >= start && otherStart <= end;
       const endWithinRange = otherEnd >= start && otherEnd <= end;
       const startBeforeRange = otherStart <= start;
@@ -148,7 +145,7 @@ const Overlapping = ({
       {/* If the overlapping entries expand further than the current one, render
       a link to the genome browser to explore the full range */}
       {(min !== start || max !== end) && (
-        <ExternalLink url={getEnsemblLink(taxID, chromosome, min, max)}>
+        <ExternalLink url={getEnsemblLink(taxID, min, max, chromosome)}>
           Explore genomic region in Ensembl
         </ExternalLink>
       )}
