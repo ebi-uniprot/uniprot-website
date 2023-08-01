@@ -112,6 +112,7 @@ const Coordinates = ({
             start={gl.reverseStrand ? gl.end : gl.start}
             end={gl.reverseStrand ? gl.start : gl.end}
             currentEntry={currentEntry}
+            noLink={!xrefInfo}
           />
         </LazyComponent>
       ),
