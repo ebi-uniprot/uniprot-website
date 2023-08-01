@@ -1,4 +1,6 @@
+import { useRef, useEffect } from 'react';
 import { InfoList, LongNumber, SpinnerIcon } from 'franklin-sites';
+import NightingaleTrack from '@nightingale-elements/nightingale-track';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import LazyComponent from '../../../../../shared/components/LazyComponent';
@@ -7,10 +9,13 @@ import GenomicLoc, { getEnsemblLink } from './GenomicLoc';
 import Overlapping from './Overlapping';
 
 import useDatabaseInfoMaps from '../../../../../shared/hooks/useDatabaseInfoMaps';
+import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 
 import { processUrlTemplate } from '../../../protein-data-views/XRefView';
 
 import { GenomicCoordinate } from './types';
+
+type NTFeature = NightingaleTrack['data'][number];
 
 type CoordinatesProps = {
   coordinates: GenomicCoordinate;
@@ -28,6 +33,42 @@ const Coordinates = ({
   const { genomicLocation: gl } = coordinates;
 
   const ensemblInfo = useDatabaseInfoMaps()?.databaseToDatabaseInfo.Ensembl;
+
+  const ntRef = useRef<NightingaleTrack>();
+  const nt = useCustomElement(
+    /* istanbul ignore next */
+    () =>
+      import(
+        /* webpackChunkName: "nightingale-track" */ '@nightingale-elements/nightingale-track'
+      ),
+    'nightingale-track'
+  );
+
+  useEffect(() => {
+    if (!nt.defined || !ntRef.current) {
+      return;
+    }
+    ntRef.current.data = gl.exon
+      .flatMap<NTFeature | undefined>((exon, index, arr) => [
+        index === 0
+          ? undefined
+          : {
+              accession: `${exon.id}-${arr[index - 1].id}`,
+              start: arr[index - 1].genomeLocation?.end?.position,
+              end: exon.genomeLocation?.begin?.position,
+              color: '#ffbb33',
+              shape: 'line',
+            },
+        {
+          accession: exon.id || '',
+          start: exon.genomeLocation?.begin?.position,
+          end: exon.genomeLocation?.end?.position,
+          color: '#342ea2',
+          shape: 'rectangle',
+        },
+      ])
+      .filter((x: NTFeature | undefined): x is NTFeature => Boolean(x));
+  }, [nt.defined, gl]);
 
   if (!ensemblInfo?.uriLink) {
     return null;
@@ -171,6 +212,16 @@ const Coordinates = ({
           </tbody>
         </table>
       </DatatableWithToggle>
+      {nt.defined && (
+        <nt.name
+          ref={ntRef}
+          height={50}
+          layout="non-overlapping"
+          length={Math.abs(gl.start - gl.end)}
+          display-start={gl.reverseStrand ? gl.end : gl.start}
+          display-end={gl.reverseStrand ? gl.start : gl.end}
+        />
+      )}
     </section>
   );
 };
