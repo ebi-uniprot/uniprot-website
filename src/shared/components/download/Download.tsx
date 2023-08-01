@@ -53,6 +53,19 @@ const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
   Namespace.uniref,
 ]);
 
+export const isItAsyncDownload = (
+  isEmbeddings: boolean,
+  isUniprotkb: boolean,
+  isLarge: boolean,
+  isIDMappingResult: boolean,
+  namespace: Namespace
+) =>
+  (isEmbeddings && isUniprotkb) ||
+  (isLarge && isUniprotkb) ||
+  (isLarge &&
+    isIDMappingResult &&
+    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(namespace));
+
 export const getPreviewFileFormat = (
   fileFormat: FileFormat
 ): FileFormat | undefined => {
@@ -230,7 +243,6 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   }
 
   const downloadUrl = getDownloadUrl(downloadOptions);
-
   const nPreview = Math.min(10, downloadCount);
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
@@ -270,12 +282,13 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
   const isIDMappingResult = jobType === JobTypes.ID_MAPPING;
-  const isAsyncDownload =
-    (isEmbeddings && isUniprotkb) ||
-    (isLarge && isUniprotkb) ||
-    // TODO: uncomment
-    // (isLarge &&
-    (isIDMappingResult && ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(namespace));
+  const isAsyncDownload = isItAsyncDownload(
+    isEmbeddings,
+    isUniprotkb,
+    isLarge,
+    isIDMappingResult,
+    namespace
+  );
 
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb && !isIDMappingResult

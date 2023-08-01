@@ -10,7 +10,7 @@ import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
 import useToolsState from '../../../shared/hooks/useToolsState';
 
 import {
-  getAsyncDownloadFormDataReducer,
+  asyncDownloadFormDataReducer,
   getAsyncDownloadFormInitialState,
   isExcel,
   isUncompressed,
@@ -58,6 +58,7 @@ const AsyncDownloadForm = ({
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
   const { jobId } = useJobFromUrl();
   const tools = useToolsState();
+
   const isIdMappingResult = jobType === JobTypes.ID_MAPPING && jobId;
 
   let jobTitle = '';
@@ -82,7 +83,7 @@ const AsyncDownloadForm = ({
   }
 
   const [{ formValues, sending, submitDisabled }, dispatch] = useReducer(
-    getAsyncDownloadFormDataReducer(),
+    asyncDownloadFormDataReducer,
     { initialFormValues, downloadUrlOptions, count, jobTitle },
     getAsyncDownloadFormInitialState
   );

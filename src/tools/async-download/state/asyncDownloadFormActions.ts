@@ -5,11 +5,12 @@ import {
 } from '../config/asyncDownloadFormData';
 import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
 
-export const UPDATE_SELECTED = 'UPDATE_SELECTED';
-export const UPDATE_DOWNLOAD_URL_OPTIONS = 'UPDATE_DOWNLOAD_URL_OPTIONS';
-export const UPDATE_COUNT = 'UPDATE_COUNT';
-export const UPDATE_SENDING = 'UPDATE_SENDING';
-export const RESET = 'RESET';
+export const UPDATE_SELECTED = 'UPDATE_SELECTED' as const;
+export const UPDATE_DOWNLOAD_URL_OPTIONS =
+  'UPDATE_DOWNLOAD_URL_OPTIONS' as const;
+export const UPDATE_COUNT = 'UPDATE_COUNT' as const;
+export const UPDATE_SENDING = 'UPDATE_SENDING' as const;
+export const RESET = 'RESET' as const;
 
 export const updateSelected = (
   id: AsyncDownloadFields,

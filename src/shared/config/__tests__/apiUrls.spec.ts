@@ -2,10 +2,12 @@ import apiUrls, {
   getAPIQueryUrl,
   createFacetsQueryString,
   createSelectedQueryString,
+  getDownloadUrl,
 } from '../apiUrls';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { Namespace } from '../../types/namespaces';
 
 describe('getQueryUrl', () => {
   it('should generate facet url', () => {
@@ -91,5 +93,24 @@ describe('createSelectedQueryString', () => {
         UniProtKBColumn.id
       )
     ).toBe('id:a1 OR id:b2 OR id:c3');
+  });
+});
+
+describe('getDownloadUrl', () => {
+  it('should return a jobId if provided for ID Mapping Results', () => {
+    expect(
+      getDownloadUrl({
+        fileFormat: FileFormat.fastaCanonical,
+        compressed: false,
+        selected: [],
+        selectedIdField: UniProtKBColumn.accession,
+        namespace: Namespace.idmapping,
+        base: 'https://rest.uniprot.org/idmapping/download/run',
+        query: '',
+        selectedFacets: [],
+        download: false,
+        jobId: 'foo',
+      })
+    ).toContain('jobId=foo');
   });
 });

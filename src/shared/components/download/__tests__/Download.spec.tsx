@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import Download, { getPreviewFileFormat } from '../Download';
+import Download, { getPreviewFileFormat, isItAsyncDownload } from '../Download';
 
 import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
 
@@ -357,5 +357,28 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     );
     options = screen.getAllByRole('option');
     expect(options).toHaveLength(1);
+  });
+});
+
+describe('isItAsyncDownload', () => {
+  it('should return true when isLarge, isIDMappingResult and uniparc', () => {
+    expect(
+      isItAsyncDownload(false, true, true, true, Namespace.uniparc)
+    ).toEqual(true);
+  });
+  it('should return true when isLarge and uniprotkb', () => {
+    expect(
+      isItAsyncDownload(false, true, true, false, Namespace.uniprotkb)
+    ).toEqual(true);
+  });
+  it('should return true when isEmbeddings and uniprotkb', () => {
+    expect(
+      isItAsyncDownload(true, true, false, true, Namespace.uniprotkb)
+    ).toEqual(true);
+  });
+  it('should return false when it is not async download', () => {
+    expect(
+      isItAsyncDownload(false, true, false, false, Namespace.uniprotkb)
+    ).toEqual(false);
   });
 });

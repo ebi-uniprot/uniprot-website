@@ -9,7 +9,7 @@ import {
 import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 
-type AsyncDownloadFormState = {
+export type AsyncDownloadFormState = {
   formValues: AsyncDownloadFormValues;
   downloadUrlOptions: DownloadUrlOptions;
   count: number;
@@ -117,24 +117,22 @@ export const asyncDownloadFormUpdateSelectedReducer = (
   };
 };
 
-export const getAsyncDownloadFormDataReducer =
-  () =>
-  (
-    state: AsyncDownloadFormState,
-    action: AsyncDownloadFormAction
-  ): AsyncDownloadFormState => {
-    switch (action.type) {
-      case asyncDownloadFormActions.UPDATE_DOWNLOAD_URL_OPTIONS:
-        return asyncDownloadFormUpdateUrlOptionsReducer(state, action);
-      case asyncDownloadFormActions.UPDATE_SELECTED:
-        return asyncDownloadFormUpdateSelectedReducer(state, action);
-      case asyncDownloadFormActions.UPDATE_SENDING:
-        return {
-          ...state,
-          submitDisabled: true,
-          sending: true,
-        };
-      default:
-        return state;
-    }
-  };
+export const asyncDownloadFormDataReducer = (
+  state: AsyncDownloadFormState,
+  action: AsyncDownloadFormAction
+): AsyncDownloadFormState => {
+  switch (action.type) {
+    case asyncDownloadFormActions.UPDATE_DOWNLOAD_URL_OPTIONS:
+      return asyncDownloadFormUpdateUrlOptionsReducer(state, action);
+    case asyncDownloadFormActions.UPDATE_SELECTED:
+      return asyncDownloadFormUpdateSelectedReducer(state, action);
+    case asyncDownloadFormActions.UPDATE_SENDING:
+      return {
+        ...state,
+        submitDisabled: true,
+        sending: true,
+      };
+    default:
+      return state;
+  }
+};
