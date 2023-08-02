@@ -17,10 +17,8 @@ import {
 import apiUrls, {
   createSelectedQueryString,
 } from '../../../shared/config/apiUrls';
-import {
-  fileFormatsResultsDownload,
-  fileFormatsResultsDownloadForRedundant,
-} from '../../config/download';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -31,6 +29,7 @@ import {
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { SearchResults } from '../../../shared/types/results';
+import { FileFormat } from '../../../shared/types/resultsDownload';
 
 const DownloadComponent = lazy(
   () =>
@@ -135,7 +134,12 @@ const ComponentsButtons = ({
   if (proteomeType === 'Redundant proteome') {
     supportedFormats = fileFormatsResultsDownloadForRedundant;
   } else {
-    supportedFormats = fileFormatsResultsDownload;
+    supportedFormats = [
+      FileFormat.fasta,
+      ...fileFormatsUniPortKBResultsDownload.filter(
+        (format) => !format.includes('FASTA')
+      ),
+    ];
   }
 
   return (
@@ -164,8 +168,6 @@ const ComponentsButtons = ({
                 supportedFormats={supportedFormats}
                 showReviewedOption={superkingdom === 'eukaryota'}
                 isoformStats={isoformStats}
-                // List of proteins has to be downloaded. In that case, the default proteome columns must not be set
-                excludeColumns
               />
             </ErrorBoundary>
           </SlidingPanel>

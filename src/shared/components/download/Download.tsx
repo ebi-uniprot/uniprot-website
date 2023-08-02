@@ -26,7 +26,7 @@ import {
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { fileFormatsResultsDownload as fileFormatsProteomeResultsDownload } from '../../../proteomes/config/download';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
@@ -41,7 +41,9 @@ import styles from './styles/download.module.scss';
 
 const proteomesFileFormats = [
   FileFormat.fasta,
-  ...fileFormatsProteomeResultsDownload,
+  ...fileFormatsUniPortKBResultsDownload.filter(
+    (format) => !format.includes('FASTA')
+  ),
 ];
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
@@ -73,7 +75,6 @@ type DownloadProps = {
   base?: string;
   supportedFormats?: FileFormat[];
   notCustomisable?: boolean;
-  excludeColumns?: boolean;
   inBasketMini?: boolean;
   showReviewedOption?: boolean;
   isoformStats?: IsoformStatistics;
@@ -95,12 +96,11 @@ const Download: FC<DownloadProps> = ({
   base,
   supportedFormats,
   notCustomisable,
-  excludeColumns = false,
   inBasketMini = false,
   showReviewedOption = false,
   isoformStats,
 }) => {
-  const { columnNames } = useColumnNames();
+  const { columnNames } = useColumnNames({ namespaceOverride: namespace });
   const { search: queryParamFromUrl } = useLocation();
 
   let fileFormats =
@@ -151,8 +151,8 @@ const Download: FC<DownloadProps> = ({
 
   const hasColumns =
     fileFormatsWithColumns.has(fileFormat) &&
-    !excludeColumns &&
-    namespace !== Namespace.idmapping;
+    namespace !== Namespace.idmapping &&
+    namespace !== Namespace.unisave;
 
   // The ID Mapping URL provided from the job details is for the paginated results
   // endpoint while the stream endpoint is required for downloads

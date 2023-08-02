@@ -25,6 +25,7 @@ type OverlappingProps = {
   start: number;
   end: number;
   currentEntry: string;
+  noLink?: boolean;
 };
 
 const Overlapping = ({
@@ -33,6 +34,7 @@ const Overlapping = ({
   start,
   end,
   currentEntry,
+  noLink,
 }: OverlappingProps) => {
   const sp = new URLSearchParams({
     taxid: `${taxID}`,
@@ -138,7 +140,7 @@ const Overlapping = ({
                 <GenomicLoc
                   genomicLocation={location}
                   taxID={taxID}
-                  noLink={!location.exon[0].id?.startsWith('ENS')}
+                  noLink={noLink}
                 />
               </Fragment>
             ))}
@@ -148,7 +150,7 @@ const Overlapping = ({
       </ExpandableList>
       {/* If the overlapping entries expand further than the current one, render
       a link to the genome browser to explore the full range */}
-      {(min !== start || max !== end) && (
+      {!noLink && (min !== start || max !== end) && (
         <ExternalLink url={getEnsemblLink(taxID, min, max, chromosome)}>
           Explore genomic region in Ensembl
         </ExternalLink>
