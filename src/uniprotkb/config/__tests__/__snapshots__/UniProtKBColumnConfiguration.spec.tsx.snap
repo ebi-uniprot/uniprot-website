@@ -1465,35 +1465,55 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing
 exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names 1`] = `
 <DocumentFragment>
   <span
-    class="bolder"
+    translate="no"
   >
-    some Gene
+    <span
+      class="bolder"
+    >
+      some Gene
+    </span>
+    , some Syn, some locus, some orf
   </span>
-  , some Syn, some locus, some orf
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_oln": gene_oln 1`] = `
 <DocumentFragment>
-  some locus
+  <span
+    translate="no"
+  >
+    some locus
+  </span>
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_orf": gene_orf 1`] = `
 <DocumentFragment>
-  some orf
+  <span
+    translate="no"
+  >
+    some orf
+  </span>
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_primary": gene_primary 1`] = `
 <DocumentFragment>
-  some Gene
+  <span
+    translate="no"
+  >
+    some Gene
+  </span>
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_synonym": gene_synonym 1`] = `
 <DocumentFragment>
-  some Syn
+  <span
+    translate="no"
+  >
+    some Syn
+  </span>
 </DocumentFragment>
 `;
 
@@ -1509,9 +1529,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go_p": go_
 
 exports[`UniProtKBColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <span>
-    uniprot_id
-  </span>
+  uniprot_id
 </DocumentFragment>
 `;
 
@@ -1606,6 +1624,7 @@ exports[`UniProtKBColumnConfiguration component should render column "lineage": 
     class="hidden-taxon"
     href="/taxonomy/9606"
     title="Scientific Name (Common Name) (synonym), taxon ID 9606"
+    translate="no"
   >
     Scientific Name (Common Name) (synonym)
   </a>
@@ -1618,6 +1637,7 @@ exports[`UniProtKBColumnConfiguration component should render column "lineage_id
     class="hidden-taxon"
     href="/taxonomy/9606"
     title="Scientific Name (Common Name) (synonym), taxon ID 9606"
+    translate="no"
   >
     9606
   </a>
@@ -1769,6 +1789,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_i
   <a
     href="/taxonomy/9606"
     title="scientific name (common name) (synonyms 1), taxon ID 9606"
+    translate="no"
   >
     9606
   </a>
@@ -1780,6 +1801,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_n
   <a
     href="/taxonomy/9606"
     title="scientific name (common name) (synonyms 1), taxon ID 9606"
+    translate="no"
   >
     scientific name (common name) (synonyms 1)
   </a>
@@ -1964,6 +1986,7 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
       <a
         href="/taxonomy/9606"
         title="scientific name (common name) (synonyms 1), taxon ID 9606"
+        translate="no"
       >
         scientific name (common name) (synonyms 1)
       </a>

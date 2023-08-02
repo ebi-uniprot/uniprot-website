@@ -4,10 +4,10 @@
 const BlastLandingPage = () => (
   <>
     <p>
-      The Basic Local Alignment Search Tool (BLAST) finds regions of local
-      similarity between sequences, which can be used to infer functional and
-      evolutionary relationships between sequences as well as help identify
-      members of gene families.
+      The Basic Local Alignment Search Tool (<span translate="no">BLAST</span>)
+      finds regions of local similarity between sequences, which can be used to
+      infer functional and evolutionary relationships between sequences as well
+      as help identify members of gene families.
     </p>
 
     <ul>
@@ -17,19 +17,21 @@ const BlastLandingPage = () => (
         sequence.
       </li>
       <li>
-        Optionally, you may change the Target database your BLAST will be run
-        against or restrict by Taxonomy using the Taxonomy ID or name.
+        Optionally, you may change the Target database your{' '}
+        <span translate="no">BLAST</span> will be run against or restrict by
+        Taxonomy using the Taxonomy ID or name.
       </li>
       <li>
-        Further advanced options can be used to change BLAST algorithm
-        parameters.
+        Further advanced options can be used to change{' '}
+        <span translate="no">BLAST</span> algorithm parameters.
       </li>
       <li>
-        Your BLAST job will be provided a default name. You may edit this name
-        as per your choice.
+        Your <span translate="no">BLAST</span> job will be provided a default
+        name. You may edit this name as per your choice.
       </li>
       <li>
-        Finally, click the &quot;Run BLAST&quot; button to submit your BLAST
+        Finally, click the &quot;Run <span translate="no">BLAST</span>&quot;
+        button to submit your <span translate="no">BLAST</span>
         job.
       </li>
     </ul>

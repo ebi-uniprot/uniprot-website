@@ -185,9 +185,7 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
           </span>
         </td>
         <td />
-        <td>
-          <span />
-        </td>
+        <td />
         <td>
           <span
             style="font-weight: initial;"

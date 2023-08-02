@@ -30,6 +30,7 @@ const AnalysisTools = () => (
   >
     <Tile
       title="BLAST"
+      translate="no"
       className="uniprot-grid-cell--span-3"
       backgroundImage={
         <img

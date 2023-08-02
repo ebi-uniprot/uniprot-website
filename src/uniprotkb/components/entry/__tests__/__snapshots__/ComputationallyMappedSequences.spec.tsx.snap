@@ -22,7 +22,11 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
         title="Select at least one entry to run a BLAST job"
         type="button"
       >
-        BLAST
+        <span
+          translate="no"
+        >
+          BLAST
+        </span>
       </button>
       <button
         class="button tertiary disabled no-small"

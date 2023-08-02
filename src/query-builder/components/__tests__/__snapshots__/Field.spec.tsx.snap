@@ -31,6 +31,7 @@ exports[`Clause component should render a \`text\` field 1`] = `
     UniProtKB AC
     <input
       placeholder="P12345"
+      translate="no"
       type="text"
       value=""
     />
@@ -44,6 +45,7 @@ exports[`Clause component should render a \`text\` field with initial value 1`] 
     UniProtKB AC
     <input
       placeholder="P12345"
+      translate="no"
       type="text"
       value="P12345"
     />

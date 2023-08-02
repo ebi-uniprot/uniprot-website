@@ -106,6 +106,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                     <a
                       href="/taxonomy/9598"
                       title="Pan troglodytes (Chimpanzee), taxon ID 9598"
+                      translate="no"
                     >
                       Pan troglodytes (Chimpanzee)
                     </a>
@@ -134,6 +135,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                     <a
                       href="/taxonomy/9601"
                       title="Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii), taxon ID 9601"
+                      translate="no"
                     >
                       Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii)
                     </a>
@@ -214,6 +216,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                     <a
                       href="/taxonomy/9598"
                       title="Pan troglodytes (Chimpanzee), taxon ID 9598"
+                      translate="no"
                     >
                       Pan troglodytes (Chimpanzee)
                     </a>
@@ -242,6 +245,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                     <a
                       href="/taxonomy/9601"
                       title="Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii), taxon ID 9601"
+                      translate="no"
                     >
                       Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii)
                     </a>

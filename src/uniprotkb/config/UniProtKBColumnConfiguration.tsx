@@ -12,7 +12,6 @@ import {
 import { omit } from 'lodash-es';
 
 import ExternalLink from '../../shared/components/ExternalLink';
-import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {
   TaxonomyLineage,
@@ -192,7 +191,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
     'Mnemonic identifier of a UniProtKB entry',
     'entry_name'
   ),
-  render: (data) => <SimpleView termValue={data.uniProtkbId} />,
+  render: (data) => data.uniProtkbId,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
@@ -240,10 +239,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
       return null;
     }
     return (
-      <>
+      <span translate="no">
         <span className={helper.bolder}>{firstValue}</span>
         {restOfValues.length !== 0 && `, ${restOfValues.join(', ')}`}
-      </>
+      </span>
     );
   },
 });
@@ -281,7 +280,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
 
     const names = geneNamesData?.map((geneNames) => geneNames.geneName?.value);
 
-    return names?.join(', ');
+    return <span translate="no">{names?.join(', ')}</span>;
   },
 });
 
@@ -298,7 +297,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
       geneNames.orderedLocusNames?.map((synonym) => synonym.value)
     );
 
-    return names?.join(', ');
+    return <span translate="no">{names?.join(', ')}</span>;
   },
 });
 
@@ -315,7 +314,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
       geneNames.orfNames?.map((synonym) => synonym.value)
     );
 
-    return names?.join(', ');
+    return <span translate="no">{names?.join(', ')}</span>;
   },
 });
 
@@ -332,7 +331,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
       geneNames.synonyms?.map((synonym) => synonym.value)
     );
 
-    return names?.join(', ');
+    return <span translate="no">{names?.join(', ')}</span>;
   },
 });
 

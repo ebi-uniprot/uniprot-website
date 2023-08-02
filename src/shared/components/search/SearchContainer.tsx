@@ -314,19 +314,21 @@ const SearchContainer = ({
               {examples[searchspace as SearchableNamespace] && (
                 <>
                   Examples:{' '}
-                  {examples[searchspace as SearchableNamespace]?.map(
-                    (example, index) => (
-                      <Fragment key={example}>
-                        {index === 0 ? null : ', '}
-                        <Button
-                          variant="tertiary"
-                          onClick={() => loadExample(example)}
-                        >
-                          {example}
-                        </Button>
-                      </Fragment>
-                    )
-                  )}
+                  <span translate="no">
+                    {examples[searchspace as SearchableNamespace]?.map(
+                      (example, index) => (
+                        <Fragment key={example}>
+                          {index === 0 ? null : ', '}
+                          <Button
+                            variant="tertiary"
+                            onClick={() => loadExample(example)}
+                          >
+                            {example}
+                          </Button>
+                        </Fragment>
+                      )
+                    )}
+                  </span>
                 </>
               )}
             </div>

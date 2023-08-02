@@ -19,6 +19,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/10239"
     title="Viruses, taxon ID 10239"
+    translate="no"
   >
     Viruses
   </a>
@@ -26,6 +27,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/2559587"
     title="Riboviria, taxon ID 2559587"
+    translate="no"
   >
     Riboviria
   </a>
@@ -33,6 +35,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/2732397"
     title="Pararnavirae, taxon ID 2732397"
+    translate="no"
   >
     Pararnavirae
   </a>
@@ -40,6 +43,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/2732409"
     title="Artverviricota, taxon ID 2732409"
+    translate="no"
   >
     Artverviricota
   </a>
@@ -47,6 +51,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/2732514"
     title="Revtraviricetes, taxon ID 2732514"
+    translate="no"
   >
     Revtraviricetes
   </a>
@@ -54,6 +59,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/2169561"
     title="Ortervirales, taxon ID 2169561"
+    translate="no"
   >
     Ortervirales
   </a>
@@ -61,6 +67,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/11632"
     title="Retroviridae, taxon ID 11632"
+    translate="no"
   >
     Retroviridae
   </a>
@@ -68,6 +75,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/327045"
     title="Orthoretrovirinae, taxon ID 327045"
+    translate="no"
   >
     Orthoretrovirinae
   </a>
@@ -75,6 +83,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   <a
     href="/taxonomy/11646"
     title="Lentivirus, taxon ID 11646"
+    translate="no"
   >
     Lentivirus
   </a>

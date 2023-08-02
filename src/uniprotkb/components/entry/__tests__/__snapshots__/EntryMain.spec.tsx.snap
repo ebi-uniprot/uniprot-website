@@ -2180,6 +2180,7 @@ exports[`Entry view should render 1`] = `
                 <a
                   href="/taxonomy/9606"
                   title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                  translate="no"
                 >
                   scientific name (common name) (synonyms 1)
                 </a>
@@ -2287,6 +2288,7 @@ exports[`Entry view should render 1`] = `
                     <a
                       href="/taxonomy/9606"
                       title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                      translate="no"
                     >
                       scientific name (common name) (synonyms 1)
                     </a>
@@ -3205,7 +3207,12 @@ exports[`Entry view should render 1`] = `
             href="/blast?ids=isoID1"
             title="Run a BLAST job against isoID1"
           >
-            BLAST 1 isoform
+            <span
+              translate="no"
+            >
+              BLAST
+            </span>
+             1 isoform
           </a>
           <button
             class="button tertiary disabled no-small"
@@ -5009,6 +5016,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <a
                   href="/taxonomy/292800"
                   title="Flavonifractor plautii (Fusobacterium plautii), taxon ID 292800"
+                  translate="no"
                 >
                   Flavonifractor plautii (Fusobacterium plautii)
                 </a>

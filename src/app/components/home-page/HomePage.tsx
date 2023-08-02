@@ -108,7 +108,7 @@ const HomePageHeader = memo(() => {
     <HeroHeader
       className="home-page__header"
       title={
-        <>
+        <span translate="no">
           {'Find your '}
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <span
@@ -142,7 +142,7 @@ const HomePageHeader = memo(() => {
               </>
             )}
           </span>
-        </>
+        </span>
       }
       footer={mission}
     >
