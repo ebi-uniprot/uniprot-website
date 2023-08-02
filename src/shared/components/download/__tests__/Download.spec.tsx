@@ -340,7 +340,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     );
 
     let options = screen.getAllByRole('option');
-    expect(options).toHaveLength(6);
+    expect(options).toHaveLength(10);
 
     fireEvent.click(
       screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
@@ -357,5 +357,12 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     );
     options = screen.getAllByRole('option');
     expect(options).toHaveLength(1);
+
+    fireEvent.click(
+      screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
+    );
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+    expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });
 });

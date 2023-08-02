@@ -77,7 +77,6 @@ type ResultsButtonsProps<T extends JobTypes> = {
   notCustomisable?: boolean;
   subsetsMap?: Map<string, string>;
   supportedFormats?: FileFormat[];
-  excludeColumns?: boolean;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
 };
@@ -96,7 +95,6 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   notCustomisable = false,
   subsetsMap,
   supportedFormats,
-  excludeColumns = false,
   jobType,
   inputParamsData,
 }) => {
@@ -220,7 +218,6 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
                 base={base}
                 notCustomisable={notCustomisable}
                 supportedFormats={supportedFormats}
-                excludeColumns={excludeColumns}
                 inBasketMini={inBasketMini}
               />
             </ErrorBoundary>
