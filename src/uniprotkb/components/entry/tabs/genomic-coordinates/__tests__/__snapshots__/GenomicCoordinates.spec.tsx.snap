@@ -44,7 +44,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl Gene
+              Ensembl gene ID
             </div>
             <div
               class="decorated-list-item__content"
@@ -71,7 +71,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl Transcript
+              Ensembl transcript ID
             </div>
             <div
               class="decorated-list-item__content"
@@ -98,7 +98,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl Translation
+              Ensembl translation ID
             </div>
             <div
               class="decorated-list-item__content"
@@ -204,7 +204,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <thead>
               <tr>
                 <th>
-                  Exon ID
+                  Ensembl exon ID
                 </th>
                 <th>
                   Protein coordinates
@@ -504,7 +504,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl Gene
+              Ensembl gene ID
             </div>
             <div
               class="decorated-list-item__content"
@@ -531,7 +531,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl Transcript
+              Ensembl transcript ID
             </div>
             <div
               class="decorated-list-item__content"
@@ -558,7 +558,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl Translation
+              Ensembl translation ID
             </div>
             <div
               class="decorated-list-item__content"
@@ -664,7 +664,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <thead>
               <tr>
                 <th>
-                  Exon ID
+                  Ensembl exon ID
                 </th>
                 <th>
                   Protein coordinates

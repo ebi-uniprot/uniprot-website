@@ -38,7 +38,7 @@ const Coordinates = ({
 
   const infoData = [
     {
-      title: 'Ensembl Gene',
+      title: `${xrefInfo ? 'Ensembl g' : 'G'}ene ID`,
       content:
         coordinates.ensemblGeneId &&
         (xrefInfo?.uriLink ? (
@@ -54,7 +54,7 @@ const Coordinates = ({
         )),
     },
     {
-      title: 'Ensembl Transcript',
+      title: `${xrefInfo ? 'Ensembl t' : 'T'}ranscript ID`,
       content:
         coordinates.ensemblTranscriptId &&
         (xrefInfo?.uriLink ? (
@@ -70,7 +70,7 @@ const Coordinates = ({
         )),
     },
     {
-      title: 'Ensembl Translation',
+      title: `${xrefInfo ? 'Ensembl t' : 'T'}ranslation ID`,
       content:
         coordinates.ensemblTranslationId &&
         (xrefInfo?.uriLink ? (
@@ -127,7 +127,7 @@ const Coordinates = ({
         <table>
           <thead>
             <tr>
-              <th>Exon ID</th>
+              <th>{xrefInfo ? 'Ensembl e' : 'E'}xon ID</th>
               <th>Protein coordinates</th>
               <th>Genomic coordinates</th>
             </tr>
