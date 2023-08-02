@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, memo } from 'react';
 import { Card } from 'franklin-sites';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
@@ -34,4 +34,4 @@ const SimilarProteinsSection = ({ isoforms, primaryAccession }: Props) => {
   );
 };
 
-export default SimilarProteinsSection;
+export default memo(SimilarProteinsSection);

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card } from 'franklin-sites';
 
 import ProteinNamesView from '../protein-data-views/ProteinNamesView';
@@ -71,4 +72,4 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
   );
 };
 
-export default NamesAndTaxonomySection;
+export default memo(NamesAndTaxonomySection);

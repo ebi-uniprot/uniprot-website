@@ -1,6 +1,13 @@
-import { useMemo, Fragment, useRef, useEffect, useState, lazy } from 'react';
+import {
+  useMemo,
+  Fragment,
+  useRef,
+  useEffect,
+  useState,
+  lazy,
+  Suspense,
+} from 'react';
 import { Loader } from 'franklin-sites';
-import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
@@ -8,25 +15,28 @@ import { PartialDeep, SetRequired } from 'type-fest';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import ExternalLink from '../../../../../shared/components/ExternalLink';
+import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
+import DatatableWithToggle from '../../../../../shared/components/views/DatatableWithToggle';
+import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useCustomElement from '../../../shared/hooks/useCustomElement';
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
+import useCustomElement from '../../../../../shared/hooks/useCustomElement';
+import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 
-import apiUrls from '../../../shared/config/apiUrls';
-import externalUrls from '../../../shared/config/externalUrls';
+import { proteinsApi } from '../../../../../shared/config/apiUrls';
+import externalUrls from '../../../../../shared/config/externalUrls';
 
-import { Evidence } from '../../types/modelTypes';
+import { Evidence } from '../../../../types/modelTypes';
 
-import styles from './styles/variation-view.module.scss';
+import styles from './styles/variation-viewer.module.scss';
+import tabsStyles from '../styles/tabs-styles.module.scss';
+import helper from '../../../../../shared/styles/helper.module.scss';
 
 const VisualVariationView = lazy(
   () =>
     import(
-      /* webpackChunkName: "visual-variation-view" */ './VisualVariationView'
+      /* webpackChunkName: "visual-variation-view" */ '../../../protein-data-views/VisualVariationView'
     )
 );
 
@@ -115,20 +125,13 @@ const applyFilters = (variants: TransformedVariant[], filters: Filter[]) => {
 type VariationViewProps = {
   primaryAccession: string;
   title?: string;
-  onlyTable?: boolean;
 };
 
-const VariationView = ({
-  primaryAccession,
-  title,
-  onlyTable = false,
-}: VariationViewProps) => {
+const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
 
   const { loading, data, progress, error, status } =
-    useDataApi<ProteinsAPIVariation>(
-      joinUrl(apiUrls.variation, primaryAccession)
-    );
+    useDataApi<ProteinsAPIVariation>(proteinsApi.variation(primaryAccession));
 
   const [filters, setFilters] = useState([]);
   const managerRef = useRef<HTMLElement>(null);
@@ -185,7 +188,7 @@ const VariationView = ({
 
   if (loading) {
     return (
-      <div>
+      <div className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
@@ -193,8 +196,11 @@ const VariationView = ({
   }
 
   if (error && status !== 404) {
-    // TODO: use in-page error message
-    return <div>An error happened</div>;
+    return (
+      <div className="wider-tab-content hotjar-margin">
+        <ErrorHandler status={status} />
+      </div>
+    );
   }
 
   if (
@@ -207,7 +213,7 @@ const VariationView = ({
     return (
       <section className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
-        <div className={styles['no-data']}>
+        <div className={tabsStyles['no-data']}>
           No variation information available for {primaryAccession}
         </div>
       </section>
@@ -268,7 +274,7 @@ const VariationView = ({
                       <Fragment key={id}>
                         {i !== 0 && <br />}
                         <span
-                          className={cn({ [styles.bold]: isUniProtID(id) })}
+                          className={cn({ [helper.bold]: isUniProtID(id) })}
                         >
                           {id}
                         </span>
@@ -309,7 +315,7 @@ const VariationView = ({
                         <div
                           key={description.value}
                           className={cn({
-                            [styles.bold]: hasUniProtSource(description),
+                            [helper.bold]: hasUniProtSource(description),
                           })}
                         >
                           {`${description.value} (${description.sources.join(
@@ -356,7 +362,7 @@ const VariationView = ({
                       <Fragment key={name}>
                         {i !== 0 && <br />}
                         <span
-                          className={cn({ [styles.bold]: isUniProt(name) })}
+                          className={cn({ [helper.bold]: isUniProt(name) })}
                         >
                           {name}
                         </span>
@@ -484,7 +490,7 @@ const VariationView = ({
     </table>
   );
 
-  if (onlyTable || isSmallScreen) {
+  if (isSmallScreen) {
     return (
       <section>
         {title && <h2>{title}</h2>}
@@ -500,11 +506,13 @@ const VariationView = ({
         attributes="highlight displaystart displayend activefilters filters selectedid"
         ref={managerRef}
       >
-        <VisualVariationView {...transformedData} />
+        <Suspense fallback={null}>
+          <VisualVariationView {...transformedData} />
+        </Suspense>
         <DatatableWithToggle>{table}</DatatableWithToggle>
       </managerElement.name>
     </section>
   );
 };
 
-export default VariationView;
+export default VariationViewer;

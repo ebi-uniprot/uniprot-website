@@ -1,4 +1,4 @@
-import { lazy, useState } from 'react';
+import { lazy, useState, memo } from 'react';
 import { groupBy } from 'lodash-es';
 import { Button, Card, Message } from 'franklin-sites';
 
@@ -130,4 +130,4 @@ const StructureSection = ({
   );
 };
 
-export default StructureSection;
+export default memo(StructureSection);

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card } from 'franklin-sites';
 
 import KeywordView from '../protein-data-views/KeywordView';
@@ -66,4 +67,4 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
   );
 };
 
-export default SubcellularLocationSection;
+export default memo(SubcellularLocationSection);

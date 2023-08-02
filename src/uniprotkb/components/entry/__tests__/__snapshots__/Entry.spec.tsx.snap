@@ -381,6 +381,21 @@ exports[`Entry basic should render main 1`] = `
           <div
             aria-controls="0"
             class="tabs__header__item"
+            data-target="genomic-coordinates"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              class="disabled"
+              href="/uniprotkb/P21802/genomic-coordinates"
+              tabindex="-1"
+            >
+              Genomic coordinates
+            </a>
+          </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
             data-target="publications"
             data-testid="tab-title"
             role="tab"
