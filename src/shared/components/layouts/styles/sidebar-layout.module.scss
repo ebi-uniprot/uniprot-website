@@ -17,7 +17,14 @@
   min-height: calc(100vh - var(--top-header-margin));
   display: grid;
   align-items: start;
-  grid-template-columns: 3rem calc(var(--sidebar-size) - 3rem) minmax(0, 1fr);
+  grid-template-columns: 3rem calc(var(--sidebar-size) - 3rem) minmax(
+      min-content,
+      1fr
+    );
+
+  &.no-overflow {
+    grid-template-columns: 3rem calc(var(--sidebar-size) - 3rem) minmax(0, 1fr);
+  }
 
   & > .sidebar {
     padding: $global-padding;
@@ -44,7 +51,6 @@
   }
 
   & > .content {
-    width: min-content;
     z-index: 1;
     grid-row: 1 / -1;
     /* If we want an expanded main content case, make it start on column 2 or less - suitable for smaller screens */
@@ -66,7 +72,6 @@
   }
   /* but causes Nightingale elements to grow, so need this to cancel that */
   &.no-overflow > .content {
-    width: initial;
     display: initial;
   }
 }
