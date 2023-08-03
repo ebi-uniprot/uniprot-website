@@ -50,3 +50,6 @@ export const getQueryString = (...args: QueryStringArg[]) => {
   }
   return new URLSearchParams(combined).toString();
 };
+
+export const getURL = (base: string, ...args: QueryStringArg[]) =>
+  `${base}?${getQueryString(...args)}`;
