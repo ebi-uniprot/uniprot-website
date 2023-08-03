@@ -1,7 +1,7 @@
 import { Loader } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -184,7 +184,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
       </tbody>
     </table>
   );
-  return <DatatableWithToggle>{table}</DatatableWithToggle>;
+  return <DatatableWrapper>{table}</DatatableWrapper>;
 };
 
 export default EMBLView;

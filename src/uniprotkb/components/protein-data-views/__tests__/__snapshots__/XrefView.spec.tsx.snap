@@ -6,7 +6,7 @@ exports[`XRefView should render section 1`] = `
     Chemistry
   </h3>
   <div
-    class="datatable-with-toggle"
+    class="datatable-wrapper"
   >
     <protvista-datatable
       filter-scroll="true"

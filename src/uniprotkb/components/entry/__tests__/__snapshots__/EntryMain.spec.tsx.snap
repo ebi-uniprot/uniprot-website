@@ -2812,7 +2812,7 @@ exports[`Entry view should render 1`] = `
           />
         </div>
         <div
-          class="datatable-with-toggle"
+          class="datatable-wrapper"
         >
           <protvista-datatable
             filter-scroll="true"
@@ -4014,7 +4014,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           attributes="highlight displaystart displayend selectedid"
         >
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"
@@ -4488,7 +4488,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             GO annotations
           </h3>
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"
@@ -5134,7 +5134,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           attributes="highlight displaystart displayend selectedid"
         >
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"
@@ -5678,7 +5678,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           attributes="highlight displaystart displayend selectedid"
         >
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"

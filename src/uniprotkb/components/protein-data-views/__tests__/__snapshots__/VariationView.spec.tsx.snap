@@ -7,7 +7,7 @@ exports[`VariationView component renders on data 1`] = `
       some title
     </h2>
     <div
-      class="datatable-with-toggle"
+      class="datatable-wrapper"
     >
       <protvista-datatable
         filter-scroll="true"

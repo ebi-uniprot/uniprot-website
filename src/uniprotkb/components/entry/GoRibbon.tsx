@@ -6,7 +6,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import useSafeState from '../../../shared/hooks/useSafeState';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
@@ -277,9 +277,7 @@ const GoRibbon = ({
         </label>
       )}
       {elementLoaded && ribbon}
-      {!!filteredGoTerms.length && (
-        <DatatableWithToggle>{table}</DatatableWithToggle>
-      )}
+      {!!filteredGoTerms.length && <DatatableWrapper>{table}</DatatableWrapper>}
       <ExternalLink
         url={externalUrls.QuickGOAnnotations(primaryAccession)}
         className={styles['quickgo-link']}

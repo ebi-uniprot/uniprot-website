@@ -98,7 +98,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
     Natural variants in AD
   </h5>
   <div
-    class="datatable-with-toggle"
+    class="datatable-wrapper"
   >
     <protvista-datatable
       filter-scroll="true"

@@ -1253,7 +1253,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
     attributes="highlight displaystart displayend selectedid"
   >
     <div
-      class="datatable-with-toggle"
+      class="datatable-wrapper"
     >
       <protvista-datatable
         filter-scroll="true"

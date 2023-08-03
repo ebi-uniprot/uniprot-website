@@ -1,7 +1,7 @@
 import { Loader } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -59,7 +59,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
   const { databaseToDatabaseInfo } = databaseInfoMaps;
 
   return (
-    <DatatableWithToggle>
+    <DatatableWrapper>
       <table>
         <thead>
           <tr>
@@ -105,7 +105,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
           )}
         </tbody>
       </table>
-    </DatatableWithToggle>
+    </DatatableWrapper>
   );
 };
 

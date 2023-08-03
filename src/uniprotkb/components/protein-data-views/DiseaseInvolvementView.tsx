@@ -5,7 +5,7 @@ import { escapeRegExp } from 'lodash-es';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { RichText } from './FreeTextView';
 
@@ -140,7 +140,7 @@ export const DiseaseVariants = ({
     </table>
   );
 
-  return <DatatableWithToggle>{table}</DatatableWithToggle>;
+  return <DatatableWrapper>{table}</DatatableWrapper>;
 };
 
 const reDiseaseAcronymSentence = /^in [^;]+(;|$)/i;
