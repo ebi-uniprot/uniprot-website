@@ -35,7 +35,9 @@ const toolsLinks = (
       </Link>
     </li>
     <li>
-      <Link to={LocationToPath[Location.Align]}>Align</Link>
+      <Link to={LocationToPath[Location.Align]} translate="no">
+        Align
+      </Link>
     </li>
     <li>
       <Link to={LocationToPath[Location.PeptideSearch]}>Peptide search</Link>
@@ -49,7 +51,12 @@ const toolsLinks = (
 const sparqlLink = (
   <li>
     {/* eslint-disable-next-line react/jsx-no-target-blank */}
-    <a href="https://sparql.uniprot.org/" target="_blank" rel="noopener">
+    <a
+      href="https://sparql.uniprot.org/"
+      target="_blank"
+      rel="noopener"
+      translate="no"
+    >
       SPARQL
     </a>
   </li>

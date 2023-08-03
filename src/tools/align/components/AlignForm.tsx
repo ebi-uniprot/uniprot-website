@@ -202,7 +202,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro title={title} />
+      <PageIntro title={title} translate="no" />
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}

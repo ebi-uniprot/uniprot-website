@@ -50,6 +50,7 @@ const AnalysisTools = () => (
     </Tile>
     <Tile
       title="Align"
+      translate="no"
       className="uniprot-grid-cell--span-3"
       backgroundImage={
         <img
