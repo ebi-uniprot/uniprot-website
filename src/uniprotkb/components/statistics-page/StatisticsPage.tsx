@@ -28,7 +28,7 @@ type CategoryName =
   | 'PUBLICATION'
   | 'PROTEIN_EXISTENCE';
 
-type StatisticsItem = {
+export type StatisticsItem = {
   name: string;
   count: number;
   entryCount: number;
@@ -36,7 +36,7 @@ type StatisticsItem = {
   description?: string;
 };
 
-type StatisticsCategory = {
+export type StatisticsCategory = {
   categoryName: CategoryName;
   label: string;
   totalCount: number;
@@ -168,11 +168,11 @@ const StatisticsPage = () => {
 
   const reviewedStats = useDataApi<StatisticsPayload>(
     release &&
-      `https://wwwdev.ebi.ac.uk/uniprot/api/statistics/releases/${release.releaseNumber}/reviewed`
+      `${API_PREFIX}/statistics/releases/${release.releaseNumber}/reviewed`
   );
   const unreviewedStats = useDataApi<StatisticsPayload>(
     release &&
-      `https://wwwdev.ebi.ac.uk/uniprot/api/statistics/releases/${release.releaseNumber}/unreviewed`
+      `${API_PREFIX}/statistics/releases/${release.releaseNumber}/unreviewed`
   );
 
   if (!release || reviewedStats.loading || unreviewedStats.loading) {

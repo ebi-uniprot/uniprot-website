@@ -7,9 +7,12 @@ import {
 } from 'franklin-sites';
 import cn from 'classnames';
 
+import StatisticsChart from './StatisticsChart';
+
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 
 import {
   LocationToPath,
@@ -21,6 +24,7 @@ import ftpUrls from '../../../shared/config/ftpUrls';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
+import { StatisticsPayload } from '../statistics-page/StatisticsPage';
 
 import styles from './styles/landing-page.module.scss';
 
@@ -46,6 +50,8 @@ const tutorialsInfo = [
 ];
 
 const LandingPage = () => {
+  const release = useUniProtDataVersion();
+
   const { data } = useDataApi<SearchResults<never>>(
     getAPIQueryUrl({
       namespace: Namespace.uniprotkb,
@@ -112,13 +118,15 @@ const LandingPage = () => {
         <div
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-6',
+            'uniprot-grid-cell--medium-span-10',
             styles.statistics
           )}
         >
           <h4>Statistics</h4>
           <div className={styles['statistics__content']}>
-            <div>chart goes here</div>
+            <div>
+              <StatisticsChart releaseNumber={release?.releaseNumber} />
+            </div>
             <div className={styles['entries-count']}>
               <span>Number of Entries</span>
               <div className={styles['entries-count__content']}>
@@ -155,7 +163,7 @@ const LandingPage = () => {
                   'release-statistics'
                 )}
               >
-                Explore the latest release <big>»</big>
+                Explore the {release?.releaseNumber} release <big>»</big>
               </Link>
             </div>
           </div>
@@ -165,7 +173,7 @@ const LandingPage = () => {
         <div
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-3'
+            'uniprot-grid-cell--medium-span-6'
           )}
         >
           <h4>How to use UniProtKB</h4>
@@ -193,7 +201,7 @@ const LandingPage = () => {
         <div
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-3',
+            'uniprot-grid-cell--medium-span-6',
             styles.download
           )}
         >

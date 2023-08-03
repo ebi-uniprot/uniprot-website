@@ -17,7 +17,7 @@
     .statistics {
       &__content {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
       }
 
       .entries-count {
@@ -39,6 +39,7 @@
 
         a {
           align-self: flex-end;
+          white-space: nowrap;
         }
       }
     }
