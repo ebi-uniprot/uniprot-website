@@ -12,7 +12,7 @@ import {
   copyFailureMessage,
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
-import { getQueryString } from '../../utils/url';
+import { stringifyQuery } from '../../utils/url';
 
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 
@@ -47,7 +47,7 @@ const CopyLinkWebsite = ({
     document.location.origin +
     createPath({
       ...location,
-      search: getQueryString(location.search, {
+      search: stringifyQuery(location.search, {
         fields: viewMode === 'table' ? columnNames.join(',') : null,
         view: !disableCardToggle ? viewMode : null,
       }),
