@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { getLocationForPathname } from '../url';
+import { QueryStringArg, getLocationForPathname, getQueryString } from '../url';
 import { Location } from '../../../app/config/urls';
 
 describe('getLocationForPathname', () => {
@@ -24,4 +24,28 @@ describe('getLocationForPathname', () => {
       expect(getLocationForPathname(pathname)).toEqual(location)
     );
   });
+});
+
+describe('getQueryString', () => {
+  const testCases: [QueryStringArg[], string][] = [
+    [[{ a: 1 }], 'a=1'],
+    [[{ a: 1 }, { a: 2 }], 'a=2'],
+    [[{ a: 1 }, { a: undefined }], ''],
+    [
+      [
+        { a: 1, b: true },
+        { a: undefined, b: false },
+      ],
+      'b=false',
+    ],
+    [['a=1&b=true', { a: undefined, b: false }], 'b=false'],
+    [['a=1&b=true&c=2', 'a=2&b=false'], 'a=2&b=false&c=2'],
+  ];
+
+  test.each(testCases)(
+    'should %p : %p',
+    (queryStringArgs, expectedQueryString) => {
+      expect(getQueryString(...queryStringArgs)).toEqual(expectedQueryString);
+    }
+  );
 });
