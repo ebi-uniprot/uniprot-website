@@ -22,7 +22,12 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       href="/align?ids=P05067-1%2CP05067-2"
       title="Run an Align job against 2 entries"
     >
-      Align 2 isoforms
+      <span
+        translate="no"
+      >
+        Align
+      </span>
+       2 isoforms
     </a>
   </div>
   <ul

@@ -3220,7 +3220,11 @@ exports[`Entry view should render 1`] = `
             title="Select at least 2 entries to run an Align job"
             type="button"
           >
-            Align
+            <span
+              translate="no"
+            >
+              Align
+            </span>
           </button>
         </div>
         <ul

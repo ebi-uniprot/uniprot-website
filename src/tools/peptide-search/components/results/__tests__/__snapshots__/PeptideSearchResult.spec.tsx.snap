@@ -99,7 +99,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
               title="Select at least 2 entries to run an Align job"
               type="button"
             >
-              Align
+              <span
+                translate="no"
+              >
+                Align
+              </span>
             </button>
             <button
               class="button tertiary disabled"
@@ -1059,7 +1063,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
               title="Select at least 2 entries to run an Align job"
               type="button"
             >
-              Align
+              <span
+                translate="no"
+              >
+                Align
+              </span>
             </button>
             <button
               class="button tertiary disabled"
