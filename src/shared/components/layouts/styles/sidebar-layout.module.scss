@@ -44,6 +44,7 @@
   }
 
   & > .content {
+    width: min-content;
     z-index: 1;
     grid-row: 1 / -1;
     /* If we want an expanded main content case, make it start on column 2 or less - suitable for smaller screens */
@@ -56,7 +57,8 @@
       grid-column: 1 / 4;
     }
     background-color: $colour-sky-white;
-    padding-inline: $gutter-size;
+    /* a bit more inline-end in order to not have the feedback/help buttons cover the viewer */
+    padding-inline: $gutter-size 2rem;
 
     /** Allows the results table to grow, and the sticky action bar to stretch,
       * covering the table when scrolling down */
@@ -64,6 +66,7 @@
   }
   /* but causes Nightingale elements to grow, so need this to cancel that */
   &.no-overflow > .content {
+    width: initial;
     display: initial;
   }
 }
