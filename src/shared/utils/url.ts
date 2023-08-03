@@ -28,3 +28,25 @@ export const parseQueryString = (
   }
   return parsedWithoutArrayValues;
 };
+
+type QueryStringParamsRecord = Record<
+  string,
+  string | number | boolean | undefined | null
+>;
+export type QueryStringArg = string | QueryStringParamsRecord;
+
+export const getQueryString = (...args: QueryStringArg[]) => {
+  const combined = new URLSearchParams();
+  for (const arg of args) {
+    for (const [k, v] of typeof arg === 'string'
+      ? new URLSearchParams(arg)
+      : Object.entries(arg)) {
+      if (typeof v !== 'undefined' && v !== null) {
+        combined.set(k, v.toString());
+      } else if (combined.has(k)) {
+        combined.delete(k);
+      }
+    }
+  }
+  return new URLSearchParams(combined).toString();
+};
