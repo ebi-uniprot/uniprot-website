@@ -16,7 +16,6 @@ import {
   Replay,
 } from '@sentry/react';
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
-import queryString from 'query-string';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
@@ -34,6 +33,7 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
+import { stringifyUrl } from '../../shared/utils/url';
 
 import pkg from '../../../package.json';
 
@@ -302,9 +302,9 @@ const ResultsOrLanding =
       if (!params.query) {
         return (
           <Redirect
-            to={queryString.stringifyUrl({
-              url: props.location.pathname,
-              query: { ...params, query: '*' },
+            to={stringifyUrl(props.location.pathname, {
+              ...params,
+              query: '*',
             })}
           />
         );
