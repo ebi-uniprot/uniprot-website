@@ -51,5 +51,5 @@ export const stringifyQuery = (...args: QueryArg[]) => {
   return new URLSearchParams(combined).toString();
 };
 
-export const stringifyUrl = (base: string, ...args: QueryArg[]) =>
-  `${base}?${stringifyQuery(...args)}`;
+export const stringifyUrl = (url: string, ...args: QueryArg[]) =>
+  `${url}?${stringifyQuery(...args)}`;
