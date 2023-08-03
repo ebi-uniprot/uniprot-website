@@ -33,9 +33,9 @@ type QueryStringParamsRecord = Record<
   string,
   string | number | boolean | undefined | null
 >;
-export type QueryArg = string | QueryStringParamsRecord;
+export type QueryStringArg = string | QueryStringParamsRecord;
 
-export const stringifyQuery = (...args: QueryArg[]) => {
+export const stringifyQuery = (...args: QueryStringArg[]) => {
   const combined = new URLSearchParams();
   for (const arg of args) {
     for (const [k, v] of typeof arg === 'string'
@@ -51,5 +51,5 @@ export const stringifyQuery = (...args: QueryArg[]) => {
   return new URLSearchParams(combined).toString();
 };
 
-export const stringifyUrl = (url: string, ...args: QueryArg[]) =>
+export const stringifyUrl = (url: string, ...args: QueryStringArg[]) =>
   `${url}?${stringifyQuery(...args)}`;

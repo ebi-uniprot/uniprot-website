@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { QueryArg, getLocationForPathname, stringifyQuery } from '../url';
+import { QueryStringArg, getLocationForPathname, stringifyQuery } from '../url';
 import { Location } from '../../../app/config/urls';
 
 describe('getLocationForPathname', () => {
@@ -27,7 +27,7 @@ describe('getLocationForPathname', () => {
 });
 
 describe('stringifyQuery', () => {
-  const testCases: [QueryArg[], string][] = [
+  const testCases: [QueryStringArg[], string][] = [
     [[{ a: 1 }], 'a=1'],
     [[{ a: 1 }, { a: 2 }], 'a=2'],
     [[{ a: 1 }, { a: undefined }], ''],
