@@ -12,6 +12,7 @@ import {
   copyFailureMessage,
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
+import { getQueryString } from '../../utils/url';
 
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 
@@ -42,19 +43,15 @@ const CopyLinkWebsite = ({
   const { columnNames } = useColumnNames({ namespaceOverride });
   const { viewMode } = useViewMode(namespace, disableCardToggle);
   const location = useLocation();
-
-  const searchParams = new URLSearchParams(location.search);
-  if (viewMode === 'table') {
-    searchParams.set('fields', columnNames.join(','));
-  } else {
-    searchParams.delete('fields');
-  }
-  if (!disableCardToggle) {
-    searchParams.set('view', `${viewMode}`);
-  }
   const url =
     document.location.origin +
-    createPath({ ...location, search: searchParams.toString() });
+    createPath({
+      ...location,
+      search: getQueryString(location.search, {
+        fields: viewMode === 'table' ? columnNames.join(',') : null,
+        view: !disableCardToggle ? viewMode : null,
+      }),
+    });
 
   const handleClick = async ({ target }: MouseEvent) => {
     try {
