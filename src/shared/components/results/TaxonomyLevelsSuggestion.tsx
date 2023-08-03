@@ -13,6 +13,7 @@ import apiUrls from '../../config/apiUrls';
 import { SearchResults } from '../../types/results';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../types/namespaces';
+import { stringifyUrl } from '../../utils/url';
 
 const TaxonomyLevelsSuggestion = ({
   query,
@@ -27,13 +28,11 @@ const TaxonomyLevelsSuggestion = ({
     taxonHierarchySearchTerms
   );
 
-  const searchParams = new URLSearchParams({
-    query: `${modifiedQuery}`,
-    size: '0',
-  });
-
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
+    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+      query: `${modifiedQuery}`,
+      size: 0,
+    })
   );
 
   const hasTaxonSuggestion =

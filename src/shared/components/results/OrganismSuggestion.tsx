@@ -1,6 +1,7 @@
 import { SearchTextLink } from './SearchSuggestions';
 import useDataApi from '../../hooks/useDataApi';
 
+import { stringifyUrl } from '../../utils/url';
 import apiUrls from '../../config/apiUrls';
 
 import { SearchResults } from '../../types/results';
@@ -16,13 +17,11 @@ const OrganismSuggestion = ({
   taxonID: string;
   total: number;
 }) => {
-  const searchParams = new URLSearchParams({
-    query: `organism_id:${taxonID}`,
-    size: '0',
-  });
-
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
+    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+      query: `organism_id:${taxonID}`,
+      size: 0,
+    })
   );
 
   const hasOrganismSuggestion =
