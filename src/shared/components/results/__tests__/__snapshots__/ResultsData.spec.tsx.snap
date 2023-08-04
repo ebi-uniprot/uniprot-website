@@ -99,6 +99,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -282,6 +283,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -411,6 +413,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -552,6 +555,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -729,6 +733,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -876,6 +881,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -1023,6 +1029,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -1212,6 +1219,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -1371,6 +1379,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -1542,6 +1551,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -1719,6 +1729,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -1872,6 +1883,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -2013,6 +2025,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -2202,6 +2215,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -2367,6 +2381,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -2544,6 +2559,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -2673,6 +2689,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -2820,6 +2837,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -2973,6 +2991,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -3114,6 +3133,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -3237,6 +3257,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -3366,6 +3387,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -3513,6 +3535,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -3666,6 +3689,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -3813,6 +3837,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <small>
               <div
                 class="keyword-view--inline"
+                translate="yes"
               >
                  
                 <a
@@ -3917,7 +3942,9 @@ exports[`ResultsData component should render the table view 1`] = `
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody
+      translate="no"
+    >
       <tr>
         <td
           class="checkbox-cell"

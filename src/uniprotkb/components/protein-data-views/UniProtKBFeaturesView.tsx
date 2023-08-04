@@ -297,6 +297,7 @@ const UniProtKBFeaturesView = ({
                                 end: feature.end,
                               }
                             )}
+                            translate="no"
                           >
                             BLAST
                           </Button>

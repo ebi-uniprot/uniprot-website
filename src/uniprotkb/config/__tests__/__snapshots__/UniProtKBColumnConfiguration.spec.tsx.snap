@@ -1358,6 +1358,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
                     class="button tertiary"
                     href="/blast?ids=P21802[2-8]"
                     title="BLAST the sequence corresponding to this feature"
+                    translate="no"
                   >
                     BLAST
                   </a>
@@ -1465,55 +1466,35 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing
 exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names 1`] = `
 <DocumentFragment>
   <span
-    translate="no"
+    class="bolder"
   >
-    <span
-      class="bolder"
-    >
-      some Gene
-    </span>
-    , some Syn, some locus, some orf
+    some Gene
   </span>
+  , some Syn, some locus, some orf
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_oln": gene_oln 1`] = `
 <DocumentFragment>
-  <span
-    translate="no"
-  >
-    some locus
-  </span>
+  some locus
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_orf": gene_orf 1`] = `
 <DocumentFragment>
-  <span
-    translate="no"
-  >
-    some orf
-  </span>
+  some orf
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_primary": gene_primary 1`] = `
 <DocumentFragment>
-  <span
-    translate="no"
-  >
-    some Gene
-  </span>
+  some Gene
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_synonym": gene_synonym 1`] = `
 <DocumentFragment>
-  <span
-    translate="no"
-  >
-    some Syn
-  </span>
+  some Syn
 </DocumentFragment>
 `;
 
@@ -1537,6 +1518,7 @@ exports[`UniProtKBColumnConfiguration component should render column "keyword": 
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
+    translate="yes"
   >
     <li>
        
@@ -1554,6 +1536,7 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
+    translate="yes"
   >
     <li>
        
@@ -1829,29 +1812,37 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_fa
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>
   <span
-    style="font-weight: bolder;"
+    translate="yes"
   >
-    rec full Name
+    <span
+      style="font-weight: bolder;"
+    >
+      rec full Name
+    </span>
+    <button
+      aria-expanded="false"
+      class="button tertiary ellipsis-reveal"
+      title="Show more"
+      type="button"
+    >
+      [...]
+    </button>
   </span>
-  <button
-    aria-expanded="false"
-    class="button tertiary ellipsis-reveal"
-    title="Show more"
-    type="button"
-  >
-    [...]
-  </button>
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name-expanded 1`] = `
 <DocumentFragment>
   <span
-    style="font-weight: bolder;"
+    translate="yes"
   >
-    rec full Name
+    <span
+      style="font-weight: bolder;"
+    >
+      rec full Name
+    </span>
+    , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1
   </span>
-  , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1
 </DocumentFragment>
 `;
 

@@ -17,12 +17,11 @@ exports[`HomePage component should render 1`] = `
         <h1
           class="x-huge"
         >
-          <span
-            translate="no"
-          >
+          <span>
             Find your 
             <span
               class="letter-group"
+              translate="no"
             >
               protein
             </span>

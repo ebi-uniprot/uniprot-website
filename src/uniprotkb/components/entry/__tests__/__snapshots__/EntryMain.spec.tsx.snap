@@ -653,6 +653,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:ENZYME)&direct"
+                  translate="no"
                 >
                   ENZYME
                 </a>
@@ -2838,12 +2839,16 @@ exports[`Entry view should render 1`] = `
                   <th>
                     Number of experiments
                   </th>
-                  <th>
+                  <th
+                    translate="no"
+                  >
                     Intact
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                translate="no"
+              >
                 <tr>
                   <td
                     data-filter="type"
@@ -2985,6 +2990,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:ModBase)&direct"
+                  translate="no"
                 >
                   ModBase
                 </a>
@@ -3022,6 +3028,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:SWISS-MODEL-Workspace)&direct"
+                  translate="no"
                 >
                   SWISS-MODEL-Workspace
                 </a>
@@ -3096,6 +3103,7 @@ exports[`Entry view should render 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -3147,6 +3155,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:MobiDB)&direct"
+                  translate="no"
                 >
                   MobiDB
                 </a>
@@ -3526,6 +3535,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:Ensembl)&direct"
+                  translate="no"
                 >
                   Ensembl
                 </a>
@@ -4684,6 +4694,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -4719,6 +4730,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -4748,6 +4760,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:ENZYME)&direct"
+                  translate="no"
                 >
                   ENZYME
                 </a>
@@ -5505,6 +5518,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:AlphaFoldDB)&direct"
+                  translate="no"
                 >
                   AlphaFoldDB
                 </a>
@@ -5542,6 +5556,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:SMR)&direct"
+                  translate="no"
                 >
                   SMR
                 </a>
@@ -5579,6 +5594,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:ModBase)&direct"
+                  translate="no"
                 >
                   ModBase
                 </a>
@@ -5616,6 +5632,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:PDBe-KB)&direct"
+                  translate="no"
                 >
                   PDBe-KB
                 </a>
@@ -5766,6 +5783,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[180-402]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -5842,6 +5860,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[494-605]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -5918,6 +5937,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[502-765]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -5994,6 +6014,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[515-772]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -6085,6 +6106,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -6114,6 +6136,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:Gene3D)&direct"
+                  translate="no"
                 >
                   Gene3D
                 </a>
@@ -6152,6 +6175,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:InterPro)&direct"
+                  translate="no"
                 >
                   InterPro
                 </a>
@@ -6258,6 +6282,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:PROSITE)&direct"
+                  translate="no"
                 >
                   PROSITE
                 </a>
@@ -6310,6 +6335,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:Pfam)&direct"
+                  translate="no"
                 >
                   Pfam
                 </a>
@@ -6377,6 +6403,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:SMART)&direct"
+                  translate="no"
                 >
                   SMART
                 </a>
@@ -6429,6 +6456,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:SUPFAM)&direct"
+                  translate="no"
                 >
                   SUPFAM
                 </a>
@@ -6512,6 +6540,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:MobiDB)&direct"
+                  translate="no"
                 >
                   MobiDB
                 </a>
@@ -7144,6 +7173,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -7173,6 +7203,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:RefSeq)&direct"
+                  translate="no"
                 >
                   RefSeq
                 </a>

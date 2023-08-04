@@ -156,7 +156,9 @@ const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
   render: (data: UniProtkbUIModel) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
     const goProcessTerms = goTerms && goTerms.get(aspect);
-    return goProcessTerms && <GOTermsView data={goProcessTerms} />;
+    return (
+      goProcessTerms && <GOTermsView data={goProcessTerms} translate="yes" />
+    );
   },
 });
 
@@ -203,7 +205,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <>
+      <span translate="yes">
         <CSVView
           data={omit(proteinNamesData, 'contains')}
           bolderFirst={Boolean(proteinNamesData?.recommendedName)}
@@ -217,7 +219,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
             </em>
           </>
         )}
-      </>
+      </span>
     );
   },
 });
@@ -239,10 +241,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
       return null;
     }
     return (
-      <span translate="no">
+      <>
         <span className={helper.bolder}>{firstValue}</span>
         {restOfValues.length !== 0 && `, ${restOfValues.join(', ')}`}
-      </span>
+      </>
     );
   },
 });
@@ -280,7 +282,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
 
     const names = geneNamesData?.map((geneNames) => geneNames.geneName?.value);
 
-    return <span translate="no">{names?.join(', ')}</span>;
+    return names?.join(', ');
   },
 });
 
@@ -297,7 +299,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
       geneNames.orderedLocusNames?.map((synonym) => synonym.value)
     );
 
-    return <span translate="no">{names?.join(', ')}</span>;
+    return names?.join(', ');
   },
 });
 
@@ -314,7 +316,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
       geneNames.orfNames?.map((synonym) => synonym.value)
     );
 
-    return <span translate="no">{names?.join(', ')}</span>;
+    return names?.join(', ');
   },
 });
 
@@ -331,7 +333,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
       geneNames.synonyms?.map((synonym) => synonym.value)
     );
 
-    return <span translate="no">{names?.join(', ')}</span>;
+    return names?.join(', ');
   },
 });
 

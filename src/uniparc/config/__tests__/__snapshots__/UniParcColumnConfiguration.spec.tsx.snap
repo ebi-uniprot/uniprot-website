@@ -712,6 +712,7 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
+    translate="yes"
   >
     <li>
       Protein L1
@@ -745,6 +746,7 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
+    translate="yes"
   >
     <li>
       Protein L1

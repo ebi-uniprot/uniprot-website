@@ -281,7 +281,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              translate="no"
+            >
               <tr>
                 <td
                   class="checkbox-cell"
@@ -323,28 +325,28 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-6-phosphate 1-dehydrogenase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-6-phosphate 1-dehydrogenase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
-                    translate="no"
+                    class="bolder"
                   >
-                    <span
-                      class="bolder"
-                    >
-                      G6PD
-                    </span>
+                    G6PD
                   </span>
                 </td>
                 <td>
@@ -401,30 +403,30 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-1-phosphatase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-1-phosphatase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
-                    translate="no"
+                    class="bolder"
                   >
-                    <span
-                      class="bolder"
-                    >
-                      agp
-                    </span>
-                    , b1002, JW0987
+                    agp
                   </span>
+                  , b1002, JW0987
                 </td>
                 <td>
                   <a
@@ -1245,7 +1247,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              translate="no"
+            >
               <tr>
                 <td
                   class="checkbox-cell"
@@ -1287,28 +1291,28 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-6-phosphate 1-dehydrogenase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-6-phosphate 1-dehydrogenase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
-                    translate="no"
+                    class="bolder"
                   >
-                    <span
-                      class="bolder"
-                    >
-                      G6PD
-                    </span>
+                    G6PD
                   </span>
                 </td>
                 <td>
@@ -1365,30 +1369,30 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-1-phosphatase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-1-phosphatase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
-                    translate="no"
+                    class="bolder"
                   >
-                    <span
-                      class="bolder"
-                    >
-                      agp
-                    </span>
-                    , b1002, JW0987
+                    agp
                   </span>
+                  , b1002, JW0987
                 </td>
                 <td>
                   <a

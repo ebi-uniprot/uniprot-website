@@ -85,7 +85,9 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                translate="no"
+              >
                 <tr>
                   <td>
                     <span
@@ -195,7 +197,9 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                translate="no"
+              >
                 <tr>
                   <td>
                     <span

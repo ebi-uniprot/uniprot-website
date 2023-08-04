@@ -74,7 +74,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              translate="no"
+            >
               <tr>
                 <td>
                   <span>
