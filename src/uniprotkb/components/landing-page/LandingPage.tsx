@@ -117,7 +117,7 @@ const LandingPage = () => {
         <div
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-10',
+            'uniprot-grid-cell--medium-span-9',
             styles.statistics
           )}
         >
@@ -168,43 +168,22 @@ const LandingPage = () => {
                   )}
                 </div>
               </div>
-              <Link
-                to={getLocationEntryPath(
-                  Location.HelpEntry,
-                  'release-statistics'
+              <div
+                className={cn(
+                  styles['entries-count__content'],
+                  styles['statistics-link']
                 )}
               >
-                Explore the {release?.releaseNumber} release <big>»</big>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Tutorials */}
-        <div
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-6'
-          )}
-        >
-          <h4>How to use UniProtKB</h4>
-          <div className={styles['tutorial']}>
-            {tutorialsInfo.map((item) => (
-              <div className={styles['tutorial__info']} key={item.id}>
-                <img
-                  src={`https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`}
-                  className={styles['tutorial__image']}
-                />
-
-                <ExternalLink
-                  noIcon
-                  url={`https://www.youtube.com/watch?v=${item.id}`}
-                  className={styles['tutorial__title']}
+                <Link
+                  to={getLocationEntryPath(
+                    Location.HelpEntry,
+                    'release-statistics'
+                  )}
                 >
-                  {item.title}
-                </ExternalLink>
+                  Explore the {release?.releaseNumber} release <big>»</big>
+                </Link>
               </div>
-            ))}
+            </div>
           </div>
         </div>
 
@@ -212,7 +191,7 @@ const LandingPage = () => {
         <div
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-6',
+            'uniprot-grid-cell--medium-span-3',
             styles.download
           )}
         >
@@ -241,6 +220,42 @@ const LandingPage = () => {
           >
             Explore more in FTP
           </ExternalLink>
+        </div>
+
+        {/* Tutorials */}
+        <div
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-6'
+          )}
+        >
+          <h4>How to use UniProtKB</h4>
+          <div className={styles['tutorial']}>
+            {tutorialsInfo.map((item) => (
+              <div className={styles['tutorial__info']} key={item.id}>
+                <YouTubeEmbed
+                  id={item.id}
+                  title={item.title}
+                  width="40%"
+                  height="300px"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+                {/* <img
+                  src={`https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`}
+                  className={styles['tutorial__image']}
+                />
+
+                <ExternalLink
+                  noIcon
+                  url={`https://www.youtube.com/watch?v=${item.id}`}
+                  className={styles['tutorial__title']}
+                >
+                  {item.title}
+                </ExternalLink> */}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
