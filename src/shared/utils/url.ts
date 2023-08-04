@@ -23,9 +23,13 @@ export const stringifyQuery = (...args: QueryStringArg[]) => {
   const combined = new URLSearchParams();
   for (const arg of args) {
     const iter =
+      // Query string
       (typeof arg === 'string' && new URLSearchParams(arg)) ||
+      // URLSearchParams
       (arg instanceof URLSearchParams && arg) ||
+      // QueryStringParamsRecord
       (typeof arg === 'object' && arg !== null && Object.entries(arg)) ||
+      // Fallback
       [];
     for (const [k, v] of iter) {
       if (typeof v !== 'undefined' && v !== null) {
