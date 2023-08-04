@@ -32,7 +32,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
   const { jobId } = useJobFromUrl();
 
   const parsedSearch = new URLSearchParams(search);
-  const parsedClauses = parse(parsedSearch.get('query') as string | undefined);
+  const parsedClauses = parse(parsedSearch.get('query') || '');
   const interestingClauses = parsedClauses.filter((clause) =>
     interestingTerms.test(clause.searchTerm.term)
   );

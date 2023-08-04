@@ -109,18 +109,15 @@ export const getLocationObjForParams = ({
   viewMode,
 }: GetLocationObjForParams = {}) => ({
   pathname,
-  search: stringifyQuery(
-    {
-      query: query || undefined,
-      facets: facetsAsString(selectedFacets),
-      sort: sortColumn,
-      dir: sortDirection,
-      activeFacet,
-      fields: columns,
-      view: viewMode,
-    },
-    { encode: false }
-  ),
+  search: stringifyQuery({
+    query: query || undefined,
+    facets: facetsAsString(selectedFacets),
+    sort: sortColumn,
+    dir: sortDirection,
+    activeFacet,
+    fields: columns,
+    view: viewMode,
+  }),
 });
 
 export const getSortableColumnToSortColumn = (

@@ -16,12 +16,17 @@ type QueryStringParamsRecord = Record<
 export type QueryStringArg = string | QueryStringParamsRecord | URLSearchParams;
 
 export const stringifyQuery = (...args: QueryStringArg[]) => {
+  // This returns a query string by iterating over the args and creating a combined
+  // URLSearchParams instance. If a parameter key already exists it will be overwritten
+  // by the new value. If the new value is undefined or null then the parameter will
+  // be removed. Arrays will be returned as comma separated strings.
   const combined = new URLSearchParams();
   for (const arg of args) {
     const iter =
       (typeof arg === 'string' && new URLSearchParams(arg)) ||
       (arg instanceof URLSearchParams && arg) ||
-      Object.entries(arg);
+      (typeof arg !== 'undefined' && Object.entries(arg)) ||
+      [];
     for (const [k, v] of iter) {
       if (typeof v !== 'undefined' && v !== null) {
         combined.set(k, v.toString());
