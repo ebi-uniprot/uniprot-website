@@ -40,8 +40,8 @@ export const stringifyQuery = (...args: QueryStringArg[]) => {
   return sp.toString();
 };
 
-export const stringifyUrl = (url: string, ...args: QueryStringArg[]) =>
-  `${url}?${stringifyQuery(...args)}`;
+export const stringifyUrl = (base: string, ...args: QueryStringArg[]) =>
+  `${base}?${stringifyQuery(...args)}`;
 
 export const splitUrl = (url: string) => {
   const [base, query] = url.split('?');
