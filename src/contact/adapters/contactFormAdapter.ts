@@ -15,12 +15,13 @@ import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 
 import apiUrls from '../../shared/config/apiUrls';
 import { addMessage } from '../../messages/state/messagesActions';
+import { stringifyUrl } from '../../shared/utils/url';
+
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { Location, LocationToPath } from '../../app/config/urls';
-import { stringifyUrl } from '../../shared/utils/url';
 
 export type ContactLocationState =
   | undefined

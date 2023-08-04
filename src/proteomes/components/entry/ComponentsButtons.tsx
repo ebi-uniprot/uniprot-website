@@ -13,6 +13,7 @@ import {
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
+import { stringifyUrl } from '../../../shared/utils/url';
 
 import apiUrls, {
   createSelectedQueryString,
@@ -30,7 +31,6 @@ import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverte
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { SearchResults } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
-import { stringifyUrl } from '../../../shared/utils/url';
 
 const DownloadComponent = lazy(
   () =>

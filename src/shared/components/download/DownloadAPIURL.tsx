@@ -11,13 +11,13 @@ import {
 } from '../../../messages/state/messagesActions';
 
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
+import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
 import styles from './styles/download-api-url.module.scss';
-import { splitUrl, stringifyUrl } from '../../utils/url';
 
 const reIdMapping = new RegExp(
   `/idmapping/(?:(${Namespace.uniprotkb}|${Namespace.uniparc}|${Namespace.uniref})/)?(?:results/)?stream/`

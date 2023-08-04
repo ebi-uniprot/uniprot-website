@@ -5,11 +5,11 @@ import { SearchTextLink } from './SearchSuggestions';
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
+import { stringifyUrl } from '../../utils/url';
 
 import { SearchResults } from '../../types/results';
 import { Namespace } from '../../types/namespaces';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
-import { stringifyUrl } from '../../utils/url';
 
 const ProteomeSuggestion = ({
   query,

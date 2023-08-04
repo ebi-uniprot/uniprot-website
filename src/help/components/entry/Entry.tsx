@@ -35,13 +35,13 @@ import cleanText, {
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
 import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/entry.module.scss';
-import { stringifyQuery } from '../../../shared/utils/url';
 
 const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
 const sameAppURL = new RegExp(window.location.origin + BASE_URL, 'i');

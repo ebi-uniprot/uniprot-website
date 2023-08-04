@@ -7,6 +7,8 @@ import {
   getAPIQueryParams,
   getDownloadUrl,
 } from '../../shared/config/apiUrls';
+import { stringifyUrl } from '../../shared/utils/url';
+
 import {
   SelectedFacet,
   SortDirection,
@@ -15,7 +17,6 @@ import { JobTypes } from '../types/toolsJobTypes';
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../shared/types/namespaces';
-import { stringifyUrl } from '../../shared/utils/url';
 
 type CommonResultFormats =
   | 'out' // raw output of the tool

@@ -21,6 +21,7 @@ import apiUrls from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import { reUniProtKBAccession } from '../../uniprotkb/utils';
 import fetchData from '../../shared/utils/fetchData';
+import { stringifyUrl } from '../../shared/utils/url';
 import * as logging from '../../shared/utils/logging';
 
 import {
@@ -34,7 +35,6 @@ import {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
 import { SearchResults } from '../../shared/types/results';
-import { stringifyUrl } from '../../shared/utils/url';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim().toUpperCase();

@@ -78,7 +78,7 @@ export const apiPrefix = API_PREFIX;
 const apiUrls = {
   // uniprotkb query builder terms
   queryBuilderTerms: (namespace: Namespace) =>
-    joinUrl(apiPrefix, `configure/${namespace}/search-fields`),
+    joinUrl(apiPrefix, 'configure', namespace, 'search-fields'),
   // Annotation evidence used by query builder
   evidences: {
     annotation: joinUrl(apiPrefix, 'configure/uniprotkb/annotation_evidences'),
@@ -95,7 +95,10 @@ const apiUrls = {
   resultsFields: (namespace: Namespace, isEntry?: boolean) =>
     joinUrl(
       apiPrefix,
-      `configure/${namespace}/${isEntry ? 'entry-' : ''}result-fields`
+      'configure',
+      namespace,
+      isEntry ? 'entry-' : '',
+      'result-fields'
     ),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>

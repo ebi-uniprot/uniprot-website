@@ -12,9 +12,9 @@ import {
   copyFailureMessage,
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
-import { stringifyQuery } from '../../utils/url';
 
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
+import { stringifyQuery } from '../../utils/url';
 
 import { Namespace } from '../../types/namespaces';
 

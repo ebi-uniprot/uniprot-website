@@ -9,11 +9,11 @@ import OrganismSuggestion from './OrganismSuggestion';
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
+import { stringifyUrl } from '../../utils/url';
 
 import { SearchResults } from '../../types/results';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../types/namespaces';
-import { stringifyUrl } from '../../utils/url';
 
 const TaxonomyLevelsSuggestion = ({
   query,
