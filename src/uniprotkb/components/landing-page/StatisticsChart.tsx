@@ -152,23 +152,51 @@ const renderPieChart = (
 
 const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  // Using reviewed stats for demo pie chart
+
   const reviewedStats = useDataApi<StatisticsPayload>(
     releaseNumber &&
       `${API_PREFIX}/statistics/releases/${releaseNumber}/reviewed`
   );
 
+  const unreviewedStats = useDataApi<StatisticsPayload>(
+    releaseNumber &&
+      `${API_PREFIX}/statistics/releases/${releaseNumber}/unreviewed`
+  );
+
   useEffect(() => {
-    if (svgRef.current) {
-      if (!reviewedStats.loading && reviewedStats.data?.results) {
-        const plotData = reviewedStats.data.results.find(
-          (category) => category.categoryName === 'SUPERKINGDOM'
-        );
-        renderPieChart(svgRef.current, plotData.items);
-        // renderPieChart(250, 250, 20, svgRef.current, plotData.items);
-      }
+    if (
+      svgRef.current &&
+      !reviewedStats.loading &&
+      reviewedStats.data?.results &&
+      unreviewedStats?.data?.results
+    ) {
+      const taxonReviewed = reviewedStats.data.results.find(
+        (category) => category.categoryName === 'SUPERKINGDOM'
+      );
+      const taxonUnreviewed = unreviewedStats.data.results.find(
+        (category) => category.categoryName === 'SUPERKINGDOM'
+      );
+      const taxonSummed = Object.values(
+        [
+          ...(taxonReviewed?.items as []),
+          ...(taxonUnreviewed?.items as []),
+        ].reduce((acc, { name, count, entryCount }) => {
+          acc[name] = {
+            name,
+            count: (acc[name] ? acc[name].count : 0) + count,
+            entryCount: (acc[name] ? acc[name].entryCount : 0) + entryCount,
+          };
+          return acc;
+        }, {})
+      );
+
+      renderPieChart(svgRef.current, taxonSummed as StatisticsItem[]);
     }
-  }, [svgRef.current, reviewedStats?.data?.results]);
+  }, [
+    svgRef.current,
+    reviewedStats?.data?.results,
+    unreviewedStats?.data?.results,
+  ]);
 
   return <svg ref={svgRef} />;
 };
