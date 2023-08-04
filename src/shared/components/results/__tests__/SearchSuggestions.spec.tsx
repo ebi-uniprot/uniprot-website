@@ -14,7 +14,7 @@ const mock = new MockAdapter(axios);
 
 mock
   .onGet(
-    /\/uniprotkb\/search\?size=0&query=eve&showSingleTermMatchedFields=true/
+    /\/uniprotkb\/search\?query=eve&showSingleTermMatchedFields=true&size=0/
   )
   .reply(200, {
     matchedFields: [
