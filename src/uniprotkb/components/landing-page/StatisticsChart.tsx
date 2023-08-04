@@ -146,7 +146,14 @@ const renderPieChart = (
         const d2 = interpolate(t);
         const pos = outerArc.centroid(d2);
         pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-        return [arc.centroid(d2), outerArc.centroid(d2), pos];
+
+        const startPos = d3
+          .arc()
+          .outerRadius(radius * 0.8)
+          .innerRadius(radius * 0.4)
+          .centroid(d2);
+
+        return [startPos, outerArc.centroid(d2), pos];
       };
     })
     .style('fill', 'none')
