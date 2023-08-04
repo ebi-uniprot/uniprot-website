@@ -21,7 +21,7 @@ const ftpUrls = {
       ftpUniProt,
       `/current_release/knowledgebase/pan_proteomes/${id}.fasta.gz`
     ),
-  embeddings: joinUrl(ftpUniProt, '/current_release/knowledgebase/embeddings/'),
+  embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
 };
 
 const restFormatToFtpFormat = new Map([
