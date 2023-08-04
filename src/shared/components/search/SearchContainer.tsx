@@ -9,7 +9,6 @@ import {
   useMemo,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import { SearchAction, WebSite, WithContext } from 'schema-dts';
 
@@ -24,7 +23,7 @@ import { useSmallScreen } from '../../hooks/useMatchMedia';
 import lazy from '../../utils/lazy';
 import { addMessage } from '../../../messages/state/messagesActions';
 import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
-import { parseQueryString } from '../../utils/url';
+import { parseQueryString, stringifyQuery } from '../../utils/url';
 
 import {
   Location,
@@ -202,10 +201,9 @@ const SearchContainer = ({
     }
 
     // restringify the resulting search
-    const stringifiedSearch = queryString.stringify(
-      { query: rawQueryClean(searchTerm) },
-      { encode: true }
-    );
+    const stringifiedSearch = stringifyQuery({
+      query: rawQueryClean(searchTerm),
+    });
 
     // push a new location to the history containing the modified search term
     history.push({
@@ -221,8 +219,8 @@ const SearchContainer = ({
   const handleToggleQueryBuilder = useCallback(
     (reason: PanelFormCloseReason) => {
       if (displayQueryBuilder) {
-        const { query } = parseQueryString(location.search, { decode: true });
-        sendGtagEventPanelAdvancedSearchClose(reason, query);
+        const sp = new URLSearchParams(location.search);
+        sendGtagEventPanelAdvancedSearchClose(reason, sp.get('query'));
         setDisplayQueryBuilder(false);
       } else {
         sendGtagEventPanelOpen('advanced_search');
