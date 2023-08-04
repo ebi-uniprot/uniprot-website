@@ -31,16 +31,18 @@ export const parseQueryString = (
 
 type QueryStringParamsRecord = Record<
   string,
-  string | number | boolean | undefined | null
+  string | string[] | number | number[] | boolean | undefined | null
 >;
-export type QueryStringArg = string | QueryStringParamsRecord;
+export type QueryStringArg = string | QueryStringParamsRecord | URLSearchParams;
 
 export const stringifyQuery = (...args: QueryStringArg[]) => {
   const combined = new URLSearchParams();
   for (const arg of args) {
-    for (const [k, v] of typeof arg === 'string'
-      ? new URLSearchParams(arg)
-      : Object.entries(arg)) {
+    const iter =
+      (typeof arg === 'string' && new URLSearchParams(arg)) ||
+      (arg instanceof URLSearchParams && arg) ||
+      Object.entries(arg);
+    for (const [k, v] of iter) {
       if (typeof v !== 'undefined' && v !== null) {
         combined.set(k, v.toString());
       } else if (combined.has(k)) {
@@ -48,8 +50,15 @@ export const stringifyQuery = (...args: QueryStringArg[]) => {
       }
     }
   }
-  return new URLSearchParams(combined).toString();
+  const sp = new URLSearchParams(combined);
+  sp.sort();
+  return sp.toString();
 };
 
 export const stringifyUrl = (url: string, ...args: QueryStringArg[]) =>
   `${url}?${stringifyQuery(...args)}`;
+
+export const splitUrl = (url: string) => {
+  const [base, searchParams] = url.split('?');
+  return { base, searchParams };
+};
