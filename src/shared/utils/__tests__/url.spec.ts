@@ -65,6 +65,11 @@ describe('stringifyUrl', () => {
       'https://foo.com?a=23'
     );
   });
+  it('should not append a ? if query string args resolves to nothing', () => {
+    expect(stringifyUrl('https://foo.com', { a: undefined })).toEqual(
+      'https://foo.com'
+    );
+  });
 });
 
 describe('splitUrl', () => {

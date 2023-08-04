@@ -39,8 +39,10 @@ export const stringifyQuery = (...args: QueryStringArg[]) => {
   return combined.toString();
 };
 
-export const stringifyUrl = (base: string, ...args: QueryStringArg[]) =>
-  `${base}?${stringifyQuery(...args)}`;
+export const stringifyUrl = (base: string, ...args: QueryStringArg[]) => {
+  const query = stringifyQuery(...args);
+  return query ? `${base}?${query}` : base;
+};
 
 export const splitUrl = (url: string) => {
   const [base, query] = url.split('?');
