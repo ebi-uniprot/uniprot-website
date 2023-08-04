@@ -21,7 +21,7 @@ import {
   help as helpURL,
   news as newsURL,
 } from '../../../shared/config/apiUrls';
-import { parseQueryString, stringifyQuery } from '../../../shared/utils/url';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
@@ -53,7 +53,8 @@ const Results = ({
   inPanel,
 }: RouteChildrenProps & Props) => {
   const [searchValue, setSearchValue] = useState<string>(() => {
-    const { query } = parseQueryString(location.search);
+    const sp = new URLSearchParams(location.search);
+    const query = sp.get('query');
     if (!query || query === '*') {
       return '';
     }
@@ -61,7 +62,7 @@ const Results = ({
   });
 
   const isReleaseNotes = match?.path.includes('release-notes');
-  const parsed = parseQueryString(location.search);
+  const parsed = Object.fromEntries(new URLSearchParams(location.search));
 
   const {
     initialLoading,

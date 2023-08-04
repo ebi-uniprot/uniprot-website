@@ -10,11 +10,7 @@ import useNS from '../../hooks/useNS';
 import useSafeState from '../../hooks/useSafeState';
 
 import fetchData from '../../utils/fetchData';
-import {
-  parseQueryString,
-  stringifyQuery,
-  stringifyUrl,
-} from '../../utils/url';
+import { stringifyQuery, stringifyUrl } from '../../utils/url';
 
 import {
   searchLocations,
@@ -123,7 +119,8 @@ const DidYouMean = ({
   const [renderContent, setRenderContent] = useSafeState(false);
   const otherNamespaceSuggestions = useRef<NamespaceSuggestions>(new Map());
 
-  const { query } = parseQueryString(location.search);
+  const sp = new URLSearchParams(location.search);
+  const query = sp.get('query');
 
   // Clear the map if new namespace or new query
   useEffect(() => {

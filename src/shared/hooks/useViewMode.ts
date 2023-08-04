@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
-import { parseQueryString, stringifyQuery } from '../utils/url';
+import { stringifyQuery } from '../utils/url';
 import { sendGtagEventViewMode } from '../utils/gtagEvents';
 
 import { Namespace } from '../types/namespaces';
@@ -51,8 +51,9 @@ const useViewMode = (
   let invalidUrlViewMode: InvalidParamValue | undefined;
   let fromUrl = false;
 
-  const { view: viewModeFromUrl, ...urlParams } =
-    parseQueryString(locationSearch);
+  const { view: viewModeFromUrl, ...urlParams } = Object.fromEntries(
+    new URLSearchParams(locationSearch)
+  );
 
   if (disableCardToggle) {
     viewMode = 'table';

@@ -25,8 +25,6 @@ import {
   ContactLocationState,
 } from '../adapters/contactFormAdapter';
 
-import { parseQueryString } from '../../shared/utils/url';
-
 import { LocationToPath, Location } from '../../app/config/urls';
 
 import styles from './styles/contact-form.module.scss';
@@ -65,7 +63,9 @@ const ContactForm = () => {
 
   let subjectDefault: undefined | string;
   if (isUpdate) {
-    const { entry, entryType } = parseQueryString(search);
+    const sp = new URLSearchParams(search);
+    const entry = sp.get('entry');
+    const entryType = sp.get('entryType');
     if (entryType && entry) {
       subjectDefault = `${entryType} ${entry} entry update request`;
     } else if (entry) {

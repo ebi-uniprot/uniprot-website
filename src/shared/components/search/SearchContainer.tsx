@@ -23,7 +23,7 @@ import { useSmallScreen } from '../../hooks/useMatchMedia';
 import lazy from '../../utils/lazy';
 import { addMessage } from '../../../messages/state/messagesActions';
 import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
-import { parseQueryString, stringifyQuery } from '../../utils/url';
+import { stringifyQuery } from '../../utils/url';
 
 import {
   Location,
@@ -276,7 +276,8 @@ const SearchContainer = ({
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
-    const { query } = parseQueryString(location.search, { decode: true });
+    const sp = new URLSearchParams(location.search);
+    const query = sp.get('query');
     // Using history here because history won't change, while location will
     if (
       history.location.pathname.includes(
