@@ -35,9 +35,8 @@ export const stringifyQuery = (...args: QueryStringArg[]) => {
       }
     }
   }
-  const sp = new URLSearchParams(combined);
-  sp.sort();
-  return sp.toString();
+  combined.sort();
+  return combined.toString();
 };
 
 export const stringifyUrl = (base: string, ...args: QueryStringArg[]) =>
