@@ -89,7 +89,7 @@ export const DiseaseVariants = ({
           <th>Description</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {variants.map((variant, i) => {
           let position = `${variant.location.start.value}`;
           if (variant.location.start.value !== variant.location.end.value) {
@@ -126,7 +126,7 @@ export const DiseaseVariants = ({
                 <td className={styles.change}>
                   {protvarVariantLink(variant, accession)}
                 </td>
-                <td>
+                <td translate="yes">
                   <RichText>{description}</RichText>
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />

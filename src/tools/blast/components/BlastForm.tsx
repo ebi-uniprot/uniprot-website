@@ -300,7 +300,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro title={title} />
+      <PageIntro translate="no" title={title} />
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}
@@ -390,7 +390,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
           <section className="tools-form-section">
             <section className="tools-form-section__item">
               <label>
-                Name your BLAST job
+                Name your <span translate="no">BLAST</span> job
                 <input
                   name="title"
                   type="text"
@@ -461,9 +461,16 @@ const BlastForm = ({ initialFormValues }: Props) => {
                 disabled={submitDisabled}
                 onClick={submitBlastJob}
               >
-                {parsedSequences.length <= 1
-                  ? 'Run BLAST'
-                  : `BLAST ${parsedSequences.length} sequences`}
+                {parsedSequences.length <= 1 ? (
+                  <>
+                    Run <span translate="no">BLAST</span>
+                  </>
+                ) : (
+                  <>
+                    <span translate="no">BLAST</span>
+                    {` ${parsedSequences.length} sequences`}
+                  </>
+                )}
               </button>
             </section>
           </section>

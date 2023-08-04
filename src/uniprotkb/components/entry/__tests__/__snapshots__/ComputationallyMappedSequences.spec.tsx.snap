@@ -22,7 +22,11 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
         title="Select at least one entry to run a BLAST job"
         type="button"
       >
-        BLAST
+        <span
+          translate="no"
+        >
+          BLAST
+        </span>
       </button>
       <button
         class="button tertiary disabled no-small"
@@ -30,7 +34,11 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
         title="Select at least 2 entries to run an Align job"
         type="button"
       >
-        Align
+        <span
+          translate="no"
+        >
+          Align
+        </span>
       </button>
       <button
         class="button tertiary disabled no-small"
@@ -96,7 +104,9 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody
+          translate="no"
+        >
           <tr>
             <td
               class="checkbox-cell"

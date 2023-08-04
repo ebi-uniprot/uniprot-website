@@ -14,6 +14,7 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
       Search for Enzyme Classification
       <div
         class="autocomplete-container"
+        translate="no"
       >
         <span
           class="search-input"
@@ -256,6 +257,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
       Search for Taxonomy
       <div
         class="autocomplete-container"
+        translate="no"
       >
         <span
           class="search-input"

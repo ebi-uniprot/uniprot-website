@@ -242,7 +242,7 @@ const VariationView = ({
           <th>Provenance</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {filteredVariants.map((variantFeature) => {
           let position = variantFeature.start;
           if (variantFeature.start !== variantFeature.end) {
@@ -339,7 +339,7 @@ const VariationView = ({
                   {!variantFeature.wildType &&
                     !variantFeature.alternativeSequence && <em>missing</em>}
                 </td>
-                <td>
+                <td translate="yes">
                   {variantFeature.descriptions?.length ? (
                     Array.from(variantFeature.descriptions)
                       .sort(sortDescriptionByUniProtFirst)
@@ -360,7 +360,7 @@ const VariationView = ({
                     <UniProtKBEvidenceTag evidences={uniProtEvidences} />
                   )}
                 </td>
-                <td>
+                <td translate="yes">
                   {variantFeature.clinicalSignificances?.map(
                     (clinicalSignificance, i) => (
                       // eslint-disable-next-line react/no-array-index-key

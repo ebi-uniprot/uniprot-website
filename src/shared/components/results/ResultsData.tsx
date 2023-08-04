@@ -14,6 +14,7 @@ import {
   Message,
 } from 'franklin-sites';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
+import cn from 'classnames';
 
 import UniProtKBGroupBy from '../../../uniprotkb/components/results/UniProtKBGroupBy';
 
@@ -177,7 +178,7 @@ const ResultsData = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={loadComponent}
-        className={styles['results-data']}
+        className={cn('hotjar-margin', styles['results-data'])}
       />
     );
   } else {
@@ -194,7 +195,7 @@ const ResultsData = ({
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}
-          className={styles['results-data']}
+          className={cn('hotjar-margin', styles['results-data'])}
         />
       </EllipsisReveal.Provider>
     );

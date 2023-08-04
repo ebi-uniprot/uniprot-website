@@ -74,7 +74,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              translate="no"
+            >
               <tr>
                 <td>
                   <span>
@@ -105,6 +107,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10254"
                     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                    translate="no"
                   >
                     Vaccinia virus (strain Western Reserve) (VACV)
                   </a>
@@ -166,6 +169,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     class="xref-inactive"
                     href="/taxonomy/10254"
                     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                    translate="no"
                   >
                     Vaccinia virus (strain Western Reserve) (VACV)
                   </a>
@@ -224,6 +228,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10254"
                     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                    translate="no"
                   >
                     Vaccinia virus (strain Western Reserve) (VACV)
                   </a>
@@ -278,6 +283,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/9606"
                     title="Homo sapiens (Human), taxon ID 9606"
+                    translate="no"
                   >
                     Homo sapiens (Human)
                   </a>
@@ -332,6 +338,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/397342"
                     title="Horsepox virus (HSPV), taxon ID 397342"
+                    translate="no"
                   >
                     Horsepox virus (HSPV)
                   </a>
@@ -386,6 +393,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/32606"
                     title="Rabbitpox virus, taxon ID 32606"
+                    translate="no"
                   >
                     Rabbitpox virus
                   </a>
@@ -440,6 +448,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -494,6 +503,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10243"
                     title="Cowpox virus (CPV), taxon ID 10243"
+                    translate="no"
                   >
                     Cowpox virus (CPV)
                   </a>
@@ -595,6 +605,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -686,6 +697,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -730,6 +742,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10254"
                     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                    translate="no"
                   >
                     Vaccinia virus (strain Western Reserve) (VACV)
                   </a>
@@ -774,6 +787,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/32606"
                     title="Rabbitpox virus, taxon ID 32606"
+                    translate="no"
                   >
                     Rabbitpox virus
                   </a>
@@ -818,6 +832,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/397342"
                     title="Horsepox virus (HSPV), taxon ID 397342"
+                    translate="no"
                   >
                     Horsepox virus (HSPV)
                   </a>
@@ -862,6 +877,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10243"
                     title="Cowpox virus (CPV), taxon ID 10243"
+                    translate="no"
                   >
                     Cowpox virus (CPV)
                   </a>
@@ -906,6 +922,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -950,6 +967,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -994,6 +1012,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -1038,6 +1057,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -1082,6 +1102,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -1126,6 +1147,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -1170,6 +1192,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10243"
                     title="Cowpox virus (CPV), taxon ID 10243"
+                    translate="no"
                   >
                     Cowpox virus (CPV)
                   </a>
@@ -1214,6 +1237,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/10245"
                     title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
                   >
                     Vaccinia virus
                   </a>
@@ -1258,6 +1282,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   <a
                     href="/taxonomy/397342"
                     title="Horsepox virus (HSPV), taxon ID 397342"
+                    translate="no"
                   >
                     Horsepox virus (HSPV)
                   </a>

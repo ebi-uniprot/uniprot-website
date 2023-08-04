@@ -12,7 +12,6 @@ import {
 import { omit } from 'lodash-es';
 
 import ExternalLink from '../../shared/components/ExternalLink';
-import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {
   TaxonomyLineage,
@@ -157,7 +156,9 @@ const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
   render: (data: UniProtkbUIModel) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
     const goProcessTerms = goTerms && goTerms.get(aspect);
-    return goProcessTerms && <GOTermsView data={goProcessTerms} />;
+    return (
+      goProcessTerms && <GOTermsView data={goProcessTerms} translate="yes" />
+    );
   },
 });
 
@@ -192,7 +193,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
     'Mnemonic identifier of a UniProtKB entry',
     'entry_name'
   ),
-  render: (data) => <SimpleView termValue={data.uniProtkbId} />,
+  render: (data) => data.uniProtkbId,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
@@ -204,7 +205,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <>
+      <span translate="yes">
         <CSVView
           data={omit(proteinNamesData, 'contains')}
           bolderFirst={Boolean(proteinNamesData?.recommendedName)}
@@ -218,7 +219,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
             </em>
           </>
         )}
-      </>
+      </span>
     );
   },
 });

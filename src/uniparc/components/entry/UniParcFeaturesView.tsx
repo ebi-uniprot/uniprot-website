@@ -60,7 +60,7 @@ const UniParcFeaturesView: FC<{
           <th>Database</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {processedData.map((feature) => {
           const { database, databaseId } = feature;
           const databaseInfo =

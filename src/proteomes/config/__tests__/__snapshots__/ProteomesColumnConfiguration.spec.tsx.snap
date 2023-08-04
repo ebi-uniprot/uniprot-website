@@ -368,6 +368,7 @@ exports[`ProteomesColumnConfiguration component should render column "organism":
   <a
     href="/taxonomy/9606"
     title="Homo sapiens (Human), taxon ID 9606"
+    translate="no"
   >
     Homo sapiens (Human)
   </a>
@@ -379,6 +380,7 @@ exports[`ProteomesColumnConfiguration component should render column "organism_i
   <a
     href="/taxonomy/9606"
     title="Homo sapiens (Human), taxon ID 9606"
+    translate="no"
   >
     9606
   </a>

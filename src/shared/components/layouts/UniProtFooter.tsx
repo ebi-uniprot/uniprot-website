@@ -213,7 +213,9 @@ const FooterShortcuts = () => (
       <span className={footer.shortcuts__title}>Tools</span>
       <ul className="no-bullet">
         <li>
-          <Link to={LocationToPath[Location.Blast]}>BLAST</Link>
+          <Link to={LocationToPath[Location.Blast]} translate="no">
+            BLAST
+          </Link>
         </li>
         <li>
           <Link to={LocationToPath[Location.Align]}>Align</Link>

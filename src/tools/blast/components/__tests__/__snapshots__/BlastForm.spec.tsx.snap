@@ -4,6 +4,7 @@ exports[`BlastForm test Renders the form 1`] = `
 <DocumentFragment>
   <div
     class="page-intro"
+    translate="no"
   >
     <h1
       class=""
@@ -156,6 +157,7 @@ exports[`BlastForm test Renders the form 1`] = `
             Restrict by taxonomy
             <div
               class="autocomplete-container"
+              translate="no"
             >
               <span
                 class="search-input"
@@ -198,7 +200,13 @@ exports[`BlastForm test Renders the form 1`] = `
           class="tools-form-section__item"
         >
           <label>
-            Name your BLAST job
+            Name your 
+            <span
+              translate="no"
+            >
+              BLAST
+            </span>
+             job
             <input
               autocomplete="off"
               data-hj-allow="true"
@@ -523,7 +531,12 @@ exports[`BlastForm test Renders the form 1`] = `
             disabled=""
             type="submit"
           >
-            Run BLAST
+            Run 
+            <span
+              translate="no"
+            >
+              BLAST
+            </span>
           </button>
         </section>
       </section>

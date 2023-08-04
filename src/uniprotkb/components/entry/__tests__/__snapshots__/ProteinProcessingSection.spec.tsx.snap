@@ -236,6 +236,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                           class="button tertiary"
                           href="/blast?ids=P21802[2-8]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -627,6 +628,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[1-27]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -685,6 +687,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[28-772]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>

@@ -128,10 +128,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           <th data-filter="entry_1">Entry 1</th>
           <th>Entry 2</th>
           <th>Number of experiments</th>
-          <th>Intact</th>
+          <th translate="no">Intact</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {tableData.map((interaction) => (
           <tr
             key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}

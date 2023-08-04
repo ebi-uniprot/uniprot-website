@@ -46,9 +46,14 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
   });
 
   return inline ? (
-    <div className={styles['keyword-view--inline']}>{content}</div>
+    <div className={styles['keyword-view--inline']} translate="yes">
+      {content}
+    </div>
   ) : (
-    <ExpandableList descriptionString={idOnly ? 'keyword IDs' : 'keywords'}>
+    <ExpandableList
+      descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
+      translate="yes"
+    >
       {content}
     </ExpandableList>
   );
