@@ -44,6 +44,6 @@ export const stringifyUrl = (url: string, ...args: QueryStringArg[]) =>
   `${url}?${stringifyQuery(...args)}`;
 
 export const splitUrl = (url: string) => {
-  const [base, searchParams] = url.split('?');
-  return { base, searchParams };
+  const [base, query] = url.split('?');
+  return { base, query };
 };

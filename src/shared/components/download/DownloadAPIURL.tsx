@@ -24,14 +24,14 @@ const reIdMapping = new RegExp(
 );
 
 export const getSearchURL = (streamURL: string, batchSize = 500) => {
-  const { base, searchParams } = splitUrl(streamURL);
+  const { base, query } = splitUrl(streamURL);
   return stringifyUrl(
     base.search(reIdMapping) >= 0
       ? base.replace(reIdMapping, (_match, namespace) =>
           namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
         )
       : base.replace('/stream', '/search'),
-    searchParams,
+    query,
     { size: batchSize }
   );
 };
