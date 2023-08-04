@@ -12,9 +12,11 @@ const renderPieChart = (
   data: StatisticsItem[]
 ) => {
   // Specify the chart’s dimensions.
-  const width = 450,
+  const width = 400,
     height = 300,
-    radius = Math.min(width, height) / 2;
+    margin = 40;
+
+  const radius = Math.min(width, height) / 2 - margin;
 
   // Create the color scale.
   const color = d3
@@ -27,7 +29,8 @@ const renderPieChart = (
     .select(svgElement)
     .attr('width', width)
     .attr('height', height)
-    .attr('viewBox', [-width / 2, -height / 2, width, height]);
+    .append('g')
+    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
   const g = svg.append('g');
 
