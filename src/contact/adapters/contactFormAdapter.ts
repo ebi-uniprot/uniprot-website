@@ -20,6 +20,7 @@ import {
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { Location, LocationToPath } from '../../app/config/urls';
+import { stringifyUrl } from '../../shared/utils/url';
 
 export type ContactLocationState =
   | undefined
@@ -65,9 +66,7 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const subject = formData?.get('subject') as undefined | string;
 
   const tokenData = useDataApi<{ token: string }>(
-    subject
-      ? `${apiUrls.contact.token}?${new URLSearchParams({ key: subject })}`
-      : null
+    subject ? stringifyUrl(apiUrls.contact.token, { key: subject }) : null
   );
   const token = tokenData.data?.token;
 

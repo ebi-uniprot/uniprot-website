@@ -15,7 +15,6 @@ import {
   IOptions,
 } from 'sanitize-html';
 import cn from 'classnames';
-import qs from 'query-string';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
@@ -42,6 +41,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/entry.module.scss';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
 const sameAppURL = new RegExp(window.location.origin + BASE_URL, 'i');
@@ -231,7 +231,7 @@ const HelpEntry = ({
       <Redirect
         to={{
           pathname: LocationToPath[Location.HelpResults],
-          search: qs.stringify({
+          search: stringifyQuery({
             query: accession?.replaceAll('_', ' ') || '*',
           }),
         }}

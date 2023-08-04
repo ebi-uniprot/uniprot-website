@@ -1,6 +1,5 @@
 import { Suspense, useState, useCallback, FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { parse as qsParse, stringify as qsStringify } from 'query-string';
 import { Button, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
@@ -13,6 +12,7 @@ import {
   parse,
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
+import { stringifyQuery } from '../../utils/url';
 
 import { SearchableNamespace } from '../../types/namespaces';
 
@@ -31,8 +31,8 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
   const { search } = useLocation();
   const { jobId } = useJobFromUrl();
 
-  const parsedSearch = qsParse(search);
-  const parsedClauses = parse(parsedSearch?.query as string | undefined);
+  const parsedSearch = new URLSearchParams(search);
+  const parsedClauses = parse(parsedSearch.get('query') as string | undefined);
   const interestingClauses = parsedClauses.filter((clause) =>
     interestingTerms.test(clause.searchTerm.term)
   );
@@ -53,7 +53,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
                 // eslint-disable-next-line uniprot-website/use-config-location
                 to={(location) => ({
                   ...location,
-                  search: qsStringify({
+                  search: stringifyQuery({
                     ...parsedSearch,
                     query: stringify(
                       // all clauses minus this active one

@@ -6,7 +6,6 @@ import {
   Loader,
   SearchInput,
 } from 'franklin-sites';
-import qs from 'query-string';
 import cn from 'classnames';
 import { debounce } from 'lodash-es';
 
@@ -22,7 +21,7 @@ import {
   help as helpURL,
   news as newsURL,
 } from '../../../shared/config/apiUrls';
-import { parseQueryString } from '../../../shared/utils/url';
+import { parseQueryString, stringifyQuery } from '../../../shared/utils/url';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
@@ -90,8 +89,7 @@ const Results = ({
                 ? Location.ReleaseNotesResults
                 : Location.HelpResults
             ],
-          search: qs.stringify({
-            ...parseQueryString(history.location.search),
+          search: stringifyQuery(history.location.search, {
             query: searchValue || '*',
           }),
         });

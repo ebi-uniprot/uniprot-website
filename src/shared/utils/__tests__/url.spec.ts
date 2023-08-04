@@ -40,6 +40,9 @@ describe('stringifyQuery', () => {
     ],
     [['a=1&b=true', { a: undefined, b: false }], 'b=false'],
     [['a=1&b=true&c=2', 'a=2&b=false'], 'a=2&b=false&c=2'],
+    [[{ a: [1, 2] }, { b: undefined }], 'a=1,2'],
+    [[{ a: ['1', '2'] }, { b: undefined }], 'a=1,2'],
+    [[new URLSearchParams('a=1&b=true&c=2'), { b: false }], 'a=1&b=false&c=2'],
   ];
 
   test.each(testCases)(
