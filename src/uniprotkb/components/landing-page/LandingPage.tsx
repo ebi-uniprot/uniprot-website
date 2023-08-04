@@ -24,7 +24,6 @@ import ftpUrls from '../../../shared/config/ftpUrls';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
-import { StatisticsPayload } from '../statistics-page/StatisticsPage';
 
 import styles from './styles/landing-page.module.scss';
 
@@ -138,9 +137,15 @@ const LandingPage = () => {
                   Reviewed (Swiss-Prot)
                   <br />
                   {numberReviewed && (
-                    <LongNumber>{numberReviewed}</LongNumber>
-                  )}{' '}
-                  entries
+                    <Link
+                      to={{
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `facets=reviewed:true&query=*`,
+                      }}
+                    >
+                      <LongNumber>{numberReviewed}</LongNumber> entries
+                    </Link>
+                  )}
                 </div>
               </div>
               <div className={styles['entries-count__content']}>
@@ -152,9 +157,15 @@ const LandingPage = () => {
                   Unreviewed (TrEMBL)
                   <br />
                   {numberUnreviewed && (
-                    <LongNumber>{numberUnreviewed}</LongNumber>
-                  )}{' '}
-                  entries
+                    <Link
+                      to={{
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `facets=reviewed:false&query=*`,
+                      }}
+                    >
+                      <LongNumber>{numberUnreviewed}</LongNumber> entries
+                    </Link>
+                  )}
                 </div>
               </div>
               <Link
