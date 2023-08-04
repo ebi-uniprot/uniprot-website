@@ -46,7 +46,7 @@ describe('stringifyQuery', () => {
   ];
 
   test.each(testCases)(
-    'should %p : %p',
+    'should stringify %j as %p',
     (queryStringArgs, expectedQueryString) => {
       expect(stringifyQuery(...queryStringArgs)).toEqual(expectedQueryString);
     }
