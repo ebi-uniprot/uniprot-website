@@ -1,11 +1,10 @@
 import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import qs from 'query-string';
 
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
-import { parseQueryString } from '../utils/url';
+import { parseQueryString, stringifyQuery } from '../utils/url';
 import { sendGtagEventViewMode } from '../utils/gtagEvents';
 
 import { Namespace } from '../types/namespaces';
@@ -84,7 +83,7 @@ const useViewMode = (
           // eslint-disable-next-line uniprot-website/use-config-location
           {
             pathname: history.location.pathname,
-            search: qs.stringify({ ...urlParams, view: vm }),
+            search: stringifyQuery({ ...urlParams, view: vm }),
           }
         );
       } else {

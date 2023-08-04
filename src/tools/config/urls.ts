@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import deepFreeze from 'deep-freeze';
 import joinUrl from 'url-join';
 
@@ -16,6 +15,7 @@ import { JobTypes } from '../types/toolsJobTypes';
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../shared/types/namespaces';
+import { stringifyUrl } from '../../shared/utils/url';
 
 type CommonResultFormats =
   | 'out' // raw output of the tool
@@ -91,10 +91,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
         resultUrl: (redirectUrl, extra) =>
-          queryString.stringifyUrl({
-            url: redirectUrl,
-            query: getAPIQueryParams(extra),
-          }),
+          stringifyUrl(redirectUrl, getAPIQueryParams(extra)),
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:
