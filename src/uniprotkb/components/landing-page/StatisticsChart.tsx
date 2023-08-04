@@ -93,6 +93,13 @@ const renderPieChart = (
     .enter()
     .append('text')
     .attr('dy', '.35em')
+    .style('pointer-events', 'auto')
+    .style('cursor', 'pointer')
+    .style('fill', '#014371')
+    .style('font-weight', 'bold')
+    .on('click', function (d) {
+      window.location.href = `${window.location.href}?query=${d.data.name}`;
+    })
     .text((d) => d.data.name)
     .merge(text)
     .transition()
