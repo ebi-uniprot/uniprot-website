@@ -25,7 +25,7 @@ export const stringifyQuery = (...args: QueryStringArg[]) => {
     const iter =
       (typeof arg === 'string' && new URLSearchParams(arg)) ||
       (arg instanceof URLSearchParams && arg) ||
-      (typeof arg !== 'undefined' && Object.entries(arg)) ||
+      (typeof arg === 'object' && arg !== null && Object.entries(arg)) ||
       [];
     for (const [k, v] of iter) {
       if (typeof v !== 'undefined' && v !== null) {
