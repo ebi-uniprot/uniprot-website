@@ -3,7 +3,6 @@ import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import joinUrl from 'url-join';
 import cn from 'classnames';
-import qs from 'query-string';
 import { frame } from 'timing-functions';
 
 import EntrySection, {
@@ -42,6 +41,7 @@ import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -398,7 +398,7 @@ const Entry = () => {
                 <ContactLink
                   to={{
                     pathname: LocationToPath[Location.ContactUpdate],
-                    search: qs.stringify({
+                    search: stringifyQuery({
                       entry: match.params.accession,
                       entryType:
                         transformedData?.entryType === EntryType.REVIEWED
