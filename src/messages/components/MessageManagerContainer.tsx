@@ -24,7 +24,7 @@ const MessageManager = () => {
   //  useRouteMatch.path & match.path: /uniprotkb/:id/external-links
   // The getLocationForPathname will find the location by searching over LocationToPath in app/config/urls
   const { pathname } = useLocation();
-  const currentLocation = getLocationForPathname(pathname) as Location;
+  const currentLocation = getLocationForPathname(pathname);
   const messages = useMessagesState();
   const dispatch = useMessagesDispatch();
   const { true: omitAndDeleteMessages = [], false: restActiveMessages = [] } =
