@@ -81,11 +81,10 @@ export const getUniprotkbFtpFilenameAndUrl = (
 ) => {
   const sp = new URLSearchParams(downloadUrl);
   const query = sp.get('query');
-  const q = Array.isArray(query) ? query[0] : query;
-  if (!q) {
+  if (!query) {
     return null;
   }
-  const simplifiedQuery = simplifyQuery(q);
+  const simplifiedQuery = simplifyQuery(query);
   if (!simplifiedQuery) {
     return null;
   }
