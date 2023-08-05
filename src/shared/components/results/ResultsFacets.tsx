@@ -115,7 +115,7 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
         <TaxonomyFacet namespace={namespace as SearchableNamespace} />
       )}
       {namespace === Namespace.uniprotkb &&
-        currentLocation === Location.UniProtKBResults && (
+        currentLocation !== Location.UniProtKBEntry && (
           <UniProtKBGroupByFacet />
         )}
       {after.map(
