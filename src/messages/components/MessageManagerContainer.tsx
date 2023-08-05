@@ -12,7 +12,6 @@ import { deleteMessage } from '../state/messagesActions';
 import { getLocationForPathname } from '../../shared/utils/url';
 
 import { MessageFormat } from '../types/messagesTypes';
-import { Location } from '../../app/config/urls';
 
 import styles from './styles/popup-message-hub.module.scss';
 
@@ -33,6 +32,7 @@ const MessageManager = () => {
       ({ omitAndDeleteAtLocations = [] }) =>
         !!omitAndDeleteAtLocations &&
         omitAndDeleteAtLocations.length > 0 &&
+        !!currentLocation &&
         omitAndDeleteAtLocations.includes(currentLocation)
     );
 
@@ -45,7 +45,7 @@ const MessageManager = () => {
   const filteredActiveMessages = restActiveMessages.filter(
     ({ locations }) =>
       // if no locations in the message object then show it everywhere or if locations exists only where indicated
-      !locations || locations.includes(currentLocation)
+      !locations || (!!currentLocation && locations.includes(currentLocation))
   );
 
   const {
