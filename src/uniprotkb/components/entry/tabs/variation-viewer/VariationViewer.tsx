@@ -19,9 +19,9 @@ import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import DatatableWithToggle from '../../../../../shared/components/views/DatatableWithToggle';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
+import { NightingaleManager } from '../../../../../nightingale/manager/NightingaleManager';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
-import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 
 import { proteinsApi } from '../../../../../shared/config/apiUrls';
@@ -177,13 +177,6 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
   const filteredVariants = useMemo(
     () => sortedVariants && applyFilters(sortedVariants, filters),
     [sortedVariants, filters]
-  );
-
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
   );
 
   if (loading) {
@@ -502,7 +495,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
   return (
     <section className="wider-tab-content hotjar-margin">
       {title && <h2>{title}</h2>}
-      <managerElement.name
+      <NightingaleManager
         attributes="highlight displaystart displayend activefilters filters selectedid"
         ref={managerRef}
       >
@@ -510,7 +503,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
           <VisualVariationView {...transformedData} />
         </Suspense>
         <DatatableWithToggle>{table}</DatatableWithToggle>
-      </managerElement.name>
+      </NightingaleManager>
     </section>
   );
 };
