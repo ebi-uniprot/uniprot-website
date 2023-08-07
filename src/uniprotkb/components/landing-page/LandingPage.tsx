@@ -26,6 +26,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import styles from './styles/landing-page.module.scss';
+import { Fragment } from 'react';
 
 const availableFTPFormats = {
   fasta: 'fasta',
@@ -37,14 +38,17 @@ const tutorialsInfo = [
   {
     id: 'yp1O1gDK8oA',
     title: 'How to search UniProtKB',
+    date: '26 Oct 2021',
   },
   {
     id: 'BHu88Sv--mc',
     title: 'How to explore a UniProt entry',
+    date: '17 Feb 2022',
   },
   {
     id: 'p4_gGkM-Rfs',
     title: 'How to download embeddings in UniProt',
+    date: '25 Jul 2023',
   },
 ];
 
@@ -231,18 +235,29 @@ const LandingPage = () => {
         >
           How to use UniProtKB
         </h4>
-        {tutorialsInfo.map((item, i) => (
-          <div
-            key={item.id}
-            className={cn(
-              'uniprot-grid-cell--small-span-12',
-              'uniprot-grid-cell--medium-span-2',
-              // i === 0 ? 'uniprot-grid-cell--medium-offset-3' : '',
-              styles.tutorial
-            )}
-          >
-            <YouTubeEmbed id={item.id} title={item.title} />
-          </div>
+        {tutorialsInfo.map((item) => (
+          <Fragment key={item.id}>
+            <div
+              className={cn(
+                'uniprot-grid-cell--small-span-6',
+                'uniprot-grid-cell--medium-span-2',
+                styles.tutorial
+              )}
+            >
+              <YouTubeEmbed id={item.id} title={item.title} />
+            </div>
+            <div
+              className={cn(
+                'uniprot-grid-cell--small-span-6',
+                'uniprot-grid-cell--medium-span-2',
+                styles.tutorial
+              )}
+            >
+              <div className={styles['tutorial__title']}>{item.title}</div>
+              <br />
+              {item.date}
+            </div>
+          </Fragment>
         ))}
       </div>
     </div>

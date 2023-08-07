@@ -64,6 +64,12 @@
 
     .tutorial {
       margin-bottom: 3rem;
+
+      &__title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }
