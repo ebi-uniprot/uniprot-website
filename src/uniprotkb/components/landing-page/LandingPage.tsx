@@ -231,12 +231,13 @@ const LandingPage = () => {
         >
           How to use UniProtKB
         </h4>
-        {tutorialsInfo.map((item) => (
+        {tutorialsInfo.map((item, i) => (
           <div
             key={item.id}
             className={cn(
               'uniprot-grid-cell--small-span-12',
-              'uniprot-grid-cell--medium-span-4',
+              'uniprot-grid-cell--medium-span-2',
+              // i === 0 ? 'uniprot-grid-cell--medium-offset-3' : '',
               styles.tutorial
             )}
           >
