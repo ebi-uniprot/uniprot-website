@@ -106,6 +106,8 @@ describe('QueryBuilder', () => {
 
     expect(onCancel).toHaveBeenCalledTimes(1);
     expect(rendered.history.location.pathname).toBe('/uniprotkb');
-    expect(rendered.history.location.search).toBe('?query=(gene:zen) OR eve');
+    expect(rendered.history.location.search).toBe(
+      '?query=%28gene%3Azen%29+OR+eve'
+    );
   });
 });
