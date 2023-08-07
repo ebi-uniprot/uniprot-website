@@ -55,20 +55,20 @@ const renderPieChart = (
     .innerRadius(radius * 0.9)
     .outerRadius(radius * 0.9);
 
-  const key = (d) => {
-    return d.data.name;
+  const key = (d: d3.PieArcDatum<StatisticsItem>) => {
+    return (d.data as StatisticsItem).name;
   };
 
   /* ------- PIE SLICES -------*/
   const pieData = pie(data);
-  const slice = g.select('.slices').selectAll('path.slice').data(pieData, key);
+  const slice = g
+    .select('.slices')
+    .selectAll<SVGPathElement, d3.PieArcDatum<StatisticsItem>>('path.slice')
+    .data(pieData, key);
 
   slice
     .enter()
     .insert('path')
-    .style('fill', (d) => {
-      return color(d.data.name);
-    })
     .attr('class', 'slice')
     .merge(slice)
     .transition()
@@ -81,15 +81,21 @@ const renderPieChart = (
         return arc(interpolate(t));
       };
     })
+    .style('fill', (d) => {
+      return color(d.data.name);
+    })
     .style('stroke-width', '2px');
 
   slice.exit().remove();
 
   /* ------- TEXT LABELS -------*/
 
-  const text = g.select('.labels').selectAll('text').data(pie(data), key);
+  const text = g
+    .select('.labels')
+    .selectAll<SVGTextElement, d3.PieArcDatum<StatisticsItem>>('text')
+    .data(pie(data));
 
-  const midAngle = (d) => {
+  const midAngle = (d: d3.DefaultArcObject) => {
     return d.startAngle + (d.endAngle - d.startAngle) / 2;
   };
 
@@ -135,7 +141,7 @@ const renderPieChart = (
 
   const polyline = g
     .select('.lines')
-    .selectAll('polyline')
+    .selectAll<SVGPathElement, d3.PieArcDatum<StatisticsItem>>('polyline')
     .data(pie(data), key);
 
   polyline
@@ -198,14 +204,20 @@ const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
         [
           ...(taxonReviewed?.items as []),
           ...(taxonUnreviewed?.items as []),
-        ].reduce((acc, { name, count, entryCount }) => {
-          acc[name] = {
-            name,
-            count: (acc[name] ? acc[name].count : 0) + count,
-            entryCount: (acc[name] ? acc[name].entryCount : 0) + entryCount,
-          };
-          return acc;
-        }, {})
+        ].reduce(
+          (
+            acc: Record<string, StatisticsItem>,
+            { name, count, entryCount }
+          ) => {
+            acc[name] = {
+              name,
+              count: (acc[name] ? acc[name].count : 0) + count,
+              entryCount: (acc[name] ? acc[name].entryCount : 0) + entryCount,
+            };
+            return acc;
+          },
+          {}
+        )
       );
 
       renderPieChart(svgRef.current, taxonSummed as StatisticsItem[]);
