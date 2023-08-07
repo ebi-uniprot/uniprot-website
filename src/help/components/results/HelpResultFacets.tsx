@@ -8,12 +8,11 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { HelpSearchResponse } from '../../adapters/helpConverter';
-import { parseQueryString } from '../../../shared/utils/url';
 
 const HelpResultFacets: FC = () => {
   const { search } = useLocation();
 
-  const parsed = parseQueryString(search);
+  const parsed = Object.fromEntries(new URLSearchParams(search));
 
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
     helpURL.search({
@@ -24,7 +23,8 @@ const HelpResultFacets: FC = () => {
   );
 
   const fallBackAppliedFacets = useMemo(() => {
-    const { facets } = parseQueryString(search);
+    const sp = new URLSearchParams(search);
+    const facets = sp.get('facets');
     const facetValues = facets || '';
     return {
       loading: false,

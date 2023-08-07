@@ -366,7 +366,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           style="width: 20ch;"
         >
           <a
-            href="/uniprotkb?groupBy=taxonomy&query=*&parent=131567"
+            href="/uniprotkb?groupBy=taxonomy&parent=131567&query=*"
             title="Set parent node to cellular organismsID:131567"
           >
             cellular organisms
@@ -416,7 +416,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           style="width: 20ch;"
         >
           <a
-            href="/uniprotkb?groupBy=taxonomy&query=*&parent=2787854"
+            href="/uniprotkb?groupBy=taxonomy&parent=2787854&query=*"
             title="Set parent node to other entriesID:2787854"
           >
             other entries
@@ -466,7 +466,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           style="width: 20ch;"
         >
           <a
-            href="/uniprotkb?groupBy=taxonomy&query=*&parent=2787823"
+            href="/uniprotkb?groupBy=taxonomy&parent=2787823&query=*"
             title="Set parent node to unclassified entriesID:2787823"
           >
             unclassified entries
@@ -516,7 +516,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           style="width: 20ch;"
         >
           <a
-            href="/uniprotkb?groupBy=taxonomy&query=*&parent=10239"
+            href="/uniprotkb?groupBy=taxonomy&parent=10239&query=*"
             title="Set parent node to VirusesID:10239"
           >
             Viruses

@@ -15,7 +15,6 @@ import {
   IOptions,
 } from 'sanitize-html';
 import cn from 'classnames';
-import qs from 'query-string';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
@@ -36,6 +35,7 @@ import cleanText, {
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
 import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -231,7 +231,7 @@ const HelpEntry = ({
       <Redirect
         to={{
           pathname: LocationToPath[Location.HelpResults],
-          search: qs.stringify({
+          search: stringifyQuery({
             query: accession?.replaceAll('_', ' ') || '*',
           }),
         }}

@@ -1,11 +1,12 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import queryString from 'query-string';
 
 import customRender from '../../../__test-helpers__/customRender';
 
 import Download, { getPreviewFileFormat } from '../Download';
 
 import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
+
+import { stringifyQuery } from '../../../utils/url';
 
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
@@ -159,16 +160,14 @@ describe('Download with passed query and selectedQuery props', () => {
     );
     let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining(queryString.stringify({ query: `(${query})` }))
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );
     fireEvent.click(
       screen.getByLabelText(`Download selected (${numberSelectedEntries})`)
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining(
-        queryString.stringify({ query: `(${selectedQuery})` })
-      )
+      expect.stringContaining(stringifyQuery({ query: `(${selectedQuery})` }))
     );
   });
 });
@@ -322,7 +321,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     );
     let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining(queryString.stringify({ query: `(${query})` }))
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );
 
     fireEvent.click(
@@ -333,7 +332,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
-        queryString.stringify({
+        stringifyQuery({
           query: `((proteome:UP000005640) AND reviewed=true)`,
         })
       )
@@ -347,14 +346,11 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     );
 
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
-    expect(downloadLink.href).toEqual(
-      expect.stringContaining(
-        queryString.stringify({
-          query: `((proteome:UP000005640) AND reviewed=true)`,
-          includeIsoform: true,
-        })
-      )
-    );
+    const foo = stringifyQuery({
+      query: `((proteome:UP000005640) AND reviewed=true)`,
+      includeIsoform: true,
+    });
+    expect(downloadLink.href).toEqual(expect.stringContaining(foo));
     options = screen.getAllByRole('option');
     expect(options).toHaveLength(1);
 

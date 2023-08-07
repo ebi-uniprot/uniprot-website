@@ -26,7 +26,7 @@ import { pluralise } from '../../shared/utils/utils';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 import { rawDBToNamespace } from '../../tools/id-mapping/utils';
-import { parseQueryString } from '../../shared/utils/url';
+import { stringifyQuery } from '../../shared/utils/url';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
@@ -139,7 +139,8 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         return clauses;
       }
 
-      let query = parseQueryString(location.search, { decode: true })?.query;
+      const sp = new URLSearchParams(location.search);
+      let query = sp.get('query');
       if (query === '*') {
         // if the query is a star query, don't parse it, default to example form
         query = null;
@@ -156,7 +157,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         frame().then(() => {
           dispatch(
             addMessage({
-              id: Array.isArray(query) ? query[0] : query || undefined,
+              id: query || undefined,
               content: `Found ${
                 invalidClauses.length
               } invalid query ${pluralise(
@@ -267,7 +268,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const queryString = stringify(clauses) || '*';
+    const search = stringifyQuery({ query: stringify(clauses) || '*' });
     const pathname =
       searchspace === toolResults && jobId && jobResultsLocation
         ? generatePath(LocationToPath[jobResultsLocation], {
@@ -277,7 +278,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         : SearchResultsLocations[searchspace as SearchableNamespace];
     history.push({
       pathname,
-      search: `query=${queryString}`,
+      search,
     });
     onCancel();
   };

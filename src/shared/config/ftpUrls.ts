@@ -1,6 +1,5 @@
 import { capitalize } from 'lodash-es';
 import joinUrl from 'url-join';
-import queryString from 'query-string';
 
 import { FileFormat } from '../types/resultsDownload';
 
@@ -21,7 +20,7 @@ const ftpUrls = {
       ftpUniProt,
       `/current_release/knowledgebase/pan_proteomes/${id}.fasta.gz`
     ),
-  embeddings: joinUrl(ftpUniProt, '/current_release/knowledgebase/embeddings/'),
+  embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
 };
 
 const restFormatToFtpFormat = new Map([
@@ -80,13 +79,12 @@ export const getUniprotkbFtpFilenameAndUrl = (
   downloadUrl: string,
   format: FileFormat
 ) => {
-  const parsed = queryString.parseUrl(downloadUrl);
-  const { query } = parsed.query;
-  const q = Array.isArray(query) ? query[0] : query;
-  if (!q) {
+  const sp = new URLSearchParams(downloadUrl);
+  const query = sp.get('query');
+  if (!query) {
     return null;
   }
-  const simplifiedQuery = simplifyQuery(q);
+  const simplifiedQuery = simplifyQuery(query);
   if (!simplifiedQuery) {
     return null;
   }

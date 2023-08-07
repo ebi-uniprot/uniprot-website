@@ -25,7 +25,7 @@ export const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
   });
 
 const parseAndMatchQuery = (
-  query: string | string[] | null | undefined,
+  query: string | null,
   searchTermsData: SearchTermType[],
   fieldToAdd?: string
 ): [valid: Clause[], invalid: Clause[]] => {
@@ -34,7 +34,7 @@ const parseAndMatchQuery = (
 
   let parsedQuery: Clause[] = [];
   if (query) {
-    parsedQuery = (Array.isArray(query) ? query : [query]).flatMap(parse);
+    parsedQuery = parse(query);
   }
   if (fieldToAdd) {
     parsedQuery = [

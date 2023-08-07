@@ -469,7 +469,7 @@ exports[`Entry basic should render main 1`] = `
             </a>
             <a
               class="button tertiary"
-              href="/update?entry=P21802&entryType=Reviewed%20%28Swiss-Prot%29"
+              href="/update?entry=P21802&entryType=Reviewed+%28Swiss-Prot%29"
             >
               Entry feedback
             </a>

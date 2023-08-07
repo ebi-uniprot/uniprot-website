@@ -1,7 +1,6 @@
 import { Button, CodeBlock, CopyIcon, LongNumber } from 'franklin-sites';
 import { useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import queryString from 'query-string';
 
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
@@ -12,6 +11,7 @@ import {
 } from '../../../messages/state/messagesActions';
 
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
+import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -24,19 +24,16 @@ const reIdMapping = new RegExp(
 );
 
 export const getSearchURL = (streamURL: string, batchSize = 500) => {
-  const parsed = queryString.parseUrl(streamURL);
-  let { url } = parsed;
-  if (url.search(reIdMapping) >= 0) {
-    url = url.replace(reIdMapping, (_match, namespace) =>
-      namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
-    );
-  } else {
-    url = url.replace('/stream', '/search');
-  }
-  return queryString.stringifyUrl({
-    url,
-    query: { ...parsed.query, size: batchSize },
-  });
+  const { base, query } = splitUrl(streamURL);
+  return stringifyUrl(
+    base.search(reIdMapping) >= 0
+      ? base.replace(reIdMapping, (_match, namespace) =>
+          namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
+        )
+      : base.replace('/stream', '/search'),
+    query,
+    { size: batchSize }
+  );
 };
 
 // NOTE: update as needed if backend limitations change!
