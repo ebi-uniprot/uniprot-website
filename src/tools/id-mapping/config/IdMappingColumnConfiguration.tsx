@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import ExternalLink from '../../../shared/components/ExternalLink';
 
 import From from '../components/results/FromColumn';
@@ -30,10 +32,19 @@ export const fromColumnConfig = {
 
 IdMappingColumnConfiguration.set(IDMappingColumn.from, fromColumnConfig);
 
+const origin = 'https://www.uniprot.org';
+
 IdMappingColumnConfiguration.set(IDMappingColumn.to, {
   label: 'To',
   render: (row) => {
     const { url, to } = row as MappingTo & MappingFrom;
-    return url ? <ExternalLink url={url}>{to}</ExternalLink> : to;
+    if (!url) {
+      return to;
+    }
+    if (url.startsWith(origin)) {
+      // eslint-disable-next-line uniprot-website/use-config-location
+      return <Link to={url.replace(origin, '')}>{to}</Link>;
+    }
+    return <ExternalLink url={url}>{to}</ExternalLink>;
   },
 });

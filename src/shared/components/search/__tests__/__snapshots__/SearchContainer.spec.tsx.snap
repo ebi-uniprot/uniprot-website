@@ -67,40 +67,44 @@ exports[`Search component on home page should render 1`] = `
     >
       <div>
         Examples: 
-        <button
-          class="button tertiary"
-          type="button"
+        <span
+          translate="no"
         >
-          Insulin
-        </button>
-        , 
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          APP
-        </button>
-        , 
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          Human
-        </button>
-        , 
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          P05067
-        </button>
-        , 
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          organism_id:9606
-        </button>
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            Insulin
+          </button>
+          , 
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            APP
+          </button>
+          , 
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            Human
+          </button>
+          , 
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            P05067
+          </button>
+          , 
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            organism_id:9606
+          </button>
+        </span>
       </div>
     </div>
   </section>

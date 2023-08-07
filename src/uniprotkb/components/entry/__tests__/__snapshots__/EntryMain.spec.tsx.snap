@@ -653,6 +653,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:ENZYME)&direct"
+                  translate="no"
                 >
                   ENZYME
                 </a>
@@ -2180,6 +2181,7 @@ exports[`Entry view should render 1`] = `
                 <a
                   href="/taxonomy/9606"
                   title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                  translate="no"
                 >
                   scientific name (common name) (synonyms 1)
                 </a>
@@ -2287,6 +2289,7 @@ exports[`Entry view should render 1`] = `
                     <a
                       href="/taxonomy/9606"
                       title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                      translate="no"
                     >
                       scientific name (common name) (synonyms 1)
                     </a>
@@ -2812,7 +2815,7 @@ exports[`Entry view should render 1`] = `
           />
         </div>
         <div
-          class="datatable-with-toggle"
+          class="datatable-wrapper"
         >
           <protvista-datatable
             filter-scroll="true"
@@ -2836,12 +2839,16 @@ exports[`Entry view should render 1`] = `
                   <th>
                     Number of experiments
                   </th>
-                  <th>
+                  <th
+                    translate="no"
+                  >
                     Intact
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                translate="no"
+              >
                 <tr>
                   <td
                     data-filter="type"
@@ -2983,6 +2990,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:ModBase)&direct"
+                  translate="no"
                 >
                   ModBase
                 </a>
@@ -3020,6 +3028,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:SWISS-MODEL-Workspace)&direct"
+                  translate="no"
                 >
                   SWISS-MODEL-Workspace
                 </a>
@@ -3094,6 +3103,7 @@ exports[`Entry view should render 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -3145,6 +3155,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:MobiDB)&direct"
+                  translate="no"
                 >
                   MobiDB
                 </a>
@@ -3205,7 +3216,12 @@ exports[`Entry view should render 1`] = `
             href="/blast?ids=isoID1"
             title="Run a BLAST job against isoID1"
           >
-            BLAST 1 isoform
+            <span
+              translate="no"
+            >
+              BLAST
+            </span>
+             1 isoform
           </a>
           <button
             class="button tertiary disabled no-small"
@@ -3213,7 +3229,11 @@ exports[`Entry view should render 1`] = `
             title="Select at least 2 entries to run an Align job"
             type="button"
           >
-            Align
+            <span
+              translate="no"
+            >
+              Align
+            </span>
           </button>
         </div>
         <ul
@@ -3515,6 +3535,7 @@ exports[`Entry view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:Ensembl)&direct"
+                  translate="no"
                 >
                   Ensembl
                 </a>
@@ -4014,7 +4035,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           attributes="highlight displaystart displayend selectedid"
         >
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"
@@ -4488,7 +4509,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             GO annotations
           </h3>
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"
@@ -4673,6 +4694,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -4708,6 +4730,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -4737,6 +4760,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:ENZYME)&direct"
+                  translate="no"
                 >
                   ENZYME
                 </a>
@@ -5009,6 +5033,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <a
                   href="/taxonomy/292800"
                   title="Flavonifractor plautii (Fusobacterium plautii), taxon ID 292800"
+                  translate="no"
                 >
                   Flavonifractor plautii (Fusobacterium plautii)
                 </a>
@@ -5134,7 +5159,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           attributes="highlight displaystart displayend selectedid"
         >
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"
@@ -5493,6 +5518,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:AlphaFoldDB)&direct"
+                  translate="no"
                 >
                   AlphaFoldDB
                 </a>
@@ -5530,6 +5556,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:SMR)&direct"
+                  translate="no"
                 >
                   SMR
                 </a>
@@ -5567,6 +5594,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:ModBase)&direct"
+                  translate="no"
                 >
                   ModBase
                 </a>
@@ -5604,6 +5632,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:PDBe-KB)&direct"
+                  translate="no"
                 >
                   PDBe-KB
                 </a>
@@ -5678,7 +5707,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           attributes="highlight displaystart displayend selectedid"
         >
           <div
-            class="datatable-with-toggle"
+            class="datatable-wrapper"
           >
             <protvista-datatable
               filter-scroll="true"
@@ -5754,6 +5783,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[180-402]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -5830,6 +5860,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[494-605]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -5906,6 +5937,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[502-765]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -5982,6 +6014,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                           class="button tertiary"
                           href="/blast?ids=P0DTR4[515-772]"
                           title="BLAST the sequence corresponding to this feature"
+                          translate="no"
                         >
                           BLAST
                         </a>
@@ -6073,6 +6106,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -6102,6 +6136,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:Gene3D)&direct"
+                  translate="no"
                 >
                   Gene3D
                 </a>
@@ -6140,6 +6175,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:InterPro)&direct"
+                  translate="no"
                 >
                   InterPro
                 </a>
@@ -6246,6 +6282,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:PROSITE)&direct"
+                  translate="no"
                 >
                   PROSITE
                 </a>
@@ -6298,6 +6335,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:Pfam)&direct"
+                  translate="no"
                 >
                   Pfam
                 </a>
@@ -6365,6 +6403,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:SMART)&direct"
+                  translate="no"
                 >
                   SMART
                 </a>
@@ -6417,6 +6456,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:SUPFAM)&direct"
+                  translate="no"
                 >
                   SUPFAM
                 </a>
@@ -6500,6 +6540,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:MobiDB)&direct"
+                  translate="no"
                 >
                   MobiDB
                 </a>
@@ -7132,6 +7173,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <ul
                   class="expandable-list no-bullet"
+                  translate="yes"
                 >
                   <li>
                      
@@ -7161,6 +7203,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 <a
                   href="/database?query=(name:RefSeq)&direct"
+                  translate="no"
                 >
                   RefSeq
                 </a>

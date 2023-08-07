@@ -1,7 +1,7 @@
 import { Loader } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -113,7 +113,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
           <th>Status</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {data.map(
           (d) =>
             d &&
@@ -176,15 +176,17 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                   </ExternalLink>
                   )
                 </td>
-                <td>{d.moleculeType.replace(/translation/i, '')}</td>
-                <td>{d.status}</td>
+                <td translate="yes">
+                  {d.moleculeType.replace(/translation/i, '')}
+                </td>
+                <td translate="yes">{d.status}</td>
               </tr>
             )
         )}
       </tbody>
     </table>
   );
-  return <DatatableWithToggle>{table}</DatatableWithToggle>;
+  return <DatatableWrapper>{table}</DatatableWrapper>;
 };
 
 export default EMBLView;

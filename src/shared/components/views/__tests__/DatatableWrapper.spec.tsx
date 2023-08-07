@@ -2,14 +2,14 @@ import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import DatatableWithToggle from '../DatatableWithToggle';
+import DatatableWrapper from '../DatatableWrapper';
 
-describe('DatatableWithToggle component', () => {
+describe('DatatableWrapper component', () => {
   it('should render with a working toggle button', async () => {
     const { asFragment } = customRender(
-      <DatatableWithToggle>
+      <DatatableWrapper>
         <table />
-      </DatatableWithToggle>
+      </DatatableWrapper>
     );
     expect(asFragment()).toMatchSnapshot();
     const button = screen.getByRole('button', { name: /Expand/ });
@@ -18,5 +18,15 @@ describe('DatatableWithToggle component', () => {
     expect(
       await screen.findByRole('button', { name: /Collapse/ })
     ).toBeInTheDocument();
+  });
+
+  it('should not render a toggle button if overriden', async () => {
+    const { asFragment } = customRender(
+      <DatatableWrapper alwaysExpanded>
+        <table />
+      </DatatableWrapper>
+    );
+    expect(asFragment()).toMatchSnapshot();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 });

@@ -10,14 +10,24 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       href="/blast?ids=P05067-1%2CP05067-2"
       title="Run 2 BLAST jobs against the selected entries"
     >
-      BLAST 2 isoforms
+      <span
+        translate="no"
+      >
+        BLAST
+      </span>
+       2 isoforms
     </a>
     <a
       class="button tertiary no-small"
       href="/align?ids=P05067-1%2CP05067-2"
       title="Run an Align job against 2 entries"
     >
-      Align 2 isoforms
+      <span
+        translate="no"
+      >
+        Align
+      </span>
+       2 isoforms
     </a>
   </div>
   <ul

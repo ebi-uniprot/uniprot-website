@@ -154,7 +154,7 @@ describe('SearchSuggestions', () => {
       />
     );
 
-    await screen.findByText('or search "eve"', { exact: false });
+    await screen.findByText('or search', { exact: false });
     expect(asFragment()).toMatchSnapshot();
   });
 

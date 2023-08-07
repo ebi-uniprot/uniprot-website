@@ -2,7 +2,7 @@ import { Fragment, lazy, ReactNode, useMemo } from 'react';
 import TransformedVariant from 'protvista-variation-adapter';
 
 import LazyComponent from '../LazyComponent';
-import DatatableWithToggle from './DatatableWithToggle';
+import DatatableWrapper from './DatatableWrapper';
 
 import useCustomElement from '../../hooks/useCustomElement';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
@@ -128,7 +128,7 @@ const FeaturesView = <
               />
             </LazyComponent>
           )}
-          <DatatableWithToggle>{table}</DatatableWithToggle>
+          <DatatableWrapper>{table}</DatatableWrapper>
         </managerElement.name>
       ) : null}
     </>

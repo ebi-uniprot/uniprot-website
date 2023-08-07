@@ -18,7 +18,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
     attributes="highlight displaystart displayend selectedid"
   >
     <div
-      class="datatable-with-toggle"
+      class="datatable-wrapper"
     >
       <protvista-datatable
         filter-scroll="true"
@@ -70,6 +70,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
                     class="button tertiary"
                     href="/blast?ids=P05067[1-17]"
                     title="BLAST the sequence corresponding to this feature"
+                    translate="no"
                   >
                     BLAST
                   </a>

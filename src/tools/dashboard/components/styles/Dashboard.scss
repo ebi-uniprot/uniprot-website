@@ -104,7 +104,7 @@
         'id   id   time parameters parameters';
       grid-template-columns: 10ch 33ch 12ch 1fr max-content;
       grid-gap: 1ch;
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: auto auto;
     }
 
     /* begin grid areas */
@@ -248,8 +248,7 @@
           'id         id         actions'
           'parameters parameters actions';
         grid-template-columns: 10ch minmax(27ch, auto) 12ch;
-        grid-gap: 0;
-        grid-template-rows: 1fr 1fr 1fr auto;
+        grid-template-rows: auto auto auto auto;
       }
 
       &__time {

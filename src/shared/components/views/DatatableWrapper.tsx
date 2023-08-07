@@ -3,20 +3,29 @@ import {
   useRef,
   useEffect,
   useLayoutEffect,
-  ReactNode,
-  useCallback,
+  HTMLAttributes,
 } from 'react';
 import { Button } from 'franklin-sites';
 import { useParams } from 'react-router-dom';
+import cn from 'classnames';
 
 import useCustomElement from '../../hooks/useCustomElement';
 
 import { sendGtagEventFeatureDataTableViewClick } from '../../utils/gtagEvents';
 
-import './styles/datatable-toggle.scss';
+import './styles/datatable-wrapper.scss';
 
-const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
-  const [showButton, setShowButton] = useState(true);
+type Props = {
+  alwaysExpanded?: boolean;
+} & HTMLAttributes<HTMLDivElement>;
+
+const DatatableWrapper = ({
+  alwaysExpanded,
+  children,
+  className,
+  ...props
+}: Props) => {
+  const [showButton, setShowButton] = useState(!alwaysExpanded);
   const [expandTable, setExpandTable] = useState(false);
 
   const tableRef = useRef<HTMLElement>(null);
@@ -35,8 +44,8 @@ const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
 
   // On expand/collapse change
   useEffect(() => {
-    // except on first render
-    if (!firstRenderRef.current) {
+    // except on first render or when always expanded
+    if (!alwaysExpanded && !firstRenderRef.current) {
       // Scroll table back into view when collapsing
       if (!expandTable) {
         tableRef.current?.parentElement?.scrollIntoView({
@@ -53,19 +62,17 @@ const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false;
     }
-  }, [expandTable, params.accession]);
-
-  const sizeCheck = useCallback(() => {
-    setShowButton(
-      tableRef.current?.shadowRoot?.firstElementChild?.scrollHeight !==
-        tableRef.current?.shadowRoot?.firstElementChild?.clientHeight
-    );
-  }, []);
+  }, [alwaysExpanded, expandTable, params.accession]);
 
   // eslint-disable-next-line consistent-return
   useLayoutEffect(() => {
-    if (datatableElement.defined && tableRef.current) {
-      const mo = new MutationObserver(sizeCheck);
+    if (!alwaysExpanded && datatableElement.defined && tableRef.current) {
+      const mo = new MutationObserver(() => {
+        setShowButton(
+          tableRef.current?.shadowRoot?.firstElementChild?.scrollHeight !==
+            tableRef.current?.shadowRoot?.firstElementChild?.clientHeight
+        );
+      });
       mo.observe(tableRef.current, {
         childList: true,
         // Allows to update when classes are applied to hide some rows
@@ -75,15 +82,15 @@ const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
       });
       return () => mo.disconnect();
     }
-  }, [datatableElement.defined, sizeCheck]);
+  }, [alwaysExpanded, datatableElement.defined]);
 
   if (datatableElement.defined) {
     return (
-      <div className="datatable-with-toggle">
+      <div className={cn('datatable-wrapper', className)} {...props}>
         <datatableElement.name
           ref={tableRef}
           filter-scroll
-          expandtable={expandTable ? '' : undefined}
+          expandtable={alwaysExpanded || expandTable ? '' : undefined}
         >
           {children}
         </datatableElement.name>
@@ -100,7 +107,15 @@ const DatatableWithToggle = ({ children }: { children: ReactNode }) => {
     );
   }
 
+  if (datatableElement.errored) {
+    return (
+      <div className={cn('datatable-wrapper', className)} {...props}>
+        {children}
+      </div>
+    );
+  }
+
   return null;
 };
 
-export default DatatableWithToggle;
+export default DatatableWrapper;

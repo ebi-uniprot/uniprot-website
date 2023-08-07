@@ -5,6 +5,7 @@ exports[`Organism should render organism 1`] = `
   <a
     href="/taxonomy/12344"
     title="Cheeky monkey (Really cheeky little monkey) (Monkey 1, Monkey 2), taxon ID 12344"
+    translate="no"
   >
     Cheeky monkey (Really cheeky little monkey) (Monkey 1, Monkey 2)
   </a>

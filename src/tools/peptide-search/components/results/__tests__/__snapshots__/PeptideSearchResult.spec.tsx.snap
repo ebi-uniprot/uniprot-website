@@ -87,7 +87,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
               title="Select at least one entry to run a BLAST job"
               type="button"
             >
-              BLAST
+              <span
+                translate="no"
+              >
+                BLAST
+              </span>
             </button>
             <button
               class="button tertiary disabled no-small"
@@ -95,7 +99,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
               title="Select at least 2 entries to run an Align job"
               type="button"
             >
-              Align
+              <span
+                translate="no"
+              >
+                Align
+              </span>
             </button>
             <button
               class="button tertiary disabled"
@@ -163,7 +171,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             </button>
           </div>
           <table
-            class="results-data data-table"
+            class="hotjar-margin results-data data-table"
           >
             <thead>
               <tr>
@@ -273,7 +281,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              translate="no"
+            >
               <tr>
                 <td
                   class="checkbox-cell"
@@ -311,24 +321,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   </span>
                 </td>
                 <td>
-                  <span>
-                    G6PD_HUMAN
-                  </span>
+                  G6PD_HUMAN
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-6-phosphate 1-dehydrogenase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-6-phosphate 1-dehydrogenase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
@@ -341,6 +353,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   <a
                     href="/taxonomy/9606"
                     title="Homo sapiens (Human), taxon ID 9606"
+                    translate="no"
                   >
                     Homo sapiens (Human)
                   </a>
@@ -386,24 +399,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AGP_ECOLI
-                  </span>
+                  AGP_ECOLI
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-1-phosphatase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-1-phosphatase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
@@ -417,6 +432,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   <a
                     href="/taxonomy/83333"
                     title="Escherichia coli (strain K12), taxon ID 83333"
+                    translate="no"
                   >
                     Escherichia coli (strain K12)
                   </a>
@@ -665,6 +681,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             <li>
               <a
                 href="/blast"
+                translate="no"
               >
                 BLAST
               </a>
@@ -1036,7 +1053,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
               title="Select at least one entry to run a BLAST job"
               type="button"
             >
-              BLAST
+              <span
+                translate="no"
+              >
+                BLAST
+              </span>
             </button>
             <button
               class="button tertiary disabled no-small"
@@ -1044,7 +1065,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
               title="Select at least 2 entries to run an Align job"
               type="button"
             >
-              Align
+              <span
+                translate="no"
+              >
+                Align
+              </span>
             </button>
             <button
               class="button tertiary disabled"
@@ -1112,7 +1137,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             </button>
           </div>
           <table
-            class="results-data data-table"
+            class="hotjar-margin results-data data-table"
           >
             <thead>
               <tr>
@@ -1222,7 +1247,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              translate="no"
+            >
               <tr>
                 <td
                   class="checkbox-cell"
@@ -1260,24 +1287,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   </span>
                 </td>
                 <td>
-                  <span>
-                    G6PD_HUMAN
-                  </span>
+                  G6PD_HUMAN
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-6-phosphate 1-dehydrogenase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-6-phosphate 1-dehydrogenase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
@@ -1290,6 +1319,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   <a
                     href="/taxonomy/9606"
                     title="Homo sapiens (Human), taxon ID 9606"
+                    translate="no"
                   >
                     Homo sapiens (Human)
                   </a>
@@ -1335,24 +1365,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AGP_ECOLI
-                  </span>
+                  AGP_ECOLI
                 </td>
                 <td>
                   <span
-                    style="font-weight: bolder;"
+                    translate="yes"
                   >
-                    Glucose-1-phosphatase
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Glucose-1-phosphatase
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
                   </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
                 </td>
                 <td>
                   <span
@@ -1366,6 +1398,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   <a
                     href="/taxonomy/83333"
                     title="Escherichia coli (strain K12), taxon ID 83333"
+                    translate="no"
                   >
                     Escherichia coli (strain K12)
                   </a>
@@ -1614,6 +1647,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
             <li>
               <a
                 href="/blast"
+                translate="no"
               >
                 BLAST
               </a>

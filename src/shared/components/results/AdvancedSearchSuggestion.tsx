@@ -143,7 +143,8 @@ const AdvancedSearchSuggestion = ({
     <span ref={ref}>
       <small>
         {' '}
-        or search &quot;{query}&quot; as a {visibleFragments}
+        or search <span translate="no">&quot;{query}&quot;</span> as a{' '}
+        {visibleFragments}
         {hiddenFragments.length ? (
           <EllipsisReveal>{hiddenFragments}</EllipsisReveal>
         ) : null}

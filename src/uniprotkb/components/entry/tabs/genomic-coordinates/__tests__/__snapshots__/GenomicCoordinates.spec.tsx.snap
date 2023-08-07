@@ -195,7 +195,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
         </li>
       </ul>
       <div
-        class="datatable-with-toggle"
+        class="datatable-wrapper"
       >
         <protvista-datatable
           filter-scroll="true"
@@ -655,7 +655,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
         </li>
       </ul>
       <div
-        class="datatable-with-toggle"
+        class="datatable-wrapper"
       >
         <protvista-datatable
           filter-scroll="true"

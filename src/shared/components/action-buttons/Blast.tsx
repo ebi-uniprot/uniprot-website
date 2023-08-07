@@ -38,7 +38,8 @@ const BlastButton = ({ selectedEntries, textSuffix }: BlastButtonProps) => {
       title={title}
       location={Location.Blast}
     >
-      BLAST{textSuffix && ` ${textSuffix}`}
+      <span translate="no">BLAST</span>
+      {textSuffix && ` ${textSuffix}`}
     </ToolsButton>
   );
 };

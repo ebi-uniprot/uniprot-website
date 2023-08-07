@@ -2,7 +2,7 @@ import { InfoList, LongNumber, SpinnerIcon } from 'franklin-sites';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import LazyComponent from '../../../../../shared/components/LazyComponent';
-import DatatableWithToggle from '../../../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
 import GenomicLoc, { getEnsemblLink } from './GenomicLoc';
 import Overlapping from './Overlapping';
 
@@ -123,7 +123,7 @@ const Coordinates = ({
     <section>
       <h3>Genomic location {index + 1}</h3>
       <InfoList infoData={infoData} columns />
-      <DatatableWithToggle>
+      <DatatableWrapper>
         <table>
           <thead>
             <tr>
@@ -198,7 +198,7 @@ const Coordinates = ({
             })}
           </tbody>
         </table>
-      </DatatableWithToggle>
+      </DatatableWrapper>
     </section>
   );
 };

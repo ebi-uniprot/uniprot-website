@@ -65,6 +65,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <a
               href="/taxonomy/9606"
               title="Homo sapiens (Human), taxon ID 9606"
+              translate="no"
             >
               Homo sapiens (Human)
             </a>

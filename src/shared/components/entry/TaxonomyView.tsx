@@ -3,7 +3,6 @@ import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ExternalLink from '../ExternalLink';
-import SimpleView from '../views/SimpleView';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import LazyComponent from '../LazyComponent';
 
@@ -61,17 +60,28 @@ const TaxonomyView = ({
     strain ? ` (${strain})` : ''
   }`;
 
+  const content = displayOnlyID ? String(taxonId) : termValue;
+  const title = `${
+    termValue.length > 0 ? `${termValue}, ` : ''
+  }taxon ID ${taxonId}`;
+
+  if (noLink) {
+    return (
+      <span className={className} title={title} translate="no">
+        {content}
+      </span>
+    );
+  }
+
   return (
-    <SimpleView
-      termValue={displayOnlyID ? String(taxonId) : termValue}
-      linkTo={
-        noLink ? undefined : getEntryPath(Namespace.taxonomy, data.taxonId)
-      }
-      title={`${
-        termValue.length > 0 ? `${termValue}, ` : ''
-      }taxon ID ${taxonId}`}
+    <Link
+      to={getEntryPath(Namespace.taxonomy, data.taxonId)}
       className={className}
-    />
+      title={title}
+      translate="no"
+    >
+      {content}
+    </Link>
   );
 };
 

@@ -115,6 +115,7 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
         minCharsToShowDropdown={minAPISuggesterChars}
         clearOnSelect={clearOnSelect}
         isLoading={loading}
+        translate={placeholder ? 'no' : undefined}
       />
     </label>
   );

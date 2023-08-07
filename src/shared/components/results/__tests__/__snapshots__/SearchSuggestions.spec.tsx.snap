@@ -27,7 +27,13 @@ exports[`SearchSuggestions should render suggestions 1`] = `
 <DocumentFragment>
   <span>
     <small>
-       or search "eve" as a 
+       or search 
+      <span
+        translate="no"
+      >
+        "eve"
+      </span>
+       as a 
       <a
         class="no-wrap"
         href="/uniprotkb?query=strain:eve"

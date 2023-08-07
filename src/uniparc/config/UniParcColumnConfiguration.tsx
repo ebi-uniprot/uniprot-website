@@ -171,6 +171,7 @@ UniParcColumnConfiguration.set(UniParcColumn.protein, {
     <ExpandableList
       descriptionString="protein names"
       displayNumberOfHiddenItems
+      translate="yes"
     >
       {xrefGetter(data, 'proteinName')}
     </ExpandableList>

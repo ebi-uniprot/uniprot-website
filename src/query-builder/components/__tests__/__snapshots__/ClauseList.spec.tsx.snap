@@ -40,6 +40,7 @@ exports[`ClauseList component should render 1`] = `
         All
         <input
           placeholder="a4_human, P05067, cdc7 human"
+          translate="no"
           type="text"
           value=""
         />
@@ -98,6 +99,7 @@ exports[`ClauseList component should render 1`] = `
         All
         <input
           placeholder="a4_human, P05067, cdc7 human"
+          translate="no"
           type="text"
           value=""
         />

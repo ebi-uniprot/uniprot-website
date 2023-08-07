@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatatableWrapper component should not render a toggle button if overriden 1`] = `
+<DocumentFragment>
+  <div
+    class="datatable-wrapper"
+  >
+    <protvista-datatable
+      expandtable=""
+      filter-scroll="true"
+    >
+      <table />
+    </protvista-datatable>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DatatableWrapper component should render with a working toggle button 1`] = `
+<DocumentFragment>
+  <div
+    class="datatable-wrapper"
+  >
+    <protvista-datatable
+      filter-scroll="true"
+    >
+      <table />
+    </protvista-datatable>
+    <button
+      class="button primary toggle-button"
+      type="button"
+    >
+      Expand table
+    </button>
+  </div>
+</DocumentFragment>
+`;
