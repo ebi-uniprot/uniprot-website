@@ -26,6 +26,7 @@ import { pluralise } from '../../shared/utils/utils';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 import { rawDBToNamespace } from '../../tools/id-mapping/utils';
+import { stringifyQuery } from '../../shared/utils/url';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
@@ -267,7 +268,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const queryString = stringify(clauses) || '*';
+    const search = stringifyQuery(`query=${stringify(clauses) || '*'}`);
     const pathname =
       searchspace === toolResults && jobId && jobResultsLocation
         ? generatePath(LocationToPath[jobResultsLocation], {
@@ -277,7 +278,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         : SearchResultsLocations[searchspace as SearchableNamespace];
     history.push({
       pathname,
-      search: `query=${queryString}`,
+      search,
     });
     onCancel();
   };
