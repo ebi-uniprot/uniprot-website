@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+
 import {
   StatisticsItem,
   StatisticsPayload,
 } from '../statistics-page/StatisticsPage';
-import useDataApi from '../../../shared/hooks/useDataApi';
 
 const renderPieChart = (
   svgElement: SVGSVGElement | null,
@@ -40,7 +41,7 @@ const renderPieChart = (
 
   // Create the pie layout and arc generator.
   const pie = d3
-    .pie()
+    .pie<StatisticsItem>()
     .sort(null)
     .value((d) => d.count);
 
