@@ -268,7 +268,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const search = stringifyQuery(`query=${stringify(clauses) || '*'}`);
+    const search = stringifyQuery({ query: stringify(clauses) || '*' });
     const pathname =
       searchspace === toolResults && jobId && jobResultsLocation
         ? generatePath(LocationToPath[jobResultsLocation], {
