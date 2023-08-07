@@ -1,14 +1,12 @@
 import { memo } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
-import { useLocation } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import useNS from '../../hooks/useNS';
 
 import TaxonomyFacet from './TaxonomyFacet';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
-
-import { getLocationForPathname } from '../../utils/url';
 
 import {
   mainNamespaces,
@@ -18,7 +16,7 @@ import {
 
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import { FacetObject, FacetValue } from '../../types/results';
-import { Location } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
 import baseLayoutStyles from '../layouts/styles/base-layout.module.scss';
@@ -43,9 +41,9 @@ type Props = {
 
 const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const namespace = useNS(namespaceOverride);
-  const { pathname } = useLocation();
-
-  const currentLocation = getLocationForPathname(pathname);
+  const isUniProtKBResults = useRouteMatch(
+    LocationToPath[Location.UniProtKBResults]
+  );
 
   const { data, isStale, loading, progress } = dataApiObject;
 
@@ -114,10 +112,9 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
       {namespace && mainNamespaces.has(namespace) && (
         <TaxonomyFacet namespace={namespace as SearchableNamespace} />
       )}
-      {namespace === Namespace.uniprotkb &&
-        currentLocation !== Location.UniProtKBEntry && (
-          <UniProtKBGroupByFacet />
-        )}
+      {namespace === Namespace.uniprotkb && isUniProtKBResults && (
+        <UniProtKBGroupByFacet />
+      )}
       {after.map(
         (facet) =>
           facet.values && (
