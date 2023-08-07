@@ -156,7 +156,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         frame().then(() => {
           dispatch(
             addMessage({
-              id: Array.isArray(query) ? query[0] : query || undefined,
+              id: query || undefined,
               content: `Found ${
                 invalidClauses.length
               } invalid query ${pluralise(
