@@ -44,34 +44,6 @@
       }
     }
 
-    // .tutorial {
-    //   display: flex;
-    //   flex-direction: column;
-    //   row-gap: 0.2rem;
-    //   max-height: 10rem;
-    //   overflow-y: auto;
-
-    //   &__info {
-    //     display: flex;
-    //     align-items: center;
-    //   }
-
-    //   &__image {
-    //     width: 5rem;
-    //   }
-
-    //   &__title {
-    //     margin-left: 0.2rem;
-    //     font-weight: lighter;
-    //     font-size: small;
-    //     color: inherit;
-    //     white-space: nowrap;
-    //   }
-    // }
-    .tutorial {
-      max-width: 20rem;
-    }
-
     .download {
       span {
         display: block;
@@ -86,6 +58,10 @@
         display: block;
         margin-top: 2rem;
       }
+    }
+
+    .tutorial {
+      margin-bottom: 1rem;
     }
   }
 }

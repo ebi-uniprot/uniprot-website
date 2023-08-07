@@ -223,40 +223,26 @@ const LandingPage = () => {
         </div>
 
         {/* Tutorials */}
-        <div
+        <h4
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-6'
+            'uniprot-grid-cell--medium-span-12'
           )}
         >
-          <h4>How to use UniProtKB</h4>
-          <div className={styles['tutorial']}>
-            {tutorialsInfo.map((item) => (
-              <div className={styles['tutorial__info']} key={item.id}>
-                <YouTubeEmbed
-                  id={item.id}
-                  title={item.title}
-                  width="40%"
-                  height="300px"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                />
-                {/* <img
-                  src={`https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`}
-                  className={styles['tutorial__image']}
-                />
-
-                <ExternalLink
-                  noIcon
-                  url={`https://www.youtube.com/watch?v=${item.id}`}
-                  className={styles['tutorial__title']}
-                >
-                  {item.title}
-                </ExternalLink> */}
-              </div>
-            ))}
+          How to use UniProtKB
+        </h4>
+        {tutorialsInfo.map((item) => (
+          <div
+            key={item.id}
+            className={cn(
+              'uniprot-grid-cell--small-span-12',
+              'uniprot-grid-cell--medium-span-4',
+              styles.tutorial
+            )}
+          >
+            <YouTubeEmbed id={item.id} title={item.title} />
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

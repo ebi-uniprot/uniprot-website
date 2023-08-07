@@ -101,7 +101,7 @@ const renderPieChart = (
     .style('fill', '#014371')
     .style('font-weight', 'bold')
     .on('click', function (d) {
-      window.location.href = `${window.location.href}?query=${d.data.name}`;
+      window.location.href = `${window.location.href}?query=(taxonomy_name:${d.data.name})`;
     })
     .text((d) => d.data.name)
     .merge(text)
