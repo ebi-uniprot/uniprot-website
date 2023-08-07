@@ -9,9 +9,10 @@ exports[`VariationViewer component renders on data 1`] = `
       attributes="highlight displaystart displayend activefilters filters selectedid"
     >
       <div
-        class="datatable-with-toggle"
+        class="datatable-wrapper"
       >
         <protvista-datatable
+          expandtable=""
           filter-scroll="true"
         >
           <table>
@@ -41,7 +42,9 @@ exports[`VariationViewer component renders on data 1`] = `
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              translate="no"
+            >
               <tr
                 data-end="10"
                 data-id="featureB"
@@ -59,14 +62,18 @@ exports[`VariationViewer component renders on data 1`] = `
                     missing
                   </em>
                 </td>
-                <td>
+                <td
+                  translate="yes"
+                >
                   <div
                     class=""
                   >
                     a description (uniprot)
                   </div>
                 </td>
-                <td />
+                <td
+                  translate="yes"
+                />
                 <td />
               </tr>
               <tr
@@ -146,8 +153,12 @@ exports[`VariationViewer component renders on data 1`] = `
                     L&gt;A
                   </a>
                 </td>
-                <td />
-                <td />
+                <td
+                  translate="yes"
+                />
+                <td
+                  translate="yes"
+                />
                 <td>
                   <span
                     class=""
@@ -278,12 +289,6 @@ exports[`VariationViewer component renders on data 1`] = `
             </tbody>
           </table>
         </protvista-datatable>
-        <button
-          class="button primary toggle-button"
-          type="button"
-        >
-          Expand table
-        </button>
       </div>
     </protvista-manager>
   </section>

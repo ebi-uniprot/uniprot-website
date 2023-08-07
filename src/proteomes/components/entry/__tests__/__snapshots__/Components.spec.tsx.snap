@@ -73,7 +73,9 @@ exports[`Components view should render 1`] = `
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody
+            translate="no"
+          >
             <tr>
               <td
                 class="checkbox-cell"

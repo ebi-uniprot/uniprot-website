@@ -1253,7 +1253,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
     attributes="highlight displaystart displayend selectedid"
   >
     <div
-      class="datatable-with-toggle"
+      class="datatable-wrapper"
     >
       <protvista-datatable
         filter-scroll="true"
@@ -1358,6 +1358,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
                     class="button tertiary"
                     href="/blast?ids=P21802[2-8]"
                     title="BLAST the sequence corresponding to this feature"
+                    translate="no"
                   >
                     BLAST
                   </a>
@@ -1509,9 +1510,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go_p": go_
 
 exports[`UniProtKBColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <span>
-    uniprot_id
-  </span>
+  uniprot_id
 </DocumentFragment>
 `;
 
@@ -1519,6 +1518,7 @@ exports[`UniProtKBColumnConfiguration component should render column "keyword": 
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
+    translate="yes"
   >
     <li>
        
@@ -1536,6 +1536,7 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
+    translate="yes"
   >
     <li>
        
@@ -1606,6 +1607,7 @@ exports[`UniProtKBColumnConfiguration component should render column "lineage": 
     class="hidden-taxon"
     href="/taxonomy/9606"
     title="Scientific Name (Common Name) (synonym), taxon ID 9606"
+    translate="no"
   >
     Scientific Name (Common Name) (synonym)
   </a>
@@ -1618,6 +1620,7 @@ exports[`UniProtKBColumnConfiguration component should render column "lineage_id
     class="hidden-taxon"
     href="/taxonomy/9606"
     title="Scientific Name (Common Name) (synonym), taxon ID 9606"
+    translate="no"
   >
     9606
   </a>
@@ -1769,6 +1772,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_i
   <a
     href="/taxonomy/9606"
     title="scientific name (common name) (synonyms 1), taxon ID 9606"
+    translate="no"
   >
     9606
   </a>
@@ -1780,6 +1784,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_n
   <a
     href="/taxonomy/9606"
     title="scientific name (common name) (synonyms 1), taxon ID 9606"
+    translate="no"
   >
     scientific name (common name) (synonyms 1)
   </a>
@@ -1807,29 +1812,37 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_fa
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>
   <span
-    style="font-weight: bolder;"
+    translate="yes"
   >
-    rec full Name
+    <span
+      style="font-weight: bolder;"
+    >
+      rec full Name
+    </span>
+    <button
+      aria-expanded="false"
+      class="button tertiary ellipsis-reveal"
+      title="Show more"
+      type="button"
+    >
+      [...]
+    </button>
   </span>
-  <button
-    aria-expanded="false"
-    class="button tertiary ellipsis-reveal"
-    title="Show more"
-    type="button"
-  >
-    [...]
-  </button>
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name-expanded 1`] = `
 <DocumentFragment>
   <span
-    style="font-weight: bolder;"
+    translate="yes"
   >
-    rec full Name
+    <span
+      style="font-weight: bolder;"
+    >
+      rec full Name
+    </span>
+    , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1
   </span>
-  , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1
 </DocumentFragment>
 `;
 
@@ -1964,6 +1977,7 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
       <a
         href="/taxonomy/9606"
         title="scientific name (common name) (synonyms 1), taxon ID 9606"
+        translate="no"
       >
         scientific name (common name) (synonyms 1)
       </a>

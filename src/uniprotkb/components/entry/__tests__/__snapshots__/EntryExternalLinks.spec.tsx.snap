@@ -56,6 +56,7 @@ exports[`Entry - External Links view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:ENZYME)&direct"
+                  translate="no"
                 >
                   ENZYME
                 </a>
@@ -100,6 +101,7 @@ exports[`Entry - External Links view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:MobiDB)&direct"
+                  translate="no"
                 >
                   MobiDB
                 </a>
@@ -144,6 +146,7 @@ exports[`Entry - External Links view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:Ensembl)&direct"
+                  translate="no"
                 >
                   Ensembl
                 </a>
@@ -207,6 +210,7 @@ exports[`Entry - External Links view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:ModBase)&direct"
+                  translate="no"
                 >
                   ModBase
                 </a>
@@ -244,6 +248,7 @@ exports[`Entry - External Links view should render 1`] = `
               >
                 <a
                   href="/database?query=(name:SWISS-MODEL-Workspace)&direct"
+                  translate="no"
                 >
                   SWISS-MODEL-Workspace
                 </a>

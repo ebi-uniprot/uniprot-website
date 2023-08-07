@@ -108,10 +108,11 @@ const HomePageHeader = memo(() => {
     <HeroHeader
       className="home-page__header"
       title={
-        <>
+        <span>
           {'Find your '}
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <span
+            translate="no"
             className="letter-group"
             onClick={useCallback(() => {
               const dropdown: HTMLButtonElement | null = document.querySelector(
@@ -142,7 +143,7 @@ const HomePageHeader = memo(() => {
               </>
             )}
           </span>
-        </>
+        </span>
       }
       footer={mission}
     >

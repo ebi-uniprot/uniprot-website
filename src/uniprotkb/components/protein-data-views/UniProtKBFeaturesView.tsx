@@ -46,6 +46,7 @@ export type FeatureDatum = {
     end: FeatureLocation;
     sequence?: string;
   };
+  // 🤷 originalSequence within alternativeSequence...
   alternativeSequence?: {
     originalSequence?: string;
     alternativeSequences?: string[];
@@ -179,7 +180,7 @@ const UniProtKBFeaturesView = ({
         </tr>
       </thead>
       <tbody>
-        {processedData.map((feature) => {
+        {processedData.map((feature: ProcessedFeature) => {
           const start =
             feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
           const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
@@ -189,18 +190,14 @@ const UniProtKBFeaturesView = ({
           const positionEnd = `${
             feature.endModifier === 'UNSURE' ? '?' : ''
           }${end}`;
-          let position =
+          // feature of type Disulfide bonds and Cross-links describe links, not subsequences.
+          const isLink =
+            feature.type === 'Disulfide bond' || feature.type === 'Cross-link';
+
+          const position =
             positionStart === positionEnd
               ? positionStart
-              : `${positionStart}-${positionEnd}`;
-
-          // feature of type Disulfide bonds and Cross-links describe links, not subsequences.
-          if (
-            feature.type === 'Disulfide bond' ||
-            feature.type === 'Cross-link'
-          ) {
-            position = position.replace('-', '↔');
-          }
+              : `${positionStart}${isLink ? '↔' : '-'}${positionEnd}`;
 
           let { description } = feature;
           if (typeof feature.description === 'string') {
@@ -297,6 +294,7 @@ const UniProtKBFeaturesView = ({
                                 end: feature.end,
                               }
                             )}
+                            translate="no"
                           >
                             BLAST
                           </Button>

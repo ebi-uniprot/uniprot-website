@@ -14,6 +14,7 @@ export const databaseToEntryType = new Map<
   EntryType
 >([
   ['UniProtKB/Swiss-Prot', EntryType.REVIEWED],
+  ['UniProtKB/Swiss-Prot protein isoforms', EntryType.REVIEWED],
   ['UniProtKB/TrEMBL', EntryType.UNREVIEWED],
 ]);
 

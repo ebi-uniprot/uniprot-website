@@ -3,7 +3,7 @@ import TransformedVariant from 'protvista-variation-adapter';
 
 import LazyComponent from '../LazyComponent';
 import { NightingaleManager } from '../../../nightingale/manager/NightingaleManager';
-import DatatableWithToggle from './DatatableWithToggle';
+import DatatableWrapper from './DatatableWrapper';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 
@@ -121,7 +121,7 @@ const FeaturesView = <
             />
           </LazyComponent>
         )}
-        <DatatableWithToggle>{table}</DatatableWithToggle>
+        <DatatableWrapper>{table}</DatatableWrapper>
       </NightingaleManager>
     </>
   );

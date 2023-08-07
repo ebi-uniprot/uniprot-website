@@ -266,7 +266,10 @@ const IDMappingResult = () => {
       break;
 
     default:
-      if (namespaceOverride === Namespace.idmapping) {
+      if (
+        namespaceOverride === Namespace.idmapping ||
+        (!facetInititialLoading && !facetsData?.facets)
+      ) {
         sidebar = <div className={sidebarStyles['empty-sidebar']} />;
       } else {
         sidebar = (

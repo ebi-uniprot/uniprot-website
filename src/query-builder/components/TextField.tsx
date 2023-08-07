@@ -34,6 +34,7 @@ const TextField = ({ field, handleChange, initialValue }: FieldProps) => {
         placeholder={
           field.example || 'Enter a term to search, or the wildcard "*"'
         }
+        translate={field.example ? 'no' : undefined}
       />
     </label>
   );

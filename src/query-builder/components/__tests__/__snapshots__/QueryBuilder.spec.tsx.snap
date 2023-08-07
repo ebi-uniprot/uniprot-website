@@ -117,6 +117,7 @@ exports[`QueryBuilder should render 1`] = `
             Gene Name [GN]
             <input
               placeholder="ydj1"
+              translate="no"
               type="text"
               value=""
             />
@@ -175,6 +176,7 @@ exports[`QueryBuilder should render 1`] = `
             Taxonomy [OC]
             <div
               class="autocomplete-container"
+              translate="no"
             >
               <span
                 class="search-input"
@@ -259,6 +261,7 @@ exports[`QueryBuilder should render 1`] = `
             Keyword [KW]
             <div
               class="autocomplete-container"
+              translate="no"
             >
               <span
                 class="search-input"
@@ -343,6 +346,7 @@ exports[`QueryBuilder should render 1`] = `
             All
             <input
               placeholder="a4_human, P05067, cdc7 human"
+              translate="no"
               type="text"
               value=""
             />

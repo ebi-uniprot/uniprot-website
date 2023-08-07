@@ -110,6 +110,7 @@ const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject<ReactNode>[] => {
               <>
                 <EntryTypeIcon entryType={entryType} />
                 UniProtKB reviewed
+                {value.includes('isoform') ? ' protein isoforms' : ''}
               </>
             );
           } else if (entryType === EntryType.UNREVIEWED) {

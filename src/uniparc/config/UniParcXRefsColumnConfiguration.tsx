@@ -80,6 +80,7 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
         <>
           <EntryTypeIcon entryType={EntryType.REVIEWED} />
           UniProtKB reviewed
+          {xref.database.includes('isoform') ? ' protein isoforms' : ''}
         </>
       );
     } else if (entryType === EntryType.UNREVIEWED) {
@@ -105,7 +106,8 @@ const getAccessionColumn =
     let cell: ReactNode = xref.id;
     if (
       xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
-      xref.database === XRefsInternalDatabasesEnum.UNREVIEWED
+      xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
+      xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
     ) {
       // internal link
       cell = (

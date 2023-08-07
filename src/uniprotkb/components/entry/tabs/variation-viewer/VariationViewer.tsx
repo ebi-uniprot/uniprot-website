@@ -5,9 +5,10 @@ import {
   useEffect,
   useState,
   lazy,
+  ReactNode,
   Suspense,
 } from 'react';
-import { Loader } from 'franklin-sites';
+import { EllipsisReveal, Loader } from 'franklin-sites';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
@@ -17,7 +18,7 @@ import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
-import DatatableWithToggle from '../../../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import { NightingaleManager } from '../../../../../nightingale/manager/NightingaleManager';
 
@@ -233,7 +234,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
           <th>Provenance</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {filteredVariants.map((variantFeature) => {
           let position = variantFeature.start;
           if (variantFeature.start !== variantFeature.end) {
@@ -248,6 +249,42 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
                 source: evidence?.source?.name,
                 url: evidence?.source?.url,
               } as Evidence)
+          );
+
+          let from: ReactNode = variantFeature.wildType;
+          if (!variantFeature.wildType) {
+            from = <em>missing</em>;
+          } else if (variantFeature.wildType.length > 3) {
+            from = (
+              <>
+                {variantFeature.wildType.slice(0, 2)}
+                <EllipsisReveal>
+                  {variantFeature.wildType.slice(2)}
+                </EllipsisReveal>
+              </>
+            );
+          }
+
+          let to: ReactNode = variantFeature.alternativeSequence;
+          if (!variantFeature.alternativeSequence) {
+            to = <em>missing</em>;
+          } else if (variantFeature.alternativeSequence.length > 3) {
+            to = (
+              <>
+                {variantFeature.alternativeSequence.slice(0, 2)}
+                <EllipsisReveal>
+                  {variantFeature.alternativeSequence.slice(2)}
+                </EllipsisReveal>
+              </>
+            );
+          }
+
+          const change = (
+            <>
+              {from}
+              {'>'}
+              {to}
+            </>
           );
 
           return (
@@ -286,21 +323,15 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
                       title="View in ProtVar"
                       noIcon
                     >
-                      {variantFeature.wildType}
-                      {'>'}
-                      {variantFeature.alternativeSequence}
+                      {change}
                     </ExternalLink>
                   ) : (
-                    <>
-                      {variantFeature.wildType || <em>missing</em>}
-                      {'>'}
-                      {variantFeature.alternativeSequence || <em>missing</em>}
-                    </>
+                    change
                   )}
                   {!variantFeature.wildType &&
                     !variantFeature.alternativeSequence && <em>missing</em>}
                 </td>
-                <td>
+                <td translate="yes">
                   {variantFeature.descriptions?.length ? (
                     Array.from(variantFeature.descriptions)
                       .sort(sortDescriptionByUniProtFirst)
@@ -321,7 +352,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
                     <UniProtKBEvidenceTag evidences={uniProtEvidences} />
                   )}
                 </td>
-                <td>
+                <td translate="yes">
                   {variantFeature.clinicalSignificances?.map(
                     (clinicalSignificance, i) => (
                       // eslint-disable-next-line react/no-array-index-key
@@ -487,7 +518,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
     return (
       <section>
         {title && <h2>{title}</h2>}
-        <DatatableWithToggle>{table}</DatatableWithToggle>
+        <DatatableWrapper>{table}</DatatableWrapper>
       </section>
     );
   }
@@ -502,7 +533,7 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
         <Suspense fallback={null}>
           <VisualVariationView {...transformedData} />
         </Suspense>
-        <DatatableWithToggle>{table}</DatatableWithToggle>
+        <DatatableWrapper alwaysExpanded>{table}</DatatableWrapper>
       </NightingaleManager>
     </section>
   );
