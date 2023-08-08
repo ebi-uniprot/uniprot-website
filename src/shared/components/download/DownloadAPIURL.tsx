@@ -14,6 +14,7 @@ import {
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './Download';
 
 import { Namespace } from '../../types/namespaces';
 
@@ -46,16 +47,16 @@ type Props = {
   apiURL: string;
   ftpURL?: string | null;
   onCopy: () => void;
-  count: number;
-  disableAll?: boolean;
+  disableSearch?: boolean;
+  disableStream?: boolean;
 };
 
 const DownloadAPIURL = ({
   apiURL,
   ftpURL,
   onCopy,
-  count,
-  disableAll,
+  disableSearch,
+  disableStream,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
@@ -75,12 +76,16 @@ const DownloadAPIURL = ({
     [dispatch, onCopy]
   );
 
-  const isStreamEndpoint = apiURL.includes('/stream');
-  const disableStream = isStreamEndpoint && count > DOWNLOAD_SIZE_LIMIT;
+  const isStreamEndpoint = apiURL.includes('/stream/');
+  const isIdMapping = apiURL.includes('/idmapping/');
+  const downloadSizeLimit = isIdMapping
+    ? DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED
+    : DOWNLOAD_SIZE_LIMIT;
+
   const batchSize = 500;
   const searchURL = getSearchURL(apiURL, batchSize);
 
-  if (disableAll) {
+  if (disableSearch && disableStream) {
     return (
       <div className={styles['api-url']} ref={scrollRef}>
         <CodeBlock lightMode>
@@ -129,7 +134,7 @@ const DownloadAPIURL = ({
             {
               '// the streaming endpoint is unavailable for queries of more than '
             }
-            <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber> results
+            <LongNumber>{downloadSizeLimit}</LongNumber> results
             <br />
           </>
         ) : (
