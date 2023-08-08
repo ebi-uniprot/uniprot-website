@@ -46,25 +46,17 @@ const proteomesFileFormats = [
 ];
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
+export const DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED = 100_000 as const;
 
 const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
   Namespace.uniparc,
   Namespace.uniprotkb,
   Namespace.uniref,
 ]);
-
-export const isItAsyncDownload = (
-  isEmbeddings: boolean,
-  isUniprotkb: boolean,
-  isLarge: boolean,
-  isIDMappingResult: boolean,
-  namespace: Namespace
-) =>
-  (isEmbeddings && isUniprotkb) ||
-  (isLarge && isUniprotkb) ||
-  (isLarge &&
-    isIDMappingResult &&
-    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(namespace));
+const ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS = new Set([
+  FileFormat.tsv, // async
+  FileFormat.json, // async
+]);
 
 export const getPreviewFileFormat = (
   fileFormat: FileFormat
@@ -276,19 +268,18 @@ const Download: FC<DownloadProps<JobTypes>> = ({
     }
   };
 
-  const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isEmbeddings = fileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
   const isIDMappingResult = jobType === JobTypes.ID_MAPPING;
-  const isAsyncDownload = isItAsyncDownload(
-    isEmbeddings,
-    isUniprotkb,
-    isLarge,
-    isIDMappingResult,
-    namespace
-  );
+  const isAsyncDownload =
+    (isEmbeddings && isUniprotkb) ||
+    (isUniprotkb && downloadCount > DOWNLOAD_SIZE_LIMIT) ||
+    (isIDMappingResult &&
+      downloadCount > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
+      namespace === Namespace.idmapping &&
+      ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(fileFormat));
 
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb && !isIDMappingResult
@@ -299,6 +290,9 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   const redirectToIDMapping =
     jobResultsLocation === Location.PeptideSearchResult &&
     downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
+  const disableSearch = isEmbeddings || redirectToIDMapping;
+  const disableStream = disableSearch || isAsyncDownload;
 
   let extraContentNode: JSX.Element | undefined;
   if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
@@ -339,11 +333,11 @@ const Download: FC<DownloadProps<JobTypes>> = ({
         apiURL={downloadUrl.replace('download=true&', '')}
         ftpURL={ftpFilenameAndUrl?.url}
         onCopy={() => onClose('copy', 'api-url')}
-        count={downloadCount}
-        disableAll={isEmbeddings || redirectToIDMapping}
+        disableSearch={disableSearch}
+        disableStream={disableStream}
       />
     );
-  } else if (extraContent === 'generate') {
+  } else if (extraContent === 'generate' && isAsyncDownload) {
     extraContentNode = (
       <AsyncDownloadForm
         downloadUrlOptions={downloadOptions}
