@@ -1,5 +1,10 @@
 import { useState, FC, ChangeEvent } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import {
+  generatePath,
+  Link,
+  useLocation,
+  useRouteMatch,
+} from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -118,7 +123,11 @@ const Download: FC<DownloadProps<JobTypes>> = ({
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
-
+  // If it's a large ID Mapping job to uniprot namespace the namespace will
+  // still be id-mapping so get it directly from the URL.
+  const match = useRouteMatch<{ namespace: Namespace }>(
+    LocationToPath[Location.IDMappingResult]
+  );
   let fileFormats =
     supportedFormats || nsToFileFormatsResultsDownload[namespace];
 
@@ -164,11 +173,14 @@ const Download: FC<DownloadProps<JobTypes>> = ({
       urlSelected = [];
     }
   }
-
+  const isAsyncDownloadIdMapping =
+    namespace === Namespace.idmapping &&
+    match?.params?.namespace &&
+    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(match?.params?.namespace);
   const hasColumns =
     fileFormatsWithColumns.has(fileFormat) &&
-    !excludeColumns &&
-    namespace !== Namespace.idmapping;
+    ((excludeColumns && namespace !== Namespace.idmapping) ||
+      isAsyncDownloadIdMapping);
 
   // The ID Mapping URL provided from the job details is for the paginated results
   // endpoint while the stream endpoint is required for downloads
@@ -496,7 +508,9 @@ const Download: FC<DownloadProps<JobTypes>> = ({
           <ColumnSelect
             onChange={setSelectedColumns}
             selectedColumns={selectedColumns}
-            namespace={namespace}
+            namespace={
+              isAsyncDownloadIdMapping ? match.params.namespace : namespace
+            }
           />
         </>
       )}
