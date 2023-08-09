@@ -66,7 +66,10 @@ const ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS = new Set([
 export const getPreviewFileFormat = (
   fileFormat: FileFormat
 ): FileFormat | undefined => {
-  if (fileFormat === FileFormat.excel) {
+  if (
+    fileFormat === FileFormat.excel ||
+    fileFormat === FileFormat.excelIdMappingFromTo
+  ) {
     return FileFormat.tsv;
   }
   if (fileFormat === FileFormat.embeddings) {
@@ -123,9 +126,9 @@ const Download: FC<DownloadProps<JobTypes>> = ({
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
-  // If it's a large ID Mapping job to uniprot namespace the namespace will
-  // still be id-mapping so get it directly from the URL.
-  const match = useRouteMatch<{ namespace: Namespace }>(
+  // If it's a large ID Mapping job to uniprot/uniref/uniparc, the variable
+  // namespace will still be id-mapping so get it directly from the URL.
+  const idMappingResultMatch = useRouteMatch<{ namespace: Namespace }>(
     LocationToPath[Location.IDMappingResult]
   );
   let fileFormats =
@@ -173,15 +176,6 @@ const Download: FC<DownloadProps<JobTypes>> = ({
       urlSelected = [];
     }
   }
-  const isAsyncDownloadIdMapping =
-    namespace === Namespace.idmapping &&
-    match?.params?.namespace &&
-    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(match?.params?.namespace);
-  const hasColumns =
-    fileFormatsWithColumns.has(fileFormat) &&
-    ((excludeColumns && namespace !== Namespace.idmapping) ||
-      isAsyncDownloadIdMapping);
-
   // The ID Mapping URL provided from the job details is for the paginated results
   // endpoint while the stream endpoint is required for downloads
   let downloadBase = base;
@@ -202,17 +196,6 @@ const Download: FC<DownloadProps<JobTypes>> = ({
     accessions,
     base: downloadBase,
   };
-
-  if (!inBasketMini) {
-    downloadOptions.query = urlQuery;
-    downloadOptions.selectedFacets = selectedFacets;
-    downloadOptions.sortColumn = sortColumn;
-    downloadOptions.sortDirection = sortDirection;
-  }
-
-  if (hasColumns) {
-    downloadOptions.columns = selectedColumns;
-  }
 
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
@@ -244,6 +227,33 @@ const Download: FC<DownloadProps<JobTypes>> = ({
     default:
       downloadCount = 0;
       break;
+  }
+
+  const isIDMappingResult = jobType === JobTypes.ID_MAPPING;
+  const isAsyncDownloadIdMapping =
+    isIDMappingResult &&
+    namespace === Namespace.idmapping &&
+    downloadCount > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
+    idMappingResultMatch?.params?.namespace &&
+    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(
+      idMappingResultMatch?.params?.namespace
+    ) &&
+    ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(fileFormat);
+
+  const hasColumns =
+    fileFormatsWithColumns.has(fileFormat) &&
+    ((excludeColumns && namespace !== Namespace.idmapping) ||
+      isAsyncDownloadIdMapping);
+
+  if (!inBasketMini) {
+    downloadOptions.query = urlQuery;
+    downloadOptions.selectedFacets = selectedFacets;
+    downloadOptions.sortColumn = sortColumn;
+    downloadOptions.sortDirection = sortDirection;
+  }
+
+  if (hasColumns) {
+    downloadOptions.columns = selectedColumns;
   }
 
   const downloadUrl = getDownloadUrl(downloadOptions);
@@ -284,15 +294,11 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   const isEmbeddings = fileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
-  const isIDMappingResult = jobType === JobTypes.ID_MAPPING;
+
   const isAsyncDownload =
     (isEmbeddings && isUniprotkb) ||
     (isUniprotkb && downloadCount > DOWNLOAD_SIZE_LIMIT) ||
-    (isIDMappingResult &&
-      downloadCount > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
-      namespace === Namespace.idmapping &&
-      ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(fileFormat));
-
+    isAsyncDownloadIdMapping;
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb && !isIDMappingResult
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
@@ -364,6 +370,7 @@ const Download: FC<DownloadProps<JobTypes>> = ({
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
+        disable={isAsyncDownloadIdMapping}
       />
     );
   }
@@ -509,7 +516,9 @@ const Download: FC<DownloadProps<JobTypes>> = ({
             onChange={setSelectedColumns}
             selectedColumns={selectedColumns}
             namespace={
-              isAsyncDownloadIdMapping ? match.params.namespace : namespace
+              isAsyncDownloadIdMapping
+                ? idMappingResultMatch.params.namespace
+                : namespace
             }
           />
         </>
