@@ -13,7 +13,6 @@
     --sidebar-size: 30ch;
   }
 
-  max-width: 100%;
   min-height: calc(100vh - var(--top-header-margin));
   display: grid;
   align-items: start;
@@ -24,6 +23,10 @@
 
   &.no-overflow {
     grid-template-columns: 3rem calc(var(--sidebar-size) - 3rem) minmax(0, 1fr);
+
+    // setting max-width for all pages other than search results
+    max-width: 200ch;
+    margin: auto;
   }
 
   & > .sidebar {
