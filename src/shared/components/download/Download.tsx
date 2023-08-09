@@ -240,6 +240,12 @@ const Download: FC<DownloadProps<JobTypes>> = ({
     ) &&
     ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(fileFormat);
 
+  // In this case it's a not uniprotkb/uniref/uniparc so we can only
+  // provide from/to only file formats
+  if (namespace === Namespace.idmapping && !isAsyncDownloadIdMapping) {
+    fileFormats = fileFormats.filter((ff) => !ff.includes('from/to only'));
+  }
+
   const hasColumns =
     fileFormatsWithColumns.has(fileFormat) &&
     ((excludeColumns && namespace !== Namespace.idmapping) ||
