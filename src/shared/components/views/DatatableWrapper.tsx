@@ -84,36 +84,33 @@ const DatatableWrapper = ({
     }
   }, [alwaysExpanded, datatableElement.defined]);
 
-  if (datatableElement.defined) {
-    return (
-      <div className={cn('datatable-wrapper', className)} {...props}>
-        <datatableElement.name
-          ref={tableRef}
-          filter-scroll
-          expandtable={alwaysExpanded || expandTable ? '' : undefined}
-        >
-          {children}
-        </datatableElement.name>
-        {(showButton || expandTable) && (
-          <Button
-            variant="primary"
-            onClick={() => setExpandTable((current) => !current)}
-            className="toggle-button"
-          >
-            {expandTable ? 'Collapse' : 'Expand'} table
-          </Button>
-        )}
-      </div>
-    );
-  }
-
-  if (datatableElement.errored) {
-    return (
-      <div className={cn('datatable-wrapper', className)} {...props}>
-        {children}
-      </div>
-    );
-  }
+  // if (datatableElement.defined) {
+  //   return (
+  //     <div className={cn('datatable-wrapper', className)} {...props}>
+  //       <datatableElement.name
+  //         ref={tableRef}
+  //         filter-scroll
+  //         expandtable={alwaysExpanded || expandTable ? '' : undefined}
+  //       >
+  //         {children}
+  //       </datatableElement.name>
+  //       {(showButton || expandTable) && (
+  //         <Button
+  //           variant="primary"
+  //           onClick={() => setExpandTable((current) => !current)}
+  //           className="toggle-button"
+  //         >
+  //           {expandTable ? 'Collapse' : 'Expand'} table
+  //         </Button>
+  //       )}
+  //     </div>
+  //   );
+  // }
+  return (
+    <div className={cn('datatable-wrapper', className)} {...props}>
+      {children}
+    </div>
+  );
 
   return null;
 };

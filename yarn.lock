@@ -2517,20 +2517,28 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@nightingale-elements/nightingale-new-core@^4.5.0-alpha.0":
-  version "4.5.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-new-core/-/nightingale-new-core-4.5.0-alpha.0.tgz#f6316c60b45d6584c234ea21dd85adc6f3044e0d"
-  integrity sha512-5z++ginwpf5NAg11f/VU8kdp722TzpDg9AoeIK9TG+DpoVAmjjZQjoKKw1PPMzghTT5D51d4oNysyjKDxSWFvA==
+"@nightingale-elements/nightingale-navigation@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-navigation/-/nightingale-navigation-4.5.0.tgz#0af4de820a767129cfa6827b680c06fda84990aa"
+  integrity sha512-xmGFSUvxn1sBisItT1XaJHLfdWRB2umR6fEyGSilza4WqCjFInWXKxiaRn3RsM8gCkkcxvlhwYSlyw2PVnWI/A==
+  dependencies:
+    "@nightingale-elements/nightingale-new-core" "^4.5.0"
+    d3 "7.8.5"
+
+"@nightingale-elements/nightingale-new-core@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-new-core/-/nightingale-new-core-4.5.0.tgz#fa618b9ba652448ad6a2707fff56ee2e360cead7"
+  integrity sha512-V7WOGhper9i54pvQugYHUHoEpPz8Gf+eUmRiyy0eP0StX/QP9FF9SvQSE4wWpd1S10R4fzRuBkQjl3u0NeURzg==
   dependencies:
     d3 "7.8.5"
     lit "2.7.6"
 
-"@nightingale-elements/nightingale-track@^4.5.0-alpha.0":
-  version "4.5.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-track/-/nightingale-track-4.5.0-alpha.0.tgz#5fd22de976fcb355b6b5b2a9cffe7e9ebba5ad48"
-  integrity sha512-FaoBTb3EHrpKKAqDOhQZDAR68o/Mjh5KDYZc646sxcB929YNv08IXDTLx3JBgSDfFT4hqO4WathJfBG4jkHYYA==
+"@nightingale-elements/nightingale-track@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-track/-/nightingale-track-4.5.0.tgz#ac7959d38f763bf764b56ce87314083b6c8e0f80"
+  integrity sha512-2CVgM1UqpkNWjR99bGdkGN7cOQFeDDLdJZM/AbhtNqa15WT0MK2YW+grObqo1ra9mOcGq38xbScFIYXqtevZqA==
   dependencies:
-    "@nightingale-elements/nightingale-new-core" "^4.5.0-alpha.0"
+    "@nightingale-elements/nightingale-new-core" "^4.5.0"
     d3 "7.8.5"
     lodash-es "^4.17.15"
 
