@@ -248,8 +248,7 @@ const Download: FC<DownloadProps<JobTypes>> = ({
 
   const hasColumns =
     fileFormatsWithColumns.has(fileFormat) &&
-    ((excludeColumns && namespace !== Namespace.idmapping) ||
-      isAsyncDownloadIdMapping);
+    (namespace !== Namespace.idmapping || isAsyncDownloadIdMapping);
 
   if (!inBasketMini) {
     downloadOptions.query = urlQuery;
