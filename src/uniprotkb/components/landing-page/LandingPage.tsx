@@ -128,6 +128,7 @@ const LandingPage = () => {
           <h4>Statistics</h4>
           <div className={styles['statistics__content']}>
             <div>
+              <span>Taxonomic origin</span>
               <StatisticsChart releaseNumber={release?.releaseNumber} />
             </div>
             <div className={styles['entries-count']}>
