@@ -47,19 +47,28 @@
     }
 
     .download {
-      span {
-        display: block;
-        margin-top: 0.5rem;
+      &__content {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+
+        div {
+          margin-top: 1rem;
+        }
+
+        span {
+          display: block;
+        }
+
+        a {
+          margin-right: 0.5rem;
+        }
       }
 
-      a {
-        margin-right: 0.5rem;
-      }
-
-      &__ftp-link {
-        display: block;
-        margin-top: 2rem;
-      }
+      // &__ftp-link {
+      //   display: block;
+      //   margin-top: 1rem;
+      // }
     }
 
     .tutorial {

@@ -129,6 +129,7 @@ const LandingPage = () => {
           <div className={styles['statistics__content']}>
             <div>
               <span>Taxonomic origin</span>
+              <br />
               <StatisticsChart releaseNumber={release?.releaseNumber} />
             </div>
             <div className={styles['entries-count']}>
@@ -201,30 +202,39 @@ const LandingPage = () => {
           )}
         >
           <h4>Download</h4>
-          <span>Reviewed(Swiss-Prot)</span>
-          {Object.entries(availableFTPFormats).map(([key, value]) => (
-            <ExternalLink
-              url={`${ftpUrls.uniprotkb_reviewed}.${value}.gz`}
-              key={`reviewed-${key}`}
-            >
-              {key}
-            </ExternalLink>
-          ))}
-          <span>Unreviewed(TrEMBL)</span>
-          {Object.entries(availableFTPFormats).map(([key, value]) => (
-            <ExternalLink
-              url={`${ftpUrls.uniprotkb_unreviewed}.${value}.gz`}
-              key={`unreviewed-${key}`}
-            >
-              {key}
-            </ExternalLink>
-          ))}
-          <ExternalLink
-            url={ftpUrls.uniprotkb}
-            className={styles['download__ftp-link']}
-          >
-            Explore more in FTP
-          </ExternalLink>
+          <div className={styles['download__content']}>
+            <br />
+            <div>
+              <span>Reviewed(Swiss-Prot)</span>
+              {Object.entries(availableFTPFormats).map(([key, value]) => (
+                <ExternalLink
+                  url={`${ftpUrls.uniprotkb_reviewed}.${value}.gz`}
+                  key={`reviewed-${key}`}
+                >
+                  {key}
+                </ExternalLink>
+              ))}
+            </div>
+            <div>
+              <span>Unreviewed(TrEMBL)</span>
+              {Object.entries(availableFTPFormats).map(([key, value]) => (
+                <ExternalLink
+                  url={`${ftpUrls.uniprotkb_unreviewed}.${value}.gz`}
+                  key={`unreviewed-${key}`}
+                >
+                  {key}
+                </ExternalLink>
+              ))}
+            </div>
+            <div>
+              <ExternalLink
+                url={ftpUrls.uniprotkb}
+                className={styles['download__ftp-link']}
+              >
+                Explore more in FTP
+              </ExternalLink>
+            </div>
+          </div>
         </div>
 
         {/* Tutorials */}
