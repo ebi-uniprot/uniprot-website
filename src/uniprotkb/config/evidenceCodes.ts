@@ -263,8 +263,7 @@ export const ecoCodeToData = {
         return 'Automatic assertion according to sequence analysis';
       }
       if (isProtNLMEvidence(evidences)) {
-        // TODO: update when TRM-28958 has settled on a specific wording
-        return 'Automatic assertion';
+        return 'Automatic assertion from deep learning method';
       }
       return 'Automatic assertion according to rules';
     },
@@ -315,6 +314,7 @@ export type EvidenceData = {
 export const getEcoNumberFromString = (eco: string) => {
   // eg ECO:0000001
   const tokens = eco.split(':');
+  /* istanbul ignore if */
   if (tokens.length !== 2) {
     logging.warn(`Ill-formed eco code string: ${eco}`);
     return null;
@@ -327,12 +327,14 @@ export const getEcoNumberFromGoEvidenceType = (
 ) => {
   // eg IMP:ARUK-UCL
   const tokens = goEvidenceType.split(':');
+  /* istanbul ignore if */
   if (tokens.length !== 2) {
     logging.warn(`Ill-formed GoEvidenceType: ${goEvidenceType}`);
     return null;
   }
   const initials = tokens[0] as EcoCode;
   const num = ecoCode?.[initials];
+  /* istanbul ignore if */
   if (!num) {
     logging.warn(`Cannot find ECO number for initials: ${initials}`);
     return null;
@@ -347,6 +349,7 @@ export const getEvidenceCodeData = (
     return null;
   }
   const data = ecoCodeToData[eco];
+  /* istanbul ignore if */
   if (!data) {
     logging.warn(`Evidence code not found: ${eco}`);
     return null;

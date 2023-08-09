@@ -16,7 +16,6 @@ import {
   Replay,
 } from '@sentry/react';
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
-import queryString from 'query-string';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
@@ -34,7 +33,9 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
+
 import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
+import { stringifyUrl } from '../../shared/utils/url';
 
 import pkg from '../../../package.json';
 
@@ -300,13 +301,19 @@ const BackToTheTop = lazy(() =>
 const ResultsOrLanding =
   (ResultsPage: FC<RouteChildrenProps>, LandingPage: FC<RouteChildrenProps>) =>
   (props: RouteChildrenProps) => {
-    const urlSP = new URLSearchParams(props.location.search);
-    // There's a query in the URL
-    if (urlSP.has('query')) {
-      // Somehow the query is empty (e.g. user-edited)
-      if (!urlSP.get('query')) {
-        // Redirect to star search
-        return <Redirect to={{ ...props.location, search: 'query=*' }} />;
+    if (props.location.search) {
+      const params = Object.fromEntries(
+        new URLSearchParams(props.location.search)
+      );
+      if (!params.query) {
+        return (
+          <Redirect
+            to={stringifyUrl(props.location.pathname, {
+              ...params,
+              query: '*',
+            })}
+          />
+        );
       }
       return <ResultsPage {...props} />;
     }

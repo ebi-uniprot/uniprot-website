@@ -98,7 +98,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
     Natural variants in AD
   </h5>
   <div
-    class="datatable-with-toggle"
+    class="datatable-wrapper"
   >
     <protvista-datatable
       filter-scroll="true"
@@ -120,7 +120,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody
+          translate="no"
+        >
           <tr>
             <td>
               <a
@@ -149,7 +151,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
                 Q&gt;P
               </a>
             </td>
-            <td>
+            <td
+              translate="yes"
+            >
               in AD; supposed to be rendered with the disease; Italian type; dbSNP:
               <a
                 class="external-link"
@@ -193,7 +197,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
                 I&gt;V
               </a>
             </td>
-            <td>
+            <td
+              translate="yes"
+            >
               in AD
             </td>
           </tr>

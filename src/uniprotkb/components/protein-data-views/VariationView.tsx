@@ -1,5 +1,13 @@
-import { useMemo, Fragment, useRef, useEffect, useState, lazy } from 'react';
-import { Loader } from 'franklin-sites';
+import {
+  useMemo,
+  Fragment,
+  useRef,
+  useEffect,
+  useState,
+  lazy,
+  ReactNode,
+} from 'react';
+import { EllipsisReveal, Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
@@ -10,7 +18,7 @@ import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
@@ -234,7 +242,7 @@ const VariationView = ({
           <th>Provenance</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {filteredVariants.map((variantFeature) => {
           let position = variantFeature.start;
           if (variantFeature.start !== variantFeature.end) {
@@ -249,6 +257,42 @@ const VariationView = ({
                 source: evidence?.source?.name,
                 url: evidence?.source?.url,
               } as Evidence)
+          );
+
+          let from: ReactNode = variantFeature.wildType;
+          if (!variantFeature.wildType) {
+            from = <em>missing</em>;
+          } else if (variantFeature.wildType.length > 3) {
+            from = (
+              <>
+                {variantFeature.wildType.slice(0, 2)}
+                <EllipsisReveal>
+                  {variantFeature.wildType.slice(2)}
+                </EllipsisReveal>
+              </>
+            );
+          }
+
+          let to: ReactNode = variantFeature.alternativeSequence;
+          if (!variantFeature.alternativeSequence) {
+            to = <em>missing</em>;
+          } else if (variantFeature.alternativeSequence.length > 3) {
+            to = (
+              <>
+                {variantFeature.alternativeSequence.slice(0, 2)}
+                <EllipsisReveal>
+                  {variantFeature.alternativeSequence.slice(2)}
+                </EllipsisReveal>
+              </>
+            );
+          }
+
+          const change = (
+            <>
+              {from}
+              {'>'}
+              {to}
+            </>
           );
 
           return (
@@ -287,21 +331,15 @@ const VariationView = ({
                       title="View in ProtVar"
                       noIcon
                     >
-                      {variantFeature.wildType}
-                      {'>'}
-                      {variantFeature.alternativeSequence}
+                      {change}
                     </ExternalLink>
                   ) : (
-                    <>
-                      {variantFeature.wildType || <em>missing</em>}
-                      {'>'}
-                      {variantFeature.alternativeSequence || <em>missing</em>}
-                    </>
+                    change
                   )}
                   {!variantFeature.wildType &&
                     !variantFeature.alternativeSequence && <em>missing</em>}
                 </td>
-                <td>
+                <td translate="yes">
                   {variantFeature.descriptions?.length ? (
                     Array.from(variantFeature.descriptions)
                       .sort(sortDescriptionByUniProtFirst)
@@ -322,7 +360,7 @@ const VariationView = ({
                     <UniProtKBEvidenceTag evidences={uniProtEvidences} />
                   )}
                 </td>
-                <td>
+                <td translate="yes">
                   {variantFeature.clinicalSignificances?.map(
                     (clinicalSignificance, i) => (
                       // eslint-disable-next-line react/no-array-index-key
@@ -488,7 +526,7 @@ const VariationView = ({
     return (
       <section>
         {title && <h2>{title}</h2>}
-        <DatatableWithToggle>{table}</DatatableWithToggle>
+        <DatatableWrapper>{table}</DatatableWrapper>
       </section>
     );
   }
@@ -501,7 +539,7 @@ const VariationView = ({
         ref={managerRef}
       >
         <VisualVariationView {...transformedData} />
-        <DatatableWithToggle>{table}</DatatableWithToggle>
+        <DatatableWrapper alwaysExpanded>{table}</DatatableWrapper>
       </managerElement.name>
     </section>
   );

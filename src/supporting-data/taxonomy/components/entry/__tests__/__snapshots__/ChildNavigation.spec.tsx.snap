@@ -9,6 +9,7 @@ exports[`ChildNavigation should render, lots 1`] = `
       <a
         href="/taxonomy/0"
         title="Primate lentivirus group, taxon ID 0"
+        translate="no"
       >
         Primate lentivirus group
       </a>
@@ -17,6 +18,7 @@ exports[`ChildNavigation should render, lots 1`] = `
       <a
         href="/taxonomy/1"
         title="Primate calicivirus, taxon ID 1"
+        translate="no"
       >
         Primate calicivirus
       </a>
@@ -25,6 +27,7 @@ exports[`ChildNavigation should render, lots 1`] = `
       <a
         href="/taxonomy/2"
         title="Primate lentivirus group, taxon ID 2"
+        translate="no"
       >
         Primate lentivirus group
       </a>
@@ -33,6 +36,7 @@ exports[`ChildNavigation should render, lots 1`] = `
       <a
         href="/taxonomy/3"
         title="Primate calicivirus, taxon ID 3"
+        translate="no"
       >
         Primate calicivirus
       </a>
@@ -41,6 +45,7 @@ exports[`ChildNavigation should render, lots 1`] = `
       <a
         href="/taxonomy/4"
         title="Primate lentivirus group, taxon ID 4"
+        translate="no"
       >
         Primate lentivirus group
       </a>
@@ -74,6 +79,7 @@ exports[`ChildNavigation should render, one 1`] = `
       <a
         href="/taxonomy/11652"
         title="Primate lentivirus group, taxon ID 11652"
+        translate="no"
       >
         Primate lentivirus group
       </a>

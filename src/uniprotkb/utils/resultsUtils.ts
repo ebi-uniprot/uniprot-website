@@ -1,5 +1,4 @@
-import qs from 'query-string';
-import { parseQueryString } from '../../shared/utils/url';
+import { stringifyQuery } from '../../shared/utils/url';
 
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../types/columnTypes';
@@ -11,6 +10,7 @@ import {
 import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
 import { ViewMode } from '../../shared/hooks/useViewMode';
+import { GroupBy } from '../config/apiUrls';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -30,6 +30,8 @@ export type URLResultParams = {
   direct?: boolean;
   columns?: Column[];
   viewMode?: ViewMode;
+  groupBy?: GroupBy;
+  parent?: string;
 };
 
 export type InvalidParamValue = {
@@ -51,9 +53,11 @@ export const getParamsFromURL = (
     direct,
     fields, // Handled in useColumnNames
     view, // Handled in useViewMode
-    ids, // Handles in ToolsButton
+    ids, // Handled in ToolsButton
+    groupBy, // Handled in UniProtKB/groupBy
+    parent, // Handled in UniProtKB/groupBy
     ...restParams
-  } = parseQueryString(url);
+  } = Object.fromEntries(new URLSearchParams(url));
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -69,6 +73,8 @@ export const getParamsFromURL = (
     sortDirection: sortDirection && SortDirection[sortDirection],
     // flag, so if '?direct' we get null, if not in querystring we get undefined
     direct: direct !== undefined,
+    groupBy: (groupBy as GroupBy) || undefined,
+    parent: parent || undefined,
   };
 
   const unknownParams = Object.keys(restParams);
@@ -103,18 +109,15 @@ export const getLocationObjForParams = ({
   viewMode,
 }: GetLocationObjForParams = {}) => ({
   pathname,
-  search: qs.stringify(
-    {
-      query: query || undefined,
-      facets: facetsAsString(selectedFacets),
-      sort: sortColumn,
-      dir: sortDirection,
-      activeFacet,
-      fields: columns,
-      view: viewMode,
-    },
-    { encode: false }
-  ),
+  search: stringifyQuery({
+    query: query || undefined,
+    facets: facetsAsString(selectedFacets),
+    sort: sortColumn,
+    dir: sortDirection,
+    activeFacet,
+    fields: columns,
+    view: viewMode,
+  }),
 });
 
 export const getSortableColumnToSortColumn = (

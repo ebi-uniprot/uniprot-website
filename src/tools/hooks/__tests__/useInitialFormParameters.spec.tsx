@@ -1,11 +1,13 @@
-import queryString from 'query-string';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import getCustomRenderHook from '../../../shared/__test-helpers__/customRenderHook';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
 import useInitialFormParameters from '../useInitialFormParameters';
+
+import { stringifyUrl } from '../../../shared/utils/url';
+
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import defaultAlignFormValues from '../../align/config/AlignFormData';
 import defaultPeptideSearchFormValues from '../../peptide-search/config/PeptideSearchFormData';
@@ -39,11 +41,8 @@ describe('useInitialFormParameters: Align', () => {
     const axiosMock = new MockAdapter(axios);
     axiosMock.onGet(/\/uniprotkb\/accessions/).reply(200, accessionsData);
     const { result, waitForNextUpdate } = customRenderHook(
-      queryString.stringifyUrl({
-        url: LocationToPath[Location.Blast],
-        query: {
-          ids: 'P05067[1-10]',
-        },
+      stringifyUrl(LocationToPath[Location.Blast], {
+        ids: 'P05067[1-10]',
       }),
       {
         parameters: { sequence },
@@ -67,9 +66,10 @@ describe('useInitialFormParameters: Peptide Search', () => {
     const lEQi = 'on';
     const spOnly = 'off';
     const { result } = customRenderHook(
-      queryString.stringifyUrl({
-        url: LocationToPath[Location.PeptideSearch],
-        query: { peps, lEQi, spOnly },
+      stringifyUrl(LocationToPath[Location.PeptideSearch], {
+        peps,
+        lEQi,
+        spOnly,
       })
     );
     expect(result.current.initialFormValues).toEqual({

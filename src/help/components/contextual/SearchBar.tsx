@@ -2,7 +2,8 @@ import { SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
 import { useMemo, useEffect, useCallback, ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import qs from 'query-string';
+
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -18,7 +19,7 @@ const SearchBar = ({ isLoading }: { isLoading: boolean }) => {
         // Push only the first time we get a new search, replace otherwise
         history[history.location.search ? 'replace' : 'push']({
           pathname: LocationToPath[Location.HelpResults],
-          search: qs.stringify({ query: searchValue || undefined }),
+          search: stringifyQuery({ query: searchValue || undefined }),
         });
       }, 500),
     [history]

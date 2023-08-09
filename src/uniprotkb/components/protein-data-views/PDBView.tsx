@@ -1,7 +1,7 @@
 import { Loader } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -59,7 +59,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
   const { databaseToDatabaseInfo } = databaseInfoMaps;
 
   return (
-    <DatatableWithToggle>
+    <DatatableWrapper>
       <table>
         <thead>
           <tr>
@@ -71,13 +71,13 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
             <th>Links</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody translate="no">
           {data.map(
             (d) =>
               d && (
                 <tr key={d.id}>
                   <td>{d.id}</td>
-                  <td>{d.method}</td>
+                  <td translate="yes">{d.method}</td>
                   <td>{d.resolution?.replace('A', 'Å')}</td>
                   <td>{d.chain}</td>
                   <td>{d.positions}</td>
@@ -105,7 +105,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
           )}
         </tbody>
       </table>
-    </DatatableWithToggle>
+    </DatatableWrapper>
   );
 };
 

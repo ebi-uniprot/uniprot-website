@@ -22,7 +22,6 @@ import HelpLandingPage from './Landing';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { help as helpURL } from '../../../shared/config/apiUrls';
-import { parseQueryString } from '../../../shared/utils/url';
 
 import {
   LocationToPath,
@@ -40,7 +39,8 @@ const ContextualHelpRouterContent = ({
 }) => {
   const location = useLocation();
 
-  const { query } = parseQueryString(location.search);
+  const sp = new URLSearchParams(location.search);
+  const query = sp.get('query');
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
     query && helpURL.search({ query })
   );

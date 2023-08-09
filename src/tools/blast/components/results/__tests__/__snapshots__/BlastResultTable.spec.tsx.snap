@@ -158,7 +158,9 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody
+      translate="no"
+    >
       <tr>
         <td
           class="checkbox-cell"
@@ -185,13 +187,15 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
           </span>
         </td>
         <td />
-        <td>
-          <span />
-        </td>
+        <td />
         <td>
           <span
-            style="font-weight: initial;"
-          />
+            translate="yes"
+          >
+            <span
+              style="font-weight: initial;"
+            />
+          </span>
         </td>
         <td />
         <td />

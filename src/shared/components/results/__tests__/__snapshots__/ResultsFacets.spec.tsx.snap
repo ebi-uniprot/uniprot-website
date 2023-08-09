@@ -118,6 +118,43 @@ exports[`ResultsFacets should render 1`] = `
       </li>
       <li>
         <div>
+          <span
+            class="facet-name"
+          >
+            Group by
+          </span>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                class=""
+                href="/uniprotkb?groupBy=taxonomy&query=blah"
+              >
+                Taxonomy
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/uniprotkb?groupBy=keyword&query=blah"
+              >
+                Keywords
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/uniprotkb?groupBy=ec&query=blah"
+              >
+                Enzyme Class
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
           <div
             class="facet-name"
           >

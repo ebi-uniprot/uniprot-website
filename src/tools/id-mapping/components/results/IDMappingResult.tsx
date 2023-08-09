@@ -189,6 +189,7 @@ const IDMappingResult = () => {
       allWarnings,
       ({ code }) => code in MappingWarningCode
     );
+    /* istanbul ignore if */
     if (warningsUnrecognized.length) {
       logging.warn(
         `Unrecognized ID Mapping warning codes found for job ID ${
@@ -211,6 +212,7 @@ const IDMappingResult = () => {
       allErrors,
       ({ code }) => code in MappingErrorCode
     );
+    /* istanbul ignore if */
     if (errorsUnrecognized.length) {
       logging.warn(
         `Unrecognized ID Mapping error codes found for job ID ${
@@ -264,7 +266,10 @@ const IDMappingResult = () => {
       break;
 
     default:
-      if (namespaceOverride === Namespace.idmapping) {
+      if (
+        namespaceOverride === Namespace.idmapping ||
+        (!facetInititialLoading && !facetsData?.facets)
+      ) {
         sidebar = <div className={sidebarStyles['empty-sidebar']} />;
       } else {
         sidebar = (

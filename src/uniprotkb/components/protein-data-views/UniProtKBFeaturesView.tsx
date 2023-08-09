@@ -46,6 +46,7 @@ export type FeatureDatum = {
     end: FeatureLocation;
     sequence?: string;
   };
+  // 🤷 originalSequence within alternativeSequence...
   alternativeSequence?: {
     originalSequence?: string;
     alternativeSequences?: string[];
@@ -179,7 +180,7 @@ const UniProtKBFeaturesView = ({
         </tr>
       </thead>
       <tbody>
-        {processedData.map((feature) => {
+        {processedData.map((feature: ProcessedFeature) => {
           const start =
             feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
           const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
@@ -189,10 +190,15 @@ const UniProtKBFeaturesView = ({
           const positionEnd = `${
             feature.endModifier === 'UNSURE' ? '?' : ''
           }${end}`;
+          // feature of type Disulfide bonds and Cross-links describe links, not subsequences.
+          const isLink =
+            feature.type === 'Disulfide bond' || feature.type === 'Cross-link';
+
           const position =
             positionStart === positionEnd
               ? positionStart
-              : `${positionStart}-${positionEnd}`;
+              : `${positionStart}${isLink ? '↔' : '-'}${positionEnd}`;
+
           let { description } = feature;
           if (typeof feature.description === 'string') {
             const isoform = feature.description.match(
@@ -272,28 +278,31 @@ const UniProtKBFeaturesView = ({
                 {smallScreen ? null : (
                   <td>
                     {/* Not using React Router link as this is copied into the table DOM */}
-                    {feature.end - feature.start >= 2 && (
-                      <div className="button-group">
-                        <Button
-                          element="a"
-                          variant="tertiary"
-                          title="BLAST the sequence corresponding to this feature"
-                          href={getURLToJobWithData(
-                            JobTypes.BLAST,
-                            primaryAccession,
-                            {
-                              start: feature.start,
-                              end: feature.end,
-                            }
-                          )}
-                        >
-                          BLAST
-                        </Button>
-                        <AddToBasketButton
-                          selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
-                        />
-                      </div>
-                    )}
+                    {feature.end - feature.start >= 2 &&
+                      feature.type !== 'Disulfide bond' &&
+                      feature.type !== 'Cross-link' && (
+                        <div className="button-group">
+                          <Button
+                            element="a"
+                            variant="tertiary"
+                            title="BLAST the sequence corresponding to this feature"
+                            href={getURLToJobWithData(
+                              JobTypes.BLAST,
+                              primaryAccession,
+                              {
+                                start: feature.start,
+                                end: feature.end,
+                              }
+                            )}
+                            translate="no"
+                          >
+                            BLAST
+                          </Button>
+                          <AddToBasketButton
+                            selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
+                          />
+                        </div>
+                      )}
                   </td>
                 )}
               </tr>

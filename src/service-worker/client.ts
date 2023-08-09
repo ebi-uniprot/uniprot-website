@@ -61,12 +61,12 @@ export async function register() {
   });
 
   try {
-    workbox.register();
+    await workbox.register();
 
     // Try to update the service worker at least once a day
-    setInterval(() => {
+    setInterval(async () => {
       try {
-        workbox.update();
+        await workbox.update();
       } catch {
         /* */
       }

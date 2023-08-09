@@ -1,7 +1,7 @@
-import queryString from 'query-string';
 import joinUrl from 'url-join';
 
 import { fromCleanMapper } from '../utils/getIdKeyForNamespace';
+import { stringifyUrl } from '../utils/url';
 import {
   getApiSortDirection,
   SortDirection,
@@ -78,39 +78,48 @@ export const apiPrefix = API_PREFIX;
 const apiUrls = {
   // uniprotkb query builder terms
   queryBuilderTerms: (namespace: Namespace) =>
-    joinUrl(apiPrefix, `/configure/${namespace}/search-fields`),
+    joinUrl(apiPrefix, 'configure', namespace, 'search-fields'),
   // Annotation evidence used by query builder
   evidences: {
-    annotation: joinUrl(apiPrefix, '/configure/uniprotkb/annotation_evidences'),
+    annotation: joinUrl(apiPrefix, 'configure/uniprotkb/annotation_evidences'),
     // Go evidences used by advanced go search
     // "itemType": "goterm",
-    go: joinUrl(apiPrefix, '/configure/uniprotkb/go_evidences'),
+    go: joinUrl(apiPrefix, 'configure/uniprotkb/go_evidences'),
   },
   // Database cross references used
   allDatabases: (namespace: Namespace) =>
     joinUrl(apiPrefix, 'configure', namespace, 'allDatabases'),
   // Database cross references used by query builder
-  databaseXrefs: joinUrl(apiPrefix, '/configure/uniprotkb/databases'),
+  databaseXrefs: joinUrl(apiPrefix, 'configure/uniprotkb/databases'),
   // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace, isEntry?: boolean) =>
     joinUrl(
       apiPrefix,
-      `/configure/${namespace}/${isEntry ? 'entry-' : ''}result-fields`
+      'configure',
+      namespace,
+      isEntry ? 'entry-' : '',
+      'result-fields'
     ),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
-    joinUrl(apiPrefix, `/${namespace}/search`),
-  download: (namespace: Namespace) =>
-    joinUrl(apiPrefix, `/${namespace}/stream`),
+    joinUrl(apiPrefix, namespace, 'search'),
+  download: (namespace: Namespace) => joinUrl(apiPrefix, namespace, 'stream'),
   variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
   genecentric: (accession: string) =>
-    queryString.stringifyUrl({
-      url: joinUrl(apiPrefix, '/genecentric/search'),
-      query: { query: `accession:${accession}` },
+    stringifyUrl(joinUrl(apiPrefix, 'genecentric/search'), {
+      query: `accession:${accession}`,
     }),
-  idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
-  entry: (id: string | undefined, namespace: Namespace) =>
-    id && joinUrl(apiPrefix, namespace, id),
+  idMappingFields: joinUrl(apiPrefix, 'configure/idmapping/fields'),
+  entry: (id: string | undefined, namespace: Namespace, columns?: Column[]) => {
+    if (!id) {
+      return undefined;
+    }
+    const url = joinUrl(apiPrefix, namespace, id);
+    if (columns?.length) {
+      return stringifyUrl(url, { fields: columns.join(',') });
+    }
+    return url;
+  },
   sequenceFasta: (accession: string) =>
     `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
   entryDownload: (
@@ -119,19 +128,16 @@ const apiUrls = {
     namespace: Namespace = Namespace.uniprotkb
   ) =>
     format === FileFormat.fastaCanonicalIsoform
-      ? queryString.stringifyUrl({
-          url: apiUrls.search(namespace),
-          query: {
-            query: `accession:${accession}`,
-            includeIsoform: true,
-            format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
-          },
+      ? stringifyUrl(apiUrls.search(namespace), {
+          query: `accession:${accession}`,
+          includeIsoform: true,
+          format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
         })
       : `${apiUrls.entry(accession, namespace)}.${
           fileFormatToUrlParameter[format]
         }`,
   entryPublications: (accession: string) =>
-    joinUrl(apiPrefix, 'uniprotkb', accession, '/publications'),
+    joinUrl(apiPrefix, 'uniprotkb', accession, 'publications'),
   taxonomySuggester: 'suggester?dict=taxonomy&query=?',
   organismSuggester: 'suggester?dict=organism&query=?',
 
@@ -231,7 +237,6 @@ export const getAPIQueryParams = ({
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }
-
   return {
     size,
     query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]
@@ -246,10 +251,10 @@ export const getAPIQueryParams = ({
 };
 
 export const getAPIQueryUrl = (options: ApiUrlOptions = {}) =>
-  queryString.stringifyUrl({
-    url: apiUrls.search(options.namespace || Namespace.uniprotkb),
-    query: getAPIQueryParams(options),
-  });
+  stringifyUrl(
+    apiUrls.search(options.namespace || Namespace.uniprotkb),
+    getAPIQueryParams(options)
+  );
 
 const localBlastFacets = Object.values(BlastFacet) as string[];
 const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
@@ -298,25 +303,22 @@ export const getAccessionsURL = (
     // sort to improve possible cache hit
     accs = Array.from(accessions).sort();
   }
-  return `${joinUrl(apiPrefix, `/${namespace}/${key}`)}?${queryString.stringify(
-    {
-      size,
-      [key]: accs.join(','),
-      query: [
-        query && `(${query})`,
-        createFacetsQueryString(
-          selectedFacets.filter(excludeLocalBlastFacets)
-        ) || undefined,
-      ]
-        .filter(Boolean)
-        .join(' AND '),
-      fields: (columns && columns.join(',')) || undefined,
-      facets: finalFacets?.join(',') || undefined,
-      sort:
-        sortColumn &&
-        `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
-    }
-  )}`;
+  return stringifyUrl(joinUrl(apiPrefix, namespace, key), {
+    size,
+    [key]: accs.join(','),
+    query: [
+      query && `(${query})`,
+      createFacetsQueryString(selectedFacets.filter(excludeLocalBlastFacets)) ||
+        undefined,
+    ]
+      .filter(Boolean)
+      .join(' AND '),
+    fields: (columns && columns.join(',')) || undefined,
+    facets: finalFacets?.join(',') || undefined,
+    sort:
+      sortColumn &&
+      `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
+  });
 };
 
 type GetUniProtPublicationsQueryUrl = {
@@ -331,14 +333,14 @@ export const getUniProtPublicationsQueryUrl = ({
   selectedFacets,
   size,
 }: GetUniProtPublicationsQueryUrl) =>
-  `${apiUrls.entryPublications(accession)}?${queryString.stringify({
+  stringifyUrl(apiUrls.entryPublications(accession), {
     facets: facets?.join(','),
     facetFilter:
       selectedFacets
         .map((facet) => `(${facet.name}:"${facet.value}")`)
         .join(' AND ') || undefined,
     size,
-  })}`;
+  });
 
 type Parameters = {
   query?: string;
@@ -478,7 +480,7 @@ export const getDownloadUrl = ({
     parameters.compressed = true;
   }
 
-  return queryString.stringifyUrl({ url: endpoint, query: parameters });
+  return stringifyUrl(endpoint, parameters);
 };
 
 const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
@@ -500,33 +502,30 @@ export const help = {
     queryFacets,
     facets = helpDefaultFacets,
     size,
-  }: queryString.ParsedQuery) =>
-    queryString.stringifyUrl({
-      url: joinUrl(apiPrefix, 'help/search'),
-      query: {
-        query: [
-          query || '*',
-          ...(Array.isArray(queryFacets)
-            ? queryFacets
-            : (queryFacets || '').split(',')
-          )
-            .filter(Boolean)
-            // Sort in order to improve cache hits
-            .sort()
-            .map((facet) => {
-              const [facetName, facetValue] = (facet || '').split(':');
-              return `(${facetName}:${
-                facetValue.includes(' ') ? `"${facetValue}"` : facetValue
-              })`;
-            }),
-        ]
+  }: Record<string, string[] | string | null>) =>
+    stringifyUrl(joinUrl(apiPrefix, 'help/search'), {
+      query: [
+        query || '*',
+        ...(Array.isArray(queryFacets)
+          ? queryFacets
+          : (queryFacets || '').split(',')
+        )
           .filter(Boolean)
-          .join(' AND '),
-        sort,
-        fields,
-        facets,
-        size,
-      },
+          // Sort in order to improve cache hits
+          .sort()
+          .map((facet) => {
+            const [facetName, facetValue] = (facet || '').split(':');
+            return `(${facetName}:${
+              facetValue.includes(' ') ? `"${facetValue}"` : facetValue
+            })`;
+          }),
+      ]
+        .filter(Boolean)
+        .join(' AND '),
+      sort,
+      fields,
+      facets,
+      size,
     }),
 };
 
@@ -534,12 +533,12 @@ export const help = {
 export const news = {
   accession: (accession?: string) =>
     accession && joinUrl(apiPrefix, 'release-notes', accession),
-  search: ({ query, sort }: queryString.ParsedQuery) =>
-    `${joinUrl(apiPrefix, '/release-notes/search')}?${queryString.stringify({
+  search: ({ query, sort }: Record<string, string[] | string | null>) =>
+    stringifyUrl(joinUrl(apiPrefix, 'release-notes/search'), {
       query: [query || '*'].filter(Boolean).join(' AND '),
       sort:
         sort || `release_date ${getApiSortDirection(SortDirection.descend)}`,
-    })}`,
+    }),
 };
 
 export const unisave = {
@@ -558,23 +557,18 @@ export const unisave = {
     } = { format: 'json' }
   ) =>
     accession &&
-    `${joinUrl(apiPrefix, '/unisave', accession)}?${queryString.stringify(
-      {
-        format,
-        versions: entryVersions,
-        download: download ? 'true' : undefined,
-        includeContent: includeContent ? 'true' : undefined,
-      },
-      { arrayFormat: 'comma' }
-    )}`,
+    stringifyUrl(joinUrl(apiPrefix, 'unisave', accession), {
+      format,
+      versions: entryVersions,
+      download: download ? 'true' : undefined,
+      includeContent: includeContent ? 'true' : undefined,
+    }),
   status: (accession: string) =>
-    accession && joinUrl(apiPrefix, '/unisave', accession, 'status'),
+    accession && joinUrl(apiPrefix, 'unisave', accession, 'status'),
   diff: (accession: string, version1: number, version2: number) =>
     accession &&
-    `${joinUrl(
-      apiPrefix,
-      '/unisave',
-      accession,
-      'diff'
-    )}?${queryString.stringify({ version1, version2 })}`,
+    stringifyUrl(joinUrl(apiPrefix, 'unisave', accession, 'diff'), {
+      version1,
+      version2,
+    }),
 };

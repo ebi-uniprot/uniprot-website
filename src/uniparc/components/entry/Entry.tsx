@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
-import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -31,6 +30,7 @@ import {
   UniParcXRefsColumn,
 } from '../../config/UniParcXRefsColumnConfiguration';
 import { Location, getEntryPath } from '../../../app/config/urls';
+import { stringifyUrl } from '../../../shared/utils/url';
 
 import uniParcConverter, {
   UniParcAPIModel,
@@ -67,7 +67,7 @@ const Entry = () => {
     if (!selectedFacets.length) {
       return baseURL;
     }
-    return `${baseURL}?${stringify({
+    return stringifyUrl(baseURL || '', {
       ...Object.fromEntries(
         selectedFacets.map(({ name, value }) => [name, value])
       ),
@@ -83,7 +83,7 @@ const Entry = () => {
         // Sort to have better cache hits
         .sort()
         .join(','),
-    })}`;
+    });
   }, [baseURL, search, columns]);
   const dataObject = useDataApi<UniParcAPIModel>(
     // Hack to have the backend only return the base object without xref data

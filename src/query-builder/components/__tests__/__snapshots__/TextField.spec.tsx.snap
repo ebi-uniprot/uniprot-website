@@ -6,6 +6,7 @@ exports[`TextField should render 1`] = `
     UniProtKB AC
     <input
       placeholder="P12345"
+      translate="no"
       type="text"
       value=""
     />

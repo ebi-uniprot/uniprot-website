@@ -1,10 +1,12 @@
 import { memo } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
+import { useRouteMatch } from 'react-router-dom';
 import useNS from '../../hooks/useNS';
 
 import TaxonomyFacet from './TaxonomyFacet';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
+import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
 
 import {
   mainNamespaces,
@@ -14,6 +16,7 @@ import {
 
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import { FacetObject, FacetValue } from '../../types/results';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
 import baseLayoutStyles from '../layouts/styles/base-layout.module.scss';
@@ -38,6 +41,10 @@ type Props = {
 
 const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const namespace = useNS(namespaceOverride);
+  const isUniProtKBResults = useRouteMatch(
+    LocationToPath[Location.UniProtKBResults]
+  );
+
   const { data, isStale, loading, progress } = dataApiObject;
 
   // TODO: show loading when a brand new search query (and not just a facet modification) is being fetched
@@ -104,6 +111,9 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
       )}
       {namespace && mainNamespaces.has(namespace) && (
         <TaxonomyFacet namespace={namespace as SearchableNamespace} />
+      )}
+      {namespace === Namespace.uniprotkb && isUniProtKBResults && (
+        <UniProtKBGroupByFacet />
       )}
       {after.map(
         (facet) =>

@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import deepFreeze from 'deep-freeze';
 import joinUrl from 'url-join';
 
@@ -8,6 +7,8 @@ import {
   getAPIQueryParams,
   getDownloadUrl,
 } from '../../shared/config/apiUrls';
+import { stringifyUrl } from '../../shared/utils/url';
+
 import {
   SelectedFacet,
   SortDirection,
@@ -91,10 +92,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
         resultUrl: (redirectUrl, extra) =>
-          queryString.stringifyUrl({
-            url: redirectUrl,
-            query: getAPIQueryParams(extra),
-          }),
+          stringifyUrl(redirectUrl, getAPIQueryParams(extra)),
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:

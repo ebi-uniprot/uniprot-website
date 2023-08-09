@@ -56,7 +56,7 @@ const AlignButton = ({
             variant="tertiary"
             title={`Select from 1 to ${ALIGN_LIMIT} entries to run an Align job`}
           >
-            Align
+            <span translate="no">Align</span>
           </Button>
         }
       >
@@ -94,7 +94,8 @@ const AlignButton = ({
       title={getTitle(n)}
       location={Location.Align}
     >
-      Align{textSuffix && ` ${textSuffix}`}
+      <span translate="no">Align</span>
+      {textSuffix && ` ${textSuffix}`}
     </ToolsButton>
   );
 };

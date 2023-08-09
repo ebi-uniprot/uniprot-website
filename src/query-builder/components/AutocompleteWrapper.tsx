@@ -60,6 +60,9 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
 
   const handleSelect = useCallback(
     (inputValue: SelectValue | string) => {
+      if (typeof inputValue === 'undefined') {
+        return;
+      }
       if (typeof inputValue === 'string') {
         onSelect(inputValue);
       } else {
@@ -112,6 +115,7 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
         minCharsToShowDropdown={minAPISuggesterChars}
         clearOnSelect={clearOnSelect}
         isLoading={loading}
+        translate={placeholder ? 'no' : undefined}
       />
     </label>
   );

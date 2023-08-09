@@ -7,6 +7,7 @@ import useDataApi from '../../hooks/useDataApi';
 import apiUrls from '../../config/apiUrls';
 import listFormat from '../../utils/listFormat';
 import { flatten } from '../../../query-builder/utils/parseAndMatchQuery';
+import { stringifyUrl } from '../../utils/url';
 
 import { Namespace } from '../../types/namespaces';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -33,14 +34,12 @@ const AdvancedSearchSuggestion = ({
   const [termsToDisplay, setTermsToDisplay] = useState(+Infinity);
   const ref = useRef<HTMLElement>(null);
 
-  const searchParams = new URLSearchParams({
-    size: '0',
-    query,
-    showSingleTermMatchedFields: 'true',
-  });
-
   const { data } = useDataApi<MatchedFieldsResponse>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
+    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+      size: '0',
+      query,
+      showSingleTermMatchedFields: 'true',
+    })
   );
 
   // Data to enrich the suggestions with nice labels
@@ -143,7 +142,8 @@ const AdvancedSearchSuggestion = ({
     <span ref={ref}>
       <small>
         {' '}
-        or search &quot;{query}&quot; as a {visibleFragments}
+        or search <span translate="no">&quot;{query}&quot;</span> as a{' '}
+        {visibleFragments}
         {hiddenFragments.length ? (
           <EllipsisReveal>{hiddenFragments}</EllipsisReveal>
         ) : null}
