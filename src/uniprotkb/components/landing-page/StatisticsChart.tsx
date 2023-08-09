@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { useHistory } from 'react-router-dom';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -7,11 +8,13 @@ import {
   StatisticsItem,
   StatisticsPayload,
 } from '../statistics-page/StatisticsPage';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 const renderPieChart = (
   svgElement: SVGSVGElement | null,
-  data: StatisticsItem[]
-) => {
+  data: StatisticsItem[],
+  history
+): void => {
   // Specify the chart’s dimensions.
   const width = 400,
     height = 300,
@@ -108,7 +111,10 @@ const renderPieChart = (
     .style('fill', '#014371')
     .style('font-weight', 'bold')
     .on('click', function (d) {
-      window.location.href = `${window.location.href}?query=(taxonomy_name:${d.data.name})`;
+      history.push({
+        pathname: LocationToPath[Location.UniProtKBResults],
+        search: `query=(taxonomy_name:${d.data.name})`,
+      });
     })
     .text((d) => d.data.name)
     .merge(text)
@@ -175,6 +181,7 @@ const renderPieChart = (
 };
 
 const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
+  const history = useHistory();
   const svgRef = useRef<SVGSVGElement>(null);
 
   const reviewedStats = useDataApi<StatisticsPayload>(
@@ -220,7 +227,7 @@ const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
         )
       );
 
-      renderPieChart(svgRef.current, taxonSummed as StatisticsItem[]);
+      renderPieChart(svgRef.current, taxonSummed as StatisticsItem[], history);
     }
   }, [
     svgRef.current,
