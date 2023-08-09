@@ -14,9 +14,14 @@ import styles from './styles/download-preview.module.scss';
 type Props = {
   previewUrl?: string;
   previewFileFormat?: FileFormat;
+  disable?: boolean;
 };
 
-const DownloadPreview = ({ previewUrl, previewFileFormat }: Props) => {
+const DownloadPreview = ({
+  previewUrl,
+  previewFileFormat,
+  disable = false,
+}: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const options = useMemo(() => {
     if (!previewFileFormat) {
@@ -31,7 +36,7 @@ const DownloadPreview = ({ previewUrl, previewFileFormat }: Props) => {
   }, [previewFileFormat]);
 
   const { data, loading } = useDataApi<JsonObject | string>(
-    previewUrl,
+    disable ? null : previewUrl,
     options
   );
 
