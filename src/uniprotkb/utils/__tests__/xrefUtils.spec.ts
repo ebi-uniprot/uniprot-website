@@ -11,7 +11,7 @@ import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 const { implicitDatabaseXRefs } = databaseInfoMaps;
 
 describe('xrefUtils tests', () => {
-  test('should getDRImplicitXrefs', () => {
+  it('should getDRImplicitXrefs', () => {
     expect(
       getDRImplicitXrefs(
         implicitDatabaseXRefs,
@@ -83,7 +83,7 @@ describe('xrefUtils tests', () => {
     ]);
   });
 
-  test('should getDatabaseSimilarityCommentImplicitXrefs', () => {
+  it('should getDatabaseSimilarityCommentImplicitXrefs', () => {
     expect(
       getDatabaseSimilarityCommentImplicitXrefs(
         implicitDatabaseXRefs,
@@ -110,7 +110,7 @@ describe('xrefUtils tests', () => {
     ]);
   });
 
-  test('should getGenePatternOrganismImplicitXrefs', () => {
+  it('should getGenePatternOrganismImplicitXrefs', () => {
     expect(
       getGenePatternOrganismImplicitXrefs(
         implicitDatabaseXRefs,
@@ -126,7 +126,7 @@ describe('xrefUtils tests', () => {
     ]);
   });
 
-  test('should getECImplicitXrefs', () => {
+  it('should getECImplicitXrefs', () => {
     expect(
       getECImplicitXrefs(implicitDatabaseXRefs, [{ value: '3.1.4.4' }])
     ).toEqual([
@@ -137,14 +137,14 @@ describe('xrefUtils tests', () => {
       },
     ]);
   });
-  test('should getUnconditionalImplicitXrefs', () => {
+  it('should getUnconditionalImplicitXrefs', () => {
     expect(getUnconditionalImplicitXrefs(implicitDatabaseXRefs)).toEqual([
       { database: 'ModBase', implicit: true },
       { database: 'MobiDB', implicit: true },
     ]);
   });
 
-  test('should getJoinedXrefs', () => {
+  it('should getJoinedXrefs', () => {
     const xrefs = [
       {
         id: 'A',

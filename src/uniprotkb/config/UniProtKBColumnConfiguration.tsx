@@ -894,6 +894,20 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
   },
 });
 
+UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
+  ...getLabelAndTooltip(
+    'Sequence Similarities',
+    'Sequence position-independent annotation (comments)',
+    'sequence_similarities'
+  ),
+  render: (data) => {
+    const similarityComments = data[
+      EntrySection.FamilyAndDomains
+    ].commentsData.get('SIMILARITY') as FreeTextComment[] | undefined;
+    return similarityComments && <FreeTextView comments={similarityComments} />;
+  },
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
   ...getLabelAndTooltip('Features', 'Type(s) and number of annotated features'),
   render: (data) => {

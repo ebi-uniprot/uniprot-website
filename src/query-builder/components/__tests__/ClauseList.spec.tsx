@@ -29,7 +29,7 @@ describe('ClauseList component', () => {
     props.removeClause.mockClear();
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = render(<ClauseList {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });

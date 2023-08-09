@@ -9,7 +9,7 @@ import uniParcData from '../../../__mocks__/uniParcEntryModelData';
 jest.mock('../../../../shared/hooks/useDataApi');
 
 describe('SequenceSection component', () => {
-  test('should render the SequenceSection properly and match snapshot', () => {
+  it('should render the SequenceSection properly and match snapshot', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
       data: [],

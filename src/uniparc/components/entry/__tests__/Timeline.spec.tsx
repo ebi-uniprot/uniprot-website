@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import Timeline from '../Timeline';
 
 describe('Timeline component', () => {
-  test('should render properly', () => {
+  it('should render properly', () => {
     const { asFragment } = render(
       <Timeline
         first="2000-01-01"

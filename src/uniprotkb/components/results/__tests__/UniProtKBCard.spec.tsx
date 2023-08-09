@@ -11,7 +11,7 @@ describe('UniProtKBCard component', () => {
     rendered = customRender(<UniProtKBCard data={data} />);
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });

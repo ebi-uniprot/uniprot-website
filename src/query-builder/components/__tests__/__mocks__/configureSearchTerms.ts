@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: /configure/uniprotkb/search-fields
-// Retrieved: 2023-01-30
+// Retrieved: 2023-08-09
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -87,26 +87,11 @@ const configureSearchTerms = [
     fieldType: 'general',
     example: '1',
     values: [
-      {
-        name: 'Evidence at protein level',
-        value: '1',
-      },
-      {
-        name: 'Evidence at transcript level',
-        value: '2',
-      },
-      {
-        name: 'Inferred from homology',
-        value: '3',
-      },
-      {
-        name: 'Predicted',
-        value: '4',
-      },
-      {
-        name: 'Uncertain',
-        value: '5',
-      },
+      { name: 'Evidence at protein level', value: '1' },
+      { name: 'Evidence at transcript level', value: '2' },
+      { name: 'Inferred from homology', value: '3' },
+      { name: 'Predicted', value: '4' },
+      { name: 'Uncertain', value: '5' },
     ],
   },
   {
@@ -440,14 +425,6 @@ const configureSearchTerms = [
                 example: 'translocation',
               },
               {
-                id: 'ftlen_sites',
-                itemType: 'single',
-                term: 'ftlen_sites',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_sites_exp',
                 itemType: 'single',
                 term: 'ft_sites_exp',
@@ -469,14 +446,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'phosphocysteine',
-              },
-              {
-                id: 'ftlen_act_site',
-                itemType: 'single',
-                term: 'ftlen_act_site',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_act_site_exp',
@@ -504,14 +473,6 @@ const configureSearchTerms = [
                 autoCompleteQueryTerm: 'ft_binding',
               },
               {
-                id: 'ftlen_binding',
-                itemType: 'single',
-                term: 'ftlen_binding',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_binding_exp',
                 itemType: 'single',
                 term: 'ft_binding_exp',
@@ -533,14 +494,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'phosphocysteine',
-              },
-              {
-                id: 'ftlen_site',
-                itemType: 'single',
-                term: 'ftlen_site',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_site_exp',
@@ -566,14 +519,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: '*',
-          },
-          {
-            id: 'ftlen_dna_bind',
-            itemType: 'single',
-            term: 'ftlen_dna_bind',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_dna_bind_exp',
@@ -707,14 +652,6 @@ const configureSearchTerms = [
             example: 'forming',
           },
           {
-            id: 'ftlen_transmem',
-            itemType: 'single',
-            term: 'ftlen_transmem',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_transmem_exp',
             itemType: 'single',
             term: 'ft_transmem_exp',
@@ -738,14 +675,6 @@ const configureSearchTerms = [
             example: 'forming',
           },
           {
-            id: 'ftlen_topo_dom',
-            itemType: 'single',
-            term: 'ftlen_topo_dom',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_topo_dom_exp',
             itemType: 'single',
             term: 'ft_topo_dom_exp',
@@ -767,14 +696,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: 'forming',
-          },
-          {
-            id: 'ftlen_intramem',
-            itemType: 'single',
-            term: 'ftlen_intramem',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_intramem_exp',
@@ -945,14 +866,6 @@ const configureSearchTerms = [
             example: 'phosphatase',
           },
           {
-            id: 'ftlen_mutagen',
-            itemType: 'single',
-            term: 'ftlen_mutagen',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_mutagen_exp',
             itemType: 'single',
             term: 'ft_mutagen_exp',
@@ -1006,14 +919,6 @@ const configureSearchTerms = [
             example: 'phosphoserine',
           },
           {
-            id: 'ftlen_mod_res',
-            itemType: 'single',
-            term: 'ftlen_mod_res',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_mod_res_exp',
             itemType: 'single',
             term: 'ft_mod_res_exp',
@@ -1035,14 +940,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: 'cysteine',
-          },
-          {
-            id: 'ftlen_lipid',
-            itemType: 'single',
-            term: 'ftlen_lipid',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_lipid_exp',
@@ -1068,14 +965,6 @@ const configureSearchTerms = [
             example: 'cysteine',
           },
           {
-            id: 'ftlen_carbohyd',
-            itemType: 'single',
-            term: 'ftlen_carbohyd',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_carbohyd_exp',
             itemType: 'single',
             term: 'ft_carbohyd_exp',
@@ -1099,14 +988,6 @@ const configureSearchTerms = [
             example: 'reversible',
           },
           {
-            id: 'ftlen_disulfid',
-            itemType: 'single',
-            term: 'ftlen_disulfid',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_disulfid_exp',
             itemType: 'single',
             term: 'ft_disulfid_exp',
@@ -1128,14 +1009,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: 'lysine',
-          },
-          {
-            id: 'ftlen_crosslnk',
-            itemType: 'single',
-            term: 'ftlen_crosslnk',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_crosslnk_exp',
@@ -1166,14 +1039,6 @@ const configureSearchTerms = [
                 example: 'disulfide',
               },
               {
-                id: 'ftlen_molecule_processing',
-                itemType: 'single',
-                term: 'ftlen_molecule_processing',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_molecule_processing_exp',
                 itemType: 'single',
                 term: 'ft_molecule_processing_exp',
@@ -1195,14 +1060,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'kinase',
-              },
-              {
-                id: 'ftlen_chain',
-                itemType: 'single',
-                term: 'ftlen_chain',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_chain_exp',
@@ -1228,14 +1085,6 @@ const configureSearchTerms = [
                 example: 'Removed',
               },
               {
-                id: 'ftlen_init_met',
-                itemType: 'single',
-                term: 'ftlen_init_met',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_init_met_exp',
                 itemType: 'single',
                 term: 'ft_init_met_exp',
@@ -1257,14 +1106,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'Removed',
-              },
-              {
-                id: 'ftlen_peptide',
-                itemType: 'single',
-                term: 'ftlen_peptide',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_peptide_exp',
@@ -1290,14 +1131,6 @@ const configureSearchTerms = [
                 example: 'cleaved',
               },
               {
-                id: 'ftlen_signal',
-                itemType: 'single',
-                term: 'ftlen_signal',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_signal_exp',
                 itemType: 'single',
                 term: 'ft_signal_exp',
@@ -1321,14 +1154,6 @@ const configureSearchTerms = [
                 example: 'Activation peptide',
               },
               {
-                id: 'ftlen_propep',
-                itemType: 'single',
-                term: 'ftlen_propep',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_propep_exp',
                 itemType: 'single',
                 term: 'ft_propep_exp',
@@ -1350,14 +1175,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'Mitochondrion',
-              },
-              {
-                id: 'ftlen_transit',
-                itemType: 'single',
-                term: 'ftlen_transit',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_transit_exp',
@@ -1503,14 +1320,8 @@ const configureSearchTerms = [
         example: 'true',
         regex: '^true|false$',
         values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
+          { name: 'Yes', value: 'true' },
+          { name: 'No', value: 'false' },
         ],
       },
       {
@@ -1530,14 +1341,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: '*',
-              },
-              {
-                id: 'ftlen_secstruct',
-                itemType: 'single',
-                term: 'ftlen_secstruct',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_secstruct_exp',
@@ -1563,14 +1366,6 @@ const configureSearchTerms = [
                 example: '*',
               },
               {
-                id: 'ftlen_helix',
-                itemType: 'single',
-                term: 'ftlen_helix',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_helix_exp',
                 itemType: 'single',
                 term: 'ft_helix_exp',
@@ -1594,14 +1389,6 @@ const configureSearchTerms = [
                 example: '*',
               },
               {
-                id: 'ftlen_turn',
-                itemType: 'single',
-                term: 'ftlen_turn',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_turn_exp',
                 itemType: 'single',
                 term: 'ft_turn_exp',
@@ -1623,14 +1410,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: '*',
-              },
-              {
-                id: 'ftlen_strand',
-                itemType: 'single',
-                term: 'ftlen_strand',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_strand_exp',
@@ -1977,14 +1756,6 @@ const configureSearchTerms = [
                 example: 'colorectal',
               },
               {
-                id: 'ftlen_variants',
-                itemType: 'single',
-                term: 'ftlen_variants',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_variants_exp',
                 itemType: 'single',
                 term: 'ft_variants_exp',
@@ -2008,14 +1779,6 @@ const configureSearchTerms = [
                 example: 'colorectal',
               },
               {
-                id: 'ftlen_variant',
-                itemType: 'single',
-                term: 'ftlen_variant',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
                 id: 'ft_variant_exp',
                 itemType: 'single',
                 term: 'ft_variant_exp',
@@ -2037,14 +1800,6 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'isoform',
-              },
-              {
-                id: 'ftlen_var_seq',
-                itemType: 'single',
-                term: 'ftlen_var_seq',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
               },
               {
                 id: 'ft_var_seq_exp',
@@ -2072,14 +1827,6 @@ const configureSearchTerms = [
             example: 'selenocysteine',
           },
           {
-            id: 'ftlen_non_std',
-            itemType: 'single',
-            term: 'ftlen_non_std',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_non_std_exp',
             itemType: 'single',
             term: 'ft_non_std_exp',
@@ -2101,14 +1848,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: '*',
-          },
-          {
-            id: 'ftlen_non_ter',
-            itemType: 'single',
-            term: 'ftlen_non_ter',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_non_ter_exp',
@@ -2134,14 +1873,6 @@ const configureSearchTerms = [
             example: '*',
           },
           {
-            id: 'ftlen_non_cons',
-            itemType: 'single',
-            term: 'ftlen_non_cons',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_non_cons_exp',
             itemType: 'single',
             term: 'ft_non_cons_exp',
@@ -2163,14 +1894,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: '*',
-          },
-          {
-            id: 'ftlen_conflict',
-            itemType: 'single',
-            term: 'ftlen_conflict',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_conflict_exp',
@@ -2196,14 +1919,6 @@ const configureSearchTerms = [
             example: '*',
           },
           {
-            id: 'ftlen_unsure',
-            itemType: 'single',
-            term: 'ftlen_unsure',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_unsure_exp',
             itemType: 'single',
             term: 'ft_unsure_exp',
@@ -2227,14 +1942,6 @@ const configureSearchTerms = [
             example: 'colorectal',
           },
           {
-            id: 'ftlen_positional',
-            itemType: 'single',
-            term: 'ftlen_positional',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_positional_exp',
             itemType: 'single',
             term: 'ft_positional_exp',
@@ -2254,14 +1961,8 @@ const configureSearchTerms = [
         example: 'true',
         regex: '^true|false$',
         values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
+          { name: 'Yes', value: 'true' },
+          { name: 'No', value: 'false' },
         ],
       },
       {
@@ -2273,26 +1974,11 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'mitochondrion',
         values: [
-          {
-            name: 'Mitochondrion',
-            value: 'mitochondrion',
-          },
-          {
-            name: 'Plastid',
-            value: 'plastid',
-          },
-          {
-            name: 'Chloroplast',
-            value: 'chloroplast',
-          },
-          {
-            name: 'Cyanelle',
-            value: 'cyanelle',
-          },
-          {
-            name: 'Apicoplast',
-            value: 'apicoplast',
-          },
+          { name: 'Mitochondrion', value: 'mitochondrion' },
+          { name: 'Plastid', value: 'plastid' },
+          { name: 'Chloroplast', value: 'chloroplast' },
+          { name: 'Cyanelle', value: 'cyanelle' },
+          { name: 'Apicoplast', value: 'apicoplast' },
           {
             name: 'Organellar chromatophore',
             value: 'organellar chromatophore',
@@ -2301,14 +1987,8 @@ const configureSearchTerms = [
             name: 'Non-photosynthetic plastid',
             value: 'non-photosynthetic plastid',
           },
-          {
-            name: 'Nucleomorph',
-            value: 'nucleomorph',
-          },
-          {
-            name: 'Hydrogenosome',
-            value: 'hydrogenosome',
-          },
+          { name: 'Nucleomorph', value: 'nucleomorph' },
+          { name: 'Hydrogenosome', value: 'hydrogenosome' },
         ],
       },
       {
@@ -2321,14 +2001,8 @@ const configureSearchTerms = [
         example: 'true',
         regex: '^true|false$',
         values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
+          { name: 'Yes', value: 'true' },
+          { name: 'No', value: 'false' },
         ],
       },
       {
@@ -2395,14 +2069,6 @@ const configureSearchTerms = [
             example: 'phosphatase',
           },
           {
-            id: 'ftlen_domain',
-            itemType: 'single',
-            term: 'ftlen_domain',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_domain_exp',
             itemType: 'single',
             term: 'ft_domain_exp',
@@ -2458,14 +2124,6 @@ const configureSearchTerms = [
             example: '*',
           },
           {
-            id: 'ftlen_coiled',
-            itemType: 'single',
-            term: 'ftlen_coiled',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_coiled_exp',
             itemType: 'single',
             term: 'ft_coiled_exp',
@@ -2487,14 +2145,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: 'glu-rich',
-          },
-          {
-            id: 'ftlen_compbias',
-            itemType: 'single',
-            term: 'ftlen_compbias',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_compbias_exp',
@@ -2520,14 +2170,6 @@ const configureSearchTerms = [
             example: 'motif',
           },
           {
-            id: 'ftlen_motif',
-            itemType: 'single',
-            term: 'ftlen_motif',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_motif_exp',
             itemType: 'single',
             term: 'ft_motif_exp',
@@ -2551,14 +2193,6 @@ const configureSearchTerms = [
             example: 'motif',
           },
           {
-            id: 'ftlen_region',
-            itemType: 'single',
-            term: 'ftlen_region',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
             id: 'ft_region_exp',
             itemType: 'single',
             term: 'ft_region_exp',
@@ -2580,14 +2214,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: 'motif',
-          },
-          {
-            id: 'ftlen_repeat',
-            itemType: 'single',
-            term: 'ftlen_repeat',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_repeat_exp',
@@ -2634,14 +2260,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: 'UBP',
-          },
-          {
-            id: 'ftlen_zn_fing',
-            itemType: 'single',
-            term: 'ftlen_zn_fing',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
           },
           {
             id: 'ft_zn_fing_exp',
@@ -3074,6 +2692,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'glyconnect-',
+          },
+          {
+            id: 'xref_glycosmos',
+            label: 'GlyCosmos',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'glycosmos-',
           },
           {
             id: 'xref_glygen',
@@ -4334,22 +3961,6 @@ const configureSearchTerms = [
         ],
       },
       {
-        id: 'xref_group_ontologies',
-        label: 'Ontologies',
-        itemType: 'group',
-        items: [
-          {
-            id: 'xref_go',
-            label: 'GO',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'go-',
-          },
-        ],
-      },
-      {
         id: 'xref_group_proteomes_databases',
         label: 'Proteomes databases',
         itemType: 'group',
@@ -4458,83 +4069,35 @@ const configureSearchTerms = [
           {
             groupName: 'Any',
             items: [
-              {
-                name: 'Any assertion method',
-                code: 'any',
-              },
-              {
-                name: 'Any manual assertion',
-                code: 'manual',
-              },
-              {
-                name: 'Any automatic assertion',
-                code: 'automatic',
-              },
+              { name: 'Any assertion method', code: 'any' },
+              { name: 'Any manual assertion', code: 'manual' },
+              { name: 'Any automatic assertion', code: 'automatic' },
             ],
           },
           {
             groupName: 'Manual assertions',
             items: [
-              {
-                name: 'Inferred from experiment [EXP]',
-                code: 'exp',
-              },
+              { name: 'Inferred from experiment [EXP]', code: 'exp' },
               {
                 name: 'Inferred from biological aspect of ancestor [IBA]',
                 code: 'iba',
               },
-              {
-                name: 'Inferred by curator [IC]',
-                code: 'ic',
-              },
-              {
-                name: 'Inferred from direct assay [IDA]',
-                code: 'ida',
-              },
-              {
-                name: 'Inferred from expression pattern [IEP]',
-                code: 'iep',
-              },
-              {
-                name: 'Inferred from genomic context [IGC]',
-                code: 'igc',
-              },
-              {
-                name: 'Inferred from genetic interaction [IGI]',
-                code: 'igi',
-              },
-              {
-                name: 'Inferred from mutant phenotype [IMP]',
-                code: 'imp',
-              },
-              {
-                name: 'Inferred from physical interaction [IPI]',
-                code: 'ipi',
-              },
-              {
-                name: 'Inferred from sequence alignment [ISA]',
-                code: 'isa',
-              },
-              {
-                name: 'Inferred from sequence mode [ISM]',
-                code: 'ism',
-              },
-              {
-                name: 'Inferred from sequence orthology [ISO]',
-                code: 'iso',
-              },
+              { name: 'Inferred by curator [IC]', code: 'ic' },
+              { name: 'Inferred from direct assay [IDA]', code: 'ida' },
+              { name: 'Inferred from expression pattern [IEP]', code: 'iep' },
+              { name: 'Inferred from genomic context [IGC]', code: 'igc' },
+              { name: 'Inferred from genetic interaction [IGI]', code: 'igi' },
+              { name: 'Inferred from mutant phenotype [IMP]', code: 'imp' },
+              { name: 'Inferred from physical interaction [IPI]', code: 'ipi' },
+              { name: 'Inferred from sequence alignment [ISA]', code: 'isa' },
+              { name: 'Inferred from sequence mode [ISM]', code: 'ism' },
+              { name: 'Inferred from sequence orthology [ISO]', code: 'iso' },
               {
                 name: 'Inferred from sequence or structural similarity [ISS]',
                 code: 'iss',
               },
-              {
-                name: 'Non-traceable author statement [NAS]',
-                code: 'nas',
-              },
-              {
-                name: 'Traceable author statement [TAS]',
-                code: 'tas',
-              },
+              { name: 'Non-traceable author statement [NAS]', code: 'nas' },
+              { name: 'Traceable author statement [TAS]', code: 'tas' },
               {
                 name: 'Inferred from high throughput direct assay [HDA]',
                 code: 'hda',
@@ -4732,14 +4295,8 @@ const configureSearchTerms = [
     example: 'true',
     regex: '^true|false$',
     values: [
-      {
-        name: 'Yes',
-        value: 'true',
-      },
-      {
-        name: 'No',
-        value: 'false',
-      },
+      { name: 'Yes', value: 'true' },
+      { name: 'No', value: 'false' },
     ],
   },
   {
@@ -4752,14 +4309,8 @@ const configureSearchTerms = [
     example: 'true',
     regex: '^true|false$',
     values: [
-      {
-        name: 'Yes',
-        value: 'true',
-      },
-      {
-        name: 'No',
-        value: 'false',
-      },
+      { name: 'Yes', value: 'true' },
+      { name: 'No', value: 'false' },
     ],
   },
   {
