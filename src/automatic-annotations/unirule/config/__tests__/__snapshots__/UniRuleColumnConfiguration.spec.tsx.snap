@@ -87,6 +87,7 @@ exports[`UniRuleColumnConfiguration component should render column "taxonomic_sc
         <a
           href="/taxonomy/40674"
           title="Mammalia, taxon ID 40674"
+          translate="no"
         >
           Mammalia
         </a>

@@ -1,5 +1,6 @@
-import { Fragment } from 'react';
+import { Fragment, HTMLAttributes } from 'react';
 import { ExpandableList } from 'franklin-sites';
+import cn from 'classnames';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -8,8 +9,10 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { GoTerm } from '../../adapters/functionConverter';
 
-const GOTermsView = ({ data }: { data: GoTerm[] }) => (
-  <section className="text-block">
+type Props = { data: GoTerm[] } & HTMLAttributes<HTMLDivElement>;
+
+const GOTermsView = ({ data, className, ...props }: Props) => (
+  <section className={cn('text-block', className)} {...props}>
     <ExpandableList descriptionString="terms">
       {data.map(
         ({ id, evidences, termDescription }) =>

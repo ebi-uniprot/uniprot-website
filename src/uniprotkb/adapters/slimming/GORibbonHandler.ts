@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import { useMemo } from 'react';
-import queryString from 'query-string';
 import { groupBy } from 'lodash-es';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
+import { stringifyUrl } from '../../../shared/utils/url';
 import * as logging from '../../../shared/utils/logging';
 
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -281,11 +281,11 @@ export const useGOData = (
     return (
       slimsToIds &&
       slimsFromIds &&
-      `${SLIMMING_URL}?${queryString.stringify({
+      stringifyUrl(SLIMMING_URL, {
         slimsToIds,
         slimsFromIds,
         relations: 'is_a,part_of,occurs_in,regulates',
-      })}`
+      })
     );
   }, [goTerms, selectedSlimSet]);
 

@@ -5,7 +5,7 @@ import customRender from '../../../__test-helpers__/customRender';
 import ErrorPage from '../ErrorPage';
 
 describe('ErrorPage component', () => {
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = customRender(
       <ErrorPage
         artwork={<img alt="" />}

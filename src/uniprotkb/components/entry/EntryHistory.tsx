@@ -391,7 +391,6 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={Namespace.unisave}
                 base={`/unisave/${accession}`}
-                excludeColumns
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -445,9 +444,10 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 };
 
 const EntryHistory = ({ accession }: { accession: string }) => {
-  const { versions: rawVersions, view: rawView } = Object.fromEntries(
-    new URLSearchParams(useLocation().search).entries()
-  );
+  const sp = new URLSearchParams(useLocation().search);
+  const rawVersions = sp.get('versions');
+  const rawView = sp.get('view');
+
   const defaultView = useMediumScreen() ? 'unified' : 'split';
 
   const title = <h2>Entry history</h2>;

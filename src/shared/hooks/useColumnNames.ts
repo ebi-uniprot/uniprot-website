@@ -6,7 +6,6 @@ import useLocalStorage from './useLocalStorage';
 import useNS from './useNS';
 
 import { Column, nsToDefaultColumns } from '../config/columns';
-import { parseQueryString } from '../utils/url';
 
 import { ColumnConfigurations } from './useColumns';
 import { Namespace } from '../types/namespaces';
@@ -35,7 +34,8 @@ const useColumnNames = ({
   displayPeptideSearchMatchColumns,
 }: UseColumnNameArgs = {}): UseColumnNameReturn => {
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const { fields: columnNamesFromUrl } = parseQueryString(useLocation().search);
+  const sp = new URLSearchParams(useLocation().search);
+  const columnNamesFromUrl = sp.get('fields');
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
     `table columns for ${ns}` as const,
     nsToDefaultColumns(ns)

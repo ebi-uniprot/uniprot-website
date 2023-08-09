@@ -94,6 +94,7 @@ exports[`ProteinOverview component should render 1`] = `
           <a
             href="/taxonomy/9606"
             title="Homo sapiens (Human), taxon ID 9606"
+            translate="no"
           >
             Homo sapiens (Human)
           </a>
@@ -204,6 +205,7 @@ exports[`ProteinOverview component should render, in card variant 1`] = `
     <a
       href="/taxonomy/9606"
       title="Homo sapiens (Human), taxon ID 9606"
+      translate="no"
     >
       Homo sapiens (Human)
     </a>

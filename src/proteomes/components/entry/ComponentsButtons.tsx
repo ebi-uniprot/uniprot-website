@@ -13,14 +13,13 @@ import {
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
+import { stringifyUrl } from '../../../shared/utils/url';
 
 import apiUrls, {
   createSelectedQueryString,
 } from '../../../shared/config/apiUrls';
-import {
-  fileFormatsResultsDownload,
-  fileFormatsResultsDownloadForRedundant,
-} from '../../config/download';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -31,6 +30,7 @@ import {
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { SearchResults } from '../../../shared/types/results';
+import { FileFormat } from '../../../shared/types/resultsDownload';
 
 const DownloadComponent = lazy(
   () =>
@@ -62,15 +62,13 @@ const ComponentsButtons = ({
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  const sp = new URLSearchParams({
-    query: `(proteome=${id}) AND (reviewed=true)`,
-    size: '0',
-  });
-
   // Note: all Eukaryotes are not eligible. Having a list of the organisms would be helpful
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
     superkingdom === 'eukaryota'
-      ? `${apiUrls.search(Namespace.uniprotkb)}?${sp}`
+      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+          query: `(proteome=${id}) AND (reviewed=true)`,
+          size: '0',
+        })
       : null
   );
 
@@ -135,7 +133,12 @@ const ComponentsButtons = ({
   if (proteomeType === 'Redundant proteome') {
     supportedFormats = fileFormatsResultsDownloadForRedundant;
   } else {
-    supportedFormats = fileFormatsResultsDownload;
+    supportedFormats = [
+      FileFormat.fasta,
+      ...fileFormatsUniPortKBResultsDownload.filter(
+        (format) => !format.includes('FASTA')
+      ),
+    ];
   }
 
   return (
@@ -164,8 +167,6 @@ const ComponentsButtons = ({
                 supportedFormats={supportedFormats}
                 showReviewedOption={superkingdom === 'eukaryota'}
                 isoformStats={isoformStats}
-                // List of proteins has to be downloaded. In that case, the default proteome columns must not be set
-                excludeColumns
               />
             </ErrorBoundary>
           </SlidingPanel>

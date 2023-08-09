@@ -234,6 +234,7 @@ exports[`Entry basic should render main 1`] = `
               <a
                 href="/taxonomy/9606"
                 title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                translate="no"
               >
                 scientific name (common name) (synonyms 1)
               </a>
@@ -431,7 +432,11 @@ exports[`Entry basic should render main 1`] = `
               href="/blast?ids=P21802"
               title="Run a BLAST job against P21802"
             >
-              BLAST
+              <span
+                translate="no"
+              >
+                BLAST
+              </span>
             </a>
             <div
               aria-expanded="false"
@@ -464,7 +469,7 @@ exports[`Entry basic should render main 1`] = `
             </a>
             <a
               class="button tertiary"
-              href="/update?entry=P21802&entryType=Reviewed%20%28Swiss-Prot%29"
+              href="/update?entry=P21802&entryType=Reviewed+%28Swiss-Prot%29"
             >
               Entry feedback
             </a>

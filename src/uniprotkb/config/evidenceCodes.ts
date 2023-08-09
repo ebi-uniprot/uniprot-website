@@ -263,8 +263,7 @@ export const ecoCodeToData = {
         return 'Automatic assertion according to sequence analysis';
       }
       if (isProtNLMEvidence(evidences)) {
-        // TODO: update when TRM-28958 has settled on a specific wording
-        return 'Automatic assertion';
+        return 'Automatic assertion from deep learning method';
       }
       return 'Automatic assertion according to rules';
     },

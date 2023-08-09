@@ -30,7 +30,7 @@ import {
 } from '../../config/resultsDownload';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { fileFormatsResultsDownload as fileFormatsProteomeResultsDownload } from '../../../proteomes/config/download';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
@@ -47,7 +47,9 @@ import styles from './styles/download.module.scss';
 
 const proteomesFileFormats = [
   FileFormat.fasta,
-  ...fileFormatsProteomeResultsDownload,
+  ...fileFormatsUniPortKBResultsDownload.filter(
+    (format) => !format.includes('FASTA')
+  ),
 ];
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
@@ -93,7 +95,6 @@ type DownloadProps<T extends JobTypes> = {
   base?: string;
   supportedFormats?: FileFormat[];
   notCustomisable?: boolean;
-  excludeColumns?: boolean;
   inBasketMini?: boolean;
   showReviewedOption?: boolean;
   isoformStats?: IsoformStatistics;
@@ -117,14 +118,13 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   base,
   supportedFormats,
   notCustomisable,
-  excludeColumns = false,
   inBasketMini = false,
   showReviewedOption = false,
   isoformStats,
   jobType,
   inputParamsData,
 }) => {
-  const { columnNames } = useColumnNames();
+  const { columnNames } = useColumnNames({ namespaceOverride: namespace });
   const { search: queryParamFromUrl } = useLocation();
   // If it's a large ID Mapping job to uniprot/uniref/uniparc, the variable
   // namespace will still be id-mapping so get it directly from the URL.
@@ -248,7 +248,8 @@ const Download: FC<DownloadProps<JobTypes>> = ({
 
   const hasColumns =
     fileFormatsWithColumns.has(fileFormat) &&
-    (namespace !== Namespace.idmapping || isAsyncDownloadIdMapping);
+    (namespace !== Namespace.idmapping || isAsyncDownloadIdMapping) &&
+    namespace !== Namespace.unisave;
 
   if (!inBasketMini) {
     downloadOptions.query = urlQuery;

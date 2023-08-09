@@ -291,6 +291,7 @@ const XRefsGroupedByCategory = ({
             pathname: LocationToPath[Location.DatabaseResults],
             search: `query=(name:${databaseInfo.displayName})&direct`,
           }}
+          translate="no"
         >
           {databaseInfo.displayName}
         </Link>

@@ -5,7 +5,7 @@ import ProteomesEntryView from '../ProteomesView';
 import ProteomesUIData from './__mocks__/proteomesUIData.json';
 
 describe('ProteomesEntryView component', () => {
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = customRender(
       <ProteomesEntryView data={ProteomesUIData} />
     );

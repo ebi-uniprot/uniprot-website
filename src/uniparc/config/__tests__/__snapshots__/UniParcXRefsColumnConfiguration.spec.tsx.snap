@@ -84,6 +84,7 @@ exports[`UniParcXRefsColumnConfiguration component should render column "organis
   <a
     href="/taxonomy/10254"
     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+    translate="no"
   >
     Vaccinia virus (strain Western Reserve) (VACV)
   </a>
@@ -95,6 +96,7 @@ exports[`UniParcXRefsColumnConfiguration component should render column "organis
   <a
     href="/taxonomy/10254"
     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+    translate="no"
   >
     10254
   </a>

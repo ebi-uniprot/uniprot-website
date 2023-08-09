@@ -64,7 +64,6 @@ const IDMappingResultTable = ({
         notCustomisable={
           notCustomisable || namespaceOverride === Namespace.idmapping
         }
-        excludeColumns={namespaceOverride === Namespace.idmapping}
         supportedFormats={supportedFormats}
         jobType={JobTypes.ID_MAPPING}
         inputParamsData={inputParamsData}

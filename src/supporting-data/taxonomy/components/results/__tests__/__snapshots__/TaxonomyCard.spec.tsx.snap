@@ -31,6 +31,7 @@ exports[`Taxonomy Card tests should render 1`] = `
           <a
             href="/taxonomy/11652"
             title="Primate lentivirus group, taxon ID 11652"
+            translate="no"
           >
             Primate lentivirus group
           </a>
@@ -51,6 +52,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/10239"
               title="Viruses, taxon ID 10239"
+              translate="no"
             >
               Viruses
             </a>
@@ -58,6 +60,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/2559587"
               title="Riboviria, taxon ID 2559587"
+              translate="no"
             >
               Riboviria
             </a>
@@ -65,6 +68,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/2732397"
               title="Pararnavirae, taxon ID 2732397"
+              translate="no"
             >
               Pararnavirae
             </a>
@@ -72,6 +76,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/2732409"
               title="Artverviricota, taxon ID 2732409"
+              translate="no"
             >
               Artverviricota
             </a>
@@ -79,6 +84,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/2732514"
               title="Revtraviricetes, taxon ID 2732514"
+              translate="no"
             >
               Revtraviricetes
             </a>
@@ -86,6 +92,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/2169561"
               title="Ortervirales, taxon ID 2169561"
+              translate="no"
             >
               Ortervirales
             </a>
@@ -93,6 +100,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/11632"
               title="Retroviridae, taxon ID 11632"
+              translate="no"
             >
               Retroviridae
             </a>
@@ -100,6 +108,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/327045"
               title="Orthoretrovirinae, taxon ID 327045"
+              translate="no"
             >
               Orthoretrovirinae
             </a>
@@ -107,6 +116,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <a
               href="/taxonomy/11646"
               title="Lentivirus, taxon ID 11646"
+              translate="no"
             >
               Lentivirus
             </a>

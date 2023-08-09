@@ -5,7 +5,7 @@ import { escapeRegExp } from 'lodash-es';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { RichText } from './FreeTextView';
 
@@ -89,7 +89,7 @@ export const DiseaseVariants = ({
           <th>Description</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {variants.map((variant, i) => {
           let position = `${variant.location.start.value}`;
           if (variant.location.start.value !== variant.location.end.value) {
@@ -126,7 +126,7 @@ export const DiseaseVariants = ({
                 <td className={styles.change}>
                   {protvarVariantLink(variant, accession)}
                 </td>
-                <td>
+                <td translate="yes">
                   <RichText>{description}</RichText>
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
@@ -140,7 +140,7 @@ export const DiseaseVariants = ({
     </table>
   );
 
-  return <DatatableWithToggle>{table}</DatatableWithToggle>;
+  return <DatatableWrapper>{table}</DatatableWrapper>;
 };
 
 const reDiseaseAcronymSentence = /^in [^;]+(;|$)/i;

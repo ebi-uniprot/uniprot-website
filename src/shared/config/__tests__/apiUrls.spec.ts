@@ -22,7 +22,7 @@ describe('getQueryUrl', () => {
     });
     expect(queryString).toEqual(
       expect.stringContaining(
-        '/api/uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=%28cdc7%29%20AND%20%28facet1%3A%22value%201%22%29%20AND%20%28facet2%3A%22value%203%22%29'
+        '/api/uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=%28cdc7%29+AND+%28facet1%3A%22value+1%22%29+AND+%28facet2%3A%22value+3%22%29'
       )
     );
   });

@@ -59,26 +59,26 @@ const testData = [
   },
   {
     description: 'should handle range',
-    queryString: '(ftlen_sites:[10 TO 100])',
+    queryString: '(length_range:[10 TO 100])',
     clauses: [
       {
         id: 0,
-        searchTerm: getSearchTerm('ftlen_sites'),
+        searchTerm: getSearchTerm('length_range'),
         queryBits: {
-          ftlen_sites: '[10 TO 100]',
+          length_range: '[10 TO 100]',
         },
       },
     ],
   },
   {
     description: 'should handle partial range',
-    queryString: '(ftlen_sites:[10 TO *])',
+    queryString: '(length_range:[10 TO *])',
     clauses: [
       {
         id: 0,
-        searchTerm: getSearchTerm('ftlen_sites'),
+        searchTerm: getSearchTerm('length_range'),
         queryBits: {
-          ftlen_sites: '[10 TO *]',
+          length_range: '[10 TO *]',
         },
       },
     ],
@@ -214,7 +214,7 @@ const testData = [
   {
     description: 'should handle more complex query',
     queryString:
-      '((ft_sites_exp:my_site) AND (ftlen_sites:[10 TO 20])) AND (gene:my_gene)',
+      '(ft_sites_exp:my_site) AND (length_range:[10 TO 20]) AND (gene:my_gene)',
     clauses: [
       {
         id: 0,
@@ -222,11 +222,18 @@ const testData = [
         queryBits: {
           ft_sites: 'my_site',
           ft_sites_exp: 'true',
-          ftlen_sites: '[10 TO 20]',
         },
       },
       {
         id: 1,
+        searchTerm: getSearchTerm('length_range'),
+        logicOperator: 'AND',
+        queryBits: {
+          length_range: '[10 TO 20]',
+        },
+      },
+      {
+        id: 2,
         searchTerm: getSearchTerm('gene_field'),
         logicOperator: 'AND',
         queryBits: {

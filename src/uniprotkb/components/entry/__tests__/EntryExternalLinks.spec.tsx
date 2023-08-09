@@ -7,7 +7,7 @@ import mockData from '../../../__mocks__/uniProtKBEntryModelData';
 import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMaps';
 
 describe('Entry - External Links view', () => {
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = customRender(
       <EntryExternalLinks
         transformedData={uniProtKbConverter(mockData, databaseInfoMaps)}

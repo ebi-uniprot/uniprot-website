@@ -9,7 +9,7 @@ import EntrySection, {
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -128,10 +128,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           <th data-filter="entry_1">Entry 1</th>
           <th>Entry 2</th>
           <th>Number of experiments</th>
-          <th>Intact</th>
+          <th translate="no">Intact</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody translate="no">
         {tableData.map((interaction) => (
           <tr
             key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
@@ -228,7 +228,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           <LazyComponent render={isSmallScreen ? false : undefined}>
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
-          <DatatableWithToggle>{table}</DatatableWithToggle>
+          <DatatableWrapper>{table}</DatatableWrapper>
         </>
       ) : null}
 

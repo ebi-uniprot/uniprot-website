@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'franklin-sites';
 
+import { stringifyQuery } from '../../utils/url';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
@@ -21,31 +23,27 @@ const ToolsButton: FC<ToolsButtonProps> = ({
   title,
   location,
   children,
-}) => {
-  const searchParams = new URLSearchParams({ ids: selectedEntries.join(',') });
-  if (sequence) {
-    searchParams.set('sequence', sequence);
-  }
-
-  return (
-    <Button
-      element={disabled ? 'button' : Link}
-      variant="tertiary"
-      title={title}
-      disabled={disabled}
-      to={
-        disabled
-          ? undefined
-          : {
-              pathname: LocationToPath[location],
-              search: searchParams.toString(),
-            }
-      }
-      className={helper['no-small']}
-    >
-      {children}
-    </Button>
-  );
-};
+}) => (
+  <Button
+    element={disabled ? 'button' : Link}
+    variant="tertiary"
+    title={title}
+    disabled={disabled}
+    to={
+      disabled
+        ? undefined
+        : {
+            pathname: LocationToPath[location],
+            search: stringifyQuery({
+              ids: selectedEntries.join(','),
+              sequence,
+            }),
+          }
+    }
+    className={helper['no-small']}
+  >
+    {children}
+  </Button>
+);
 
 export default ToolsButton;

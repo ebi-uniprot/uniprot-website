@@ -41,8 +41,11 @@ type DataDBModel = Array<{
 const PAGE_SIZE = 25;
 const DATA_IMPORT_LIMIT = 10_000;
 
-const getIdKey = (xref: UniParcXRef) =>
-  `${xref.database}-${xref.id}-${xref.version}-${xref.versionI}-${xref.active}-${xref.chain}`;
+// Just use the index. The full page is reloading anyway anytime the table is filtered
+// Used to be:
+// `${xref.database}-${xref.id}-${xref.version}-${xref.versionI}-${xref.active}-${xref.chain}`
+// but was still not enough (would need all the columns together)
+const getIdKey = (_xref: UniParcXRef, index: number) => `${index}`;
 
 const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));

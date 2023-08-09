@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import qs from 'query-string';
 
 import { SearchTextLink } from './SearchSuggestions';
 
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
+import { stringifyUrl } from '../../utils/url';
 
 import { SearchResults } from '../../types/results';
 import { Namespace } from '../../types/namespaces';
@@ -21,10 +21,10 @@ const ProteomeSuggestion = ({
   const [proteomeInfo, setProteomeInfo] = useState<ProteomesAPIModel>();
 
   const { data } = useDataApi<SearchResults<ProteomesAPIModel>>(
-    `${apiUrls.search(Namespace.proteomes)}?${qs.stringify({
+    stringifyUrl(apiUrls.search(Namespace.proteomes), {
       query: `organism_id:${organismID}`,
-      fields: ['upid'],
-    })}`
+      fields: 'upid',
+    })
   );
 
   useEffect(() => {

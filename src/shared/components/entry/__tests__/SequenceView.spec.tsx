@@ -53,12 +53,12 @@ describe('SequenceView component', () => {
     delete window.SVGElement.prototype.getBBox;
   });
 
-  test('should render SequenceInfo with provided sequence info (canonical)', () => {
+  it('should render SequenceInfo with provided sequence info (canonical)', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should trigger Isoform sequence load', async () => {
+  it('should trigger Isoform sequence load', async () => {
     const viewSequenceButton = screen.getByRole('button', {
       name: /Show sequence/i,
     });
@@ -68,7 +68,7 @@ describe('SequenceView component', () => {
     expect(sequence).toBeInTheDocument();
   });
 
-  test('should submit Blast', async () => {
+  it('should submit Blast', async () => {
     const toolsButtons = screen.getAllByRole('button', { name: /Tools/i });
     fireEvent.click(toolsButtons[0]);
     const blastButton = await screen.findByRole('button', { name: 'BLAST' });
