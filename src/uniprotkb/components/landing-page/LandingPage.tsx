@@ -264,7 +264,9 @@ const LandingPage = () => {
                 styles.tutorial
               )}
             >
-              <div className={styles['tutorial__title']}>{item.title}</div>
+              <div className={styles['tutorial__title']} title={item.title}>
+                {item.title}
+              </div>
               <br />
               {item.date}
             </div>
