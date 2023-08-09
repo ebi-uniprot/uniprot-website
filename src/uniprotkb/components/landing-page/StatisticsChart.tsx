@@ -16,9 +16,9 @@ const renderPieChart = (
   history
 ): void => {
   // Specify the chart’s dimensions.
-  const width = 400,
-    height = 300,
-    margin = 40;
+  const width = 400;
+  const height = 300;
+  const margin = 40;
 
   const radius = Math.min(width, height) / 2 - margin;
 
@@ -34,7 +34,7 @@ const renderPieChart = (
     .attr('width', width)
     .attr('height', height)
     .append('g')
-    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+    .attr('transform', `translate(${width / 2},${height / 2})`);
 
   const g = svg.append('g');
 
@@ -58,9 +58,8 @@ const renderPieChart = (
     .innerRadius(radius * 0.9)
     .outerRadius(radius * 0.9);
 
-  const key = (d: d3.PieArcDatum<StatisticsItem>) => {
-    return (d.data as StatisticsItem).name;
-  };
+  const key = (d: d3.PieArcDatum<StatisticsItem>) =>
+    (d.data as StatisticsItem).name;
 
   /* ------- PIE SLICES -------*/
   const pieData = pie(data);
@@ -84,9 +83,7 @@ const renderPieChart = (
         return arc(interpolate(t));
       };
     })
-    .style('fill', (d) => {
-      return color(d.data.name);
-    })
+    .style('fill', (d) => color(d.data.name))
     .style('stroke-width', '2px');
 
   slice.exit().remove();
@@ -98,9 +95,8 @@ const renderPieChart = (
     .selectAll<SVGTextElement, d3.PieArcDatum<StatisticsItem>>('text')
     .data(pie(data));
 
-  const midAngle = (d: d3.DefaultArcObject) => {
-    return d.startAngle + (d.endAngle - d.startAngle) / 2;
-  };
+  const midAngle = (d: d3.DefaultArcObject) =>
+    d.startAngle + (d.endAngle - d.startAngle) / 2;
 
   text
     .enter()
@@ -110,7 +106,7 @@ const renderPieChart = (
     .style('cursor', 'pointer')
     .style('fill', '#014371')
     .style('font-weight', 'bold')
-    .on('click', function (d) {
+    .on('click', (d) => {
       history.push({
         pathname: LocationToPath[Location.UniProtKBResults],
         search: `query=(taxonomy_name:${d.data.name})`,
@@ -230,9 +226,10 @@ const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
       renderPieChart(svgRef.current, taxonSummed as StatisticsItem[], history);
     }
   }, [
-    svgRef.current,
     reviewedStats?.data?.results,
     unreviewedStats?.data?.results,
+    reviewedStats.loading,
+    history,
   ]);
 
   return <svg ref={svgRef} />;
