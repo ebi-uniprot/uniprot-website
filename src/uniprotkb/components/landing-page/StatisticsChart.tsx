@@ -9,6 +9,7 @@ import {
   StatisticsPayload,
 } from '../statistics-page/StatisticsPage';
 import { LocationToPath, Location } from '../../../app/config/urls';
+import { stringifyUrl } from '../../../shared/utils/url';
 
 const renderPieChart = (
   svgElement: SVGSVGElement | null,
@@ -107,10 +108,11 @@ const renderPieChart = (
     .style('fill', '#014371')
     .style('font-weight', 'bold')
     .on('click', (d) => {
-      history.push({
-        pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=(taxonomy_name:${d.data.name})`,
-      });
+      history.push(
+        stringifyUrl(LocationToPath[Location.UniProtKBResults], {
+          query: `taxonomy_name: ${d.data.name}`,
+        })
+      );
     })
     .text((d) => d.data.name)
     .merge(text)

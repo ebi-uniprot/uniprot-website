@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ExternalLink,
@@ -26,7 +27,6 @@ import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import styles from './styles/landing-page.module.scss';
-import { Fragment } from 'react';
 
 const availableFTPFormats = {
   fasta: 'fasta',
