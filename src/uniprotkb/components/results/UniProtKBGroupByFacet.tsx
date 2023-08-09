@@ -10,7 +10,7 @@ import { GroupBy } from '../../config/apiUrls';
 const groupByLabelAndParams: [string, GroupBy][] = [
   ['Taxonomy', 'taxonomy'],
   ['Keywords', 'keyword'],
-  // ['Gene Ontology', 'go'], // TODO: Uncomment when GO groupby API issues are resolved
+  ['Gene Ontology', 'go'],
   ['Enzyme Class', 'ec'],
 ];
 
