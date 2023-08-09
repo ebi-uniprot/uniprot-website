@@ -16,7 +16,7 @@ describe('DownloadAPIURL', () => {
 
   it('should dispatch an unsuccessful copy message when the navigator.clipboard is not available and call onCopy', async () => {
     const { messagesDispatch } = customRender(
-      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} count={5} />
+      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} />
     );
     const copyButton = screen.getByRole('button', { name: 'Copy' });
     fireEvent.click(copyButton);
@@ -42,7 +42,7 @@ describe('DownloadAPIURL', () => {
       },
     });
     const { messagesDispatch } = customRender(
-      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} count={5} />
+      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} />
     );
     const copyButton = screen.getByRole('button', { name: 'Copy' });
     fireEvent.click(copyButton);
