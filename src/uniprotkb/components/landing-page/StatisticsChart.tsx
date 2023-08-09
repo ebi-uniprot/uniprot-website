@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { useHistory } from 'react-router-dom';
+import { History } from 'history';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -14,7 +15,7 @@ import { stringifyUrl } from '../../../shared/utils/url';
 const renderPieChart = (
   svgElement: SVGSVGElement | null,
   data: StatisticsItem[],
-  history
+  history: History
 ): void => {
   // Specify the chart’s dimensions.
   const width = 400;
@@ -76,13 +77,11 @@ const renderPieChart = (
     .merge(slice)
     .transition()
     .duration(1000)
-    .attrTween('d', function (d) {
-      this._current = this._current || d;
-      const interpolate = d3.interpolate(this._current, d);
-      this._current = interpolate(0);
-      return function (t) {
-        return arc(interpolate(t));
-      };
+    .attrTween('d', (d) => {
+      let current = d3.select(this) || d;
+      const interpolate = d3.interpolate(current, d);
+      current = interpolate(0);
+      return (t) => arc(interpolate(t));
     })
     .style('fill', (d) => color(d.data.name))
     .style('stroke-width', '2px');
@@ -118,22 +117,22 @@ const renderPieChart = (
     .merge(text)
     .transition()
     .duration(1000)
-    .attrTween('transform', function (d) {
-      this._current = this._current || d;
-      const interpolate = d3.interpolate(this._current, d);
-      this._current = interpolate(0);
-      return function (t) {
+    .attrTween('transform', (d) => {
+      let current = d3.select(this) || d;
+      const interpolate = d3.interpolate(current, d);
+      current = interpolate(0);
+      return (t) => {
         const d2 = interpolate(t);
         const pos = outerArc.centroid(d2);
         pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-        return 'translate(' + pos + ')';
+        return `translate(${pos})`;
       };
     })
-    .styleTween('text-anchor', function (d) {
-      this._current = this._current || d;
-      const interpolate = d3.interpolate(this._current, d);
-      this._current = interpolate(0);
-      return function (t) {
+    .styleTween('text-anchor', (d) => {
+      let current = d3.select(this) || d;
+      const interpolate = d3.interpolate(current, d);
+      current = interpolate(0);
+      return (t) => {
         const d2 = interpolate(t);
         return midAngle(d2) < Math.PI ? 'start' : 'end';
       };
@@ -152,11 +151,11 @@ const renderPieChart = (
     .join('polyline')
     .transition()
     .duration(1000)
-    .attrTween('points', function (d) {
-      this._current = this._current || d;
-      const interpolate = d3.interpolate(this._current, d);
-      this._current = interpolate(0);
-      return function (t) {
+    .attrTween('points', (d) => {
+      let current = d3.select(this) || d;
+      const interpolate = d3.interpolate(current, d);
+      current = interpolate(0);
+      return (t) => {
         const d2 = interpolate(t);
         const pos = outerArc.centroid(d2);
         pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
@@ -179,7 +178,7 @@ const renderPieChart = (
 };
 
 const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
-  const history = useHistory();
+  const history: History = useHistory();
   const svgRef = useRef<SVGSVGElement>(null);
 
   const reviewedStats = useDataApi<StatisticsPayload>(

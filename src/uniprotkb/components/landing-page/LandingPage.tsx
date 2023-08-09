@@ -126,7 +126,7 @@ const LandingPage = () => {
           )}
         >
           <h4>Statistics</h4>
-          <div className={styles['statistics__content']}>
+          <div className={styles.statistics__content}>
             <div>
               <span>Taxonomic origin</span>
               <br />
@@ -202,7 +202,7 @@ const LandingPage = () => {
           )}
         >
           <h4>Download</h4>
-          <div className={styles['download__content']}>
+          <div className={styles.download__content}>
             <br />
             <div>
               <span>Reviewed(Swiss-Prot)</span>
@@ -264,7 +264,7 @@ const LandingPage = () => {
                 styles.tutorial
               )}
             >
-              <div className={styles['tutorial__title']} title={item.title}>
+              <div className={styles.tutorial__title} title={item.title}>
                 {item.title}
               </div>
               <br />
