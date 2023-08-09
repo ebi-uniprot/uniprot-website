@@ -13,6 +13,7 @@
     --sidebar-size: 30ch;
   }
 
+  max-width: 100%;
   min-height: calc(100vh - var(--top-header-margin));
   display: grid;
   align-items: start;
