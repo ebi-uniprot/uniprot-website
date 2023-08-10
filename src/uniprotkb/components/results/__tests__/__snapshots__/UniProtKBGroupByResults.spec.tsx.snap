@@ -432,7 +432,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           <span
             class="percentage"
           >
-            ≈0%
+            &lt;1%
           </span>
         </span>
       </li>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeaturesView component it renders without crashing 1`] = `
+exports[`FeaturesView component should render without crashing 1`] = `
 <DocumentFragment>
   <h3>
     Features

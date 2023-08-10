@@ -15,12 +15,12 @@ describe('Enum field', () => {
     props.handleChange.mockReset();
   });
 
-  test('should render an enum field', () => {
+  it('should render an enum field', () => {
     const { asFragment } = render(<EnumField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should select value and generate query bit', () => {
+  it('should select value and generate query bit', () => {
     render(<EnumField {...props} />);
     const select = screen.getByRole<HTMLSelectElement>('combobox');
     expect(select.value).toBe('1');

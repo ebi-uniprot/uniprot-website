@@ -30,6 +30,7 @@ export enum UniProtKBColumn {
   ccPtm = 'cc_ptm',
   ccRnaEditing = 'cc_rna_editing',
   ccSequenceCaution = 'cc_sequence_caution',
+  ccSimilarity = 'cc_similarity',
   ccSubcellularLocation = 'cc_subcellular_location',
   ccSubunit = 'cc_subunit',
   ccTissueSpecificity = 'cc_tissue_specificity',

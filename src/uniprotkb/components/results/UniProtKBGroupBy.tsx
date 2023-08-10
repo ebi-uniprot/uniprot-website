@@ -415,10 +415,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={groupByResponse.status} />;
   }
 
-  // TODO: remove sumBy when https://www.ebi.ac.uk/panda/jira/browse/TRM-29956 done
-  const sumChildren =
-    groupByResponse.data?.parent?.count ||
-    sumBy(groupByResponse.data?.groups, 'count');
+  const sumChildren = groupByResponse.data?.parent?.count;
   let childrenNode;
   if (id && !sumChildren) {
     childrenNode = (

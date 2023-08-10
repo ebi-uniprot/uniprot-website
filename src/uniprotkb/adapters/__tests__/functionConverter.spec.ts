@@ -11,7 +11,7 @@ const data = convertFunction(
 );
 
 describe('Function data converter', () => {
-  test('should convert cofactors', () => {
+  it('should convert cofactors', () => {
     const { commentsData } = data;
     expect(commentsData.get('COFACTOR')).toEqual([
       {
@@ -48,7 +48,7 @@ describe('Function data converter', () => {
     ]);
   });
 
-  test('should convert cofactors', () => {
+  it('should convert cofactors', () => {
     const { commentsData } = data;
     expect(commentsData.get('CATALYTIC ACTIVITY')).toEqual([
       {
@@ -89,7 +89,7 @@ describe('Function data converter', () => {
     ]);
   });
 
-  test('should convert biophysical properties', () => {
+  it('should convert biophysical properties', () => {
     const { bioPhysicoChemicalProperties } = data;
     expect(bioPhysicoChemicalProperties).toEqual({
       absorption: {

@@ -7,7 +7,7 @@ const testingProperties = [
 ];
 
 describe('transformProperties', () => {
-  test('should transform array of properties to object', () => {
+  it('should transform array of properties to object', () => {
     expect(transfromProperties(testingProperties)).toEqual({
       [PropertyKey.Project]: 'foo',
       [PropertyKey.GeneName]: 'A1',
@@ -16,7 +16,7 @@ describe('transformProperties', () => {
 });
 
 describe('getPropertyValue', () => {
-  test('should find and return property value', () => {
+  it('should find and return property value', () => {
     expect(getPropertyValue(testingProperties, PropertyKey.GeneName)).toEqual(
       'A1'
     );

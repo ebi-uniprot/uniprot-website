@@ -110,3 +110,15 @@ export const getTextProcessingParts = (s?: string) =>
   // it is not supported in Safari yet. It's OK, we just get more chunks when splitting.
   // For now don't use capture groups in reNeedsTextProcessing
   s?.split(reNeedsTextProcessing);
+
+type Sortable = { start: number | string; end: number | string };
+export const sortByLocation = (a: Sortable, b: Sortable) => {
+  const aStart = +a.start;
+  const aEnd = a.end ? +a.end : -Infinity;
+  const bStart = +b.start;
+  const bEnd = b.end ? +b.end : -Infinity;
+  if (aStart === bStart) {
+    return aEnd - bEnd;
+  }
+  return aStart - bStart;
+};

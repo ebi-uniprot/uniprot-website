@@ -5,7 +5,7 @@ import GeneNamesView from '../GeneNamesView';
 import GeneNamesUIData from './__mocks__/geneNamesUIData';
 
 describe('GeneNames', () => {
-  test('should render gene_names', () => {
+  it('should render gene_names', () => {
     const { asFragment } = customRender(
       <GeneNamesView geneNamesData={GeneNamesUIData} />,
       { route: `/uniprotkb/P05067/entry` }
