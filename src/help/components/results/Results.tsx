@@ -169,6 +169,7 @@ const Results = ({
           <HelpResultFacets />
         </>
       }
+      noOverflow
     >
       {/* TODO: check and change this title when implementing Help */}
       <HTMLHead
