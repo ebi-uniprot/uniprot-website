@@ -86,7 +86,8 @@ const renderPieChart = (
     .attrTween('d', (d) => {
       const interpolate = d3.interpolate(current, d);
       current = interpolate(0);
-      return (t: number) => arc(interpolate(t));
+      return (t: number) =>
+        arc(interpolate(t)) !== null ? `${arc(interpolate(t))}` : '';
     })
     .style('fill', (d) => color(d.data.name) as string)
     .style('stroke-width', '2px');
@@ -161,7 +162,8 @@ const renderPieChart = (
         const d2 = interpolate(t);
         const pos = outerArc.centroid(d2);
         pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-        return [midArc.centroid(d2), outerArc.centroid(d2), pos];
+        const pointsArray = [midArc.centroid(d2), outerArc.centroid(d2), pos];
+        return pointsArray.map((point) => point.join(',')).join(' ');
       };
     })
     .style('fill', 'none')

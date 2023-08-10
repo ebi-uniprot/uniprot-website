@@ -1,4 +1,4 @@
-import { lazy, Suspense, FC, Component, LazyExoticComponent } from 'react';
+import { lazy, Suspense, FC } from 'react';
 import {
   Route,
   Switch,
@@ -325,7 +325,7 @@ const RedirectToStarSearch = (props: RouteChildrenProps) => {
   const params = props.match?.params as
     | { namespace: SearchableNamespace }
     | undefined;
-  let LandingPage: LazyExoticComponent<Component> | Component;
+  let LandingPage;
   switch (params?.namespace) {
     case Namespace.uniprotkb:
       LandingPage = UniProtKBLandingPage;
@@ -336,7 +336,7 @@ const RedirectToStarSearch = (props: RouteChildrenProps) => {
   }
   return (
     <SingleColumnLayout>
-      <LandingPage {...props} />
+      <LandingPage />
     </SingleColumnLayout>
   );
 };
