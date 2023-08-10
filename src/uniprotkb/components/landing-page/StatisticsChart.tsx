@@ -51,17 +51,22 @@ const renderPieChart = (
     .value((d) => d.count);
 
   const arc = d3
-    .arc()
+    .arc<d3.PieArcDatum<StatisticsItem>>()
     .outerRadius(radius * 0.8)
     .innerRadius(0);
 
   const outerArc = d3
-    .arc()
+    .arc<d3.PieArcDatum<StatisticsItem>>()
     .innerRadius(radius * 0.9)
     .outerRadius(radius * 0.9);
 
-  const key = (d: d3.PieArcDatum<StatisticsItem>) =>
-    (d.data as StatisticsItem).name;
+  // Below is used as a reference only for calculating the polyline start position
+  const midArc = d3
+    .arc<d3.PieArcDatum<StatisticsItem>>()
+    .outerRadius(radius * 0.8)
+    .innerRadius(radius * 0.4);
+
+  const key = (d: d3.PieArcDatum<StatisticsItem>) => d.data.name;
 
   /* ------- PIE SLICES -------*/
   const pieData = pie(data);
@@ -81,9 +86,9 @@ const renderPieChart = (
       let current = d3.select(this) || d;
       const interpolate = d3.interpolate(current, d);
       current = interpolate(0);
-      return (t) => arc(interpolate(t));
+      return (t: number) => arc(interpolate(t));
     })
-    .style('fill', (d) => color(d.data.name))
+    .style('fill', (d) => color(d.data.name) as string)
     .style('stroke-width', '2px');
 
   slice.exit().remove();
@@ -95,7 +100,7 @@ const renderPieChart = (
     .selectAll<SVGTextElement, d3.PieArcDatum<StatisticsItem>>('text')
     .data(pie(data));
 
-  const midAngle = (d: d3.DefaultArcObject) =>
+  const midAngle = (d: d3.PieArcDatum<StatisticsItem>) =>
     d.startAngle + (d.endAngle - d.startAngle) / 2;
 
   text
@@ -159,14 +164,7 @@ const renderPieChart = (
         const d2 = interpolate(t);
         const pos = outerArc.centroid(d2);
         pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-
-        const startPos = d3
-          .arc()
-          .outerRadius(radius * 0.8)
-          .innerRadius(radius * 0.4)
-          .centroid(d2);
-
-        return [startPos, outerArc.centroid(d2), pos];
+        return [midArc.centroid(d2), outerArc.centroid(d2), pos];
       };
     })
     .style('fill', 'none')
