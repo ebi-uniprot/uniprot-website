@@ -21,6 +21,7 @@ const renderPieChart = (
   const width = 400;
   const height = 300;
   const margin = 40;
+  let current: d3.PieArcDatum<StatisticsItem>;
 
   const radius = Math.min(width, height) / 2 - margin;
 
@@ -83,7 +84,6 @@ const renderPieChart = (
     .transition()
     .duration(1000)
     .attrTween('d', (d) => {
-      let current = d3.select(this) || d;
       const interpolate = d3.interpolate(current, d);
       current = interpolate(0);
       return (t: number) => arc(interpolate(t));
@@ -123,7 +123,6 @@ const renderPieChart = (
     .transition()
     .duration(1000)
     .attrTween('transform', (d) => {
-      let current = d3.select(this) || d;
       const interpolate = d3.interpolate(current, d);
       current = interpolate(0);
       return (t) => {
@@ -134,7 +133,6 @@ const renderPieChart = (
       };
     })
     .styleTween('text-anchor', (d) => {
-      let current = d3.select(this) || d;
       const interpolate = d3.interpolate(current, d);
       current = interpolate(0);
       return (t) => {
@@ -157,7 +155,6 @@ const renderPieChart = (
     .transition()
     .duration(1000)
     .attrTween('points', (d) => {
-      let current = d3.select(this) || d;
       const interpolate = d3.interpolate(current, d);
       current = interpolate(0);
       return (t) => {
