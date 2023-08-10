@@ -126,11 +126,12 @@ const Download: FC<DownloadProps<JobTypes>> = ({
 }) => {
   const { columnNames } = useColumnNames({ namespaceOverride: namespace });
   const { search: queryParamFromUrl } = useLocation();
-  // If it's a large ID Mapping job to uniprot/uniref/uniparc, the variable
-  // namespace will still be id-mapping so get it directly from the URL.
-  const idMappingResultMatch = useRouteMatch<{ namespace: Namespace }>(
+  // If it's a large ID Mapping job to uniprot/uniref/uniparc, namespace will
+  // still be id-mapping so get the job namespace directly from the URL.
+  const match = useRouteMatch<{ namespace: Namespace }>(
     LocationToPath[Location.IDMappingResult]
   );
+  const { namespace: asyncDownloadIdMappingNamespace } = match?.params || {};
   let fileFormats =
     supportedFormats || nsToFileFormatsResultsDownload[namespace];
 
@@ -234,10 +235,8 @@ const Download: FC<DownloadProps<JobTypes>> = ({
     isIDMappingResult &&
     namespace === Namespace.idmapping &&
     downloadCount > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
-    idMappingResultMatch?.params?.namespace &&
-    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(
-      idMappingResultMatch?.params?.namespace
-    ) &&
+    asyncDownloadIdMappingNamespace &&
+    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(asyncDownloadIdMappingNamespace) &&
     ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(fileFormat);
 
   // In this case it's a not uniprotkb/uniref/uniparc so we can only
@@ -523,7 +522,7 @@ const Download: FC<DownloadProps<JobTypes>> = ({
             selectedColumns={selectedColumns}
             namespace={
               isAsyncDownloadIdMapping
-                ? idMappingResultMatch.params.namespace
+                ? asyncDownloadIdMappingNamespace
                 : namespace
             }
           />
