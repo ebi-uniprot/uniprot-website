@@ -191,7 +191,6 @@ const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
   useEffect(() => {
     if (
       svgRef.current &&
-      !reviewedStats.loading &&
       reviewedStats.data?.results &&
       unreviewedStats?.data?.results
     ) {
@@ -223,12 +222,7 @@ const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
 
       renderPieChart(svgRef.current, taxonSummed as StatisticsItem[], history);
     }
-  }, [
-    reviewedStats?.data?.results,
-    unreviewedStats?.data?.results,
-    reviewedStats.loading,
-    history,
-  ]);
+  }, [reviewedStats?.data?.results, unreviewedStats?.data?.results, history]);
 
   return <svg ref={svgRef} />;
 };
