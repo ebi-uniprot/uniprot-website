@@ -12,6 +12,8 @@ import {
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
 
+import './styles/StatisticsChart.scss';
+
 const renderPieChart = (
   svgElement: SVGSVGElement | null,
   data: StatisticsItem[],
@@ -83,6 +85,7 @@ const renderPieChart = (
     .merge(slice)
     .style('fill', (d) => color(d.data.name))
     .style('stroke-width', '2px')
+    .classed('slice', true)
     .transition()
     .duration(1000)
     .attrTween('d', (d) => {
@@ -108,10 +111,7 @@ const renderPieChart = (
     .enter()
     .append('text')
     .attr('dy', '.35em')
-    .style('pointer-events', 'auto')
-    .style('cursor', 'pointer')
-    .style('fill', '#014371')
-    .style('font-weight', 'bold')
+    .classed('label', true)
     .on('click', (d) => {
       history.push(
         stringifyUrl(LocationToPath[Location.UniProtKBResults], {
@@ -153,10 +153,7 @@ const renderPieChart = (
 
   polyline
     .join('polyline')
-    .style('fill', 'none')
-    .style('opacity', 0.3)
-    .style('stroke', 'black')
-    .style('stroke-width', '2px')
+    .classed('polyline', true)
     .transition()
     .duration(1000)
     .attrTween('points', (d) => {
@@ -224,7 +221,7 @@ const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
     }
   }, [reviewedStats?.data?.results, unreviewedStats?.data?.results, history]);
 
-  return <svg ref={svgRef} />;
+  return <svg ref={svgRef} className="piechart" />;
 };
 
 export default StatisticsChart;
