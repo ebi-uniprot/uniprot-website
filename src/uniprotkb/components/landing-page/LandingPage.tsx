@@ -127,9 +127,15 @@ const LandingPage = () => {
         >
           <h4>Statistics</h4>
           <div className={styles.statistics__content}>
-            <div>
-              <span>Taxonomic origin</span>
-              <br />
+            <div className={styles.chart}>
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `groupBy=taxonomy&query=*`,
+                }}
+              >
+                Taxonomic origin
+              </Link>
               <StatisticsChart releaseNumber={release?.releaseNumber} />
             </div>
             <div className={styles['entries-count']}>
