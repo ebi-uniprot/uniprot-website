@@ -107,7 +107,7 @@ const CoreData = () => (
         />
       }
       backgroundColor={colors.seaBlue}
-      to={getNamespaceTo(Location.UniProtKBResults)}
+      to={LocationToPath[Location.UniProtKB]}
       gradient
     >
       <span className={styles['core-data']}>
