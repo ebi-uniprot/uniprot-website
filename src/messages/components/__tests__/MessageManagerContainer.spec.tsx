@@ -58,7 +58,7 @@ describe('Message Manager component', () => {
         format: MessageFormat.IN_PAGE,
         locations: [Location.UniProtKBResults],
       }),
-      route: '/uniprotkb?=query=blah',
+      route: '/uniprotkb?query=blah',
       path: '/uniprotkb',
     });
     const messageContent = screen.getByText(content);
