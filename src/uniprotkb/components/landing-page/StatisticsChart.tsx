@@ -12,6 +12,8 @@ import {
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
 
+import './styles/StatisticsChart.scss';
+
 const renderPieChart = (
   svgElement: SVGSVGElement | null,
   data: StatisticsItem[],
@@ -27,7 +29,7 @@ const renderPieChart = (
 
   // Create the color scale.
   const color = d3
-    .scaleOrdinal()
+    .scaleOrdinal<string, string>()
     .domain(data.map((d) => d.name))
     .range([...d3.schemeBlues[5]].reverse());
 
@@ -81,6 +83,8 @@ const renderPieChart = (
     .insert('path')
     .attr('class', 'slice')
     .merge(slice)
+    .style('fill', (d) => color(d.data.name))
+    .classed('slice', true)
     .transition()
     .duration(1000)
     .attrTween('d', (d) => {
@@ -88,9 +92,7 @@ const renderPieChart = (
       current = interpolate(0);
       return (t: number) =>
         arc(interpolate(t)) !== null ? `${arc(interpolate(t))}` : '';
-    })
-    .style('fill', (d) => color(d.data.name) as string)
-    .style('stroke-width', '2px');
+    });
 
   slice.exit().remove();
 
@@ -108,10 +110,7 @@ const renderPieChart = (
     .enter()
     .append('text')
     .attr('dy', '.35em')
-    .style('pointer-events', 'auto')
-    .style('cursor', 'pointer')
-    .style('fill', '#014371')
-    .style('font-weight', 'bold')
+    .classed('label', true)
     .on('click', (d) => {
       history.push(
         stringifyUrl(LocationToPath[Location.UniProtKBResults], {
@@ -153,6 +152,7 @@ const renderPieChart = (
 
   polyline
     .join('polyline')
+    .classed('polyline', true)
     .transition()
     .duration(1000)
     .attrTween('points', (d) => {
@@ -165,11 +165,7 @@ const renderPieChart = (
         const pointsArray = [midArc.centroid(d2), outerArc.centroid(d2), pos];
         return pointsArray.map((point) => point.join(',')).join(' ');
       };
-    })
-    .style('fill', 'none')
-    .style('opacity', 0.3)
-    .style('stroke', 'black')
-    .style('stroke-width', '2px');
+    });
 
   polyline.exit().remove();
 };
@@ -224,7 +220,7 @@ const StatisticsChart = ({ releaseNumber }: { releaseNumber?: string }) => {
     }
   }, [reviewedStats?.data?.results, unreviewedStats?.data?.results, history]);
 
-  return <svg ref={svgRef} />;
+  return <svg ref={svgRef} className="piechart" />;
 };
 
 export default StatisticsChart;
