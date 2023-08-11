@@ -584,7 +584,12 @@ const Entry = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <EntryHistory accession={match.params.accession} />
+            {/* In order to support links with IDs, it is better to pass the data.primaryAccession instead of match params */}
+            <EntryHistory
+              accession={
+                historyOldEntry ? data.primaryAccession : match.params.accession
+              }
+            />
           </Suspense>
         </Tab>
       </Tabs>
