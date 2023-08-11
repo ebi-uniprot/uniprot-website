@@ -84,7 +84,6 @@ const renderPieChart = (
     .attr('class', 'slice')
     .merge(slice)
     .style('fill', (d) => color(d.data.name))
-    .style('stroke-width', '2px')
     .classed('slice', true)
     .transition()
     .duration(1000)
