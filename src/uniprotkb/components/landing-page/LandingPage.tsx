@@ -78,7 +78,7 @@ const LandingPage = () => {
 
   return (
     <div className={styles['landing-page']}>
-      <h2 className={styles['landing-page__title']}>UniProtKB</h2>
+      <h1 className={styles['landing-page__title']}>UniProtKB</h1>
       <div className={cn('uniprot-grid', styles['landing-page__content'])}>
         <div
           className={cn(
@@ -125,21 +125,24 @@ const LandingPage = () => {
             styles.statistics
           )}
         >
-          <h4>Statistics</h4>
+          <h2>Statistics</h2>
           <div className={styles.statistics__content}>
             <div className={styles.chart}>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: `groupBy=taxonomy&query=*`,
-                }}
-              >
-                Taxonomic origin
-              </Link>
+              <h3 className="tiny">
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: `groupBy=taxonomy&query=*`,
+                  }}
+                >
+                  Taxonomic origin
+                </Link>
+              </h3>
+
               <StatisticsChart releaseNumber={release?.releaseNumber} />
             </div>
             <div className={styles['entries-count']}>
-              <span>Number of Entries</span>
+              <h3 className="tiny">Number of Entries</h3>
               <div className={styles['entries-count__content']}>
                 <SwissProtIcon
                   width="1.75em"
@@ -207,7 +210,7 @@ const LandingPage = () => {
             styles.download
           )}
         >
-          <h4>Download</h4>
+          <h2>Download</h2>
           <div className={styles.download__content}>
             <br />
             <div>
@@ -244,14 +247,14 @@ const LandingPage = () => {
         </div>
 
         {/* Tutorials */}
-        <h4
+        <h2
           className={cn(
             'uniprot-grid-cell--small-span-12',
             'uniprot-grid-cell--medium-span-12'
           )}
         >
           How to use UniProtKB
-        </h4>
+        </h2>
         {tutorialsInfo.map((item) => (
           <Fragment key={item.id}>
             <div
