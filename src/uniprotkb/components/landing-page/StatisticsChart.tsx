@@ -27,7 +27,7 @@ const renderPieChart = (
 
   // Create the color scale.
   const color = d3
-    .scaleOrdinal()
+    .scaleOrdinal<string, string>()
     .domain(data.map((d) => d.name))
     .range([...d3.schemeBlues[5]].reverse());
 
@@ -81,6 +81,8 @@ const renderPieChart = (
     .insert('path')
     .attr('class', 'slice')
     .merge(slice)
+    .style('fill', (d) => color(d.data.name))
+    .style('stroke-width', '2px')
     .transition()
     .duration(1000)
     .attrTween('d', (d) => {
@@ -88,9 +90,7 @@ const renderPieChart = (
       current = interpolate(0);
       return (t: number) =>
         arc(interpolate(t)) !== null ? `${arc(interpolate(t))}` : '';
-    })
-    .style('fill', (d) => color(d.data.name) as string)
-    .style('stroke-width', '2px');
+    });
 
   slice.exit().remove();
 
@@ -153,6 +153,10 @@ const renderPieChart = (
 
   polyline
     .join('polyline')
+    .style('fill', 'none')
+    .style('opacity', 0.3)
+    .style('stroke', 'black')
+    .style('stroke-width', '2px')
     .transition()
     .duration(1000)
     .attrTween('points', (d) => {
@@ -165,11 +169,7 @@ const renderPieChart = (
         const pointsArray = [midArc.centroid(d2), outerArc.centroid(d2), pos];
         return pointsArray.map((point) => point.join(',')).join(' ');
       };
-    })
-    .style('fill', 'none')
-    .style('opacity', 0.3)
-    .style('stroke', 'black')
-    .style('stroke-width', '2px');
+    });
 
   polyline.exit().remove();
 };
