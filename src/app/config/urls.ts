@@ -34,8 +34,6 @@ export const blastNamespaces = basketNamespaces;
 
 export enum Location {
   Home = 'Home',
-  // Landing page
-  UniProtKB = 'UniProtKB',
   // Main data
   UniProtKBResults = 'UniProtKBResults',
   UniProtKBEntry = 'UniProtKBEntry',
@@ -87,8 +85,6 @@ export enum Location {
 
 export const LocationToPath: Record<Location, string> = {
   [Location.Home]: '/',
-  // Landing page
-  [Location.UniProtKB]: `/${Namespace.uniprotkb}`,
   // Main data
   [Location.UniProtKBEntry]: `/${Namespace.uniprotkb}/:accession/:subPage?`,
   [Location.UniProtKBResults]: `/${Namespace.uniprotkb}`,
