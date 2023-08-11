@@ -1,204 +1,75 @@
 import { useState, FC, ChangeEvent } from 'react';
+import { generatePath, Link, useLocation } from 'react-router-dom';
 import {
-  generatePath,
-  Link,
-  useLocation,
-  useRouteMatch,
-} from 'react-router-dom';
-import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
+  Button,
+  DownloadIcon,
+  ExternalLink,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import cn from 'classnames';
 
-import ColumnSelect from '../column-select/ColumnSelect';
-import DownloadPreview from './DownloadPreview';
-import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
-import ExternalLink from '../ExternalLink';
-
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
-
-import useColumnNames from '../../hooks/useColumnNames';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-
-import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
-
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
-
-import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
-import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
+// TODO: fix import order
+import { LocationToPath } from '../../../app/config/urls';
+import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
+import DownloadAPIURL, {
+  DOWNLOAD_SIZE_LIMIT,
+} from '../../../shared/components/download/DownloadAPIURL';
+import DownloadPreview from '../../../shared/components/download/DownloadPreview';
 import {
-  fileFormatsWithColumns,
-  nsToFileFormatsResultsDownload,
-} from '../../config/resultsDownload';
-import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
-import { Location, LocationToPath } from '../../../app/config/urls';
-import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
-
-import { FileFormat } from '../../types/resultsDownload';
-import { Namespace } from '../../types/namespaces';
+  DownloadUrlOptions,
+  getDownloadUrl,
+} from '../../../shared/config/apiUrls';
+import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
+import { getUniprotkbFtpFilenameAndUrl } from '../../../shared/config/ftpUrls';
+import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
+import useColumnNames from '../../../shared/hooks/useColumnNames';
+import { Namespace } from '../../../shared/types/namespaces';
+import { FileFormat } from '../../../shared/types/resultsDownload';
 import {
-  DownloadMethod,
   DownloadPanelFormCloseReason,
-} from '../../utils/gtagEvents';
-import { IsoformStatistics } from '../../../proteomes/components/entry/ComponentsButtons';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+  DownloadMethod,
+} from '../../../shared/utils/gtagEvents';
+import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
+import { IsoformStatistics } from './ComponentsButtons';
 
-import sticky from '../../styles/sticky.module.scss';
-import styles from './styles/download.module.scss';
+import sticky from '../../../shared/styles/sticky.module.scss';
+import styles from '../../../shared/components/download/styles/download.module.scss';
 
-const proteomesFileFormats = [
-  FileFormat.fasta,
-  ...fileFormatsUniPortKBResultsDownload.filter(
-    (format) => !format.includes('FASTA')
-  ),
-];
-
-const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
-export const DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED = 100_000 as const;
-
-const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
-  Namespace.uniparc,
-  Namespace.uniprotkb,
-  Namespace.uniref,
-]);
-const ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS = new Set([
-  FileFormat.tsv, // async
-  FileFormat.json, // async
-]);
-
-export const getPreviewFileFormat = (
-  fileFormat: FileFormat
-): FileFormat | undefined => {
-  if (
-    fileFormat === FileFormat.excel ||
-    fileFormat === FileFormat.excelIdMappingFromTo
-  ) {
-    return FileFormat.tsv;
-  }
-  if (fileFormat === FileFormat.embeddings) {
-    return undefined;
-  }
-  return fileFormat;
-};
-
-type DownloadProps<T extends JobTypes> = {
-  query?: string;
-  selectedEntries?: string[];
-  selectedQuery?: string;
+type DownloadProps = {
+  query: string;
+  selectedEntries: string[];
+  selectedQuery: string;
   totalNumberResults: number;
-  numberSelectedEntries?: number;
+  numberSelectedEntries: number;
   namespace: Namespace;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
-    downloadMethod?: DownloadMethod
+    downloadMethod: DownloadMethod
   ) => void;
-  accessions?: string[];
-  base?: string;
-  supportedFormats?: FileFormat[];
-  notCustomisable?: boolean;
-  inBasketMini?: boolean;
-  showReviewedOption?: boolean;
-  isoformStats?: IsoformStatistics;
-  jobType?: T;
-  inputParamsData?: PublicServerParameters[T];
+  fileFormats: FileFormat[];
+  showReviewedOption: boolean;
+  isoformStats: IsoformStatistics;
 };
 
 type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
 
 type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
 
-type DownloadState<T extends JobTypes> = {
-  numberResults: number;
-  proteomesNumberSelected?: number;
-  namespace: Namespace;
-  onClose: (
-    panelCloseReason: DownloadPanelFormCloseReason,
-    downloadMethod?: DownloadMethod
-  ) => void;
-  accessions?: string[];
-  supportedFormats?: FileFormat[];
-  notCustomisable?: boolean;
-  downloadOptions?: DownloadUrlOptions;
-  showReviewedOption?: boolean;
-  isoformStats?: IsoformStatistics;
-  jobType?: T;
-  inputParamsData?: PublicServerParameters[T];
-  fileFormat: FileFormat;
-  compressed: boolean;
-  extraContent: ExtraContent;
-  includeIsoform: boolean;
-  streamUrl?: string;
-  searchUrl?: string;
-  previewUrl?: string;
-  needsAsyncJob: boolean;
-};
-
-/*
-
-type DownloadFormState = 
-props
-{
-  query,
-  numberResults,
-  selectedQuery,
-  selectedEntries = [],
-  selectedNumberResults, // only used for proteomes
-  namespace,
-  accessions, // does this duplicate selectedEntries?
-  urlBase,
-  supportedFormats, // rename to supportedFileFormats push all file format selection up to this
-  notCustomisable, // rename to disableColumnSelection
-  inBasketMini = false, //  use a passed downloadOptions
-  showReviewedOption = false, // used only in proteomes components
-  isoformStats, // used only in proteomes components
-  jobType, // used only for id mapping at the moment but could be used for other jobs
-  inputParamsData,  // used only for id mapping at the moment but could used for other jobs
-};
-
-form input
-{
-  fileFormat
-  compressed
-  extraContent
-  includeIsoform
-}
-
-output
-{
-  streamUrl
-  searchUrl
-  previewUrl
-  needsAsyncJob
-}
-*/
-
-const Download: FC<DownloadProps<JobTypes>> = ({
+const Download: FC<DownloadProps> = ({
   query,
   selectedQuery,
-  selectedEntries = [],
+  selectedEntries,
   totalNumberResults,
   numberSelectedEntries,
   onClose,
   namespace,
-  accessions,
-  base,
-  supportedFormats,
-  notCustomisable,
-  inBasketMini = false,
+  fileFormats,
   showReviewedOption = false,
   isoformStats,
-  jobType,
-  inputParamsData,
 }) => {
   const { columnNames } = useColumnNames({ namespaceOverride: namespace });
-  const { search: queryParamFromUrl } = useLocation();
-  // If it's a large ID Mapping job to uniprot/uniref/uniparc, namespace will
-  // still be id-mapping so get the job namespace directly from the URL.
-  const match = useRouteMatch<{ namespace: Namespace }>(
-    LocationToPath[Location.IDMappingResult]
-  );
-  const { namespace: asyncDownloadIdMappingNamespace } = match?.params || {};
-  let fileFormats =
-    supportedFormats || nsToFileFormatsResultsDownload[namespace];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
   // Defaults to "download all" if no selection
@@ -209,60 +80,26 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const [includeIsoform, setIncludeIsoform] = useState(false);
-  const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
-
-  const [
-    { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
-  ] = getParamsFromURL(queryParamFromUrl);
 
   const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 
-  // This logic is needed specifically for the proteomes components
-  let urlQuery: string;
-  let urlSelected: string[];
-  if (downloadSelect === 'all') {
-    // If query prop provided use this otherwise fallback to query from URL
-    urlQuery = query || queryFromUrl;
-    urlSelected = [];
-  } else if (downloadSelect === 'reviewed') {
-    urlQuery = `${query || queryFromUrl} AND reviewed=true`;
-    urlSelected = [];
-  } else {
-    // Download selected
-    // If selectedQuery prop provided use this otherwise fallback to query from URL
-    urlQuery = selectedQuery || queryFromUrl;
-    // If selectedQuery prop provided assume this already specifies how to select
-    // a subset of entries.
-    urlSelected = selectedQuery ? [] : selectedEntries;
-    if (
-      namespace === Namespace.unisave &&
-      selectedEntries.length === totalNumberResults
-    ) {
-      // If all history entries are selected, act as if it was a "download all"
-      urlSelected = [];
-    }
-  }
-  // The ID Mapping URL provided from the job details is for the paginated results
-  // endpoint while the stream endpoint is required for downloads
-  // TODO: push all of to the parent
-  let downloadBase = base;
-  if (jobResultsLocation === Location.IDMappingResult) {
-    if (jobResultsNamespace && !notCustomisable) {
-      downloadBase = downloadBase?.replace('/results/', '/results/stream/');
-    } else {
-      downloadBase = downloadBase?.replace('/results/', '/stream/');
-    }
-  }
-
   const downloadOptions: DownloadUrlOptions = {
+    query:
+      (downloadSelect === 'selected' && selectedQuery) ||
+      (downloadSelect === 'reviewed' && `${query} AND reviewed=true`) ||
+      query,
     fileFormat,
     compressed,
-    selected: urlSelected,
+    selected: downloadSelect === 'selected' ? selectedEntries : [],
     selectedIdField,
     namespace,
-    accessions,
-    base: downloadBase,
   };
+
+  const hasColumns = fileFormatsWithColumns.has(fileFormat);
+
+  if (hasColumns) {
+    downloadOptions.columns = selectedColumns;
+  }
 
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
@@ -270,6 +107,7 @@ const Download: FC<DownloadProps<JobTypes>> = ({
     case 'all':
       downloadCount = totalNumberResults;
       if (showReviewedOption) {
+        // downloadCount = isoformStats?.allWithIsoforms;
         downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
         fileFormats = [FileFormat.fasta];
       }
@@ -278,9 +116,11 @@ const Download: FC<DownloadProps<JobTypes>> = ({
       // Once we have the counts, we should update the downloadCount accordingly
       downloadCount = isoformStats?.reviewed || 0;
       if (includeIsoform) {
+        // downloadCount = isoformStats?.reviewedWithIsoforms || 0;
         downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
         fileFormats = [FileFormat.fasta];
       } else {
+        // downloadCount = isoformStats?.reviewed || 0;
         downloadOptions.fileFormat = FileFormat.fastaCanonical;
         fileFormats = proteomesFileFormats;
       }
@@ -293,39 +133,8 @@ const Download: FC<DownloadProps<JobTypes>> = ({
       break;
   }
 
-  const isIDMappingResult = jobType === JobTypes.ID_MAPPING;
-  const isAsyncDownloadIdMapping =
-    isIDMappingResult &&
-    namespace === Namespace.idmapping &&
-    downloadCount > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
-    asyncDownloadIdMappingNamespace &&
-    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(asyncDownloadIdMappingNamespace) &&
-    ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(fileFormat);
-
-  // In this case it's a not uniprotkb/uniref/uniparc so we can only
-  // provide from/to only file formats
-  if (namespace === Namespace.idmapping && !isAsyncDownloadIdMapping) {
-    fileFormats = fileFormats.filter((ff) => !ff.includes('from/to only'));
-  }
-
-  const hasColumns =
-    fileFormatsWithColumns.has(fileFormat) &&
-    (namespace !== Namespace.idmapping || isAsyncDownloadIdMapping) &&
-    namespace !== Namespace.unisave;
-
-  // TODO: have these as an array downloadOptionsExclude
-  if (!inBasketMini) {
-    downloadOptions.query = urlQuery;
-    downloadOptions.selectedFacets = selectedFacets;
-    downloadOptions.sortColumn = sortColumn;
-    downloadOptions.sortDirection = sortDirection;
-  }
-
-  if (hasColumns) {
-    downloadOptions.columns = selectedColumns;
-  }
-
   const downloadUrl = getDownloadUrl(downloadOptions);
+
   const nPreview = Math.min(10, downloadCount);
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
@@ -363,13 +172,10 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   const isEmbeddings = fileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
-
-  const isAsyncDownload =
-    (isEmbeddings && isUniprotkb) ||
-    (isUniprotkb && downloadCount > DOWNLOAD_SIZE_LIMIT) ||
-    isAsyncDownloadIdMapping;
+  const isAsyncDownload = (isLarge || isEmbeddings) && isUniprotkb;
   const ftpFilenameAndUrl =
-    namespace === Namespace.uniprotkb && !isIDMappingResult
+    namespace === Namespace.uniprotkb &&
+    jobResultsLocation !== Location.IDMappingResult
       ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
       : null;
 
@@ -377,9 +183,6 @@ const Download: FC<DownloadProps<JobTypes>> = ({
   const redirectToIDMapping =
     jobResultsLocation === Location.PeptideSearchResult &&
     downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
-
-  const disableSearch = isEmbeddings || redirectToIDMapping;
-  const disableStream = disableSearch || isAsyncDownload;
 
   let extraContentNode: JSX.Element | undefined;
   if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
@@ -420,18 +223,17 @@ const Download: FC<DownloadProps<JobTypes>> = ({
         apiURL={downloadUrl.replace('download=true&', '')}
         ftpURL={ftpFilenameAndUrl?.url}
         onCopy={() => onClose('copy', 'api-url')}
-        disableSearch={disableSearch}
-        disableStream={disableStream}
+        count={downloadCount}
+        disableAll={isEmbeddings || redirectToIDMapping}
       />
     );
-  } else if (extraContent === 'generate' && isAsyncDownload) {
+  } else if (extraContent === 'generate') {
     extraContentNode = (
       <AsyncDownloadForm
         downloadUrlOptions={downloadOptions}
         count={downloadCount}
+        initialFormValues={defaultFormValues}
         onClose={() => onClose('submit', 'async')}
-        inputParamsData={inputParamsData}
-        jobType={jobType}
       />
     );
   } else if (extraContent === 'preview') {
@@ -439,7 +241,6 @@ const Download: FC<DownloadProps<JobTypes>> = ({
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
-        disable={isAsyncDownloadIdMapping}
       />
     );
   }
@@ -474,6 +275,7 @@ const Download: FC<DownloadProps<JobTypes>> = ({
               disabled={redirectToIDMapping}
             />
             Download only reviewed (Swiss-Prot) canonical proteins (
+            {/* <LongNumber>{includeIsoform ? isoformStats?.reviewedWithIsoforms : isoformStats?.reviewed}</LongNumber>) */}
             <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
             {includeIsoform ? ' + isoforms' : ''})
           </label>
@@ -502,6 +304,7 @@ const Download: FC<DownloadProps<JobTypes>> = ({
         {showReviewedOption
           ? 'reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins'
           : ''}{' '}
+        {/* (<LongNumber>{showReviewedOption ? isoformStats?.allWithIsoforms : totalNumberResults}</LongNumber>) */}
         (<LongNumber>{totalNumberResults}</LongNumber>{' '}
         {showReviewedOption ? ' + isoforms' : ''})
       </label>
@@ -582,11 +385,7 @@ const Download: FC<DownloadProps<JobTypes>> = ({
           <ColumnSelect
             onChange={setSelectedColumns}
             selectedColumns={selectedColumns}
-            namespace={
-              isAsyncDownloadIdMapping
-                ? asyncDownloadIdMappingNamespace
-                : namespace
-            }
+            namespace={namespace}
           />
         </>
       )}

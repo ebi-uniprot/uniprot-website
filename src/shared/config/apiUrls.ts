@@ -286,7 +286,7 @@ export const getAccessionsURL = (
     noSort,
   }: GetOptions = {}
 ) => {
-  if (!(accessions && accessions.length)) {
+  if (!accessions?.length) {
     return undefined;
   }
   const finalFacets =

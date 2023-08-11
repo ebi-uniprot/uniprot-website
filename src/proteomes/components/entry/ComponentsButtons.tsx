@@ -32,11 +32,9 @@ import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { SearchResults } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 
-const DownloadComponent = lazy(
+const ComponentsDownloadComponent = lazy(
   () =>
-    import(
-      /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
-    )
+    import(/* webpackChunkName: "components-download" */ './ComponentsDownload')
 );
 
 type Props = Pick<
@@ -111,7 +109,6 @@ const ComponentsButtons = ({
     [allQuery, components?.length, selectedEntries]
   );
 
-  // TODO: the number presented here can be innaccurate see JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-26418
   const numberSelectedProteins = useMemo(() => {
     // Don't bother iterating over the components if there are no selectedEntries
     if (!selectedEntries.length || !components?.length) {
@@ -129,17 +126,15 @@ const ComponentsButtons = ({
     return null;
   }
 
-  let supportedFormats;
-  if (proteomeType === 'Redundant proteome') {
-    supportedFormats = fileFormatsResultsDownloadForRedundant;
-  } else {
-    supportedFormats = [
-      FileFormat.fasta,
-      ...fileFormatsUniPortKBResultsDownload.filter(
-        (format) => !format.includes('FASTA')
-      ),
-    ];
-  }
+  const fileFormats =
+    proteomeType === 'Redundant proteome'
+      ? fileFormatsResultsDownloadForRedundant
+      : [
+          FileFormat.fasta,
+          ...fileFormatsUniPortKBResultsDownload.filter(
+            (format) => !format.includes('FASTA')
+          ),
+        ];
 
   return (
     <>
@@ -151,7 +146,7 @@ const ComponentsButtons = ({
             onClose={handleToggleDownload}
           >
             <ErrorBoundary>
-              <DownloadComponent
+              <ComponentsDownloadComponent
                 query={allQuery}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
@@ -164,7 +159,7 @@ const ComponentsButtons = ({
                     ? Namespace.uniparc
                     : Namespace.uniprotkb
                 }
-                supportedFormats={supportedFormats}
+                fileFormats={fileFormats}
                 showReviewedOption={superkingdom === 'eukaryota'}
                 isoformStats={isoformStats}
               />
@@ -175,8 +170,8 @@ const ComponentsButtons = ({
       <div className="button-group">
         <Button
           variant="tertiary"
-          onPointerOver={DownloadComponent.preload}
-          onFocus={DownloadComponent.preload}
+          onPointerOver={ComponentsDownloadComponent.preload}
+          onFocus={ComponentsDownloadComponent.preload}
           onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />
