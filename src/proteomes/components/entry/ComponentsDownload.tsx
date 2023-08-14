@@ -41,7 +41,7 @@ type DownloadProps = {
   isoformStats: IsoformStatistics;
 };
 
-type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
+type ExtraContent = 'url' | 'preview';
 
 type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
 
@@ -123,18 +123,15 @@ const Download: FC<DownloadProps> = ({
 
   const nPreview = Math.min(10, downloadCount);
   const previewFileFormat = getPreviewFileFormat(fileFormat);
-  const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
-    ...downloadOptions,
-    fileFormat: previewFileFormat,
-    compressed: false,
-    size: nPreview,
-  };
-  if (previewOptions) {
-    // get only the first 10 entries instead of using the size parameters
-    previewOptions.selected = previewOptions.selected.slice(0, 10);
-  }
-
-  const previewUrl = previewOptions && getDownloadUrl(previewOptions);
+  const previewUrl =
+    previewFileFormat &&
+    getDownloadUrl({
+      ...downloadOptions,
+      selected: downloadOptions.selected.slice(0, 10), // get only the first 10 entries instead of using the size parameters
+      fileFormat: previewFileFormat,
+      compressed: false,
+      size: nPreview,
+    });
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDownloadSelect(e.target.name as DownloadSelectOptions);
