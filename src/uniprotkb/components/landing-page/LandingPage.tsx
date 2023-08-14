@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ExternalLink,
@@ -76,6 +76,9 @@ const LandingPage = () => {
     )?.count;
   }
 
+  const [reviewedHovered, setReviewedHovered] = useState(false);
+  const [unreviewedHovered, setUnreviewedHovered] = useState(false);
+
   return (
     <div className={styles['landing-page']}>
       <h1 className={styles['landing-page__title']}>UniProtKB</h1>
@@ -139,11 +142,19 @@ const LandingPage = () => {
                 </Link>
               </h3>
 
-              <StatisticsChart releaseNumber={release?.releaseNumber} />
+              <StatisticsChart
+                releaseNumber={release?.releaseNumber}
+                reviewed={!unreviewedHovered}
+                unreviewed={!reviewedHovered}
+              />
             </div>
             <div className={styles['entries-count']}>
               <h3 className="tiny">Number of Entries</h3>
-              <div className={styles['entries-count__content']}>
+              <div
+                className={styles['entries-count__content']}
+                onPointerEnter={() => setReviewedHovered(true)}
+                onPointerLeave={() => setReviewedHovered(false)}
+              >
                 <SwissProtIcon
                   width="1.75em"
                   className={styles['reviewed-icon']}
@@ -163,7 +174,11 @@ const LandingPage = () => {
                   )}
                 </div>
               </div>
-              <div className={styles['entries-count__content']}>
+              <div
+                className={styles['entries-count__content']}
+                onPointerEnter={() => setUnreviewedHovered(true)}
+                onPointerLeave={() => setUnreviewedHovered(false)}
+              >
                 <TremblIcon
                   width="1.75em"
                   className={styles['unreviewed-icon']}
@@ -214,7 +229,7 @@ const LandingPage = () => {
           <div className={styles.download__content}>
             <br />
             <div>
-              <span>Reviewed(Swiss-Prot)</span>
+              <span>Reviewed (Swiss-Prot)</span>
               {Object.entries(availableFTPFormats).map(([key, value]) => (
                 <ExternalLink
                   url={`${ftpUrls.uniprotkb_reviewed}.${value}.gz`}
@@ -225,7 +240,7 @@ const LandingPage = () => {
               ))}
             </div>
             <div>
-              <span>Unreviewed(TrEMBL)</span>
+              <span>Unreviewed (TrEMBL)</span>
               {Object.entries(availableFTPFormats).map(([key, value]) => (
                 <ExternalLink
                   url={`${ftpUrls.uniprotkb_unreviewed}.${value}.gz`}
