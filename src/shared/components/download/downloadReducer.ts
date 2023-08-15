@@ -9,6 +9,7 @@ import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 export type DownloadAction = ActionType<typeof downloadActions>;
+export type ExtraContent = null | 'url' | 'generate' | 'preview' | 'ftp';
 
 type DownloadState<T extends JobTypes> = {
   props: DownloadProps<T>;
@@ -17,6 +18,7 @@ type DownloadState<T extends JobTypes> = {
   selectedFileFormat: FileFormat;
   downloadSelect: DownloadSelectOptions;
   compressed: boolean;
+  extraContent: ExtraContent;
 };
 
 const getFileFormats = (
@@ -52,6 +54,7 @@ export const getDownloadInitialState = ({
     selectedFileFormat: fileFormatOptions[0],
     downloadSelect: props?.selectedEntries?.length ? 'selected' : 'all', // Defaults to "download all" if no selection
     compressed: props.namespace !== Namespace.unisave,
+    extraContent: null,
   };
 };
 
@@ -74,6 +77,8 @@ export function downloadReducer(
       return { ...state, downloadSelect: action.payload.downloadSelect };
     case downloadActions.UPDATE_COMPRESSED:
       return { ...state, compressed: action.payload.compressed };
+    case downloadActions.UPDATE_EXTRA_CONTENT:
+      return { ...state, extraContent: action.payload.extraContent };
     default:
       return state;
   }

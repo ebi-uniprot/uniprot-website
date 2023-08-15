@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useReducer } from 'react';
+import { ChangeEvent, useReducer } from 'react';
 import {
   generatePath,
   Link,
@@ -45,6 +45,7 @@ import {
   updateSelectedColumns,
   updateDownloadSelect,
   updateCompressed,
+  updateExtraContent,
 } from './downloadActions';
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
@@ -96,8 +97,6 @@ export type DownloadProps<T extends JobTypes> = {
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
 };
-
-type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
 
 export type DownloadSelectOptions = 'all' | 'selected';
 
@@ -196,6 +195,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
       selectedFileFormat,
       downloadSelect,
       compressed,
+      extraContent,
     },
     dispatch,
   ] = useReducer(
@@ -204,7 +204,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
     getDownloadInitialState
   );
 
-  const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
 
   const [
@@ -528,12 +527,15 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
-        <Button variant="tertiary" onClick={() => setExtraContent('url')}>
+        <Button
+          variant="tertiary"
+          onClick={() => dispatch(updateExtraContent('url'))}
+        >
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
-          onClick={() => setExtraContent('preview')}
+          onClick={() => dispatch(updateExtraContent('preview'))}
           disabled={redirectToIDMapping}
         >
           Preview{' '}
@@ -557,9 +559,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
           rel="noreferrer"
           onClick={() => {
             if (ftpFilenameAndUrl) {
-              setExtraContent('ftp');
+              dispatch(updateExtraContent('ftp'));
             } else if (isAsyncDownload) {
-              setExtraContent('generate');
+              dispatch(updateExtraContent('generate'));
             } else {
               onClose('download', 'sync');
             }
