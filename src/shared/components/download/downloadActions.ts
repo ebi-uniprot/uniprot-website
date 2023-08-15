@@ -2,13 +2,22 @@ import { action } from 'typesafe-actions';
 
 import { Column } from '../../config/columns';
 import { FileFormat } from '../../types/resultsDownload';
+import { DownloadSelectOptions } from './Download';
 
 export const UPDATE_SELECTED_COLUMNS = 'UPDATE_SELECTED_COLUMNS' as const;
 export const UPDATE_SELECTED_FILE_FORMAT =
   'UPDATE_SELECTED_FILE_FORMAT' as const;
+export const UPDATE_DOWNLOAD_SELECT = 'UPDATE_DOWNLOAD_SELECT' as const;
+export const UPDATE_COMPRESSED = 'UPDATE_COMPRESSED' as const;
 
 export const updateSelectedColumns = (columns: Column[]) =>
   action(UPDATE_SELECTED_COLUMNS, { columns });
 
-export const updateSelctedFileFormat = (selectedFileFormat: FileFormat) =>
+export const updateSelectedFileFormat = (selectedFileFormat: FileFormat) =>
   action(UPDATE_SELECTED_FILE_FORMAT, { selectedFileFormat });
+
+export const updateDownloadSelect = (downloadSelect: DownloadSelectOptions) =>
+  action(UPDATE_DOWNLOAD_SELECT, { downloadSelect });
+
+export const updateCompressed = (compressed: boolean) =>
+  action(UPDATE_COMPRESSED, { compressed });

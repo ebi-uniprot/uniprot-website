@@ -41,8 +41,10 @@ import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 import { downloadReducer, getDownloadInitialState } from './downloadReducer';
 import {
-  updateSelctedFileFormat,
+  updateSelectedFileFormat,
   updateSelectedColumns,
+  updateDownloadSelect,
+  updateCompressed,
 } from './downloadActions';
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
@@ -97,7 +99,7 @@ export type DownloadProps<T extends JobTypes> = {
 
 type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
 
-type DownloadSelectOptions = 'all' | 'selected';
+export type DownloadSelectOptions = 'all' | 'selected';
 
 // type DownloadState<T extends JobTypes> = {
 //   numberResults: number;
@@ -187,21 +189,21 @@ const Download = (props: DownloadProps<JobTypes>) => {
   );
   const { namespace: asyncDownloadIdMappingNamespace } = match?.params || {};
 
-  // const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
-
-  const [{ selectedColumns, fileFormatOptions, selectedFileFormat }, dispatch] =
-    useReducer(
-      downloadReducer,
-      { props, selectedColumns: columnNames },
-      getDownloadInitialState
-    );
-
-  // Defaults to "download all" if no selection
-  const [downloadSelect, setDownloadSelect] = useState<DownloadSelectOptions>(
-    selectedEntries.length ? 'selected' : 'all'
+  const [
+    {
+      selectedColumns,
+      fileFormatOptions,
+      selectedFileFormat,
+      downloadSelect,
+      compressed,
+    },
+    dispatch,
+  ] = useReducer(
+    downloadReducer,
+    { props, selectedColumns: columnNames },
+    getDownloadInitialState
   );
-  // const [fileFormat, setFileFormat] = useState(fileFormats[0]);
-  const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
+
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
 
@@ -310,11 +312,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDownloadSelect(e.target.name as DownloadSelectOptions);
+    dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
   };
 
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setCompressed(e.target.value === 'true');
+    dispatch(updateCompressed(e.target.value === 'true'));
 
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isEmbeddings = selectedFileFormat === FileFormat.embeddings;
@@ -439,7 +441,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
             data-testid="file-format-select"
             value={selectedFileFormat}
             onChange={(e) =>
-              dispatch(updateSelctedFileFormat(e.target.value as FileFormat))
+              dispatch(updateSelectedFileFormat(e.target.value as FileFormat))
             }
             disabled={redirectToIDMapping}
           >

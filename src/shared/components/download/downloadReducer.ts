@@ -1,7 +1,7 @@
 import { ActionType } from 'typesafe-actions';
 // import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import * as downloadActions from './downloadActions';
-import { DownloadProps } from './Download';
+import { DownloadProps, DownloadSelectOptions } from './Download';
 import { Column } from '../../config/columns';
 import { nsToFileFormatsResultsDownload } from '../../config/resultsDownload';
 import { FileFormat } from '../../types/resultsDownload';
@@ -15,6 +15,8 @@ type DownloadState<T extends JobTypes> = {
   selectedColumns: Column[];
   fileFormatOptions: FileFormat[];
   selectedFileFormat: FileFormat;
+  downloadSelect: DownloadSelectOptions;
+  compressed: boolean;
 };
 
 const getFileFormats = (
@@ -48,6 +50,8 @@ export const getDownloadInitialState = ({
     selectedColumns,
     fileFormatOptions,
     selectedFileFormat: fileFormatOptions[0],
+    downloadSelect: props?.selectedEntries?.length ? 'selected' : 'all', // Defaults to "download all" if no selection
+    compressed: props.namespace !== Namespace.unisave,
   };
 };
 
@@ -66,7 +70,10 @@ export function downloadReducer(
         ...state,
         selectedFileFormat: action.payload.selectedFileFormat,
       };
-
+    case downloadActions.UPDATE_DOWNLOAD_SELECT:
+      return { ...state, downloadSelect: action.payload.downloadSelect };
+    case downloadActions.UPDATE_COMPRESSED:
+      return { ...state, compressed: action.payload.compressed };
     default:
       return state;
   }
