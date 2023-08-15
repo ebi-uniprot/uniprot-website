@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, useReducer } from 'react';
+import { useState, ChangeEvent, useReducer } from 'react';
 import {
   generatePath,
   Link,
@@ -24,10 +24,7 @@ import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
-import {
-  fileFormatsWithColumns,
-  nsToFileFormatsResultsDownload,
-} from '../../config/resultsDownload';
+import { fileFormatsWithColumns } from '../../config/resultsDownload';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -43,7 +40,10 @@ import { PublicServerParameters } from '../../../tools/types/toolsServerParamete
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
 import { downloadReducer, getDownloadInitialState } from './downloadReducer';
-import { updateSelectedColumns } from './downloadActions';
+import {
+  updateSelctedFileFormat,
+  updateSelectedColumns,
+} from './downloadActions';
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
 export const DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED = 100_000 as const;
@@ -74,6 +74,7 @@ export const getPreviewFileFormat = (
 };
 
 export type DownloadProps<T extends JobTypes> = {
+  // export type DownloadProps = {
   query?: string;
   selectedEntries?: string[];
   selectedQuery?: string;
@@ -160,7 +161,7 @@ output
 }
 */
 
-const Download: FC<DownloadProps<JobTypes>> = (props) => {
+const Download = (props: DownloadProps<JobTypes>) => {
   const {
     query,
     selectedQuery,
@@ -171,7 +172,6 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
     namespace,
     accessions,
     base,
-    supportedFormats,
     notCustomisable,
     inBasketMini = false,
     showReviewedOption = false,
@@ -186,16 +186,15 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
     LocationToPath[Location.IDMappingResult]
   );
   const { namespace: asyncDownloadIdMappingNamespace } = match?.params || {};
-  let fileFormats =
-    supportedFormats || nsToFileFormatsResultsDownload[namespace];
 
   // const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
 
-  const [{ selectedColumns, fileFormat }, dispatch] = useReducer(
-    downloadReducer,
-    { props, selectedColumns: columnNames },
-    getDownloadInitialState
-  );
+  const [{ selectedColumns, fileFormatOptions, selectedFileFormat }, dispatch] =
+    useReducer(
+      downloadReducer,
+      { props, selectedColumns: columnNames },
+      getDownloadInitialState
+    );
 
   // Defaults to "download all" if no selection
   const [downloadSelect, setDownloadSelect] = useState<DownloadSelectOptions>(
@@ -243,7 +242,7 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
   }
 
   const downloadOptions: DownloadUrlOptions = {
-    fileFormat,
+    fileFormat: selectedFileFormat,
     compressed,
     selected: urlSelected,
     selectedIdField,
@@ -274,16 +273,10 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
     downloadCount > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
     asyncDownloadIdMappingNamespace &&
     ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(asyncDownloadIdMappingNamespace) &&
-    ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(fileFormat);
-
-  // In this case it's a not uniprotkb/uniref/uniparc so we can only
-  // provide from/to only file formats
-  if (namespace === Namespace.idmapping && !isAsyncDownloadIdMapping) {
-    fileFormats = fileFormats.filter((ff) => !ff.includes('from/to only'));
-  }
+    ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(selectedFileFormat);
 
   const hasColumns =
-    fileFormatsWithColumns.has(fileFormat) &&
+    fileFormatsWithColumns.has(selectedFileFormat) &&
     (namespace !== Namespace.idmapping || isAsyncDownloadIdMapping) &&
     namespace !== Namespace.unisave;
 
@@ -301,7 +294,7 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
 
   const downloadUrl = getDownloadUrl(downloadOptions);
   const nPreview = Math.min(10, downloadCount);
-  const previewFileFormat = getPreviewFileFormat(fileFormat);
+  const previewFileFormat = getPreviewFileFormat(selectedFileFormat);
   const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
     ...downloadOptions,
     fileFormat: previewFileFormat,
@@ -324,7 +317,7 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
     setCompressed(e.target.value === 'true');
 
   const isUniprotkb = namespace === Namespace.uniprotkb;
-  const isEmbeddings = fileFormat === FileFormat.embeddings;
+  const isEmbeddings = selectedFileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
 
@@ -334,7 +327,7 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
     isAsyncDownloadIdMapping;
   const ftpFilenameAndUrl =
     namespace === Namespace.uniprotkb && !isIDMappingResult
-      ? getUniprotkbFtpFilenameAndUrl(downloadUrl, fileFormat)
+      ? getUniprotkbFtpFilenameAndUrl(downloadUrl, selectedFileFormat)
       : null;
 
   // Peptide search download for matches exceeding the threshold
@@ -444,11 +437,13 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
           <select
             id="file-format-select"
             data-testid="file-format-select"
-            value={fileFormat}
-            onChange={(e) => setFileFormat(e.target.value as FileFormat)}
+            value={selectedFileFormat}
+            onChange={(e) =>
+              dispatch(updateSelctedFileFormat(e.target.value as FileFormat))
+            }
             disabled={redirectToIDMapping}
           >
-            {fileFormats.map((format) => (
+            {fileFormatOptions.map((format) => (
               <option value={format} key={format}>
                 {format}
               </option>
