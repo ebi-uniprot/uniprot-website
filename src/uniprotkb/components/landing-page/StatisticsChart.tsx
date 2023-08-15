@@ -31,8 +31,6 @@ const nameToQuery = new Map<string, string>([
   ['Other', '(taxonomy_id:2787854) OR (taxonomy_id:2787823)'],
 ]);
 
-const transitionDuration = 1_000;
-
 // Specify the chart’s dimensions.
 const width = 400;
 const height = 300;
@@ -45,28 +43,27 @@ const pie = d3pie<StatisticsItem>()
   .sort(null)
   .value((d) => d.entryCount);
 
-const arc = d3arc<d3.PieArcDatum<StatisticsItem>>()
+const arc = d3arc<PieArcDatum<StatisticsItem>>()
   .outerRadius(radius * 0.8)
   .innerRadius(0);
 
-const outerArc = d3arc<d3.PieArcDatum<StatisticsItem>>()
+const outerArc = d3arc<PieArcDatum<StatisticsItem>>()
   .innerRadius(radius * 0.9)
   .outerRadius(radius * 0.9);
 
 // Below is used as a reference only for calculating the polyline start position
-const midArc = d3arc<d3.PieArcDatum<StatisticsItem>>()
+const midArc = d3arc<PieArcDatum<StatisticsItem>>()
   .outerRadius(radius * 0.8)
   .innerRadius(radius * 0.4);
 
-const key = (d: d3.PieArcDatum<StatisticsItem>) => d.data.name;
+const midAngle = (d: PieArcDatum<StatisticsItem>) =>
+  d.startAngle + (d.endAngle - d.startAngle) / 2;
 
 const current: Map<string, PieArcDatum<StatisticsItem>> = new Map();
-console.log(current);
 const renderPieChart = (
   svgElement: SVGSVGElement,
   data: StatisticsItem[]
 ): void => {
-  console.log(data[0]);
   // Create the color scale.
   const color = scaleOrdinal<string, string>()
     .domain(data.map((d) => d.name))
@@ -75,102 +72,80 @@ const renderPieChart = (
   // Get the SVG container.
   const svg = select(svgElement);
 
-  /* ------- PIE SLICES -------*/
   const pieData = pie(data);
-  const slice = svg
-    .select('.slices')
-    .selectAll<SVGPathElement, d3.PieArcDatum<StatisticsItem>>(
-      `path.${styles.slice}`
-    )
-    .data(pieData, key);
 
-  slice
-    .enter()
-    .insert('path')
-    .classed(styles.slice, true)
+  svg
+    .selectAll<SVGGElement, PieArcDatum<StatisticsItem>>(`.${styles.slice}`)
+    .data(
+      pieData,
+      (d, i, domArray) => d?.data.name || domArray[i].dataset.key || i
+    )
     .style('fill', (d) => color(d.data.name))
-    .merge(slice)
     .transition()
-    .duration(transitionDuration)
-    .attrTween('d', (d, i) => {
-      const interpolate = d3interpolate(current.get(d.data.name) || null, d);
-      if (!i) console.log(current.get(d.data.name), d, interpolate(0.5));
-      current.set(d.data.name, interpolate(0));
-      return (t: number) => arc(interpolate(t)) || '';
-    });
+    .duration(1_000)
+    .tween('tween', (d, i, domArray) => {
+      const group = domArray[i];
+      const slice = group.querySelector<SVGPathElement>('path');
+      const line = group.querySelector<SVGLineElement>('polyline');
+      const label =
+        group.querySelector<SVGForeignObjectElement>('foreignObject');
 
-  slice.exit().remove();
-
-  /* ------- TEXT LABELS -------*/
-
-  const text = svg
-    .select('.labels')
-    .selectAll<SVGForeignObjectElement, d3.PieArcDatum<StatisticsItem>>(
-      'foreignObject'
-    )
-    .data(pie(data));
-
-  const midAngle = (d: d3.PieArcDatum<StatisticsItem>) =>
-    d.startAngle + (d.endAngle - d.startAngle) / 2;
-
-  text
-    .style('opacity', (d) => (d.data.entryCount ? 1 : 0))
-    .transition()
-    .duration(transitionDuration)
-    .style('opacity', (d) => (d.data.entryCount ? 1 : 0))
-    .tween('tween', (...args) => {
-      console.log(...args);
-      return (t) => {
-        console.log(t);
-      };
-    })
-    .attrTween('transform', (d, i, domArray) => {
-      const el = domArray[i];
       const { width = 0, height = 0 } =
-        domArray[i].firstElementChild?.getBoundingClientRect() || {};
-      el.setAttribute('width', `${width}`);
-      el.setAttribute('height', `${height}`);
-      const interpolate = d3interpolate(current.get(d.data.name) || null, d);
-      current.set(d.data.name, interpolate(0));
+        label?.firstElementChild?.getBoundingClientRect() || {};
+      label?.setAttribute('width', `${width}`);
+      // x1.5 to take into account the typography descenders (e.g. in "y")
+      label?.setAttribute('height', `${height * 1.5}`);
+
+      const isOnTheLeft = midAngle(d) < Math.PI;
+      const interpolate = d3interpolate(
+        current.get(d.data.name) || {
+          startAngle: isOnTheLeft ? 0 : 2 * Math.PI,
+          endAngle: isOnTheLeft ? 0 : 2 * Math.PI,
+        },
+        d
+      );
+      const interpolateOpacity = d3interpolate(
+        current.get(d.data.name)?.value ? 1 : 0,
+        d.value ? 1 : 0
+      );
+
+      // At each tick, change the DOM
       return (t) => {
-        const d2 = interpolate(t);
-        const pos = outerArc.centroid(d2);
-        const isOnTheLeft = midAngle(d2) < Math.PI;
-        pos[0] = radius * (isOnTheLeft ? 1 : -1) - (isOnTheLeft ? 0 : width);
-        pos[1] -= height / 1.5;
-        return `translate(${pos})`;
+        const tweened = interpolate(t);
+        const tweenedOpacity = interpolateOpacity(t);
+        if (!tweened) {
+          return;
+        }
+        current.set(d.data.name, tweened);
+        const isOnTheLeft = midAngle(tweened) < Math.PI;
+        // slices
+        slice?.setAttribute('d', arc(tweened) || '');
+        // lines
+        const linePos = outerArc.centroid(tweened);
+        linePos[0] = radius * 0.95 * (isOnTheLeft ? 1 : -1);
+        const pointsArray = [
+          midArc.centroid(tweened),
+          outerArc.centroid(tweened),
+          linePos,
+        ];
+        line?.setAttribute(
+          'points',
+          pointsArray.map((point) => point.join(',')).join(' ')
+        );
+        line?.setAttribute('opacity', `${tweenedOpacity}`);
+        // labels
+        const labelPos = outerArc.centroid(tweened);
+        labelPos[0] =
+          radius * (isOnTheLeft ? 1 : -1) - (isOnTheLeft ? 0 : width);
+        labelPos[1] -= height / 1.5;
+        label?.setAttribute(
+          'transform',
+          `translate(${labelPos[0]}, ${labelPos[1]})`
+        );
+        // whole group
+        group.setAttribute('opacity', `${tweenedOpacity}`);
       };
     });
-
-  text.exit().remove();
-
-  /* ------- SLICE TO TEXT POLYLINES -------*/
-
-  const polyline = svg
-    .select('.lines')
-    .selectAll<SVGPathElement, d3.PieArcDatum<StatisticsItem>>('polyline')
-    .data(pie(data), key);
-
-  polyline
-    .join('polyline')
-    .classed(styles.polyline, true)
-    .style('opacity', (d) => (d.data.entryCount ? 0.3 : 0))
-    .transition()
-    .duration(transitionDuration)
-    .style('opacity', (d) => (d.data.entryCount ? 0.3 : 0))
-    .attrTween('points', (d) => {
-      const interpolate = d3interpolate(current.get(d.data.name) || null, d);
-      current.set(d.data.name, interpolate(0));
-      return (t) => {
-        const d2 = interpolate(t);
-        const pos = outerArc.centroid(d2);
-        pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-        const pointsArray = [midArc.centroid(d2), outerArc.centroid(d2), pos];
-        return pointsArray.map((point) => point.join(',')).join(' ');
-      };
-    });
-
-  polyline.exit().remove();
 };
 
 type StatisticsChartProps = {
@@ -242,8 +217,6 @@ const StatisticsChart = ({
     unreviewedStats.data?.results,
   ]);
 
-  console.log(data);
-
   useEffect(() => {
     if (svgRef.current && !reviewedStats.loading && !unreviewedStats.loading) {
       renderPieChart(svgRef.current, data);
@@ -253,11 +226,11 @@ const StatisticsChart = ({
   return (
     <svg ref={svgRef} className={styles.piechart} width={width} height={height}>
       <g transform={`translate(${width / 2},${height / 2})`}>
-        <g className="slices" />
-        <g className="lines" />
-        <g className="labels">
-          {data?.map((datum) => (
-            <foreignObject key={datum.name}>
+        {data?.map((datum) => (
+          <g className={styles.slice} key={datum.name} data-key={datum.name}>
+            <path />
+            <polyline />
+            <foreignObject>
               <Link
                 to={{
                   pathname: LocationToPath[Location.UniProtKBResults],
@@ -270,8 +243,8 @@ const StatisticsChart = ({
                 {datum.name}
               </Link>
             </foreignObject>
-          ))}
-        </g>
+          </g>
+        ))}
       </g>
     </svg>
   );
