@@ -108,7 +108,7 @@ const renderPieChart = (
         },
         opacity: 0,
       };
-      const interpolate = d3interpolate(cur, d);
+      const interpolate = d3interpolate(cur.datum, d);
       const interpolateOpacity = d3interpolate(cur.opacity, d.value ? 1 : 0);
 
       // At each tick, change the DOM
