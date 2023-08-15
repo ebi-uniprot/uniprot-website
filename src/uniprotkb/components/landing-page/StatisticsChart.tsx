@@ -40,7 +40,7 @@ const radius = Math.min(width, height) / 2 - margin;
 
 // Create the pie layout and arc generator.
 const pie = d3pie<StatisticsItem>()
-  .sort(null)
+  .sort(null) // use null to keep order in original data
   .value((d) => d.entryCount);
 
 const arc = d3arc<PieArcDatum<StatisticsItem>>()
@@ -59,7 +59,11 @@ const midArc = d3arc<PieArcDatum<StatisticsItem>>()
 const midAngle = (d: PieArcDatum<StatisticsItem>) =>
   d.startAngle + (d.endAngle - d.startAngle) / 2;
 
-const current: Map<string, PieArcDatum<StatisticsItem>> = new Map();
+const current: Map<
+  string,
+  { datum: PieArcDatum<StatisticsItem>; opacity: number }
+> = new Map();
+
 const renderPieChart = (
   svgElement: SVGSVGElement,
   data: StatisticsItem[]
@@ -97,17 +101,15 @@ const renderPieChart = (
       label?.setAttribute('height', `${height * 1.5}`);
 
       const isOnTheLeft = midAngle(d) < Math.PI;
-      const interpolate = d3interpolate(
-        current.get(d.data.name) || {
+      const cur = current.get(d.data.name) || {
+        datum: {
           startAngle: isOnTheLeft ? 0 : 2 * Math.PI,
           endAngle: isOnTheLeft ? 0 : 2 * Math.PI,
         },
-        d
-      );
-      const interpolateOpacity = d3interpolate(
-        current.get(d.data.name)?.value ? 1 : 0,
-        d.value ? 1 : 0
-      );
+        opacity: 0,
+      };
+      const interpolate = d3interpolate(cur, d);
+      const interpolateOpacity = d3interpolate(cur.opacity, d.value ? 1 : 0);
 
       // At each tick, change the DOM
       return (t) => {
@@ -116,7 +118,7 @@ const renderPieChart = (
         if (!tweened) {
           return;
         }
-        current.set(d.data.name, tweened);
+        current.set(d.data.name, { datum: tweened, opacity: tweenedOpacity });
         const isOnTheLeft = midAngle(tweened) < Math.PI;
         // slices
         slice?.setAttribute('d', arc(tweened) || '');
