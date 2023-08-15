@@ -69,20 +69,18 @@
           margin-right: 0.5rem;
         }
       }
-
-      // &__ftp-link {
-      //   display: block;
-      //   margin-top: 1rem;
-      // }
     }
 
     .tutorial {
-      margin-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       &__title {
-        white-space: nowrap;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
         overflow: hidden;
-        text-overflow: ellipsis;
       }
     }
   }

@@ -38,17 +38,17 @@ const tutorialsInfo = [
   {
     id: 'yp1O1gDK8oA',
     title: 'How to search UniProtKB',
-    date: '26 Oct 2021',
+    date: new Date('2021-10-26'),
   },
   {
     id: 'BHu88Sv--mc',
     title: 'How to explore a UniProt entry',
-    date: '17 Feb 2022',
+    date: new Date('2022-02-17'),
   },
   {
     id: 'p4_gGkM-Rfs',
     title: 'How to download embeddings in UniProt',
-    date: '25 Jul 2023',
+    date: new Date('2023-06-25'),
   },
 ];
 
@@ -291,8 +291,9 @@ const LandingPage = () => {
               <div className={styles.tutorial__title} title={item.title}>
                 {item.title}
               </div>
-              <br />
-              {item.date}
+              <time dateTime={item.date.toISOString()}>
+                {item.date.toDateString()}
+              </time>
             </div>
           </Fragment>
         ))}
