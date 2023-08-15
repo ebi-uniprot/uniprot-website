@@ -191,7 +191,7 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
 
   // const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
 
-  const [{ selectedColumns }, dispatch] = useReducer(
+  const [{ selectedColumns, fileFormat }, dispatch] = useReducer(
     downloadReducer,
     { props, selectedColumns: columnNames },
     getDownloadInitialState
@@ -201,7 +201,7 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
   const [downloadSelect, setDownloadSelect] = useState<DownloadSelectOptions>(
     selectedEntries.length ? 'selected' : 'all'
   );
-  const [fileFormat, setFileFormat] = useState(fileFormats[0]);
+  // const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
@@ -257,10 +257,7 @@ const Download: FC<DownloadProps<JobTypes>> = (props) => {
   switch (downloadSelect) {
     case 'all':
       downloadCount = totalNumberResults;
-      if (showReviewedOption) {
-        downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-        fileFormats = [FileFormat.fasta];
-      }
+
       break;
     case 'selected':
       downloadCount = nSelectedEntries;
