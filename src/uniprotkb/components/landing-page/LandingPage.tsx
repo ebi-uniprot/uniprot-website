@@ -22,6 +22,7 @@ import {
 } from '../../../app/config/urls';
 import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import ftpUrls from '../../../shared/config/ftpUrls';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -81,61 +82,57 @@ const LandingPage = () => {
 
   return (
     <div className={styles['landing-page']}>
-      <h1 className={styles['landing-page__title']}>UniProtKB</h1>
-      <div className={cn('uniprot-grid', styles['landing-page__content'])}>
-        <div
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-4'
-          )}
-        >
-          <YouTubeEmbed id="OwOJmKmc7VM" title="Welcome to UniProt" />
+      <div className="uniprot-grid">
+        <h1 className="uniprot-grid-cell--span-12">UniProtKB</h1>
+        <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
+          <YouTubeEmbed
+            videoid="OwOJmKmc7VM"
+            title="Welcome to UniProt"
+            className={styles['main-video']}
+          />
         </div>
-        <p
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-8'
-          )}
-        >
-          The UniProt Knowledgebase (UniProtKB) is the central hub for the
-          collection of functional information on proteins, with accurate,
-          consistent and rich annotation. In addition to capturing the core data
-          mandatory for each UniProtKB entry (mainly, the amino acid sequence,
-          protein name or description, taxonomic data and citation information),
-          as much annotation information as possible is added. <br />
-          <br />
-          The UniProt Knowledgebase consists of two sections: a section
-          containing manually-annotated records with information extracted from
-          literature and curator-evaluated computational analysis
-          (UniProtKB/Swiss-Prot), and a section with computationally analyzed
-          records that await full manual annotation (UniProtKB/TrEMBL).
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: `query=*`,
-            }}
-            className={styles['search-link']}
-          >
-            Start searching in UniProtKB <big>»</big>
-          </Link>
-        </p>
+        <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
+          <p>
+            The{' '}
+            <Link to={getLocationEntryPath(Location.HelpEntry, 'uniprotkb')}>
+              UniProt Knowledgebase
+            </Link>{' '}
+            (UniProtKB) is the central hub for the collection of functional
+            information on proteins, with accurate, consistent and rich
+            annotation. In addition to capturing the core data mandatory for
+            each UniProtKB entry (mainly, the amino acid sequence, protein name
+            or description, taxonomic data and citation information), as much
+            annotation information as possible is added.
+          </p>
+          <p>
+            The UniProt Knowledgebase consists of two sections: a section
+            containing manually-annotated records with information extracted
+            from literature and curator-evaluated computational analysis
+            (UniProtKB/Swiss-Prot), and a section with computationally analyzed
+            records that await full manual annotation (UniProtKB/TrEMBL).
+          </p>
+          <p>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: stringifyQuery({ query: '*' }),
+              }}
+            >
+              Start searching in UniProtKB <big>»</big>
+            </Link>
+          </p>
+        </div>
 
         {/* Statistics */}
-        <div
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-9',
-            styles.statistics
-          )}
-        >
+        <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
           <h2>Statistics</h2>
-          <div className={styles.statistics__content}>
+          <div className={styles.statistics}>
             <div className={styles.chart}>
               <h3 className="tiny">
                 <Link
                   to={{
                     pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `groupBy=taxonomy&query=*`,
+                    search: stringifyQuery({ groupBy: 'taxonomy', query: '*' }),
                   }}
                 >
                   Taxonomic origin
@@ -150,40 +147,43 @@ const LandingPage = () => {
             </div>
             <div className={styles['entries-count']}>
               <h3 className="tiny">Number of Entries</h3>
-              <div
-                className={styles['entries-count__content']}
+              <br />
+              <p
                 onPointerEnter={() => setReviewedHovered(true)}
+                onFocus={() => setReviewedHovered(true)}
                 onPointerLeave={() => setReviewedHovered(false)}
+                onBlur={() => setReviewedHovered(false)}
               >
                 <SwissProtIcon
-                  width="1.75em"
+                  width="2em"
                   className={styles['reviewed-icon']}
                 />
-                <div className={styles['entries-count__content__text']}>
+                <span>
                   Reviewed (Swiss-Prot)
                   <br />
                   {numberReviewed && (
                     <Link
                       to={{
                         pathname: LocationToPath[Location.UniProtKBResults],
-                        search: `facets=reviewed:true&query=*`,
+                        search: stringifyQuery({
+                          facets: 'reviewed:true',
+                          query: '*',
+                        }),
                       }}
                     >
                       <LongNumber>{numberReviewed}</LongNumber> entries
                     </Link>
                   )}
-                </div>
-              </div>
-              <div
-                className={styles['entries-count__content']}
+                </span>
+              </p>
+              <p
                 onPointerEnter={() => setUnreviewedHovered(true)}
+                onFocus={() => setUnreviewedHovered(true)}
                 onPointerLeave={() => setUnreviewedHovered(false)}
+                onBlur={() => setUnreviewedHovered(false)}
               >
-                <TremblIcon
-                  width="1.75em"
-                  className={styles['unreviewed-icon']}
-                />
-                <div className={styles['entries-count__content__text']}>
+                <TremblIcon width="2em" className={styles['unreviewed-icon']} />
+                <span>
                   Unreviewed (TrEMBL)
                   <br />
                   {numberUnreviewed && (
@@ -196,15 +196,11 @@ const LandingPage = () => {
                       <LongNumber>{numberUnreviewed}</LongNumber> entries
                     </Link>
                   )}
-                </div>
-              </div>
-              <div
-                className={cn(
-                  styles['entries-count__content'],
-                  styles['statistics-link']
-                )}
-              >
+                </span>
+              </p>
+              <p>
                 <Link
+                  // TODO: link to statistics page when we have it
                   to={getLocationEntryPath(
                     Location.HelpEntry,
                     'release-statistics'
@@ -212,7 +208,7 @@ const LandingPage = () => {
                 >
                   Explore the {release?.releaseNumber} release <big>»</big>
                 </Link>
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -221,55 +217,47 @@ const LandingPage = () => {
         <div
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-3',
-            styles.download
+            'uniprot-grid-cell--medium-span-3'
           )}
         >
           <h2>Download</h2>
-          <div className={styles.download__content}>
+          <div className={styles.download}>
             <br />
-            <div>
-              <span>Reviewed (Swiss-Prot)</span>
+            <br />
+            <p>
+              Reviewed (Swiss-Prot)
+              <br />
               {Object.entries(availableFTPFormats).map(([key, value]) => (
                 <ExternalLink
                   url={`${ftpUrls.uniprotkb_reviewed}.${value}.gz`}
-                  key={`reviewed-${key}`}
+                  key={key}
                 >
                   {key}
                 </ExternalLink>
               ))}
-            </div>
-            <div>
-              <span>Unreviewed (TrEMBL)</span>
+            </p>
+            <p>
+              Unreviewed (TrEMBL)
+              <br />
               {Object.entries(availableFTPFormats).map(([key, value]) => (
                 <ExternalLink
                   url={`${ftpUrls.uniprotkb_unreviewed}.${value}.gz`}
-                  key={`unreviewed-${key}`}
+                  key={key}
                 >
                   {key}
                 </ExternalLink>
               ))}
-            </div>
-            <div>
-              <ExternalLink
-                url={ftpUrls.uniprotkb}
-                className={styles['download__ftp-link']}
-              >
+            </p>
+            <p>
+              <ExternalLink url={ftpUrls.uniprotkb}>
                 Explore more in FTP
               </ExternalLink>
-            </div>
+            </p>
           </div>
         </div>
 
         {/* Tutorials */}
-        <h2
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-12'
-          )}
-        >
-          How to use UniProtKB
-        </h2>
+        <h2 className="uniprot-grid-cell--span-12">How to use UniProtKB</h2>
         {tutorialsInfo.map((item) => (
           <Fragment key={item.id}>
             <div
@@ -279,7 +267,7 @@ const LandingPage = () => {
                 styles.tutorial
               )}
             >
-              <YouTubeEmbed id={item.id} title={item.title} />
+              <YouTubeEmbed videoid={item.id} title={item.title} />
             </div>
             <div
               className={cn(

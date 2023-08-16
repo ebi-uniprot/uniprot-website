@@ -24,8 +24,8 @@ import styles from './styles/statistics-chart.module.scss';
 type StatisticsItem = Pick<SI, 'name' | 'entryCount'>;
 
 const nameToQuery = new Map<string, string>([
-  ['Eukaryota', '(taxonomy_id:2759)'],
   ['Archaea', '(taxonomy_id:2157)'],
+  ['Eukaryota', '(taxonomy_id:2759)'],
   ['Viruses', '(taxonomy_id:10239)'],
   ['Bacteria', '(taxonomy_id:2)'],
   ['Other', '(taxonomy_id:2787854) OR (taxonomy_id:2787823)'],
@@ -38,7 +38,7 @@ const margin = 40;
 
 const radius = Math.min(width, height) / 2 - margin;
 
-// Create the pie layout and arc generator.
+// Create the pie layout and arc generators
 const pie = d3pie<StatisticsItem>()
   .sort(null) // use null to keep order in original data
   .value((d) => d.entryCount);
@@ -96,6 +96,7 @@ const renderPieChart = (
 
       const { width = 0, height = 0 } =
         label?.firstElementChild?.getBoundingClientRect() || {};
+
       label?.setAttribute('width', `${width}`);
       // x1.5 to take into account the typography descenders (e.g. in "y")
       label?.setAttribute('height', `${height * 1.5}`);
