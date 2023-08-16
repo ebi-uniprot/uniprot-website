@@ -11,7 +11,7 @@ import { JobTypes } from '../../../tools/types/toolsJobTypes';
 export type DownloadAction = ActionType<typeof downloadActions>;
 export type ExtraContent = null | 'url' | 'generate' | 'preview' | 'ftp';
 
-type DownloadState<T extends JobTypes> = {
+export type DownloadState<T extends JobTypes> = {
   props: DownloadProps<T>;
   selectedColumns: Column[];
   fileFormatOptions: FileFormat[];
@@ -19,6 +19,7 @@ type DownloadState<T extends JobTypes> = {
   downloadSelect: DownloadSelectOptions;
   compressed: boolean;
   extraContent: ExtraContent;
+  nSelectedEntries: number;
 };
 
 const getFileFormats = (
@@ -55,6 +56,8 @@ export const getDownloadInitialState = ({
     downloadSelect: props?.selectedEntries?.length ? 'selected' : 'all', // Defaults to "download all" if no selection
     compressed: props.namespace !== Namespace.unisave,
     extraContent: null,
+    nSelectedEntries:
+      props.numberSelectedEntries || props.selectedEntries?.length || 0,
   };
 };
 

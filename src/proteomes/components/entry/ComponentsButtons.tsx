@@ -135,7 +135,7 @@ const ComponentsButtons = ({
             (format) => !format.includes('FASTA')
           ),
         ];
-
+  // TODO: place as much of the logic for the download within the component to remove the number of props
   return (
     <>
       {displayDownloadPanel && (
