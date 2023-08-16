@@ -82,7 +82,7 @@ const LandingPage = () => {
 
   return (
     <div className={styles['landing-page']}>
-      <div className="uniprot-grid">
+      <section className="uniprot-grid">
         <h1 className="uniprot-grid-cell--span-12">UniProtKB</h1>
         <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
           <YouTubeEmbed
@@ -124,7 +124,7 @@ const LandingPage = () => {
         </div>
 
         {/* Statistics */}
-        <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
+        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
           <h2>Statistics</h2>
           <div className={styles.statistics}>
             <div className={styles.chart}>
@@ -145,7 +145,7 @@ const LandingPage = () => {
                 unreviewed={!reviewedHovered}
               />
             </div>
-            <div className={styles['entries-count']}>
+            <section className={styles['entries-count']}>
               <h3 className="tiny">Number of Entries</h3>
               <br />
               <p
@@ -209,17 +209,12 @@ const LandingPage = () => {
                   Explore the {release?.releaseNumber} release <big>»</big>
                 </Link>
               </p>
-            </div>
+            </section>
           </div>
-        </div>
+        </section>
 
         {/* Downloads */}
-        <div
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-3'
-          )}
-        >
+        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-3">
           <h2>Download</h2>
           <div className={styles.download}>
             <br />
@@ -254,8 +249,7 @@ const LandingPage = () => {
               </ExternalLink>
             </p>
           </div>
-        </div>
-
+        </section>
         {/* Tutorials */}
         <h2 className="uniprot-grid-cell--span-12">How to use UniProtKB</h2>
         {tutorialsInfo.map((item) => (
@@ -285,7 +279,7 @@ const LandingPage = () => {
             </div>
           </Fragment>
         ))}
-      </div>
+      </section>
     </div>
   );
 };
