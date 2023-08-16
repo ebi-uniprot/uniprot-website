@@ -77,7 +77,6 @@ export const getPreviewFileFormat = (
 };
 
 export type DownloadProps<T extends JobTypes> = {
-  // export type DownloadProps = {
   query?: string;
   selectedEntries?: string[];
   selectedQuery?: string;
@@ -205,6 +204,28 @@ const getPreviewOptions = (
   return previewOptions;
 };
 
+const getIsAsyncDownload = (
+  state: DownloadState<JobTypes>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  (state.props.namespace === Namespace.uniprotkb &&
+    (state.selectedFileFormat === FileFormat.embeddings ||
+      getDownloadCount(state) > DOWNLOAD_SIZE_LIMIT)) ||
+  getIsAsyncDownloadIdMapping(state, job);
+
+const getFtpFilenameAndUrl = (
+  state: DownloadState<JobTypes>,
+  location: HistoryLocation<unknown>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  state.props.namespace === Namespace.uniprotkb &&
+  job.jobResultsLocation === Location.IDMappingResult
+    ? getUniprotkbFtpFilenameAndUrl(
+        getDownloadUrl(getDownloadOptions(state, location, job)),
+        state.selectedFileFormat
+      )
+    : null;
+
 const Download = (props: DownloadProps<JobTypes>) => {
   const {
     selectedEntries = [],
@@ -217,15 +238,12 @@ const Download = (props: DownloadProps<JobTypes>) => {
     inputParamsData,
   } = props;
   const { columnNames } = useColumnNames({ namespaceOverride: namespace });
-
   const location: HistoryLocation<unknown> = useLocation();
-
   const [state, dispatch] = useReducer(
     downloadReducer,
     { props, selectedColumns: columnNames },
     getDownloadInitialState
   );
-
   const {
     selectedColumns,
     fileFormatOptions,
@@ -235,46 +253,29 @@ const Download = (props: DownloadProps<JobTypes>) => {
     extraContent,
     nSelectedEntries,
   } = state;
-
   const job = useJobFromUrl();
 
-  const isIDMappingResult = jobType === JobTypes.ID_MAPPING;
-  const isAsyncDownloadIdMapping = getIsAsyncDownloadIdMapping(state, job);
+  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
+  };
+  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch(updateCompressed(e.target.value === 'true'));
 
   const downloadCount = getDownloadCount(state);
   const downloadOptions = getDownloadOptions(state, location, job);
   const downloadUrl = getDownloadUrl(downloadOptions);
   const previewOptions = getPreviewOptions(state, location, job);
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
-
-  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
-  };
-
-  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
-    dispatch(updateCompressed(e.target.value === 'true'));
-
-  const isUniprotkb = namespace === Namespace.uniprotkb;
+  const ftpFilenameAndUrl = getFtpFilenameAndUrl(state, location, job);
+  const isAsyncDownloadIdMapping = getIsAsyncDownloadIdMapping(state, job);
   const isEmbeddings = selectedFileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
-
-  const isAsyncDownload =
-    (isEmbeddings && isUniprotkb) ||
-    (isUniprotkb && downloadCount > DOWNLOAD_SIZE_LIMIT) ||
-    isAsyncDownloadIdMapping;
-  const ftpFilenameAndUrl =
-    namespace === Namespace.uniprotkb && !isIDMappingResult
-      ? getUniprotkbFtpFilenameAndUrl(downloadUrl, selectedFileFormat)
-      : null;
-
+  const isAsyncDownload = getIsAsyncDownload(state, job);
   // Peptide search download for matches exceeding the threshold
   const redirectToIDMapping =
     job.jobResultsLocation === Location.PeptideSearchResult &&
     downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
-
-  const disableSearch = isEmbeddings || redirectToIDMapping;
-  const disableStream = disableSearch || isAsyncDownload;
 
   let extraContentNode: JSX.Element | undefined;
   if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
@@ -315,8 +316,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
         apiURL={downloadUrl.replace('download=true&', '')}
         ftpURL={ftpFilenameAndUrl?.url}
         onCopy={() => onClose('copy', 'api-url')}
-        disableSearch={disableSearch}
-        disableStream={disableStream}
+        disableSearch={isEmbeddings || redirectToIDMapping}
+        disableStream={isEmbeddings || redirectToIDMapping || isAsyncDownload}
       />
     );
   } else if (extraContent === 'generate' && isAsyncDownload) {
