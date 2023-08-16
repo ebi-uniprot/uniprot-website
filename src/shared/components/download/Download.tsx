@@ -214,6 +214,11 @@ const getFtpFilenameAndUrl = (
       )
     : null;
 
+const getColumnsNamespace = (
+  props: DownloadProps<JobTypes>,
+  job: ReturnType<typeof useJobFromUrl>
+) => job?.jobResultsNamespace || props.namespace;
+
 export type DownloadProps<T extends JobTypes> = {
   query?: string;
   selectedEntries?: string[];
@@ -246,7 +251,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
     jobType,
     inputParamsData,
   } = props;
-  const { columnNames } = useColumnNames({ namespaceOverride: namespace });
+  const job = useJobFromUrl();
+  const columnsNamespace = getColumnsNamespace(props, job);
+  const { columnNames } = useColumnNames({
+    namespaceOverride: columnsNamespace,
+  });
   const location: HistoryLocation<unknown> = useLocation();
   const [state, dispatch] = useReducer(
     downloadReducer,
@@ -262,7 +271,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
     extraContent,
     nSelectedEntries,
   } = state;
-  const job = useJobFromUrl();
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -459,11 +467,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           <ColumnSelect
             onChange={(columns) => dispatch(updateSelectedColumns(columns))}
             selectedColumns={selectedColumns}
-            namespace={
-              isAsyncDownloadIdMapping && job.jobResultsNamespace
-                ? job.jobResultsNamespace
-                : namespace
-            }
+            namespace={columnsNamespace}
           />
         </>
       )}
