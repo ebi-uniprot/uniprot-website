@@ -1,18 +1,20 @@
 import { ActionType } from 'typesafe-actions';
-// import { JobTypes } from '../../../tools/types/toolsJobTypes';
+
 import * as downloadActions from './downloadActions';
-import { DownloadProps, DownloadSelectOptions } from './Download';
+
 import { Column } from '../../config/columns';
 import { nsToFileFormatsResultsDownload } from '../../config/resultsDownload';
+
+import { DownloadProps, DownloadSelectOptions } from './Download';
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 export type DownloadAction = ActionType<typeof downloadActions>;
+
 export type ExtraContent = null | 'url' | 'generate' | 'preview' | 'ftp';
 
-export type DownloadState<T extends JobTypes> = {
-  props: DownloadProps<T>;
+export type DownloadState = {
   selectedColumns: Column[];
   fileFormatOptions: FileFormat[];
   selectedFileFormat: FileFormat;
@@ -22,34 +24,16 @@ export type DownloadState<T extends JobTypes> = {
   nSelectedEntries: number;
 };
 
-const getFileFormats = (
-  namespace: Namespace,
-  supportedFormats?: FileFormat[]
-) => {
-  const fileFormats =
-    supportedFormats || nsToFileFormatsResultsDownload[namespace];
-
-  // In this case it's a not uniprotkb/uniref/uniparc so we can only
-  // provide from/to only file formats
-  // if (namespace === Namespace.idmapping && !isAsyncDownloadIdMapping) {
-  //   fileFormats = fileFormats.filter((ff) => !ff.includes('from/to only'));
-  // }
-  return fileFormats;
-};
-
 export const getDownloadInitialState = ({
   props,
   selectedColumns,
 }: {
   props: DownloadProps<JobTypes>;
   selectedColumns: Column[];
-}): DownloadState<JobTypes> => {
-  const fileFormatOptions = getFileFormats(
-    props.namespace,
-    props.supportedFormats
-  );
+}): DownloadState => {
+  const fileFormatOptions =
+    props.supportedFormats || nsToFileFormatsResultsDownload[props.namespace];
   return {
-    props,
     selectedColumns,
     fileFormatOptions,
     selectedFileFormat: fileFormatOptions[0],
@@ -62,9 +46,9 @@ export const getDownloadInitialState = ({
 };
 
 export function downloadReducer(
-  state: DownloadState<JobTypes>,
+  state: DownloadState,
   action: DownloadAction
-): DownloadState<JobTypes> {
+): DownloadState {
   switch (action.type) {
     case downloadActions.UPDATE_SELECTED_COLUMNS:
       return {

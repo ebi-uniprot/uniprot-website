@@ -73,7 +73,7 @@ const DownloadAPIURL = ({
     [dispatch, onCopy]
   );
 
-  const isStreamEndpoint = apiURL.includes('/stream?');
+  const isStreamEndpoint = apiURL.includes('/stream');
   const isIdMapping = apiURL.includes('/idmapping/');
   const downloadSizeLimit = isIdMapping
     ? DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED

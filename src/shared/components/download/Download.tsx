@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import { ChangeEvent, useReducer } from 'react';
 import { Location as HistoryLocation } from 'history';
 import { generatePath, Link, useLocation } from 'react-router-dom';
@@ -16,8 +17,20 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 
 import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
 
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import {
+  DownloadState,
+  downloadReducer,
+  getDownloadInitialState,
+} from './downloadReducer';
+import {
+  updateSelectedFileFormat,
+  updateSelectedColumns,
+  updateDownloadSelect,
+  updateCompressed,
+  updateExtraContent,
+} from './downloadActions';
 
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
 import { fileFormatsWithColumns } from '../../config/resultsDownload';
@@ -35,18 +48,6 @@ import { PublicServerParameters } from '../../../tools/types/toolsServerParamete
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
-import {
-  DownloadState,
-  downloadReducer,
-  getDownloadInitialState,
-} from './downloadReducer';
-import {
-  updateSelectedFileFormat,
-  updateSelectedColumns,
-  updateDownloadSelect,
-  updateCompressed,
-  updateExtraContent,
-} from './downloadActions';
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
 export const DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED = 100_000 as const;
@@ -76,6 +77,143 @@ export const getPreviewFileFormat = (
   return fileFormat;
 };
 
+export type DownloadSelectOptions = 'all' | 'selected';
+
+const getDownloadCount = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>
+) =>
+  state.downloadSelect === 'all'
+    ? props.totalNumberResults
+    : state.nSelectedEntries || 0;
+
+const getIsAsyncDownloadIdMapping = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  job.jobResultsLocation === Location.IDMappingResult &&
+  props.namespace === Namespace.idmapping &&
+  getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
+  job.jobResultsNamespace &&
+  ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(job.jobResultsNamespace) &&
+  ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(state.selectedFileFormat);
+
+const hasColumns = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  fileFormatsWithColumns.has(state.selectedFileFormat) &&
+  (props.namespace !== Namespace.idmapping ||
+    getIsAsyncDownloadIdMapping(state, props, job)) &&
+  props.namespace !== Namespace.unisave;
+
+const getDownloadOptions = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  location: HistoryLocation<unknown>,
+  job: ReturnType<typeof useJobFromUrl>
+) => {
+  const [urlParams] = getParamsFromURL(location.search);
+  // If query prop provided use this otherwise fallback to query from URL
+  const query =
+    state.downloadSelect === 'all'
+      ? props.query || urlParams.query
+      : props.selectedQuery || urlParams.query;
+  const selected =
+    state.downloadSelect === 'selected' &&
+    !props.selectedQuery &&
+    props.selectedEntries &&
+    // If all history entries are selected, act as if it was a "download all"
+    !(
+      props.namespace === Namespace.unisave &&
+      props.selectedEntries?.length === props.totalNumberResults
+    )
+      ? props.selectedEntries
+      : [];
+
+  // The ID Mapping URL provided from the job details is for the paginated results
+  // endpoint while the stream endpoint is required for downloads
+  let downloadBase = props.base;
+  if (job.jobResultsLocation === Location.IDMappingResult) {
+    if (job.jobResultsNamespace && !props.notCustomisable) {
+      downloadBase = downloadBase?.replace('/results/', '/results/stream/');
+    } else {
+      downloadBase = downloadBase?.replace('/results/', '/stream/');
+    }
+  }
+
+  const [selectedIdField] = nsToPrimaryKeyColumns(props.namespace);
+
+  const downloadOptions: DownloadUrlOptions = {
+    fileFormat: state.selectedFileFormat,
+    compressed: state.compressed,
+    selected,
+    selectedIdField,
+    namespace: props.namespace,
+    accessions: props.accessions,
+    base: downloadBase,
+  };
+
+  if (!props.inBasketMini) {
+    downloadOptions.query = query;
+    downloadOptions.selectedFacets = urlParams.selectedFacets;
+    downloadOptions.sortColumn = urlParams.sortColumn;
+    downloadOptions.sortDirection = urlParams.sortDirection;
+  }
+
+  if (hasColumns(state, props, job)) {
+    downloadOptions.columns = state.selectedColumns;
+  }
+  return downloadOptions;
+};
+
+const getPreviewOptions = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  location: HistoryLocation<unknown>,
+  job: ReturnType<typeof useJobFromUrl>
+) => {
+  const previewFileFormat = getPreviewFileFormat(state.selectedFileFormat);
+  const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
+    ...getDownloadOptions(state, props, location, job),
+    fileFormat: previewFileFormat,
+    compressed: false,
+    size: Math.min(10, getDownloadCount(state, props)),
+    base: props.base,
+  };
+  if (previewOptions && props.namespace === Namespace.unisave) {
+    // get only the first 10 entries instead of using the size parameters
+    previewOptions.selected = previewOptions.selected.slice(0, 10);
+  }
+  return previewOptions;
+};
+
+const getIsAsyncDownload = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  (props.namespace === Namespace.uniprotkb &&
+    (state.selectedFileFormat === FileFormat.embeddings ||
+      getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
+  getIsAsyncDownloadIdMapping(state, props, job);
+
+const getFtpFilenameAndUrl = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  location: HistoryLocation<unknown>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  props.namespace === Namespace.uniprotkb &&
+  job.jobResultsLocation === Location.IDMappingResult
+    ? getUniprotkbFtpFilenameAndUrl(
+        getDownloadUrl(getDownloadOptions(state, props, location, job)),
+        state.selectedFileFormat
+      )
+    : null;
+
 export type DownloadProps<T extends JobTypes> = {
   query?: string;
   selectedEntries?: string[];
@@ -96,135 +234,6 @@ export type DownloadProps<T extends JobTypes> = {
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
 };
-
-export type DownloadSelectOptions = 'all' | 'selected';
-
-const getDownloadCount = (state: DownloadState<JobTypes>) =>
-  state.downloadSelect === 'all'
-    ? state.props.totalNumberResults
-    : state.nSelectedEntries || 0;
-
-const getIsAsyncDownloadIdMapping = (
-  state: DownloadState<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
-) =>
-  job.jobResultsLocation === Location.IDMappingResult &&
-  state.props.namespace === Namespace.idmapping &&
-  getDownloadCount(state) > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
-  job.jobResultsNamespace &&
-  ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(job.jobResultsNamespace) &&
-  ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(state.selectedFileFormat);
-
-const hasColumns = (
-  state: DownloadState<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
-) =>
-  fileFormatsWithColumns.has(state.selectedFileFormat) &&
-  (state.props.namespace !== Namespace.idmapping ||
-    getIsAsyncDownloadIdMapping(state, job)) &&
-  state.props.namespace !== Namespace.unisave;
-
-const getDownloadOptions = (
-  state: DownloadState<JobTypes>,
-  location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
-) => {
-  const [urlParams] = getParamsFromURL(location.search);
-  // If query prop provided use this otherwise fallback to query from URL
-  const query =
-    state.downloadSelect === 'all'
-      ? state.props.query || urlParams.query
-      : state.props.selectedQuery || urlParams.query;
-  const selected =
-    state.downloadSelect === 'selected' &&
-    !state.props.selectedQuery &&
-    state.props.selectedEntries &&
-    // If all history entries are selected, act as if it was a "download all"
-    !(
-      state.props.namespace === Namespace.unisave &&
-      state.props.selectedEntries?.length === state.props.totalNumberResults
-    )
-      ? state.props.selectedEntries
-      : [];
-
-  // The ID Mapping URL provided from the job details is for the paginated results
-  // endpoint while the stream endpoint is required for downloads
-  // TODO: push all of to the parent
-  let downloadBase = state.props.base;
-  if (job.jobResultsLocation === Location.IDMappingResult) {
-    if (job.jobResultsNamespace && !state.props.notCustomisable) {
-      downloadBase = downloadBase?.replace('/results/', '/results/stream/');
-    } else {
-      downloadBase = downloadBase?.replace('/results/', '/stream/');
-    }
-  }
-
-  const [selectedIdField] = nsToPrimaryKeyColumns(state.props.namespace);
-
-  const downloadOptions: DownloadUrlOptions = {
-    fileFormat: state.selectedFileFormat,
-    compressed: state.compressed,
-    selected,
-    selectedIdField,
-    namespace: state.props.namespace,
-    accessions: state.props.accessions,
-    base: downloadBase,
-  };
-
-  if (!state.props.inBasketMini) {
-    downloadOptions.query = query;
-    downloadOptions.selectedFacets = urlParams.selectedFacets;
-    downloadOptions.sortColumn = urlParams.sortColumn;
-    downloadOptions.sortDirection = urlParams.sortDirection;
-  }
-
-  if (hasColumns(state, job)) {
-    downloadOptions.columns = state.selectedColumns;
-  }
-  return downloadOptions;
-};
-
-const getPreviewOptions = (
-  state: DownloadState<JobTypes>,
-  location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
-) => {
-  const previewFileFormat = getPreviewFileFormat(state.selectedFileFormat);
-  const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
-    ...getDownloadOptions(state, location, job),
-    fileFormat: previewFileFormat,
-    compressed: false,
-    size: Math.min(10, getDownloadCount(state)),
-    base: state.props.base,
-  };
-  if (previewOptions && state.props.namespace === Namespace.unisave) {
-    // get only the first 10 entries instead of using the size parameters
-    previewOptions.selected = previewOptions.selected.slice(0, 10);
-  }
-  return previewOptions;
-};
-
-const getIsAsyncDownload = (
-  state: DownloadState<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
-) =>
-  (state.props.namespace === Namespace.uniprotkb &&
-    (state.selectedFileFormat === FileFormat.embeddings ||
-      getDownloadCount(state) > DOWNLOAD_SIZE_LIMIT)) ||
-  getIsAsyncDownloadIdMapping(state, job);
-
-const getFtpFilenameAndUrl = (
-  state: DownloadState<JobTypes>,
-  location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
-) =>
-  state.props.namespace === Namespace.uniprotkb &&
-  job.jobResultsLocation === Location.IDMappingResult
-    ? getUniprotkbFtpFilenameAndUrl(
-        getDownloadUrl(getDownloadOptions(state, location, job)),
-        state.selectedFileFormat
-      )
-    : null;
 
 const Download = (props: DownloadProps<JobTypes>) => {
   const {
@@ -261,17 +270,21 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(updateCompressed(e.target.value === 'true'));
 
-  const downloadCount = getDownloadCount(state);
-  const downloadOptions = getDownloadOptions(state, location, job);
+  const downloadCount = getDownloadCount(state, props);
+  const downloadOptions = getDownloadOptions(state, props, location, job);
   const downloadUrl = getDownloadUrl(downloadOptions);
-  const previewOptions = getPreviewOptions(state, location, job);
+  const previewOptions = getPreviewOptions(state, props, location, job);
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
-  const ftpFilenameAndUrl = getFtpFilenameAndUrl(state, location, job);
-  const isAsyncDownloadIdMapping = getIsAsyncDownloadIdMapping(state, job);
+  const ftpFilenameAndUrl = getFtpFilenameAndUrl(state, props, location, job);
+  const isAsyncDownloadIdMapping = getIsAsyncDownloadIdMapping(
+    state,
+    props,
+    job
+  );
   const isEmbeddings = selectedFileFormat === FileFormat.embeddings;
   const tooLargeForEmbeddings =
     isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
-  const isAsyncDownload = getIsAsyncDownload(state, job);
+  const isAsyncDownload = getIsAsyncDownload(state, props, job);
   // Peptide search download for matches exceeding the threshold
   const redirectToIDMapping =
     job.jobResultsLocation === Location.PeptideSearchResult &&
@@ -440,7 +453,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
         </Message>
       )}
 
-      {hasColumns(state, job) && (
+      {hasColumns(state, props, job) && (
         <>
           <legend>Customize columns</legend>
           <ColumnSelect
