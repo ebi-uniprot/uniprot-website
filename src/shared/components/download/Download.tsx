@@ -330,64 +330,71 @@ const Download = (props: DownloadProps<JobTypes>) => {
     job.jobResultsLocation === Location.PeptideSearchResult &&
     downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
-  const fooExtraContent = getExtraContent(state, props, location, job);
   let extraContentNode: JSX.Element | undefined;
-  if (fooExtraContent === 'ftp') {
-    extraContentNode = (
-      <>
-        <h4 data-article-id="downloads" className={styles['ftp-header']}>
-          File Available On FTP Server
-        </h4>
-        This file is available {!isEmbeddings && 'compressed'} within the{' '}
-        <Link
-          to={generatePath(LocationToPath[Location.HelpEntry], {
-            accession: 'downloads',
-          })}
-        >
-          UniProtKB directory
-        </Link>{' '}
-        of the UniProt FTP server:
-        <div className={styles['ftp-url']}>
-          <ExternalLink
-            url={ftpFilenameAndUrl?.url || ''}
-            noIcon
-            onClick={() => onClose('download', 'ftp')}
+  switch (getExtraContent(state, props, location, job)) {
+    case 'ftp':
+      extraContentNode = (
+        <>
+          <h4 data-article-id="downloads" className={styles['ftp-header']}>
+            File Available On FTP Server
+          </h4>
+          This file is available {!isEmbeddings && 'compressed'} within the{' '}
+          <Link
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'downloads',
+            })}
           >
-            <DownloadIcon width="1em" />
-            {ftpFilenameAndUrl?.filename}
-          </ExternalLink>
-        </div>
-      </>
-    );
-  } else if (fooExtraContent === 'url') {
-    extraContentNode = (
-      <DownloadAPIURL
-        // Remove the download attribute as it's unnecessary for API access
-        apiURL={downloadUrl.replace('download=true&', '')}
-        ftpURL={ftpFilenameAndUrl?.url}
-        onCopy={() => onClose('copy', 'api-url')}
-        disableSearch={isEmbeddings || redirectToIDMapping}
-        disableStream={isEmbeddings || redirectToIDMapping || isAsyncDownload}
-      />
-    );
-  } else if (fooExtraContent === 'generate') {
-    extraContentNode = (
-      <AsyncDownloadForm
-        downloadUrlOptions={downloadOptions}
-        count={downloadCount}
-        onClose={() => onClose('submit', 'async')}
-        inputParamsData={inputParamsData}
-        jobType={jobType}
-      />
-    );
-  } else if (fooExtraContent === 'preview') {
-    extraContentNode = (
-      <DownloadPreview
-        previewUrl={previewUrl}
-        previewFileFormat={previewOptions?.fileFormat}
-        disable={isAsyncDownloadIdMapping}
-      />
-    );
+            UniProtKB directory
+          </Link>{' '}
+          of the UniProt FTP server:
+          <div className={styles['ftp-url']}>
+            <ExternalLink
+              url={ftpFilenameAndUrl?.url || ''}
+              noIcon
+              onClick={() => onClose('download', 'ftp')}
+            >
+              <DownloadIcon width="1em" />
+              {ftpFilenameAndUrl?.filename}
+            </ExternalLink>
+          </div>
+        </>
+      );
+      break;
+    case 'url':
+      extraContentNode = (
+        <DownloadAPIURL
+          // Remove the download attribute as it's unnecessary for API access
+          apiURL={downloadUrl.replace('download=true&', '')}
+          ftpURL={ftpFilenameAndUrl?.url}
+          onCopy={() => onClose('copy', 'api-url')}
+          disableSearch={isEmbeddings || redirectToIDMapping}
+          disableStream={isEmbeddings || redirectToIDMapping || isAsyncDownload}
+        />
+      );
+      break;
+    case 'generate':
+      extraContentNode = (
+        <AsyncDownloadForm
+          downloadUrlOptions={downloadOptions}
+          count={downloadCount}
+          onClose={() => onClose('submit', 'async')}
+          inputParamsData={inputParamsData}
+          jobType={jobType}
+        />
+      );
+      break;
+    case 'preview':
+      extraContentNode = (
+        <DownloadPreview
+          previewUrl={previewUrl}
+          previewFileFormat={previewOptions?.fileFormat}
+          disable={isAsyncDownloadIdMapping}
+        />
+      );
+      break;
+    default:
+      // Leave as undefined
+      break;
   }
 
   return (
