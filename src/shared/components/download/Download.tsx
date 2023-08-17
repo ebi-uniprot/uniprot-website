@@ -235,7 +235,6 @@ export type DownloadProps<T extends JobTypes> = {
   supportedFormats?: FileFormat[];
   notCustomisable?: boolean;
   inBasketMini?: boolean;
-  showReviewedOption?: boolean;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
 };
@@ -247,7 +246,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
     onClose,
     namespace,
     accessions,
-    showReviewedOption = false,
     jobType,
     inputParamsData,
   } = props;
@@ -385,8 +383,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           onChange={handleDownloadAllChange}
           disabled={redirectToIDMapping}
         />
-        Download all (<LongNumber>{totalNumberResults}</LongNumber>{' '}
-        {showReviewedOption ? ' + isoforms' : ''})
+        Download all (<LongNumber>{totalNumberResults}</LongNumber>
       </label>
       <fieldset>
         <label>
