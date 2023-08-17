@@ -2,28 +2,30 @@ import { useState, FC, ChangeEvent } from 'react';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
-// TODO: fix import order
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
+import { IsoformStatistics } from './ComponentsButtons';
+
+import useColumnNames from '../../../shared/hooks/useColumnNames';
+
 import {
   DownloadUrlOptions,
   getDownloadUrl,
 } from '../../../shared/config/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
 import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
-import useColumnNames from '../../../shared/hooks/useColumnNames';
+import { getPreviewFileFormat } from '../../../shared/components/download/Download';
+
 import { Namespace } from '../../../shared/types/namespaces';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import {
   DownloadPanelFormCloseReason,
   DownloadMethod,
 } from '../../../shared/utils/gtagEvents';
-import { IsoformStatistics } from './ComponentsButtons';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import styles from '../../../shared/components/download/styles/download.module.scss';
-import { getPreviewFileFormat } from '../../../shared/components/download/Download';
 
 type DownloadProps = {
   query: string;
@@ -65,7 +67,7 @@ const Download: FC<DownloadProps> = ({
     selectedEntries.length ? 'selected' : 'all'
   );
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
-  const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
+  const [compressed, setCompressed] = useState(true);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const [includeIsoform, setIncludeIsoform] = useState(false);
 
@@ -242,34 +244,31 @@ const Download: FC<DownloadProps> = ({
           </select>
         </label>
       </fieldset>
-      {/* compressed not supported in UniSave */}
-      {namespace !== Namespace.unisave && (
-        <fieldset>
-          <legend data-article-id="compression">Compressed</legend>
-          <label>
-            <input
-              aria-label="compressed"
-              type="radio"
-              name="compressed"
-              value="true"
-              checked={compressed}
-              onChange={handleCompressedChange}
-            />
-            Yes
-          </label>
-          <label>
-            <input
-              aria-label="not compressed"
-              type="radio"
-              name="compressed"
-              value="false"
-              checked={!compressed}
-              onChange={handleCompressedChange}
-            />
-            No
-          </label>
-        </fieldset>
-      )}
+      <fieldset>
+        <legend data-article-id="compression">Compressed</legend>
+        <label>
+          <input
+            aria-label="compressed"
+            type="radio"
+            name="compressed"
+            value="true"
+            checked={compressed}
+            onChange={handleCompressedChange}
+          />
+          Yes
+        </label>
+        <label>
+          <input
+            aria-label="not compressed"
+            type="radio"
+            name="compressed"
+            value="false"
+            checked={!compressed}
+            onChange={handleCompressedChange}
+          />
+          No
+        </label>
+      </fieldset>
       {hasColumns && (
         <>
           <legend>Customize columns</legend>
@@ -292,10 +291,7 @@ const Download: FC<DownloadProps> = ({
           Generate URL for API
         </Button>
         <Button variant="tertiary" onClick={() => setExtraContent('preview')}>
-          Preview{' '}
-          {namespace === Namespace.unisave && !selectedEntries.length
-            ? 'file'
-            : nPreview}
+          Preview {selectedEntries.length ? nPreview : 'file'}
         </Button>
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
