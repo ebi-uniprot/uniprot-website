@@ -33,12 +33,12 @@ describe('ColumnSelectDragDrop component', () => {
     );
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should call onDragDrop with correct arguments when item is moved', async () => {
+  it('should call onDragDrop with correct arguments when item is moved', async () => {
     const { findByText } = rendered;
     await makeDnd({
       getByText: findByText,
@@ -49,7 +49,7 @@ describe('ColumnSelectDragDrop component', () => {
     expect(props.onDragDrop).toBeCalledWith(2, 1);
   });
 
-  test('should call onRemove', () => {
+  it('should call onRemove', () => {
     const { getAllByTestId } = rendered;
     const removeButtons = getAllByTestId('remove-icon');
     const removeButton = removeButtons[0];

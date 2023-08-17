@@ -22,7 +22,7 @@ describe('UniParcColumnConfiguration component', () => {
   );
 
   describe('edge cases', () => {
-    test('should render empty "first seen" column when no xref', () => {
+    it('should render empty "first seen" column when no xref', () => {
       const { container } = customRender(
         <>
           {UniParcColumnConfiguration.get(UniParcColumn.firstSeen)?.render({
@@ -35,7 +35,7 @@ describe('UniParcColumnConfiguration component', () => {
     });
   });
 
-  test('should render empty "last seen" column when no xref', () => {
+  it('should render empty "last seen" column when no xref', () => {
     const { container } = customRender(
       <>
         {UniParcColumnConfiguration.get(UniParcColumn.lastSeen)?.render({

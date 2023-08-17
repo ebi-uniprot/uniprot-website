@@ -1,7 +1,9 @@
 @import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
 @import 'franklin-sites/src/styles/mixins';
 
 footer.footer {
+  margin-block-start: $global-margin;
   /* avoid having the footer disappear on scrolling horizontally */
   position: sticky;
   left: 0;

@@ -49,14 +49,20 @@ describe('Clause component', () => {
 
   it('should render an `integer` field', () => {
     const { asFragment } = render(
-      <Field field={getSearchTerm('ftlen_sites')} handleChange={handleChange} />
+      <Field
+        field={getSearchTerm('length_range')}
+        handleChange={handleChange}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render an `integer` `range` field', () => {
     const { asFragment } = render(
-      <Field field={getSearchTerm('ftlen_sites')} handleChange={handleChange} />
+      <Field
+        field={getSearchTerm('length_range')}
+        handleChange={handleChange}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });

@@ -1,7 +1,13 @@
 /**
  * @jest-environment node
  */
-import { getLocationForPathname } from '../url';
+import {
+  QueryStringArg,
+  getLocationForPathname,
+  splitUrl,
+  stringifyQuery,
+  stringifyUrl,
+} from '../url';
 import { Location } from '../../../app/config/urls';
 
 describe('getLocationForPathname', () => {
@@ -23,5 +29,54 @@ describe('getLocationForPathname', () => {
     Object.entries(pathnameToLocation).map(([pathname, location]) =>
       expect(getLocationForPathname(pathname)).toEqual(location)
     );
+  });
+});
+
+describe('stringifyQuery', () => {
+  const testCases: [QueryStringArg[], string][] = [
+    [[{ a: 1 }], 'a=1'],
+    [[{ a: 1 }, { a: 2 }], 'a=2'],
+    [[{ a: 1 }, { a: undefined }], ''],
+    [
+      [
+        { a: 1, b: true },
+        { a: undefined, b: false },
+      ],
+      'b=false',
+    ],
+    [['a=1&b=true', { a: undefined, b: false }], 'b=false'],
+    [['a=1&b=true&c=2', 'a=2&b=false'], 'a=2&b=false&c=2'],
+    [[{ a: [1, 2] }, { b: undefined }], 'a=1%2C2'],
+    [[{ a: ['1', '2'] }, { b: undefined }], 'a=1%2C2'],
+    [[new URLSearchParams('a=1&b=true&c=2'), { b: false }], 'a=1&b=false&c=2'],
+  ];
+
+  test.each(testCases)(
+    'should stringify %j as %p',
+    (queryStringArgs, expectedQueryString) => {
+      expect(stringifyQuery(...queryStringArgs)).toEqual(expectedQueryString);
+    }
+  );
+});
+
+describe('stringifyUrl', () => {
+  it('should stringify the URL', () => {
+    expect(stringifyUrl('https://foo.com', { a: 23 })).toEqual(
+      'https://foo.com?a=23'
+    );
+  });
+  it('should not append a ? if query string args resolves to nothing', () => {
+    expect(stringifyUrl('https://foo.com', { a: undefined })).toEqual(
+      'https://foo.com'
+    );
+  });
+});
+
+describe('splitUrl', () => {
+  it('should split the URL', () => {
+    expect(splitUrl('https://foo.com?a=23')).toEqual({
+      base: 'https://foo.com',
+      query: 'a=23',
+    });
   });
 });

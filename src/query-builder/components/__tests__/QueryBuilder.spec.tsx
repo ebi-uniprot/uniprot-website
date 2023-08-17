@@ -32,7 +32,7 @@ describe('QueryBuilder', () => {
   });
 
   // only exception where we want different payload
-  test('should render loading', () => {
+  it('should render loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
 
     rendered = customRender(
@@ -45,18 +45,18 @@ describe('QueryBuilder', () => {
     expect(rendered.asFragment()).toMatchSnapshot();
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should add a clause', () => {
+  it('should add a clause', () => {
     fireEvent.click(screen.getByTestId('query-builder-add-field'));
     const clauses = screen.getAllByTestId('search__clause');
     expect(clauses.length).toBe(5);
   });
 
-  test('should remove clauses', () => {
+  it('should remove clauses', () => {
     // Go through all the default clauses one by one and remove them
     fireEvent.click(screen.getAllByTestId('clause-list-button-remove')[0]);
     let clauses = screen.getAllByTestId('search__clause');
@@ -74,7 +74,7 @@ describe('QueryBuilder', () => {
     expect(clauses.length).toBe(1);
   });
 
-  test('should select field', () => {
+  it('should select field', () => {
     let entryNameField = screen.queryByPlaceholderText('P53_HUMAN');
     expect(entryNameField).toBeFalsy();
     const dropdownButton = screen.getByText(/All/, {
@@ -91,7 +91,7 @@ describe('QueryBuilder', () => {
     expect(entryNameField).toBeInTheDocument();
   });
 
-  test('should submit a simple query', async () => {
+  it('should submit a simple query', async () => {
     const input = screen.getByPlaceholderText(/ydj1/);
     fireEvent.change(input, { target: { value: 'zen' } });
     const all = screen.getByPlaceholderText(/a4_human/);
@@ -106,6 +106,8 @@ describe('QueryBuilder', () => {
 
     expect(onCancel).toHaveBeenCalledTimes(1);
     expect(rendered.history.location.pathname).toBe('/uniprotkb');
-    expect(rendered.history.location.search).toBe('?query=(gene:zen) OR eve');
+    expect(rendered.history.location.search).toBe(
+      '?query=%28gene%3Azen%29+OR+eve'
+    );
   });
 });

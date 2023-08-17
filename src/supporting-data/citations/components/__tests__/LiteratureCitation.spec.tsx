@@ -17,18 +17,18 @@ describe('Publication component', () => {
     );
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should expand authors', async () => {
+  it('should expand authors', async () => {
     expect(screen.queryByText('Ohara O.')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Show more' }));
     expect(screen.getByText('Ohara O.')).toBeInTheDocument();
   });
 
-  test('should display 1 author', async () => {
+  it('should display 1 author', async () => {
     const mockData: CitationsAPIModel = {
       citation: {
         id: '14702039',
@@ -39,7 +39,7 @@ describe('Publication component', () => {
     expect(screen.getByText('Smith X.')).toBeInTheDocument();
   });
 
-  test('should expand abstract', async () => {
+  it('should expand abstract', async () => {
     expect(screen.queryByText(/noncoding cDNAs/)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'View abstract' }));
     expect(screen.getByText(/noncoding cDNAs/)).toBeInTheDocument();

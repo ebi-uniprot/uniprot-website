@@ -2,7 +2,6 @@ import { useMemo, useEffect, Suspense } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
-import qs from 'query-string';
 import { frame } from 'timing-functions';
 
 import EntrySection, {
@@ -41,6 +40,7 @@ import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -412,7 +412,7 @@ const Entry = () => {
                 <ContactLink
                   to={{
                     pathname: LocationToPath[Location.ContactUpdate],
-                    search: qs.stringify({
+                    search: stringifyQuery({
                       entry: match.params.accession,
                       entryType:
                         transformedData?.entryType === EntryType.REVIEWED
@@ -539,7 +539,7 @@ const Entry = () => {
               />
               <GenomicCoordinatesTab
                 primaryAccession={match.params.accession}
-                title="Genomic coordinates"
+                title={`Genomic coordinates for ${match.params.accession} isoform sequence`}
               />
             </ErrorBoundary>
           </Suspense>
@@ -644,7 +644,14 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <HistoryTab accession={match.params.accession} />
+              {/* In order to support links with IDs, it is better to pass the data.primaryAccession instead of match params */}
+              <HistoryTab
+                accession={
+                  historyOldEntry
+                    ? data.primaryAccession
+                    : match.params.accession
+                }
+              />
             </ErrorBoundary>
           </Suspense>
         </Tab>
