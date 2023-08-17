@@ -100,6 +100,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
     getDownloadInitialState
   );
 
+  console.log(props);
+  console.log(state);
+  console.log(location);
+  console.log(job);
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
   };
