@@ -219,6 +219,51 @@ const getColumnsNamespace = (
   job: ReturnType<typeof useJobFromUrl>
 ) => job?.jobResultsNamespace || props.namespace;
 
+const getIsEmbeddings = (state: DownloadState) =>
+  state.selectedFileFormat === FileFormat.embeddings;
+
+const getIsTooLargeForEmbeddings = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>
+) =>
+  getIsEmbeddings(state) &&
+  getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
+
+const getExtraContent = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  location: HistoryLocation<unknown>,
+  job: ReturnType<typeof useJobFromUrl>
+) => {
+  if (
+    (state.extraContent === 'ftp' || state.extraContent === 'url') &&
+    getFtpFilenameAndUrl(state, props, location, job)
+  ) {
+    return 'ftp';
+  }
+  if (
+    state.extraContent === 'url' ||
+    // Hopefully temporary, this is because of restrictions on embeddings
+    (state.extraContent === 'generate' &&
+      getIsTooLargeForEmbeddings(state, props))
+  ) {
+    return 'url';
+  }
+  if (
+    state.extraContent === 'generate' &&
+    getIsAsyncDownload(state, props, job)
+  ) {
+    return 'generate';
+  }
+  if (
+    state.extraContent === 'preview' &&
+    getPreviewOptions(state, props, location, job)
+  ) {
+    return 'preview';
+  }
+  return null;
+};
+
 export type DownloadProps<T extends JobTypes> = {
   query?: string;
   selectedEntries?: string[];
@@ -266,7 +311,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
     selectedFileFormat,
     downloadSelect,
     compressed,
-    extraContent,
     nSelectedEntries,
   } = state;
 
@@ -287,17 +331,16 @@ const Download = (props: DownloadProps<JobTypes>) => {
     props,
     job
   );
-  const isEmbeddings = selectedFileFormat === FileFormat.embeddings;
-  const tooLargeForEmbeddings =
-    isEmbeddings && downloadCount > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
+  const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, job);
   // Peptide search download for matches exceeding the threshold
   const redirectToIDMapping =
     job.jobResultsLocation === Location.PeptideSearchResult &&
     downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
+  const fooExtraContent = getExtraContent(state, props, location, job);
   let extraContentNode: JSX.Element | undefined;
-  if ((extraContent === 'ftp' || extraContent === 'url') && ftpFilenameAndUrl) {
+  if (fooExtraContent === 'ftp') {
     extraContentNode = (
       <>
         <h4 data-article-id="downloads" className={styles['ftp-header']}>
@@ -314,21 +357,17 @@ const Download = (props: DownloadProps<JobTypes>) => {
         of the UniProt FTP server:
         <div className={styles['ftp-url']}>
           <ExternalLink
-            url={ftpFilenameAndUrl.url}
+            url={ftpFilenameAndUrl?.url || ''}
             noIcon
             onClick={() => onClose('download', 'ftp')}
           >
             <DownloadIcon width="1em" />
-            {ftpFilenameAndUrl.filename}
+            {ftpFilenameAndUrl?.filename}
           </ExternalLink>
         </div>
       </>
     );
-  } else if (
-    extraContent === 'url' ||
-    // Hopefully temporary, this is because of restrictions on embeddings
-    (extraContent === 'generate' && tooLargeForEmbeddings)
-  ) {
+  } else if (fooExtraContent === 'url') {
     extraContentNode = (
       <DownloadAPIURL
         // Remove the download attribute as it's unnecessary for API access
@@ -339,7 +378,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
         disableStream={isEmbeddings || redirectToIDMapping || isAsyncDownload}
       />
     );
-  } else if (extraContent === 'generate' && isAsyncDownload) {
+  } else if (fooExtraContent === 'generate') {
     extraContentNode = (
       <AsyncDownloadForm
         downloadUrlOptions={downloadOptions}
@@ -349,11 +388,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
         jobType={jobType}
       />
     );
-  } else if (extraContent === 'preview' && previewOptions) {
+  } else if (fooExtraContent === 'preview') {
     extraContentNode = (
       <DownloadPreview
         previewUrl={previewUrl}
-        previewFileFormat={previewOptions.fileFormat}
+        previewFileFormat={previewOptions?.fileFormat}
         disable={isAsyncDownloadIdMapping}
       />
     );
