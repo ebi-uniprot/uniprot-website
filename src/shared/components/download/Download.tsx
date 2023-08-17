@@ -305,14 +305,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
     { props, selectedColumns: columnNames },
     getDownloadInitialState
   );
-  const {
-    selectedColumns,
-    fileFormatOptions,
-    selectedFileFormat,
-    downloadSelect,
-    compressed,
-    nSelectedEntries,
-  } = state;
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -406,11 +398,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
           type="radio"
           name="selected"
           value="false"
-          checked={downloadSelect === 'selected'}
+          checked={state.downloadSelect === 'selected'}
           onChange={handleDownloadAllChange}
-          disabled={nSelectedEntries === 0 || redirectToIDMapping}
+          disabled={state.nSelectedEntries === 0 || redirectToIDMapping}
         />
-        Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
+        Download selected (<LongNumber>{state.nSelectedEntries}</LongNumber>)
       </label>
       <label htmlFor="data-selection-true">
         <input
@@ -418,11 +410,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
           type="radio"
           name="all"
           value="true"
-          checked={downloadSelect === 'all'}
+          checked={state.downloadSelect === 'all'}
           onChange={handleDownloadAllChange}
           disabled={redirectToIDMapping}
         />
-        Download all (<LongNumber>{totalNumberResults}</LongNumber>
+        Download all (<LongNumber>{totalNumberResults}</LongNumber>)
       </label>
       <fieldset>
         <label>
@@ -430,13 +422,13 @@ const Download = (props: DownloadProps<JobTypes>) => {
           <select
             id="file-format-select"
             data-testid="file-format-select"
-            value={selectedFileFormat}
+            value={state.selectedFileFormat}
             onChange={(e) =>
               dispatch(updateSelectedFileFormat(e.target.value as FileFormat))
             }
             disabled={redirectToIDMapping}
           >
-            {fileFormatOptions.map((format) => (
+            {state.fileFormatOptions.map((format) => (
               <option value={format} key={format}>
                 {format}
               </option>
@@ -454,7 +446,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
               type="radio"
               name="compressed"
               value="true"
-              checked={compressed}
+              checked={state.compressed}
               onChange={handleCompressedChange}
               disabled={redirectToIDMapping}
             />
@@ -466,7 +458,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
               type="radio"
               name="compressed"
               value="false"
-              checked={!compressed}
+              checked={!state.compressed}
               onChange={handleCompressedChange}
               disabled={redirectToIDMapping}
             />
@@ -502,7 +494,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           <legend>Customize columns</legend>
           <ColumnSelect
             onChange={(columns) => dispatch(updateSelectedColumns(columns))}
-            selectedColumns={selectedColumns}
+            selectedColumns={state.selectedColumns}
             namespace={columnsNamespace}
           />
         </>
