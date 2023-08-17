@@ -15,7 +15,6 @@ import {
 } from '../../../shared/config/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
 import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
-import { getPreviewFileFormat } from '../../../shared/components/download/Download';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { FileFormat } from '../../../shared/types/resultsDownload';
@@ -26,6 +25,11 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import styles from '../../../shared/components/download/styles/download.module.scss';
+
+export const getPreviewFileFormat = (
+  fileFormat: FileFormat
+): FileFormat | undefined =>
+  fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
 
 type DownloadProps = {
   query: string;

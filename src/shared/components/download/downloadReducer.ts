@@ -5,7 +5,7 @@ import * as downloadActions from './downloadActions';
 import { Column } from '../../config/columns';
 import { nsToFileFormatsResultsDownload } from '../../config/resultsDownload';
 
-import { DownloadProps, DownloadSelectOptions } from './Download';
+import { DownloadProps } from './Download';
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
@@ -13,6 +13,8 @@ import { JobTypes } from '../../../tools/types/toolsJobTypes';
 export type DownloadAction = ActionType<typeof downloadActions>;
 
 export type ExtraContent = null | 'url' | 'generate' | 'preview' | 'ftp';
+
+export type DownloadSelectOptions = 'all' | 'selected';
 
 export type DownloadState = {
   selectedColumns: Column[];

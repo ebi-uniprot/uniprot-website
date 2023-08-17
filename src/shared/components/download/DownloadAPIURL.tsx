@@ -14,7 +14,7 @@ import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './Download';
+import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './downloadUtils';
 
 import { Namespace } from '../../types/namespaces';
 

@@ -2,8 +2,7 @@ import { action } from 'typesafe-actions';
 
 import { Column } from '../../config/columns';
 import { FileFormat } from '../../types/resultsDownload';
-import { DownloadSelectOptions } from './Download';
-import { ExtraContent } from './downloadReducer';
+import { DownloadSelectOptions, ExtraContent } from './downloadReducer';
 
 export const UPDATE_SELECTED_COLUMNS = 'UPDATE_SELECTED_COLUMNS' as const;
 export const UPDATE_SELECTED_FILE_FORMAT =
