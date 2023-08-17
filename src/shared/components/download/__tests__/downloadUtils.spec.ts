@@ -94,8 +94,6 @@ test('small uniprotkb download', () => {
   expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
   expect(hasColumns(state, props, job)).toEqual(false);
   expect(getDownloadOptions(state, props, location, job)).toEqual({
-    accessions: undefined,
-    base: undefined,
     compressed: true,
     fileFormat: 'FASTA (canonical)',
     namespace: 'uniprotkb',
@@ -103,12 +101,8 @@ test('small uniprotkb download', () => {
     selected: [],
     selectedFacets: [],
     selectedIdField: 'accession',
-    sortColumn: undefined,
-    sortDirection: undefined,
   });
   expect(getPreviewOptions(state, props, location, job)).toEqual({
-    accessions: undefined,
-    base: undefined,
     compressed: false,
     fileFormat: 'FASTA (canonical)',
     namespace: 'uniprotkb',
@@ -117,8 +111,6 @@ test('small uniprotkb download', () => {
     selectedFacets: [],
     selectedIdField: 'accession',
     size: 10,
-    sortColumn: undefined,
-    sortDirection: undefined,
   });
   expect(getIsAsyncDownload(state, props, job)).toEqual(false);
   expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);

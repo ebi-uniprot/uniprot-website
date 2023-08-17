@@ -126,7 +126,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const isAsyncDownload = getIsAsyncDownload(state, props, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
 
-  let extraContentNode: JSX.Element | undefined;
+  let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
     case 'ftp':
       extraContentNode = (
@@ -189,7 +189,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
       );
       break;
     default:
-      // Leave as undefined
+      // No extra content needed
       break;
   }
 

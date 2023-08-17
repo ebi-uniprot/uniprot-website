@@ -155,7 +155,7 @@ const Download: FC<DownloadProps> = ({
     }
   };
 
-  let extraContentNode: JSX.Element | undefined;
+  let extraContentNode: JSX.Element | null = null;
   if (extraContent === 'url') {
     extraContentNode = (
       <DownloadAPIURL
