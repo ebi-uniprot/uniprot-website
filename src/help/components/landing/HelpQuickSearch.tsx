@@ -2,7 +2,6 @@ import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
-import qs from 'query-string';
 
 import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 
@@ -14,6 +13,7 @@ import {
   Location,
   getLocationEntryPath,
 } from '../../../app/config/urls';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import { HelpSearchResponse } from '../../adapters/helpConverter';
 
@@ -52,7 +52,7 @@ const HelpQuickSearch = () => {
 
   const allArticlesLocation = {
     pathname: LocationToPath[Location.HelpResults],
-    search: qs.stringify({ query: searchValue }),
+    search: stringifyQuery({ query: searchValue }),
   };
 
   const allArticles = dataObject.data?.results;

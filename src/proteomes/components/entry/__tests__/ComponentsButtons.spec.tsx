@@ -1,5 +1,4 @@
 import { fireEvent, screen } from '@testing-library/react';
-import queryString from 'query-string';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
@@ -37,12 +36,9 @@ describe('ComponentsButtons', () => {
         name: 'View proteins',
       });
       expect(link).toBeInTheDocument();
-      const {
-        url,
-        query: { query },
-      } = queryString.parseUrl(link.href);
-      expect(url).toMatch(/\/uniprotkb/);
-      expect(query).toMatch(expectedQuery);
+      const url = new URL(link.href);
+      expect(url.pathname).toMatch(/\/uniprotkb/);
+      expect(url.searchParams.get('query')).toMatch(expectedQuery);
     }
   );
 

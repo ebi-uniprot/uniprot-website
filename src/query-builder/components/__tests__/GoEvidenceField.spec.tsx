@@ -14,18 +14,18 @@ describe('GoEvidenceField component', () => {
     (props.handleChange as jest.Mock).mockClear();
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = render(<GoEvidenceField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should initialise', () => {
+  it('should initialise', () => {
     render(<GoEvidenceField {...props} />);
     const select = screen.getByRole<HTMLSelectElement>('combobox');
     expect(select.value).toBe('manual');
   });
 
-  test('should change evidence', () => {
+  it('should change evidence', () => {
     render(<GoEvidenceField {...props} />);
     const evidenceSelect = screen.getByRole('combobox');
     fireEvent.change(evidenceSelect, {

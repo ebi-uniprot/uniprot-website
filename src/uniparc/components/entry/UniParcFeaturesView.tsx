@@ -1,5 +1,4 @@
-import { sortBy } from 'lodash-es';
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import FeaturesView, {
@@ -11,6 +10,7 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
 import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
+import { sortByLocation } from '../../../uniprotkb/utils';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
 
@@ -23,10 +23,10 @@ export type UniParcProcessedFeature = ProcessedFeature & {
 
 // Convert data
 const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
-  sortBy(
-    data.flatMap((feature) =>
+  data
+    .flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
-        type: 'Other',
+        type: 'Other' as const,
         protvistaFeatureId: feature.databaseId,
         start: locationFeature.start,
         end: locationFeature.end,
@@ -36,14 +36,15 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
         interproGroupId: feature.interproGroup?.id,
         color: stringToColour(feature.database, 240), // use the name to define colour
       }))
-    ),
-    'interproGroupName'
-  );
+    )
+    .sort(sortByLocation);
 
-const UniParcFeaturesView: FC<{
+type UniParcFeaturesViewProps = {
   data: SequenceFeature[];
   sequence: string;
-}> = ({ data, sequence }) => {
+};
+
+const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
   const processedData = useMemo(() => convertData(data), [data]);
   const databaseInfoMaps = useDatabaseInfoMaps();
   if (!databaseInfoMaps) {

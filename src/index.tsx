@@ -4,16 +4,14 @@ import ReactDOM from 'react-dom';
 import App from './app/components/App';
 import GlobalContext from './app/contexts/Global';
 
-if (!LIVE_RELOAD) {
-  // eslint-disable-next-line no-console
-  console.info(
-    `Built with git commit ${GIT_COMMIT_HASH} ${
-      GIT_COMMIT_STATE
-        ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`
-        : '(clean)'
-    }`
-  );
-}
+// eslint-disable-next-line no-console
+console.info(
+  `Built with git commit ${GIT_COMMIT_HASH} ${
+    GIT_COMMIT_STATE
+      ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`
+      : '(clean)'
+  } on ${GIT_BRANCH} branch`
+);
 
 ReactDOM.render(
   <StrictMode>

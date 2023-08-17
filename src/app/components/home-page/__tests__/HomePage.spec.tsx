@@ -17,12 +17,12 @@ describe('HomePage component', () => {
     rendered = customRender(<HomePage />);
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should change the text when selecting a different namespace', async () => {
+  it('should change the text when selecting a different namespace', async () => {
     expect(
       screen.getByRole('heading', { name: 'Find your protein', exact: true })
     ).toBeInTheDocument();

@@ -6,6 +6,7 @@ import {
 
 import useDataApi from '../../hooks/useDataApi';
 
+import { stringifyUrl } from '../../utils/url';
 import apiUrls from '../../config/apiUrls';
 
 import { Namespace } from '../../types/namespaces';
@@ -25,13 +26,11 @@ const ExactFieldSuggestion = ({
     exactMatchSearchTerms
   );
 
-  const searchParams = new URLSearchParams({
-    query: `${modifiedQuery}`,
-    size: '0',
-  });
-
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
+    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+      query: modifiedQuery,
+      size: 0,
+    })
   );
 
   const hasExactSuggestion =

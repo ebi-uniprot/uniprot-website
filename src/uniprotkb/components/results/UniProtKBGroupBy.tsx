@@ -12,7 +12,6 @@ import {
   WarningTriangleIcon,
   formatLargeNumber,
 } from 'franklin-sites';
-import qs from 'query-string';
 import { sumBy } from 'lodash-es';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -27,7 +26,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getAPIQueryParams } from '../../../shared/config/apiUrls';
-import { parseQueryString } from '../../../shared/utils/url';
+import { stringifyQuery } from '../../../shared/utils/url';
 import {
   getGroupBySuggesterUrl,
   getPercentageLabel,
@@ -170,18 +169,12 @@ type ParentNodeLinkProps = {
 
 const ParentNodeLink = ({ label, id, parent }: ParentNodeLinkProps) => (
   <Link
-    to={(location) => {
-      const sp = new URLSearchParams(location.search);
-      if (parent) {
-        sp.set('parent', parent);
-      } else {
-        sp.delete('parent');
-      }
-      return {
-        ...location,
-        search: sp.toString(),
-      };
-    }}
+    to={(location) => ({
+      ...location,
+      search: stringifyQuery(location.search, {
+        parent,
+      }),
+    })}
     title={`Set parent node to ${label}${id ? `ID:${id}` : ''}`}
   >
     {label}
@@ -422,10 +415,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={groupByResponse.status} />;
   }
 
-  // TODO: remove sumBy when https://www.ebi.ac.uk/panda/jira/browse/TRM-29956 done
-  const sumChildren =
-    groupByResponse.data?.parent?.count ||
-    sumBy(groupByResponse.data?.groups, 'count');
+  const sumChildren = groupByResponse.data?.parent?.count;
   let childrenNode;
   if (id && !sumChildren) {
     childrenNode = (
@@ -555,8 +545,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
           // eslint-disable-next-line uniprot-website/use-config-location
           {
             pathname: history.location.pathname,
-            search: qs.stringify({
-              ...parseQueryString(locationSearch),
+            search: stringifyQuery(locationSearch, {
               parent: id,
             }),
           }

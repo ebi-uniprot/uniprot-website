@@ -16,12 +16,12 @@ describe('TextField', () => {
     (props.handleChange as jest.Mock).mockReset();
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = render(<TextField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should update the input value', () => {
+  it('should update the input value', () => {
     render(<TextField {...props} />);
     const updatedValue = 'my_term';
     const inputElt = screen.getByRole<HTMLInputElement>('textbox');
@@ -63,7 +63,7 @@ describe('TextField', () => {
     );
   });
 
-  test('should generate correct query with prefix', () => {
+  it('should generate correct query with prefix', () => {
     const propsPrefix: FieldProps = {
       field: {
         id: 'prefix',
@@ -91,7 +91,7 @@ describe('TextField', () => {
     );
   });
 
-  test('should generate correct query for database *', () => {
+  it('should generate correct query for database *', () => {
     const propsPrefix: FieldProps = {
       field: getSearchTerm('xref_embl'),
       handleChange: jest.fn(),
@@ -110,7 +110,7 @@ describe('TextField', () => {
     );
   });
 
-  test('should validate initial query with regex', () => {
+  it('should validate initial query with regex', () => {
     const propsPrefix: FieldProps = {
       field: getSearchTerm('proteome'),
       handleChange: jest.fn(),

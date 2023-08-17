@@ -564,6 +564,8 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "cc_similarity": cc_similarity 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "cc_subcellular_location": cc_subcellular_location 1`] = `
 <DocumentFragment>
   <section

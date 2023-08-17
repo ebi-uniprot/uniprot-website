@@ -9,6 +9,7 @@ import OrganismSuggestion from './OrganismSuggestion';
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
+import { stringifyUrl } from '../../utils/url';
 
 import { SearchResults } from '../../types/results';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
@@ -27,13 +28,11 @@ const TaxonomyLevelsSuggestion = ({
     taxonHierarchySearchTerms
   );
 
-  const searchParams = new URLSearchParams({
-    query: `${modifiedQuery}`,
-    size: '0',
-  });
-
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    `${apiUrls.search(Namespace.uniprotkb)}?${searchParams}`
+    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+      query: `${modifiedQuery}`,
+      size: 0,
+    })
   );
 
   const hasTaxonSuggestion =

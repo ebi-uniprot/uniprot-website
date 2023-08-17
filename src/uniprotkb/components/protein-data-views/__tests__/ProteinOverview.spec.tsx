@@ -7,21 +7,21 @@ import swissprotData from '../../__mocks__/swissprotEntry';
 import { ProteinNames } from '../../../adapters/namesAndTaxonomyConverter';
 
 describe('ProteinOverview component', () => {
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = customRender(
       <ProteinOverview data={swissprotData} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render, in card variant', () => {
+  it('should render, in card variant', () => {
     const { asFragment } = customRender(
       <ProteinOverview data={swissprotData} inCard />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const submissionData = {
       ...swissprotData,
       proteinDescription: {

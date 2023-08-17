@@ -1,5 +1,4 @@
-import qs from 'query-string';
-import { parseQueryString } from '../../shared/utils/url';
+import { stringifyQuery } from '../../shared/utils/url';
 
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../types/columnTypes';
@@ -58,7 +57,7 @@ export const getParamsFromURL = (
     groupBy, // Handled in UniProtKB/groupBy
     parent, // Handled in UniProtKB/groupBy
     ...restParams
-  } = parseQueryString(url);
+  } = Object.fromEntries(new URLSearchParams(url));
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -110,18 +109,15 @@ export const getLocationObjForParams = ({
   viewMode,
 }: GetLocationObjForParams = {}) => ({
   pathname,
-  search: qs.stringify(
-    {
-      query: query || undefined,
-      facets: facetsAsString(selectedFacets),
-      sort: sortColumn,
-      dir: sortDirection,
-      activeFacet,
-      fields: columns,
-      view: viewMode,
-    },
-    { encode: false }
-  ),
+  search: stringifyQuery({
+    query: query || undefined,
+    facets: facetsAsString(selectedFacets),
+    sort: sortColumn,
+    dir: sortDirection,
+    activeFacet,
+    fields: columns,
+    view: viewMode,
+  }),
 });
 
 export const getSortableColumnToSortColumn = (

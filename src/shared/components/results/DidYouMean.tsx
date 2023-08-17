@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import queryString from 'query-string';
 import { orderBy } from 'lodash-es';
 import { Loader, Message, sequenceProcessor } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -11,7 +10,7 @@ import useNS from '../../hooks/useNS';
 import useSafeState from '../../hooks/useSafeState';
 
 import fetchData from '../../utils/fetchData';
-import { parseQueryString } from '../../utils/url';
+import { stringifyQuery, stringifyUrl } from '../../utils/url';
 
 import {
   searchLocations,
@@ -58,7 +57,7 @@ const QuerySuggestionListItem = ({
             <Link
               to={{
                 pathname: searchLocations[namespace],
-                search: queryString.stringify({ query: cleanedQuery }),
+                search: stringifyQuery({ query: cleanedQuery }),
               }}
               key={query}
               className={styles['query-suggestion-link']}
@@ -120,7 +119,8 @@ const DidYouMean = ({
   const [renderContent, setRenderContent] = useSafeState(false);
   const otherNamespaceSuggestions = useRef<NamespaceSuggestions>(new Map());
 
-  const { query } = parseQueryString(location.search);
+  const sp = new URLSearchParams(location.search);
+  const query = sp.get('query');
 
   // Clear the map if new namespace or new query
   useEffect(() => {
@@ -138,10 +138,7 @@ const DidYouMean = ({
 
     const promises = otherNamespaces.map((ns) =>
       fetchData<{ results: APIModel[] }>(
-        queryString.stringifyUrl({
-          url: apiUrls.search(ns),
-          query: { query, size: 0, didyoumean: true },
-        })
+        stringifyUrl(apiUrls.search(ns), { query, size: 0, didyoumean: true })
       ).then(
         (response) => {
           const hits = +(response?.headers?.['x-total-results'] || 0);

@@ -8,7 +8,6 @@ import {
   useImperativeHandle,
   useCallback,
 } from 'react';
-import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
@@ -22,6 +21,7 @@ import apiUrls from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import { reUniProtKBAccession } from '../../uniprotkb/utils';
 import fetchData from '../../shared/utils/fetchData';
+import { stringifyUrl } from '../../shared/utils/url';
 import * as logging from '../../shared/utils/logging';
 
 import {
@@ -53,13 +53,11 @@ const getURLForAccessionOrID = (input: string) => {
   }
 
   // UniProtKB ID
-  const query = queryString.stringify({
+  return stringifyUrl(apiUrls.search(), {
     query: `id:${cleanedInput}`,
     fields:
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',
   });
-
-  return `${apiUrls.search()}?${query}`;
 };
 
 // name as a NCBI ID formatted UniProt-style

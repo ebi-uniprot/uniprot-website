@@ -7,7 +7,7 @@ import { Sequence as SequenceType } from '../../../../shared/types/sequence';
 import sequenceUIData from '../../../../shared/components/entry/__tests__/__mocks__/sequenceUIData';
 
 describe('SequenceSection component', () => {
-  test('should render the SequenceSection properly and match snapshot', () => {
+  it('should render the SequenceSection properly and match snapshot', () => {
     const { asFragment } = render(
       <SequenceSection data={sequenceUIData.sequence as SequenceType} />
     );

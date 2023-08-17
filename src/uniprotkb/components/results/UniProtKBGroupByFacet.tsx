@@ -1,14 +1,16 @@
 /* eslint-disable uniprot-website/use-config-location */
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import queryString from 'query-string';
 import cn from 'classnames';
+
+import { stringifyUrl } from '../../../shared/utils/url';
+
 import { GroupBy } from '../../config/apiUrls';
 
 const groupByLabelAndParams: [string, GroupBy][] = [
   ['Taxonomy', 'taxonomy'],
   ['Keywords', 'keyword'],
-  // ['Gene Ontology', 'go'], // TODO: Uncomment when GO groupby API issues are resolved
+  ['Gene Ontology', 'go'],
   ['Enzyme Class', 'ec'],
 ];
 
@@ -18,13 +20,9 @@ const UniProtKBGroupByFacet = () => {
 
   const getTo = useMemo(
     () => (groupBy: GroupBy) =>
-      queryString.stringifyUrl({
-        url: location.pathname,
-        query: {
-          ...searchParams,
-          groupBy: searchParams.groupBy === groupBy ? undefined : groupBy,
-          parent: undefined,
-        },
+      stringifyUrl(location.pathname, searchParams, {
+        groupBy: searchParams.groupBy === groupBy ? undefined : groupBy,
+        parent: undefined,
       }),
     [location.pathname, searchParams]
   );

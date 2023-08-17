@@ -13,6 +13,7 @@ import {
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
+import { stringifyUrl } from '../../../shared/utils/url';
 
 import apiUrls, {
   createSelectedQueryString,
@@ -61,15 +62,13 @@ const ComponentsButtons = ({
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  const sp = new URLSearchParams({
-    query: `(proteome=${id}) AND (reviewed=true)`,
-    size: '0',
-  });
-
   // Note: all Eukaryotes are not eligible. Having a list of the organisms would be helpful
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
     superkingdom === 'eukaryota'
-      ? `${apiUrls.search(Namespace.uniprotkb)}?${sp}`
+      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+          query: `(proteome=${id}) AND (reviewed=true)`,
+          size: '0',
+        })
       : null
   );
 

@@ -5,7 +5,7 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 import SimilarityView from '../SimilarityView';
 
 describe('SimilarityView component', () => {
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = customRender(
       <SimilarityView>
         In the N-terminal section; belongs to the GARS family.
@@ -14,7 +14,7 @@ describe('SimilarityView component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should link', () => {
+  it('should link', () => {
     customRender(
       <SimilarityView>
         Belongs to the potassium channel family. A (Shaker) (TC 1.A.1.2)
@@ -31,7 +31,7 @@ describe('SimilarityView component', () => {
     );
   });
 
-  test('should link only the family name not the whole string', () => {
+  it('should link only the family name not the whole string', () => {
     customRender(
       <SimilarityView>
         Belongs to the OXA1/ALB3/YidC (TC 2.A.9.2) family
@@ -42,7 +42,7 @@ describe('SimilarityView component', () => {
   });
 });
 
-test('should link the whole familt heirarchy from superfamilies to subfamilies', () => {
+it('should link the whole familt heirarchy from superfamilies to subfamilies', () => {
   customRender(
     <SimilarityView>
       Belongs to the protein kinase superfamily. Tyr protein kinase family.

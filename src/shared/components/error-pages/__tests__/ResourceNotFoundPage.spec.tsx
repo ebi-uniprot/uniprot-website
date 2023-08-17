@@ -5,7 +5,7 @@ import customRender from '../../../__test-helpers__/customRender';
 import ResourceNotFoundPage, { redirectFromTo } from '../ResourceNotFoundPage';
 
 describe('ResourceNotFoundPage component', () => {
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment, history } = customRender(<ResourceNotFoundPage />, {
       route: '/uniprotkb',
     });
@@ -14,7 +14,7 @@ describe('ResourceNotFoundPage component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should redirect to correct page', () => {
+  it('should redirect to correct page', () => {
     const { history } = customRender(<ResourceNotFoundPage />, {
       route: '/unipark/UPI01',
     });
@@ -41,13 +41,13 @@ const incorrectURLs = new Map<string, string>([
 ]);
 
 describe('replacement patterns', () => {
-  test('should not provide a redirection', () => {
+  it('should not provide a redirection', () => {
     for (const correct of correctURLs) {
       expect(redirectFromTo(correct)).toBeUndefined();
     }
   });
 
-  test('should provide a redirection', () => {
+  it('should provide a redirection', () => {
     for (const [incorrect, correct] of incorrectURLs) {
       expect(redirectFromTo(incorrect)).toBe(correct);
     }

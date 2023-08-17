@@ -3,10 +3,10 @@ import { GroupBy } from '../../config/apiUrls';
 export const getPercentageLabel = (percentage: number) => {
   const percentageLabel = percentage?.toFixed(0);
   if (+percentageLabel === 0) {
-    return '≈0%';
+    return '<1%';
   }
   if (percentageLabel === '100' && percentage !== 100) {
-    return '≈100%';
+    return '>99%';
   }
   return `${percentageLabel}%`;
 };

@@ -1,11 +1,10 @@
 import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import qs from 'query-string';
 
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
-import { parseQueryString } from '../utils/url';
+import { stringifyQuery } from '../utils/url';
 import { sendGtagEventViewMode } from '../utils/gtagEvents';
 
 import { Namespace } from '../types/namespaces';
@@ -52,8 +51,9 @@ const useViewMode = (
   let invalidUrlViewMode: InvalidParamValue | undefined;
   let fromUrl = false;
 
-  const { view: viewModeFromUrl, ...urlParams } =
-    parseQueryString(locationSearch);
+  const { view: viewModeFromUrl, ...urlParams } = Object.fromEntries(
+    new URLSearchParams(locationSearch)
+  );
 
   if (disableCardToggle) {
     viewMode = 'table';
@@ -84,7 +84,7 @@ const useViewMode = (
           // eslint-disable-next-line uniprot-website/use-config-location
           {
             pathname: history.location.pathname,
-            search: qs.stringify({ ...urlParams, view: vm }),
+            search: stringifyQuery({ ...urlParams, view: vm }),
           }
         );
       } else {
