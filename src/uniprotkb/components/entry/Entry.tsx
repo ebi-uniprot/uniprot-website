@@ -539,7 +539,7 @@ const Entry = () => {
               />
               <GenomicCoordinatesTab
                 primaryAccession={match.params.accession}
-                title="Genomic coordinates"
+                title={`Genomic coordinates for ${match.params.accession} isoform sequence`}
               />
             </ErrorBoundary>
           </Suspense>

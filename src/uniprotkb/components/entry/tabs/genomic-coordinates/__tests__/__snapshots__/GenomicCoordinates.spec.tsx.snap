@@ -44,87 +44,6 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl gene ID
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <a
-                class="external-link"
-                href="https://www.ensembl.org/id/ENSG00000137575"
-                rel="noopener"
-                target="_blank"
-              >
-                ENSG00000137575
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              Ensembl transcript ID
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <a
-                class="external-link"
-                href="https://www.ensembl.org/id/ENST00000413219"
-                rel="noopener"
-                target="_blank"
-              >
-                ENST00000413219
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              Ensembl translation ID
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <a
-                class="external-link"
-                href="https://www.ensembl.org/id/ENSP00000411771"
-                rel="noopener"
-                target="_blank"
-              >
-                ENSP00000411771
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
               Genomic location
             </div>
             <div
@@ -174,6 +93,87 @@ exports[`GenomicCoordinates component renders on data 1`] = `
               class="decorated-list-item__content"
             >
               8
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Ensembl translation ID
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <a
+                class="external-link"
+                href="https://www.ensembl.org/id/ENSP00000411771"
+                rel="noopener"
+                target="_blank"
+              >
+                ENSP00000411771
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Ensembl transcript ID
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <a
+                class="external-link"
+                href="https://www.ensembl.org/id/ENST00000413219"
+                rel="noopener"
+                target="_blank"
+              >
+                ENST00000413219
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Ensembl gene ID
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <a
+                class="external-link"
+                href="https://www.ensembl.org/id/ENSG00000137575"
+                rel="noopener"
+                target="_blank"
+              >
+                ENSG00000137575
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
             </div>
           </div>
         </li>
@@ -504,87 +504,6 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Ensembl gene ID
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <a
-                class="external-link"
-                href="https://www.ensembl.org/id/ENSG00000137575"
-                rel="noopener"
-                target="_blank"
-              >
-                ENSG00000137575
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              Ensembl transcript ID
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <a
-                class="external-link"
-                href="https://www.ensembl.org/id/ENST00000260130"
-                rel="noopener"
-                target="_blank"
-              >
-                ENST00000260130
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              Ensembl translation ID
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <a
-                class="external-link"
-                href="https://www.ensembl.org/id/ENSP00000260130"
-                rel="noopener"
-                target="_blank"
-              >
-                ENSP00000260130
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
               Genomic location
             </div>
             <div
@@ -634,6 +553,87 @@ exports[`GenomicCoordinates component renders on data 1`] = `
               class="decorated-list-item__content"
             >
               8
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Ensembl translation ID
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <a
+                class="external-link"
+                href="https://www.ensembl.org/id/ENSP00000260130"
+                rel="noopener"
+                target="_blank"
+              >
+                ENSP00000260130
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Ensembl transcript ID
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <a
+                class="external-link"
+                href="https://www.ensembl.org/id/ENST00000260130"
+                rel="noopener"
+                target="_blank"
+              >
+                ENST00000260130
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Ensembl gene ID
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <a
+                class="external-link"
+                href="https://www.ensembl.org/id/ENSG00000137575"
+                rel="noopener"
+                target="_blank"
+              >
+                ENSG00000137575
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
             </div>
           </div>
         </li>

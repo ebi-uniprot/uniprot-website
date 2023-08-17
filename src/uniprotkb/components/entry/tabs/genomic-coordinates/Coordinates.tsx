@@ -38,19 +38,33 @@ const Coordinates = ({
 
   const infoData = [
     {
-      title: `${xrefInfo ? 'Ensembl g' : 'G'}ene ID`,
+      title: 'Genomic location',
+      content: gl.start && gl.end && (
+        <GenomicLoc genomicLocation={gl} taxID={taxID} noLink={!xrefInfo} />
+      ),
+    },
+    {
+      title: 'Strand',
+      content: gl.reverseStrand ? 'Reverse' : 'Forward',
+    },
+    {
+      title: 'Number of exons',
+      content: gl.exon.length,
+    },
+    {
+      title: `${xrefInfo ? 'Ensembl t' : 'T'}ranslation ID`,
       content:
-        coordinates.ensemblGeneId &&
+        coordinates.ensemblTranslationId &&
         (xrefInfo?.uriLink ? (
           <ExternalLink
             url={processUrlTemplate(xrefInfo.uriLink, {
-              id: coordinates.ensemblGeneId,
+              id: coordinates.ensemblTranslationId,
             })}
           >
-            {coordinates.ensemblGeneId}
+            {coordinates.ensemblTranslationId}
           </ExternalLink>
         ) : (
-          coordinates.ensemblGeneId
+          coordinates.ensemblTranslationId
         )),
     },
     {
@@ -70,34 +84,20 @@ const Coordinates = ({
         )),
     },
     {
-      title: `${xrefInfo ? 'Ensembl t' : 'T'}ranslation ID`,
+      title: `${xrefInfo ? 'Ensembl g' : 'G'}ene ID`,
       content:
-        coordinates.ensemblTranslationId &&
+        coordinates.ensemblGeneId &&
         (xrefInfo?.uriLink ? (
           <ExternalLink
             url={processUrlTemplate(xrefInfo.uriLink, {
-              id: coordinates.ensemblTranslationId,
+              id: coordinates.ensemblGeneId,
             })}
           >
-            {coordinates.ensemblTranslationId}
+            {coordinates.ensemblGeneId}
           </ExternalLink>
         ) : (
-          coordinates.ensemblTranslationId
+          coordinates.ensemblGeneId
         )),
-    },
-    {
-      title: 'Genomic location',
-      content: gl.start && gl.end && (
-        <GenomicLoc genomicLocation={gl} taxID={taxID} noLink={!xrefInfo} />
-      ),
-    },
-    {
-      title: 'Strand',
-      content: gl.reverseStrand ? 'Reverse' : 'Forward',
-    },
-    {
-      title: 'Number of exons',
-      content: gl.exon.length,
     },
     {
       title: 'Overlapping proteins',
