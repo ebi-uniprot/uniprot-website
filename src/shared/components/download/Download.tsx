@@ -264,6 +264,15 @@ const getExtraContent = (
   return null;
 };
 
+const getRedirectToIDMapping = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  // Peptide search download for matches exceeding the threshold
+  job.jobResultsLocation === Location.PeptideSearchResult &&
+  getDownloadCount(state, props) > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
 export type DownloadProps<T extends JobTypes> = {
   query?: string;
   selectedEntries?: string[];
@@ -312,6 +321,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(updateCompressed(e.target.value === 'true'));
 
+  // Variables derived from state, props, location or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
   const downloadUrl = getDownloadUrl(downloadOptions);
@@ -325,10 +335,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   );
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, job);
-  // Peptide search download for matches exceeding the threshold
-  const redirectToIDMapping =
-    job.jobResultsLocation === Location.PeptideSearchResult &&
-    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+  const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
 
   let extraContentNode: JSX.Element | undefined;
   switch (getExtraContent(state, props, location, job)) {
