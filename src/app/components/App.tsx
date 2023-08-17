@@ -101,6 +101,13 @@ const UniProtKBLandingPage = lazy(
     )
 );
 // Main namespaces
+const UniProtKBStatisticsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-statistics" */ '../../uniprotkb/components/statistics/StatisticsPage'
+    )
+);
+// Main namespaces
 const UniProtKBEntryPage = lazy(
   () =>
     import(
@@ -363,6 +370,11 @@ const App = () => {
               path={LocationToPath[Location.Home]}
               exact
               component={HomePage}
+            />
+            {/* Special pages */}
+            <Route
+              path={LocationToPath[Location.UniProtKBStatistics]}
+              component={UniProtKBStatisticsPage}
             />
             {/* Entry pages */}
             {/* Main namespaces */}

@@ -9,7 +9,7 @@ import {
 import cn from 'classnames';
 
 import StatisticsChart from './StatisticsChart';
-
+import HTMLHead from '../../../shared/components/HTMLHead';
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -53,6 +53,9 @@ const tutorialsInfo = [
   },
 ];
 
+const metaDescription =
+  'The UniProt Knowledgebase (UniProtKB) is the central hub for the collection of functional information on proteins, with accurate, consistent and rich annotation. In addition to capturing the core data mandatory for each UniProtKB entry (mainly, the amino acid sequence, protein name or description, taxonomic data and citation information), as much annotation information as possible is added.';
+
 const LandingPage = () => {
   const release = useUniProtDataVersion();
 
@@ -82,6 +85,9 @@ const LandingPage = () => {
 
   return (
     <div className={styles['landing-page']}>
+      <HTMLHead title="UniProt Knowledgebase (UniProtKB)">
+        <meta name="description" content={metaDescription} />
+      </HTMLHead>
       <section className="uniprot-grid">
         <h1 className="uniprot-grid-cell--span-12">UniProtKB</h1>
         <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
@@ -205,6 +211,7 @@ const LandingPage = () => {
                     Location.HelpEntry,
                     'release-statistics'
                   )}
+                  // to={LocationToPath[Location.UniProtKBStatistics]}
                 >
                   Explore the {release?.releaseNumber} release <big>»</big>
                 </Link>

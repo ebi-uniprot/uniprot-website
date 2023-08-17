@@ -15,7 +15,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import {
   StatisticsItem as SI,
   StatisticsPayload,
-} from '../statistics-page/StatisticsPage';
+} from '../statistics/StatisticsPage';
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 
