@@ -27,6 +27,7 @@ import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConf
 import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
 import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
 import { Location } from '../../../../app/config/urls';
+import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 /*
 [x] small uniprotkb download
@@ -445,6 +446,96 @@ describe('Download Utils', () => {
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
     expect(getExtraContent(state, props, location, job)).toEqual('generate');
+    expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
+  });
+
+  test('small idmapping non-uniprot download', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 1,
+      namespace: Namespace.idmapping,
+      base: 'https://rest.uniprot.org/idmapping/results/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      notCustomisable: true,
+      supportedFormats: [
+        FileFormat.tsvIdMappingFromTo,
+        FileFormat.tsv,
+        FileFormat.excelIdMappingFromTo,
+        FileFormat.jsonIdMappingFromTo,
+        FileFormat.json,
+      ],
+      inBasketMini: false,
+      inputParamsData: {
+        from: 'UniProtKB_AC-ID',
+        to: 'Ensembl',
+        ids: 'P05067',
+        redirectURL:
+          'https://rest.uniprot.org/idmapping/results/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      } as MappingDetails,
+      jobType: JobTypes.ID_MAPPING,
+      onClose: jest.fn(),
+    };
+    const state: DownloadState = {
+      selectedColumns: [IDMappingColumn.from, IDMappingColumn.to],
+      fileFormatOptions: [
+        FileFormat.tsvIdMappingFromTo,
+        FileFormat.tsv,
+        FileFormat.excelIdMappingFromTo,
+        FileFormat.jsonIdMappingFromTo,
+        FileFormat.json,
+      ],
+      selectedFileFormat: FileFormat.tsvIdMappingFromTo,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    };
+
+    const location: HistoryLocation = {
+      pathname: '/id-mapping/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf/overview',
+      search: '',
+      hash: '',
+      state: {
+        internalID: 'local-ba86e420-3dc8-11ee-9821-e9e373c0932b',
+      },
+      key: 'foo',
+    };
+    const job: ReturnType<typeof useJobFromUrl> = {
+      jobId: '6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      jobResultsLocation: Location.IDMappingResult,
+      jobResultsNamespace: undefined,
+    };
+
+    expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
+    expect(getDownloadCount(state, props)).toEqual(1);
+    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(hasColumns(state, props, job)).toEqual(false);
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      base: 'https://rest.uniprot.org/idmapping/stream/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      compressed: true,
+      fileFormat: FileFormat.tsvIdMappingFromTo,
+      namespace: Namespace.idmapping,
+      query: '',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'from',
+    });
+    expect(getPreviewOptions(state, props, location, job)).toEqual({
+      base: 'https://rest.uniprot.org/idmapping/results/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      compressed: false,
+      fileFormat: FileFormat.tsvIdMappingFromTo,
+      namespace: Namespace.idmapping,
+      query: '',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'from',
+      size: 1,
+    });
+    expect(getIsAsyncDownload(state, props, job)).toEqual(false);
+    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getColumnsNamespace(props, job)).toEqual(Namespace.idmapping);
+    expect(getIsEmbeddings(state)).toEqual(false);
+    expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
+    expect(getExtraContent(state, props, location, job)).toEqual(null);
     expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
   });
 });
