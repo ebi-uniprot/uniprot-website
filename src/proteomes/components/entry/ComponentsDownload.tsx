@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -22,9 +22,12 @@ import {
   DownloadPanelFormCloseReason,
   DownloadMethod,
 } from '../../../shared/utils/gtagEvents';
+import { ProteomeType } from '../../adapters/proteomesConverter';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import styles from '../../../shared/components/download/styles/download.module.scss';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 export const getPreviewFileFormat = (
   fileFormat: FileFormat
@@ -33,17 +36,16 @@ export const getPreviewFileFormat = (
 
 type DownloadProps = {
   query: string;
-  selectedEntries: string[];
+  selectedEntries?: string[];
   selectedQuery: string;
   totalNumberResults: number;
   numberSelectedEntries: number;
-  namespace: Namespace;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
     downloadMethod?: DownloadMethod
   ) => void;
-  fileFormats: FileFormat[];
-  showReviewedOption: boolean;
+  proteomeType: ProteomeType;
+  superkingdom: string;
   isoformStats: IsoformStatistics;
 };
 
@@ -51,18 +53,23 @@ type ExtraContent = 'url' | 'preview';
 
 type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
 
-const Download: FC<DownloadProps> = ({
+const ComponentsDownload = ({
   query,
   selectedQuery,
-  selectedEntries,
+  selectedEntries = [],
   totalNumberResults,
   numberSelectedEntries,
   onClose,
-  namespace,
-  fileFormats,
-  showReviewedOption = false,
+  proteomeType,
+  superkingdom,
   isoformStats,
-}) => {
+}: DownloadProps) => {
+  const namespace =
+    // Excluded not supported at the moment, need to wait for TRM-28011
+    proteomeType === 'Redundant proteome'
+      ? Namespace.uniparc
+      : Namespace.uniprotkb;
+
   const { columnNames } = useColumnNames({ namespaceOverride: namespace });
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
@@ -70,6 +77,17 @@ const Download: FC<DownloadProps> = ({
   const [downloadSelect, setDownloadSelect] = useState<DownloadSelectOptions>(
     selectedEntries.length ? 'selected' : 'all'
   );
+
+  const fileFormats =
+    proteomeType === 'Redundant proteome'
+      ? fileFormatsResultsDownloadForRedundant
+      : [
+          FileFormat.fasta,
+          ...fileFormatsUniPortKBResultsDownload.filter(
+            (format) => !format.includes('FASTA')
+          ),
+        ];
+
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
@@ -96,6 +114,7 @@ const Download: FC<DownloadProps> = ({
     downloadOptions.columns = selectedColumns;
   }
 
+  const showReviewedOption = superkingdom === 'eukaryota';
   let fileFormatOptions = fileFormats;
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
@@ -317,4 +336,4 @@ const Download: FC<DownloadProps> = ({
   );
 };
 
-export default Download;
+export default ComponentsDownload;

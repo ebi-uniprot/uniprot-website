@@ -18,8 +18,6 @@ import { stringifyUrl } from '../../../shared/utils/url';
 import apiUrls, {
   createSelectedQueryString,
 } from '../../../shared/config/apiUrls';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
-import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -30,7 +28,6 @@ import {
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { SearchResults } from '../../../shared/types/results';
-import { FileFormat } from '../../../shared/types/resultsDownload';
 
 const ComponentsDownloadComponent = lazy(
   () =>
@@ -126,15 +123,6 @@ const ComponentsButtons = ({
     return null;
   }
 
-  const fileFormats =
-    proteomeType === 'Redundant proteome'
-      ? fileFormatsResultsDownloadForRedundant
-      : [
-          FileFormat.fasta,
-          ...fileFormatsUniPortKBResultsDownload.filter(
-            (format) => !format.includes('FASTA')
-          ),
-        ];
   // TODO: place as much of the logic for the download within the component to remove the number of props
   return (
     <>
@@ -153,14 +141,8 @@ const ComponentsButtons = ({
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
                 onClose={handleToggleDownload}
-                namespace={
-                  // Excluded not supported at the moment, need to wait for TRM-28011
-                  proteomeType === 'Redundant proteome'
-                    ? Namespace.uniparc
-                    : Namespace.uniprotkb
-                }
-                fileFormats={fileFormats}
-                showReviewedOption={superkingdom === 'eukaryota'}
+                proteomeType={proteomeType}
+                superkingdom={superkingdom}
                 isoformStats={isoformStats}
               />
             </ErrorBoundary>
