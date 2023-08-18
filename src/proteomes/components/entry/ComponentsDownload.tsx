@@ -15,6 +15,8 @@ import {
 } from '../../../shared/config/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
 import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { FileFormat } from '../../../shared/types/resultsDownload';
@@ -26,8 +28,6 @@ import { ProteomeType } from '../../adapters/proteomesConverter';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import styles from '../../../shared/components/download/styles/download.module.scss';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
-import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 export const getPreviewFileFormat = (
   fileFormat: FileFormat
