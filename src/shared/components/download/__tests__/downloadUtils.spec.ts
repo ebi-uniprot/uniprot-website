@@ -29,18 +29,6 @@ import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSear
 import { Location } from '../../../../app/config/urls';
 import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
-/*
-[x] small uniprotkb download
-[x] huge uniprotkb download
-[x] reviewed uniprotkb download
-[x] small idmapping uniprotkb download
-[x] huge idmapping uniprotkb download
-[x] small idmapping non-uniprot download
-[x] huge idmapping non-uniprot download
-[x] embeddings download
-[ ] unisave
-*/
-
 describe('Download Utils', () => {
   test('small uniprotkb download', () => {
     const props: DownloadProps<JobTypes> = {
@@ -767,39 +755,43 @@ describe('Download Utils', () => {
   test('unisave', () => {
     const props: DownloadProps<JobTypes> = {
       selectedEntries: [],
-      totalNumberResults: 24094,
-      namespace: Namespace.uniprotkb,
-      notCustomisable: false,
-      inBasketMini: false,
+      totalNumberResults: 306,
+      namespace: Namespace.unisave,
+      base: '/unisave/P05067',
+      previewSelected: [
+        '306',
+        '305',
+        '304',
+        '303',
+        '302',
+        '301',
+        '300',
+        '299',
+        '298',
+        '297',
+      ],
       onClose: jest.fn(),
     };
     const state: DownloadState = {
-      selectedColumns: defaultColumns,
+      selectedColumns: [],
       fileFormatOptions: [
-        FileFormat.fastaCanonical,
-        FileFormat.fastaCanonicalIsoform,
-        FileFormat.tsv,
-        FileFormat.excel,
-        FileFormat.json,
-        FileFormat.xml,
-        FileFormat.rdfXml,
         FileFormat.text,
-        FileFormat.gff,
-        FileFormat.list,
-        FileFormat.embeddings,
+        FileFormat.fasta,
+        FileFormat.tsv,
+        FileFormat.json,
       ],
-      selectedFileFormat: FileFormat.fastaCanonical,
+      selectedFileFormat: FileFormat.text,
       downloadSelect: 'all',
-      compressed: true,
+      compressed: false,
       extraContent: null,
       nSelectedEntries: 0,
     };
 
     const location: HistoryLocation = {
-      pathname: '/uniprotkb',
-      search: '?query=nod2',
+      pathname: '/uniprotkb/P05067/history',
+      search: '',
       hash: '',
-      key: 'foo',
+      key: 'eq9yn0',
       state: undefined,
     };
     const job: ReturnType<typeof useJobFromUrl> = {
@@ -808,32 +800,42 @@ describe('Download Utils', () => {
       jobResultsNamespace: undefined,
     };
 
-    expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
-    expect(getDownloadCount(state, props)).toEqual(24094);
+    expect(getPreviewFileFormat(state)).toEqual(FileFormat.text);
+    expect(getDownloadCount(state, props)).toEqual(306);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
-      compressed: true,
-      fileFormat: FileFormat.fastaCanonical,
-      namespace: Namespace.uniprotkb,
-      query: 'nod2',
+      compressed: false,
+      fileFormat: FileFormat.text,
+      namespace: Namespace.unisave,
+      query: '',
+      base: '/unisave/P05067',
       selected: [],
       selectedFacets: [],
-      selectedIdField: 'accession',
     });
     expect(getPreviewOptions(state, props, location, job)).toEqual({
       compressed: false,
-      fileFormat: FileFormat.fastaCanonical,
-      namespace: Namespace.uniprotkb,
-      query: 'nod2',
-      selected: [],
+      fileFormat: FileFormat.text,
+      namespace: Namespace.unisave,
+      query: '',
+      base: '/unisave/P05067',
+      selected: [
+        '306',
+        '305',
+        '304',
+        '303',
+        '302',
+        '301',
+        '300',
+        '299',
+        '298',
+        '297',
+      ],
       selectedFacets: [],
-      selectedIdField: 'accession',
-      size: 10,
     });
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
-    expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
+    expect(getColumnsNamespace(props, job)).toEqual(Namespace.unisave);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
     expect(getExtraContent(state, props, location, job)).toEqual(null);

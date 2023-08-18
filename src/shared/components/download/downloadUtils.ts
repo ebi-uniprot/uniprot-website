@@ -165,6 +165,7 @@ export const getPreviewOptions = (
   };
   if (props.namespace === Namespace.unisave && props.previewSelected) {
     // Use previewSelected (determined in the EntryHistory component) instead of using the size parameters
+    previewOptions.size = undefined;
     previewOptions.selected = props.previewSelected;
   }
   return previewOptions;
