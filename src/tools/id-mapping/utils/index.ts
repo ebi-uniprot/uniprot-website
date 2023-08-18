@@ -3,6 +3,8 @@ import { memoize } from 'lodash-es';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils';
 import { nsToFileFormatsResultsDownload } from '../../../shared/config/resultsDownload';
 
+import { fileFormatsUnenrichedResultsDownload } from '../config/download';
+
 import { RuleIdToRuleInfo } from '../components/IDMappingForm';
 import { Namespace } from '../../../shared/types/namespaces';
 import { IDMappingGroup } from '../types/idMappingFormConfig';
@@ -79,7 +81,11 @@ export const getSupportedFormats = (
   namespace: Namespace
 ) => {
   const fileFormats = nsToFileFormatsResultsDownload[namespace];
-  return namespace === Namespace.uniprotkb && isSubsequenceFrom(results)
-    ? [FileFormat.fastaSubsequence, ...fileFormats]
-    : fileFormats;
+  if (namespace === Namespace.uniprotkb && isSubsequenceFrom(results)) {
+    return [FileFormat.fastaSubsequence, ...fileFormats];
+  }
+  if (namespace === Namespace.idmapping) {
+    return fileFormatsUnenrichedResultsDownload;
+  }
+  return fileFormats;
 };

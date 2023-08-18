@@ -61,12 +61,15 @@ export const getIsAsyncDownloadIdMapping = (
   props: DownloadProps<JobTypes>,
   job: ReturnType<typeof useJobFromUrl>
 ) =>
-  job.jobResultsLocation === Location.IDMappingResult &&
-  props.namespace === Namespace.idmapping &&
-  getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
-  job.jobResultsNamespace &&
-  ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(job.jobResultsNamespace) &&
-  ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(state.selectedFileFormat);
+  Boolean(
+    job.jobResultsLocation === Location.IDMappingResult &&
+      props.namespace === Namespace.idmapping &&
+      getDownloadCount(state, props) >
+        DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
+      job.jobResultsNamespace &&
+      ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(job.jobResultsNamespace) &&
+      ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(state.selectedFileFormat)
+  );
 
 export const hasColumns = (
   state: DownloadState,

@@ -36,7 +36,7 @@ import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingCo
 [x] small idmapping uniprotkb download
 [x] huge idmapping uniprotkb download
 [x] small idmapping non-uniprot download
-[ ] huge idmapping non-uniprot download
+[x] huge idmapping non-uniprot download
 [x] embeddings download
 [ ] unisave
 */
@@ -524,6 +524,91 @@ describe('Download Utils', () => {
       selectedFacets: [],
       selectedIdField: 'from',
       size: 1,
+    });
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
+    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getColumnsNamespace(props, job)).toEqual(Namespace.idmapping);
+    expect(getIsEmbeddings(state)).toEqual(false);
+    expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
+    expect(getExtraContent(state, props, location, job)).toEqual(null);
+    expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
+  });
+
+  test('huge idmapping non-uniprot download', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 335578,
+      namespace: Namespace.idmapping,
+      base: 'https://rest.uniprot.org/idmapping/results/fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
+      notCustomisable: true,
+      supportedFormats: [
+        FileFormat.tsvIdMappingFromTo,
+        FileFormat.excelIdMappingFromTo,
+        FileFormat.jsonIdMappingFromTo,
+      ],
+      inBasketMini: false,
+      inputParamsData: {
+        from: 'UniProtKB_AC-ID',
+        to: 'EMBL-GenBank-DDBJ',
+        ids: 'J7IIM3,F2XGD7,F5BIF0', // and many more
+        redirectURL:
+          'https://rest.uniprot.org/idmapping/results/fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
+      } as MappingDetails,
+      jobType: JobTypes.ID_MAPPING,
+      onClose: jest.fn(),
+    };
+    const state: DownloadState = {
+      selectedColumns: [IDMappingColumn.from, IDMappingColumn.to],
+      fileFormatOptions: [
+        FileFormat.tsvIdMappingFromTo,
+        FileFormat.excelIdMappingFromTo,
+        FileFormat.jsonIdMappingFromTo,
+      ],
+      selectedFileFormat: FileFormat.tsvIdMappingFromTo,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    };
+    const location: HistoryLocation = {
+      pathname: '/id-mapping/fb56256d1adf57f4e181a5b3bebabb54f77b89cc/overview',
+      search: '',
+      hash: '',
+      state: {
+        internalID: 'local-dce19540-3dcf-11ee-9fbc-7bc4b480c9f9',
+      },
+      key: '8026qq',
+    };
+    const job: ReturnType<typeof useJobFromUrl> = {
+      jobId: 'fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
+      jobResultsLocation: Location.IDMappingResult,
+      jobResultsNamespace: undefined,
+    };
+
+    expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
+    expect(getDownloadCount(state, props)).toEqual(335578);
+    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(hasColumns(state, props, job)).toEqual(false);
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      base: 'https://rest.uniprot.org/idmapping/stream/fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
+      compressed: true,
+      fileFormat: FileFormat.tsvIdMappingFromTo,
+      namespace: Namespace.idmapping,
+      query: '',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'from',
+    });
+    expect(getPreviewOptions(state, props, location, job)).toEqual({
+      base: 'https://rest.uniprot.org/idmapping/results/fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
+      compressed: false,
+      fileFormat: FileFormat.tsvIdMappingFromTo,
+      namespace: Namespace.idmapping,
+      query: '',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'from',
+      size: 10,
     });
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
