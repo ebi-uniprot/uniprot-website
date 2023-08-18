@@ -166,17 +166,6 @@ export const getPreviewOptions = (
   }
   return previewOptions;
 };
-
-export const getIsAsyncDownload = (
-  state: DownloadState,
-  props: DownloadProps<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
-) =>
-  (props.namespace === Namespace.uniprotkb &&
-    (state.selectedFileFormat === FileFormat.embeddings ||
-      getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
-  getIsAsyncDownloadIdMapping(state, props, job);
-
 export const getFtpFilenameAndUrl = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
@@ -190,6 +179,18 @@ export const getFtpFilenameAndUrl = (
         state.selectedFileFormat
       )
     : null;
+
+export const getIsAsyncDownload = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  location: HistoryLocation<unknown>,
+  job: ReturnType<typeof useJobFromUrl>
+) =>
+  (props.namespace === Namespace.uniprotkb &&
+    ((state.selectedFileFormat === FileFormat.embeddings &&
+      !getFtpFilenameAndUrl(state, props, location, job)) ||
+      getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
+  getIsAsyncDownloadIdMapping(state, props, job);
 
 export const getColumnsNamespace = (
   props: DownloadProps<JobTypes>,
@@ -228,7 +229,7 @@ export const getExtraContent = (
   }
   if (
     state.extraContent === 'generate' &&
-    getIsAsyncDownload(state, props, job)
+    getIsAsyncDownload(state, props, location, job)
   ) {
     return 'generate';
   }

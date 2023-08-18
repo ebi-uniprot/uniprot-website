@@ -35,9 +35,9 @@ import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingCo
 [x] reviewed uniprotkb download
 [x] small idmapping uniprotkb download
 [x] huge idmapping uniprotkb download
-[ ] small idmapping non-uniprot download
+[x] small idmapping non-uniprot download
 [ ] huge idmapping non-uniprot download
-[ ] embeddings download
+[x] embeddings download
 [ ] unisave
 */
 
@@ -109,7 +109,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 10,
     });
-    expect(getIsAsyncDownload(state, props, job)).toEqual(false);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
@@ -148,7 +148,6 @@ describe('Download Utils', () => {
       extraContent: 'url',
       nSelectedEntries: 0,
     };
-
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
       search: '?query=*',
@@ -187,7 +186,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 10,
     });
-    expect(getIsAsyncDownload(state, props, job)).toEqual(true);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
@@ -226,7 +225,6 @@ describe('Download Utils', () => {
       extraContent: 'url',
       nSelectedEntries: 0,
     };
-
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
       search: '?facets=reviewed%3Atrue&query=%2A',
@@ -273,7 +271,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 10,
     });
-    expect(getIsAsyncDownload(state, props, job)).toEqual(false);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
       filename: 'uniprot_sprot.fasta.gz',
       url: 'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz',
@@ -313,7 +311,6 @@ describe('Download Utils', () => {
       extraContent: 'generate',
       nSelectedEntries: 0,
     };
-
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
       search: '?query=human',
@@ -352,7 +349,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 1,
     });
-    expect(getIsAsyncDownload(state, props, job)).toEqual(false);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
@@ -408,7 +405,6 @@ describe('Download Utils', () => {
       extraContent: 'generate',
       nSelectedEntries: 0,
     };
-
     const location: HistoryLocation = {
       pathname:
         '/id-mapping/uniprotkb/13a61a7a694b2a0193ccde8b937d2b7d60efddc0/overview',
@@ -440,7 +436,7 @@ describe('Download Utils', () => {
       selectedIdField: 'from',
     });
     expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
-    expect(getIsAsyncDownload(state, props, job)).toEqual(true);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
@@ -489,7 +485,6 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
     };
-
     const location: HistoryLocation = {
       pathname: '/id-mapping/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf/overview',
       search: '',
@@ -530,12 +525,86 @@ describe('Download Utils', () => {
       selectedIdField: 'from',
       size: 1,
     });
-    expect(getIsAsyncDownload(state, props, job)).toEqual(false);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.idmapping);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
     expect(getExtraContent(state, props, location, job)).toEqual(null);
+    expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
+  });
+
+  test('embeddings download with FTP', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 569793,
+      namespace: Namespace.uniprotkb,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+    const state: DownloadState = {
+      selectedColumns: defaultColumns,
+      fileFormatOptions: [
+        FileFormat.fastaCanonical,
+        FileFormat.fastaCanonicalIsoform,
+        FileFormat.tsv,
+        FileFormat.excel,
+        FileFormat.json,
+        FileFormat.xml,
+        FileFormat.rdfXml,
+        FileFormat.text,
+        FileFormat.gff,
+        FileFormat.list,
+        FileFormat.embeddings,
+      ],
+      selectedFileFormat: FileFormat.embeddings,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: 'ftp',
+      nSelectedEntries: 0,
+    };
+    const location: HistoryLocation = {
+      pathname: '/uniprotkb',
+      search: '?facets=reviewed%3Atrue&query=%2A',
+      hash: '',
+      key: 'foo',
+      state: undefined,
+    };
+    const job: ReturnType<typeof useJobFromUrl> = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+
+    expect(getPreviewFileFormat(state)).toEqual(undefined);
+    expect(getDownloadCount(state, props)).toEqual(569793);
+    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(hasColumns(state, props, job)).toEqual(false);
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      compressed: true,
+      fileFormat: FileFormat.embeddings,
+      namespace: Namespace.uniprotkb,
+      query: '*',
+      selected: [],
+      selectedFacets: [
+        {
+          name: 'reviewed',
+          value: 'true',
+        },
+      ],
+      selectedIdField: 'accession',
+    });
+    expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
+    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
+      filename: 'uniprot_sprot/per-protein.h5',
+      url: 'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5',
+    });
+    expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
+    expect(getIsEmbeddings(state)).toEqual(true);
+    expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
+    expect(getExtraContent(state, props, location, job)).toEqual('ftp');
     expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
   });
 });

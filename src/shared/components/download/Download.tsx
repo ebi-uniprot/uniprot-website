@@ -117,7 +117,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
   const ftpFilenameAndUrl = getFtpFilenameAndUrl(state, props, location, job);
   const isEmbeddings = getIsEmbeddings(state);
-  const isAsyncDownload = getIsAsyncDownload(state, props, job);
+  const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
 
   let extraContentNode: JSX.Element | null = null;
