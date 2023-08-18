@@ -163,9 +163,9 @@ export const getPreviewOptions = (
     size: Math.min(10, getDownloadCount(state, props)),
     base: props.base,
   };
-  if (props.namespace === Namespace.unisave) {
-    // get only the first 10 entries instead of using the size parameters
-    previewOptions.selected = previewOptions.selected.slice(0, 10);
+  if (props.namespace === Namespace.unisave && props.previewSelected) {
+    // Use previewSelected (determined in the EntryHistory component) instead of using the size parameters
+    previewOptions.selected = props.previewSelected;
   }
   return previewOptions;
 };
