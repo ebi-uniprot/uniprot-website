@@ -607,4 +607,75 @@ describe('Download Utils', () => {
     expect(getExtraContent(state, props, location, job)).toEqual('ftp');
     expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
   });
+
+  test('embeddings download with async download', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 207892,
+      namespace: Namespace.uniprotkb,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+    const state: DownloadState = {
+      selectedColumns: defaultColumns,
+      fileFormatOptions: [
+        FileFormat.fastaCanonical,
+        FileFormat.fastaCanonicalIsoform,
+        FileFormat.tsv,
+        FileFormat.excel,
+        FileFormat.json,
+        FileFormat.xml,
+        FileFormat.rdfXml,
+        FileFormat.text,
+        FileFormat.gff,
+        FileFormat.list,
+        FileFormat.embeddings,
+      ],
+      selectedFileFormat: FileFormat.embeddings,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: 'generate',
+      nSelectedEntries: 0,
+    };
+    const location: HistoryLocation = {
+      pathname: '/uniprotkb',
+      search: '?facets=model_organism%3A9606&query=%2A',
+      hash: '',
+      key: 'foo',
+      state: undefined,
+    };
+    const job: ReturnType<typeof useJobFromUrl> = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+
+    expect(getPreviewFileFormat(state)).toEqual(undefined);
+    expect(getDownloadCount(state, props)).toEqual(207892);
+    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(hasColumns(state, props, job)).toEqual(false);
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      compressed: true,
+      fileFormat: FileFormat.embeddings,
+      namespace: Namespace.uniprotkb,
+      query: '*',
+      selected: [],
+      selectedFacets: [
+        {
+          name: 'model_organism',
+          value: '9606',
+        },
+      ],
+      selectedIdField: 'accession',
+    });
+    expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
+    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
+    expect(getIsEmbeddings(state)).toEqual(true);
+    expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
+    expect(getExtraContent(state, props, location, job)).toEqual('generate');
+    expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
+  });
 });
