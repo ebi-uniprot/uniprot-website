@@ -3,6 +3,7 @@
 
 .statistics-page {
   table {
+    margin-block: $global-margin;
     border-spacing: 0;
     overflow: auto;
     display: block;

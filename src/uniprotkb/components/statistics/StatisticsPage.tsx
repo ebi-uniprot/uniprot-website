@@ -1,4 +1,6 @@
 import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
+import { Link, LinkProps } from 'react-router-dom';
+import { RequireAtLeastOne } from 'type-fest';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
@@ -7,28 +9,32 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
+import { stringifyQuery } from '../../../shared/utils/url';
+
+import { LocationToPath, Location } from '../../../app/config/urls';
+
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
 
 type CategoryName =
   | 'AUDIT' // 1 - introduction
-  | 'PROTEIN_EXISTENCE' // 1 - introduction
-  | 'TOTAL_ORGANISM' // 2 - taxonomic origin
-  | 'SUPERKINGDOM' // 2 - taxonomic origin
-  | 'ORGANISM_FREQUENCY' // 2 - taxonomic origin
-  | 'TOP_ORGANISM' // 2 - taxonomic origin
-  | 'EUKARYOTA' // 2 - taxonomic origin
-  | 'SEQUENCE_STATS' // 3 - sequence size
-  | 'SEQUENCE_COUNT' // 3 - sequence size
-  | 'SEQUENCE_RANGE' // 3 - sequence size
-  | 'JOURNAL_FREQUENCY' // 4 - journal citations
-  | 'TOP_JOURNAL' // 4 - journal citations
-  | 'PUBLICATION' // 4 - journal citations
-  | 'FEATURES' // 5 - statistics for some line types
   | 'COMMENTS' // 5 - statistics for some line types
   | 'CROSS_REFERENCE' // 5 - statistics for some line types
+  | 'EUKARYOTA' // 2 - taxonomic origin
+  | 'FEATURES' // 5 - statistics for some line types
+  | 'JOURNAL_FREQUENCY' // 4 - journal citations
+  | 'MISCELLANEOUS' // 7 - miscellaneous statistics
+  | 'ORGANISM_FREQUENCY' // 2 - taxonomic origin
+  | 'PROTEIN_EXISTENCE' // 1 - introduction
+  | 'PUBLICATION' // 4 - journal citations
   | 'SEQUENCE_AMINO_ACID' // 6 - amino acid composition
-  | 'MISCELLANEOUS'; // 7 - miscellaneous statistics
+  | 'SEQUENCE_COUNT' // 3 - sequence size
+  | 'SEQUENCE_RANGE' // 3 - sequence size
+  | 'SEQUENCE_STATS' // 3 - sequence size
+  | 'SUPERKINGDOM' // 2 - taxonomic origin
+  | 'TOP_JOURNAL' // 4 - journal citations
+  | 'TOP_ORGANISM' // 2 - taxonomic origin
+  | 'TOTAL_ORGANISM'; // 2 - taxonomic origin
 
 export type StatisticsItem = {
   name: string;
@@ -68,12 +74,68 @@ const sortByCount = new Set<CategoryName>([
   'PROTEIN_EXISTENCE',
 ]);
 
+type LinkOrNothingProps<T> = { condition: boolean } & LinkProps<T>;
+
+const LinkOrNothing = <T,>({
+  condition,
+  children,
+  ...props
+}: LinkOrNothingProps<T>) => {
+  if (condition) {
+    return <Link {...props}>{children}</Link>;
+  }
+  return <>{children}</>;
+};
+
+type MergedStatistics = RequireAtLeastOne<
+  {
+    reviewed?: StatisticsItem;
+    unreviewed?: StatisticsItem;
+  },
+  'reviewed' | 'unreviewed'
+>;
+
+type MergedStatisticsItem = {
+  name: string;
+  statistics: MergedStatistics;
+  query?: string;
+};
+
+const mergeToMap = (
+  reviewed: StatisticsItem[],
+  unreviewed: StatisticsItem[]
+) => {
+  const accumulator = new Map<string, MergedStatistics>();
+  for (const item of reviewed) {
+    accumulator.set(item.name, { reviewed: item });
+  }
+  for (const item of unreviewed) {
+    const stats = accumulator.get(item.name);
+    if (stats) {
+      stats.unreviewed = item;
+    } else {
+      accumulator.set(item.name, { unreviewed: item });
+    }
+  }
+  return accumulator;
+};
+
+const merge = (
+  reviewed: StatisticsItem[],
+  unreviewed: StatisticsItem[]
+): MergedStatisticsItem[] =>
+  Array.from(mergeToMap(reviewed, unreviewed), ([name, statistics]) => ({
+    name,
+    statistics,
+  }));
+
 type StatsTableProps = {
   category: StatisticsCategory;
   reviewed?: boolean;
+  noTitle?: boolean;
 };
 
-const StatsTable = ({ category, reviewed }: StatsTableProps) => {
+const StatsTable = ({ category, reviewed, noTitle }: StatsTableProps) => {
   const hasDescription = category.items.some((item) => item.description);
   const hasOnlyEntryCounts =
     category.categoryName !== 'TOTAL_ORGANISM' &&
@@ -81,7 +143,9 @@ const StatsTable = ({ category, reviewed }: StatsTableProps) => {
   // Exceptions
   const hasEntryCount = category.categoryName !== 'TOTAL_ORGANISM';
   const hasPercent =
-    category.items.length > 1 && category.categoryName !== 'AUDIT';
+    category.items.length > 1 &&
+    category.categoryName !== 'AUDIT' &&
+    category.categoryName !== 'TOP_ORGANISM';
   let rows = category.items;
   if (category.categoryName === 'SEQUENCE_COUNT') {
     rows = Array.from(category.items).sort((a, b) => +a.name - +b.name);
@@ -91,9 +155,11 @@ const StatsTable = ({ category, reviewed }: StatsTableProps) => {
   }
   return (
     <section>
-      <h3>
-        {category.label} ({reviewed ? '' : 'un'}reviewed)
-      </h3>
+      {!noTitle && (
+        <h4>
+          {category.label} (UniProtKB {reviewed ? '' : 'un'}reviewed)
+        </h4>
+      )}
       <table>
         <thead>
           <tr>
@@ -157,13 +223,188 @@ const StatsTable = ({ category, reviewed }: StatsTableProps) => {
   );
 };
 
-const Stats = ({ stats }: { stats: StatisticsCategory[] }) => (
-  <>
-    {stats.map((cat) => (
-      <StatsTable key={cat.categoryName} category={cat} />
-    ))}
-  </>
+type TableProps = {
+  reviewedData: StatisticsCategory;
+  unreviewedData: StatisticsCategory;
+};
+
+const proteinExistenceToNumber = new Map([
+  ['PROTEIN_LEVEL', 1],
+  ['TRANSCRIPT_LEVEL', 2],
+  ['HOMOLOGY', 3],
+  ['PREDICTED', 4],
+  ['UNCERTAIN', 5],
+]);
+
+const proteinExistenceToNiceName = new Map([
+  ['PROTEIN_LEVEL', '1: Evidence at protein level'],
+  ['TRANSCRIPT_LEVEL', '2: Evidence at transcript level'],
+  ['HOMOLOGY', '3: Inferred from homology'],
+  ['PREDICTED', '4: Predicted'],
+  ['UNCERTAIN', '5: Uncertain'],
+]);
+
+const sortByPE = (a: MergedStatisticsItem, b: MergedStatisticsItem) =>
+  (proteinExistenceToNumber.get(a.name) || 0) -
+  (proteinExistenceToNumber.get(b.name) || 0);
+
+const ProteinExistenceTable = ({
+  reviewedData,
+  unreviewedData,
+}: TableProps) => {
+  const list = merge(reviewedData.items, unreviewedData.items)
+    .sort(sortByPE)
+    .map(
+      ({ name, statistics }): MergedStatisticsItem => ({
+        name: proteinExistenceToNiceName.get(name) || name,
+        statistics,
+        query: `(existence:${proteinExistenceToNumber.get(name)})`,
+      })
+    );
+
+  return (
+    <table>
+      <caption>
+        Total number of entries per protein existence (PE) annotation
+      </caption>
+      <thead>
+        <tr>
+          <th>Protein existence (PE)</th>
+          <th>UniProtKB</th>
+          <th>UniProtKB reviewed</th>
+          <th>UniProtKB unreviewed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {list.map(({ name, statistics, query }) => (
+          <tr key={name}>
+            <td>{name}</td>
+            <td className={styles.end}>
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: stringifyQuery({ query }),
+                }}
+              >
+                <LongNumber>
+                  {(statistics.reviewed?.entryCount || 0) +
+                    (statistics.unreviewed?.entryCount || 0)}
+                </LongNumber>
+              </Link>
+            </td>
+            <td className={styles.end}>
+              <LinkOrNothing
+                condition={Boolean(statistics.reviewed?.entryCount)}
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: stringifyQuery({
+                    query: `(reviewed:true) AND ${query}`,
+                  }),
+                }}
+              >
+                <LongNumber>{statistics.reviewed?.entryCount || 0}</LongNumber>
+              </LinkOrNothing>
+            </td>
+            <td className={styles.end}>
+              <LinkOrNothing
+                condition={Boolean(statistics.unreviewed?.entryCount)}
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: stringifyQuery({
+                    query: `(reviewed:false) AND ${query}`,
+                  }),
+                }}
+              >
+                <LongNumber>
+                  {statistics.unreviewed?.entryCount || 0}
+                </LongNumber>
+              </LinkOrNothing>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
+  <table>
+    <caption>
+      Total number of species represented in this release of UniProtKB
+    </caption>
+    <thead>
+      <tr>
+        <th>Section</th>
+        <th>Species represented</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>whole UniProtKB</td>
+        <td className={styles.end}>
+          <LongNumber>
+            {reviewedData.totalCount + unreviewedData.totalCount}
+          </LongNumber>
+        </td>
+      </tr>
+      <tr>
+        <td>UniProtKB reviewed (Swiss-Prot)</td>
+        <td className={styles.end}>
+          <LongNumber>{reviewedData.totalCount}</LongNumber>
+        </td>
+      </tr>
+      <tr>
+        <td>UniProtKB unreviewed (TrEMBL)</td>
+        <td className={styles.end}>
+          <LongNumber>{unreviewedData.totalCount}</LongNumber>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 );
+
+const organismFrequencySort = (
+  a: MergedStatisticsItem,
+  b: MergedStatisticsItem
+) => {
+  const aValue = +a.name.split(/\D/).filter((part) => Boolean(part))[0];
+  const bValue = +b.name.split(/\D/).filter((part) => Boolean(part))[0];
+  return aValue - bValue;
+};
+
+const OrganismFrequencyTable = ({
+  reviewedData,
+  unreviewedData,
+}: TableProps) => {
+  const list = merge(reviewedData.items, unreviewedData.items).sort(
+    organismFrequencySort
+  );
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Species represented</th>
+          <th>UniProtKB reviewed</th>
+          <th>UniProtKB unreviewed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {list.map(({ name, statistics }) => (
+          <tr key={name}>
+            <td>{name}</td>
+            <td className={styles.end}>
+              <LongNumber>{statistics.reviewed?.entryCount || 0}</LongNumber>
+            </td>
+            <td className={styles.end}>
+              <LongNumber>{statistics.unreviewed?.entryCount || 0}</LongNumber>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 const sections = [
   { label: 'Introduction', id: 'introduction' },
@@ -225,30 +466,23 @@ const StatisticsPage = () => {
         <h2>Introduction</h2>
         <StatsTable category={reviewedData.AUDIT} reviewed />
         <StatsTable category={unreviewedData.AUDIT} />
-        <StatsTable category={reviewedData.PROTEIN_EXISTENCE} reviewed />
-        <StatsTable category={unreviewedData.PROTEIN_EXISTENCE} />
+        <ProteinExistenceTable
+          reviewedData={reviewedData.PROTEIN_EXISTENCE}
+          unreviewedData={unreviewedData.PROTEIN_EXISTENCE}
+        />
       </Card>
       <Card id="taxonomic-origin">
         <h2>Taxonomic origin</h2>
-        <p>
-          Total number of species represented in this release of UniProtKB:{' '}
-          <LongNumber>
-            {reviewedData.TOTAL_ORGANISM.totalCount +
-              unreviewedData.TOTAL_ORGANISM.totalCount}
-          </LongNumber>
-          .<br />
-          Total number of species represented in this release of UniProtKB
-          reviewed:{' '}
-          <LongNumber>{reviewedData.TOTAL_ORGANISM.totalCount}</LongNumber>.
-          <br />
-          Total number of species represented in this release of UniProtKB
-          unreviewed:{' '}
-          <LongNumber>{unreviewedData.TOTAL_ORGANISM.totalCount}</LongNumber>.
-        </p>
+        <TotalOrganismTable
+          reviewedData={reviewedData.TOTAL_ORGANISM}
+          unreviewedData={unreviewedData.TOTAL_ORGANISM}
+        />
         <section>
           <h3>Table of the frequency of occurrence of species</h3>
-          <StatsTable category={reviewedData.ORGANISM_FREQUENCY} reviewed />
-          <StatsTable category={unreviewedData.ORGANISM_FREQUENCY} />
+          <OrganismFrequencyTable
+            reviewedData={reviewedData.ORGANISM_FREQUENCY}
+            unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
+          />
         </section>
         <section>
           <h3>Table of the most represented species</h3>
