@@ -763,4 +763,80 @@ describe('Download Utils', () => {
     expect(getExtraContent(state, props, location, job)).toEqual('generate');
     expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
   });
+
+  test('unisave', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 24094,
+      namespace: Namespace.uniprotkb,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+    const state: DownloadState = {
+      selectedColumns: defaultColumns,
+      fileFormatOptions: [
+        FileFormat.fastaCanonical,
+        FileFormat.fastaCanonicalIsoform,
+        FileFormat.tsv,
+        FileFormat.excel,
+        FileFormat.json,
+        FileFormat.xml,
+        FileFormat.rdfXml,
+        FileFormat.text,
+        FileFormat.gff,
+        FileFormat.list,
+        FileFormat.embeddings,
+      ],
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    };
+
+    const location: HistoryLocation = {
+      pathname: '/uniprotkb',
+      search: '?query=nod2',
+      hash: '',
+      key: 'foo',
+      state: undefined,
+    };
+    const job: ReturnType<typeof useJobFromUrl> = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+
+    expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
+    expect(getDownloadCount(state, props)).toEqual(24094);
+    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(hasColumns(state, props, job)).toEqual(false);
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      compressed: true,
+      fileFormat: FileFormat.fastaCanonical,
+      namespace: Namespace.uniprotkb,
+      query: 'nod2',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'accession',
+    });
+    expect(getPreviewOptions(state, props, location, job)).toEqual({
+      compressed: false,
+      fileFormat: FileFormat.fastaCanonical,
+      namespace: Namespace.uniprotkb,
+      query: 'nod2',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'accession',
+      size: 10,
+    });
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
+    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
+    expect(getIsEmbeddings(state)).toEqual(false);
+    expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
+    expect(getExtraContent(state, props, location, job)).toEqual(null);
+    expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
+  });
 });
