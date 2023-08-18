@@ -150,14 +150,17 @@ export const getPreviewOptions = (
     return undefined;
   }
   const previewFileFormat = getPreviewFileFormat(state);
-  const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
+  if (!previewFileFormat) {
+    return undefined;
+  }
+  const previewOptions: DownloadUrlOptions = {
     ...getDownloadOptions(state, props, location, job),
     fileFormat: previewFileFormat,
     compressed: false,
     size: Math.min(10, getDownloadCount(state, props)),
     base: props.base,
   };
-  if (previewOptions && props.namespace === Namespace.unisave) {
+  if (props.namespace === Namespace.unisave) {
     // get only the first 10 entries instead of using the size parameters
     previewOptions.selected = previewOptions.selected.slice(0, 10);
   }

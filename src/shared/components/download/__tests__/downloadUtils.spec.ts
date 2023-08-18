@@ -33,7 +33,7 @@ import { Location } from '../../../../app/config/urls';
 [x] huge uniprotkb download
 [x] reviewed uniprotkb download
 [x] small idmapping uniprotkb download
-[ ] huge idmapping uniprotkb download
+[x] huge idmapping uniprotkb download
 [ ] small idmapping non-uniprot download
 [ ] huge idmapping non-uniprot download
 [ ] embeddings download

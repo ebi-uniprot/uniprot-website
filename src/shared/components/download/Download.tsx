@@ -38,7 +38,6 @@ import {
   getDownloadOptions,
   getPreviewOptions,
   getFtpFilenameAndUrl,
-  getIsAsyncDownloadIdMapping,
   getIsAsyncDownload,
   getRedirectToIDMapping,
   getExtraContent,
@@ -115,7 +114,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const downloadOptions = getDownloadOptions(state, props, location, job);
   const downloadUrl = getDownloadUrl(downloadOptions);
   const previewOptions = getPreviewOptions(state, props, location, job);
-  const previewUrl = !!previewOptions && getDownloadUrl(previewOptions);
+  const previewUrl = previewOptions && getDownloadUrl(previewOptions);
   const ftpFilenameAndUrl = getFtpFilenameAndUrl(state, props, location, job);
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, job);
