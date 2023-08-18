@@ -110,7 +110,6 @@ const AsyncDownloadForm = ({
           createJob(
             {
               ...downloadUrlOptions,
-
               compressed: false,
               download: false,
               namespace: isIdMappingResult

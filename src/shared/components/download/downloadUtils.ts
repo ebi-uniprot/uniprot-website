@@ -105,7 +105,9 @@ export const getDownloadOptions = (
   // The ID Mapping URL provided from the job details is for the paginated results
   // endpoint while the stream endpoint is required for downloads
   let downloadBase = props.base;
-  if (job.jobResultsLocation === Location.IDMappingResult) {
+  if (getIsAsyncDownloadIdMapping(state, props, job)) {
+    downloadBase = undefined;
+  } else if (job.jobResultsLocation === Location.IDMappingResult) {
     if (job.jobResultsNamespace && !props.notCustomisable) {
       downloadBase = downloadBase?.replace('/results/', '/results/stream/');
     } else {
@@ -144,6 +146,9 @@ export const getPreviewOptions = (
   location: HistoryLocation<unknown>,
   job: ReturnType<typeof useJobFromUrl>
 ) => {
+  if (getIsAsyncDownloadIdMapping(state, props, job)) {
+    return undefined;
+  }
   const previewFileFormat = getPreviewFileFormat(state);
   const previewOptions: DownloadUrlOptions | undefined = previewFileFormat && {
     ...getDownloadOptions(state, props, location, job),
@@ -224,10 +229,7 @@ export const getExtraContent = (
   ) {
     return 'generate';
   }
-  if (
-    state.extraContent === 'preview' &&
-    getPreviewOptions(state, props, location, job)
-  ) {
+  if (state.extraContent === 'preview') {
     return 'preview';
   }
   return null;
