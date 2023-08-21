@@ -18,16 +18,17 @@ import {
   hasColumns,
 } from '../downloadUtils';
 
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-import { Namespace } from '../../../types/namespaces';
-import { FileFormat } from '../../../types/resultsDownload';
-import { DownloadProps } from '../Download';
-import { DownloadState } from '../downloadReducer';
 import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
-import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
+
 import { Location } from '../../../../app/config/urls';
 import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { FileFormat } from '../../../types/resultsDownload';
+import { Namespace } from '../../../types/namespaces';
+import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import { DownloadProps } from '../Download';
+import { DownloadState } from '../downloadReducer';
+import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
 
 describe('Download Utils', () => {
   test('small uniprotkb download', () => {

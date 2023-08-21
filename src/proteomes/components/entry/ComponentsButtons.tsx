@@ -123,7 +123,6 @@ const ComponentsButtons = ({
     return null;
   }
 
-  // TODO: place as much of the logic for the download within the component to remove the number of props
   return (
     <>
       {displayDownloadPanel && (

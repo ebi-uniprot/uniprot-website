@@ -1,8 +1,11 @@
 import { fireEvent, screen } from '@testing-library/react';
-import customRender from '../../../../shared/__test-helpers__/customRender';
-import { FileFormat } from '../../../../shared/types/resultsDownload';
-import { stringifyQuery } from '../../../../shared/utils/url';
+
 import ComponentsDownload from '../ComponentsDownload';
+
+import { stringifyQuery } from '../../../../shared/utils/url';
+import customRender from '../../../../shared/__test-helpers__/customRender';
+
+import { FileFormat } from '../../../../shared/types/resultsDownload';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 const initialColumns = [

@@ -29,9 +29,7 @@ import { ProteomeType } from '../../adapters/proteomesConverter';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import styles from '../../../shared/components/download/styles/download.module.scss';
 
-export const getPreviewFileFormat = (
-  fileFormat: FileFormat
-): FileFormat | undefined =>
+const getPreviewFileFormat = (fileFormat: FileFormat): FileFormat | undefined =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
 
 type DownloadProps = {

@@ -1,12 +1,13 @@
-import { Namespace } from '../../../../shared/types/namespaces';
-import { FileFormat } from '../../../../shared/types/resultsDownload';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import {
   AsyncDownloadFormState,
   asyncDownloadFormDataReducer as reducer,
 } from '../asyncDownloadFormReducer';
 import * as actions from '../asyncDownloadFormActions';
+
 import { AsyncDownloadFields } from '../../config/asyncDownloadFormData';
+import { Namespace } from '../../../../shared/types/namespaces';
+import { FileFormat } from '../../../../shared/types/resultsDownload';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 export const mockDownloadUrlOptions = {
   fileFormat: FileFormat.json,

@@ -1,24 +1,22 @@
 import { Location as HistoryLocation } from 'history';
 
-import { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
-
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
-
 import useJobFromUrl from '../../hooks/useJobFromUrl';
-
-import { DownloadState } from './downloadReducer';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
 import { fileFormatsWithColumns } from '../../config/resultsDownload';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
-import { Location } from '../../../app/config/urls';
 
+import { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
+
+import { Location } from '../../../app/config/urls';
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { DownloadProps } from './Download';
+import { DownloadState } from './downloadReducer';
 
 const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
 export const DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED = 100_000 as const;
