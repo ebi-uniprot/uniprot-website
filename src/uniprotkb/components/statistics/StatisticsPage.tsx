@@ -8,13 +8,14 @@ import { RequireAtLeastOne } from 'type-fest';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import HTMLHead from '../../../shared/components/HTMLHead';
-import PieChart from '../graphs/PieChart';
-import { nameToQuery } from '../landing-page/StatisticsChart';
+import LazyComponent from '../../../shared/components/LazyComponent';
+import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { stringifyQuery } from '../../../shared/utils/url';
+import { nameToQuery } from '../landing-page/StatisticsChart';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -642,7 +643,16 @@ const TaxonomiDistributionTable = ({
       })
     );
 
-  console.log(list);
+  const graphData: StatisticsGraphItem[] = list.map((entry) => ({
+    name: entry.name,
+    entryCount:
+      (entry.statistics.reviewed?.entryCount || 0) +
+      (entry.statistics.unreviewed?.entryCount || 0),
+    to: {
+      pathname: LocationToPath[Location.UniProtKBResults],
+      search: stringifyQuery({ query: entry.query }),
+    },
+  }));
 
   return (
     <div className={styles['side-by-side']}>
@@ -701,16 +711,12 @@ const TaxonomiDistributionTable = ({
           ))}
         </tbody>
       </table>
-      <PieChart
-        data={list.map((entry) => ({
-          ...entry,
-          entryCount:
-            (entry.statistics.reviewed?.entryCount || 0) +
-            (entry.statistics.unreviewed?.entryCount || 0),
-        }))}
-        type="taxonomy"
-      />
-      ;
+      <LazyComponent
+        fallback={<PieChart type="taxonomy" />}
+        rootMargin="0px 0px"
+      >
+        <PieChart data={graphData} type="taxonomy" />
+      </LazyComponent>
     </div>
   );
 };

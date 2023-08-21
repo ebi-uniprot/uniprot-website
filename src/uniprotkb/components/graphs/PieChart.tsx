@@ -1,5 +1,5 @@
 import { LocationDescriptor } from 'history';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
   pie as d3pie,
   arc as d3arc,
@@ -25,7 +25,7 @@ export type StatisticsGraphItem = Pick<
 // Specify the chart’s dimensions.
 const width = 400;
 const height = 300;
-const margin = 40;
+const margin = 45;
 
 const radius = Math.min(width, height) / 2 - margin;
 
@@ -50,113 +50,123 @@ const midArc = d3arc<PieArcDatum<StatisticsGraphItem>>()
 const midAngle = (d: PieArcDatum<StatisticsGraphItem>) =>
   d.startAngle + (d.endAngle - d.startAngle) / 2;
 
-const current: Map<
+type CurrentMap = Map<
   string,
   { datum: PieArcDatum<StatisticsGraphItem>; opacity: number }
-> = new Map();
+>;
 
-const renderPieChart = (
-  svgElement: SVGSVGElement,
-  data: StatisticsGraphItem[]
-): void => {
-  // Create the color scale.
-  const color = scaleOrdinal<string, string>()
-    .domain(data.map((d) => d.name))
-    .range([...schemeBlues[5]].reverse());
+const getRenderPieChart =
+  // scope the current map (for cases of multiple instances the graph rendered)
 
-  // Get the SVG container.
-  const svg = select(svgElement);
 
-  const pieData = pie(data);
+    (current: CurrentMap = new Map()) =>
+    (svgElement: SVGSVGElement, data: StatisticsGraphItem[]): void => {
+      // Create the color scale.
+      const color = scaleOrdinal<string, string>()
+        .domain(data.map((d) => d.name))
+        .range([...schemeBlues[data.length]].reverse());
 
-  svg
-    .selectAll<SVGGElement, PieArcDatum<StatisticsGraphItem>>(
-      `.${styles.slice}`
-    )
-    .data(
-      pieData,
-      (d, i, domArray) => d?.data.name || domArray[i].dataset.key || i
-    )
-    .style('fill', (d) => color(d.data.name))
-    .transition()
-    .duration(1_000)
-    .tween('tween', (d, i, domArray) => {
-      const group = domArray[i];
-      const slice = group.querySelector<SVGPathElement>('path');
-      const line = group.querySelector<SVGLineElement>('polyline');
-      const label =
-        group.querySelector<SVGForeignObjectElement>('foreignObject');
+      // Get the SVG container.
+      const svg = select(svgElement);
 
-      const { width = 0, height = 0 } =
-        label?.firstElementChild?.getBoundingClientRect() || {};
+      const pieData = pie(data);
 
-      label?.setAttribute('width', `${width}`);
-      // x1.5 to take into account the typography descenders (e.g. in "y")
-      label?.setAttribute('height', `${height * 1.5}`);
+      svg
+        .selectAll<SVGGElement, PieArcDatum<StatisticsGraphItem>>(
+          `.${styles.slice}`
+        )
+        .data(
+          pieData,
+          (d, i, domArray) => d?.data.name || domArray[i].dataset.key || i
+        )
+        .style('fill', (d) => color(d.data.name))
+        .transition()
+        .duration(1_000)
+        .tween('tween', (d, i, domArray) => {
+          const group = domArray[i];
+          const slice = group.querySelector<SVGPathElement>('path');
+          const line = group.querySelector<SVGLineElement>('polyline');
+          const label =
+            group.querySelector<SVGForeignObjectElement>('foreignObject');
 
-      const isOnTheLeft = midAngle(d) < Math.PI;
-      const cur = current.get(d.data.name) || {
-        datum: {
-          startAngle: isOnTheLeft ? 0 : 2 * Math.PI,
-          endAngle: isOnTheLeft ? 0 : 2 * Math.PI,
-        },
-        opacity: 0,
-      };
-      const interpolate = d3interpolate(cur.datum, d);
-      const interpolateOpacity = d3interpolate(cur.opacity, d.value ? 1 : 0);
+          const { width = 0, height = 0 } =
+            label?.firstElementChild?.getBoundingClientRect() || {};
 
-      // At each tick, change the DOM
-      return (t) => {
-        const tweened = interpolate(t);
-        const tweenedOpacity = interpolateOpacity(t);
-        if (!tweened) {
-          return;
-        }
-        current.set(d.data.name, { datum: tweened, opacity: tweenedOpacity });
-        const isOnTheLeft = midAngle(tweened) < Math.PI;
-        // slices
-        slice?.setAttribute('d', arc(tweened) || '');
-        // lines
-        const linePos = outerArc.centroid(tweened);
-        linePos[0] = radius * 0.95 * (isOnTheLeft ? 1 : -1);
-        const pointsArray = [
-          midArc.centroid(tweened),
-          outerArc.centroid(tweened),
-          linePos,
-        ];
-        line?.setAttribute(
-          'points',
-          pointsArray.map((point) => point.join(',')).join(' ')
-        );
-        line?.setAttribute('opacity', `${tweenedOpacity}`);
-        // labels
-        const labelPos = outerArc.centroid(tweened);
-        labelPos[0] =
-          radius * (isOnTheLeft ? 1 : -1) - (isOnTheLeft ? 0 : width);
-        labelPos[1] -= height / 1.5;
-        label?.setAttribute(
-          'transform',
-          `translate(${labelPos[0]}, ${labelPos[1]})`
-        );
-        // whole group
-        group.setAttribute('opacity', `${tweenedOpacity}`);
-      };
-    });
-};
+          label?.setAttribute('width', `${width}`);
+          // x1.5 to take into account the typography descenders (e.g. in "y")
+          label?.setAttribute('height', `${height * 1.5}`);
+
+          const isOnTheLeft = midAngle(d) < Math.PI;
+          const cur = current.get(d.data.name) || {
+            datum: {
+              startAngle: isOnTheLeft ? 0 : 2 * Math.PI,
+              endAngle: isOnTheLeft ? 0 : 2 * Math.PI,
+            },
+            opacity: 0,
+          };
+          const interpolate = d3interpolate(cur.datum, d);
+          const interpolateOpacity = d3interpolate(
+            cur.opacity,
+            d.value ? 1 : 0
+          );
+
+          // At each tick, change the DOM
+          return (t) => {
+            const tweened = interpolate(t);
+            const tweenedOpacity = interpolateOpacity(t);
+            if (!tweened) {
+              return;
+            }
+            current.set(d.data.name, {
+              datum: tweened,
+              opacity: tweenedOpacity,
+            });
+            const isOnTheLeft = midAngle(tweened) < Math.PI;
+            // slices
+            slice?.setAttribute('d', arc(tweened) || '');
+            // lines
+            const linePos = outerArc.centroid(tweened);
+            linePos[0] = radius * 0.95 * (isOnTheLeft ? 1 : -1);
+            const pointsArray = [
+              midArc.centroid(tweened),
+              outerArc.centroid(tweened),
+              linePos,
+            ];
+            line?.setAttribute(
+              'points',
+              pointsArray.map((point) => point.join(',')).join(' ')
+            );
+            line?.setAttribute('opacity', `${tweenedOpacity}`);
+            // labels
+            const labelPos = outerArc.centroid(tweened);
+            labelPos[0] =
+              radius * (isOnTheLeft ? 1 : -1) - (isOnTheLeft ? 0 : width);
+            labelPos[1] -= height / 1.5;
+            label?.setAttribute(
+              'transform',
+              `translate(${labelPos[0]}, ${labelPos[1]})`
+            );
+            // whole group
+            group.setAttribute('opacity', `${tweenedOpacity}`);
+          };
+        });
+    };
 
 type StatisticsChartProps = {
-  data: StatisticsGraphItem[];
+  data?: StatisticsGraphItem[];
   type: string;
 };
 
 const PieChart = ({ data, type }: StatisticsChartProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
+  const renderPieChart = useMemo(() => getRenderPieChart(), []);
+
   useEffect(() => {
-    if (svgRef.current) {
+    if (svgRef.current && data) {
       renderPieChart(svgRef.current, data);
     }
-  }, [data]);
+  }, [renderPieChart, data]);
 
   return (
     <svg ref={svgRef} className={styles.piechart} width={width} height={height}>
