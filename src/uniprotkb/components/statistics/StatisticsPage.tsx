@@ -6,6 +6,7 @@ import { RequireAtLeastOne } from 'type-fest';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import HTMLHead from '../../../shared/components/HTMLHead';
+import StatisticsChart from '../landing-page/StatisticsChart';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -640,61 +641,65 @@ const TaxonomiDistributionTable = ({
     );
 
   return (
-    <table>
-      <caption>Taxonomic distribution of the sequences</caption>
-      <thead>
-        <tr>
-          <th>Kingdom</th>
-          <th>UniProtKB</th>
-          <th>UniProtKB reviewed</th>
-          <th>UniProtKB unreviewed</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map(({ name, label, statistics, query }) => (
-          <tr key={name}>
-            <td>{name}</td>
-            <td className={styles.end}>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: stringifyQuery({ query }),
-                }}
-              >
-                <LongNumber>
-                  {(statistics.reviewed?.entryCount || 0) +
-                    (statistics.unreviewed?.entryCount || 0)}
-                </LongNumber>
-              </Link>
-            </td>
-            <td className={styles.end}>
-              <CountLinkOrNothing
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: stringifyQuery({
-                    query: `(reviewed:true) AND ${query}`,
-                  }),
-                }}
-              >
-                {statistics.reviewed?.entryCount || 0}
-              </CountLinkOrNothing>
-            </td>
-            <td className={styles.end}>
-              <CountLinkOrNothing
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: stringifyQuery({
-                    query: `(reviewed:false) AND ${query}`,
-                  }),
-                }}
-              >
-                {statistics.unreviewed?.entryCount || 0}
-              </CountLinkOrNothing>
-            </td>
+    <div className={styles['side-by-side']}>
+      <table>
+        <caption>Taxonomic distribution of the sequences</caption>
+        <thead>
+          <tr>
+            <th>Kingdom</th>
+            <th>UniProtKB</th>
+            <th>UniProtKB reviewed</th>
+            <th>UniProtKB unreviewed</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {list.map(({ name, label, statistics, query }) => (
+            <tr key={name}>
+              <td>{name}</td>
+              <td className={styles.end}>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({ query }),
+                  }}
+                >
+                  <LongNumber>
+                    {(statistics.reviewed?.entryCount || 0) +
+                      (statistics.unreviewed?.entryCount || 0)}
+                  </LongNumber>
+                </Link>
+              </td>
+              <td className={styles.end}>
+                <CountLinkOrNothing
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({
+                      query: `(reviewed:true) AND ${query}`,
+                    }),
+                  }}
+                >
+                  {statistics.reviewed?.entryCount || 0}
+                </CountLinkOrNothing>
+              </td>
+              <td className={styles.end}>
+                <CountLinkOrNothing
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({
+                      query: `(reviewed:false) AND ${query}`,
+                    }),
+                  }}
+                >
+                  {statistics.unreviewed?.entryCount || 0}
+                </CountLinkOrNothing>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* TODO: pass data here instead of having component load it */}
+      <StatisticsChart releaseNumber="2023_03" reviewed unreviewed />
+    </div>
   );
 };
 

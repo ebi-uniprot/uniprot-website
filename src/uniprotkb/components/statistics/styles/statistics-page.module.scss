@@ -31,8 +31,15 @@
     border: 1px solid $colour-sea-blue;
     border-collapse: collapse;
   }
+}
 
-  .end {
-    text-align: end;
-  }
+.end {
+  text-align: end;
+}
+
+.side-by-side {
+  display: grid;
+  // TODO: improve, include reflow if width is not enough
+  // investigate auto-fit / auto-fill
+  grid-template-columns: auto auto;
 }
