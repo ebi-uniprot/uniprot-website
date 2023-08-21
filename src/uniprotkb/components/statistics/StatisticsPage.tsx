@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable react/no-array-index-key */
 import { ReactNode } from 'react';
 import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link, LinkProps } from 'react-router-dom';
@@ -632,9 +634,8 @@ const TaxonomiDistributionTable = ({
   const list = merge(reviewedData.items, unreviewedData.items)
     // .sort(sortByPE)
     .map(
-      ({ name, label, statistics }): MergedStatisticsItem => ({
+      ({ name, statistics }): MergedStatisticsItem => ({
         name,
-        label,
         statistics,
         // query: `(existence:${proteinExistenceToNumber.get(name)})`,
       })
@@ -653,7 +654,7 @@ const TaxonomiDistributionTable = ({
           </tr>
         </thead>
         <tbody>
-          {list.map(({ name, label, statistics, query }) => (
+          {list.map(({ name, statistics, query }) => (
             <tr key={name}>
               <td>{name}</td>
               <td className={styles.end}>
