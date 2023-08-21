@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { LocationDescriptor } from 'history';
+import { useEffect, useRef } from 'react';
 import {
   pie as d3pie,
   arc as d3arc,
@@ -8,28 +9,18 @@ import {
   select,
   interpolate as d3interpolate,
 } from 'd3';
+import { Link } from 'react-router-dom';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
+import { StatisticsItem } from '../statistics/StatisticsPage';
 
-import {
-  StatisticsItem as SI,
-  StatisticsPayload,
-} from '../statistics/StatisticsPage';
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
+import styles from './styles/pie-chart.module.scss';
 
-import styles from './styles/statistics-chart.module.scss';
-import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
-
-type StatisticsItem = Pick<SI, 'name' | 'entryCount'>;
-
-export const nameToQuery = new Map<string, string>([
-  ['Archaea', '(taxonomy_id:2157)'],
-  ['Eukaryota', '(taxonomy_id:2759)'],
-  ['Viruses', '(taxonomy_id:10239)'],
-  ['Bacteria', '(taxonomy_id:2)'],
-  ['Other', '((taxonomy_id:2787854) OR (taxonomy_id:2787823))'],
-]);
+export type StatisticsGraphItem = Pick<
+  StatisticsItem,
+  'name' | 'entryCount'
+> & {
+  to: LocationDescriptor;
+};
 
 // Specify the chart’s dimensions.
 const width = 400;
@@ -39,34 +30,34 @@ const margin = 40;
 const radius = Math.min(width, height) / 2 - margin;
 
 // Create the pie layout and arc generators
-const pie = d3pie<StatisticsItem>()
+const pie = d3pie<StatisticsGraphItem>()
   .sort(null) // use null to keep order in original data
   .value((d) => d.entryCount);
 
-const arc = d3arc<PieArcDatum<StatisticsItem>>()
+const arc = d3arc<PieArcDatum<StatisticsGraphItem>>()
   .outerRadius(radius * 0.8)
   .innerRadius(0);
 
-const outerArc = d3arc<PieArcDatum<StatisticsItem>>()
+const outerArc = d3arc<PieArcDatum<StatisticsGraphItem>>()
   .innerRadius(radius * 0.9)
   .outerRadius(radius * 0.9);
 
 // Below is used as a reference only for calculating the polyline start position
-const midArc = d3arc<PieArcDatum<StatisticsItem>>()
+const midArc = d3arc<PieArcDatum<StatisticsGraphItem>>()
   .outerRadius(radius * 0.8)
   .innerRadius(radius * 0.4);
 
-const midAngle = (d: PieArcDatum<StatisticsItem>) =>
+const midAngle = (d: PieArcDatum<StatisticsGraphItem>) =>
   d.startAngle + (d.endAngle - d.startAngle) / 2;
 
 const current: Map<
   string,
-  { datum: PieArcDatum<StatisticsItem>; opacity: number }
+  { datum: PieArcDatum<StatisticsGraphItem>; opacity: number }
 > = new Map();
 
 const renderPieChart = (
   svgElement: SVGSVGElement,
-  data: StatisticsItem[]
+  data: StatisticsGraphItem[]
 ): void => {
   // Create the color scale.
   const color = scaleOrdinal<string, string>()
@@ -79,7 +70,9 @@ const renderPieChart = (
   const pieData = pie(data);
 
   svg
-    .selectAll<SVGGElement, PieArcDatum<StatisticsItem>>(`.${styles.slice}`)
+    .selectAll<SVGGElement, PieArcDatum<StatisticsGraphItem>>(
+      `.${styles.slice}`
+    )
     .data(
       pieData,
       (d, i, domArray) => d?.data.name || domArray[i].dataset.key || i
@@ -152,94 +145,40 @@ const renderPieChart = (
 };
 
 type StatisticsChartProps = {
-  releaseNumber?: string;
-  reviewed: boolean;
-  unreviewed: boolean;
+  data: StatisticsGraphItem[];
+  type: string;
 };
 
-const StatisticsChart = ({
-  releaseNumber,
-  reviewed,
-  unreviewed,
-}: StatisticsChartProps) => {
+const PieChart = ({ data, type }: StatisticsChartProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const reviewedStats = useDataApi<StatisticsPayload>(
-    releaseNumber &&
-      stringifyUrl(
-        `${API_PREFIX}/statistics/releases/${releaseNumber}/reviewed`,
-        { categories: 'superkingdom' }
-      )
-  );
-
-  const unreviewedStats = useDataApi<StatisticsPayload>(
-    releaseNumber &&
-      stringifyUrl(
-        `${API_PREFIX}/statistics/releases/${releaseNumber}/unreviewed`,
-        { categories: 'superkingdom' }
-      )
-  );
-
-  const data: StatisticsGraphItem[] = useMemo(() => {
-    const taxonSummed = Object.fromEntries(
-      Array.from(nameToQuery.keys(), (name) => [
-        name,
-        {
-          name,
-          entryCount: 0,
-          to: {
-            pathname: LocationToPath[Location.UniProtKBResults],
-            query: '',
-          },
-        },
-      ])
-    );
-
-    const reviewedData = reviewedStats.data?.results.find(
-      (category) => category.categoryName === 'SUPERKINGDOM'
-    );
-
-    const unreviewedData = unreviewedStats.data?.results.find(
-      (category) => category.categoryName === 'SUPERKINGDOM'
-    );
-
-    for (const [name, entry] of Object.entries(taxonSummed)) {
-      if (reviewed) {
-        entry.entryCount +=
-          reviewedData?.items.find((item) => item.name === name)?.entryCount ||
-          0;
-      }
-      if (unreviewed) {
-        entry.entryCount +=
-          unreviewedData?.items.find((item) => item.name === name)
-            ?.entryCount || 0;
-      }
-      if (reviewed && unreviewed) {
-        entry.to.query = stringifyQuery({
-          query: nameToQuery.get(name),
-        });
-      } else {
-        entry.to.query = stringifyQuery({
-          query: `(reviewed:${reviewed}) AND ${nameToQuery.get(name)}`,
-        });
-      }
-    }
-
-    return Object.values(taxonSummed);
-  }, [
-    reviewed,
-    reviewedStats.data?.results,
-    unreviewed,
-    unreviewedStats.data?.results,
-  ]);
-
   useEffect(() => {
-    if (svgRef.current && !reviewedStats.loading && !unreviewedStats.loading) {
+    if (svgRef.current) {
       renderPieChart(svgRef.current, data);
     }
-  }, [data, reviewedStats.loading, unreviewedStats.loading]);
+  }, [data]);
 
-  return <PieChart data={data} type="taxonomy" />;
+  return (
+    <svg ref={svgRef} className={styles.piechart} width={width} height={height}>
+      <g transform={`translate(${width / 2},${height / 2})`}>
+        {data?.map((datum) => (
+          <g className={styles.slice} key={datum.name} data-key={datum.name}>
+            <path />
+            <polyline />
+            <foreignObject>
+              <Link
+                // eslint-disable-next-line uniprot-website/use-config-location
+                to={datum.to}
+                title={`Search for the ${datum.entryCount} entries with ${type}: ${datum.name}`}
+              >
+                {datum.name}
+              </Link>
+            </foreignObject>
+          </g>
+        ))}
+      </g>
+    </svg>
+  );
 };
 
-export default StatisticsChart;
+export default PieChart;

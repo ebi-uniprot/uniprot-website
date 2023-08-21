@@ -8,7 +8,8 @@ import { RequireAtLeastOne } from 'type-fest';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import HTMLHead from '../../../shared/components/HTMLHead';
-import StatisticsChart from '../landing-page/StatisticsChart';
+import PieChart from '../graphs/PieChart';
+import { nameToQuery } from '../landing-page/StatisticsChart';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -637,9 +638,11 @@ const TaxonomiDistributionTable = ({
       ({ name, statistics }): MergedStatisticsItem => ({
         name,
         statistics,
-        // query: `(existence:${proteinExistenceToNumber.get(name)})`,
+        query: nameToQuery.get(name),
       })
     );
+
+  console.log(list);
 
   return (
     <div className={styles['side-by-side']}>
@@ -698,8 +701,16 @@ const TaxonomiDistributionTable = ({
           ))}
         </tbody>
       </table>
-      {/* TODO: pass data here instead of having component load it */}
-      <StatisticsChart releaseNumber="2023_03" reviewed unreviewed />
+      <PieChart
+        data={list.map((entry) => ({
+          ...entry,
+          entryCount:
+            (entry.statistics.reviewed?.entryCount || 0) +
+            (entry.statistics.unreviewed?.entryCount || 0),
+        }))}
+        type="taxonomy"
+      />
+      ;
     </div>
   );
 };
