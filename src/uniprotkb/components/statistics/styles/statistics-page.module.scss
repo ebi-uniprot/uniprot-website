@@ -6,7 +6,10 @@
     margin-block: $global-margin;
     border-spacing: 0;
     overflow: auto;
-    display: block;
+
+    caption {
+      inline-size: max-content;
+    }
   }
 
   thead {
