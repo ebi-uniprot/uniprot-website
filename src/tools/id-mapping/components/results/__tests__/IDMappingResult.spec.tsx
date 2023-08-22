@@ -89,6 +89,17 @@ describe('IDMappingResult tests', () => {
       )
     ).toBeInTheDocument();
   });
+
+  it('should render statistics for obsolete entries if present', async () => {
+    renderIDMappingResult('/id-mapping/id1/overview', SimpleMappingDetails);
+    expect(await screen.findByText('obsolete')).toBeInTheDocument();
+    const obsoleteSearchLink = screen.getByRole<HTMLAnchorElement>('link', {
+      name: 'obsolete',
+    });
+    expect(obsoleteSearchLink.href).toEqual(
+      expect.stringContaining('query=active:false')
+    );
+  });
 });
 
 describe('findUriLink', () => {
