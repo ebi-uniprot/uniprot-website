@@ -12,6 +12,7 @@ import {
   getIsAsyncDownloadIdMapping,
   getIsEmbeddings,
   getIsTooLargeForEmbeddings,
+  getPreviewCount,
   getPreviewFileFormat,
   getPreviewOptions,
   getRedirectToIDMapping,
@@ -98,6 +99,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 10,
     });
+    expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
@@ -175,6 +177,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 10,
     });
+    expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
@@ -260,6 +263,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 10,
     });
+    expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
       filename: 'uniprot_sprot.fasta.gz',
@@ -338,6 +342,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
       size: 1,
     });
+    expect(getPreviewCount(state, props, location, job)).toEqual(1);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
@@ -425,6 +430,7 @@ describe('Download Utils', () => {
       selectedIdField: 'from',
     });
     expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
+    expect(getPreviewCount(state, props, location, job)).toEqual(null);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
@@ -514,6 +520,7 @@ describe('Download Utils', () => {
       selectedIdField: 'from',
       size: 1,
     });
+    expect(getPreviewCount(state, props, location, job)).toEqual(1);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.idmapping);
@@ -599,6 +606,7 @@ describe('Download Utils', () => {
       selectedIdField: 'from',
       size: 10,
     });
+    expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.idmapping);
@@ -670,6 +678,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
     });
     expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
+    expect(getPreviewCount(state, props, location, job)).toEqual(null);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
       filename: 'uniprot_sprot/per-protein.h5',
@@ -744,6 +753,7 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
     });
     expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
+    expect(getPreviewCount(state, props, location, job)).toEqual(null);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
@@ -812,6 +822,7 @@ describe('Download Utils', () => {
       selected: [],
       selectedFacets: [],
     });
+    expect(getPreviewCount(state, props, location, job)).toEqual('file');
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.unisave);
