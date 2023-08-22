@@ -250,7 +250,9 @@ const BlastResult = () => {
             namespace,
             selectedFacets: urlParams.selectedFacets,
             facets: [],
-            query,
+            // TODO: after 2023_04 released, remove "|| '*'" below and see if a
+            // BLAST against UniRef returning isoforms UniRef entries still work
+            query: query || '*',
             columns: columns.filter((x: string | boolean): x is string =>
               Boolean(x)
             ),

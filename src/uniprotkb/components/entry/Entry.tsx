@@ -302,9 +302,10 @@ const Entry = () => {
     return <Loader progress={progress} />;
   }
 
-  const historyOldEntry =
-    isObsolete ||
-    (redirectedTo && match?.params.subPage === TabLocation.History);
+  // If there is redirection in place (might be an obsolete entry or an ID link), use the primary accession instead of match params
+  const accession = redirectedTo
+    ? data.primaryAccession
+    : match?.params.accession || '';
 
   const hasImportedVariants =
     !variantsHeadPayload.loading && variantsHeadPayload.status === 200;
@@ -317,9 +318,7 @@ const Entry = () => {
     <InPageNav sections={sections} rootElement={`.${sidebarStyles.content}`} />
   );
 
-  const publicationsSideBar = (
-    <EntryPublicationsFacets accession={match.params.accession} />
-  );
+  const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
 
   let sidebar = null;
   if (!isObsolete) {
@@ -339,7 +338,7 @@ const Entry = () => {
       <HTMLHead>
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
-      {historyOldEntry ? (
+      {isObsolete ? (
         <h1>{match.params.accession}</h1>
       ) : (
         <ErrorBoundary>
@@ -361,11 +360,11 @@ const Entry = () => {
         <Tab
           title={
             <Link
-              className={historyOldEntry ? helper.disabled : undefined}
-              tabIndex={historyOldEntry ? -1 : undefined}
+              className={isObsolete ? helper.disabled : undefined}
+              tabIndex={isObsolete ? -1 : undefined}
               to={getEntryPath(
                 Namespace.uniprotkb,
-                match.params.accession,
+                accession,
                 TabLocation.Entry
               )}
             >
@@ -377,17 +376,15 @@ const Entry = () => {
           {!isObsolete && (
             <>
               <div className="button-group">
-                <BlastButton selectedEntries={[match.params.accession]} />
+                <BlastButton selectedEntries={[accession]} />
                 {listOfIsoformAccessions.length > 1 && (
                   <AlignButton selectedEntries={listOfIsoformAccessions} />
                 )}
                 <EntryDownload />
-                <AddToBasketButton selectedEntries={match.params.accession} />
-                <CommunityAnnotationLink accession={match.params.accession} />
+                <AddToBasketButton selectedEntries={accession} />
+                <CommunityAnnotationLink accession={accession} />
                 <a
-                  href={externalUrls.CommunityCurationAdd(
-                    match.params.accession
-                  )}
+                  href={externalUrls.CommunityCurationAdd(accession)}
                   className="button tertiary"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -399,7 +396,7 @@ const Entry = () => {
                   to={{
                     pathname: LocationToPath[Location.ContactUpdate],
                     search: stringifyQuery({
-                      entry: match.params.accession,
+                      entry: accession,
                       entryType:
                         transformedData?.entryType === EntryType.REVIEWED
                           ? 'Reviewed (Swiss-Prot)'
@@ -425,7 +422,7 @@ const Entry = () => {
               tabIndex={hasImportedVariants ? undefined : -1}
               to={getEntryPath(
                 Namespace.uniprotkb,
-                match.params.accession,
+                accession,
                 TabLocation.VariantViewer
               )}
             >
@@ -444,21 +441,18 @@ const Entry = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <VariationView
-              primaryAccession={match.params.accession}
-              title="Variants"
-            />
+            <VariationView primaryAccession={accession} title="Variants" />
           </Suspense>
         </Tab>
         <Tab
           title={
             smallScreen ? null : (
               <Link
-                className={historyOldEntry ? helper.disabled : undefined}
-                tabIndex={historyOldEntry ? -1 : undefined}
+                className={isObsolete ? helper.disabled : undefined}
+                tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
                   Namespace.uniprotkb,
-                  match.params.accession,
+                  accession,
                   TabLocation.FeatureViewer
                 )}
               >
@@ -474,7 +468,7 @@ const Entry = () => {
             <Redirect
               to={getEntryPath(
                 Namespace.uniprotkb,
-                match.params.accession,
+                accession,
                 TabLocation.Entry
               )}
             />
@@ -487,18 +481,18 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <FeatureViewer accession={match.params.accession} />
+              <FeatureViewer accession={accession} />
             </Suspense>
           )}
         </Tab>
         <Tab
           title={
             <Link
-              className={historyOldEntry ? helper.disabled : undefined}
-              tabIndex={historyOldEntry ? -1 : undefined}
+              className={isObsolete ? helper.disabled : undefined}
+              tabIndex={isObsolete ? -1 : undefined}
               to={getEntryPath(
                 Namespace.uniprotkb,
-                match.params.accession,
+                accession,
                 TabLocation.Publications
               )}
             >
@@ -511,9 +505,9 @@ const Entry = () => {
         >
           <Suspense fallback={<Loader />}>
             <div className="button-group">
-              <CommunityAnnotationLink accession={match.params.accession} />
+              <CommunityAnnotationLink accession={accession} />
               <a
-                href={externalUrls.CommunityCurationAdd(match.params.accession)}
+                href={externalUrls.CommunityCurationAdd(accession)}
                 className="button tertiary"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -528,17 +522,17 @@ const Entry = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <EntryPublications accession={match.params.accession} />
+            <EntryPublications accession={accession} />
           </Suspense>
         </Tab>
         <Tab
           title={
             <Link
-              className={historyOldEntry ? helper.disabled : undefined}
-              tabIndex={historyOldEntry ? -1 : undefined}
+              className={isObsolete ? helper.disabled : undefined}
+              tabIndex={isObsolete ? -1 : undefined}
               to={getEntryPath(
                 Namespace.uniprotkb,
-                match.params.accession,
+                accession,
                 TabLocation.ExternalLinks
               )}
             >
@@ -565,7 +559,7 @@ const Entry = () => {
             <Link
               to={getEntryPath(
                 Namespace.uniprotkb,
-                match.params.accession,
+                accession,
                 TabLocation.History
               )}
             >
@@ -579,17 +573,12 @@ const Entry = () => {
           <Suspense fallback={<Loader />}>
             <HTMLHead
               title={[
-                historyOldEntry ? match.params.accession : pageTitle,
+                isObsolete ? match.params.accession : pageTitle,
                 'History',
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            {/* In order to support links with IDs, it is better to pass the data.primaryAccession instead of match params */}
-            <EntryHistory
-              accession={
-                historyOldEntry ? data.primaryAccession : match.params.accession
-              }
-            />
+            <EntryHistory accession={accession} />
           </Suspense>
         </Tab>
       </Tabs>
