@@ -759,18 +759,6 @@ describe('Download Utils', () => {
       totalNumberResults: 306,
       namespace: Namespace.unisave,
       base: '/unisave/P05067',
-      previewSelected: [
-        '306',
-        '305',
-        '304',
-        '303',
-        '302',
-        '301',
-        '300',
-        '299',
-        '298',
-        '297',
-      ],
       onClose: jest.fn(),
     };
     const state: DownloadState = {
@@ -819,19 +807,9 @@ describe('Download Utils', () => {
       fileFormat: FileFormat.text,
       namespace: Namespace.unisave,
       query: '',
-      base: '/unisave/P05067',
-      selected: [
-        '306',
-        '305',
-        '304',
-        '303',
-        '302',
-        '301',
-        '300',
-        '299',
-        '298',
-        '297',
-      ],
+      base: '/uniprotkb/P05067',
+      version: 'last',
+      selected: [],
       selectedFacets: [],
     });
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
