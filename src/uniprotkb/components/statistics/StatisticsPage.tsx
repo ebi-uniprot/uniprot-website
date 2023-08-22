@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link, LinkProps } from 'react-router-dom';
+import { schemeReds } from 'd3';
 import { RequireAtLeastOne } from 'type-fest';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -632,7 +633,8 @@ const FrequencyTable = ({
 const TaxonomiDistributionTable = ({
   reviewedData,
   unreviewedData,
-}: TableProps) => {
+  colorScheme,
+}: TableProps & { colorScheme?: string[][] }) => {
   const list = merge(reviewedData.items, unreviewedData.items)
     // .sort(sortByPE)
     .map(
@@ -715,7 +717,7 @@ const TaxonomiDistributionTable = ({
         fallback={<PieChart type="taxonomy" />}
         rootMargin="0px 0px"
       >
-        <PieChart data={graphData} type="taxonomy" />
+        <PieChart data={graphData} type="taxonomy" colorScheme={colorScheme} />
       </LazyComponent>
     </div>
   );
@@ -834,6 +836,7 @@ const StatisticsPage = () => {
         <TaxonomiDistributionTable
           reviewedData={reviewedData.EUKARYOTA}
           unreviewedData={unreviewedData.EUKARYOTA}
+          colorScheme={schemeReds as string[][]}
         />
       </Card>
       <Card id="sequence-size">

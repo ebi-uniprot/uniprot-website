@@ -43,7 +43,10 @@ const StatisticsChart = ({
       )
   );
 
-  const data: StatisticsGraphItem[] = useMemo(() => {
+  const data: StatisticsGraphItem[] | undefined = useMemo(() => {
+    if (reviewedStats.loading || unreviewedStats.loading) {
+      return undefined;
+    }
     const taxonSummed = Object.fromEntries(
       Array.from(nameToQuery.keys(), (name) => [
         name,
@@ -92,8 +95,10 @@ const StatisticsChart = ({
   }, [
     reviewed,
     reviewedStats.data?.results,
+    reviewedStats.loading,
     unreviewed,
     unreviewedStats.data?.results,
+    unreviewedStats.loading,
   ]);
 
   return <PieChart data={data} type="taxonomy" />;

@@ -60,11 +60,15 @@ const getRenderPieChart =
 
 
     (current: CurrentMap = new Map()) =>
-    (svgElement: SVGSVGElement, data: StatisticsGraphItem[]): void => {
+    (
+      svgElement: SVGSVGElement,
+      data: StatisticsGraphItem[],
+      colorScheme: string[][]
+    ): void => {
       // Create the color scale.
       const color = scaleOrdinal<string, string>()
         .domain(data.map((d) => d.name))
-        .range([...schemeBlues[data.length]].reverse());
+        .range(colorScheme[data.length]);
 
       // Get the SVG container.
       const svg = select(svgElement);
@@ -155,18 +159,23 @@ const getRenderPieChart =
 type StatisticsChartProps = {
   data?: StatisticsGraphItem[];
   type: string;
+  colorScheme?: string[][];
 };
 
-const PieChart = ({ data, type }: StatisticsChartProps) => {
+const PieChart = ({
+  data,
+  type,
+  colorScheme = schemeBlues as string[][],
+}: StatisticsChartProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const renderPieChart = useMemo(() => getRenderPieChart(), []);
 
   useEffect(() => {
     if (svgRef.current && data) {
-      renderPieChart(svgRef.current, data);
+      renderPieChart(svgRef.current, data, colorScheme);
     }
-  }, [renderPieChart, data]);
+  }, [renderPieChart, data, colorScheme]);
 
   return (
     <svg ref={svgRef} className={styles.piechart} width={width} height={height}>
