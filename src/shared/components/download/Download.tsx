@@ -43,6 +43,7 @@ import {
   getExtraContent,
   hasColumns,
   getIsEmbeddings,
+  getPreviewCount,
 } from './downloadUtils';
 
 import { FileFormat } from '../../types/resultsDownload';
@@ -310,10 +311,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           onClick={() => dispatch(updateExtraContent('preview'))}
           disabled={redirectToIDMapping}
         >
-          Preview{' '}
-          {namespace === Namespace.unisave && !selectedEntries.length
-            ? 'file'
-            : previewOptions?.size}
+          Preview {getPreviewCount(state, props, location, job)}
         </Button>
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel

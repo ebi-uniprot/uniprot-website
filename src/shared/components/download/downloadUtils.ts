@@ -172,6 +172,26 @@ export const getPreviewOptions = (
   }
   return previewOptions;
 };
+
+export const getPreviewCount = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  location: HistoryLocation<unknown>,
+  job: ReturnType<typeof useJobFromUrl>
+) => {
+  const previewOptions = getPreviewOptions(state, props, location, job);
+  if (!previewOptions) {
+    return null;
+  }
+  if (
+    props.namespace === Namespace.unisave &&
+    previewOptions?.selected.length
+  ) {
+    return previewOptions.selected.length;
+  }
+  return previewOptions?.size || 'file';
+};
+
 export const getFtpFilenameAndUrl = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
