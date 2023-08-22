@@ -634,7 +634,8 @@ const TaxonomiDistributionTable = ({
   reviewedData,
   unreviewedData,
   colorScheme,
-}: TableProps & { colorScheme?: string[][] }) => {
+  distributionLabel,
+}: TableProps & { colorScheme?: string[][]; distributionLabel: string }) => {
   const list = merge(reviewedData.items, unreviewedData.items)
     // .sort(sortByPE)
     .map(
@@ -659,10 +660,12 @@ const TaxonomiDistributionTable = ({
   return (
     <div className={styles['side-by-side']}>
       <table>
-        <caption>Taxonomic distribution of the sequences</caption>
+        <caption>
+          Taxonomic distribution of the sequences {distributionLabel}
+        </caption>
         <thead>
           <tr>
-            <th>Kingdom</th>
+            <th>Taxonomy</th>
             <th>UniProtKB</th>
             <th>UniProtKB reviewed</th>
             <th>UniProtKB unreviewed</th>
@@ -832,11 +835,13 @@ const StatisticsPage = () => {
         <TaxonomiDistributionTable
           reviewedData={reviewedData.SUPERKINGDOM}
           unreviewedData={unreviewedData.SUPERKINGDOM}
+          distributionLabel="across kingdoms"
         />
         <TaxonomiDistributionTable
           reviewedData={reviewedData.EUKARYOTA}
           unreviewedData={unreviewedData.EUKARYOTA}
           colorScheme={schemeReds as string[][]}
+          distributionLabel="within eukaryota"
         />
       </Card>
       <Card id="sequence-size">
