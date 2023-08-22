@@ -11,7 +11,11 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import { getSupportedFormats, rawDBToNamespace } from '../../utils';
 import { pluralise } from '../../../../shared/utils/utils';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
-import { getEntryPath } from '../../../../app/config/urls';
+import {
+  getEntryPath,
+  LocationToPath,
+  Location,
+} from '../../../../app/config/urls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../../uniparc/components/entry/Entry';
@@ -50,8 +54,10 @@ const IDMappingResultTable = ({
   const inputLength = inputIDs?.length || 0;
   const failedLength = resultsDataObject.failedIds?.length || 0;
   const suggestedLength = resultsDataObject.suggestedIds?.length || 0;
+  const obsoleteLength = resultsDataObject.obsoleteCount || 0;
 
   const mappedLength = inputLength - failedLength - suggestedLength;
+  const activeLength = mappedLength - obsoleteLength;
 
   return (
     <>
@@ -124,6 +130,39 @@ const IDMappingResultTable = ({
                   </span>
                 ))}
               </ExpandableList>
+            </div>
+          )}
+          {obsoleteLength > 0 && (
+            <div>
+              {activeLength ? (
+                <>
+                  <strong>
+                    <LongNumber>{activeLength}</LongNumber>
+                  </strong>{' '}
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: 'query=active:true',
+                    }}
+                  >
+                    active
+                  </Link>{' '}
+                  {pluralise('entry', activeLength, 'entries')} and{' '}
+                </>
+              ) : null}
+              <strong>
+                <LongNumber>{obsoleteLength}</LongNumber>
+              </strong>{' '}
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: 'query=active:false',
+                }}
+              >
+                obsolete
+              </Link>{' '}
+              {pluralise('entry', obsoleteLength, 'entries')}{' '}
+              {pluralise('is', mappedLength, 'are')} found
             </div>
           )}
         </HeroContainer>
