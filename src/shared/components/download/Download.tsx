@@ -80,7 +80,6 @@ export type DownloadProps<T extends JobTypes> = {
 
 const Download = (props: DownloadProps<JobTypes>) => {
   const {
-    selectedEntries = [],
     totalNumberResults,
     onClose,
     namespace,
