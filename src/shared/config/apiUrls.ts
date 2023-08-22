@@ -377,6 +377,7 @@ export type DownloadUrlOptions = {
   accessions?: string[];
   download?: boolean;
   jobId?: string; // ID Mapping Async Download
+  version?: string;
 };
 
 export const getDownloadUrl = ({

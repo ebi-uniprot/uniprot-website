@@ -309,10 +309,6 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
     return <Loader progress={accessionData.progress} />;
   }
 
-  const previewSelected = selectedEntries.length
-    ? selectedEntries.slice(0, 10)
-    : data.slice(0, 10).map((entry) => entry.entryVersion.toString());
-
   // Don't check accessionData.error!
   // Might return 404 when no history, not a bug, just a weird edge case we need
   // to take into account. Example: P50409
@@ -395,7 +391,6 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={Namespace.unisave}
                 base={`/unisave/${accession}`}
-                previewSelected={previewSelected}
               />
             </ErrorBoundary>
           </SlidingPanel>

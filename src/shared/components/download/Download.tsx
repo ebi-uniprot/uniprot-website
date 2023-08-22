@@ -75,7 +75,6 @@ export type DownloadProps<T extends JobTypes> = {
   inBasketMini?: boolean;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
-  previewSelected?: string[];
 };
 
 const Download = (props: DownloadProps<JobTypes>) => {

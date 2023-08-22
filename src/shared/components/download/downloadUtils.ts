@@ -161,10 +161,14 @@ export const getPreviewOptions = (
     size: Math.min(10, getDownloadCount(state, props)),
     base: props.base,
   };
-  if (props.namespace === Namespace.unisave && props.previewSelected) {
-    // Use previewSelected (determined in the EntryHistory component) instead of using the size parameters
+  if (props.namespace === Namespace.unisave) {
+    if (props.selectedEntries?.length) {
+      previewOptions.selected = props.selectedEntries.reverse().slice(0, 10);
+    } else if (props.base) {
+      previewOptions.base = props.base.replace('/unisave/', '/uniprotkb/');
+      previewOptions.version = 'last';
+    }
     previewOptions.size = undefined;
-    previewOptions.selected = props.previewSelected;
   }
   return previewOptions;
 };
