@@ -76,11 +76,11 @@ const StatisticsChart = ({
       }
       if (reviewed && unreviewed) {
         entry.to.query = stringifyQuery({
-          query: nameToQuery.get(name),
+          query: nameToQueryKingdoms.get(name),
         });
       } else {
         entry.to.query = stringifyQuery({
-          query: `(reviewed:${reviewed}) AND ${nameToQuery.get(name)}`,
+          query: `(reviewed:${reviewed}) AND ${nameToQueryKingdoms.get(name)}`,
         });
       }
     }
