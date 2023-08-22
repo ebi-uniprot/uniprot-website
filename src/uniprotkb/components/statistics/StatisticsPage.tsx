@@ -639,7 +639,7 @@ const TaxonomiDistributionTable = ({
 }: TableProps & {
   colorScheme?: string[][];
   distributionLabel: string;
-  nameToQuery: Map<string, string>;
+  nameToQuery: Map<string, string | undefined>;
 }) => {
   const list = merge(reviewedData.items, unreviewedData.items)
     // .sort(sortByPE)
@@ -681,20 +681,20 @@ const TaxonomiDistributionTable = ({
             <tr key={name}>
               <td>{name}</td>
               <td className={styles.end}>
-                <Link
+                <CountLinkOrNothing
+                  condition={Boolean(query)}
                   to={{
                     pathname: LocationToPath[Location.UniProtKBResults],
                     search: stringifyQuery({ query }),
                   }}
                 >
-                  <LongNumber>
-                    {(statistics.reviewed?.entryCount || 0) +
-                      (statistics.unreviewed?.entryCount || 0)}
-                  </LongNumber>
-                </Link>
+                  {(statistics.reviewed?.entryCount || 0) +
+                    (statistics.unreviewed?.entryCount || 0)}
+                </CountLinkOrNothing>
               </td>
               <td className={styles.end}>
                 <CountLinkOrNothing
+                  condition={Boolean(query)}
                   to={{
                     pathname: LocationToPath[Location.UniProtKBResults],
                     search: stringifyQuery({
@@ -707,6 +707,7 @@ const TaxonomiDistributionTable = ({
               </td>
               <td className={styles.end}>
                 <CountLinkOrNothing
+                  condition={Boolean(query)}
                   to={{
                     pathname: LocationToPath[Location.UniProtKBResults],
                     search: stringifyQuery({
