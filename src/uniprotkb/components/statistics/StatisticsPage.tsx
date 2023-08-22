@@ -16,7 +16,7 @@ import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { stringifyQuery } from '../../../shared/utils/url';
-import { nameToQuery } from '../landing-page/StatisticsChart';
+import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -635,7 +635,12 @@ const TaxonomiDistributionTable = ({
   unreviewedData,
   colorScheme,
   distributionLabel,
-}: TableProps & { colorScheme?: string[][]; distributionLabel: string }) => {
+  nameToQuery,
+}: TableProps & {
+  colorScheme?: string[][];
+  distributionLabel: string;
+  nameToQuery: Map<string, string>;
+}) => {
   const list = merge(reviewedData.items, unreviewedData.items)
     // .sort(sortByPE)
     .map(
@@ -836,12 +841,14 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.SUPERKINGDOM}
           unreviewedData={unreviewedData.SUPERKINGDOM}
           distributionLabel="across kingdoms"
+          nameToQuery={nameToQueryKingdoms}
         />
         <TaxonomiDistributionTable
           reviewedData={reviewedData.EUKARYOTA}
           unreviewedData={unreviewedData.EUKARYOTA}
           colorScheme={schemeReds as string[][]}
           distributionLabel="within eukaryota"
+          nameToQuery={nameToQueryEukaryota}
         />
       </Card>
       <Card id="sequence-size">

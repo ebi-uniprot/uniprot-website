@@ -2,19 +2,13 @@ import { useMemo } from 'react';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { StatisticsPayload } from '../statistics/StatisticsPage';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { nameToQueryKingdoms } from '../statistics/taxonomyQueries';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 
-import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import { LocationToPath, Location } from '../../../app/config/urls';
+import { StatisticsPayload } from '../statistics/StatisticsPage';
 
-export const nameToQuery = new Map<string, string>([
-  ['Archaea', '(taxonomy_id:2157)'],
-  ['Eukaryota', '(taxonomy_id:2759)'],
-  ['Viruses', '(taxonomy_id:10239)'],
-  ['Bacteria', '(taxonomy_id:2)'],
-  ['Other', '((taxonomy_id:2787854) OR (taxonomy_id:2787823))'],
-]);
+import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
 
 type StatisticsChartProps = {
   releaseNumber?: string;
@@ -48,7 +42,7 @@ const StatisticsChart = ({
       return undefined;
     }
     const taxonSummed = Object.fromEntries(
-      Array.from(nameToQuery.keys(), (name) => [
+      Array.from(nameToQueryKingdoms.keys(), (name) => [
         name,
         {
           name,
