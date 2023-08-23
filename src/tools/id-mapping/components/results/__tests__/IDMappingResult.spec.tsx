@@ -8,6 +8,8 @@ import { IDMappingDetailsContext } from '../../../../../shared/contexts/IDMappin
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
+import { stringifyQuery } from '../../../../../shared/utils/url';
+
 import SimpleMappingData from '../__mocks__/SimpleMapping';
 import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
@@ -97,7 +99,7 @@ describe('IDMappingResult tests', () => {
       name: 'obsolete',
     });
     expect(obsoleteSearchLink.href).toEqual(
-      expect.stringContaining('query=active:false')
+      expect.stringContaining(stringifyQuery({ query: 'active:false' }))
     );
   });
 });
