@@ -254,12 +254,14 @@ const Entry = () => {
   useEffect(() => {
     if (match?.params.accession.includes('-')) {
       const [accession] = match.params.accession.split('-');
-      history.replace(
-        // eslint-disable-next-line uniprot-website/use-config-location
-        `${getEntryPath(Namespace.uniprotkb, accession, TabLocation.Entry)}#${
-          match.params.accession
-        }`
-      );
+      history.replace({
+        pathname: getEntryPath(
+          Namespace.uniprotkb,
+          accession,
+          TabLocation.Entry
+        ),
+        hash: match.params.accession,
+      });
     }
   }, [history, match?.params.accession]);
 

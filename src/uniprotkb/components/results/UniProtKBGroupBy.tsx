@@ -541,15 +541,12 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
     (_, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
-        history.push(
-          // eslint-disable-next-line uniprot-website/use-config-location
-          {
-            pathname: history.location.pathname,
-            search: stringifyQuery(locationSearch, {
-              parent: id,
-            }),
-          }
-        );
+        history.push({
+          pathname: history.location.pathname,
+          search: stringifyQuery(locationSearch, {
+            parent: id,
+          }),
+        });
       }
     },
     [history, locationSearch]
