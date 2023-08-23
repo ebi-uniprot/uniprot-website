@@ -42,17 +42,20 @@ const StatisticsChart = ({
       return undefined;
     }
     const taxonSummed = Object.fromEntries(
-      Array.from(nameToQueryKingdoms.keys(), (name) => [
-        name,
-        {
+      Array.from<string, [name: string, graphItem: StatisticsGraphItem]>(
+        nameToQueryKingdoms.keys(),
+        (name) => [
           name,
-          entryCount: 0,
-          to: {
-            pathname: LocationToPath[Location.UniProtKBResults],
-            query: '',
+          {
+            name,
+            entryCount: 0,
+            to: {
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: '',
+            },
           },
-        },
-      ])
+        ]
+      )
     );
 
     const reviewedData = reviewedStats.data?.results.find(
@@ -75,11 +78,11 @@ const StatisticsChart = ({
             ?.entryCount || 0;
       }
       if (reviewed && unreviewed) {
-        entry.to.query = stringifyQuery({
+        entry.to.search = stringifyQuery({
           query: nameToQueryKingdoms.get(name),
         });
       } else {
-        entry.to.query = stringifyQuery({
+        entry.to.search = stringifyQuery({
           query: `(reviewed:${reviewed}) AND ${nameToQueryKingdoms.get(name)}`,
         });
       }
