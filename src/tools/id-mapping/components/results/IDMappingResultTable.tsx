@@ -11,11 +11,8 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import { getSupportedFormats, rawDBToNamespace } from '../../utils';
 import { pluralise } from '../../../../shared/utils/utils';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
-import {
-  getEntryPath,
-  LocationToPath,
-  Location,
-} from '../../../../app/config/urls';
+import { stringifyQuery } from '../../../../shared/utils/url';
+import { getEntryPath } from '../../../../app/config/urls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../../uniparc/components/entry/Entry';
@@ -140,10 +137,11 @@ const IDMappingResultTable = ({
                     <LongNumber>{activeLength}</LongNumber>
                   </strong>{' '}
                   <Link
-                    to={{
-                      pathname: LocationToPath[Location.UniProtKBResults],
-                      search: 'query=active:true',
-                    }}
+                    // eslint-disable-next-line uniprot-website/use-config-location
+                    to={(location) => ({
+                      ...location,
+                      search: stringifyQuery({ query: 'active:true' }),
+                    })}
                   >
                     active
                   </Link>{' '}
@@ -154,10 +152,11 @@ const IDMappingResultTable = ({
                 <LongNumber>{obsoleteLength}</LongNumber>
               </strong>{' '}
               <Link
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: 'query=active:false',
-                }}
+                // eslint-disable-next-line uniprot-website/use-config-location
+                to={(location) => ({
+                  ...location,
+                  search: stringifyQuery({ query: 'active:false' }),
+                })}
               >
                 obsolete
               </Link>{' '}
