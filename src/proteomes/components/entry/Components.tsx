@@ -75,6 +75,7 @@ export const Components = ({
               let url;
               switch (genomeAnnotation.source) {
                 case 'Refseq':
+                case 'RefSeq':
                   url = externalUrls.NCBINucleotide(id);
                   break;
                 case 'ENA/EMBL':
