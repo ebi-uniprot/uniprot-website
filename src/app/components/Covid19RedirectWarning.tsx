@@ -17,8 +17,8 @@ const Covid19DeploymentWarning = () => {
           level="warning"
           onDismiss={() => setDismissed(true)}
         >
-          You have been redirected from the COVID-19 Portal which has been shut
-          down.
+          You have been redirected from the COVID-19 portal which is now
+          obsolete as all entries have been fully integrated into UniProtKB.
         </Message>
       ) : null}
     </>
