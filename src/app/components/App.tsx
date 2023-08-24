@@ -24,6 +24,7 @@ import GDPR from '../../shared/components/gdpr/GDPR';
 import DeploymentWarning from './DeploymentWarning';
 
 import history from '../../shared/utils/browserHistory';
+import { stringifyUrl } from '../../shared/utils/url';
 
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useReloadApp from '../../shared/hooks/useReloadApp';
@@ -35,7 +36,6 @@ import {
 } from '../config/urls';
 
 import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
-import { stringifyUrl } from '../../shared/utils/url';
 
 import pkg from '../../../package.json';
 
