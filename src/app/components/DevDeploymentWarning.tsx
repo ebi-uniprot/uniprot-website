@@ -1,11 +1,11 @@
 import { Message } from 'franklin-sites';
 import { useState } from 'react';
 
-import style from './styles/deployment-warning.module.scss';
+import style from './styles/dev-deployment-warning.module.scss';
 
 const reUniProtOrg = /^https?:\/\/www\.uniprot\.org/;
 
-const DeploymentWarning = () => {
+const DevDeploymentWarning = () => {
   const [dismissed, setDismissed] = useState(false);
   return (
     <>
@@ -13,7 +13,7 @@ const DeploymentWarning = () => {
       !LIVE_RELOAD &&
       !dismissed ? (
         <Message
-          className={style['deployment-warning']}
+          className={style['dev-deployment-warning']}
           level="warning"
           onDismiss={() => setDismissed(true)}
         >
@@ -26,4 +26,4 @@ const DeploymentWarning = () => {
   );
 };
 
-export default DeploymentWarning;
+export default DevDeploymentWarning;
