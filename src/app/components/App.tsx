@@ -22,6 +22,7 @@ import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumn
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 import DevDeploymentWarning from './DevDeploymentWarning';
+import Covid19RedirectWarning from './Covid19RedirectWarning';
 
 import history from '../../shared/utils/browserHistory';
 
@@ -332,6 +333,7 @@ const App = () => {
         />
       </Helmet>
       <DevDeploymentWarning />
+      <Covid19RedirectWarning />
       <BaseLayout>
         <Suspense fallback={<Loader />}>
           <Switch>
