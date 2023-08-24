@@ -350,16 +350,22 @@ const IntroductionEntriesTable = ({
         caption="Total number of entries in this release of UniProtKB"
         tableData={[
           {
-            header: 'Number of entries',
+            header: (
+              <>
+                Number of entries
+                <br />
+                in total
+              </>
+            ),
             data: map.get('ENTRY')!,
             query: '*',
           },
           {
             header: (
               <>
-                of which,
+                Number of entries
                 <br />
-                existing entries with an annotation update
+                with an annotation update
               </>
             ),
             data: map.get('ANNOTATION_UPDATED')!,
@@ -367,9 +373,9 @@ const IntroductionEntriesTable = ({
           {
             header: (
               <>
-                of which,
+                Number of entries
                 <br />
-                existing entries with a sequence update
+                with a sequence update
               </>
             ),
             data: map.get('UPDATED_SEQUENCE')!,
@@ -395,9 +401,7 @@ const IntroductionEntriesTable = ({
           {
             header: (
               <>
-                of which,
-                <br />
-                new entries with a new sequence
+                Number of <strong>new</strong> sequences
               </>
             ),
             data: map.get('NEW_ENTRY_AND_NEW_SEQUENCE')!,
