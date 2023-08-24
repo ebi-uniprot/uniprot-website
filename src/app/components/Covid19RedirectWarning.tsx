@@ -3,13 +3,13 @@ import { useState } from 'react';
 
 import style from './styles/warning-message.module.scss';
 
-const reFromCovidPortal = /fromCovid19Portal=true/i;
+const reFromCovid19Portal = /fromCovid19Portal=true/;
 
 const Covid19DeploymentWarning = () => {
   const [dismissed, setDismissed] = useState(false);
   return (
     <>
-      {!window.location.search.match(reFromCovidPortal) &&
+      {window.location.search.match(reFromCovid19Portal) &&
       !LIVE_RELOAD &&
       !dismissed ? (
         <Message
