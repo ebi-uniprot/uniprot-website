@@ -9,13 +9,12 @@ import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL from './DownloadAPIURL';
 import ExternalLink from '../ExternalLink';
+import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
-
-import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
 
 import {
   DownloadSelectOptions,
@@ -95,7 +94,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const location: HistoryLocation<unknown> = useLocation();
   const [state, dispatch] = useReducer(
     downloadReducer,
-    { props, selectedColumns: columnNames },
+    { props, job, selectedColumns: columnNames },
     getDownloadInitialState
   );
 

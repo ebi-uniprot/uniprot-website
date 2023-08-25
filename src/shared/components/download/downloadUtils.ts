@@ -5,8 +5,13 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
-import { fileFormatsWithColumns } from '../../config/resultsDownload';
+import {
+  fileFormatsWithColumns,
+  nsToFileFormatsResultsDownload,
+} from '../../config/resultsDownload';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
+import { reUniProtKBAccession } from '../../../uniprotkb/utils';
+import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
 
 import { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
@@ -30,6 +35,43 @@ const ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS = new Set([
   FileFormat.tsv,
   FileFormat.json,
 ]);
+
+const reSubsequence = /\[\d{1,5}-\d{1,5}\]/;
+const reSubsequenceFrom = new RegExp(
+  `(${reUniProtKBAccession.source})${reSubsequence.source}`,
+  'i'
+);
+
+export const isSubsequenceFrom = (ids: string) =>
+  // Note that current API implementation expects from IDs to be either:
+  //  1. 100% subsequence
+  //  2. 100% normal
+  // eg no mixture in one job
+  // When the API does support a mixture we'll need the actual results
+  // to determine if any of the successful mapped IDs are subsequence.
+  // Until then we can just rely on the job submission IDs.
+  ids.split(',').every((id) => id.match(reSubsequenceFrom));
+
+export const getFileFormatsOptions = (
+  props: DownloadProps<JobTypes>,
+  job: ReturnType<typeof useJobFromUrl>
+) => {
+  const fileFormatsOptions = nsToFileFormatsResultsDownload[props.namespace];
+  if (job.jobResultsLocation === Location.IDMappingResult) {
+    if (!job.jobResultsNamespace) {
+      return fileFormatsUnenrichedResultsDownload;
+    }
+    if (
+      job.jobResultsNamespace === Namespace.uniprotkb &&
+      props?.inputParamsData &&
+      'ids' in props.inputParamsData &&
+      isSubsequenceFrom(props.inputParamsData.ids)
+    ) {
+      return [FileFormat.fastaSubsequence, ...fileFormatsOptions];
+    }
+  }
+  return fileFormatsOptions;
+};
 
 export const getPreviewFileFormat = (
   state: DownloadState

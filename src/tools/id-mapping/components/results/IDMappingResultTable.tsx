@@ -8,7 +8,7 @@ import { IDMappingFromContext } from './FromColumn';
 
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
-import { getSupportedFormats, rawDBToNamespace } from '../../utils';
+import { rawDBToNamespace } from '../../utils';
 import { pluralise } from '../../../../shared/utils/utils';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 import { getEntryPath } from '../../../../app/config/urls';
@@ -39,17 +39,10 @@ const IDMappingResultTable = ({
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
-
-  const supportedFormats = getSupportedFormats(
-    resultsDataObject.allResults,
-    namespaceOverride
-  );
-
   const inputIDs = splitAndTidyText(detailsData?.ids);
   const inputLength = inputIDs?.length || 0;
   const failedLength = resultsDataObject.failedIds?.length || 0;
   const suggestedLength = resultsDataObject.suggestedIds?.length || 0;
-
   const mappedLength = inputLength - failedLength - suggestedLength;
 
   return (
@@ -64,7 +57,6 @@ const IDMappingResultTable = ({
         notCustomisable={
           notCustomisable || namespaceOverride === Namespace.idmapping
         }
-        supportedFormats={supportedFormats}
         jobType={JobTypes.ID_MAPPING}
         inputParamsData={inputParamsData}
       />

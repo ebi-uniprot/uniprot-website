@@ -1,14 +1,16 @@
 import { ActionType } from 'typesafe-actions';
 
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+
 import * as downloadActions from './downloadActions';
 
 import { Column } from '../../config/columns';
-import { nsToFileFormatsResultsDownload } from '../../config/resultsDownload';
 
 import { DownloadProps } from './Download';
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { getFileFormatsOptions } from './downloadUtils';
 
 export type DownloadAction = ActionType<typeof downloadActions>;
 
@@ -28,13 +30,14 @@ export type DownloadState = {
 
 export const getDownloadInitialState = ({
   props,
+  job,
   selectedColumns,
 }: {
   props: DownloadProps<JobTypes>;
+  job: ReturnType<typeof useJobFromUrl>;
   selectedColumns: Column[];
 }): DownloadState => {
-  const fileFormatOptions =
-    props.supportedFormats || nsToFileFormatsResultsDownload[props.namespace];
+  const fileFormatOptions = getFileFormatsOptions(props, job);
   return {
     selectedColumns,
     fileFormatOptions,
