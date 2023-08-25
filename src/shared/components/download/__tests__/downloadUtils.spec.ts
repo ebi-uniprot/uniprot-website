@@ -17,10 +17,12 @@ import {
   getPreviewOptions,
   getRedirectToIDMapping,
   hasColumns,
+  isSubsequenceFrom,
 } from '../downloadUtils';
 
 import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
+import { getDownloadInitialState } from '../downloadReducer';
 
 import { Location } from '../../../../app/config/urls';
 import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
@@ -28,8 +30,33 @@ import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
 import { JobTypes } from '../../../../tools/types/toolsJobTypes';
 import { DownloadProps } from '../Download';
-import { DownloadState } from '../downloadReducer';
 import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
+
+const subsequenceData = 'P05067[1-12345],P12345[5-15]';
+const notSubsequenceData = 'P05067[1-12345],P12345';
+
+describe('isSubsequenceFrom', () => {
+  it('should return true for from with subsequence specified', () => {
+    expect(isSubsequenceFrom(subsequenceData)).toBe(true);
+  });
+  it('should return false for normal accession', () => {
+    expect(isSubsequenceFrom(notSubsequenceData)).toBe(false);
+  });
+});
+
+const normalFileFormatOptions = [
+  FileFormat.fastaCanonical,
+  FileFormat.fastaCanonicalIsoform,
+  FileFormat.tsv,
+  FileFormat.excel,
+  FileFormat.json,
+  FileFormat.xml,
+  FileFormat.rdfXml,
+  FileFormat.text,
+  FileFormat.gff,
+  FileFormat.list,
+  FileFormat.embeddings,
+];
 
 describe('Download Utils', () => {
   test('small uniprotkb download', () => {
@@ -40,27 +67,6 @@ describe('Download Utils', () => {
       notCustomisable: false,
       inBasketMini: false,
       onClose: jest.fn(),
-    };
-    const state: DownloadState = {
-      selectedColumns: defaultColumns,
-      fileFormatOptions: [
-        FileFormat.fastaCanonical,
-        FileFormat.fastaCanonicalIsoform,
-        FileFormat.tsv,
-        FileFormat.excel,
-        FileFormat.json,
-        FileFormat.xml,
-        FileFormat.rdfXml,
-        FileFormat.text,
-        FileFormat.gff,
-        FileFormat.list,
-        FileFormat.embeddings,
-      ],
-      selectedFileFormat: FileFormat.fastaCanonical,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: null,
-      nSelectedEntries: 0,
     };
 
     const location: HistoryLocation = {
@@ -75,7 +81,21 @@ describe('Download Utils', () => {
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
     };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: normalFileFormatOptions,
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(24094);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -118,27 +138,6 @@ describe('Download Utils', () => {
       inBasketMini: false,
       onClose: jest.fn(),
     };
-    const state: DownloadState = {
-      selectedColumns: defaultColumns,
-      fileFormatOptions: [
-        FileFormat.fastaCanonical,
-        FileFormat.fastaCanonicalIsoform,
-        FileFormat.tsv,
-        FileFormat.excel,
-        FileFormat.json,
-        FileFormat.xml,
-        FileFormat.rdfXml,
-        FileFormat.text,
-        FileFormat.gff,
-        FileFormat.list,
-        FileFormat.embeddings,
-      ],
-      selectedFileFormat: FileFormat.tsv,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: 'url',
-      nSelectedEntries: 0,
-    };
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
       search: '?query=*',
@@ -151,7 +150,24 @@ describe('Download Utils', () => {
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
     };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: normalFileFormatOptions,
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
+    // Manually set state
+    state.selectedFileFormat = FileFormat.tsv;
+    state.extraContent = 'url';
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsv);
     expect(getDownloadCount(state, props)).toEqual(248842690);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -196,27 +212,6 @@ describe('Download Utils', () => {
       inBasketMini: false,
       onClose: jest.fn(),
     };
-    const state: DownloadState = {
-      selectedColumns: defaultColumns,
-      fileFormatOptions: [
-        FileFormat.fastaCanonical,
-        FileFormat.fastaCanonicalIsoform,
-        FileFormat.tsv,
-        FileFormat.excel,
-        FileFormat.json,
-        FileFormat.xml,
-        FileFormat.rdfXml,
-        FileFormat.text,
-        FileFormat.gff,
-        FileFormat.list,
-        FileFormat.embeddings,
-      ],
-      selectedFileFormat: FileFormat.fastaCanonical,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: 'url',
-      nSelectedEntries: 0,
-    };
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
       search: '?facets=reviewed%3Atrue&query=%2A',
@@ -229,7 +224,23 @@ describe('Download Utils', () => {
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
     };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: normalFileFormatOptions,
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
+    // Manually set state
+    state.extraContent = 'url';
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(569793);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -283,7 +294,6 @@ describe('Download Utils', () => {
       namespace: Namespace.uniprotkb,
       base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
       notCustomisable: false,
-      supportedFormats: uniProtKBFileFormatsResultsDownload,
       inBasketMini: false,
       inputParamsData: {
         from: 'UniProtKB_AC-ID',
@@ -294,15 +304,6 @@ describe('Download Utils', () => {
       } as MappingDetails,
       jobType: JobTypes.ID_MAPPING,
       onClose: jest.fn(),
-    };
-    const state: DownloadState = {
-      selectedColumns: defaultColumns,
-      fileFormatOptions: uniProtKBFileFormatsResultsDownload,
-      selectedFileFormat: FileFormat.fastaCanonical,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: 'generate',
-      nSelectedEntries: 0,
     };
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
@@ -316,7 +317,23 @@ describe('Download Utils', () => {
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
     };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: uniProtKBFileFormatsResultsDownload,
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
+    // Manually set state
+    state.extraContent = 'generate';
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(1);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -359,13 +376,6 @@ describe('Download Utils', () => {
       namespace: Namespace.idmapping,
       base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/13a61a7a694b2a0193ccde8b937d2b7d60efddc0',
       notCustomisable: true,
-      supportedFormats: [
-        FileFormat.tsvIdMappingFromTo,
-        FileFormat.tsv,
-        FileFormat.excelIdMappingFromTo,
-        FileFormat.jsonIdMappingFromTo,
-        FileFormat.json,
-      ],
       inBasketMini: false,
       inputParamsData: {
         from: 'UniRef50',
@@ -384,21 +394,6 @@ describe('Download Utils', () => {
       jobType: JobTypes.ID_MAPPING,
       onClose: jest.fn(),
     };
-    const state: DownloadState = {
-      selectedColumns: defaultColumns,
-      fileFormatOptions: [
-        FileFormat.tsvIdMappingFromTo,
-        FileFormat.tsv,
-        FileFormat.excelIdMappingFromTo,
-        FileFormat.jsonIdMappingFromTo,
-        FileFormat.json,
-      ],
-      selectedFileFormat: FileFormat.tsv,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: 'generate',
-      nSelectedEntries: 0,
-    };
     const location: HistoryLocation = {
       pathname:
         '/id-mapping/uniprotkb/13a61a7a694b2a0193ccde8b937d2b7d60efddc0/overview',
@@ -414,7 +409,29 @@ describe('Download Utils', () => {
       jobResultsLocation: Location.IDMappingResult,
       jobResultsNamespace: Namespace.uniprotkb,
     };
-
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: [
+        FileFormat.tsvIdMappingFromTo,
+        FileFormat.tsv,
+        FileFormat.excelIdMappingFromTo,
+        FileFormat.jsonIdMappingFromTo,
+        FileFormat.json,
+      ],
+      selectedFileFormat: FileFormat.tsvIdMappingFromTo,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
+    // Manually set state
+    state.extraContent = 'generate';
+    state.selectedFileFormat = FileFormat.tsv;
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsv);
     expect(getDownloadCount(state, props)).toEqual(279998);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(true);
@@ -447,13 +464,6 @@ describe('Download Utils', () => {
       namespace: Namespace.idmapping,
       base: 'https://rest.uniprot.org/idmapping/results/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
       notCustomisable: true,
-      supportedFormats: [
-        FileFormat.tsvIdMappingFromTo,
-        FileFormat.tsv,
-        FileFormat.excelIdMappingFromTo,
-        FileFormat.jsonIdMappingFromTo,
-        FileFormat.json,
-      ],
       inBasketMini: false,
       inputParamsData: {
         from: 'UniProtKB_AC-ID',
@@ -464,21 +474,6 @@ describe('Download Utils', () => {
       } as MappingDetails,
       jobType: JobTypes.ID_MAPPING,
       onClose: jest.fn(),
-    };
-    const state: DownloadState = {
-      selectedColumns: [IDMappingColumn.from, IDMappingColumn.to],
-      fileFormatOptions: [
-        FileFormat.tsvIdMappingFromTo,
-        FileFormat.tsv,
-        FileFormat.excelIdMappingFromTo,
-        FileFormat.jsonIdMappingFromTo,
-        FileFormat.json,
-      ],
-      selectedFileFormat: FileFormat.tsvIdMappingFromTo,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: null,
-      nSelectedEntries: 0,
     };
     const location: HistoryLocation = {
       pathname: '/id-mapping/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf/overview',
@@ -494,7 +489,26 @@ describe('Download Utils', () => {
       jobResultsLocation: Location.IDMappingResult,
       jobResultsNamespace: undefined,
     };
+    const selectedColumns = [IDMappingColumn.from, IDMappingColumn.to];
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns,
+      fileFormatOptions: [
+        FileFormat.tsvIdMappingFromTo,
+        FileFormat.excelIdMappingFromTo,
+        FileFormat.jsonIdMappingFromTo,
+      ],
+      selectedFileFormat: FileFormat.tsvIdMappingFromTo,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(1);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -537,11 +551,6 @@ describe('Download Utils', () => {
       namespace: Namespace.idmapping,
       base: 'https://rest.uniprot.org/idmapping/results/fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
       notCustomisable: true,
-      supportedFormats: [
-        FileFormat.tsvIdMappingFromTo,
-        FileFormat.excelIdMappingFromTo,
-        FileFormat.jsonIdMappingFromTo,
-      ],
       inBasketMini: false,
       inputParamsData: {
         from: 'UniProtKB_AC-ID',
@@ -552,19 +561,6 @@ describe('Download Utils', () => {
       } as MappingDetails,
       jobType: JobTypes.ID_MAPPING,
       onClose: jest.fn(),
-    };
-    const state: DownloadState = {
-      selectedColumns: [IDMappingColumn.from, IDMappingColumn.to],
-      fileFormatOptions: [
-        FileFormat.tsvIdMappingFromTo,
-        FileFormat.excelIdMappingFromTo,
-        FileFormat.jsonIdMappingFromTo,
-      ],
-      selectedFileFormat: FileFormat.tsvIdMappingFromTo,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: null,
-      nSelectedEntries: 0,
     };
     const location: HistoryLocation = {
       pathname: '/id-mapping/fb56256d1adf57f4e181a5b3bebabb54f77b89cc/overview',
@@ -580,7 +576,26 @@ describe('Download Utils', () => {
       jobResultsLocation: Location.IDMappingResult,
       jobResultsNamespace: undefined,
     };
+    const selectedColumns = [IDMappingColumn.from, IDMappingColumn.to];
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns,
+      fileFormatOptions: [
+        FileFormat.tsvIdMappingFromTo,
+        FileFormat.excelIdMappingFromTo,
+        FileFormat.jsonIdMappingFromTo,
+      ],
+      selectedFileFormat: FileFormat.tsvIdMappingFromTo,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(335578);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -625,27 +640,6 @@ describe('Download Utils', () => {
       inBasketMini: false,
       onClose: jest.fn(),
     };
-    const state: DownloadState = {
-      selectedColumns: defaultColumns,
-      fileFormatOptions: [
-        FileFormat.fastaCanonical,
-        FileFormat.fastaCanonicalIsoform,
-        FileFormat.tsv,
-        FileFormat.excel,
-        FileFormat.json,
-        FileFormat.xml,
-        FileFormat.rdfXml,
-        FileFormat.text,
-        FileFormat.gff,
-        FileFormat.list,
-        FileFormat.embeddings,
-      ],
-      selectedFileFormat: FileFormat.embeddings,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: 'ftp',
-      nSelectedEntries: 0,
-    };
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
       search: '?facets=reviewed%3Atrue&query=%2A',
@@ -658,7 +652,24 @@ describe('Download Utils', () => {
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
     };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: normalFileFormatOptions,
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
+    // Manually set state
+    state.extraContent = 'ftp';
+    state.selectedFileFormat = FileFormat.embeddings;
     expect(getPreviewFileFormat(state)).toEqual(undefined);
     expect(getDownloadCount(state, props)).toEqual(569793);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -700,27 +711,6 @@ describe('Download Utils', () => {
       inBasketMini: false,
       onClose: jest.fn(),
     };
-    const state: DownloadState = {
-      selectedColumns: defaultColumns,
-      fileFormatOptions: [
-        FileFormat.fastaCanonical,
-        FileFormat.fastaCanonicalIsoform,
-        FileFormat.tsv,
-        FileFormat.excel,
-        FileFormat.json,
-        FileFormat.xml,
-        FileFormat.rdfXml,
-        FileFormat.text,
-        FileFormat.gff,
-        FileFormat.list,
-        FileFormat.embeddings,
-      ],
-      selectedFileFormat: FileFormat.embeddings,
-      downloadSelect: 'all',
-      compressed: true,
-      extraContent: 'generate',
-      nSelectedEntries: 0,
-    };
     const location: HistoryLocation = {
       pathname: '/uniprotkb',
       search: '?facets=model_organism%3A9606&query=%2A',
@@ -733,7 +723,24 @@ describe('Download Utils', () => {
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
     };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
 
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: normalFileFormatOptions,
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      extraContent: null,
+      compressed: true,
+      nSelectedEntries: 0,
+    });
+    // Manually set state
+    state.selectedFileFormat = FileFormat.embeddings;
+    state.extraContent = 'generate';
     expect(getPreviewFileFormat(state)).toEqual(undefined);
     expect(getDownloadCount(state, props)).toEqual(207892);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
@@ -771,21 +778,6 @@ describe('Download Utils', () => {
       base: '/unisave/P05067',
       onClose: jest.fn(),
     };
-    const state: DownloadState = {
-      selectedColumns: [],
-      fileFormatOptions: [
-        FileFormat.text,
-        FileFormat.fasta,
-        FileFormat.tsv,
-        FileFormat.json,
-      ],
-      selectedFileFormat: FileFormat.text,
-      downloadSelect: 'all',
-      compressed: false,
-      extraContent: null,
-      nSelectedEntries: 0,
-    };
-
     const location: HistoryLocation = {
       pathname: '/uniprotkb/P05067/history',
       search: '',
@@ -798,7 +790,26 @@ describe('Download Utils', () => {
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
     };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: [],
+    });
 
+    expect(state).toEqual({
+      selectedColumns: [],
+      fileFormatOptions: [
+        FileFormat.text,
+        FileFormat.fasta,
+        FileFormat.tsv,
+        FileFormat.json,
+      ],
+      selectedFileFormat: FileFormat.text,
+      downloadSelect: 'all',
+      compressed: false,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.text);
     expect(getDownloadCount(state, props)).toEqual(306);
     expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
