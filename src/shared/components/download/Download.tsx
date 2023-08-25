@@ -70,7 +70,6 @@ export type DownloadProps<T extends JobTypes> = {
   ) => void;
   accessions?: string[];
   base?: string;
-  supportedFormats?: FileFormat[];
   notCustomisable?: boolean;
   inBasketMini?: boolean;
   jobType?: T;
