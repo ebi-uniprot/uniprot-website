@@ -9,7 +9,7 @@ import {
   getExtraContent,
   getFtpFilenameAndUrl,
   getIsAsyncDownload,
-  getIsAsyncDownloadIdMapping,
+  isAsyncDownloadIdMapping,
   getIsEmbeddings,
   getIsTooLargeForEmbeddings,
   getPreviewCount,
@@ -98,7 +98,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(24094);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       compressed: true,
@@ -170,7 +170,7 @@ describe('Download Utils', () => {
     state.extraContent = 'url';
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsv);
     expect(getDownloadCount(state, props)).toEqual(248842690);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(true);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       columns: defaultColumns,
@@ -243,7 +243,7 @@ describe('Download Utils', () => {
     state.extraContent = 'url';
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(569793);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       compressed: true,
@@ -336,7 +336,7 @@ describe('Download Utils', () => {
     state.extraContent = 'generate';
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(1);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
@@ -434,7 +434,7 @@ describe('Download Utils', () => {
     state.selectedFileFormat = FileFormat.tsv;
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsv);
     expect(getDownloadCount(state, props)).toEqual(279998);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(true);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(true);
     expect(hasColumns(state, props, job)).toEqual(true);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       columns: defaultColumns,
@@ -511,7 +511,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(1);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       base: 'https://rest.uniprot.org/idmapping/stream/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
@@ -598,7 +598,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(335578);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       base: 'https://rest.uniprot.org/idmapping/stream/fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
@@ -672,7 +672,7 @@ describe('Download Utils', () => {
     state.selectedFileFormat = FileFormat.embeddings;
     expect(getPreviewFileFormat(state)).toEqual(undefined);
     expect(getDownloadCount(state, props)).toEqual(569793);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       compressed: true,
@@ -743,7 +743,7 @@ describe('Download Utils', () => {
     state.extraContent = 'generate';
     expect(getPreviewFileFormat(state)).toEqual(undefined);
     expect(getDownloadCount(state, props)).toEqual(207892);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       compressed: true,
@@ -812,7 +812,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.text);
     expect(getDownloadCount(state, props)).toEqual(306);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       compressed: false,
@@ -896,7 +896,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaSubsequence);
     expect(getDownloadCount(state, props)).toEqual(1);
-    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/stream/913d3860854fb59a9e1306cadd20e07bbc58e410',

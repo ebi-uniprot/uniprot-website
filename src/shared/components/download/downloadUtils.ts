@@ -96,7 +96,7 @@ export const getDownloadCount = (
     ? props.totalNumberResults
     : state.nSelectedEntries || 0;
 
-export const getIsAsyncDownloadIdMapping = (
+export const isAsyncDownloadIdMapping = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   job: JobFromUrl
@@ -118,7 +118,7 @@ export const hasColumns = (
 ) =>
   fileFormatsWithColumns.has(state.selectedFileFormat) &&
   (props.namespace !== Namespace.idmapping ||
-    getIsAsyncDownloadIdMapping(state, props, job)) &&
+    isAsyncDownloadIdMapping(state, props, job)) &&
   props.namespace !== Namespace.unisave;
 
 export const getDownloadOptions = (
@@ -148,7 +148,7 @@ export const getDownloadOptions = (
   // The ID Mapping URL provided from the job details is for the paginated results
   // endpoint while the stream endpoint is required for downloads
   let downloadBase = props.base;
-  if (getIsAsyncDownloadIdMapping(state, props, job)) {
+  if (isAsyncDownloadIdMapping(state, props, job)) {
     downloadBase = undefined;
   } else if (job.jobResultsLocation === Location.IDMappingResult) {
     if (job.jobResultsNamespace && !props.notCustomisable) {
@@ -189,7 +189,7 @@ export const getPreviewOptions = (
   location: HistoryLocation<unknown>,
   job: JobFromUrl
 ) => {
-  if (getIsAsyncDownloadIdMapping(state, props, job)) {
+  if (isAsyncDownloadIdMapping(state, props, job)) {
     return undefined;
   }
   const previewFileFormat = getPreviewFileFormat(state);
@@ -258,7 +258,7 @@ export const getIsAsyncDownload = (
     ((state.selectedFileFormat === FileFormat.embeddings &&
       !getFtpFilenameAndUrl(state, props, location, job)) ||
       getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
-  getIsAsyncDownloadIdMapping(state, props, job);
+  isAsyncDownloadIdMapping(state, props, job);
 
 export const getColumnsNamespace = (
   props: DownloadProps<JobTypes>,
