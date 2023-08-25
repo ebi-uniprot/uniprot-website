@@ -182,30 +182,39 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
   return (
     <>
-      <label htmlFor="data-selection-false">
-        <input
-          id="data-selection-false"
-          type="radio"
-          name="selected"
-          value="false"
-          checked={state.downloadSelect === 'selected'}
-          onChange={handleDownloadAllChange}
-          disabled={state.nSelectedEntries === 0 || redirectToIDMapping}
-        />
-        Download selected (<LongNumber>{state.nSelectedEntries}</LongNumber>)
-      </label>
-      <label htmlFor="data-selection-true">
-        <input
-          id="data-selection-true"
-          type="radio"
-          name="all"
-          value="true"
-          checked={state.downloadSelect === 'all'}
-          onChange={handleDownloadAllChange}
-          disabled={redirectToIDMapping}
-        />
-        Download all (<LongNumber>{totalNumberResults}</LongNumber>)
-      </label>
+      {props.notCustomisable ? (
+        <div className={styles['not-selectable']}>
+          Download <LongNumber>{totalNumberResults}</LongNumber> results
+        </div>
+      ) : (
+        <>
+          <label htmlFor="data-selection-false">
+            <input
+              id="data-selection-false"
+              type="radio"
+              name="selected"
+              value="false"
+              checked={state.downloadSelect === 'selected'}
+              onChange={handleDownloadAllChange}
+              disabled={state.nSelectedEntries === 0 || redirectToIDMapping}
+            />
+            Download selected (<LongNumber>{state.nSelectedEntries}</LongNumber>
+            )
+          </label>
+          <label htmlFor="data-selection-true">
+            <input
+              id="data-selection-true"
+              type="radio"
+              name="all"
+              value="true"
+              checked={state.downloadSelect === 'all'}
+              onChange={handleDownloadAllChange}
+              disabled={redirectToIDMapping}
+            />
+            Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+          </label>
+        </>
+      )}
       <fieldset>
         <label>
           Format
