@@ -84,6 +84,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
     accessions,
     jobType,
     inputParamsData,
+    notCustomisable,
   } = props;
   const job = useJobFromUrl();
   const columnsNamespace = getColumnsNamespace(props, job);
@@ -182,7 +183,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
   return (
     <>
-      {props.notCustomisable ? (
+      {notCustomisable ? (
         <div className={styles['not-selectable']}>
           Download <LongNumber>{totalNumberResults}</LongNumber> results
         </div>
