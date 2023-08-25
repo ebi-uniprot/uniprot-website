@@ -43,6 +43,7 @@ import {
   hasColumns,
   getIsEmbeddings,
   getPreviewCount,
+  isAsyncDownloadIdMapping,
 } from './downloadUtils';
 
 import { FileFormat } from '../../types/resultsDownload';
@@ -152,7 +153,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
           apiURL={downloadUrl.replace('download=true&', '')}
           ftpURL={ftpFilenameAndUrl?.url}
           onCopy={() => onClose('copy', 'api-url')}
-          disableSearch={isEmbeddings || redirectToIDMapping}
+          disableSearch={
+            isEmbeddings ||
+            redirectToIDMapping ||
+            isAsyncDownloadIdMapping(state, props, job)
+          }
           disableStream={isEmbeddings || redirectToIDMapping || isAsyncDownload}
         />
       );

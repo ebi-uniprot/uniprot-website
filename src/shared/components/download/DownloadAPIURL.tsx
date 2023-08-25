@@ -74,7 +74,7 @@ const DownloadAPIURL = ({
   );
 
   const isStreamEndpoint = apiURL.includes('/stream');
-  const isIdMapping = apiURL.includes('/idmapping/');
+  const isIdMapping = apiURL.includes('/id-mapping/');
   const downloadSizeLimit = isIdMapping
     ? DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED
     : DOWNLOAD_SIZE_LIMIT;
@@ -88,7 +88,7 @@ const DownloadAPIURL = ({
         <CodeBlock lightMode>
           {
             // eslint-disable-next-line react/jsx-curly-brace-presence
-            "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint"
+            "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint."
           }
         </CodeBlock>
       </div>
@@ -128,9 +128,7 @@ const DownloadAPIURL = ({
       <CodeBlock lightMode>
         {disableStream ? (
           <>
-            {
-              '// the streaming endpoint is unavailable for queries of more than '
-            }
+            {'// the streaming endpoint is unavailable for more than '}
             <LongNumber>{downloadSizeLimit}</LongNumber> results
             <br />
           </>
