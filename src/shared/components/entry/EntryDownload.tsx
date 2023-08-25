@@ -1,5 +1,3 @@
-/* eslint-disable uniprot-website/use-config-location */
-
 // TODO: remove all of the uniref and uniparc contingency code as soon as streaming is provided:
 //  - https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
 //  - https://www.ebi.ac.uk/panda/jira/browse/TRM-27650

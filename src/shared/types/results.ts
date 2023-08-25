@@ -42,6 +42,7 @@ export type SearchResults<Schema> = {
   matchedFields?: Array<MatchedField>;
   suggestions?: Array<Suggestion>;
   warnings?: SearchResultsWarning[];
+  obsoleteCount?: number;
   // Only if there's any async issue with the payload
   error?: string;
 };

@@ -1,5 +1,6 @@
 @import 'franklin-sites/src/styles/common/z-index';
 @import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
 @import 'franklin-sites/src/styles/mixins';
 @import '../../../styles/settings';
 @import '../../../styles/mixins';
@@ -24,9 +25,15 @@
 
   &.no-overflow {
     grid-template-columns: 3rem calc(var(--sidebar-size) - 3rem) minmax(0, 1fr);
+
+    // setting max-width for all pages other than search results
+    max-width: 200ch;
+    margin: auto;
   }
 
   & > .sidebar {
+    /* compensate the margin set by the footer */
+    margin-block-end: -$global-margin;
     padding: $global-padding;
     grid-row: 1 / -1;
     grid-column: 1 / 3;

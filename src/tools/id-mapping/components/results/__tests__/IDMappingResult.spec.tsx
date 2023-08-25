@@ -8,6 +8,8 @@ import { IDMappingDetailsContext } from '../../../../../shared/contexts/IDMappin
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
+import { stringifyQuery } from '../../../../../shared/utils/url';
+
 import SimpleMappingData from '../__mocks__/SimpleMapping';
 import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
@@ -88,6 +90,17 @@ describe('IDMappingResult tests', () => {
         /You can query the results by entering a search query in the search bar or by using the Advanced search/
       )
     ).toBeInTheDocument();
+  });
+
+  it('should render statistics for obsolete entries if present', async () => {
+    renderIDMappingResult('/id-mapping/id1/overview', SimpleMappingDetails);
+    expect(await screen.findByText('obsolete')).toBeInTheDocument();
+    const obsoleteSearchLink = screen.getByRole<HTMLAnchorElement>('link', {
+      name: 'obsolete',
+    });
+    expect(obsoleteSearchLink.href).toEqual(
+      expect.stringContaining(stringifyQuery({ query: 'active:false' }))
+    );
   });
 });
 

@@ -26,6 +26,7 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { sortByLocation } from '../../utils';
 
 import { Evidence } from '../../types/modelTypes';
 
@@ -37,17 +38,6 @@ const VisualVariationView = lazy(
       /* webpackChunkName: "visual-variation-view" */ './VisualVariationView'
     )
 );
-
-const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
-  const aStart = +a.start;
-  const aEnd = a.end ? +a.end : -Infinity;
-  const bStart = +b.start;
-  const bEnd = b.end ? +b.end : -Infinity;
-  if (aStart === bStart) {
-    return aEnd - bEnd;
-  }
-  return aStart - bStart;
-};
 
 type ProteinsAPIEvidence = SetRequired<
   PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,

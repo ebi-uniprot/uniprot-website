@@ -136,7 +136,6 @@ const ProteinOverview = ({ data, inCard }: Props) => {
           {data.sequence?.length}{' '}
           {data.primaryAccession && (
             <small>
-              {/* eslint-disable-next-line uniprot-website/use-config-location */}
               <Link
                 to={{
                   pathname: getEntryPath(

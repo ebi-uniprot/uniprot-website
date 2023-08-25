@@ -42,7 +42,7 @@ describe('ResultsFacets', () => {
     fireEvent.click(unreviewedButton);
     await waitFor(() => {
       expect(history.location.search).toEqual(
-        '?facets=reviewed%3Afalse&query=blah'
+        '?query=blah&facets=reviewed%3Afalse'
       );
     });
   });
