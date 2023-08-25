@@ -1,6 +1,6 @@
 import { Location as HistoryLocation } from 'history';
 
-import useJobFromUrl from '../../hooks/useJobFromUrl';
+import { JobFromUrl } from '../../hooks/useJobFromUrl';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
@@ -54,7 +54,7 @@ export const isSubsequenceFrom = (ids: string) =>
 
 export const getFileFormatsOptions = (
   props: DownloadProps<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) => {
   const fileFormatsOptions = nsToFileFormatsResultsDownload[props.namespace];
   if (job.jobResultsLocation === Location.IDMappingResult) {
@@ -99,7 +99,7 @@ export const getDownloadCount = (
 export const getIsAsyncDownloadIdMapping = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) =>
   Boolean(
     job.jobResultsLocation === Location.IDMappingResult &&
@@ -114,7 +114,7 @@ export const getIsAsyncDownloadIdMapping = (
 export const hasColumns = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) =>
   fileFormatsWithColumns.has(state.selectedFileFormat) &&
   (props.namespace !== Namespace.idmapping ||
@@ -125,7 +125,7 @@ export const getDownloadOptions = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) => {
   const [urlParams] = getParamsFromURL(location.search);
   // If query prop provided use this otherwise fallback to query from URL
@@ -187,7 +187,7 @@ export const getPreviewOptions = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) => {
   if (getIsAsyncDownloadIdMapping(state, props, job)) {
     return undefined;
@@ -219,7 +219,7 @@ export const getPreviewCount = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) => {
   const previewOptions = getPreviewOptions(state, props, location, job);
   if (!previewOptions) {
@@ -238,7 +238,7 @@ export const getFtpFilenameAndUrl = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) =>
   props.namespace === Namespace.uniprotkb &&
   job.jobResultsLocation !== Location.IDMappingResult
@@ -252,7 +252,7 @@ export const getIsAsyncDownload = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) =>
   (props.namespace === Namespace.uniprotkb &&
     ((state.selectedFileFormat === FileFormat.embeddings &&
@@ -262,7 +262,7 @@ export const getIsAsyncDownload = (
 
 export const getColumnsNamespace = (
   props: DownloadProps<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) => job?.jobResultsNamespace || props.namespace;
 
 export const getIsEmbeddings = (state: DownloadState) =>
@@ -279,7 +279,7 @@ export const getExtraContent = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) => {
   if (
     (state.extraContent === 'ftp' || state.extraContent === 'url') &&
@@ -310,7 +310,7 @@ export const getExtraContent = (
 export const getRedirectToIDMapping = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
-  job: ReturnType<typeof useJobFromUrl>
+  job: JobFromUrl
 ) =>
   // Peptide search download for matches exceeding the threshold
   job.jobResultsLocation === Location.PeptideSearchResult &&

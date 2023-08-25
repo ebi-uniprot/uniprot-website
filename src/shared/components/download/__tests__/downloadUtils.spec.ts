@@ -1,6 +1,6 @@
 import { Location as HistoryLocation } from 'history';
 
-import useJobFromUrl from '../../../hooks/useJobFromUrl';
+import { JobFromUrl } from '../../../hooks/useJobFromUrl';
 
 import {
   getColumnsNamespace,
@@ -76,7 +76,7 @@ describe('Download Utils', () => {
       key: 'foo',
       state: undefined,
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: undefined,
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
@@ -145,7 +145,7 @@ describe('Download Utils', () => {
       key: 'foo',
       state: undefined,
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: undefined,
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
@@ -219,7 +219,7 @@ describe('Download Utils', () => {
       key: 'foo',
       state: undefined,
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: undefined,
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
@@ -312,7 +312,7 @@ describe('Download Utils', () => {
       key: 'foo',
       state: undefined,
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: undefined,
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
@@ -404,7 +404,7 @@ describe('Download Utils', () => {
       hash: '',
       key: 'foo',
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: '13a61a7a694b2a0193ccde8b937d2b7d60efddc0',
       jobResultsLocation: Location.IDMappingResult,
       jobResultsNamespace: Namespace.uniprotkb,
@@ -484,7 +484,7 @@ describe('Download Utils', () => {
       },
       key: 'foo',
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: '6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
       jobResultsLocation: Location.IDMappingResult,
       jobResultsNamespace: undefined,
@@ -571,7 +571,7 @@ describe('Download Utils', () => {
       },
       key: '8026qq',
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: 'fb56256d1adf57f4e181a5b3bebabb54f77b89cc',
       jobResultsLocation: Location.IDMappingResult,
       jobResultsNamespace: undefined,
@@ -647,7 +647,7 @@ describe('Download Utils', () => {
       key: 'foo',
       state: undefined,
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: undefined,
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
@@ -718,7 +718,7 @@ describe('Download Utils', () => {
       key: 'foo',
       state: undefined,
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: undefined,
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,
@@ -785,7 +785,7 @@ describe('Download Utils', () => {
       key: 'eq9yn0',
       state: undefined,
     };
-    const job: ReturnType<typeof useJobFromUrl> = {
+    const job: JobFromUrl = {
       jobId: undefined,
       jobResultsLocation: undefined,
       jobResultsNamespace: undefined,

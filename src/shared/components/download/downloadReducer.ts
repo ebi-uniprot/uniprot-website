@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 
-import useJobFromUrl from '../../hooks/useJobFromUrl';
+import { JobFromUrl } from '../../hooks/useJobFromUrl';
 
 import * as downloadActions from './downloadActions';
 
@@ -34,7 +34,7 @@ export const getDownloadInitialState = ({
   selectedColumns,
 }: {
   props: DownloadProps<JobTypes>;
-  job: ReturnType<typeof useJobFromUrl>;
+  job: JobFromUrl;
   selectedColumns: Column[];
 }): DownloadState => {
   const fileFormatOptions = getFileFormatsOptions(props, job);
