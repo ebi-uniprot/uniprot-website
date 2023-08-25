@@ -250,7 +250,7 @@ describe('Download with ID mapping results', () => {
     expect(screen.queryByText('Customize columns')).not.toBeInTheDocument();
   });
 
-  it('should display column selection for results which map to a non-uniprot namespace and have correct download link', async () => {
+  it('should display column selection for results which map to a uniprot namespace and have correct download link', async () => {
     customRender(
       <IDMappingDetailsContext.Provider
         // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -265,7 +265,7 @@ describe('Download with ID mapping results', () => {
         />
       </IDMappingDetailsContext.Provider>,
       {
-        route: '/id-mapping/id2',
+        route: '/id-mapping/uniprotkb/id2',
         initialLocalStorage: {
           'table columns for uniprotkb': initialColumns,
         },
@@ -275,7 +275,7 @@ describe('Download with ID mapping results', () => {
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining('/idmapping/uniprotkb/stream/id2')
+      expect.stringContaining('/idmapping/uniprotkb/results/stream/id2')
     );
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });
