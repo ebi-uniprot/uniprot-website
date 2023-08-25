@@ -842,4 +842,90 @@ describe('Download Utils', () => {
     expect(getExtraContent(state, props, location, job)).toEqual(null);
     expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
   });
+
+  test('uniprotkb subsequence download', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 1,
+      namespace: Namespace.uniprotkb,
+      base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/913d3860854fb59a9e1306cadd20e07bbc58e410',
+      notCustomisable: false,
+      inBasketMini: false,
+      inputParamsData: {
+        from: 'UniProtKB_AC-ID',
+        to: 'UniProtKB',
+        ids: 'P05067[23-135]',
+        redirectURL:
+          'https://rest.uniprot.org/idmapping/uniprotkb/results/913d3860854fb59a9e1306cadd20e07bbc58e410',
+      } as MappingDetails,
+      jobType: JobTypes.ID_MAPPING,
+      onClose: jest.fn(),
+    };
+    const location: HistoryLocation = {
+      pathname:
+        '/id-mapping/uniprotkb/913d3860854fb59a9e1306cadd20e07bbc58e410/overview',
+      state: {
+        internalID: 'local-18874660-434f-11ee-8f3f-f5596377be90',
+      },
+      search: '',
+      hash: '',
+      key: 'foo',
+    };
+    const job: JobFromUrl = {
+      jobId: '913d3860854fb59a9e1306cadd20e07bbc58e410',
+      jobResultsLocation: Location.IDMappingResult,
+      jobResultsNamespace: Namespace.uniprotkb,
+    };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: [
+        FileFormat.fastaSubsequence,
+        ...normalFileFormatOptions,
+      ],
+      selectedFileFormat: FileFormat.fastaSubsequence,
+      downloadSelect: 'all',
+      compressed: true,
+      extraContent: null,
+      nSelectedEntries: 0,
+    });
+    expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaSubsequence);
+    expect(getDownloadCount(state, props)).toEqual(1);
+    expect(getIsAsyncDownloadIdMapping(state, props, job)).toEqual(false);
+    expect(hasColumns(state, props, job)).toEqual(false);
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/stream/913d3860854fb59a9e1306cadd20e07bbc58e410',
+      compressed: true,
+      fileFormat: FileFormat.fastaSubsequence,
+      namespace: Namespace.uniprotkb,
+      query: '',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'accession',
+    });
+    expect(getPreviewOptions(state, props, location, job)).toEqual({
+      base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/913d3860854fb59a9e1306cadd20e07bbc58e410',
+      compressed: false,
+      fileFormat: FileFormat.fastaSubsequence,
+      namespace: Namespace.uniprotkb,
+      query: '',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'accession',
+      size: 1,
+    });
+    expect(getPreviewCount(state, props, location, job)).toEqual(1);
+    expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
+    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
+    expect(getIsEmbeddings(state)).toEqual(false);
+    expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
+    expect(getExtraContent(state, props, location, job)).toEqual(null);
+    expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
+  });
 });
