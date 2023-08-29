@@ -536,7 +536,7 @@ const Entry = () => {
               />
               <GenomicCoordinatesTab
                 primaryAccession={accession}
-                title={`Genomic coordinates for ${accession} isoform sequence`}
+                title={`Genomic coordinates for ${accession} canonical sequence`}
               />
             </ErrorBoundary>
           </Suspense>
