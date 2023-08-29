@@ -295,13 +295,16 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         title="Miscellaneous"
       />
       {data.commentsData.get('CAUTION')?.length ? (
-        <Message level="warning">
-          <FreeTextView
-            comments={
-              data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
-            }
-            title="Caution"
-          />
+        <Message level="warning" heading={<h3>Caution</h3>}>
+          <small>
+            <FreeTextView
+              comments={
+                data.commentsData.get('CAUTION') as
+                  | FreeTextComment[]
+                  | undefined
+              }
+            />
+          </small>
         </Message>
       ) : undefined}
       <CatalyticActivityView

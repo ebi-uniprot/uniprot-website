@@ -103,32 +103,34 @@ const ContactForm = () => {
         {isUpdate ? null : (
           <>
             <Message level="info">
-              Frequently asked: issues accessing UniProt programmatically? Have
-              a look at the{' '}
-              <Link
-                to={generatePath(LocationToPath[Location.HelpEntry], {
-                  accession: 'api',
-                })}
-              >
-                new API documentation
-              </Link>{' '}
-              including changes to the{' '}
-              <Link
-                to={generatePath(LocationToPath[Location.HelpEntry], {
-                  accession: 'return_fields',
-                })}
-              >
-                return fields
-              </Link>{' '}
-              (aka &quot;columns&quot;) and specifically the{' '}
-              <Link
-                to={generatePath(LocationToPath[Location.HelpEntry], {
-                  accession: 'return_fields_databases',
-                })}
-              >
-                cross-references return fields
-              </Link>{' '}
-              .
+              <small>
+                Frequently asked: issues accessing UniProt programmatically?
+                Have a look at the{' '}
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'api',
+                  })}
+                >
+                  new API documentation
+                </Link>{' '}
+                including changes to the{' '}
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'return_fields',
+                  })}
+                >
+                  return fields
+                </Link>{' '}
+                (aka &quot;columns&quot;) and specifically the{' '}
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'return_fields_databases',
+                  })}
+                >
+                  cross-references return fields
+                </Link>{' '}
+                .
+              </small>
             </Message>
             <br />
             <br />

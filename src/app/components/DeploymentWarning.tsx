@@ -17,9 +17,11 @@ const DeploymentWarning = () => {
           level="warning"
           onDismiss={() => setDismissed(true)}
         >
-          {`This is a development version of `}
-          <a href="https://www.uniprot.org">www.uniprot.org</a>
-          {` |  git branch: ${GIT_BRANCH} |  API: ${API_PREFIX}`}
+          <small>
+            {`This is a development version of `}
+            <a href="https://www.uniprot.org">www.uniprot.org</a>
+            {` |  git branch: ${GIT_BRANCH} |  API: ${API_PREFIX}`}
+          </small>
         </Message>
       ) : null}
     </>

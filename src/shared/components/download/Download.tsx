@@ -445,23 +445,25 @@ const Download: FC<DownloadProps> = ({
       {/* Peptide search download for matches exceeding the threshold */}
       {redirectToIDMapping && (
         <Message level="warning">
-          To download peptide search results of more than{' '}
-          <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber> matches,
-          please use the{' '}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.IDMapping],
-              state: {
-                parameters: {
-                  ids: accessions,
-                  name: `Peptide search matches`,
+          <small>
+            To download peptide search results of more than{' '}
+            <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber> matches,
+            please use the{' '}
+            <Link
+              to={{
+                pathname: LocationToPath[Location.IDMapping],
+                state: {
+                  parameters: {
+                    ids: accessions,
+                    name: `Peptide search matches`,
+                  },
                 },
-              },
-            }}
-          >
-            ID Mapping
-          </Link>{' '}
-          service.
+              }}
+            >
+              ID Mapping
+            </Link>{' '}
+            service.
+          </small>
         </Message>
       )}
 

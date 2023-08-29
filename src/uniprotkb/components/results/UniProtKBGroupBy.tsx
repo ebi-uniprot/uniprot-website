@@ -420,7 +420,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   if (id && !sumChildren) {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        This {groupByToLabel[groupBy]} node has no children.
+        <small>This {groupByToLabel[groupBy]} node has no children.</small>
       </Message>
     );
   } else if (groupByResponse.data?.groups.length) {
@@ -452,7 +452,9 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   } else {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        No results found with this combination of {groupBy}, query and facets.
+        <small>
+          No results found with this combination of {groupBy}, query and facets.
+        </small>
       </Message>
     );
   }
