@@ -112,10 +112,10 @@ const getRenderPieChart =
         // At each tick, change the DOM
         return (t) => {
           const tweened = interpolate(t);
-          const tweenedOpacity = interpolateOpacity(t);
           if (!tweened) {
             return;
           }
+          const tweenedOpacity = interpolateOpacity(t);
           current.set(d.data.name, {
             datum: tweened,
             opacity: tweenedOpacity,

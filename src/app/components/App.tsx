@@ -328,12 +328,12 @@ const ResultsOrLanding =
     return <LandingPage {...props} />;
   };
 
-const RedirectToStarSearch = (props: RouteChildrenProps) => {
-  const params = props.match?.params as
-    | { namespace: SearchableNamespace }
-    | undefined;
+const RedirectToStarSearch = (
+  props: RouteChildrenProps<{ namespace: Namespace }>
+) => {
+  const namespace = props.match?.params.namespace;
   let LandingPage;
-  switch (params?.namespace) {
+  switch (namespace) {
     case Namespace.uniprotkb:
       LandingPage = UniProtKBLandingPage;
       break;
