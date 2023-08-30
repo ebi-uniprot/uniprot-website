@@ -8,7 +8,7 @@ import EntrySection from '../types/entrySection';
 
 const ProteomesEntryConfig: {
   id: EntrySection;
-  sectionContent: (entryData: ProteomesUIModel) => JSX.Element | undefined;
+  sectionContent: (entryData: ProteomesUIModel) => JSX.Element | null;
 }[] = [
   {
     id: EntrySection.Overview,

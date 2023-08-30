@@ -14,6 +14,7 @@ import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './downloadUtils';
 
 import { Namespace } from '../../types/namespaces';
 
@@ -43,16 +44,16 @@ type Props = {
   apiURL: string;
   ftpURL?: string | null;
   onCopy: () => void;
-  count: number;
-  disableAll?: boolean;
+  disableSearch?: boolean;
+  disableStream?: boolean;
 };
 
 const DownloadAPIURL = ({
   apiURL,
   ftpURL,
   onCopy,
-  count,
-  disableAll,
+  disableSearch,
+  disableStream,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
@@ -73,17 +74,21 @@ const DownloadAPIURL = ({
   );
 
   const isStreamEndpoint = apiURL.includes('/stream');
-  const disableStream = isStreamEndpoint && count > DOWNLOAD_SIZE_LIMIT;
+  const isIdMapping = apiURL.includes('/id-mapping/');
+  const downloadSizeLimit = isIdMapping
+    ? DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED
+    : DOWNLOAD_SIZE_LIMIT;
+
   const batchSize = 500;
   const searchURL = getSearchURL(apiURL, batchSize);
 
-  if (disableAll) {
+  if (disableSearch && disableStream) {
     return (
       <div className={styles['api-url']} ref={scrollRef}>
         <CodeBlock lightMode>
           {
             // eslint-disable-next-line react/jsx-curly-brace-presence
-            "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint"
+            "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint."
           }
         </CodeBlock>
       </div>
@@ -123,10 +128,8 @@ const DownloadAPIURL = ({
       <CodeBlock lightMode>
         {disableStream ? (
           <>
-            {
-              '// the streaming endpoint is unavailable for queries of more than '
-            }
-            <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber> results
+            {'// the streaming endpoint is unavailable for more than '}
+            <LongNumber>{downloadSizeLimit}</LongNumber> results
             <br />
           </>
         ) : (

@@ -52,7 +52,6 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { FileFormat } from '../../types/resultsDownload';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 
@@ -76,7 +75,6 @@ type ResultsButtonsProps<T extends JobTypes> = {
   inBasketMini?: boolean;
   notCustomisable?: boolean;
   subsetsMap?: Map<string, string>;
-  supportedFormats?: FileFormat[];
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
 };
@@ -94,7 +92,6 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   inBasketMini = false,
   notCustomisable = false,
   subsetsMap,
-  supportedFormats,
   jobType,
   inputParamsData,
 }) => {
@@ -217,8 +214,9 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
                 namespace={namespace}
                 base={base}
                 notCustomisable={notCustomisable}
-                supportedFormats={supportedFormats}
                 inBasketMini={inBasketMini}
+                inputParamsData={inputParamsData}
+                jobType={jobType}
               />
             </ErrorBoundary>
           </SlidingPanel>

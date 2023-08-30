@@ -22,11 +22,13 @@ export type IDMappingFormAction = ActionType<typeof idMappingFormActions>;
 const isInvalid = (ids: IDMappingFormValue['selected']) =>
   !Array.isArray(ids) || !ids.length || ids.length > ID_MAPPING_LIMIT;
 
-const getJobName = (parsedIDs: string[], formValues: IDMappingFormValues) => {
+export const getJobName = (
+  parsedIDs: string[],
+  fromDb: string,
+  toDb: string
+) => {
   if (parsedIDs.length > 0) {
     const firstParsedID = parsedIDs[0];
-    const fromDb = formValues[IDMappingFields.fromDb].selected;
-    const toDb = formValues[IDMappingFields.toDb].selected;
     return `${firstParsedID}${
       parsedIDs.length > 1 ? ` +${parsedIDs.length - 1}` : ''
     } ${fromDb} → ${toDb}`;
@@ -75,7 +77,11 @@ export const idMappingFormInputTextIDsReducer = (
       : {
           ...formValues[IDMappingFields.name],
           userSelected: false,
-          selected: getJobName(parsedIDs, formValues),
+          selected: getJobName(
+            parsedIDs,
+            formValues[IDMappingFields.fromDb].selected as string,
+            formValues[IDMappingFields.toDb].selected as string
+          ),
         };
 
   // actual form fields
