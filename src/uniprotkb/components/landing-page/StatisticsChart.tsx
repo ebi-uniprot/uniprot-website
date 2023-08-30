@@ -1,14 +1,15 @@
 import { useMemo } from 'react';
 
+import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { nameToQueryKingdoms } from '../statistics/taxonomyQueries';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { StatisticsPayload } from '../statistics/StatisticsPage';
-
-import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
 
 type StatisticsChartProps = {
   releaseNumber?: string;
@@ -23,18 +24,16 @@ const StatisticsChart = ({
 }: StatisticsChartProps) => {
   const reviewedStats = useDataApi<StatisticsPayload>(
     releaseNumber &&
-      stringifyUrl(
-        `${API_PREFIX}/statistics/releases/${releaseNumber}/reviewed`,
-        { categories: 'superkingdom' }
-      )
+      stringifyUrl(apiUrls.statistics(releaseNumber, 'unreviewed'), {
+        categories: 'superkingdom',
+      })
   );
 
   const unreviewedStats = useDataApi<StatisticsPayload>(
     releaseNumber &&
-      stringifyUrl(
-        `${API_PREFIX}/statistics/releases/${releaseNumber}/unreviewed`,
-        { categories: 'superkingdom' }
-      )
+      stringifyUrl(apiUrls.statistics(releaseNumber, 'unreviewed'), {
+        categories: 'superkingdom',
+      })
   );
 
   const data: StatisticsGraphItem[] | undefined = useMemo(() => {

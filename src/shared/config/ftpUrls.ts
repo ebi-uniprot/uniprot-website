@@ -8,11 +8,11 @@ const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 const ftpUrls = {
   uniprot: ftpUniProt,
   uniprotkb: joinUrl(ftpUniProt, 'knowledgebase/complete'),
-  uniprotkb_reviewed: joinUrl(
+  uniprotkbReviewed: joinUrl(
     ftpUniProt,
     'knowledgebase/complete/uniprot_sprot'
   ),
-  uniprotkb_unreviewed: joinUrl(
+  uniprotkbUnreviewed: joinUrl(
     ftpUniProt,
     'knowledgebase/complete/uniprot_trembl'
   ),

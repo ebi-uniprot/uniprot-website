@@ -17,6 +17,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { stringifyQuery } from '../../../shared/utils/url';
 import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -753,12 +754,10 @@ const StatisticsPage = () => {
   const release = useUniProtDataVersion();
 
   const reviewedStats = useDataApi<StatisticsPayload>(
-    release &&
-      `${API_PREFIX}/statistics/releases/${release.releaseNumber}/reviewed`
+    release && apiUrls.statistics(release.releaseNumber, 'reviewed')
   );
   const unreviewedStats = useDataApi<StatisticsPayload>(
-    release &&
-      `${API_PREFIX}/statistics/releases/${release.releaseNumber}/unreviewed`
+    release && apiUrls.statistics(release.releaseNumber, 'unreviewed')
   );
 
   if (!release || reviewedStats.loading || unreviewedStats.loading) {

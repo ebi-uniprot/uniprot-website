@@ -231,7 +231,7 @@ const LandingPage = () => {
               <br />
               {Object.entries(availableFTPFormats).map(([key, value]) => (
                 <ExternalLink
-                  url={`${ftpUrls.uniprotkb_reviewed}.${value}.gz`}
+                  url={`${ftpUrls.uniprotkbReviewed}.${value}.gz`}
                   key={key}
                 >
                   {key}
@@ -243,7 +243,7 @@ const LandingPage = () => {
               <br />
               {Object.entries(availableFTPFormats).map(([key, value]) => (
                 <ExternalLink
-                  url={`${ftpUrls.uniprotkb_unreviewed}.${value}.gz`}
+                  url={`${ftpUrls.uniprotkbUnreviewed}.${value}.gz`}
                   key={key}
                 >
                   {key}

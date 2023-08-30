@@ -145,6 +145,9 @@ const apiUrls = {
     token: joinUrl(apiPrefix, 'contact', 'token'),
     send: joinUrl(apiPrefix, 'contact', 'send'),
   },
+
+  statistics: (releaseNumber: string, type: 'reviewed' | 'unreviewed') =>
+    joinUrl(apiPrefix, 'statistics', 'releases', releaseNumber, type),
 };
 
 export default apiUrls;
