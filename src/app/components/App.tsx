@@ -35,7 +35,7 @@ import {
   LocationToPath,
 } from '../config/urls';
 
-import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
+import { Namespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
