@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { ARBAAPIModel } from '../../adapters/arbaConverter';

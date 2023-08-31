@@ -5,7 +5,7 @@ import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { Namespace } from '../../../../shared/types/namespaces';

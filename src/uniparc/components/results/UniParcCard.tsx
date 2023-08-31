@@ -12,7 +12,7 @@ import {
 } from '../../adapters/uniParcConverter';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import xrefGetter from '../../utils/xrefGetter';
 import { pluralise } from '../../../shared/utils/utils';
 

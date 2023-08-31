@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom';
 
 import ToolsButton from './ToolsButton';
 
-import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
+import { fromCleanMapper } from '../../utils/getIdKey';
 import { pluralise } from '../../utils/utils';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

@@ -7,7 +7,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 
 import UniRefColumnConfiguration, {
   UniRefColumn,

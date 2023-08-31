@@ -14,7 +14,7 @@ import useNSQuery from '../shared/hooks/useNSQuery';
 import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
 
 import { reIds } from '../tools/utils/urls';
-import { getIdKeyForNamespace } from '../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../shared/utils/getIdKey';
 
 import { LocationToPath, Location } from '../app/config/urls';
 

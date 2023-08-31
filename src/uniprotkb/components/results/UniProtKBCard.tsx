@@ -11,7 +11,7 @@ import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 import getProteinHighlights from '../../adapters/proteinHighlights';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 
 import { Namespace } from '../../../shared/types/namespaces';
 

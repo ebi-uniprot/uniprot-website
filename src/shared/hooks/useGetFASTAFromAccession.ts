@@ -7,7 +7,7 @@ import { getAccessionsURL } from '../config/apiUrls';
 
 import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
 import accessionToNamespace from '../utils/accessionToNamespace';
-import { getIdKeyForNamespace } from '../utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../utils/getIdKey';
 
 import { IdMaybeWithRange } from '../../tools/utils/urls';
 import { Namespace } from '../types/namespaces';

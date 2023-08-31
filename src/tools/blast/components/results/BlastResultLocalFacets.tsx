@@ -16,7 +16,7 @@ import {
   blastFacetToNiceName,
 } from '../../utils/blastFacetDataUtils';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 

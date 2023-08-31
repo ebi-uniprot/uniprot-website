@@ -6,7 +6,7 @@ import CitationsCard from '../../../supporting-data/citations/components/results
 import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
-import { getIdKeyForNamespace } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import { Namespace } from '../../../shared/types/namespaces';
 
 const dataRenderer = (citation: CitationsAPIModel) => (

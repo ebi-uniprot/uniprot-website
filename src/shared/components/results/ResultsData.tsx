@@ -23,7 +23,7 @@ import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 import useViewMode from '../../hooks/useViewMode';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 
-import { getIdKeyForData } from '../../utils/getIdKeyForNamespace';
+import { getIdKeyForData } from '../../utils/getIdKey';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import {

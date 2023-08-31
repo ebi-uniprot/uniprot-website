@@ -14,7 +14,7 @@ import useColumnNames from './useColumnNames';
 import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 
 import apiUrls from '../config/apiUrls';
-import { getIdKeyForNamespace } from '../utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../utils/getIdKey';
 import {
   getParamsFromURL,
   getSortableColumnToSortColumn,

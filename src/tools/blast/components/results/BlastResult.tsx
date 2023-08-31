@@ -25,7 +25,7 @@ import {
   filterBlastDataForResults,
   filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
