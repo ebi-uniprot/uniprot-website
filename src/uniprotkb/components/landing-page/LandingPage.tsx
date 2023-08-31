@@ -213,7 +213,7 @@ const LandingPage = () => {
                   )}
                   // to={LocationToPath[Location.UniProtKBStatistics]}
                 >
-                  Explore the {release?.releaseNumber} release <big>»</big>
+                  Explore the {release?.releaseNumber} release »
                 </Link>
               </p>
             </section>
