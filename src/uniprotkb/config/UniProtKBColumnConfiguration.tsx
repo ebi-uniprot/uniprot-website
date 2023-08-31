@@ -211,6 +211,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
           data={omit(proteinNamesData, 'contains')}
           bolderFirst={Boolean(proteinNamesData?.recommendedName)}
           contextKey={UniProtKBColumn.proteinName}
+          supplementaryData={
+            proteinNamesData?.contains || proteinNamesData?.includes
+          }
+          supplementaryText="Cleaved into"
         />
         {data.inactiveReason && (
           <>
