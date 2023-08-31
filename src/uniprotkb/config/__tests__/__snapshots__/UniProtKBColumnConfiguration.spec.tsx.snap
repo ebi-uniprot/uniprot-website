@@ -1843,7 +1843,13 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_na
     >
       rec full Name
     </span>
-    , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1
+    , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1, Cleaved into: 
+    <span
+      style="font-weight: bolder;"
+    >
+      containsrec full Name
+    </span>
+    , containsrecommended short name, 1.2.3.4, containsa full alt Name, containsshort alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen
   </span>
 </DocumentFragment>
 `;
