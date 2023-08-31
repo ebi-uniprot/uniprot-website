@@ -23,7 +23,7 @@ import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 import useViewMode from '../../hooks/useViewMode';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 
-import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
+import { getIdKeyForData } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import {
@@ -86,16 +86,18 @@ const ResultsData = ({
 
   const smallScreen = useSmallScreen();
 
-  // All complex values that only change when the namespace changes
+  const firstResult = allResults?.[0];
+
+  // All complex values that only change when the namespace changes and data changes
   const [getIdKey, getEntryPathForEntry, cardRenderer] = useMemo(() => {
-    const getIdKey = getIdKeyFor(namespace);
+    const getIdKey = getIdKeyForData(firstResult);
     const getEntryPath = getEntryPathFor(namespace as SearchableNamespace);
     return [
       getIdKey,
       (entry: APIModel) => getEntryPath(getIdKey(entry)),
       getCardRenderer(namespace),
     ];
-  }, [namespace]);
+  }, [firstResult, namespace]);
 
   useEffect(() => {
     // Reset selected entries when switching view mode

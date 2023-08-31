@@ -19,6 +19,7 @@ import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConv
 
 import {
   MappingFlat,
+  MappingFrom,
   MappingTo,
 } from '../../tools/id-mapping/types/idMappingSearchResults';
 
@@ -92,4 +93,46 @@ export const getIdKeyFor = (
       logging.warn(`getIdKey method not implemented for ${namespace} yet`);
       return () => '';
   }
+};
+
+export const getIdKeyForData = (
+  datum: APIModel
+): ((datum: APIModel) => string) => {
+  let f: (datum: APIModel) => string = () => '';
+  if (!datum) {
+    return f;
+  }
+  if ('primaryAccession' in datum) {
+    f = (d) => (d as UniProtkbAPIModel).primaryAccession;
+  } else if ('id' in datum) {
+    f = (d) =>
+      (
+        d as
+          | UniRefLiteAPIModel
+          | ProteomesAPIModel
+          | DiseasesAPIModel
+          | DatabaseAPIModel
+          | LocationsAPIModel
+      ).id;
+  } else if ('uniParcId' in datum) {
+    f = (d) => (d as UniParcAPIModel).uniParcId;
+  } else if ('taxonId' in datum) {
+    f = (d) => `${(d as TaxonomyAPIModel).taxonId}`;
+  } else if ('keyword' in datum && 'id' in datum.keyword) {
+    f = (d) => (d as KeywordsAPIModel).keyword.id;
+  } else if ('citation' in datum && 'id' in datum.citation) {
+    f = (d) => (d as CitationsAPIModel).citation.id;
+  } else if ('uniRuleId' in datum) {
+    f = (d) => (d as UniRuleAPIModel | ARBAAPIModel).uniRuleId;
+  } else if ('to' in datum) {
+    f = (d) => (d as MappingTo).to;
+  } else {
+    logging.warn(
+      `getIdKey method not implemented for ${JSON.stringify(datum)} yet`
+    );
+    return f;
+  }
+  return 'from' in datum
+    ? (d) => `${(d as MappingFrom).from}${fromSeparator}${f(d)}`
+    : f;
 };
