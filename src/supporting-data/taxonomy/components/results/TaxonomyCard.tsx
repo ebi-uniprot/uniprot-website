@@ -5,7 +5,7 @@ import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -16,7 +16,7 @@ import TaxonomyColumnConfiguration, {
 
 const lineage = TaxonomyColumnConfiguration.get(TaxonomyColumn.lineage);
 
-const getIdKey = getIdKeyFor(Namespace.taxonomy);
+const getIdKey = getIdKeyForNamespace(Namespace.taxonomy);
 
 const TaxonomyCard = ({ data }: { data: TaxonomyAPIModel }) => {
   const id = getIdKey(data);

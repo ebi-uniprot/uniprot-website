@@ -14,7 +14,7 @@ import useColumnNames from './useColumnNames';
 import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 
 import apiUrls from '../config/apiUrls';
-import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../utils/getIdKeyForNamespace';
 import {
   getParamsFromURL,
   getSortableColumnToSortColumn,
@@ -163,7 +163,7 @@ export const getColumnsToDisplay = (
           } catch (error) {
             if (!('inactiveReason' in row)) {
               logging.warn(
-                `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyFor(
+                `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyForNamespace(
                   namespace
                 )(row)}" `
               );
@@ -240,7 +240,7 @@ const useColumns = (
     }
     // If in a basket view
     if (basketSetter) {
-      const getIdKey = getIdKeyFor(namespace);
+      const getIdKey = getIdKeyForNamespace(namespace);
       const removeColumn: ColumnDescriptor<APIModel> = {
         name: 'remove',
         label: null,

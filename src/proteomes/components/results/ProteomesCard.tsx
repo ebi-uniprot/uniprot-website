@@ -7,7 +7,7 @@ import RenderColumnsInCard from '../../../shared/components/results/RenderColumn
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKeyForNamespace';
 
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
@@ -28,7 +28,7 @@ const buscoColumnRenderer = ProteomesColumnConfiguration.get(
   ProteomesColumn.busco
 );
 
-const getIdKey = getIdKeyFor(Namespace.proteomes);
+const getIdKey = getIdKeyForNamespace(Namespace.proteomes);
 
 const ProteomesCard = ({ data }: { data: ProteomesAPIModel }) => {
   const id = getIdKey(data);

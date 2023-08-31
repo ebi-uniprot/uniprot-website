@@ -12,7 +12,7 @@ import {
 } from '../../adapters/uniParcConverter';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKeyForNamespace';
 import xrefGetter from '../../utils/xrefGetter';
 import { pluralise } from '../../../shared/utils/utils';
 
@@ -45,7 +45,7 @@ const uniProtKBCounter = (data: UniParcAPIModel) => {
   return { reviewed, unreviewed };
 };
 
-const getIdKey = getIdKeyFor(Namespace.uniparc);
+const getIdKey = getIdKeyForNamespace(Namespace.uniparc);
 
 const UniParcCard = ({ data }: { data: UniParcAPIModel }) => {
   const id = getIdKey(data);

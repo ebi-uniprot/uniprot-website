@@ -16,7 +16,7 @@ import {
   blastFacetToNiceName,
 } from '../../utils/blastFacetDataUtils';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -157,7 +157,7 @@ const BlastResultLocalFacets: FC<{
       return allHits;
     }
     const filteredAccessions = new Set(
-      data.results.map(getIdKeyFor(namespace))
+      data.results.map(getIdKeyForNamespace(namespace))
     );
     return allHits.filter((hit) => filteredAccessions.has(hit.hit_acc));
   }, [data, isStale, loading, namespace, allHits]);

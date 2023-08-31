@@ -6,7 +6,7 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
@@ -19,7 +19,7 @@ import renderColumnsInCardStyles from '../../../../shared/components/results/sty
 
 const category = KeywordsColumnConfiguration.get(KeywordsColumn.category);
 
-const getIdKey = getIdKeyFor(Namespace.keywords);
+const getIdKey = getIdKeyForNamespace(Namespace.keywords);
 
 const KeywordsCard = ({ data }: { data: KeywordsAPIModel }) => {
   const id = getIdKey(data);

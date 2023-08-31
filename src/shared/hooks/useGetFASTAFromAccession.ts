@@ -7,7 +7,7 @@ import { getAccessionsURL } from '../config/apiUrls';
 
 import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
 import accessionToNamespace from '../utils/accessionToNamespace';
-import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../utils/getIdKeyForNamespace';
 
 import { IdMaybeWithRange } from '../../tools/utils/urls';
 import { Namespace } from '../types/namespaces';
@@ -106,7 +106,10 @@ const useGetFASTAFromAccesion = (
         data[namespace].data?.results as
           | undefined
           | Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>
-      )?.find((entry) => getIdKeyFor(namespace)(entry) === idMaybeWithRange.id);
+      )?.find(
+        (entry) =>
+          getIdKeyForNamespace(namespace)(entry) === idMaybeWithRange.id
+      );
       if (entry) {
         fasta += `\n\n${entryToFASTAWithHeaders(entry, {
           subsets:

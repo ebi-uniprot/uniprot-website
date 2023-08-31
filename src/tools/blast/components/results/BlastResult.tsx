@@ -25,7 +25,7 @@ import {
   filterBlastDataForResults,
   filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
@@ -170,7 +170,7 @@ export const enrich = (
     return null;
   }
   const output: EnrichedData = { ...blastData };
-  const getIdKey = namespace && getIdKeyFor(namespace);
+  const getIdKey = namespace && getIdKeyForNamespace(namespace);
   output.hits = output.hits.map((hit) => {
     const extra = (apiData.results as UniProtkbAPIModel[]).find(
       (entry) => hit.hit_acc === getIdKey?.(entry)

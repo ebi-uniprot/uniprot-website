@@ -6,7 +6,7 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { DatabaseAPIModel } from '../../adapters/databaseConverter';
@@ -19,7 +19,7 @@ import renderColumnsInCardStyles from '../../../../shared/components/results/sty
 
 const category = DatabaseColumnConfiguration.get(DatabaseColumn.category);
 
-const getIdKey = getIdKeyFor(Namespace.database);
+const getIdKey = getIdKeyForNamespace(Namespace.database);
 
 const DatabaseCard = ({ data }: { data: DatabaseAPIModel }) => {
   const id = getIdKey(data);

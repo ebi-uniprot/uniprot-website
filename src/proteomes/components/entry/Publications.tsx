@@ -6,14 +6,14 @@ import CitationsCard from '../../../supporting-data/citations/components/results
 import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
-import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKeyForNamespace';
 import { Namespace } from '../../../shared/types/namespaces';
 
 const dataRenderer = (citation: CitationsAPIModel) => (
   <CitationsCard data={citation} headingLevel="h3" notSelectable />
 );
 
-const getIdKey = getIdKeyFor(Namespace.citations);
+const getIdKey = getIdKeyForNamespace(Namespace.citations);
 
 const Publications = ({
   citations,

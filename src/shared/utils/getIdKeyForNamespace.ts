@@ -41,7 +41,7 @@ export const fromCleanMapper = (entry: string) => {
   return entry;
 };
 
-export const getIdKeyFor = (
+export const getIdKeyForNamespace = (
   namespace: Namespace
 ): ((data: APIModel) => string) => {
   switch (namespace) {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
@@ -13,7 +13,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 
 import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
-const getIdKey = getIdKeyFor(Namespace.diseases);
+const getIdKey = getIdKeyForNamespace(Namespace.diseases);
 
 const DiseasesCard = ({ data }: { data: DiseasesAPIModel }) => {
   const id = getIdKey(data);
