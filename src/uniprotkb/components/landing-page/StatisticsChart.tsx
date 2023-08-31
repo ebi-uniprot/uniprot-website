@@ -60,34 +60,30 @@ const StatisticsChart = ({
       )
     );
 
-    const reviewedItems = new Map(
+    const reviewedCounts = new Map(
       reviewedStats.data?.results
         .find((category) => category.categoryName === 'SUPERKINGDOM')
-        ?.items.map(
-          (item: StatisticsItem): [name: string, item: StatisticsItem] => [
-            item.name,
-            item,
-          ]
-        )
+        ?.items.map((item: StatisticsItem): [name: string, count: number] => [
+          item.name,
+          item.count,
+        ])
     );
 
-    const unreviewedItems = new Map(
+    const unreviewedCounts = new Map(
       unreviewedStats.data?.results
         .find((category) => category.categoryName === 'SUPERKINGDOM')
-        ?.items.map(
-          (item: StatisticsItem): [name: string, item: StatisticsItem] => [
-            item.name,
-            item,
-          ]
-        )
+        ?.items.map((item: StatisticsItem): [name: string, count: number] => [
+          item.name,
+          item.count,
+        ])
     );
 
     for (const [name, entry] of Object.entries(taxonSummed)) {
       if (reviewed) {
-        entry.entryCount += reviewedItems.get(name)?.entryCount || 0;
+        entry.entryCount += reviewedCounts.get(name) || 0;
       }
       if (unreviewed) {
-        entry.entryCount += unreviewedItems.get(name)?.entryCount || 0;
+        entry.entryCount += unreviewedCounts.get(name) || 0;
       }
       if (reviewed && unreviewed) {
         entry.to.search = stringifyQuery({
