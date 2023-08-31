@@ -90,7 +90,9 @@ export const getIdKeyForNamespace = (
     case Namespace.idmapping:
       return (data) => `${(data as MappingFlat).from}${(data as MappingTo).to}`;
     default:
-      logging.warn(`getIdKey method not implemented for ${namespace} yet`);
+      logging.warn(
+        `getIdKeyForNamespace method not implemented for ${namespace} yet`
+      );
       return () => '';
   }
 };
@@ -128,7 +130,7 @@ export const getIdKeyForData = (
     f = (d) => (d as MappingTo).to;
   } else {
     logging.warn(
-      `getIdKey method not implemented for ${JSON.stringify(datum)} yet`
+      `getIdKeyForData method not implemented for ${JSON.stringify(datum)} yet`
     );
     return f;
   }
