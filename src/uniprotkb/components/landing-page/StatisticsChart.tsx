@@ -9,7 +9,10 @@ import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 import apiUrls from '../../../shared/config/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { StatisticsPayload } from '../statistics/StatisticsPage';
+import {
+  StatisticsItem,
+  StatisticsPayload,
+} from '../statistics/StatisticsPage';
 
 type StatisticsChartProps = {
   releaseNumber?: string;
@@ -57,24 +60,34 @@ const StatisticsChart = ({
       )
     );
 
-    const reviewedData = reviewedStats.data?.results.find(
-      (category) => category.categoryName === 'SUPERKINGDOM'
+    const reviewedItems = new Map(
+      reviewedStats.data?.results
+        .find((category) => category.categoryName === 'SUPERKINGDOM')
+        ?.items.map(
+          (item: StatisticsItem): [name: string, item: StatisticsItem] => [
+            item.name,
+            item,
+          ]
+        )
     );
 
-    const unreviewedData = unreviewedStats.data?.results.find(
-      (category) => category.categoryName === 'SUPERKINGDOM'
+    const unreviewedItems = new Map(
+      unreviewedStats.data?.results
+        .find((category) => category.categoryName === 'SUPERKINGDOM')
+        ?.items.map(
+          (item: StatisticsItem): [name: string, item: StatisticsItem] => [
+            item.name,
+            item,
+          ]
+        )
     );
 
     for (const [name, entry] of Object.entries(taxonSummed)) {
       if (reviewed) {
-        entry.entryCount +=
-          reviewedData?.items.find((item) => item.name === name)?.entryCount ||
-          0;
+        entry.entryCount += reviewedItems.get(name)?.entryCount || 0;
       }
       if (unreviewed) {
-        entry.entryCount +=
-          unreviewedData?.items.find((item) => item.name === name)
-            ?.entryCount || 0;
+        entry.entryCount += unreviewedItems.get(name)?.entryCount || 0;
       }
       if (reviewed && unreviewed) {
         entry.to.search = stringifyQuery({
