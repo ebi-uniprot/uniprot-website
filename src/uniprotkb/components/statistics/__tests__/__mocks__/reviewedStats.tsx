@@ -1,5 +1,6 @@
 import { StatisticsPayload } from '../../StatisticsPage';
 
+// Source https://rest.uniprot.org/statistics/releases/2023_03/reviewed
 // Retrieved: 2023-04-06
 const reviewedStats: StatisticsPayload = {
   results: [
