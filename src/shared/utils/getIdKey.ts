@@ -88,7 +88,10 @@ export const getIdKeyForNamespace = (
     case Namespace.arba:
       return (data) => (data as ARBAAPIModel).uniRuleId;
     case Namespace.idmapping:
-      return (data) => `${(data as MappingFlat).from}${(data as MappingTo).to}`;
+      return (data) =>
+        `${(data as MappingFlat).from}${fromSeparator}${
+          (data as MappingTo).to
+        }`;
     default:
       logging.warn(
         `getIdKeyForNamespace method not implemented for ${namespace} yet`
