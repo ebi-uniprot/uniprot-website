@@ -24,7 +24,7 @@ import GDPR from '../../shared/components/gdpr/GDPR';
 import DeploymentWarning from './DeploymentWarning';
 
 import history from '../../shared/utils/browserHistory';
-import { stringifyUrl } from '../../shared/utils/url';
+import { stringifyUrl, stringifyQuery } from '../../shared/utils/url';
 
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useReloadApp from '../../shared/hooks/useReloadApp';
@@ -35,7 +35,7 @@ import {
   LocationToPath,
 } from '../config/urls';
 
-import { Namespace } from '../../shared/types/namespaces';
+import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
@@ -306,8 +306,11 @@ const BackToTheTop = lazy(() =>
 // Helper component to render a landing page or the results page depending on
 // the presence of absence of a query
 const ResultsOrLanding =
-  (ResultsPage: FC<RouteChildrenProps>, LandingPage: FC<RouteChildrenProps>) =>
-  (props: RouteChildrenProps) => {
+  (
+    ResultsPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>,
+    LandingPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>
+  ) =>
+  (props: RouteChildrenProps<{ namespace: SearchableNamespace }>) => {
     if (props.location.search) {
       const params = Object.fromEntries(
         new URLSearchParams(props.location.search)
@@ -329,7 +332,7 @@ const ResultsOrLanding =
   };
 
 const RedirectToStarSearch = (
-  props: RouteChildrenProps<{ namespace: Namespace }>
+  props: RouteChildrenProps<{ namespace: SearchableNamespace }>
 ) => {
   const namespace = props.match?.params.namespace;
   let LandingPage;
@@ -339,7 +342,11 @@ const RedirectToStarSearch = (
       break;
     // NOTE: add cases whenever we start implementing other landing pages
     default:
-      return <Redirect to={{ ...props.location, search: 'query=*' }} />;
+      return (
+        <Redirect
+          to={{ ...props.location, search: stringifyQuery({ query: '*' }) }}
+        />
+      );
   }
   return (
     <SingleColumnLayout>
