@@ -124,7 +124,7 @@ const LandingPage = () => {
                 search: stringifyQuery({ query: '*' }),
               }}
             >
-              Start searching in UniProtKB <big>»</big>
+              Start searching in UniProtKB »
             </Link>
           </p>
         </div>
