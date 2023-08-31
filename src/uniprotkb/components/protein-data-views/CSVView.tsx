@@ -49,7 +49,7 @@ const CSVView: FC<CSVViewProps> = ({
           ) : null}
           {firstSupValue && (
             <>
-              {`, ${supplementaryText}: `}
+              {`, ${supplementaryText} `}
               <span
                 style={{
                   fontWeight: bolderFirst ? 'bolder' : 'initial',
