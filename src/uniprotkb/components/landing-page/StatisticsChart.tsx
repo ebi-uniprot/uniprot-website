@@ -27,7 +27,7 @@ const StatisticsChart = ({
 }: StatisticsChartProps) => {
   const reviewedStats = useDataApi<StatisticsPayload>(
     releaseNumber &&
-      stringifyUrl(apiUrls.statistics(releaseNumber, 'unreviewed'), {
+      stringifyUrl(apiUrls.statistics(releaseNumber, 'reviewed'), {
         categories: 'superkingdom',
       })
   );
