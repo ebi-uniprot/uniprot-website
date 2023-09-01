@@ -13,11 +13,12 @@ exports[`non-critical HomePage component should render 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           We are excited to share that it's been a year since we have been providing our services through the new UniProt website. To help us improve our services and better meet your needs, please take a few minutes to complete our 
@@ -34,7 +35,7 @@ exports[`non-critical HomePage component should render 1`] = `
             />
           </a>
         </small>
-      </section>
+      </div>
     </div>
   </div>
   <section

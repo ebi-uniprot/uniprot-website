@@ -10,16 +10,17 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and fail 
       class="message__side-border"
     />
     <test-file-stub
+      classname="message--icon-align-top"
       height="1.125em"
       width="1.125em"
     />
-    <section
-      class="message__content"
+    <div
+      class="message__title"
     >
       <small>
         : There has been an error
       </small>
-    </section>
+    </div>
   </div>
 </DocumentFragment>
 `;

@@ -392,16 +392,17 @@ exports[`QueryBuilder should render 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           Type * in the search box to search for all values for the selected field.
         </small>
-      </section>
+      </div>
     </div>
   </form>
 </DocumentFragment>
