@@ -266,7 +266,7 @@ export const ecoCodeToData = {
   [ecoCode.PNLM]: {
     manual: false,
     evidenceTagContentHeading: () =>
-      'Automatic assertion from deep learning method',
+      'Deep learning method evidence used in automatic assertion',
     evidenceTagContentHeadingForGO:
       'Automatically inferred from sequence model',
     evidenceTagLabel: () => labels.AA,
