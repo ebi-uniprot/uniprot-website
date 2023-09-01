@@ -33,6 +33,7 @@ export const ecoCode = {
   MI: 312,
   AI: 313,
   AA: 256,
+  PNLM: 8006,
   MIXM: 7744,
   MIXA: 7829,
   SGNM: 260,
@@ -65,12 +66,6 @@ const isSAMEvidence = (evidences: Evidence[]) =>
   evidences.some(
     (evidence) =>
       typeof evidence.source !== 'undefined' && evidence.source === 'SAM'
-  );
-
-const isProtNLMEvidence = (evidences: Evidence[]) =>
-  evidences.some(
-    (evidence) =>
-      typeof evidence.source !== 'undefined' && evidence.source === 'Google'
   );
 
 const manualevidenceTagLabeler = (evidences: Evidence[]) => {
@@ -262,11 +257,16 @@ export const ecoCodeToData = {
          */
         return 'Automatic assertion according to sequence analysis';
       }
-      if (isProtNLMEvidence(evidences)) {
-        return 'Automatic assertion from deep learning method';
-      }
       return 'Automatic assertion according to rules';
     },
+    evidenceTagContentHeadingForGO:
+      'Automatically inferred from sequence model',
+    evidenceTagLabel: () => labels.AA,
+  },
+  [ecoCode.PNLM]: {
+    manual: false,
+    evidenceTagContentHeading: () =>
+      'Automatic assertion from deep learning method',
     evidenceTagContentHeadingForGO:
       'Automatically inferred from sequence model',
     evidenceTagLabel: () => labels.AA,
