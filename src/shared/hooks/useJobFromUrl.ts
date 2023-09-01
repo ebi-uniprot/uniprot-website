@@ -5,11 +5,18 @@ import {
   getJobResultsLocation,
   LocationToPath,
   Location,
+  ToolsResultsLocations,
 } from '../../app/config/urls';
 
 import { Namespace, SearchableNamespace } from '../types/namespaces';
 
-const useJobFromUrl = () => {
+export type JobFromUrl = {
+  jobId?: string;
+  jobResultsLocation?: ToolsResultsLocations;
+  jobResultsNamespace?: SearchableNamespace;
+};
+
+const useJobFromUrl = (): JobFromUrl => {
   const history = useHistory();
   const jobResultsLocation = useMemo(
     () => getJobResultsLocation(history.location.pathname),

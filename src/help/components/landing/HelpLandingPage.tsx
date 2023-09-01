@@ -224,7 +224,10 @@ const HelpLandingPage = () => (
         <section className={landing['help-landing__videos']}>
           <h4>Help videos</h4>
           <div className={landing['help-landing__videos__list']}>
-            <YouTubeEmbed id="yp1O1gDK8oA" title="How to search UniProtKB" />
+            <YouTubeEmbed
+              videoid="yp1O1gDK8oA"
+              title="How to search UniProtKB"
+            />
             {/* TODO: include more videos as they become available */}
           </div>
         </section>

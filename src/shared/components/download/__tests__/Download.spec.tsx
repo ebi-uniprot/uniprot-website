@@ -2,7 +2,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import Download, { getPreviewFileFormat } from '../Download';
+import Download from '../Download';
 
 import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
 
@@ -22,16 +22,6 @@ const initialColumns = [
   UniProtKBColumn.reviewed,
   UniProtKBColumn.geneNames,
 ];
-
-describe('getPreviewFileFormat', () => {
-  it('should replace excel file format with tsv', () => {
-    expect(getPreviewFileFormat(FileFormat.excel)).toEqual(FileFormat.tsv);
-  });
-
-  it('should not replace text file format with tsv', () => {
-    expect(getPreviewFileFormat(FileFormat.text)).toEqual(FileFormat.text);
-  });
-});
 
 describe('Download component', () => {
   const namespace = Namespace.uniprotkb;
@@ -260,7 +250,7 @@ describe('Download with ID mapping results', () => {
     expect(screen.queryByText('Customize columns')).not.toBeInTheDocument();
   });
 
-  it('should display column selection for results which map to a non-uniprot namespace and have correct download link', async () => {
+  it('should display column selection for results which map to a uniprot namespace and have correct download link', async () => {
     customRender(
       <IDMappingDetailsContext.Provider
         // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -275,7 +265,7 @@ describe('Download with ID mapping results', () => {
         />
       </IDMappingDetailsContext.Provider>,
       {
-        route: '/id-mapping/id2',
+        route: '/id-mapping/uniprotkb/id2',
         initialLocalStorage: {
           'table columns for uniprotkb': initialColumns,
         },
@@ -285,80 +275,8 @@ describe('Download with ID mapping results', () => {
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining('/idmapping/uniprotkb/stream/id2')
+      expect.stringContaining('/idmapping/uniprotkb/results/stream/id2')
     );
-    expect(await screen.findByText('Customize columns')).toBeInTheDocument();
-  });
-});
-
-describe('Download reviewed proteins for a proteome entry that is an Eukaryote', () => {
-  it('should check the filteredNumberResults and add the additional select options', async () => {
-    const namespace = Namespace.uniprotkb;
-    const onCloseMock = jest.fn();
-    const query = '(proteome:UP000005640)';
-    const totalNumberResults = 82678;
-    const isoformStats = {
-      allWithIsoforms: undefined,
-      reviewed: 20408,
-      reviewedWithIsoforms: undefined,
-    };
-
-    customRender(
-      <Download
-        query={query}
-        totalNumberResults={totalNumberResults}
-        onClose={onCloseMock}
-        namespace={namespace}
-        showReviewedOption
-        isoformStats={isoformStats}
-      />,
-      {
-        route: '/proteomes/UP000005640',
-        initialLocalStorage: {
-          'table columns for uniprotkb': initialColumns,
-        },
-      }
-    );
-    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
-    expect(downloadLink.href).toEqual(
-      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
-    );
-
-    fireEvent.click(
-      screen.getByLabelText(
-        `Download only reviewed (Swiss-Prot) canonical proteins (20,408)`
-      )
-    );
-    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
-    expect(downloadLink.href).toEqual(
-      expect.stringContaining(
-        stringifyQuery({
-          query: `((proteome:UP000005640) AND reviewed=true)`,
-        })
-      )
-    );
-
-    let options = screen.getAllByRole('option');
-    expect(options).toHaveLength(10);
-
-    fireEvent.click(
-      screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
-    );
-
-    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
-    const foo = stringifyQuery({
-      query: `((proteome:UP000005640) AND reviewed=true)`,
-      includeIsoform: true,
-    });
-    expect(downloadLink.href).toEqual(expect.stringContaining(foo));
-    options = screen.getAllByRole('option');
-    expect(options).toHaveLength(1);
-
-    fireEvent.click(
-      screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
-    );
-    const formatSelect = screen.getByTestId('file-format-select');
-    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });
 });

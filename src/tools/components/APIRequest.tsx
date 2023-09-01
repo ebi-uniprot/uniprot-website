@@ -19,7 +19,7 @@ import styles from './styles/extra-tabs.module.css';
 // exclude data that is just there as information and cannot be set
 const exclude = new Map<JobTypes, string[]>([
   [JobTypes.ALIGN, ['program', 'version']],
-  [JobTypes.ID_MAPPING, ['redirectURL']],
+  [JobTypes.ID_MAPPING, ['redirectURL', 'warnings']],
 ]);
 
 const documentation = new Map<JobTypes, string>([

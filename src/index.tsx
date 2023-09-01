@@ -22,14 +22,21 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-if ('serviceWorker' in navigator && MODERN_BUNDLE) {
+if ('serviceWorker' in navigator) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
-    serviceWorkerModule.register();
-    // switch commented lines if we want to enable/disable service worker
-    // Use in case of emergency! (if something wrong with caching in production)
-    // serviceWorkerModule.unregister();
+    // These obsolete hosts have been routed to the uniprot.org front-end so that
+    // the user's cache can be cleared
+    const obsoleteHosts = new Set(['beta.uniprot.org', 'covid-19.uniprot.org']);
+    if (obsoleteHosts.has(window.location.host)) {
+      serviceWorkerModule.unregister();
+    } else {
+      serviceWorkerModule.register();
+      // switch commented lines if we want to enable/disable service worker
+      // Use in case of emergency! (if something wrong with caching in production)
+      // serviceWorkerModule.unregister();
+    }
   });
 }
 

@@ -1,7 +1,15 @@
 import { FileFormat } from '../../../shared/types/resultsDownload';
 
 export const fileFormatsResultsDownload = [
-  FileFormat.tsv,
-  FileFormat.excel,
-  FileFormat.json,
+  FileFormat.tsvIdMappingFromTo, // stream
+  FileFormat.tsv, // async
+  FileFormat.excelIdMappingFromTo, // stream
+  FileFormat.jsonIdMappingFromTo, // stream
+  FileFormat.json, // async
+];
+
+export const fileFormatsUnenrichedResultsDownload = [
+  FileFormat.tsvIdMappingFromTo, // stream
+  FileFormat.excelIdMappingFromTo, // stream
+  FileFormat.jsonIdMappingFromTo, // stream
 ];

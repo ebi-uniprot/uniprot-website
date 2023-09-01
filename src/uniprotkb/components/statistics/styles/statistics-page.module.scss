@@ -1,0 +1,47 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+.statistics-page {
+  table {
+    margin-block: $global-margin;
+    border-spacing: 0;
+    overflow: auto;
+
+    caption {
+      inline-size: max-content;
+    }
+  }
+
+  thead {
+    color: $colour-sky-white;
+    background: $colour-sea-blue;
+
+    a {
+      color: $colour-sky-white;
+    }
+  }
+
+  tbody {
+    border: 1px solid $colour-sea-blue;
+  }
+
+  th,
+  td {
+    padding: $global-padding * 0.25 $global-padding * 0.5;
+    border: 1px solid $colour-sea-blue;
+    border-collapse: collapse;
+  }
+}
+
+.end {
+  text-align: end;
+}
+
+.side-by-side {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+  & svg {
+    place-self: center;
+  }
+}

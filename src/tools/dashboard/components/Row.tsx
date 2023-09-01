@@ -332,7 +332,9 @@ const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
 
       return (
         <>
-          {spOnly && spOnly === 'on' && <span>Reviewed only: Yes</span>}
+          {spOnly && spOnly === 'on' && (
+            <span>Target database: UniProtKB/Swiss-Prot</span>
+          )}
           {taxIds?.length ? taxonsWithEllipsisReveal(taxIds) : null}
         </>
       );
