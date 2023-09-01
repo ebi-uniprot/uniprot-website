@@ -198,15 +198,19 @@ const AsyncDownloadForm = ({
           <section className="tools-form-section tools-form-section__item tools-form-section__item--full-width">
             {isExcel(downloadUrlOptions) && (
               <Message level="failure">
-                Excel file format not supported for File Generation jobs. Please
-                select a different format. You can select TSV as an alternative
-                to Excel.
+                <small>
+                  Excel file format not supported for File Generation jobs.
+                  Please select a different format. You can select TSV as an
+                  alternative to Excel.
+                </small>
               </Message>
             )}
             {isUncompressed(downloadUrlOptions) && (
               <Message level="failure">
-                File must be compressed for File Generation jobs. Please select
-                compressed to proceed.
+                <small>
+                  File must be compressed for File Generation jobs. Please
+                  select compressed to proceed.
+                </small>
               </Message>
             )}
             {!formValues[AsyncDownloadFields.name].selected && (

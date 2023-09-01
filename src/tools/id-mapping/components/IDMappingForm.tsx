@@ -230,7 +230,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   ) {
     return (
       <Message level="failure">
-        Something went wrong, please try reloading the page
+        <small>Something went wrong, please try reloading the page</small>
       </Message>
     );
   }
@@ -271,14 +271,17 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               <Message
                 level={parsedIDs.length > ID_MAPPING_LIMIT ? 'failure' : 'info'}
               >
-                Your input contains <LongNumber>{parsedIDs.length}</LongNumber>
-                {pluralise(' ID', parsedIDs.length)}
-                {parsedIDs.length > ID_MAPPING_LIMIT && (
-                  <>
-                    . Only up to <LongNumber>{ID_MAPPING_LIMIT}</LongNumber>{' '}
-                    supported
-                  </>
-                )}
+                <small>
+                  Your input contains{' '}
+                  <LongNumber>{parsedIDs.length}</LongNumber>
+                  {pluralise(' ID', parsedIDs.length)}
+                  {parsedIDs.length > ID_MAPPING_LIMIT && (
+                    <>
+                      . Only up to <LongNumber>{ID_MAPPING_LIMIT}</LongNumber>{' '}
+                      supported
+                    </>
+                  )}
+                </small>
               </Message>
             )}
           </section>
@@ -425,7 +428,11 @@ const IDMappingFormWithProvider = () => {
   }
 
   if (error || !data) {
-    return <Message level="failure">{error?.message}</Message>;
+    return (
+      <Message level="failure">
+        <small>{error?.message}</small>
+      </Message>
+    );
   }
 
   return (

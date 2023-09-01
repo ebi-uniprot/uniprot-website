@@ -85,7 +85,9 @@ const QueryNotPossibleMessage = ({
   onCancel: () => void;
 }) => (
   <>
-    <Message level="info">{text}</Message>
+    <Message level="info">
+      <small>{text}</small>
+    </Message>
     <div className="query-builder__actions button-group sliding-panel__button-row">
       <Button variant="secondary" onClick={onCancel}>
         Cancel
@@ -333,8 +335,10 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         <Button type="submit">Search</Button>
       </div>
       <Message level="info">
-        Type * in the search box to search for all values for the selected
-        field.
+        <small>
+          Type * in the search box to search for all values for the selected
+          field.
+        </small>
       </Message>
     </>
   );

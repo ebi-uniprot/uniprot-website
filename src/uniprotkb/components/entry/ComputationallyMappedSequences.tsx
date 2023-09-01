@@ -125,8 +125,10 @@ const ComputationalyMappedSequences = ({
       </h3>
       {error ? (
         <Message level={MessageLevel.FAILURE}>
-          Could not load computationally mapped sequences
-          {error?.message && `: ${error.message}`}
+          <small>
+            Could not load computationally mapped sequences
+            {error?.message && `: ${error.message}`}
+          </small>
         </Message>
       ) : (
         <>

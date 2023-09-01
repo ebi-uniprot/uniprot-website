@@ -93,10 +93,12 @@ const XRefsSection = ({ xrefData, totalNResults }: Props) => {
     >
       {totalNResults && totalNResults >= DATA_IMPORT_LIMIT && (
         <Message level="warning">
-          For performance reasons, this entry is not populated with all of its
-          cross-references because it has too many of them. If you do need to
-          retrieve all of them, feel free to{' '}
-          <ContactLink>Contact us</ContactLink>.
+          <small>
+            For performance reasons, this entry is not populated with all of its
+            cross-references because it has too many of them. If you do need to
+            retrieve all of them, feel free to{' '}
+            <ContactLink>Contact us</ContactLink>.
+          </small>
         </Message>
       )}
       <div className="button-group">

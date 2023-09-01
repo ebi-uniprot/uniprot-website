@@ -309,19 +309,21 @@ const IDMappingResult = () => {
       />
       {!!warnings.length && (
         <Message level={MessageLevel.WARNING} className={styles.warnings}>
-          <ul className="no-bullet">
-            {warnings.map(({ message, code }) => (
-              <li key={code}>
-                {message}
-                {code === MappingWarningCode.FiltersDisabled && (
-                  <span>
-                    . You can query the results by entering a search query in
-                    the search bar or by using the Advanced search.
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
+          <small>
+            <ul className="no-bullet">
+              {warnings.map(({ message, code }) => (
+                <li key={code}>
+                  {message}
+                  {code === MappingWarningCode.FiltersDisabled && (
+                    <span>
+                      . You can query the results by entering a search query in
+                      the search bar or by using the Advanced search.
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </small>
         </Message>
       )}
       <Tabs active={match.params.subPage}>

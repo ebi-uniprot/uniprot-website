@@ -206,23 +206,25 @@ const ResultsData = ({
       {/* Display warning for wildcard searches. It is not related to any warning from ID mapping */}
       {warnings && !displayIdMappingColumns && (
         <Message level="warning">
-          {warnings.map((warning) => {
-            const [firstPart, linkContent, lastPart] =
-              warning.message.split(/(help page)/);
-            return (
-              <Fragment key={warning.code}>
-                {firstPart}
-                <Link
-                  to={generatePath(LocationToPath[Location.HelpEntry], {
-                    accession: 'wildcard',
-                  })}
-                >
-                  {linkContent}
-                </Link>
-                {lastPart}
-              </Fragment>
-            );
-          })}
+          <small>
+            {warnings.map((warning) => {
+              const [firstPart, linkContent, lastPart] =
+                warning.message.split(/(help page)/);
+              return (
+                <Fragment key={warning.code}>
+                  {firstPart}
+                  <Link
+                    to={generatePath(LocationToPath[Location.HelpEntry], {
+                      accession: 'wildcard',
+                    })}
+                  >
+                    {linkContent}
+                  </Link>
+                  {lastPart}
+                </Fragment>
+              );
+            })}
+          </small>
         </Message>
       )}
       {content}

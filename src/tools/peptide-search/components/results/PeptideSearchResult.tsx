@@ -290,23 +290,25 @@ const PeptideSearchResult = () => {
           <Suspense fallback={<Loader />}>
             {excessAccessions && (
               <Message level="warning">
-                To filter peptide search results of more than{' '}
-                <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber>{' '}
-                matches, please use the{' '}
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.IDMapping],
-                    state: {
-                      parameters: {
-                        ids: accessions,
-                        name: `Peptide search matches`,
+                <small>
+                  To filter peptide search results of more than{' '}
+                  <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber>{' '}
+                  matches, please use the{' '}
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.IDMapping],
+                      state: {
+                        parameters: {
+                          ids: accessions,
+                          name: `Peptide search matches`,
+                        },
                       },
-                    },
-                  }}
-                >
-                  ID Mapping
-                </Link>{' '}
-                service.
+                    }}
+                  >
+                    ID Mapping
+                  </Link>{' '}
+                  service.
+                </small>
               </Message>
             )}
 

@@ -9,8 +9,13 @@ import ArtWork from './svg/empty-dashboard.img.svg';
 
 const ErrorMessage = () => (
   <Message
-    forFullPage
+    noIcon
     level="warning"
+    heading={
+      <h3>
+        No results available. Your UniProt tool results will be shown here
+      </h3>
+    }
     subtitle={
       <>
         Try using <Link to={LocationToPath[Location.Blast]}>BLAST</Link>,{' '}
@@ -21,9 +26,7 @@ const ErrorMessage = () => (
         to begin
       </>
     }
-  >
-    No results available. Your UniProt tool results will be shown here
-  </Message>
+  />
 );
 
 const EmptyDashboard = () => (

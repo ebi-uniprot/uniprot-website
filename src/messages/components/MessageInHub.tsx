@@ -27,7 +27,7 @@ const MessageInHub = ({ level, content, id, displayTime }: MessageType) => {
 
   return (
     <Message level={level} onDismiss={handleDismiss}>
-      {content}
+      <small>{content}</small>
     </Message>
   );
 };

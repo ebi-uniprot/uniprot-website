@@ -21,11 +21,12 @@ exports[`BlastResultTable tests should render without any hits 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           <h1
@@ -37,7 +38,7 @@ exports[`BlastResultTable tests should render without any hits 1`] = `
             Please try different criteria
           </span>
         </small>
-      </section>
+      </div>
     </div>
   </div>
 </DocumentFragment>

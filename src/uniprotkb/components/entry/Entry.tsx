@@ -341,20 +341,20 @@ const Entry = () => {
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       {isObsolete ? (
-        <h1>{match.params.accession}</h1>
+        <h3>{match.params.accession}</h3>
       ) : (
         <ErrorBoundary>
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
           />
-          <h1>
+          <h3>
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
             <BasketStatus id={data.primaryAccession} className="small" />
-          </h1>
+          </h3>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       )}

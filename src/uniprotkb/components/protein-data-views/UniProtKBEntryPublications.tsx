@@ -26,7 +26,9 @@ const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
   if (error) {
     return (
       <Message level={MessageLevel.FAILURE}>
-        {status}: {error.message}
+        <small>
+          {status}: {error.message}
+        </small>
       </Message>
     );
   }
