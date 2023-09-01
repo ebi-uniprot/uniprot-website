@@ -63,7 +63,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
       <a
         class="tile__main-content"
-        href="/uniprotkb?query=*"
+        href="/uniprotkb"
       >
         <span>
           <h2

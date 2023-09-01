@@ -25,6 +25,7 @@ import DevDeploymentWarning from './DevDeploymentWarning';
 import Covid19RedirectWarning from './Covid19RedirectWarning';
 
 import history from '../../shared/utils/browserHistory';
+import { stringifyUrl, stringifyQuery } from '../../shared/utils/url';
 
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useReloadApp from '../../shared/hooks/useReloadApp';
@@ -34,7 +35,8 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
-import { stringifyUrl } from '../../shared/utils/url';
+
+import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
@@ -90,6 +92,20 @@ const GenericResultsPage = lazy(
   () =>
     import(
       /* webpackChunkName: "generic-results" */ '../../shared/components/results/Results'
+    )
+);
+// Landing pages
+const UniProtKBLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-landing" */ '../../uniprotkb/components/landing-page/LandingPage'
+    )
+);
+// Main namespaces
+const UniProtKBStatisticsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-statistics" */ '../../uniprotkb/components/statistics/StatisticsPage'
     )
 );
 // Main namespaces
@@ -289,13 +305,13 @@ const BackToTheTop = lazy(() =>
 );
 
 // Helper component to render a landing page or the results page depending on
-// the presence or absence of a query string (any URL parameters) eg presence
-// of any of: facets, query, sort will be routed to a results page. In the case
-// of query string is present but no "query=" or this is empty it will be
-// provided as "query=*"
+// the presence of absence of a query
 const ResultsOrLanding =
-  (ResultsPage: FC<RouteChildrenProps>, LandingPage: FC<RouteChildrenProps>) =>
-  (props: RouteChildrenProps) => {
+  (
+    ResultsPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>,
+    LandingPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>
+  ) =>
+  (props: RouteChildrenProps<{ namespace: SearchableNamespace }>) => {
     if (props.location.search) {
       const params = Object.fromEntries(
         new URLSearchParams(props.location.search)
@@ -312,12 +328,33 @@ const ResultsOrLanding =
       }
       return <ResultsPage {...props} />;
     }
+    // If no query, redirect to landing page
     return <LandingPage {...props} />;
   };
-// NOTE: remove whenever we start implementing landing pages
-const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
-  <Redirect to={{ ...location, search: 'query=*' }} />
-);
+
+const RedirectToStarSearch = (
+  props: RouteChildrenProps<{ namespace: SearchableNamespace }>
+) => {
+  const namespace = props.match?.params.namespace;
+  let LandingPage;
+  switch (namespace) {
+    case Namespace.uniprotkb:
+      LandingPage = UniProtKBLandingPage;
+      break;
+    // NOTE: add cases whenever we start implementing other landing pages
+    default:
+      return (
+        <Redirect
+          to={{ ...props.location, search: stringifyQuery({ query: '*' }) }}
+        />
+      );
+  }
+  return (
+    <SingleColumnLayout>
+      <LandingPage />
+    </SingleColumnLayout>
+  );
+};
 
 const App = () => {
   useScrollToTop(history);
@@ -342,6 +379,11 @@ const App = () => {
               path={LocationToPath[Location.Home]}
               exact
               component={HomePage}
+            />
+            {/* Special pages */}
+            <Route
+              path={LocationToPath[Location.UniProtKBStatistics]}
+              component={UniProtKBStatisticsPage}
             />
             {/* Entry pages */}
             {/* Main namespaces */}

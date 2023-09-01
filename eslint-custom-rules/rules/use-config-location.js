@@ -265,7 +265,7 @@ module.exports = {
         }
 
         const toAttr = node.openingElement.attributes.find(
-          (attr) => attr.name.name === 'to'
+          (attr) => attr.name?.name === 'to'
         );
         // if it doesn't use "to", bail
         if (!toAttr) {
