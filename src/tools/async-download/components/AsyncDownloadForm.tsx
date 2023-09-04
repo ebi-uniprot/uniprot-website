@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
+import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
+
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
@@ -20,6 +22,7 @@ import {
   updateSelected,
   updateSending,
   updateDownloadUrlOptions,
+  updateConfirmation,
 } from '../state/asyncDownloadFormActions';
 import initialFormValues, {
   AsyncDownloadFields,
@@ -82,15 +85,17 @@ const AsyncDownloadForm = ({
     }
   }
 
-  const [{ formValues, sending, submitDisabled }, dispatch] = useReducer(
-    asyncDownloadFormDataReducer,
-    { initialFormValues, downloadUrlOptions, count, jobTitle },
-    getAsyncDownloadFormInitialState
-  );
+  const [{ formValues, sending, submitDisabled, showConfirmation }, dispatch] =
+    useReducer(
+      asyncDownloadFormDataReducer,
+      { initialFormValues, downloadUrlOptions, count, jobTitle },
+      getAsyncDownloadFormInitialState
+    );
 
   useEffect(() => {
     dispatch(updateDownloadUrlOptions(downloadUrlOptions));
   }, [downloadUrlOptions]);
+
   const submitAsyncDownloadJob = useCallback(
     (event: FormEvent | MouseEvent) => {
       event.preventDefault();
@@ -136,9 +141,13 @@ const AsyncDownloadForm = ({
     ]
   );
 
+  if (showConfirmation) {
+    return <AsyncDownloadConfirmation formValues={formValues} />;
+  }
+
   return (
     <form
-      onSubmit={submitAsyncDownloadJob}
+      onSubmit={() => dispatch(updateConfirmation(true))}
       aria-label="Async download job submission form"
       ref={scrollRef}
     >
@@ -230,7 +239,7 @@ const AsyncDownloadForm = ({
               className="button primary"
               type="submit"
               disabled={submitDisabled}
-              onClick={submitAsyncDownloadJob}
+              onClick={() => dispatch(updateConfirmation(true))}
             >
               Submit
             </button>
