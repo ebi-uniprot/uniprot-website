@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect, useMemo } from 'react';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -76,15 +76,20 @@ const ComponentsDownload = ({
     selectedEntries.length ? 'selected' : 'all'
   );
 
-  const fileFormats =
-    proteomeType === 'Redundant proteome'
-      ? fileFormatsResultsDownloadForRedundant
-      : [
-          FileFormat.fasta,
-          ...fileFormatsUniPortKBResultsDownload.filter(
-            (format) => !format.includes('FASTA')
-          ),
-        ];
+  const fileFormats = useMemo(
+    () =>
+      proteomeType === 'Redundant proteome'
+        ? fileFormatsResultsDownloadForRedundant
+        : [
+            FileFormat.fasta,
+            ...fileFormatsUniPortKBResultsDownload.filter(
+              (format) => !format.includes('FASTA')
+            ),
+          ],
+    [proteomeType]
+  );
+
+  const [fileFormatOptions, setFileFormatOptions] = useState(fileFormats);
 
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
@@ -106,14 +111,7 @@ const ComponentsDownload = ({
     namespace,
   };
 
-  const hasColumns = fileFormatsWithColumns.has(fileFormat);
-
-  if (hasColumns) {
-    downloadOptions.columns = selectedColumns;
-  }
-
   const showReviewedOption = superkingdom === 'eukaryota';
-  let fileFormatOptions = fileFormats;
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
   switch (downloadSelect) {
@@ -121,7 +119,6 @@ const ComponentsDownload = ({
       downloadCount = totalNumberResults;
       if (showReviewedOption) {
         downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-        fileFormatOptions = [FileFormat.fasta];
       }
       break;
     case 'reviewed':
@@ -129,9 +126,6 @@ const ComponentsDownload = ({
       downloadCount = isoformStats?.reviewed || 0;
       if (includeIsoform) {
         downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-        fileFormatOptions = [FileFormat.fasta];
-      } else {
-        downloadOptions.fileFormat = FileFormat.fastaCanonical;
       }
       break;
     case 'selected':
@@ -140,6 +134,12 @@ const ComponentsDownload = ({
     default:
       downloadCount = 0;
       break;
+  }
+
+  const hasColumns = fileFormatsWithColumns.has(fileFormat);
+
+  if (hasColumns) {
+    downloadOptions.columns = selectedColumns;
   }
 
   const downloadUrl = getDownloadUrl(downloadOptions);
@@ -156,6 +156,27 @@ const ComponentsDownload = ({
       size: nPreview,
     });
 
+  useEffect(() => {
+    switch (downloadSelect) {
+      case 'all':
+        if (showReviewedOption) {
+          setFileFormatOptions([FileFormat.fasta]);
+          setFileFormat(FileFormat.fasta);
+        }
+        break;
+      case 'reviewed':
+        if (includeIsoform) {
+          setFileFormatOptions([FileFormat.fasta]);
+          setFileFormat(FileFormat.fasta);
+        } else {
+          setFileFormatOptions(fileFormats);
+        }
+        break;
+      default:
+        break;
+    }
+  }, [downloadSelect, fileFormats, includeIsoform, showReviewedOption]);
+
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDownloadSelect(e.target.name as DownloadSelectOptions);
   };
@@ -165,7 +186,7 @@ const ComponentsDownload = ({
 
   const handleIsoformSelect = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target.checked) {
-      fileFormatOptions = [FileFormat.fasta];
+      setFileFormatOptions([FileFormat.fasta]);
       setIncludeIsoform(true);
     } else {
       setIncludeIsoform(false);
@@ -216,7 +237,6 @@ const ComponentsDownload = ({
               onChange={handleDownloadAllChange}
             />
             Download only reviewed (Swiss-Prot) canonical proteins (
-            {/* <LongNumber>{includeIsoform ? isoformStats?.reviewedWithIsoforms : isoformStats?.reviewed}</LongNumber>) */}
             <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
             {includeIsoform ? ' + isoforms' : ''})
           </label>

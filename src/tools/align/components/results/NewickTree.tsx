@@ -370,12 +370,14 @@ const NewickTree: FC<NewickTreeProps> = ({
       </svg>
       {hasNegative && (
         <Message level="warning">
-          This is a Neighbour-joining tree without distance corrections.
-          <br />
-          One or more branches contain negative values, shown in red. They
-          represent negative distances as measured by the algorithm given the
-          specific input you have provided, and they should not be interpreted
-          biologically.
+          <small>
+            This is a Neighbour-joining tree without distance corrections.
+            <br />
+            One or more branches contain negative values, shown in red. They
+            represent negative distances as measured by the algorithm given the
+            specific input you have provided, and they should not be interpreted
+            biologically.
+          </small>
         </Message>
       )}
     </>

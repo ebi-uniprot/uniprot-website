@@ -25,13 +25,15 @@ const HomePageNonCritical = () => (
       )}
     >
       <Message level="info" className="uniprot-grid-cell--span-12">
-        We are excited to share that it&apos;s been a year since we have been
-        providing our services through the new UniProt website. To help us
-        improve our services and better meet your needs, please take a few
-        minutes to complete our{' '}
-        <ExternalLink url="https://forms.gle/BMX8Ln6f6Bnbt25q8">
-          survey
-        </ExternalLink>
+        <small>
+          We are excited to share that it&apos;s been a year since we have been
+          providing our services through the new UniProt website. To help us
+          improve our services and better meet your needs, please take a few
+          minutes to complete our{' '}
+          <ExternalLink url="https://forms.gle/BMX8Ln6f6Bnbt25q8">
+            survey
+          </ExternalLink>
+        </small>
       </Message>
     </div>
     <CoreData />

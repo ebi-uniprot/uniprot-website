@@ -11,16 +11,17 @@ exports[`InPageMessageHub tests should render 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           in page message
         </small>
-      </section>
+      </div>
       <button
         class="message__dismiss"
         type="button"

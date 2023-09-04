@@ -6,8 +6,10 @@ import ArtWork from './svgs/no-results-found.img.svg';
 
 const ErrorMessage = () => (
   <Message level="info">
-    <h1 className="small">Sorry, no results were found!</h1>
-    <span>Please try different criteria</span>
+    <small>
+      <h1 className="small">Sorry, no results were found!</h1>
+      <span>Please try different criteria</span>
+    </small>
   </Message>
 );
 

@@ -13,11 +13,12 @@ exports[`ErrorComponent should render 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           <h5>
@@ -46,7 +47,7 @@ exports[`ErrorComponent should render 1`] = `
             .
           </p>
         </small>
-      </section>
+      </div>
     </div>
   </div>
 </DocumentFragment>

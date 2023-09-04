@@ -28,11 +28,12 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           Frequently asked: issues accessing UniProt programmatically? Have a look at the 
@@ -55,7 +56,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           </a>
            .
         </small>
-      </section>
+      </div>
     </div>
     <br />
     <br />
@@ -560,11 +561,12 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           Frequently asked: issues accessing UniProt programmatically? Have a look at the 
@@ -587,7 +589,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           </a>
            .
         </small>
-      </section>
+      </div>
     </div>
     <br />
     <br />
