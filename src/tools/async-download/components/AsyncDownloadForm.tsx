@@ -37,8 +37,23 @@ import { JobTypes } from '../../types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Status } from '../../types/toolsStatuses';
 import { PublicServerParameters } from '../../types/toolsServerParameters';
+import { FormParameters } from '../types/asyncDownloadFormParameters';
 
 import '../../styles/ToolsForm.scss';
+
+const getJobParameters = (
+  downloadUrlOptions: DownloadUrlOptions,
+  isIdMappingResult: boolean,
+  jobId?: string
+): FormParameters => ({
+  ...downloadUrlOptions,
+  compressed: false,
+  download: false,
+  namespace: isIdMappingResult
+    ? Namespace.idmapping
+    : downloadUrlOptions.namespace,
+  jobId: isIdMappingResult ? jobId : undefined,
+});
 
 type Props<T extends JobTypes> = {
   downloadUrlOptions: DownloadUrlOptions;
@@ -62,7 +77,7 @@ const AsyncDownloadForm = ({
   const { jobId } = useJobFromUrl();
   const tools = useToolsState();
 
-  const isIdMappingResult = jobType === JobTypes.ID_MAPPING && jobId;
+  const isIdMappingResult = Boolean(jobType === JobTypes.ID_MAPPING && jobId);
 
   let jobTitle = '';
   if (isIdMappingResult) {
@@ -113,15 +128,7 @@ const AsyncDownloadForm = ({
         // side-effect of createJob) cannot mount immediately before navigating away.
         dispatchTools(
           createJob(
-            {
-              ...downloadUrlOptions,
-              compressed: false,
-              download: false,
-              namespace: isIdMappingResult
-                ? Namespace.idmapping
-                : downloadUrlOptions.namespace,
-              jobId: isIdMappingResult ? jobId : undefined,
-            },
+            getJobParameters(downloadUrlOptions, isIdMappingResult, jobId),
             JobTypes.ASYNC_DOWNLOAD,
             formValues[AsyncDownloadFields.name].selected
           )
@@ -142,7 +149,16 @@ const AsyncDownloadForm = ({
   );
 
   if (showConfirmation) {
-    return <AsyncDownloadConfirmation formValues={formValues} />;
+    return (
+      <AsyncDownloadConfirmation
+        jobParameters={getJobParameters(
+          downloadUrlOptions,
+          isIdMappingResult,
+          jobId
+        )}
+        jobName={formValues[AsyncDownloadFields.name].selected}
+      />
+    );
   }
 
   return (

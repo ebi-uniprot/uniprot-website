@@ -1,0 +1,7 @@
+.info-data {
+  display: inline-block;
+
+  :global(.decorated-list-item__title) {
+    flex-basis: 20vw;
+  }
+}
