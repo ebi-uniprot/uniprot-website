@@ -59,6 +59,7 @@ type Props<T extends JobTypes> = {
   downloadUrlOptions: DownloadUrlOptions;
   count: number;
   onClose: () => void;
+  onDisableForm: (disableForm: boolean) => void;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
 };
@@ -67,6 +68,7 @@ const AsyncDownloadForm = ({
   downloadUrlOptions,
   count,
   onClose,
+  onDisableForm,
   jobType,
   inputParamsData,
 }: Props<JobTypes>) => {
@@ -110,6 +112,10 @@ const AsyncDownloadForm = ({
   useEffect(() => {
     dispatch(updateDownloadUrlOptions(downloadUrlOptions));
   }, [downloadUrlOptions]);
+
+  useEffect(() => {
+    onDisableForm(showConfirmation);
+  }, [onDisableForm, showConfirmation]);
 
   const submitAsyncDownloadJob = useCallback(
     (event: FormEvent | MouseEvent) => {

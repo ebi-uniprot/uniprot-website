@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import { ChangeEvent, useReducer } from 'react';
+import { ChangeEvent, useCallback, useReducer } from 'react';
 import { Location as HistoryLocation } from 'history';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
@@ -27,6 +27,7 @@ import {
   updateDownloadSelect,
   updateCompressed,
   updateExtraContent,
+  updateDisableForm,
 } from './downloadActions';
 
 import { getDownloadUrl } from '../../config/apiUrls';
@@ -105,6 +106,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(updateCompressed(e.target.value === 'true'));
 
+  const handleDisableForm = useCallback((disableForm) => {
+    dispatch(updateDisableForm(disableForm));
+  }, []);
+
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
@@ -170,6 +175,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           onClose={() => onClose('submit', 'async')}
           inputParamsData={inputParamsData}
           jobType={jobType}
+          onDisableForm={handleDisableForm}
         />
       );
       break;
@@ -202,7 +208,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
               value="false"
               checked={state.downloadSelect === 'selected'}
               onChange={handleDownloadAllChange}
-              disabled={state.nSelectedEntries === 0 || redirectToIDMapping}
+              disabled={
+                state.nSelectedEntries === 0 ||
+                redirectToIDMapping ||
+                state.disableForm
+              }
             />
             Download selected (<LongNumber>{state.nSelectedEntries}</LongNumber>
             )
@@ -215,13 +225,13 @@ const Download = (props: DownloadProps<JobTypes>) => {
               value="true"
               checked={state.downloadSelect === 'all'}
               onChange={handleDownloadAllChange}
-              disabled={redirectToIDMapping}
+              disabled={redirectToIDMapping || state.disableForm}
             />
             Download all (<LongNumber>{totalNumberResults}</LongNumber>)
           </label>
         </>
       )}
-      <fieldset>
+      <fieldset disabled={state.disableForm}>
         <label>
           Format
           <select
@@ -243,7 +253,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
       </fieldset>
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
-        <fieldset>
+        <fieldset disabled={state.disableForm}>
           <legend data-article-id="compression">Compressed</legend>
           <label>
             <input
@@ -317,17 +327,22 @@ const Download = (props: DownloadProps<JobTypes>) => {
         <Button
           variant="tertiary"
           onClick={() => dispatch(updateExtraContent('url'))}
+          disabled={state.disableForm}
         >
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
           onClick={() => dispatch(updateExtraContent('preview'))}
-          disabled={redirectToIDMapping}
+          disabled={redirectToIDMapping || state.disableForm}
         >
           Preview {getPreviewCount(state, props, location, job)}
         </Button>
-        <Button variant="secondary" onClick={() => onClose('cancel')}>
+        <Button
+          variant="secondary"
+          onClick={() => onClose('cancel')}
+          disabled={state.disableForm}
+        >
           Cancel
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -350,6 +365,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
               onClose('download', 'sync');
             }
           }}
+          // disabled={state.disableForm}
         >
           Download
         </a>
