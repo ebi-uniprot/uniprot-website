@@ -1,4 +1,11 @@
-import { CodeBlock, InfoList, Loader, LongNumber } from 'franklin-sites';
+import {
+  Button,
+  Card,
+  CodeBlock,
+  InfoList,
+  Loader,
+  LongNumber,
+} from 'franklin-sites';
 import { keyBy } from 'lodash-es';
 
 import useNSQuery from '../../../shared/hooks/useNSQuery';
@@ -10,6 +17,7 @@ import { FacetObject, SearchResults } from '../../../shared/types/results';
 import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 
 import styles from './styles/async-download-confirmation.module.scss';
+import '../../styles/ToolsForm.scss';
 
 type Props = {
   jobParameters: FormParameters;
@@ -90,7 +98,28 @@ const AsyncDownloadConfirmation = ({
       content: <CodeBlock lightMode>{jobParameters.fileFormat}</CodeBlock>,
     },
   ].filter(Boolean);
-  return <InfoList infoData={infoData} className={styles['info-data']} />;
+  return (
+    <Card
+      header={<h4>Review your file generation request</h4>}
+      className={styles['confirm-async-download']}
+    >
+      <InfoList infoData={infoData} className={styles['info-list']} />
+      <section className="tools-form-section tools-form-section--right button-group tools-form-section__buttons">
+        <Button variant="secondary" onClick={() => console.log('cancel')}>
+          Cancel
+        </Button>
+        <Button
+          className="button primary"
+          type="submit"
+          onClick={() => {
+            console.log('submit');
+          }}
+        >
+          Submit
+        </Button>
+      </section>
+    </Card>
+  );
 };
 
 export default AsyncDownloadConfirmation;
