@@ -58,6 +58,7 @@ import { PublicServerParameters } from '../../../tools/types/toolsServerParamete
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
+import helper from '../../styles/helper.module.scss';
 
 export type DownloadProps<T extends JobTypes> = {
   query?: string;
@@ -348,7 +349,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
           href={isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl}
-          className={cn('button', 'primary')}
+          className={cn('button', 'primary', {
+            [helper.disabled]: state.disableForm,
+          })}
           title={
             isAsyncDownload
               ? 'Download with a File Generation job'
@@ -365,7 +368,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
               onClose('download', 'sync');
             }
           }}
-          // disabled={state.disableForm}
         >
           Download
         </a>
