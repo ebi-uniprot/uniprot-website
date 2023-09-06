@@ -45,6 +45,7 @@ import {
   getIsEmbeddings,
   getPreviewCount,
   isAsyncDownloadIdMapping,
+  showColumnSelect,
 } from './downloadUtils';
 
 import { FileFormat } from '../../types/resultsDownload';
@@ -307,7 +308,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
         </Message>
       )}
 
-      {hasColumns(state, props, job) && (
+      {showColumnSelect(state, props, job) && (
         <>
           <legend>Customize columns</legend>
           <ColumnSelect

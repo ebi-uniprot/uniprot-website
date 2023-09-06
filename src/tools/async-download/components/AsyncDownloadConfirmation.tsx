@@ -19,12 +19,6 @@ import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 import styles from './styles/async-download-confirmation.module.scss';
 import '../../styles/ToolsForm.scss';
 
-type Props = {
-  jobParameters: FormParameters;
-  jobName: string;
-  count: number;
-};
-
 export const getFacetString = (
   facetData: FacetObject<string>[],
   selectedFacets: SelectedFacet[]
@@ -41,10 +35,20 @@ export const getFacetString = (
     .join(', ');
 };
 
+type Props = {
+  jobParameters: FormParameters;
+  jobName: string;
+  count: number;
+  onCancel: () => void;
+  onConfirm: () => void;
+};
+
 const AsyncDownloadConfirmation = ({
   jobParameters,
   jobName,
   count,
+  onCancel,
+  onConfirm,
 }: Props) => {
   // Query for facets
   const initialApiFacetUrl = useNSQuery(
@@ -97,6 +101,12 @@ const AsyncDownloadConfirmation = ({
       title: 'File format',
       content: <CodeBlock lightMode>{jobParameters.fileFormat}</CodeBlock>,
     },
+    {
+      title: 'Columns',
+      content: (
+        <CodeBlock lightMode>{jobParameters.columns?.join(', ')}</CodeBlock>
+      ),
+    },
   ].filter(Boolean);
   return (
     <Card
@@ -105,16 +115,10 @@ const AsyncDownloadConfirmation = ({
     >
       <InfoList infoData={infoData} className={styles['info-list']} />
       <section className="tools-form-section tools-form-section--right button-group tools-form-section__buttons">
-        <Button variant="secondary" onClick={() => console.log('cancel')}>
+        <Button variant="secondary" onClick={onCancel}>
           Cancel
         </Button>
-        <Button
-          className="button primary"
-          type="submit"
-          onClick={() => {
-            console.log('submit');
-          }}
-        >
+        <Button className="button primary" type="submit" onClick={onConfirm}>
           Submit
         </Button>
       </section>

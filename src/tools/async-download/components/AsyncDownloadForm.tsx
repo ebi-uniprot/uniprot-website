@@ -80,7 +80,6 @@ const AsyncDownloadForm = ({
   const tools = useToolsState();
 
   const isIdMappingResult = Boolean(jobType === JobTypes.ID_MAPPING && jobId);
-
   let jobTitle = '';
   if (isIdMappingResult) {
     // If the user submitted the job, use the name they provided
@@ -117,9 +116,14 @@ const AsyncDownloadForm = ({
     onDisableForm(showConfirmation);
   }, [onDisableForm, showConfirmation]);
 
+  const onFormSubmit = useCallback((event: FormEvent | MouseEvent) => {
+    event.preventDefault();
+    dispatch(updateConfirmation(true));
+  }, []);
+
   const submitAsyncDownloadJob = useCallback(
-    (event: FormEvent | MouseEvent) => {
-      event.preventDefault();
+    (event?: FormEvent | MouseEvent) => {
+      event?.preventDefault();
       dispatch(updateSending());
 
       // navigate to the dashboard, but not immediately, to give the impression that
@@ -164,13 +168,15 @@ const AsyncDownloadForm = ({
         )}
         jobName={formValues[AsyncDownloadFields.name].selected}
         count={count}
+        onCancel={() => dispatch(updateConfirmation(false))}
+        onConfirm={() => submitAsyncDownloadJob()}
       />
     );
   }
 
   return (
     <form
-      onSubmit={() => dispatch(updateConfirmation(true))}
+      onSubmit={onFormSubmit}
       aria-label="Async download job submission form"
       ref={scrollRef}
     >
@@ -262,7 +268,7 @@ const AsyncDownloadForm = ({
               className="button primary"
               type="submit"
               disabled={submitDisabled}
-              onClick={() => dispatch(updateConfirmation(true))}
+              onClick={onFormSubmit}
             >
               Submit
             </button>
