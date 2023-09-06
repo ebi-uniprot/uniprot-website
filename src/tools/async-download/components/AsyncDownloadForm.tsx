@@ -157,6 +157,7 @@ const AsyncDownloadForm = ({
           jobId
         )}
         jobName={formValues[AsyncDownloadFields.name].selected}
+        count={count}
       />
     );
   }

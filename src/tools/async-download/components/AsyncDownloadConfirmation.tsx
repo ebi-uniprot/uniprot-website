@@ -7,9 +7,14 @@ import styles from './styles/async-download-confirmation.module.scss';
 type Props = {
   jobParameters: FormParameters;
   jobName: string;
+  count: number;
 };
 
-const AsyncDownloadConfirmation = ({ jobParameters, jobName }: Props) => {
+const AsyncDownloadConfirmation = ({
+  jobParameters,
+  jobName,
+  count,
+}: Props) => {
   const infoData = [
     {
       title: 'File generation job name',
@@ -35,7 +40,7 @@ const AsyncDownloadConfirmation = ({ jobParameters, jobName }: Props) => {
       title: 'Number of entries',
       content: (
         <CodeBlock lightMode>
-          <LongNumber>2323232323</LongNumber>
+          <LongNumber>{count}</LongNumber>
         </CodeBlock>
       ),
     },
