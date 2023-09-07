@@ -101,10 +101,12 @@ const AsyncDownloadConfirmation = ({
       title: 'File format',
       content: <CodeBlock lightMode>{jobParameters.fileFormat}</CodeBlock>,
     },
-    {
+    !!jobParameters.columns?.length && {
       title: 'Columns',
       content: (
-        <CodeBlock lightMode>{jobParameters.columns?.join(', ')}</CodeBlock>
+        <CodeBlock lightMode className={styles.codeblock}>
+          {jobParameters.columns?.join(', ')}
+        </CodeBlock>
       ),
     },
   ].filter(Boolean);

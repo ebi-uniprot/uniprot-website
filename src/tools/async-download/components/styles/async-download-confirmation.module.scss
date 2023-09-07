@@ -8,4 +8,8 @@
   :global(.decorated-list-item__title) {
     flex-basis: 20vw;
   }
+
+  :global(.codeblock) {
+    white-space: normal;
+  }
 }
