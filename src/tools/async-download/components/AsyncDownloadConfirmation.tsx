@@ -8,6 +8,7 @@ import {
 } from 'franklin-sites';
 import { keyBy } from 'lodash-es';
 
+import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import useNSQuery from '../../../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
@@ -67,53 +68,51 @@ const AsyncDownloadConfirmation = ({
     return <Loader />;
   }
 
-  const infoData = [
+  const infoData: (InfoListItem | false)[] = [
     {
       title: 'File generation job name',
-      content: <CodeBlock lightMode>{jobName}</CodeBlock>,
+      content: jobName,
     },
     {
       title: 'Data source',
-      content: <CodeBlock lightMode>{jobParameters.namespace}</CodeBlock>,
+      content: jobParameters.namespace,
     },
-    {
+    !!jobParameters.query && {
       title: 'Query',
-      content: <CodeBlock lightMode>{jobParameters.query}</CodeBlock>,
+      content: jobParameters.query,
     },
-    jobParameters.selectedFacets &&
-      data?.facets && {
+    !!jobParameters.selectedFacets &&
+      !!data?.facets && {
         title: 'Selected facets',
-        content: (
-          <CodeBlock lightMode>
-            {getFacetString(data.facets, jobParameters.selectedFacets)}
-          </CodeBlock>
-        ),
+        content: getFacetString(data.facets, jobParameters.selectedFacets),
       },
     {
       title: 'Number of entries',
-      content: (
-        <CodeBlock lightMode>
-          <LongNumber>{count}</LongNumber>
-        </CodeBlock>
-      ),
+      content: <LongNumber>{count}</LongNumber>,
     },
     {
       title: 'File format',
-      content: <CodeBlock lightMode>{jobParameters.fileFormat}</CodeBlock>,
+      content: jobParameters.fileFormat,
     },
     !!jobParameters.columns?.length && {
       title: 'Columns',
-      content: (
-        <CodeBlock lightMode>{jobParameters.columns?.join(', ')}</CodeBlock>
-      ),
+      content: jobParameters.columns?.join(', ') || '',
     },
-  ].filter(Boolean);
+  ];
   return (
     <Card
       header={<h4>Review your file generation request</h4>}
       className={styles['confirm-async-download']}
     >
-      <InfoList infoData={infoData} className={styles['info-list']} />
+      <InfoList
+        infoData={infoData
+          .filter((d): d is InfoListItem => !!d)
+          .map(({ title, content }) => ({
+            title,
+            content: <CodeBlock lightMode>{content}</CodeBlock>,
+          }))}
+        className={styles['info-list']}
+      />
       <section className="tools-form-section tools-form-section--right button-group tools-form-section__buttons">
         <Button variant="secondary" onClick={onCancel}>
           Cancel
