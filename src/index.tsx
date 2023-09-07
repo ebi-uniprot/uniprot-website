@@ -22,15 +22,19 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// These obsolete hosts have been routed to the uniprot.org front-end so that
+// the user's cache can be cleared
+const obsoleteHosts = new Set(['beta.uniprot.org', 'covid-19.uniprot.org']);
+
 if ('serviceWorker' in navigator) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
-    // These obsolete hosts have been routed to the uniprot.org front-end so that
-    // the user's cache can be cleared
-    const obsoleteHosts = new Set(['beta.uniprot.org', 'covid-19.uniprot.org']);
     if (obsoleteHosts.has(window.location.host)) {
-      serviceWorkerModule.unregister();
+      serviceWorkerModule.unregister().finally(() => {
+        // eslint-disable-next-line no-restricted-globals
+        location.replace('https://www.uniprot.org');
+      });
     } else {
       serviceWorkerModule.register();
       // switch commented lines if we want to enable/disable service worker
@@ -38,6 +42,9 @@ if ('serviceWorker' in navigator) {
       // serviceWorkerModule.unregister();
     }
   });
+} else if (obsoleteHosts.has(window.location.host)) {
+  // eslint-disable-next-line no-restricted-globals
+  location.replace('https://www.uniprot.org');
 }
 
 /* Page tracking */
