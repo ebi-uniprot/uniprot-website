@@ -1,3 +1,4 @@
+import { keyBy } from 'lodash-es';
 import {
   Button,
   Card,
@@ -6,9 +7,8 @@ import {
   Loader,
   LongNumber,
 } from 'franklin-sites';
-import { keyBy } from 'lodash-es';
-
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+
 import useNSQuery from '../../../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
@@ -51,7 +51,8 @@ const AsyncDownloadConfirmation = ({
   onCancel,
   onConfirm,
 }: Props) => {
-  // Query for facets
+  // Query for facets in order to create a nice, human readable display
+  // of what the user has selected
   const initialApiFacetUrl = useNSQuery(
     jobParameters.selectedFacets?.length
       ? {

@@ -41,7 +41,6 @@ import {
   getIsAsyncDownload,
   getRedirectToIDMapping,
   getExtraContent,
-  hasColumns,
   getIsEmbeddings,
   getPreviewCount,
   isAsyncDownloadIdMapping,
