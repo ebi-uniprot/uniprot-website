@@ -83,7 +83,7 @@ const AsyncDownloadConfirmation = ({
       content: jobParameters.query,
     },
     !!jobParameters.selectedFacets &&
-      !!data?.facets && {
+      !!data?.facets?.length && {
         title: 'Selected facets',
         content: getFacetString(data.facets, jobParameters.selectedFacets),
       },
