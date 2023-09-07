@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: /configure/uniprotkb/result-fields
-// Retrieved: 2023-08-09
+// Retrieved: 2023-09-07
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -1189,9 +1189,9 @@ const mock = [
       { label: 'SMART', name: 'xref_smart', id: 'family_and_domain/smart' },
       { label: 'SUPFAM', name: 'xref_supfam', id: 'family_and_domain/supfam' },
       {
-        label: 'TIGRFAMs',
-        name: 'xref_tigrfams',
-        id: 'family_and_domain/tigrfams',
+        label: 'NCBIfam',
+        name: 'xref_ncbifam',
+        id: 'family_and_domain/NCBIfam',
       },
     ],
   },
