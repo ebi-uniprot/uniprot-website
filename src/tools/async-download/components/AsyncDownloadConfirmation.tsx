@@ -97,7 +97,7 @@ const AsyncDownloadConfirmation = ({
     },
     !!jobParameters.columns?.length && {
       title: 'Columns',
-      content: jobParameters.columns?.join(', ') || '',
+      content: jobParameters.columns.join(', ') || '',
     },
   ];
   return (

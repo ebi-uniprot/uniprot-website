@@ -8,6 +8,8 @@ import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
 
 import { stringifyQuery } from '../../../utils/url';
 
+import { DOWNLOAD_SIZE_LIMIT } from '../DownloadAPIURL';
+
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
@@ -16,7 +18,6 @@ import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 import SimpleMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/SimpleMappingDetails';
 import UniProtkbMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
-import { DOWNLOAD_SIZE_LIMIT } from '../DownloadAPIURL';
 
 const initialColumns = [
   UniProtKBColumn.accession,
