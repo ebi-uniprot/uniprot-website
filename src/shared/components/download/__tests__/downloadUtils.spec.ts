@@ -93,6 +93,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.fastaCanonical,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -162,6 +163,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.fastaCanonical,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -236,6 +238,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.fastaCanonical,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -329,6 +332,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.fastaCanonical,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -426,6 +430,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.tsvIdMappingFromTo,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -506,6 +511,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.tsvIdMappingFromTo,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -593,6 +599,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.tsvIdMappingFromTo,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -664,6 +671,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.fastaCanonical,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -736,6 +744,7 @@ describe('Download Utils', () => {
       downloadSelect: 'all',
       extraContent: null,
       compressed: true,
+      disableForm: false,
       nSelectedEntries: 0,
     });
     // Manually set state
@@ -807,6 +816,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.text,
       downloadSelect: 'all',
       compressed: false,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });
@@ -891,6 +901,7 @@ describe('Download Utils', () => {
       selectedFileFormat: FileFormat.fastaSubsequence,
       downloadSelect: 'all',
       compressed: true,
+      disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
     });

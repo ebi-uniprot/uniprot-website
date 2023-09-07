@@ -20,6 +20,7 @@ describe('AsyncDownloadForm', () => {
         }}
         jobType={JobTypes.ID_MAPPING}
         onClose={jest.fn()}
+        onDisableForm={jest.fn()}
       />,
       {
         route:
