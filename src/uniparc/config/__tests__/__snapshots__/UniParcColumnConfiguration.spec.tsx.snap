@@ -63,8 +63,6 @@ exports[`UniParcColumnConfiguration component should render column "SMART": SMAR
 
 exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUPFAM 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": TIGRFAMs 1`] = `<DocumentFragment />`;
-
 exports[`UniParcColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
   <ul
