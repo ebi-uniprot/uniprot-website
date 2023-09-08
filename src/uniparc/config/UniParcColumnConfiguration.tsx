@@ -351,7 +351,7 @@ UniParcColumnConfiguration.set(UniParcColumn.supfam, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.ncbifam, {
-  label: 'NCBIFam',
+  label: 'NCBIfam',
   render: familyAndDomainRenderer('NCBIfam', 'NCBIfamEntry'),
 });
 
