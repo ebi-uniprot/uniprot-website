@@ -231,7 +231,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'STRING',
     displayName: 'STRING',
     category: 'PPI',
-    uriLink: 'https://string-db.org/network/%id',
+    uriLink: 'https://version-11-5.string-db.org/network/%id',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
   {

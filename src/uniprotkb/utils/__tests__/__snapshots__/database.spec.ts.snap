@@ -2506,7 +2506,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PPI",
       "displayName": "STRING",
       "name": "STRING",
-      "uriLink": "https://string-db.org/network/%id",
+      "uriLink": "https://version-11-5.string-db.org/network/%id",
     },
     "SUPFAM": {
       "attributes": [

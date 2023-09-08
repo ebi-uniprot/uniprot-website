@@ -87,32 +87,26 @@ const familyAndDomainRenderer =
           ?.filter(
             (feature): feature is SequenceFeature => feature.database === db
           )
-          .map((feature) => {
-            debugger;
-            return (
-              <span
-                title={feature.interproGroup?.name}
-                key={feature.databaseId}
+          .map((feature) => (
+            <span title={feature.interproGroup?.name} key={feature.databaseId}>
+              <ExternalLink
+                url={externalUrls[externalURLAccessor](feature.databaseId)}
               >
-                <ExternalLink
-                  url={externalUrls[externalURLAccessor](feature.databaseId)}
-                >
-                  {feature.databaseId}
-                </ExternalLink>
-                {feature.interproGroup && (
-                  <>
-                    &nbsp;(&nbsp;
-                    <ExternalLink
-                      url={externalUrls.InterProEntry(feature.interproGroup.id)}
-                    >
-                      {feature.interproGroup.id}
-                    </ExternalLink>
-                    )
-                  </>
-                )}
-              </span>
-            );
-          })}
+                {feature.databaseId}
+              </ExternalLink>
+              {feature.interproGroup && (
+                <>
+                  &nbsp;(&nbsp;
+                  <ExternalLink
+                    url={externalUrls.InterProEntry(feature.interproGroup.id)}
+                  >
+                    {feature.interproGroup.id}
+                  </ExternalLink>
+                  )
+                </>
+              )}
+            </span>
+          ))}
       </ExpandableList>
     );
 
