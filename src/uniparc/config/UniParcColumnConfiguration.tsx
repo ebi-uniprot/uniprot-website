@@ -55,7 +55,7 @@ export enum UniParcColumn {
   sfld = 'SFLD',
   smart = 'SMART',
   supfam = 'SUPFAM',
-  tigrfams = 'TIGRFAMs',
+  ncbifam = 'NCBIfam',
   from = 'from',
 }
 
@@ -87,26 +87,32 @@ const familyAndDomainRenderer =
           ?.filter(
             (feature): feature is SequenceFeature => feature.database === db
           )
-          .map((feature) => (
-            <span title={feature.interproGroup?.name} key={feature.databaseId}>
-              <ExternalLink
-                url={externalUrls[externalURLAccessor](feature.databaseId)}
+          .map((feature) => {
+            debugger;
+            return (
+              <span
+                title={feature.interproGroup?.name}
+                key={feature.databaseId}
               >
-                {feature.databaseId}
-              </ExternalLink>
-              {feature.interproGroup && (
-                <>
-                  &nbsp;(&nbsp;
-                  <ExternalLink
-                    url={externalUrls.InterProEntry(feature.interproGroup.id)}
-                  >
-                    {feature.interproGroup.id}
-                  </ExternalLink>
-                  )
-                </>
-              )}
-            </span>
-          ))}
+                <ExternalLink
+                  url={externalUrls[externalURLAccessor](feature.databaseId)}
+                >
+                  {feature.databaseId}
+                </ExternalLink>
+                {feature.interproGroup && (
+                  <>
+                    &nbsp;(&nbsp;
+                    <ExternalLink
+                      url={externalUrls.InterProEntry(feature.interproGroup.id)}
+                    >
+                      {feature.interproGroup.id}
+                    </ExternalLink>
+                    )
+                  </>
+                )}
+              </span>
+            );
+          })}
       </ExpandableList>
     );
 
@@ -344,9 +350,9 @@ UniParcColumnConfiguration.set(UniParcColumn.supfam, {
   render: familyAndDomainRenderer('SUPFAM', 'SUPFAMEntry'),
 });
 
-UniParcColumnConfiguration.set(UniParcColumn.tigrfams, {
-  label: 'TIGRFAMs',
-  render: familyAndDomainRenderer('TIGRFAMs', 'TIGRFAMsEntry'),
+UniParcColumnConfiguration.set(UniParcColumn.ncbifam, {
+  label: 'NCBIFam',
+  render: familyAndDomainRenderer('NCBIfam', 'NCBIfamEntry'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.from, fromColumnConfig);

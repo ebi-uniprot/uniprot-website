@@ -47,8 +47,8 @@ const externalUrls = {
     `http://smart.embl-heidelberg.de/smart/do_annotation.pl?DOMAIN=${id}`,
   SUPFAMEntry: (id: string | number) =>
     `http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=${id}`,
-  TIGRFAMsEntry: (id: string | number) =>
-    `http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=${id}`,
+  NCBIfamEntry: (id: string | number) =>
+    `https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/${id}/`,
   InterProEntry: (id: string | number) =>
     `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm: string | number) =>

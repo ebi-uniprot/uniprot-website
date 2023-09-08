@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2023-07-21
+// Retrieved: 2023-09-07
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -1496,14 +1496,20 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'TIGRFAMs',
-    displayName: 'TIGRFAMs',
+    name: 'NCBIfam',
+    displayName: 'NCBIfam',
     category: 'FMD',
     uriLink:
       'https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/',
     attributes: [
-      { name: 'EntryName', xmlTag: 'entry name' },
-      { name: 'MatchStatus', xmlTag: 'match status' },
+      {
+        name: 'EntryName',
+        xmlTag: 'entry name',
+      },
+      {
+        name: 'MatchStatus',
+        xmlTag: 'match status',
+      },
     ],
   },
   {
