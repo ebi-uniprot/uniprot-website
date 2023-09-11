@@ -114,12 +114,19 @@ const ComponentsDownload = ({
   let downloadCount;
   switch (downloadSelect) {
     case 'all':
-      downloadCount = totalNumberResults;
+      downloadCount = includeIsoform
+        ? totalNumberResults + (statistics.isoforms || 0)
+        : totalNumberResults;
       break;
     case 'reviewed':
-      downloadCount = statistics?.reviewed || 0;
+      downloadCount = includeIsoform
+        ? (statistics?.reviewed || 0) + (statistics.isoforms || 0)
+        : statistics?.reviewed || 0;
       break;
     case 'selected':
+      /* The isoform counts for selected entries is not available here. We show only (+ isoforms) in the select option 
+       and the download count is used only for the preview purpose. I guess it is okay not to fret too much about it here.
+       */
       downloadCount = nSelectedEntries;
       break;
     default:
