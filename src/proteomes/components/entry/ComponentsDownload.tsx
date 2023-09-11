@@ -111,7 +111,8 @@ const ComponentsDownload = ({
     namespace,
   };
 
-  const showReviewedOption = superkingdom === 'eukaryota';
+  // TODO: replace the below condition with a call to check if there are isoforms available
+  const isoformsAvailable = superkingdom === 'eukaryota';
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
   switch (downloadSelect) {
@@ -211,7 +212,7 @@ const ComponentsDownload = ({
         />
         Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
       </label>
-      {showReviewedOption && isoformStats && (
+      {isoformsAvailable && isoformStats && (
         <label htmlFor="data-selection-reviewed">
           <input
             id="data-selection-reviewed"
@@ -236,14 +237,14 @@ const ComponentsDownload = ({
           onChange={handleDownloadAllChange}
         />
         Download all{' '}
-        {showReviewedOption
+        {isoformsAvailable
           ? 'reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins'
           : ''}{' '}
         {/* (<LongNumber>{showReviewedOption ? isoformStats?.allWithIsoforms : totalNumberResults}</LongNumber>) */}
         (<LongNumber>{totalNumberResults}</LongNumber>{' '}
         {/* {includeIsoform ? '+ isoforms' : ''} */})
       </label>
-      {showReviewedOption && (
+      {isoformsAvailable && (
         <div className={styles['isoform-option']}>
           Additional sequence data
           <label htmlFor="data-selection-isoform">
