@@ -132,6 +132,29 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2023-09-13-release',
+                  })}
+                >
+                  UniProt release 2023_04
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Some like it hot | Change of the cross-references to TAIR |
+                Change of the cross-references to TIGRFAMs: replaced by NCBIfam
+                | Change of evidence code for the ProtNLM method
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2023-06-28-release',
                   })}
                 >
