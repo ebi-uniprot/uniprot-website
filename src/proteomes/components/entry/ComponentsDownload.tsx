@@ -117,7 +117,6 @@ const ComponentsDownload = ({
       downloadCount = totalNumberResults;
       break;
     case 'reviewed':
-      // Once we have the counts, we should update the downloadCount accordingly
       downloadCount = statistics?.reviewed || 0;
       break;
     case 'selected':
@@ -129,7 +128,6 @@ const ComponentsDownload = ({
   }
 
   if (includeIsoform) {
-    downloadCount += statistics.isoforms || 0;
     downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
   }
 
@@ -209,7 +207,7 @@ const ComponentsDownload = ({
           disabled={nSelectedEntries === 0}
         />
         Download selected (<LongNumber>{nSelectedEntries}</LongNumber>
-        {includeIsoform ? ' + isoforms' : ''})
+        {includeIsoform && nSelectedEntries ? ' + isoforms' : ''})
       </label>
       <label htmlFor="data-selection-reviewed">
         <input
@@ -247,7 +245,7 @@ const ComponentsDownload = ({
           {includeIsoform
             ? totalNumberResults + (statistics.isoforms || 0)
             : totalNumberResults}
-        </LongNumber>{' '}
+        </LongNumber>
         )
       </label>
       {isoformsAvailable && (
@@ -260,8 +258,8 @@ const ComponentsDownload = ({
               name="reviewed-isoform"
               onChange={handleIsoformSelect}
             />
-            Include reviewed (Swiss-Prot) isoforms (this option will limit file
-            formats to FASTA)
+            Include reviewed (Swiss-Prot) isoforms --{' '}
+            <i>this option will limit file formats to FASTA</i>
           </label>
         </div>
       )}
