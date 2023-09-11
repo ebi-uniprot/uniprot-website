@@ -87,8 +87,6 @@ const ComponentsDownload = ({
     [proteomeType]
   );
 
-  const [fileFormatOptions, setFileFormatOptions] = useState(fileFormats);
-
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
@@ -158,15 +156,6 @@ const ComponentsDownload = ({
       size: nPreview,
     });
 
-  useEffect(() => {
-    if (includeIsoform) {
-      setFileFormatOptions([FileFormat.fasta]);
-      setFileFormat(FileFormat.fasta);
-    } else {
-      setFileFormatOptions(fileFormats);
-    }
-  }, [fileFormats, includeIsoform]);
-
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDownloadSelect(e.target.name as DownloadSelectOptions);
   };
@@ -176,8 +165,8 @@ const ComponentsDownload = ({
 
   const handleIsoformSelect = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target.checked) {
-      setFileFormatOptions([FileFormat.fasta]);
       setIncludeIsoform(true);
+      setFileFormat(FileFormat.fasta);
     } else {
       setIncludeIsoform(false);
     }
@@ -279,8 +268,12 @@ const ComponentsDownload = ({
             value={fileFormat}
             onChange={(e) => setFileFormat(e.target.value as FileFormat)}
           >
-            {fileFormatOptions.map((format) => (
-              <option value={format} key={format}>
+            {fileFormats.map((format) => (
+              <option
+                value={format}
+                key={format}
+                disabled={includeIsoform && format !== FileFormat.fasta}
+              >
                 {format}
               </option>
             ))}
