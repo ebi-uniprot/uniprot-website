@@ -212,21 +212,20 @@ const ComponentsDownload = ({
         />
         Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
       </label>
-      {isoformsAvailable && isoformStats && (
-        <label htmlFor="data-selection-reviewed">
-          <input
-            id="data-selection-reviewed"
-            type="radio"
-            name="reviewed"
-            value="false"
-            checked={downloadSelect === 'reviewed'}
-            onChange={handleDownloadAllChange}
-          />
-          Download only reviewed (Swiss-Prot) canonical proteins (
-          <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
-          {/* {includeIsoform ? ' + isoforms' : ''} */})
-        </label>
-      )}
+      <label htmlFor="data-selection-reviewed">
+        <input
+          id="data-selection-reviewed"
+          type="radio"
+          name="reviewed"
+          value="false"
+          checked={downloadSelect === 'reviewed'}
+          onChange={handleDownloadAllChange}
+        />
+        Download only reviewed (Swiss-Prot){' '}
+        {isoformsAvailable ? ' canonical ' : ''} proteins (
+        <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
+        {/* {includeIsoform ? ' + isoforms' : ''} */})
+      </label>
       <label htmlFor="data-selection-true">
         <input
           id="data-selection-true"
@@ -240,7 +239,6 @@ const ComponentsDownload = ({
         {isoformsAvailable
           ? 'reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins'
           : ''}{' '}
-        {/* (<LongNumber>{showReviewedOption ? isoformStats?.allWithIsoforms : totalNumberResults}</LongNumber>) */}
         (<LongNumber>{totalNumberResults}</LongNumber>{' '}
         {/* {includeIsoform ? '+ isoforms' : ''} */})
       </label>

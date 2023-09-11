@@ -57,14 +57,11 @@ const ComponentsButtons = ({
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  // Note: all Eukaryotes are not eligible. Having a list of the organisms would be helpful
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    superkingdom === 'eukaryota'
-      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
-          query: `(proteome=${id}) AND (reviewed=true)`,
-          size: '0',
-        })
-      : null
+    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+      query: `(proteome=${id}) AND (reviewed=true)`,
+      size: '0',
+    })
   );
 
   // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
