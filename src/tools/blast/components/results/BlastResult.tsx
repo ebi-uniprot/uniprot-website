@@ -25,7 +25,7 @@ import {
   filterBlastDataForResults,
   filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
@@ -163,17 +163,16 @@ type ApiData = SearchResults<
 
 export const enrich = (
   blastData?: BlastResults,
-  apiData?: ApiData,
-  namespace?: Namespace
+  apiData?: ApiData
 ): EnrichedData | null => {
-  if (!(blastData && apiData)) {
+  if (!(blastData && apiData?.results?.[0])) {
     return null;
   }
   const output: EnrichedData = { ...blastData };
-  const getIdKey = namespace && getIdKeyFor(namespace);
+  const getIdKey = getIdKeyForData(apiData.results[0]);
   output.hits = output.hits.map((hit) => {
     const extra = (apiData.results as UniProtkbAPIModel[]).find(
-      (entry) => hit.hit_acc === getIdKey?.(entry)
+      (entry) => hit.hit_acc === getIdKey(entry)
     );
     return {
       ...hit,
@@ -279,8 +278,8 @@ const BlastResult = () => {
     filterBlastDataForResults(blastData, urlParams.selectedFacets);
 
   const data = useMemo(
-    () => enrich(filteredBlastData || undefined, accessionsData, namespace),
-    [filteredBlastData, accessionsData, namespace]
+    () => enrich(filteredBlastData || undefined, accessionsData),
+    [filteredBlastData, accessionsData]
   );
 
   // Hits filtered out by server facets don't have "extra"

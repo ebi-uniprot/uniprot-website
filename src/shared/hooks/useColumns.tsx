@@ -14,7 +14,7 @@ import useColumnNames from './useColumnNames';
 import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 
 import apiUrls from '../config/apiUrls';
-import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
+import { getIdKeyForData } from '../utils/getIdKey';
 import {
   getParamsFromURL,
   getSortableColumnToSortColumn,
@@ -163,8 +163,8 @@ export const getColumnsToDisplay = (
           } catch (error) {
             if (!('inactiveReason' in row)) {
               logging.warn(
-                `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyFor(
-                  namespace
+                `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyForData(
+                  row
                 )(row)}" `
               );
             } // otherwise, OK to fail, it's an inactive entry
@@ -240,7 +240,6 @@ const useColumns = (
     }
     // If in a basket view
     if (basketSetter) {
-      const getIdKey = getIdKeyFor(namespace);
       const removeColumn: ColumnDescriptor<APIModel> = {
         name: 'remove',
         label: null,
@@ -248,7 +247,7 @@ const useColumns = (
           <Button
             variant="tertiary"
             onClick={() => {
-              const id = getIdKey(datum);
+              const id = getIdKeyForData(datum)(datum);
               basketSetter((currentBasket) => {
                 const basketSubset = new Set(currentBasket.get(namespace));
                 basketSubset?.delete(id);

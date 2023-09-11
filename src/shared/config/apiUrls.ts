@@ -1,6 +1,6 @@
 import joinUrl from 'url-join';
 
-import { fromCleanMapper } from '../utils/getIdKeyForNamespace';
+import { fromCleanMapper } from '../utils/getIdKey';
 import { stringifyUrl } from '../utils/url';
 import {
   getApiSortDirection,
