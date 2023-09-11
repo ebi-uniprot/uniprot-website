@@ -20,9 +20,8 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     const query = '(proteome:UP000005640)';
     const totalNumberResults = 82678;
     const isoformStats = {
-      allWithIsoforms: undefined,
       reviewed: 20408,
-      reviewedWithIsoforms: undefined,
+      isoforms: 22024,
     };
 
     customRender(
@@ -31,7 +30,6 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
         totalNumberResults={totalNumberResults}
         onClose={onCloseMock}
         statistics={isoformStats}
-        superkingdom="eukaryota"
         proteomeType="Reference and representative proteome"
         numberSelectedEntries={0}
         // selectedEntries={[]}
@@ -63,12 +61,13 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
       )
     );
 
-    let options = screen.getAllByRole('option');
+    const options = screen.getAllByRole('option');
     expect(options).toHaveLength(10);
 
-    fireEvent.click(
-      screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
-    );
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+
+    fireEvent.click(screen.getByRole('checkbox'));
 
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     const foo = stringifyQuery({
@@ -76,13 +75,9 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
       includeIsoform: true,
     });
     expect(downloadLink.href).toEqual(expect.stringContaining(foo));
-    options = screen.getAllByRole('option');
-    expect(options).toHaveLength(1);
+    expect(formatSelect).toHaveValue(FileFormat.fasta);
 
-    fireEvent.click(
-      screen.getByLabelText(`Include reviewed (Swiss-Prot) isoforms`)
-    );
-    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.click(screen.getByRole('checkbox'));
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });

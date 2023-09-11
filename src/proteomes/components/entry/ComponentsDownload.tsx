@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect, useMemo } from 'react';
+import { useState, ChangeEvent, useMemo } from 'react';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
