@@ -117,16 +117,10 @@ const ComponentsDownload = ({
   switch (downloadSelect) {
     case 'all':
       downloadCount = totalNumberResults;
-      if (showReviewedOption) {
-        downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-      }
       break;
     case 'reviewed':
       // Once we have the counts, we should update the downloadCount accordingly
       downloadCount = isoformStats?.reviewed || 0;
-      if (includeIsoform) {
-        downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-      }
       break;
     case 'selected':
       downloadCount = nSelectedEntries;
@@ -134,6 +128,10 @@ const ComponentsDownload = ({
     default:
       downloadCount = 0;
       break;
+  }
+
+  if (includeIsoform) {
+    downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
   }
 
   const hasColumns = fileFormatsWithColumns.has(fileFormat);
@@ -157,25 +155,13 @@ const ComponentsDownload = ({
     });
 
   useEffect(() => {
-    switch (downloadSelect) {
-      case 'all':
-        if (showReviewedOption) {
-          setFileFormatOptions([FileFormat.fasta]);
-          setFileFormat(FileFormat.fasta);
-        }
-        break;
-      case 'reviewed':
-        if (includeIsoform) {
-          setFileFormatOptions([FileFormat.fasta]);
-          setFileFormat(FileFormat.fasta);
-        } else {
-          setFileFormatOptions(fileFormats);
-        }
-        break;
-      default:
-        break;
+    if (includeIsoform) {
+      setFileFormatOptions([FileFormat.fasta]);
+      setFileFormat(FileFormat.fasta);
+    } else {
+      setFileFormatOptions(fileFormats);
     }
-  }, [downloadSelect, fileFormats, includeIsoform, showReviewedOption]);
+  }, [fileFormats, includeIsoform]);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDownloadSelect(e.target.name as DownloadSelectOptions);
@@ -226,30 +212,19 @@ const ComponentsDownload = ({
         Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
       </label>
       {showReviewedOption && isoformStats && (
-        <div>
-          <label htmlFor="data-selection-reviewed">
-            <input
-              id="data-selection-reviewed"
-              type="radio"
-              name="reviewed"
-              value="false"
-              checked={downloadSelect === 'reviewed'}
-              onChange={handleDownloadAllChange}
-            />
-            Download only reviewed (Swiss-Prot) canonical proteins (
-            <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
-            {includeIsoform ? ' + isoforms' : ''})
-          </label>
-          <label className={styles['isoform-option']}>
-            <input
-              type="checkbox"
-              name="reviewed-isoform"
-              onChange={handleIsoformSelect}
-              disabled={downloadSelect !== 'reviewed'}
-            />
-            Include reviewed (Swiss-Prot) isoforms
-          </label>
-        </div>
+        <label htmlFor="data-selection-reviewed">
+          <input
+            id="data-selection-reviewed"
+            type="radio"
+            name="reviewed"
+            value="false"
+            checked={downloadSelect === 'reviewed'}
+            onChange={handleDownloadAllChange}
+          />
+          Download only reviewed (Swiss-Prot) canonical proteins (
+          <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
+          {/* {includeIsoform ? ' + isoforms' : ''} */})
+        </label>
       )}
       <label htmlFor="data-selection-true">
         <input
@@ -266,8 +241,23 @@ const ComponentsDownload = ({
           : ''}{' '}
         {/* (<LongNumber>{showReviewedOption ? isoformStats?.allWithIsoforms : totalNumberResults}</LongNumber>) */}
         (<LongNumber>{totalNumberResults}</LongNumber>{' '}
-        {showReviewedOption ? ' + isoforms' : ''})
+        {/* {includeIsoform ? '+ isoforms' : ''} */})
       </label>
+      {showReviewedOption && (
+        <div className={styles['isoform-option']}>
+          Additional sequence data
+          <label htmlFor="data-selection-isoform">
+            <input
+              id="data-selection-isoform"
+              type="checkbox"
+              name="reviewed-isoform"
+              onChange={handleIsoformSelect}
+            />
+            Include reviewed (Swiss-Prot) isoforms (this option will limit file
+            formats to FASTA)
+          </label>
+        </div>
+      )}
       <fieldset>
         <label>
           Format
