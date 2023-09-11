@@ -7,7 +7,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 
 import UniRefColumnConfiguration, {
   UniRefColumn,
@@ -16,7 +16,7 @@ import UniRefColumnConfiguration, {
 import { Namespace } from '../../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
-const getIdKey = getIdKeyFor(Namespace.uniref);
+const getIdKey = getIdKeyForNamespace(Namespace.uniref);
 
 const mainInfoColumns = [
   UniRefColumn.name,

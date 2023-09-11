@@ -80,7 +80,7 @@ export async function register() {
 // will remove any existing service worker.
 // Might be needed if an issue is detected after deployement.
 export async function unregister() {
-  if (LIVE_RELOAD) {
+  if (LIVE_RELOAD || !navigator.serviceWorker.controller) {
     return;
   }
 
