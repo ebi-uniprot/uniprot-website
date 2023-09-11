@@ -4,7 +4,6 @@ import cn from 'classnames';
 
 // Sections
 import CoreData from './CoreData';
-import ExtraLinks from './ExtraLinks';
 import SupportingData from './SupportingData';
 import LatestNews from './LatestNews';
 import AnalysisTools from './AnalysisTools';
@@ -37,8 +36,6 @@ const HomePageNonCritical = () => (
       </Message>
     </div>
     <CoreData />
-
-    <ExtraLinks />
 
     <SupportingData />
 
