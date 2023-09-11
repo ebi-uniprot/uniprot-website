@@ -5,7 +5,7 @@ import cn from 'classnames';
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
-import { IsoformStatistics } from './ComponentsButtons';
+import { ProteomeStatistics } from './ComponentsButtons';
 
 import useColumnNames from '../../../shared/hooks/useColumnNames';
 
@@ -43,8 +43,7 @@ type DownloadProps = {
     downloadMethod?: DownloadMethod
   ) => void;
   proteomeType: ProteomeType;
-  superkingdom: string;
-  isoformStats: IsoformStatistics;
+  statistics: ProteomeStatistics;
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -59,8 +58,7 @@ const ComponentsDownload = ({
   numberSelectedEntries,
   onClose,
   proteomeType,
-  superkingdom,
-  isoformStats,
+  statistics,
 }: DownloadProps) => {
   const namespace =
     // Excluded not supported at the moment, need to wait for TRM-28011
@@ -111,8 +109,7 @@ const ComponentsDownload = ({
     namespace,
   };
 
-  // TODO: replace the below condition with a call to check if there are isoforms available
-  const isoformsAvailable = superkingdom === 'eukaryota';
+  const isoformsAvailable = Boolean(statistics.isoforms);
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
   switch (downloadSelect) {
@@ -121,7 +118,7 @@ const ComponentsDownload = ({
       break;
     case 'reviewed':
       // Once we have the counts, we should update the downloadCount accordingly
-      downloadCount = isoformStats?.reviewed || 0;
+      downloadCount = statistics?.reviewed || 0;
       break;
     case 'selected':
       downloadCount = nSelectedEntries;
@@ -132,6 +129,7 @@ const ComponentsDownload = ({
   }
 
   if (includeIsoform) {
+    downloadCount += statistics.isoforms || 0;
     downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
   }
 
@@ -210,7 +208,8 @@ const ComponentsDownload = ({
           onChange={handleDownloadAllChange}
           disabled={nSelectedEntries === 0}
         />
-        Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
+        Download selected (<LongNumber>{nSelectedEntries}</LongNumber>
+        {includeIsoform ? ' + isoforms' : ''})
       </label>
       <label htmlFor="data-selection-reviewed">
         <input
@@ -223,8 +222,12 @@ const ComponentsDownload = ({
         />
         Download only reviewed (Swiss-Prot){' '}
         {isoformsAvailable ? ' canonical ' : ''} proteins (
-        <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
-        {/* {includeIsoform ? ' + isoforms' : ''} */})
+        <LongNumber>
+          {includeIsoform
+            ? (statistics.reviewed || 0) + (statistics.isoforms || 0)
+            : statistics?.reviewed || 0}
+        </LongNumber>
+        )
       </label>
       <label htmlFor="data-selection-true">
         <input
@@ -239,8 +242,13 @@ const ComponentsDownload = ({
         {isoformsAvailable
           ? 'reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins'
           : ''}{' '}
-        (<LongNumber>{totalNumberResults}</LongNumber>{' '}
-        {/* {includeIsoform ? '+ isoforms' : ''} */})
+        (
+        <LongNumber>
+          {includeIsoform
+            ? totalNumberResults + (statistics.isoforms || 0)
+            : totalNumberResults}
+        </LongNumber>{' '}
+        )
       </label>
       {isoformsAvailable && (
         <div className={styles['isoform-option']}>

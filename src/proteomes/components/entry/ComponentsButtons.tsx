@@ -21,10 +21,7 @@ import apiUrls, {
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-import {
-  Component,
-  ProteomesAPIModel,
-} from '../../adapters/proteomesConverter';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { SearchResults } from '../../../shared/types/results';
@@ -41,10 +38,9 @@ type Props = Pick<
   selectedEntries: string[];
 };
 
-export type IsoformStatistics = {
-  allWithIsoforms: number | undefined;
+export type ProteomeStatistics = {
   reviewed: number | undefined;
-  reviewedWithIsoforms: number | undefined;
+  isoforms: number | undefined;
 };
 
 const ComponentsButtons = ({
@@ -64,11 +60,26 @@ const ComponentsButtons = ({
     })
   );
 
+  const { headers: isoformHeaders } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(
+    superkingdom === 'eukaryota'
+      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+          query: `(proteome=${id}) AND (reviewed=true)`,
+          size: '0',
+          includeIsoform: 'true',
+        })
+      : null
+  );
+
+  const isoformCount =
+    Number(isoformHeaders?.['x-total-results']) -
+    Number(headers?.['x-total-results']);
+
   // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
-  const isoformStats: IsoformStatistics = {
-    allWithIsoforms: undefined,
+  const isoformStats: ProteomeStatistics = {
     reviewed: Number(headers?.['x-total-results']) || undefined,
-    reviewedWithIsoforms: undefined,
+    isoforms: isoformCount,
   };
 
   const handleToggleDownload = useCallback(
@@ -103,17 +114,18 @@ const ComponentsButtons = ({
     [allQuery, components?.length, selectedEntries]
   );
 
-  const numberSelectedProteins = useMemo(() => {
-    // Don't bother iterating over the components if there are no selectedEntries
-    if (!selectedEntries.length || !components?.length) {
-      return 0;
-    }
-    return components.reduce(
-      (prev: number, curr: Component) =>
-        prev + (selectedEntries.includes(curr.name) ? curr.proteinCount : 0),
-      0
-    );
-  }, [components, selectedEntries]);
+  const { headers: selectedHeaders } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(
+    selectedEntries.length
+      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+          query: selectedQuery,
+          size: '0',
+        })
+      : null
+  );
+
+  const numberSelectedProteins = Number(selectedHeaders?.['x-total-results']);
 
   // Excluded not supported at the moment, need to wait for TRM-28011
   if (!components?.length || proteomeType === 'Excluded') {
@@ -138,8 +150,7 @@ const ComponentsButtons = ({
                 totalNumberResults={proteinCount}
                 onClose={handleToggleDownload}
                 proteomeType={proteomeType}
-                superkingdom={superkingdom}
-                isoformStats={isoformStats}
+                statistics={isoformStats}
               />
             </ErrorBoundary>
           </SlidingPanel>

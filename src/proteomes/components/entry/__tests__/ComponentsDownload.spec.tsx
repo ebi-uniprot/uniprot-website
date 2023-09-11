@@ -30,7 +30,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
         query={query}
         totalNumberResults={totalNumberResults}
         onClose={onCloseMock}
-        isoformStats={isoformStats}
+        statistics={isoformStats}
         superkingdom="eukaryota"
         proteomeType="Reference and representative proteome"
         numberSelectedEntries={0}
