@@ -790,7 +790,10 @@ const StatisticsPage = () => {
       className={styles['statistics-page']}
       noOverflow
     >
-      <HTMLHead title={['UniProtKB', 'Statistics']} />
+      <HTMLHead title={['UniProtKB', 'Statistics']}>
+        {/* Remove when this page is finished */}
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <h1>UniProtKB statistics</h1>
       <Card id="introduction">
         <h2>Introduction</h2>
