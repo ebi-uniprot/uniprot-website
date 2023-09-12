@@ -232,11 +232,7 @@ const ComponentsDownload = ({
           checked={downloadSelect === 'all'}
           onChange={handleDownloadAllChange}
         />
-        Download all{' '}
-        {isoformsAvailable
-          ? 'reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins'
-          : ''}{' '}
-        (
+        Download all reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins (
         <LongNumber>
           {includeIsoform
             ? totalNumberResults + (statistics.isoforms || 0)
