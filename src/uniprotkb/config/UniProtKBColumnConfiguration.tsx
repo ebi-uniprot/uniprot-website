@@ -460,7 +460,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
   render: (data) => {
     const { flag } = data[EntrySection.Sequence];
     const isFragment = flag && fragmentFlags.has(flag);
-    return flag && (isFragment ? flag : 'N');
+    return isFragment && flag;
   },
 });
 
