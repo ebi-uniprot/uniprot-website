@@ -306,7 +306,7 @@ export enum UniProtKBColumn {
   xrefSwisspalm = 'xref_swisspalm',
   xrefTair = 'xref_tair',
   xrefTcdb = 'xref_tcdb',
-  xrefTigrfams = 'xref_tigrfams',
+  xrefNcbifam = 'xref_ncbifam',
   xrefTopdownproteomics = 'xref_topdownproteomics',
   xrefTreefam = 'xref_treefam',
   xrefTuberculist = 'xref_tuberculist',

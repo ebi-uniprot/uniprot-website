@@ -55,7 +55,7 @@ export enum UniParcColumn {
   sfld = 'SFLD',
   smart = 'SMART',
   supfam = 'SUPFAM',
-  tigrfams = 'TIGRFAMs',
+  ncbifam = 'NCBIfam',
   from = 'from',
 }
 
@@ -344,9 +344,9 @@ UniParcColumnConfiguration.set(UniParcColumn.supfam, {
   render: familyAndDomainRenderer('SUPFAM', 'SUPFAMEntry'),
 });
 
-UniParcColumnConfiguration.set(UniParcColumn.tigrfams, {
-  label: 'TIGRFAMs',
-  render: familyAndDomainRenderer('TIGRFAMs', 'TIGRFAMsEntry'),
+UniParcColumnConfiguration.set(UniParcColumn.ncbifam, {
+  label: 'NCBIfam',
+  render: familyAndDomainRenderer('NCBIfam', 'NCBIfamEntry'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.from, fromColumnConfig);

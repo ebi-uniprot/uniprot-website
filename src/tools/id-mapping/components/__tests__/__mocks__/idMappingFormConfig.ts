@@ -1,7 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: /api/configure/idmapping/fields
-// Retrieved: 2022-06-16
+// Retrieved: 2023-09-08
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -183,7 +183,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink: 'https://string-db.org/network/%id',
+          uriLink: 'https://version-11-5.string-db.org/network/%id',
         },
       ],
     },

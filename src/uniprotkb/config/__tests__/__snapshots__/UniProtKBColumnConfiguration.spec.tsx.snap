@@ -2272,6 +2272,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_moond
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_moonprot": xref_moonprot 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_ncbifam": xref_ncbifam 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_nextprot": xref_nextprot 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_niagads": xref_niagads 1`] = `<DocumentFragment />`;
@@ -2383,8 +2385,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_swiss
 exports[`UniProtKBColumnConfiguration component should render column "xref_tair": xref_tair 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_tcdb": xref_tcdb 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_tigrfams": xref_tigrfams 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_topdownproteomics": xref_topdownproteomics 1`] = `<DocumentFragment />`;
 

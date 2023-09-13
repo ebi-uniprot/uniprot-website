@@ -3932,13 +3932,13 @@ const configureSearchTerms = [
             valuePrefix: 'supfam-',
           },
           {
-            id: 'xref_tigrfams',
-            label: 'TIGRFAMs',
+            id: 'xref_ncbifam',
+            label: 'NCBIfam',
             itemType: 'single',
             term: 'xref',
             dataType: 'string',
             fieldType: 'general',
-            valuePrefix: 'tigrfams-',
+            valuePrefix: 'ncbifam-',
           },
           {
             id: 'xref_prosite',
