@@ -294,12 +294,10 @@ const BlastResult = () => {
   const inputParamsData = useParamsData(match?.params.id || '');
 
   const resultTableData = useMemo<BlastResults | null>(() => {
-    if (!blastData) {
+    if (!blastData || accessionsLoading || !hitsFiltered.length) {
       return null;
     }
-    return accessionsLoading && !hitsFiltered.length
-      ? blastData
-      : { ...blastData, hits: hitsFiltered };
+    return { ...blastData, hits: hitsFiltered };
   }, [accessionsLoading, blastData, hitsFiltered]);
 
   if (blastLoading) {
