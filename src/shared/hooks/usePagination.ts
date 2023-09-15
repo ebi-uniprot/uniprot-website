@@ -24,6 +24,8 @@ export type PaginatedResults<R extends APIModel = APIModel> = {
   failedIds?: string[];
   // For ID Mapping
   suggestedIds?: Array<{ from: string; to: string }>;
+  // For ID Mapping
+  obsoleteCount?: number;
   error?: AxiosError<{ messages?: string[] }>;
   status?: number | undefined;
   warnings?: SearchResultsWarning[];
@@ -96,6 +98,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     total,
     failedIds: data?.failedIds,
     suggestedIds: data?.suggestedIds,
+    obsoleteCount: data?.obsoleteCount,
     error,
     status,
     warnings,

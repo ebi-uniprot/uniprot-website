@@ -60,7 +60,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "SFLD",
       "SMART",
       "SUPFAM",
-      "TIGRFAMs",
+      "NCBIfam",
       "PROSITE",
       "DisProt",
       "MobiDB",
@@ -338,6 +338,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "ModBase": "3DS",
     "MoonDB": "PFAM",
     "MoonProt": "PFAM",
+    "NCBIfam": "FMD",
     "NIAGADS": "ORG",
     "OGP": "2DG",
     "OMA": "PLG",
@@ -400,7 +401,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "SwissPalm": "PTM",
     "TAIR": "ORG",
     "TCDB": "PFAM",
-    "TIGRFAMs": "FMD",
     "TopDownProteomics": "PROTEOMIC",
     "TreeFam": "PLG",
     "TubercuList": "ORG",
@@ -1795,6 +1795,22 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "MoonProt",
       "uriLink": "http://www.moonlightingproteins.org/proteins/?q=%id",
     },
+    "NCBIfam": {
+      "attributes": [
+        {
+          "name": "EntryName",
+          "xmlTag": "entry name",
+        },
+        {
+          "name": "MatchStatus",
+          "xmlTag": "match status",
+        },
+      ],
+      "category": "FMD",
+      "displayName": "NCBIfam",
+      "name": "NCBIfam",
+      "uriLink": "https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/",
+    },
     "NIAGADS": {
       "attributes": [
         {
@@ -2490,7 +2506,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PPI",
       "displayName": "STRING",
       "name": "STRING",
-      "uriLink": "https://string-db.org/network/%id",
+      "uriLink": "https://version-11-5.string-db.org/network/%id",
     },
     "SUPFAM": {
       "attributes": [
@@ -2593,22 +2609,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "TCDB",
       "name": "TCDB",
       "uriLink": "http://www.tcdb.org/search/result.php?tc=%id",
-    },
-    "TIGRFAMs": {
-      "attributes": [
-        {
-          "name": "EntryName",
-          "xmlTag": "entry name",
-        },
-        {
-          "name": "MatchStatus",
-          "xmlTag": "match status",
-        },
-      ],
-      "category": "FMD",
-      "displayName": "TIGRFAMs",
-      "name": "TIGRFAMs",
-      "uriLink": "https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/",
     },
     "TopDownProteomics": {
       "attributes": [
@@ -3088,7 +3088,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "SFLD",
       "SMART",
       "SUPFAM",
-      "TIGRFAMs",
+      "NCBIfam",
       "PROSITE",
       "DisProt",
       "MobiDB",

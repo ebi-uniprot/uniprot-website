@@ -7,7 +7,9 @@ const familyRegEx = /(Belongs to the .+family)/i;
 const familyExtractor = /( the |\. )([^.]+(?:sub|super|sub-sub)?family)/;
 const familyHierarchyRegEx = /(superfamily|\sfamily|subfamily|sub-subfamily)+/;
 
-const SimilarityView = ({ children }: { children?: string }) => {
+type SimilarityViewProps = { children?: string; justLinks?: boolean };
+
+const SimilarityView = ({ children, justLinks }: SimilarityViewProps) => {
   const splitFamilyFromPlainText = (term: string) => {
     // if it ends up with the full string 'Belongs to the x.x.x family'
     const exceptionRegEx = /(belongs to the)/i;
@@ -17,12 +19,17 @@ const SimilarityView = ({ children }: { children?: string }) => {
     return ['', term];
   };
 
+  let linkIndex = 0;
+
   const familyLink = (term: string, link?: string) => {
     const [plainText, family] = splitFamilyFromPlainText(term);
 
+    linkIndex++; // eslint-disable-line no-plusplus
+
     return (
       <Fragment key={family}>
-        {plainText && `${plainText} `}
+        {!justLinks && plainText && `${plainText} `}
+        {justLinks && linkIndex > 1 && ', '}
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
@@ -55,10 +62,13 @@ const SimilarityView = ({ children }: { children?: string }) => {
             });
           }
 
-          if (index + 1 === length && !part.endsWith('.')) {
-            return `${part}.`;
+          if (!justLinks) {
+            if (index + 1 === length && !part.endsWith('.')) {
+              return `${part}.`;
+            }
+            return familyPart;
           }
-          return familyPart;
+          return null;
         });
       })}
     </>

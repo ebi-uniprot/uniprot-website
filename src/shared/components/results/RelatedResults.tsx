@@ -7,14 +7,14 @@ import useNSQuery from '../../hooks/useNSQuery';
 import usePagination from '../../hooks/usePagination';
 
 import { pluralise } from '../../utils/utils';
-import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../utils/getIdKey';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { APIModel } from '../../types/apiModel';
 
-const getIdKey = getIdKeyFor(Namespace.uniprotkb);
+const getIdKey = getIdKeyForNamespace(Namespace.uniprotkb);
 const cardRenderer = (cardData: APIModel) => (
   <UniProtKBCard data={cardData as UniProtkbAPIModel} isNotSelectable />
 );

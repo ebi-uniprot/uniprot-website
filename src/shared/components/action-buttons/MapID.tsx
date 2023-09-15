@@ -1,7 +1,7 @@
 import { Button } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
-import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
+import { fromCleanMapper } from '../../utils/getIdKey';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';

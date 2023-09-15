@@ -9,6 +9,11 @@
   margin-block-end: 0;
 }
 
+.not-selectable {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .ftp-header {
   display: block !important;
 }
@@ -24,5 +29,9 @@
 }
 
 .isoform-option {
-  margin-left: 10rem;
+  margin-top: 1rem;
+
+  label {
+    margin: 0.5rem;
+  }
 }

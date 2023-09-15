@@ -4598,9 +4598,9 @@ camelcase@^6.2.0:
   integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
 
 caniuse-lite@^1.0.30001264, caniuse-lite@^1.0.30001280, caniuse-lite@^1.0.30001313, caniuse-lite@^1.0.30001370, caniuse-lite@^1.0.30001400:
-  version "1.0.30001464"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001464.tgz"
-  integrity sha512-oww27MtUmusatpRpCGSOneQk2/l5czXANDSFvsc7VuOQ86s3ANhZetpwXNf1zY/zdfP63Xvjz325DAdAoES13g==
+  version "1.0.30001523"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001523.tgz"
+  integrity sha512-I5q5cisATTPZ1mc588Z//pj/Ox80ERYDfR71YnvY7raS/NOk8xXlZcB0sF7JdqaV//kOaa6aus7lRfpdnt1eBA==
 
 chalk@^1.1.3:
   version "1.1.3"
@@ -6670,10 +6670,10 @@ foundation-sites@6.7.5:
   resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.7.5.tgz#6bc2bdd06819e6ed4d7fd8e3090246a0b6ac81c0"
   integrity sha512-MEjAENdF/IV2XQvlQmg20o+iDTyyWu0N/j440e8fKbEylbKxARzgg5S7vcnxtjukC1Lqg+rRm7ZDSSyGhVVoUQ==
 
-franklin-sites@0.0.220:
-  version "0.0.220"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.220.tgz#f8f200505c99befbb452da9fe8c6b3a2b3523ddf"
-  integrity sha512-n1ziNT121SEhw2QjtgvP8+UVCytZFdz908gB8S3FTh1a5n/BIZwqLLqu5QfP+2fR8iAlByIqgR24EHeaC14WPQ==
+franklin-sites@0.0.221:
+  version "0.0.221"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.221.tgz#ffcd322f71e2bb4f9fd8645fe38989d8d88139dd"
+  integrity sha512-Mglc/mjLM0gmiSvLp9jG4VN7Tb3onzDV/oRyHXNsXtorpGxiD+UV7x+glgn0L1xk9PtneKezzlW7XClQPbMD4A==
   dependencies:
     "@tippyjs/react" "4.2.6"
     classnames "2.3.2"

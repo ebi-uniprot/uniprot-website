@@ -112,8 +112,10 @@ const StructureSection = ({
         <>
           <br />
           <Message level="info">
-            The structure viewer has not automatically been loaded on this
-            device.
+            <small>
+              The structure viewer has not automatically been loaded on this
+              device.
+            </small>
           </Message>
           <Button variant="secondary" onClick={() => setDisplayStructure(true)}>
             Click to load the structure viewer

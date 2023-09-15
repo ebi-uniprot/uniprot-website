@@ -14,7 +14,7 @@ import useNSQuery from '../shared/hooks/useNSQuery';
 import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
 
 import { reIds } from '../tools/utils/urls';
-import { getIdKeyFor } from '../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForData } from '../shared/utils/getIdKey';
 
 import { LocationToPath, Location } from '../app/config/urls';
 
@@ -67,7 +67,7 @@ export const updateResultsWithAccessionSubsets = (
   if (!results.length) {
     return [];
   }
-  const getIdKey = getIdKeyFor(namespace);
+  const getIdKey = getIdKeyForData(results[0]);
   // for all the accessions in the basket
   return accessions
     .map((accession) => {

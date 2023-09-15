@@ -1,6 +1,6 @@
 import joinUrl from 'url-join';
 
-import { fromCleanMapper } from '../utils/getIdKeyForNamespace';
+import { fromCleanMapper } from '../utils/getIdKey';
 import { stringifyUrl } from '../utils/url';
 import {
   getApiSortDirection,
@@ -144,6 +144,9 @@ const apiUrls = {
     token: joinUrl(apiPrefix, 'contact', 'token'),
     send: joinUrl(apiPrefix, 'contact', 'send'),
   },
+
+  statistics: (releaseNumber: string, type: 'reviewed' | 'unreviewed') =>
+    joinUrl(apiPrefix, 'statistics', 'releases', releaseNumber, type),
 };
 
 export default apiUrls;
@@ -285,7 +288,7 @@ export const getAccessionsURL = (
     noSort,
   }: GetOptions = {}
 ) => {
-  if (!(accessions && accessions.length)) {
+  if (!accessions?.length) {
     return undefined;
   }
   const finalFacets =
@@ -357,6 +360,7 @@ type Parameters = {
   size?: number;
   compressed?: boolean;
   download?: true;
+  jobId?: string;
 };
 
 export type DownloadUrlOptions = {
@@ -373,8 +377,9 @@ export type DownloadUrlOptions = {
   selectedIdField: Column;
   namespace: Namespace;
   accessions?: string[];
-  idMappingPrefix?: string;
   download?: boolean;
+  jobId?: string; // ID Mapping Async Download
+  version?: string;
 };
 
 export const getDownloadUrl = ({
@@ -392,8 +397,9 @@ export const getDownloadUrl = ({
   namespace,
   accessions,
   download = true,
+  jobId,
 }: DownloadUrlOptions) => {
-  // If the consumer of this fn has passed specified a size we have to use the search endpoint
+  // If the consumer of this fn has specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
 
   // for UniProtKB
@@ -479,6 +485,10 @@ export const getDownloadUrl = ({
     parameters.compressed = true;
   }
 
+  // ID Mapping Async Download
+  if (jobId) {
+    parameters.jobId = jobId;
+  }
   return stringifyUrl(endpoint, parameters);
 };
 

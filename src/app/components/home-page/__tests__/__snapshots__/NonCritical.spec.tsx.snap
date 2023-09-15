@@ -13,11 +13,12 @@ exports[`non-critical HomePage component should render 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
         <small>
           We are excited to share that it's been a year since we have been providing our services through the new UniProt website. To help us improve our services and better meet your needs, please take a few minutes to complete our 
@@ -34,7 +35,7 @@ exports[`non-critical HomePage component should render 1`] = `
             />
           </a>
         </small>
-      </section>
+      </div>
     </div>
   </div>
   <section
@@ -63,7 +64,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
       <a
         class="tile__main-content"
-        href="/uniprotkb?query=*"
+        href="/uniprotkb"
       >
         <span>
           <h2
@@ -236,66 +237,6 @@ exports[`non-critical HomePage component should render 1`] = `
       >
         Non-redundant archive of publicly available protein sequences seen across different databases
       </small>
-    </div>
-  </section>
-  <section
-    class="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section extra-links"
-  >
-    <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
-    >
-      <div
-        class="decorated-list-item__content"
-      >
-        <a
-          href="/uniprotkb?query=(source:google)"
-          title="Browse entries with ProtNLM predictions"
-        >
-          <h2
-            class="medium"
-          >
-            ProtNLM Predictions
-          </h2>
-          Browse all the entries annotated with Google's ProtNLM predictions
-        </a>
-        <br />
-        <br />
-        <small>
-          <a
-            href="/help/ProtNLM"
-          >
-            What is ProtNLM?
-          </a>
-        </small>
-      </div>
-    </div>
-    <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
-    >
-      <div
-        class="decorated-list-item__content"
-      >
-        <img
-          alt=""
-          height="202"
-          loading="lazy"
-          src="test-file-stub"
-          width="201"
-        />
-        <a
-          class="external-link"
-          href="https://covid-19.uniprot.org/"
-          rel="noopener"
-          target="_blank"
-        >
-          <h2
-            class="medium"
-          >
-            UniProt COVID-19 portal
-          </h2>
-          UniProt portal for the latest SARS-CoV-2 coronavirus protein entries and receptors, updated independent of the general UniProt release cycle
-        </a>
-      </div>
     </div>
   </section>
   <section
@@ -475,6 +416,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Planned changes for UniProt
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                href="/release-notes/2023-09-13-release"
+              >
+                UniProt release 2023_04
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Some like it hot | Change of the cross-references to TAIR | Change of the cross-references to TIGRFAMs: replaced by NCBIfam | Change of evidence code for the ProtNLM method
             </p>
           </article>
         </li>

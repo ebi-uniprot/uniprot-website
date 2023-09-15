@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
 
-const getIdKey = getIdKeyFor(Namespace.unirule);
+const getIdKey = getIdKeyForNamespace(Namespace.unirule);
 
 const UniRuleCard = ({ data }: { data: UniRuleAPIModel }) => {
   const id = getIdKey(data);

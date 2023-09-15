@@ -8,7 +8,7 @@
     'in-page-messages'
     'main-content';
   grid-template-rows: auto auto minmax(0, 1fr);
-  max-height: 100vh;
+  height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
 

@@ -42,6 +42,7 @@ import FeatureType, {
 import FreeTextView, {
   TextView,
 } from '../components/protein-data-views/FreeTextView';
+import SimilarityView from '../components/protein-data-views/SimilarityView';
 import {
   AbsorptionView,
   KineticsView,
@@ -210,6 +211,8 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
           data={omit(proteinNamesData, 'contains')}
           bolderFirst={Boolean(proteinNamesData?.recommendedName)}
           contextKey={UniProtKBColumn.proteinName}
+          supplementaryData={proteinNamesData?.contains}
+          supplementaryText="Cleaved into:"
         />
         {data.inactiveReason && (
           <>
@@ -457,7 +460,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
   render: (data) => {
     const { flag } = data[EntrySection.Sequence];
     const isFragment = flag && fragmentFlags.has(flag);
-    return flag && (isFragment ? flag : 'N');
+    return isFragment && flag;
   },
 });
 
@@ -1418,12 +1421,21 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     'Name of family(ies) to which the protein belongs to'
   ),
   render: (data) => {
-    // TODO this actually seems to be a subset of this with a query on link?
-    // Could maybe be removed
-    const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
-      'SIMILARITY'
-    ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={familiesData} />;
+    const similarityTexts = (
+      data[EntrySection.FamilyAndDomains].commentsData.get('SIMILARITY') as
+        | FreeTextComment[]
+        | undefined
+    )?.flatMap((comment) => comment.texts?.map((text) => text.value));
+    return (
+      <>
+        {similarityTexts?.map((similarityText, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <SimilarityView key={index} justLinks>
+            {similarityText}
+          </SimilarityView>
+        ))}
+      </>
+    );
   },
 });
 

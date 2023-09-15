@@ -18,25 +18,17 @@ import { stringifyUrl } from '../../../shared/utils/url';
 import apiUrls, {
   createSelectedQueryString,
 } from '../../../shared/config/apiUrls';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
-import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-import {
-  Component,
-  ProteomesAPIModel,
-} from '../../adapters/proteomesConverter';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { SearchResults } from '../../../shared/types/results';
-import { FileFormat } from '../../../shared/types/resultsDownload';
 
-const DownloadComponent = lazy(
+const ComponentsDownloadComponent = lazy(
   () =>
-    import(
-      /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
-    )
+    import(/* webpackChunkName: "components-download" */ './ComponentsDownload')
 );
 
 type Props = Pick<
@@ -46,11 +38,12 @@ type Props = Pick<
   selectedEntries: string[];
 };
 
-export type IsoformStatistics = {
-  allWithIsoforms: number | undefined;
+export type ProteomeStatistics = {
   reviewed: number | undefined;
-  reviewedWithIsoforms: number | undefined;
+  isoforms: number | undefined;
 };
+
+const fetchOptions = { method: 'HEAD' };
 
 const ComponentsButtons = ({
   id,
@@ -62,21 +55,37 @@ const ComponentsButtons = ({
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  // Note: all Eukaryotes are not eligible. Having a list of the organisms would be helpful
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    superkingdom === 'eukaryota'
+    displayDownloadPanel
       ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
           query: `(proteome=${id}) AND (reviewed=true)`,
           size: '0',
         })
-      : null
+      : null,
+    fetchOptions
   );
 
+  const { headers: isoformHeaders } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(
+    displayDownloadPanel && superkingdom === 'eukaryota'
+      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+          query: `(proteome=${id}) AND (reviewed=true)`,
+          size: '0',
+          includeIsoform: 'true',
+        })
+      : null,
+    fetchOptions
+  );
+
+  const isoformCount =
+    Number(isoformHeaders?.['x-total-results'] || 0) -
+    Number(headers?.['x-total-results'] || 0);
+
   // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
-  const isoformStats: IsoformStatistics = {
-    allWithIsoforms: undefined,
-    reviewed: Number(headers?.['x-total-results']) || undefined,
-    reviewedWithIsoforms: undefined,
+  const isoformStats: ProteomeStatistics = {
+    reviewed: Number(headers?.['x-total-results'] || 0),
+    isoforms: isoformCount,
   };
 
   const handleToggleDownload = useCallback(
@@ -111,34 +120,25 @@ const ComponentsButtons = ({
     [allQuery, components?.length, selectedEntries]
   );
 
-  // TODO: the number presented here can be innaccurate see JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-26418
-  const numberSelectedProteins = useMemo(() => {
-    // Don't bother iterating over the components if there are no selectedEntries
-    if (!selectedEntries.length || !components?.length) {
-      return 0;
-    }
-    return components.reduce(
-      (prev: number, curr: Component) =>
-        prev + (selectedEntries.includes(curr.name) ? curr.proteinCount : 0),
-      0
-    );
-  }, [components, selectedEntries]);
+  const { headers: selectedHeaders } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(
+    displayDownloadPanel && selectedEntries.length
+      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+          query: selectedQuery,
+          size: '0',
+        })
+      : null,
+    fetchOptions
+  );
+
+  const numberSelectedProteins = Number(
+    selectedHeaders?.['x-total-results'] || 0
+  );
 
   // Excluded not supported at the moment, need to wait for TRM-28011
   if (!components?.length || proteomeType === 'Excluded') {
     return null;
-  }
-
-  let supportedFormats;
-  if (proteomeType === 'Redundant proteome') {
-    supportedFormats = fileFormatsResultsDownloadForRedundant;
-  } else {
-    supportedFormats = [
-      FileFormat.fasta,
-      ...fileFormatsUniPortKBResultsDownload.filter(
-        (format) => !format.includes('FASTA')
-      ),
-    ];
   }
 
   return (
@@ -151,22 +151,15 @@ const ComponentsButtons = ({
             onClose={handleToggleDownload}
           >
             <ErrorBoundary>
-              <DownloadComponent
+              <ComponentsDownloadComponent
                 query={allQuery}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
                 onClose={handleToggleDownload}
-                namespace={
-                  // Excluded not supported at the moment, need to wait for TRM-28011
-                  proteomeType === 'Redundant proteome'
-                    ? Namespace.uniparc
-                    : Namespace.uniprotkb
-                }
-                supportedFormats={supportedFormats}
-                showReviewedOption={superkingdom === 'eukaryota'}
-                isoformStats={isoformStats}
+                proteomeType={proteomeType}
+                statistics={isoformStats}
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -175,8 +168,8 @@ const ComponentsButtons = ({
       <div className="button-group">
         <Button
           variant="tertiary"
-          onPointerOver={DownloadComponent.preload}
-          onFocus={DownloadComponent.preload}
+          onPointerOver={ComponentsDownloadComponent.preload}
+          onFocus={ComponentsDownloadComponent.preload}
           onClick={() => handleToggleDownload('toggle')}
         >
           <DownloadIcon />

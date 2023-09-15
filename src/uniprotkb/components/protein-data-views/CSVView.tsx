@@ -8,6 +8,8 @@ type CSVViewProps = {
   bolderFirst?: boolean;
   keyPredicate?: string;
   contextKey?: string;
+  supplementaryData?: Record<string, unknown> | Record<string, unknown>[];
+  supplementaryText?: string;
 };
 
 const CSVView: FC<CSVViewProps> = ({
@@ -15,12 +17,18 @@ const CSVView: FC<CSVViewProps> = ({
   bolderFirst = false,
   keyPredicate = 'value',
   contextKey,
+  supplementaryData,
+  supplementaryText,
 }) => {
   if (!data) {
     return null;
   }
   const [firstValue, ...restOfValues] = new Set(
     deepFindAllByKey(data, keyPredicate)
+  );
+
+  const [firstSupValue, ...restOfSupValues] = new Set(
+    deepFindAllByKey(supplementaryData, keyPredicate)
   );
   return (
     <>
@@ -31,10 +39,32 @@ const CSVView: FC<CSVViewProps> = ({
       >
         {firstValue}
       </span>
-      {restOfValues.length !== 0 && (
+      {(restOfValues.length !== 0 || firstSupValue) && (
         <EllipsisReveal contextKey={contextKey}>
-          {', '}
-          {restOfValues.join(', ')}
+          {restOfValues.length ? (
+            <>
+              {', '}
+              {restOfValues.join(', ')}
+            </>
+          ) : null}
+          {firstSupValue && (
+            <>
+              {`, ${supplementaryText} `}
+              <span
+                style={{
+                  fontWeight: bolderFirst ? 'bolder' : 'initial',
+                }}
+              >
+                {firstSupValue}
+              </span>
+              {restOfSupValues.length !== 0 && (
+                <>
+                  {', '}
+                  {restOfSupValues.join(', ')}
+                </>
+              )}
+            </>
+          )}
         </EllipsisReveal>
       )}
     </>

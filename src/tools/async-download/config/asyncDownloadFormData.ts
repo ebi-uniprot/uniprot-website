@@ -3,6 +3,7 @@ import deepFreeze from 'deep-freeze';
 export type AsyncDownloadFormValue = {
   fieldName: string;
   selected: Readonly<string>;
+  userSelected?: boolean;
 };
 
 export enum AsyncDownloadFields {

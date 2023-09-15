@@ -6,6 +6,8 @@ exports[`UniParcColumnConfiguration component should render column "Gene3D": Gen
 
 exports[`UniParcColumnConfiguration component should render column "HAMAP": HAMAP 1`] = `<DocumentFragment />`;
 
+exports[`UniParcColumnConfiguration component should render column "NCBIfam": NCBIfam 1`] = `<DocumentFragment />`;
+
 exports[`UniParcColumnConfiguration component should render column "PANTHER": PANTHER 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRSF 1`] = `<DocumentFragment />`;
@@ -60,8 +62,6 @@ exports[`UniParcColumnConfiguration component should render column "SFLD": SFLD 
 exports[`UniParcColumnConfiguration component should render column "SMART": SMART 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUPFAM 1`] = `<DocumentFragment />`;
-
-exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": TIGRFAMs 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
