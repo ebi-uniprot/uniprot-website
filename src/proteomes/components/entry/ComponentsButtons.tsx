@@ -43,6 +43,8 @@ export type ProteomeStatistics = {
   isoforms: number | undefined;
 };
 
+const fetchOptions = { method: 'HEAD' };
+
 const ComponentsButtons = ({
   id,
   components,
@@ -54,31 +56,35 @@ const ComponentsButtons = ({
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
-      query: `(proteome=${id}) AND (reviewed=true)`,
-      size: '0',
-    })
+    displayDownloadPanel
+      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+          query: `(proteome=${id}) AND (reviewed=true)`,
+          size: '0',
+        })
+      : null,
+    fetchOptions
   );
 
   const { headers: isoformHeaders } = useDataApi<
     SearchResults<UniProtkbAPIModel>
   >(
-    superkingdom === 'eukaryota'
+    displayDownloadPanel && superkingdom === 'eukaryota'
       ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
           query: `(proteome=${id}) AND (reviewed=true)`,
           size: '0',
           includeIsoform: 'true',
         })
-      : null
+      : null,
+    fetchOptions
   );
 
   const isoformCount =
-    Number(isoformHeaders?.['x-total-results']) -
-    Number(headers?.['x-total-results']);
+    Number(isoformHeaders?.['x-total-results'] || 0) -
+    Number(headers?.['x-total-results'] || 0);
 
   // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
   const isoformStats: ProteomeStatistics = {
-    reviewed: Number(headers?.['x-total-results']) || undefined,
+    reviewed: Number(headers?.['x-total-results'] || 0),
     isoforms: isoformCount,
   };
 
@@ -117,15 +123,18 @@ const ComponentsButtons = ({
   const { headers: selectedHeaders } = useDataApi<
     SearchResults<UniProtkbAPIModel>
   >(
-    selectedEntries.length
+    displayDownloadPanel && selectedEntries.length
       ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
           query: selectedQuery,
           size: '0',
         })
-      : null
+      : null,
+    fetchOptions
   );
 
-  const numberSelectedProteins = Number(selectedHeaders?.['x-total-results']);
+  const numberSelectedProteins = Number(
+    selectedHeaders?.['x-total-results'] || 0
+  );
 
   // Excluded not supported at the moment, need to wait for TRM-28011
   if (!components?.length || proteomeType === 'Excluded') {
