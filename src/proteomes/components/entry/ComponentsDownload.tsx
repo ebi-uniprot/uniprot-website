@@ -250,7 +250,7 @@ const ComponentsDownload = ({
               name="reviewed-isoform"
               onChange={handleIsoformSelect}
             />
-            Include reviewed (Swiss-Prot) isoforms --{' '}
+            Include reviewed (Swiss-Prot) isoforms ―{' '}
             <i>this option will limit file formats to FASTA</i>
           </label>
         </div>
