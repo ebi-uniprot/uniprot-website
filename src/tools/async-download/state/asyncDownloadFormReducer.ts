@@ -16,6 +16,7 @@ export type AsyncDownloadFormState = {
   jobTitle?: string;
   submitDisabled: boolean;
   sending: boolean;
+  showConfirmation: boolean;
 };
 
 export type AsyncDownloadFormAction = ActionType<
@@ -63,6 +64,7 @@ export const getAsyncDownloadFormInitialState = ({
   submitDisabled:
     isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions),
   sending: false,
+  showConfirmation: false,
 });
 
 export const asyncDownloadFormUpdateUrlOptionsReducer = (
@@ -131,6 +133,11 @@ export const asyncDownloadFormDataReducer = (
         ...state,
         submitDisabled: true,
         sending: true,
+      };
+    case asyncDownloadFormActions.UPDATE_CONFIRMATION:
+      return {
+        ...state,
+        showConfirmation: action.payload.show,
       };
     default:
       return state;

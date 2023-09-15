@@ -8,6 +8,8 @@ import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
 
 import { stringifyQuery } from '../../../utils/url';
 
+import { DOWNLOAD_SIZE_LIMIT } from '../DownloadAPIURL';
+
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
@@ -278,5 +280,43 @@ describe('Download with ID mapping results', () => {
       expect.stringContaining('/idmapping/uniprotkb/results/stream/id2')
     );
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
+  });
+});
+
+describe('Download with file generation job', () => {
+  it('should show file generation form then confirmation with form elements disabled', async () => {
+    Element.prototype.scrollIntoView = jest.fn();
+    const onCloseMock = jest.fn();
+    customRender(
+      <Download
+        totalNumberResults={DOWNLOAD_SIZE_LIMIT + 1}
+        onClose={onCloseMock}
+        namespace={Namespace.uniprotkb}
+      />,
+      {
+        route: '/uniprotkb?query=*',
+        initialLocalStorage: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
+    );
+    fireEvent.change(screen.getByTestId('file-format-select'), {
+      target: { value: FileFormat.tsv },
+    });
+    fireEvent.click(
+      screen.getByTitle<HTMLAnchorElement>(
+        'Download with a File Generation job'
+      )
+    );
+    expect(
+      await screen.findByText(/File Generation Needed/)
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Submit'));
+    expect(
+      await screen.findByText(/Review your file generation request/)
+    ).toBeInTheDocument();
+    expect(screen.getByTestId('file-format-select')).toBeDisabled();
+    expect(screen.queryByRole('radio', { name: 'compressed' })).toBeDisabled();
+    expect(screen.queryByText('Customize columns')).not.toBeInTheDocument();
   });
 });

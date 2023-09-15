@@ -33,6 +33,7 @@ describe('Async download form reducer', () => {
     jobTitle: 'bar',
     submitDisabled: false,
     sending: false,
+    showConfirmation: false,
   };
   it('should update url download options with compressed false; set submitDisabled to true; use jobTitle', () => {
     const action = {

@@ -121,6 +121,12 @@ export const hasColumns = (
     isAsyncDownloadIdMapping(state, props, job)) &&
   props.namespace !== Namespace.unisave;
 
+export const showColumnSelect = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  job: JobFromUrl
+) => hasColumns(state, props, job) && !state.disableForm;
+
 export const getDownloadOptions = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,

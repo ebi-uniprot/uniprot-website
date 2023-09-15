@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
+import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
+
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
@@ -20,6 +22,7 @@ import {
   updateSelected,
   updateSending,
   updateDownloadUrlOptions,
+  updateConfirmation,
 } from '../state/asyncDownloadFormActions';
 import initialFormValues, {
   AsyncDownloadFields,
@@ -34,13 +37,29 @@ import { JobTypes } from '../../types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Status } from '../../types/toolsStatuses';
 import { PublicServerParameters } from '../../types/toolsServerParameters';
+import { FormParameters } from '../types/asyncDownloadFormParameters';
 
 import '../../styles/ToolsForm.scss';
+
+const getJobParameters = (
+  downloadUrlOptions: DownloadUrlOptions,
+  isIdMappingResult: boolean,
+  jobId?: string
+): FormParameters => ({
+  ...downloadUrlOptions,
+  compressed: false,
+  download: false,
+  namespace: isIdMappingResult
+    ? Namespace.idmapping
+    : downloadUrlOptions.namespace,
+  jobId: isIdMappingResult ? jobId : undefined,
+});
 
 type Props<T extends JobTypes> = {
   downloadUrlOptions: DownloadUrlOptions;
   count: number;
   onClose: () => void;
+  onDisableForm: (disableForm: boolean) => void;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
 };
@@ -49,6 +68,7 @@ const AsyncDownloadForm = ({
   downloadUrlOptions,
   count,
   onClose,
+  onDisableForm,
   jobType,
   inputParamsData,
 }: Props<JobTypes>) => {
@@ -59,8 +79,7 @@ const AsyncDownloadForm = ({
   const { jobId } = useJobFromUrl();
   const tools = useToolsState();
 
-  const isIdMappingResult = jobType === JobTypes.ID_MAPPING && jobId;
-
+  const isIdMappingResult = Boolean(jobType === JobTypes.ID_MAPPING && jobId);
   let jobTitle = '';
   if (isIdMappingResult) {
     // If the user submitted the job, use the name they provided
@@ -82,18 +101,29 @@ const AsyncDownloadForm = ({
     }
   }
 
-  const [{ formValues, sending, submitDisabled }, dispatch] = useReducer(
-    asyncDownloadFormDataReducer,
-    { initialFormValues, downloadUrlOptions, count, jobTitle },
-    getAsyncDownloadFormInitialState
-  );
+  const [{ formValues, sending, submitDisabled, showConfirmation }, dispatch] =
+    useReducer(
+      asyncDownloadFormDataReducer,
+      { initialFormValues, downloadUrlOptions, count, jobTitle },
+      getAsyncDownloadFormInitialState
+    );
 
   useEffect(() => {
     dispatch(updateDownloadUrlOptions(downloadUrlOptions));
   }, [downloadUrlOptions]);
+
+  useEffect(() => {
+    onDisableForm(showConfirmation);
+  }, [onDisableForm, showConfirmation]);
+
+  const onFormSubmit = useCallback((event: FormEvent | MouseEvent) => {
+    event.preventDefault();
+    dispatch(updateConfirmation(true));
+  }, []);
+
   const submitAsyncDownloadJob = useCallback(
-    (event: FormEvent | MouseEvent) => {
-      event.preventDefault();
+    (event?: FormEvent | MouseEvent) => {
+      event?.preventDefault();
       dispatch(updateSending());
 
       // navigate to the dashboard, but not immediately, to give the impression that
@@ -108,15 +138,7 @@ const AsyncDownloadForm = ({
         // side-effect of createJob) cannot mount immediately before navigating away.
         dispatchTools(
           createJob(
-            {
-              ...downloadUrlOptions,
-              compressed: false,
-              download: false,
-              namespace: isIdMappingResult
-                ? Namespace.idmapping
-                : downloadUrlOptions.namespace,
-              jobId: isIdMappingResult ? jobId : undefined,
-            },
+            getJobParameters(downloadUrlOptions, isIdMappingResult, jobId),
             JobTypes.ASYNC_DOWNLOAD,
             formValues[AsyncDownloadFields.name].selected
           )
@@ -136,9 +158,25 @@ const AsyncDownloadForm = ({
     ]
   );
 
+  if (showConfirmation) {
+    return (
+      <AsyncDownloadConfirmation
+        jobParameters={getJobParameters(
+          downloadUrlOptions,
+          isIdMappingResult,
+          jobId
+        )}
+        jobName={formValues[AsyncDownloadFields.name].selected}
+        count={count}
+        onCancel={() => dispatch(updateConfirmation(false))}
+        onConfirm={() => submitAsyncDownloadJob()}
+      />
+    );
+  }
+
   return (
     <form
-      onSubmit={submitAsyncDownloadJob}
+      onSubmit={onFormSubmit}
       aria-label="Async download job submission form"
       ref={scrollRef}
     >
@@ -230,7 +268,7 @@ const AsyncDownloadForm = ({
               className="button primary"
               type="submit"
               disabled={submitDisabled}
-              onClick={submitAsyncDownloadJob}
+              onClick={onFormSubmit}
             >
               Submit
             </button>
