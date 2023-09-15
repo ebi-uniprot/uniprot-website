@@ -1,11 +1,11 @@
-import { useState, ChangeEvent, useEffect, useMemo } from 'react';
+import { useState, ChangeEvent, useMemo } from 'react';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
-import { IsoformStatistics } from './ComponentsButtons';
+import { ProteomeStatistics } from './ComponentsButtons';
 
 import useColumnNames from '../../../shared/hooks/useColumnNames';
 
@@ -43,8 +43,7 @@ type DownloadProps = {
     downloadMethod?: DownloadMethod
   ) => void;
   proteomeType: ProteomeType;
-  superkingdom: string;
-  isoformStats: IsoformStatistics;
+  statistics: ProteomeStatistics;
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -59,8 +58,7 @@ const ComponentsDownload = ({
   numberSelectedEntries,
   onClose,
   proteomeType,
-  superkingdom,
-  isoformStats,
+  statistics,
 }: DownloadProps) => {
   const namespace =
     // Excluded not supported at the moment, need to wait for TRM-28011
@@ -89,8 +87,6 @@ const ComponentsDownload = ({
     [proteomeType]
   );
 
-  const [fileFormatOptions, setFileFormatOptions] = useState(fileFormats);
-
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
@@ -111,29 +107,33 @@ const ComponentsDownload = ({
     namespace,
   };
 
-  const showReviewedOption = superkingdom === 'eukaryota';
+  const isoformsAvailable = Boolean(statistics.isoforms);
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
   switch (downloadSelect) {
     case 'all':
-      downloadCount = totalNumberResults;
-      if (showReviewedOption) {
-        downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-      }
+      downloadCount = includeIsoform
+        ? totalNumberResults + (statistics.isoforms || 0)
+        : totalNumberResults;
       break;
     case 'reviewed':
-      // Once we have the counts, we should update the downloadCount accordingly
-      downloadCount = isoformStats?.reviewed || 0;
-      if (includeIsoform) {
-        downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
-      }
+      downloadCount = includeIsoform
+        ? (statistics?.reviewed || 0) + (statistics.isoforms || 0)
+        : statistics?.reviewed || 0;
       break;
     case 'selected':
+      /* The isoform counts for selected entries is not available here. We show only (+ isoforms) in the select option 
+       and the download count is used only for the preview purpose. I guess it is okay not to fret too much about it here.
+       */
       downloadCount = nSelectedEntries;
       break;
     default:
       downloadCount = 0;
       break;
+  }
+
+  if (includeIsoform) {
+    downloadOptions.fileFormat = FileFormat.fastaCanonicalIsoform;
   }
 
   const hasColumns = fileFormatsWithColumns.has(fileFormat);
@@ -156,27 +156,6 @@ const ComponentsDownload = ({
       size: nPreview,
     });
 
-  useEffect(() => {
-    switch (downloadSelect) {
-      case 'all':
-        if (showReviewedOption) {
-          setFileFormatOptions([FileFormat.fasta]);
-          setFileFormat(FileFormat.fasta);
-        }
-        break;
-      case 'reviewed':
-        if (includeIsoform) {
-          setFileFormatOptions([FileFormat.fasta]);
-          setFileFormat(FileFormat.fasta);
-        } else {
-          setFileFormatOptions(fileFormats);
-        }
-        break;
-      default:
-        break;
-    }
-  }, [downloadSelect, fileFormats, includeIsoform, showReviewedOption]);
-
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDownloadSelect(e.target.name as DownloadSelectOptions);
   };
@@ -186,8 +165,8 @@ const ComponentsDownload = ({
 
   const handleIsoformSelect = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target.checked) {
-      setFileFormatOptions([FileFormat.fasta]);
       setIncludeIsoform(true);
+      setFileFormat(FileFormat.fasta);
     } else {
       setIncludeIsoform(false);
     }
@@ -223,34 +202,27 @@ const ComponentsDownload = ({
           onChange={handleDownloadAllChange}
           disabled={nSelectedEntries === 0}
         />
-        Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
+        Download selected (<LongNumber>{nSelectedEntries}</LongNumber>
+        {includeIsoform && nSelectedEntries ? ' + isoforms' : ''})
       </label>
-      {showReviewedOption && isoformStats && (
-        <div>
-          <label htmlFor="data-selection-reviewed">
-            <input
-              id="data-selection-reviewed"
-              type="radio"
-              name="reviewed"
-              value="false"
-              checked={downloadSelect === 'reviewed'}
-              onChange={handleDownloadAllChange}
-            />
-            Download only reviewed (Swiss-Prot) canonical proteins (
-            <LongNumber>{isoformStats?.reviewed || 0}</LongNumber>
-            {includeIsoform ? ' + isoforms' : ''})
-          </label>
-          <label className={styles['isoform-option']}>
-            <input
-              type="checkbox"
-              name="reviewed-isoform"
-              onChange={handleIsoformSelect}
-              disabled={downloadSelect !== 'reviewed'}
-            />
-            Include reviewed (Swiss-Prot) isoforms
-          </label>
-        </div>
-      )}
+      <label htmlFor="data-selection-reviewed">
+        <input
+          id="data-selection-reviewed"
+          type="radio"
+          name="reviewed"
+          value="false"
+          checked={downloadSelect === 'reviewed'}
+          onChange={handleDownloadAllChange}
+        />
+        Download only reviewed (Swiss-Prot){' '}
+        {isoformsAvailable ? ' canonical ' : ''} proteins (
+        <LongNumber>
+          {includeIsoform
+            ? (statistics.reviewed || 0) + (statistics.isoforms || 0)
+            : statistics?.reviewed || 0}
+        </LongNumber>
+        )
+      </label>
       <label htmlFor="data-selection-true">
         <input
           id="data-selection-true"
@@ -260,14 +232,29 @@ const ComponentsDownload = ({
           checked={downloadSelect === 'all'}
           onChange={handleDownloadAllChange}
         />
-        Download all{' '}
-        {showReviewedOption
-          ? 'reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins'
-          : ''}{' '}
-        {/* (<LongNumber>{showReviewedOption ? isoformStats?.allWithIsoforms : totalNumberResults}</LongNumber>) */}
-        (<LongNumber>{totalNumberResults}</LongNumber>{' '}
-        {showReviewedOption ? ' + isoforms' : ''})
+        Download all reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins (
+        <LongNumber>
+          {includeIsoform
+            ? totalNumberResults + (statistics.isoforms || 0)
+            : totalNumberResults}
+        </LongNumber>
+        )
       </label>
+      {isoformsAvailable && (
+        <div className={styles['isoform-option']}>
+          Additional sequence data
+          <label htmlFor="data-selection-isoform">
+            <input
+              id="data-selection-isoform"
+              type="checkbox"
+              name="reviewed-isoform"
+              onChange={handleIsoformSelect}
+            />
+            Include reviewed (Swiss-Prot) isoforms ―{' '}
+            <i>this option will limit file formats to FASTA</i>
+          </label>
+        </div>
+      )}
       <fieldset>
         <label>
           Format
@@ -277,8 +264,12 @@ const ComponentsDownload = ({
             value={fileFormat}
             onChange={(e) => setFileFormat(e.target.value as FileFormat)}
           >
-            {fileFormatOptions.map((format) => (
-              <option value={format} key={format}>
+            {fileFormats.map((format) => (
+              <option
+                value={format}
+                key={format}
+                disabled={includeIsoform && format !== FileFormat.fasta}
+              >
                 {format}
               </option>
             ))}
