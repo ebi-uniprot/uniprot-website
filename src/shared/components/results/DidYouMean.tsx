@@ -236,24 +236,26 @@ const DidYouMean = ({
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
-      {heading}
-      {content}
-      {renderContent && (
-        <>
-          If you can&apos;t find what you are looking for, please{' '}
-          <ContactLink>contact us</ContactLink>.
-          {currentNamespace === Namespace.uniparc ? (
-            <p>
-              Some cross-references, when there are too many of them on a
-              UniParc entry, are not indexed.
-              <br />
-              If you think your search corresponds to one of these, do{' '}
-              <ContactLink>get in touch</ContactLink> so we can provide you the
-              data.
-            </p>
-          ) : null}
-        </>
-      )}
+      <small>
+        {heading}
+        {content}
+        {renderContent && (
+          <>
+            If you can&apos;t find what you are looking for, please{' '}
+            <ContactLink>contact us</ContactLink>.
+            {currentNamespace === Namespace.uniparc ? (
+              <p>
+                Some cross-references, when there are too many of them on a
+                UniParc entry, are not indexed.
+                <br />
+                If you think your search corresponds to one of these, do{' '}
+                <ContactLink>get in touch</ContactLink> so we can provide you
+                the data.
+              </p>
+            ) : null}
+          </>
+        )}
+      </small>
     </Message>
   );
 };

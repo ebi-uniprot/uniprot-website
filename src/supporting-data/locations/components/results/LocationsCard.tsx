@@ -6,7 +6,7 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { LocationsAPIModel } from '../../adapters/locationsConverter';
@@ -19,7 +19,7 @@ import renderColumnsInCardStyles from '../../../../shared/components/results/sty
 
 const category = LocationsColumnConfiguration.get(LocationsColumn.category);
 
-const getIdKey = getIdKeyFor(Namespace.locations);
+const getIdKey = getIdKeyForNamespace(Namespace.locations);
 
 const CitationCard = ({ data }: { data: LocationsAPIModel }) => {
   const id = getIdKey(data);

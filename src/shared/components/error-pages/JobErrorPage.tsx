@@ -11,8 +11,10 @@ type Props = {
 
 const ErrorMessage = ({ message }: Props) => (
   <Message level="failure">
-    <h4>Job Failed</h4>
-    <span>{message}</span>
+    <small>
+      <h4>Job Failed</h4>
+      <span>{message}</span>
+    </small>
   </Message>
 );
 

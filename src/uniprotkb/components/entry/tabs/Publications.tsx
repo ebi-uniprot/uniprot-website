@@ -17,7 +17,7 @@ import LiteratureCitation from '../../../../supporting-data/citations/components
 
 import { addBlastLinksToFreeText } from '../../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
 import { processUrlTemplate } from '../../protein-data-views/XRefView';
 
@@ -200,7 +200,7 @@ const PublicationReference = ({
   );
 };
 
-const getIdKey = getIdKeyFor(Namespace.citations);
+const getIdKey = getIdKeyForNamespace(Namespace.citations);
 
 const cardRendererFor =
   (accession: string) =>

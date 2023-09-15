@@ -11,13 +11,13 @@ import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 import getProteinHighlights from '../../adapters/proteinHighlights';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 
 import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
-const getIdKey = getIdKeyFor(Namespace.uniprotkb);
+const getIdKey = getIdKeyForNamespace(Namespace.uniprotkb);
 
 type Props = {
   data: UniProtkbAPIModel;

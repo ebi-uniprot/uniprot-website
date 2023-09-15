@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: /api/uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=glucose&size=25
-// Retrieved: 2022-08-02
+// Retrieved: 2023-09-07
 const mock: SearchResults<UniProtkbAPIModel> = {
   facets: [
     {
@@ -11308,7 +11308,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00871',
           properties: [
             {
@@ -16749,7 +16749,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00871',
           properties: [
             {
@@ -22415,7 +22415,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00813',
           properties: [
             {
@@ -29374,7 +29374,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00209',
           properties: [
             {
@@ -43198,7 +43198,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00813',
           properties: [
             {
@@ -47021,7 +47021,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR01198',
           properties: [
             {
@@ -60090,7 +60090,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00879',
           properties: [
             {
@@ -74039,7 +74039,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00879',
           properties: [
             {
@@ -89004,7 +89004,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00879',
           properties: [
             {
@@ -96158,7 +96158,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00879',
           properties: [
             {
@@ -100604,7 +100604,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00879',
           properties: [
             {
@@ -103720,7 +103720,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          database: 'TIGRFAMs',
+          database: 'NCBIfam',
           id: 'TIGR00879',
           properties: [
             {

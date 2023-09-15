@@ -21,21 +21,20 @@ exports[`ResourceNotFoundPage component should render 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
-        <small>
-          <h4>
-            Sorry, this page can't be found!
-          </h4>
-          <span>
-            Please check the address bar for any mistakes
-          </span>
-        </small>
-      </section>
+        <h4>
+          Sorry, this page can't be found!
+        </h4>
+        <span>
+          Please check the address bar for any mistakes
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>

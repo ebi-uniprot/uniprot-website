@@ -1,89 +1,132 @@
-import { FormEvent, useState, useEffect, useCallback } from 'react';
+import { FormEvent, useCallback, useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
+import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
+
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
+import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
+import useToolsState from '../../../shared/hooks/useToolsState';
 
+import {
+  asyncDownloadFormDataReducer,
+  getAsyncDownloadFormInitialState,
+  isExcel,
+  isUncompressed,
+} from '../state/asyncDownloadFormReducer';
 import { createJob } from '../../state/toolsActions';
+import {
+  updateSelected,
+  updateSending,
+  updateDownloadUrlOptions,
+  updateConfirmation,
+} from '../state/asyncDownloadFormActions';
+import initialFormValues, {
+  AsyncDownloadFields,
+} from '../config/asyncDownloadFormData';
+import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-
 import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
-import {
-  AsyncDownloadFields,
-  AsyncDownloadFormValue,
-  AsyncDownloadFormValues,
-} from '../config/asyncDownloadFormData';
-import { JobTypes } from '../../types/toolsJobTypes';
 import { FileFormat } from '../../../shared/types/resultsDownload';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { Namespace } from '../../../shared/types/namespaces';
+import { Status } from '../../types/toolsStatuses';
+import { PublicServerParameters } from '../../types/toolsServerParameters';
+import { FormParameters } from '../types/asyncDownloadFormParameters';
 
 import '../../styles/ToolsForm.scss';
 
-const isExcel = (downloadUrlOptions: DownloadUrlOptions) =>
-  downloadUrlOptions.fileFormat === FileFormat.excel;
+const getJobParameters = (
+  downloadUrlOptions: DownloadUrlOptions,
+  isIdMappingResult: boolean,
+  jobId?: string
+): FormParameters => ({
+  ...downloadUrlOptions,
+  compressed: false,
+  download: false,
+  namespace: isIdMappingResult
+    ? Namespace.idmapping
+    : downloadUrlOptions.namespace,
+  jobId: isIdMappingResult ? jobId : undefined,
+});
 
-const isUncompressed = (downloadUrlOptions: DownloadUrlOptions) =>
-  !downloadUrlOptions.compressed;
-
-const isInvalid = (name: string, downloadUrlOptions: DownloadUrlOptions) =>
-  !name || isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions);
-
-const getPotentialJobName = (
-  count: number,
-  downloadUrlOptions: DownloadUrlOptions
-) => `${downloadUrlOptions.namespace}-${count}`;
-
-type Props = {
-  initialFormValues: Readonly<AsyncDownloadFormValues>;
+type Props<T extends JobTypes> = {
   downloadUrlOptions: DownloadUrlOptions;
   count: number;
   onClose: () => void;
+  onDisableForm: (disableForm: boolean) => void;
+  jobType?: T;
+  inputParamsData?: PublicServerParameters[T];
 };
 
 const AsyncDownloadForm = ({
-  initialFormValues,
   downloadUrlOptions,
   count,
   onClose,
-}: Props) => {
-  // hooks
+  onDisableForm,
+  jobType,
+  inputParamsData,
+}: Props<JobTypes>) => {
   const dispatchTools = useToolsDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
+  const { jobId } = useJobFromUrl();
+  const tools = useToolsState();
 
-  // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(() =>
-    // default ids value will tell us if submit should be disabled or not
-    isInvalid(
-      initialFormValues[AsyncDownloadFields.name].selected,
-      downloadUrlOptions
-    )
-  );
-  // used when the form is about to be submitted to the server
-  const [sending, setSending] = useState(false);
-  // flag to see if a title has been set (either user, or predefined)
-  const [jobNameEdited, setJobNameEdited] = useState(
-    // default to true if it's been set through the history state
-    Boolean(initialFormValues[AsyncDownloadFields.name].selected)
-  );
+  const isIdMappingResult = Boolean(jobType === JobTypes.ID_MAPPING && jobId);
+  let jobTitle = '';
+  if (isIdMappingResult) {
+    // If the user submitted the job, use the name they provided
+    // otherwise recreate from the public server parameters.
+    const idMappingJob =
+      isIdMappingResult &&
+      Object.values(tools || {}).find(
+        (job) => job.status === Status.FINISHED && job.remoteID === jobId
+      );
+    if (idMappingJob && 'title' in idMappingJob) {
+      jobTitle = idMappingJob.title;
+    } else if (inputParamsData && 'from' in inputParamsData) {
+      const { ids, from, to } = inputParamsData;
+      jobTitle = getJobName(
+        Array.from(new Set(splitAndTidyText(ids))),
+        from,
+        to
+      );
+    }
+  }
 
-  // extra job-related fields
-  const [jobName, setJobName] = useState(
-    initialFormValues[AsyncDownloadFields.name]
-  );
+  const [{ formValues, sending, submitDisabled, showConfirmation }, dispatch] =
+    useReducer(
+      asyncDownloadFormDataReducer,
+      { initialFormValues, downloadUrlOptions, count, jobTitle },
+      getAsyncDownloadFormInitialState
+    );
+
+  useEffect(() => {
+    dispatch(updateDownloadUrlOptions(downloadUrlOptions));
+  }, [downloadUrlOptions]);
+
+  useEffect(() => {
+    onDisableForm(showConfirmation);
+  }, [onDisableForm, showConfirmation]);
+
+  const onFormSubmit = useCallback((event: FormEvent | MouseEvent) => {
+    event.preventDefault();
+    dispatch(updateConfirmation(true));
+  }, []);
 
   const submitAsyncDownloadJob = useCallback(
-    (event: FormEvent | MouseEvent) => {
-      event.preventDefault();
+    (event?: FormEvent | MouseEvent) => {
+      event?.preventDefault();
+      dispatch(updateSending());
 
-      setSubmitDisabled(true);
-      setSending(true);
-
-      // navigate to the dashboard, not immediately, to give the impression that
+      // navigate to the dashboard, but not immediately, to give the impression that
       // something is happening
       sleep(1000).then(() => {
         history.push(LocationToPath[Location.Dashboard]);
@@ -95,39 +138,45 @@ const AsyncDownloadForm = ({
         // side-effect of createJob) cannot mount immediately before navigating away.
         dispatchTools(
           createJob(
-            { ...downloadUrlOptions, compressed: false, download: false },
+            getJobParameters(downloadUrlOptions, isIdMappingResult, jobId),
             JobTypes.ASYNC_DOWNLOAD,
-            jobName.selected
+            formValues[AsyncDownloadFields.name].selected
           )
         );
       });
     },
     // NOTE: maybe no point using useCallback if all the values of the form
     // cause this to be re-created. Maybe review submit callback in all 4 forms?
-    [history, onClose, dispatchTools, downloadUrlOptions, jobName.selected]
+    [
+      history,
+      onClose,
+      dispatchTools,
+      downloadUrlOptions,
+      isIdMappingResult,
+      jobId,
+      formValues,
+    ]
   );
 
-  useEffect(() => {
-    if (jobNameEdited) {
-      return;
-    }
-    const potentialJobName = getPotentialJobName(count, downloadUrlOptions);
-    setJobName((jobName: AsyncDownloadFormValue) => {
-      if (jobName.selected === potentialJobName) {
-        // avoid unecessary rerender by keeping the same object
-        return jobName;
-      }
-      return { ...jobName, selected: potentialJobName };
-    });
-  }, [count, downloadUrlOptions, downloadUrlOptions.namespace, jobNameEdited]);
-
-  useEffect(() => {
-    setSubmitDisabled(isInvalid(jobName.selected, downloadUrlOptions));
-  }, [downloadUrlOptions, jobName]);
+  if (showConfirmation) {
+    return (
+      <AsyncDownloadConfirmation
+        jobParameters={getJobParameters(
+          downloadUrlOptions,
+          isIdMappingResult,
+          jobId
+        )}
+        jobName={formValues[AsyncDownloadFields.name].selected}
+        count={count}
+        onCancel={() => dispatch(updateConfirmation(false))}
+        onConfirm={() => submitAsyncDownloadJob()}
+      />
+    );
+  }
 
   return (
     <form
-      onSubmit={submitAsyncDownloadJob}
+      onSubmit={onFormSubmit}
       aria-label="Async download job submission form"
       ref={scrollRef}
     >
@@ -161,38 +210,49 @@ const AsyncDownloadForm = ({
                 autoComplete="off"
                 maxLength={100}
                 style={{
-                  width: `${(jobName.selected as string).length + 2}ch`,
+                  width: `${
+                    (formValues[AsyncDownloadFields.name].selected as string)
+                      .length + 2
+                  }ch`,
                 }}
                 placeholder={'"my job title"'}
-                value={jobName.selected as string}
+                value={formValues[AsyncDownloadFields.name].selected as string}
                 onFocus={(event) => {
-                  if (!jobNameEdited) {
+                  if (!formValues[AsyncDownloadFields.name].userSelected) {
                     event.target.select();
                   }
                 }}
-                onChange={(event) => {
-                  setJobNameEdited(Boolean(event.target.value));
-                  setJobName({ ...jobName, selected: event.target.value });
-                }}
+                onChange={(event) =>
+                  dispatch(
+                    updateSelected(AsyncDownloadFields.name, event.target.value)
+                  )
+                }
                 data-hj-allow
               />
             </label>
           </section>
         </section>
-        {isInvalid(jobName.selected, downloadUrlOptions) && (
+        {submitDisabled && (
           <section className="tools-form-section tools-form-section__item tools-form-section__item--full-width">
             {isExcel(downloadUrlOptions) && (
               <Message level="failure">
-                Excel file format not supported for File Generation jobs. Please
-                select a different format. You can select TSV as an alternative
-                to Excel.
+                <small>
+                  Excel file format not supported for File Generation jobs.
+                  Please select a different format. You can select TSV as an
+                  alternative to Excel.
+                </small>
               </Message>
             )}
             {isUncompressed(downloadUrlOptions) && (
               <Message level="failure">
-                File must be compressed for File Generation jobs. Please select
-                compressed to proceed.
+                <small>
+                  File must be compressed for File Generation jobs. Please
+                  select compressed to proceed.
+                </small>
               </Message>
+            )}
+            {!formValues[AsyncDownloadFields.name].selected && (
+              <Message level="failure">Please name your job.</Message>
             )}
           </section>
         )}
@@ -208,7 +268,7 @@ const AsyncDownloadForm = ({
               className="button primary"
               type="submit"
               disabled={submitDisabled}
-              onClick={submitAsyncDownloadJob}
+              onClick={onFormSubmit}
             >
               Submit
             </button>

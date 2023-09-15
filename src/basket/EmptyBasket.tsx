@@ -9,8 +9,9 @@ import ArtWork from './svgs/empty-basket.img.svg';
 
 const ErrorMessage = () => (
   <Message
-    forFullPage
+    noIcon
     level="warning"
+    heading={<h3 className="">Your saved items will be displayed here</h3>}
     subtitle={
       <>
         Start by adding{' '}
@@ -43,9 +44,7 @@ const ErrorMessage = () => (
         entries
       </>
     }
-  >
-    Your saved items will be displayed here
-  </Message>
+  />
 );
 
 const EmptyBasket = () => (

@@ -13,22 +13,21 @@ exports[`GenomicCoordinates component renders on data 1`] = `
         class="message__side-border"
       />
       <test-file-stub
+        classname="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
-      <section
-        class="message__content"
+      <div
+        class="message__title"
       >
-        <small>
-          The content of this tab is in beta, feel free to 
-          <a
-            href="/contact"
-          >
-            get in touch
-          </a>
-           to provide feedback about it
-        </small>
-      </section>
+        The content of this tab is in beta, feel free to 
+        <a
+          href="/contact"
+        >
+          get in touch
+        </a>
+         to provide feedback about it
+      </div>
     </div>
     <section>
       <h3>
@@ -977,24 +976,23 @@ exports[`GenomicCoordinates component renders on error 1`] = `
           class="message__side-border"
         />
         <test-file-stub
+          classname="message--icon-align-top"
           height="1.125em"
           width="1.125em"
         />
-        <section
-          class="message__content"
+        <div
+          class="message__title"
         >
+          <h4>
+            This service is currently unavailable!
+          </h4>
+          <div>
+            Please try again later
+          </div>
           <small>
-            <h4>
-              This service is currently unavailable!
-            </h4>
-            <div>
-              Please try again later
-            </div>
-            <small>
-              We will reload this page for you in 5 seconds
-            </small>
+            We will reload this page for you in 5 seconds
           </small>
-        </section>
+        </div>
       </div>
     </div>
   </div>

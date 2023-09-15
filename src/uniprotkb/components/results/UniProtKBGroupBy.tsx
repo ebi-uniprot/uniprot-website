@@ -420,7 +420,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   if (id && !sumChildren) {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        This {groupByToLabel[groupBy]} node has no children.
+        <small>This {groupByToLabel[groupBy]} node has no children.</small>
       </Message>
     );
   } else if (groupByResponse.data?.groups.length) {
@@ -452,7 +452,9 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   } else {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
-        No results found with this combination of {groupBy}, query and facets.
+        <small>
+          No results found with this combination of {groupBy}, query and facets.
+        </small>
       </Message>
     );
   }
@@ -541,15 +543,12 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
     (_, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
-        history.push(
-          // eslint-disable-next-line uniprot-website/use-config-location
-          {
-            pathname: history.location.pathname,
-            search: stringifyQuery(locationSearch, {
-              parent: id,
-            }),
-          }
-        );
+        history.push({
+          pathname: history.location.pathname,
+          search: stringifyQuery(locationSearch, {
+            parent: id,
+          }),
+        });
       }
     },
     [history, locationSearch]

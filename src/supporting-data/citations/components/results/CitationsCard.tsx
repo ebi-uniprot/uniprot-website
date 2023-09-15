@@ -3,14 +3,14 @@ import { Card } from 'franklin-sites';
 import LiteratureCitation from '../LiteratureCitation';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
 import styles from './styles/citations-card.module.scss';
 
-const getIdKey = getIdKeyFor(Namespace.citations);
+const getIdKey = getIdKeyForNamespace(Namespace.citations);
 
 type Props = {
   data: CitationsAPIModel;

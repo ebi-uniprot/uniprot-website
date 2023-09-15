@@ -17,18 +17,15 @@ const simpleQuery = /^[a-zA-Z0-9]+$/;
 export const exactMatchSearchTerms = ['gene', 'ec'];
 export const taxonHierarchySearchTerms = ['taxonomy_id', 'organism_id'];
 
-export const SearchTextLink = ({
-  query,
-  text,
-}: {
+type SearchTextLinkProps = {
   query: string;
   text: string;
-}) => (
+};
+
+export const SearchTextLink = ({ query, text }: SearchTextLinkProps) => (
   <Link
     // eslint-disable-next-line uniprot-website/use-config-location
-    to={() => ({
-      search: `query=${query}`,
-    })}
+    to={{ search: `query=${query}` }}
   >
     {text}
   </Link>

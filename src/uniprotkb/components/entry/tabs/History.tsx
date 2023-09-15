@@ -396,7 +396,11 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
           </SlidingPanel>
         </Suspense>
       )}
-      {message && <Message level="info">{message}</Message>}
+      {message && (
+        <Message level="info">
+          <small>{message}</small>
+        </Message>
+      )}
       <div className="button-group">
         <Button
           variant="tertiary"

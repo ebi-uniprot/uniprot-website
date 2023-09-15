@@ -5,7 +5,7 @@ import { groupBy } from 'lodash-es';
 import useBasket from '../../hooks/useBasket';
 
 import accessionToNamespace from '../../utils/accessionToNamespace';
-import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
+import { fromCleanMapper } from '../../utils/getIdKey';
 
 import { pluralise } from '../../utils/utils';
 import { Namespace } from '../../types/namespaces';

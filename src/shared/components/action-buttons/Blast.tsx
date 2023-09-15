@@ -1,6 +1,6 @@
 import ToolsButton from './ToolsButton';
 
-import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
+import { fromCleanMapper } from '../../utils/getIdKey';
 
 import { Location } from '../../../app/config/urls';
 
