@@ -227,7 +227,7 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
             const hitText = pluralise('hit', actualHits);
             return (
               <>
-                {actualHits === 0 ? (
+                {actualHits === 0 && job.type !== JobTypes.ID_MAPPING ? (
                   <span>Completed</span>
                 ) : (
                   // eslint-disable-next-line uniprot-website/use-config-location
