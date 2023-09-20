@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'There is an invisible and silent law that causes clutter to emerge and grow unless action is taken to deal with it. Who has not stood in the middle of a littered room and thought "Right, this needs clearing.".';
+  "When my daughter was born, I could not help but realise that she already had inside her what would participate in giving life, if she so chose, to a daughter or a son of her own. Given a little thought, it is an extraordinary state of affairs. My daughter's ovaries were already filled to the brim with a life-time's stock of egg cells, albeit not quite mature. As it so happened, my next child was a baby boy, and I knew he would only begin to produce germ cells at puberty and cease to produce them when his life comes to an end. It is a fundamental difference between the two sexes, which obviously entails very distinct physiological makeups.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -424,21 +424,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/260/"
+            url="https://www.proteinspotlight.org/back_issues/261/"
             noIcon
           >
-            Clearing the clamour
+            In good time
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/260/"
+          url="https://www.proteinspotlight.org/back_issues/261/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt260.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt261.jpg"
             alt=""
             width="123"
             height="129"
