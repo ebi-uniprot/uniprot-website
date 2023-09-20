@@ -503,7 +503,11 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   }, [job.status]);
 
   const noResults =
-    'data' in job && job.data && 'hits' in job.data && job.data.hits === 0;
+    'data' in job &&
+    job.data &&
+    'hits' in job.data &&
+    job.data.hits === 0 &&
+    job.type !== JobTypes.ID_MAPPING;
 
   let jobIdNode;
   if ('remoteID' in job) {
