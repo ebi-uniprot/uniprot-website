@@ -1,6 +1,14 @@
-import { useMemo, useEffect, Suspense } from 'react';
+import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
+import {
+  InPageNav,
+  Loader,
+  Tabs,
+  Tab,
+  Button,
+  DownloadIcon,
+  SlidingPanel,
+} from 'franklin-sites';
 import joinUrl from 'url-join';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
@@ -118,6 +126,14 @@ const EntryHistory = lazy(
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
 );
 
+const DownloadComponent = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
+    )
+);
+
 const Entry = () => {
   const dispatch = useMessagesDispatch();
   const history = useHistory();
@@ -130,6 +146,7 @@ const Entry = () => {
     TabLocation.Entry,
     legacyToNewSubPages
   );
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
@@ -331,6 +348,9 @@ const Entry = () => {
     }
   }
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SidebarLayout
       sidebar={sidebar}
@@ -377,11 +397,43 @@ const Entry = () => {
         >
           {!isObsolete && (
             <>
+              {displayDownloadPanel && (
+                <Suspense fallback={null}>
+                  <SlidingPanel
+                    title="Download"
+                    position="left"
+                    onClose={handleToggleDownload}
+                  >
+                    <ErrorBoundary>
+                      <DownloadComponent
+                        // selectedEntries={selectedAccWithoutSubset}
+                        // accessions={
+                        //   subsetsMap
+                        //     ? Array.from(new Set(subsetsMap?.values()))
+                        //     : accessions
+                        // } // Passing all accessions without modifications to Download
+                        totalNumberResults={1}
+                        onClose={handleToggleDownload}
+                        namespace={Namespace.uniprotkb}
+                      />
+                    </ErrorBoundary>
+                  </SlidingPanel>
+                </Suspense>
+              )}
               <div className="button-group">
                 <BlastButton selectedEntries={[accession]} />
                 {listOfIsoformAccessions.length > 1 && (
                   <AlignButton selectedEntries={listOfIsoformAccessions} />
                 )}
+                <Button
+                  variant="tertiary"
+                  onPointerOver={DownloadComponent.preload}
+                  onFocus={DownloadComponent.preload}
+                  onClick={handleToggleDownload}
+                >
+                  <DownloadIcon />
+                  Download
+                </Button>
                 <EntryDownload />
                 <AddToBasketButton selectedEntries={accession} />
                 <CommunityAnnotationLink accession={accession} />
