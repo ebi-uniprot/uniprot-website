@@ -1,5 +1,6 @@
+import { Suspense, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Loader } from 'franklin-sites';
+import { Button, DownloadIcon, Loader, SlidingPanel } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -10,8 +11,8 @@ import MembersFacets from './MembersFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
-import EntryDownloadOld from '../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdownBasic } from '../../../shared/components/MapTo';
+import EntryDownload from '../../../shared/components/entry/EntryDownload';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -23,6 +24,7 @@ import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import apiUrls from '../../../shared/config/apiUrls';
+import lazy from '../../../shared/utils/lazy';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import uniRefConverter, {
@@ -41,7 +43,16 @@ import {
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
+const EntryDownloadComponent = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "download" */ '../../../shared/components/entry/EntryDownload'
+    )
+);
+
 const Entry = () => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const dispatch = useMessagesDispatch();
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniRefEntry]
@@ -80,6 +91,9 @@ const Entry = () => {
     (member) => member.startsWith('UPI')
   );
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SidebarLayout
       sidebar={<MembersFacets accession={accession} />}
@@ -101,12 +115,35 @@ const Entry = () => {
           <BasketStatus id={accession} className="small" />
         </h1>
         <Overview transformedData={transformedData} />
+        {displayDownloadPanel && (
+          <Suspense fallback={null}>
+            <SlidingPanel
+              title="Download"
+              position="left"
+              onClose={handleToggleDownload}
+            >
+              <ErrorBoundary>
+                {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+                <EntryDownload
+                  onClose={handleToggleDownload}
+                  nResults={transformedData.memberCount}
+                />
+              </ErrorBoundary>
+            </SlidingPanel>
+          </Suspense>
+        )}
         <div className="button-group">
           <BlastButton selectedEntries={[accession]} />
-          {
-            // TODO: evenutally remove nResults prop (see note in EntryDownload)
-          }
-          <EntryDownloadOld nResults={transformedData.memberCount} />
+          <Button
+            variant="tertiary"
+            onPointerOver={EntryDownloadComponent.preload}
+            onFocus={EntryDownloadComponent.preload}
+            onClick={handleToggleDownload}
+          >
+            <DownloadIcon />
+            Download
+          </Button>
+          {/* <EntryDownloadOld nResults={transformedData.memberCount} /> */}
           <AddToBasketButton selectedEntries={accession} />
           <MapToDropdownBasic
             config={[
