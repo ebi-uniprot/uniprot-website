@@ -19,8 +19,8 @@ type Props = {
 
 export const DowntimeWarning = ({ children }: Props) => (
   <Message level="warning">
-    Please note that a scheduled maintenance could cause the {children} servers
-    to be at risk from {from.toLocaleString()} to {to.toLocaleString()}
+    Please note that scheduled maintenance could cause the {children} servers to
+    be at risk from {from.toLocaleString()} to {to.toLocaleString()}
     <TZ />.<br />
     If you encounter any issue during that time, please try again later.
   </Message>
