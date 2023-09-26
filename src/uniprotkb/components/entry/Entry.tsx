@@ -127,11 +127,11 @@ const EntryHistory = lazy(
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
 );
 
-const DownloadComponent = lazy(
+const EntryDownloadComponent = lazy(
   /* istanbul ignore next */
   () =>
     import(
-      /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
+      /* webpackChunkName: "download" */ '../../../shared/components/entry/EntryDownload'
     )
 );
 
@@ -418,8 +418,8 @@ const Entry = () => {
                 )}
                 <Button
                   variant="tertiary"
-                  onPointerOver={DownloadComponent.preload}
-                  onFocus={DownloadComponent.preload}
+                  onPointerOver={EntryDownloadComponent.preload}
+                  onFocus={EntryDownloadComponent.preload}
                   onClick={handleToggleDownload}
                 >
                   <DownloadIcon />
