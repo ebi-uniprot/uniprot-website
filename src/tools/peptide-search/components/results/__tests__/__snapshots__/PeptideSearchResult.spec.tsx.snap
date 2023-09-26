@@ -27,6 +27,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
         </h1>
       </div>
       <div
+        class="message message--warning"
+        role="status"
+      >
+        <div
+          class="message__side-border"
+        />
+        <test-file-stub
+          classname="message--icon-align-top"
+          height="1.125em"
+          width="1.125em"
+        />
+        <div
+          class="message__title"
+        >
+          Please note that a scheduled maintenance will put the Peptide Search service at risk from 27/09/2023, 09:00:00 to 27/09/2023, 13:00:00 (UTC time zone).
+          <br />
+          If you encounter any issue during that time, please try again later.
+        </div>
+      </div>
+      <div
         class="tabs"
       >
         <div
@@ -991,6 +1011,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
             found in UniProtKB
           </small>
         </h1>
+      </div>
+      <div
+        class="message message--warning"
+        role="status"
+      >
+        <div
+          class="message__side-border"
+        />
+        <test-file-stub
+          classname="message--icon-align-top"
+          height="1.125em"
+          width="1.125em"
+        />
+        <div
+          class="message__title"
+        >
+          Please note that a scheduled maintenance will put the Peptide Search service at risk from 27/09/2023, 09:00:00 to 27/09/2023, 13:00:00 (UTC time zone).
+          <br />
+          If you encounter any issue during that time, please try again later.
+        </div>
       </div>
       <div
         class="tabs"
