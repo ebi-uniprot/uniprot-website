@@ -8,7 +8,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import Source from './Source';
 import TemplateEntries from './TemplateEntries';
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
-import EntryDownload from '../../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
@@ -60,7 +60,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         {searchableNamespaceLabels[Namespace.unirule]} - {data.uniRuleId}
       </h1>
       <div className="button-group">
-        <EntryDownload />
+        <EntryDownloadOld />
         <MapToDropdown
           statistics={data.statistics}
           accession={data.information.oldRuleNum || data.uniRuleId}

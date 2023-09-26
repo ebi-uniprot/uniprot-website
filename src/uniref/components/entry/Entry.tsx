@@ -10,7 +10,7 @@ import MembersFacets from './MembersFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdownBasic } from '../../../shared/components/MapTo';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
@@ -106,7 +106,7 @@ const Entry = () => {
           {
             // TODO: evenutally remove nResults prop (see note in EntryDownload)
           }
-          <EntryDownload nResults={transformedData.memberCount} />
+          <EntryDownloadOld nResults={transformedData.memberCount} />
           <AddToBasketButton selectedEntries={accession} />
           <MapToDropdownBasic
             config={[

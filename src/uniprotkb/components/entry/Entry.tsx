@@ -27,7 +27,7 @@ import EntryMain from './EntryMain';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../shared/components/entry/EntryDownloadOld';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -77,6 +77,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
+import EntryDownload from '../../../shared/components/entry/EntryDownload';
 
 export enum TabLocation {
   Entry = 'entry',
@@ -405,17 +406,7 @@ const Entry = () => {
                     onClose={handleToggleDownload}
                   >
                     <ErrorBoundary>
-                      <DownloadComponent
-                        // selectedEntries={selectedAccWithoutSubset}
-                        // accessions={
-                        //   subsetsMap
-                        //     ? Array.from(new Set(subsetsMap?.values()))
-                        //     : accessions
-                        // } // Passing all accessions without modifications to Download
-                        totalNumberResults={1}
-                        onClose={handleToggleDownload}
-                        namespace={Namespace.uniprotkb}
-                      />
+                      <EntryDownload onClose={handleToggleDownload} />
                     </ErrorBoundary>
                   </SlidingPanel>
                 </Suspense>
@@ -434,7 +425,7 @@ const Entry = () => {
                   <DownloadIcon />
                   Download
                 </Button>
-                <EntryDownload />
+                <EntryDownloadOld />
                 <AddToBasketButton selectedEntries={accession} />
                 <CommunityAnnotationLink accession={accession} />
                 <a

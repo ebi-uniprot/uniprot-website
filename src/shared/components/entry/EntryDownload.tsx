@@ -1,15 +1,9 @@
-// TODO: remove all of the uniref and uniparc contingency code as soon as streaming is provided:
-//  - https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
-//  - https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
-// It maybe easier to just checkout this file at 820fdb305a092 rather than going through the file.
-// Just make to sure to see if any other commits have been made on top of it since.
-
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Dropdown, DownloadIcon, Button, LongNumber } from 'franklin-sites';
+import { Button, LongNumber } from 'franklin-sites';
+import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
+import DownloadPreview from '../download/DownloadPreview';
 
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
@@ -37,12 +31,19 @@ import { fileFormatEntryDownload as taxonomyFFED } from '../../../supporting-dat
 import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
 
-import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
+import { Namespace } from '../../types/namespaces';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import {
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+} from '../../utils/gtagEvents';
+
+import sticky from '../../styles/sticky.module.scss';
+import styles from '../download/styles/download.module.scss';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.uniprotkb, uniProtKBFFED],
@@ -107,10 +108,15 @@ const DownloadAnchor = ({
   </a>
 );
 
-type Props = {
+export type EntryDownloadProps = {
   nResults?: number;
+  onClose: (
+    panelCloseReason: DownloadPanelFormCloseReason,
+    downloadMethod?: DownloadMethod
+  ) => void;
 };
-const EntryDownload = ({ nResults }: Props) => {
+
+const EntryDownload = ({ nResults, onClose }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
   );
@@ -119,130 +125,165 @@ const EntryDownload = ({ nResults }: Props) => {
 
   const fileFormatEntryDownload = namespace && formatMap.get(namespace);
 
+  const [fileFormat, setFileFormat] = useState(fileFormatEntryDownload?.[0]);
+  const [showPreview, setShowPreview] = useState(false);
+
   const downloadOnClick = useCallback(() => {
-    if (namespace === Namespace.uniparc) {
-      warn('tried downloading a UniParc XRef list > 500');
-      messagesDispatch(
-        addMessage({
-          id: 'uniparc-stream-warning',
-          content: (
-            <>
-              There is a current limitation where UniParc cross-reference TSV
-              downloads are limited to 500 entries. Until this is fixed, there
-              are several options:
-              <ul>
-                <li>
-                  Download the{' '}
-                  <DownloadAnchor
-                    accession={accession as string}
-                    fileFormat={FileFormat.json}
-                    namespace={namespace}
-                  />{' '}
-                  file format instead which includes all{' '}
-                  <LongNumber>{nResults as number}</LongNumber> of the
-                  cross-references in the <pre>uniParcCrossReferences</pre>{' '}
-                  attribute
-                </li>
-                <li>
-                  Continue to download the{' '}
-                  <DownloadAnchor
-                    accession={accession as string}
-                    fileFormat={FileFormat.tsv}
-                    namespace={namespace}
-                  />{' '}
-                  file format which has only 500 entries (meaning{' '}
-                  <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
-                  cross-references will not be downloaded)
-                </li>
-              </ul>
-            </>
-          ),
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.WARNING,
-        })
-      );
-    } else if (namespace === Namespace.uniref) {
-      warn('tried downloading a UniRef member tsv > 500');
-      messagesDispatch(
-        addMessage({
-          id: 'uniref-stream-warning',
-          content: (
-            <>
-              There is a current limitation where UniRef member list downloads
-              are limited to 500 entries. Until this is fixed, there are several
-              options:
-              <ul>
-                <li>
-                  View the{' '}
-                  <Link
-                    to={getLocationEntryPathFor(Location.HelpEntry)(
-                      'pagination'
-                    )}
-                  >
-                    pagination documentation
-                  </Link>{' '}
-                  to download all <LongNumber>{nResults as number}</LongNumber>{' '}
-                  members programmatically
-                </li>
-                <li>
-                  Continue to download the{' '}
-                  <DownloadAnchor
-                    accession={accession as string}
-                    fileFormat={FileFormat.list}
-                    namespace={namespace}
-                  />{' '}
-                  file format which has only 500 entries (meaning{' '}
-                  <LongNumber>{(nResults as number) - 500}</LongNumber> members
-                  will not be downloaded)
-                </li>
-              </ul>
-            </>
-          ),
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.WARNING,
-        })
-      );
+    if (nResults && nResults > maxPaginationDownload) {
+      if (namespace === Namespace.uniparc) {
+        warn('tried downloading a UniParc XRef list > 500');
+        messagesDispatch(
+          addMessage({
+            id: 'uniparc-stream-warning',
+            content: (
+              <>
+                There is a current limitation where UniParc cross-reference TSV
+                downloads are limited to 500 entries. Until this is fixed, there
+                are several options:
+                <ul>
+                  <li>
+                    Download the{' '}
+                    <DownloadAnchor
+                      accession={accession as string}
+                      fileFormat={FileFormat.json}
+                      namespace={namespace}
+                    />{' '}
+                    file format instead which includes all{' '}
+                    <LongNumber>{nResults as number}</LongNumber> of the
+                    cross-references in the <pre>uniParcCrossReferences</pre>{' '}
+                    attribute
+                  </li>
+                  <li>
+                    Continue to download the{' '}
+                    <DownloadAnchor
+                      accession={accession as string}
+                      fileFormat={FileFormat.tsv}
+                      namespace={namespace}
+                    />{' '}
+                    file format which has only 500 entries (meaning{' '}
+                    <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
+                    cross-references will not be downloaded)
+                  </li>
+                </ul>
+              </>
+            ),
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.WARNING,
+          })
+        );
+      } else if (namespace === Namespace.uniref) {
+        warn('tried downloading a UniRef member tsv > 500');
+        messagesDispatch(
+          addMessage({
+            id: 'uniref-stream-warning',
+            content: (
+              <>
+                There is a current limitation where UniRef member list downloads
+                are limited to 500 entries. Until this is fixed, there are
+                several options:
+                <ul>
+                  <li>
+                    View the{' '}
+                    <Link
+                      to={getLocationEntryPathFor(Location.HelpEntry)(
+                        'pagination'
+                      )}
+                    >
+                      pagination documentation
+                    </Link>{' '}
+                    to download all{' '}
+                    <LongNumber>{nResults as number}</LongNumber> members
+                    programmatically
+                  </li>
+                  <li>
+                    Continue to download the{' '}
+                    <DownloadAnchor
+                      accession={accession as string}
+                      fileFormat={FileFormat.list}
+                      namespace={namespace}
+                    />{' '}
+                    file format which has only 500 entries (meaning{' '}
+                    <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
+                    members will not be downloaded)
+                  </li>
+                </ul>
+              </>
+            ),
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.WARNING,
+          })
+        );
+      }
     }
-  }, [accession, messagesDispatch, nResults, namespace]);
-  //
+
+    onClose('download', 'sync');
+  }, [accession, messagesDispatch, nResults, namespace, onClose]);
+
   if (!(namespace && accession && fileFormatEntryDownload)) {
     return null;
   }
 
+  const downloadUrl = getEntryDownloadUrl(
+    accession,
+    fileFormat || FileFormat.fasta,
+    namespace
+  );
+
   return (
-    <Dropdown
-      visibleElement={
-        <Button variant="tertiary">
-          <DownloadIcon />
-          Download
+    <>
+      <fieldset>
+        <label>
+          Format
+          <select
+            id="file-format-select"
+            data-testid="file-format-select"
+            value={fileFormat}
+            onChange={(e) => setFileFormat(e.target.value as FileFormat)}
+          >
+            {fileFormatEntryDownload.map((format) => (
+              <option value={format} key={format}>
+                {format}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+
+      <section
+        className={cn(
+          'button-group',
+          'sliding-panel__button-row',
+          sticky['sticky-bottom-right'],
+          styles['action-buttons']
+        )}
+      >
+        <Button variant="tertiary" onClick={() => setShowPreview(true)}>
+          Preview
         </Button>
-      }
-    >
-      <ul>
-        {fileFormatEntryDownload.map((fileFormat) => (
-          <li key={fileFormat}>
-            {nResults &&
-            nResults > maxPaginationDownload &&
-            (isUniRefList(namespace, fileFormat) ||
-              isUniparcTsv(namespace, fileFormat)) ? (
-              <Button
-                variant="tertiary"
-                onClick={downloadOnClick}
-                style={{ color: colors.sapphireBlue }}
-              >
-                {fileFormat}
-              </Button>
-            ) : (
-              <DownloadAnchor
-                accession={accession}
-                fileFormat={fileFormat}
-                namespace={namespace}
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-    </Dropdown>
+        <Button variant="secondary" onClick={() => onClose('cancel')}>
+          Cancel
+        </Button>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a
+          href={downloadUrl}
+          className={cn('button', 'primary')}
+          title="Download file"
+          target="_blank"
+          rel="noreferrer"
+          onClick={downloadOnClick}
+        >
+          Download
+        </a>
+      </section>
+      {showPreview && (
+        <section>
+          <DownloadPreview
+            previewUrl={downloadUrl}
+            previewFileFormat={fileFormat}
+          />
+        </section>
+      )}
+    </>
   );
 };
 

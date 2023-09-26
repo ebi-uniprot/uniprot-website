@@ -5,7 +5,7 @@ import { pick } from 'lodash-es';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import ChildNavigation from './ChildNavigation';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
@@ -129,7 +129,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       </h1>
       <Card className={entryPageStyles.card}>
         <div className="button-group">
-          <EntryDownload />
+          <EntryDownloadOld />
           <MapToDropdown statistics={proteinStatistics} />
           <MapToDropdown
             statistics={proteomeStatistics}

@@ -1,12 +1,12 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import EntryDownload from '../EntryDownload';
+import EntryDownloadOld from '../EntryDownloadOld';
 
 import customRender from '../../../__test-helpers__/customRender';
 
 describe('EntryDownload', () => {
   it('should link to uniparc TSV download endpoint', () => {
-    customRender(<EntryDownload />, {
+    customRender(<EntryDownloadOld />, {
       route: '/uniparc/UPI0000000001/entry',
     });
     const dropdownButton = screen.getByText('Download');
@@ -17,7 +17,7 @@ describe('EntryDownload', () => {
     );
   });
   it('should link to uniref list download endpoint', () => {
-    customRender(<EntryDownload />, {
+    customRender(<EntryDownloadOld />, {
       route: '/uniref/UniRef100_A0A009E088',
     });
     const dropdownButton = screen.getByText('Download');

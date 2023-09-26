@@ -11,7 +11,7 @@ import XRefsFacets from './XRefsFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../shared/components/entry/EntryDownloadOld';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -161,7 +161,7 @@ const Entry = () => {
             {
               // TODO: evenutally remove nResults prop (see note in EntryDownload)
             }
-            <EntryDownload
+            <EntryDownloadOld
               nResults={xrefsDataObject.data?.uniParcCrossReferences?.length}
             />
             <AddToBasketButton selectedEntries={match.params.accession} />

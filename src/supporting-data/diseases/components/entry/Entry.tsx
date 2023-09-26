@@ -5,7 +5,7 @@ import cn from 'classnames';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
@@ -89,7 +89,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h1>Disease - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
-          <EntryDownload />
+          <EntryDownloadOld />
           <MapToDropdown statistics={data.statistics} />
         </div>
         <InfoList infoData={infoData} />

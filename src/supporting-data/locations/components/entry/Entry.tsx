@@ -6,7 +6,7 @@ import { LocationDescriptor } from 'history';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
@@ -102,7 +102,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h1>Cellular component - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
-          <EntryDownload />
+          <EntryDownloadOld />
           <MapToDropdown statistics={data.statistics} />
         </div>
         <InfoList infoData={infoData} />

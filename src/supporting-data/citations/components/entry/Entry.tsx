@@ -5,7 +5,7 @@ import { SetOptional } from 'type-fest';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../../shared/components/entry/EntryDownload';
+import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import LiteratureCitation from '../LiteratureCitation';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
@@ -58,7 +58,7 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h1>{searchableNamespaceLabels[Namespace.citations]}</h1>
       <Card className={entryPageStyles.card}>
         <div className="button-group">
-          <EntryDownload />
+          <EntryDownloadOld />
         </div>
         <LiteratureCitation data={data} displayAll headingLevel="h2" />
       </Card>
