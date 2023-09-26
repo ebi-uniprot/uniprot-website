@@ -26,7 +26,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
     <div
       class="message__title"
     >
-      Please note that a scheduled maintenance could cause the ID Mapping service servers to be at risk from 27/09/2023, 09:00:00 to 27/09/2023, 13:00:00 (UTC time zone).
+      Please note that a scheduled maintenance could cause the ID Mapping service servers to be at risk from 99/99/9999, 00:00:00 to 99/99/9999, 00:00:00 (UTC time zone).
       <br />
       If you encounter any issue during that time, please try again later.
     </div>

@@ -41,7 +41,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         <div
           class="message__title"
         >
-          Please note that a scheduled maintenance could cause the Peptide Search service servers to be at risk from 27/09/2023, 09:00:00 to 27/09/2023, 13:00:00 (UTC time zone).
+          Please note that a scheduled maintenance could cause the Peptide Search service servers to be at risk from 99/99/9999, 00:00:00 to 99/99/9999, 00:00:00 (UTC time zone).
           <br />
           If you encounter any issue during that time, please try again later.
         </div>
@@ -1027,7 +1027,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         <div
           class="message__title"
         >
-          Please note that a scheduled maintenance could cause the Peptide Search service servers to be at risk from 27/09/2023, 09:00:00 to 27/09/2023, 13:00:00 (UTC time zone).
+          Please note that a scheduled maintenance could cause the Peptide Search service servers to be at risk from 99/99/9999, 00:00:00 to 99/99/9999, 00:00:00 (UTC time zone).
           <br />
           If you encounter any issue during that time, please try again later.
         </div>
