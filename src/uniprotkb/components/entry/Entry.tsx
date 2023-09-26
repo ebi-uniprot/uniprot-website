@@ -27,7 +27,6 @@ import EntryMain from './EntryMain';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import EntryDownloadOld from '../../../shared/components/entry/EntryDownloadOld';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -425,7 +424,6 @@ const Entry = () => {
                   <DownloadIcon />
                   Download
                 </Button>
-                <EntryDownloadOld />
                 <AddToBasketButton selectedEntries={accession} />
                 <CommunityAnnotationLink accession={accession} />
                 <a
