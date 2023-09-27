@@ -1,13 +1,6 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import {
-  InPageNav,
-  Loader,
-  Tabs,
-  Tab,
-  Button,
-  DownloadIcon,
-} from 'franklin-sites';
+import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import joinUrl from 'url-join';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
@@ -31,6 +24,8 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../basket/BasketStatus';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -75,7 +70,6 @@ import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 
 export enum TabLocation {
   Entry = 'entry',
@@ -123,14 +117,6 @@ const EntryExternalLinks = lazy(
 const EntryHistory = lazy(
   () =>
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
-);
-
-const EntryDownloadComponent = lazy(
-  /* istanbul ignore next */
-  () =>
-    import(
-      /* webpackChunkName: "download" */ '../../../shared/components/entry/EntryDownload'
-    )
 );
 
 const Entry = () => {
@@ -404,15 +390,7 @@ const Entry = () => {
                 {listOfIsoformAccessions.length > 1 && (
                   <AlignButton selectedEntries={listOfIsoformAccessions} />
                 )}
-                <Button
-                  variant="tertiary"
-                  onPointerOver={EntryDownloadComponent.preload}
-                  onFocus={EntryDownloadComponent.preload}
-                  onClick={handleToggleDownload}
-                >
-                  <DownloadIcon />
-                  Download
-                </Button>
+                <EntryDownloadButton handleToggle={handleToggleDownload} />
                 <AddToBasketButton selectedEntries={accession} />
                 <CommunityAnnotationLink accession={accession} />
                 <a

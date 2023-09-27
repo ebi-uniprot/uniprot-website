@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
-import { Loader, Tabs, Tab, Button, DownloadIcon } from 'franklin-sites';
+import { Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -12,6 +12,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -31,7 +32,6 @@ import {
 } from '../../config/UniParcXRefsColumnConfiguration';
 import { Location, getEntryPath } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
-import lazy from '../../../shared/utils/lazy';
 
 import uniParcConverter, {
   UniParcAPIModel,
@@ -43,14 +43,6 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-
-const EntryDownloadComponent = lazy(
-  /* istanbul ignore next */
-  () =>
-    import(
-      /* webpackChunkName: "download" */ '../../../shared/components/entry/EntryDownload'
-    )
-);
 
 export enum TabLocation {
   Entry = 'entry',
@@ -178,15 +170,7 @@ const Entry = () => {
           )}
           <div className="button-group">
             <BlastButton selectedEntries={[match.params.accession]} />
-            <Button
-              variant="tertiary"
-              onPointerOver={EntryDownloadComponent.preload}
-              onFocus={EntryDownloadComponent.preload}
-              onClick={handleToggleDownload}
-            >
-              <DownloadIcon />
-              Download
-            </Button>
+            <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain

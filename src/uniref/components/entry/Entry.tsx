@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Button, DownloadIcon, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -13,6 +13,7 @@ import AddToBasketButton from '../../../shared/components/action-buttons/AddToBa
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import { MapToDropdownBasic } from '../../../shared/components/MapTo';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -24,7 +25,6 @@ import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import apiUrls from '../../../shared/config/apiUrls';
-import lazy from '../../../shared/utils/lazy';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import uniRefConverter, {
@@ -42,14 +42,6 @@ import {
 } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-
-const EntryDownloadComponent = lazy(
-  /* istanbul ignore next */
-  () =>
-    import(
-      /* webpackChunkName: "download" */ '../../../shared/components/entry/EntryDownload'
-    )
-);
 
 const Entry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
@@ -124,15 +116,7 @@ const Entry = () => {
         )}
         <div className="button-group">
           <BlastButton selectedEntries={[accession]} />
-          <Button
-            variant="tertiary"
-            onPointerOver={EntryDownloadComponent.preload}
-            onFocus={EntryDownloadComponent.preload}
-            onClick={handleToggleDownload}
-          >
-            <DownloadIcon />
-            Download
-          </Button>
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
           <AddToBasketButton selectedEntries={accession} />
           <MapToDropdownBasic
             config={[
