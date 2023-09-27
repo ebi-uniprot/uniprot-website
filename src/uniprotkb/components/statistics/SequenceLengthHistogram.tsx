@@ -6,7 +6,7 @@ import { StatisticsCategory } from './StatisticsPage';
 import styles from './styles/sequence-length-histogram.module.scss';
 
 // Specify the chart’s dimensions.
-const width = 400;
+const width = 500;
 const height = 300;
 const margin = 50;
 
@@ -52,8 +52,7 @@ const SequenceLengthHistogram = ({ category }: Props) => {
       .attr('x', (d) => xScale(d.sequenceLength))
       .attr('y', (d) => yScale(d.count))
       .attr('width', 1)
-      .attr('height', (d) => height - yScale(d.count))
-      .style('fill', '#69b3a2');
+      .attr('height', (d) => height - yScale(d.count));
   }, [maxCount, maxSequenceLength, sequenceLengthCounts]);
 
   useEffect(() => {
@@ -63,7 +62,12 @@ const SequenceLengthHistogram = ({ category }: Props) => {
   }, [renderHistogram]);
 
   return (
-    <svg ref={svgRef} width={width + margin * 2} height={height + margin * 2} />
+    <svg
+      ref={svgRef}
+      width={width + margin * 2}
+      height={height + margin * 2}
+      className={styles.histogram}
+    />
   );
 };
 
