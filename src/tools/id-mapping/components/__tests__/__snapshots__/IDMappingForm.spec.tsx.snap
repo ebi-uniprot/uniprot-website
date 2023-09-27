@@ -11,26 +11,6 @@ exports[`IDMappingForm test Renders the form 1`] = `
       Retrieve/ID mapping
     </h1>
   </div>
-  <div
-    class="message message--warning"
-    role="status"
-  >
-    <div
-      class="message__side-border"
-    />
-    <test-file-stub
-      classname="message--icon-align-top"
-      height="1.125em"
-      width="1.125em"
-    />
-    <div
-      class="message__title"
-    >
-      Please note that scheduled maintenance could cause the ID Mapping service servers to be at risk from 99/99/9999, 00:00:00 to 99/99/9999, 00:00:00 (UTC time zone).
-      <br />
-      If you encounter any issue during that time, please try again later.
-    </div>
-  </div>
   <form
     aria-label="ID mapping job submission form"
   >

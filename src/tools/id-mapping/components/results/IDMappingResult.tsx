@@ -9,7 +9,6 @@ import ErrorBoundary from '../../../../shared/components/error-component/ErrorBo
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import JobErrorPage from '../../../../shared/components/error-pages/JobErrorPage';
-import { DowntimeWarning } from '../../../components/DowntimeWarning';
 
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -308,7 +307,6 @@ const IDMappingResult = () => {
         }
         resultsCount={total}
       />
-      <DowntimeWarning>ID Mapping service</DowntimeWarning>
       {!!warnings.length && (
         <Message level={MessageLevel.WARNING} className={styles.warnings}>
           <small>
