@@ -23,6 +23,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
+import SequenceLengthHistogram from './SequenceLengthHistogram';
 
 type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -860,6 +861,7 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
+        <SequenceLengthHistogram category={reviewedData.SEQUENCE_COUNT} />
         <FrequencyTable
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
