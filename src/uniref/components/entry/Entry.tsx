@@ -133,7 +133,6 @@ const Entry = () => {
             <DownloadIcon />
             Download
           </Button>
-          {/* <EntryDownloadOld nResults={transformedData.memberCount} /> */}
           <AddToBasketButton selectedEntries={accession} />
           <MapToDropdownBasic
             config={[

@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
-import { Loader, Tabs, Tab } from 'franklin-sites';
+import { Loader, Tabs, Tab, Button, DownloadIcon } from 'franklin-sites';
 import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -11,7 +11,7 @@ import XRefsFacets from './XRefsFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import EntryDownloadOld from '../../../shared/components/entry/EntryDownloadOld';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -31,6 +31,7 @@ import {
 } from '../../config/UniParcXRefsColumnConfiguration';
 import { Location, getEntryPath } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
+import lazy from '../../../shared/utils/lazy';
 
 import uniParcConverter, {
   UniParcAPIModel,
@@ -43,6 +44,14 @@ import {
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
+const EntryDownloadComponent = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "download" */ '../../../shared/components/entry/EntryDownload'
+    )
+);
+
 export enum TabLocation {
   Entry = 'entry',
   FeatureViewer = 'feature-viewer',
@@ -53,6 +62,7 @@ const Entry = () => {
     accession: string;
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const { search } = useLocation();
   const smallScreen = useSmallScreen();
 
@@ -120,6 +130,9 @@ const Entry = () => {
       break;
   }
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SidebarLayout
       sidebar={sidebar}
@@ -156,14 +169,24 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
-          <div className="button-group">
-            <BlastButton selectedEntries={[match.params.accession]} />
-            {
-              // TODO: evenutally remove nResults prop (see note in EntryDownload)
-            }
-            <EntryDownloadOld
+          {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+          {displayDownloadPanel && (
+            <EntryDownloadPanel
+              handleToggle={handleToggleDownload}
               nResults={xrefsDataObject.data?.uniParcCrossReferences?.length}
             />
+          )}
+          <div className="button-group">
+            <BlastButton selectedEntries={[match.params.accession]} />
+            <Button
+              variant="tertiary"
+              onPointerOver={EntryDownloadComponent.preload}
+              onFocus={EntryDownloadComponent.preload}
+              onClick={handleToggleDownload}
+            >
+              <DownloadIcon />
+              Download
+            </Button>
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain
