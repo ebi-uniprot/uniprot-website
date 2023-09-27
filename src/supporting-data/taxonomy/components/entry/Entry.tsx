@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import { pick } from 'lodash-es';
@@ -5,10 +6,11 @@ import { pick } from 'lodash-es';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import ChildNavigation from './ChildNavigation';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -47,6 +49,7 @@ const lastColumns = [
 ];
 
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const accession = props.match?.params.accession;
 
   const mainData = useDataApi<TaxonomyAPIModel>(
@@ -115,6 +118,9 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const relatedQuery = `(taxonomy_id:${accession})`;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -128,8 +134,11 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>
       <Card className={entryPageStyles.card}>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel handleToggle={handleToggleDownload} />
+        )}
         <div className="button-group">
-          <EntryDownloadOld />
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
           <MapToDropdown statistics={proteinStatistics} />
           <MapToDropdown
             statistics={proteomeStatistics}
