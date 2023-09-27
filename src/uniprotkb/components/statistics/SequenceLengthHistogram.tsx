@@ -28,16 +28,15 @@ const SequenceLengthHistogram = ({ category }: Props) => {
     if (!(maxCount && maxSequenceLength)) {
       return;
     }
-    console.log(maxSequenceLength);
     const svg = select(svgRef.current);
     const chart = svg
       .append('g')
       .attr('transform', `translate(${margin},${margin})`);
     const xScale = scaleLinear()
-      .domain([0, maxCount]) // units: count
+      .domain([0, maxSequenceLength]) // units: sequence length
       .range([0, width]); // units: pixels
     const yScale = scaleLinear()
-      .domain([0, maxSequenceLength]) // units: sequence length
+      .domain([0, maxCount]) // units: count
       .range([height, 0]); // units: pixels
     chart
       .append('g')
@@ -49,10 +48,11 @@ const SequenceLengthHistogram = ({ category }: Props) => {
       .selectAll('dot')
       .data(sequenceLengthCounts)
       .enter()
-      .append('circle')
-      .attr('cx', (d) => xScale(d.sequenceLength))
-      .attr('cy', (d) => yScale(d.count))
-      .attr('r', 1.5)
+      .append('rect')
+      .attr('x', (d) => xScale(d.sequenceLength))
+      .attr('y', (d) => yScale(d.count))
+      .attr('width', 1)
+      .attr('height', (d) => height - yScale(d.count))
       .style('fill', '#69b3a2');
   }, [maxCount, maxSequenceLength, sequenceLengthCounts]);
 
