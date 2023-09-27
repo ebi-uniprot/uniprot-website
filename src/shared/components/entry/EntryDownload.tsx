@@ -132,12 +132,13 @@ const EntryDownload = ({ nResults, onClose }: EntryDownloadProps) => {
   );
 
   if (showPreview) {
-    extraContentNode = (
-      <DownloadPreview
-        previewUrl={downloadUrl}
-        previewFileFormat={fileFormat}
-      />
-    );
+    extraContentNode =
+      fileFormat !== FileFormat.excel ? (
+        <DownloadPreview
+          previewUrl={downloadUrl}
+          previewFileFormat={fileFormat}
+        />
+      ) : null;
   }
 
   if (nResults && nResults > maxPaginationDownload) {
