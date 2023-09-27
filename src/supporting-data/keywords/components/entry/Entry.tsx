@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { LocationDescriptor } from 'history';
@@ -5,9 +6,10 @@ import { LocationDescriptor } from 'history';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -41,6 +43,8 @@ const reNumber = /^\d+$/;
 const KeywordsEntry = ({
   match,
 }: RouteChildrenProps<{ accession: string }>) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
   const accession = match?.params.accession;
 
   let redirectTo: LocationDescriptor | null = null;
@@ -87,6 +91,9 @@ const KeywordsEntry = ({
 
   const relatedQuery = `(keyword:${accession})`;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -103,8 +110,11 @@ const KeywordsEntry = ({
         {data.keyword.id})
       </h1>
       <Card className={entryPageStyles.card}>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel handleToggle={handleToggleDownload} />
+        )}
         <div className="button-group">
-          <EntryDownloadOld />
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
           <MapToDropdown statistics={data.statistics} />
         </div>
         <InfoList infoData={infoData} />
