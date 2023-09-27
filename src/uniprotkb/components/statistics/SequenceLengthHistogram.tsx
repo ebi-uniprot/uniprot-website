@@ -6,9 +6,9 @@ import { StatisticsCategory } from './StatisticsPage';
 import styles from './styles/sequence-length-histogram.module.scss';
 
 // Specify the chart’s dimensions.
-const width = 500;
+const width = 400;
 const height = 300;
-const margin = 50;
+const margin = 60;
 
 type Props = {
   category: StatisticsCategory;
@@ -32,17 +32,37 @@ const SequenceLengthHistogram = ({ category }: Props) => {
     const chart = svg
       .append('g')
       .attr('transform', `translate(${margin},${margin})`);
+
+    // x-axis
     const xScale = scaleLinear()
       .domain([0, maxSequenceLength]) // units: sequence length
       .range([0, width]); // units: pixels
-    const yScale = scaleLinear()
-      .domain([0, maxCount]) // units: count
-      .range([height, 0]); // units: pixels
     chart
       .append('g')
       .attr('transform', `translate(0, ${height})`)
       .call(axisBottom(xScale));
+    chart
+      .append('text')
+      .attr('class', 'x label')
+      .attr('text-anchor', 'end')
+      .attr('x', margin + width / 2)
+      .attr('y', height + 35)
+      .text('Sequence length');
+
+    // y-axis
+    const yScale = scaleLinear()
+      .domain([0, maxCount]) // units: count
+      .range([height, 0]); // units: pixels
     chart.append('g').call(axisLeft(yScale));
+    svg
+      .append('text')
+      .attr('class', 'y label')
+      .attr('text-anchor', 'end')
+      .attr('x', -height / 2)
+      .attr('y', 17.5)
+      .attr('transform', 'rotate(-90)')
+      .text('Number of sequences');
+
     chart
       .append('g')
       .selectAll('dot')
