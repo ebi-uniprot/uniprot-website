@@ -24,6 +24,14 @@ const SequenceLengthHistogram = ({ category }: Props) => {
   const maxSequenceLength = max(sequenceLengthCounts, (d) => d.sequenceLength);
   const maxCount = max(sequenceLengthCounts, (d) => d.count);
 
+  const binSize = 10;
+  const binned = {};
+  // currentUpperBound =  binSize
+  //     for (const {sequenceLength, count} of sequenceLengthCounts) {
+  //         const bin = Math.floor(sequenceLength/binSize)
+  //         binned[bin] +=
+  //     }
+
   const renderHistogram = useCallback(() => {
     if (!(maxCount && maxSequenceLength)) {
       return;
@@ -69,10 +77,10 @@ const SequenceLengthHistogram = ({ category }: Props) => {
       .data(sequenceLengthCounts)
       .enter()
       .append('rect')
-      .attr('x', (d) => xScale(d.sequenceLength))
-      .attr('y', (d) => yScale(d.count))
+      .attr('x', (d) => xScale(d.sequenceLength) || 0)
+      .attr('y', (d) => yScale(d.count) || 0)
       .attr('width', 1)
-      .attr('height', (d) => height - yScale(d.count));
+      .attr('height', (d) => height - (yScale(d.count) || 0));
   }, [maxCount, maxSequenceLength, sequenceLengthCounts]);
 
   useEffect(() => {
