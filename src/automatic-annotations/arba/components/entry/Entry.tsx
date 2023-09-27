@@ -1,14 +1,15 @@
+import { useState } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
-import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -21,6 +22,8 @@ import {
 import { ARBAAPIModel } from '../../adapters/arbaConverter';
 
 const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
   const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } = useDataApi<ARBAAPIModel>(
@@ -42,6 +45,9 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const relatedQuery = `(source:${accession})`;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -51,8 +57,11 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h1>
         {searchableNamespaceLabels[Namespace.arba]} - {data.uniRuleId}
       </h1>
+      {displayDownloadPanel && (
+        <EntryDownloadPanel handleToggle={handleToggleDownload} />
+      )}
       <div className="button-group">
-        <EntryDownloadOld />
+        <EntryDownloadButton handleToggle={handleToggleDownload} />
         <MapToDropdown
           statistics={data.statistics}
           accession={data.uniRuleId}

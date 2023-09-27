@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
@@ -8,9 +9,10 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import Source from './Source';
 import TemplateEntries from './TemplateEntries';
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
-import EntryDownloadOld from '../../../../shared/components/entry/EntryDownloadOld';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -24,6 +26,8 @@ import {
 import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 
 const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
   const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } =
@@ -50,6 +54,9 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     data.information.oldRuleNum || data.uniRuleId
   })`;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -59,8 +66,12 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h1>
         {searchableNamespaceLabels[Namespace.unirule]} - {data.uniRuleId}
       </h1>
+      {displayDownloadPanel && (
+        <EntryDownloadPanel handleToggle={handleToggleDownload} />
+      )}
       <div className="button-group">
-        <EntryDownloadOld />
+        <EntryDownloadButton handleToggle={handleToggleDownload} />
+
         <MapToDropdown
           statistics={data.statistics}
           accession={data.information.oldRuleNum || data.uniRuleId}

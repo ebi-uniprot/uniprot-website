@@ -50,6 +50,7 @@ const lastColumns = [
 
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
   const accession = props.match?.params.accession;
 
   const mainData = useDataApi<TaxonomyAPIModel>(
