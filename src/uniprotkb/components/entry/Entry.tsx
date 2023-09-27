@@ -7,7 +7,6 @@ import {
   Tab,
   Button,
   DownloadIcon,
-  SlidingPanel,
 } from 'franklin-sites';
 import joinUrl from 'url-join';
 import cn from 'classnames';
@@ -76,7 +75,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 
 export enum TabLocation {
   Entry = 'entry',
@@ -398,17 +397,7 @@ const Entry = () => {
           {!isObsolete && (
             <>
               {displayDownloadPanel && (
-                <Suspense fallback={null}>
-                  <SlidingPanel
-                    title="Download"
-                    position="left"
-                    onClose={handleToggleDownload}
-                  >
-                    <ErrorBoundary>
-                      <EntryDownload onClose={handleToggleDownload} />
-                    </ErrorBoundary>
-                  </SlidingPanel>
-                </Suspense>
+                <EntryDownloadPanel handleToggle={handleToggleDownload} />
               )}
               <div className="button-group">
                 <BlastButton selectedEntries={[accession]} />

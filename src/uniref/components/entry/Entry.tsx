@@ -1,6 +1,6 @@
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Button, DownloadIcon, Loader, SlidingPanel } from 'franklin-sites';
+import { Button, DownloadIcon, Loader } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -12,7 +12,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import { MapToDropdownBasic } from '../../../shared/components/MapTo';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -115,22 +115,12 @@ const Entry = () => {
           <BasketStatus id={accession} className="small" />
         </h1>
         <Overview transformedData={transformedData} />
+        {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
         {displayDownloadPanel && (
-          <Suspense fallback={null}>
-            <SlidingPanel
-              title="Download"
-              position="left"
-              onClose={handleToggleDownload}
-            >
-              <ErrorBoundary>
-                {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
-                <EntryDownload
-                  onClose={handleToggleDownload}
-                  nResults={transformedData.memberCount}
-                />
-              </ErrorBoundary>
-            </SlidingPanel>
-          </Suspense>
+          <EntryDownloadPanel
+            handleToggle={handleToggleDownload}
+            nResults={transformedData.memberCount}
+          />
         )}
         <div className="button-group">
           <BlastButton selectedEntries={[accession]} />
