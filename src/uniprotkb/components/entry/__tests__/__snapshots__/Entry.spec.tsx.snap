@@ -438,19 +438,13 @@ exports[`Entry basic should render main 1`] = `
                 BLAST
               </span>
             </a>
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
+            <button
+              class="button tertiary"
+              type="button"
             >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                <test-file-stub />
-                Download
-              </button>
-            </div>
+              <test-file-stub />
+              Download
+            </button>
             <button
               class="button tertiary no-small"
               title="Add 1 entry to the basket"
