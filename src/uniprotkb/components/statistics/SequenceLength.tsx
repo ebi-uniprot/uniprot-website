@@ -20,17 +20,6 @@ const getItemMap = (items: StatisticsItem[]) => {
   return itemMap;
 };
 
-const mergeItemMaps = (
-  a: SequenceLengthToCounts,
-  b: SequenceLengthToCounts
-) => {
-  const merged = new Map(a);
-  for (const [sequenceLength, count] of b) {
-    merged.set(sequenceLength, (merged.get(sequenceLength) || 0) + count);
-  }
-  return merged;
-};
-
 type Dataset = 'reviewed' | 'unreviewed';
 
 type Props = {
