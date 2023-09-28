@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import cn from 'classnames';
 
 import SequenceLengthHistogram from './SequenceLengthHistogram';
 
@@ -18,23 +19,27 @@ const SequenceLength = ({ reviewed, unreviewed }: Props) => {
 
   return (
     <div className={styles['container']}>
-      <fieldset className={styles['bin-size-selection']}>
-        <label>
-          Bin size:{' '}
-          <select
-            value={binSize}
-            onChange={(event) =>
-              setBinSize(+event.target.value as BinSizeOptions)
-            }
-          >
-            {binSizeOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </label>
-      </fieldset>
+      <div className={cn('button-group', styles['buttons'])}>
+        <button className="button tertiary">Reviewed</button>
+        <button className="button tertiary">Unreviewed</button>
+        <fieldset>
+          <label>
+            Bin size:{' '}
+            <select
+              value={binSize}
+              onChange={(event) =>
+                setBinSize(+event.target.value as BinSizeOptions)
+              }
+            >
+              {binSizeOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </label>
+        </fieldset>
+      </div>
       <SequenceLengthHistogram items={reviewed} binSize={binSize} />
     </div>
   );
