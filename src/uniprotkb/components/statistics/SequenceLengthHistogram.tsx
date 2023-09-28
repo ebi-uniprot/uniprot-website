@@ -5,6 +5,30 @@ import { StatisticsCategory } from './StatisticsPage';
 
 import styles from './styles/sequence-length-histogram.module.scss';
 
+type SequenceLengthCounts = {
+  sequenceLength: number;
+  count: number;
+}[];
+
+export const bin = (
+  sequenceLengthCounts: SequenceLengthCounts,
+  binSize: number
+): SequenceLengthCounts => {
+  // Returns bins with closed start and open end eg [a, a + binSize)
+  if (binSize === 1) {
+    return sequenceLengthCounts;
+  }
+  const binned: { [k: number]: number } = {};
+  for (const { sequenceLength, count } of sequenceLengthCounts) {
+    const i = binSize * Math.floor(sequenceLength / binSize);
+    binned[i] = (binned[i] || 0) + count;
+  }
+  return Object.entries(binned).map(([k, v]) => ({
+    sequenceLength: +k,
+    count: v,
+  }));
+};
+
 // Specify the chart’s dimensions.
 const width = 400;
 const height = 300;
@@ -21,16 +45,12 @@ const SequenceLengthHistogram = ({ category }: Props) => {
     .map(({ name, count }) => ({ sequenceLength: +name, count }))
     .sort((a, b) => a.sequenceLength - b.sequenceLength);
 
-  const maxSequenceLength = max(sequenceLengthCounts, (d) => d.sequenceLength);
-  const maxCount = max(sequenceLengthCounts, (d) => d.count);
+  const binSize = 100;
 
-  const binSize = 10;
-  const binned = {};
-  // currentUpperBound =  binSize
-  //     for (const {sequenceLength, count} of sequenceLengthCounts) {
-  //         const bin = Math.floor(sequenceLength/binSize)
-  //         binned[bin] +=
-  //     }
+  const binned = bin(sequenceLengthCounts, binSize);
+
+  const maxSequenceLength = max(binned, (d) => d.sequenceLength);
+  const maxCount = max(binned, (d) => d.count);
 
   const renderHistogram = useCallback(() => {
     if (!(maxCount && maxSequenceLength)) {
@@ -67,21 +87,21 @@ const SequenceLengthHistogram = ({ category }: Props) => {
       .attr('class', 'y label')
       .attr('text-anchor', 'end')
       .attr('x', -height / 2)
-      .attr('y', 17.5)
+      .attr('y', 15)
       .attr('transform', 'rotate(-90)')
       .text('Number of sequences');
 
     chart
       .append('g')
       .selectAll('dot')
-      .data(sequenceLengthCounts)
+      .data(binned)
       .enter()
       .append('rect')
       .attr('x', (d) => xScale(d.sequenceLength) || 0)
       .attr('y', (d) => yScale(d.count) || 0)
-      .attr('width', 1)
+      .attr('width', xScale(binSize) || 1)
       .attr('height', (d) => height - (yScale(d.count) || 0));
-  }, [maxCount, maxSequenceLength, sequenceLengthCounts]);
+  }, [maxCount, maxSequenceLength, binned]);
 
   useEffect(() => {
     if (svgRef.current) {
