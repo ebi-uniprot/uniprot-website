@@ -4,6 +4,8 @@ import SequenceLengthHistogram from './SequenceLengthHistogram';
 
 import { StatisticsItem } from './StatisticsPage';
 
+import styles from './styles/sequence-length.module.scss';
+
 const binSizeOptions = [1, 10, 100] as const;
 export type BinSizeOptions = typeof binSizeOptions[number];
 
@@ -15,9 +17,8 @@ const SequenceLength = ({ reviewed, unreviewed }: Props) => {
   const [binSize, setBinSize] = useState<BinSizeOptions>(binSizeOptions[0]);
 
   return (
-    <>
-      <SequenceLengthHistogram items={reviewed} binSize={binSize} />
-      <fieldset className="nbin-selection">
+    <div className={styles['container']}>
+      <fieldset className={styles['bin-size-selection']}>
         <label>
           Bin size:{' '}
           <select
@@ -34,7 +35,8 @@ const SequenceLength = ({ reviewed, unreviewed }: Props) => {
           </select>
         </label>
       </fieldset>
-    </>
+      <SequenceLengthHistogram items={reviewed} binSize={binSize} />
+    </div>
   );
 };
 

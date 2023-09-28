@@ -34,7 +34,7 @@ export const bin = (
 // Specify the chart’s dimensions.
 const width = 400;
 const height = 300;
-const margin = 60;
+const margin = { top: 10, right: 60, bottom: 40, left: 60 };
 
 type Props = {
   items: StatisticsItem[];
@@ -65,7 +65,7 @@ const SequenceLengthHistogram = ({ items, binSize }: Props) => {
 
     const chart = svg
       .append('g')
-      .attr('transform', `translate(${margin},${margin})`);
+      .attr('transform', `translate(${margin.left},${margin.top})`);
 
     // x-axis
     const xScale = scaleLinear()
@@ -79,7 +79,7 @@ const SequenceLengthHistogram = ({ items, binSize }: Props) => {
       .append('text')
       .attr('class', 'x label')
       .attr('text-anchor', 'end')
-      .attr('x', margin + width / 2)
+      .attr('x', margin.left + width / 2)
       .attr('y', height + 35)
       .text('Sequence length');
 
@@ -92,7 +92,7 @@ const SequenceLengthHistogram = ({ items, binSize }: Props) => {
       .append('text')
       .attr('class', 'y label')
       .attr('text-anchor', 'end')
-      .attr('x', -height / 2)
+      .attr('x', margin.bottom + margin.top - height / 2)
       .attr('y', 15)
       .attr('transform', 'rotate(-90)')
       .text('Number of sequences');
@@ -118,8 +118,8 @@ const SequenceLengthHistogram = ({ items, binSize }: Props) => {
   return (
     <svg
       ref={svgRef}
-      width={width + margin * 2}
-      height={height + margin * 2}
+      width={width + margin.left + margin.right}
+      height={height + margin.top + margin.bottom}
       className={styles.histogram}
     />
   );

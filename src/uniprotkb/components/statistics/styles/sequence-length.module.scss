@@ -1,0 +1,13 @@
+@import 'franklin-sites/src/styles/colours';
+
+.container {
+  width: 480px;
+
+  .bin-size-selection {
+    float: right;
+
+    select {
+      margin: 0;
+    }
+  }
+}
