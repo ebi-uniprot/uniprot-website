@@ -4,29 +4,13 @@
   width: 480px;
 
   .buttons {
-    display: flex;
-    align-items: center;
     float: right;
 
-    button {
-      font-weight: normal;
-      margin-top: 1.75em;
-      background: #d2dce3;
-      color: black;
-      line-height: 1.5;
-      text-align: left;
-      padding: 0.3333333333rem;
-      padding-inline-end: 2ch;
-
-      &::after {
-        position: relative;
-        left: 1ch;
-        content: '✖';
+    fieldset {
+      margin-left: 1rem;
+      select {
+        margin-bottom: 0;
       }
-    }
-
-    select {
-      margin: 0;
     }
   }
 }
