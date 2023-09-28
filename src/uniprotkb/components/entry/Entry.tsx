@@ -383,7 +383,10 @@ const Entry = () => {
           {!isObsolete && (
             <>
               {displayDownloadPanel && (
-                <EntryDownloadPanel handleToggle={handleToggleDownload} />
+                <EntryDownloadPanel
+                  handleToggle={handleToggleDownload}
+                  isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                />
               )}
               <div className="button-group">
                 <BlastButton selectedEntries={[accession]} />

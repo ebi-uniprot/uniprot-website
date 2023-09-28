@@ -102,19 +102,34 @@ const DownloadAnchor = ({
 
 export type EntryDownloadProps = {
   nResults?: number;
+  isoformsAvailable?: boolean;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
     downloadMethod?: DownloadMethod
   ) => void;
 };
 
-const EntryDownload = ({ nResults, onClose }: EntryDownloadProps) => {
+const EntryDownload = ({
+  nResults,
+  isoformsAvailable,
+  onClose,
+}: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
   );
   const { namespace, accession } = match?.params || {};
 
-  const fileFormatEntryDownload = namespace && formatMap.get(namespace);
+  let fileFormatEntryDownload = namespace && formatMap.get(namespace);
+
+  if (
+    fileFormatEntryDownload?.includes(FileFormat.fastaCanonicalIsoform) &&
+    !isoformsAvailable
+  ) {
+    fileFormatEntryDownload = fileFormatEntryDownload.splice(
+      fileFormatEntryDownload.indexOf(FileFormat.fastaCanonicalIsoform),
+      1
+    );
+  }
 
   const [fileFormat, setFileFormat] = useState(fileFormatEntryDownload?.[0]);
   const [showPreview, setShowPreview] = useState(false);
