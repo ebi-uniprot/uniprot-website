@@ -1,4 +1,5 @@
 import { sumBy } from 'lodash-es';
+
 import { bin } from '../SequenceLengthHistogram';
 
 const sequenceLengthCounts = [

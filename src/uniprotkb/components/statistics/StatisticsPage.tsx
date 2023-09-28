@@ -23,9 +23,9 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
-import SequenceLengthHistogram from './SequenceLengthHistogram';
+import SequenceLength from './SequenceLength';
 
-type CategoryName =
+export type CategoryName =
   | 'AUDIT' // 1 - introduction
   | 'COMMENTS' // 5 - statistics for some line types
   | 'CROSS_REFERENCE' // 5 - statistics for some line types
@@ -861,7 +861,10 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
-        <SequenceLengthHistogram category={reviewedData.SEQUENCE_COUNT} />
+        <SequenceLength
+          reviewed={reviewedData.SEQUENCE_COUNT.items}
+          unreviewed={unreviewedData.SEQUENCE_COUNT.items}
+        />
         <FrequencyTable
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}

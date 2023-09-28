@@ -1,7 +1,9 @@
+import { useCallback, useEffect, useRef } from 'react';
 import { select, scaleLinear, max, axisBottom, axisLeft } from 'd3';
 
-import { useCallback, useEffect, useRef } from 'react';
-import { StatisticsCategory } from './StatisticsPage';
+import { StatisticsItem } from './StatisticsPage';
+
+import { BinSizeOptions } from './SequenceLength';
 
 import styles from './styles/sequence-length-histogram.module.scss';
 
@@ -35,17 +37,16 @@ const height = 300;
 const margin = 60;
 
 type Props = {
-  category: StatisticsCategory;
+  items: StatisticsItem[];
+  binSize: BinSizeOptions;
 };
 
-const SequenceLengthHistogram = ({ category }: Props) => {
+const SequenceLengthHistogram = ({ items, binSize }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const sequenceLengthCounts = Array.from(category.items)
+  const sequenceLengthCounts = Array.from(items)
     .map(({ name, count }) => ({ sequenceLength: +name, count }))
     .sort((a, b) => a.sequenceLength - b.sequenceLength);
-
-  const binSize = 100;
 
   const binned = bin(sequenceLengthCounts, binSize);
 
@@ -56,7 +57,12 @@ const SequenceLengthHistogram = ({ category }: Props) => {
     if (!(maxCount && maxSequenceLength)) {
       return;
     }
+
     const svg = select(svgRef.current);
+
+    // Remove previous drawings
+    svg.selectAll('g').remove();
+
     const chart = svg
       .append('g')
       .attr('transform', `translate(${margin},${margin})`);
@@ -107,7 +113,7 @@ const SequenceLengthHistogram = ({ category }: Props) => {
     if (svgRef.current) {
       renderHistogram();
     }
-  }, [renderHistogram]);
+  }, [renderHistogram, binned]);
 
   return (
     <svg
