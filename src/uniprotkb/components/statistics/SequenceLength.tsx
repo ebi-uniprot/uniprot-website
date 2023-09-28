@@ -9,7 +9,7 @@ import { StatisticsItem } from './StatisticsPage';
 
 import styles from './styles/sequence-length.module.scss';
 
-const binSizeOptions = [1, 10, 100] as const;
+const binSizeOptions = [1, 2, 5, 10, 20, 50, 100] as const;
 export type BinSizeOptions = typeof binSizeOptions[number];
 
 const getItemMap = (items: StatisticsItem[]) => {
