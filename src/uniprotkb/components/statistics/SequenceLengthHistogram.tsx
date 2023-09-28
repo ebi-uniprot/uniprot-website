@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { select, scaleLinear, max, axisBottom, axisLeft } from 'd3';
+import { select, scaleLinear, axisBottom, axisLeft } from 'd3';
 
 import { BinSizeOptions } from './SequenceLength';
 

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import cn from 'classnames';
 
 import SequenceLengthHistogram, {
@@ -36,8 +36,8 @@ const SequenceLength = ({ reviewed, unreviewed }: Props) => {
   );
 
   return (
-    <div className={styles['container']}>
-      <div className={cn('button-group', styles['buttons'])}>
+    <div className={styles.container}>
+      <div className={cn('button-group', styles.buttons)}>
         <fieldset>
           <label>
             Data:{' '}
