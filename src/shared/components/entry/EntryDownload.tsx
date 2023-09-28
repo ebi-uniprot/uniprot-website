@@ -146,8 +146,8 @@ const EntryDownload = ({ nResults, onClose }: EntryDownloadProps) => {
       extraContentNode = (
         <>
           There is a current limitation where UniParc cross-reference TSV
-          downloads are limited to 500 entries. Until this is fixed, there are
-          several options:
+          downloads are limited to {maxPaginationDownload} entries. Until this
+          is fixed, there are several options:
           <ul>
             <li>
               Download the{' '}
@@ -168,8 +168,8 @@ const EntryDownload = ({ nResults, onClose }: EntryDownloadProps) => {
                 fileFormat={FileFormat.tsv}
                 namespace={namespace}
               />{' '}
-              file format which has only 500 entries (meaning{' '}
-              <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
+              file format which has only {maxPaginationDownload} entries
+              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
               cross-references will not be downloaded)
             </li>
           </ul>
@@ -180,8 +180,8 @@ const EntryDownload = ({ nResults, onClose }: EntryDownloadProps) => {
       extraContentNode = (
         <>
           There is a current limitation where UniRef member list downloads are
-          limited to 500 entries. Until this is fixed, there are several
-          options:
+          limited to {maxPaginationDownload} entries. Until this is fixed, there
+          are several options:
           <ul>
             <li>
               View the{' '}
@@ -200,9 +200,9 @@ const EntryDownload = ({ nResults, onClose }: EntryDownloadProps) => {
                 fileFormat={FileFormat.list}
                 namespace={namespace}
               />{' '}
-              file format which has only 500 entries (meaning{' '}
-              <LongNumber>{(nResults as number) - 500}</LongNumber> members will
-              not be downloaded)
+              file format which has only {maxPaginationDownload} entries
+              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
+              members will not be downloaded)
             </li>
           </ul>
         </>
