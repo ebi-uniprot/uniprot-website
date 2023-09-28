@@ -1,34 +1,26 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { select, scaleLinear, max, axisBottom, axisLeft } from 'd3';
 
-import { StatisticsItem } from './StatisticsPage';
-
 import { BinSizeOptions } from './SequenceLength';
 
 import styles from './styles/sequence-length-histogram.module.scss';
 
-type SequenceLengthCounts = {
-  sequenceLength: number;
-  count: number;
-}[];
+export type SequenceLengthToCounts = Map<number, number>;
 
 export const bin = (
-  sequenceLengthCounts: SequenceLengthCounts,
+  sequenceLengthToCounts: SequenceLengthToCounts,
   binSize: number
-): SequenceLengthCounts => {
+): SequenceLengthToCounts => {
   // Returns bins with closed start and open end eg [a, a + binSize)
   if (binSize === 1) {
-    return sequenceLengthCounts;
+    return sequenceLengthToCounts;
   }
-  const binned: { [k: number]: number } = {};
-  for (const { sequenceLength, count } of sequenceLengthCounts) {
-    const i = binSize * Math.floor(sequenceLength / binSize);
-    binned[i] = (binned[i] || 0) + count;
+  const binned: SequenceLengthToCounts = new Map();
+  for (const [sequenceLength, count] of sequenceLengthToCounts) {
+    const i = binSize * Math.floor(+sequenceLength / binSize);
+    binned.set(i, (binned.get(i) || 0) + count);
   }
-  return Object.entries(binned).map(([k, v]) => ({
-    sequenceLength: +k,
-    count: v,
-  }));
+  return binned;
 };
 
 // Specify the chart’s dimensions.
@@ -37,21 +29,17 @@ const height = 300;
 const margin = { top: 10, right: 60, bottom: 40, left: 60 };
 
 type Props = {
-  items: StatisticsItem[];
+  items: SequenceLengthToCounts;
   binSize: BinSizeOptions;
 };
 
 const SequenceLengthHistogram = ({ items, binSize }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const sequenceLengthCounts = Array.from(items)
-    .map(({ name, count }) => ({ sequenceLength: +name, count }))
-    .sort((a, b) => a.sequenceLength - b.sequenceLength);
+  const binned = bin(items, binSize);
 
-  const binned = bin(sequenceLengthCounts, binSize);
-
-  const maxSequenceLength = max(binned, (d) => d.sequenceLength);
-  const maxCount = max(binned, (d) => d.count);
+  const maxSequenceLength = Math.max(...binned.keys());
+  const maxCount = Math.max(...binned.values());
 
   const renderHistogram = useCallback(() => {
     if (!(maxCount && maxSequenceLength)) {
@@ -100,13 +88,13 @@ const SequenceLengthHistogram = ({ items, binSize }: Props) => {
     chart
       .append('g')
       .selectAll('dot')
-      .data(binned)
+      .data(Array.from(binned))
       .enter()
       .append('rect')
-      .attr('x', (d) => xScale(d.sequenceLength) || 0)
-      .attr('y', (d) => yScale(d.count) || 0)
+      .attr('x', (d) => xScale(d[0]) || 0)
+      .attr('y', (d) => yScale(d[1]) || 0)
       .attr('width', xScale(binSize) || 1)
-      .attr('height', (d) => height - (yScale(d.count) || 0));
+      .attr('height', (d) => height - (yScale(d[1]) || 0));
   }, [maxCount, maxSequenceLength, binned]);
 
   useEffect(() => {
