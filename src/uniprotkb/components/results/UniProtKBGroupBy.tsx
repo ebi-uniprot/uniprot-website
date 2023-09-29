@@ -415,9 +415,13 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
     return <ErrorHandler status={groupByResponse.status} />;
   }
 
-  const sumChildren = groupByResponse.data?.parent?.count;
+  const parentTotal = groupByResponse.data?.parent?.count;
+  // Calculate childrenTotal as there can be instances where a taxonomy
+  // parent count does not equal the sum of children eg:
+  // https://www.uniprot.org/uniprotkb?groupBy=taxonomy&parent=9606&query=*
+  const childrenTotal = sumBy(groupByResponse.data?.groups, 'count');
   let childrenNode;
-  if (id && !sumChildren) {
+  if (id && !parentTotal) {
     childrenNode = (
       <Message level="info" className={styles['no-results']}>
         <small>This {groupByToLabel[groupBy]} node has no children.</small>
@@ -432,7 +436,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
         ancestors={groupByResponse.data.ancestors}
         query={query}
         labelWidth={labelWidth}
-        count={sumChildren || total}
+        count={parentTotal || total}
         groupBy={groupBy}
         showDropdownAndCount
       >
@@ -443,7 +447,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
             key={child.id}
             labelWidth={labelWidth}
             histogram
-            parentTotal={sumChildren || total}
+            parentTotal={childrenTotal || total}
             groupBy={groupBy}
           />
         ))}
@@ -502,7 +506,7 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
                 label={parentLabel}
                 groupBy={groupBy}
                 query={query}
-                count={sumChildren}
+                count={parentTotal}
               />
             </span>
             <span className={styles.label}>
