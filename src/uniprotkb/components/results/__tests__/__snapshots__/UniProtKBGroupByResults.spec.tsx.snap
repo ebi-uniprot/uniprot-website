@@ -373,11 +373,11 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 241,067,738 which is 96.88% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 241,067,738 which is 96.86% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 290.62666618818497px;"
+            style="width: 290.57880598002737px;"
           />
           <span
             class="percentage"
@@ -477,7 +477,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
         >
           <span
             class="bar"
-            style="width: 2.920458302391764px;"
+            style="width: 2.9199773632401667px;"
           />
           <span
             class="percentage"
@@ -527,7 +527,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
         >
           <span
             class="bar"
-            style="width: 6.500786500901433px;"
+            style="width: 6.499715955657935px;"
           />
           <span
             class="percentage"
