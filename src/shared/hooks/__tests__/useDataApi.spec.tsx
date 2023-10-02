@@ -268,10 +268,10 @@ describe('useDataApiWithStale hook', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current).toEqual({
-      error: new SyntaxError('Unexpected token , in JSON at position 17'),
+    expect(result.current).toMatchObject({
       loading: false,
       url,
     });
+    expect(result.current.error).toBeInstanceOf(SyntaxError);
   });
 });

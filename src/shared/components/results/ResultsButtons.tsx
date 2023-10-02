@@ -109,6 +109,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
+  const hasResults = total !== 0;
 
   useEffect(() => {
     const invalidParamValues = [
@@ -240,6 +241,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
           onClick={() => handleToggleDownload('toggle')}
+          disabled={!hasResults}
         >
           <DownloadIcon />
           Download
@@ -258,44 +260,49 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
             Statistics
           </Button>
         )} */}
-        {/* TODO: check if we want to add that to franklin, eventually... */}
-        <form aria-label="Result view selector">
-          {/* Wrapped in a form so that multiple instances don't interact */}
-          <span role="radiogroup">
-            {!viewMode && !sharedUrlMode && !inBasket && (
-              <FirstTimeSelection setViewMode={setViewMode} />
-            )}
-            View:
-            <label>
-              Cards{' '}
-              <input
-                type="radio"
-                name="view"
-                value="cards"
-                checked={viewMode === 'cards'}
-                onChange={handleToggleView}
-                disabled={disableCardToggle}
-              />
-            </label>
-            <label>
-              Table{' '}
-              <input
-                type="radio"
-                name="view"
-                value="table"
-                checked={viewMode === 'table'}
-                onChange={handleToggleView}
-                disabled={disableCardToggle}
-              />
-            </label>
-          </span>
-        </form>
-        {!notCustomisable &&
-          !sharedUrlMode &&
-          // Exception for ID mapping results!
-          (viewMode === 'table' || disableCardToggle) && (
-            <CustomiseButton namespace={namespace} />
-          )}
+        {hasResults && (
+          <>
+            {/* TODO: check if we want to add that to franklin, eventually... */}
+            <form aria-label="Result view selector">
+              {/* Wrapped in a form so that multiple instances don't interact */}
+              <span role="radiogroup">
+                {!viewMode && !sharedUrlMode && !inBasket && (
+                  <FirstTimeSelection setViewMode={setViewMode} />
+                )}
+                View:
+                <label>
+                  Cards{' '}
+                  <input
+                    type="radio"
+                    name="view"
+                    value="cards"
+                    checked={viewMode === 'cards'}
+                    onChange={handleToggleView}
+                    disabled={disableCardToggle}
+                  />
+                </label>
+                <label>
+                  Table{' '}
+                  <input
+                    type="radio"
+                    name="view"
+                    value="table"
+                    checked={viewMode === 'table'}
+                    onChange={handleToggleView}
+                    disabled={disableCardToggle}
+                  />
+                </label>
+              </span>
+            </form>
+            {!notCustomisable &&
+              !sharedUrlMode &&
+              // Exception for ID mapping results!
+              (viewMode === 'table' || disableCardToggle) && (
+                <CustomiseButton namespace={namespace} />
+              )}
+          </>
+        )}
+
         {jobType && !inBasket && (
           <ResubmitButton jobType={jobType} inputParamsData={inputParamsData} />
         )}
