@@ -165,21 +165,33 @@ const EntryDownload = ({
     downloadColumns
   );
 
+  const previewFileFormat =
+    fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
+  const previewUrl = getEntryDownloadUrl(
+    accession,
+    previewFileFormat || FileFormat.fasta,
+    namespace,
+    downloadColumns
+  );
+
   if (showPreview) {
-    extraContentNode =
-      fileFormat !== FileFormat.excel ? (
-        <DownloadPreview
-          previewUrl={downloadUrl}
-          previewFileFormat={fileFormat}
-        />
-      ) : null;
+    extraContentNode = (
+      <DownloadPreview
+        previewUrl={previewUrl}
+        previewFileFormat={previewFileFormat}
+      />
+    );
   }
 
   if (nResults && nResults > maxPaginationDownload) {
-    if (namespace === Namespace.uniparc && fileFormat === FileFormat.tsv) {
+    if (
+      namespace === Namespace.uniparc &&
+      (fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel)
+    ) {
       extraContentNode = (
         <>
-          There is a current limitation where UniParc cross-reference TSV
+          There is a current limitation where UniParc cross-reference{' '}
+          {fileFormat}
           downloads are limited to {maxPaginationDownload} entries. Until this
           is fixed, there are several options:
           <ul>
@@ -200,7 +212,7 @@ const EntryDownload = ({
               Continue to download the{' '}
               <DownloadAnchor
                 accession={accession as string}
-                fileFormat={FileFormat.tsv}
+                fileFormat={fileFormat}
                 namespace={namespace}
                 columns={downloadColumns}
               />{' '}
@@ -267,17 +279,18 @@ const EntryDownload = ({
         </label>
       </fieldset>
 
-      {fileFormat === FileFormat.tsv && columns && (
-        <>
-          <legend>Customize columns</legend>
-          <ColumnSelect
-            onChange={(columns) => setDownloadColumns(columns)}
-            selectedColumns={downloadColumns}
-            namespace={namespace}
-            isEntryPage
-          />
-        </>
-      )}
+      {(fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel) &&
+        columns && (
+          <>
+            <legend>Customize columns</legend>
+            <ColumnSelect
+              onChange={(columns) => setDownloadColumns(columns)}
+              selectedColumns={downloadColumns}
+              namespace={namespace}
+              isEntryPage
+            />
+          </>
+        )}
 
       <section
         className={cn(
