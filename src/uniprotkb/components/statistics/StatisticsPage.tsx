@@ -25,7 +25,7 @@ import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-lay
 import styles from './styles/statistics-page.module.scss';
 import SequenceLength from './SequenceLength';
 
-export type CategoryName =
+type CategoryName =
   | 'AUDIT' // 1 - introduction
   | 'COMMENTS' // 5 - statistics for some line types
   | 'CROSS_REFERENCE' // 5 - statistics for some line types
