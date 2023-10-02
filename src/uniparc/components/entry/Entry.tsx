@@ -166,6 +166,7 @@ const Entry = () => {
             <EntryDownloadPanel
               handleToggle={handleToggleDownload}
               nResults={xrefsDataObject.data?.uniParcCrossReferences?.length}
+              columns={columns}
             />
           )}
           <div className="button-group">

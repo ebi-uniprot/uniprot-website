@@ -14,6 +14,7 @@ const apiUrls = {
       selectedFacets?: string[];
       size?: number;
       format?: FileFormat.json | FileFormat.list;
+      fields?: string;
     } = {}
   ) =>
     stringifyUrl(joinUrl(apiPrefix, 'uniref', id, 'members'), {
@@ -23,6 +24,7 @@ const apiUrls = {
       format: options.format
         ? fileFormatToUrlParameter[options.format]
         : undefined,
+      fields: options.fields,
     }),
 };
 

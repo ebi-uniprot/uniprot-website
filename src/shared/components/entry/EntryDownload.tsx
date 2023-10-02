@@ -4,6 +4,9 @@ import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
 import DownloadPreview from '../download/DownloadPreview';
+import ColumnSelect from '../column-select/ColumnSelect';
+
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 import apiUrls from '../../config/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
@@ -33,6 +36,7 @@ import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
+import { Column } from '../../config/columns';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
@@ -61,13 +65,15 @@ const isUniRefList = (namespace: Namespace, fileFormat: FileFormat) =>
 const getEntryDownloadUrl = (
   accession: string,
   fileFormat: FileFormat,
-  namespace: Namespace
+  namespace: Namespace,
+  columns: Column[]
 ) => {
   if (isUniparcTsv(namespace, fileFormat)) {
     return uniparcApiUrls.databases(accession, {
       format: fileFormat as FileFormat.tsv,
       // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
       size: 500,
+      fields: columns.join(','),
     });
   }
   if (isUniRefList(namespace, fileFormat)) {
@@ -75,6 +81,7 @@ const getEntryDownloadUrl = (
       format: fileFormat as FileFormat.list,
       // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
       size: 500,
+      fields: columns.join(','),
     });
   }
   return apiUrls.entryDownload(accession, fileFormat, namespace);
@@ -84,16 +91,18 @@ type DownloadAnchorProps = {
   accession: string;
   fileFormat: FileFormat;
   namespace: Namespace;
+  columns: Column[];
 };
 
 const DownloadAnchor = ({
   accession,
   fileFormat,
   namespace,
+  columns,
 }: DownloadAnchorProps) => (
   <a
     target="_blank"
-    href={getEntryDownloadUrl(accession, fileFormat, namespace)}
+    href={getEntryDownloadUrl(accession, fileFormat, namespace, columns)}
     rel="noreferrer"
   >
     {fileFormat}
@@ -107,17 +116,24 @@ export type EntryDownloadProps = {
     panelCloseReason: DownloadPanelFormCloseReason,
     downloadMethod?: DownloadMethod
   ) => void;
+  columns?: Column[];
 };
 
 const EntryDownload = ({
   nResults,
   isoformsAvailable,
   onClose,
+  columns,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
   );
   const { namespace, accession } = match?.params || {};
+
+  const [localStorageColumns, setLocalStorageColumns] = useLocalStorage(
+    `table columns for ${namespace as Namespace} entry page` as const,
+    columns as Column[]
+  );
 
   let fileFormatEntryDownload = namespace && formatMap.get(namespace);
 
@@ -143,7 +159,8 @@ const EntryDownload = ({
   const downloadUrl = getEntryDownloadUrl(
     accession,
     fileFormat || FileFormat.fasta,
-    namespace
+    namespace,
+    localStorageColumns
   );
 
   if (showPreview) {
@@ -170,6 +187,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.json}
                 namespace={namespace}
+                columns={localStorageColumns}
               />{' '}
               file format instead which includes all{' '}
               <LongNumber>{nResults as number}</LongNumber> of the
@@ -182,6 +200,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.tsv}
                 namespace={namespace}
+                columns={localStorageColumns}
               />{' '}
               file format which has only {maxPaginationDownload} entries
               (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
@@ -214,6 +233,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.list}
                 namespace={namespace}
+                columns={localStorageColumns}
               />{' '}
               file format which has only {maxPaginationDownload} entries
               (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
@@ -244,6 +264,18 @@ const EntryDownload = ({
           </select>
         </label>
       </fieldset>
+
+      {fileFormat === FileFormat.tsv && columns && (
+        <>
+          <legend>Customize columns</legend>
+          <ColumnSelect
+            onChange={(columns) => setLocalStorageColumns(columns)}
+            selectedColumns={localStorageColumns}
+            namespace={namespace}
+            isEntryPage
+          />
+        </>
+      )}
 
       <section
         className={cn(
