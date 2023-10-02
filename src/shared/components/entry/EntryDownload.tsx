@@ -130,10 +130,12 @@ const EntryDownload = ({
   );
   const { namespace, accession } = match?.params || {};
 
-  const [localStorageColumns, setLocalStorageColumns] = useLocalStorage(
+  const [localStorageColumns] = useLocalStorage(
     `table columns for ${namespace as Namespace} entry page` as const,
     columns as Column[]
   );
+
+  const [downloadColumns, setDownloadColumns] = useState(localStorageColumns);
 
   let fileFormatEntryDownload = namespace && formatMap.get(namespace);
 
@@ -160,7 +162,7 @@ const EntryDownload = ({
     accession,
     fileFormat || FileFormat.fasta,
     namespace,
-    localStorageColumns
+    downloadColumns
   );
 
   if (showPreview) {
@@ -187,7 +189,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.json}
                 namespace={namespace}
-                columns={localStorageColumns}
+                columns={downloadColumns}
               />{' '}
               file format instead which includes all{' '}
               <LongNumber>{nResults as number}</LongNumber> of the
@@ -200,7 +202,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.tsv}
                 namespace={namespace}
-                columns={localStorageColumns}
+                columns={downloadColumns}
               />{' '}
               file format which has only {maxPaginationDownload} entries
               (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
@@ -233,7 +235,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.list}
                 namespace={namespace}
-                columns={localStorageColumns}
+                columns={downloadColumns}
               />{' '}
               file format which has only {maxPaginationDownload} entries
               (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
@@ -269,8 +271,8 @@ const EntryDownload = ({
         <>
           <legend>Customize columns</legend>
           <ColumnSelect
-            onChange={(columns) => setLocalStorageColumns(columns)}
-            selectedColumns={localStorageColumns}
+            onChange={(columns) => setDownloadColumns(columns)}
+            selectedColumns={downloadColumns}
             namespace={namespace}
             isEntryPage
           />
