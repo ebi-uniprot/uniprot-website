@@ -44,10 +44,9 @@ const SequenceLengthLinePlot = ({ sequenceLengthCounts }: Props) => {
       .call(axisBottom(xScale));
     chart
       .append('text')
-      .attr('class', 'x label')
-      .attr('text-anchor', 'end')
-      .attr('x', margin.left + width / 2 - 20)
-      .attr('y', height + margin.bottom - 5)
+      .attr('text-anchor', 'middle')
+      .attr('x', width / 2)
+      .attr('y', height + 0.8 * margin.bottom)
       .text('Sequence length');
 
     // y-axis
@@ -57,10 +56,9 @@ const SequenceLengthLinePlot = ({ sequenceLengthCounts }: Props) => {
     chart.append('g').call(axisLeft(yScale));
     chart
       .append('text')
-      .attr('class', 'y label')
-      .attr('text-anchor', 'end')
-      .attr('x', 75 - height / 2)
-      .attr('y', -10 - margin.left / 2)
+      .attr('text-anchor', 'middle')
+      .attr('x', -height / 2)
+      .attr('y', -0.7 * margin.left)
       .attr('transform', 'rotate(-90)')
       .text('Number of sequences');
 
