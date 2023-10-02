@@ -67,9 +67,7 @@ const SequenceLengthLinePlot = ({ sequenceLengthCounts }: Props) => {
     chart
       .append('path')
       .datum(sequenceLengthCounts)
-      .attr('fill', 'black')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 1.5)
+      .attr('class', styles.line)
       .attr(
         'd',
         line()
