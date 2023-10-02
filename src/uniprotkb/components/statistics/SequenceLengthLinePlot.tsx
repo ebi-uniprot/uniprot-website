@@ -6,8 +6,8 @@ import { SequenceLengthCount } from './SequenceLength';
 import styles from './styles/sequence-length-line-plot.module.scss';
 
 // Specify the chart’s dimensions.
-const width = 400;
-const height = 300;
+const width = 500;
+const height = 400;
 const margin = { top: 10, right: 60, bottom: 45, left: 80 };
 
 type Props = {

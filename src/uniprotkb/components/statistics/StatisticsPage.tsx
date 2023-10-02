@@ -861,15 +861,15 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
+        <SequenceLength
+          reviewed={reviewedData.SEQUENCE_COUNT.items}
+          unreviewed={unreviewedData.SEQUENCE_COUNT.items}
+        />
         <FrequencyTable
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
           header="sequence sizes, from-to"
           caption="Repartition of the sequences by size (excluding fragments)"
-        />
-        <SequenceLength
-          reviewed={reviewedData.SEQUENCE_COUNT.items}
-          unreviewed={unreviewedData.SEQUENCE_COUNT.items}
         />
       </Card>
       <Card id="journal-citations">
