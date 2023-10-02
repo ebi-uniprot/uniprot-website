@@ -8,7 +8,7 @@ import styles from './styles/sequence-length-line-plot.module.scss';
 // Specify the chart’s dimensions.
 const width = 400;
 const height = 300;
-const margin = { top: 10, right: 60, bottom: 40, left: 80 };
+const margin = { top: 10, right: 60, bottom: 45, left: 80 };
 
 type Props = {
   sequenceLengthCounts: SequenceLengthCount[];
@@ -46,8 +46,8 @@ const SequenceLengthLinePlot = ({ sequenceLengthCounts }: Props) => {
       .append('text')
       .attr('class', 'x label')
       .attr('text-anchor', 'end')
-      .attr('x', margin.left + width / 2)
-      .attr('y', height + 35)
+      .attr('x', margin.left + width / 2 - 20)
+      .attr('y', height + margin.bottom - 5)
       .text('Sequence length');
 
     // y-axis
@@ -55,12 +55,12 @@ const SequenceLengthLinePlot = ({ sequenceLengthCounts }: Props) => {
       .domain([0, maxCount]) // units: count
       .range([height, 0]); // units: pixels
     chart.append('g').call(axisLeft(yScale));
-    svg
+    chart
       .append('text')
       .attr('class', 'y label')
       .attr('text-anchor', 'end')
-      .attr('x', margin.bottom + margin.top - height / 2)
-      .attr('y', 15)
+      .attr('x', 75 - height / 2)
+      .attr('y', -10 - margin.left / 2)
       .attr('transform', 'rotate(-90)')
       .text('Number of sequences');
 
@@ -71,14 +71,8 @@ const SequenceLengthLinePlot = ({ sequenceLengthCounts }: Props) => {
       .attr(
         'd',
         line()
-          .x((d) => {
-            console.log(d[0], xScale(d[0]) || 0);
-            return xScale(d[0]) || 0;
-          })
-          .y((d) => {
-            console.log(d[1], yScale(d[1]) || 0);
-            return yScale(d[1]) || 0;
-          })
+          .x((d) => xScale(d[0]) || 0)
+          .y((d) => yScale(d[1]) || 0)
       );
   }, [maxCount, maxSequenceLength, sequenceLengthCounts]);
 
