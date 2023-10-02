@@ -33,7 +33,7 @@ const SequenceLength = ({ reviewed, unreviewed }: Props) => {
       ],
       [reviewed, unreviewed]
     );
-
+  // TODO: Data selection means is not final. This will be done via tabs in a near future PR.
   return (
     <div className={styles.container}>
       <div className={cn('button-group', styles.buttons)}>

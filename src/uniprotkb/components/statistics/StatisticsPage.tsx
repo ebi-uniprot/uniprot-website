@@ -11,6 +11,7 @@ import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout'
 import HTMLHead from '../../../shared/components/HTMLHead';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import SequenceLength from './SequenceLength';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -23,7 +24,6 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
-import SequenceLength from './SequenceLength';
 
 type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -861,18 +861,16 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
-        <SequenceLength
-          reviewed={reviewedData.SEQUENCE_COUNT.items}
-          unreviewed={unreviewedData.SEQUENCE_COUNT.items}
-        />
         <FrequencyTable
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
           header="sequence sizes, from-to"
           caption="Repartition of the sequences by size (excluding fragments)"
         />
-        <StatsTable category={reviewedData.SEQUENCE_COUNT} reviewed />
-        <StatsTable category={unreviewedData.SEQUENCE_COUNT} />
+        <SequenceLength
+          reviewed={reviewedData.SEQUENCE_COUNT.items}
+          unreviewed={unreviewedData.SEQUENCE_COUNT.items}
+        />
       </Card>
       <Card id="journal-citations">
         <h2>Journal citations</h2>
