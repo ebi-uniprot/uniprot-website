@@ -1,24 +1,20 @@
 import { useMemo, useState } from 'react';
 import cn from 'classnames';
 
-import SequenceLengthHistogram, {
-  SequenceLengthToCounts,
-} from './SequenceLengthHistogram';
+import SequenceLengthLinePlot from './SequenceLengthLinePlot';
 
 import { StatisticsItem } from './StatisticsPage';
 
 import styles from './styles/sequence-length.module.scss';
 
-const binSizeOptions = [1, 2, 5, 10, 20, 50, 100] as const;
-export type BinSizeOptions = typeof binSizeOptions[number];
+export type SequenceLengthCount = [number, number];
 
-const getItemMap = (items: StatisticsItem[]) => {
-  const itemMap: SequenceLengthToCounts = new Map();
-  for (const { name, count } of items) {
-    itemMap.set(+name, count);
-  }
-  return itemMap;
-};
+const getSequenceLengthCounts = (
+  items: StatisticsItem[]
+): SequenceLengthCount[] =>
+  items
+    .map(({ name, count }): SequenceLengthCount => [+name, count])
+    .sort(([aLength], [bLength]) => aLength - bLength);
 
 type Dataset = 'reviewed' | 'unreviewed';
 
@@ -27,13 +23,16 @@ type Props = {
   unreviewed: StatisticsItem[];
 };
 const SequenceLength = ({ reviewed, unreviewed }: Props) => {
-  const [binSize, setBinSize] = useState<BinSizeOptions>(binSizeOptions[0]);
   const [dataset, setDataset] = useState<Dataset>('reviewed');
 
-  const [reviewedMap, unreviewedMap] = useMemo(
-    () => [getItemMap(reviewed), getItemMap(unreviewed)],
-    [reviewed, unreviewed]
-  );
+  const [reviewedSequenceLengthCounts, unreviewedSequenceLengthCounts] =
+    useMemo(
+      () => [
+        getSequenceLengthCounts(reviewed),
+        getSequenceLengthCounts(unreviewed),
+      ],
+      [reviewed, unreviewed]
+    );
 
   return (
     <div className={styles.container}>
@@ -50,27 +49,13 @@ const SequenceLength = ({ reviewed, unreviewed }: Props) => {
             </select>
           </label>
         </fieldset>
-        <fieldset>
-          <label>
-            Bin size:{' '}
-            <select
-              value={binSize}
-              onChange={(event) =>
-                setBinSize(+event.target.value as BinSizeOptions)
-              }
-            >
-              {binSizeOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
-        </fieldset>
       </div>
-      <SequenceLengthHistogram
-        items={dataset === 'reviewed' ? reviewedMap : unreviewedMap}
-        binSize={binSize}
+      <SequenceLengthLinePlot
+        sequenceLengthCounts={
+          dataset === 'reviewed'
+            ? reviewedSequenceLengthCounts
+            : unreviewedSequenceLengthCounts
+        }
       />
     </div>
   );

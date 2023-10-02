@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { select, scaleLinear, axisBottom, axisLeft, line } from 'd3';
 
-import styles from './styles/sequence-length-histogram.module.scss';
+import { SequenceLengthCount } from './SequenceLength';
 
-export type SequenceLengthToCounts = Map<number, number>;
+import styles from './styles/sequence-length-line-plot.module.scss';
 
 // Specify the chart’s dimensions.
 const width = 400;
@@ -11,18 +11,14 @@ const height = 300;
 const margin = { top: 10, right: 60, bottom: 40, left: 80 };
 
 type Props = {
-  items: SequenceLengthToCounts;
+  sequenceLengthCounts: SequenceLengthCount[];
 };
 
-const SequenceLengthLinePlot = ({ items }: Props) => {
+const SequenceLengthLinePlot = ({ sequenceLengthCounts }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const xy = Array.from(items.entries()).sort(([a], [b]) => a - b);
-
-  console.log(xy);
-
-  const maxSequenceLength = Math.max(...xy.map(([x]) => x));
-  const maxCount = Math.max(...xy.map(([, y]) => y));
+  const maxSequenceLength = Math.max(...sequenceLengthCounts.map(([x]) => x));
+  const maxCount = Math.max(...sequenceLengthCounts.map(([, y]) => y));
 
   const renderHistogram = useCallback(() => {
     if (!(maxCount && maxSequenceLength)) {
@@ -70,7 +66,7 @@ const SequenceLengthLinePlot = ({ items }: Props) => {
 
     chart
       .append('path')
-      .datum(xy)
+      .datum(sequenceLengthCounts)
       .attr('fill', 'black')
       .attr('stroke', 'black')
       .attr('stroke-width', 1.5)
@@ -86,20 +82,20 @@ const SequenceLengthLinePlot = ({ items }: Props) => {
             return yScale(d[1]) || 0;
           })
       );
-  }, [maxCount, maxSequenceLength, xy]);
+  }, [maxCount, maxSequenceLength, sequenceLengthCounts]);
 
   useEffect(() => {
     if (svgRef.current) {
       renderHistogram();
     }
-  }, [renderHistogram, xy]);
+  }, [renderHistogram, sequenceLengthCounts]);
 
   return (
     <svg
       ref={svgRef}
       width={width + margin.left + margin.right}
       height={height + margin.top + margin.bottom}
-      className={styles.histogram}
+      className={styles['line-plot']}
     />
   );
 };
