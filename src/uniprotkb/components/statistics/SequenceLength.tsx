@@ -36,6 +36,7 @@ const SequenceLength = ({ reviewed, unreviewed }: Props) => {
   // TODO: Data selection means is not final. This will be done via tabs in a near future PR.
   return (
     <div className={styles.container}>
+      <h3>Length distribution of the sequences</h3>
       <div className={cn('button-group', styles.buttons)}>
         <fieldset>
           <label>
