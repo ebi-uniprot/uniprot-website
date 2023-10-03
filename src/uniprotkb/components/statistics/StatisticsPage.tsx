@@ -23,6 +23,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
+import AminoAcidBarPlot from './AminoAcidBarPlot';
 
 type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -902,6 +903,7 @@ const StatisticsPage = () => {
       </Card>
       <Card id="amino-acid-composition">
         <h2>Amino acid composition</h2>
+        <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
         <StatsTable category={reviewedData.SEQUENCE_AMINO_ACID} reviewed />
         <StatsTable category={unreviewedData.SEQUENCE_AMINO_ACID} />
       </Card>
