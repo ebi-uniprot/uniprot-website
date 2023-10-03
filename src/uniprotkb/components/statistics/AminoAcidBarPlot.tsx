@@ -11,6 +11,48 @@ const width = 500;
 const height = 400;
 const margin = { top: 10, right: 30, bottom: 45, left: 40 };
 
+type AAProperty =
+  | 'acidic'
+  | 'aliphatic'
+  | 'amide'
+  | 'aromatic'
+  | 'basic'
+  | 'small hydroxy'
+  | 'sulfur';
+
+const propertyToColor: Record<AAProperty, string> = {
+  aliphatic: 'gray',
+  acidic: 'red',
+  'small hydroxy': 'green',
+  basic: 'blue',
+  aromatic: 'black',
+  amide: 'white',
+  sulfur: 'yellow',
+};
+
+const aaToProperty: Record<string, AAProperty> = {
+  Leu: 'aliphatic',
+  Ala: 'aliphatic',
+  Gly: 'aliphatic',
+  Val: 'aliphatic',
+  Glu: 'acidic',
+  Ser: 'small hydroxy',
+  Ile: 'aliphatic',
+  Lys: 'basic',
+  Arg: 'basic',
+  Asp: 'acidic',
+  Thr: 'small hydroxy',
+  Pro: 'aliphatic',
+  Asn: 'amide',
+  Gln: 'amide',
+  Phe: 'aromatic',
+  Tyr: 'aromatic',
+  Met: 'sulfur',
+  His: 'basic',
+  Cys: 'sulfur',
+  Trp: 'aromatic',
+};
+
 type Props = {
   category: StatisticsCategory;
 };
@@ -29,7 +71,6 @@ const AminoAcidBarPlot = ({ category }: Props) => {
     ([, aPercentage], [, bPercentage]) => bPercentage - aPercentage
   );
   const maxPercentage = aaPercentagesSorted[0][1];
-
   const renderHistogram = useCallback(() => {
     if (!aaPercentagesSorted.length) {
       return;
@@ -81,7 +122,9 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       .attr('x', (d) => xScale(d[0]) || 0)
       .attr('y', (d) => yScale(d[1]) || 0)
       .attr('width', xScale.bandwidth())
-      .attr('height', (d) => height - (yScale(d[1]) || 0));
+      .attr('height', (d) => height - (yScale(d[1]) || 0))
+      .attr('fill', (d) => propertyToColor[aaToProperty[d[0]]])
+      .attr('stroke', 'black');
   }, [aaPercentagesSorted, maxPercentage]);
 
   useEffect(() => {
