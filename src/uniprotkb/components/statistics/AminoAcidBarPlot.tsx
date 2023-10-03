@@ -125,6 +125,32 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       .attr('height', (d) => height - (yScale(d[1]) || 0))
       .attr('fill', (d) => propertyToColor[aaToProperty[d[0]]])
       .attr('stroke', 'black');
+
+    const size = 20;
+    const xOffset = 105;
+    const yOffset = 5;
+    chart
+      .selectAll('legend-colors')
+      .data(Object.values(propertyToColor))
+      .enter()
+      .append('rect')
+      .attr('x', width - xOffset)
+      .attr('y', (d, i) => i * (size + 5) + yOffset) // 100 is where the first dot appears. 25 is the distance between dots
+      .attr('width', size)
+      .attr('height', size)
+      .style('fill', (d) => d)
+      .style('stroke', 'black');
+
+    chart
+      .selectAll('legend-labels')
+      .data(Object.keys(propertyToColor))
+      .enter()
+      .append('text')
+      .attr('x', width - xOffset + 1.2 * size)
+      .attr('y', (d, i) => i * (size + 5) + size / 2 + yOffset) // 100 is where the first dot appears. 25 is the distance between dots
+      .text((d) => d)
+      .attr('text-anchor', 'left')
+      .style('alignment-baseline', 'middle');
   }, [aaPercentagesSorted, maxPercentage]);
 
   useEffect(() => {
