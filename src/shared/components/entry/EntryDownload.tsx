@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
 import DownloadPreview from '../download/DownloadPreview';
 import ColumnSelect from '../column-select/ColumnSelect';
+
+import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
@@ -35,6 +37,7 @@ import {
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
 import { Column } from '../../config/columns';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
@@ -82,7 +85,12 @@ const getEntryDownloadUrl = (
       fields: columns?.join(','),
     });
   }
-  return apiUrls.entryDownload(accession, fileFormat, namespace);
+
+  const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+  if (columns) {
+    return `${entryUrl}?fields=${columns.join(',')}`;
+  }
+  return entryUrl;
 };
 
 type DownloadAnchorProps = {
@@ -131,6 +139,22 @@ const EntryDownload = ({
   const [downloadColumns, setDownloadColumns] = useState(columns);
 
   let fileFormatEntryDownload = namespace && formatMap.get(namespace);
+
+  const { data } = useDataApi<ReceivedFieldData>(
+    namespace &&
+      namespace !== Namespace.uniparc &&
+      (fileFormatEntryDownload?.includes(FileFormat.tsv) ||
+        fileFormatEntryDownload?.includes(FileFormat.excel))
+      ? apiUrls.resultsFields(namespace)
+      : null
+  );
+
+  useEffect(() => {
+    if (data) {
+      const fields = data[0]?.fields?.flatMap((item) => item.name);
+      setDownloadColumns(fields);
+    }
+  }, [data]);
 
   if (
     fileFormatEntryDownload?.includes(FileFormat.fastaCanonicalIsoform) &&
@@ -280,7 +304,7 @@ const EntryDownload = ({
               onChange={(columns) => setDownloadColumns(columns)}
               selectedColumns={downloadColumns}
               namespace={namespace}
-              isEntryPage
+              isEntryPage={namespace === Namespace.uniparc}
             />
           </>
         )}
