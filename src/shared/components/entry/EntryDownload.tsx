@@ -6,8 +6,6 @@ import cn from 'classnames';
 import DownloadPreview from '../download/DownloadPreview';
 import ColumnSelect from '../column-select/ColumnSelect';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
-
 import apiUrls from '../../config/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
@@ -66,14 +64,14 @@ const getEntryDownloadUrl = (
   accession: string,
   fileFormat: FileFormat,
   namespace: Namespace,
-  columns: Column[]
+  columns?: Column[]
 ) => {
   if (isUniparcTsv(namespace, fileFormat)) {
     return uniparcApiUrls.databases(accession, {
       format: fileFormat as FileFormat.tsv,
       // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
       size: 500,
-      fields: columns.join(','),
+      fields: columns?.join(','),
     });
   }
   if (isUniRefList(namespace, fileFormat)) {
@@ -81,7 +79,7 @@ const getEntryDownloadUrl = (
       format: fileFormat as FileFormat.list,
       // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
       size: 500,
-      fields: columns.join(','),
+      fields: columns?.join(','),
     });
   }
   return apiUrls.entryDownload(accession, fileFormat, namespace);
@@ -91,7 +89,7 @@ type DownloadAnchorProps = {
   accession: string;
   fileFormat: FileFormat;
   namespace: Namespace;
-  columns: Column[];
+  columns?: Column[];
 };
 
 const DownloadAnchor = ({
@@ -130,12 +128,7 @@ const EntryDownload = ({
   );
   const { namespace, accession } = match?.params || {};
 
-  const [localStorageColumns] = useLocalStorage(
-    `table columns for ${namespace as Namespace} entry page` as const,
-    columns as Column[]
-  );
-
-  const [downloadColumns, setDownloadColumns] = useState(localStorageColumns);
+  const [downloadColumns, setDownloadColumns] = useState(columns);
 
   let fileFormatEntryDownload = namespace && formatMap.get(namespace);
 
@@ -280,7 +273,7 @@ const EntryDownload = ({
       </fieldset>
 
       {(fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel) &&
-        columns && (
+        downloadColumns && (
           <>
             <legend>Customize columns</legend>
             <ColumnSelect
