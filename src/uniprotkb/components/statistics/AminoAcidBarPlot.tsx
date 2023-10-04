@@ -4,8 +4,6 @@ import { sum } from 'lodash-es';
 
 import { StatisticsCategory } from './StatisticsPage';
 
-// import styles from './styles/amino-acid-bar-plot.module.scss';
-
 // Specify the chart’s dimensions.
 const width = 500;
 const height = 400;
@@ -145,7 +143,7 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       .enter()
       .append('rect')
       .attr('x', width - xOffset)
-      .attr('y', (d, i) => i * (size + 5) + yOffset) // 100 is where the first dot appears. 25 is the distance between dots
+      .attr('y', (d, i) => i * (size + 5) + yOffset)
       .attr('width', size)
       .attr('height', size)
       .style('fill', (d) => d)
@@ -157,7 +155,7 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       .enter()
       .append('text')
       .attr('x', width - xOffset + 1.2 * size)
-      .attr('y', (d, i) => i * (size + 5) + size / 2 + yOffset) // 100 is where the first dot appears. 25 is the distance between dots
+      .attr('y', (d, i) => i * (size + 5) + size / 2 + yOffset)
       .text((d) => d)
       .attr('text-anchor', 'left')
       .style('alignment-baseline', 'middle');
@@ -174,7 +172,6 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       ref={svgRef}
       width={width + margin.left + margin.right}
       height={height + margin.top + margin.bottom}
-      // className={styles['line-plot']}
     />
   );
 };
