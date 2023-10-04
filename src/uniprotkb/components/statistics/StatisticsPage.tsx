@@ -300,7 +300,9 @@ const AbstractSectionTable = ({
               to={{
                 pathname: LocationToPath[Location.UniProtKBResults],
                 search: stringifyQuery({
-                  query: `(reviewed:true) AND ${query}`,
+                  query: `(reviewed:true)${
+                    query === '*' ? '' : ` AND ${query}`
+                  }`,
                 }),
               }}
             >
@@ -318,7 +320,9 @@ const AbstractSectionTable = ({
               to={{
                 pathname: LocationToPath[Location.UniProtKBResults],
                 search: stringifyQuery({
-                  query: `(reviewed:false) AND ${query}`,
+                  query: `(reviewed:false)${
+                    query === '*' ? '' : ` AND ${query}`
+                  }`,
                 }),
               }}
             >
@@ -346,7 +350,6 @@ const IntroductionEntriesTable = ({
   unreviewedData,
 }: TableProps) => {
   const map = mergeToMap(reviewedData.items, unreviewedData.items);
-
   return (
     <>
       <AbstractSectionTable
