@@ -9,7 +9,7 @@ import { StatisticsCategory } from './StatisticsPage';
 // Specify the chart’s dimensions.
 const width = 500;
 const height = 400;
-const margin = { top: 10, right: 30, bottom: 45, left: 40 };
+const margin = { top: 10, right: 30, bottom: 50, left: 40 };
 
 type AAProperty =
   | 'acidic'
@@ -93,19 +93,29 @@ const AminoAcidBarPlot = ({ category }: Props) => {
     chart
       .append('g')
       .attr('transform', `translate(0, ${height})`)
-      .call(axisBottom(xScale));
+      .call(axisBottom(xScale))
+      .selectAll('text')
+      .style('text-anchor', 'end')
+      .style('font-size', '1.4em')
+      .attr('dx', '-0.5em')
+      .attr('dy', '0.2em')
+      .attr('transform', 'rotate(-45)');
     chart
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('x', width / 2)
-      .attr('y', height + 0.8 * margin.bottom)
+      .attr('y', height + margin.bottom)
       .text('Amino Acid');
 
     // y-axis
     const yScale = scaleLinear()
       .domain([0, maxPercentage]) // units: percentage
       .range([height, 0]); // units: pixels
-    chart.append('g').call(axisLeft(yScale));
+    chart
+      .append('g')
+      .call(axisLeft(yScale))
+      .selectAll('text')
+      .style('font-size', '1.4em');
     chart
       .append('text')
       .attr('text-anchor', 'middle')
