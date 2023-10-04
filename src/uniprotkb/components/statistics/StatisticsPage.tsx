@@ -11,6 +11,8 @@ import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout'
 import HTMLHead from '../../../shared/components/HTMLHead';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import AminoAcidBarPlot from './AminoAcidBarPlot';
+import ReviewedUnreviewedTabs from './ReviewedUnreviewedTabs';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -23,7 +25,6 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
-import AminoAcidBarPlot from './AminoAcidBarPlot';
 
 type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -903,7 +904,10 @@ const StatisticsPage = () => {
       </Card>
       <Card id="amino-acid-composition">
         <h2>Amino acid composition</h2>
-        <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
+        <ReviewedUnreviewedTabs>
+          <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
+          <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
+        </ReviewedUnreviewedTabs>
         <StatsTable category={reviewedData.SEQUENCE_AMINO_ACID} reviewed />
         <StatsTable category={unreviewedData.SEQUENCE_AMINO_ACID} />
       </Card>
