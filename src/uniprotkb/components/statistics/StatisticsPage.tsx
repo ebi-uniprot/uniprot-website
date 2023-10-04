@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
-import { ReactNode } from 'react';
-import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
+import { ReactNode, useState } from 'react';
+import { Button, Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link, LinkProps } from 'react-router-dom';
 import { schemeReds } from 'd3';
 import { RequireAtLeastOne } from 'type-fest';
@@ -156,12 +156,16 @@ type StatsTableProps = {
   caption?: ReactNode;
 };
 
+const tableCollapsedRows = 10 as const;
+
 const StatsTable = ({
   category,
   reviewed,
   noTitle,
   caption,
 }: StatsTableProps) => {
+  const [expand, setExpand] = useState(false);
+
   const hasDescription = category.items.some((item) => item.description);
   const hasOnlyEntryCounts = category.items.every(
     (item) => item.count === item.entryCount
@@ -199,7 +203,7 @@ const StatsTable = ({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => {
+          {rows.slice(0, expand ? undefined : tableCollapsedRows).map((row) => {
             const percent =
               hasPercent &&
               ((row.count / category.totalCount) * 100).toFixed(2);
@@ -245,6 +249,11 @@ const StatsTable = ({
           })}
         </tbody>
       </table>
+      {rows.length > tableCollapsedRows && (
+        <Button onClick={() => setExpand((expand) => !expand)}>
+          {expand ? 'Collapse' : 'Expand'} table
+        </Button>
+      )}
     </section>
   );
 };
