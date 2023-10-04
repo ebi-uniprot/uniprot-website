@@ -652,17 +652,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/260/"
+          href="https://www.proteinspotlight.org/back_issues/261/"
           rel="noopener"
           target="_blank"
         >
-          Clearing the clamour
+          In good time
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/260/"
+        href="https://www.proteinspotlight.org/back_issues/261/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -671,14 +671,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt260.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt261.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          There  is  an  invisible  and  silent  law  that  causes  clutter  to  emerge  and  grow  unless  action  is  taken  to  deal  with  it.  Who  has  not  stood  in  the  middle  of  a  littered  room  and  thought  "Right,  this  needs  clearing.".
+          When  my  daughter  was  born,  I  could  not  help  but  realise  that  she  already  had  inside  her  what  would  participate  in  giving  life,  if  she  so  chose,  to  a  daughter  or  a  son  of  her  own.  Given  a  little  thought,  it  is  an  extraordinary  state  of  affairs.  My…
       </p>
     </article>
   </section>

@@ -24,4 +24,8 @@ global.beforeEach(() => {
   resetUuidV1();
 });
 
+jest
+  .spyOn(Date.prototype, 'toLocaleString')
+  .mockReturnValue('99/99/9999, 00:00:00');
+
 jest.setTimeout(30000);

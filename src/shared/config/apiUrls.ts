@@ -97,8 +97,7 @@ const apiUrls = {
       apiPrefix,
       'configure',
       namespace,
-      isEntry ? 'entry-' : '',
-      'result-fields'
+      `${isEntry ? 'entry-' : ''}result-fields`
     ),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
