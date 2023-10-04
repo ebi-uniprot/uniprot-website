@@ -105,7 +105,7 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       .attr('text-anchor', 'middle')
       .attr('x', width / 2)
       .attr('y', height + margin.bottom)
-      .text('Amino Acid');
+      .text('Amino acid');
 
     // y-axis
     const yScale = scaleLinear()
@@ -122,7 +122,7 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       .attr('x', -height / 2)
       .attr('y', -0.6 * margin.left)
       .attr('transform', 'rotate(-90)')
-      .text('%');
+      .text('% of sequences');
 
     chart
       .selectAll('bar-plot')

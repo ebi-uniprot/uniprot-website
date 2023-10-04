@@ -1,7 +1,7 @@
 import { Tab, Tabs } from 'franklin-sites';
 
 type Props = {
-  children: [React.ReactNode, React.ReactNode];
+  children: [reviewed: React.ReactNode, unreviewed: React.ReactNode];
 };
 
 const ReviewedUnreviewedTabs = ({
