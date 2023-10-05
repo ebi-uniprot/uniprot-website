@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
-import { ReactNode, useState } from 'react';
+import { ReactNode, useCallback, useRef, useState } from 'react';
 import { Button, Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link, LinkProps } from 'react-router-dom';
 import { schemeReds } from 'd3';
@@ -165,6 +165,16 @@ const StatsTable = ({
   caption,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(false);
+  const theadRef = useRef<HTMLTableSectionElement>(null);
+
+  const onExpandCollapseClick = useCallback(() => {
+    if (expand) {
+      theadRef.current?.scrollIntoView();
+      setExpand(false);
+    } else {
+      setExpand(true);
+    }
+  }, [expand]);
 
   const hasDescription = category.items.some((item) => item.description);
   const hasOnlyEntryCounts = category.items.every(
@@ -191,7 +201,7 @@ const StatsTable = ({
       )}
       <table>
         {caption && <caption>{caption}</caption>}
-        <thead>
+        <thead ref={theadRef}>
           <tr>
             <th>Name</th>
             {!hasOnlyEntryCounts && <th>Count</th>}
@@ -250,7 +260,7 @@ const StatsTable = ({
         </tbody>
       </table>
       {rows.length > tableCollapsedRows && (
-        <Button onClick={() => setExpand((expand) => !expand)}>
+        <Button onClick={onExpandCollapseClick}>
           {expand ? 'Collapse' : 'Expand'} table
         </Button>
       )}
