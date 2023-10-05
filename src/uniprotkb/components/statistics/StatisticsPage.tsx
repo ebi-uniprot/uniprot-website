@@ -14,6 +14,7 @@ import AminoAcidBarPlot from './AminoAcidBarPlot';
 import ReviewedUnreviewedTabs from './ReviewedUnreviewedTabs';
 import FrequencyTable from './FrequencyTable';
 import CountLinkOrNothing from './CountLinkOrNothing';
+import ReviewedUnreviewedStatsTable from './ReviewedUnreviewedStatsTable';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -33,7 +34,6 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
-import StatsTable from './StatsTable';
 
 export type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -537,6 +537,8 @@ const sections = [
   { label: 'Miscellaneous statistics', id: 'miscellaneous-statistics' },
 ];
 
+export type CategoryToStatistics = Record<CategoryName, StatisticsCategory>;
+
 const StatisticsPage = () => {
   const release = useUniProtDataVersion();
 
@@ -561,10 +563,10 @@ const StatisticsPage = () => {
 
   const reviewedData = Object.fromEntries(
     reviewedStats.data.results.map((stat) => [stat.categoryName, stat])
-  ) as Record<CategoryName, StatisticsCategory>;
+  ) as CategoryToStatistics;
   const unreviewedData = Object.fromEntries(
     unreviewedStats.data.results.map((stat) => [stat.categoryName, stat])
-  ) as Record<CategoryName, StatisticsCategory>;
+  ) as CategoryToStatistics;
 
   return (
     <SidebarLayout
@@ -622,17 +624,12 @@ const StatisticsPage = () => {
           header="Species represented"
           caption="Table of the frequency of occurrence of species"
         />
-        <ReviewedUnreviewedTabs title={reviewedData.TOP_ORGANISM.label}>
-          <StatsTable
-            category={reviewedData.TOP_ORGANISM}
-            reviewed
-            caption="Table of the most represented species"
-          />
-          <StatsTable
-            category={unreviewedData.TOP_ORGANISM}
-            caption="Table of the most represented species"
-          />
-        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedStatsTable
+          categoryName="TOP_ORGANISM"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+          caption="Table of the most represented species"
+        />
         <TaxonomiDistributionTable
           reviewedData={reviewedData.SUPERKINGDOM}
           unreviewedData={unreviewedData.SUPERKINGDOM}
@@ -656,10 +653,11 @@ const StatisticsPage = () => {
           caption="Repartition of the sequences by size (excluding fragments)"
           locationGetter={getSequenceSizeLocation}
         />
-        <ReviewedUnreviewedTabs title={reviewedData.SEQUENCE_COUNT.label}>
-          <StatsTable category={reviewedData.SEQUENCE_COUNT} reviewed />
-          <StatsTable category={unreviewedData.SEQUENCE_COUNT} />
-        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedStatsTable
+          categoryName="SEQUENCE_COUNT"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
       </Card>
       <Card id="journal-citations">
         <h2>Journal citations</h2>
@@ -673,14 +671,16 @@ const StatisticsPage = () => {
           header="Journals cited"
           caption="Table of the frequency of journal citations"
         />
-        <ReviewedUnreviewedTabs>
-          <StatsTable category={reviewedData.TOP_JOURNAL} reviewed />
-          <StatsTable category={unreviewedData.TOP_JOURNAL} />
-        </ReviewedUnreviewedTabs>
-        <ReviewedUnreviewedTabs>
-          <StatsTable category={reviewedData.PUBLICATION} reviewed />
-          <StatsTable category={unreviewedData.PUBLICATION} />
-        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedStatsTable
+          categoryName="TOP_JOURNAL"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
+        <ReviewedUnreviewedStatsTable
+          categoryName="PUBLICATION"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
       </Card>
       <Card id="statistics-for-some-line-type">
         <h2>Statistics for some line types</h2>
@@ -689,18 +689,21 @@ const StatisticsPage = () => {
           lines, as well as the number of entries with at least one such line,
           and the frequency of the lines.
         </p>
-        <ReviewedUnreviewedTabs>
-          <StatsTable category={reviewedData.FEATURES} reviewed />
-          <StatsTable category={unreviewedData.FEATURES} />
-        </ReviewedUnreviewedTabs>
-        <ReviewedUnreviewedTabs>
-          <StatsTable category={reviewedData.COMMENTS} reviewed />
-          <StatsTable category={unreviewedData.COMMENTS} />
-        </ReviewedUnreviewedTabs>
-        <ReviewedUnreviewedTabs>
-          <StatsTable category={reviewedData.CROSS_REFERENCE} reviewed />
-          <StatsTable category={unreviewedData.CROSS_REFERENCE} />
-        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedStatsTable
+          categoryName="FEATURES"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
+        <ReviewedUnreviewedStatsTable
+          categoryName="COMMENTS"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
+        <ReviewedUnreviewedStatsTable
+          categoryName="CROSS_REFERENCE"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
       </Card>
       <Card id="amino-acid-composition">
         <h2>Amino acid composition</h2>
@@ -708,17 +711,19 @@ const StatisticsPage = () => {
           <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
           <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
         </ReviewedUnreviewedTabs>
-        <ReviewedUnreviewedTabs>
-          <StatsTable category={reviewedData.SEQUENCE_AMINO_ACID} reviewed />
-          <StatsTable category={unreviewedData.SEQUENCE_AMINO_ACID} />
-        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedStatsTable
+          categoryName="SEQUENCE_AMINO_ACID"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
       </Card>
       <Card id="miscellaneous-statistics">
         <h2>Miscellaneous statistics</h2>
-        <ReviewedUnreviewedTabs>
-          <StatsTable category={reviewedData.MISCELLANEOUS} reviewed />
-          <StatsTable category={unreviewedData.MISCELLANEOUS} />
-        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedStatsTable
+          categoryName="MISCELLANEOUS"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
       </Card>
     </SidebarLayout>
   );

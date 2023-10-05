@@ -29,17 +29,10 @@ const sortByCount = new Set<CategoryName>([
 
 type StatsTableProps = {
   category: StatisticsCategory;
-  reviewed?: boolean;
-  noTitle?: boolean;
   caption?: ReactNode;
 };
 
-const StatsTable = ({
-  category,
-  reviewed,
-  noTitle,
-  caption,
-}: StatsTableProps) => {
+const StatsTable = ({ category, caption }: StatsTableProps) => {
   const [expand, setExpand] = useState(false);
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -69,12 +62,7 @@ const StatsTable = ({
   }
 
   return (
-    <section>
-      {!noTitle && (
-        <h3>
-          {category.label} (UniProtKB {reviewed ? '' : 'un'}reviewed)
-        </h3>
-      )}
+    <>
       <table ref={tableRef}>
         {caption && <caption>{caption}</caption>}
         <thead>
@@ -140,7 +128,7 @@ const StatsTable = ({
           {expand ? 'Collapse' : 'Expand'} table
         </Button>
       )}
-    </section>
+    </>
   );
 };
 
