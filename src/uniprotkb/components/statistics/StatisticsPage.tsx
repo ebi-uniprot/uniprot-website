@@ -165,11 +165,11 @@ const StatsTable = ({
   caption,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(false);
-  const theadRef = useRef<HTMLTableSectionElement>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
 
   const onExpandCollapseClick = useCallback(() => {
     if (expand) {
-      theadRef.current?.scrollIntoView();
+      tableRef.current?.scrollIntoView();
       setExpand(false);
     } else {
       setExpand(true);
@@ -199,9 +199,9 @@ const StatsTable = ({
           {category.label} (UniProtKB {reviewed ? '' : 'un'}reviewed)
         </h3>
       )}
-      <table>
+      <table ref={tableRef}>
         {caption && <caption>{caption}</caption>}
-        <thead ref={theadRef}>
+        <thead>
           <tr>
             <th>Name</th>
             {!hasOnlyEntryCounts && <th>Count</th>}
