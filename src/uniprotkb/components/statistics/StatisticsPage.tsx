@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
-import { ReactNode, useCallback, useRef, useState } from 'react';
-import { Button, Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
+import { ReactNode } from 'react';
+import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
 
@@ -33,8 +33,9 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
+import StatsTable from './StatsTable';
 
-type CategoryName =
+export type CategoryName =
   | 'AUDIT' // 1 - introduction
   | 'COMMENTS' // 5 - statistics for some line types
   | 'CROSS_REFERENCE' // 5 - statistics for some line types
@@ -71,145 +72,6 @@ export type StatisticsCategory = {
 
 export type StatisticsPayload = {
   results: StatisticsCategory[];
-};
-
-// TODO remove after we've created custom tables for each section
-const sortByCount = new Set<CategoryName>([
-  'AUDIT',
-  'COMMENTS',
-  'CROSS_REFERENCE',
-  'EUKARYOTA',
-  'FEATURES',
-  'JOURNAL_FREQUENCY',
-  'MISCELLANEOUS',
-  'ORGANISM_FREQUENCY',
-  'PROTEIN_EXISTENCE',
-  'PUBLICATION',
-  'SEQUENCE_AMINO_ACID',
-  'SEQUENCE_RANGE',
-  'SEQUENCE_STATS',
-  'SUPERKINGDOM',
-  'TOP_JOURNAL',
-  'TOP_ORGANISM',
-]);
-
-type StatsTableProps = {
-  category: StatisticsCategory;
-  reviewed?: boolean;
-  noTitle?: boolean;
-  caption?: ReactNode;
-};
-
-const tableCollapsedRows = 10 as const;
-
-const StatsTable = ({
-  category,
-  reviewed,
-  noTitle,
-  caption,
-}: StatsTableProps) => {
-  const [expand, setExpand] = useState(false);
-  const tableRef = useRef<HTMLTableElement>(null);
-
-  const onExpandCollapseClick = useCallback(() => {
-    if (expand) {
-      tableRef.current?.scrollIntoView();
-      setExpand(false);
-    } else {
-      setExpand(true);
-    }
-  }, [expand]);
-
-  const hasDescription = category.items.some((item) => item.description);
-  const hasOnlyEntryCounts = category.items.every(
-    (item) => item.count === item.entryCount
-  );
-  // Exceptions
-  const hasEntryCount = category.categoryName !== 'TOTAL_ORGANISM';
-  const hasPercent =
-    category.items.length > 1 && category.categoryName !== 'TOP_ORGANISM';
-  let rows = category.items;
-  if (category.categoryName === 'SEQUENCE_COUNT') {
-    rows = Array.from(category.items).sort((a, b) => +a.name - +b.name);
-  }
-  if (sortByCount.has(category.categoryName)) {
-    rows = Array.from(category.items).sort((a, b) => b.count - a.count);
-  }
-
-  return (
-    <section>
-      {!noTitle && (
-        <h3>
-          {category.label} (UniProtKB {reviewed ? '' : 'un'}reviewed)
-        </h3>
-      )}
-      <table ref={tableRef}>
-        {caption && <caption>{caption}</caption>}
-        <thead>
-          <tr>
-            <th>Name</th>
-            {!hasOnlyEntryCounts && <th>Count</th>}
-            {hasPercent && !hasOnlyEntryCounts && <th>Percent</th>}
-            {hasEntryCount && <th>Entry count</th>}
-            {hasPercent && hasOnlyEntryCounts && <th>Percent</th>}
-            {/* {!hasOnlyEntryCounts && <th>Per-entry average</th>} */}
-            {hasDescription && <th>Description</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.slice(0, expand ? undefined : tableCollapsedRows).map((row) => {
-            const percent =
-              hasPercent &&
-              ((row.count / category.totalCount) * 100).toFixed(2);
-            return (
-              <tr key={row.name}>
-                {/* Name */}
-                <td>{row.label || row.name}</td>
-                {/* Count */}
-                {!hasOnlyEntryCounts && (
-                  <td className={styles.end}>
-                    <LongNumber>{row.count}</LongNumber>
-                  </td>
-                )}
-                {/* Percent */}
-                {hasPercent && !hasOnlyEntryCounts && (
-                  <td className={styles.end}>
-                    {percent === '0.00' ? '<0.01' : percent}%
-                  </td>
-                )}
-                {/* Entry count */}
-                {hasEntryCount && (
-                  <td className={styles.end}>
-                    <LongNumber>{row.entryCount}</LongNumber>
-                  </td>
-                )}
-                {/* Percent */}
-                {hasPercent && hasOnlyEntryCounts && (
-                  <td className={styles.end}>
-                    {percent === '0.00' ? '<0.01' : percent}%
-                  </td>
-                )}
-                {/* Per-entry average */}
-                {/* WRONG: This needs to be divided by number of entries in data release */}
-                {/* {!hasOnlyEntryCounts && (
-                <td className={styles.end}>
-                  {(row.count / row.entryCount).toFixed(2)}
-                </td>
-              )} */}
-                {/* Description */}
-                {hasDescription && <td>{row.description}</td>}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {rows.length > tableCollapsedRows && (
-        <Button onClick={onExpandCollapseClick}>
-          {expand ? 'Collapse' : 'Expand'} table
-        </Button>
-      )}
-    </section>
-  );
 };
 
 type AbstractSectionTableProps = {
@@ -760,15 +622,17 @@ const StatisticsPage = () => {
           header="Species represented"
           caption="Table of the frequency of occurrence of species"
         />
-        <StatsTable
-          category={reviewedData.TOP_ORGANISM}
-          reviewed
-          caption="Table of the most represented species"
-        />
-        <StatsTable
-          category={unreviewedData.TOP_ORGANISM}
-          caption="Table of the most represented species"
-        />
+        <ReviewedUnreviewedTabs title={reviewedData.TOP_ORGANISM.label}>
+          <StatsTable
+            category={reviewedData.TOP_ORGANISM}
+            reviewed
+            caption="Table of the most represented species"
+          />
+          <StatsTable
+            category={unreviewedData.TOP_ORGANISM}
+            caption="Table of the most represented species"
+          />
+        </ReviewedUnreviewedTabs>
         <TaxonomiDistributionTable
           reviewedData={reviewedData.SUPERKINGDOM}
           unreviewedData={unreviewedData.SUPERKINGDOM}
@@ -792,8 +656,10 @@ const StatisticsPage = () => {
           caption="Repartition of the sequences by size (excluding fragments)"
           locationGetter={getSequenceSizeLocation}
         />
-        <StatsTable category={reviewedData.SEQUENCE_COUNT} reviewed />
-        <StatsTable category={unreviewedData.SEQUENCE_COUNT} />
+        <ReviewedUnreviewedTabs title={reviewedData.SEQUENCE_COUNT.label}>
+          <StatsTable category={reviewedData.SEQUENCE_COUNT} reviewed />
+          <StatsTable category={unreviewedData.SEQUENCE_COUNT} />
+        </ReviewedUnreviewedTabs>
       </Card>
       <Card id="journal-citations">
         <h2>Journal citations</h2>
@@ -807,10 +673,14 @@ const StatisticsPage = () => {
           header="Journals cited"
           caption="Table of the frequency of journal citations"
         />
-        <StatsTable category={reviewedData.TOP_JOURNAL} reviewed />
-        <StatsTable category={unreviewedData.TOP_JOURNAL} />
-        <StatsTable category={reviewedData.PUBLICATION} reviewed />
-        <StatsTable category={unreviewedData.PUBLICATION} />
+        <ReviewedUnreviewedTabs>
+          <StatsTable category={reviewedData.TOP_JOURNAL} reviewed />
+          <StatsTable category={unreviewedData.TOP_JOURNAL} />
+        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedTabs>
+          <StatsTable category={reviewedData.PUBLICATION} reviewed />
+          <StatsTable category={unreviewedData.PUBLICATION} />
+        </ReviewedUnreviewedTabs>
       </Card>
       <Card id="statistics-for-some-line-type">
         <h2>Statistics for some line types</h2>
@@ -819,12 +689,18 @@ const StatisticsPage = () => {
           lines, as well as the number of entries with at least one such line,
           and the frequency of the lines.
         </p>
-        <StatsTable category={reviewedData.FEATURES} reviewed />
-        <StatsTable category={unreviewedData.FEATURES} />
-        <StatsTable category={reviewedData.COMMENTS} reviewed />
-        <StatsTable category={unreviewedData.COMMENTS} />
-        <StatsTable category={reviewedData.CROSS_REFERENCE} reviewed />
-        <StatsTable category={unreviewedData.CROSS_REFERENCE} />
+        <ReviewedUnreviewedTabs>
+          <StatsTable category={reviewedData.FEATURES} reviewed />
+          <StatsTable category={unreviewedData.FEATURES} />
+        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedTabs>
+          <StatsTable category={reviewedData.COMMENTS} reviewed />
+          <StatsTable category={unreviewedData.COMMENTS} />
+        </ReviewedUnreviewedTabs>
+        <ReviewedUnreviewedTabs>
+          <StatsTable category={reviewedData.CROSS_REFERENCE} reviewed />
+          <StatsTable category={unreviewedData.CROSS_REFERENCE} />
+        </ReviewedUnreviewedTabs>
       </Card>
       <Card id="amino-acid-composition">
         <h2>Amino acid composition</h2>
@@ -832,13 +708,17 @@ const StatisticsPage = () => {
           <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
           <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
         </ReviewedUnreviewedTabs>
-        <StatsTable category={reviewedData.SEQUENCE_AMINO_ACID} reviewed />
-        <StatsTable category={unreviewedData.SEQUENCE_AMINO_ACID} />
+        <ReviewedUnreviewedTabs>
+          <StatsTable category={reviewedData.SEQUENCE_AMINO_ACID} reviewed />
+          <StatsTable category={unreviewedData.SEQUENCE_AMINO_ACID} />
+        </ReviewedUnreviewedTabs>
       </Card>
       <Card id="miscellaneous-statistics">
         <h2>Miscellaneous statistics</h2>
-        <StatsTable category={reviewedData.MISCELLANEOUS} reviewed />
-        <StatsTable category={unreviewedData.MISCELLANEOUS} />
+        <ReviewedUnreviewedTabs>
+          <StatsTable category={reviewedData.MISCELLANEOUS} reviewed />
+          <StatsTable category={unreviewedData.MISCELLANEOUS} />
+        </ReviewedUnreviewedTabs>
       </Card>
     </SidebarLayout>
   );
