@@ -2,9 +2,8 @@
 /* eslint-disable react/no-array-index-key */
 import { ReactNode, useCallback, useRef, useState } from 'react';
 import { Button, Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
-import { Link, LinkProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
-import { RequireAtLeastOne } from 'type-fest';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
@@ -13,6 +12,8 @@ import LazyComponent from '../../../shared/components/LazyComponent';
 import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
 import AminoAcidBarPlot from './AminoAcidBarPlot';
 import ReviewedUnreviewedTabs from './ReviewedUnreviewedTabs';
+import FrequencyTable from './FrequencyTable';
+import CountLinkOrNothing from './CountLinkOrNothing';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -20,6 +21,13 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
 import apiUrls from '../../../shared/config/apiUrls';
+import {
+  MergedStatistics,
+  MergedStatisticsItem,
+  getSequenceSizeLocation,
+  merge,
+  mergeToMap,
+} from './utils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -84,70 +92,6 @@ const sortByCount = new Set<CategoryName>([
   'TOP_JOURNAL',
   'TOP_ORGANISM',
 ]);
-
-type CountLinkOrNothingProps<T> = {
-  condition?: boolean;
-  children: number;
-} & Omit<LinkProps<T>, 'children'>;
-
-const CountLinkOrNothing = <T,>({
-  condition = true,
-  children,
-  ...props
-}: CountLinkOrNothingProps<T>) => {
-  if (children && condition) {
-    return (
-      <Link {...props}>
-        <LongNumber>{children}</LongNumber>
-      </Link>
-    );
-  }
-  return <LongNumber>{children}</LongNumber>;
-};
-
-type MergedStatistics = RequireAtLeastOne<
-  {
-    reviewed?: StatisticsItem;
-    unreviewed?: StatisticsItem;
-  },
-  'reviewed' | 'unreviewed'
->;
-
-type MergedStatisticsItem = {
-  name: string;
-  label?: string;
-  statistics: MergedStatistics;
-  query?: string;
-};
-
-const mergeToMap = (
-  reviewed: StatisticsItem[],
-  unreviewed: StatisticsItem[]
-) => {
-  const accumulator = new Map<string, MergedStatistics>();
-  for (const item of reviewed) {
-    accumulator.set(item.name, { reviewed: item });
-  }
-  for (const item of unreviewed) {
-    const stats = accumulator.get(item.name);
-    if (stats) {
-      stats.unreviewed = item;
-    } else {
-      accumulator.set(item.name, { unreviewed: item });
-    }
-  }
-  return accumulator;
-};
-
-const merge = (
-  reviewed: StatisticsItem[],
-  unreviewed: StatisticsItem[]
-): MergedStatisticsItem[] =>
-  Array.from(mergeToMap(reviewed, unreviewed), ([name, statistics]) => ({
-    name,
-    label: statistics.reviewed?.label || statistics.unreviewed?.label,
-    statistics,
-  }));
 
 type StatsTableProps = {
   category: StatisticsCategory;
@@ -354,7 +298,7 @@ const AbstractSectionTable = ({
   </table>
 );
 
-type TableProps = {
+export type TableProps = {
   reviewedData: StatisticsCategory;
   unreviewedData: StatisticsCategory;
 };
@@ -616,49 +560,6 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
   </table>
 );
 
-const frequencySort = (a: MergedStatisticsItem, b: MergedStatisticsItem) => {
-  const aValue = +a.name.split(/\D/).filter((part) => Boolean(part))[0];
-  const bValue = +b.name.split(/\D/).filter((part) => Boolean(part))[0];
-  return aValue - bValue;
-};
-
-const FrequencyTable = ({
-  reviewedData,
-  unreviewedData,
-  header,
-  caption,
-}: TableProps & { header: ReactNode; caption: ReactNode }) => {
-  const list = merge(reviewedData.items, unreviewedData.items).sort(
-    frequencySort
-  );
-
-  return (
-    <table>
-      <caption>{caption}</caption>
-      <thead>
-        <tr>
-          <th>{header}</th>
-          <th>UniProtKB reviewed</th>
-          <th>UniProtKB unreviewed</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map(({ name, statistics }) => (
-          <tr key={name}>
-            <td>{name}</td>
-            <td className={styles.end}>
-              <LongNumber>{statistics.reviewed?.entryCount || 0}</LongNumber>
-            </td>
-            <td className={styles.end}>
-              <LongNumber>{statistics.unreviewed?.entryCount || 0}</LongNumber>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
 const TaxonomiDistributionTable = ({
   reviewedData,
   unreviewedData,
@@ -889,6 +790,7 @@ const StatisticsPage = () => {
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
           header="sequence sizes, from-to"
           caption="Repartition of the sequences by size (excluding fragments)"
+          locationGetter={getSequenceSizeLocation}
         />
         <StatsTable category={reviewedData.SEQUENCE_COUNT} reviewed />
         <StatsTable category={unreviewedData.SEQUENCE_COUNT} />
