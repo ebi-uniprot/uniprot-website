@@ -26,6 +26,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import {
   MergedStatistics,
   MergedStatisticsItem,
+  filterAminoAcids,
   getEncodedLocations,
   getSequenceSizeLocation,
   getUniqueAuthorString,
@@ -718,14 +719,14 @@ const StatisticsPage = () => {
             <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
             <StatsTable
               key="reviewed"
-              category={reviewedData.SEQUENCE_AMINO_ACID}
+              category={filterAminoAcids(reviewedData.SEQUENCE_AMINO_ACID)}
             />
           </div>
           <div className={styles['side-by-side']}>
             <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
             <StatsTable
               key="reviewed"
-              category={unreviewedData.SEQUENCE_AMINO_ACID}
+              category={filterAminoAcids(unreviewedData.SEQUENCE_AMINO_ACID)}
             />
           </div>
         </ReviewedUnreviewedTabs>

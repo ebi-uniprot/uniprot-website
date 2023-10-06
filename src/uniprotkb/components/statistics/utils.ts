@@ -3,7 +3,11 @@ import { RequireAtLeastOne } from 'type-fest';
 
 import { stringifyQuery } from '../../../shared/utils/url';
 
-import { CategoryToStatistics, StatisticsItem } from './StatisticsPage';
+import {
+  CategoryToStatistics,
+  StatisticsCategory,
+  StatisticsItem,
+} from './StatisticsPage';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 export const getSequenceSizeLocation = (
@@ -103,3 +107,13 @@ export const getEncodedLocations = (data: CategoryToStatistics) => {
 
 export const getSequenceCorrections = (data: CategoryToStatistics) =>
   data.MISCELLANEOUS.items.find(({ name }) => name === 'SEQUENCE_CORRECTION');
+
+export const filterAminoAcids = (data: StatisticsCategory) => {
+  const items = data.items.filter(({ label }) => Boolean(label));
+  const totalCount = sumBy(items, 'count');
+  return {
+    ...data,
+    items,
+    totalCount,
+  };
+};
