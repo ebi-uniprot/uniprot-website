@@ -1,6 +1,9 @@
+import { sumBy } from 'lodash-es';
 import { RequireAtLeastOne } from 'type-fest';
-import { CategoryToStatistics, StatisticsItem } from './StatisticsPage';
+
 import { stringifyQuery } from '../../../shared/utils/url';
+
+import { CategoryToStatistics, StatisticsItem } from './StatisticsPage';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 export const getSequenceSizeLocation = (
@@ -82,3 +85,21 @@ export const getUniqueAuthorString = (data: CategoryToStatistics) => {
     ? `Total number of distinct authors cited: ${uniqueAuthors.count}`
     : '';
 };
+
+const excludedMisc = new Set([
+  'UNIQUE_AUTHOR',
+  'SEQUENCE_CORRECTION',
+  'UNIQUE_CITATION_ID',
+]);
+
+export const getEncodedLocations = (data: CategoryToStatistics) => {
+  const misc = data.MISCELLANEOUS;
+  const items = misc.items.filter(({ name }) => !excludedMisc.has(name));
+  const totalCount = sumBy(items, 'count');
+  return {
+    MISCELLANEOUS: { ...misc, totalCount, items },
+  } as CategoryToStatistics;
+};
+
+export const getSequenceCorrections = (data: CategoryToStatistics) =>
+  data.MISCELLANEOUS.items.find(({ name }) => name === 'SEQUENCE_CORRECTION');
