@@ -15,6 +15,7 @@ import ReviewedUnreviewedTabs from './ReviewedUnreviewedTabs';
 import FrequencyTable from './FrequencyTable';
 import CountLinkOrNothing from './CountLinkOrNothing';
 import ReviewedUnreviewedStatsTable from './ReviewedUnreviewedStatsTable';
+import ReviewedSequenceCorrections from './ReviewedSequenceCorrections';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -25,6 +26,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import {
   MergedStatistics,
   MergedStatisticsItem,
+  getEncodedLocations,
   getSequenceSizeLocation,
   getUniqueAuthorString,
   merge,
@@ -723,10 +725,12 @@ const StatisticsPage = () => {
       <Card id="miscellaneous-statistics">
         <h2>Miscellaneous statistics</h2>
         <ReviewedUnreviewedStatsTable
+          title="Encoded Locations"
           categoryName="MISCELLANEOUS"
-          reviewedData={reviewedData}
-          unreviewedData={unreviewedData}
+          reviewedData={getEncodedLocations(reviewedData)}
+          unreviewedData={getEncodedLocations(unreviewedData)}
         />
+        <ReviewedSequenceCorrections data={reviewedData} />
       </Card>
     </SidebarLayout>
   );

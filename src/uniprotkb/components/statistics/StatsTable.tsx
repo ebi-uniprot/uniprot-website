@@ -6,8 +6,8 @@ import { CategoryName, StatisticsCategory } from './StatisticsPage';
 import styles from './styles/statistics-page.module.scss';
 
 const tableCollapsedRows = 10 as const;
+// TODO: create a function to determine collapsable.
 
-// TODO remove after we've created custom tables for each section
 const sortByCount = new Set<CategoryName>([
   'AUDIT',
   'COMMENTS',
@@ -62,7 +62,7 @@ const StatsTable = ({ category, caption }: StatsTableProps) => {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <table ref={tableRef}>
         {caption && <caption>{caption}</caption>}
         <thead>
@@ -128,7 +128,7 @@ const StatsTable = ({ category, caption }: StatsTableProps) => {
           {expand ? 'Collapse' : 'Expand'} table
         </Button>
       )}
-    </>
+    </div>
   );
 };
 
