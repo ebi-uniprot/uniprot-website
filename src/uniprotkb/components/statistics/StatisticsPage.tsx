@@ -676,11 +676,6 @@ const StatisticsPage = () => {
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
         />
-        <ReviewedUnreviewedStatsTable
-          categoryName="PUBLICATION"
-          reviewedData={reviewedData}
-          unreviewedData={unreviewedData}
-        />
       </Card>
       <Card id="statistics-for-some-line-type">
         <h2>Statistics for some line types</h2>
@@ -689,6 +684,11 @@ const StatisticsPage = () => {
           lines, as well as the number of entries with at least one such line,
           and the frequency of the lines.
         </p>
+        <ReviewedUnreviewedStatsTable
+          categoryName="PUBLICATION"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+        />
         <ReviewedUnreviewedStatsTable
           categoryName="FEATURES"
           reviewedData={reviewedData}
