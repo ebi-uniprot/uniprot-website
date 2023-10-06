@@ -1,5 +1,6 @@
 import { Loader, Message } from 'franklin-sites';
 
+import Entries from './Entries';
 import ContactLink from '../../../../../contact/components/ContactLink';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 
@@ -12,7 +13,6 @@ import { Isoform } from '../../../../types/commentTypes';
 import { GenomicEntry } from './types';
 
 import tabsStyles from '../styles/tabs-styles.module.scss';
-import Entries from './Entries';
 
 type GenomicCoordinatesProps = {
   primaryAccession: string;
