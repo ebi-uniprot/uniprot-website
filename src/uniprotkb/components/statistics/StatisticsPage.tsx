@@ -37,6 +37,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
+import StatsTable from './StatsTable';
 
 export type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -713,14 +714,21 @@ const StatisticsPage = () => {
       <Card id="amino-acid-composition">
         <h2>Amino acid composition</h2>
         <ReviewedUnreviewedTabs>
-          <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
-          <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
+          <div className={styles['side-by-side']}>
+            <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
+            <StatsTable
+              key="reviewed"
+              category={reviewedData.SEQUENCE_AMINO_ACID}
+            />
+          </div>
+          <div className={styles['side-by-side']}>
+            <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
+            <StatsTable
+              key="reviewed"
+              category={unreviewedData.SEQUENCE_AMINO_ACID}
+            />
+          </div>
         </ReviewedUnreviewedTabs>
-        <ReviewedUnreviewedStatsTable
-          categoryName="SEQUENCE_AMINO_ACID"
-          reviewedData={reviewedData}
-          unreviewedData={unreviewedData}
-        />
       </Card>
       <Card id="miscellaneous-statistics">
         <h2>Miscellaneous statistics</h2>
