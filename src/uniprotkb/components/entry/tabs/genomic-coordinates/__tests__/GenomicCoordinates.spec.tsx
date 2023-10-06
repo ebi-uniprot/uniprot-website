@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import customRender from '../../../../../../shared/__test-helpers__/customRender';
 
@@ -9,10 +9,6 @@ import useDataApi from '../../../../../../shared/hooks/useDataApi';
 import O00560 from './__mocks__/O00560';
 
 jest.mock('../../../../../../shared/hooks/useDataApi');
-jest.mock('../Overlapping', () => ({
-  __esModule: true,
-  default: () => '{{ Overlapping }}',
-}));
 
 describe('GenomicCoordinates component', () => {
   it('renders on loading', () => {
@@ -56,10 +52,5 @@ describe('GenomicCoordinates component', () => {
       <GenomicCoordinates primaryAccession="O00560" />
     );
     expect(asFragment()).toMatchSnapshot();
-
-    expect(screen.getAllByRole('heading')).toHaveLength(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
-      O00560.gnCoordinate?.length!
-    );
   });
 });

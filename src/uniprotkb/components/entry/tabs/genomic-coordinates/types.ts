@@ -14,6 +14,10 @@ export type GenomicEntry = {
   gnCoordinate?: Array<GenomicCoordinate>;
 };
 
+export type FlatGenomicEntry = Omit<GenomicEntry, 'gnCoordinate'> & {
+  gnCoordinate: GenomicCoordinate;
+};
+
 export type GenomicCoordinate = {
   genomicLocation: GenomicLocation;
   /**
@@ -36,15 +40,15 @@ export type GenomicLocation = {
   reverseStrand?: boolean;
 };
 
-type ExonMap = {
+export type ExonMap = {
   proteinLocation: Location; // Swagger says optional, but apparently not
   genomeLocation: Location; // Swagger says optional, but apparently not
   id?: string;
 };
 
 type Location = {
-  begin: Position; // Swagger says optional, but apparently not
-  end: Position; // Swagger says optional, but apparently not
+  begin: Position; // Swagger says optional, but maybe not
+  end: Position; // Swagger says optional, but maybe not
   position?: Position; // ?
   sequence?: string;
 };

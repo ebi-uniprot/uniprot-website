@@ -493,9 +493,12 @@ export const getDownloadUrl = ({
 
 const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
 export const proteinsApi = {
-  coordinates: (accession?: string) => {
+  coordinates: (accession?: string | string[]) => {
     const url = joinUrl(proteinsApiPrefix, 'coordinates');
     if (accession) {
+      if (Array.isArray(accession)) {
+        return stringifyUrl(url, { accession });
+      }
       return joinUrl(url, accession);
     }
     return url;
