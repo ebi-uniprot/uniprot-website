@@ -2,6 +2,13 @@
 @import 'franklin-sites/src/styles/settings';
 
 .statistics-page {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: max-content;
+  }
+
   table {
     margin-block: $global-margin;
     border-spacing: 0;
