@@ -26,6 +26,7 @@ import {
   MergedStatistics,
   MergedStatisticsItem,
   getSequenceSizeLocation,
+  getUniqueAuthorString,
   merge,
   mergeToMap,
 } from './utils';
@@ -688,6 +689,8 @@ const StatisticsPage = () => {
           categoryName="PUBLICATION"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
+          reviewedCaption={getUniqueAuthorString(reviewedData)}
+          unreviewedCaption={getUniqueAuthorString(unreviewedData)}
         />
         <ReviewedUnreviewedStatsTable
           categoryName="FEATURES"

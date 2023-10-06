@@ -1,5 +1,5 @@
 import { RequireAtLeastOne } from 'type-fest';
-import { StatisticsItem } from './StatisticsPage';
+import { CategoryToStatistics, StatisticsItem } from './StatisticsPage';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -72,4 +72,13 @@ export const frequencySort = (
   const aValue = +a.name.split(/\D/).filter((part) => Boolean(part))[0];
   const bValue = +b.name.split(/\D/).filter((part) => Boolean(part))[0];
   return aValue - bValue;
+};
+
+export const getUniqueAuthorString = (data: CategoryToStatistics) => {
+  const uniqueAuthors = data.MISCELLANEOUS.items.find(
+    ({ name }) => name === 'UNIQUE_AUTHOR'
+  );
+  return uniqueAuthors?.count
+    ? `Total number of distinct authors cited: ${uniqueAuthors.count}`
+    : '';
 };
