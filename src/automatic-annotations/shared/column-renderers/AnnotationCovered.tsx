@@ -1,5 +1,6 @@
 import { ExpandableList } from 'franklin-sites';
 
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import * as logging from '../../../shared/utils/logging';
 
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
@@ -37,5 +38,15 @@ const AnnotationCovered = ({
     </ExpandableList>
   );
 };
+
+export function annotationCovered() {
+  return {
+    ...getLabelAndTooltip(
+      'Annotation covered',
+      'Types of annotations that the rule can add to UniProtKB entries'
+    ),
+    render: AnnotationCovered,
+  };
+}
 
 export default AnnotationCovered;

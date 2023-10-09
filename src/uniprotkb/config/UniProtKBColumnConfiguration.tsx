@@ -106,7 +106,8 @@ import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLoc
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 
-import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
+import { organism } from '../../automatic-annotations/shared/column-renderers/Organism';
+import { organismId } from '../../automatic-annotations/shared/column-renderers/OrganismID';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
@@ -254,7 +255,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.organismName,
-  SharedColumnConfiguration.organism(
+  organism(
     (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
   )
 );
@@ -342,7 +343,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.organismId,
-  SharedColumnConfiguration.organism_id(
+  organismId(
     (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
   )
 );
