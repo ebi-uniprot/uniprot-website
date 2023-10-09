@@ -61,7 +61,7 @@ const TaxonomicScope = ({
   );
 };
 
-export function taxonomicScope() {
+export function taxonomicScopeRenderer() {
   return {
     ...getLabelAndTooltip(
       'Taxonomic scope',

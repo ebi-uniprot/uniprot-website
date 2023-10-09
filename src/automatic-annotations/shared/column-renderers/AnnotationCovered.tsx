@@ -39,7 +39,7 @@ const AnnotationCovered = ({
   );
 };
 
-export function annotationCovered() {
+export function annotationCoveredRenderer() {
   return {
     ...getLabelAndTooltip(
       'Annotation covered',
