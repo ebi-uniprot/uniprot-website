@@ -69,7 +69,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-export const BLAST_LIMIT = 20;
+export const BLAST_LIMIT = 5;
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
@@ -268,7 +268,15 @@ const BlastForm = ({ initialFormValues }: Props) => {
             }`;
           }
         }
-        dispatchTools(createJob(multipleParameters[i], JobTypes.BLAST, name));
+        dispatchTools(
+          createJob(
+            multipleParameters[i],
+            JobTypes.BLAST,
+            name,
+            parsedSequences.length > 1 ||
+              formValues[BlastFields.database].selected === 'uniparc'
+          )
+        );
         // Ensure there's a bit of wait between creating the jobs in order to
         // have different creation times and have consistent ordering.
         // eslint-disable-next-line no-await-in-loop

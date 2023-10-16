@@ -42,6 +42,7 @@ const toolsReducers = (
         timeLastUpdate: now,
         saved: false,
         seen: false,
+        lowPriority: action.payload.lowPriority,
       };
 
       store.set(newJob.internalID, newJob);

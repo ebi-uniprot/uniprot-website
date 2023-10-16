@@ -19,18 +19,6 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
       <button
         class="button tertiary disabled no-small"
         disabled=""
-        title="Select at least one entry to run a BLAST job"
-        type="button"
-      >
-        <span
-          translate="no"
-        >
-          BLAST
-        </span>
-      </button>
-      <button
-        class="button tertiary disabled no-small"
-        disabled=""
         title="Select at least 2 entries to run an Align job"
         type="button"
       >
