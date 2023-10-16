@@ -57,6 +57,20 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
+enum Dataset {
+  coreData = 'Core UniProt data',
+  variations = 'Proteins API - Variations',
+  genomicCoordinates = 'Proteins API - Genomic Coordinates',
+  proteomics = 'Proteins API - Proteomics',
+}
+
+const uniprotKBDatasets = [
+  Dataset.coreData,
+  Dataset.variations,
+  Dataset.genomicCoordinates,
+  Dataset.proteomics,
+];
+
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniparc && fileFormat === FileFormat.tsv;
@@ -123,6 +137,7 @@ export type EntryDownloadProps = {
     downloadMethod?: DownloadMethod
   ) => void;
   columns?: Column[];
+  dataset?: Dataset;
 };
 
 const EntryDownload = ({
@@ -130,6 +145,7 @@ const EntryDownload = ({
   isoformsAvailable,
   onClose,
   columns,
+  dataset,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
@@ -167,6 +183,9 @@ const EntryDownload = ({
   }
 
   const [fileFormat, setFileFormat] = useState(fileFormatEntryDownload?.[0]);
+  const [selectedDataset, setSelectedDataset] = useState(
+    dataset || uniprotKBDatasets[0]
+  );
   const [showPreview, setShowPreview] = useState(false);
 
   let extraContentNode: JSX.Element | null = null;
@@ -278,6 +297,26 @@ const EntryDownload = ({
 
   return (
     <>
+      {namespace === Namespace.uniprotkb && (
+        <fieldset>
+          <label>
+            Dataset
+            <select
+              id="dataset-select"
+              data-testid="dataset-select"
+              value={selectedDataset}
+              onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
+            >
+              {uniprotKBDatasets.map((dataset) => (
+                <option value={dataset} key={dataset}>
+                  {dataset}
+                </option>
+              ))}
+            </select>
+          </label>
+        </fieldset>
+      )}
+
       <fieldset>
         <label>
           Format
