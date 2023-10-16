@@ -33,10 +33,13 @@ const SimilarityView = ({ children, justLinks }: SimilarityViewProps) => {
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: `query=(family:"${link?.trim() || family}")`,
+            search: `query=(family:"${encodeURIComponent(
+              link?.trim() || family
+            )}")`,
           }}
         >
-          {family}
+          {/* Remove the leading dot for 'justLinks' as they are joined by ',' already */}
+          {justLinks ? family.replace(/^\./, '') : family}
         </Link>
       </Fragment>
     );
