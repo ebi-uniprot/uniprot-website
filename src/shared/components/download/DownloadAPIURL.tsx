@@ -46,6 +46,7 @@ type Props = {
   onCopy: () => void;
   disableSearch?: boolean;
   disableStream?: boolean;
+  isEntry?: boolean;
 };
 
 const DownloadAPIURL = ({
@@ -54,6 +55,7 @@ const DownloadAPIURL = ({
   onCopy,
   disableSearch,
   disableStream,
+  isEntry,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
@@ -81,6 +83,15 @@ const DownloadAPIURL = ({
 
   const batchSize = 500;
   const searchURL = getSearchURL(apiURL, batchSize);
+
+  if (isEntry) {
+    return (
+      <div className={styles['api-url']} ref={scrollRef}>
+        <h4>API URL</h4>
+        <CodeBlock lightMode>{apiURL}</CodeBlock>
+      </div>
+    );
+  }
 
   if (disableSearch && disableStream) {
     return (

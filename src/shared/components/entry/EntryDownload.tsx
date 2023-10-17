@@ -4,6 +4,7 @@ import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
 import DownloadPreview from '../download/DownloadPreview';
+import DownloadAPIURL from '../download/DownloadAPIURL';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import useDataApi from '../../hooks/useDataApi';
@@ -187,6 +188,7 @@ const EntryDownload = ({
     dataset || uniprotKBDatasets[0]
   );
   const [showPreview, setShowPreview] = useState(false);
+  const [showUrl, setShowUrl] = useState(false);
 
   let extraContentNode: JSX.Element | null = null;
 
@@ -215,6 +217,14 @@ const EntryDownload = ({
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
+      />
+    );
+  } else if (showUrl) {
+    extraContentNode = (
+      <DownloadAPIURL
+        apiURL={downloadUrl}
+        onCopy={() => onClose('copy', 'api-url')}
+        isEntry
       />
     );
   }
@@ -356,6 +366,9 @@ const EntryDownload = ({
           styles['action-buttons']
         )}
       >
+        <Button variant="tertiary" onClick={() => setShowUrl(true)}>
+          Generate URL for API
+        </Button>
         <Button variant="tertiary" onClick={() => setShowPreview(true)}>
           Preview
         </Button>
