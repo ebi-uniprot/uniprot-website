@@ -58,14 +58,14 @@ const formatMap = new Map<Namespace, FileFormat[]>([
 ]);
 
 enum Dataset {
-  coreData = 'Core UniProt data',
+  uniprotData = 'UniProt API',
   variations = 'Proteins API - Variations',
   genomicCoordinates = 'Proteins API - Genomic Coordinates',
   proteomics = 'Proteins API - Proteomics',
 }
 
 const uniprotKBDatasets = [
-  Dataset.coreData,
+  Dataset.uniprotData,
   Dataset.variations,
   Dataset.genomicCoordinates,
   Dataset.proteomics,
