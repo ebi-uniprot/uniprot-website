@@ -300,7 +300,7 @@ const EntryDownload = ({
       {namespace === Namespace.uniprotkb && (
         <fieldset>
           <label>
-            Dataset
+            <span data-article-id="programmatic_access">Dataset</span>
             <select
               id="dataset-select"
               data-testid="dataset-select"
