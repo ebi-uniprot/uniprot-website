@@ -9,7 +9,7 @@ import ColumnSelect from '../column-select/ColumnSelect';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls, { proteinsApi } from '../../config/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
 import {
@@ -73,16 +73,16 @@ const proteinsAPIProteomicsAndGenomicCoordinatesFormats = [
 
 enum Dataset {
   uniprotData = 'UniProt API',
-  variations = 'Proteins API - Variations',
-  genomicCoordinates = 'Proteins API - Genomic Coordinates',
-  proteomics = 'Proteins API - Proteomics',
+  variation = 'Proteins API - Variations',
+  coordinates = 'Proteins API - Genomic Coordinates',
+  proteomicsPtm = 'Proteins API - Proteomics-PTM',
 }
 
 const uniprotKBDatasets = [
   Dataset.uniprotData,
-  Dataset.variations,
-  Dataset.genomicCoordinates,
-  Dataset.proteomics,
+  Dataset.variation,
+  Dataset.coordinates,
+  Dataset.proteomicsPtm,
 ];
 
 const maxPaginationDownload = 500;
@@ -98,31 +98,40 @@ const getEntryDownloadUrl = (
   dataset: Dataset,
   columns?: Column[]
 ) => {
-  if (dataset === Dataset.uniprotData) {
-    if (isUniparcTsv(namespace, fileFormat)) {
-      return uniparcApiUrls.databases(accession, {
-        format: fileFormat as FileFormat.tsv,
-        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
-        size: 500,
-        fields: columns?.join(','),
-      });
-    }
-    if (isUniRefList(namespace, fileFormat)) {
-      return unirefApiUrls.members(accession, {
-        format: fileFormat as FileFormat.list,
-        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
-        size: 500,
-        fields: columns?.join(','),
-      });
-    }
+  switch (dataset) {
+    case Dataset.uniprotData: {
+      if (isUniparcTsv(namespace, fileFormat)) {
+        return uniparcApiUrls.databases(accession, {
+          format: fileFormat as FileFormat.tsv,
+          // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
+          size: 500,
+          fields: columns?.join(','),
+        });
+      }
+      if (isUniRefList(namespace, fileFormat)) {
+        return unirefApiUrls.members(accession, {
+          format: fileFormat as FileFormat.list,
+          // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
+          size: 500,
+          fields: columns?.join(','),
+        });
+      }
 
-    const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
-    if (columns) {
-      return `${entryUrl}?fields=${columns.join(',')}`;
+      const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+      if (columns) {
+        return `${entryUrl}?fields=${columns.join(',')}`;
+      }
+      return entryUrl;
     }
-    return entryUrl;
+    case Dataset.coordinates:
+      return proteinsApi.coordinates(accession);
+    case Dataset.variation:
+      return proteinsApi.variation(accession);
+    case Dataset.proteomicsPtm:
+      return proteinsApi.proteomicsPtm(accession);
+    default:
+      return '';
   }
-  return undefined;
 };
 
 type DownloadAnchorProps = {
@@ -224,11 +233,11 @@ const EntryDownload = ({
       case Dataset.uniprotData:
         setFileFormats(namespace ? formatMap.get(namespace) : []);
         break;
-      case Dataset.variations:
+      case Dataset.variation:
         setFileFormats(proteinsAPIVariationFormats);
         break;
-      case Dataset.proteomics:
-      case Dataset.genomicCoordinates:
+      case Dataset.proteomicsPtm:
+      case Dataset.coordinates:
         setFileFormats(proteinsAPIProteomicsAndGenomicCoordinatesFormats);
         break;
       default:
@@ -267,14 +276,14 @@ const EntryDownload = ({
         previewFileFormat={previewFileFormat}
       />
     );
-    // } else if (showUrl) {
-    //   extraContentNode = (
-    //     // <DownloadAPIURL
-    //     //   apiURL={downloadUrl || ''}
-    //     //   onCopy={() => onClose('copy', 'api-url')}
-    //     //   isEntry
-    //     // />
-    //   );
+  } else if (showUrl) {
+    extraContentNode = (
+      <DownloadAPIURL
+        apiURL={downloadUrl}
+        onCopy={() => onClose('copy', 'api-url')}
+        isEntry
+      />
+    );
   }
 
   if (nResults && nResults > maxPaginationDownload) {
