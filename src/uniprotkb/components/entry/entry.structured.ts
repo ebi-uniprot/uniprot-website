@@ -43,7 +43,7 @@ const dataToSchema = (
         data.proteinDescription?.recommendedName?.fullName.value ||
         data.proteinDescription?.submissionNames?.[0].fullName.value,
       url,
-      hasRepresentation: data.sequence.value,
+      hasRepresentation: data.sequence?.value,
     },
   };
 };
