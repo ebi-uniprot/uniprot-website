@@ -60,7 +60,7 @@ exports[`BlastForm test Renders the form 1`] = `
         class="text-block"
       >
         <legend>
-          Enter one or more sequences (20 max). You may also
+          Enter one or more sequences (5 max). You may also
           <label
             class="tools-form-section__file-input"
           >

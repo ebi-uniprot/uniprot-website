@@ -4,7 +4,6 @@ import { DataTable, Message } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
@@ -138,7 +137,6 @@ const ComputationalyMappedSequences = ({
             {pluralise('isoform', filteredData.length)} mapped to this entry
           </p>
           <div className="button-group">
-            <BlastButton selectedEntries={selectedEntries} />
             <AlignButton selectedEntries={selectedEntries} />
             <AddToBasket selectedEntries={selectedEntries} />
             <Link

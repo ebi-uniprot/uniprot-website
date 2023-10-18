@@ -1,8 +1,9 @@
 import { Fragment } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import { stringifyUrl } from '../../../shared/utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { stringifyUrl } from '../../../shared/utils/url';
 
 const familyRegEx = /(Belongs to the .+family)/i;
 const familyExtractor = /( the |\. )([^.]+(?:sub|super|sub-sub)?family)/;
@@ -32,12 +33,9 @@ const SimilarityView = ({ children, justLinks }: SimilarityViewProps) => {
         {!justLinks && plainText && `${plainText} `}
         {justLinks && linkIndex > 1 && ', '}
         <Link
-          to={stringifyUrl(
-            generatePath(LocationToPath[Location.UniProtKBResults]),
-            {
-              query: `(family:"${link?.trim() || family}")`,
-            }
-          )}
+          to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
+            query: `(family:"${link?.trim() || family}")`,
+          })}
         >
           {/* Remove the leading dot for 'justLinks' as they are joined by ',' already */}
           {justLinks ? family.replace(/^\./, '') : family}
