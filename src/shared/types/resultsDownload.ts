@@ -10,6 +10,7 @@ export enum ContentType {
   json = 'application/json',
   obo = 'text/plain; format=obo',
   embeddings = 'application/x-hdf5',
+  peff = 'text/x-peff',
 }
 
 export enum FileFormat {
@@ -31,4 +32,5 @@ export enum FileFormat {
   jsonIdMappingFromTo = 'JSON (from/to only)',
   obo = 'OBO',
   embeddings = 'Embeddings',
+  peff = 'PEFF',
 }

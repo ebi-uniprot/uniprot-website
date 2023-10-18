@@ -58,6 +58,19 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
+const proteinsAPIVariationFormats = [
+  FileFormat.json,
+  FileFormat.xml,
+  FileFormat.gff,
+  FileFormat.peff,
+];
+
+const proteinsAPIProteomicsAndGenomicCoordinatesFormats = [
+  FileFormat.json,
+  FileFormat.xml,
+  FileFormat.gff,
+];
+
 enum Dataset {
   uniprotData = 'UniProt API',
   variations = 'Proteins API - Variations',
@@ -82,36 +95,41 @@ const getEntryDownloadUrl = (
   accession: string,
   fileFormat: FileFormat,
   namespace: Namespace,
+  dataset: Dataset,
   columns?: Column[]
 ) => {
-  if (isUniparcTsv(namespace, fileFormat)) {
-    return uniparcApiUrls.databases(accession, {
-      format: fileFormat as FileFormat.tsv,
-      // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
-      size: 500,
-      fields: columns?.join(','),
-    });
-  }
-  if (isUniRefList(namespace, fileFormat)) {
-    return unirefApiUrls.members(accession, {
-      format: fileFormat as FileFormat.list,
-      // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
-      size: 500,
-      fields: columns?.join(','),
-    });
-  }
+  if (dataset === Dataset.uniprotData) {
+    if (isUniparcTsv(namespace, fileFormat)) {
+      return uniparcApiUrls.databases(accession, {
+        format: fileFormat as FileFormat.tsv,
+        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
+        size: 500,
+        fields: columns?.join(','),
+      });
+    }
+    if (isUniRefList(namespace, fileFormat)) {
+      return unirefApiUrls.members(accession, {
+        format: fileFormat as FileFormat.list,
+        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
+        size: 500,
+        fields: columns?.join(','),
+      });
+    }
 
-  const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
-  if (columns) {
-    return `${entryUrl}?fields=${columns.join(',')}`;
+    const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+    if (columns) {
+      return `${entryUrl}?fields=${columns.join(',')}`;
+    }
+    return entryUrl;
   }
-  return entryUrl;
+  return undefined;
 };
 
 type DownloadAnchorProps = {
   accession: string;
   fileFormat: FileFormat;
   namespace: Namespace;
+  dataset: Dataset;
   columns?: Column[];
 };
 
@@ -119,11 +137,18 @@ const DownloadAnchor = ({
   accession,
   fileFormat,
   namespace,
+  dataset,
   columns,
 }: DownloadAnchorProps) => (
   <a
     target="_blank"
-    href={getEntryDownloadUrl(accession, fileFormat, namespace, columns)}
+    href={getEntryDownloadUrl(
+      accession,
+      fileFormat,
+      namespace,
+      dataset,
+      columns
+    )}
     rel="noreferrer"
   >
     {fileFormat}
@@ -154,14 +179,21 @@ const EntryDownload = ({
   const { namespace, accession } = match?.params || {};
 
   const [downloadColumns, setDownloadColumns] = useState(columns);
-
-  let fileFormatEntryDownload = namespace && formatMap.get(namespace);
+  const [fileFormats, setFileFormats] = useState(
+    namespace && formatMap.get(namespace)
+  );
+  const [fileFormat, setFileFormat] = useState(fileFormats?.[0]);
+  const [selectedDataset, setSelectedDataset] = useState(
+    dataset || uniprotKBDatasets[0]
+  );
+  const [showPreview, setShowPreview] = useState(false);
+  const [showUrl, setShowUrl] = useState(false);
 
   const { data } = useDataApi<ReceivedFieldData>(
     namespace &&
       namespace !== Namespace.uniparc &&
-      (fileFormatEntryDownload?.includes(FileFormat.tsv) ||
-        fileFormatEntryDownload?.includes(FileFormat.excel))
+      (fileFormats?.includes(FileFormat.tsv) ||
+        fileFormats?.includes(FileFormat.excel))
       ? apiUrls.resultsFields(namespace)
       : null
   );
@@ -173,26 +205,40 @@ const EntryDownload = ({
     }
   }, [data]);
 
-  if (
-    fileFormatEntryDownload?.includes(FileFormat.fastaCanonicalIsoform) &&
-    !isoformsAvailable
-  ) {
-    fileFormatEntryDownload = fileFormatEntryDownload.splice(
-      fileFormatEntryDownload.indexOf(FileFormat.fastaCanonicalIsoform),
-      1
-    );
-  }
+  useEffect(() => {
+    if (
+      fileFormats?.includes(FileFormat.fastaCanonicalIsoform) &&
+      !isoformsAvailable
+    ) {
+      setFileFormats(
+        fileFormats.splice(
+          fileFormats.indexOf(FileFormat.fastaCanonicalIsoform),
+          1
+        )
+      );
+    }
+  }, [fileFormats, isoformsAvailable]);
 
-  const [fileFormat, setFileFormat] = useState(fileFormatEntryDownload?.[0]);
-  const [selectedDataset, setSelectedDataset] = useState(
-    dataset || uniprotKBDatasets[0]
-  );
-  const [showPreview, setShowPreview] = useState(false);
-  const [showUrl, setShowUrl] = useState(false);
+  useEffect(() => {
+    switch (selectedDataset) {
+      case Dataset.uniprotData:
+        setFileFormats(namespace ? formatMap.get(namespace) : []);
+        break;
+      case Dataset.variations:
+        setFileFormats(proteinsAPIVariationFormats);
+        break;
+      case Dataset.proteomics:
+      case Dataset.genomicCoordinates:
+        setFileFormats(proteinsAPIProteomicsAndGenomicCoordinatesFormats);
+        break;
+      default:
+        break;
+    }
+  }, [namespace, selectedDataset]);
 
   let extraContentNode: JSX.Element | null = null;
 
-  if (!(namespace && accession && fileFormatEntryDownload)) {
+  if (!(namespace && accession && fileFormats)) {
     return null;
   }
 
@@ -200,6 +246,7 @@ const EntryDownload = ({
     accession,
     fileFormat || FileFormat.fasta,
     namespace,
+    selectedDataset,
     downloadColumns
   );
 
@@ -209,6 +256,7 @@ const EntryDownload = ({
     accession,
     previewFileFormat || FileFormat.fasta,
     namespace,
+    selectedDataset,
     downloadColumns
   );
 
@@ -219,14 +267,14 @@ const EntryDownload = ({
         previewFileFormat={previewFileFormat}
       />
     );
-  } else if (showUrl) {
-    extraContentNode = (
-      <DownloadAPIURL
-        apiURL={downloadUrl}
-        onCopy={() => onClose('copy', 'api-url')}
-        isEntry
-      />
-    );
+    // } else if (showUrl) {
+    //   extraContentNode = (
+    //     // <DownloadAPIURL
+    //     //   apiURL={downloadUrl || ''}
+    //     //   onCopy={() => onClose('copy', 'api-url')}
+    //     //   isEntry
+    //     // />
+    //   );
   }
 
   if (nResults && nResults > maxPaginationDownload) {
@@ -247,6 +295,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.json}
                 namespace={namespace}
+                dataset={selectedDataset}
                 columns={downloadColumns}
               />{' '}
               file format instead which includes all{' '}
@@ -260,6 +309,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={fileFormat}
                 namespace={namespace}
+                dataset={selectedDataset}
                 columns={downloadColumns}
               />{' '}
               file format which has only {maxPaginationDownload} entries
@@ -293,6 +343,7 @@ const EntryDownload = ({
                 accession={accession as string}
                 fileFormat={FileFormat.list}
                 namespace={namespace}
+                dataset={selectedDataset}
                 columns={downloadColumns}
               />{' '}
               file format which has only {maxPaginationDownload} entries
@@ -336,7 +387,7 @@ const EntryDownload = ({
             value={fileFormat}
             onChange={(e) => setFileFormat(e.target.value as FileFormat)}
           >
-            {fileFormatEntryDownload.map((format) => (
+            {fileFormats.map((format) => (
               <option value={format} key={format}>
                 {format}
               </option>
