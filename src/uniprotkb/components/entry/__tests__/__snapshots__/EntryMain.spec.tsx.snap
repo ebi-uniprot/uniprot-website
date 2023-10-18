@@ -3211,18 +3211,6 @@ exports[`Entry view should render 1`] = `
         <div
           class="button-group"
         >
-          <a
-            class="button tertiary no-small"
-            href="/blast?ids=isoID1"
-            title="Run a BLAST job against isoID1"
-          >
-            <span
-              translate="no"
-            >
-              BLAST
-            </span>
-             1 isoform
-          </a>
           <button
             class="button tertiary disabled no-small"
             disabled=""

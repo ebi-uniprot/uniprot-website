@@ -5,7 +5,6 @@ import { Link, useHistory } from 'react-router-dom';
 import ExternalLink from '../ExternalLink';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
-import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import LazyComponent from '../LazyComponent';
@@ -477,13 +476,6 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
   return (
     <>
       <div className="button-group">
-        <BlastButton
-          selectedEntries={allIsoformIds}
-          textSuffix={`${allIsoformIds.length} ${pluralise(
-            'isoform',
-            allIsoformIds.length
-          )}`}
-        />
         <AlignButton
           selectedEntries={allIsoformIds}
           textSuffix={

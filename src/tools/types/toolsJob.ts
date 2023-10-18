@@ -14,6 +14,7 @@ interface BaseJob<T extends JobTypes> {
   timeLastUpdate: number;
   saved: boolean;
   seen: boolean;
+  lowPriority?: boolean;
 }
 
 export interface NewJob extends BaseJob<JobTypes> {
