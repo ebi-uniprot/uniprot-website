@@ -19,10 +19,10 @@ const getSequenceLengthCounts = (
 type Dataset = 'reviewed' | 'unreviewed';
 
 type Props = {
-  reviewed: StatisticsItem[];
-  unreviewed: StatisticsItem[];
+  reviewed?: StatisticsItem[];
+  unreviewed?: StatisticsItem[];
 };
-const SequenceLength = ({ reviewed, unreviewed }: Props) => {
+const SequenceLength = ({ reviewed = [], unreviewed = [] }: Props) => {
   const [dataset, setDataset] = useState<Dataset>('reviewed');
 
   const [reviewedSequenceLengthCounts, unreviewedSequenceLengthCounts] =

@@ -729,6 +729,7 @@ const TaxonomiDistributionTable = ({
         </tbody>
       </table>
       <LazyComponent
+        // Keep the space with an empty visualisation
         fallback={<PieChart type="taxonomy" />}
         rootMargin="0px 0px"
       >
@@ -861,10 +862,17 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
-        <SequenceLength
-          reviewed={reviewedData.SEQUENCE_COUNT.items}
-          unreviewed={unreviewedData.SEQUENCE_COUNT.items}
-        />
+        <LazyComponent
+          // Keep the space with an empty visualisation
+          fallback={<SequenceLength />}
+          rootMargin="0px 0px"
+        >
+          <SequenceLength
+            reviewed={reviewedData.SEQUENCE_COUNT.items}
+            unreviewed={unreviewedData.SEQUENCE_COUNT.items}
+          />
+        </LazyComponent>
+
         <FrequencyTable
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
