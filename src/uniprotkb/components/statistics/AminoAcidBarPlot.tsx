@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { select, scaleLinear, axisBottom, axisLeft, scaleBand } from 'd3';
 import { sum } from 'lodash-es';
 
@@ -63,42 +63,37 @@ type Props = {
 const AminoAcidBarPlot = ({ category }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const [aaPercentagesSorted, xScale, yScale] = useMemo(() => {
-    const aaCounts = category.items
-      .map(({ label, count }) => [label, count])
-      .filter((d): d is [string, number] => Boolean(d[0]));
-    const sumCount = sum(aaCounts.map(([, count]) => count));
-    const aaPercentages: [string, number][] = aaCounts.map(([aa, count]) => [
-      aa,
-      100 * (count / sumCount),
-    ]);
-    const aaPercentagesSorted = aaPercentages.sort(
-      ([, aPercentage], [, bPercentage]) => bPercentage - aPercentage
-    );
-    const maxPercentage = aaPercentagesSorted[0][1];
-    // x-axis
-    const xScale = scaleBand()
-      .domain(aaPercentagesSorted.map(([aa]) => aa)) // units: amino acid
-      .range([0, width]) // units: pixels
-      .padding(0.2);
-    // y-axis
-    const yScale = scaleLinear()
-      .domain([0, maxPercentage]) // units: percentage
-      .range([height, 0]); // units: pixels
-    return [aaPercentagesSorted, xScale, yScale];
-  }, [category.items]);
+  const aaCounts = category.items
+    .map(({ label, count }) => [label, count])
+    .filter((d): d is [string, number] => Boolean(d[0]));
+  const sumCount = sum(aaCounts.map(([, count]) => count));
+  const aaPercentages: [string, number][] = aaCounts.map(([aa, count]) => [
+    aa,
+    100 * (count / sumCount),
+  ]);
+  const aaPercentagesSorted = aaPercentages.sort(
+    ([, aPercentage], [, bPercentage]) => bPercentage - aPercentage
+  );
+  const maxPercentage = aaPercentagesSorted[0][1];
 
-  const renderAxes = useCallback(() => {
-    const chart = select(svgRef.current).select('g');
-    chart.select<SVGGElement>('.x-axis').call(axisBottom(xScale));
-    chart.select<SVGGElement>('.y-axis').call(axisLeft(yScale));
-  }, [xScale, yScale]);
+  // x-axis
+  const xScale = scaleBand()
+    .domain(aaPercentagesSorted.map(([aa]) => aa)) // units: amino acid
+    .range([0, width]) // units: pixels
+    .padding(0.2);
+
+  // y-axis
+  const yScale = scaleLinear()
+    .domain([0, maxPercentage]) // units: percentage
+    .range([height, 0]); // units: pixels
 
   useEffect(() => {
     if (svgRef.current) {
-      renderAxes();
+      const chart = select(svgRef.current).select('g');
+      chart.select<SVGGElement>('.x-axis').call(axisBottom(xScale));
+      chart.select<SVGGElement>('.y-axis').call(axisLeft(yScale));
     }
-  }, [renderAxes]);
+  }, [xScale, yScale]);
 
   return (
     <svg
@@ -165,4 +160,4 @@ const AminoAcidBarPlot = ({ category }: Props) => {
   );
 };
 
-export default AminoAcidBarPlot;
+export default memo(AminoAcidBarPlot);
