@@ -9,6 +9,12 @@ const width = 500;
 const height = 400;
 const margin = { top: 10, right: 30, bottom: 50, left: 40 };
 
+const legend = {
+  boxSize: 20,
+  xOffset: 105,
+  yOffset: 5,
+};
+
 type AAProperty =
   | 'acidic'
   | 'aliphatic'
@@ -49,12 +55,6 @@ const aaToProperty: Record<string, AAProperty> = {
   His: 'basic',
   Cys: 'sulfur',
   Trp: 'aromatic',
-};
-
-const legend = {
-  boxSize: 20,
-  xOffset: 105,
-  yOffset: 5,
 };
 
 type Props = {
