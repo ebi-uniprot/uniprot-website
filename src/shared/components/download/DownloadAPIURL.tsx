@@ -89,6 +89,16 @@ const DownloadAPIURL = ({
       <div className={styles['api-url']} ref={scrollRef}>
         <h4>API URL</h4>
         <CodeBlock lightMode>{apiURL}</CodeBlock>
+        <section className="button-group">
+          <Button
+            variant="primary"
+            className={styles['copy-button']}
+            onClick={() => handleCopyURL(apiURL)}
+          >
+            <CopyIcon />
+            Copy
+          </Button>
+        </section>
       </div>
     );
   }
