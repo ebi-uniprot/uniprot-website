@@ -124,11 +124,11 @@ const getEntryDownloadUrl = (
       return entryUrl;
     }
     case Dataset.coordinates:
-      return proteinsApi.coordinates(accession);
+      return `${proteinsApi.coordinates(accession)}?format=${fileFormat}`;
     case Dataset.variation:
-      return proteinsApi.variation(accession);
+      return `${proteinsApi.variation(accession)}?format=${fileFormat}`;
     case Dataset.proteomicsPtm:
-      return proteinsApi.proteomicsPtm(accession);
+      return `${proteinsApi.proteomicsPtm(accession)}?format=${fileFormat}`;
     default:
       return '';
   }
