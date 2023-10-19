@@ -7,7 +7,7 @@ import { StatisticsItem } from './StatisticsPage';
 
 import styles from './styles/sequence-length.module.scss';
 
-export type SequenceLengthCount = [number, number];
+export type SequenceLengthCount = [sequenceLength: number, count: number];
 
 const getSequenceLengthCounts = (
   items: StatisticsItem[]
