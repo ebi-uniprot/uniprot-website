@@ -71,7 +71,7 @@ const proteinsAPIProteomicsAndGenomicCoordinatesFormats = [
   FileFormat.gff,
 ];
 
-enum Dataset {
+export enum Dataset {
   uniprotData = 'UniProt API',
   variation = 'Proteins API - Variations',
   coordinates = 'Proteins API - Genomic Coordinates',
@@ -173,6 +173,7 @@ export type EntryDownloadProps = {
   ) => void;
   columns?: Column[];
   dataset?: Dataset;
+  availableDatasets?: Dataset[];
 };
 
 const EntryDownload = ({
@@ -181,6 +182,7 @@ const EntryDownload = ({
   onClose,
   columns,
   dataset,
+  availableDatasets,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
@@ -380,7 +382,14 @@ const EntryDownload = ({
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
               {uniprotKBDatasets.map((dataset) => (
-                <option value={dataset} key={dataset}>
+                <option
+                  value={dataset}
+                  key={dataset}
+                  disabled={
+                    dataset !== Dataset.uniprotData &&
+                    !availableDatasets?.includes(dataset)
+                  }
+                >
                   {dataset}
                 </option>
               ))}

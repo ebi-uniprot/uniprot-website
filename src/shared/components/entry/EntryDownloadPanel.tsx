@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { SlidingPanel } from 'franklin-sites';
 import { ErrorBoundary } from '@sentry/react';
 
-import EntryDownload from './EntryDownload';
+import EntryDownload, { Dataset } from './EntryDownload';
 
 import { Column } from '../../config/columns';
 
@@ -11,12 +11,16 @@ type EntryDownloadPanelProps = {
   nResults?: number;
   isoformsAvailable?: boolean;
   columns?: Column[];
+  dataset?: Dataset;
+  availableDatasets?: Dataset[];
 };
 const EntryDownloadPanel = ({
   handleToggle,
   nResults,
   isoformsAvailable,
   columns,
+  dataset,
+  availableDatasets,
 }: EntryDownloadPanelProps) => (
   <Suspense fallback={null}>
     <SlidingPanel title="Download" position="left" onClose={handleToggle}>
@@ -26,6 +30,8 @@ const EntryDownloadPanel = ({
           nResults={nResults}
           isoformsAvailable={isoformsAvailable}
           columns={columns}
+          dataset={dataset}
+          availableDatasets={availableDatasets}
         />
       </ErrorBoundary>
     </SlidingPanel>
