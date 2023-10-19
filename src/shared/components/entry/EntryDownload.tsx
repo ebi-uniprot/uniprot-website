@@ -225,6 +225,9 @@ const EntryDownload = ({
         )
       );
     }
+    if (fileFormats) {
+      setSelectedFormat(fileFormats[0]);
+    }
   }, [fileFormats, isoformsAvailable]);
 
   useEffect(() => {
