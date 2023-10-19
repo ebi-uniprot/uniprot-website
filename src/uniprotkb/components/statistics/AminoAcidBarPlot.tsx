@@ -51,9 +51,11 @@ const aaToProperty: Record<string, AAProperty> = {
   Trp: 'aromatic',
 };
 
-const size = 20;
-const xOffset = 105;
-const yOffset = 5;
+const legend = {
+  boxSize: 20,
+  xOffset: 105,
+  yOffset: 5,
+};
 
 type Props = {
   category: StatisticsCategory;
@@ -145,20 +147,22 @@ const AminoAcidBarPlot = ({ category }: Props) => {
           % of sequences
         </text>
         {Object.entries(propertyToColor).map(([property, color], i) => (
-          <g key={property}>
+          <g
+            key={property}
+            transform={`translate(${width - legend.xOffset}, ${
+              i * (legend.boxSize + 5) + legend.yOffset
+            })`}
+          >
             <rect
-              x={width - xOffset}
-              y={i * (size + 5) + yOffset}
-              width={size}
-              height={size}
+              width={legend.boxSize}
+              height={legend.boxSize}
               fill={color}
               stroke="black"
             />
             <text
-              x={width - xOffset + 1.2 * size}
-              y={i * (size + 5) + size / 2 + yOffset}
-              textAnchor="left"
-              style={{ alignmentBaseline: 'middle' }}
+              dx={legend.boxSize + 5}
+              dy={legend.boxSize / 2}
+              dominantBaseline="middle"
             >
               {property}
             </text>
