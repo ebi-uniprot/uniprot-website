@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { select, scaleLinear, axisBottom, axisLeft, scaleBand } from 'd3';
 import { sum } from 'lodash-es';
 
@@ -63,8 +63,8 @@ type Props = {
 const AminoAcidBarPlot = ({ category }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const renderHistogram = useCallback((items: StatisticsCategory['items']) => {
-    const aaCounts = items
+  const [aaPercentagesSorted, xScale, yScale] = useMemo(() => {
+    const aaCounts = category.items
       .map(({ label, count }) => [label, count])
       .filter((d): d is [string, number] => Boolean(d[0]));
     const sumCount = sum(aaCounts.map(([, count]) => count));
@@ -76,48 +76,29 @@ const AminoAcidBarPlot = ({ category }: Props) => {
       ([, aPercentage], [, bPercentage]) => bPercentage - aPercentage
     );
     const maxPercentage = aaPercentagesSorted[0][1];
-
-    if (!aaPercentagesSorted.length) {
-      return;
-    }
-
-    const chart = select(svgRef.current).select('g');
-
     // x-axis
     const xScale = scaleBand()
       .domain(aaPercentagesSorted.map(([aa]) => aa)) // units: amino acid
       .range([0, width]) // units: pixels
       .padding(0.2);
-    chart.select<SVGGElement>('.x-axis').call(axisBottom(xScale));
-
     // y-axis
     const yScale = scaleLinear()
       .domain([0, maxPercentage]) // units: percentage
       .range([height, 0]); // units: pixels
+    return [aaPercentagesSorted, xScale, yScale];
+  }, [category.items]);
+
+  const renderAxes = useCallback(() => {
+    const chart = select(svgRef.current).select('g');
+    chart.select<SVGGElement>('.x-axis').call(axisBottom(xScale));
     chart.select<SVGGElement>('.y-axis').call(axisLeft(yScale));
-
-    // Remove previous bars
-    chart.selectAll('.bars').remove();
-
-    chart
-      .selectAll('.bars')
-      .data(aaPercentagesSorted)
-      .enter()
-      .append('rect')
-      .classed('bars', true)
-      .attr('x', (d) => xScale(d[0]) || 0)
-      .attr('y', (d) => yScale(d[1]) || 0)
-      .attr('width', xScale.bandwidth())
-      .attr('height', (d) => height - (yScale(d[1]) || 0))
-      .attr('fill', (d) => propertyToColor[aaToProperty[d[0]]])
-      .attr('stroke', 'black');
-  }, []);
+  }, [xScale, yScale]);
 
   useEffect(() => {
     if (svgRef.current) {
-      renderHistogram(category.items);
+      renderAxes();
     }
-  }, [category.items, renderHistogram]);
+  }, [renderAxes]);
 
   return (
     <svg
@@ -146,6 +127,17 @@ const AminoAcidBarPlot = ({ category }: Props) => {
         >
           % of sequences
         </text>
+        {aaPercentagesSorted.map(([aa, percentage]) => (
+          <rect
+            key={aa}
+            x={xScale(aa)}
+            y={yScale(percentage)}
+            width={xScale.bandwidth()}
+            height={height - (yScale(percentage) || 0)}
+            fill={propertyToColor[aaToProperty[aa]]}
+            stroke="black"
+          />
+        ))}
         {Object.entries(propertyToColor).map(([property, color], i) => (
           <g
             key={property}
