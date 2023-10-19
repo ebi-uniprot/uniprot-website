@@ -191,12 +191,11 @@ const EntryDownload = ({
   const [fileFormats, setFileFormats] = useState(
     namespace && formatMap.get(namespace)
   );
-  const [fileFormat, setFileFormat] = useState(fileFormats?.[0]);
+  const [selectedFormat, setSelectedFormat] = useState(fileFormats?.[0]);
   const [selectedDataset, setSelectedDataset] = useState(
     dataset || uniprotKBDatasets[0]
   );
-  const [showPreview, setShowPreview] = useState(false);
-  const [showUrl, setShowUrl] = useState(false);
+  const [extraContent, setExtraContent] = useState('');
 
   const { data } = useDataApi<ReceivedFieldData>(
     namespace &&
@@ -253,14 +252,14 @@ const EntryDownload = ({
 
   const downloadUrl = getEntryDownloadUrl(
     accession,
-    fileFormat || FileFormat.fasta,
+    selectedFormat || FileFormat.fasta,
     namespace,
     selectedDataset,
     downloadColumns
   );
 
   const previewFileFormat =
-    fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
+    selectedFormat === FileFormat.excel ? FileFormat.tsv : selectedFormat;
   const previewUrl = getEntryDownloadUrl(
     accession,
     previewFileFormat || FileFormat.fasta,
@@ -269,14 +268,14 @@ const EntryDownload = ({
     downloadColumns
   );
 
-  if (showPreview) {
+  if (extraContent === 'preview') {
     extraContentNode = (
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
       />
     );
-  } else if (showUrl) {
+  } else if (extraContent === 'url') {
     extraContentNode = (
       <DownloadAPIURL
         apiURL={downloadUrl}
@@ -289,12 +288,12 @@ const EntryDownload = ({
   if (nResults && nResults > maxPaginationDownload) {
     if (
       namespace === Namespace.uniparc &&
-      (fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel)
+      (selectedFormat === FileFormat.tsv || selectedFormat === FileFormat.excel)
     ) {
       extraContentNode = (
         <>
           There is a current limitation where UniParc cross-reference{' '}
-          {fileFormat}
+          {selectedFormat}
           downloads are limited to {maxPaginationDownload} entries. Until this
           is fixed, there are several options:
           <ul>
@@ -316,7 +315,7 @@ const EntryDownload = ({
               Continue to download the{' '}
               <DownloadAnchor
                 accession={accession as string}
-                fileFormat={fileFormat}
+                fileFormat={selectedFormat}
                 namespace={namespace}
                 dataset={selectedDataset}
                 columns={downloadColumns}
@@ -329,7 +328,7 @@ const EntryDownload = ({
         </>
       );
     }
-    if (namespace === Namespace.uniref && fileFormat === FileFormat.list) {
+    if (namespace === Namespace.uniref && selectedFormat === FileFormat.list) {
       extraContentNode = (
         <>
           There is a current limitation where UniRef member list downloads are
@@ -393,8 +392,8 @@ const EntryDownload = ({
           <select
             id="file-format-select"
             data-testid="file-format-select"
-            value={fileFormat}
-            onChange={(e) => setFileFormat(e.target.value as FileFormat)}
+            value={selectedFormat}
+            onChange={(e) => setSelectedFormat(e.target.value as FileFormat)}
           >
             {fileFormats.map((format) => (
               <option value={format} key={format}>
@@ -405,7 +404,8 @@ const EntryDownload = ({
         </label>
       </fieldset>
 
-      {(fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel) &&
+      {(selectedFormat === FileFormat.tsv ||
+        selectedFormat === FileFormat.excel) &&
         downloadColumns && (
           <>
             <legend>Customize columns</legend>
@@ -426,10 +426,10 @@ const EntryDownload = ({
           styles['action-buttons']
         )}
       >
-        <Button variant="tertiary" onClick={() => setShowUrl(true)}>
+        <Button variant="tertiary" onClick={() => setExtraContent('url')}>
           Generate URL for API
         </Button>
-        <Button variant="tertiary" onClick={() => setShowPreview(true)}>
+        <Button variant="tertiary" onClick={() => setExtraContent('preview')}>
           Preview
         </Button>
         <Button variant="secondary" onClick={() => onClose('cancel')}>
