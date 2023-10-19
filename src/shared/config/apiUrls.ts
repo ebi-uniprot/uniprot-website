@@ -494,22 +494,28 @@ export const getDownloadUrl = ({
 
 const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
 export const proteinsApi = {
-  coordinates: (accession?: string | string[]) => {
+  coordinates: (accession?: string | string[], format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'coordinates');
     if (accession) {
       if (Array.isArray(accession)) {
         return stringifyUrl(url, { accession });
       }
-      return joinUrl(url, accession);
+      return format
+        ? `${joinUrl(url, accession)}.${fileFormatToUrlParameter[format]}`
+        : joinUrl(url, accession);
     }
     return url;
   },
-  variation: (accession: string) =>
-    joinUrl(proteinsApiPrefix, 'variation', accession),
+  variation: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'variation', accession);
+    return format ? `${url}.${fileFormatToUrlParameter[format]}` : url;
+  },
   proteins: (accession: string) =>
     joinUrl(proteinsApiPrefix, 'proteins', accession),
-  proteomicsPtm: (accession: string) =>
-    joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession),
+  proteomicsPtm: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession);
+    return format ? `${url}.${fileFormatToUrlParameter[format]}` : url;
+  },
 };
 
 // Help endpoints
