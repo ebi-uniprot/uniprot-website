@@ -107,8 +107,6 @@ const AminoAcidBarPlot = ({ category }: Props) => {
           transform={`translate(0, ${height})`}
           textAnchor="end"
           fontSize="1.4em"
-          dx="-0.5em"
-          dy="0.2em"
         />
         <text textAnchor="middle" x={width / 2} y={height + margin.bottom}>
           Amino acid
