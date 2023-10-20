@@ -45,7 +45,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
           class="card__header card__header--with-separator"
         >
           <h3>
-            Genomic location for gene ENSG00000137575
+            Gene ENSG00000137575
           </h3>
         </div>
         <div
@@ -139,7 +139,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     class="decorated-list-item__content"
                   >
                     <a
-                      class="external-link genomic-loc"
+                      class="external-link no-wrap"
                       href="https://www.ensembl.org/9606/Location/View?r=8:58565034-58581737"
                       rel="noopener"
                       target="_blank"
@@ -259,7 +259,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
               filter-scroll="true"
             >
               <table
-                class="no-wrap"
+                class="table no-wrap"
               >
                 <thead>
                   <tr>
@@ -269,7 +269,9 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     <th>
                       Genomic coordinates
                     </th>
-                    <th>
+                    <th
+                      title="Protein coordinates for O00560 mapping to specific exons. Click to view isoform"
+                    >
                       <a
                         href="/uniprotkb/O00560/entry"
                       >

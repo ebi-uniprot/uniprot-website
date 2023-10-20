@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Card, InfoList, LongNumber, Message } from 'franklin-sites';
 import { groupBy, partition } from 'lodash-es';
 
+import cn from 'classnames';
+
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
 import GenomicLoc, { getEnsemblLink } from './GenomicLoc';
@@ -20,6 +22,7 @@ import { TabLocation } from '../../Entry';
 import { FlatGenomicEntry } from './types';
 import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
 
+import styles from './styles/entries.module.css';
 import helper from '../../../../../shared/styles/helper.module.scss';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
@@ -204,11 +207,10 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
     <Card
       header={
         <h3>
-          Genomic location{' '}
           {representativeEntry.gnCoordinate.ensemblGeneId
             ? // TODO: better gene name whenever the endpoint provides it
-              `for gene ${representativeEntry.gnCoordinate.ensemblGeneId}`
-            : index}
+              `Gene ${representativeEntry.gnCoordinate.ensemblGeneId}`
+            : `Genomic location ${index}`}
         </h3>
       }
     >
@@ -217,13 +219,16 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
         <Entry key={accession} entries={entries} xrefInfo={xrefInfo} />
       ))}
       <DatatableWrapper alwaysExpanded>
-        <table className={helper['no-wrap']}>
+        <table className={cn(styles.table, helper['no-wrap'])}>
           <thead>
             <tr>
               <th>{xrefInfo ? 'Ensembl e' : 'E'}xon ID</th>
               <th>Genomic coordinates</th>
               {mappedIsoforms.map((isoformID) => (
-                <th key={isoformID}>
+                <th
+                  key={isoformID}
+                  title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
+                >
                   <Link
                     to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}
                   >

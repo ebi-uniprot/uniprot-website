@@ -4,7 +4,7 @@ import ExternalLink from '../../../../../shared/components/ExternalLink';
 
 import { GenomicLocation } from './types';
 
-import styles from './styles/genomic-loc.module.css';
+import helper from '../../../../../shared/styles/helper.module.scss';
 
 export const getEnsemblLink = (
   taxID: number,
@@ -40,11 +40,11 @@ const GenomicLoc = ({ genomicLocation, taxID, noLink }: GenomicLocProps) => {
     </>
   );
   if (noLink) {
-    return <span className={styles['genomic-loc']}>{content}</span>;
+    return <span className={helper['no-wrap']}>{content}</span>;
   }
   return (
     <ExternalLink
-      className={styles['genomic-loc']}
+      className={helper['no-wrap']}
       url={getEnsemblLink(
         taxID,
         genomicLocation.reverseStrand
