@@ -652,17 +652,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/261/"
+          href="https://www.proteinspotlight.org/back_issues/262/"
           rel="noopener"
           target="_blank"
         >
-          In good time
+          Self-reliant
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/261/"
+        href="https://www.proteinspotlight.org/back_issues/262/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -671,14 +671,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt261.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt262.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          When  my  daughter  was  born,  I  could  not  help  but  realise  that  she  already  had  inside  her  what  would  participate  in  giving  life,  if  she  so  chose,  to  a  daughter  or  a  son  of  her  own.  Given  a  little  thought,  it  is  an  extraordinary  state  of  affairs.  My…
+          In  times  of  perplexity,  every  now  and  then  it  is  better  to  deal  with  things  yourself.  It  can  be  a  time-saver,  and  sometimes,  too,  an  energy-saver.  If  faced,  say,  by  an  oncoming  downpour,  it  is  wiser  to  run  for  shelter  rather  than  wait  for  someone  to…
       </p>
     </article>
   </section>

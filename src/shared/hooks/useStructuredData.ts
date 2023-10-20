@@ -29,7 +29,7 @@ const useStructuredData = <Schema extends Thing>(
       }
 
       let content = '';
-      if (structuredData) {
+      if (value) {
         try {
           content = JSON.stringify(value, undefined, 2);
         } catch {

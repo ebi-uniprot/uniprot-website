@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  "When my daughter was born, I could not help but realise that she already had inside her what would participate in giving life, if she so chose, to a daughter or a son of her own. Given a little thought, it is an extraordinary state of affairs. My daughter's ovaries were already filled to the brim with a life-time's stock of egg cells, albeit not quite mature. As it so happened, my next child was a baby boy, and I knew he would only begin to produce germ cells at puberty and cease to produce them when his life comes to an end. It is a fundamental difference between the two sexes, which obviously entails very distinct physiological makeups.";
+  'In times of perplexity, every now and then it is better to deal with things yourself. It can be a time-saver, and sometimes, too, an energy-saver. If faced, say, by an oncoming downpour, it is wiser to run for shelter rather than wait for someone to bring you an umbrella. Such decisions also exist at the cellular level. Take our immune system for instance. When attacked by a virus, our body begins by rapidly firing off a first round of artillery as it awaits further and more complex lines of defence that involve myriads of other factors.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -424,21 +424,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/261/"
+            url="https://www.proteinspotlight.org/back_issues/262/"
             noIcon
           >
-            In good time
+            Self-reliant
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/261/"
+          url="https://www.proteinspotlight.org/back_issues/262/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt261.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt262.jpg"
             alt=""
             width="123"
             height="129"

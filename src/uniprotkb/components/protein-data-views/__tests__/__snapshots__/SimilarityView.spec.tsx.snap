@@ -4,7 +4,7 @@ exports[`SimilarityView component should render 1`] = `
 <DocumentFragment>
   In the N-terminal section; belongs to the 
   <a
-    href="/uniprotkb?query=(family:"GARS family")"
+    href="/uniprotkb?query=%28family%3A%22GARS+family%22%29"
   >
     GARS family
   </a>

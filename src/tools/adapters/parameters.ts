@@ -11,6 +11,7 @@ import { JobTypes } from '../types/toolsJobTypes';
 import { SelectedTaxon } from '../types/toolsFormData';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
+const LOW_PRIORITY_EMAIL = 'uuw_dev_low_priority_no_reply@uniprot.org';
 
 type ObjectForFormData = Record<string, string | number | boolean | undefined>;
 
@@ -54,9 +55,11 @@ const parseTaxa = (
  */
 export function formParametersToServerParameters<T extends JobTypes>(
   type: T,
-  formParameters: FormParameters[T]
+  formParameters: FormParameters[T],
+  lowPriority?: boolean
 ): FormData | URLSearchParams {
   let serverParameters: Partial<ServerParameters[T]> = {};
+  const email = lowPriority ? LOW_PRIORITY_EMAIL : DEFAULT_EMAIL;
   switch (type) {
     case JobTypes.ALIGN:
       {
@@ -92,7 +95,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
         } = formParameters as FormParameters[JobTypes.BLAST];
 
         serverParameters = {
-          email: DEFAULT_EMAIL,
+          email,
           // from form
           program,
           matrix,
