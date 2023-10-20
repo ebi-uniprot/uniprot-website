@@ -50,5 +50,7 @@
 
   & svg {
     place-self: center;
+    grid-row-start: 1;
+    grid-column-end: -1;
   }
 }
