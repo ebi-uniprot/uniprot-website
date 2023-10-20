@@ -82,12 +82,14 @@ const getEntryDownloadUrl = (
       format: fileFormat as FileFormat.list,
       // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
       size: 500,
-      fields: columns?.join(','),
     });
   }
 
   const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
-  if (columns) {
+  if (
+    columns &&
+    (fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel)
+  ) {
     return `${entryUrl}?fields=${columns.join(',')}`;
   }
   return entryUrl;
