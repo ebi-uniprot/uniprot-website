@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
@@ -5,10 +6,11 @@ import cn from 'classnames';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -36,6 +38,7 @@ const columns = [
 ];
 
 const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const accession = props.match?.params.accession;
 
   let redirectTo = '';
@@ -77,6 +80,9 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const relatedQuery = `(cc_disease:${accession})`;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -88,8 +94,11 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       {/* Here we don't want to use the full label atm */}
       <h1>Disease - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel handleToggle={handleToggleDownload} />
+        )}
         <div className="button-group">
-          <EntryDownload />
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
           <MapToDropdown statistics={data.statistics} />
         </div>
         <InfoList infoData={infoData} />

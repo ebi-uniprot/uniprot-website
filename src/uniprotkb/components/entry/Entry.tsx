@@ -1,4 +1,4 @@
-import { useMemo, useEffect, Suspense } from 'react';
+import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import joinUrl from 'url-join';
@@ -19,12 +19,13 @@ import EntryMain from './EntryMain';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../basket/BasketStatus';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -133,6 +134,7 @@ const Entry = () => {
     TabLocation.Entry,
     legacyToNewSubPages
   );
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
@@ -337,6 +339,9 @@ const Entry = () => {
     }
   }
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SidebarLayout
       sidebar={sidebar}
@@ -383,12 +388,18 @@ const Entry = () => {
         >
           {!isObsolete && (
             <>
+              {displayDownloadPanel && (
+                <EntryDownloadPanel
+                  handleToggle={handleToggleDownload}
+                  isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                />
+              )}
               <div className="button-group">
                 <BlastButton selectedEntries={[accession]} />
                 {listOfIsoformAccessions.length > 1 && (
                   <AlignButton selectedEntries={listOfIsoformAccessions} />
                 )}
-                <EntryDownload />
+                <EntryDownloadButton handleToggle={handleToggleDownload} />
                 <AddToBasketButton selectedEntries={accession} />
                 <CommunityAnnotationLink accession={accession} />
                 <a

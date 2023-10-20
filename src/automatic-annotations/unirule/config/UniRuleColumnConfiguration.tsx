@@ -7,7 +7,9 @@ import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import { mapToLinks } from '../../../shared/components/MapTo';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 
-import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
+import { taxonomicScopeRenderer } from '../../shared/column-renderers/TaxonomicScope';
+import { ruleIDRenderer } from '../../shared/column-renderers/RuleID';
+import { annotationCoveredRenderer } from '../../shared/column-renderers/AnnotationCovered';
 
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -41,21 +43,17 @@ export const UniRuleColumnConfiguration: ColumnConfiguration<
 // COLUMN RENDERERS BELOW
 UniRuleColumnConfiguration.set(
   UniRuleColumn.ruleId,
-  SharedColumnConfiguration.rule_id(
-    ({ uniRuleId }) => uniRuleId,
-    'UniRule',
-    Namespace.unirule
-  )
+  ruleIDRenderer(({ uniRuleId }) => uniRuleId, 'UniRule', Namespace.unirule)
 );
 
 UniRuleColumnConfiguration.set(
   UniRuleColumn.taxonomicScope,
-  SharedColumnConfiguration.taxonomic_scope
+  taxonomicScopeRenderer
 );
 
 UniRuleColumnConfiguration.set(
   UniRuleColumn.annotationCovered,
-  SharedColumnConfiguration.annotation_covered
+  annotationCoveredRenderer
 );
 
 UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {

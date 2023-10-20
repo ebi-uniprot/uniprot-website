@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
@@ -11,7 +11,8 @@ import XRefsFacets from './XRefsFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -53,6 +54,7 @@ const Entry = () => {
     accession: string;
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const { search } = useLocation();
   const smallScreen = useSmallScreen();
 
@@ -120,6 +122,9 @@ const Entry = () => {
       break;
   }
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SidebarLayout
       sidebar={sidebar}
@@ -156,14 +161,17 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
+          {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+          {displayDownloadPanel && (
+            <EntryDownloadPanel
+              handleToggle={handleToggleDownload}
+              nResults={xrefsDataObject.data?.uniParcCrossReferences?.length}
+              columns={columns}
+            />
+          )}
           <div className="button-group">
             <BlastButton selectedEntries={[match.params.accession]} />
-            {
-              // TODO: evenutally remove nResults prop (see note in EntryDownload)
-            }
-            <EntryDownload
-              nResults={xrefsDataObject.data?.uniParcCrossReferences?.length}
-            />
+            <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain

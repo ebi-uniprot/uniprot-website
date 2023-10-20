@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import { partition } from 'lodash-es';
@@ -10,8 +11,9 @@ import MembersFacets from './MembersFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import { MapToDropdownBasic } from '../../../shared/components/MapTo';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -42,6 +44,7 @@ import {
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 const Entry = () => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const dispatch = useMessagesDispatch();
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniRefEntry]
@@ -80,6 +83,9 @@ const Entry = () => {
     (member) => member.startsWith('UPI')
   );
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SidebarLayout
       sidebar={<MembersFacets accession={accession} />}
@@ -101,12 +107,16 @@ const Entry = () => {
           <BasketStatus id={accession} className="small" />
         </h1>
         <Overview transformedData={transformedData} />
+        {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+        {displayDownloadPanel && (
+          <EntryDownloadPanel
+            handleToggle={handleToggleDownload}
+            nResults={transformedData.memberCount}
+          />
+        )}
         <div className="button-group">
           <BlastButton selectedEntries={[accession]} />
-          {
-            // TODO: evenutally remove nResults prop (see note in EntryDownload)
-          }
-          <EntryDownload nResults={transformedData.memberCount} />
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
           <AddToBasketButton selectedEntries={accession} />
           <MapToDropdownBasic
             config={[
