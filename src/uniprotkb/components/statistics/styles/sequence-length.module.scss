@@ -1,0 +1,16 @@
+@import 'franklin-sites/src/styles/colours';
+
+.container {
+  width: 580px;
+
+  .buttons {
+    float: right;
+
+    fieldset {
+      margin-left: 1rem;
+      select {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

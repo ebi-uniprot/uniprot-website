@@ -7,18 +7,6 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   >
     <a
       class="button tertiary no-small"
-      href="/blast?ids=P05067-1%2CP05067-2"
-      title="Run 2 BLAST jobs against the selected entries"
-    >
-      <span
-        translate="no"
-      >
-        BLAST
-      </span>
-       2 isoforms
-    </a>
-    <a
-      class="button tertiary no-small"
       href="/align?ids=P05067-1%2CP05067-2"
       title="Run an Align job against 2 entries"
     >
