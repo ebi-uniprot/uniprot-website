@@ -11,6 +11,7 @@ import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout'
 import HTMLHead from '../../../shared/components/HTMLHead';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import SequenceLength from './SequenceLength';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -728,6 +729,7 @@ const TaxonomiDistributionTable = ({
         </tbody>
       </table>
       <LazyComponent
+        // Keep the space with an empty visualisation
         fallback={<PieChart type="taxonomy" />}
         rootMargin="0px 0px"
       >
@@ -860,14 +862,23 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
+        <LazyComponent
+          // Keep the space with an empty visualisation
+          fallback={<SequenceLength />}
+          rootMargin="0px 0px"
+        >
+          <SequenceLength
+            reviewed={reviewedData.SEQUENCE_COUNT.items}
+            unreviewed={unreviewedData.SEQUENCE_COUNT.items}
+          />
+        </LazyComponent>
+
         <FrequencyTable
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
           header="sequence sizes, from-to"
           caption="Repartition of the sequences by size (excluding fragments)"
         />
-        <StatsTable category={reviewedData.SEQUENCE_COUNT} reviewed />
-        <StatsTable category={unreviewedData.SEQUENCE_COUNT} />
       </Card>
       <Card id="journal-citations">
         <h2>Journal citations</h2>
