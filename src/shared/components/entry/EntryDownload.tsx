@@ -219,12 +219,6 @@ const EntryDownload = ({
   }, [data]);
 
   useEffect(() => {
-    if (fileFormats) {
-      setSelectedFormat(fileFormats[0]);
-    }
-  }, [fileFormats]);
-
-  useEffect(() => {
     switch (selectedDataset) {
       case Dataset.uniprotData:
         setFileFormats(namespace ? formatMap.get(namespace) : []);
@@ -239,7 +233,10 @@ const EntryDownload = ({
       default:
         break;
     }
-  }, [namespace, selectedDataset]);
+    if (fileFormats) {
+      setSelectedFormat(fileFormats[0]);
+    }
+  }, [namespace, selectedDataset, fileFormats]);
 
   let extraContentNode: JSX.Element | null = null;
 
