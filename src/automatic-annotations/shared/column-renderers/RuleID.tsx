@@ -4,7 +4,7 @@ import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
-export function ruleId<Schema>(
+export function ruleIDRenderer<Schema>(
   getter: (data: Schema) => ARBAAPIModel['uniRuleId'] | undefined,
   namespaceLabel: string,
   namespace: Namespace.unirule | Namespace.arba

@@ -39,14 +39,12 @@ const AnnotationCovered = ({
   );
 };
 
-export function annotationCoveredRenderer() {
-  return {
-    ...getLabelAndTooltip(
-      'Annotation covered',
-      'Types of annotations that the rule can add to UniProtKB entries'
-    ),
-    render: AnnotationCovered,
-  };
-}
+export const annotationCoveredRenderer = {
+  ...getLabelAndTooltip(
+    'Annotation covered',
+    'Types of annotations that the rule can add to UniProtKB entries'
+  ),
+  render: AnnotationCovered,
+};
 
 export default AnnotationCovered;

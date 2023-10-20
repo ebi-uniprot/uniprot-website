@@ -113,12 +113,14 @@ const getEntryDownloadUrl = (
           format: fileFormat as FileFormat.list,
           // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
           size: 500,
-          fields: columns?.join(','),
         });
       }
 
       const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
-      if (columns) {
+      if (
+        columns &&
+        (fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel)
+      ) {
         return `${entryUrl}?fields=${columns.join(',')}`;
       }
       return entryUrl;
@@ -190,6 +192,7 @@ const EntryDownload = ({
   const { namespace, accession } = match?.params || {};
 
   const [downloadColumns, setDownloadColumns] = useState(columns);
+
   const [fileFormats, setFileFormats] = useState(
     namespace && formatMap.get(namespace)
   );
@@ -216,21 +219,10 @@ const EntryDownload = ({
   }, [data]);
 
   useEffect(() => {
-    if (
-      fileFormats?.includes(FileFormat.fastaCanonicalIsoform) &&
-      !isoformsAvailable
-    ) {
-      setFileFormats(
-        fileFormats.splice(
-          fileFormats.indexOf(FileFormat.fastaCanonicalIsoform),
-          1
-        )
-      );
-    }
     if (fileFormats) {
       setSelectedFormat(fileFormats[0]);
     }
-  }, [fileFormats, isoformsAvailable]);
+  }, [fileFormats]);
 
   useEffect(() => {
     switch (selectedDataset) {
@@ -408,7 +400,14 @@ const EntryDownload = ({
             onChange={(e) => setSelectedFormat(e.target.value as FileFormat)}
           >
             {fileFormats.map((format) => (
-              <option value={format} key={format}>
+              <option
+                value={format}
+                key={format}
+                disabled={
+                  format === FileFormat.fastaCanonicalIsoform &&
+                  !isoformsAvailable
+                }
+              >
                 {format}
               </option>
             ))}
