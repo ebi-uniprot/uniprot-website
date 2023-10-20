@@ -140,7 +140,7 @@ const EntryDownload = ({
 
   const [downloadColumns, setDownloadColumns] = useState(columns);
 
-  let fileFormatEntryDownload = namespace && formatMap.get(namespace);
+  const fileFormatEntryDownload = namespace && formatMap.get(namespace);
 
   const { data } = useDataApi<ReceivedFieldData>(
     namespace &&
@@ -157,16 +157,6 @@ const EntryDownload = ({
       setDownloadColumns(fields);
     }
   }, [data]);
-
-  if (
-    fileFormatEntryDownload?.includes(FileFormat.fastaCanonicalIsoform) &&
-    !isoformsAvailable
-  ) {
-    fileFormatEntryDownload = fileFormatEntryDownload.splice(
-      fileFormatEntryDownload.indexOf(FileFormat.fastaCanonicalIsoform),
-      1
-    );
-  }
 
   const [fileFormat, setFileFormat] = useState(fileFormatEntryDownload?.[0]);
   const [showPreview, setShowPreview] = useState(false);
@@ -290,7 +280,14 @@ const EntryDownload = ({
             onChange={(e) => setFileFormat(e.target.value as FileFormat)}
           >
             {fileFormatEntryDownload.map((format) => (
-              <option value={format} key={format}>
+              <option
+                value={format}
+                key={format}
+                disabled={
+                  format === FileFormat.fastaCanonicalIsoform &&
+                  !isoformsAvailable
+                }
+              >
                 {format}
               </option>
             ))}
