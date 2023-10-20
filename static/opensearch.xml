@@ -1,0 +1,11 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>UniProt</ShortName>
+  <Description>Search UniProtKB</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/x-icon">https://www.uniprot.org/favicon.ico</Image>
+  <Image width="32" height="32" type="image/png">https://www.uniprot.org/favicon-32x32.png</Image>
+  <Url type="text/html" method="get" template="https://www.uniprot.org/uniprotkb?query={searchTerms}"/>
+  <moz:SearchForm>https://www.uniprot.org/uniprotkb</moz:SearchForm>
+  <Developer>UniProt Consortium</Developer>
+  <SyndicationRight>open</SyndicationRight>
+</OpenSearchDescription>

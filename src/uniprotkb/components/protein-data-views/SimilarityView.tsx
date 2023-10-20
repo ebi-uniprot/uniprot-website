@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+import { stringifyUrl } from '../../../shared/utils/url';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 const familyRegEx = /(Belongs to the .+family)/i;
@@ -31,12 +33,12 @@ const SimilarityView = ({ children, justLinks }: SimilarityViewProps) => {
         {!justLinks && plainText && `${plainText} `}
         {justLinks && linkIndex > 1 && ', '}
         <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: `query=(family:"${link?.trim() || family}")`,
-          }}
+          to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
+            query: `(family:"${link?.trim() || family}")`,
+          })}
         >
-          {family}
+          {/* Remove the leading dot for 'justLinks' as they are joined by ',' already */}
+          {justLinks ? family.replace(/^\./, '') : family}
         </Link>
       </Fragment>
     );

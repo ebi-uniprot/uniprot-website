@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { select, scaleLinear, axisBottom, axisLeft, scaleBand } from 'd3';
 import { sum } from 'lodash-es';
 
@@ -7,7 +7,13 @@ import { StatisticsCategory } from './StatisticsPage';
 // Specify the chart’s dimensions.
 const width = 500;
 const height = 400;
-const margin = { top: 10, right: 30, bottom: 50, left: 40 };
+const margin = { top: 10, right: 30, bottom: 40, left: 40 };
+
+const legend = {
+  boxSize: 20,
+  xOffset: 105,
+  yOffset: 5,
+};
 
 type AAProperty =
   | 'acidic'
@@ -69,111 +75,87 @@ const AminoAcidBarPlot = ({ category }: Props) => {
     ([, aPercentage], [, bPercentage]) => bPercentage - aPercentage
   );
   const maxPercentage = aaPercentagesSorted[0][1];
-  const renderHistogram = useCallback(() => {
-    if (!aaPercentagesSorted.length) {
-      return;
-    }
 
-    const svg = select(svgRef.current);
+  // x-axis
+  const xScale = scaleBand()
+    .domain(aaPercentagesSorted.map(([aa]) => aa)) // units: amino acid
+    .range([0, width]) // units: pixels
+    .padding(0.2);
 
-    // Remove previous drawings
-    svg.selectAll('g').remove();
-
-    const chart = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-
-    // x-axis
-    const xScale = scaleBand()
-      .domain(aaPercentagesSorted.map(([aa]) => aa)) // units: amino acid
-      .range([0, width]) // units: pixels
-      .padding(0.2);
-    chart
-      .append('g')
-      .attr('transform', `translate(0, ${height})`)
-      .call(axisBottom(xScale))
-      .selectAll('text')
-      .style('text-anchor', 'end')
-      .style('font-size', '1.4em')
-      .attr('dx', '-0.5em')
-      .attr('dy', '0.2em')
-      .attr('transform', 'rotate(-45)');
-    chart
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr('x', width / 2)
-      .attr('y', height + margin.bottom)
-      .text('Amino acid');
-
-    // y-axis
-    const yScale = scaleLinear()
-      .domain([0, maxPercentage]) // units: percentage
-      .range([height, 0]); // units: pixels
-    chart
-      .append('g')
-      .call(axisLeft(yScale))
-      .selectAll('text')
-      .style('font-size', '1.4em');
-    chart
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr('x', -height / 2)
-      .attr('y', -0.6 * margin.left)
-      .attr('transform', 'rotate(-90)')
-      .text('% of sequences');
-
-    chart
-      .selectAll('bar-plot')
-      .data(aaPercentagesSorted)
-      .enter()
-      .append('rect')
-      .attr('x', (d) => xScale(d[0]) || 0)
-      .attr('y', (d) => yScale(d[1]) || 0)
-      .attr('width', xScale.bandwidth())
-      .attr('height', (d) => height - (yScale(d[1]) || 0))
-      .attr('fill', (d) => propertyToColor[aaToProperty[d[0]]])
-      .attr('stroke', 'black');
-
-    const size = 20;
-    const xOffset = 105;
-    const yOffset = 5;
-    chart
-      .selectAll('legend-colors')
-      .data(Object.values(propertyToColor))
-      .enter()
-      .append('rect')
-      .attr('x', width - xOffset)
-      .attr('y', (d, i) => i * (size + 5) + yOffset)
-      .attr('width', size)
-      .attr('height', size)
-      .style('fill', (d) => d)
-      .style('stroke', 'black');
-
-    chart
-      .selectAll('legend-labels')
-      .data(Object.keys(propertyToColor))
-      .enter()
-      .append('text')
-      .attr('x', width - xOffset + 1.2 * size)
-      .attr('y', (d, i) => i * (size + 5) + size / 2 + yOffset)
-      .text((d) => d)
-      .attr('text-anchor', 'left')
-      .style('alignment-baseline', 'middle');
-  }, [aaPercentagesSorted, maxPercentage]);
+  // y-axis
+  const yScale = scaleLinear()
+    .domain([0, maxPercentage]) // units: percentage
+    .range([height, 0]); // units: pixels
 
   useEffect(() => {
     if (svgRef.current) {
-      renderHistogram();
+      const chart = select(svgRef.current).select('g');
+      chart.select<SVGGElement>('.x-axis').call(axisBottom(xScale));
+      chart.select<SVGGElement>('.y-axis').call(axisLeft(yScale));
     }
-  }, [renderHistogram]);
+  }, [xScale, yScale]);
 
   return (
     <svg
       ref={svgRef}
       width={width + margin.left + margin.right}
       height={height + margin.top + margin.bottom}
-    />
+    >
+      <g transform={`translate(${margin.left}, ${margin.top})`}>
+        <g
+          className="x-axis"
+          transform={`translate(0, ${height})`}
+          textAnchor="end"
+          fontSize="1.4em"
+        />
+        <text textAnchor="middle" x={width / 2} y={height + margin.bottom}>
+          Amino acid
+        </text>
+        <g className="y-axis" fontSize="1.4em" />
+        <text
+          textAnchor="middle"
+          x={-height / 2}
+          y={-0.6 * margin.left}
+          transform="rotate(-90)"
+        >
+          % of sequences
+        </text>
+        {aaPercentagesSorted.map(([aa, percentage]) => (
+          <rect
+            key={aa}
+            x={xScale(aa)}
+            y={yScale(percentage)}
+            width={xScale.bandwidth()}
+            height={height - (yScale(percentage) || 0)}
+            fill={propertyToColor[aaToProperty[aa]]}
+            stroke="black"
+          />
+        ))}
+        {Object.entries(propertyToColor).map(([property, color], i) => (
+          <g
+            key={property}
+            transform={`translate(${width - legend.xOffset}, ${
+              i * (legend.boxSize + 5) + legend.yOffset
+            })`}
+          >
+            <rect
+              width={legend.boxSize}
+              height={legend.boxSize}
+              fill={color}
+              stroke="black"
+            />
+            <text
+              dx={legend.boxSize + 5}
+              dy={legend.boxSize / 2}
+              dominantBaseline="middle"
+            >
+              {property}
+            </text>
+          </g>
+        ))}
+      </g>
+    </svg>
   );
 };
 
-export default AminoAcidBarPlot;
+export default memo(AminoAcidBarPlot);

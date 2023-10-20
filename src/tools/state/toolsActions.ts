@@ -17,12 +17,14 @@ export const UPDATE_JOB = 'UPDATE_JOB';
 export function createJob<T extends JobTypes>(
   parameters: FormParameters[T],
   jobType: T,
-  jobName: string
+  jobName: string,
+  lowPriority?: boolean
 ) {
   return action(CREATE_JOB, {
     parameters,
     jobType,
     jobName,
+    lowPriority,
   });
 }
 

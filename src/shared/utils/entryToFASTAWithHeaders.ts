@@ -50,9 +50,11 @@ const entryToFASTAWithHeaders = (
       // UniParc entry
       sequence = `>${entry.uniParcId}${
         entry.uniParcCrossReferences
-          ? ` status=${entry.uniParcCrossReferences.some(
-              (xref) => xref.active
-            )}`
+          ? ` status=${
+              entry.uniParcCrossReferences.some((xref) => xref.active)
+                ? 'active'
+                : 'inactive'
+            }`
           : ''
       }\n${sequence}`;
     } else if ('representativeMember' in entry) {
