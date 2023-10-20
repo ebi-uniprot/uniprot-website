@@ -32,6 +32,7 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -47,6 +48,8 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
+
+import dataToSchema from './entry.structured';
 
 import {
   LocationToPath,
@@ -303,6 +306,9 @@ const Entry = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isObsolete]);
 
+  const structuredData = useMemo(() => dataToSchema(data), [data]);
+  useStructuredData(structuredData);
+
   if (
     loading ||
     !data ||
@@ -538,7 +544,11 @@ const Entry = () => {
               />
               <GenomicCoordinatesTab
                 primaryAccession={accession}
-                title={`Genomic coordinates for ${accession} canonical sequence`}
+                isoforms={
+                  transformedData[EntrySection.Sequence].alternativeProducts
+                    ?.isoforms
+                }
+                title={`Genomic coordinates for ${accession}`}
               />
             </ErrorBoundary>
           </Suspense>

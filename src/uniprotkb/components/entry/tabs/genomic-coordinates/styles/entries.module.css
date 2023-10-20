@@ -1,0 +1,6 @@
+.table {
+  td,
+  th {
+    padding-inline: 1ch;
+  }
+}

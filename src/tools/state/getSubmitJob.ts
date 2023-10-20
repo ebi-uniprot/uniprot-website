@@ -26,7 +26,11 @@ const getFormJobUrlAndBody = (job: CreatedJob) => {
   // specific logic to transform FormParameters to ServerParameters
   let formData;
   try {
-    formData = formParametersToServerParameters(job.type, job.parameters);
+    formData = formParametersToServerParameters(
+      job.type,
+      job.parameters,
+      job.lowPriority
+    );
   } catch {
     throw new Error('Internal error');
   }

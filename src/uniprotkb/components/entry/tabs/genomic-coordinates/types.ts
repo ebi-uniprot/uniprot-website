@@ -14,6 +14,10 @@ export type GenomicEntry = {
   gnCoordinate?: Array<GenomicCoordinate>;
 };
 
+export type FlatGenomicEntry = Omit<GenomicEntry, 'gnCoordinate'> & {
+  gnCoordinate: GenomicCoordinate;
+};
+
 export type GenomicCoordinate = {
   genomicLocation: GenomicLocation;
   /**
@@ -36,18 +40,42 @@ export type GenomicLocation = {
   reverseStrand?: boolean;
 };
 
-type ExonMap = {
-  proteinLocation: Location; // Swagger says optional, but apparently not
-  genomeLocation: Location; // Swagger says optional, but apparently not
+export type ExonMap = {
+  proteinLocation: LocationForProtein; // Swagger says optional, but apparently not
+  genomeLocation: LocationForGenome; // Swagger says optional, but apparently not
   id?: string;
 };
 
-type Location = {
-  begin: Position; // Swagger says optional, but apparently not
-  end: Position; // Swagger says optional, but apparently not
-  position?: Position; // ?
+// From Swagger
+// type Location = {
+//   begin?: Position;
+//   end?: Position;
+//   position?: Position;
+//   sequence?: string;
+// };
+// It's either begin and end defined, or just position if only 1 amino acid...
+// But that's only for proteins, for genome location it's always begin/end...
+// Let's rewrite it below
+
+interface BasicLocation {
   sequence?: string;
-};
+}
+interface LocationWithStartEnd extends BasicLocation {
+  begin: Position;
+  end: Position;
+  position?: never;
+}
+interface LocationWithSinglePosition extends BasicLocation {
+  begin?: never;
+  end?: never;
+  position: Position;
+}
+type LocationForProtein = LocationWithStartEnd | LocationWithSinglePosition;
+
+interface LocationForGenome extends BasicLocation {
+  begin: Position;
+  end: Position;
+}
 
 type Position = {
   position: number; // Swagger says optional, but apparently not
