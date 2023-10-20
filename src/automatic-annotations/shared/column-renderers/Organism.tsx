@@ -4,7 +4,7 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
-export function organism<Schema>(
+export function organismRenderer<Schema>(
   getter: (
     data: Schema
   ) => TaxonomyDatum | UniProtKBSimplifiedTaxonomy | undefined,

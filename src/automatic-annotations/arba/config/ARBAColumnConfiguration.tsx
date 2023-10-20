@@ -5,7 +5,7 @@ import { mapToLinks } from '../../../shared/components/MapTo';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 
 import { taxonomicScopeRenderer } from '../../shared/column-renderers/TaxonomicScope';
-import { ruleId } from '../../shared/column-renderers/RuleID';
+import { ruleIDRenderer } from '../../shared/column-renderers/RuleID';
 import { annotationCoveredRenderer } from '../../shared/column-renderers/AnnotationCovered';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
@@ -36,7 +36,7 @@ export const ARBAColumnConfiguration: ColumnConfiguration<
 // COLUMN RENDERERS BELOW
 ARBAColumnConfiguration.set(
   ARBAColumn.ruleId,
-  ruleId(({ uniRuleId }) => uniRuleId, 'ARBA', Namespace.arba)
+  ruleIDRenderer(({ uniRuleId }) => uniRuleId, 'ARBA', Namespace.arba)
 );
 
 ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, taxonomicScopeRenderer);

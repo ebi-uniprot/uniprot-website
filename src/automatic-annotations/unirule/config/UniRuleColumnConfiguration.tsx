@@ -8,7 +8,7 @@ import { mapToLinks } from '../../../shared/components/MapTo';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 
 import { taxonomicScopeRenderer } from '../../shared/column-renderers/TaxonomicScope';
-import { ruleId } from '../../shared/column-renderers/RuleID';
+import { ruleIDRenderer } from '../../shared/column-renderers/RuleID';
 import { annotationCoveredRenderer } from '../../shared/column-renderers/AnnotationCovered';
 
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
@@ -43,7 +43,7 @@ export const UniRuleColumnConfiguration: ColumnConfiguration<
 // COLUMN RENDERERS BELOW
 UniRuleColumnConfiguration.set(
   UniRuleColumn.ruleId,
-  ruleId(({ uniRuleId }) => uniRuleId, 'UniRule', Namespace.unirule)
+  ruleIDRenderer(({ uniRuleId }) => uniRuleId, 'UniRule', Namespace.unirule)
 );
 
 UniRuleColumnConfiguration.set(

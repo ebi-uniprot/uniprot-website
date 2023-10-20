@@ -4,7 +4,7 @@ import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
-export function organismId<Schema>(
+export function organismIDRenderer<Schema>(
   getter: (
     data: Schema
   ) => TaxonomyDatum | UniProtKBSimplifiedTaxonomy | undefined
