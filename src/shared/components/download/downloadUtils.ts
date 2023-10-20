@@ -10,7 +10,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
-import { reUniProtKBAccession } from '../../../uniprotkb/utils';
+// import { reUniProtKBAccession } from '../../../uniprotkb/utils';
 import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
 
 import { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
@@ -36,6 +36,9 @@ const ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS = new Set([
   FileFormat.json,
 ]);
 
+// Temporary change to continue work on download
+const reUniProtKBAccession =
+  /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
 const reSubsequence = /\[\d{1,5}-\d{1,5}\]/;
 const reSubsequenceFrom = new RegExp(
   `(${reUniProtKBAccession.source})${reSubsequence.source}`,
