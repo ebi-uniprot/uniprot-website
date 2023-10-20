@@ -7,7 +7,7 @@ import { StatisticsCategory } from './StatisticsPage';
 // Specify the chart’s dimensions.
 const width = 500;
 const height = 400;
-const margin = { top: 10, right: 30, bottom: 50, left: 40 };
+const margin = { top: 10, right: 30, bottom: 40, left: 40 };
 
 const legend = {
   boxSize: 20,
