@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
-import { ReactNode } from 'react';
 import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
@@ -17,6 +16,9 @@ import CountLinkOrNothing from './CountLinkOrNothing';
 import ReviewedUnreviewedStatsTable from './ReviewedUnreviewedStatsTable';
 import ReviewedSequenceCorrections from './ReviewedSequenceCorrections';
 import SequenceLength from './SequenceLength';
+import StatsTable from './StatsTable';
+import AbstractSectionTable from './AbstractSectionTable';
+import UniqueReferencesTable from './UniqueReferencesTable';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -25,7 +27,6 @@ import { stringifyQuery } from '../../../shared/utils/url';
 import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
 import apiUrls from '../../../shared/config/apiUrls';
 import {
-  MergedStatistics,
   MergedStatisticsItem,
   filterAminoAcids,
   getEncodedLocations,
@@ -39,7 +40,6 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
-import StatsTable from './StatsTable';
 
 export type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -79,92 +79,6 @@ export type StatisticsCategory = {
 export type StatisticsPayload = {
   results: StatisticsCategory[];
 };
-
-type AbstractSectionTableProps = {
-  caption: ReactNode;
-  tableData: Array<{
-    header: ReactNode;
-    data: MergedStatistics;
-    query?: string;
-    accessor?: 'count' | 'entryCount';
-  }>;
-};
-
-const AbstractSectionTable = ({
-  caption,
-  tableData,
-}: AbstractSectionTableProps) => (
-  <table>
-    <caption>{caption}</caption>
-    <thead>
-      <tr>
-        <th>Section</th>
-        {tableData.map(({ header }, index) => (
-          <th key={index}>{header}</th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>UniProtKB</td>
-        {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
-          <td key={index} className={styles.end}>
-            <CountLinkOrNothing
-              condition={Boolean(query)}
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: stringifyQuery({ query }),
-              }}
-            >
-              {(data.reviewed?.[accessor] || 0) +
-                (data.unreviewed?.[accessor] || 0)}
-            </CountLinkOrNothing>
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <td>⮑ UniProtKB reviewed</td>
-        {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
-          <td key={index} className={styles.end}>
-            <CountLinkOrNothing
-              condition={Boolean(query)}
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: stringifyQuery({
-                  query: `(reviewed:true)${
-                    query === '*' ? '' : ` AND ${query}`
-                  }`,
-                }),
-              }}
-            >
-              {data.reviewed?.[accessor] || 0}
-            </CountLinkOrNothing>
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <td>⮑ UniProtKB unreviewed</td>
-        {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
-          <td key={index} className={styles.end}>
-            <CountLinkOrNothing
-              condition={Boolean(query)}
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: stringifyQuery({
-                  query: `(reviewed:false)${
-                    query === '*' ? '' : ` AND ${query}`
-                  }`,
-                }),
-              }}
-            >
-              {data.unreviewed?.[accessor] || 0}
-            </CountLinkOrNothing>
-          </td>
-        ))}
-      </tr>
-    </tbody>
-  </table>
-);
 
 export type TableProps = {
   reviewedData: StatisticsCategory;
@@ -613,6 +527,10 @@ const StatisticsPage = () => {
         <IntroductionSequenceTable
           reviewedData={reviewedData.SEQUENCE_STATS}
           unreviewedData={unreviewedData.SEQUENCE_STATS}
+        />
+        <UniqueReferencesTable
+          reviewedData={reviewedData.MISCELLANEOUS}
+          unreviewedData={unreviewedData.MISCELLANEOUS}
         />
         <ProteinExistenceTable
           reviewedData={reviewedData.PROTEIN_EXISTENCE}
