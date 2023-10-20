@@ -48,12 +48,12 @@ UniRuleColumnConfiguration.set(
 
 UniRuleColumnConfiguration.set(
   UniRuleColumn.taxonomicScope,
-  taxonomicScopeRenderer()
+  taxonomicScopeRenderer
 );
 
 UniRuleColumnConfiguration.set(
   UniRuleColumn.annotationCovered,
-  annotationCoveredRenderer()
+  annotationCoveredRenderer
 );
 
 UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {

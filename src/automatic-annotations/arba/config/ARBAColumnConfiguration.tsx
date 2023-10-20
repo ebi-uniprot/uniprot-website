@@ -39,14 +39,11 @@ ARBAColumnConfiguration.set(
   ruleId(({ uniRuleId }) => uniRuleId, 'ARBA', Namespace.arba)
 );
 
-ARBAColumnConfiguration.set(
-  ARBAColumn.taxonomicScope,
-  taxonomicScopeRenderer()
-);
+ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, taxonomicScopeRenderer);
 
 ARBAColumnConfiguration.set(
   ARBAColumn.annotationCovered,
-  annotationCoveredRenderer()
+  annotationCoveredRenderer
 );
 
 ARBAColumnConfiguration.set(ARBAColumn.statistics, {

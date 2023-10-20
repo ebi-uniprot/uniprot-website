@@ -61,14 +61,12 @@ const TaxonomicScope = ({
   );
 };
 
-export function taxonomicScopeRenderer() {
-  return {
-    ...getLabelAndTooltip(
-      'Taxonomic scope',
-      'The taxonomic scope to which the annotation rule applies'
-    ),
-    render: TaxonomicScope,
-  };
-}
+export const taxonomicScopeRenderer = {
+  ...getLabelAndTooltip(
+    'Taxonomic scope',
+    'The taxonomic scope to which the annotation rule applies'
+  ),
+  render: TaxonomicScope,
+};
 
 export default TaxonomicScope;
