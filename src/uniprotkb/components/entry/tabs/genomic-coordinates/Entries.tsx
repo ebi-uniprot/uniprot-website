@@ -30,9 +30,10 @@ const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 type EntryProps = {
   entries: FlatGenomicEntry[];
   xrefInfo: DatabaseInfoPoint | null;
+  ensID?: boolean;
 };
 
-const Entry = ({ entries, xrefInfo }: EntryProps) => {
+const Entry = ({ entries, xrefInfo, ensID }: EntryProps) => {
   const representativeEntry = entries[0];
 
   const infoData = [
@@ -43,7 +44,7 @@ const Entry = ({ entries, xrefInfo }: EntryProps) => {
           <GenomicLoc
             genomicLocation={representativeEntry.gnCoordinate.genomicLocation}
             taxID={entries[0].taxid}
-            noLink={!xrefInfo}
+            noLink={!ensID}
           />
         ),
     },
@@ -52,7 +53,7 @@ const Entry = ({ entries, xrefInfo }: EntryProps) => {
       content: representativeEntry.gnCoordinate.genomicLocation.exon.length,
     },
     {
-      title: `${xrefInfo ? 'Ensembl t' : 'T'}ranslation ${pluralise(
+      title: `${ensID ? 'Ensembl t' : 'T'}ranslation ${pluralise(
         'ID',
         entries.length
       )}`,
@@ -80,7 +81,7 @@ const Entry = ({ entries, xrefInfo }: EntryProps) => {
       ),
     },
     {
-      title: `${xrefInfo ? 'Ensembl t' : 'T'}ranscript ${pluralise(
+      title: `${ensID ? 'Ensembl t' : 'T'}ranscript ${pluralise(
         'ID',
         entries.length
       )}`,
@@ -138,11 +139,13 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
   // First pair, entry info, first flattened entry info
   const representativeEntry = accessionEntriesPairs[0][1][0];
 
-  const { Ensembl } = useDatabaseInfoMaps()?.databaseToDatabaseInfo || {};
+  const { Ensembl, EnsemblBacteria } =
+    useDatabaseInfoMaps()?.databaseToDatabaseInfo || {};
 
-  // Mostly from Ensembl
-  let xrefInfo: DatabaseInfoPoint | null = null;
-  if (representativeEntry.gnCoordinate.ensemblGeneId?.startsWith('ENS')) {
+  const ensID =
+    representativeEntry.gnCoordinate.ensemblGeneId?.startsWith('ENS');
+  let xrefInfo: DatabaseInfoPoint = EnsemblBacteria;
+  if (ensID) {
     xrefInfo = Ensembl;
   }
 
@@ -158,7 +161,7 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
         : 'Forward',
     },
     {
-      title: `${xrefInfo ? 'Ensembl g' : 'G'}ene ID`,
+      title: `${ensID ? 'Ensembl g' : 'G'}ene ID`,
       content:
         representativeEntry.gnCoordinate.ensemblGeneId &&
         (xrefInfo?.uriLink ? (
@@ -216,13 +219,18 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
     >
       <InfoList infoData={infoData} columns />
       {accessionEntriesPairs.map(([accession, entries]) => (
-        <Entry key={accession} entries={entries} xrefInfo={xrefInfo} />
+        <Entry
+          key={accession}
+          entries={entries}
+          xrefInfo={xrefInfo}
+          ensID={ensID}
+        />
       ))}
       <DatatableWrapper alwaysExpanded>
         <table className={cn(styles.table, helper['no-wrap'])}>
           <thead>
             <tr>
-              <th>{xrefInfo ? 'Ensembl e' : 'E'}xon ID</th>
+              <th>{ensID ? 'Ensembl e' : 'E'}xon ID</th>
               <th>Genomic coordinates</th>
               {mappedIsoforms.map((isoformID) => (
                 <th
@@ -263,7 +271,7 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
               return (
                 <tr key={id}>
                   <td>
-                    {xrefInfo?.uriLink ? (
+                    {ensID && xrefInfo.uriLink ? (
                       <ExternalLink
                         url={processUrlTemplate(xrefInfo.uriLink, { id })}
                       >
@@ -274,7 +282,7 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                     )}
                   </td>
                   <td>
-                    {xrefInfo ? (
+                    {ensID ? (
                       <ExternalLink
                         url={getEnsemblLink(
                           representativeEntry.taxid,
