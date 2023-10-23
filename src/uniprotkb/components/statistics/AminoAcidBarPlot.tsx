@@ -5,7 +5,7 @@ import { sum } from 'lodash-es';
 import { StatisticsCategory } from './StatisticsPage';
 
 // Specify the chart’s dimensions.
-const width = 500;
+const width = 400;
 const height = 400;
 const margin = { top: 10, right: 30, bottom: 40, left: 40 };
 
@@ -58,37 +58,40 @@ const aaToProperty: Record<string, AAProperty> = {
 };
 
 type Props = {
-  category: StatisticsCategory;
+  category?: StatisticsCategory;
 };
 const AminoAcidBarPlot = ({ category }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const aaCounts = category.items
+  const aaCounts = category?.items
     .map(({ label, count }) => [label, count])
     .filter((d): d is [string, number] => Boolean(d[0]));
-  const sumCount = sum(aaCounts.map(([, count]) => count));
-  const aaPercentages: [string, number][] = aaCounts.map(([aa, count]) => [
-    aa,
-    100 * (count / sumCount),
-  ]);
-  const aaPercentagesSorted = aaPercentages.sort(
+  const sumCount = sum(aaCounts?.map(([, count]) => count));
+  const aaPercentages: [string, number][] | undefined = aaCounts?.map(
+    ([aa, count]) => [aa, 100 * (count / sumCount)]
+  );
+  const aaPercentagesSorted = aaPercentages?.sort(
     ([, aPercentage], [, bPercentage]) => bPercentage - aPercentage
   );
-  const maxPercentage = aaPercentagesSorted[0][1];
+  const maxPercentage = aaPercentagesSorted?.[0][1];
 
   // x-axis
-  const xScale = scaleBand()
-    .domain(aaPercentagesSorted.map(([aa]) => aa)) // units: amino acid
-    .range([0, width]) // units: pixels
-    .padding(0.2);
+  const xScale =
+    aaPercentagesSorted &&
+    scaleBand()
+      .domain(aaPercentagesSorted.map(([aa]) => aa)) // units: amino acid
+      .range([0, width]) // units: pixels
+      .padding(0.2);
 
   // y-axis
-  const yScale = scaleLinear()
-    .domain([0, maxPercentage]) // units: percentage
-    .range([height, 0]); // units: pixels
+  const yScale =
+    maxPercentage &&
+    scaleLinear()
+      .domain([0, maxPercentage]) // units: percentage
+      .range([height, 0]); // units: pixels
 
   useEffect(() => {
-    if (svgRef.current) {
+    if (svgRef.current && xScale && yScale) {
       const chart = select(svgRef.current).select('g');
       chart.select<SVGGElement>('.x-axis').call(axisBottom(xScale));
       chart.select<SVGGElement>('.y-axis').call(axisLeft(yScale));
@@ -120,17 +123,19 @@ const AminoAcidBarPlot = ({ category }: Props) => {
         >
           % of sequences
         </text>
-        {aaPercentagesSorted.map(([aa, percentage]) => (
-          <rect
-            key={aa}
-            x={xScale(aa)}
-            y={yScale(percentage)}
-            width={xScale.bandwidth()}
-            height={height - (yScale(percentage) || 0)}
-            fill={propertyToColor[aaToProperty[aa]]}
-            stroke="black"
-          />
-        ))}
+        {xScale &&
+          yScale &&
+          aaPercentagesSorted?.map(([aa, percentage]) => (
+            <rect
+              key={aa}
+              x={xScale(aa)}
+              y={yScale(percentage)}
+              width={xScale.bandwidth()}
+              height={height - (yScale(percentage) || 0)}
+              fill={propertyToColor[aaToProperty[aa]]}
+              stroke="black"
+            />
+          ))}
         {Object.entries(propertyToColor).map(([property, color], i) => (
           <g
             key={property}

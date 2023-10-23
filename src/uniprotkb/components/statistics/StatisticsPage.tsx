@@ -653,14 +653,27 @@ const StatisticsPage = () => {
         <h2>Amino acid composition</h2>
         <ReviewedUnreviewedTabs>
           <div className={styles['side-by-side']}>
-            <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
+            <LazyComponent
+              // Keep the space with an empty visualisation
+              fallback={<AminoAcidBarPlot />}
+              rootMargin="0px 0px"
+            >
+              <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
+            </LazyComponent>
+
             <StatsTable
               key="reviewed"
               category={filterAminoAcids(reviewedData.SEQUENCE_AMINO_ACID)}
             />
           </div>
           <div className={styles['side-by-side']}>
-            <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
+            <LazyComponent
+              // Keep the space with an empty visualisation
+              fallback={<AminoAcidBarPlot />}
+              rootMargin="0px 0px"
+            >
+              <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
+            </LazyComponent>
             <StatsTable
               key="reviewed"
               category={filterAminoAcids(unreviewedData.SEQUENCE_AMINO_ACID)}
