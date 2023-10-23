@@ -1,4 +1,5 @@
 import { sumBy } from 'lodash-es';
+import { formatLargeNumber } from 'franklin-sites';
 import { RequireAtLeastOne } from 'type-fest';
 
 import { stringifyQuery } from '../../../shared/utils/url';
@@ -86,7 +87,9 @@ export const getUniqueAuthorString = (data: CategoryToStatistics) => {
     ({ name }) => name === 'UNIQUE_AUTHOR'
   );
   return uniqueAuthors?.count
-    ? `Total number of distinct authors cited: ${uniqueAuthors.count}`
+    ? `Total number of distinct authors cited: ${formatLargeNumber(
+        uniqueAuthors.count
+      )}`
     : '';
 };
 
