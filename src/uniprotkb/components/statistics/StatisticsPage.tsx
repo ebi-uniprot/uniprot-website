@@ -15,7 +15,7 @@ import FrequencyTable from './FrequencyTable';
 import CountLinkOrNothing from './CountLinkOrNothing';
 import ReviewedUnreviewedStatsTable from './ReviewedUnreviewedStatsTable';
 import ReviewedSequenceCorrections from './ReviewedSequenceCorrections';
-import SequenceLength from './SequenceLength';
+import SequenceLengthLinePlot from './SequenceLengthLinePlot';
 import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
@@ -571,16 +571,22 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
-        <LazyComponent
-          // Keep the space with an empty visualisation
-          fallback={<SequenceLength />}
-          rootMargin="0px 0px"
-        >
-          <SequenceLength
-            reviewed={reviewedData.SEQUENCE_COUNT.items}
-            unreviewed={unreviewedData.SEQUENCE_COUNT.items}
-          />
-        </LazyComponent>
+        <ReviewedUnreviewedTabs>
+          <LazyComponent
+            // Keep the space with an empty visualisation
+            fallback={<SequenceLengthLinePlot />}
+            rootMargin="0px 0px"
+          >
+            <SequenceLengthLinePlot category={reviewedData.SEQUENCE_COUNT} />
+          </LazyComponent>
+          <LazyComponent
+            // Keep the space with an empty visualisation
+            fallback={<SequenceLengthLinePlot />}
+            rootMargin="0px 0px"
+          >
+            <SequenceLengthLinePlot category={unreviewedData.SEQUENCE_COUNT} />
+          </LazyComponent>
+        </ReviewedUnreviewedTabs>
 
         <FrequencyTable
           reviewedData={reviewedData.SEQUENCE_RANGE}
