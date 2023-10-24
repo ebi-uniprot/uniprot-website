@@ -28,7 +28,7 @@ import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
 import apiUrls from '../../../shared/config/apiUrls';
 import {
   MergedStatisticsItem,
-  filterAminoAcids,
+  setAminoAcidsTotalCount,
   getEncodedLocations,
   getSequenceSizeLocation,
   getUniqueAuthorString,
@@ -660,10 +660,13 @@ const StatisticsPage = () => {
             >
               <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
             </LazyComponent>
-
             <StatsTable
               key="reviewed"
-              category={filterAminoAcids(reviewedData.SEQUENCE_AMINO_ACID)}
+              category={setAminoAcidsTotalCount(
+                reviewedData.SEQUENCE_AMINO_ACID
+              )}
+              name="Amino acid"
+              alwaysExpand
             />
           </div>
           <div className={styles['side-by-side']}>
@@ -676,7 +679,9 @@ const StatisticsPage = () => {
             </LazyComponent>
             <StatsTable
               key="reviewed"
-              category={filterAminoAcids(unreviewedData.SEQUENCE_AMINO_ACID)}
+              category={setAminoAcidsTotalCount(
+                unreviewedData.SEQUENCE_AMINO_ACID
+              )}
             />
           </div>
         </ReviewedUnreviewedTabs>

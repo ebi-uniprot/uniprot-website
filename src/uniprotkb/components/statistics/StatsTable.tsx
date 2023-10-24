@@ -30,10 +30,17 @@ const sortByCount = new Set<CategoryName>([
 type StatsTableProps = {
   category: StatisticsCategory;
   caption?: ReactNode;
+  alwaysExpand?: boolean;
+  name?: string;
 };
 
-const StatsTable = ({ category, caption }: StatsTableProps) => {
-  const [expand, setExpand] = useState(false);
+const StatsTable = ({
+  category,
+  caption,
+  alwaysExpand,
+  name,
+}: StatsTableProps) => {
+  const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
 
   const onExpandCollapseClick = useCallback(() => {
@@ -68,7 +75,7 @@ const StatsTable = ({ category, caption }: StatsTableProps) => {
         {caption && <caption>{caption}</caption>}
         <thead>
           <tr>
-            <th>Name</th>
+            <th>{name || 'Name'}</th>
             {!hasOnlyEntryCounts && <th>Count</th>}
             {hasPercent && !hasOnlyEntryCounts && <th>Percent</th>}
             {hasEntryCount && <th>Entry count</th>}
@@ -124,7 +131,7 @@ const StatsTable = ({ category, caption }: StatsTableProps) => {
           })}
         </tbody>
       </table>
-      {rows.length > tableCollapsedRows && (
+      {!alwaysExpand && rows.length > tableCollapsedRows && (
         <Button onClick={onExpandCollapseClick}>
           {expand ? 'Collapse' : 'Expand'} table
         </Button>

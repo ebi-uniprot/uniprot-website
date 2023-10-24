@@ -111,12 +111,7 @@ export const getEncodedLocations = (data: CategoryToStatistics) => {
 export const getSequenceCorrections = (data: CategoryToStatistics) =>
   data.MISCELLANEOUS.items.find(({ name }) => name === 'SEQUENCE_CORRECTION');
 
-export const filterAminoAcids = (data: StatisticsCategory) => {
-  const items = data.items.filter(({ label }) => Boolean(label));
-  const totalCount = sumBy(items, 'count');
-  return {
-    ...data,
-    items,
-    totalCount,
-  };
-};
+export const setAminoAcidsTotalCount = (data: StatisticsCategory) => ({
+  ...data,
+  totalCount: sumBy(data.items, 'count'),
+});
