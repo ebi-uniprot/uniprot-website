@@ -554,6 +554,7 @@ const StatisticsPage = () => {
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           caption="Table of the most represented species"
+          nameLabel="Species"
         />
         <TaxonomiDistributionTable
           reviewedData={reviewedData.SUPERKINGDOM}
@@ -613,6 +614,7 @@ const StatisticsPage = () => {
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           countLabel="Citations"
+          nameLabel="Journal"
         />
       </Card>
       <Card id="statistics-for-some-line-type">
@@ -628,21 +630,25 @@ const StatisticsPage = () => {
           unreviewedData={unreviewedData}
           reviewedCaption={getUniqueAuthorString(reviewedData)}
           unreviewedCaption={getUniqueAuthorString(unreviewedData)}
+          nameLabel="Publication type"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="FEATURES"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
+          nameLabel="Feature"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="COMMENTS"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
+          nameLabel="Comment"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="CROSS_REFERENCE"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
+          nameLabel="Cross reference"
         />
       </Card>
       <Card id="amino-acid-composition">
@@ -689,6 +695,7 @@ const StatisticsPage = () => {
           categoryName="MISCELLANEOUS"
           reviewedData={getEncodedLocations(reviewedData)}
           unreviewedData={getEncodedLocations(unreviewedData)}
+          nameLabel="Encoded location"
         />
         <ReviewedSequenceCorrections data={reviewedData} />
       </Card>

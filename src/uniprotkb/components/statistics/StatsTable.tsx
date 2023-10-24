@@ -80,7 +80,13 @@ const StatsTable = ({
             <th>{nameLabel || 'Name'}</th>
             {!hasOnlyEntryCounts && <th>{countLabel || 'Count'}</th>}
             {hasPercent && !hasOnlyEntryCounts && <th>Percent</th>}
-            {hasEntryCount && <th>Entry count</th>}
+            {hasEntryCount && (
+              <th>
+                {nameLabel
+                  ? `Entries with ${nameLabel.toLowerCase()}`
+                  : 'Entry count'}
+              </th>
+            )}
             {hasPercent && hasOnlyEntryCounts && <th>Percent</th>}
             {/* {!hasOnlyEntryCounts && <th>Per-entry average</th>} */}
             {hasDescription && <th>Description</th>}
