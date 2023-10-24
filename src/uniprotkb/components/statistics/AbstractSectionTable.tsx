@@ -18,11 +18,13 @@ type AbstractSectionTableProps = {
     query?: string;
     accessor?: 'count' | 'entryCount';
   }>;
+  excludeUniProtKB?: boolean;
 };
 
 const AbstractSectionTable = ({
   caption,
   tableData,
+  excludeUniProtKB,
 }: AbstractSectionTableProps) => (
   <table>
     <caption>{caption}</caption>
@@ -35,25 +37,27 @@ const AbstractSectionTable = ({
       </tr>
     </thead>
     <tbody>
+      {!excludeUniProtKB && (
+        <tr>
+          <td>UniProtKB</td>
+          {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
+            <td key={index} className={styles.end}>
+              <CountLinkOrNothing
+                condition={Boolean(query)}
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: stringifyQuery({ query }),
+                }}
+              >
+                {(data.reviewed?.[accessor] || 0) +
+                  (data.unreviewed?.[accessor] || 0)}
+              </CountLinkOrNothing>
+            </td>
+          ))}
+        </tr>
+      )}
       <tr>
-        <td>UniProtKB</td>
-        {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
-          <td key={index} className={styles.end}>
-            <CountLinkOrNothing
-              condition={Boolean(query)}
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: stringifyQuery({ query }),
-              }}
-            >
-              {(data.reviewed?.[accessor] || 0) +
-                (data.unreviewed?.[accessor] || 0)}
-            </CountLinkOrNothing>
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <td>⮑ UniProtKB reviewed</td>
+        <td>{!excludeUniProtKB && '⮑'} UniProtKB reviewed</td>
         {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
           <td key={index} className={styles.end}>
             <CountLinkOrNothing
@@ -73,7 +77,7 @@ const AbstractSectionTable = ({
         ))}
       </tr>
       <tr>
-        <td>⮑ UniProtKB unreviewed</td>
+        <td>{!excludeUniProtKB && '⮑'} UniProtKB unreviewed</td>
         {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
           <td key={index} className={styles.end}>
             <CountLinkOrNothing
