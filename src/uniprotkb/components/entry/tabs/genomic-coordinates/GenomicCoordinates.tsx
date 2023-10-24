@@ -75,10 +75,10 @@ const GenomicCoordinates = ({
         <ContactLink>get in touch</ContactLink> to provide feedback about it
       </Message>
       {title && <h2>{title}</h2>}
-      <p>
+      {/* <p>
         Mapping based on reference genome assembly:{' '}
         <i>unknown (information pending)</i>
-      </p>
+      </p> */}
       {Object.entries(groupedData).map(([gene, data], index) => (
         <Entries
           key={gene}

@@ -29,12 +29,6 @@ exports[`GenomicCoordinates component renders on data 1`] = `
          to provide feedback about it
       </div>
     </div>
-    <p>
-      Mapping based on reference genome assembly: 
-      <i>
-        unknown (information pending)
-      </i>
-    </p>
     <section
       class="card"
     >
