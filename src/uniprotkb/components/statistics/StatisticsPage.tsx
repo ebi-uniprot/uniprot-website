@@ -595,11 +595,6 @@ const StatisticsPage = () => {
           caption="Repartition of the sequences by size (excluding fragments)"
           locationGetter={getSequenceSizeLocation}
         />
-        <ReviewedUnreviewedStatsTable
-          categoryName="SEQUENCE_COUNT"
-          reviewedData={reviewedData}
-          unreviewedData={unreviewedData}
-        />
       </Card>
       <Card id="journal-citations">
         <h2>Journal citations</h2>
