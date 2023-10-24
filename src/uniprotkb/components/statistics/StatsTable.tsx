@@ -31,14 +31,16 @@ type StatsTableProps = {
   category: StatisticsCategory;
   caption?: ReactNode;
   alwaysExpand?: boolean;
-  name?: string;
+  nameLabel?: string;
+  countLabel?: string;
 };
 
 const StatsTable = ({
   category,
   caption,
   alwaysExpand,
-  name,
+  nameLabel,
+  countLabel,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
@@ -75,8 +77,8 @@ const StatsTable = ({
         {caption && <caption>{caption}</caption>}
         <thead>
           <tr>
-            <th>{name || 'Name'}</th>
-            {!hasOnlyEntryCounts && <th>Count</th>}
+            <th>{nameLabel || 'Name'}</th>
+            {!hasOnlyEntryCounts && <th>{countLabel || 'Count'}</th>}
             {hasPercent && !hasOnlyEntryCounts && <th>Percent</th>}
             {hasEntryCount && <th>Entry count</th>}
             {hasPercent && hasOnlyEntryCounts && <th>Percent</th>}

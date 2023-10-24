@@ -11,6 +11,7 @@ type Props = {
   reviewedCaption?: string;
   unreviewedCaption?: string;
   title?: string;
+  countLabel?: string;
 };
 
 const ReviewedUnreviewedStatsTable = ({
@@ -21,17 +22,20 @@ const ReviewedUnreviewedStatsTable = ({
   reviewedCaption,
   unreviewedCaption,
   title,
+  countLabel,
 }: Props) => (
   <ReviewedUnreviewedTabs title={title || reviewedData[categoryName].label}>
     <StatsTable
       key="reviewed"
       category={reviewedData[categoryName]}
       caption={reviewedCaption || caption}
+      countLabel={countLabel}
     />
     <StatsTable
       key="unreviewed"
       category={unreviewedData[categoryName]}
       caption={unreviewedCaption || caption}
+      countLabel={countLabel}
     />
   </ReviewedUnreviewedTabs>
 );

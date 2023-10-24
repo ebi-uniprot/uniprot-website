@@ -617,6 +617,7 @@ const StatisticsPage = () => {
           categoryName="TOP_JOURNAL"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
+          countLabel="Citations"
         />
       </Card>
       <Card id="statistics-for-some-line-type">
@@ -665,7 +666,7 @@ const StatisticsPage = () => {
               category={setAminoAcidsTotalCount(
                 reviewedData.SEQUENCE_AMINO_ACID
               )}
-              name="Amino acid"
+              nameLabel="Amino acid"
               alwaysExpand
             />
           </div>
