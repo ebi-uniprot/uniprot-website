@@ -52,7 +52,8 @@ const StatsTable = ({ category, caption }: StatsTableProps) => {
   // Exceptions
   const hasEntryCount = category.categoryName !== 'TOTAL_ORGANISM';
   const hasPercent =
-    category.items.length > 1 && category.categoryName !== 'TOP_ORGANISM';
+    category.items.length > 1 &&
+    category.categoryName === 'SEQUENCE_AMINO_ACID';
   let rows = category.items;
   if (category.categoryName === 'SEQUENCE_COUNT') {
     rows = Array.from(category.items).sort((a, b) => +a.name - +b.name);
