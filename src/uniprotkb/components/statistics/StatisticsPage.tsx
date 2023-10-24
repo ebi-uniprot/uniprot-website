@@ -684,6 +684,8 @@ const StatisticsPage = () => {
               category={setAminoAcidsTotalCount(
                 unreviewedData.SEQUENCE_AMINO_ACID
               )}
+              nameLabel="Amino acid"
+              alwaysExpand
             />
           </div>
         </ReviewedUnreviewedTabs>

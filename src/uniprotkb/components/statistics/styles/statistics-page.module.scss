@@ -38,6 +38,14 @@
     border: 1px solid $colour-sea-blue;
     border-collapse: collapse;
   }
+
+  :global(.tabs) {
+    margin-bottom: $global-margin;
+  }
+
+  :global(.tabs__header) {
+    margin-bottom: -0.5 * $global-margin;
+  }
 }
 
 .end {
