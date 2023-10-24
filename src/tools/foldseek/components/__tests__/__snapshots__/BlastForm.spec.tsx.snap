@@ -1,0 +1,546 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlastForm test Renders the form 1`] = `
+<DocumentFragment>
+  <div
+    class="page-intro"
+    translate="no"
+  >
+    <h1
+      class=""
+    >
+      BLAST
+    </h1>
+  </div>
+  <form
+    aria-label="BLAST job submission form"
+  >
+    <fieldset>
+      <section
+        class="tools-form-section__item"
+      >
+        <legend>
+          Find a protein sequence to run BLAST sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+        </legend>
+        <div
+          class="import-sequence-section"
+        >
+          <span
+            class="search-input"
+          >
+            <input
+              data-testid="search-input"
+              placeholder="UniProt IDs"
+              type="text"
+              value=""
+            />
+            <span
+              class="search-input__suffix"
+              data-testid="search-input-suffix"
+              role="presentation"
+            >
+              <test-file-stub
+                height="14"
+                width="14"
+              />
+            </span>
+          </span>
+        </div>
+      </section>
+    </fieldset>
+    <section
+      class="text-block"
+    >
+      <strong>
+        OR
+      </strong>
+    </section>
+    <fieldset>
+      <section
+        class="text-block"
+      >
+        <legend>
+          Enter one or more sequences (5 max). You may also
+          <label
+            class="tools-form-section__file-input"
+          >
+            load from a text file
+            <input
+              type="file"
+            />
+          </label>
+          .
+        </legend>
+        <textarea
+          class="sequence-submission-input"
+          data-testid="sequence-submission-input"
+          placeholder="Protein or nucleotide sequence(s) in FASTA format."
+          spellcheck="false"
+        />
+      </section>
+      <section
+        class="tools-form-section"
+      >
+        <section
+          class="tools-form-section__item"
+        >
+          <label>
+            Target database
+            <select>
+              <option
+                data-testid="Target database-uniprotkb_refprotswissprot"
+                value="uniprotkb_refprotswissprot"
+              >
+                UniProtKB reference proteomes + Swiss-Prot
+              </option>
+              <option
+                data-testid="Target database-uniprotkb"
+                value="uniprotkb"
+              >
+                UniProtKB
+              </option>
+              <option
+                data-testid="Target database-uniprotkb_pdb"
+                value="uniprotkb_pdb"
+              >
+                UniProtKB with 3D structure (PDB)
+              </option>
+              <option
+                data-testid="Target database-afdb"
+                value="afdb"
+              >
+                UniProtKB with 3D structure predictions (AlphaFold)
+              </option>
+              <option
+                data-testid="Target database-uniprotkb_reference_proteomes"
+                value="uniprotkb_reference_proteomes"
+              >
+                UniProtKB reference proteomes
+              </option>
+              <option
+                data-testid="Target database-uniprotkb_swissprot"
+                value="uniprotkb_swissprot"
+              >
+                UniProtKB Swiss-Prot
+              </option>
+              <option
+                data-testid="Target database-uniref100"
+                value="uniref100"
+              >
+                UniRef100
+              </option>
+              <option
+                data-testid="Target database-uniref90"
+                value="uniref90"
+              >
+                UniRef90
+              </option>
+              <option
+                data-testid="Target database-uniref50"
+                value="uniref50"
+              >
+                UniRef50
+              </option>
+              <option
+                data-testid="Target database-uniparc"
+                value="uniparc"
+              >
+                UniParc
+              </option>
+            </select>
+          </label>
+        </section>
+        <section
+          class="tools-form-section__item tools-form-section__item--taxon-select"
+        >
+          <label>
+            Restrict by taxonomy
+            <div
+              class="autocomplete-container"
+              translate="no"
+            >
+              <span
+                class="search-input"
+              >
+                <input
+                  data-testid="search-input"
+                  placeholder="Enter taxon names or IDs to include"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="search-input__suffix"
+                  data-testid="search-input-suffix"
+                  role="presentation"
+                >
+                  <test-file-stub
+                    height="14"
+                    width="14"
+                  />
+                </span>
+              </span>
+              <div
+                class="autocomplete-menu"
+              >
+                <div
+                  class="dropdown-menu__panel"
+                />
+              </div>
+            </div>
+          </label>
+        </section>
+        <section
+          class="tools-form-section__item tools-form-section__item--selected-taxon"
+        />
+      </section>
+      <section
+        class="tools-form-section"
+      >
+        <section
+          class="tools-form-section__item"
+        >
+          <label>
+            Name your 
+            <span
+              translate="no"
+            >
+              BLAST
+            </span>
+             job
+            <input
+              autocomplete="off"
+              data-hj-allow="true"
+              maxlength="100"
+              name="title"
+              placeholder=""my job title""
+              style="width: 2ch;"
+              type="text"
+              value=""
+            />
+          </label>
+        </section>
+      </section>
+      <details
+        class="tools-form-advanced"
+        open=""
+      >
+        <summary>
+          <span>
+            Advanced parameters
+          </span>
+        </summary>
+        <section
+          class="tools-form-section"
+        >
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Sequence type
+              <select>
+                <option
+                  data-testid="Sequence type-protein"
+                  value="protein"
+                >
+                  Protein
+                </option>
+                <option
+                  data-testid="Sequence type-dna"
+                  value="dna"
+                >
+                  DNA/RNA
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Program
+              <select>
+                <option
+                  data-testid="Program-blastp"
+                  value="blastp"
+                >
+                  blastp
+                </option>
+                <option
+                  data-testid="Program-blastx"
+                  value="blastx"
+                >
+                  blastx
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              E-Threshold
+              <select>
+                <option
+                  data-testid="E-Threshold-1e-4"
+                  value="1e-4"
+                >
+                  0.0001
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-3"
+                  value="1e-3"
+                >
+                  0.001
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-2"
+                  value="1e-2"
+                >
+                  0.01
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-1"
+                  value="1e-1"
+                >
+                  0.1
+                </option>
+                <option
+                  data-testid="E-Threshold-1.0"
+                  value="1.0"
+                >
+                  1
+                </option>
+                <option
+                  data-testid="E-Threshold-10"
+                  value="10"
+                >
+                  10
+                </option>
+                <option
+                  data-testid="E-Threshold-100"
+                  value="100"
+                >
+                  100
+                </option>
+                <option
+                  data-testid="E-Threshold-1000"
+                  value="1000"
+                >
+                  1000
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Matrix
+              <select>
+                <option
+                  data-testid="Matrix-auto"
+                  value="auto"
+                >
+                  Auto - BLOSUM62
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM45"
+                  value="BLOSUM45"
+                >
+                  BLOSUM45
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM62"
+                  value="BLOSUM62"
+                >
+                  BLOSUM62
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM80"
+                  value="BLOSUM80"
+                >
+                  BLOSUM80
+                </option>
+                <option
+                  data-testid="Matrix-PAM70"
+                  value="PAM70"
+                >
+                  PAM70
+                </option>
+                <option
+                  data-testid="Matrix-PAM30"
+                  value="PAM30"
+                >
+                  PAM30
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Filter
+              <select>
+                <option
+                  data-testid="Filter-F"
+                  value="F"
+                >
+                  None
+                </option>
+                <option
+                  data-testid="Filter-T"
+                  value="T"
+                >
+                  Filter low complexity regions
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Gapped
+              <select>
+                <option
+                  data-testid="Gapped-true"
+                  value="true"
+                >
+                  yes
+                </option>
+                <option
+                  data-testid="Gapped-false"
+                  value="false"
+                >
+                  no
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Hits
+              <select>
+                <option
+                  data-testid="Hits-50"
+                  value="50"
+                >
+                  50
+                </option>
+                <option
+                  data-testid="Hits-100"
+                  value="100"
+                >
+                  100
+                </option>
+                <option
+                  data-testid="Hits-250"
+                  value="250"
+                >
+                  250
+                </option>
+                <option
+                  data-testid="Hits-500"
+                  value="500"
+                >
+                  500
+                </option>
+                <option
+                  data-testid="Hits-750"
+                  value="750"
+                >
+                  750
+                </option>
+                <option
+                  data-testid="Hits-1000"
+                  value="1000"
+                >
+                  1000
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              HSPs per hit
+              <select>
+                <option
+                  data-testid="HSPs per hit-All"
+                  value="All"
+                >
+                  All
+                </option>
+                <option
+                  data-testid="HSPs per hit-1"
+                  value="1"
+                >
+                  1
+                </option>
+                <option
+                  data-testid="HSPs per hit-2"
+                  value="2"
+                >
+                  2
+                </option>
+                <option
+                  data-testid="HSPs per hit-5"
+                  value="5"
+                >
+                  5
+                </option>
+                <option
+                  data-testid="HSPs per hit-10"
+                  value="10"
+                >
+                  10
+                </option>
+                <option
+                  data-testid="HSPs per hit-50"
+                  value="50"
+                >
+                  50
+                </option>
+                <option
+                  data-testid="HSPs per hit-100"
+                  value="100"
+                >
+                  100
+                </option>
+              </select>
+            </label>
+          </section>
+        </section>
+      </details>
+      <section
+        class="tools-form-section sticky-bottom-right"
+      >
+        <section
+          class="button-group tools-form-section__buttons"
+        >
+          <input
+            class="button secondary"
+            type="reset"
+          />
+          <button
+            class="button primary"
+            disabled=""
+            type="submit"
+          >
+            Run 
+            <span
+              translate="no"
+            >
+              BLAST
+            </span>
+          </button>
+        </section>
+      </section>
+    </fieldset>
+  </form>
+</DocumentFragment>
+`;

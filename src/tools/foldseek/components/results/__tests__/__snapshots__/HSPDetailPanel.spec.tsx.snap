@@ -1,0 +1,341 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HSPDetailPanel should change to wrapped and render when wrapped view is clicked 1`] = `
+<aside
+  class="sliding-panel sliding-panel--bottom sliding-panel--bottom--medium hsp-detail-panel"
+  data-testid="sliding-panel"
+>
+  <div
+    class="sliding-panel__header"
+  >
+    <span
+      class="small sliding-panel__header__title"
+    >
+      U6MKN0 · rec full Name · scientific name
+    </span>
+    <button
+      class="button tertiary sliding-panel__header__buttons"
+      title="Close panel"
+      type="button"
+    >
+      <test-file-stub />
+    </button>
+  </div>
+  <div
+    class="sliding-panel__content"
+  >
+    <div
+      class="hsp-detail-panel__body"
+    >
+      <div
+        class="button-group"
+      >
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button tertiary dropdown"
+            type="button"
+          >
+            Highlight properties
+          </button>
+          <div
+            class="dropdown-menu"
+          />
+        </div>
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button tertiary dropdown"
+            type="button"
+          >
+            Select annotation
+          </button>
+          <div
+            class="dropdown-menu"
+          />
+        </div>
+        <fieldset
+          class="msa-view-choice"
+        >
+          View:
+          <label>
+            <input
+              checked=""
+              name="view"
+              type="radio"
+            />
+            Overview
+          </label>
+          <label>
+            <input
+              name="view"
+              type="radio"
+            />
+            Wrapped
+          </label>
+        </fieldset>
+      </div>
+      <div>
+        <protvista-tooltip />
+        <div
+          class="alignment-grid alignment-wrapped"
+          data-testid="alignment-wrapped-view"
+        >
+          <div
+            class="track-label track-label--align-labels"
+          >
+            <span
+              class="align-label"
+            >
+              Query
+            </span>
+            <button
+              class="align-label"
+              style="height: 20px;"
+              tabindex="-1"
+              type="button"
+            >
+              Match:
+              <a
+                href="/uniprotkb/U6MKN0"
+              >
+                U6MKN0
+              </a>
+              
+            </button>
+          </div>
+          <div
+            class="track"
+          >
+            <protvista-msa
+              calculate-conservation="true"
+              colorscheme="conservation"
+              height="40"
+              hidelabel="true"
+              length="45"
+              overlay-conservation="true"
+            />
+          </div>
+          <span
+            class="right-coord"
+          >
+            <div
+              style="height: 20px;"
+            >
+              30
+            </div>
+            <div
+              style="height: 20px;"
+            >
+              445
+            </div>
+          </span>
+          <span
+            class="track-label annotation-label"
+          >
+            U6MKN0:Chain
+          </span>
+          <div
+            class="track annotation-track"
+          >
+            <protvista-track
+              displayend="45"
+              displaystart="1"
+              layout="non-overlapping"
+              length="45"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+`;
+
+exports[`HSPDetailPanel should initially render overview 1`] = `
+<aside
+  class="sliding-panel sliding-panel--bottom sliding-panel--bottom--medium hsp-detail-panel"
+  data-testid="sliding-panel"
+>
+  <div
+    class="sliding-panel__header"
+  >
+    <span
+      class="small sliding-panel__header__title"
+    >
+      U6MKN0 · rec full Name · scientific name
+    </span>
+    <button
+      class="button tertiary sliding-panel__header__buttons"
+      title="Close panel"
+      type="button"
+    >
+      <test-file-stub />
+    </button>
+  </div>
+  <div
+    class="sliding-panel__content"
+  >
+    <div
+      class="hsp-detail-panel__body"
+    >
+      <div
+        class="button-group"
+      >
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button tertiary dropdown"
+            type="button"
+          >
+            Highlight properties
+          </button>
+          <div
+            class="dropdown-menu"
+          />
+        </div>
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button tertiary dropdown"
+            type="button"
+          >
+            Select annotation
+          </button>
+          <div
+            class="dropdown-menu"
+          />
+        </div>
+        <fieldset
+          class="msa-view-choice"
+        >
+          View:
+          <label>
+            <input
+              checked=""
+              name="view"
+              type="radio"
+            />
+            Overview
+          </label>
+          <label>
+            <input
+              name="view"
+              type="radio"
+            />
+            Wrapped
+          </label>
+        </fieldset>
+      </div>
+      <div>
+        <protvista-tooltip />
+        <section
+          class="alignment-grid"
+          data-testid="alignment-view"
+        >
+          <span
+            class="track-label"
+          >
+            Overview
+          </span>
+          <div
+            class="track"
+          >
+            <div>
+              <protvista-track
+                height="15"
+                highlight="418:446"
+                layout="non-overlapping"
+                length="486"
+              />
+              <protvista-track
+                height="15"
+                highlight="418:446"
+                layout="non-overlapping"
+                length="486"
+              />
+            </div>
+          </div>
+          <span
+            class="track-label"
+            data-testid="track-label"
+          >
+            U6MKN0:Chain
+          </span>
+          <div
+            class="track"
+          >
+            <protvista-track
+              highlight="418:446"
+              layout="non-overlapping"
+              length="486"
+            />
+          </div>
+          <div
+            class="track-label track-label--align-labels"
+          >
+            <span
+              class="align-label"
+            >
+              Query
+            </span>
+            <button
+              class="align-label"
+              style="height: 20px;"
+              tabindex="-1"
+              type="button"
+            >
+              Match:
+              <a
+                href="/uniprotkb/U6MKN0"
+              >
+                U6MKN0
+              </a>
+              
+            </button>
+          </div>
+          <div
+            class="track"
+          >
+            <protvista-manager
+              attributes="displaystart displayend"
+              displayend="28"
+              displaystart="1"
+            >
+              <protvista-navigation
+                length="28"
+              />
+              <protvista-msa
+                calculate-conservation="true"
+                colorscheme="conservation"
+                height="40"
+                hidelabel="true"
+                length="28"
+                overlay-conservation="true"
+              />
+            </protvista-manager>
+          </div>
+          <span
+            class="right-coord"
+          >
+            <div
+              style="height: 20px;"
+            >
+              28
+            </div>
+            <div
+              style="height: 20px;"
+            >
+              28
+            </div>
+          </span>
+        </section>
+      </div>
+    </div>
+  </div>
+</aside>
+`;

@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrayOfLineagesToTree tests should handle mismatching lineage lengths 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "count": 1,
+                      "depth": 5,
+                      "name": "Saccharomycotina",
+                    },
+                  ],
+                  "count": 1,
+                  "depth": 4,
+                  "name": "Ascomycota",
+                },
+              ],
+              "count": 2,
+              "depth": 3,
+              "name": "Dikarya",
+            },
+          ],
+          "count": 2,
+          "depth": 2,
+          "name": "Fungi",
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "count": 1,
+              "depth": 3,
+              "name": "Chordata",
+            },
+          ],
+          "count": 1,
+          "depth": 2,
+          "name": "Metazoa",
+        },
+      ],
+      "count": 3,
+      "depth": 1,
+      "name": "Eukaryota",
+    },
+  ],
+  "count": 3,
+  "depth": 0,
+  "name": "All",
+}
+`;
+
+exports[`arrayOfLineagesToTree tests should transform an array of lineages to a taxonomy tree 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [],
+              "count": 1,
+              "depth": 3,
+              "name": "Chordata",
+            },
+          ],
+          "count": 1,
+          "depth": 2,
+          "name": "Metazoa",
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "count": 1,
+              "depth": 3,
+              "name": "Dikarya",
+            },
+          ],
+          "count": 1,
+          "depth": 2,
+          "name": "Fungi",
+        },
+      ],
+      "count": 2,
+      "depth": 1,
+      "name": "Eukaryota",
+    },
+  ],
+  "count": 2,
+  "depth": 0,
+  "name": "All",
+}
+`;

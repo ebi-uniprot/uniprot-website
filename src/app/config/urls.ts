@@ -73,6 +73,8 @@ export enum Location {
   PeptideSearchResult = 'PeptideSearchResult',
   IDMapping = 'IDMapping',
   IDMappingResult = 'IDMappingResult',
+  Foldseek = 'Foldseek',
+  FoldseekResult = 'FoldseekResult',
   // Help
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
@@ -129,6 +131,10 @@ export const LocationToPath: Record<Location, string> = {
     '|'
   )})?/:id/:subPage?`,
   [Location.IDMapping]: '/id-mapping',
+  // [Location.FoldseekResult]: `/foldseek/:namespace(${blastNamespaces.join(
+  //   '|'
+  // )})/:id/:subPage?`,
+  [Location.Foldseek]: '/foldseek',
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',

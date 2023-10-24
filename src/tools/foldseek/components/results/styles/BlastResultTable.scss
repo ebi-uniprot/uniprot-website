@@ -1,0 +1,92 @@
+@import 'franklin-sites/src/styles/colours';
+
+@import '../../../../../shared/styles/settings';
+
+.data-table {
+  .query-sequence-wrapper {
+    width: 32vw;
+    margin-left: 0.2rem;
+    // Hide unwanted items from navigation
+    protvista-navigation {
+      .zoom-polygon,
+      .brush,
+      .start-label,
+      .end-label {
+        display: none;
+      }
+    }
+  }
+  &__header-cell {
+    top: 3rem !important;
+  }
+}
+
+.data-table__blast-hsp {
+  $self: &;
+  display: flex;
+
+  & > .button {
+    margin-bottom: 0;
+    align-self: flex-end;
+  }
+
+  .chip {
+    margin-top: 0;
+
+    &.hsp_identity {
+      --main-chip-color: #{$colour-sapphire-blue};
+    }
+
+    &.hsp_score {
+      --main-chip-color: #{$colour-coyote-brown};
+    }
+
+    &.hsp_expect {
+      --main-chip-color: #{$colour-outer-space};
+    }
+  }
+
+  &__tracks {
+    position: relative;
+
+    #{ $self }__blast-track {
+      /**
+      * Magic number preventing the forever growing
+      * protvista-track
+      */
+      width: 32vw;
+      cursor: pointer;
+
+      &:hover {
+        background: $colour-gainsborough;
+      }
+
+      svg {
+        margin: 0.2rem;
+      }
+    }
+
+    #{ $self }__blast-params {
+      position: absolute;
+      top: -0.6rem;
+      right: 0.1rem;
+    }
+  }
+
+  button {
+    margin-left: 0.5rem;
+  }
+}
+
+@keyframes loading {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+.loading-data-table .data-table {
+  animation: alternate loading 1000ms infinite ease-in-out;
+}

@@ -1,0 +1,260 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlastResultTable tests should render without any hits 1`] = `
+<DocumentFragment>
+  <div
+    class="error-page-container"
+    data-testid="no-results-page"
+  >
+    <img
+      alt=""
+      class="error-page-container__art-work"
+      height="400"
+      src="test-file-stub"
+      width="400"
+    />
+    <div
+      class="message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        <small>
+          <h1
+            class="small"
+          >
+            Sorry, no results were found!
+          </h1>
+          <span>
+            Please try different criteria
+          </span>
+        </small>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
+<DocumentFragment>
+  <table
+    class="data-table data-table--compact"
+  >
+    <thead>
+      <tr>
+        <th
+          class="data-table__header-cell--checkbox"
+        >
+          <div
+            class="checkbox-cell"
+          >
+            <input
+              id="0"
+              type="checkbox"
+            />
+            <label
+              aria-label="Selection control for all visible items"
+              for="0"
+            />
+          </div>
+        </th>
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span>
+              Entry
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+        />
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="entry_name"
+            >
+              Entry Name
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="protein_names"
+            >
+              Protein Names
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="gene_name"
+            >
+              Gene Names
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span
+              data-article-id="organism-name"
+            >
+              Organism
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+        >
+          <span
+            aria-expanded="false"
+          >
+            <span>
+              Length
+            </span>
+          </span>
+        </th>
+        <th
+          class=""
+          style="width: 40vw;"
+        >
+          <div
+            class="query-sequence-wrapper"
+          >
+            <protvista-navigation
+              length="30"
+              title="Query"
+            />
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      translate="no"
+    >
+      <tr>
+        <td
+          class="checkbox-cell"
+        >
+          <input
+            data-id="U6MKN0"
+            id="1"
+            type="checkbox"
+          />
+          <label
+            aria-label="U6MKN0"
+            for="1"
+            title="click to select, shift+click for multiple selection"
+          />
+        </td>
+        <td>
+          <span
+            class="no-wrap accession-view"
+          >
+            <a
+              class="accession"
+              href="/uniprotkb/undefined/entry"
+            />
+          </span>
+        </td>
+        <td />
+        <td />
+        <td>
+          <span
+            translate="yes"
+          >
+            <span
+              style="font-weight: initial;"
+            />
+          </span>
+        </td>
+        <td />
+        <td />
+        <td />
+        <td>
+          <div
+            class="data-table__blast-hsp"
+          >
+            <div>
+              <div
+                class="data-table__blast-hsp__tracks"
+              >
+                <section
+                  class="data-table__blast-hsp__blast-track"
+                >
+                  <protvista-track
+                    data-testid="blast-summary-track"
+                    height="10"
+                    length="30"
+                    title="Start: 3
+End: 30
+Hit length: 486"
+                  />
+                </section>
+                <span
+                  class="data-table__blast-hsp__blast-params"
+                >
+                  <button
+                    class="chip chip--compact hsp_identity primary"
+                    type="button"
+                  >
+                    7.1%
+                  </button>
+                  <button
+                    class="chip chip--compact hsp_score secondary"
+                    type="button"
+                  >
+                    96
+                  </button>
+                  <button
+                    class="chip chip--compact hsp_expect secondary"
+                    type="button"
+                  >
+                    0.0048
+                  </button>
+                </span>
+              </div>
+            </div>
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              +1 more
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inputParamsXMLToObject tests should transform an XML string of input params to an object 1`] = `
+{
+  "align": "0",
+  "alignments": "250",
+  "compstats": "F",
+  "database": "uniprotkb_refprotswissprot",
+  "exp": "10",
+  "filter": "F",
+  "matrix": "BLOSUM62",
+  "program": "blastp",
+  "scores": "250",
+  "sequence": ">sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1
+MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG
+NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA
+EVDDMLREVSDGSGEINIQQFAALLSK",
+  "stype": "protein",
+}
+`;
+
+exports[`inputParamsXMLToObject tests should transform an XML string of input params with taxons to an object 1`] = `
+{
+  "align": "0",
+  "alignments": "100",
+  "compstats": "F",
+  "database": "uniprotkb_refprotswissprot",
+  "exp": "1e-1",
+  "filter": "T",
+  "gapalign": "true",
+  "matrix": "BLOSUM45",
+  "program": "blastp",
+  "scores": "100",
+  "sequence": ">sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1
+MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG
+NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA
+EVDDMLREVSDGSGEINIQQFAALLSK",
+  "stype": "protein",
+  "taxids": "9544,9606",
+}
+`;

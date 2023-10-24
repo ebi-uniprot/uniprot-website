@@ -1,0 +1,32 @@
+@import 'franklin-sites/src/styles/colours';
+
+.blast-result-hit-distribution {
+  padding-block-start: 4rem;
+  padding-inline: 4rem 1rem;
+  max-inline-size: 60rem;
+  margin-block-end: 1rem;
+
+  &.identity {
+    --main-histogram-color: #{$colour-sapphire-blue};
+  }
+
+  &.score {
+    --main-histogram-color: #{$colour-coyote-brown};
+  }
+
+  &.evalue {
+    --main-histogram-color: #{$colour-outer-space};
+  }
+
+  &:last-child {
+    padding-block-end: 4rem;
+  }
+}
+
+.nbin-selection {
+  float: right;
+
+  & select {
+    inline-size: auto;
+  }
+}

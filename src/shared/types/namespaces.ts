@@ -90,4 +90,5 @@ export const namespaceAndToolsLabels: Record<Namespace | JobTypes, string> = {
   [JobTypes.ASYNC_DOWNLOAD]: 'File generation',
   [JobTypes.BLAST]: 'BLAST',
   [JobTypes.PEPTIDE_SEARCH]: 'Peptide search',
+  [JobTypes.FOLDSEEK]: 'Foldseek',
 };

@@ -1,0 +1,51 @@
+.blast-taxonomy {
+  & .doughnut-chart--small {
+    transform: scale(0.8);
+  }
+
+  & svg {
+    transform: rotate(0);
+    transition: transform 100ms ease-in-out;
+
+    &.closed {
+      transform: rotate(-90deg);
+    }
+  }
+
+  & > ul > li::before {
+    border-left: none;
+  }
+
+  & ul {
+    padding: 0;
+    margin: 0;
+    margin-left: 1.5ch;
+    list-style-type: none;
+    position: relative;
+  }
+
+  & li {
+    border-left: 2px solid black;
+    margin-left: 1ch;
+    padding-left: 1ch;
+    position: relative;
+  }
+
+  & li li {
+    margin-left: 0;
+  }
+
+  & li::before {
+    content: '';
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    position: absolute;
+    left: -0.25ch;
+    height: 1em;
+    width: 1ch;
+  }
+
+  & ul > li:last-child {
+    border-left: 2px solid transparent;
+  }
+}

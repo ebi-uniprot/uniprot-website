@@ -1,0 +1,197 @@
+{
+  "longQueryMiddleHit": {
+    "hsp": {
+      "hsp_num": 2,
+      "hsp_score": 4058,
+      "hsp_bit_score": 1567.75,
+      "hsp_expect": 0,
+      "hsp_align_len": 770,
+      "hsp_identity": 100,
+      "hsp_positive": 100,
+      "hsp_gaps": 0,
+      "hsp_query_frame": "0",
+      "hsp_hit_frame": "0",
+      "hsp_strand": "none/none",
+      "hsp_query_from": 771,
+      "hsp_query_to": 1540,
+      "hsp_hit_from": 1,
+      "hsp_hit_to": 770,
+      "hsp_qseq": "MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQNGKWDSDPSGTKTCIDTKEGILQYCQEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVGEFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFRGVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEEEADDDEDDEDGDEVEEEAEEPYEEATERTTSIATTTTTTTESVEEVVREVCSEQAETGPCRAMISRWYFDVTEGKCAPFFYGGCGGNRNNFDTEEYCMAVCGSAMSQSLLKTTQEPLARDPVKLPTTAASTPDAVDKYLETPGDENEHAHFQKAKERLEAKHRERMSQVMREWEEAERQAKNLPKADKKAVIQHFQEKVESLEQEAANERQQLVETHMARVEAMLNDRRRLALENYITALQAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYERMNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLANMISEPRISYGNDALMPSLTETKTTVELLPVNGEFSLDDLQPWHSFGADSVPANTENEVEPVDARPAADRGLTTRPGSGLTNIKTEEISEVKMDAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIATVIVITLVMLKKKQYTSIHHGVVEVDAAVTPEERHLSKMQQNGYENPTYKFFEQMQN",
+      "hsp_mseq": "MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQNGKWDSDPSGTKTCIDTKEGILQYCQEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVGEFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFRGVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEEEADDDEDDEDGDEVEEEAEEPYEEATERTTSIATTTTTTTESVEEVVREVCSEQAETGPCRAMISRWYFDVTEGKCAPFFYGGCGGNRNNFDTEEYCMAVCGSAMSQSLLKTTQEPLARDPVKLPTTAASTPDAVDKYLETPGDENEHAHFQKAKERLEAKHRERMSQVMREWEEAERQAKNLPKADKKAVIQHFQEKVESLEQEAANERQQLVETHMARVEAMLNDRRRLALENYITALQAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYERMNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLANMISEPRISYGNDALMPSLTETKTTVELLPVNGEFSLDDLQPWHSFGADSVPANTENEVEPVDARPAADRGLTTRPGSGLTNIKTEEISEVKMDAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIATVIVITLVMLKKKQYTSIHHGVVEVDAAVTPEERHLSKMQQNGYENPTYKFFEQMQN",
+      "hsp_hseq": "MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQNGKWDSDPSGTKTCIDTKEGILQYCQEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVGEFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFRGVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEEEADDDEDDEDGDEVEEEAEEPYEEATERTTSIATTTTTTTESVEEVVREVCSEQAETGPCRAMISRWYFDVTEGKCAPFFYGGCGGNRNNFDTEEYCMAVCGSAMSQSLLKTTQEPLARDPVKLPTTAASTPDAVDKYLETPGDENEHAHFQKAKERLEAKHRERMSQVMREWEEAERQAKNLPKADKKAVIQHFQEKVESLEQEAANERQQLVETHMARVEAMLNDRRRLALENYITALQAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYERMNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLANMISEPRISYGNDALMPSLTETKTTVELLPVNGEFSLDDLQPWHSFGADSVPANTENEVEPVDARPAADRGLTTRPGSGLTNIKTEEISEVKMDAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIATVIVITLVMLKKKQYTSIHHGVVEVDAAVTPEERHLSKMQQNGYENPTYKFFEQMQN"
+    },
+    "result": {
+      "querySegments": [
+        {
+          "start": 1,
+          "end": 771,
+          "shape": "line",
+          "color": "#014371",
+          "opacity": 1
+        },
+        { "start": 771, "end": 1540, "color": "#014371", "opacity": 1 },
+        {
+          "start": 1540,
+          "end": 2310,
+          "shape": "line",
+          "color": "#014371",
+          "opacity": 1
+        }
+      ],
+      "hitSegments": [
+        {
+          "start": 770,
+          "end": 771,
+          "shape": "line",
+          "color": "#014371",
+          "opacity": 1
+        },
+        { "start": 771, "end": 1540, "color": "#014371", "opacity": 1 },
+        {
+          "start": 1540,
+          "end": 1540,
+          "shape": "line",
+          "color": "#014371",
+          "opacity": 1
+        }
+      ]
+    }
+  },
+  "shortQueryLongHit": {
+    "hsp": {
+      "hsp_num": 2,
+      "hsp_score": 4058,
+      "hsp_bit_score": 1567.75,
+      "hsp_expect": 0,
+      "hsp_align_len": 60,
+      "hsp_identity": 100,
+      "hsp_positive": 100,
+      "hsp_gaps": 0,
+      "hsp_query_frame": "0",
+      "hsp_hit_frame": "0",
+      "hsp_strand": "none/none",
+      "hsp_query_from": 20,
+      "hsp_query_to": 24,
+      "hsp_hit_from": 40,
+      "hsp_hit_to": 44,
+      "hsp_qseq": "ABCDE",
+      "hsp_mseq": "ABCDE",
+      "hsp_hseq": "ABCDE"
+    },
+    "result": {
+      "querySegments": [
+        {
+          "color": "#014371",
+          "start": 20,
+          "end": 40,
+          "opacity": 1,
+          "shape": "line"
+        },
+        { "color": "#014371", "end": 44, "opacity": 1, "start": 40 },
+        {
+          "color": "#014371",
+          "start": 44,
+          "end": 50,
+          "opacity": 1,
+          "shape": "line"
+        }
+      ],
+      "hitSegments": [
+        {
+          "color": "#014371",
+          "start": 1,
+          "end": 40,
+          "opacity": 1,
+          "shape": "line"
+        },
+        { "color": "#014371", "end": 44, "opacity": 1, "start": 40 },
+        {
+          "color": "#014371",
+          "start": 44,
+          "end": 60,
+          "opacity": 1,
+          "shape": "line"
+        }
+      ]
+    }
+  },
+  "withGaps": {
+    "hsp": {
+      "hsp_num": 2,
+      "hsp_score": 4058,
+      "hsp_bit_score": 1567.75,
+      "hsp_expect": 0,
+      "hsp_align_len": 60,
+      "hsp_identity": 100,
+      "hsp_positive": 100,
+      "hsp_gaps": 0,
+      "hsp_query_frame": "0",
+      "hsp_hit_frame": "0",
+      "hsp_strand": "none/none",
+      "hsp_query_from": 20,
+      "hsp_query_to": 24,
+      "hsp_hit_from": 40,
+      "hsp_hit_to": 44,
+      "hsp_qseq": "ABC--DE",
+      "hsp_mseq": "ABC-DE",
+      "hsp_hseq": "-ABC-DE"
+    },
+    "result": {
+      "querySegments": [
+        {
+          "color": "#014371",
+          "start": 20,
+          "end": 40,
+          "opacity": 1,
+          "shape": "line"
+        },
+        {
+          "color": "#014371",
+          "start": 40,
+          "end": 42,
+          "opacity": 1
+        },
+        { "color": "#014371", "end": 46, "opacity": 1, "start": 45 },
+        {
+          "color": "#014371",
+          "start": 46,
+          "end": 52,
+          "opacity": 1,
+          "shape": "line"
+        }
+      ],
+      "hitSegments": [
+        {
+          "color": "#014371",
+          "start": 1,
+          "end": 40,
+          "opacity": 1,
+          "shape": "line"
+        },
+        { "color": "#014371", "end": 43, "opacity": 1, "start": 41 },
+        { "color": "#014371", "end": 46, "opacity": 1, "start": 45 },
+        {
+          "color": "#014371",
+          "start": 46,
+          "end": 62,
+          "opacity": 1,
+          "shape": "line"
+        }
+      ]
+    }
+  },
+  "features": [
+    {
+      "protvistaFeatureId": "60f6f7b0-dbab-11ea-b5c1-ed65ca4c7436",
+      "start": 324,
+      "end": 344,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "Coiled coil",
+      "description": "",
+      "evidences": [
+        { "evidenceCode": "ECO:0000256", "source": "SAM", "id": "Coils" }
+      ]
+    }
+  ]
+}

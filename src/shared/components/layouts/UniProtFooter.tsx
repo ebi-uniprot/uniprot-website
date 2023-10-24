@@ -231,6 +231,9 @@ const FooterShortcuts = () => (
           </Link>
         </li>
         <li>
+          <Link to={LocationToPath[Location.Foldseek]}>Foldseek</Link>
+        </li>
+        <li>
           <Link to={LocationToPath[Location.Dashboard]}>Tool results</Link>
         </li>
       </ul>

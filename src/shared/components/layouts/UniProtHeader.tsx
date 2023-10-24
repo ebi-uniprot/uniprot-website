@@ -45,6 +45,9 @@ const toolsLinks = (
     <li>
       <Link to={LocationToPath[Location.IDMapping]}>ID mapping</Link>
     </li>
+    <li>
+      <Link to={LocationToPath[Location.Foldseek]}>Foldseek</Link>
+    </li>
   </>
 );
 

@@ -230,6 +230,18 @@ const PeptideSearchForm = lazy(
       /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
     )
 );
+// const FoldseekResult = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "blast-result" */ '../../tools/foldseek/components/results/FoldseekResult'
+//     )
+// );
+const FoldseekForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-form" */ '../../tools/foldseek/components/FoldseekForm'
+    )
+);
 
 const Dashboard = lazy(
   () =>
@@ -491,6 +503,18 @@ const App = () => {
               render={() => (
                 <SingleColumnLayout>
                   <IDMappingForm />
+                </SingleColumnLayout>
+              )}
+            />
+            {/* <Route
+              path={LocationToPath[Location.FoldseekResult]}
+              component={FoldseekResult}
+            /> */}
+            <Route
+              path={LocationToPath[Location.Foldseek]}
+              render={() => (
+                <SingleColumnLayout>
+                  <FoldseekForm />
                 </SingleColumnLayout>
               )}
             />
