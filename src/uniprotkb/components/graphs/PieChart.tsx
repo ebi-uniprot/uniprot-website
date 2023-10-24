@@ -24,7 +24,7 @@ export type StatisticsGraphItem = Pick<
 
 // Specify the chart’s dimensions.
 const width = 400;
-const height = 300;
+const height = 250;
 const margin = 45;
 
 const radius = Math.min(width, height) / 2 - margin;

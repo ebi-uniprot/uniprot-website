@@ -6,9 +6,9 @@ import { StatisticsCategory, StatisticsItem } from './StatisticsPage';
 import styles from './styles/sequence-length-line-plot.module.scss';
 
 // Specify the chart’s dimensions.
-const width = 500;
+const width = 400;
 const height = 400;
-const margin = { top: 10, right: 60, bottom: 45, left: 80 };
+const margin = { top: 20, right: 60, bottom: 45, left: 80 };
 
 const getSequenceLengthCounts = (
   items: StatisticsItem[]

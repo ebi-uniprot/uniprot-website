@@ -375,73 +375,77 @@ const TaxonomiDistributionTable = ({
   }));
 
   return (
-    <div className={styles['side-by-side']}>
-      <table>
-        <caption>
-          Taxonomic distribution of the sequences {distributionLabel}
-        </caption>
-        <thead>
-          <tr>
-            <th>Taxonomy</th>
-            <th>UniProtKB</th>
-            <th>UniProtKB reviewed</th>
-            <th>UniProtKB unreviewed</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map(({ name, statistics, query }) => (
-            <tr key={name}>
-              <td>{name}</td>
-              <td className={styles.end}>
-                <CountLinkOrNothing
-                  condition={Boolean(query)}
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: stringifyQuery({ query }),
-                  }}
-                >
-                  {(statistics.reviewed?.entryCount || 0) +
-                    (statistics.unreviewed?.entryCount || 0)}
-                </CountLinkOrNothing>
-              </td>
-              <td className={styles.end}>
-                <CountLinkOrNothing
-                  condition={Boolean(query)}
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: stringifyQuery({
-                      query: `(reviewed:true) AND ${query}`,
-                    }),
-                  }}
-                >
-                  {statistics.reviewed?.entryCount || 0}
-                </CountLinkOrNothing>
-              </td>
-              <td className={styles.end}>
-                <CountLinkOrNothing
-                  condition={Boolean(query)}
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: stringifyQuery({
-                      query: `(reviewed:false) AND ${query}`,
-                    }),
-                  }}
-                >
-                  {statistics.unreviewed?.entryCount || 0}
-                </CountLinkOrNothing>
-              </td>
+    <>
+      <h3>Taxonomic distribution of the sequences {distributionLabel}</h3>
+      <div className={styles['side-by-side']}>
+        <table>
+          <thead>
+            <tr>
+              <th>Taxonomy</th>
+              <th>UniProtKB</th>
+              <th>UniProtKB reviewed</th>
+              <th>UniProtKB unreviewed</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <LazyComponent
-        // Keep the space with an empty visualisation
-        fallback={<PieChart type="taxonomy" />}
-        rootMargin="0px 0px"
-      >
-        <PieChart data={graphData} type="taxonomy" colorScheme={colorScheme} />
-      </LazyComponent>
-    </div>
+          </thead>
+          <tbody>
+            {list.map(({ name, statistics, query }) => (
+              <tr key={name}>
+                <td>{name}</td>
+                <td className={styles.end}>
+                  <CountLinkOrNothing
+                    condition={Boolean(query)}
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: stringifyQuery({ query }),
+                    }}
+                  >
+                    {(statistics.reviewed?.entryCount || 0) +
+                      (statistics.unreviewed?.entryCount || 0)}
+                  </CountLinkOrNothing>
+                </td>
+                <td className={styles.end}>
+                  <CountLinkOrNothing
+                    condition={Boolean(query)}
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: stringifyQuery({
+                        query: `(reviewed:true) AND ${query}`,
+                      }),
+                    }}
+                  >
+                    {statistics.reviewed?.entryCount || 0}
+                  </CountLinkOrNothing>
+                </td>
+                <td className={styles.end}>
+                  <CountLinkOrNothing
+                    condition={Boolean(query)}
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: stringifyQuery({
+                        query: `(reviewed:false) AND ${query}`,
+                      }),
+                    }}
+                  >
+                    {statistics.unreviewed?.entryCount || 0}
+                  </CountLinkOrNothing>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <LazyComponent
+          // Keep the space with an empty visualisation
+          fallback={<PieChart type="taxonomy" />}
+          rootMargin="0px 0px"
+        >
+          <PieChart
+            data={graphData}
+            type="taxonomy"
+            colorScheme={colorScheme}
+          />
+        </LazyComponent>
+      </div>
+    </>
   );
 };
 
@@ -553,7 +557,7 @@ const StatisticsPage = () => {
           categoryName="TOP_ORGANISM"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
-          caption="Table of the most represented species"
+          title="Most represented species"
           nameLabel="Species"
         />
         <TaxonomiDistributionTable
