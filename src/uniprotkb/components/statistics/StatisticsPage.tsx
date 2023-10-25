@@ -98,7 +98,7 @@ const IntroductionEntriesTable = ({
   return (
     <>
       <AbstractSectionTable
-        caption="Total number of entries in this release of UniProtKB"
+        title="Total number of entries in this release of UniProtKB"
         tableData={[
           {
             header: (
@@ -134,7 +134,7 @@ const IntroductionEntriesTable = ({
         ]}
       />
       <AbstractSectionTable
-        caption={
+        title={
           <>
             Total number of <strong>new</strong> entries in this release of
             UniProtKB
@@ -178,7 +178,7 @@ const IntroductionSequenceTable = ({
   return (
     <>
       <AbstractSectionTable
-        caption={<>Number of fragments</>}
+        title="Number of fragments"
         tableData={[
           {
             header: <>Fragments</>,
@@ -188,7 +188,7 @@ const IntroductionSequenceTable = ({
         ]}
       />
       <AbstractSectionTable
-        caption={<>Number of isoforms</>}
+        title="Number of isoforms"
         tableData={[
           {
             header: <>Isoforms</>,
@@ -203,7 +203,7 @@ const IntroductionSequenceTable = ({
         ]}
       />
       <AbstractSectionTable
-        caption={<>Amino acids in this release</>}
+        title="Amino acids in this release"
         tableData={[
           {
             header: <>Amino acids</>,
@@ -244,65 +244,65 @@ const ProteinExistenceTable = ({
     );
 
   return (
-    <table>
-      <caption>
-        Total number of entries per protein existence (PE) annotation
-      </caption>
-      <thead>
-        <tr>
-          <th>Protein existence (PE)</th>
-          <th>UniProtKB</th>
-          <th>UniProtKB reviewed</th>
-          <th>UniProtKB unreviewed</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map(({ name, label, statistics, query }) => (
-          <tr key={name}>
-            <td>
-              {proteinExistenceToNumber.get(name)}: {label}
-            </td>
-            <td className={styles.end}>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: stringifyQuery({ query }),
-                }}
-              >
-                <LongNumber>
-                  {(statistics.reviewed?.entryCount || 0) +
-                    (statistics.unreviewed?.entryCount || 0)}
-                </LongNumber>
-              </Link>
-            </td>
-            <td className={styles.end}>
-              <CountLinkOrNothing
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: stringifyQuery({
-                    query: `(reviewed:true) AND ${query}`,
-                  }),
-                }}
-              >
-                {statistics.reviewed?.entryCount || 0}
-              </CountLinkOrNothing>
-            </td>
-            <td className={styles.end}>
-              <CountLinkOrNothing
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: stringifyQuery({
-                    query: `(reviewed:false) AND ${query}`,
-                  }),
-                }}
-              >
-                {statistics.unreviewed?.entryCount || 0}
-              </CountLinkOrNothing>
-            </td>
+    <>
+      <h3>Total number of entries per protein existence (PE) annotation</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Protein existence (PE)</th>
+            <th>UniProtKB</th>
+            <th>UniProtKB reviewed</th>
+            <th>UniProtKB unreviewed</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {list.map(({ name, label, statistics, query }) => (
+            <tr key={name}>
+              <td>
+                {proteinExistenceToNumber.get(name)}: {label}
+              </td>
+              <td className={styles.end}>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({ query }),
+                  }}
+                >
+                  <LongNumber>
+                    {(statistics.reviewed?.entryCount || 0) +
+                      (statistics.unreviewed?.entryCount || 0)}
+                  </LongNumber>
+                </Link>
+              </td>
+              <td className={styles.end}>
+                <CountLinkOrNothing
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({
+                      query: `(reviewed:true) AND ${query}`,
+                    }),
+                  }}
+                >
+                  {statistics.reviewed?.entryCount || 0}
+                </CountLinkOrNothing>
+              </td>
+              <td className={styles.end}>
+                <CountLinkOrNothing
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({
+                      query: `(reviewed:false) AND ${query}`,
+                    }),
+                  }}
+                >
+                  {statistics.unreviewed?.entryCount || 0}
+                </CountLinkOrNothing>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 
@@ -551,7 +551,7 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.ORGANISM_FREQUENCY}
           unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
           header="Species represented"
-          caption="Table of the frequency of occurrence of species"
+          title="Frequency of occurrence of species"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="TOP_ORGANISM"
@@ -597,7 +597,7 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
           header="sequence sizes, from-to"
-          caption="Repartition of the sequences by size (excluding fragments)"
+          title="Repartition of the sequences by size (excluding fragments)"
           locationGetter={getSequenceSizeLocation}
         />
       </Card>
@@ -611,7 +611,7 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.JOURNAL_FREQUENCY}
           unreviewedData={unreviewedData.JOURNAL_FREQUENCY}
           header="Journals cited"
-          caption="Table of the frequency of journal citations"
+          title="Table of the frequency of journal citations"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="TOP_JOURNAL"

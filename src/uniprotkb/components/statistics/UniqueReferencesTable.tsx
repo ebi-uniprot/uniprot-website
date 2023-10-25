@@ -15,7 +15,7 @@ const UniqueReferencesTable = ({
   );
   return (
     <AbstractSectionTable
-      caption={<>Unique references</>}
+      title="Unique references"
       tableData={[
         {
           header: <>Unique references</>,

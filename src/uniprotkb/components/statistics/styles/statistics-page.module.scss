@@ -10,7 +10,7 @@
   }
 
   table {
-    margin-block: $global-margin;
+    margin-bottom: $global-margin;
     border-spacing: 0;
     overflow: auto;
 
@@ -44,7 +44,7 @@
   }
 
   :global(.tabs__header) {
-    margin-bottom: -0.5 * $global-margin;
+    margin-bottom: 0.5 * $global-margin;
   }
 }
 

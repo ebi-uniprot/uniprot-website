@@ -7,7 +7,7 @@ import { StatisticsCategory } from './StatisticsPage';
 // Specify the chart’s dimensions.
 const width = 340;
 const height = 400;
-const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+const margin = { top: 20, right: 30, bottom: 60, left: 40 };
 
 const legend = {
   boxSize: 20,
@@ -111,7 +111,11 @@ const AminoAcidBarPlot = ({ category }: Props) => {
           textAnchor="end"
           fontSize="1.4em"
         />
-        <text textAnchor="middle" x={width / 2} y={height + margin.bottom}>
+        <text
+          textAnchor="middle"
+          x={width / 2}
+          y={height + 0.6 * margin.bottom}
+        >
           Amino acid
         </text>
         <g className="y-axis" fontSize="1.4em" />

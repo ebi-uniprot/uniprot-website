@@ -1,4 +1,4 @@
-import { ReactNode, useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { LongNumber, Button } from 'franklin-sites';
 
 import { CategoryName, StatisticsCategory } from './StatisticsPage';
@@ -29,18 +29,18 @@ const sortByCount = new Set<CategoryName>([
 
 type StatsTableProps = {
   category: StatisticsCategory;
-  caption?: ReactNode;
   alwaysExpand?: boolean;
   nameLabel?: string;
   countLabel?: string;
+  caption?: string;
 };
 
 const StatsTable = ({
   category,
-  caption,
   alwaysExpand,
   nameLabel,
   countLabel,
+  caption,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
