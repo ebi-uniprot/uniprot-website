@@ -1,12 +1,13 @@
 import { ReactNode } from 'react';
 import { LocationDescriptorObject } from 'history';
 
+import CountLinkOrNothing from './CountLinkOrNothing';
+
 import { frequencySort, merge } from './utils';
 
 import { StatisticsItem, TableProps } from './StatisticsPage';
 
 import styles from './styles/statistics-page.module.scss';
-import CountLinkOrNothing from './CountLinkOrNothing';
 
 type Props = TableProps & {
   header: ReactNode;

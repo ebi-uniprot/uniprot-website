@@ -1,11 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
 
 import { stringifyQuery } from '../../../shared/utils/url';
-import { MergedStatistics } from './utils';
 
+import { MergedStatistics } from './utils';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/statistics-page.module.scss';
