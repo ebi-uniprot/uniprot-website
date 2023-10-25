@@ -307,39 +307,39 @@ const ProteinExistenceTable = ({
 };
 
 const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
-  <table>
-    <caption>
-      Total number of species represented in this release of UniProtKB
-    </caption>
-    <thead>
-      <tr>
-        <th>Section</th>
-        <th>Species represented</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>UniProtKB</td>
-        <td className={styles.end}>
-          <LongNumber>
-            {reviewedData.totalCount + unreviewedData.totalCount}
-          </LongNumber>
-        </td>
-      </tr>
-      <tr>
-        <td>⮑ UniProtKB reviewed</td>
-        <td className={styles.end}>
-          <LongNumber>{reviewedData.totalCount}</LongNumber>
-        </td>
-      </tr>
-      <tr>
-        <td>⮑ UniProtKB unreviewed</td>
-        <td className={styles.end}>
-          <LongNumber>{unreviewedData.totalCount}</LongNumber>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <>
+    <h3>Total number of species represented in this release of UniProtKB</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Section</th>
+          <th>Species represented</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>UniProtKB</td>
+          <td className={styles.end}>
+            <LongNumber>
+              {reviewedData.totalCount + unreviewedData.totalCount}
+            </LongNumber>
+          </td>
+        </tr>
+        <tr>
+          <td>⮑ UniProtKB reviewed</td>
+          <td className={styles.end}>
+            <LongNumber>{reviewedData.totalCount}</LongNumber>
+          </td>
+        </tr>
+        <tr>
+          <td>⮑ UniProtKB unreviewed</td>
+          <td className={styles.end}>
+            <LongNumber>{unreviewedData.totalCount}</LongNumber>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </>
 );
 
 const TaxonomiDistributionTable = ({
@@ -611,7 +611,7 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.JOURNAL_FREQUENCY}
           unreviewedData={unreviewedData.JOURNAL_FREQUENCY}
           header="Journals cited"
-          title="Table of the frequency of journal citations"
+          title="Frequency of journal citations"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="TOP_JOURNAL"
