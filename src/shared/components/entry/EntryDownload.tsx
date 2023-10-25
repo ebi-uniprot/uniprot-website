@@ -370,18 +370,26 @@ const EntryDownload = ({
               value={selectedDataset}
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
-              {uniprotKBDatasets.map((dataset) => (
-                <option
-                  value={dataset}
-                  key={dataset}
-                  disabled={
-                    dataset !== Dataset.uniprotData &&
-                    !availableDatasets?.includes(dataset)
-                  }
-                >
+              {dataset ? (
+                <option value={dataset} key={dataset}>
                   {dataset}
                 </option>
-              ))}
+              ) : (
+                <>
+                  {uniprotKBDatasets.map((datasetOption) => (
+                    <option
+                      value={datasetOption}
+                      key={datasetOption}
+                      disabled={
+                        datasetOption !== Dataset.uniprotData &&
+                        !availableDatasets?.includes(datasetOption)
+                      }
+                    >
+                      {datasetOption}
+                    </option>
+                  ))}
+                </>
+              )}
             </select>
           </label>
         </fieldset>

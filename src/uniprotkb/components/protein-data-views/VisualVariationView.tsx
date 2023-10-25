@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 // We have to import this specific file otherwise it gets everything in at the
 // same time (including molstar...). But this path causes issues with Jest
@@ -9,6 +9,9 @@ import filterConfig, {
 import { TransformedVariant } from 'protvista-variation-adapter';
 
 import NightingaleZoomTool from './NightingaleZoomTool';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
+import { Dataset } from '../../../shared/components/entry/EntryDownload';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -20,6 +23,7 @@ type VariationViewProps = {
 };
 
 const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const filterElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
@@ -80,12 +84,22 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
     navigationElement.defined &&
     sequenceElement.defined;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <>
       {ceDefined && (
         <div className={styles['variation-view']}>
+          {displayDownloadPanel && (
+            <EntryDownloadPanel
+              handleToggle={handleToggleDownload}
+              dataset={Dataset.variation}
+            />
+          )}
           <NightingaleZoomTool length={sequence.length} />
           <navigationElement.name length={sequence.length} />
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
           <sequenceElement.name
             length={sequence.length}
             sequence={sequence}
