@@ -12,13 +12,14 @@ import useCustomElement from '../../hooks/useCustomElement';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
+import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
+import { ProcessedFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
-import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 // Can't use arrow function because of TS generic annotation
 // eslint-disable-next-line react/function-component-definition
@@ -77,7 +78,9 @@ function VisualFeaturesView<T>({
   const featureTypes = Array.from(
     new Set(
       features.flatMap((feature) =>
-        feature.type ? FeatureTypeHelpMappings[feature.type] : ''
+        (feature as ProcessedFeature).type
+          ? FeatureTypeHelpMappings[feature.type]
+          : ''
       )
     )
   );
