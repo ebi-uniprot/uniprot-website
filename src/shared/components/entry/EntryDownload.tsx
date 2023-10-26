@@ -58,28 +58,31 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
-const proteinsAPIVariationFormats = [
+const proteinsAPICommonFormats = [
   FileFormat.json,
   FileFormat.xml,
   FileFormat.gff,
-  FileFormat.peff,
 ];
 
-const proteinsAPIProteomicsAndGenomicCoordinatesFormats = [
-  FileFormat.json,
-  FileFormat.xml,
-  FileFormat.gff,
+const proteinsAPIVariationFormats = [
+  ...proteinsAPICommonFormats,
+  FileFormat.peff,
 ];
 
 export enum Dataset {
   uniprotData = 'UniProt API',
+  features = 'Proteins API - Features',
   variation = 'Proteins API - Variations',
   coordinates = 'Proteins API - Genomic Coordinates',
+  proteomics = 'Proteins API - Proteomics',
   proteomicsPtm = 'Proteins API - Proteomics-PTM',
+  antigen = 'Proteins API - Antigen',
+  mutagenesis = 'Proteins API - Mutagenesis',
 }
 
-const uniprotKBDatasets = [
+const uniprotKBEntryDatasets = [
   Dataset.uniprotData,
+  Dataset.features,
   Dataset.variation,
   Dataset.coordinates,
   Dataset.proteomicsPtm,
@@ -96,7 +99,8 @@ const getEntryDownloadUrl = (
   fileFormat: FileFormat,
   namespace: Namespace,
   dataset: Dataset,
-  columns?: Column[]
+  columns?: Column[],
+  featuretypes?: string[]
 ) => {
   switch (dataset) {
     case Dataset.uniprotData: {
@@ -129,6 +133,8 @@ const getEntryDownloadUrl = (
       return proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
       return proteinsApi.variation(accession, fileFormat);
+    case Dataset.features:
+      return proteinsApi.features(accession, fileFormat, featuretypes);
     case Dataset.proteomicsPtm:
       return proteinsApi.proteomicsPtm(accession, fileFormat);
     default:
@@ -176,6 +182,7 @@ export type EntryDownloadProps = {
   columns?: Column[];
   dataset?: Dataset;
   availableDatasets?: Dataset[];
+  featureTypes?: string[];
 };
 
 const EntryDownload = ({
@@ -185,6 +192,7 @@ const EntryDownload = ({
   columns,
   dataset,
   availableDatasets,
+  featureTypes,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
@@ -192,13 +200,12 @@ const EntryDownload = ({
   const { namespace, accession } = match?.params || {};
 
   const [downloadColumns, setDownloadColumns] = useState(columns);
-
   const [fileFormats, setFileFormats] = useState(
     namespace && formatMap.get(namespace)
   );
   const [selectedFormat, setSelectedFormat] = useState(fileFormats?.[0]);
   const [selectedDataset, setSelectedDataset] = useState(
-    dataset || uniprotKBDatasets[0]
+    dataset || uniprotKBEntryDatasets[0]
   );
   const [extraContent, setExtraContent] = useState('');
 
@@ -226,9 +233,13 @@ const EntryDownload = ({
       case Dataset.variation:
         setFileFormats(proteinsAPIVariationFormats);
         break;
+      case Dataset.proteomics:
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
-        setFileFormats(proteinsAPIProteomicsAndGenomicCoordinatesFormats);
+      case Dataset.features:
+      case Dataset.antigen:
+      case Dataset.mutagenesis:
+        setFileFormats(proteinsAPICommonFormats);
         break;
       default:
         break;
@@ -249,7 +260,8 @@ const EntryDownload = ({
     selectedFormat || FileFormat.fasta,
     namespace,
     selectedDataset,
-    downloadColumns
+    downloadColumns,
+    featureTypes
   );
 
   const previewFileFormat =
@@ -259,7 +271,8 @@ const EntryDownload = ({
     previewFileFormat || FileFormat.fasta,
     namespace,
     selectedDataset,
-    downloadColumns
+    downloadColumns,
+    featureTypes
   );
 
   if (extraContent === 'preview') {
@@ -376,7 +389,7 @@ const EntryDownload = ({
                 </option>
               ) : (
                 <>
-                  {uniprotKBDatasets.map((datasetOption) => (
+                  {uniprotKBEntryDatasets.map((datasetOption) => (
                     <option
                       value={datasetOption}
                       key={datasetOption}

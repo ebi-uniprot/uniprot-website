@@ -1,10 +1,12 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { FullViewIcon } from 'franklin-sites';
 import { Link, useParams } from 'react-router-dom';
 
 import NightingaleZoomTool, {
   iconSize,
 } from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
+import EntryDownloadPanel from '../entry/EntryDownloadPanel';
+import EntryDownloadButton from '../entry/EntryDownloadButton';
 
 import useCustomElement from '../../hooks/useCustomElement';
 
@@ -13,8 +15,10 @@ import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents'
 
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 import { Namespace } from '../../types/namespaces';
+import { Dataset } from '../entry/EntryDownload';
 
 import styles from './styles/visual-features-view.module.scss';
+import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 // Can't use arrow function because of TS generic annotation
 // eslint-disable-next-line react/function-component-definition
@@ -29,6 +33,7 @@ function VisualFeaturesView<T>({
   trackHeight?: number;
   noLinkToFullView?: boolean;
 }) {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
@@ -66,9 +71,28 @@ function VisualFeaturesView<T>({
     navigationElement.defined &&
     sequenceElement.defined;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
+  const featureTypes = Array.from(
+    new Set(
+      features.flatMap((feature) =>
+        feature.type ? FeatureTypeHelpMappings[feature.type] : ''
+      )
+    )
+  );
+
   return ceDefined ? (
     <>
+      {displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          dataset={Dataset.features}
+          featureTypes={featureTypes}
+        />
+      )}
       <NightingaleZoomTool length={sequence.length} />
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
       {!noLinkToFullView && (
         <Link
           to={getEntryPath(

@@ -512,6 +512,15 @@ export const proteinsApi = {
   },
   proteins: (accession: string) =>
     joinUrl(proteinsApiPrefix, 'proteins', accession),
+  features: (accession: string, format?: FileFormat, types?: string[]) => {
+    const url = joinUrl(proteinsApiPrefix, 'features', accession);
+    if (types) {
+      return `${url}?types=${types.join(',')}${
+        format ? `&format=${format}` : ''
+      }`;
+    }
+    return format ? `${url}.${fileFormatToUrlParameter[format]}` : url;
+  },
   proteomicsPtm: (accession: string, format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession);
     return format ? `${url}.${fileFormatToUrlParameter[format]}` : url;

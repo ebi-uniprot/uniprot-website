@@ -149,7 +149,7 @@ const Entry = () => {
     { method: 'HEAD' }
   );
 
-  const proteinsAPIDatasets = [];
+  const proteinsAPIDatasets = [Dataset.features];
   const proteinsApiVariation = useDataApi(
     match?.params.accession &&
       joinUrl(proteinsApi.variation(match.params.accession)),
