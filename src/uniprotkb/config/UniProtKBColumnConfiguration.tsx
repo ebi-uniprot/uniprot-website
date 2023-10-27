@@ -678,7 +678,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
                     >
                       UniProtKB <SearchIcon width="1.333ch" />
                     </Link>
-                    {' | '}
+                    {'| '}
                     <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
                       Rhea
                     </ExternalLink>
@@ -1490,7 +1490,7 @@ const getXrefColumn = (databaseName: string) => {
                       <ExternalLink url={externalUrls.dbSNP(dbSNPRef.id)}>
                         dbSNP
                       </ExternalLink>
-                      {' | '}
+                      {'| '}
                       <ExternalLink
                         url={externalUrls.EnsemblVariation(dbSNPRef.id)}
                       >
