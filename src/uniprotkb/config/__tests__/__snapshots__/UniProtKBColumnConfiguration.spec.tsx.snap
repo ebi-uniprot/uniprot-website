@@ -1893,7 +1893,7 @@ exports[`UniProtKBColumnConfiguration component should render column "rhea": rhe
             width="1.333ch"
           />
         </a>
-         | 
+        | 
         <a
           class="external-link"
           href="https://www.rhea-db.org/rhea/12345"
@@ -2078,7 +2078,7 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_dbsnp
           width="12.5"
         />
       </a>
-       | 
+      | 
       <a
         class="external-link"
         href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=db id"
