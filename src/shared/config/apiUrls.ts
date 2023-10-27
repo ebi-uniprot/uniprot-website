@@ -516,7 +516,7 @@ export const proteinsApi = {
     const url = joinUrl(proteinsApiPrefix, 'features', accession);
     if (types) {
       return `${url}?types=${types.join(',')}${
-        format ? `&format=${format}` : ''
+        format ? `&format=${fileFormatToUrlParameter[format]}` : ''
       }`;
     }
     return format ? `${url}.${fileFormatToUrlParameter[format]}` : url;
