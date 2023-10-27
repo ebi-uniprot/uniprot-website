@@ -56,9 +56,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 
-  & svg {
-    place-self: center;
+  & > .viz {
     grid-row-start: 1;
     grid-column-end: -1;
+
+    & > svg {
+      position: sticky;
+      top: 0;
+    }
   }
 }

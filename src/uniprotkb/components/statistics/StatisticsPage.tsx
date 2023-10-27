@@ -433,17 +433,19 @@ const TaxonomiDistributionTable = ({
             ))}
           </tbody>
         </table>
-        <LazyComponent
-          // Keep the space with an empty visualisation
-          fallback={<PieChart type="taxonomy" />}
-          rootMargin="0px 0px"
-        >
-          <PieChart
-            data={graphData}
-            type="taxonomy"
-            colorScheme={colorScheme}
-          />
-        </LazyComponent>
+        <div className={styles.viz}>
+          <LazyComponent
+            // Keep the space with an empty visualisation
+            fallback={<PieChart type="taxonomy" />}
+            rootMargin="0px 0px"
+          >
+            <PieChart
+              data={graphData}
+              type="taxonomy"
+              colorScheme={colorScheme}
+            />
+          </LazyComponent>
+        </div>
       </div>
     </>
   );
@@ -659,13 +661,15 @@ const StatisticsPage = () => {
         <h2>Amino acid composition</h2>
         <ReviewedUnreviewedTabs>
           <div className={styles['side-by-side']}>
-            <LazyComponent
-              // Keep the space with an empty visualisation
-              fallback={<AminoAcidBarPlot />}
-              rootMargin="0px 0px"
-            >
-              <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
-            </LazyComponent>
+            <div className={styles.viz}>
+              <LazyComponent
+                // Keep the space with an empty visualisation
+                fallback={<AminoAcidBarPlot />}
+                rootMargin="0px 0px"
+              >
+                <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
+              </LazyComponent>
+            </div>
             <StatsTable
               key="reviewed"
               category={setAminoAcidsTotalCount(
@@ -676,13 +680,17 @@ const StatisticsPage = () => {
             />
           </div>
           <div className={styles['side-by-side']}>
-            <LazyComponent
-              // Keep the space with an empty visualisation
-              fallback={<AminoAcidBarPlot />}
-              rootMargin="0px 0px"
-            >
-              <AminoAcidBarPlot category={unreviewedData.SEQUENCE_AMINO_ACID} />
-            </LazyComponent>
+            <div className={styles.viz}>
+              <LazyComponent
+                // Keep the space with an empty visualisation
+                fallback={<AminoAcidBarPlot />}
+                rootMargin="0px 0px"
+              >
+                <AminoAcidBarPlot
+                  category={unreviewedData.SEQUENCE_AMINO_ACID}
+                />
+              </LazyComponent>
+            </div>
             <StatsTable
               key="reviewed"
               category={setAminoAcidsTotalCount(
