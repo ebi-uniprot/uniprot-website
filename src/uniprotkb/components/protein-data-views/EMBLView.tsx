@@ -185,7 +185,9 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                   )}
                 </td>
                 <td translate="yes">
-                  {d.moleculeType.replace(/translation/i, '')}
+                  {d.moleculeType
+                    ? d.moleculeType.replace(/translation/i, '')
+                    : '-'}
                 </td>
                 <td translate="yes">{d.status}</td>
               </tr>
