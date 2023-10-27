@@ -5,7 +5,7 @@ import { sum } from 'lodash-es';
 import { StatisticsCategory } from './StatisticsPage';
 
 // Specify the chart’s dimensions.
-const width = 340;
+const width = 330;
 const height = 400;
 const margin = { top: 20, right: 30, bottom: 60, left: 40 };
 
