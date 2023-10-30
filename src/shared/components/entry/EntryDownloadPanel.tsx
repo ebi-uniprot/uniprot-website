@@ -12,7 +12,6 @@ type EntryDownloadPanelProps = {
   isoformsAvailable?: boolean;
   columns?: Column[];
   dataset?: Dataset;
-  availableDatasets?: Dataset[];
   featureTypes?: string[];
 };
 const EntryDownloadPanel = ({
@@ -21,7 +20,6 @@ const EntryDownloadPanel = ({
   isoformsAvailable,
   columns,
   dataset,
-  availableDatasets,
   featureTypes,
 }: EntryDownloadPanelProps) => (
   <Suspense fallback={null}>
@@ -33,7 +31,6 @@ const EntryDownloadPanel = ({
           isoformsAvailable={isoformsAvailable}
           columns={columns}
           dataset={dataset}
-          availableDatasets={availableDatasets}
           featureTypes={featureTypes}
         />
       </ErrorBoundary>

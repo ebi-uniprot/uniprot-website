@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
+import joinUrl from 'url-join';
 
 import DownloadPreview from '../download/DownloadPreview';
 import DownloadAPIURL from '../download/DownloadAPIURL';
@@ -84,7 +85,7 @@ const uniprotKBEntryDatasets = [
   Dataset.uniprotData,
   Dataset.features,
   Dataset.variation,
-  Dataset.coordinates,
+  // Dataset.coordinates,
   Dataset.proteomicsPtm,
 ];
 
@@ -181,7 +182,6 @@ export type EntryDownloadProps = {
   ) => void;
   columns?: Column[];
   dataset?: Dataset;
-  availableDatasets?: Dataset[];
   featureTypes?: string[];
 };
 
@@ -191,7 +191,6 @@ const EntryDownload = ({
   onClose,
   columns,
   dataset,
-  availableDatasets,
   featureTypes,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
@@ -217,6 +216,42 @@ const EntryDownload = ({
       ? apiUrls.resultsFields(namespace)
       : null
   );
+
+  const availableProteinsAPIDatasets = [Dataset.features];
+
+  const proteinsApiVariation = useDataApi(
+    namespace === Namespace.uniprotkb
+      ? accession && joinUrl(proteinsApi.variation(accession))
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiPTMs = useDataApi(
+    namespace === Namespace.uniprotkb
+      ? accession && joinUrl(proteinsApi.proteomicsPtm(accession))
+      : '',
+    { method: 'HEAD' }
+  );
+
+  // TODO: Include Coordinates once it is deployed
+  // const proteinsApiCoordinates = useDataApi(
+  //   namespace === Namespace.uniprotkb ? accession &&
+  //     joinUrl(proteinsApi.coordinates(accession)) : '',
+  //   { method: 'HEAD' }
+  // );
+
+  if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
+    availableProteinsAPIDatasets.push(Dataset.variation);
+  }
+  if (!proteinsApiPTMs.loading && proteinsApiPTMs.status === 200) {
+    availableProteinsAPIDatasets.push(Dataset.proteomicsPtm);
+  }
+  // if (
+  //   !proteinsApiCoordinates.loading &&
+  //   proteinsApiCoordinates.status === 200
+  // ) {
+  //   availableProteinsAPIDatasets.push(Dataset.coordinates);
+  // }
 
   useEffect(() => {
     if (data) {
@@ -380,29 +415,21 @@ const EntryDownload = ({
             <select
               id="dataset-select"
               data-testid="dataset-select"
-              value={selectedDataset}
+              value={selectedDataset || dataset}
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
-              {dataset ? (
-                <option value={dataset} key={dataset}>
-                  {dataset}
+              {uniprotKBEntryDatasets.map((datasetOption) => (
+                <option
+                  value={datasetOption}
+                  key={datasetOption}
+                  disabled={
+                    datasetOption !== Dataset.uniprotData &&
+                    !availableProteinsAPIDatasets?.includes(datasetOption)
+                  }
+                >
+                  {datasetOption}
                 </option>
-              ) : (
-                <>
-                  {uniprotKBEntryDatasets.map((datasetOption) => (
-                    <option
-                      value={datasetOption}
-                      key={datasetOption}
-                      disabled={
-                        datasetOption !== Dataset.uniprotData &&
-                        !availableDatasets?.includes(datasetOption)
-                      }
-                    >
-                      {datasetOption}
-                    </option>
-                  ))}
-                </>
-              )}
+              ))}
             </select>
           </label>
         </fieldset>

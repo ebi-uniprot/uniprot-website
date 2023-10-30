@@ -41,7 +41,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
-import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
 
@@ -68,7 +68,6 @@ import {
   MessageFormat,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
-import { Dataset } from '../../../shared/components/entry/EntryDownload';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -148,38 +147,6 @@ const Entry = () => {
       joinUrl(apiUrls.variation, match?.params.accession),
     { method: 'HEAD' }
   );
-
-  const proteinsAPIDatasets = [Dataset.features];
-  const proteinsApiVariation = useDataApi(
-    match?.params.accession &&
-      joinUrl(proteinsApi.variation(match.params.accession)),
-    { method: 'HEAD' }
-  );
-
-  const proteinsApiPTMs = useDataApi(
-    match?.params.accession &&
-      joinUrl(proteinsApi.proteomicsPtm(match.params.accession)),
-    { method: 'HEAD' }
-  );
-
-  const proteinsApiCoordinates = useDataApi(
-    match?.params.accession &&
-      joinUrl(proteinsApi.coordinates(match.params.accession)),
-    { method: 'HEAD' }
-  );
-
-  if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
-    proteinsAPIDatasets.push(Dataset.variation);
-  }
-  if (!proteinsApiPTMs.loading && proteinsApiPTMs.status === 200) {
-    proteinsAPIDatasets.push(Dataset.proteomicsPtm);
-  }
-  if (
-    !proteinsApiCoordinates.loading &&
-    proteinsApiCoordinates.status === 200
-  ) {
-    proteinsAPIDatasets.push(Dataset.coordinates);
-  }
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
@@ -425,7 +392,6 @@ const Entry = () => {
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
-                  availableDatasets={proteinsAPIDatasets}
                 />
               )}
               <div className="button-group">
