@@ -19,7 +19,7 @@ export type StatisticsGraphItem = Pick<
   StatisticsItem,
   'name' | 'entryCount'
 > & {
-  to: LocationDescriptor;
+  to?: LocationDescriptor;
 };
 
 // Specify the chart’s dimensions.
@@ -192,13 +192,17 @@ const PieChart = ({
             <path />
             <polyline />
             <foreignObject>
-              <Link
-                // eslint-disable-next-line uniprot-website/use-config-location
-                to={datum.to}
-                title={`Search for the ${datum.entryCount} entries with ${type}: ${datum.name}`}
-              >
-                {datum.name}
-              </Link>
+              {datum.to ? (
+                <Link
+                  // eslint-disable-next-line uniprot-website/use-config-location
+                  to={datum.to}
+                  title={`Search for the ${datum.entryCount} entries with ${type}: ${datum.name}`}
+                >
+                  {datum.name}
+                </Link>
+              ) : (
+                <span>{datum.name}</span>
+              )}
             </foreignObject>
           </g>
         ))}

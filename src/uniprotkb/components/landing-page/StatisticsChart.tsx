@@ -85,14 +85,18 @@ const StatisticsChart = ({
       if (unreviewed) {
         entry.entryCount += unreviewedCounts.get(name) || 0;
       }
-      if (reviewed && unreviewed) {
-        entry.to.search = stringifyQuery({
-          query: nameToQueryKingdoms.get(name),
-        });
-      } else {
-        entry.to.search = stringifyQuery({
-          query: `(reviewed:${reviewed}) AND ${nameToQueryKingdoms.get(name)}`,
-        });
+      if (entry.to) {
+        if (reviewed && unreviewed) {
+          entry.to.search = stringifyQuery({
+            query: nameToQueryKingdoms.get(name),
+          });
+        } else {
+          entry.to.search = stringifyQuery({
+            query: `(reviewed:${reviewed}) AND ${nameToQueryKingdoms.get(
+              name
+            )}`,
+          });
+        }
       }
     }
 

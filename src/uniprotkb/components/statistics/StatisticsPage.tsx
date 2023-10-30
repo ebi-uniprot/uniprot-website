@@ -368,7 +368,7 @@ const TaxonomiDistributionTable = ({
     entryCount:
       (entry.statistics.reviewed?.entryCount || 0) +
       (entry.statistics.unreviewed?.entryCount || 0),
-    to: {
+    to: entry.query && {
       pathname: LocationToPath[Location.UniProtKBResults],
       search: stringifyQuery({ query: entry.query }),
     },
