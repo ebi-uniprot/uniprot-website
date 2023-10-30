@@ -11,9 +11,7 @@ exports[`XRefView should render section 1`] = `
     <protvista-datatable
       filter-scroll="true"
     >
-      <table
-        class="embl-view"
-      >
+      <table>
         <thead>
           <tr>
             <th>
@@ -49,6 +47,7 @@ exports[`XRefView should render section 1`] = `
                   width="12.5"
                 />
               </a>
+              · 
               <a
                 class="external-link"
                 href="https://www.ncbi.nlm.nih.gov/nuccore/1234"
@@ -61,6 +60,7 @@ exports[`XRefView should render section 1`] = `
                   width="12.5"
                 />
               </a>
+              · 
               <a
                 class="external-link"
                 href="http://getentry.ddbj.nig.ac.jp/getentry/na/1234"
