@@ -29,6 +29,19 @@ const margin = 45;
 
 const radius = Math.min(width, height) / 2 - margin;
 
+// Function to distributre pie chart data to hopefully avoid label collisions
+export const distributeByEntryCount = (data: StatisticsGraphItem[]) => {
+  const sorted = [...data].sort((a, b) => a.entryCount - b.entryCount);
+  const n = data.length;
+  const a: StatisticsGraphItem[] = new Array(n);
+  const middle = Math.floor(n / 2);
+  for (let i = 0; i < middle; i += 1) {
+    a[2 * i] = sorted[i];
+    a[2 * i + 1] = sorted[n - i - 1];
+  }
+  a[n - 1] = sorted[middle];
+  return a;
+};
 // Create the pie layout and arc generators
 const pie = d3pie<StatisticsGraphItem>()
   .sort(null) // use null to keep order in original data
@@ -165,10 +178,9 @@ const PieChart = ({
   const svgRef = useRef<SVGSVGElement>(null);
 
   const renderPieChart = useMemo(() => getRenderPieChart(), []);
-
   useEffect(() => {
     if (svgRef.current && data) {
-      renderPieChart(svgRef.current, data, colorScheme);
+      renderPieChart(svgRef.current, distributeByEntryCount(data), colorScheme);
     }
   }, [renderPieChart, data, colorScheme]);
 
