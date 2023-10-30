@@ -206,7 +206,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       </a>
                        1; description value 123
                       <button
-                        aria-controls="3"
+                        aria-controls="1"
                         aria-expanded="false"
                         class="svg-colour-reviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
@@ -225,7 +225,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       <div
                         class="evidence-tag-content "
                         data-testid="evidence-tag-content"
-                        id="3"
+                        id="1"
                       />
                     </td>
                     <td>
@@ -264,128 +264,8 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     </td>
                   </tr>
                   <tr
-                    data-end="209"
-                    data-id="0"
-                    data-start="209"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Modified residue (large scale data)"
-                    >
-                      Modified residue (large scale data)
-                    </td>
-                    <td />
-                    <td>
-                      209
-                    </td>
-                    <td
-                      data-filter="source"
-                      data-filter-value="PTMeXchange"
-                    >
-                      PTMeXchange
-                    </td>
-                    <td
-                      id="description209"
-                    >
-                      Phosphoserine
-                      <span
-                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
-                      >
-                        <button
-                          class="chip chip--compact secondary Bronze"
-                          type="button"
-                        >
-                          Bronze
-                        </button>
-                      </span>
-                      <button
-                        aria-controls="4"
-                        aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="4"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="214"
-                    data-id="1"
-                    data-start="214"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Modified residue (large scale data)"
-                    >
-                      Modified residue (large scale data)
-                    </td>
-                    <td />
-                    <td>
-                      214
-                    </td>
-                    <td
-                      data-filter="source"
-                      data-filter-value="PTMeXchange"
-                    >
-                      PTMeXchange
-                    </td>
-                    <td
-                      id="description214"
-                    >
-                      Phosphoserine
-                      <span
-                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
-                      >
-                        <button
-                          class="chip chip--compact secondary Bronze"
-                          type="button"
-                        >
-                          Bronze
-                        </button>
-                      </span>
-                      <button
-                        aria-controls="5"
-                        aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="5"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
                     data-end="215"
-                    data-id="2"
+                    data-id="0"
                     data-start="215"
                   >
                     <td
@@ -412,14 +292,14 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                         data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
                       >
                         <button
-                          class="chip chip--compact secondary Bronze"
+                          class="chip chip--compact secondary Silver"
                           type="button"
                         >
-                          Bronze
+                          Silver
                         </button>
                       </span>
                       <button
-                        aria-controls="6"
+                        aria-controls="2"
                         aria-expanded="false"
                         class="svg-colour-unreviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
@@ -438,7 +318,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       <div
                         class="evidence-tag-content "
                         data-testid="evidence-tag-content"
-                        id="6"
+                        id="2"
                       />
                     </td>
                     <td />
