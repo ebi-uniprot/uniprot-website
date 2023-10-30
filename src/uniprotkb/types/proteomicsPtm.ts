@@ -50,9 +50,9 @@ type Properties = {
   'Dataset ID': string;
   'Binomial final q value': string;
   'Universal Spectrum Id': string;
-  'PSM Count': string;
+  'PSM Count (0.05 gFLR)': string;
   'Confidence score': ConfidenceScore;
-  'Site probability': string;
+  'Final site probability': string;
 };
 
 type Xref = {
