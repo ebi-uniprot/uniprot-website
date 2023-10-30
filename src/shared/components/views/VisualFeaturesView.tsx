@@ -75,7 +75,7 @@ function VisualFeaturesView<T>({
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
-  const featureTypes = Array.from(
+  const featureTypes: string[] = Array.from(
     new Set(
       features.flatMap((feature) =>
         (feature as ProcessedFeature).type
