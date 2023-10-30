@@ -11,8 +11,6 @@ import * as logging from '../../../shared/utils/logging';
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 
-import styles from './styles/embl-view.module.scss';
-
 const EMBLXrefProperties: Record<string, string> = {
   Genomic_DNA: 'Genomic DNA Translation',
   Genomic_RNA: 'Genomic RNA Translation',
@@ -107,7 +105,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
   }
 
   const table = (
-    <table className={styles['embl-view']}>
+    <table>
       <thead>
         <tr>
           <th>Nucleotide Sequence</th>
@@ -134,6 +132,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                       >
                         EMBL
                       </ExternalLink>
+                      {'· '}
                       <ExternalLink
                         url={processUrlTemplate(genBankDnaLink, {
                           ProteinId: d.sequenceId,
@@ -141,6 +140,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                       >
                         GenBank
                       </ExternalLink>
+                      {'· '}
                       <ExternalLink
                         url={processUrlTemplate(ddbjDnaLink, {
                           ProteinId: d.sequenceId,
@@ -165,6 +165,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                       >
                         EMBL
                       </ExternalLink>
+                      {'· '}
                       <ExternalLink
                         url={processUrlTemplate(genBankProteinLink, {
                           id: d.proteinId,
@@ -172,6 +173,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                       >
                         GenBank
                       </ExternalLink>
+                      {'· '}
                       <ExternalLink
                         url={processUrlTemplate(ddbjProteinLink, {
                           id: d.proteinId,
