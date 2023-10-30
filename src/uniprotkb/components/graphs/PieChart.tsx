@@ -31,7 +31,7 @@ const radius = Math.min(width, height) / 2 - margin;
 
 // Function to distributre pie chart data to hopefully avoid label collisions
 export const distributeByEntryCount = (data: StatisticsGraphItem[]) => {
-  const sorted = data.sort((a, b) => a.entryCount - b.entryCount);
+  const sorted = new Array(data).sort((a, b) => a.entryCount - b.entryCount);
   const n = data.length;
   const a: StatisticsGraphItem[] = new Array(n);
   const middle = Math.floor(n / 2);
