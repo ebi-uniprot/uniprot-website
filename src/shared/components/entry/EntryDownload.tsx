@@ -41,9 +41,12 @@ import {
 } from '../../utils/gtagEvents';
 import { Column } from '../../config/columns';
 import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import { SearchResults } from '../../types/results';
+import { GeneCentricData } from '../../../uniprotkb/components/entry/ComputationallyMappedSequences';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
+import downloadStyles from './styles/entry-download.module.scss';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.uniprotkb, uniProtKBFFED],
@@ -72,25 +75,25 @@ const proteinsAPIVariationFormats = [
 ];
 
 export enum Dataset {
-  uniprotData = 'UniProt API',
-  features = 'UniProt API - Features',
-  genecentric = 'UniProt API - Gene-centric isoform mapping',
-  variation = 'Proteins API - Variations',
-  coordinates = 'Proteins API - Genomic Coordinates',
-  proteomics = 'Proteins API - Proteomics',
-  proteomicsPtm = 'Proteins API - Proteomics-PTM',
-  antigen = 'Proteins API - Antigen',
-  mutagenesis = 'Proteins API - Mutagenesis',
+  uniprotData = 'Entry',
+  features = 'Features',
+  genecentric = 'Gene-centric isoform mapping',
+  variation = 'Variations',
+  coordinates = 'Genomic Coordinates',
+  proteomics = 'Proteomics',
+  proteomicsPtm = 'Proteomics-PTM',
+  antigen = 'Antigen',
+  mutagenesis = 'Mutagenesis',
 }
 
-const uniprotKBEntryDatasets = [
-  Dataset.uniprotData,
-  Dataset.features,
-  Dataset.genecentric,
-  Dataset.variation,
-  // Dataset.coordinates,
-  Dataset.proteomicsPtm,
-];
+const uniprotKBEntryDatasets = {
+  'UniProt API': [Dataset.uniprotData, Dataset.features, Dataset.genecentric],
+  'Proteins API': [
+    Dataset.variation,
+    // Dataset.coordinates,
+    Dataset.proteomicsPtm,
+  ],
+};
 
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
@@ -214,7 +217,7 @@ const EntryDownload = ({
   );
   const [selectedFormat, setSelectedFormat] = useState(fileFormats?.[0]);
   const [selectedDataset, setSelectedDataset] = useState(
-    dataset || uniprotKBEntryDatasets[0]
+    dataset || Dataset.uniprotData
   );
   const [extraContent, setExtraContent] = useState('');
 
@@ -241,7 +244,13 @@ const EntryDownload = ({
     return fieldsMap;
   }, [resultFieldsData]);
 
-  const availableProteinsAPIDatasets = [Dataset.features];
+  const availableDatasets = [Dataset.features];
+
+  const { data: geneCentricData } = useDataApi<SearchResults<GeneCentricData>>(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.genecentric(accession)
+      : ''
+  );
 
   const proteinsApiVariation = useDataApi(
     namespace === Namespace.uniprotkb
@@ -257,6 +266,12 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
+  if (geneCentricData?.results) {
+    if (geneCentricData.results[0].relatedProteins?.length) {
+      availableDatasets.push(Dataset.genecentric);
+    }
+  }
+
   // TODO: Include Coordinates once it is deployed
   // const proteinsApiCoordinates = useDataApi(
   //   namespace === Namespace.uniprotkb ? accession &&
@@ -265,10 +280,10 @@ const EntryDownload = ({
   // );
 
   if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
-    availableProteinsAPIDatasets.push(Dataset.variation);
+    availableDatasets.push(Dataset.variation);
   }
   if (!proteinsApiPTMs.loading && proteinsApiPTMs.status === 200) {
-    availableProteinsAPIDatasets.push(Dataset.proteomicsPtm);
+    availableDatasets.push(Dataset.proteomicsPtm);
   }
   // if (
   //   !proteinsApiCoordinates.loading &&
@@ -452,17 +467,25 @@ const EntryDownload = ({
               value={selectedDataset || dataset}
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
-              {uniprotKBEntryDatasets.map((datasetOption) => (
-                <option
-                  value={datasetOption}
-                  key={datasetOption}
-                  disabled={
-                    datasetOption !== Dataset.uniprotData &&
-                    !availableProteinsAPIDatasets?.includes(datasetOption)
-                  }
+              {Object.entries(uniprotKBEntryDatasets).map(([key, value]) => (
+                <optgroup
+                  label={key}
+                  key={key}
+                  className={downloadStyles['select-group-label']}
                 >
-                  {datasetOption}
-                </option>
+                  {value.map((datasetOption) => (
+                    <option
+                      value={datasetOption}
+                      key={datasetOption}
+                      disabled={
+                        datasetOption !== Dataset.uniprotData &&
+                        !availableDatasets?.includes(datasetOption)
+                      }
+                    >
+                      {datasetOption}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </label>
