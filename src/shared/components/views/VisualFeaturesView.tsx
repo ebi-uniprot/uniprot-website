@@ -12,7 +12,6 @@ import useCustomElement from '../../hooks/useCustomElement';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
-import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 import { Namespace } from '../../types/namespaces';
@@ -76,13 +75,7 @@ function VisualFeaturesView<T>({
     setDisplayDownloadPanel(!displayDownloadPanel);
 
   const featureTypes: string[] = Array.from(
-    new Set(
-      features.flatMap((feature) =>
-        (feature as ProcessedFeature).type
-          ? FeatureTypeHelpMappings[feature.type]
-          : ''
-      )
-    )
+    new Set(features.flatMap((feature) => feature.type))
   );
 
   return ceDefined ? (

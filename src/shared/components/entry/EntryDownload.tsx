@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
@@ -18,6 +18,7 @@ import {
   getLocationEntryPathFor,
   Location,
 } from '../../../app/config/urls';
+import { stringifyUrl } from '../../utils/url';
 
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
 import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
@@ -72,7 +73,7 @@ const proteinsAPIVariationFormats = [
 
 export enum Dataset {
   uniprotData = 'UniProt API',
-  features = 'Proteins API - Features',
+  features = 'UniProt API - Features',
   variation = 'Proteins API - Variations',
   coordinates = 'Proteins API - Genomic Coordinates',
   proteomics = 'Proteins API - Proteomics',
@@ -101,10 +102,11 @@ const getEntryDownloadUrl = (
   namespace: Namespace,
   dataset: Dataset,
   columns?: Column[],
-  featuretypes?: string[]
+  fields?: string[]
 ) => {
   switch (dataset) {
-    case Dataset.uniprotData: {
+    case Dataset.uniprotData:
+    case Dataset.features: {
       if (isUniparcTsv(namespace, fileFormat)) {
         return uniparcApiUrls.databases(accession, {
           format: fileFormat as FileFormat.tsv,
@@ -122,20 +124,24 @@ const getEntryDownloadUrl = (
       }
 
       const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+
       if (
         columns &&
         (fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel)
       ) {
-        return `${entryUrl}?fields=${columns.join(',')}`;
+        return stringifyUrl(entryUrl, { fields: columns.join(',') });
       }
+
+      if (fields) {
+        return stringifyUrl(entryUrl, { fields: fields.join(',') });
+      }
+
       return entryUrl;
     }
     case Dataset.coordinates:
       return proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
       return proteinsApi.variation(accession, fileFormat);
-    case Dataset.features:
-      return proteinsApi.features(accession, fileFormat, featuretypes);
     case Dataset.proteomicsPtm:
       return proteinsApi.proteomicsPtm(accession, fileFormat);
     default:
@@ -216,6 +222,20 @@ const EntryDownload = ({
       ? apiUrls.resultsFields(namespace)
       : null
   );
+  const { data: resultFieldsData } = useDataApi<ReceivedFieldData>(
+    namespace === Namespace.uniprotkb ? apiUrls.resultsFields(namespace) : null
+  );
+
+  const uniprotkbFieldMap = useMemo(() => {
+    const fieldsMap = new Map();
+    if (resultFieldsData) {
+      const fields = resultFieldsData.flatMap((item) => item.fields);
+      fields.forEach((element) => {
+        fieldsMap.set(element.label, element.name);
+      });
+    }
+    return fieldsMap;
+  }, [resultFieldsData]);
 
   const availableProteinsAPIDatasets = [Dataset.features];
 
@@ -265,13 +285,15 @@ const EntryDownload = ({
       case Dataset.uniprotData:
         setFileFormats(namespace ? formatMap.get(namespace) : []);
         break;
+      case Dataset.features:
+        setFileFormats([FileFormat.json]);
+        break;
       case Dataset.variation:
         setFileFormats(proteinsAPIVariationFormats);
         break;
       case Dataset.proteomics:
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
-      case Dataset.features:
       case Dataset.antigen:
       case Dataset.mutagenesis:
         setFileFormats(proteinsAPICommonFormats);
@@ -279,10 +301,13 @@ const EntryDownload = ({
       default:
         break;
     }
+  }, [namespace, selectedDataset]);
+
+  useEffect(() => {
     if (fileFormats) {
       setSelectedFormat(fileFormats[0]);
     }
-  }, [namespace, selectedDataset, fileFormats]);
+  }, [fileFormats]);
 
   let extraContentNode: JSX.Element | null = null;
 
@@ -290,13 +315,17 @@ const EntryDownload = ({
     return null;
   }
 
+  const uniprotkbFields = featureTypes?.map((type) =>
+    uniprotkbFieldMap.get(type)
+  );
+
   const downloadUrl = getEntryDownloadUrl(
     accession,
     selectedFormat || FileFormat.fasta,
     namespace,
     selectedDataset,
     downloadColumns,
-    featureTypes
+    uniprotkbFields
   );
 
   const previewFileFormat =
@@ -307,7 +336,7 @@ const EntryDownload = ({
     namespace,
     selectedDataset,
     downloadColumns,
-    featureTypes
+    uniprotkbFields
   );
 
   if (extraContent === 'preview') {

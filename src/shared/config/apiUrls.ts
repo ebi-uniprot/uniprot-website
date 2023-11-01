@@ -501,37 +501,52 @@ export const proteinsApi = {
         return stringifyUrl(url, { accession });
       }
       const accessionUrl = joinUrl(url, accession);
-      return stringifyUrl(accessionUrl, {
-        format: format ? fileFormatToUrlParameter[format] : '',
-      });
+      return stringifyUrl(
+        accessionUrl,
+        format
+          ? {
+              format: fileFormatToUrlParameter[format],
+            }
+          : {}
+      );
     }
     return url;
   },
   variation: (accession: string, format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'variation', accession);
-    return stringifyUrl(url, {
-      format: format ? fileFormatToUrlParameter[format] : '',
-    });
+    return stringifyUrl(
+      url,
+      format
+        ? {
+            format: fileFormatToUrlParameter[format],
+          }
+        : {}
+    );
   },
   proteins: (accession: string) =>
     joinUrl(proteinsApiPrefix, 'proteins', accession),
-  features: (accession: string, format?: FileFormat, types?: string[]) => {
-    const url = joinUrl(proteinsApiPrefix, 'features', accession);
-    if (types) {
-      return stringifyUrl(url, {
-        types: types.join(','),
-        format: format ? fileFormatToUrlParameter[format] : '',
-      });
-    }
-    return stringifyUrl(url, {
-      format: format ? fileFormatToUrlParameter[format] : '',
-    });
-  },
+  // features: (accession: string, format?: FileFormat, types?: string[]) => {
+  //   const url = joinUrl(proteinsApiPrefix, 'features', accession);
+  //   if (types) {
+  //     return stringifyUrl(url, {
+  //       types: types.join(','),
+  //       format: format ? fileFormatToUrlParameter[format] : '',
+  //     });
+  //   }
+  //   return stringifyUrl(url, {
+  //     format: format ? fileFormatToUrlParameter[format] : '',
+  //   });
+  // },
   proteomicsPtm: (accession: string, format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession);
-    return stringifyUrl(url, {
-      format: format ? fileFormatToUrlParameter[format] : '',
-    });
+    return stringifyUrl(
+      url,
+      format
+        ? {
+            format: fileFormatToUrlParameter[format],
+          }
+        : {}
+    );
   },
 };
 
