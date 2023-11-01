@@ -74,6 +74,7 @@ const proteinsAPIVariationFormats = [
 export enum Dataset {
   uniprotData = 'UniProt API',
   features = 'UniProt API - Features',
+  genecentric = 'UniProt API - Gene-centric isoform mapping',
   variation = 'Proteins API - Variations',
   coordinates = 'Proteins API - Genomic Coordinates',
   proteomics = 'Proteins API - Proteomics',
@@ -85,6 +86,7 @@ export enum Dataset {
 const uniprotKBEntryDatasets = [
   Dataset.uniprotData,
   Dataset.features,
+  Dataset.genecentric,
   Dataset.variation,
   // Dataset.coordinates,
   Dataset.proteomicsPtm,
@@ -138,6 +140,8 @@ const getEntryDownloadUrl = (
 
       return entryUrl;
     }
+    case Dataset.genecentric:
+      return apiUrls.genecentric(accession);
     case Dataset.coordinates:
       return proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
@@ -286,6 +290,7 @@ const EntryDownload = ({
         setFileFormats(namespace ? formatMap.get(namespace) : []);
         break;
       case Dataset.features:
+      case Dataset.genecentric: // Confirm the available formats
         setFileFormats([FileFormat.json]);
         break;
       case Dataset.variation:
