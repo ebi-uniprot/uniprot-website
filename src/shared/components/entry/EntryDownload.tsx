@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Button, LongNumber } from 'franklin-sites';
+import { Button, ExternalLink, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import joinUrl from 'url-join';
 
@@ -140,7 +140,9 @@ const getEntryDownloadUrl = (
     }
     case Dataset.features: {
       const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
-      return stringifyUrl(entryUrl, { fields: fields?.join(',') });
+      return stringifyUrl(entryUrl, {
+        fields: fields?.filter(Boolean).join(','),
+      });
     }
     case Dataset.genecentric:
       return apiUrls.genecentric(accession);
@@ -329,6 +331,7 @@ const EntryDownload = ({
     }
   }, [fileFormats]);
 
+  let additionalInformation: JSX.Element | null = null;
   let extraContentNode: JSX.Element | null = null;
 
   if (!(namespace && accession && fileFormats)) {
@@ -359,30 +362,13 @@ const EntryDownload = ({
     uniprotkbFields || Array.from(uniprotFeaturesMap.values())
   );
 
-  if (extraContent === 'preview') {
-    extraContentNode = (
-      <DownloadPreview
-        previewUrl={previewUrl}
-        previewFileFormat={previewFileFormat}
-      />
-    );
-  } else if (extraContent === 'url') {
-    extraContentNode = (
-      <DownloadAPIURL
-        apiURL={downloadUrl}
-        onCopy={() => onClose('copy', 'api-url')}
-        isEntry
-      />
-    );
-  }
-
   if (nResults && nResults > maxPaginationDownload) {
     if (
       namespace === Namespace.uniparc &&
       (selectedFormat === FileFormat.tsv || selectedFormat === FileFormat.excel)
     ) {
-      extraContentNode = (
-        <>
+      additionalInformation = (
+        <div>
           There is a current limitation where UniParc cross-reference{' '}
           {selectedFormat}
           downloads are limited to {maxPaginationDownload} entries. Until this
@@ -416,12 +402,12 @@ const EntryDownload = ({
               cross-references will not be downloaded)
             </li>
           </ul>
-        </>
+        </div>
       );
     }
     if (namespace === Namespace.uniref && selectedFormat === FileFormat.list) {
-      extraContentNode = (
-        <>
+      additionalInformation = (
+        <div>
           There is a current limitation where UniRef member list downloads are
           limited to {maxPaginationDownload} entries. Until this is fixed, there
           are several options:
@@ -450,9 +436,45 @@ const EntryDownload = ({
               members will not be downloaded)
             </li>
           </ul>
-        </>
+        </div>
       );
     }
+  }
+  if (featureTypes?.includes('Modified residue (large scale data)')) {
+    additionalInformation = (
+      <div>
+        There are additional PTM data available from large scale studies for
+        this entry. It is provided by the{' '}
+        <ExternalLink url="https://www.ebi.ac.uk/proteins/api/doc/#/proteomics-ptm">
+          Proteomics-ptm
+        </ExternalLink>{' '}
+        service of Proteins API in the{' '}
+        <DownloadAnchor
+          accession={accession as string}
+          fileFormat={FileFormat.json}
+          namespace={namespace}
+          dataset={Dataset.proteomicsPtm}
+        />{' '}
+        file format.
+      </div>
+    );
+  }
+
+  if (extraContent === 'preview') {
+    extraContentNode = (
+      <DownloadPreview
+        previewUrl={previewUrl}
+        previewFileFormat={previewFileFormat}
+      />
+    );
+  } else if (extraContent === 'url') {
+    extraContentNode = (
+      <DownloadAPIURL
+        apiURL={downloadUrl}
+        onCopy={() => onClose('copy', 'api-url')}
+        isEntry
+      />
+    );
   }
 
   return (
@@ -560,7 +582,11 @@ const EntryDownload = ({
           Download
         </a>
       </section>
-      <section>{extraContentNode}</section>
+      <section>
+        {additionalInformation}
+        <br />
+        {extraContentNode}
+      </section>
     </>
   );
 };
