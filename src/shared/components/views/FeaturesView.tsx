@@ -61,10 +61,12 @@ type FeatureProps<T> = {
   noLinkToFullView?: boolean;
 };
 
-// ProcessedFeature | TransformedVariant | UniParcProcessedFeature
-const FeaturesView = <
-  T extends ProcessedFeature | TransformedVariant | UniParcProcessedFeature
->({
+export type GenericFeature =
+  | ProcessedFeature
+  | TransformedVariant
+  | UniParcProcessedFeature;
+
+const FeaturesView = <T extends GenericFeature>({
   sequence,
   features,
   table,

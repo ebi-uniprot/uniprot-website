@@ -16,22 +16,25 @@ import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents'
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
+import { GenericFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
 
-// Can't use arrow function because of TS generic annotation
-// eslint-disable-next-line react/function-component-definition
-function VisualFeaturesView<T>({
-  features,
-  sequence,
-  trackHeight,
-  noLinkToFullView,
-}: {
+type Props<T> = {
   features: T[];
   sequence: string;
   trackHeight?: number;
   noLinkToFullView?: boolean;
-}) {
+};
+
+// Can't use arrow function because of TS generic annotation
+// eslint-disable-next-line react/function-component-definition
+function VisualFeaturesView<T extends GenericFeature>({
+  features,
+  sequence,
+  trackHeight,
+  noLinkToFullView,
+}: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const trackElement = useCustomElement(
     /* istanbul ignore next */
