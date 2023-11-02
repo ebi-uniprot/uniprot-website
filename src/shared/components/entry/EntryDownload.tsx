@@ -90,7 +90,7 @@ const uniprotKBEntryDatasets = {
   'UniProt API': [Dataset.uniprotData, Dataset.features, Dataset.genecentric],
   'Proteins API': [
     Dataset.variation,
-    // Dataset.coordinates,
+    Dataset.coordinates,
     Dataset.proteomicsPtm,
   ],
 };
@@ -267,31 +267,30 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
+  const proteinsApiCoordinates = useDataApi(
+    namespace === Namespace.uniprotkb
+      ? accession && joinUrl(proteinsApi.coordinates(accession))
+      : '',
+    { method: 'HEAD' }
+  );
+
   if (geneCentricData?.results) {
     if (geneCentricData.results[0].relatedProteins?.length) {
       availableDatasets.push(Dataset.genecentric);
     }
   }
-
-  // TODO: Include Coordinates once it is deployed
-  // const proteinsApiCoordinates = useDataApi(
-  //   namespace === Namespace.uniprotkb ? accession &&
-  //     joinUrl(proteinsApi.coordinates(accession)) : '',
-  //   { method: 'HEAD' }
-  // );
-
   if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
     availableDatasets.push(Dataset.variation);
   }
   if (!proteinsApiPTMs.loading && proteinsApiPTMs.status === 200) {
     availableDatasets.push(Dataset.proteomicsPtm);
   }
-  // if (
-  //   !proteinsApiCoordinates.loading &&
-  //   proteinsApiCoordinates.status === 200
-  // ) {
-  //   availableProteinsAPIDatasets.push(Dataset.coordinates);
-  // }
+  if (
+    !proteinsApiCoordinates.loading &&
+    proteinsApiCoordinates.status === 200
+  ) {
+    availableDatasets.push(Dataset.coordinates);
+  }
 
   useEffect(() => {
     if (data) {
