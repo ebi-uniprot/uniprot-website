@@ -16,7 +16,6 @@ import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents'
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
-import { ProcessedFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
 
