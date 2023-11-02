@@ -110,8 +110,7 @@ const getEntryDownloadUrl = (
   fields?: string[]
 ) => {
   switch (dataset) {
-    case Dataset.uniprotData:
-    case Dataset.features: {
+    case Dataset.uniprotData: {
       if (isUniparcTsv(namespace, fileFormat)) {
         return uniparcApiUrls.databases(accession, {
           format: fileFormat as FileFormat.tsv,
@@ -137,11 +136,11 @@ const getEntryDownloadUrl = (
         return stringifyUrl(entryUrl, { fields: columns.join(',') });
       }
 
-      if (fields) {
-        return stringifyUrl(entryUrl, { fields: fields.join(',') });
-      }
-
       return entryUrl;
+    }
+    case Dataset.features: {
+      const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+      return stringifyUrl(entryUrl, { fields: fields?.join(',') });
     }
     case Dataset.genecentric:
       return apiUrls.genecentric(accession);
@@ -233,15 +232,17 @@ const EntryDownload = ({
     namespace === Namespace.uniprotkb ? apiUrls.resultsFields(namespace) : null
   );
 
-  const uniprotkbFieldMap = useMemo(() => {
-    const fieldsMap = new Map();
+  const uniprotFeaturesMap = useMemo(() => {
+    const featuresMap = new Map();
     if (resultFieldsData) {
       const fields = resultFieldsData.flatMap((item) => item.fields);
       fields.forEach((element) => {
-        fieldsMap.set(element.label, element.name);
+        if (element.name.startsWith('ft_')) {
+          featuresMap.set(element.label, element.name);
+        }
       });
     }
-    return fieldsMap;
+    return featuresMap;
   }, [resultFieldsData]);
 
   const availableDatasets = [Dataset.features];
@@ -336,7 +337,7 @@ const EntryDownload = ({
   }
 
   const uniprotkbFields = featureTypes?.map((type) =>
-    uniprotkbFieldMap.get(type)
+    uniprotFeaturesMap.get(type)
   );
 
   const downloadUrl = getEntryDownloadUrl(
@@ -345,7 +346,7 @@ const EntryDownload = ({
     namespace,
     selectedDataset,
     downloadColumns,
-    uniprotkbFields
+    uniprotkbFields || Array.from(uniprotFeaturesMap.values())
   );
 
   const previewFileFormat =
@@ -356,7 +357,7 @@ const EntryDownload = ({
     namespace,
     selectedDataset,
     downloadColumns,
-    uniprotkbFields
+    uniprotkbFields || Array.from(uniprotFeaturesMap.values())
   );
 
   if (extraContent === 'preview') {
