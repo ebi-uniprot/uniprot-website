@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card } from 'franklin-sites';
 
 import FreeTextView from '../protein-data-views/FreeTextView';
@@ -62,4 +63,4 @@ const FamilyAndDomainsSection = ({
   );
 };
 
-export default FamilyAndDomainsSection;
+export default memo(FamilyAndDomainsSection);

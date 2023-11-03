@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card } from 'franklin-sites';
 
 import { hasContent } from '../../../shared/utils/utils';
@@ -62,4 +63,4 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
   );
 };
 
-export default ExpressionSection;
+export default memo(ExpressionSection);

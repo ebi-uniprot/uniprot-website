@@ -1,18 +1,20 @@
-import { FC } from 'react';
+import { HTMLAttributes } from 'react';
 
 import ResourceNotFoundPage from './ResourceNotFoundPage';
 import ServiceUnavailablePage from './ServiceUnavailablePage';
 
-const ErrorHandler: FC<{ status?: number }> = ({ status }) => {
+type ErrorHandlerProps = { status?: number } & HTMLAttributes<HTMLDivElement>;
+
+const ErrorHandler = ({ status, ...props }: ErrorHandlerProps) => {
   switch (status) {
     case 400:
-      return <ResourceNotFoundPage />;
+      return <ResourceNotFoundPage {...props} />;
     case 404:
-      return <ResourceNotFoundPage />;
+      return <ResourceNotFoundPage {...props} />;
     case 500:
     case 503:
     default:
-      return <ServiceUnavailablePage />;
+      return <ServiceUnavailablePage {...props} />;
   }
 };
 

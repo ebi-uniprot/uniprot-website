@@ -1,40 +1,45 @@
-import { FC, useState, useEffect, useMemo, Fragment } from 'react';
+import { useState, useEffect, useMemo, Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card, Loader, DataListWithLoader, InfoList } from 'franklin-sites';
 import { Except, SetRequired, Simplify } from 'type-fest';
 import { groupBy, capitalize } from 'lodash-es';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import ExternalLink from '../../../../shared/components/ExternalLink';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
-import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
+import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 
-import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
-import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
-import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-import { getParamsFromURL } from '../../utils/resultsUtils';
-import { processUrlTemplate } from '../protein-data-views/XRefView';
+import { addBlastLinksToFreeText } from '../../../../shared/utils/utils';
+import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import { getParamsFromURL } from '../../../utils/resultsUtils';
+import { processUrlTemplate } from '../../protein-data-views/XRefView';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
-import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
+import { Location, LocationToPath } from '../../../../app/config/urls';
+import { getUniProtPublicationsQueryUrl } from '../../../../shared/config/apiUrls';
 
 import {
   CitationsAPIModel,
   Reference,
-} from '../../../supporting-data/citations/adapters/citationsConverter';
-import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+} from '../../../../supporting-data/citations/adapters/citationsConverter';
+import { Namespace } from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
 
-const PublicationReference: FC<{
+type PublicationsReferenceProps = {
   references: Reference[];
   accession: string;
-}> = ({ references, accession }) => {
+};
+
+const PublicationReference = ({
+  references,
+  accession,
+}: PublicationsReferenceProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   let url: string | null;
@@ -221,7 +226,9 @@ const hasReference = (
 ): data is SetRequired<CitationsAPIModel, 'references'> =>
   Boolean(data.references?.length);
 
-const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
+type PublicationsProps = { accession: string };
+
+const Publications = ({ accession }: PublicationsProps) => {
   const { search } = useLocation();
   const [{ selectedFacets }] = getParamsFromURL(search);
   const initialUrl = getUniProtPublicationsQueryUrl({
@@ -290,4 +297,4 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   );
 };
 
-export default EntryPublications;
+export default Publications;

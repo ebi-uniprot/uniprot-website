@@ -103,7 +103,6 @@ const apiUrls = {
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(apiPrefix, namespace, 'search'),
   download: (namespace: Namespace) => joinUrl(apiPrefix, namespace, 'stream'),
-  variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
   genecentric: (accession: string) =>
     stringifyUrl(joinUrl(apiPrefix, 'genecentric/search'), {
       query: `accession:${accession}`,

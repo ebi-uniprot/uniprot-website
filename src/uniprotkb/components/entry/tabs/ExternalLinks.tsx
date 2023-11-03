@@ -1,17 +1,17 @@
 import { Card, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-import XRefView from '../protein-data-views/XRefView';
+import ExternalLink from '../../../../shared/components/ExternalLink';
+import XRefView from '../../protein-data-views/XRefView';
 
-import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 
 import EntrySection, {
   getEntrySectionNameAndId,
-} from '../../types/entrySection';
-import { XrefUIModel, XrefsGoupedByDatabase } from '../../utils/xrefUtils';
-import { WebResourceComment } from '../../types/commentTypes';
-import { DatabaseCategory } from '../../types/databaseRefs';
+} from '../../../types/entrySection';
+import { XrefUIModel, XrefsGoupedByDatabase } from '../../../utils/xrefUtils';
+import { WebResourceComment } from '../../../types/commentTypes';
+import { DatabaseCategory } from '../../../types/databaseRefs';
 
 type EntryExternalLinksProps = {
   transformedData: UniProtkbUIModel;
