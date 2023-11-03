@@ -6670,10 +6670,10 @@ foundation-sites@6.7.5:
   resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.7.5.tgz#6bc2bdd06819e6ed4d7fd8e3090246a0b6ac81c0"
   integrity sha512-MEjAENdF/IV2XQvlQmg20o+iDTyyWu0N/j440e8fKbEylbKxARzgg5S7vcnxtjukC1Lqg+rRm7ZDSSyGhVVoUQ==
 
-franklin-sites@0.0.221:
-  version "0.0.221"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.221.tgz#ffcd322f71e2bb4f9fd8645fe38989d8d88139dd"
-  integrity sha512-Mglc/mjLM0gmiSvLp9jG4VN7Tb3onzDV/oRyHXNsXtorpGxiD+UV7x+glgn0L1xk9PtneKezzlW7XClQPbMD4A==
+franklin-sites@0.0.222:
+  version "0.0.222"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.222.tgz#7ad17087c418ff3828e29979000c43a906b83c35"
+  integrity sha512-0KnwRKEtZOfxQu+MOpwB9s6qOAaoDOfwW+clQmwP5tj1UkSgwqiL5HPfyVpm+kJ4hj7/Rxq4jm7X/Vy//nCLXA==
   dependencies:
     "@tippyjs/react" "4.2.6"
     classnames "2.3.2"
@@ -9899,10 +9899,10 @@ protvista-datatable@3.8.10:
     type-fest "^1.2.1"
     uuid "^8.3.1"
 
-protvista-feature-adapter@3.8.11, protvista-feature-adapter@^3.8.11:
-  version "3.8.11"
-  resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.8.11.tgz#cacb89f5ace5d03e36c72ac9f9242dbb801e5fd6"
-  integrity sha512-yYvG7j/fE/pKU8k4oE2Nth/shHnnm/M1x8HDm96w+oKjawJaACNIRieg5A0bAke13ojM+4h7V+iFFf7/Cn+jOw==
+protvista-feature-adapter@3.8.12, protvista-feature-adapter@^3.8.12:
+  version "3.8.12"
+  resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.8.12.tgz#e79d72eaac4f66a0e499bb50d1bda32ec8ce0c33"
+  integrity sha512-WVbOvheQb7NSXt7hJwF5XSeRbyKKaqC6qHlCJV28I8c767U+iUzofG+yrD4P9ji/7lFzEo9rERGPRbAslBnpaQ==
   dependencies:
     protvista-track "^3.8.10"
     uuid "^8.3.1"
@@ -9911,6 +9911,14 @@ protvista-feature-adapter@^3.8.10:
   version "3.8.10"
   resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.8.10.tgz#13f1619af8f4f765d3e4ffc462c4981ace60736c"
   integrity sha512-leZbDfNz6zvzLyIvhkHcFIf+PkSk29itS+wg8hIMVORQcAd0OAEJCiboPUprNRyAxZE0CqY8mEkk+yMPUsb1Pg==
+  dependencies:
+    protvista-track "^3.8.10"
+    uuid "^8.3.1"
+
+protvista-feature-adapter@^3.8.11:
+  version "3.8.11"
+  resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.8.11.tgz#cacb89f5ace5d03e36c72ac9f9242dbb801e5fd6"
+  integrity sha512-yYvG7j/fE/pKU8k4oE2Nth/shHnnm/M1x8HDm96w+oKjawJaACNIRieg5A0bAke13ojM+4h7V+iFFf7/Cn+jOw==
   dependencies:
     protvista-track "^3.8.10"
     uuid "^8.3.1"
@@ -9960,12 +9968,12 @@ protvista-navigation@3.8.10:
     lodash-es "^4.17.11"
     protvista-utils "^3.8.10"
 
-protvista-proteomics-adapter@3.8.11:
-  version "3.8.11"
-  resolved "https://registry.yarnpkg.com/protvista-proteomics-adapter/-/protvista-proteomics-adapter-3.8.11.tgz#15f470e1b9e2d21ff104b558e00b719f9a290423"
-  integrity sha512-vLOYfsUddq/plqBZmpZivg8ouxrIY9twcf75GEF9sqaHNDXdINDRENZsrWY3s7pcV4Y6IidCGk8BS+Gq2t+4fA==
+protvista-proteomics-adapter@3.8.12:
+  version "3.8.12"
+  resolved "https://registry.yarnpkg.com/protvista-proteomics-adapter/-/protvista-proteomics-adapter-3.8.12.tgz#3ff675294addb5c409e1df56f9a9601e6a8ebb0c"
+  integrity sha512-Wvf3bIP9qJL/bhNtujbTrbjTsaFF8fKZ84WnpjRg1wwGCoa0Dme26PMGdPutudyLxRY8B2bFoqmWDH/sd+WicQ==
   dependencies:
-    protvista-feature-adapter "^3.8.11"
+    protvista-feature-adapter "^3.8.12"
     uuid "^8.3.1"
 
 protvista-sequence@3.8.10:
@@ -10010,23 +10018,23 @@ protvista-track@3.8.10, protvista-track@^3.8.10:
     lodash-es "^4.17.11"
     protvista-zoomable "^3.8.10"
 
-protvista-uniprot@2.10.8:
-  version "2.10.8"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.10.8.tgz#60b276b86fa74d797935709353cd4b3a3d39a314"
-  integrity sha512-jpUQmniy9Wm+uLBWxDAFZjJTCLpRRBRqlNKj9fDnj1YpFh4nGyGySXM/tpF8s/UjXJ/gGik/aYvW1UF3Xh1sPw==
+protvista-uniprot@2.10.9:
+  version "2.10.9"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.10.9.tgz#4ae3ccb8583aa6ac19222982d0739e8c98c51db4"
+  integrity sha512-iaPA3cpee0r9emvuWLdewgyTN/pZS0y14e2rEfJa/KL/wTD21sGfMU19OPV53EMXquDK99F8coclasVafttOqg==
   dependencies:
     core-js "^3.13.0"
     data-loader "^2.9.1"
     file-saver "^2.0.2"
     lit-element "^2.2.0"
     protvista-datatable "3.8.10"
-    protvista-feature-adapter "3.8.11"
+    protvista-feature-adapter "3.8.12"
     protvista-filter "3.8.4"
     protvista-interpro-adapter "3.8.4"
     protvista-interpro-track "3.8.10"
     protvista-manager "3.8.4"
     protvista-navigation "3.8.10"
-    protvista-proteomics-adapter "3.8.11"
+    protvista-proteomics-adapter "3.8.12"
     protvista-sequence "3.8.10"
     protvista-structure "3.8.4"
     protvista-structure-adapter "3.8.11"

@@ -1,5 +1,6 @@
 import { ExpandableList } from 'franklin-sites';
 
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
@@ -58,6 +59,14 @@ const TaxonomicScope = ({
       )}
     </ExpandableList>
   );
+};
+
+export const taxonomicScopeRenderer = {
+  ...getLabelAndTooltip(
+    'Taxonomic scope',
+    'The taxonomic scope to which the annotation rule applies'
+  ),
+  render: TaxonomicScope,
 };
 
 export default TaxonomicScope;

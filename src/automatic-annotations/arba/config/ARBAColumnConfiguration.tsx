@@ -4,7 +4,9 @@ import { ExpandableList } from 'franklin-sites';
 import { mapToLinks } from '../../../shared/components/MapTo';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 
-import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
+import { taxonomicScopeRenderer } from '../../shared/column-renderers/TaxonomicScope';
+import { ruleIDRenderer } from '../../shared/column-renderers/RuleID';
+import { annotationCoveredRenderer } from '../../shared/column-renderers/AnnotationCovered';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -34,21 +36,14 @@ export const ARBAColumnConfiguration: ColumnConfiguration<
 // COLUMN RENDERERS BELOW
 ARBAColumnConfiguration.set(
   ARBAColumn.ruleId,
-  SharedColumnConfiguration.rule_id(
-    ({ uniRuleId }) => uniRuleId,
-    'ARBA',
-    Namespace.arba
-  )
+  ruleIDRenderer(({ uniRuleId }) => uniRuleId, 'ARBA', Namespace.arba)
 );
 
-ARBAColumnConfiguration.set(
-  ARBAColumn.taxonomicScope,
-  SharedColumnConfiguration.taxonomic_scope
-);
+ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, taxonomicScopeRenderer);
 
 ARBAColumnConfiguration.set(
   ARBAColumn.annotationCovered,
-  SharedColumnConfiguration.annotation_covered
+  annotationCoveredRenderer
 );
 
 ARBAColumnConfiguration.set(ARBAColumn.statistics, {

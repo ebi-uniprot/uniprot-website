@@ -11,7 +11,8 @@ import AccessionView from '../../shared/components/results/AccessionView';
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 
-import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
+import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';
+import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
 
 import { Namespace } from '../../shared/types/namespaces';
 import {
@@ -67,12 +68,12 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
 
 ProteomesColumnConfiguration.set(
   ProteomesColumn.organismID,
-  SharedColumnConfiguration.organism_id(({ taxonomy }: Schema) => taxonomy)
+  organismIDRenderer(({ taxonomy }: Schema) => taxonomy)
 );
 
 ProteomesColumnConfiguration.set(
   ProteomesColumn.organism,
-  SharedColumnConfiguration.organism(
+  organismRenderer(
     ({ taxonomy }: Schema) => taxonomy,
     ({ strain }: Schema) => strain
   )

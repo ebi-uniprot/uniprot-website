@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
@@ -5,9 +6,10 @@ import cn from 'classnames';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -36,6 +38,8 @@ const columns = [
 ];
 
 const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
   const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress, isStale } =
@@ -68,6 +72,9 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const relatedQuery = `(database:${data.abbrev})`;
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -78,8 +85,11 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       {/* Here we don't want to use the full label atm */}
       <h1>Database - {data.abbrev}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel handleToggle={handleToggleDownload} />
+        )}
         <div className="button-group">
-          <EntryDownload />
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
           {/** Pass the name to be used for the query, it's the only supporting
            *  data using the abbrev field instead of the ID field for the query
            * */}

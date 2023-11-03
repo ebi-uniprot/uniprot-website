@@ -1,19 +1,13 @@
-// TODO: remove all of the uniref and uniparc contingency code as soon as streaming is provided:
-//  - https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
-//  - https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
-// It maybe easier to just checkout this file at 820fdb305a092 rather than going through the file.
-// Just make to sure to see if any other commits have been made on top of it since.
-
-import { useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Dropdown, DownloadIcon, Button, LongNumber } from 'franklin-sites';
+import { Button, LongNumber } from 'franklin-sites';
+import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
+import DownloadPreview from '../download/DownloadPreview';
+import ColumnSelect from '../column-select/ColumnSelect';
 
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import useDataApi from '../../hooks/useDataApi';
 
-import { addMessage } from '../../../messages/state/messagesActions';
 import apiUrls from '../../config/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
@@ -22,7 +16,6 @@ import {
   getLocationEntryPathFor,
   Location,
 } from '../../../app/config/urls';
-import { warn } from '../../utils/logging';
 
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
 import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
@@ -37,12 +30,17 @@ import { fileFormatEntryDownload as taxonomyFFED } from '../../../supporting-dat
 import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
 
-import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
+import { Namespace } from '../../types/namespaces';
 import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
+  DownloadMethod,
+  DownloadPanelFormCloseReason,
+} from '../../utils/gtagEvents';
+import { Column } from '../../config/columns';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+
+import sticky from '../../styles/sticky.module.scss';
+import styles from '../download/styles/download.module.scss';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.uniprotkb, uniProtKBFFED],
@@ -68,13 +66,15 @@ const isUniRefList = (namespace: Namespace, fileFormat: FileFormat) =>
 const getEntryDownloadUrl = (
   accession: string,
   fileFormat: FileFormat,
-  namespace: Namespace
+  namespace: Namespace,
+  columns?: Column[]
 ) => {
   if (isUniparcTsv(namespace, fileFormat)) {
     return uniparcApiUrls.databases(accession, {
       format: fileFormat as FileFormat.tsv,
       // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
       size: 500,
+      fields: columns?.join(','),
     });
   }
   if (isUniRefList(namespace, fileFormat)) {
@@ -84,165 +84,258 @@ const getEntryDownloadUrl = (
       size: 500,
     });
   }
-  return apiUrls.entryDownload(accession, fileFormat, namespace);
+
+  const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+  if (
+    columns &&
+    (fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel)
+  ) {
+    return `${entryUrl}?fields=${columns.join(',')}`;
+  }
+  return entryUrl;
 };
 
 type DownloadAnchorProps = {
   accession: string;
   fileFormat: FileFormat;
   namespace: Namespace;
+  columns?: Column[];
 };
 
 const DownloadAnchor = ({
   accession,
   fileFormat,
   namespace,
+  columns,
 }: DownloadAnchorProps) => (
   <a
     target="_blank"
-    href={getEntryDownloadUrl(accession, fileFormat, namespace)}
+    href={getEntryDownloadUrl(accession, fileFormat, namespace, columns)}
     rel="noreferrer"
   >
     {fileFormat}
   </a>
 );
 
-type Props = {
+export type EntryDownloadProps = {
   nResults?: number;
+  isoformsAvailable?: boolean;
+  onClose: (
+    panelCloseReason: DownloadPanelFormCloseReason,
+    downloadMethod?: DownloadMethod
+  ) => void;
+  columns?: Column[];
 };
-const EntryDownload = ({ nResults }: Props) => {
+
+const EntryDownload = ({
+  nResults,
+  isoformsAvailable,
+  onClose,
+  columns,
+}: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
   );
   const { namespace, accession } = match?.params || {};
-  const messagesDispatch = useMessagesDispatch();
+
+  const [downloadColumns, setDownloadColumns] = useState(columns);
 
   const fileFormatEntryDownload = namespace && formatMap.get(namespace);
 
-  const downloadOnClick = useCallback(() => {
-    if (namespace === Namespace.uniparc) {
-      warn('tried downloading a UniParc XRef list > 500');
-      messagesDispatch(
-        addMessage({
-          id: 'uniparc-stream-warning',
-          content: (
-            <>
-              There is a current limitation where UniParc cross-reference TSV
-              downloads are limited to 500 entries. Until this is fixed, there
-              are several options:
-              <ul>
-                <li>
-                  Download the{' '}
-                  <DownloadAnchor
-                    accession={accession as string}
-                    fileFormat={FileFormat.json}
-                    namespace={namespace}
-                  />{' '}
-                  file format instead which includes all{' '}
-                  <LongNumber>{nResults as number}</LongNumber> of the
-                  cross-references in the <pre>uniParcCrossReferences</pre>{' '}
-                  attribute
-                </li>
-                <li>
-                  Continue to download the{' '}
-                  <DownloadAnchor
-                    accession={accession as string}
-                    fileFormat={FileFormat.tsv}
-                    namespace={namespace}
-                  />{' '}
-                  file format which has only 500 entries (meaning{' '}
-                  <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
-                  cross-references will not be downloaded)
-                </li>
-              </ul>
-            </>
-          ),
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.WARNING,
-        })
-      );
-    } else if (namespace === Namespace.uniref) {
-      warn('tried downloading a UniRef member tsv > 500');
-      messagesDispatch(
-        addMessage({
-          id: 'uniref-stream-warning',
-          content: (
-            <>
-              There is a current limitation where UniRef member list downloads
-              are limited to 500 entries. Until this is fixed, there are several
-              options:
-              <ul>
-                <li>
-                  View the{' '}
-                  <Link
-                    to={getLocationEntryPathFor(Location.HelpEntry)(
-                      'pagination'
-                    )}
-                  >
-                    pagination documentation
-                  </Link>{' '}
-                  to download all <LongNumber>{nResults as number}</LongNumber>{' '}
-                  members programmatically
-                </li>
-                <li>
-                  Continue to download the{' '}
-                  <DownloadAnchor
-                    accession={accession as string}
-                    fileFormat={FileFormat.list}
-                    namespace={namespace}
-                  />{' '}
-                  file format which has only 500 entries (meaning{' '}
-                  <LongNumber>{(nResults as number) - 500}</LongNumber> members
-                  will not be downloaded)
-                </li>
-              </ul>
-            </>
-          ),
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.WARNING,
-        })
-      );
+  const { data } = useDataApi<ReceivedFieldData>(
+    namespace &&
+      namespace !== Namespace.uniparc &&
+      (fileFormatEntryDownload?.includes(FileFormat.tsv) ||
+        fileFormatEntryDownload?.includes(FileFormat.excel))
+      ? apiUrls.resultsFields(namespace)
+      : null
+  );
+
+  useEffect(() => {
+    if (data) {
+      const fields = data[0]?.fields?.flatMap((item) => item.name);
+      setDownloadColumns(fields);
     }
-  }, [accession, messagesDispatch, nResults, namespace]);
-  //
+  }, [data]);
+
+  const [fileFormat, setFileFormat] = useState(fileFormatEntryDownload?.[0]);
+  const [showPreview, setShowPreview] = useState(false);
+
+  let extraContentNode: JSX.Element | null = null;
+
   if (!(namespace && accession && fileFormatEntryDownload)) {
     return null;
   }
 
-  return (
-    <Dropdown
-      visibleElement={
-        <Button variant="tertiary">
-          <DownloadIcon />
-          Download
-        </Button>
-      }
-    >
-      <ul>
-        {fileFormatEntryDownload.map((fileFormat) => (
-          <li key={fileFormat}>
-            {nResults &&
-            nResults > maxPaginationDownload &&
-            (isUniRefList(namespace, fileFormat) ||
-              isUniparcTsv(namespace, fileFormat)) ? (
-              <Button
-                variant="tertiary"
-                onClick={downloadOnClick}
-                style={{ color: colors.sapphireBlue }}
-              >
-                {fileFormat}
-              </Button>
-            ) : (
+  const downloadUrl = getEntryDownloadUrl(
+    accession,
+    fileFormat || FileFormat.fasta,
+    namespace,
+    downloadColumns
+  );
+
+  const previewFileFormat =
+    fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
+  const previewUrl = getEntryDownloadUrl(
+    accession,
+    previewFileFormat || FileFormat.fasta,
+    namespace,
+    downloadColumns
+  );
+
+  if (showPreview) {
+    extraContentNode = (
+      <DownloadPreview
+        previewUrl={previewUrl}
+        previewFileFormat={previewFileFormat}
+      />
+    );
+  }
+
+  if (nResults && nResults > maxPaginationDownload) {
+    if (
+      namespace === Namespace.uniparc &&
+      (fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel)
+    ) {
+      extraContentNode = (
+        <>
+          There is a current limitation where UniParc cross-reference{' '}
+          {fileFormat}
+          downloads are limited to {maxPaginationDownload} entries. Until this
+          is fixed, there are several options:
+          <ul>
+            <li>
+              Download the{' '}
               <DownloadAnchor
-                accession={accession}
+                accession={accession as string}
+                fileFormat={FileFormat.json}
+                namespace={namespace}
+                columns={downloadColumns}
+              />{' '}
+              file format instead which includes all{' '}
+              <LongNumber>{nResults as number}</LongNumber> of the
+              cross-references in the <pre>uniParcCrossReferences</pre>{' '}
+              attribute
+            </li>
+            <li>
+              Continue to download the{' '}
+              <DownloadAnchor
+                accession={accession as string}
                 fileFormat={fileFormat}
                 namespace={namespace}
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-    </Dropdown>
+                columns={downloadColumns}
+              />{' '}
+              file format which has only {maxPaginationDownload} entries
+              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
+              cross-references will not be downloaded)
+            </li>
+          </ul>
+        </>
+      );
+    }
+    if (namespace === Namespace.uniref && fileFormat === FileFormat.list) {
+      extraContentNode = (
+        <>
+          There is a current limitation where UniRef member list downloads are
+          limited to {maxPaginationDownload} entries. Until this is fixed, there
+          are several options:
+          <ul>
+            <li>
+              View the{' '}
+              <Link
+                to={getLocationEntryPathFor(Location.HelpEntry)('pagination')}
+              >
+                pagination documentation
+              </Link>{' '}
+              to download all <LongNumber>{nResults as number}</LongNumber>{' '}
+              members programmatically
+            </li>
+            <li>
+              Continue to download the{' '}
+              <DownloadAnchor
+                accession={accession as string}
+                fileFormat={FileFormat.list}
+                namespace={namespace}
+                columns={downloadColumns}
+              />{' '}
+              file format which has only {maxPaginationDownload} entries
+              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
+              members will not be downloaded)
+            </li>
+          </ul>
+        </>
+      );
+    }
+  }
+
+  return (
+    <>
+      <fieldset>
+        <label>
+          Format
+          <select
+            id="file-format-select"
+            data-testid="file-format-select"
+            value={fileFormat}
+            onChange={(e) => setFileFormat(e.target.value as FileFormat)}
+          >
+            {fileFormatEntryDownload.map((format) => (
+              <option
+                value={format}
+                key={format}
+                disabled={
+                  format === FileFormat.fastaCanonicalIsoform &&
+                  !isoformsAvailable
+                }
+              >
+                {format}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+
+      {(fileFormat === FileFormat.tsv || fileFormat === FileFormat.excel) &&
+        downloadColumns && (
+          <>
+            <legend>Customize columns</legend>
+            <ColumnSelect
+              onChange={(columns) => setDownloadColumns(columns)}
+              selectedColumns={downloadColumns}
+              namespace={namespace}
+              isEntryPage={namespace === Namespace.uniparc}
+            />
+          </>
+        )}
+
+      <section
+        className={cn(
+          'button-group',
+          'sliding-panel__button-row',
+          sticky['sticky-bottom-right'],
+          styles['action-buttons']
+        )}
+      >
+        <Button variant="tertiary" onClick={() => setShowPreview(true)}>
+          Preview
+        </Button>
+        <Button variant="secondary" onClick={() => onClose('cancel')}>
+          Cancel
+        </Button>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a
+          href={downloadUrl}
+          className={cn('button', 'primary')}
+          title="Download file"
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => onClose('download', 'sync')}
+        >
+          Download
+        </a>
+      </section>
+      <section>{extraContentNode}</section>
+    </>
   );
 };
 

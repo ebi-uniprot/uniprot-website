@@ -106,7 +106,8 @@ import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLoc
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 
-import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
+import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';
+import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
@@ -254,7 +255,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.organismName,
-  SharedColumnConfiguration.organism(
+  organismRenderer(
     (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
   )
 );
@@ -342,7 +343,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.organismId,
-  SharedColumnConfiguration.organism_id(
+  organismIDRenderer(
     (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
   )
 );
@@ -677,7 +678,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
                     >
                       UniProtKB <SearchIcon width="1.333ch" />
                     </Link>
-                    {' | '}
+                    {'| '}
                     <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
                       Rhea
                     </ExternalLink>
@@ -1489,7 +1490,7 @@ const getXrefColumn = (databaseName: string) => {
                       <ExternalLink url={externalUrls.dbSNP(dbSNPRef.id)}>
                         dbSNP
                       </ExternalLink>
-                      {' | '}
+                      {'| '}
                       <ExternalLink
                         url={externalUrls.EnsemblVariation(dbSNPRef.id)}
                       >
