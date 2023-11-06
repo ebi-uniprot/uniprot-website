@@ -1629,6 +1629,210 @@ exports[`UniProtKBColumnConfiguration component should render column "lineage_id
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "lit_doi_id": lit_doi_id 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        2 more IDs
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "lit_doi_id": lit_doi_id-expanded 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        Less IDs
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed_id": lit_pubmed_id 1`] = `
 <DocumentFragment>
   <ul

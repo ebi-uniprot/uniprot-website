@@ -25,7 +25,18 @@ exports[`CitationsColumnConfiguration component should render column "authors": 
 
 exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `
 <DocumentFragment>
-  10.1016/s0965-1748(98)00115-5
+  <a
+    class="external-link"
+    href="https://dx.doi.org/10.1016/s0965-1748(98)00115-5"
+    rel="noopener"
+    target="_blank"
+  >
+    10.1016/s0965-1748(98)00115-5
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
 </DocumentFragment>
 `;
 
