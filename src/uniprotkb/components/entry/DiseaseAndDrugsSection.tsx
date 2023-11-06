@@ -11,7 +11,7 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 
-import { hasContent } from '../../../shared/utils/utils';
+import { hasContent, pluralise } from '../../../shared/utils/utils';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { UIModel } from '../../adapters/sectionConverter';
@@ -28,7 +28,7 @@ type Props = {
   primaryAccession: string;
   sequence: string;
   taxId: number | undefined;
-  hasImportedVariants: boolean;
+  importedVariants: number | 'loading';
 };
 
 const DiseaseAndDrugsSection = ({
@@ -36,7 +36,7 @@ const DiseaseAndDrugsSection = ({
   primaryAccession,
   sequence,
   taxId,
-  hasImportedVariants,
+  importedVariants,
 }: Props) => {
   if (!hasContent(data)) {
     return null;
@@ -100,7 +100,7 @@ const DiseaseAndDrugsSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      {hasImportedVariants && (
+      {importedVariants !== 'loading' && importedVariants && (
         <section>
           <h3>Variants</h3>
           <div className={styles.variants}>
@@ -117,8 +117,9 @@ const DiseaseAndDrugsSection = ({
                 own tab.
               </p>
               <p>
-                The viewer provides variants from UniProt as well as other
-                sources including ClinVar and dbSNP.
+                The viewer provides {importedVariants}{' '}
+                {pluralise('variant', importedVariants)} from UniProt as well as
+                other sources including ClinVar and dbSNP.
               </p>
               <p>
                 <Link

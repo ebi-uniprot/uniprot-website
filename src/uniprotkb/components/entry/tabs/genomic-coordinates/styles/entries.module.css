@@ -2,5 +2,9 @@
   td,
   th {
     padding-inline: 1ch;
+    /* needs to be here too to fight the nightingale styles */
+    text-align: end;
   }
+
+  text-align: end;
 }

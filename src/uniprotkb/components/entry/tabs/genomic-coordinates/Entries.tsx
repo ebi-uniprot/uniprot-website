@@ -321,8 +321,8 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                           <>
                             <LongNumber>
                               {exon.proteinLocation.begin.position}
-                            </LongNumber>
-                            -
+                            </LongNumber>{' '}
+                            -{' '}
                             <LongNumber>
                               {exon.proteinLocation.end.position}
                             </LongNumber>

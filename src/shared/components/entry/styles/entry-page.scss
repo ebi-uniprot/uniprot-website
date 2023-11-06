@@ -2,6 +2,15 @@
 @import 'franklin-sites/src/styles/mixins';
 @import '../../../styles/settings';
 
+@keyframes loading {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
 .entry-page {
   *[id] {
     scroll-margin-top: 4.2em;
@@ -10,6 +19,10 @@
   & .tabs__header {
     margin: 1rem 0.125rem;
     width: calc(100% - 1rem);
+
+    & .loading {
+      animation: alternate loading 2s infinite ease-in-out;
+    }
   }
 
   // expand content of tab if they contain a specific class

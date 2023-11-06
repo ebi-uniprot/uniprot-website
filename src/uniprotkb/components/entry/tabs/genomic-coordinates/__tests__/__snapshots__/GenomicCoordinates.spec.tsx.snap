@@ -305,7 +305,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      1-17
+                      1 - 17
                     </td>
                   </tr>
                   <tr>
@@ -338,7 +338,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      1-17
+                      1 - 17
                     </td>
                   </tr>
                   <tr>
@@ -371,7 +371,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      18-44
+                      18 - 44
                     </td>
                   </tr>
                   <tr>
@@ -404,7 +404,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      44-80
+                      44 - 80
                     </td>
                   </tr>
                   <tr>
@@ -437,7 +437,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      81-134
+                      81 - 134
                     </td>
                   </tr>
                   <tr>
@@ -470,7 +470,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      135-193
+                      135 - 193
                     </td>
                   </tr>
                   <tr>
@@ -503,7 +503,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      193-250
+                      193 - 250
                     </td>
                   </tr>
                   <tr>
@@ -536,7 +536,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      251-281
+                      251 - 281
                     </td>
                   </tr>
                   <tr>
@@ -569,7 +569,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      281-298
+                      281 - 298
                     </td>
                   </tr>
                   <tr>
@@ -602,7 +602,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       </a>
                     </td>
                     <td>
-                      281-298
+                      281 - 298
                     </td>
                   </tr>
                 </tbody>
