@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList } from 'franklin-sites';
+import { ExpandableList, ExternalLink } from 'franklin-sites';
 
 import { JournalInfo } from '../components/LiteratureCitation';
 
@@ -10,6 +10,7 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import {
   CitationsAPIModel,
@@ -78,10 +79,18 @@ CitationsColumnConfiguration.set(CitationsColumn.authors, {
 
 CitationsColumnConfiguration.set(CitationsColumn.doi, {
   label: 'DOI',
-  render: ({ citation }) =>
-    citation?.citationCrossReferences?.find(
+  render: ({ citation }) => {
+    const doiId = citation?.citationCrossReferences?.find(
       (xref) => xref.database === CitationXRefDB.DOI
-    )?.id,
+    )?.id;
+    return (
+      doiId && (
+        <ExternalLink url={externalUrls.DOI(doiId)} key={doiId}>
+          {doiId}
+        </ExternalLink>
+      )
+    );
+  },
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.firstPage, {
