@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: /configure/uniprotkb/search-fields
-// Retrieved: 2023-08-09
+// Retrieved: 2023-11-07
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -2938,6 +2938,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'proteomicsdb-',
+          },
+          {
+            id: 'xref_pumba',
+            label: 'Pumba',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'pumba-',
           },
           {
             id: 'xref_topdownproteomics',
