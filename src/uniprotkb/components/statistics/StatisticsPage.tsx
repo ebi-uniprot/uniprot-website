@@ -19,6 +19,7 @@ import SequenceLengthLinePlot from './SequenceLengthLinePlot';
 import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -251,8 +252,12 @@ const ProteinExistenceTable = ({
           <tr>
             <th>Protein existence (PE)</th>
             <th>UniProtKB</th>
-            <th>UniProtKB reviewed</th>
-            <th>UniProtKB unreviewed</th>
+            <th>
+              <ReviewedLabel />
+            </th>
+            <th>
+              <UnreviewedLabel />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -326,13 +331,17 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
           </td>
         </tr>
         <tr>
-          <td>⮑ UniProtKB reviewed</td>
+          <td>
+            ⮑ <ReviewedLabel />
+          </td>
           <td className={styles.end}>
             <LongNumber>{reviewedData.totalCount}</LongNumber>
           </td>
         </tr>
         <tr>
-          <td>⮑ UniProtKB unreviewed</td>
+          <td>
+            ⮑ <UnreviewedLabel />
+          </td>
           <td className={styles.end}>
             <LongNumber>{unreviewedData.totalCount}</LongNumber>
           </td>
@@ -383,8 +392,12 @@ const TaxonomiDistributionTable = ({
             <tr>
               <th>Taxonomy</th>
               <th>UniProtKB</th>
-              <th>UniProtKB reviewed</th>
-              <th>UniProtKB unreviewed</th>
+              <th>
+                <ReviewedLabel />
+              </th>
+              <th>
+                <UnreviewedLabel />
+              </th>
             </tr>
           </thead>
           <tbody>

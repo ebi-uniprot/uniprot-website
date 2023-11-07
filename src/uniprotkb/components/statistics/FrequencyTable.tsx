@@ -6,6 +6,7 @@ import CountLinkOrNothing from './CountLinkOrNothing';
 import { frequencySort, merge } from './utils';
 
 import { StatisticsItem, TableProps } from './StatisticsPage';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import styles from './styles/statistics-page.module.scss';
 
@@ -36,8 +37,12 @@ const FrequencyTable = ({
         <thead>
           <tr>
             <th>{header}</th>
-            <th>UniProtKB reviewed</th>
-            <th>UniProtKB unreviewed</th>
+            <th>
+              <ReviewedLabel />
+            </th>
+            <th>
+              <UnreviewedLabel />
+            </th>
           </tr>
         </thead>
         <tbody>
