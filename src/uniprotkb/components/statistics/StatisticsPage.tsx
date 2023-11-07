@@ -562,19 +562,6 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.TOTAL_ORGANISM}
           unreviewedData={unreviewedData.TOTAL_ORGANISM}
         />
-        <FrequencyTable
-          reviewedData={reviewedData.ORGANISM_FREQUENCY}
-          unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
-          header="Species represented"
-          title="Frequency of occurrence of species"
-        />
-        <ReviewedUnreviewedStatsTable
-          categoryName="TOP_ORGANISM"
-          reviewedData={reviewedData}
-          unreviewedData={unreviewedData}
-          title="Most represented species"
-          nameLabel="Species"
-        />
         <TaxonomiDistributionTable
           reviewedData={reviewedData.SUPERKINGDOM}
           unreviewedData={unreviewedData.SUPERKINGDOM}
@@ -587,6 +574,19 @@ const StatisticsPage = () => {
           colorScheme={schemeReds as string[][]}
           distributionLabel="within eukaryota"
           nameToQuery={nameToQueryEukaryota}
+        />
+        <ReviewedUnreviewedStatsTable
+          categoryName="TOP_ORGANISM"
+          reviewedData={reviewedData}
+          unreviewedData={unreviewedData}
+          title="Most represented species"
+          nameLabel="Species"
+        />
+        <FrequencyTable
+          reviewedData={reviewedData.ORGANISM_FREQUENCY}
+          unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
+          header="Species represented"
+          title="Frequency of occurrence of species"
         />
       </Card>
       <Card id="sequence-size">
