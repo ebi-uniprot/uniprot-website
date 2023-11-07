@@ -512,6 +512,7 @@ const Entry = () => {
                 ]}
               />
               <VariationViewerTab
+                importedVariants={importedVariants}
                 primaryAccession={accession}
                 title="Variants"
               />

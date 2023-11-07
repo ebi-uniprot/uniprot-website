@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, FullViewIcon } from 'franklin-sites';
+import { Card, FullViewIcon, LongNumber } from 'franklin-sites';
 
 import XRefView from '../protein-data-views/XRefView';
 import FreeTextView from '../protein-data-views/FreeTextView';
@@ -117,7 +117,7 @@ const DiseaseAndDrugsSection = ({
                 own tab.
               </p>
               <p>
-                The viewer provides {importedVariants}{' '}
+                The viewer provides <LongNumber>{importedVariants}</LongNumber>{' '}
                 {pluralise('variant', importedVariants)} from UniProt as well as
                 other sources including ClinVar and dbSNP.
               </p>

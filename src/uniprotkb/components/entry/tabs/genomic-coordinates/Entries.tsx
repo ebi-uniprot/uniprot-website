@@ -236,6 +236,7 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                 <th
                   key={isoformID}
                   title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
+                  colSpan={4}
                 >
                   <Link
                     to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}
@@ -308,27 +309,50 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                     const exon = exons.find(
                       (exon) => exon.accession === isoformID
                     );
+                    // Structure of the 4 elements:
+                    // td1: start
+                    // td2: separator (or "no data" line)
+                    // td3: end (or unique position)
+                    // td4: margin to separate from the next isoform
                     if (!exon) {
-                      return <td key={isoformID}>-</td>;
+                      return (
+                        <Fragment key={isoformID}>
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates}>―</td>
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates} />
+                        </Fragment>
+                      );
+                    }
+                    if (exon.proteinLocation.position) {
+                      return (
+                        <Fragment key={isoformID}>
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates}>
+                            <LongNumber>
+                              {exon.proteinLocation.position.position}
+                            </LongNumber>
+                          </td>
+                          <td className={styles.coordinates} />
+                        </Fragment>
+                      );
                     }
                     return (
-                      <td key={isoformID}>
-                        {exon.proteinLocation.position ? (
+                      <Fragment key={isoformID}>
+                        <td className={styles.coordinates}>
                           <LongNumber>
-                            {exon.proteinLocation.position.position}
+                            {exon.proteinLocation.begin.position}
                           </LongNumber>
-                        ) : (
-                          <>
-                            <LongNumber>
-                              {exon.proteinLocation.begin.position}
-                            </LongNumber>{' '}
-                            -{' '}
-                            <LongNumber>
-                              {exon.proteinLocation.end.position}
-                            </LongNumber>
-                          </>
-                        )}
-                      </td>
+                        </td>
+                        <td className={styles.coordinates}>-</td>
+                        <td className={styles.coordinates}>
+                          <LongNumber>
+                            {exon.proteinLocation.end.position}
+                          </LongNumber>
+                        </td>
+                        <td className={styles.coordinates} />
+                      </Fragment>
                     );
                   })}
                 </tr>
