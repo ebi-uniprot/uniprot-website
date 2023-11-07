@@ -15,6 +15,6 @@ describe('ARBACard tests', () => {
   it('should allow card navigation', () => {
     const { history } = customRender(<ARBACard data={arbaData[0]} />);
     fireEvent.click(within(screen.getByRole('heading')).getByRole('link'));
-    expect(history.location.pathname).toMatch('/arba/ARBA00013665');
+    expect(history.location.pathname).toMatch('/arba/ARBA00020180');
   });
 });

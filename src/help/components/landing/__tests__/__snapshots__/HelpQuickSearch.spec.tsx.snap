@@ -91,49 +91,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     aria-hidden="true"
                     class="decorated-list-item__link"
                     data-testid="background-link"
-                    href="/help/canonical_nucleotide"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    <a
-                      href="/help/canonical_nucleotide"
-                    >
-                      <span>
-                        How do I get the nucleotide sequence that corresponds to the 
-                        <span
-                          class="match-highlight"
-                        >
-                          canonical
-                        </span>
-                         UniProtKB sequence?
-                      </span>
-                    </a>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                      How do I get the nucleotide sequence that corresponds to the 
-                      <span
-                        class="match-highlight"
-                      >
-                        canonical
-                      </span>
-                       UniProtKB sequence? You
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
-                    class="decorated-list-item__link"
-                    data-testid="background-link"
                     href="/help/retrieve_sets"
                     tabindex="-1"
                   />
@@ -227,6 +184,746 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                         canonical
                       </span>
                        sequence displayed by default in
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/alternative_products"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/alternative_products"
+                    >
+                      Alternative products
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence displayed by default in the entry. Note : The so-called '
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical'
+                      </span>
+                       sequence is selected
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequence_caution"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/sequence_caution"
+                    >
+                      Sequence caution
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence, displayed by default in the entry, and the sequence reported in the indicated reference
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/proteome"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/proteome"
+                    >
+                      What are proteomes?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       each reference proteome, protein FASTA files (composed of 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       and additional sequences), gene
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/canonical_nucleotide"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/canonical_nucleotide"
+                    >
+                      How do I get the nucleotide sequence that corresponds to the UniProtKB sequence?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      How do I get the nucleotide sequence that corresponds to the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       UniProtKB sequence? You
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequences"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/sequences"
+                    >
+                      Sequences
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This section displays by default the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       protein sequence and upon request all isoforms
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/human_proteome"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/human_proteome"
+                    >
+                      What is UniProt's human proteome?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence? Are all isoforms described in one entry?). Query: proteome:up000005640 AND
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequence_length"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/sequence_length"
+                    >
+                      Sequence length
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This indicates the number of amino acids in the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence displayed by default in the
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/unsure"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/unsure"
+                    >
+                      Sequence uncertainty
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       indicated in the 'description' field. Example: P00279 Related documents What is the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence? Are
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequence_status"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/sequence_status"
+                    >
+                      Sequence status
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This subsection of the Sequence section indicates if the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence displayed by default in
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/var_seq"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/var_seq"
+                    >
+                      Alternative sequence
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence? Are all isoforms described in one entry? How can I retrieve them? How to retrieve a
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/cross_references_section"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/cross_references_section"
+                    >
+                      Cross-references section
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       with the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence, these latter are documented in the 'Sequence conflict' subsection of the
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequences_section"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/sequences_section"
+                    >
+                      Sequence section
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This section displays by default the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       protein sequence and upon request all isoforms
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/variant"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/variant"
+                    >
+                      Natural variant
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       by default in the entry (also called the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence) is usually the most common polymorphic
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/rna_editing"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/rna_editing"
+                    >
+                      RNA editing
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       sequence is fully edited, the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       protein sequence displayed by default in the entry corresponds to
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/entry_history"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/entry_history"
+                    >
+                      Entry history
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       modified'). The version number for both the entry and the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence are also displayed. Example
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/protein_diversity"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/protein_diversity"
+                    >
+                      How are protein sequence variety and protein diversity represented in UniProtKB?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       See also What is the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence? Are all isoforms described in one entry? How do we manually
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/gene_centric_isoform_mapping"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/gene_centric_isoform_mapping"
+                    >
+                      Automatic gene-centric isoform mapping for eukaryotic reference proteome entries
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      /Swiss-Prot and UniProtKB/TrEMBL? How do we manually annotate a UniProtKB entry? What is the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequence_origin"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/sequence_origin"
+                    >
+                      Where do the UniProtKB protein sequences come from?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       set? How do I get the nucleotide sequence that corresponds to the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       UniProtKB sequence?
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/manual_curation"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/manual_curation"
+                    >
+                      How do we manually annotate a UniProtKB entry?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       defining a CDS as a protein? What is the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence? Are all isoforms described in one entry? (2)
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/redundancy"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/redundancy"
+                    >
+                      How redundant are the UniProt databases?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       variety and protein diversity represented in UniProtKB? What is the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence? Are all isoforms
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/query-fields"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/query-fields"
+                    >
+                      UniProtKB query fields
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       ------------------------------------------ | | accession | accession:P62988 | This will list all primary / 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       isoform accessions P62988.
                     </span>
                   </div>
                 </div>

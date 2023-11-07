@@ -15,12 +15,12 @@ exports[`ARBACard tests should render the card component 1`] = `
           class="checkbox-cell"
         >
           <input
-            data-id="ARBA00013665"
+            data-id="ARBA00020180"
             id="0"
             type="checkbox"
           />
           <label
-            aria-label="ARBA00013665"
+            aria-label="ARBA00020180"
             for="0"
             title="click to select, shift+click for multiple selection"
           />
@@ -29,9 +29,9 @@ exports[`ARBACard tests should render the card component 1`] = `
           class="small"
         >
           <a
-            href="/arba/ARBA00013665"
+            href="/arba/ARBA00020180"
           >
-            ARBA00013665
+            ARBA00020180
           </a>
         </h2>
       </div>
@@ -41,15 +41,15 @@ exports[`ARBACard tests should render the card component 1`] = `
     >
       <a
         class="card-action"
-        href="/uniprotkb?query=(source:ARBA00013665)"
+        href="/uniprotkb?query=(source:ARBA00020180)"
       >
-        608 UniProtKB entries
+        329 UniProtKB entries
       </a>
       <a
         class="card-action"
-        href="/uniprotkb?facets=reviewed:false&query=(source:ARBA00013665)"
+        href="/uniprotkb?facets=reviewed:false&query=(source:ARBA00020180)"
       >
-        608 unreviewed UniProtKB entries
+        329 unreviewed UniProtKB entries
       </a>
     </div>
   </section>
