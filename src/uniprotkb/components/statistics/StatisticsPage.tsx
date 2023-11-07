@@ -323,16 +323,8 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
       </thead>
       <tbody>
         <tr>
-          <td>UniProtKB</td>
-          <td className={styles.end}>
-            <LongNumber>
-              {reviewedData.totalCount + unreviewedData.totalCount}
-            </LongNumber>
-          </td>
-        </tr>
-        <tr>
           <td>
-            ⮑ <ReviewedLabel />
+            <ReviewedLabel />
           </td>
           <td className={styles.end}>
             <LongNumber>{reviewedData.totalCount}</LongNumber>
@@ -340,7 +332,7 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
         </tr>
         <tr>
           <td>
-            ⮑ <UnreviewedLabel />
+            <UnreviewedLabel />
           </td>
           <td className={styles.end}>
             <LongNumber>{unreviewedData.totalCount}</LongNumber>
