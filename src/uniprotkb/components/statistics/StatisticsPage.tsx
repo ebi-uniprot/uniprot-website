@@ -653,18 +653,21 @@ const StatisticsPage = () => {
         />
         <ReviewedUnreviewedStatsTable
           categoryName="FEATURES"
+          title="Sequence annotations (features)"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Feature"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="COMMENTS"
+          title="General annotation (comments)"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Comment"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="CROSS_REFERENCE"
+          title="Cross-references"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Cross reference"
