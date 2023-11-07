@@ -1,4 +1,5 @@
 import { Tab, Tabs } from 'franklin-sites';
+
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 type Props = {

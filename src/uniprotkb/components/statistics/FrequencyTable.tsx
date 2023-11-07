@@ -2,11 +2,11 @@ import { ReactNode } from 'react';
 import { LocationDescriptorObject } from 'history';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import { frequencySort, merge } from './utils';
 
 import { StatisticsItem, TableProps } from './StatisticsPage';
-import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import styles from './styles/statistics-page.module.scss';
 
