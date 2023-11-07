@@ -613,7 +613,7 @@ const Entry = () => {
                   transformedData[EntrySection.Sequence].alternativeProducts
                     ?.isoforms
                 }
-                title={`Genomic coordinates for ${accession}`}
+                title="Genomic coordinates"
               />
             </ErrorBoundary>
           </Suspense>

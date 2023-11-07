@@ -109,7 +109,9 @@ exports[`GenomicCoordinates component renders on data 1`] = `
             </li>
           </ul>
           <section>
-            <h4>
+            <h4
+              class="visually-hidden"
+            >
               Isoform: 
               <a
                 href="/uniprotkb/O00560/entry"

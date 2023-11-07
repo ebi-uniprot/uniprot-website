@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, InfoList, LongNumber, Message } from 'franklin-sites';
-import { groupBy, partition } from 'lodash-es';
+import { groupBy } from 'lodash-es';
 
 import cn from 'classnames';
 
@@ -113,8 +113,8 @@ const Entry = ({ entries, xrefInfo, ensID, oneIsoformOnly }: EntryProps) => {
 
   return (
     <section>
-      <h4>
-        {oneIsoformOnly || <>Isoform: </>}
+      <h4 className={cn({ 'visually-hidden': oneIsoformOnly })}>
+        Isoform:{' '}
         <Link
           to={getEntryPathForUniprotKB(
             representativeEntry.accession,
@@ -181,16 +181,14 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
 
   const groupedExons = groupBy(
     accessionEntriesPairs
-      .map(
-        ([, entries]) =>
-          entries.map((entry) =>
-            entry.gnCoordinate.genomicLocation.exon.map((exon) => ({
-              ...exon,
-              // Add accession info to each exon info before flattening
-              accession: entry.accession,
-            }))
-          ),
-        2
+      .map(([, entries]) =>
+        entries.map((entry) =>
+          entry.gnCoordinate.genomicLocation.exon.map((exon) => ({
+            ...exon,
+            // Add accession info to each exon info before flattening
+            accession: entry.accession,
+          }))
+        )
       )
       .flat(2)
       .sort(
@@ -201,10 +199,9 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
     (data) => data.id
   );
 
-  const [mappedIsoforms, notMappedIsoforms] = partition(
-    isoformIDs,
-    (isoformID) =>
-      accessionEntriesPairs.some(([accession]) => accession === isoformID)
+  const mappedIsoforms = accessionEntriesPairs.map(([accession]) => accession);
+  const notMappedIsoforms = isoformIDs.filter(
+    (isoform) => !mappedIsoforms.includes(isoform)
   );
 
   return (
@@ -232,7 +229,7 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
         <table className={cn(styles.table, helper['no-wrap'])}>
           <thead>
             <tr>
-              <th>{ensID ? 'Ensembl e' : 'E'}xon ID</th>
+              <th>{ensID && 'Ensembl'} exon ID</th>
               <th>Genomic coordinates</th>
               {mappedIsoforms.map((isoformID) => (
                 <th
