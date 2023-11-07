@@ -264,6 +264,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                       Genomic coordinates
                     </th>
                     <th
+                      colspan="4"
                       title="Protein coordinates for O00560 mapping to specific exons. Click to view isoform"
                     >
                       <a
@@ -304,9 +305,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      1 - 17
+                    <td
+                      class="coordinates"
+                    >
+                      1
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      17
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -337,9 +353,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      1 - 17
+                    <td
+                      class="coordinates"
+                    >
+                      1
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      17
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -370,9 +401,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      18 - 44
+                    <td
+                      class="coordinates"
+                    >
+                      18
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      44
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -403,9 +449,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      44 - 80
+                    <td
+                      class="coordinates"
+                    >
+                      44
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      80
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -436,9 +497,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      81 - 134
+                    <td
+                      class="coordinates"
+                    >
+                      81
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      134
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -469,9 +545,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      135 - 193
+                    <td
+                      class="coordinates"
+                    >
+                      135
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      193
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -502,9 +593,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      193 - 250
+                    <td
+                      class="coordinates"
+                    >
+                      193
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      250
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -535,9 +641,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      251 - 281
+                    <td
+                      class="coordinates"
+                    >
+                      251
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      281
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -568,9 +689,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      281 - 298
+                    <td
+                      class="coordinates"
+                    >
+                      281
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      298
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                   <tr>
                     <td>
@@ -601,9 +737,24 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                         />
                       </a>
                     </td>
-                    <td>
-                      281 - 298
+                    <td
+                      class="coordinates"
+                    >
+                      281
                     </td>
+                    <td
+                      class="coordinates"
+                    >
+                      -
+                    </td>
+                    <td
+                      class="coordinates"
+                    >
+                      298
+                    </td>
+                    <td
+                      class="coordinates"
+                    />
                   </tr>
                 </tbody>
               </table>

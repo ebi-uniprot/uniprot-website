@@ -31,9 +31,10 @@ type EntryProps = {
   entries: FlatGenomicEntry[];
   xrefInfo: DatabaseInfoPoint | null;
   ensID?: boolean;
+  oneIsoformOnly: boolean;
 };
 
-const Entry = ({ entries, xrefInfo, ensID }: EntryProps) => {
+const Entry = ({ entries, xrefInfo, ensID, oneIsoformOnly }: EntryProps) => {
   const representativeEntry = entries[0];
 
   const infoData = [
@@ -113,7 +114,7 @@ const Entry = ({ entries, xrefInfo, ensID }: EntryProps) => {
   return (
     <section>
       <h4>
-        Isoform:{' '}
+        {oneIsoformOnly || <>Isoform: </>}
         <Link
           to={getEntryPathForUniprotKB(
             representativeEntry.accession,
@@ -224,6 +225,7 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
           entries={entries}
           xrefInfo={xrefInfo}
           ensID={ensID}
+          oneIsoformOnly={isoformIDs.length === 1}
         />
       ))}
       <DatatableWrapper alwaysExpanded>

@@ -100,7 +100,7 @@ const DiseaseAndDrugsSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      {importedVariants !== 'loading' && importedVariants && (
+      {importedVariants !== 'loading' && importedVariants > 0 && (
         <section>
           <h3>Variants</h3>
           <div className={styles.variants}>

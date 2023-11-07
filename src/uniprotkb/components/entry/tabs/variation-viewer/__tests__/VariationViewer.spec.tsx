@@ -19,7 +19,7 @@ describe('VariationViewer component', () => {
   it('renders on loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
     const { asFragment } = render(
-      <VariationViewer primaryAccession="P05067" />
+      <VariationViewer importedVariants={0} primaryAccession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -31,7 +31,7 @@ describe('VariationViewer component', () => {
       status: 500,
     });
     const { asFragment } = render(
-      <VariationViewer primaryAccession="P05067" />
+      <VariationViewer importedVariants={0} primaryAccession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -42,7 +42,7 @@ describe('VariationViewer component', () => {
       status: 404,
     });
     const { asFragment } = render(
-      <VariationViewer primaryAccession="P05067" />
+      <VariationViewer importedVariants={0} primaryAccession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -54,7 +54,7 @@ describe('VariationViewer component', () => {
       status: 200,
     });
     const { asFragment } = customRender(
-      <VariationViewer primaryAccession="P0DPR3" />
+      <VariationViewer importedVariants={0} primaryAccession="P0DPR3" />
     );
     expect(asFragment()).toMatchSnapshot();
 
