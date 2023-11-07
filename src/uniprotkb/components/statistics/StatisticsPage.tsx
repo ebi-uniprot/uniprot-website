@@ -351,7 +351,7 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
   </>
 );
 
-const TaxonomiDistributionTable = ({
+const TaxonomicDistributionTable = ({
   reviewedData,
   unreviewedData,
   colorScheme,
@@ -562,13 +562,13 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.TOTAL_ORGANISM}
           unreviewedData={unreviewedData.TOTAL_ORGANISM}
         />
-        <TaxonomiDistributionTable
+        <TaxonomicDistributionTable
           reviewedData={reviewedData.SUPERKINGDOM}
           unreviewedData={unreviewedData.SUPERKINGDOM}
           distributionLabel="across kingdoms"
           nameToQuery={nameToQueryKingdoms}
         />
-        <TaxonomiDistributionTable
+        <TaxonomicDistributionTable
           reviewedData={reviewedData.EUKARYOTA}
           unreviewedData={unreviewedData.EUKARYOTA}
           colorScheme={schemeReds as string[][]}
