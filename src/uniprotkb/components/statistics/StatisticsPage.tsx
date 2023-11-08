@@ -19,6 +19,7 @@ import SequenceLengthLinePlot from './SequenceLengthLinePlot';
 import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -251,8 +252,12 @@ const ProteinExistenceTable = ({
           <tr>
             <th>Protein existence (PE)</th>
             <th>UniProtKB</th>
-            <th>UniProtKB reviewed</th>
-            <th>UniProtKB unreviewed</th>
+            <th>
+              <ReviewedLabel />
+            </th>
+            <th>
+              <UnreviewedLabel />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -318,21 +323,17 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
       </thead>
       <tbody>
         <tr>
-          <td>UniProtKB</td>
-          <td className={styles.end}>
-            <LongNumber>
-              {reviewedData.totalCount + unreviewedData.totalCount}
-            </LongNumber>
+          <td>
+            <ReviewedLabel />
           </td>
-        </tr>
-        <tr>
-          <td>⮑ UniProtKB reviewed</td>
           <td className={styles.end}>
             <LongNumber>{reviewedData.totalCount}</LongNumber>
           </td>
         </tr>
         <tr>
-          <td>⮑ UniProtKB unreviewed</td>
+          <td>
+            <UnreviewedLabel />
+          </td>
           <td className={styles.end}>
             <LongNumber>{unreviewedData.totalCount}</LongNumber>
           </td>
@@ -342,7 +343,7 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
   </>
 );
 
-const TaxonomiDistributionTable = ({
+const TaxonomicDistributionTable = ({
   reviewedData,
   unreviewedData,
   colorScheme,
@@ -383,8 +384,12 @@ const TaxonomiDistributionTable = ({
             <tr>
               <th>Taxonomy</th>
               <th>UniProtKB</th>
-              <th>UniProtKB reviewed</th>
-              <th>UniProtKB unreviewed</th>
+              <th>
+                <ReviewedLabel />
+              </th>
+              <th>
+                <UnreviewedLabel />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -549,11 +554,18 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.TOTAL_ORGANISM}
           unreviewedData={unreviewedData.TOTAL_ORGANISM}
         />
-        <FrequencyTable
-          reviewedData={reviewedData.ORGANISM_FREQUENCY}
-          unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
-          header="Species represented"
-          title="Frequency of occurrence of species"
+        <TaxonomicDistributionTable
+          reviewedData={reviewedData.SUPERKINGDOM}
+          unreviewedData={unreviewedData.SUPERKINGDOM}
+          distributionLabel="across kingdoms"
+          nameToQuery={nameToQueryKingdoms}
+        />
+        <TaxonomicDistributionTable
+          reviewedData={reviewedData.EUKARYOTA}
+          unreviewedData={unreviewedData.EUKARYOTA}
+          colorScheme={schemeReds as string[][]}
+          distributionLabel="within eukaryota"
+          nameToQuery={nameToQueryEukaryota}
         />
         <ReviewedUnreviewedStatsTable
           categoryName="TOP_ORGANISM"
@@ -562,18 +574,11 @@ const StatisticsPage = () => {
           title="Most represented species"
           nameLabel="Species"
         />
-        <TaxonomiDistributionTable
-          reviewedData={reviewedData.SUPERKINGDOM}
-          unreviewedData={unreviewedData.SUPERKINGDOM}
-          distributionLabel="across kingdoms"
-          nameToQuery={nameToQueryKingdoms}
-        />
-        <TaxonomiDistributionTable
-          reviewedData={reviewedData.EUKARYOTA}
-          unreviewedData={unreviewedData.EUKARYOTA}
-          colorScheme={schemeReds as string[][]}
-          distributionLabel="within eukaryota"
-          nameToQuery={nameToQueryEukaryota}
+        <FrequencyTable
+          reviewedData={reviewedData.ORGANISM_FREQUENCY}
+          unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
+          header="Species represented"
+          title="Frequency of occurrence of species"
         />
       </Card>
       <Card id="sequence-size">
@@ -640,18 +645,21 @@ const StatisticsPage = () => {
         />
         <ReviewedUnreviewedStatsTable
           categoryName="FEATURES"
+          title="Sequence annotations (features)"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Feature"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="COMMENTS"
+          title="General annotation (comments)"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Comment"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="CROSS_REFERENCE"
+          title="Cross-references"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Cross reference"
