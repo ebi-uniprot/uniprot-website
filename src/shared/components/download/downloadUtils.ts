@@ -264,6 +264,8 @@ export const getIsAsyncDownload = (
     ((state.selectedFileFormat === FileFormat.embeddings &&
       !getFtpFilenameAndUrl(state, props, location, job)) ||
       getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
+  (props.namespace === Namespace.uniref &&
+    getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
   isAsyncDownloadIdMapping(state, props, job);
 
 export const getColumnsNamespace = (
