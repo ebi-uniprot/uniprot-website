@@ -34,7 +34,8 @@ describe('Entry view', () => {
     const { asFragment } = customRender(
       <EntryMain
         transformedData={uniProtKbConverter(mockData, databaseInfoMaps)}
-        hasImportedVariants={false}
+        importedVariants={0}
+        hasGenomicCoordinates={false}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
@@ -50,7 +51,8 @@ describe('Entry view', () => {
           nonHumanEntryData,
           databaseInfoMaps
         )}
-        hasImportedVariants={false}
+        importedVariants={0}
+        hasGenomicCoordinates={false}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );

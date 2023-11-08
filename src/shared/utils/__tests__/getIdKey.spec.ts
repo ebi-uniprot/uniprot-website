@@ -20,7 +20,7 @@ import { MappingAPIModel } from '../../../tools/id-mapping/types/idMappingSearch
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
 const testCases: [Namespace, APIModel, string][] = [
-  [Namespace.arba, arbaModelData[0], 'ARBA00013665'],
+  [Namespace.arba, arbaModelData[0], 'ARBA00020180'],
   [Namespace.citations, citationsModelData[0], '10196735'],
   [Namespace.database, databaseModelData[0], 'DB-0022'],
   [Namespace.diseases, diseasesModelData[0], 'DI-00550'],

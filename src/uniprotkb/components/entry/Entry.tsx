@@ -1,7 +1,6 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
-import joinUrl from 'url-join';
+import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
@@ -33,7 +32,10 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import {
+  useMediumScreen,
+  useSmallScreen,
+} from '../../../shared/hooks/useMatchMedia';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -41,7 +43,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
 
@@ -78,6 +80,7 @@ export enum TabLocation {
   Entry = 'entry',
   VariantViewer = 'variant-viewer',
   FeatureViewer = 'feature-viewer',
+  GenomicCoordinates = 'genomic-coordinates',
   Publications = 'publications',
   ExternalLinks = 'external-links',
   History = 'history',
@@ -89,37 +92,44 @@ const legacyToNewSubPages = {
   'variants-viewer': TabLocation.VariantViewer,
 };
 
-const FeatureViewer = lazy(
+const VariationViewerTab = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './FeatureViewer'
+      /* webpackChunkName: "uniprotkb-entry-variation-viewer" */ './tabs/variation-viewer/VariationViewer'
     )
 );
 
-const VariationView = lazy(
+const FeatureViewerTab = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-variation-view" */ '../protein-data-views/VariationView'
+      /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './tabs/FeatureViewer'
     )
 );
 
-const EntryPublications = lazy(
+const GenomicCoordinatesTab = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-history" */ './EntryPublications'
+      /* webpackChunkName: "uniprotkb-entry-genomic-coordinates" */ './tabs/genomic-coordinates/GenomicCoordinates'
     )
 );
 
-const EntryExternalLinks = lazy(
+const PublicationsTab = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-entry-external-links" */ './EntryExternalLinks'
+      /* webpackChunkName: "uniprotkb-entry-publications" */ './tabs/Publications'
     )
 );
 
-const EntryHistory = lazy(
+const ExternalLinksTab = lazy(
   () =>
-    import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
+    import(
+      /* webpackChunkName: "uniprotkb-entry-external-links" */ './tabs/ExternalLinks'
+    )
+);
+
+const HistoryTab = lazy(
+  () =>
+    import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
 );
 
 const Entry = () => {
@@ -136,6 +146,7 @@ const Entry = () => {
   );
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
+  const mediumScreen = useMediumScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -143,8 +154,12 @@ const Entry = () => {
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession &&
-      joinUrl(apiUrls.variation, match?.params.accession),
+    match?.params.accession && proteinsApi.variation(match?.params.accession),
+    { method: 'HEAD' }
+  );
+
+  const coordinatesHeadPayload = useDataApi(
+    match?.params.accession && proteinsApi.coordinates(match?.params.accession),
     { method: 'HEAD' }
   );
 
@@ -317,8 +332,22 @@ const Entry = () => {
     ? data.primaryAccession
     : match?.params.accession || '';
 
-  const hasImportedVariants =
-    !variantsHeadPayload.loading && variantsHeadPayload.status === 200;
+  let importedVariants: number | 'loading' = 0;
+  if (variantsHeadPayload.loading) {
+    importedVariants = 'loading';
+  } else {
+    const count = +(variantsHeadPayload.headers?.['x-feature-records'] ?? 0);
+    if (variantsHeadPayload.status === 200 && !Number.isNaN(count)) {
+      importedVariants = count;
+    }
+  }
+
+  let hasGenomicCoordinates: boolean | 'loading' = false;
+  if (coordinatesHeadPayload.loading) {
+    hasGenomicCoordinates = 'loading';
+  } else {
+    hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
+  }
 
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
@@ -429,7 +458,8 @@ const Entry = () => {
               </div>
               <EntryMain
                 transformedData={transformedData}
-                hasImportedVariants={hasImportedVariants}
+                importedVariants={importedVariants}
+                hasGenomicCoordinates={hasGenomicCoordinates}
               />
             </>
           )}
@@ -437,30 +467,56 @@ const Entry = () => {
         <Tab
           title={
             <Link
-              className={hasImportedVariants ? undefined : helper.disabled}
-              tabIndex={hasImportedVariants ? undefined : -1}
+              className={cn({
+                [helper.disabled]:
+                  importedVariants === 'loading' || !importedVariants,
+                loading: importedVariants === 'loading',
+              })}
+              tabIndex={
+                importedVariants !== 'loading' && importedVariants
+                  ? undefined
+                  : -1
+              }
               to={getEntryPath(
                 Namespace.uniprotkb,
                 accession,
-                TabLocation.VariantViewer
+                importedVariants === 'loading' || !importedVariants
+                  ? TabLocation.Entry
+                  : TabLocation.VariantViewer
               )}
             >
               Variant viewer
+              {!mediumScreen &&
+                importedVariants !== 'loading' &&
+                importedVariants > 0 && (
+                  <>
+                    {' '}
+                    <Chip compact>
+                      <LongNumber>{importedVariants}</LongNumber>
+                    </Chip>
+                  </>
+                )}
             </Link>
           }
           id={TabLocation.VariantViewer}
-          onPointerOver={VariationView.preload}
-          onFocus={VariationView.preload}
+          onPointerOver={VariationViewerTab.preload}
+          onFocus={VariationViewerTab.preload}
         >
           <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'Variants viewer',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <VariationView primaryAccession={accession} title="Variants" />
+            <ErrorBoundary>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'Variants viewer',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <VariationViewerTab
+                importedVariants={importedVariants}
+                primaryAccession={accession}
+                title="Variants"
+              />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
@@ -480,8 +536,8 @@ const Entry = () => {
             )
           }
           id={TabLocation.FeatureViewer}
-          onPointerOver={FeatureViewer.preload}
-          onFocus={FeatureViewer.preload}
+          onPointerOver={FeatureViewerTab.preload}
+          onFocus={FeatureViewerTab.preload}
         >
           {smallScreen ? (
             <Redirect
@@ -493,16 +549,74 @@ const Entry = () => {
             />
           ) : (
             <Suspense fallback={<Loader />}>
+              <ErrorBoundary>
+                <HTMLHead
+                  title={[
+                    pageTitle,
+                    'Feature viewer',
+                    searchableNamespaceLabels[Namespace.uniprotkb],
+                  ]}
+                />
+                <FeatureViewerTab accession={accession} />
+              </ErrorBoundary>
+            </Suspense>
+          )}
+        </Tab>
+        <Tab
+          title={
+            <Link
+              className={cn({
+                [helper.disabled]:
+                  hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates,
+                loading: hasGenomicCoordinates === 'loading',
+              })}
+              tabIndex={
+                hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates
+                  ? undefined
+                  : -1
+              }
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                accession,
+                hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
+                  ? TabLocation.Entry
+                  : TabLocation.GenomicCoordinates
+              )}
+            >
+              Genomic coordinates
+              {!mediumScreen &&
+                hasGenomicCoordinates !== 'loading' &&
+                hasGenomicCoordinates && (
+                  <>
+                    {' '}
+                    <Chip compact>new</Chip>
+                  </>
+                )}
+            </Link>
+          }
+          id={TabLocation.GenomicCoordinates}
+          onPointerOver={GenomicCoordinatesTab.preload}
+          onFocus={GenomicCoordinatesTab.preload}
+        >
+          <Suspense fallback={<Loader />}>
+            <ErrorBoundary>
               <HTMLHead
                 title={[
                   pageTitle,
-                  'Feature viewer',
+                  'Genomic coordinates',
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <FeatureViewer accession={accession} />
-            </Suspense>
-          )}
+              <GenomicCoordinatesTab
+                primaryAccession={accession}
+                isoforms={
+                  transformedData[EntrySection.Sequence].alternativeProducts
+                    ?.isoforms
+                }
+                title="Genomic coordinates"
+              />
+            </ErrorBoundary>
+          </Suspense>
         </Tab>
         <Tab
           title={
@@ -519,29 +633,31 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.Publications}
-          onPointerOver={EntryPublications.preload}
-          onFocus={EntryPublications.preload}
+          onPointerOver={PublicationsTab.preload}
+          onFocus={PublicationsTab.preload}
         >
           <Suspense fallback={<Loader />}>
-            <div className="button-group">
-              <CommunityAnnotationLink accession={accession} />
-              <a
-                href={externalUrls.CommunityCurationAdd(accession)}
-                className="button tertiary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Add a publication
-              </a>
-            </div>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'Publications',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <EntryPublications accession={accession} />
+            <ErrorBoundary>
+              <div className="button-group">
+                <CommunityAnnotationLink accession={accession} />
+                <a
+                  href={externalUrls.CommunityCurationAdd(accession)}
+                  className="button tertiary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Add a publication
+                </a>
+              </div>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'Publications',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <PublicationsTab accession={accession} />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
@@ -559,18 +675,20 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.ExternalLinks}
-          onPointerOver={EntryExternalLinks.preload}
-          onFocus={EntryExternalLinks.preload}
+          onPointerOver={ExternalLinksTab.preload}
+          onFocus={ExternalLinksTab.preload}
         >
           <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'External links',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <EntryExternalLinks transformedData={transformedData} />
+            <ErrorBoundary>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'External links',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <ExternalLinksTab transformedData={transformedData} />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
@@ -586,18 +704,20 @@ const Entry = () => {
             </Link>
           }
           id={TabLocation.History}
-          onPointerOver={EntryHistory.preload}
-          onFocus={EntryHistory.preload}
+          onPointerOver={HistoryTab.preload}
+          onFocus={HistoryTab.preload}
         >
           <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                isObsolete ? match.params.accession : pageTitle,
-                'History',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <EntryHistory accession={accession} />
+            <ErrorBoundary>
+              <HTMLHead
+                title={[
+                  isObsolete ? accession : pageTitle,
+                  'History',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <HistoryTab accession={accession} />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
       </Tabs>

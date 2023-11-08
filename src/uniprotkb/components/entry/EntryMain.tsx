@@ -1,4 +1,4 @@
-import { memo, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Loader } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -10,24 +10,29 @@ import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
-  hasImportedVariants: boolean;
+  importedVariants: number | 'loading';
+  hasGenomicCoordinates: boolean | 'loading';
 };
 
 const EntryMain = ({
   transformedData,
-  hasImportedVariants,
+  importedVariants,
+  hasGenomicCoordinates,
 }: EntryMainProps) => (
   <>
     {UniProtKBEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
         <ErrorBoundary>
-          {sectionContent(transformedData, hasImportedVariants)}
+          {sectionContent(
+            transformedData,
+            importedVariants,
+            hasGenomicCoordinates
+          )}
         </ErrorBoundary>
       </Suspense>
     ))}
-
     <MedicalDisclaimer />
   </>
 );
 
-export default memo(EntryMain);
+export default EntryMain;

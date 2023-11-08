@@ -1,4 +1,4 @@
-import { lazy, useMemo } from 'react';
+import { lazy, useMemo, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 
@@ -237,4 +237,4 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
   );
 };
 
-export default InteractionSection;
+export default memo(InteractionSection);

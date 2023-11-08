@@ -12,43 +12,43 @@ import {
   SlidingPanel,
 } from 'franklin-sites';
 
-import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import {
   DeletedEntryMessage,
   DemergedEntryMessage,
   MergedEntryMessage,
-} from '../../../shared/components/error-pages/ObsoleteEntryPage';
+} from '../../../../shared/components/error-pages/ObsoleteEntryPage';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useItemSelect from '../../../shared/hooks/useItemSelect';
-import { useMediumScreen } from '../../../shared/hooks/useMatchMedia';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import { useMediumScreen } from '../../../../shared/hooks/useMatchMedia';
 
-import lazy from '../../../shared/utils/lazy';
-import parseDate from '../../../shared/utils/parseDate';
-import listFormat from '../../../shared/utils/listFormat';
-import { unisave } from '../../../shared/config/apiUrls';
-import { getEntryPath } from '../../../app/config/urls';
-import * as logging from '../../../shared/utils/logging';
+import lazy from '../../../../shared/utils/lazy';
+import parseDate from '../../../../shared/utils/parseDate';
+import listFormat from '../../../../shared/utils/listFormat';
+import { unisave } from '../../../../shared/config/apiUrls';
+import { getEntryPath } from '../../../../app/config/urls';
+import * as logging from '../../../../shared/utils/logging';
 
-import { TabLocation } from './Entry';
+import { TabLocation } from '../Entry';
 import {
   UniSaveAccession,
   UniSaveEventType,
   UniSaveStatus,
   UniSaveVersion,
-} from '../../types/uniSave';
-import { ColumnDescriptor } from '../../../shared/hooks/useColumns';
-import { Namespace } from '../../../shared/types/namespaces';
+} from '../../../types/uniSave';
+import { ColumnDescriptor } from '../../../../shared/hooks/useColumns';
+import { Namespace } from '../../../../shared/types/namespaces';
 
-import helper from '../../../shared/styles/helper.module.scss';
+import helper from '../../../../shared/styles/helper.module.scss';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
   () =>
     import(
-      /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
+      /* webpackChunkName: "download" */ '../../../../shared/components/download/Download'
     )
 );
 

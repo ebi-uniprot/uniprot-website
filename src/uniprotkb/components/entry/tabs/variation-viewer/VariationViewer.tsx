@@ -6,9 +6,15 @@ import {
   useState,
   lazy,
   ReactNode,
+  Suspense,
 } from 'react';
-import { EllipsisReveal, Loader } from 'franklin-sites';
-import joinUrl from 'url-join';
+import {
+  Button,
+  EllipsisReveal,
+  Loader,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
@@ -16,28 +22,34 @@ import { PartialDeep, SetRequired } from 'type-fest';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
+import ExternalLink from '../../../../../shared/components/ExternalLink';
+import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
+import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
+import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useCustomElement from '../../../shared/hooks/useCustomElement';
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
+import useCustomElement from '../../../../../shared/hooks/useCustomElement';
+import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 
-import apiUrls from '../../../shared/config/apiUrls';
-import externalUrls from '../../../shared/config/externalUrls';
-import { sortByLocation } from '../../utils';
+import { proteinsApi } from '../../../../../shared/config/apiUrls';
+import externalUrls from '../../../../../shared/config/externalUrls';
+import { sortByLocation } from '../../../../utils';
 
-import { Evidence } from '../../types/modelTypes';
+import { Evidence } from '../../../../types/modelTypes';
 
-import styles from './styles/variation-view.module.scss';
+import styles from './styles/variation-viewer.module.scss';
+import tabsStyles from '../styles/tabs-styles.module.scss';
+import helper from '../../../../../shared/styles/helper.module.scss';
 
 const VisualVariationView = lazy(
   () =>
     import(
-      /* webpackChunkName: "visual-variation-view" */ './VisualVariationView'
+      /* webpackChunkName: "visual-variation-view" */ '../../../protein-data-views/VisualVariationView'
     )
 );
+
+// hardcoded threshold
+const VARIANT_COUNT_LIMIT = 5_000;
 
 type ProteinsAPIEvidence = SetRequired<
   PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
@@ -111,21 +123,28 @@ const applyFilters = (variants: TransformedVariant[], filters: Filter[]) => {
 };
 
 type VariationViewProps = {
+  importedVariants: number | 'loading';
   primaryAccession: string;
   title?: string;
-  onlyTable?: boolean;
 };
 
-const VariationView = ({
+const VariationViewer = ({
+  importedVariants,
   primaryAccession,
   title,
-  onlyTable = false,
 }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
 
+  const [forcedRender, setForceRender] = useState(false);
+
+  const shouldRender =
+    (importedVariants !== 'loading' &&
+      importedVariants <= VARIANT_COUNT_LIMIT) ||
+    forcedRender;
+
   const { loading, data, progress, error, status } =
     useDataApi<ProteinsAPIVariation>(
-      joinUrl(apiUrls.variation, primaryAccession)
+      shouldRender ? proteinsApi.variation(primaryAccession) : undefined
     );
 
   const [filters, setFilters] = useState([]);
@@ -181,18 +200,40 @@ const VariationView = ({
     'protvista-manager'
   );
 
-  if (loading) {
+  if (loading || importedVariants === 'loading') {
     return (
-      <div>
+      <div className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
     );
   }
 
+  if (!shouldRender) {
+    return (
+      <div className="wider-tab-content hotjar-margin">
+        {title && <h3>{title}</h3>}
+        <div className={styles['too-many']}>
+          <Message>
+            As there are <LongNumber>{importedVariants}</LongNumber> variations,
+            the variant viewer has not automatically been loaded for performance
+            reasons.
+          </Message>
+          <Button onClick={() => setForceRender(true)}>
+            Click to load the <LongNumber>{importedVariants}</LongNumber>{' '}
+            variations
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   if (error && status !== 404) {
-    // TODO: use in-page error message
-    return <div>An error happened</div>;
+    return (
+      <div className="wider-tab-content hotjar-margin">
+        <ErrorHandler status={status} />
+      </div>
+    );
   }
 
   if (
@@ -205,7 +246,7 @@ const VariationView = ({
     return (
       <section className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
-        <div className={styles['no-data']}>
+        <div className={tabsStyles['no-data']}>
           No variation information available for {primaryAccession}
         </div>
       </section>
@@ -302,7 +343,7 @@ const VariationView = ({
                       <Fragment key={id}>
                         {i !== 0 && <br />}
                         <span
-                          className={cn({ [styles.bold]: isUniProtID(id) })}
+                          className={cn({ [helper.bold]: isUniProtID(id) })}
                         >
                           {id}
                         </span>
@@ -337,7 +378,7 @@ const VariationView = ({
                         <div
                           key={description.value}
                           className={cn({
-                            [styles.bold]: hasUniProtSource(description),
+                            [helper.bold]: hasUniProtSource(description),
                           })}
                         >
                           {`${description.value} (${description.sources.join(
@@ -384,7 +425,7 @@ const VariationView = ({
                       <Fragment key={name}>
                         {i !== 0 && <br />}
                         <span
-                          className={cn({ [styles.bold]: isUniProt(name) })}
+                          className={cn({ [helper.bold]: isUniProt(name) })}
                         >
                           {name}
                         </span>
@@ -512,7 +553,7 @@ const VariationView = ({
     </table>
   );
 
-  if (onlyTable || isSmallScreen) {
+  if (isSmallScreen) {
     return (
       <section>
         {title && <h2>{title}</h2>}
@@ -528,11 +569,13 @@ const VariationView = ({
         attributes="highlight displaystart displayend activefilters filters selectedid"
         ref={managerRef}
       >
-        <VisualVariationView {...transformedData} />
+        <Suspense fallback={null}>
+          <VisualVariationView {...transformedData} />
+        </Suspense>
         <DatatableWrapper alwaysExpanded>{table}</DatatableWrapper>
       </managerElement.name>
     </section>
   );
 };
 
-export default VariationView;
+export default VariationViewer;

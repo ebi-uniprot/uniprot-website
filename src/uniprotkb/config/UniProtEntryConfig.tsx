@@ -19,7 +19,8 @@ const UniProtKBEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniProtkbUIModel,
-    hasImportedVariants: boolean
+    importedVariants: number | 'loading',
+    hasGenomicCoordinates: boolean | 'loading'
   ) => JSX.Element;
 }[] = [
   {
@@ -57,13 +58,13 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.DiseaseVariants,
-    sectionContent: (data, hasImportedVariants) => (
+    sectionContent: (data, importedVariants) => (
       <DiseaseAndDrugsSection
         data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
-        hasImportedVariants={hasImportedVariants}
+        importedVariants={importedVariants}
         key={EntrySection.DiseaseVariants}
       />
     ),
@@ -124,10 +125,11 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.Sequence,
-    sectionContent: (data) => (
+    sectionContent: (data, _, hasGenomicCoordinates) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
+        hasGenomicCoordinates={hasGenomicCoordinates}
         key={EntrySection.Sequence}
       />
     ),

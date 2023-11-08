@@ -2,6 +2,7 @@ import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 // Source: api/proteomes/UP000005640
 // Retrieved: 2021-10-15
+// Need to check with backend: "status":"Outlier (high value)"}} last checked on 2023-11-07
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
   description:

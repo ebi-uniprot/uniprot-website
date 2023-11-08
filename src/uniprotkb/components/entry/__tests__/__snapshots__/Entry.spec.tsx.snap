@@ -360,7 +360,7 @@ exports[`Entry basic should render main 1`] = `
           >
             <a
               class="disabled"
-              href="/uniprotkb/P21802/variant-viewer"
+              href="/uniprotkb/P21802/entry"
               tabindex="-1"
             >
               Variant viewer
@@ -377,6 +377,21 @@ exports[`Entry basic should render main 1`] = `
               href="/uniprotkb/P21802/feature-viewer"
             >
               Feature viewer
+            </a>
+          </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
+            data-target="genomic-coordinates"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              class="disabled"
+              href="/uniprotkb/P21802/entry"
+              tabindex="-1"
+            >
+              Genomic coordinates
             </a>
           </div>
           <div

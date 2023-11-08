@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { HTMLAttributes, useEffect } from 'react';
 import { Message } from 'franklin-sites';
 
 import ErrorPage from './ErrorPage';
@@ -8,7 +8,7 @@ import ArtWork from './svgs/503.img.svg';
 const BACKOFF = [5] as const;
 const KEY = 'retry-index';
 
-const ServiceUnavailablePage = () => {
+const ServiceUnavailablePage = (props: HTMLAttributes<HTMLDivElement>) => {
   const retryIndex = +(sessionStorage.getItem(KEY) || 0);
   const willReload = navigator.onLine && retryIndex in BACKOFF;
 
@@ -30,6 +30,7 @@ const ServiceUnavailablePage = () => {
 
   return (
     <ErrorPage
+      {...props}
       artwork={<img src={ArtWork} width="400" height="400" alt="" />}
       message={
         <Message level="failure">
