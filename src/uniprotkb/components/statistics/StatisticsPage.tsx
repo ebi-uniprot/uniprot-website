@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
+import { useState } from 'react';
 import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
@@ -343,6 +344,8 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
   </>
 );
 
+const options = ['UniProtKB', 'reviewed', 'unreviewed'] as const;
+
 const TaxonomicDistributionTable = ({
   reviewedData,
   unreviewedData,
@@ -354,21 +357,27 @@ const TaxonomicDistributionTable = ({
   distributionLabel: string;
   nameToQuery: Map<string, string | undefined>;
 }) => {
-  const list = merge(reviewedData.items, unreviewedData.items)
-    // .sort(sortByPE)
-    .map(
-      ({ name, statistics }): MergedStatisticsItem => ({
-        name,
-        statistics,
-        query: nameToQuery.get(name),
-      })
-    );
+  const list = merge(reviewedData.items, unreviewedData.items).map(
+    ({ name, statistics }): MergedStatisticsItem => ({
+      name,
+      statistics,
+      query: nameToQuery.get(name),
+    })
+  );
+
+  const [selected /* , setSelected */] = useState<typeof options[number]>(
+    options[0]
+  );
 
   const graphData: StatisticsGraphItem[] = list.map((entry) => ({
     name: entry.name,
     entryCount:
-      (entry.statistics.reviewed?.entryCount || 0) +
-      (entry.statistics.unreviewed?.entryCount || 0),
+      ((selected !== 'unreviewed'
+        ? entry.statistics.reviewed?.entryCount
+        : 0) || 0) +
+      ((selected !== 'reviewed'
+        ? entry.statistics.unreviewed?.entryCount
+        : 0) || 0),
     to: entry.query && {
       pathname: LocationToPath[Location.UniProtKBResults],
       search: stringifyQuery({ query: entry.query }),
@@ -439,17 +448,34 @@ const TaxonomicDistributionTable = ({
           </tbody>
         </table>
         <div className={styles.viz}>
-          <LazyComponent
-            // Keep the space with an empty visualisation
-            fallback={<PieChart type="taxonomy" />}
-            rootMargin="0px 0px"
-          >
-            <PieChart
-              data={graphData}
-              type="taxonomy"
-              colorScheme={colorScheme}
-            />
-          </LazyComponent>
+          <figure>
+            <LazyComponent
+              // Keep the space with an empty visualisation
+              fallback={<PieChart type="taxonomy" />}
+              rootMargin="0px 0px"
+            >
+              <PieChart
+                data={graphData}
+                type="taxonomy"
+                colorScheme={colorScheme}
+              />
+            </LazyComponent>
+            <figcaption>
+              Taxonomic distribution for {selected}
+              {/* <select
+                value={selected}
+                onChange={(e) =>
+                  setSelected(e.target.value as typeof options[number])
+                }
+              >
+                {options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select> */}
+            </figcaption>
+          </figure>
         </div>
       </div>
     </>

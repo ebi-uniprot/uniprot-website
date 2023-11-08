@@ -207,9 +207,6 @@ const PieChart = ({
           </g>
         ))}
       </g>
-      <text x={0.25 * width} y={height - 0.5 * margin}>
-        Taxonomic distribution in UniProtKB
-      </text>
     </svg>
   );
 };
