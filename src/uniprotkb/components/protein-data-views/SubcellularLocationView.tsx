@@ -25,7 +25,7 @@ const SubcellularLocationView = ({ comments }: Props) => {
         (subcellData, index) =>
           subcellData.subcellularLocations && (
             <section className="text-block" key={subcellData.molecule || index}>
-              <h3>{subcellData.molecule}</h3>
+              <h3>{subcellData.molecule || 'Canonical'}</h3>
               {subcellData.subcellularLocations.map(
                 ({ location, topology }) => (
                   <div
