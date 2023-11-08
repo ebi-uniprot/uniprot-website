@@ -13,19 +13,35 @@ import './styles/sub-cell-viz.scss';
 
 const getSwissBioPicLocationId = (id: string) => `${id.replace('-', '')}term`;
 
+// Make sure that the comments without a molecule/isoform are first
+const noMoleculeFirstSort = (
+  a: SubcellularLocationComment,
+  b: SubcellularLocationComment
+) => {
+  if ((a.molecule && b.molecule) || (!a.molecule && !b.molecule)) {
+    return 0;
+  }
+  if (a.molecule && !b.molecule) {
+    return 1;
+  }
+  return -1;
+};
+
 type Props = { comments?: SubcellularLocationComment[] };
 
 const SubcellularLocationView = ({ comments }: Props) => {
   if (!comments?.length) {
     return null;
   }
+  const noMoleculeFirstComments =
+    Array.from(comments).sort(noMoleculeFirstSort);
   return (
     <>
-      {comments.map(
+      {noMoleculeFirstComments.map(
         (subcellData, index) =>
           subcellData.subcellularLocations && (
             <section className="text-block" key={subcellData.molecule || index}>
-              <h3>{subcellData.molecule || 'Canonical'}</h3>
+              {subcellData.molecule && <h3>{subcellData.molecule}</h3>}
               {subcellData.subcellularLocations.map(
                 ({ location, topology }) => (
                   <div
