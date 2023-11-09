@@ -1,7 +1,9 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { select, scaleLinear, axisBottom, axisLeft, line } from 'd3';
 
-import { StatisticsCategory, StatisticsItem } from './StatisticsPage';
+import { warn } from '../../../shared/utils/logging';
+
+import { StatisticsItem } from './StatisticsPage';
 
 import styles from './styles/sequence-length-line-plot.module.scss';
 
@@ -10,35 +12,43 @@ const width = 400;
 const height = 400;
 const margin = { top: 20, right: 60, bottom: 45, left: 80 };
 
+const CURRENT_MAX = 2_000;
+
 const getSequenceLengthCounts = (
-  items: StatisticsItem[]
-): SequenceLengthCount[] =>
-  items
-    .map(({ name, count }): SequenceLengthCount => [+name, count])
-    .sort(([aLength], [bLength]) => aLength - bLength);
-
-type SequenceLengthCount = [sequenceLength: number, count: number];
-
-type Props = {
-  category?: StatisticsCategory;
+  items?: StatisticsItem[],
+  maxIndex = CURRENT_MAX + 1
+): [counts: number[], max: number] => {
+  // Create a new array filled with 0
+  const out = Array.from({ length: maxIndex }, () => 0);
+  let max = 0;
+  for (const item of items || []) {
+    const index = +item.name;
+    if (Number.isNaN(index) || index > maxIndex) {
+      warn(`Invalid index value: ${item.name}`);
+    }
+    out[index] = item.count;
+    if (item.count > max) {
+      max = item.count;
+    }
+  }
+  return [out, max];
 };
 
-const SequenceLengthLinePlot = ({ category }: Props) => {
+type Props = {
+  counts?: StatisticsItem[];
+};
+
+const SequenceLengthLinePlot = ({ counts }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const renderHistogram = useCallback((items: StatisticsItem[]) => {
-    const sequenceLengthCounts = getSequenceLengthCounts(items);
-    const maxSequenceLength = Math.max(...sequenceLengthCounts.map(([x]) => x));
-    const maxCount = Math.max(...sequenceLengthCounts.map(([, y]) => y));
-    if (!(maxCount && maxSequenceLength)) {
-      return;
-    }
+  const renderHistogram = useCallback((items?: StatisticsItem[]) => {
+    const [sequenceLengthCounts, maxCount] = getSequenceLengthCounts(items);
 
     const chart = select(svgRef.current).select('g');
 
     // x-axis
     const xScale = scaleLinear()
-      .domain([0, maxSequenceLength]) // units: sequence length
+      .domain([0, CURRENT_MAX]) // units: sequence length
       .range([0, width]); // units: pixels
     chart
       .select<SVGGElement>('.x-axis')
@@ -48,7 +58,7 @@ const SequenceLengthLinePlot = ({ category }: Props) => {
 
     // y-axis
     const yScale = scaleLinear()
-      .domain([0, maxCount]) // units: count
+      .domain([0, maxCount || 1]) // units: count
       .range([height, 0]); // units: pixels
     chart
       .select<SVGGElement>('.y-axis')
@@ -59,24 +69,23 @@ const SequenceLengthLinePlot = ({ category }: Props) => {
     chart
       .select(`.${styles.line}`)
       .datum(sequenceLengthCounts)
-      .attr('opacity', 0)
       .transition()
       .duration(1_000)
       .attr('opacity', 1)
       .attr(
         'd',
-        line()
-          .x((d) => xScale(d[0]) || 0)
-          .y((d) => yScale(d[1]) || 0)
+        line<number>()
+          .x((_, index) => xScale(index) || 0)
+          .y((d) => yScale(d) || 0)
       );
     // Keeping an empty comment here otherwise somehow prettier messes things
   }, []);
 
   useEffect(() => {
-    if (svgRef.current && category?.items) {
-      renderHistogram(category.items);
+    if (svgRef.current) {
+      renderHistogram(counts);
     }
-  }, [renderHistogram, category?.items]);
+  }, [renderHistogram, counts]);
 
   return (
     <svg
@@ -103,7 +112,7 @@ const SequenceLengthLinePlot = ({ category }: Props) => {
         >
           Number of sequences
         </text>
-        <path className={styles.line} />
+        <path className={styles.line} opacity={0} />
       </g>
     </svg>
   );

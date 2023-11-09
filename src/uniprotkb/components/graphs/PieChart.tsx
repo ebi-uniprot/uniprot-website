@@ -77,8 +77,8 @@ const getRenderPieChart =
     colorScheme: string[][]
   ): void => {
     // Create the color scale.
-    const color = scaleOrdinal<string, string>()
-      .domain(data.map((d) => d.name))
+    const color = scaleOrdinal<number, string>()
+      .domain([0, data.length])
       .range(colorScheme[data.length]);
 
     // Get the SVG container.
@@ -94,9 +94,9 @@ const getRenderPieChart =
         pieData,
         (d, i, domArray) => d?.data.name || domArray[i].dataset.key || i
       )
-      .style('fill', (d) => color(d.data.name))
       .transition()
       .duration(1_000)
+      .style('fill', (_, index) => color(index))
       .tween('tween', (d, i, domArray) => {
         const group = domArray[i];
         const slice = group.querySelector<SVGPathElement>('path');
