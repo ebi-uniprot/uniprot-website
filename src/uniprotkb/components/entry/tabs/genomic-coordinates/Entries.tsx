@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, InfoList, LongNumber, Message } from 'franklin-sites';
-import { groupBy, partition } from 'lodash-es';
+import { groupBy } from 'lodash-es';
 
 import cn from 'classnames';
 
@@ -31,9 +31,10 @@ type EntryProps = {
   entries: FlatGenomicEntry[];
   xrefInfo: DatabaseInfoPoint | null;
   ensID?: boolean;
+  oneIsoformOnly: boolean;
 };
 
-const Entry = ({ entries, xrefInfo, ensID }: EntryProps) => {
+const Entry = ({ entries, xrefInfo, ensID, oneIsoformOnly }: EntryProps) => {
   const representativeEntry = entries[0];
 
   const infoData = [
@@ -112,7 +113,7 @@ const Entry = ({ entries, xrefInfo, ensID }: EntryProps) => {
 
   return (
     <section>
-      <h4>
+      <h4 className={cn({ 'visually-hidden': oneIsoformOnly })}>
         Isoform:{' '}
         <Link
           to={getEntryPathForUniprotKB(
@@ -180,16 +181,14 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
 
   const groupedExons = groupBy(
     accessionEntriesPairs
-      .map(
-        ([, entries]) =>
-          entries.map((entry) =>
-            entry.gnCoordinate.genomicLocation.exon.map((exon) => ({
-              ...exon,
-              // Add accession info to each exon info before flattening
-              accession: entry.accession,
-            }))
-          ),
-        2
+      .map(([, entries]) =>
+        entries.map((entry) =>
+          entry.gnCoordinate.genomicLocation.exon.map((exon) => ({
+            ...exon,
+            // Add accession info to each exon info before flattening
+            accession: entry.accession,
+          }))
+        )
       )
       .flat(2)
       .sort(
@@ -200,10 +199,9 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
     (data) => data.id
   );
 
-  const [mappedIsoforms, notMappedIsoforms] = partition(
-    isoformIDs,
-    (isoformID) =>
-      accessionEntriesPairs.some(([accession]) => accession === isoformID)
+  const mappedIsoforms = accessionEntriesPairs.map(([accession]) => accession);
+  const notMappedIsoforms = isoformIDs.filter(
+    (isoform) => !mappedIsoforms.includes(isoform)
   );
 
   return (
@@ -224,18 +222,20 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
           entries={entries}
           xrefInfo={xrefInfo}
           ensID={ensID}
+          oneIsoformOnly={isoformIDs.length === 1}
         />
       ))}
       <DatatableWrapper alwaysExpanded>
         <table className={cn(styles.table, helper['no-wrap'])}>
           <thead>
             <tr>
-              <th>{ensID ? 'Ensembl e' : 'E'}xon ID</th>
+              <th>{ensID && 'Ensembl'} exon ID</th>
               <th>Genomic coordinates</th>
               {mappedIsoforms.map((isoformID) => (
                 <th
                   key={isoformID}
                   title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
+                  colSpan={4}
                 >
                   <Link
                     to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}
@@ -308,27 +308,50 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                     const exon = exons.find(
                       (exon) => exon.accession === isoformID
                     );
+                    // Structure of the 4 elements:
+                    // td1: start
+                    // td2: separator (or "no data" line)
+                    // td3: end (or unique position)
+                    // td4: margin to separate from the next isoform
                     if (!exon) {
-                      return <td key={isoformID}>-</td>;
+                      return (
+                        <Fragment key={isoformID}>
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates}>―</td>
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates} />
+                        </Fragment>
+                      );
+                    }
+                    if (exon.proteinLocation.position) {
+                      return (
+                        <Fragment key={isoformID}>
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates} />
+                          <td className={styles.coordinates}>
+                            <LongNumber>
+                              {exon.proteinLocation.position.position}
+                            </LongNumber>
+                          </td>
+                          <td className={styles.coordinates} />
+                        </Fragment>
+                      );
                     }
                     return (
-                      <td key={isoformID}>
-                        {exon.proteinLocation.position ? (
+                      <Fragment key={isoformID}>
+                        <td className={styles.coordinates}>
                           <LongNumber>
-                            {exon.proteinLocation.position.position}
+                            {exon.proteinLocation.begin.position}
                           </LongNumber>
-                        ) : (
-                          <>
-                            <LongNumber>
-                              {exon.proteinLocation.begin.position}
-                            </LongNumber>
-                            -
-                            <LongNumber>
-                              {exon.proteinLocation.end.position}
-                            </LongNumber>
-                          </>
-                        )}
-                      </td>
+                        </td>
+                        <td className={styles.coordinates}>-</td>
+                        <td className={styles.coordinates}>
+                          <LongNumber>
+                            {exon.proteinLocation.end.position}
+                          </LongNumber>
+                        </td>
+                        <td className={styles.coordinates} />
+                      </Fragment>
                     );
                   })}
                 </tr>

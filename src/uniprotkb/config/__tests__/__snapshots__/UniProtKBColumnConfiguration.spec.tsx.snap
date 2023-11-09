@@ -1629,6 +1629,210 @@ exports[`UniProtKBColumnConfiguration component should render column "lineage_id
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "lit_doi_id": lit_doi_id 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        2 more IDs
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "lit_doi_id": lit_doi_id-expanded 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <a
+        class="external-link"
+        href="https://dx.doi.org/doiId"
+        rel="noopener"
+        target="_blank"
+      >
+        doiId
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        Less IDs
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed_id": lit_pubmed_id 1`] = `
 <DocumentFragment>
   <ul
@@ -1893,7 +2097,7 @@ exports[`UniProtKBColumnConfiguration component should render column "rhea": rhe
             width="1.333ch"
           />
         </a>
-         | 
+        | 
         <a
           class="external-link"
           href="https://www.rhea-db.org/rhea/12345"
@@ -2002,6 +2206,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_aller
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_alphafolddb": xref_alphafolddb 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_alzforum": xref_alzforum 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_antibodypedia": xref_antibodypedia 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_arachnoserver": xref_arachnoserver 1`] = `<DocumentFragment />`;
@@ -2078,7 +2284,7 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_dbsnp
           width="12.5"
         />
       </a>
-       | 
+      | 
       <a
         class="external-link"
         href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=db id"
@@ -2125,6 +2331,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_eggno
 exports[`UniProtKBColumnConfiguration component should render column "xref_elm": xref_elm 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_embl": xref_embl 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_emind": xref_emind 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ensembl": xref_ensembl 1`] = `
 <DocumentFragment>
@@ -2198,6 +2406,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_genei
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genereviews": xref_genereviews 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_generif": xref_generif 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_genetree": xref_genetree 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genevisible": xref_genevisible 1`] = `<DocumentFragment />`;
@@ -2225,6 +2435,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_hgnc"
 exports[`UniProtKBColumnConfiguration component should render column "xref_hogenom": xref_hogenom 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_hpa": xref_hpa 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_ic4r": xref_ic4r 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ideal": xref_ideal 1`] = `<DocumentFragment />`;
 
@@ -2284,6 +2496,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_oma":
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_opentargets": xref_opentargets 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_orcid": xref_orcid 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_orphanet": xref_orphanet 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_orthodb": xref_orthodb 1`] = `<DocumentFragment />`;
@@ -2307,6 +2521,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_pepti
 exports[`UniProtKBColumnConfiguration component should render column "xref_peroxibase": xref_peroxibase 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pfam": xref_pfam 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_pgenn": xref_pgenn 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pharmgkb": xref_pharmgkb 1`] = `<DocumentFragment />`;
 
@@ -2343,6 +2559,10 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_prote
 exports[`UniProtKBColumnConfiguration component should render column "xref_proteomicsdb": xref_proteomicsdb 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pseudocap": xref_pseudocap 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_pubtator": xref_pubtator 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_pumba": xref_pumba 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_reactome": xref_reactome 1`] = `<DocumentFragment />`;
 

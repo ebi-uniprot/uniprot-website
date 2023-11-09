@@ -2,3 +2,8 @@
   max-inline-size: 10ch;
   word-wrap: break-word;
 }
+
+.too-many {
+  max-inline-size: 50ch;
+  margin-inline: auto;
+}

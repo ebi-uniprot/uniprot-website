@@ -1,6 +1,6 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
+import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
@@ -32,7 +32,10 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import {
+  useMediumScreen,
+  useSmallScreen,
+} from '../../../shared/hooks/useMatchMedia';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -143,6 +146,7 @@ const Entry = () => {
   );
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
+  const mediumScreen = useMediumScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -328,11 +332,22 @@ const Entry = () => {
     ? data.primaryAccession
     : match?.params.accession || '';
 
-  const hasImportedVariants =
-    !variantsHeadPayload.loading && variantsHeadPayload.status === 200;
+  let importedVariants: number | 'loading' = 0;
+  if (variantsHeadPayload.loading) {
+    importedVariants = 'loading';
+  } else {
+    const count = +(variantsHeadPayload.headers?.['x-feature-records'] ?? 0);
+    if (variantsHeadPayload.status === 200 && !Number.isNaN(count)) {
+      importedVariants = count;
+    }
+  }
 
-  const hasGenomicCoordinates =
-    !coordinatesHeadPayload.loading && coordinatesHeadPayload.status === 200;
+  let hasGenomicCoordinates: boolean | 'loading' = false;
+  if (coordinatesHeadPayload.loading) {
+    hasGenomicCoordinates = 'loading';
+  } else {
+    hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
+  }
 
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
@@ -443,7 +458,7 @@ const Entry = () => {
               </div>
               <EntryMain
                 transformedData={transformedData}
-                hasImportedVariants={hasImportedVariants}
+                importedVariants={importedVariants}
                 hasGenomicCoordinates={hasGenomicCoordinates}
               />
             </>
@@ -452,15 +467,35 @@ const Entry = () => {
         <Tab
           title={
             <Link
-              className={hasImportedVariants ? undefined : helper.disabled}
-              tabIndex={hasImportedVariants ? undefined : -1}
+              className={cn({
+                [helper.disabled]:
+                  importedVariants === 'loading' || !importedVariants,
+                loading: importedVariants === 'loading',
+              })}
+              tabIndex={
+                importedVariants !== 'loading' && importedVariants
+                  ? undefined
+                  : -1
+              }
               to={getEntryPath(
                 Namespace.uniprotkb,
                 accession,
-                TabLocation.VariantViewer
+                importedVariants === 'loading' || !importedVariants
+                  ? TabLocation.Entry
+                  : TabLocation.VariantViewer
               )}
             >
               Variant viewer
+              {!mediumScreen &&
+                importedVariants !== 'loading' &&
+                importedVariants > 0 && (
+                  <>
+                    {' '}
+                    <Chip compact>
+                      <LongNumber>{importedVariants}</LongNumber>
+                    </Chip>
+                  </>
+                )}
             </Link>
           }
           id={TabLocation.VariantViewer}
@@ -477,6 +512,7 @@ const Entry = () => {
                 ]}
               />
               <VariationViewerTab
+                importedVariants={importedVariants}
                 primaryAccession={accession}
                 title="Variants"
               />
@@ -529,15 +565,33 @@ const Entry = () => {
         <Tab
           title={
             <Link
-              className={hasGenomicCoordinates ? undefined : helper.disabled}
-              tabIndex={hasGenomicCoordinates ? undefined : -1}
+              className={cn({
+                [helper.disabled]:
+                  hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates,
+                loading: hasGenomicCoordinates === 'loading',
+              })}
+              tabIndex={
+                hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates
+                  ? undefined
+                  : -1
+              }
               to={getEntryPath(
                 Namespace.uniprotkb,
                 accession,
-                TabLocation.GenomicCoordinates
+                hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
+                  ? TabLocation.Entry
+                  : TabLocation.GenomicCoordinates
               )}
             >
               Genomic coordinates
+              {!mediumScreen &&
+                hasGenomicCoordinates !== 'loading' &&
+                hasGenomicCoordinates && (
+                  <>
+                    {' '}
+                    <Chip compact>new</Chip>
+                  </>
+                )}
             </Link>
           }
           id={TabLocation.GenomicCoordinates}
@@ -559,7 +613,7 @@ const Entry = () => {
                   transformedData[EntrySection.Sequence].alternativeProducts
                     ?.isoforms
                 }
-                title={`Genomic coordinates for ${accession}`}
+                title="Genomic coordinates"
               />
             </ErrorBoundary>
           </Suspense>

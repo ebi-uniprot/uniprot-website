@@ -26,7 +26,7 @@ import { SequenceUIModel } from '../../adapters/sequenceConverter';
 type Props = {
   data: SequenceUIModel;
   primaryAccession: string;
-  hasGenomicCoordinates: boolean;
+  hasGenomicCoordinates: boolean | 'loading';
 };
 
 const SequenceSection = ({
@@ -91,7 +91,7 @@ const SequenceSection = ({
       {data.xrefData && (
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       )}
-      {hasGenomicCoordinates && (
+      {hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates && (
         <Message level="info">
           Discover the new{' '}
           <Link

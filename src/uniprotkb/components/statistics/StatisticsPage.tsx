@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
+import { useState } from 'react';
 import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
@@ -19,6 +20,7 @@ import SequenceLengthLinePlot from './SequenceLengthLinePlot';
 import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -251,8 +253,12 @@ const ProteinExistenceTable = ({
           <tr>
             <th>Protein existence (PE)</th>
             <th>UniProtKB</th>
-            <th>UniProtKB reviewed</th>
-            <th>UniProtKB unreviewed</th>
+            <th>
+              <ReviewedLabel />
+            </th>
+            <th>
+              <UnreviewedLabel />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -318,21 +324,17 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
       </thead>
       <tbody>
         <tr>
-          <td>UniProtKB</td>
-          <td className={styles.end}>
-            <LongNumber>
-              {reviewedData.totalCount + unreviewedData.totalCount}
-            </LongNumber>
+          <td>
+            <ReviewedLabel />
           </td>
-        </tr>
-        <tr>
-          <td>⮑ UniProtKB reviewed</td>
           <td className={styles.end}>
             <LongNumber>{reviewedData.totalCount}</LongNumber>
           </td>
         </tr>
         <tr>
-          <td>⮑ UniProtKB unreviewed</td>
+          <td>
+            <UnreviewedLabel />
+          </td>
           <td className={styles.end}>
             <LongNumber>{unreviewedData.totalCount}</LongNumber>
           </td>
@@ -342,7 +344,9 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
   </>
 );
 
-const TaxonomiDistributionTable = ({
+const options = ['UniProtKB', 'reviewed', 'unreviewed'] as const;
+
+const TaxonomicDistributionTable = ({
   reviewedData,
   unreviewedData,
   colorScheme,
@@ -353,21 +357,27 @@ const TaxonomiDistributionTable = ({
   distributionLabel: string;
   nameToQuery: Map<string, string | undefined>;
 }) => {
-  const list = merge(reviewedData.items, unreviewedData.items)
-    // .sort(sortByPE)
-    .map(
-      ({ name, statistics }): MergedStatisticsItem => ({
-        name,
-        statistics,
-        query: nameToQuery.get(name),
-      })
-    );
+  const list = merge(reviewedData.items, unreviewedData.items).map(
+    ({ name, statistics }): MergedStatisticsItem => ({
+      name,
+      statistics,
+      query: nameToQuery.get(name),
+    })
+  );
+
+  const [selected /* , setSelected */] = useState<typeof options[number]>(
+    options[0]
+  );
 
   const graphData: StatisticsGraphItem[] = list.map((entry) => ({
     name: entry.name,
     entryCount:
-      (entry.statistics.reviewed?.entryCount || 0) +
-      (entry.statistics.unreviewed?.entryCount || 0),
+      ((selected !== 'unreviewed'
+        ? entry.statistics.reviewed?.entryCount
+        : 0) || 0) +
+      ((selected !== 'reviewed'
+        ? entry.statistics.unreviewed?.entryCount
+        : 0) || 0),
     to: entry.query && {
       pathname: LocationToPath[Location.UniProtKBResults],
       search: stringifyQuery({ query: entry.query }),
@@ -383,8 +393,12 @@ const TaxonomiDistributionTable = ({
             <tr>
               <th>Taxonomy</th>
               <th>UniProtKB</th>
-              <th>UniProtKB reviewed</th>
-              <th>UniProtKB unreviewed</th>
+              <th>
+                <ReviewedLabel />
+              </th>
+              <th>
+                <UnreviewedLabel />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -434,17 +448,34 @@ const TaxonomiDistributionTable = ({
           </tbody>
         </table>
         <div className={styles.viz}>
-          <LazyComponent
-            // Keep the space with an empty visualisation
-            fallback={<PieChart type="taxonomy" />}
-            rootMargin="0px 0px"
-          >
-            <PieChart
-              data={graphData}
-              type="taxonomy"
-              colorScheme={colorScheme}
-            />
-          </LazyComponent>
+          <figure>
+            <LazyComponent
+              // Keep the space with an empty visualisation
+              fallback={<PieChart type="taxonomy" />}
+              rootMargin="0px 0px"
+            >
+              <PieChart
+                data={graphData}
+                type="taxonomy"
+                colorScheme={colorScheme}
+              />
+            </LazyComponent>
+            <figcaption>
+              Taxonomic distribution for {selected}
+              {/* <select
+                value={selected}
+                onChange={(e) =>
+                  setSelected(e.target.value as typeof options[number])
+                }
+              >
+                {options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select> */}
+            </figcaption>
+          </figure>
         </div>
       </div>
     </>
@@ -549,11 +580,18 @@ const StatisticsPage = () => {
           reviewedData={reviewedData.TOTAL_ORGANISM}
           unreviewedData={unreviewedData.TOTAL_ORGANISM}
         />
-        <FrequencyTable
-          reviewedData={reviewedData.ORGANISM_FREQUENCY}
-          unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
-          header="Species represented"
-          title="Frequency of occurrence of species"
+        <TaxonomicDistributionTable
+          reviewedData={reviewedData.SUPERKINGDOM}
+          unreviewedData={unreviewedData.SUPERKINGDOM}
+          distributionLabel="across kingdoms"
+          nameToQuery={nameToQueryKingdoms}
+        />
+        <TaxonomicDistributionTable
+          reviewedData={reviewedData.EUKARYOTA}
+          unreviewedData={unreviewedData.EUKARYOTA}
+          colorScheme={schemeReds as string[][]}
+          distributionLabel="within eukaryota"
+          nameToQuery={nameToQueryEukaryota}
         />
         <ReviewedUnreviewedStatsTable
           categoryName="TOP_ORGANISM"
@@ -562,18 +600,11 @@ const StatisticsPage = () => {
           title="Most represented species"
           nameLabel="Species"
         />
-        <TaxonomiDistributionTable
-          reviewedData={reviewedData.SUPERKINGDOM}
-          unreviewedData={unreviewedData.SUPERKINGDOM}
-          distributionLabel="across kingdoms"
-          nameToQuery={nameToQueryKingdoms}
-        />
-        <TaxonomiDistributionTable
-          reviewedData={reviewedData.EUKARYOTA}
-          unreviewedData={unreviewedData.EUKARYOTA}
-          colorScheme={schemeReds as string[][]}
-          distributionLabel="within eukaryota"
-          nameToQuery={nameToQueryEukaryota}
+        <FrequencyTable
+          reviewedData={reviewedData.ORGANISM_FREQUENCY}
+          unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
+          header="Species represented"
+          title="Frequency of occurrence of species"
         />
       </Card>
       <Card id="sequence-size">
@@ -640,18 +671,21 @@ const StatisticsPage = () => {
         />
         <ReviewedUnreviewedStatsTable
           categoryName="FEATURES"
+          title="Sequence annotations (features)"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Feature"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="COMMENTS"
+          title="General annotation (comments)"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Comment"
         />
         <ReviewedUnreviewedStatsTable
           categoryName="CROSS_REFERENCE"
+          title="Cross-references"
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Cross reference"

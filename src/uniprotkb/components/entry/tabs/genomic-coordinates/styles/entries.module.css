@@ -3,4 +3,19 @@
   th {
     padding-inline: 1ch;
   }
+
+  .coordinates {
+    text-align: end;
+    width: 0;
+    padding-inline: 0;
+
+    &:nth-of-type(4n + 1) {
+      text-align: center;
+      width: 1ch;
+    }
+
+    &:nth-of-type(4n + 3) {
+      width: initial;
+    }
+  }
 }

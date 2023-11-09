@@ -10,13 +10,13 @@ import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
-  hasImportedVariants: boolean;
-  hasGenomicCoordinates: boolean;
+  importedVariants: number | 'loading';
+  hasGenomicCoordinates: boolean | 'loading';
 };
 
 const EntryMain = ({
   transformedData,
-  hasImportedVariants,
+  importedVariants,
   hasGenomicCoordinates,
 }: EntryMainProps) => (
   <>
@@ -25,7 +25,7 @@ const EntryMain = ({
         <ErrorBoundary>
           {sectionContent(
             transformedData,
-            hasImportedVariants,
+            importedVariants,
             hasGenomicCoordinates
           )}
         </ErrorBoundary>

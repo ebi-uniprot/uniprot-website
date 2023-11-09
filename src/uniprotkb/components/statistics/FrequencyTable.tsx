@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { LocationDescriptorObject } from 'history';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import { frequencySort, merge } from './utils';
 
@@ -36,8 +37,12 @@ const FrequencyTable = ({
         <thead>
           <tr>
             <th>{header}</th>
-            <th>UniProtKB reviewed</th>
-            <th>UniProtKB unreviewed</th>
+            <th>
+              <ReviewedLabel />
+            </th>
+            <th>
+              <UnreviewedLabel />
+            </th>
           </tr>
         </thead>
         <tbody>

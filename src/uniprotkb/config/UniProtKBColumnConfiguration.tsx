@@ -114,6 +114,10 @@ import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Interactant } from '../adapters/interactionConverter';
 import { ValueWithEvidence } from '../types/modelTypes';
 import { ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
+import {
+  CitationXRef,
+  CitationXRefDB,
+} from '../../supporting-data/citations/adapters/citationsConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
 
@@ -678,7 +682,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
                     >
                       UniProtKB <SearchIcon width="1.333ch" />
                     </Link>
-                    {' | '}
+                    {'| '}
                     <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
                       Rhea
                     </ExternalLink>
@@ -1388,6 +1392,29 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   ),
 });
 
+UniProtKBColumnConfiguration.set(UniProtKBColumn.litDoiId, {
+  ...getLabelAndTooltip('DOI ID', 'Mapped DOI ID'),
+  render: (data) => {
+    const doiReferences = data.references?.flatMap((reference) =>
+      reference.citation?.citationCrossReferences?.filter(
+        (xref: CitationXRef) => xref.database === CitationXRefDB.DOI
+      )
+    );
+    return (
+      <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
+        {doiReferences?.map(
+          (xref) =>
+            xref?.id && (
+              <ExternalLink url={externalUrls.DOI(xref.id)} key={xref.id}>
+                {xref.id}
+              </ExternalLink>
+            )
+        )}
+      </ExpandableList>
+    );
+  },
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   ...getLabelAndTooltip('Date Created', 'Date of the entry creation'),
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.firstPublicDate,
@@ -1490,7 +1517,7 @@ const getXrefColumn = (databaseName: string) => {
                       <ExternalLink url={externalUrls.dbSNP(dbSNPRef.id)}>
                         dbSNP
                       </ExternalLink>
-                      {' | '}
+                      {'| '}
                       <ExternalLink
                         url={externalUrls.EnsemblVariation(dbSNPRef.id)}
                       >

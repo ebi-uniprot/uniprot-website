@@ -2,6 +2,7 @@
 import { ReactNode } from 'react';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 
 import { stringifyQuery } from '../../../shared/utils/url';
 
@@ -60,7 +61,9 @@ const AbstractSectionTable = ({
           </tr>
         )}
         <tr>
-          <td>{!excludeUniProtKB && '⮑'} UniProtKB reviewed</td>
+          <td>
+            {!excludeUniProtKB && '⮑'} <ReviewedLabel />
+          </td>
           {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
             <td key={index} className={styles.end}>
               <CountLinkOrNothing
@@ -80,7 +83,9 @@ const AbstractSectionTable = ({
           ))}
         </tr>
         <tr>
-          <td>{!excludeUniProtKB && '⮑'} UniProtKB unreviewed</td>
+          <td>
+            {!excludeUniProtKB && '⮑'} <UnreviewedLabel />
+          </td>
           {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
             <td key={index} className={styles.end}>
               <CountLinkOrNothing

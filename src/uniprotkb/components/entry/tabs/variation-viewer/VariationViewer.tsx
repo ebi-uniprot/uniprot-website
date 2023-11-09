@@ -8,7 +8,13 @@ import {
   ReactNode,
   Suspense,
 } from 'react';
-import { EllipsisReveal, Loader } from 'franklin-sites';
+import {
+  Button,
+  EllipsisReveal,
+  Loader,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
@@ -41,6 +47,9 @@ const VisualVariationView = lazy(
       /* webpackChunkName: "visual-variation-view" */ '../../../protein-data-views/VisualVariationView'
     )
 );
+
+// hardcoded threshold
+const VARIANT_COUNT_LIMIT = 5_000;
 
 type ProteinsAPIEvidence = SetRequired<
   PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
@@ -114,15 +123,29 @@ const applyFilters = (variants: TransformedVariant[], filters: Filter[]) => {
 };
 
 type VariationViewProps = {
+  importedVariants: number | 'loading';
   primaryAccession: string;
   title?: string;
 };
 
-const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
+const VariationViewer = ({
+  importedVariants,
+  primaryAccession,
+  title,
+}: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
 
+  const [forcedRender, setForceRender] = useState(false);
+
+  const shouldRender =
+    (importedVariants !== 'loading' &&
+      importedVariants <= VARIANT_COUNT_LIMIT) ||
+    forcedRender;
+
   const { loading, data, progress, error, status } =
-    useDataApi<ProteinsAPIVariation>(proteinsApi.variation(primaryAccession));
+    useDataApi<ProteinsAPIVariation>(
+      shouldRender ? proteinsApi.variation(primaryAccession) : undefined
+    );
 
   const [filters, setFilters] = useState([]);
   const managerRef = useRef<HTMLElement>(null);
@@ -177,11 +200,30 @@ const VariationViewer = ({ primaryAccession, title }: VariationViewProps) => {
     'protvista-manager'
   );
 
-  if (loading) {
+  if (loading || importedVariants === 'loading') {
     return (
       <div className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
+      </div>
+    );
+  }
+
+  if (!shouldRender) {
+    return (
+      <div className="wider-tab-content hotjar-margin">
+        {title && <h3>{title}</h3>}
+        <div className={styles['too-many']}>
+          <Message>
+            As there are <LongNumber>{importedVariants}</LongNumber> variations,
+            the variant viewer has not automatically been loaded for performance
+            reasons.
+          </Message>
+          <Button onClick={() => setForceRender(true)}>
+            Click to load the <LongNumber>{importedVariants}</LongNumber>{' '}
+            variations
+          </Button>
+        </div>
       </div>
     );
   }

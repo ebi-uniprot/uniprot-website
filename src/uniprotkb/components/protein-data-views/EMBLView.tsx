@@ -52,6 +52,7 @@ export type ProtvistaPDB = {
 
 const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
   const data = processData(xrefs);
+
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   if (!databaseInfoMaps) {
@@ -107,8 +108,8 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
     <table>
       <thead>
         <tr>
-          <th>Sequence</th>
-          <th>Protein</th>
+          <th>Nucleotide Sequence</th>
+          <th>Protein Sequence</th>
           <th>Molecule Type</th>
           <th>Status</th>
         </tr>
@@ -117,67 +118,78 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
         {data.map(
           (d) =>
             d &&
-            d.proteinId &&
-            d.sequenceId && (
+            (d.proteinId || d.sequenceId) && (
               <tr key={`${d.sequenceId}-${d.proteinId}-${d.moleculeType}`}>
                 <td>
-                  {d.sequenceId}
-                  {' ('}
-                  <ExternalLink
-                    url={processUrlTemplate(emblDnaLink, {
-                      ProteinId: d.sequenceId,
-                    })}
-                  >
-                    EMBL
-                  </ExternalLink>
-                  {' | '}
-                  <ExternalLink
-                    url={processUrlTemplate(genBankDnaLink, {
-                      ProteinId: d.sequenceId,
-                    })}
-                  >
-                    GenBank
-                  </ExternalLink>
-                  {' | '}
-                  <ExternalLink
-                    url={processUrlTemplate(ddbjDnaLink, {
-                      ProteinId: d.sequenceId,
-                    })}
-                  >
-                    DDBJ
-                  </ExternalLink>
-                  )
+                  {d.sequenceId ? (
+                    <>
+                      {d.sequenceId}
+                      <br />
+                      <ExternalLink
+                        url={processUrlTemplate(emblDnaLink, {
+                          ProteinId: d.sequenceId,
+                        })}
+                      >
+                        EMBL
+                      </ExternalLink>
+                      {'· '}
+                      <ExternalLink
+                        url={processUrlTemplate(genBankDnaLink, {
+                          ProteinId: d.sequenceId,
+                        })}
+                      >
+                        GenBank
+                      </ExternalLink>
+                      {'· '}
+                      <ExternalLink
+                        url={processUrlTemplate(ddbjDnaLink, {
+                          ProteinId: d.sequenceId,
+                        })}
+                      >
+                        DDBJ
+                      </ExternalLink>
+                    </>
+                  ) : (
+                    '-'
+                  )}
                 </td>
                 <td>
-                  {d.proteinId}
-                  {' ('}
-                  <ExternalLink
-                    url={processUrlTemplate(emblProteinLink, {
-                      id: d.proteinId,
-                    })}
-                  >
-                    EMBL
-                  </ExternalLink>
-                  {' | '}
-                  <ExternalLink
-                    url={processUrlTemplate(genBankProteinLink, {
-                      id: d.proteinId,
-                    })}
-                  >
-                    GenBank
-                  </ExternalLink>
-                  {' | '}
-                  <ExternalLink
-                    url={processUrlTemplate(ddbjProteinLink, {
-                      id: d.proteinId,
-                    })}
-                  >
-                    DDBJ
-                  </ExternalLink>
-                  )
+                  {d.proteinId ? (
+                    <>
+                      {d.proteinId}
+                      <br />
+                      <ExternalLink
+                        url={processUrlTemplate(emblProteinLink, {
+                          id: d.proteinId,
+                        })}
+                      >
+                        EMBL
+                      </ExternalLink>
+                      {'· '}
+                      <ExternalLink
+                        url={processUrlTemplate(genBankProteinLink, {
+                          id: d.proteinId,
+                        })}
+                      >
+                        GenBank
+                      </ExternalLink>
+                      {'· '}
+                      <ExternalLink
+                        url={processUrlTemplate(ddbjProteinLink, {
+                          id: d.proteinId,
+                        })}
+                      >
+                        DDBJ
+                      </ExternalLink>
+                    </>
+                  ) : (
+                    '-'
+                  )}
                 </td>
                 <td translate="yes">
-                  {d.moleculeType.replace(/translation/i, '')}
+                  {d.moleculeType
+                    ? d.moleculeType.replace(/translation/i, '')
+                    : '-'}
                 </td>
                 <td translate="yes">{d.status}</td>
               </tr>

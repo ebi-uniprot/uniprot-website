@@ -1,5 +1,7 @@
 import { Tab, Tabs } from 'franklin-sites';
 
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+
 type Props = {
   title?: string;
   children: [reviewed: React.ReactNode, unreviewed: React.ReactNode];
@@ -12,10 +14,10 @@ const ReviewedUnreviewedTabs = ({
   <>
     {title && <h3>{title}</h3>}
     <Tabs>
-      <Tab cache title="Reviewed (Swiss-Prot)">
+      <Tab cache title={<ReviewedLabel />}>
         {reviewed}
       </Tab>
-      <Tab cache title="Unreviewed (TrEMBL)">
+      <Tab cache title={<UnreviewedLabel />}>
         {unreviewed}
       </Tab>
     </Tabs>
