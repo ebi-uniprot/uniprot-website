@@ -527,8 +527,26 @@ export const proteinsApi = {
   //     format: format ? fileFormatToUrlParameter[format] : undefined,
   //   });
   // },
+  proteomics: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'proteomics', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
   proteomicsPtm: (accession: string, format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
+  mutagenesis: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'mutagenesis', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
+  antigen: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'antigen', accession);
     return stringifyUrl(url, {
       format: format ? fileFormatToUrlParameter[format] : undefined,
     });

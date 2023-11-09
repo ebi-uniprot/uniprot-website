@@ -98,7 +98,10 @@ const uniprotKBEntryDatasets = {
   'Proteins API': [
     Dataset.variation,
     Dataset.coordinates,
+    Dataset.proteomics,
     Dataset.proteomicsPtm,
+    Dataset.antigen,
+    Dataset.mutagenesis,
   ],
 };
 
@@ -157,8 +160,14 @@ const getEntryDownloadUrl = (
       return proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
       return proteinsApi.variation(accession, fileFormat);
+    case Dataset.proteomics:
+      return proteinsApi.proteomics(accession, fileFormat);
     case Dataset.proteomicsPtm:
       return proteinsApi.proteomicsPtm(accession, fileFormat);
+    case Dataset.mutagenesis:
+      return proteinsApi.mutagenesis(accession, fileFormat);
+    case Dataset.antigen:
+      return proteinsApi.antigen(accession, fileFormat);
     default:
       return '';
   }
@@ -269,9 +278,30 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
+  const proteinsApiProteomics = useDataApi(
+    namespace === Namespace.uniprotkb
+      ? accession && joinUrl(proteinsApi.proteomics(accession))
+      : '',
+    { method: 'HEAD' }
+  );
+
   const proteinsApiPTMs = useDataApi(
     namespace === Namespace.uniprotkb
       ? accession && joinUrl(proteinsApi.proteomicsPtm(accession))
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiMutagenesis = useDataApi(
+    namespace === Namespace.uniprotkb
+      ? accession && joinUrl(proteinsApi.mutagenesis(accession))
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiAntigen = useDataApi(
+    namespace === Namespace.uniprotkb
+      ? accession && joinUrl(proteinsApi.proteomics(accession))
       : '',
     { method: 'HEAD' }
   );
@@ -291,8 +321,20 @@ const EntryDownload = ({
   if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
     availableDatasets.push(Dataset.variation);
   }
+  if (!proteinsApiProteomics.loading && proteinsApiProteomics.status === 200) {
+    availableDatasets.push(Dataset.proteomics);
+  }
   if (!proteinsApiPTMs.loading && proteinsApiPTMs.status === 200) {
     availableDatasets.push(Dataset.proteomicsPtm);
+  }
+  if (
+    !proteinsApiMutagenesis.loading &&
+    proteinsApiMutagenesis.status === 200
+  ) {
+    availableDatasets.push(Dataset.mutagenesis);
+  }
+  if (!proteinsApiAntigen.loading && proteinsApiAntigen.status === 200) {
+    availableDatasets.push(Dataset.antigen);
   }
   if (
     !proteinsApiCoordinates.loading &&
