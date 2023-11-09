@@ -63,6 +63,13 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
+const uniprotkbGeneCentricFormats = [
+  FileFormat.json,
+  FileFormat.xml,
+  FileFormat.list,
+  FileFormat.fasta,
+];
+
 const proteinsAPICommonFormats = [
   FileFormat.json,
   FileFormat.xml,
@@ -145,7 +152,7 @@ const getEntryDownloadUrl = (
       });
     }
     case Dataset.genecentric:
-      return apiUrls.genecentric(accession);
+      return apiUrls.genecentric(accession, fileFormat);
     case Dataset.coordinates:
       return proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
@@ -307,8 +314,10 @@ const EntryDownload = ({
         setFileFormats(namespace ? formatMap.get(namespace) : []);
         break;
       case Dataset.features:
-      case Dataset.genecentric: // Confirm the available formats
         setFileFormats([FileFormat.json]);
+        break;
+      case Dataset.genecentric:
+        setFileFormats(uniprotkbGeneCentricFormats);
         break;
       case Dataset.variation:
         setFileFormats(proteinsAPIVariationFormats);

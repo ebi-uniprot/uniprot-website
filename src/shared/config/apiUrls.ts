@@ -103,9 +103,10 @@ const apiUrls = {
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(apiPrefix, namespace, 'search'),
   download: (namespace: Namespace) => joinUrl(apiPrefix, namespace, 'stream'),
-  genecentric: (accession: string) =>
+  genecentric: (accession: string, format?: FileFormat) =>
     stringifyUrl(joinUrl(apiPrefix, 'genecentric/search'), {
       query: `accession:${accession}`,
+      format: format ? fileFormatToUrlParameter[format] : undefined,
     }),
   idMappingFields: joinUrl(apiPrefix, 'configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace, columns?: Column[]) => {
@@ -500,27 +501,17 @@ export const proteinsApi = {
         return stringifyUrl(url, { accession });
       }
       const accessionUrl = joinUrl(url, accession);
-      return stringifyUrl(
-        accessionUrl,
-        format
-          ? {
-              format: fileFormatToUrlParameter[format],
-            }
-          : {}
-      );
+      return stringifyUrl(accessionUrl, {
+        format: format ? fileFormatToUrlParameter[format] : undefined,
+      });
     }
     return url;
   },
   variation: (accession: string, format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'variation', accession);
-    return stringifyUrl(
-      url,
-      format
-        ? {
-            format: fileFormatToUrlParameter[format],
-          }
-        : {}
-    );
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
   },
   proteins: (accession: string) =>
     joinUrl(proteinsApiPrefix, 'proteins', accession),
@@ -529,23 +520,18 @@ export const proteinsApi = {
   //   if (types) {
   //     return stringifyUrl(url, {
   //       types: types.join(','),
-  //       format: format ? fileFormatToUrlParameter[format] : '',
+  //       format: format ? fileFormatToUrlParameter[format] : undefined,
   //     });
   //   }
   //   return stringifyUrl(url, {
-  //     format: format ? fileFormatToUrlParameter[format] : '',
+  //     format: format ? fileFormatToUrlParameter[format] : undefined,
   //   });
   // },
   proteomicsPtm: (accession: string, format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession);
-    return stringifyUrl(
-      url,
-      format
-        ? {
-            format: fileFormatToUrlParameter[format],
-          }
-        : {}
-    );
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
   },
 };
 
