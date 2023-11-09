@@ -1,16 +1,21 @@
-import { HTMLAttributes, useEffect } from 'react';
+import { HTMLAttributes, lazy, Suspense, useEffect } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 import { createPath } from 'history';
 import { Message } from 'franklin-sites';
 
 import HTMLHead from '../HTMLHead';
 import ErrorPage from './ErrorPage';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import * as logging from '../../utils/logging';
 
 import { Namespace } from '../../types/namespaces';
 
 import ArtWork from './svgs/404.img.svg';
+
+const UniProtFooter = lazy(
+  () => import(/* webpackChunkName: "footer" */ '../layouts/UniProtFooter')
+);
 
 type RedirectEntry = [pattern: RegExp, replacement: string];
 
@@ -113,9 +118,15 @@ const ResourceNotFoundPage = (props: HTMLAttributes<HTMLDivElement>) => {
       <ErrorPage
         {...props}
         artwork={<img src={ArtWork} width="400" height="400" alt="" />}
-        message={<ErrorMessage />}
         data-testid="error-page"
-      />
+      >
+        <ErrorMessage />
+      </ErrorPage>
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          <UniProtFooter />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 };

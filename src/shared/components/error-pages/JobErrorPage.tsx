@@ -19,10 +19,9 @@ const ErrorMessage = ({ message }: Props) => (
 );
 
 const JobErrorPage = ({ message }: Props) => (
-  <ErrorPage
-    artwork={<img src={ArtWork} width="400" height="400" alt="" />}
-    message={<ErrorMessage message={message} />}
-  />
+  <ErrorPage artwork={<img src={ArtWork} width="400" height="400" alt="" />}>
+    <ErrorMessage message={message} />
+  </ErrorPage>
 );
 
 export default JobErrorPage;

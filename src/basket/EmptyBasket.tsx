@@ -48,10 +48,9 @@ const ErrorMessage = () => (
 );
 
 const EmptyBasket = () => (
-  <ErrorPage
-    artwork={<img src={ArtWork} width="295" height="190" alt="" />}
-    message={<ErrorMessage />}
-  />
+  <ErrorPage artwork={<img src={ArtWork} width="295" height="190" alt="" />}>
+    <ErrorMessage />
+  </ErrorPage>
 );
 
 export default EmptyBasket;

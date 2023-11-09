@@ -114,7 +114,9 @@ const Results = () => {
     return (
       <>
         {helmet}
-        <NoResultsPage message={<DidYouMean suggestions={suggestions} />} />
+        <NoResultsPage>
+          <DidYouMean suggestions={suggestions} />
+        </NoResultsPage>
       </>
     );
   }

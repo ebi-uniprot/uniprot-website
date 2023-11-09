@@ -1,19 +1,16 @@
-import { ReactNode, ReactElement, FC, HTMLAttributes } from 'react';
+import { ReactElement, HTMLAttributes } from 'react';
+import cn from 'classnames';
 
-import './styles/error-pages.scss';
+import styles from './styles/error-pages.module.scss';
 
-const ErrorPage: FC<
-  {
-    artwork: ReactElement;
-    message: ReactNode;
-  } & HTMLAttributes<HTMLDivElement>
-> = ({ artwork, message, ...props }) => (
-  <div className="error-page-container" {...props}>
-    <artwork.type
-      {...artwork.props}
-      className="error-page-container__art-work"
-    />
-    {message}
+type Props = {
+  artwork: ReactElement;
+} & HTMLAttributes<HTMLDivElement>;
+
+const ErrorPage = ({ artwork, children, className, ...props }: Props) => (
+  <div className={cn(styles.container, className)} {...props}>
+    {artwork}
+    {children}
   </div>
 );
 

@@ -3,12 +3,10 @@
 exports[`NoResultsPage component should render 1`] = `
 <DocumentFragment>
   <div
-    class="error-page-container"
-    data-testid="no-results-page"
+    class="container"
   >
     <img
       alt=""
-      class="error-page-container__art-work"
       height="400"
       src="test-file-stub"
       width="400"
