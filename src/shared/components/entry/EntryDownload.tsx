@@ -10,7 +10,7 @@ import ColumnSelect from '../column-select/ColumnSelect';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls, { proteinsApi } from '../../config/apiUrls';
+import apiUrls, { proteinsApi, proteinsApiPrefix } from '../../config/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
 import {
@@ -454,7 +454,7 @@ const EntryDownload = ({
       <div>
         There are additional PTM data available from large scale studies for
         this entry. It is provided by the{' '}
-        <ExternalLink url="https://www.ebi.ac.uk/proteins/api/doc/#/proteomics-ptm">
+        <ExternalLink url={`${proteinsApiPrefix}/doc/#/proteomics-ptm`}>
           Proteomics-ptm
         </ExternalLink>{' '}
         service of Proteins API in the{' '}

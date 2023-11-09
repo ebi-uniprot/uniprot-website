@@ -492,7 +492,7 @@ export const getDownloadUrl = ({
   return stringifyUrl(endpoint, parameters);
 };
 
-const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
+export const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
 export const proteinsApi = {
   coordinates: (accession?: string | string[], format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'coordinates');
