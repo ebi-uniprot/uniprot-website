@@ -41,8 +41,8 @@ export type GenomicLocation = {
 };
 
 export type ExonMap = {
-  proteinLocation: LocationForProtein; // Swagger says optional, but apparently not
-  genomeLocation: LocationForGenome; // Swagger says optional, but apparently not
+  proteinLocation: LocationWithStartEnd | LocationWithSinglePosition; // Swagger says optional, but apparently not
+  genomeLocation: LocationWithStartEnd | LocationWithSinglePosition; // Swagger says optional, but apparently not
   id?: string;
 };
 
@@ -69,12 +69,6 @@ interface LocationWithSinglePosition extends BasicLocation {
   begin?: never;
   end?: never;
   position: Position;
-}
-type LocationForProtein = LocationWithStartEnd | LocationWithSinglePosition;
-
-interface LocationForGenome extends BasicLocation {
-  begin: Position;
-  end: Position;
 }
 
 type Position = {
