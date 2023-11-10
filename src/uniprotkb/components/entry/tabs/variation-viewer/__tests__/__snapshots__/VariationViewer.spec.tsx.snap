@@ -5,6 +5,13 @@ exports[`VariationViewer component renders on data 1`] = `
   <section
     class="wider-tab-content hotjar-margin"
   >
+    <button
+      class="button tertiary"
+      type="button"
+    >
+      <test-file-stub />
+      Download
+    </button>
     <protvista-manager
       attributes="highlight displaystart displayend activefilters filters selectedid"
     >
