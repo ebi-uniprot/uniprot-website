@@ -1,9 +1,12 @@
 @import 'franklin-sites/src/styles/colours';
 
+$reviewed-tweak: 0.125em;
+
 .unreviewed-icon {
   color: $colour-unreviewed;
 }
 
 .reviewed-icon {
   color: $colour-reviewed;
+  margin-inline: -$reviewed-tweak $reviewed-tweak;
 }
