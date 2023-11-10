@@ -94,10 +94,8 @@ const StatsTable = ({
             {hasPercent && hasOnlyEntryCounts && <th>Percent</th>}
             {!hasOnlyEntryCounts && (
               <th>
-                {countLabel || nameLabel
-                  ? `${countLabel || nameLabel} per `
-                  : 'Per'}{' '}
-                {dataset}-entry average
+                Average {countLabel?.toLowerCase() || 'count'} per {dataset}{' '}
+                entry
               </th>
             )}
             {hasDescription && <th>Description</th>}
