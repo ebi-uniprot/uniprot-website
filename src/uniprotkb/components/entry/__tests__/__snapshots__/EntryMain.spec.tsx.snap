@@ -6625,6 +6625,37 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
           </li>
         </ul>
+        <ul
+          class="info-list"
+        >
+          <li>
+            <div
+              class="decorated-list-item decorated-list-item--compact"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                See also
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                sequence in 
+                <a
+                  href="/uniparc?query=(isoform:P0DTR4)&direct"
+                >
+                  UniParc
+                </a>
+                 or sequence clusters in 
+                <a
+                  href="/uniref?query=(uniprot_id:P0DTR4)"
+                >
+                  UniRef
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
         <section
           class="sequence-container"
         >
