@@ -33,6 +33,8 @@ type StatsTableProps = {
   nameLabel?: string;
   countLabel?: string;
   caption?: string;
+  numberReleaseEntries: number;
+  dataset: 'reviewed' | 'unreviewed';
 };
 
 const StatsTable = ({
@@ -41,6 +43,8 @@ const StatsTable = ({
   nameLabel,
   countLabel,
   caption,
+  numberReleaseEntries,
+  dataset,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
@@ -88,7 +92,14 @@ const StatsTable = ({
               </th>
             )}
             {hasPercent && hasOnlyEntryCounts && <th>Percent</th>}
-            {/* {!hasOnlyEntryCounts && <th>Per-entry average</th>} */}
+            {!hasOnlyEntryCounts && (
+              <th>
+                {countLabel || nameLabel
+                  ? `${countLabel || nameLabel} per `
+                  : 'Per'}{' '}
+                {dataset}-entry average
+              </th>
+            )}
             {hasDescription && <th>Description</th>}
           </tr>
         </thead>
@@ -126,12 +137,11 @@ const StatsTable = ({
                   </td>
                 )}
                 {/* Per-entry average */}
-                {/* WRONG: This needs to be divided by number of entries in data release */}
-                {/* {!hasOnlyEntryCounts && (
-                <td className={styles.end}>
-                  {(row.count / row.entryCount).toFixed(2)}
-                </td>
-              )} */}
+                {!hasOnlyEntryCounts && (
+                  <td className={styles.end}>
+                    {(row.count / numberReleaseEntries).toFixed(2)}
+                  </td>
+                )}
                 {/* Description */}
                 {hasDescription && <td>{row.description}</td>}
               </tr>
