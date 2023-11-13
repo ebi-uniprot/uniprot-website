@@ -38,6 +38,7 @@ const FeatureViewer = ({ accession }: { accession: string }) => {
 
   return (
     <section className="wider-tab-content hotjar-margin">
+      <h3>Feature viewer</h3>
       {displayDownloadPanel && (
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}

@@ -77,31 +77,29 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
   }));
 
   return (
-    <Card
-      header={
-        <h2>{getEntrySectionNameAndId(EntrySection.ExternalLinks).name}</h2>
-      }
-      className="wider-tab-content"
-    >
-      {webResourceComments?.length ? (
-        <>
-          <h3 data-article-id="web_resource">Web resources</h3>
-          <ExpandableList descriptionString="alternative names">
-            {webResourceComments.map((comment, index) => (
-              <WebResourceLink
-                key={index} // eslint-disable-line react/no-array-index-key
-                comment={comment as WebResourceComment}
-              />
-            ))}
-          </ExpandableList>
-        </>
-      ) : undefined}
-      <XRefView
-        xrefs={xrefData}
-        primaryAccession={primaryAccession}
-        crc64={crc64}
-      />
-    </Card>
+    <>
+      <h2>{getEntrySectionNameAndId(EntrySection.ExternalLinks).name}</h2>
+      <Card className="wider-tab-content">
+        {webResourceComments?.length ? (
+          <>
+            <h3 data-article-id="web_resource">Web resources</h3>
+            <ExpandableList descriptionString="alternative names">
+              {webResourceComments.map((comment, index) => (
+                <WebResourceLink
+                  key={index} // eslint-disable-line react/no-array-index-key
+                  comment={comment as WebResourceComment}
+                />
+              ))}
+            </ExpandableList>
+          </>
+        ) : undefined}
+        <XRefView
+          xrefs={xrefData}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+        />
+      </Card>
+    </>
   );
 };
 
