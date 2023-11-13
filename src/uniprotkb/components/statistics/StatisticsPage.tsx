@@ -365,24 +365,28 @@ const TaxonomicDistributionTable = ({
     })
   );
 
-  const [selected /* , setSelected */] = useState<typeof options[number]>(
-    options[0]
-  );
+  const [selected, setSelected] = useState<typeof options[number]>(options[0]);
 
-  const graphData: StatisticsGraphItem[] = list.map((entry) => ({
-    name: entry.name,
-    entryCount:
-      ((selected !== 'unreviewed'
-        ? entry.statistics.reviewed?.entryCount
-        : 0) || 0) +
-      ((selected !== 'reviewed'
-        ? entry.statistics.unreviewed?.entryCount
-        : 0) || 0),
-    to: entry.query && {
-      pathname: LocationToPath[Location.UniProtKBResults],
-      search: stringifyQuery({ query: entry.query }),
-    },
-  }));
+  const graphData: StatisticsGraphItem[] = list.map((entry) => {
+    let { query } = entry;
+    if (query && selected !== 'UniProtKB') {
+      query += `(reviewed:${selected === 'reviewed'}) AND ${query}`;
+    }
+    return {
+      name: entry.name,
+      entryCount:
+        ((selected !== 'unreviewed'
+          ? entry.statistics.reviewed?.entryCount
+          : 0) || 0) +
+        ((selected !== 'reviewed'
+          ? entry.statistics.unreviewed?.entryCount
+          : 0) || 0),
+      to: entry.query && {
+        pathname: LocationToPath[Location.UniProtKBResults],
+        search: stringifyQuery({ query }),
+      },
+    };
+  });
 
   return (
     <>
@@ -461,8 +465,8 @@ const TaxonomicDistributionTable = ({
               />
             </LazyComponent>
             <figcaption>
-              Taxonomic distribution for {selected}
-              {/* <select
+              Taxonomic distribution for{' '}
+              <select
                 value={selected}
                 onChange={(e) =>
                   setSelected(e.target.value as typeof options[number])
@@ -473,7 +477,7 @@ const TaxonomicDistributionTable = ({
                     {option}
                   </option>
                 ))}
-              </select> */}
+              </select>
             </figcaption>
           </figure>
         </div>
@@ -615,14 +619,18 @@ const StatisticsPage = () => {
             fallback={<SequenceLengthLinePlot />}
             rootMargin="0px 0px"
           >
-            <SequenceLengthLinePlot category={reviewedData.SEQUENCE_COUNT} />
+            <SequenceLengthLinePlot
+              counts={reviewedData.SEQUENCE_COUNT.items}
+            />
           </LazyComponent>
           <LazyComponent
             // Keep the space with an empty visualisation
             fallback={<SequenceLengthLinePlot />}
             rootMargin="0px 0px"
           >
-            <SequenceLengthLinePlot category={unreviewedData.SEQUENCE_COUNT} />
+            <SequenceLengthLinePlot
+              counts={unreviewedData.SEQUENCE_COUNT.items}
+            />
           </LazyComponent>
         </ReviewedUnreviewedTabs>
 

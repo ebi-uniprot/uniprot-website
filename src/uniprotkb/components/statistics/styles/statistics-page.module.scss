@@ -59,9 +59,12 @@
   & > .viz {
     grid-row-start: 1;
     grid-column-end: -1;
+    place-self: stretch start;
   }
 
   & figure {
+    display: grid;
+    place-items: center;
     position: sticky;
     top: 0;
   }

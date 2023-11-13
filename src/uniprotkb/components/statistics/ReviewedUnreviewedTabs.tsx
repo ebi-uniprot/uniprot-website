@@ -14,12 +14,8 @@ const ReviewedUnreviewedTabs = ({
   <>
     {title && <h3>{title}</h3>}
     <Tabs>
-      <Tab cache title={<ReviewedLabel />}>
-        {reviewed}
-      </Tab>
-      <Tab cache title={<UnreviewedLabel />}>
-        {unreviewed}
-      </Tab>
+      <Tab title={<ReviewedLabel />}>{reviewed}</Tab>
+      <Tab title={<UnreviewedLabel />}>{unreviewed}</Tab>
     </Tabs>
   </>
 );
