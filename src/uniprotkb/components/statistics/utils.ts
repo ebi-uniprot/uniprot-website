@@ -115,3 +115,6 @@ export const setAminoAcidsTotalCount = (data: StatisticsCategory) => ({
   ...data,
   totalCount: sumBy(data.items, 'count'),
 });
+
+export const getNumberReleaseEntries = (data: CategoryToStatistics) =>
+  data.AUDIT.items.find(({ name }) => name === 'ENTRY')?.entryCount || 0;
