@@ -88,6 +88,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
     fieldName: 'threshold',
     selected: '10',
     values: [
+      { label: '0.00001', value: '1e-5' },
       { label: '0.0001', value: '1e-4' },
       { label: '0.001', value: '1e-3' },
       { label: '0.01', value: '1e-2' },
