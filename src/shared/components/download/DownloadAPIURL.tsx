@@ -1,6 +1,13 @@
-import { Button, CodeBlock, CopyIcon, LongNumber } from 'franklin-sites';
+import {
+  Button,
+  CodeBlock,
+  CopyIcon,
+  ExternalLink,
+  LongNumber,
+} from 'franklin-sites';
 import { useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
@@ -15,6 +22,7 @@ import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './downloadUtils';
+import { proteinsApiPrefix } from '../../config/apiUrls';
 
 import { Namespace } from '../../types/namespaces';
 
@@ -89,7 +97,19 @@ const DownloadAPIURL = ({
       <div className={styles['api-url']} ref={scrollRef}>
         <h4>API URL</h4>
         <CodeBlock lightMode>{apiURL}</CodeBlock>
-        <section className="button-group">
+        <section className={cn('button-group', styles['entry-button-group'])}>
+          <ExternalLink
+            className={cn('button', 'tertiary')}
+            url={
+              apiURL.includes('proteins/api')
+                ? `${proteinsApiPrefix}/doc/`
+                : generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'api',
+                  })
+            }
+          >
+            API Documentation
+          </ExternalLink>
           <Button
             variant="primary"
             className={styles['copy-button']}
