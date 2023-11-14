@@ -2,19 +2,15 @@
 
 exports[`Entry - External Links view should render 1`] = `
 <DocumentFragment>
+  <h2>
+    External Links
+  </h2>
   <section
     class="wider-tab-content card"
   >
     <div
       class="card__container"
     >
-      <div
-        class="card__header card__header--with-separator"
-      >
-        <h2>
-          External Links
-        </h2>
-      </div>
       <div
         class="card__content"
       >
