@@ -92,7 +92,7 @@ exports[`HomePage component should render 1`] = `
           </span>
            | 
           <a
-            href="/help/release-statistics"
+            href="/uniprotkb/statistics"
           >
             Statistics
           </a>
@@ -330,7 +330,7 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                href="/help/release-statistics"
+                href="/uniprotkb/statistics"
               >
                 Statistics
               </a>
