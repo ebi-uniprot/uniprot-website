@@ -205,14 +205,7 @@ const LandingPage = () => {
                 </span>
               </p>
               <p>
-                <Link
-                  // TODO: link to statistics page when we have it
-                  to={getLocationEntryPath(
-                    Location.HelpEntry,
-                    'release-statistics'
-                  )}
-                  // to={LocationToPath[Location.UniProtKBStatistics]}
-                >
+                <Link to={LocationToPath[Location.UniProtKBStatistics]}>
                   Explore the {release?.releaseNumber} release »
                 </Link>
               </p>

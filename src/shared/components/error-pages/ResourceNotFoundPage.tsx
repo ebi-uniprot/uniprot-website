@@ -58,7 +58,7 @@ const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   // release notes
   [/^\/(news|release-note)(?<rest>\/.*)?$/i, `/release-notes$<rest>`],
   // other
-  [/^\/statistics?$/i, `/help/release-statistics`],
+  [/^\/statistics?$/i, `/uniprotkb/statistics`],
   [/^\/downloads?$/i, `/help/downloads`],
 ]);
 
