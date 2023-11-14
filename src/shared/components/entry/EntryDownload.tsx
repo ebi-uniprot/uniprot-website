@@ -321,7 +321,7 @@ const EntryDownload = ({
   );
 
   if (geneCentricData?.results) {
-    if (geneCentricData.results[0].relatedProteins?.length) {
+    if (geneCentricData.results[0]?.relatedProteins?.length) {
       availableDatasets.push(Dataset.genecentric);
     }
   }
