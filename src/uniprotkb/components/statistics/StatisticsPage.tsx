@@ -39,7 +39,11 @@ import {
   getNumberReleaseEntries,
 } from './utils';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getLocationEntryPath,
+} from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
@@ -562,6 +566,14 @@ const StatisticsPage = () => {
             </time>
           </strong>
           .
+        </p>
+        <p>
+          <Link
+            to={getLocationEntryPath(Location.HelpEntry, 'release-statistics')}
+          >
+            Previous release statistics are available from the UniProt FTP
+            server.
+          </Link>
         </p>
         <IntroductionEntriesTable
           reviewedData={reviewedData.AUDIT}
