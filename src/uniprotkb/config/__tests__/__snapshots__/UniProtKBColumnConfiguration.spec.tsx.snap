@@ -285,11 +285,6 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_caution
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_cofactor": cc_cofactor 1`] = `
 <DocumentFragment>
-  <div
-    class="text-block"
-  >
-    Protein has 1 cofactor binding site:
-  </div>
   <section
     class="text-block"
   >
