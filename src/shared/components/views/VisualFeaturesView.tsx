@@ -85,7 +85,7 @@ function VisualFeaturesView<T extends GenericFeature>({
       {displayDownloadPanel && (
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}
-          dataset={Dataset.features}
+          dataset={Dataset.selectedFeatures}
           featureTypes={featureTypes}
         />
       )}

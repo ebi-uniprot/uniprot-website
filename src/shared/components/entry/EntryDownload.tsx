@@ -84,6 +84,7 @@ const proteinsAPIVariationFormats = [
 export enum Dataset {
   uniprotData = 'Entry',
   features = 'Features',
+  selectedFeatures = 'Features - ',
   genecentric = 'Gene-centric isoform mapping',
   variation = 'Variations',
   coordinates = 'Genomic Coordinates',
@@ -94,7 +95,12 @@ export enum Dataset {
 }
 
 const uniprotKBEntryDatasets = {
-  'UniProt API': [Dataset.uniprotData, Dataset.features, Dataset.genecentric],
+  'UniProt API': [
+    Dataset.uniprotData,
+    Dataset.features,
+    Dataset.selectedFeatures,
+    Dataset.genecentric,
+  ],
   'Proteins API': [
     Dataset.variation,
     Dataset.coordinates,
@@ -148,7 +154,8 @@ const getEntryDownloadUrl = (
 
       return entryUrl;
     }
-    case Dataset.features: {
+    case Dataset.features:
+    case Dataset.selectedFeatures: {
       const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
       return stringifyUrl(entryUrl, {
         fields: fields?.filter(Boolean).join(','),
@@ -356,6 +363,7 @@ const EntryDownload = ({
         setFileFormats(namespace ? formatMap.get(namespace) : []);
         break;
       case Dataset.features:
+      case Dataset.selectedFeatures:
         setFileFormats([FileFormat.json]);
         break;
       case Dataset.genecentric:
@@ -399,7 +407,9 @@ const EntryDownload = ({
     namespace,
     selectedDataset,
     downloadColumns,
-    uniprotkbFields || Array.from(uniprotFeaturesMap.values())
+    selectedDataset === Dataset.selectedFeatures
+      ? uniprotkbFields
+      : Array.from(uniprotFeaturesMap.values())
   );
 
   const previewFileFormat =
@@ -410,7 +420,9 @@ const EntryDownload = ({
     namespace,
     selectedDataset,
     downloadColumns,
-    uniprotkbFields || Array.from(uniprotFeaturesMap.values())
+    selectedDataset === Dataset.selectedFeatures
+      ? uniprotkbFields
+      : Array.from(uniprotFeaturesMap.values())
   );
 
   if (nResults && nResults > maxPaginationDownload) {
@@ -491,7 +503,10 @@ const EntryDownload = ({
       );
     }
   }
-  if (featureTypes?.includes('Modified residue (large scale data)')) {
+  if (
+    selectedDataset === Dataset.selectedFeatures &&
+    featureTypes?.includes('Modified residue (large scale data)')
+  ) {
     additionalInformation = (
       <div>
         There are additional PTM data available from large scale studies for
@@ -546,18 +561,39 @@ const EntryDownload = ({
                   key={key}
                   className={downloadStyles['select-group-label']}
                 >
-                  {value.map((datasetOption) => (
-                    <option
-                      value={datasetOption}
-                      key={datasetOption}
-                      disabled={
-                        datasetOption !== Dataset.uniprotData &&
-                        !availableDatasets?.includes(datasetOption)
+                  {value.map((datasetOption) => {
+                    if (datasetOption === Dataset.selectedFeatures) {
+                      if (featureTypes) {
+                        const uniprotKBFeatures = featureTypes.filter(
+                          (type) =>
+                            type !== 'Modified residue (large scale data)'
+                        );
+                        return (
+                          <option
+                            value={datasetOption}
+                            key={`${datasetOption} (${uniprotKBFeatures.join(
+                              ','
+                            )})`}
+                          >
+                            {datasetOption} {uniprotKBFeatures.join(', ')}
+                          </option>
+                        );
                       }
-                    >
-                      {datasetOption}
-                    </option>
-                  ))}
+                      return null;
+                    }
+                    return (
+                      <option
+                        value={datasetOption}
+                        key={datasetOption}
+                        disabled={
+                          datasetOption !== Dataset.uniprotData &&
+                          !availableDatasets?.includes(datasetOption)
+                        }
+                      >
+                        {datasetOption}
+                      </option>
+                    );
+                  })}
                 </optgroup>
               ))}
             </select>
