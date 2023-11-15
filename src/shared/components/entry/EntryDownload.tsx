@@ -264,7 +264,7 @@ const EntryDownload = ({
       fields.forEach((element) => {
         if (element.name.startsWith('ft_')) {
           // There is a mismatch in the feature type returned by the backend between entry and result-field endpoints.
-          // Two exceptions are Domain and Signal (in result fields they are names as 'Domain [FT]' and S'ignal peptide')
+          // Two exceptions are Domain and Signal (in result fields they are named as 'Domain [FT]' and 'Signal peptide')
           if (element.name === 'ft_domain') {
             featuresMap.set('Domain', element.name);
           } else if (element.name === 'ft_signal') {
