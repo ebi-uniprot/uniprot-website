@@ -263,7 +263,15 @@ const EntryDownload = ({
       const fields = resultFieldsData.flatMap((item) => item.fields);
       fields.forEach((element) => {
         if (element.name.startsWith('ft_')) {
-          featuresMap.set(element.label, element.name);
+          // There is a mismatch in the feature type returned by the backend between entry and result-field endpoints.
+          // Two exceptions are Domain and Signal (in result fields they are names as 'Domain [FT]' and S'ignal peptide')
+          if (element.name === 'ft_domain') {
+            featuresMap.set('Domain', element.name);
+          } else if (element.name === 'ft_signal') {
+            featuresMap.set('Signal', element.name);
+          } else {
+            featuresMap.set(element.label, element.name);
+          }
         }
       });
     }
