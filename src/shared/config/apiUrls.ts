@@ -515,18 +515,6 @@ export const proteinsApi = {
   },
   proteins: (accession: string) =>
     joinUrl(proteinsApiPrefix, 'proteins', accession),
-  // features: (accession: string, format?: FileFormat, types?: string[]) => {
-  //   const url = joinUrl(proteinsApiPrefix, 'features', accession);
-  //   if (types) {
-  //     return stringifyUrl(url, {
-  //       types: types.join(','),
-  //       format: format ? fileFormatToUrlParameter[format] : undefined,
-  //     });
-  //   }
-  //   return stringifyUrl(url, {
-  //     format: format ? fileFormatToUrlParameter[format] : undefined,
-  //   });
-  // },
   proteomics: (accession: string, format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'proteomics', accession);
     return stringifyUrl(url, {

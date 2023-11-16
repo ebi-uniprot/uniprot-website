@@ -287,43 +287,43 @@ const EntryDownload = ({
   );
 
   const proteinsApiVariation = useDataApi(
-    namespace === Namespace.uniprotkb
-      ? accession && joinUrl(proteinsApi.variation(accession))
+    namespace === Namespace.uniprotkb && accession
+      ? joinUrl(proteinsApi.variation(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiProteomics = useDataApi(
-    namespace === Namespace.uniprotkb
-      ? accession && joinUrl(proteinsApi.proteomics(accession))
+    namespace === Namespace.uniprotkb && accession
+      ? joinUrl(proteinsApi.proteomics(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiPTMs = useDataApi(
-    namespace === Namespace.uniprotkb
-      ? accession && joinUrl(proteinsApi.proteomicsPtm(accession))
+    namespace === Namespace.uniprotkb && accession
+      ? joinUrl(proteinsApi.proteomicsPtm(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiMutagenesis = useDataApi(
-    namespace === Namespace.uniprotkb
-      ? accession && joinUrl(proteinsApi.mutagenesis(accession))
+    namespace === Namespace.uniprotkb && accession
+      ? joinUrl(proteinsApi.mutagenesis(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiAntigen = useDataApi(
-    namespace === Namespace.uniprotkb
-      ? accession && joinUrl(proteinsApi.proteomics(accession))
+    namespace === Namespace.uniprotkb && accession
+      ? joinUrl(proteinsApi.antigen(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiCoordinates = useDataApi(
-    namespace === Namespace.uniprotkb
-      ? accession && joinUrl(proteinsApi.coordinates(accession))
+    namespace === Namespace.uniprotkb && accession
+      ? joinUrl(proteinsApi.coordinates(accession))
       : '',
     { method: 'HEAD' }
   );
@@ -441,9 +441,8 @@ const EntryDownload = ({
       additionalInformation = (
         <div>
           There is a current limitation where UniParc cross-reference{' '}
-          {selectedFormat}
-          downloads are limited to {maxPaginationDownload} entries. Until this
-          is fixed, there are several options:
+          {selectedFormat} downloads are limited to {maxPaginationDownload}{' '}
+          entries. Until this is fixed, there are several options:
           <ul>
             <li>
               Download the{' '}
