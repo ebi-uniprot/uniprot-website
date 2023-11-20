@@ -10,7 +10,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
-import { reUniProtKBAccession } from '../../../uniprotkb/utils';
+import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
 
 import { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';

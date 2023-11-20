@@ -20,7 +20,7 @@ import {
   reSuperscript,
   rePubMedCapture,
   reDbSnpCapture,
-} from '../../utils';
+} from '../../utils/regexes';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import {

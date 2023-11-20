@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import EntryDownload from '../EntryDownload';
+import EntryDownload, { Dataset } from '../EntryDownload';
 
 import { FileFormat } from '../../../types/resultsDownload';
 
@@ -35,6 +35,28 @@ describe('EntryDownload', () => {
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
         '/uniref/UniRef100_A0A009E088/members?format=list'
+      )
+    );
+  });
+
+  it('should include UniProtKB related datasets and warnings', () => {
+    customRender(<EntryDownload onClose={onCloseMock} />, {
+      route: '/uniprotkb/P05067',
+    });
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.json } });
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    fireEvent.click(downloadLink);
+    expect(downloadLink.href).toEqual(expect.stringContaining('P05067.json'));
+    expect(onCloseMock).toHaveBeenCalled();
+
+    const datasetSelect = screen.getByTestId('dataset-select');
+    fireEvent.change(datasetSelect, {
+      target: { value: Dataset.proteomicsPtm },
+    });
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        'https://www.ebi.ac.uk/proteins/api/proteomics-ptm/P05067?format=json'
       )
     );
   });

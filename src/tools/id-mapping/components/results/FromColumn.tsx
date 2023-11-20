@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import AccessionView from '../../../../shared/components/results/AccessionView';
 
-import { reUniProtKBAccession } from '../../../../uniprotkb/utils';
+import { reUniProtKBAccession } from '../../../../uniprotkb/utils/regexes';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { MappingFlat } from '../../types/idMappingSearchResults';

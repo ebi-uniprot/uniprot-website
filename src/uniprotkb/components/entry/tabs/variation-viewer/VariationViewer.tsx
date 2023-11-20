@@ -26,6 +26,8 @@ import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
+import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../../shared/hooks/useCustomElement';
@@ -36,6 +38,7 @@ import externalUrls from '../../../../../shared/config/externalUrls';
 import { sortByLocation } from '../../../../utils';
 
 import { Evidence } from '../../../../types/modelTypes';
+import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
 
 import styles from './styles/variation-viewer.module.scss';
 import tabsStyles from '../styles/tabs-styles.module.scss';
@@ -136,6 +139,7 @@ const VariationViewer = ({
   const isSmallScreen = useSmallScreen();
 
   const [forcedRender, setForceRender] = useState(false);
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const shouldRender =
     (importedVariants !== 'loading' &&
@@ -209,10 +213,20 @@ const VariationViewer = ({
     );
   }
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   if (!shouldRender) {
     return (
       <div className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
+        {displayDownloadPanel && (
+          <EntryDownloadPanel
+            handleToggle={handleToggleDownload}
+            dataset={Dataset.variation}
+          />
+        )}
+        <EntryDownloadButton handleToggle={handleToggleDownload} />
         <div className={styles['too-many']}>
           <Message>
             As there are <LongNumber>{importedVariants}</LongNumber> variations,
@@ -565,6 +579,13 @@ const VariationViewer = ({
   return (
     <section className="wider-tab-content hotjar-margin">
       {title && <h2>{title}</h2>}
+      {displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          dataset={Dataset.variation}
+        />
+      )}
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
       <managerElement.name
         attributes="highlight displaystart displayend activefilters filters selectedid"
         ref={managerRef}

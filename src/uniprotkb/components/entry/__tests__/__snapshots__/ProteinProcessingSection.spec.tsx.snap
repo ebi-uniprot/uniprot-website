@@ -71,6 +71,13 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               />
             </span>
           </protvista-zoom-tool>
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            <test-file-stub />
+            Download
+          </button>
           <a
             class="full-view"
             href="/uniprotkb/undefined/feature-viewer"
@@ -411,6 +418,13 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               />
             </span>
           </protvista-zoom-tool>
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            <test-file-stub />
+            Download
+          </button>
           <a
             class="full-view"
             href="/uniprotkb/undefined/feature-viewer"
