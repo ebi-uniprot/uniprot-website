@@ -63,6 +63,8 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
+const uniprotkbFeatureFormats = [FileFormat.json, FileFormat.gff];
+
 const uniprotkbGeneCentricFormats = [
   FileFormat.json,
   FileFormat.xml,
@@ -372,7 +374,7 @@ const EntryDownload = ({
         break;
       case Dataset.features:
       case Dataset.selectedFeatures:
-        setFileFormats([FileFormat.json]);
+        setFileFormats(uniprotkbFeatureFormats);
         break;
       case Dataset.genecentric:
         setFileFormats(uniprotkbGeneCentricFormats);
