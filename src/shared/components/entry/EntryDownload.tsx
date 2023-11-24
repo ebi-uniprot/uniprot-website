@@ -88,22 +88,22 @@ export enum Dataset {
   features = 'Features',
   selectedFeatures = 'Features - ',
   genecentric = 'Gene-centric isoform mapping',
-  variation = 'Variations',
-  coordinates = 'Genomic Coordinates',
-  proteomics = 'Proteomics',
-  proteomicsPtm = 'Proteomics-PTM',
-  antigen = 'Antigen',
-  mutagenesis = 'Mutagenesis',
+  variation = 'Variations (UniProtKB + External)',
+  coordinates = 'Genomic Coordinates (External)',
+  proteomics = 'Proteomics (External)',
+  proteomicsPtm = 'Proteomics-PTM (External)',
+  antigen = 'Antigen (External)',
+  mutagenesis = 'Mutagenesis (External)',
 }
 
 const uniprotKBEntryDatasets = {
-  'UniProt API': [
+  UniProtKB: [
     Dataset.uniprotData,
     Dataset.features,
     Dataset.selectedFeatures,
     Dataset.genecentric,
   ],
-  'Proteins API': [
+  External: [
     Dataset.variation,
     Dataset.coordinates,
     Dataset.proteomics,
@@ -111,7 +111,23 @@ const uniprotKBEntryDatasets = {
     Dataset.antigen,
     Dataset.mutagenesis,
   ],
+  // 'UniProtKB & External': [
+  //   Dataset.variation,
+  // ],
 };
+
+const uniprotKBEntryDatasetsFlat = [
+  Dataset.uniprotData,
+  Dataset.features,
+  Dataset.selectedFeatures,
+  Dataset.genecentric,
+  Dataset.variation,
+  Dataset.coordinates,
+  Dataset.proteomics,
+  Dataset.proteomicsPtm,
+  Dataset.antigen,
+  Dataset.mutagenesis,
+];
 
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
@@ -564,7 +580,7 @@ const EntryDownload = ({
               value={selectedDataset || dataset}
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
-              {Object.entries(uniprotKBEntryDatasets).map(([key, value]) => (
+              {/* {Object.entries(uniprotKBEntryDatasets).map(([key, value]) => (
                 <optgroup
                   label={key}
                   key={key}
@@ -604,7 +620,39 @@ const EntryDownload = ({
                     );
                   })}
                 </optgroup>
-              ))}
+              ))} */}
+              {uniprotKBEntryDatasetsFlat.map((datasetOption) => {
+                if (datasetOption === Dataset.selectedFeatures) {
+                  if (featureTypes) {
+                    const uniprotKBFeatures = featureTypes.filter(
+                      (type) => type !== 'Modified residue (large scale data)'
+                    );
+                    return (
+                      <option
+                        value={datasetOption}
+                        key={`${datasetOption} (${uniprotKBFeatures.join(
+                          ','
+                        )})`}
+                      >
+                        {datasetOption} {uniprotKBFeatures.join(', ')}
+                      </option>
+                    );
+                  }
+                  return null;
+                }
+                return (
+                  <option
+                    value={datasetOption}
+                    key={datasetOption}
+                    disabled={
+                      datasetOption !== Dataset.uniprotData &&
+                      !availableDatasets?.includes(datasetOption)
+                    }
+                  >
+                    {datasetOption}
+                  </option>
+                );
+              })}
             </select>
           </label>
         </fieldset>
