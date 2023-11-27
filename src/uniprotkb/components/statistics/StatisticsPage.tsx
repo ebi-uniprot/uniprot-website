@@ -86,14 +86,15 @@ export type StatisticsPayload = {
 export type TableProps = {
   reviewedData: StatisticsCategory;
   unreviewedData: StatisticsCategory;
-  releaseDate: Date;
 };
 
 const IntroductionEntriesTable = ({
   reviewedData,
   unreviewedData,
   releaseDate,
-}: TableProps) => {
+}: TableProps & {
+  releaseDate: Date;
+}) => {
   const map = mergeToMap(reviewedData.items, unreviewedData.items);
   return (
     <>
