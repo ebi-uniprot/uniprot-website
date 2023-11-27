@@ -27,6 +27,38 @@ const sortByCount = new Set<CategoryName>([
   'TOP_ORGANISM',
 ]);
 
+const nameToHelpArticle = new Map([
+  ['ACTIVITY_REGULATION', 'activity_regulation'],
+  ['ALLERGEN', 'allergenic_properties'],
+  ['ALTERNATIVE_PRODUCTS', 'alternative_products'],
+  ['BIOPHYSICOCHEMICAL_PROPERTIES', 'biophysicochemical_properties'],
+  ['BIOTECHNOLOGY', 'biotechnological_use'],
+  ['CATALYTIC_ACTIVITY', 'catalytic_activity'],
+  ['CAUTION', 'caution'],
+  ['COFACTOR', 'cofactor'],
+  ['DEVELOPMENTAL_STAGE', 'developmental_stage'],
+  ['DISEASE', 'involvement_in_disease'],
+  ['DISRUPTION_PHENOTYPE', 'disruption_phenotype'],
+  ['DOMAIN', 'domain'],
+  ['FUNCTION', 'function'],
+  ['INDUCTION', 'induction'],
+  ['INTERACTION', 'binary_interactions'],
+  ['MASS_SPECTROMETRY', 'mass_spectrometry'],
+  ['MISCELLANEOUS', 'miscellaneous'],
+  ['PATHWAY', 'pathway'],
+  ['PHARMACEUTICAL', 'pharmaceutical_use'],
+  ['POLYMORPHISM', 'polymorphism'],
+  ['PTM', 'post-translational_modification'],
+  ['RNA_EDITING', 'rna_editing'],
+  ['SEQUENCE_CAUTION', 'sequence_caution'],
+  ['SIMILARITY', 'sequence_similarities'],
+  ['SUBCELLULAR_LOCATION', 'subcellular_location'],
+  ['SUBUNIT', 'subunit_structure'],
+  ['TISSUE_SPECIFICITY', 'tissue_specificity'],
+  ['TOXIC_DOSE', 'toxic_dose'],
+  ['WEBRESOURCE', 'web_resource'],
+]);
+
 type StatsTableProps = {
   category: StatisticsCategory;
   alwaysExpand?: boolean;
@@ -48,7 +80,6 @@ const StatsTable = ({
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
-
   const onExpandCollapseClick = useCallback(() => {
     if (expand) {
       tableRef.current?.scrollIntoView();
@@ -109,7 +140,16 @@ const StatsTable = ({
             return (
               <tr key={row.name}>
                 {/* Name */}
-                <td>{row.label || row.name}</td>
+                <td
+                  data-article-id={
+                    category.categoryName === 'COMMENTS' &&
+                    nameToHelpArticle.has(row.name)
+                      ? nameToHelpArticle.get(row.name)
+                      : undefined
+                  }
+                >
+                  {row.label || row.name}
+                </td>
                 {/* Count */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>
