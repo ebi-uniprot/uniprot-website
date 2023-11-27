@@ -85,49 +85,42 @@ const proteinsAPIVariationFormats = [
 
 export enum Dataset {
   uniprotData = 'Entry',
-  features = 'Features',
+  features = 'Features Only',
   selectedFeatures = 'Features - ',
-  genecentric = 'Gene-centric isoform mapping',
-  variation = 'Variations (UniProtKB + External)',
-  coordinates = 'Genomic Coordinates (External)',
-  proteomics = 'Proteomics (External)',
-  proteomicsPtm = 'Proteomics-PTM (External)',
-  antigen = 'Antigen (External)',
-  mutagenesis = 'Mutagenesis (External)',
+  genecentric = 'Gene-centric Isoform Mapping',
+  variation = 'Variations (includes UniProtKB)',
+  coordinates = 'Genomic Coordinates',
+  proteomics = 'Proteomics',
+  proteomicsPtm = 'Proteomics-PTM',
+  antigen = 'Antigen',
+  mutagenesis = 'Mutagenesis',
 }
 
 const uniprotKBEntryDatasets = {
-  UniProtKB: [
-    Dataset.uniprotData,
-    Dataset.features,
-    Dataset.selectedFeatures,
-    Dataset.genecentric,
-  ],
-  External: [
+  UniProtKB: [Dataset.uniprotData, Dataset.features, Dataset.selectedFeatures],
+  'Additional Datasets': [
     Dataset.variation,
     Dataset.coordinates,
     Dataset.proteomics,
     Dataset.proteomicsPtm,
     Dataset.antigen,
     Dataset.mutagenesis,
+    Dataset.genecentric,
   ],
-  // 'UniProtKB & External': [
-  //   Dataset.variation,
-  // ],
 };
 
-const uniprotKBEntryDatasetsFlat = [
-  Dataset.uniprotData,
-  Dataset.features,
-  Dataset.selectedFeatures,
-  Dataset.genecentric,
-  Dataset.variation,
-  Dataset.coordinates,
-  Dataset.proteomics,
-  Dataset.proteomicsPtm,
-  Dataset.antigen,
-  Dataset.mutagenesis,
-];
+// const uniprotKBEntryDatasetsFlat = [
+//   Dataset.uniprotData,
+//   Dataset.features,
+//   Dataset.selectedFeatures,
+//   Dataset.genecentric,
+//   Dataset.variation,
+//   Dataset.coordinates,
+//   Dataset.proteomics,
+//   Dataset.proteomicsPtm,
+//   Dataset.antigen,
+//   Dataset.mutagenesis,
+// ];
 
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
@@ -580,7 +573,7 @@ const EntryDownload = ({
               value={selectedDataset || dataset}
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
-              {/* {Object.entries(uniprotKBEntryDatasets).map(([key, value]) => (
+              {Object.entries(uniprotKBEntryDatasets).map(([key, value]) => (
                 <optgroup
                   label={key}
                   key={key}
@@ -620,8 +613,8 @@ const EntryDownload = ({
                     );
                   })}
                 </optgroup>
-              ))} */}
-              {uniprotKBEntryDatasetsFlat.map((datasetOption) => {
+              ))}
+              {/* {uniprotKBEntryDatasetsFlat.map((datasetOption) => {
                 if (datasetOption === Dataset.selectedFeatures) {
                   if (featureTypes) {
                     const uniprotKBFeatures = featureTypes.filter(
@@ -652,7 +645,7 @@ const EntryDownload = ({
                     {datasetOption}
                   </option>
                 );
-              })}
+              })} */}
             </select>
           </label>
         </fieldset>
