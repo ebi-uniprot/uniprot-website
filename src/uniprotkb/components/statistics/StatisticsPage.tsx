@@ -566,6 +566,11 @@ const StatisticsPage = () => {
           </strong>
           .
         </p>
+        <p>
+          Throughout this document, whenever a statistic has a corresponding
+          query, a link has been provided. In some instances, due to the nature
+          of the statistic, no query link is possible.
+        </p>
         <IntroductionEntriesTable
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
