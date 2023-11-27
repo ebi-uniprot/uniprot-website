@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Card } from 'franklin-sites';
+import { Card, InfoList } from 'franklin-sites';
 
 import ProteinNamesView from '../protein-data-views/ProteinNamesView';
 import GeneNamesView from '../protein-data-views/GeneNamesView';
@@ -26,6 +26,7 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
     return null;
   }
   const domains = data.proteinNamesData?.includes;
+
   return (
     <Card
       header={
@@ -55,6 +56,24 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
         <>
           <h3 data-article-id="gene_name">Gene names</h3>
           <GeneNamesView geneNamesData={data.geneNamesData} />
+        </>
+      )}
+      {data.geneLocations?.length && (
+        <>
+          <h3 data-article-id="encoded_on">Encoded on</h3>
+          <div>
+            {data.geneLocations.map((og) => (
+              <InfoList
+                key={`${og.geneEncodingType}${og.value}`}
+                infoData={[
+                  {
+                    title: '',
+                    content: `${og.geneEncodingType} ${og.value}`,
+                  },
+                ]}
+              />
+            ))}
+          </div>
         </>
       )}
       <h3>Organism names</h3>
