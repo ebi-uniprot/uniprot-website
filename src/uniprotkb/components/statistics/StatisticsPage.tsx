@@ -86,16 +86,13 @@ export type StatisticsPayload = {
 export type TableProps = {
   reviewedData: StatisticsCategory;
   unreviewedData: StatisticsCategory;
+  releaseDate: Date;
 };
 
-// ☑️ ENTRY
-// ☑️ NEW_ENTRY
-// ☑️ NEW_ENTRY_AND_NEW_SEQUENCE
-// ☑️ ANNOTATION_UPDATED
-// ☑️ UPDATED_SEQUENCE
 const IntroductionEntriesTable = ({
   reviewedData,
   unreviewedData,
+  releaseDate,
 }: TableProps) => {
   const map = mergeToMap(reviewedData.items, unreviewedData.items);
   return (
@@ -151,6 +148,9 @@ const IntroductionEntriesTable = ({
               </>
             ),
             data: map.get('NEW_ENTRY')!,
+            query: `(date_created:[${
+              releaseDate.toISOString().split('T')[0]
+            } TO *])`,
           },
           {
             header: (
@@ -574,6 +574,7 @@ const StatisticsPage = () => {
         <IntroductionEntriesTable
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
+          releaseDate={release.releaseDate}
         />
         <IntroductionSequenceTable
           reviewedData={reviewedData.SEQUENCE_STATS}
