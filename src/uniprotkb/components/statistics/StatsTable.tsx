@@ -27,7 +27,7 @@ const sortByCount = new Set<CategoryName>([
   'TOP_ORGANISM',
 ]);
 
-const nameToHelpArticle = new Map([
+const commentNameToHelpArticle = new Map([
   ['ACTIVITY_REGULATION', 'activity_regulation'],
   ['ALLERGEN', 'allergenic_properties'],
   ['ALTERNATIVE_PRODUCTS', 'alternative_products'],
@@ -142,10 +142,12 @@ const StatsTable = ({
                 {/* Name */}
                 <td
                   data-article-id={
-                    category.categoryName === 'COMMENTS' &&
-                    nameToHelpArticle.has(row.name)
-                      ? nameToHelpArticle.get(row.name)
-                      : undefined
+                    (category.categoryName === 'COMMENTS' &&
+                      commentNameToHelpArticle.has(row.name) &&
+                      commentNameToHelpArticle.get(row.name)) ||
+                    (category.categoryName === 'FEATURES' &&
+                      row.name.toLowerCase()) ||
+                    undefined
                   }
                 >
                   {row.label || row.name}
