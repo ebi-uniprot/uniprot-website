@@ -7,11 +7,7 @@ import ExternalLink from '../ExternalLink';
 import ReleaseInfo from './ReleaseInfo';
 import Contact from './Contact';
 
-import {
-  getLocationEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
 import footer from './styles/footer.module.scss';
@@ -293,9 +289,7 @@ const FooterShortcuts = () => (
           </Link>
         </li>
         <li>
-          <Link
-            to={getLocationEntryPath(Location.HelpEntry, 'release-statistics')}
-          >
+          <Link to={LocationToPath[Location.UniProtKBStatistics]}>
             Statistics
           </Link>
         </li>
