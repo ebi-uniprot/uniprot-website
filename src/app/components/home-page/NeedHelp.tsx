@@ -41,8 +41,11 @@ const YouTubeEmbed = lazy(
     )
 );
 
+// If the urlEBISearch URL ever stops working then do a text query for UniProt and include the "resources" field and update the query accordingly
+// https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming%20AND%20UniProt&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status,resources&size=10&sort=start_date
+// Note to exclude the ":" from the resources query field as this will cause issues.
 const urlEBISearch =
-  'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date';
+  'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource (180371)&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date';
 // corresponding schema
 export type PayloadEBISearch = {
   hitCount: number;

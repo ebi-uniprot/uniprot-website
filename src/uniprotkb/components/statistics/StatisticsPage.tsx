@@ -92,15 +92,13 @@ export type TableProps = {
   unreviewedData: StatisticsCategory;
 };
 
-// ☑️ ENTRY
-// ☑️ NEW_ENTRY
-// ☑️ NEW_ENTRY_AND_NEW_SEQUENCE
-// ☑️ ANNOTATION_UPDATED
-// ☑️ UPDATED_SEQUENCE
 const IntroductionEntriesTable = ({
   reviewedData,
   unreviewedData,
-}: TableProps) => {
+  releaseDate,
+}: TableProps & {
+  releaseDate: Date;
+}) => {
   const map = mergeToMap(reviewedData.items, unreviewedData.items);
   return (
     <>
@@ -155,6 +153,9 @@ const IntroductionEntriesTable = ({
               </>
             ),
             data: map.get('NEW_ENTRY')!,
+            query: `(date_created:[${
+              releaseDate.toISOString().split('T')[0]
+            } TO *])`,
           },
           {
             header: (
@@ -575,9 +576,15 @@ const StatisticsPage = () => {
             server.
           </Link>
         </p>
+        <p>
+          Throughout this document, whenever a statistic has a corresponding
+          query, a link has been provided. In some instances, due to the nature
+          of the statistic, no query link is possible.
+        </p>
         <IntroductionEntriesTable
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
+          releaseDate={release.releaseDate}
         />
         <IntroductionSequenceTable
           reviewedData={reviewedData.SEQUENCE_STATS}

@@ -174,11 +174,6 @@ exports[`Entry view should render 1`] = `
         >
           Cofactor
         </h3>
-        <div
-          class="text-block"
-        >
-          Protein has 1 cofactor binding site:
-        </div>
         <section
           class="text-block"
         >
@@ -3760,11 +3755,6 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           Cofactor
         </h3>
-        <div
-          class="text-block"
-        >
-          Protein has 1 cofactor binding site:
-        </div>
         <section
           class="text-block"
         >
