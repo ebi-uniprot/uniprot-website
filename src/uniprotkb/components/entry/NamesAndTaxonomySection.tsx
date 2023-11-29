@@ -15,6 +15,7 @@ import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverte
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
+import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
 type Props = {
   data: NamesAndTaxonomyUIModel;
@@ -62,17 +63,32 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
         <>
           <h3 data-article-id="encoded_on">Encoded on</h3>
           <div>
-            {data.geneLocations.map((og) => (
-              <InfoList
-                key={`${og.geneEncodingType}${og.value}`}
-                infoData={[
-                  {
-                    title: '',
-                    content: `${og.geneEncodingType} ${og.value}`,
-                  },
-                ]}
-              />
-            ))}
+            {data.geneLocations.map((og) => {
+              let content = og.geneEncodingType;
+              if (og.value) {
+                content += ` ${og.value}`;
+              }
+              let evidence;
+              if (og.evidences) {
+                evidence = <UniProtKBEvidenceTag evidences={og.evidences} />;
+              }
+              return (
+                <InfoList
+                  key={`${og.geneEncodingType}${og.value}`}
+                  infoData={[
+                    {
+                      title: '',
+                      content: (
+                        <>
+                          {content}
+                          {evidence}
+                        </>
+                      ),
+                    },
+                  ]}
+                />
+              );
+            })}
           </div>
         </>
       )}
