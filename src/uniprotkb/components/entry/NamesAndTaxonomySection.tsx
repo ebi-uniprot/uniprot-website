@@ -15,14 +15,23 @@ import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverte
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import UniProtKBEvidenceTag, {
+  EvidenceTagSourceTypes,
+} from '../protein-data-views/UniProtKBEvidenceTag';
+import { UniProtKBReference } from '../../adapters/uniProtkbConverter';
+import { ecoCode } from '../../config/evidenceCodes';
 
 type Props = {
   data: NamesAndTaxonomyUIModel;
   primaryAccession: string;
+  references?: UniProtKBReference[];
 };
 
-const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
+const NamesAndTaxonomySection = ({
+  data,
+  primaryAccession,
+  references,
+}: Props) => {
   if (!hasContent(data)) {
     return null;
   }
@@ -71,13 +80,32 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
               let evidence;
               if (og.evidences) {
                 evidence = <UniProtKBEvidenceTag evidences={og.evidences} />;
+              } else if (references) {
+                // Mapping the evidences to the corresponding encoding type when the evidences are not parsed in the OG object itself (eg. P09130, P04737)
+                const associatedReferences = references.filter((r) =>
+                  r.referenceComments?.some(
+                    (comment) =>
+                      comment.value.toLowerCase() === og.value.toLowerCase() &&
+                      og.geneEncodingType.toLowerCase() ===
+                        comment.type.toLowerCase()
+                  )
+                );
+                const evidences = associatedReferences.map((ref) => ({
+                  // The ECO code is set as 'MI' after discussing with curators.
+                  // It may not be the right one (Both MI and NAS were possible candidates for RX line and MI for OG line in the flat file).
+                  evidenceCode: `ECO:${ecoCode.MI}` as const,
+                  id: ref.citation.id,
+                  source: `${EvidenceTagSourceTypes.PUBMED}`,
+                }));
+                evidence = <UniProtKBEvidenceTag evidences={evidences} />;
               }
+
               return (
                 <InfoList
                   key={`${og.geneEncodingType}${og.value}`}
                   infoData={[
                     {
-                      title: '',
+                      title: <> </>, // Empty title so that it aligns with the rest of the section content
                       content: (
                         <>
                           {content}
