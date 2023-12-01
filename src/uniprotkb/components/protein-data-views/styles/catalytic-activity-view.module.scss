@@ -1,37 +1,49 @@
-.rhea-reaction-visualizer {
-  &__toggle {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
 
-    svg {
-      position: relative;
-      top: -0.5rem;
-      margin-right: 0.25rem;
+.catalytic-activity {
+  :global(.decorated-list-item__content) {
+    width: 0;
+  }
+
+  :global(.info-list) > li:not(:last-child) {
+    border-bottom: 0.5px solid black;
+    margin-bottom: $global-margin;
+    padding-bottom: $global-padding;
+  }
+  .rhea-reaction-visualizer {
+    &__toggle {
+      padding-top: $global-padding;
+
+      svg {
+        position: relative;
+        top: -0.6rem;
+        margin-left: 0.5rem;
+      }
+    }
+
+    &__component {
+      width: 100%;
+      overflow-x: auto;
     }
   }
 
-  &__component {
-    width: 100%;
-    overflow-x: auto;
+  .zoomLink {
+    cursor: pointer;
   }
-}
 
-.zoomLink {
-  cursor: pointer;
-}
+  .zoom-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.zoom-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .ec-number {
+    font-weight: bold;
+    padding-right: 0.333rem;
+  }
 
-.ec-number {
-  font-weight: bold;
-  padding-right: 0.333rem;
-}
-
-.rhea-reaction-source {
-  display: none;
+  .rhea-reaction-source {
+    display: none;
+  }
 }
