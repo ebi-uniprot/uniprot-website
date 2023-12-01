@@ -28,22 +28,22 @@
     }
   }
 
-  .zoomLink {
+  :global(.zoomLink) {
     cursor: pointer;
   }
 
-  .zoom-image-container {
+  :global(.zoom-image-container) {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .ec-number {
+  :global(.ec-number) {
     font-weight: bold;
     padding-right: 0.333rem;
   }
 
-  .rhea-reaction-source {
+  :global(.rhea-reaction-source) {
     display: none;
   }
 }
