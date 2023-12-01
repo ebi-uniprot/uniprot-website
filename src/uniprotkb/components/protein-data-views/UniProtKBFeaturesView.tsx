@@ -14,12 +14,14 @@ import LigandDescriptionView, {
   Ligand,
   LigandPart,
 } from './LigandDescriptionView';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
 import { stringToID } from '../../utils';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
@@ -238,7 +240,21 @@ const UniProtKBFeaturesView = ({
                     {feature.type}
                   </td>
                 )}
-                <td id={feature.featureId}>{feature.featureId}</td>
+                <td id={feature.featureId}>
+                  {feature.type === 'Natural variant' &&
+                  position === positionStart &&
+                  feature.sequence?.length === 5 ? ( // Expasy links are only valid for SNPs
+                    <ExternalLink
+                      url={externalUrls.UniProt(feature.featureId || '')}
+                      title="View in Expasy"
+                      noIcon
+                    >
+                      {feature.featureId}
+                    </ExternalLink>
+                  ) : (
+                    feature.featureId
+                  )}
+                </td>
                 <td>{position}</td>
                 {showSourceColumn && (
                   <td data-filter="source" data-filter-value={feature.source}>
