@@ -6,8 +6,10 @@ import {
   Loader,
   ChevronDownIcon,
   ChevronUpIcon,
+  InfoList,
 } from 'franklin-sites';
 
+import { SetRequired } from 'type-fest';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { ECNumbersView } from './ProteinNamesView';
@@ -25,7 +27,7 @@ import {
   PhysiologicalReaction,
 } from '../../types/commentTypes';
 
-import './styles/catalytic-activity-view.scss';
+import styles from './styles/catalytic-activity-view.module.scss';
 
 // example accessions to view this component: P31937, P0A879
 
@@ -60,7 +62,7 @@ export const ZoomModalContent = ({ chebi, imgURL }: ChebiImageData) => {
     }
   };
   return (
-    <div className="zoom-image-container">
+    <div className={styles['zoom-image-container']}>
       <img
         ref={imageRef}
         alt={chebi}
@@ -115,8 +117,7 @@ export const RheaReactionVisualizer = ({
 
   return (
     <>
-      <div className="rhea-reaction-visualizer__toggle">
-        {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
+      <div className={styles['rhea-reaction-visualizer__toggle']}>
         <button
           type="button"
           className="button tertiary"
@@ -124,11 +125,12 @@ export const RheaReactionVisualizer = ({
         >
           {`${show ? 'Hide' : 'View'} Rhea reaction`}
         </button>
+        {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
       </div>
       {show &&
         (rheaReactionElement.defined ? (
           <>
-            <div className="rhea-reaction-visualizer__component">
+            <div className={styles['rhea-reaction-visualizer__component']}>
               <rheaReactionElement.name
                 rheaid={rheaId}
                 showIds
@@ -230,27 +232,33 @@ const CatalyticActivityView = ({
     return null;
   }
   let firstRheaId: number;
-  return (
-    <>
-      {title && <h3 data-article-id="catalytic_activity">{title}</h3>}
-      {comments.map(({ molecule, reaction, physiologicalReactions }, index) => {
-        if (!reaction) {
-          return null;
-        }
-        // Using only the first rhea reaction reference because FW has assured us that
-        // there will be either 0 or 1 types of this reference (ie never > 1)
+  const infoData = comments
+    .filter(
+      (comment): comment is SetRequired<CatalyticActivityComment, 'reaction'> =>
+        Boolean(comment.reaction)
+    )
+    .map(({ molecule, reaction, physiologicalReactions }) => {
+      // Using only the first rhea reaction reference because FW has assured us that
+      // there will be either 0 or 1 types of this reference (ie never > 1)
 
-        const rheaReactionReference =
-          reaction.reactionCrossReferences &&
-          reaction.reactionCrossReferences.find(isRheaReactionReference);
-        const rheaId =
-          rheaReactionReference && getRheaId(rheaReactionReference.id);
-        if (rheaId && !firstRheaId) {
-          firstRheaId = rheaId;
-        }
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <span className="text-block" key={index}>
+      const rheaReactionReference =
+        reaction.reactionCrossReferences &&
+        reaction.reactionCrossReferences.find(isRheaReactionReference);
+      const rheaId =
+        rheaReactionReference && getRheaId(rheaReactionReference.id);
+      if (rheaId && !firstRheaId) {
+        firstRheaId = rheaId;
+      }
+      return {
+        title: rheaId ? (
+          <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
+            Rhea {rheaId}
+          </ExternalLink>
+        ) : (
+          ''
+        ),
+        content: (
+          <span className="text-block">
             {molecule && (
               <h4 className="tiny">
                 {noEvidence ? (
@@ -270,32 +278,26 @@ const CatalyticActivityView = ({
                 noEvidence={noEvidence}
               />
             )}
-
             {reaction.ecNumber && (
               <div>
                 <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
               </div>
             )}
             {!!rheaId && (
-              <>
-                <div>
-                  <strong>Source: </strong>
-                  <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
-                    Rhea {rheaId}
-                  </ExternalLink>
-                </div>
-                <RheaReactionVisualizer
-                  rheaId={rheaId}
-                  show={
-                    defaultHideAllReactions ? false : rheaId === firstRheaId
-                  }
-                />
-              </>
+              <RheaReactionVisualizer
+                rheaId={rheaId}
+                show={defaultHideAllReactions ? false : rheaId === firstRheaId}
+              />
             )}
           </span>
-        );
-      })}
-    </>
+        ),
+      };
+    });
+  return (
+    <div className={styles['catalytic-activity']}>
+      {title && <h3 data-article-id="catalytic_activity">{title}</h3>}
+      <InfoList infoData={infoData} />
+    </div>
   );
 };
 

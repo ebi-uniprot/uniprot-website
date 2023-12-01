@@ -1,0 +1,37 @@
+.rhea-reaction-visualizer {
+  &__toggle {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    svg {
+      position: relative;
+      top: -0.5rem;
+      margin-right: 0.25rem;
+    }
+  }
+
+  &__component {
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+
+.zoomLink {
+  cursor: pointer;
+}
+
+.zoom-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ec-number {
+  font-weight: bold;
+  padding-right: 0.333rem;
+}
+
+.rhea-reaction-source {
+  display: none;
+}
