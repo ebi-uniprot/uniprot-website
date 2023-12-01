@@ -8,8 +8,8 @@ import {
   ChevronUpIcon,
   InfoList,
 } from 'franklin-sites';
-
 import { SetRequired } from 'type-fest';
+
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { ECNumbersView } from './ProteinNamesView';
