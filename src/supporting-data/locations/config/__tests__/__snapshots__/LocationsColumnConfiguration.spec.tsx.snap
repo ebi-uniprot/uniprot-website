@@ -116,21 +116,21 @@ exports[`LocationsColumnConfiguration component should render column "statistics
   >
     <li>
       <a
-        href="/uniprotkb?query=(cc_scl_term:SL-0099)"
+        href="/uniprotkb?query=%28cc_scl_term%3ASL-0099%29"
       >
         16,210 UniProtKB entries
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb?facets=reviewed:true&query=(cc_scl_term:SL-0099)"
+        href="/uniprotkb?query=%28cc_scl_term%3ASL-0099%29+AND+%28reviewed%3Atrue%29"
       >
         236 reviewed UniProtKB entries
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb?facets=reviewed:false&query=(cc_scl_term:SL-0099)"
+        href="/uniprotkb?query=%28cc_scl_term%3ASL-0099%29+AND+%28reviewed%3Afalse%29"
       >
         15,974 unreviewed UniProtKB entries
       </a>
