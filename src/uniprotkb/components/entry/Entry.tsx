@@ -584,14 +584,6 @@ const Entry = () => {
               )}
             >
               Genomic coordinates
-              {!mediumScreen &&
-                hasGenomicCoordinates !== 'loading' &&
-                hasGenomicCoordinates && (
-                  <>
-                    {' '}
-                    <Chip compact>new</Chip>
-                  </>
-                )}
             </Link>
           }
           id={TabLocation.GenomicCoordinates}
