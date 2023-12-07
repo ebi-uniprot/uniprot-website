@@ -22,153 +22,170 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__content"
       >
-        <h3
-          data-article-id="catalytic_activity"
+        <div
+          class="catalytic-activity"
         >
-          Catalytic activity
-        </h3>
-        <span
-          class="text-block"
-        >
-          <h4
-            class="tiny"
+          <h3
+            data-article-id="catalytic_activity"
           >
-            <a
-              href="#Isoform_3"
-            >
-              Isoform 3
-            </a>
-          </h4>
-          some reaction
-          <button
-            aria-controls="0"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
+            Catalytic activity
+          </h3>
+          <ul
+            class="info-list"
           >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="0"
-          />
-          <div>
-            This reaction proceeds in the 
-            <span
-              data-testid="direction-text"
-            >
-              backward
-            </span>
-             direction.
-            <button
-              aria-controls="1"
-              aria-expanded="false"
-              class="svg-colour-unreviewed evidence-tag"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
+            <li>
+              <div
+                class="decorated-list-item"
               >
-                Imported
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="1"
-            />
-          </div>
-          <div>
-            EC:1.2.4.5 (
-            <a
-              href="/uniprotkb?query=ec:1.2.4.5"
-            >
-              UniProtKB
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://enzyme.expasy.org/EC/1.2.4.5"
-              rel="noopener"
-              target="_blank"
-            >
-              ENZYME
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
-              rel="noopener"
-              target="_blank"
-            >
-              Rhea
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-            )
-          </div>
-          <div>
-            <strong>
-              Source: 
-            </strong>
-            <a
-              class="external-link"
-              href="https://www.rhea-db.org/rhea/12345"
-              rel="noopener"
-              target="_blank"
-            >
-              Rhea 12345
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-          </div>
-          <div
-            class="rhea-reaction-visualizer__toggle"
-          >
-            <test-file-stub
-              width="1ch"
-            />
-            <button
-              class="button tertiary"
-              type="button"
-            >
-              Hide Rhea reaction
-            </button>
-          </div>
-          <div
-            class="rhea-reaction-visualizer__component"
-          >
-            <rhea-reaction
-              rheaid="12345"
-              showids="true"
-              usehost="https://api.rhea-db.org"
-              zoom="true"
-            />
-          </div>
-        </span>
+                <div
+                  class="decorated-list-item__title tiny"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.rhea-db.org/rhea/12345"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    Rhea 12345
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <span
+                    class="text-block"
+                  >
+                    <h4
+                      class="tiny"
+                    >
+                      <a
+                        href="#Isoform_3"
+                      >
+                        Isoform 3
+                      </a>
+                    </h4>
+                    some reaction
+                    <button
+                      aria-controls="0"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="0"
+                    />
+                    <div>
+                      This reaction proceeds in the 
+                      <span
+                        data-testid="direction-text"
+                      >
+                        backward
+                      </span>
+                       direction.
+                      <button
+                        aria-controls="1"
+                        aria-expanded="false"
+                        class="svg-colour-unreviewed evidence-tag"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                        >
+                          Imported
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="1"
+                      />
+                    </div>
+                    <div>
+                      EC:1.2.4.5 (
+                      <a
+                        href="/uniprotkb?query=ec:1.2.4.5"
+                      >
+                        UniProtKB
+                      </a>
+                       | 
+                      <a
+                        class="external-link"
+                        href="https://enzyme.expasy.org/EC/1.2.4.5"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        ENZYME
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                       | 
+                      <a
+                        class="external-link"
+                        href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Rhea
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                      )
+                    </div>
+                    <div
+                      class="rhea-reaction-visualizer__toggle"
+                    >
+                      <button
+                        class="button tertiary"
+                        type="button"
+                      >
+                        Hide Rhea reaction
+                      </button>
+                      <test-file-stub
+                        width="1ch"
+                      />
+                    </div>
+                    <div
+                      class="rhea-reaction-visualizer__component"
+                    >
+                      <rhea-reaction
+                        rheaid="12345"
+                        showids="true"
+                        usehost="https://api.rhea-db.org"
+                        zoom="true"
+                      />
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
         <h3
           data-article-id="cofactor"
         >
@@ -3678,78 +3695,95 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="1"
           />
         </div>
-        <h3
-          data-article-id="catalytic_activity"
+        <div
+          class="catalytic-activity"
         >
-          Catalytic activity
-        </h3>
-        <span
-          class="text-block"
-        >
-          an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
-          <button
-            aria-controls="2"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
+          <h3
+            data-article-id="catalytic_activity"
           >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 publication
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="2"
-          />
-          <div>
-            <strong>
-              Source: 
-            </strong>
-            <a
-              class="external-link"
-              href="https://www.rhea-db.org/rhea/14869"
-              rel="noopener"
-              target="_blank"
-            >
-              Rhea 14869
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-          </div>
-          <div
-            class="rhea-reaction-visualizer__toggle"
+            Catalytic activity
+          </h3>
+          <ul
+            class="info-list"
           >
-            <test-file-stub
-              width="1ch"
-            />
-            <button
-              class="button tertiary"
-              type="button"
-            >
-              Hide Rhea reaction
-            </button>
-          </div>
-          <div
-            class="rhea-reaction-visualizer__component"
-          >
-            <rhea-reaction
-              rheaid="14869"
-              showids="true"
-              usehost="https://api.rhea-db.org"
-              zoom="true"
-            />
-          </div>
-        </span>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title tiny"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.rhea-db.org/rhea/14869"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    Rhea 14869
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <span
+                    class="text-block"
+                  >
+                    an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
+                    <button
+                      aria-controls="2"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="2"
+                    />
+                    <div
+                      class="rhea-reaction-visualizer__toggle"
+                    >
+                      <button
+                        class="button tertiary"
+                        type="button"
+                      >
+                        Hide Rhea reaction
+                      </button>
+                      <test-file-stub
+                        width="1ch"
+                      />
+                    </div>
+                    <div
+                      class="rhea-reaction-visualizer__component"
+                    >
+                      <rhea-reaction
+                        rheaid="14869"
+                        showids="true"
+                        usehost="https://api.rhea-db.org"
+                        zoom="true"
+                      />
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
         <h3
           data-article-id="cofactor"
         >

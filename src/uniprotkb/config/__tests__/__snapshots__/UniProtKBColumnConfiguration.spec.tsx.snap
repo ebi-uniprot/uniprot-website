@@ -194,90 +194,107 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_biotech
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_catalytic_activity": cc_catalytic_activity 1`] = `
 <DocumentFragment>
-  <span
-    class="text-block"
+  <div
+    class="catalytic-activity"
   >
-    <h4
-      class="tiny"
+    <ul
+      class="info-list"
     >
-      Isoform 3
-    </h4>
-    some reaction
-    <div>
-      This reaction proceeds in the 
-      <span
-        data-testid="direction-text"
-      >
-        backward
-      </span>
-       direction.
-    </div>
-    <div>
-      EC:1.2.4.5 (
-      <a
-        href="/uniprotkb?query=ec:1.2.4.5"
-      >
-        UniProtKB
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/1.2.4.5"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </div>
-    <div>
-      <strong>
-        Source: 
-      </strong>
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea/12345"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea 12345
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-    </div>
-    <div
-      class="rhea-reaction-visualizer__toggle"
-    >
-      <test-file-stub
-        width="1ch"
-      />
-      <button
-        class="button tertiary"
-        type="button"
-      >
-        View Rhea reaction
-      </button>
-    </div>
-  </span>
+      <li>
+        <div
+          class="decorated-list-item"
+        >
+          <div
+            class="decorated-list-item__title tiny"
+          >
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea/12345"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea 12345
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </div>
+          <div
+            class="decorated-list-item__content"
+          >
+            <span
+              class="text-block"
+            >
+              <h4
+                class="tiny"
+              >
+                Isoform 3
+              </h4>
+              some reaction
+              <div>
+                This reaction proceeds in the 
+                <span
+                  data-testid="direction-text"
+                >
+                  backward
+                </span>
+                 direction.
+              </div>
+              <div>
+                EC:1.2.4.5 (
+                <a
+                  href="/uniprotkb?query=ec:1.2.4.5"
+                >
+                  UniProtKB
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://enzyme.expasy.org/EC/1.2.4.5"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ENZYME
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Rhea
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                )
+              </div>
+              <div
+                class="rhea-reaction-visualizer__toggle"
+              >
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  View Rhea reaction
+                </button>
+                <test-file-stub
+                  width="1ch"
+                />
+              </div>
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </DocumentFragment>
 `;
 
