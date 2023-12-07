@@ -46,7 +46,7 @@ import { DatabaseInfoMaps } from '../utils/database';
 import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
 
 // 🤷🏽
-type UniProtKBReference = Omit<Reference, 'citationId'> & {
+export type UniProtKBReference = Omit<Reference, 'citationId'> & {
   citation: Citation;
 };
 
