@@ -109,19 +109,6 @@ const uniprotKBEntryDatasets = {
   ],
 };
 
-// const uniprotKBEntryDatasetsFlat = [
-//   Dataset.uniprotData,
-//   Dataset.features,
-//   Dataset.selectedFeatures,
-//   Dataset.genecentric,
-//   Dataset.variation,
-//   Dataset.coordinates,
-//   Dataset.proteomics,
-//   Dataset.proteomicsPtm,
-//   Dataset.antigen,
-//   Dataset.mutagenesis,
-// ];
-
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniparc && fileFormat === FileFormat.tsv;
@@ -614,38 +601,6 @@ const EntryDownload = ({
                   })}
                 </optgroup>
               ))}
-              {/* {uniprotKBEntryDatasetsFlat.map((datasetOption) => {
-                if (datasetOption === Dataset.selectedFeatures) {
-                  if (featureTypes) {
-                    const uniprotKBFeatures = featureTypes.filter(
-                      (type) => type !== 'Modified residue (large scale data)'
-                    );
-                    return (
-                      <option
-                        value={datasetOption}
-                        key={`${datasetOption} (${uniprotKBFeatures.join(
-                          ','
-                        )})`}
-                      >
-                        {datasetOption} {uniprotKBFeatures.join(', ')}
-                      </option>
-                    );
-                  }
-                  return null;
-                }
-                return (
-                  <option
-                    value={datasetOption}
-                    key={datasetOption}
-                    disabled={
-                      datasetOption !== Dataset.uniprotData &&
-                      !availableDatasets?.includes(datasetOption)
-                    }
-                  >
-                    {datasetOption}
-                  </option>
-                );
-              })} */}
             </select>
           </label>
         </fieldset>
