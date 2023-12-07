@@ -81,13 +81,14 @@ const NamesAndTaxonomySection = ({
               if (og.evidences) {
                 evidence = <UniProtKBEvidenceTag evidences={og.evidences} />;
               } else if (references) {
+                const type = og.geneEncodingType.toLowerCase();
+                const value = og.value?.toLowerCase();
                 // Mapping the evidences to the corresponding encoding type when the evidences are not parsed in the OG object itself (eg. P09130, P04737)
                 const associatedReferences = references.filter((r) =>
                   r.referenceComments?.some(
                     (comment) =>
-                      comment.value.toLowerCase() === og.value.toLowerCase() &&
-                      og.geneEncodingType.toLowerCase() ===
-                        comment.type.toLowerCase()
+                      comment.type.toLowerCase() === type &&
+                      comment.value.toLowerCase() === value
                   )
                 );
                 const evidences = associatedReferences.map((ref) => ({
