@@ -63,6 +63,8 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
+const uniprotkbFeatureFormats = [FileFormat.json, FileFormat.gff];
+
 const uniprotkbGeneCentricFormats = [
   FileFormat.json,
   FileFormat.xml,
@@ -83,10 +85,10 @@ const proteinsAPIVariationFormats = [
 
 export enum Dataset {
   uniprotData = 'Entry',
-  features = 'Features',
+  features = 'Features Only',
   selectedFeatures = 'Features - ',
-  genecentric = 'Gene-centric isoform mapping',
-  variation = 'Variations',
+  genecentric = 'Gene-centric Isoform Mapping',
+  variation = 'Variations (includes UniProtKB)',
   coordinates = 'Genomic Coordinates',
   proteomics = 'Proteomics',
   proteomicsPtm = 'Proteomics-PTM',
@@ -95,19 +97,15 @@ export enum Dataset {
 }
 
 const uniprotKBEntryDatasets = {
-  'UniProt API': [
-    Dataset.uniprotData,
-    Dataset.features,
-    Dataset.selectedFeatures,
-    Dataset.genecentric,
-  ],
-  'Proteins API': [
+  UniProtKB: [Dataset.uniprotData, Dataset.features, Dataset.selectedFeatures],
+  'Additional Datasets': [
     Dataset.variation,
     Dataset.coordinates,
     Dataset.proteomics,
     Dataset.proteomicsPtm,
     Dataset.antigen,
     Dataset.mutagenesis,
+    Dataset.genecentric,
   ],
 };
 
@@ -372,7 +370,7 @@ const EntryDownload = ({
         break;
       case Dataset.features:
       case Dataset.selectedFeatures:
-        setFileFormats([FileFormat.json]);
+        setFileFormats(uniprotkbFeatureFormats);
         break;
       case Dataset.genecentric:
         setFileFormats(uniprotkbGeneCentricFormats);
