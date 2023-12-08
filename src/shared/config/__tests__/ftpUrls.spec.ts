@@ -46,7 +46,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.xml
       )?.url
     ).toEqual(
-      'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz'
+      'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/uniprot_sprot.xml.gz'
     );
   });
   it('should not generate FTP link', () => {
@@ -64,7 +64,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.embeddings
       )?.url
     ).toEqual(
-      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5'
+      'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5'
     );
   });
   it('should generate FTP link to human proteome embeddings', () => {
@@ -74,7 +74,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.embeddings
       )?.url
     ).toEqual(
-      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/UP000005640_9606/per-protein.h5'
+      'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/embeddings/UP000005640_9606/per-protein.h5'
     );
   });
 });
