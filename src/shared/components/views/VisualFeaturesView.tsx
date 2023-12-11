@@ -113,11 +113,13 @@ function VisualFeaturesView<T extends GenericFeature>({
         length={sequence.length}
         layout="non-overlapping"
         height={trackHeight}
+        no-scroll
       />
       <sequenceElement.name
         sequence={sequence}
         length={sequence.length}
         height="20"
+        no-scroll
       />
     </>
   ) : null;
