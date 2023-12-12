@@ -36,9 +36,14 @@ import {
   getUniqueAuthorString,
   merge,
   mergeToMap,
+  getNumberReleaseEntries,
 } from './utils';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getLocationEntryPath,
+} from '../../../app/config/urls';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import styles from './styles/statistics-page.module.scss';
@@ -87,15 +92,13 @@ export type TableProps = {
   unreviewedData: StatisticsCategory;
 };
 
-// ☑️ ENTRY
-// ☑️ NEW_ENTRY
-// ☑️ NEW_ENTRY_AND_NEW_SEQUENCE
-// ☑️ ANNOTATION_UPDATED
-// ☑️ UPDATED_SEQUENCE
 const IntroductionEntriesTable = ({
   reviewedData,
   unreviewedData,
-}: TableProps) => {
+  releaseDate,
+}: TableProps & {
+  releaseDate: Date;
+}) => {
   const map = mergeToMap(reviewedData.items, unreviewedData.items);
   return (
     <>
@@ -150,6 +153,9 @@ const IntroductionEntriesTable = ({
               </>
             ),
             data: map.get('NEW_ENTRY')!,
+            query: `(date_created:[${
+              releaseDate.toISOString().split('T')[0]
+            } TO *])`,
           },
           {
             header: (
@@ -530,6 +536,10 @@ const StatisticsPage = () => {
     unreviewedStats.data.results.map((stat) => [stat.categoryName, stat])
   ) as CategoryToStatistics;
 
+  const reviewedNumberReleaseEntries = getNumberReleaseEntries(reviewedData);
+  const unreviewedNumberReleaseEntries =
+    getNumberReleaseEntries(unreviewedData);
+
   return (
     <SidebarLayout
       sidebar={
@@ -541,10 +551,7 @@ const StatisticsPage = () => {
       className={styles['statistics-page']}
       noOverflow
     >
-      <HTMLHead title={['UniProtKB', 'Statistics']}>
-        {/* Remove when this page is finished */}
-        <meta name="robots" content="noindex" />
-      </HTMLHead>
+      <HTMLHead title={['UniProtKB', 'Statistics']} />
       <h1>UniProtKB statistics</h1>
       <Card id="introduction">
         <h2>Introduction</h2>
@@ -561,9 +568,23 @@ const StatisticsPage = () => {
           </strong>
           .
         </p>
+        <p>
+          <Link
+            to={getLocationEntryPath(Location.HelpEntry, 'release-statistics')}
+          >
+            Previous release statistics are available from the UniProt FTP
+            server.
+          </Link>
+        </p>
+        <p>
+          Throughout this document, whenever a statistic has a corresponding
+          query, a link has been provided. In some instances, due to the nature
+          of the statistic, no query link is possible.
+        </p>
         <IntroductionEntriesTable
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
+          releaseDate={release.releaseDate}
         />
         <IntroductionSequenceTable
           reviewedData={reviewedData.SEQUENCE_STATS}
@@ -603,6 +624,8 @@ const StatisticsPage = () => {
           unreviewedData={unreviewedData}
           title="Most represented species"
           nameLabel="Species"
+          reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
+          unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
         <FrequencyTable
           reviewedData={reviewedData.ORGANISM_FREQUENCY}
@@ -660,6 +683,8 @@ const StatisticsPage = () => {
           unreviewedData={unreviewedData}
           countLabel="Citations"
           nameLabel="Journal"
+          reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
+          unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
       </Card>
       <Card id="statistics-for-some-line-type">
@@ -676,6 +701,8 @@ const StatisticsPage = () => {
           reviewedCaption={getUniqueAuthorString(reviewedData)}
           unreviewedCaption={getUniqueAuthorString(unreviewedData)}
           nameLabel="Publication type"
+          reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
+          unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
         <ReviewedUnreviewedStatsTable
           categoryName="FEATURES"
@@ -683,6 +710,8 @@ const StatisticsPage = () => {
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Feature"
+          reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
+          unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
         <ReviewedUnreviewedStatsTable
           categoryName="COMMENTS"
@@ -690,6 +719,8 @@ const StatisticsPage = () => {
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Comment"
+          reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
+          unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
         <ReviewedUnreviewedStatsTable
           categoryName="CROSS_REFERENCE"
@@ -697,6 +728,8 @@ const StatisticsPage = () => {
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Cross reference"
+          reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
+          unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
       </Card>
       <Card id="amino-acid-composition">
@@ -714,11 +747,13 @@ const StatisticsPage = () => {
             </div>
             <StatsTable
               key="reviewed"
+              dataset="reviewed"
               category={setAminoAcidsTotalCount(
                 reviewedData.SEQUENCE_AMINO_ACID
               )}
               nameLabel="Amino acid"
               alwaysExpand
+              numberReleaseEntries={reviewedNumberReleaseEntries}
             />
           </div>
           <div className={styles['side-by-side']}>
@@ -734,12 +769,14 @@ const StatisticsPage = () => {
               </LazyComponent>
             </div>
             <StatsTable
-              key="reviewed"
+              key="unreviewed"
+              dataset="unreviewed"
               category={setAminoAcidsTotalCount(
                 unreviewedData.SEQUENCE_AMINO_ACID
               )}
               nameLabel="Amino acid"
               alwaysExpand
+              numberReleaseEntries={unreviewedNumberReleaseEntries}
             />
           </div>
         </ReviewedUnreviewedTabs>
@@ -752,6 +789,8 @@ const StatisticsPage = () => {
           reviewedData={getEncodedLocations(reviewedData)}
           unreviewedData={getEncodedLocations(unreviewedData)}
           nameLabel="Encoded location"
+          reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
+          unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
         <ReviewedSequenceCorrections data={reviewedData} />
       </Card>

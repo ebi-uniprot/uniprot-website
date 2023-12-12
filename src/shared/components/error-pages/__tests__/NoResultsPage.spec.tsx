@@ -7,7 +7,7 @@ import NoResultsPage from '../NoResultsPage';
 describe('NoResultsPage component', () => {
   it('should render', () => {
     const { asFragment } = customRender(<NoResultsPage />);
-    expect(screen.getByTestId('no-results-page')).toBeInTheDocument();
+    expect(screen.getByText(/no results were found/)).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });

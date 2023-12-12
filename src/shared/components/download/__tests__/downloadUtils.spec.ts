@@ -281,7 +281,7 @@ describe('Download Utils', () => {
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
       filename: 'uniprot_sprot.fasta.gz',
-      url: 'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz',
+      url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/uniprot_sprot.fasta.gz',
     });
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
@@ -701,7 +701,7 @@ describe('Download Utils', () => {
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
     expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
       filename: 'uniprot_sprot/per-protein.h5',
-      url: 'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5',
+      url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5',
     });
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(true);

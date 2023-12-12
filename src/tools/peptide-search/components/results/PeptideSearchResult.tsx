@@ -23,6 +23,7 @@ import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import { DowntimeWarning } from '../../../components/DowntimeWarning';
 
 import toolsURLs from '../../../config/urls';
 import { apiPrefix } from '../../../../shared/config/apiUrls';
@@ -275,6 +276,7 @@ const PeptideSearchResult = () => {
         }
         resultsCount={total}
       />
+      <DowntimeWarning>Peptide Search service</DowntimeWarning>
       <Tabs
         active={match.params.subPage}
         className={jobResultLoading ? helper.stale : undefined}

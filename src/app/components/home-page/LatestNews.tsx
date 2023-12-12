@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'In times of perplexity, every now and then it is better to deal with things yourself. It can be a time-saver, and sometimes, too, an energy-saver. If faced, say, by an oncoming downpour, it is wiser to run for shelter rather than wait for someone to bring you an umbrella. Such decisions also exist at the cellular level. Take our immune system for instance. When attacked by a virus, our body begins by rapidly firing off a first round of artillery as it awaits further and more complex lines of defence that involve myriads of other factors.';
+  'The further south and east you go, the spicier food tends to get. A spice many of us store in the kitchen cupboard are chili peppers. Fresh or dried, crushed or finely sliced and thrown into a sauce, chili peppers can set your palate on fire to varying degrees.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -446,21 +446,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/262/"
+            url="https://www.proteinspotlight.org/back_issues/263/"
             noIcon
           >
-            Self-reliant
+            Hot
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/262/"
+          url="https://www.proteinspotlight.org/back_issues/263/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt262.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt263.jpg"
             alt=""
             width="123"
             height="129"

@@ -79,18 +79,9 @@ const apiUrls = {
   // uniprotkb query builder terms
   queryBuilderTerms: (namespace: Namespace) =>
     joinUrl(apiPrefix, 'configure', namespace, 'search-fields'),
-  // Annotation evidence used by query builder
-  evidences: {
-    annotation: joinUrl(apiPrefix, 'configure/uniprotkb/annotation_evidences'),
-    // Go evidences used by advanced go search
-    // "itemType": "goterm",
-    go: joinUrl(apiPrefix, 'configure/uniprotkb/go_evidences'),
-  },
   // Database cross references used
   allDatabases: (namespace: Namespace) =>
     joinUrl(apiPrefix, 'configure', namespace, 'allDatabases'),
-  // Database cross references used by query builder
-  databaseXrefs: joinUrl(apiPrefix, 'configure/uniprotkb/databases'),
   // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace, isEntry?: boolean) =>
     joinUrl(

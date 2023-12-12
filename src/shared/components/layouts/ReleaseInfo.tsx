@@ -3,7 +3,11 @@ import cn from 'classnames';
 
 import useUniProtDataVersion from '../../hooks/useUniProtDataVersion';
 
-import { getLocationEntryPath, Location } from '../../../app/config/urls';
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
 import blurLoading from '../../styles/blur-loading.module.scss';
@@ -43,9 +47,7 @@ const ReleaseInfo = () => {
         )}
       </span>
       {' | '}
-      <Link to={getLocationEntryPath(Location.HelpEntry, 'release-statistics')}>
-        Statistics
-      </Link>
+      <Link to={LocationToPath[Location.UniProtKBStatistics]}>Statistics</Link>
     </span>
   );
 };

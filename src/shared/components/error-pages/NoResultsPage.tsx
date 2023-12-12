@@ -1,8 +1,14 @@
+import { lazy, ReactElement, Suspense } from 'react';
 import { Message } from 'franklin-sites';
 
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import ErrorPage from './ErrorPage';
 
 import ArtWork from './svgs/no-results-found.img.svg';
+
+const UniProtFooter = lazy(
+  () => import(/* webpackChunkName: "footer" */ '../layouts/UniProtFooter')
+);
 
 const ErrorMessage = () => (
   <Message level="info">
@@ -14,15 +20,20 @@ const ErrorMessage = () => (
 );
 
 type Props = {
-  message?: JSX.Element;
+  children?: ReactElement;
 };
 
-const NoResultsPage = ({ message = <ErrorMessage /> }: Props) => (
-  <ErrorPage
-    artwork={<img src={ArtWork} width="400" height="400" alt="" />}
-    message={message}
-    data-testid="no-results-page"
-  />
+const NoResultsPage = ({ children = <ErrorMessage /> }: Props) => (
+  <>
+    <ErrorPage artwork={<img src={ArtWork} width="400" height="400" alt="" />}>
+      {children}
+    </ErrorPage>
+    <ErrorBoundary>
+      <Suspense fallback={null}>
+        <UniProtFooter />
+      </Suspense>
+    </ErrorBoundary>
+  </>
 );
 
 export default NoResultsPage;

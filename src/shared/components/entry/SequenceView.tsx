@@ -126,6 +126,29 @@ export const SequenceInfo = ({
 
 const firstIsoformRE = /-1$/;
 
+const SeeAlso = ({ isoform }: { isoform: string }) => (
+  <>
+    sequence in{' '}
+    <Link
+      to={{
+        pathname: LocationToPath[Location.UniParcResults],
+        search: `query=(isoform:${isoform})&direct`,
+      }}
+    >
+      UniParc
+    </Link>{' '}
+    or sequence clusters in{' '}
+    <Link
+      to={{
+        pathname: LocationToPath[Location.UniRefResults],
+        search: `query=(uniprot_id:${isoform.replace(firstIsoformRE, '')})`,
+      }}
+    >
+      UniRef
+    </Link>
+  </>
+);
+
 type IsoformInfoProps = {
   isoformData: Isoform;
   canonicalAccession: string;
@@ -157,31 +180,7 @@ export const IsoformInfo = ({
     },
     {
       title: 'See also',
-      content: (
-        <>
-          sequence in{' '}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniParcResults],
-              search: `query=(isoform:${isoformData.isoformIds[0]})&direct`,
-            }}
-          >
-            UniParc
-          </Link>{' '}
-          or sequence clusters in{' '}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniRefResults],
-              search: `query=(uniprot_id:${isoformData.isoformIds[0].replace(
-                firstIsoformRE,
-                ''
-              )})`,
-            }}
-          >
-            UniRef
-          </Link>
-        </>
-      ),
+      content: <SeeAlso isoform={isoformData.isoformIds[0]} />,
     },
     {
       title: 'Differences from canonical',
@@ -464,6 +463,15 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     return (
       <>
         {infoListComponent}
+        <InfoList
+          infoData={[
+            {
+              title: 'See also',
+              content: <SeeAlso isoform={accession} />,
+            },
+          ]}
+          isCompact
+        />
         {canonicalComponent}
       </>
     );

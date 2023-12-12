@@ -37,6 +37,10 @@
     padding: $global-padding * 0.25 $global-padding * 0.5;
     border: 1px solid $colour-sea-blue;
     border-collapse: collapse;
+
+    &.indent {
+      padding-inline-start: 1.5 * $global-padding;
+    }
   }
 
   :global(.tabs) {

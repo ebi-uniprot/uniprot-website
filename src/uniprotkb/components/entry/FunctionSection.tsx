@@ -23,7 +23,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
-import { hasContent, pluralise } from '../../../shared/utils/utils';
+import { hasContent } from '../../../shared/utils/utils';
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
@@ -167,10 +167,11 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   return (
     <>
       {title && <h3 data-article-id="cofactor">{title}</h3>}
-      <div className="text-block">
-        Protein has {cofactors.length} cofactor binding{' '}
-        {pluralise('site', cofactors.length)}:
-      </div>
+      {cofactors.length > 1 && (
+        <div className="text-block">
+          Protein has several cofactor binding sites:
+        </div>
+      )}
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>

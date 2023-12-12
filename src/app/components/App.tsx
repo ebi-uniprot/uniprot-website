@@ -555,14 +555,7 @@ const App = () => {
               )}
             />
             {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
-            <Route
-              path="*"
-              render={() => (
-                <SingleColumnLayout>
-                  <ResourceNotFoundPage />
-                </SingleColumnLayout>
-              )}
-            />
+            <Route path="*" component={ResourceNotFoundPage} />
           </Switch>
         </Suspense>
       </BaseLayout>

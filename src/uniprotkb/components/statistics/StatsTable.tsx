@@ -27,12 +27,46 @@ const sortByCount = new Set<CategoryName>([
   'TOP_ORGANISM',
 ]);
 
+const commentNameToHelpArticle = new Map([
+  ['ACTIVITY_REGULATION', 'activity_regulation'],
+  ['ALLERGEN', 'allergenic_properties'],
+  ['ALTERNATIVE_PRODUCTS', 'alternative_products'],
+  ['BIOPHYSICOCHEMICAL_PROPERTIES', 'biophysicochemical_properties'],
+  ['BIOTECHNOLOGY', 'biotechnological_use'],
+  ['CATALYTIC_ACTIVITY', 'catalytic_activity'],
+  ['CAUTION', 'caution'],
+  ['COFACTOR', 'cofactor'],
+  ['DEVELOPMENTAL_STAGE', 'developmental_stage'],
+  ['DISEASE', 'involvement_in_disease'],
+  ['DISRUPTION_PHENOTYPE', 'disruption_phenotype'],
+  ['DOMAIN', 'domain'],
+  ['FUNCTION', 'function'],
+  ['INDUCTION', 'induction'],
+  ['INTERACTION', 'binary_interactions'],
+  ['MASS_SPECTROMETRY', 'mass_spectrometry'],
+  ['MISCELLANEOUS', 'miscellaneous'],
+  ['PATHWAY', 'pathway'],
+  ['PHARMACEUTICAL', 'pharmaceutical_use'],
+  ['POLYMORPHISM', 'polymorphism'],
+  ['PTM', 'post-translational_modification'],
+  ['RNA_EDITING', 'rna_editing'],
+  ['SEQUENCE_CAUTION', 'sequence_caution'],
+  ['SIMILARITY', 'sequence_similarities'],
+  ['SUBCELLULAR_LOCATION', 'subcellular_location'],
+  ['SUBUNIT', 'subunit_structure'],
+  ['TISSUE_SPECIFICITY', 'tissue_specificity'],
+  ['TOXIC_DOSE', 'toxic_dose'],
+  ['WEBRESOURCE', 'web_resource'],
+]);
+
 type StatsTableProps = {
   category: StatisticsCategory;
   alwaysExpand?: boolean;
   nameLabel?: string;
   countLabel?: string;
   caption?: string;
+  numberReleaseEntries: number;
+  dataset: 'reviewed' | 'unreviewed';
 };
 
 const StatsTable = ({
@@ -41,10 +75,11 @@ const StatsTable = ({
   nameLabel,
   countLabel,
   caption,
+  numberReleaseEntries,
+  dataset,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
-
   const onExpandCollapseClick = useCallback(() => {
     if (expand) {
       tableRef.current?.scrollIntoView();
@@ -88,7 +123,12 @@ const StatsTable = ({
               </th>
             )}
             {hasPercent && hasOnlyEntryCounts && <th>Percent</th>}
-            {/* {!hasOnlyEntryCounts && <th>Per-entry average</th>} */}
+            {!hasOnlyEntryCounts && (
+              <th>
+                Average {countLabel?.toLowerCase() || 'count'} per {dataset}{' '}
+                entry
+              </th>
+            )}
             {hasDescription && <th>Description</th>}
           </tr>
         </thead>
@@ -100,7 +140,18 @@ const StatsTable = ({
             return (
               <tr key={row.name}>
                 {/* Name */}
-                <td>{row.label || row.name}</td>
+                <td
+                  data-article-id={
+                    (category.categoryName === 'COMMENTS' &&
+                      commentNameToHelpArticle.has(row.name) &&
+                      commentNameToHelpArticle.get(row.name)) ||
+                    (category.categoryName === 'FEATURES' &&
+                      row.name.toLowerCase()) ||
+                    undefined
+                  }
+                >
+                  {row.label || row.name}
+                </td>
                 {/* Count */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>
@@ -126,12 +177,11 @@ const StatsTable = ({
                   </td>
                 )}
                 {/* Per-entry average */}
-                {/* WRONG: This needs to be divided by number of entries in data release */}
-                {/* {!hasOnlyEntryCounts && (
-                <td className={styles.end}>
-                  {(row.count / row.entryCount).toFixed(2)}
-                </td>
-              )} */}
+                {!hasOnlyEntryCounts && (
+                  <td className={styles.end}>
+                    {(row.count / numberReleaseEntries).toFixed(2)}
+                  </td>
+                )}
                 {/* Description */}
                 {hasDescription && <td>{row.description}</td>}
               </tr>

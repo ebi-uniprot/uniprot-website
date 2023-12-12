@@ -1,0 +1,49 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+.catalytic-activity {
+  :global(.decorated-list-item__content) {
+    width: 500px;
+  }
+
+  :global(.info-list) > li:not(:last-child) {
+    border-bottom: 0.5px solid black;
+    margin-bottom: $global-margin;
+    padding-bottom: $global-padding;
+  }
+  .rhea-reaction-visualizer {
+    &__toggle {
+      padding-top: $global-padding;
+
+      svg {
+        position: relative;
+        top: -0.6rem;
+        margin-left: 0.5rem;
+      }
+    }
+
+    &__component {
+      width: 100%;
+      overflow-x: auto;
+    }
+  }
+
+  :global(.zoomLink) {
+    cursor: pointer;
+  }
+
+  :global(.zoom-image-container) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  :global(.ec-number) {
+    font-weight: bold;
+    padding-right: 0.333rem;
+  }
+
+  :global(.rhea-reaction-source) {
+    display: none;
+  }
+}

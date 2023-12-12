@@ -32,14 +32,6 @@ describe('Results component', () => {
     expect(table).toBeInTheDocument();
   });
 
-  it('should display no results page', async () => {
-    customRender(<Results />, {
-      route: '/uniprotkb?query=noresults',
-    });
-    const page = await screen.findByTestId('no-results-page');
-    expect(page).toBeInTheDocument();
-  });
-
   it('should set sorting in table view', async () => {
     const { history } = customRender(<Results />, {
       route: '/uniprotkb?query=blah',

@@ -7,13 +7,11 @@ import ErrorPage from '../ErrorPage';
 describe('ErrorPage component', () => {
   it('should render', () => {
     const { asFragment } = customRender(
-      <ErrorPage
-        artwork={<img alt="" />}
-        message="test message"
-        data-testid="test-id"
-      />
+      <ErrorPage artwork={<img alt="" />} data-testid="test-id">
+        test message
+      </ErrorPage>
     );
-    expect(screen.getByTestId('test-id')).toBeInTheDocument();
+    expect(screen.getByText('test message')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });
