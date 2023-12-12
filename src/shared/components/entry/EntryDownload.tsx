@@ -41,8 +41,6 @@ import {
 } from '../../utils/gtagEvents';
 import { Column } from '../../config/columns';
 import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-import { SearchResults } from '../../types/results';
-import { GeneCentricData } from '../../../uniprotkb/components/entry/ComputationallyMappedSequences';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
@@ -65,13 +63,6 @@ const formatMap = new Map<Namespace, FileFormat[]>([
 
 const uniprotkbFeatureFormats = [FileFormat.json, FileFormat.gff];
 
-const uniprotkbGeneCentricFormats = [
-  FileFormat.json,
-  FileFormat.xml,
-  FileFormat.list,
-  FileFormat.fasta,
-];
-
 const proteinsAPICommonFormats = [
   FileFormat.json,
   FileFormat.xml,
@@ -87,7 +78,6 @@ export enum Dataset {
   uniprotData = 'Entry',
   features = 'Features Only',
   selectedFeatures = 'Features - ',
-  genecentric = 'Gene-centric Isoform Mapping',
   variation = 'Variations (includes UniProtKB)',
   coordinates = 'Genomic Coordinates',
   proteomics = 'Proteomics',
@@ -105,7 +95,6 @@ const uniprotKBEntryDatasets = {
     Dataset.proteomicsPtm,
     Dataset.antigen,
     Dataset.mutagenesis,
-    Dataset.genecentric,
   ],
 };
 
@@ -159,8 +148,6 @@ const getEntryDownloadUrl = (
         fields: fields?.filter(Boolean).join(','),
       });
     }
-    case Dataset.genecentric:
-      return apiUrls.genecentric(accession, fileFormat);
     case Dataset.coordinates:
       return proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
@@ -278,12 +265,6 @@ const EntryDownload = ({
 
   const availableDatasets = [Dataset.features];
 
-  const { data: geneCentricData } = useDataApi<SearchResults<GeneCentricData>>(
-    namespace === Namespace.uniprotkb && accession
-      ? apiUrls.genecentric(accession)
-      : ''
-  );
-
   const proteinsApiVariation = useDataApi(
     namespace === Namespace.uniprotkb && accession
       ? joinUrl(proteinsApi.variation(accession))
@@ -326,11 +307,6 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
-  if (geneCentricData?.results) {
-    if (geneCentricData.results[0]?.relatedProteins?.length) {
-      availableDatasets.push(Dataset.genecentric);
-    }
-  }
   if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
     availableDatasets.push(Dataset.variation);
   }
@@ -371,9 +347,6 @@ const EntryDownload = ({
       case Dataset.features:
       case Dataset.selectedFeatures:
         setFileFormats(uniprotkbFeatureFormats);
-        break;
-      case Dataset.genecentric:
-        setFileFormats(uniprotkbGeneCentricFormats);
         break;
       case Dataset.variation:
         setFileFormats(proteinsAPIVariationFormats);

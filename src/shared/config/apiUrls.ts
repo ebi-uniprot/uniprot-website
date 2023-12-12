@@ -94,10 +94,9 @@ const apiUrls = {
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(apiPrefix, namespace, 'search'),
   download: (namespace: Namespace) => joinUrl(apiPrefix, namespace, 'stream'),
-  genecentric: (accession: string, format?: FileFormat) =>
+  genecentric: (accession: string) =>
     stringifyUrl(joinUrl(apiPrefix, 'genecentric/search'), {
       query: `accession:${accession}`,
-      format: format ? fileFormatToUrlParameter[format] : undefined,
     }),
   idMappingFields: joinUrl(apiPrefix, 'configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace, columns?: Column[]) => {

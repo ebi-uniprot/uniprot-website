@@ -1,4 +1,4 @@
-import { useMemo, ReactNode, useState } from 'react';
+import { useMemo, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { DataTable, Message } from 'franklin-sites';
 
@@ -7,8 +7,6 @@ import AlignButton from '../../../shared/components/action-buttons/Align';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
-import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
-import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
@@ -25,7 +23,6 @@ import { Flag } from '../../adapters/sequenceConverter';
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { Sequence } from '../../../shared/types/sequence';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { Dataset } from '../../../shared/components/entry/EntryDownload';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
@@ -89,7 +86,6 @@ const ComputationalyMappedSequences = ({
 }) => {
   const smallScreen = useSmallScreen();
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
-  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   // Hooks
   const { data, loading, error, status } = useDataApi<
@@ -121,9 +117,6 @@ const ComputationalyMappedSequences = ({
     return null;
   }
 
-  const handleToggleDownload = () =>
-    setDisplayDownloadPanel(!displayDownloadPanel);
-
   return (
     <div className="text-block">
       <h3 data-article-id="gene_centric_isoform_mapping">
@@ -138,12 +131,6 @@ const ComputationalyMappedSequences = ({
         </Message>
       ) : (
         <>
-          {displayDownloadPanel && (
-            <EntryDownloadPanel
-              handleToggle={handleToggleDownload}
-              dataset={Dataset.genecentric}
-            />
-          )}
           <p>
             There {pluralise('is', filteredData.length, 'are')}{' '}
             {filteredData.length} potential{' '}
@@ -152,7 +139,6 @@ const ComputationalyMappedSequences = ({
           <div className="button-group">
             <AlignButton selectedEntries={selectedEntries} />
             <AddToBasket selectedEntries={selectedEntries} />
-            <EntryDownloadButton handleToggle={handleToggleDownload} />
             <Link
               to={{
                 pathname: LocationToPath[Location.UniProtKBResults],
