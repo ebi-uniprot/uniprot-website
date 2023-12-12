@@ -3,15 +3,19 @@ import joinUrl from 'url-join';
 
 import { FileFormat } from '../types/resultsDownload';
 
-// TODO: revert once PIR up and running again
-// const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
-const ftpUniProt = 'https://ftp.ebi.ac.uk/pub/databases/uniprot/';
+const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
 const ftpUrls = {
   uniprot: ftpUniProt,
-  uniprotkb: joinUrl(ftpUniProt, 'knowledgebase'),
-  uniprotkbReviewed: joinUrl(ftpUniProt, 'knowledgebase/uniprot_sprot'),
-  uniprotkbUnreviewed: joinUrl(ftpUniProt, 'knowledgebase/uniprot_trembl'),
+  uniprotkb: joinUrl(ftpUniProt, 'knowledgebase/complete'),
+  uniprotkbReviewed: joinUrl(
+    ftpUniProt,
+    'knowledgebase/complete/uniprot_sprot'
+  ),
+  uniprotkbUnreviewed: joinUrl(
+    ftpUniProt,
+    'knowledgebase/complete/uniprot_trembl'
+  ),
   referenceProteomes: (id: string, superkingdom: string, taxonId: number) =>
     joinUrl(
       ftpUniProt,

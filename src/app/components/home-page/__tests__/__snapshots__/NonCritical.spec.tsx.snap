@@ -1027,7 +1027,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
       <a
         class="external-link tile__main-content"
-        href="https://ftp.ebi.ac.uk/pub/databases/uniprot/"
+        href="https://ftp.uniprot.org/pub/databases/uniprot/"
         rel="noopener"
         target="_blank"
       >
