@@ -20,6 +20,7 @@ import {
 } from '../../../app/config/urls';
 import { stringifyUrl } from '../../utils/url';
 
+import { fileFormatToUrlParameter } from '../../config/resultsDownload';
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
 import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
 import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
@@ -192,6 +193,7 @@ const DownloadAnchor = ({
       columns
     )}
     rel="noreferrer"
+    download={`${accession}.${fileFormatToUrlParameter[fileFormat]}`}
   >
     {fileFormat}
   </a>
