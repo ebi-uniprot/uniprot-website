@@ -41,6 +41,7 @@ import {
 } from '../../utils/gtagEvents';
 import { Column } from '../../config/columns';
 import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
@@ -264,7 +265,13 @@ const EntryDownload = ({
     return featuresMap;
   }, [resultFieldsData]);
 
-  const availableDatasets = [Dataset.features];
+  const availableDatasets: Dataset[] = [];
+
+  const entryFeatures = useDataApi<UniProtkbAPIModel>(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.entry(accession, namespace)
+      : ''
+  );
 
   const proteinsApiVariation = useDataApi(
     namespace === Namespace.uniprotkb && accession
@@ -308,6 +315,11 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
+  if (!entryFeatures.loading && entryFeatures.data) {
+    if (entryFeatures.data?.features) {
+      availableDatasets.push(Dataset.features);
+    }
+  }
   if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
     availableDatasets.push(Dataset.variation);
   }

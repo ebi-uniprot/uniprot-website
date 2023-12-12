@@ -45,7 +45,9 @@ const FeatureViewer = ({ accession }: { accession: string }) => {
           dataset={Dataset.features}
         />
       )}
-      <EntryDownloadButton handleToggle={handleToggleDownload} />
+      {data?.features && (
+        <EntryDownloadButton handleToggle={handleToggleDownload} />
+      )}
       <protvistaElement.name accession={accession} />
     </section>
   );
