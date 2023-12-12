@@ -659,6 +659,9 @@ const EntryDownload = ({
           target="_blank"
           rel="noreferrer"
           onClick={() => onClose('download', 'sync')}
+          download={`${accession}${
+            selectedFormat ? `.${fileFormatToUrlParameter[selectedFormat]}` : ''
+          }`}
         >
           Download
         </a>
