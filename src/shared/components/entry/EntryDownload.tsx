@@ -69,10 +69,11 @@ const proteinsAPICommonFormats = [
   FileFormat.gff,
 ];
 
-const proteinsAPIVariationFormats = [
-  ...proteinsAPICommonFormats,
-  FileFormat.peff,
-];
+// once it is OK to expose peff format, uncomment the following
+// const proteinsAPIVariationFormats = [
+//   ...proteinsAPICommonFormats,
+//   FileFormat.peff,
+// ];
 
 export enum Dataset {
   uniprotData = 'Entry',
@@ -348,9 +349,10 @@ const EntryDownload = ({
       case Dataset.selectedFeatures:
         setFileFormats(uniprotkbFeatureFormats);
         break;
+      // case Dataset.variation:
+      //   setFileFormats(proteinsAPIVariationFormats);
+      //   break;
       case Dataset.variation:
-        setFileFormats(proteinsAPIVariationFormats);
-        break;
       case Dataset.proteomics:
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
