@@ -45,7 +45,6 @@ import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverte
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
-import downloadStyles from './styles/entry-download.module.scss';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.uniprotkb, uniProtKBFFED],
@@ -549,11 +548,7 @@ const EntryDownload = ({
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
               {Object.entries(uniprotKBEntryDatasets).map(([key, value]) => (
-                <optgroup
-                  label={key}
-                  key={key}
-                  className={downloadStyles['select-group-label']}
-                >
+                <optgroup label={key} key={key}>
                   {value.map((datasetOption) => {
                     if (datasetOption === Dataset.selectedFeatures) {
                       if (featureTypes) {
