@@ -55,6 +55,7 @@ type SequenceInfoProps = {
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
+  showSequence?: boolean;
   openByDefault?: boolean;
 };
 
@@ -62,6 +63,7 @@ export const SequenceInfo = ({
   isoformId,
   isoformSequence,
   lastUpdateDate,
+  showSequence = true,
   openByDefault = false,
 }: SequenceInfoProps) => {
   const [isoformToFetch, setIsoformToFetch] = useState<string>();
@@ -104,22 +106,26 @@ export const SequenceInfo = ({
         </div>
       }
     >
-      <Sequence
-        sequence={dataToDisplay?.value}
-        onShowSequence={() => setIsoformToFetch(isoformId)}
-        infoData={infoData}
-        accession={isoformId}
-        downloadUrl={apiUrls.sequenceFasta(isoformId)}
-        onBlastClick={() =>
-          history.push(LocationToPath[Location.Blast], {
-            parameters: { sequence: dataToDisplay?.value },
-          })
-        }
-        addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
-        isCollapsible={!openByDefault}
-        isLoading={loading}
-        onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
-      />
+      {showSequence ? (
+        <Sequence
+          sequence={dataToDisplay?.value}
+          onShowSequence={() => setIsoformToFetch(isoformId)}
+          infoData={infoData}
+          accession={isoformId}
+          downloadUrl={apiUrls.sequenceFasta(isoformId)}
+          onBlastClick={() =>
+            history.push(LocationToPath[Location.Blast], {
+              parameters: { sequence: dataToDisplay?.value },
+            })
+          }
+          addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
+          isCollapsible={!openByDefault}
+          isLoading={loading}
+          onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
+        />
+      ) : (
+        'Sequence is not available'
+      )}
     </LazyComponent>
   );
 };
@@ -413,6 +419,9 @@ export const IsoformView = ({
                 <SequenceInfo
                   isoformId={isoform.isoformIds[0]}
                   openByDefault={isIsoformPage}
+                  showSequence={
+                    isoform.isoformSequenceStatus !== 'Not described'
+                  }
                 />
               )}
             </>
