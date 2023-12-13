@@ -20,7 +20,6 @@ import {
 } from '../../../app/config/urls';
 import { stringifyUrl } from '../../utils/url';
 
-import { fileFormatToUrlParameter } from '../../config/resultsDownload';
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
 import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
 import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
@@ -193,7 +192,7 @@ const DownloadAnchor = ({
       columns
     )}
     rel="noreferrer"
-    download={`${accession}.${fileFormatToUrlParameter[fileFormat]}`}
+    download
   >
     {fileFormat}
   </a>
@@ -584,7 +583,10 @@ const EntryDownload = ({
                           !availableDatasets?.includes(datasetOption)
                         }
                       >
-                        {datasetOption}
+                        {datasetOption}&emsp;&emsp;&emsp;
+                        {datasetOption !== Dataset.uniprotData &&
+                          !availableDatasets?.includes(datasetOption) &&
+                          '(No data available)'}
                       </option>
                     );
                   })}
@@ -659,9 +661,7 @@ const EntryDownload = ({
           target="_blank"
           rel="noreferrer"
           onClick={() => onClose('download', 'sync')}
-          download={`${accession}${
-            selectedFormat ? `.${fileFormatToUrlParameter[selectedFormat]}` : ''
-          }`}
+          download
         >
           Download
         </a>
