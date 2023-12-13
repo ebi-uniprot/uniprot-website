@@ -1,4 +1,4 @@
-import { getTextProcessingParts } from '..';
+import { getTextProcessingParts } from '../regexes';
 
 const testCases: [string, string[]][] = [
   [

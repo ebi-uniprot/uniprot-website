@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Loader, Message } from 'franklin-sites';
 
 import Entries from './Entries';
 import ContactLink from '../../../../../contact/components/ContactLink';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
+import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
+import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 
@@ -11,6 +14,7 @@ import { groupCoordinates } from './utils';
 
 import { Isoform } from '../../../../types/commentTypes';
 import { GenomicEntry } from './types';
+import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
 
 import tabsStyles from '../styles/tabs-styles.module.scss';
 
@@ -25,6 +29,7 @@ const GenomicCoordinates = ({
   isoforms,
   title,
 }: GenomicCoordinatesProps) => {
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   let isoformIDs = [
     // Only if there are non-canonical isoforms, otherwise will be empty
     ...(isoforms?.flatMap((i) => i.isoformIds) || []),
@@ -68,6 +73,9 @@ const GenomicCoordinates = ({
 
   const groupedData = groupCoordinates(data);
 
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
+
   return (
     <section className="wider-tab-content hotjar-margin">
       <Message level="info">
@@ -75,10 +83,17 @@ const GenomicCoordinates = ({
         <ContactLink>get in touch</ContactLink> to provide feedback about it
       </Message>
       {title && <h2>{title}</h2>}
+      {displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          dataset={Dataset.coordinates}
+        />
+      )}
       {/* <p>
         Mapping based on reference genome assembly:{' '}
         <i>unknown (information pending)</i>
       </p> */}
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
       {Object.entries(groupedData).map(([gene, data], index) => (
         <Entries
           key={gene}

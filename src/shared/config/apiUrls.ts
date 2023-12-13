@@ -482,24 +482,53 @@ export const getDownloadUrl = ({
   return stringifyUrl(endpoint, parameters);
 };
 
-const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
+export const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
 export const proteinsApi = {
-  coordinates: (accession?: string | string[]) => {
+  coordinates: (accession?: string | string[], format?: FileFormat) => {
     const url = joinUrl(proteinsApiPrefix, 'coordinates');
     if (accession) {
       if (Array.isArray(accession)) {
         return stringifyUrl(url, { accession });
       }
-      return joinUrl(url, accession);
+      const accessionUrl = joinUrl(url, accession);
+      return stringifyUrl(accessionUrl, {
+        format: format ? fileFormatToUrlParameter[format] : undefined,
+      });
     }
     return url;
   },
-  variation: (accession: string) =>
-    joinUrl(proteinsApiPrefix, 'variation', accession),
+  variation: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'variation', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
   proteins: (accession: string) =>
     joinUrl(proteinsApiPrefix, 'proteins', accession),
-  proteomicsPtm: (accession: string) =>
-    joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession),
+  proteomics: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'proteomics', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
+  proteomicsPtm: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
+  mutagenesis: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'mutagenesis', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
+  antigen: (accession: string, format?: FileFormat) => {
+    const url = joinUrl(proteinsApiPrefix, 'antigen', accession);
+    return stringifyUrl(url, {
+      format: format ? fileFormatToUrlParameter[format] : undefined,
+    });
+  },
 };
 
 // Help endpoints

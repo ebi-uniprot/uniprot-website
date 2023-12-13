@@ -1,6 +1,13 @@
-import { Button, CodeBlock, CopyIcon, LongNumber } from 'franklin-sites';
+import {
+  Button,
+  CodeBlock,
+  CopyIcon,
+  ExternalLink,
+  LongNumber,
+} from 'franklin-sites';
 import { useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
@@ -15,6 +22,7 @@ import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './downloadUtils';
+import { proteinsApiPrefix } from '../../config/apiUrls';
 
 import { Namespace } from '../../types/namespaces';
 
@@ -46,6 +54,7 @@ type Props = {
   onCopy: () => void;
   disableSearch?: boolean;
   disableStream?: boolean;
+  isEntry?: boolean;
 };
 
 const DownloadAPIURL = ({
@@ -54,6 +63,7 @@ const DownloadAPIURL = ({
   onCopy,
   disableSearch,
   disableStream,
+  isEntry,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
@@ -81,6 +91,37 @@ const DownloadAPIURL = ({
 
   const batchSize = 500;
   const searchURL = getSearchURL(apiURL, batchSize);
+
+  if (isEntry) {
+    return (
+      <div className={styles['api-url']} ref={scrollRef}>
+        <h4>API URL</h4>
+        <CodeBlock lightMode>{apiURL}</CodeBlock>
+        <section className={cn('button-group', styles['entry-button-group'])}>
+          <ExternalLink
+            className={cn('button', 'tertiary')}
+            url={
+              apiURL.includes('proteins/api')
+                ? `${proteinsApiPrefix}/doc/`
+                : generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'api',
+                  })
+            }
+          >
+            API Documentation
+          </ExternalLink>
+          <Button
+            variant="primary"
+            className={styles['copy-button']}
+            onClick={() => handleCopyURL(apiURL)}
+          >
+            <CopyIcon />
+            Copy
+          </Button>
+        </section>
+      </div>
+    );
+  }
 
   if (disableSearch && disableStream) {
     return (

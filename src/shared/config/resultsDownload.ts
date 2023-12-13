@@ -38,6 +38,7 @@ export const fileFormatToContentType: Record<FileFormat, ContentType> = {
   [FileFormat.jsonIdMappingFromTo]: ContentType.json,
   [FileFormat.obo]: ContentType.obo,
   [FileFormat.embeddings]: ContentType.embeddings,
+  [FileFormat.peff]: ContentType.peff,
 };
 
 export const fileFormatToUrlParameter: Record<FileFormat, string> = {
@@ -59,6 +60,7 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
   [FileFormat.jsonIdMappingFromTo]: 'json',
   [FileFormat.obo]: 'obo',
   [FileFormat.embeddings]: 'h5',
+  [FileFormat.peff]: 'peff',
 };
 
 export const fileFormatsWithColumns = new Set([

@@ -19,7 +19,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 import apiUrls from '../../shared/config/apiUrls';
 
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
-import { reUniProtKBAccession } from '../../uniprotkb/utils';
+import { reUniProtKBAccession } from '../../uniprotkb/utils/regexes';
 import fetchData from '../../shared/utils/fetchData';
 import { stringifyUrl } from '../../shared/utils/url';
 import * as logging from '../../shared/utils/logging';

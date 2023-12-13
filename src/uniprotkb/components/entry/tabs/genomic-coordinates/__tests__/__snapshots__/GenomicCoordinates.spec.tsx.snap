@@ -29,6 +29,13 @@ exports[`GenomicCoordinates component renders on data 1`] = `
          to provide feedback about it
       </div>
     </div>
+    <button
+      class="button tertiary"
+      type="button"
+    >
+      <test-file-stub />
+      Download
+    </button>
     <section
       class="card"
     >
