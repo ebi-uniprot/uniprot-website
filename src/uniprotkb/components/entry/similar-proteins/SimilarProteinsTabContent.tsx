@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
@@ -112,10 +112,10 @@ const SimilarProteinsTabContent = ({
           <section key={cluster.id} className="text-block">
             <h4>
               {isoforms.map((isoform, index) => (
-                <Fragment key={isoform}>
+                <span key={isoform}>
                   {listFormat(index, isoforms)}
                   {isoform}
-                </Fragment>
+                </span>
               ))}
             </h4>
             <section>
@@ -134,10 +134,10 @@ const SimilarProteinsTabContent = ({
         <section key="no-similar-proteins" className="text-block">
           <h4>
             {noSimilarProteins.map((isoform, index) => (
-              <Fragment key={isoform}>
+              <span key={isoform}>
                 {listFormat(index, noSimilarProteins)}
                 {isoform}
-              </Fragment>
+              </span>
             ))}
           </h4>
           <section>
