@@ -49,7 +49,9 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
         class="text-block"
       >
         <h4>
-          P05067-1
+          <span>
+            P05067-1
+          </span>
         </h4>
         <section>
           <a
@@ -161,7 +163,9 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
         class="text-block"
       >
         <h4>
-          P05067-4
+          <span>
+            P05067-4
+          </span>
         </h4>
         <section>
           <a
