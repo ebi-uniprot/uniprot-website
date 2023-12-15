@@ -37,13 +37,6 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
         <test-file-stub />
         Add
       </button>
-      <button
-        class="button tertiary"
-        type="button"
-      >
-        <test-file-stub />
-        Download
-      </button>
       <a
         href="/uniprotkb?query=accession:P05067 OR accession:A0A0A0MRG2 OR accession:E9PG40 OR accession:H7C0V9 OR accession:H7C2L2"
       >

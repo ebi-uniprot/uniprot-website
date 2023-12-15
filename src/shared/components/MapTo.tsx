@@ -4,6 +4,7 @@ import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
 import { pluralise } from '../utils/utils';
+import { stringifyQuery } from '../utils/url';
 
 import {
   allSupportingDataAndAAEntryLocations,
@@ -35,7 +36,7 @@ const configMap = new Map<
       ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=(${fieldName}:${accession})`,
+        search: stringifyQuery({ query: `(${fieldName}:${accession})` }),
       }),
     },
   ],
@@ -51,7 +52,9 @@ const configMap = new Map<
       ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
-        search: `facets=reviewed:true&query=(${fieldName}:${accession})`,
+        search: stringifyQuery({
+          query: `(${fieldName}:${accession}) AND (reviewed:true)`,
+        }),
       }),
     },
   ],
@@ -67,7 +70,9 @@ const configMap = new Map<
       ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
-        search: `facets=reviewed:false&query=(${fieldName}:${accession})`,
+        search: stringifyQuery({
+          query: `(${fieldName}:${accession}) AND (reviewed:false)`,
+        }),
       }),
     },
   ],
@@ -85,7 +90,9 @@ const configMap = new Map<
       to: (_, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
         // NOTE: only works for PubMed IDs
-        search: `query=(computational_pubmed_id:${accession})`,
+        search: stringifyQuery({
+          query: `(computational_pubmed_id:${accession})`,
+        }),
       }),
     },
   ],
@@ -102,7 +109,7 @@ const configMap = new Map<
       to: (_, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
         // NOTE: only works for PubMed IDs
-        search: `query=(community_pubmed_id:${accession})`,
+        search: stringifyQuery({ query: `(community_pubmed_id:${accession})` }),
       }),
     },
   ],
@@ -118,7 +125,7 @@ const configMap = new Map<
       ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.ProteomesResults],
-        search: `query=(${fieldName}:${accession})`,
+        search: stringifyQuery({ query: `(${fieldName}:${accession})` }),
       }),
     },
   ],
@@ -134,7 +141,9 @@ const configMap = new Map<
       ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.ProteomesResults],
-        search: `facets=proteome_type:1&query=(${fieldName}:${accession})`,
+        search: stringifyQuery({
+          query: `(${fieldName}:${accession}) AND (proteome_type:1)`,
+        }),
       }),
     },
   ],

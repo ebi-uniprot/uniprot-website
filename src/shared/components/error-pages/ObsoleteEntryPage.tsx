@@ -12,8 +12,6 @@ import { Namespace } from '../../types/namespaces';
 
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 
-import './styles/error-pages.scss';
-
 const ObsoleteMessageHeading = ({ release }: { release?: string }) => (
   <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
 );

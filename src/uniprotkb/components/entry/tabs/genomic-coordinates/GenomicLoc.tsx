@@ -9,12 +9,12 @@ import helper from '../../../../../shared/styles/helper.module.scss';
 export const getEnsemblLink = (
   taxID: number,
   start: number,
-  end: number,
+  end?: number,
   chromosome?: string
 ) =>
   `https://www.ensembl.org/${taxID}/Location/View?r=${
     chromosome && `${chromosome}:`
-  }${start}-${end}`;
+  }${start}${end && `-${end}`}`;
 
 type GenomicLocProps = {
   genomicLocation: GenomicLocation;

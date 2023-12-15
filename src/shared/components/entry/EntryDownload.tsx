@@ -41,12 +41,10 @@ import {
 } from '../../utils/gtagEvents';
 import { Column } from '../../config/columns';
 import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-import { SearchResults } from '../../types/results';
-import { GeneCentricData } from '../../../uniprotkb/components/entry/ComputationallyMappedSequences';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
-import downloadStyles from './styles/entry-download.module.scss';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.uniprotkb, uniProtKBFFED],
@@ -65,30 +63,23 @@ const formatMap = new Map<Namespace, FileFormat[]>([
 
 const uniprotkbFeatureFormats = [FileFormat.json, FileFormat.gff];
 
-const uniprotkbGeneCentricFormats = [
-  FileFormat.json,
-  FileFormat.xml,
-  FileFormat.list,
-  FileFormat.fasta,
-];
-
 const proteinsAPICommonFormats = [
   FileFormat.json,
   FileFormat.xml,
   FileFormat.gff,
 ];
 
-const proteinsAPIVariationFormats = [
-  ...proteinsAPICommonFormats,
-  FileFormat.peff,
-];
+// once it is OK to expose peff format, uncomment the following
+// const proteinsAPIVariationFormats = [
+//   ...proteinsAPICommonFormats,
+//   FileFormat.peff,
+// ];
 
 export enum Dataset {
   uniprotData = 'Entry',
-  features = 'Features',
+  features = 'Features Only',
   selectedFeatures = 'Features - ',
-  genecentric = 'Gene-centric isoform mapping',
-  variation = 'Variations',
+  variation = 'Variations (includes UniProtKB)',
   coordinates = 'Genomic Coordinates',
   proteomics = 'Proteomics',
   proteomicsPtm = 'Proteomics-PTM',
@@ -97,13 +88,8 @@ export enum Dataset {
 }
 
 const uniprotKBEntryDatasets = {
-  'UniProt API': [
-    Dataset.uniprotData,
-    Dataset.features,
-    Dataset.selectedFeatures,
-    Dataset.genecentric,
-  ],
-  'Proteins API': [
+  UniProtKB: [Dataset.uniprotData, Dataset.features, Dataset.selectedFeatures],
+  'Additional Datasets': [
     Dataset.variation,
     Dataset.coordinates,
     Dataset.proteomics,
@@ -163,8 +149,6 @@ const getEntryDownloadUrl = (
         fields: fields?.filter(Boolean).join(','),
       });
     }
-    case Dataset.genecentric:
-      return apiUrls.genecentric(accession, fileFormat);
     case Dataset.coordinates:
       return proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
@@ -207,6 +191,7 @@ const DownloadAnchor = ({
       columns
     )}
     rel="noreferrer"
+    download
   >
     {fileFormat}
   </a>
@@ -280,11 +265,11 @@ const EntryDownload = ({
     return featuresMap;
   }, [resultFieldsData]);
 
-  const availableDatasets = [Dataset.features];
+  const availableDatasets: Dataset[] = [];
 
-  const { data: geneCentricData } = useDataApi<SearchResults<GeneCentricData>>(
+  const entryFeatures = useDataApi<UniProtkbAPIModel>(
     namespace === Namespace.uniprotkb && accession
-      ? apiUrls.genecentric(accession)
+      ? apiUrls.entry(accession, namespace)
       : ''
   );
 
@@ -330,9 +315,9 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
-  if (geneCentricData?.results) {
-    if (geneCentricData.results[0]?.relatedProteins?.length) {
-      availableDatasets.push(Dataset.genecentric);
+  if (!entryFeatures.loading && entryFeatures.data) {
+    if (entryFeatures.data?.features) {
+      availableDatasets.push(Dataset.features);
     }
   }
   if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
@@ -376,12 +361,10 @@ const EntryDownload = ({
       case Dataset.selectedFeatures:
         setFileFormats(uniprotkbFeatureFormats);
         break;
-      case Dataset.genecentric:
-        setFileFormats(uniprotkbGeneCentricFormats);
-        break;
+      // case Dataset.variation:
+      //   setFileFormats(proteinsAPIVariationFormats);
+      //   break;
       case Dataset.variation:
-        setFileFormats(proteinsAPIVariationFormats);
-        break;
       case Dataset.proteomics:
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
@@ -565,11 +548,7 @@ const EntryDownload = ({
               onChange={(e) => setSelectedDataset(e.target.value as Dataset)}
             >
               {Object.entries(uniprotKBEntryDatasets).map(([key, value]) => (
-                <optgroup
-                  label={key}
-                  key={key}
-                  className={downloadStyles['select-group-label']}
-                >
+                <optgroup label={key} key={key}>
                   {value.map((datasetOption) => {
                     if (datasetOption === Dataset.selectedFeatures) {
                       if (featureTypes) {
@@ -599,7 +578,10 @@ const EntryDownload = ({
                           !availableDatasets?.includes(datasetOption)
                         }
                       >
-                        {datasetOption}
+                        {datasetOption}&emsp;&emsp;&emsp;
+                        {datasetOption !== Dataset.uniprotData &&
+                          !availableDatasets?.includes(datasetOption) &&
+                          '(No data available)'}
                       </option>
                     );
                   })}
@@ -674,6 +656,7 @@ const EntryDownload = ({
           target="_blank"
           rel="noreferrer"
           onClick={() => onClose('download', 'sync')}
+          download
         >
           Download
         </a>

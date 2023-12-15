@@ -3,12 +3,11 @@
 exports[`ErrorPage component should render 1`] = `
 <DocumentFragment>
   <div
-    class="error-page-container"
+    class="container"
     data-testid="test-id"
   >
     <img
       alt=""
-      class="error-page-container__art-work"
     />
     test message
   </div>

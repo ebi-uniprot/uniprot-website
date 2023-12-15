@@ -41,6 +41,7 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.NamesAndTaxonomy]}
         primaryAccession={data.primaryAccession}
         key={EntrySection.NamesAndTaxonomy}
+        references={data.references}
       />
     ),
   },

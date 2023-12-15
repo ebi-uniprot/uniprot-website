@@ -308,11 +308,10 @@ exports[`VariationViewer component renders on error 1`] = `
     class="wider-tab-content hotjar-margin"
   >
     <div
-      class="error-page-container"
+      class="container"
     >
       <img
         alt=""
-        class="error-page-container__art-work"
         height="400"
         src="test-file-stub"
         width="400"

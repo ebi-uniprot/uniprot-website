@@ -281,6 +281,12 @@ exports[`BlastForm test Renders the form 1`] = `
               E-Threshold
               <select>
                 <option
+                  data-testid="E-Threshold-1e-5"
+                  value="1e-5"
+                >
+                  0.00001
+                </option>
+                <option
                   data-testid="E-Threshold-1e-4"
                   value="1e-4"
                 >

@@ -184,14 +184,14 @@ exports[`DiseasesColumnConfiguration component should render column "statistics"
   >
     <li>
       <a
-        href="/uniprotkb?query=(cc_disease:DI-00550)"
+        href="/uniprotkb?query=%28cc_disease%3ADI-00550%29"
       >
         1 UniProtKB entry
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb?facets=reviewed:true&query=(cc_disease:DI-00550)"
+        href="/uniprotkb?query=%28cc_disease%3ADI-00550%29+AND+%28reviewed%3Atrue%29"
       >
         1 reviewed UniProtKB entry
       </a>

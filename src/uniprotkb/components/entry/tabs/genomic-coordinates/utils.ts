@@ -19,15 +19,23 @@ export const sortIsoforms = (
 
 export const sortExons =
   (reverse?: boolean) => (exon1: ExonMap, exon2: ExonMap) => {
-    const start1 = exon1.genomeLocation.begin.position;
-    const start2 = exon2.genomeLocation.begin.position;
+    const start1 = exon1.genomeLocation.position
+      ? exon1.genomeLocation.position.position
+      : exon1.genomeLocation.begin.position;
+    const start2 = exon2.genomeLocation.position
+      ? exon2.genomeLocation.position.position
+      : exon2.genomeLocation.begin.position;
 
     if (start1 !== start2) {
       return reverse ? start2 - start1 : start1 - start2;
     }
 
-    const end1 = exon1.genomeLocation.end.position;
-    const end2 = exon2.genomeLocation.end.position;
+    const end1 = exon1.genomeLocation.position
+      ? exon1.genomeLocation.position.position
+      : exon1.genomeLocation.begin.position;
+    const end2 = exon2.genomeLocation.position
+      ? exon2.genomeLocation.position.position
+      : exon2.genomeLocation.begin.position;
 
     return reverse ? end2 - end1 : end1 - end2;
   };

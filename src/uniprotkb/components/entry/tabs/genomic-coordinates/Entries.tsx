@@ -253,19 +253,27 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                   {representativeEntry.gnCoordinate.genomicLocation
                     .chromosome &&
                     `${representativeEntry.gnCoordinate.genomicLocation.chromosome}:`}
-                  <LongNumber>
-                    {representativeEntry.gnCoordinate.genomicLocation
-                      .reverseStrand
-                      ? exons[0].genomeLocation.end.position
-                      : exons[0].genomeLocation.begin.position}
-                  </LongNumber>
-                  {' - '}
-                  <LongNumber>
-                    {representativeEntry.gnCoordinate.genomicLocation
-                      .reverseStrand
-                      ? exons[0].genomeLocation.begin.position
-                      : exons[0].genomeLocation.end.position}
-                  </LongNumber>
+                  {exons[0].genomeLocation.position ? (
+                    <LongNumber>
+                      {exons[0].genomeLocation.position.position}
+                    </LongNumber>
+                  ) : (
+                    <>
+                      <LongNumber>
+                        {representativeEntry.gnCoordinate.genomicLocation
+                          .reverseStrand
+                          ? exons[0].genomeLocation.end.position
+                          : exons[0].genomeLocation.begin.position}
+                      </LongNumber>
+                      {' - '}
+                      <LongNumber>
+                        {representativeEntry.gnCoordinate.genomicLocation
+                          .reverseStrand
+                          ? exons[0].genomeLocation.begin.position
+                          : exons[0].genomeLocation.end.position}
+                      </LongNumber>
+                    </>
+                  )}
                 </>
               );
               return (
@@ -284,19 +292,26 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                   <td>
                     {ensID ? (
                       <ExternalLink
-                        url={getEnsemblLink(
-                          representativeEntry.taxid,
-                          representativeEntry.gnCoordinate.genomicLocation
-                            .reverseStrand
-                            ? exons[0].genomeLocation.end.position
-                            : exons[0].genomeLocation.begin.position,
-                          representativeEntry.gnCoordinate.genomicLocation
-                            .reverseStrand
-                            ? exons[0].genomeLocation.begin.position
-                            : exons[0].genomeLocation.end.position,
-                          representativeEntry.gnCoordinate.genomicLocation
-                            .chromosome
-                        )}
+                        url={
+                          exons[0].genomeLocation.position
+                            ? getEnsemblLink(
+                                representativeEntry.taxid,
+                                exons[0].genomeLocation.position.position
+                              )
+                            : getEnsemblLink(
+                                representativeEntry.taxid,
+                                representativeEntry.gnCoordinate.genomicLocation
+                                  .reverseStrand
+                                  ? exons[0].genomeLocation.end.position
+                                  : exons[0].genomeLocation.begin.position,
+                                representativeEntry.gnCoordinate.genomicLocation
+                                  .reverseStrand
+                                  ? exons[0].genomeLocation.begin.position
+                                  : exons[0].genomeLocation.end.position,
+                                representativeEntry.gnCoordinate.genomicLocation
+                                  .chromosome
+                              )
+                        }
                       >
                         {location}
                       </ExternalLink>

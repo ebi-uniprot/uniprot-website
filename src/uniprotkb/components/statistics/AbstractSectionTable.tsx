@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { ReactNode } from 'react';
+import cn from 'classnames';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
@@ -61,8 +62,8 @@ const AbstractSectionTable = ({
           </tr>
         )}
         <tr>
-          <td>
-            {!excludeUniProtKB && '⮑'} <ReviewedLabel />
+          <td className={cn({ [styles.indent]: !excludeUniProtKB })}>
+            <ReviewedLabel />
           </td>
           {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
             <td key={index} className={styles.end}>
@@ -83,8 +84,8 @@ const AbstractSectionTable = ({
           ))}
         </tr>
         <tr>
-          <td>
-            {!excludeUniProtKB && '⮑'} <UnreviewedLabel />
+          <td className={cn({ [styles.indent]: !excludeUniProtKB })}>
+            <UnreviewedLabel />
           </td>
           {tableData.map(({ data, query, accessor = 'entryCount' }, index) => (
             <td key={index} className={styles.end}>

@@ -30,10 +30,9 @@ const ErrorMessage = () => (
 );
 
 const EmptyDashboard = () => (
-  <ErrorPage
-    artwork={<img src={ArtWork} width="400" height="400" alt="" />}
-    message={<ErrorMessage />}
-  />
+  <ErrorPage artwork={<img src={ArtWork} width="400" height="400" alt="" />}>
+    <ErrorMessage />
+  </ErrorPage>
 );
 
 export default EmptyDashboard;

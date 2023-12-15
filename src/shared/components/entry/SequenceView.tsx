@@ -55,6 +55,7 @@ type SequenceInfoProps = {
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
+  showSequence?: boolean;
   openByDefault?: boolean;
 };
 
@@ -62,6 +63,7 @@ export const SequenceInfo = ({
   isoformId,
   isoformSequence,
   lastUpdateDate,
+  showSequence = true,
   openByDefault = false,
 }: SequenceInfoProps) => {
   const [isoformToFetch, setIsoformToFetch] = useState<string>();
@@ -104,27 +106,54 @@ export const SequenceInfo = ({
         </div>
       }
     >
-      <Sequence
-        sequence={dataToDisplay?.value}
-        onShowSequence={() => setIsoformToFetch(isoformId)}
-        infoData={infoData}
-        accession={isoformId}
-        downloadUrl={apiUrls.sequenceFasta(isoformId)}
-        onBlastClick={() =>
-          history.push(LocationToPath[Location.Blast], {
-            parameters: { sequence: dataToDisplay?.value },
-          })
-        }
-        addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
-        isCollapsible={!openByDefault}
-        isLoading={loading}
-        onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
-      />
+      {showSequence ? (
+        <Sequence
+          sequence={dataToDisplay?.value}
+          onShowSequence={() => setIsoformToFetch(isoformId)}
+          infoData={infoData}
+          accession={isoformId}
+          downloadUrl={apiUrls.sequenceFasta(isoformId)}
+          onBlastClick={() =>
+            history.push(LocationToPath[Location.Blast], {
+              parameters: { sequence: dataToDisplay?.value },
+            })
+          }
+          addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
+          isCollapsible={!openByDefault}
+          isLoading={loading}
+          onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
+        />
+      ) : (
+        'Sequence is not available'
+      )}
     </LazyComponent>
   );
 };
 
 const firstIsoformRE = /-1$/;
+
+const SeeAlso = ({ isoform }: { isoform: string }) => (
+  <>
+    sequence in{' '}
+    <Link
+      to={{
+        pathname: LocationToPath[Location.UniParcResults],
+        search: `query=(isoform:${isoform})&direct`,
+      }}
+    >
+      UniParc
+    </Link>{' '}
+    or sequence clusters in{' '}
+    <Link
+      to={{
+        pathname: LocationToPath[Location.UniRefResults],
+        search: `query=(uniprot_id:${isoform.replace(firstIsoformRE, '')})`,
+      }}
+    >
+      UniRef
+    </Link>
+  </>
+);
 
 type IsoformInfoProps = {
   isoformData: Isoform;
@@ -157,31 +186,7 @@ export const IsoformInfo = ({
     },
     {
       title: 'See also',
-      content: (
-        <>
-          sequence in{' '}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniParcResults],
-              search: `query=(isoform:${isoformData.isoformIds[0]})&direct`,
-            }}
-          >
-            UniParc
-          </Link>{' '}
-          or sequence clusters in{' '}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniRefResults],
-              search: `query=(uniprot_id:${isoformData.isoformIds[0].replace(
-                firstIsoformRE,
-                ''
-              )})`,
-            }}
-          >
-            UniRef
-          </Link>
-        </>
-      ),
+      content: <SeeAlso isoform={isoformData.isoformIds[0]} />,
     },
     {
       title: 'Differences from canonical',
@@ -414,6 +419,9 @@ export const IsoformView = ({
                 <SequenceInfo
                   isoformId={isoform.isoformIds[0]}
                   openByDefault={isIsoformPage}
+                  showSequence={
+                    isoform.isoformSequenceStatus !== 'Not described'
+                  }
                 />
               )}
             </>
@@ -464,6 +472,15 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     return (
       <>
         {infoListComponent}
+        <InfoList
+          infoData={[
+            {
+              title: 'See also',
+              content: <SeeAlso isoform={accession} />,
+            },
+          ]}
+          isCompact
+        />
         {canonicalComponent}
       </>
     );

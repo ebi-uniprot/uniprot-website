@@ -89,7 +89,8 @@ const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
           </Dropdown>
         </li>
       )}
-      {sparqlLink}
+      {/* If wide screen, or home page */}
+      {(wideScreen || isHomePage) && sparqlLink}
     </ul>
   );
 };

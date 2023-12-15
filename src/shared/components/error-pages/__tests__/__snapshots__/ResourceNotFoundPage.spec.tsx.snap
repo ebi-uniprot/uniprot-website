@@ -3,12 +3,11 @@
 exports[`ResourceNotFoundPage component should render 1`] = `
 <DocumentFragment>
   <div
-    class="error-page-container"
+    class="container"
     data-testid="error-page"
   >
     <img
       alt=""
-      class="error-page-container__art-work"
       height="400"
       src="test-file-stub"
       width="400"
