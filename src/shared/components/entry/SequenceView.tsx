@@ -23,6 +23,7 @@ import {
   MassSpectrometryComment,
   RNAEditingComment,
   AlternativeProductsComment,
+  TextWithEvidence,
 } from '../../../uniprotkb/types/commentTypes';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import {
@@ -155,6 +156,20 @@ const SeeAlso = ({ isoform }: { isoform: string }) => (
   </>
 );
 
+const Synonyms = ({ synonyms }: { synonyms: TextWithEvidence[] }) => (
+  <>
+    {synonyms.map((synonym, index) => (
+      <Fragment key={synonym.value}>
+        {synonym.value}
+        {synonym.evidences && (
+          <UniProtKBEvidenceTag evidences={synonym.evidences} />
+        )}
+        {index !== synonyms.length - 1 && ', '}
+      </Fragment>
+    ))}
+  </>
+);
+
 type IsoformInfoProps = {
   isoformData: Isoform;
   canonicalAccession: string;
@@ -178,7 +193,9 @@ export const IsoformInfo = ({
     },
     {
       title: 'Synonyms',
-      content: (isoformData?.synonyms ?? []).map((syn) => syn.value).join(', '),
+      content: isoformData.synonyms && (
+        <Synonyms synonyms={isoformData.synonyms} />
+      ),
     },
     {
       title: 'Note',
