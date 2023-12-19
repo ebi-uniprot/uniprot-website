@@ -4570,6 +4570,22 @@ exports[`Entry view should render for non-human entry 1`] = `
             GO annotations
           </h3>
           <div
+            class="quickgo-link"
+          >
+            <a
+              class="external-link"
+              href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
+              rel="noopener"
+              target="_blank"
+            >
+              Access the complete set of GO annotations on QuickGO 
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </div>
+          <div
             class="datatable-wrapper"
           >
             <protvista-datatable
@@ -4720,18 +4736,6 @@ exports[`Entry view should render for non-human entry 1`] = `
               Expand table
             </button>
           </div>
-          <a
-            class="external-link quickgo-link"
-            href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
-            rel="noopener"
-            target="_blank"
-          >
-            Complete GO annotation on QuickGO 
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
         </div>
         <h3
           data-article-id="keywords"

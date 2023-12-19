@@ -251,6 +251,12 @@ const GoRibbon = ({
   return (
     <div className="GoRibbon">
       <h3 data-article-id="gene_ontology">GO annotations</h3>
+      <div className={styles['quickgo-link']}>
+        <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
+          Access the complete set of GO annotations on QuickGO{' '}
+        </ExternalLink>
+      </div>
+
       {!isSmallScreen && (
         <LazyComponent fallback={null}>
           <Helmet>
@@ -278,12 +284,6 @@ const GoRibbon = ({
       )}
       {elementLoaded && ribbon}
       {!!filteredGoTerms.length && <DatatableWrapper>{table}</DatatableWrapper>}
-      <ExternalLink
-        url={externalUrls.QuickGOAnnotations(primaryAccession)}
-        className={styles['quickgo-link']}
-      >
-        Complete GO annotation on QuickGO{' '}
-      </ExternalLink>
     </div>
   );
 };
