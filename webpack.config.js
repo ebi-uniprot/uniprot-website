@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const jsonImporter = require('node-sass-json-importer');
 const childProcess = require('child_process');
 // custom plugins
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 const LegacyModuleSplitPlugin = require('./webpack-plugins/legacy-module-split-plugin');
 
 // some plugins are conditionally-loaded as they are also conditionally used.
@@ -222,6 +223,9 @@ const getConfigFor = ({
     },
     // PLUGINS
     plugins: [
+      new CircularDependencyPlugin({
+        exclude: /node_modules/,
+      }),
       // Needed for 'react-msa-viewer' as of June 1st 2021
       new ProvidePlugin({
         assert: 'assert',
