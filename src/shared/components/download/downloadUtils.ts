@@ -14,7 +14,7 @@ import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
 
 import { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/config';
 
 import { Location } from '../../../app/config/urls';
 import { FileFormat } from '../../types/resultsDownload';
