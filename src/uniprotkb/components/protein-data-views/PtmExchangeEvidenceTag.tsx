@@ -4,7 +4,7 @@ import { groupBy } from 'lodash-es';
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink from '../../config/evidenceUrls';
+import EvidenceLink from './EvidenceLink';
 
 import {
   getEvidenceCodeData,

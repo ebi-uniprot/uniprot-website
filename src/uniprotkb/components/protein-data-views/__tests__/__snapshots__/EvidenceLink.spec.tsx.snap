@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Evidence urls EvidenceLink should return a plain value if unknown source 1`] = `
+exports[`EvidenceLink should return a plain value if unknown source 1`] = `
 <DocumentFragment>
   &lt;Unknown source&gt;: rule_id
 </DocumentFragment>
 `;
 
-exports[`Evidence urls EvidenceLink should return the correct external link JSX 1`] = `
+exports[`EvidenceLink should return the correct external link JSX 1`] = `
 <DocumentFragment>
   <a
     class="external-link"
@@ -23,7 +23,7 @@ exports[`Evidence urls EvidenceLink should return the correct external link JSX 
 </DocumentFragment>
 `;
 
-exports[`Evidence urls EvidenceLink should return the correct internal link JSX 1`] = `
+exports[`EvidenceLink should return the correct internal link JSX 1`] = `
 <DocumentFragment>
   <a
     href="/arba/rule_id"
