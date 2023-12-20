@@ -14,6 +14,11 @@ const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
 const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
+// The following regexp matches up to three levels of nested parentheses
+// source: https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
+const nestedParenthesesRegEx =
+  /\([^)(]*(?:\([^)(]*(?:\([^)(]*(?:\([^)(]*\)[^)(]*)*\)[^)(]*)*\)[^)(]*)*\)/g;
+
 const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
 
 type KinecticsTableRow = {
@@ -114,38 +119,43 @@ export const extractFromFreeText = (data: KineticParameters) => {
   const kcatEvidences: Evidence[] = [];
 
   if (data.michaelisConstants) {
-    km = data.michaelisConstants.map((km) => {
-      let [substrate] = km.substrate.split(' ('); // Ignore splitting the substrate name when '()' is part of it
-      const ph = extractPh(km.substrate);
-      const temp = extractTemp(km.substrate);
+    km = data.michaelisConstants.map((mc) => {
+      /*
+        Capture whatever is in the 
+      */
+      let [substrateColumn] = mc.substrate.split(' ('); // Ignore splitting the substrate name when '()' is part of it
+      const ph = extractPh(mc.substrate);
+      const temp = extractTemp(mc.substrate);
 
-      const [moreInfo] = km.substrate.match(
+      // Get any additional info which be included between parentheses at the end of km.substrate
+      const [moreInfo] = mc.substrate.match(
         new RegExp(captureWordsInParanthesis, 'g')
       ) || [null];
-
-      const additionInfo = moreInfo?.match(/\((.*?)\)/g);
+      // Iterate over possibly nested parentheses content
+      const paranthesesContent = moreInfo?.match(nestedParenthesesRegEx);
       let notes = '';
-      additionInfo?.forEach((str) => {
-        if (!substrate.includes(str)) {
-          if (possibleInfo.some((e) => str.includes(e))) {
-            const match = str.match(captureWordsInParanthesis)?.[1] || '';
+      paranthesesContent?.forEach((paranthesisContent) => {
+        if (!substrateColumn.includes(paranthesisContent)) {
+          if (possibleInfo.some((e) => paranthesisContent.includes(e))) {
+            const match =
+              paranthesisContent.match(captureWordsInParanthesis)?.[1] || '';
             // Do not include pH and temperature data in notes
             notes = excludePhTemp(match);
           } else {
             // Sometimes the abbreviation of the substrate could be inside paranthesis, it has to be under the substrate column
-            substrate += str;
+            substrateColumn += ` ${paranthesisContent.trim()}`;
           }
         }
       });
 
       return {
-        key: `${km.constant}${km.substrate}`,
-        constant: `${km.constant} ${km.unit.replace(muRegEx, 'μ')}`,
-        substrate: substrate.trim(),
+        key: `${mc.constant}${mc.substrate}`,
+        constant: `${mc.constant} ${mc.unit.replace(muRegEx, 'μ')}`,
+        substrate: substrateColumn.trim(),
         ph,
         temp,
         notes,
-        evidences: km.evidences,
+        evidences: mc.evidences,
       };
     });
   }
