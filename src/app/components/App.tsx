@@ -78,8 +78,8 @@ if (process.env.NODE_ENV !== 'development') {
     //   }
     //   return event;
     // },
-    replaysSessionSampleRate: 0.001,
-    replaysOnErrorSampleRate: 1.0,
+    replaysSessionSampleRate: 0.00001,
+    replaysOnErrorSampleRate: 0.001,
   });
   sentrySetTag('bundle', MODERN_BUNDLE ? 'modern' : 'legacy');
 }
