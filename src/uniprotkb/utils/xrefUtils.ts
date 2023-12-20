@@ -12,7 +12,6 @@ import EntrySection from '../types/entrySection';
 import { DatabaseCategory } from '../types/databaseRefs';
 import { FreeTextComment } from '../types/commentTypes';
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
-import { flattenGeneNameData } from '.';
 import { ValueWithEvidence } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
 import { DatabaseInfoMaps, ImplicitDatabaseXRefs } from './database';
@@ -238,6 +237,23 @@ export const getJoinedXrefs = (xrefs: Xref[]) => {
     });
   }
   return NOT_JOINED;
+};
+
+const flattenGeneNameData = (geneNamesData: GeneNamesData) => {
+  const geneNames = new Set<string>();
+  geneNamesData.forEach(
+    ({ geneName, synonyms = [], orfNames = [], orderedLocusNames = [] }) => {
+      if (geneName) {
+        geneNames.add(geneName.value);
+      }
+      [synonyms, orfNames, orderedLocusNames].forEach((names) => {
+        names.forEach(({ value }) => {
+          geneNames.add(value);
+        });
+      });
+    }
+  );
+  return Array.from(geneNames);
 };
 
 export const getXrefsForSection = (
