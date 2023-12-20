@@ -20,7 +20,7 @@ import { hasContent } from '../../../shared/utils/utils';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation } from './Entry';
+import { TabLocation } from '../../types/entry';
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
 
 type Props = {

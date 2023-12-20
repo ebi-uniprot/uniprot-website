@@ -14,17 +14,16 @@ import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnC
 
 import parseDate from '../../shared/utils/parseDate';
 import xrefGetter from '../utils/xrefGetter';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-
 import {
   SequenceFeature,
   UniParcAPIModel,
   UniParcXRef,
 } from '../adapters/uniParcConverter';
-import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
-import { TabLocation } from '../../uniprotkb/components/entry/Entry';
+import { TabLocation } from '../../uniprotkb/types/entry';
 
 export enum UniParcColumn {
   // Names & taxonomy

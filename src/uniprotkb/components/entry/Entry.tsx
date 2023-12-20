@@ -71,21 +71,12 @@ import {
   MessageFormat,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
+import { TabLocation } from '../../types/entry';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-
-export enum TabLocation {
-  Entry = 'entry',
-  VariantViewer = 'variant-viewer',
-  FeatureViewer = 'feature-viewer',
-  GenomicCoordinates = 'genomic-coordinates',
-  Publications = 'publications',
-  ExternalLinks = 'external-links',
-  History = 'history',
-}
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,

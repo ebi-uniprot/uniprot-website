@@ -5,7 +5,7 @@ import { getEntryPath } from '../../app/config/urls';
 import { pluralise } from '../../shared/utils/utils';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { TabLocation } from '../components/entry/Entry';
+import { TabLocation } from '../types/entry';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import {
   EntryType,

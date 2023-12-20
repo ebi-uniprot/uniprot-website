@@ -9,7 +9,7 @@ import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation } from '../entry/Entry';
+import { TabLocation } from '../../types/entry';
 import EntrySection from '../../types/entrySection';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 

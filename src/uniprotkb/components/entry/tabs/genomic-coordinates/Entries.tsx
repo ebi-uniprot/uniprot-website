@@ -18,7 +18,7 @@ import { getEntryPathFor } from '../../../../../app/config/urls';
 import { sortExons } from './utils';
 
 import { Namespace } from '../../../../../shared/types/namespaces';
-import { TabLocation } from '../../Entry';
+import { TabLocation } from '../../../../types/entry';
 import { FlatGenomicEntry } from './types';
 import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
 
