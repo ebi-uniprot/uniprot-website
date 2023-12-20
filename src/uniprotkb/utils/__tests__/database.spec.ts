@@ -1,6 +1,3 @@
-import { selectDatabases } from '../database';
-import { DatabaseCategory } from '../../types/databaseRefs';
-
 import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 import databaseInfo from './__mocks__/databaseInfo';
 
@@ -21,29 +18,5 @@ describe('getDatabaseInfoMaps', () => {
       .sort();
     const keys = Object.keys(databaseInfoMaps.databaseToDatabaseInfo).sort();
     expect(keys).toEqual(databaseNames);
-  });
-});
-
-describe('selectDatabases', () => {
-  it('should select the correct databases', () => {
-    const select = selectDatabases(databaseInfoMaps.databaseCategoryToNames);
-    const selected = select({
-      categories: [DatabaseCategory.STRUCTURE],
-      include: ['EvolutionaryTrace'],
-      exclude: ['PDB', 'PDBsum'],
-    });
-    expect(selected).toEqual([
-      'PCDDB',
-      'SASBDB',
-      'BMRB',
-      'ModBase',
-      'SMR',
-      'SWISS-MODEL-Workspace',
-      'PDBe-KB',
-      'PDBj',
-      'RCSB-PDB',
-      'AlphaFoldDB',
-      'EvolutionaryTrace',
-    ]);
   });
 });
