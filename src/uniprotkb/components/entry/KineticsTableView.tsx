@@ -14,6 +14,7 @@ const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
 const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
+const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
 
 type KinecticsTableRow = {
   key: string;
@@ -50,8 +51,7 @@ const KineticsTable = ({
             <tr>
               {columns.map((name) => (
                 <th key={name} className={helper['no-text-transform']}>
-                  {' '}
-                  {name}{' '}
+                  {` ${name} `}
                 </th>
               ))}
             </tr>
@@ -104,6 +104,9 @@ const excludePhTemp = (str: string) => {
   return newStr?.replace(removeLeadingTrailingComma, '');
 };
 
+const extractPh = (s: string) => s.match(pHRegEx)?.[1];
+const extractTemp = (s: string) => s.match(tempRegEx)?.[1];
+
 export const extractFromFreeText = (data: KineticParameters) => {
   let km: KinecticsTableRow[] = [];
   let vmax: KinecticsTableRow[] = [];
@@ -113,8 +116,8 @@ export const extractFromFreeText = (data: KineticParameters) => {
   if (data.michaelisConstants) {
     km = data.michaelisConstants.map((km) => {
       let [substrate] = km.substrate.split(' ('); // Ignore splitting the substrate name when '()' is part of it
-      const ph = km.substrate.match(pHRegEx)?.[1];
-      const temp = km.substrate.match(tempRegEx)?.[1];
+      const ph = extractPh(km.substrate);
+      const temp = extractTemp(km.substrate);
 
       const [moreInfo] = km.substrate.match(
         new RegExp(captureWordsInParanthesis, 'g')
@@ -124,7 +127,6 @@ export const extractFromFreeText = (data: KineticParameters) => {
       let notes = '';
       additionInfo?.forEach((str) => {
         if (!substrate.includes(str)) {
-          const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
           if (possibleInfo.some((e) => str.includes(e))) {
             const match = str.match(captureWordsInParanthesis)?.[1] || '';
             // Do not include pH and temperature data in notes
@@ -150,8 +152,8 @@ export const extractFromFreeText = (data: KineticParameters) => {
 
   if (data.maximumVelocities) {
     vmax = data.maximumVelocities.map((mv) => {
-      const ph = mv.enzyme.match(pHRegEx)?.[1];
-      const temp = mv.enzyme.match(tempRegEx)?.[1];
+      const ph = extractPh(mv.enzyme);
+      const temp = extractTemp(mv.enzyme);
 
       const [substrateInfo, condition] = mv.enzyme.split(' (');
       let notes = substrateInfo.split('enzyme')?.[1];
