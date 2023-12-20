@@ -40,7 +40,7 @@ import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
+import { getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
@@ -49,6 +49,7 @@ import { stringifyQuery } from '../../../shared/utils/url';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
+  UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
@@ -131,6 +132,12 @@ const HistoryTab = lazy(
   () =>
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
 );
+
+export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
+  UniProtKBEntryConfig.some(({ id }) => {
+    const data = transformedData[id];
+    return Boolean('xrefData' in data && data.xrefData?.length);
+  });
 
 const Entry = () => {
   const dispatch = useMessagesDispatch();
