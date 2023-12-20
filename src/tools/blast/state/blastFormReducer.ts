@@ -2,7 +2,7 @@ import { sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { ActionType } from 'typesafe-actions';
 
-import { getAutoMatrixFor } from '../components/BlastForm';
+import { getAutoMatrixFor } from '../utils';
 
 import * as blastFormActions from './blastFormActions';
 

@@ -36,6 +36,7 @@ import {
   updateSelected,
   updateSending,
 } from '../state/blastFormActions';
+import { getAutoMatrixFor } from '../utils';
 
 import { BLAST_LIMIT } from '../../../shared/config/limits';
 
@@ -72,25 +73,6 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
-
-// https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
-export const getAutoMatrixFor = (
-  sequence?: string
-): FormParameters['matrix'] => {
-  if (!sequence?.length) {
-    return 'BLOSUM62';
-  }
-  if (sequence.length <= 34) {
-    return 'PAM30';
-  }
-  if (sequence.length <= 49) {
-    return 'PAM70';
-  }
-  if (sequence.length <= 85) {
-    return 'BLOSUM80';
-  }
-  return 'BLOSUM62';
-};
 
 const FormSelect: FC<{
   formValue: BlastFormValue;
