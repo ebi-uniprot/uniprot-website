@@ -5,9 +5,12 @@ import { partition } from 'lodash-es';
 import useLocalStorage from './useLocalStorage';
 import useNS from './useNS';
 
-import { Column, nsToDefaultColumns } from '../config/columns';
+import {
+  Column,
+  ColumnConfigurations,
+  nsToDefaultColumns,
+} from '../config/columns';
 
-import { ColumnConfigurations } from './useColumns';
 import { Namespace } from '../types/namespaces';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
