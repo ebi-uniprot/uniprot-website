@@ -1,1 +1,0 @@
-export const MAX_PEPTIDE_FACETS_OR_DOWNLOAD = 1_000;

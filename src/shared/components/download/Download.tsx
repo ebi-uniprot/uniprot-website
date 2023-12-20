@@ -45,7 +45,7 @@ import {
   showColumnSelect,
 } from './downloadUtils';
 
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/config';
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';

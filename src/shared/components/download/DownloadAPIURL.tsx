@@ -21,7 +21,10 @@ import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './downloadUtils';
+import {
+  DOWNLOAD_SIZE_LIMIT,
+  DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED,
+} from '../../config/limits';
 import { proteinsApiPrefix } from '../../config/apiUrls';
 
 import { Namespace } from '../../types/namespaces';
@@ -44,9 +47,6 @@ export const getSearchURL = (streamURL: string, batchSize = 500) => {
     { size: batchSize }
   );
 };
-
-// NOTE: update as needed if backend limitations change!
-export const DOWNLOAD_SIZE_LIMIT = 10_000_000 as const;
 
 type Props = {
   apiURL: string;

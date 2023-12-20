@@ -2,7 +2,7 @@ import { sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { ActionType } from 'typesafe-actions';
 
-import { ALIGN_LIMIT } from '../components/AlignForm';
+import { ALIGN_LIMIT } from '../../../shared/config/limits';
 import * as alignFormActions from './alignFormActions';
 import { pluralise } from '../../../shared/utils/utils';
 

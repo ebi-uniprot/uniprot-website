@@ -40,6 +40,8 @@ import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
+import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
+
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
@@ -60,7 +62,6 @@ import {
 } from '../types/idMappingFormConfig';
 import { FormParameters } from '../types/idMappingFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
-import { ID_MAPPING_LIMIT } from '../config';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';

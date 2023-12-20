@@ -61,8 +61,6 @@ import {
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-export const ALIGN_LIMIT = 100;
-
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
 const FormSelect: FC<{

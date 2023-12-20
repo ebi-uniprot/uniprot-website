@@ -37,6 +37,8 @@ import {
   updateSending,
 } from '../state/blastFormActions';
 
+import { BLAST_LIMIT } from '../../../shared/config/limits';
+
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
 import {
@@ -68,8 +70,6 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-
-export const BLAST_LIMIT = 5;
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 

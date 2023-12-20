@@ -36,7 +36,8 @@ import {
   LocationToPath,
 } from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config';
+
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../../shared/config/limits';
 
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../../../shared/types/results';
