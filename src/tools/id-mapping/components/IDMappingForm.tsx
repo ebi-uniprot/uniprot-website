@@ -60,11 +60,10 @@ import {
 } from '../types/idMappingFormConfig';
 import { FormParameters } from '../types/idMappingFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
+import { ID_MAPPING_LIMIT } from '../config';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-
-export const ID_MAPPING_LIMIT = 100_000;
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 

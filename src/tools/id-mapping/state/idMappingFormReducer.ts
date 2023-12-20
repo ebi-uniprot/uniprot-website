@@ -1,14 +1,15 @@
 import { ActionType } from 'typesafe-actions';
 
-import { ID_MAPPING_LIMIT } from '../components/IDMappingForm';
 import * as idMappingFormActions from './idMappingFormActions';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+
+import { ID_MAPPING_LIMIT } from '../config';
 
 import {
   IDMappingFields,
   IDMappingFormValue,
   IDMappingFormValues,
 } from '../config/idMappingFormData';
-import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 type IDMappingFormState = {
   formValues: IDMappingFormValues;
