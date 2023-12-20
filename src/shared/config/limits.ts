@@ -10,3 +10,6 @@ export const ALIGN_LIMIT = 100;
 export const BLAST_LIMIT = 5;
 export const ID_MAPPING_LIMIT = 100_000;
 export const MAX_PEPTIDE_FACETS_OR_DOWNLOAD = 1_000;
+// just because, no actual known limit
+export const PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH = 7;
+export const PEPTIDE_SEARCH_SEQUENCES_COUNT = 100;
