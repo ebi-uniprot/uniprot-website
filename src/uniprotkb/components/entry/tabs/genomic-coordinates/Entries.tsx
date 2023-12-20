@@ -11,7 +11,7 @@ import GenomicLoc, { getEnsemblLink } from './GenomicLoc';
 
 import useDatabaseInfoMaps from '../../../../../shared/hooks/useDatabaseInfoMaps';
 
-import { processUrlTemplate } from '../../../protein-data-views/XRefView';
+import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
 import { pluralise } from '../../../../../shared/utils/utils';
 import listFormat from '../../../../../shared/utils/listFormat';
 import { getEntryPathFor } from '../../../../../app/config/urls';

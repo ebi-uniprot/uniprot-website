@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router-dom';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import { processUrlTemplate } from '../components/protein-data-views/XRefView';
+import { processUrlTemplate } from '../../shared/utils/xrefs';
 
 import { Namespace } from '../../shared/types/namespaces';
 

@@ -19,7 +19,7 @@ import { addBlastLinksToFreeText } from '../../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
-import { processUrlTemplate } from '../../protein-data-views/XRefView';
+import { processUrlTemplate } from '../../../../shared/utils/xrefs';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../../shared/config/apiUrls';
