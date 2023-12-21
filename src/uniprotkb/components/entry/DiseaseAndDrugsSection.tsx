@@ -17,7 +17,7 @@ import { getEntryPath } from '../../../app/config/urls';
 import { UIModel } from '../../adapters/sectionConverter';
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation } from './Entry';
+import { TabLocation } from '../../types/entry';
 
 import styles from './styles/disease-and-drugs.module.scss';
 

@@ -3,7 +3,7 @@ import ToolsButton from './ToolsButton';
 import { fromCleanMapper } from '../../utils/getIdKey';
 
 import { Location } from '../../../app/config/urls';
-import { BLAST_LIMIT } from '../../../tools/blast/components/BlastForm';
+import { BLAST_LIMIT } from '../../config/limits';
 
 type BlastButtonProps = {
   selectedEntries: string[];

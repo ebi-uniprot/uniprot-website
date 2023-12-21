@@ -1,16 +1,5 @@
-import UniProtKBEntryConfig from '../config/UniProtEntryConfig';
-
-import {
-  UniProtkbUIModel,
-  UniProtkbAPIModel,
-} from '../adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 import { Property, PropertyKey } from '../types/modelTypes';
-
-export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
-  UniProtKBEntryConfig.some(({ id }) => {
-    const data = transformedData[id];
-    return Boolean('xrefData' in data && data.xrefData?.length);
-  });
 
 export const getListOfIsoformAccessions = (data?: UniProtkbAPIModel) => {
   // will push all isoform accessions in this variable

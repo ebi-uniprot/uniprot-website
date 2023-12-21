@@ -32,7 +32,7 @@ import { unisave } from '../../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../../app/config/urls';
 import * as logging from '../../../../shared/utils/logging';
 
-import { TabLocation } from '../Entry';
+import { TabLocation } from '../../../types/entry';
 import {
   UniSaveAccession,
   UniSaveEventType,

@@ -6,11 +6,12 @@ import ToolsButton from './ToolsButton';
 import { fromCleanMapper } from '../../utils/getIdKey';
 import { pluralise } from '../../utils/utils';
 
+import { ALIGN_LIMIT } from '../../config/limits';
+
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 
-const ALIGN_LIMIT = 100;
 const isDisabled = (n: number) => n <= 1 || n > ALIGN_LIMIT;
 
 const getTitle = (n: number) => {

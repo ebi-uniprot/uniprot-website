@@ -11,8 +11,6 @@ import DownloadAPIURL from './DownloadAPIURL';
 import ExternalLink from '../ExternalLink';
 import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
 
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
-
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 
@@ -46,6 +44,8 @@ import {
   isAsyncDownloadIdMapping,
   showColumnSelect,
 } from './downloadUtils';
+
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';

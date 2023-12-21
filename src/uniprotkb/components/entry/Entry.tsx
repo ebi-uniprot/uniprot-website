@@ -40,7 +40,7 @@ import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
+import { getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
@@ -49,6 +49,7 @@ import { stringifyQuery } from '../../../shared/utils/url';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
+  UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
@@ -70,21 +71,12 @@ import {
   MessageFormat,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
+import { TabLocation } from '../../types/entry';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-
-export enum TabLocation {
-  Entry = 'entry',
-  VariantViewer = 'variant-viewer',
-  FeatureViewer = 'feature-viewer',
-  GenomicCoordinates = 'genomic-coordinates',
-  Publications = 'publications',
-  ExternalLinks = 'external-links',
-  History = 'history',
-}
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
@@ -131,6 +123,12 @@ const HistoryTab = lazy(
   () =>
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
 );
+
+export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
+  UniProtKBEntryConfig.some(({ id }) => {
+    const data = transformedData[id];
+    return Boolean('xrefData' in data && data.xrefData?.length);
+  });
 
 const Entry = () => {
   const dispatch = useMessagesDispatch();

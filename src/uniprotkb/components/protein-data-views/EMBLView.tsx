@@ -5,7 +5,10 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
-import { getDatabaseInfoAttribute, processUrlTemplate } from './XRefView';
+import {
+  getDatabaseInfoAttribute,
+  processUrlTemplate,
+} from '../../../shared/utils/xrefs';
 import * as logging from '../../../shared/utils/logging';
 
 import { Xref } from '../../../shared/types/apiModel';

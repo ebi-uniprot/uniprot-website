@@ -24,7 +24,7 @@ import {
 } from '../adapters/uniParcConverter';
 import { ColumnDescriptor } from '../../shared/hooks/useColumns';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { TabLocation } from '../../uniprotkb/components/entry/Entry';
+import { TabLocation } from '../../uniprotkb/types/entry';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy

@@ -17,12 +17,6 @@ import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
-import {
-  AlignmentComponentProps,
-  ConservationOptions,
-  MSAInput,
-  handleEvent,
-} from './AlignmentView';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import {
   createGappedFeature,
@@ -32,6 +26,13 @@ import {
 import AlignLabel from '../align/components/results/AlignLabel';
 
 import FeatureType from '../../uniprotkb/types/featureType';
+import {
+  AlignmentComponentProps,
+  ConservationOptions,
+  MSAInput,
+  NightingaleChangeEvent,
+  UpdateTooltip,
+} from '../types/alignment';
 
 const widthOfAA = 20;
 
@@ -74,6 +75,19 @@ export type WrappedRowProps = {
 // NOTE: hardcoded for now, might need to change that in the future if need be
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
+
+export const handleEvent =
+  (updateTooltip: UpdateTooltip) =>
+  (event: CustomEvent<NightingaleChangeEvent>) => {
+    if (event?.detail?.eventtype === 'click') {
+      updateTooltip({
+        event,
+        id: event.detail.feature.protvistaFeatureId,
+        x: event.detail.coords[0],
+        y: event.detail.coords[1],
+      });
+    }
+  };
 
 export const WrappedRow = ({
   rowLength,

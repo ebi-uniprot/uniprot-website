@@ -21,32 +21,16 @@ import {
   XrefsGoupedByDatabase,
   partitionStructureDatabases,
 } from '../../utils/xrefUtils';
+import {
+  getDatabaseInfoAttribute,
+  processUrlTemplate,
+} from '../../../shared/utils/xrefs';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
-import {
-  DatabaseInfoPoint,
-  AttributesItem,
-  DatabaseCategory,
-} from '../../types/databaseRefs';
+import { DatabaseInfoPoint, DatabaseCategory } from '../../types/databaseRefs';
 import { DatabaseToDatabaseInfo } from '../../utils/database';
-
-export const processUrlTemplate = (
-  urlTemplate: string,
-  params: Record<string, string>
-) => {
-  let url = urlTemplate;
-  Object.entries(params).forEach(([param, value]) => {
-    url = url.replace(new RegExp(`%${param}`, 'g'), value);
-  });
-  return url;
-};
-
-export const getDatabaseInfoAttribute = (
-  attributes: AttributesItem[],
-  name: string
-) => attributes.find(({ name: n }) => n === name);
 
 const formatSuffixWithCount = (prefix: string, number: string) => {
   const count = parseInt(number, 10);
