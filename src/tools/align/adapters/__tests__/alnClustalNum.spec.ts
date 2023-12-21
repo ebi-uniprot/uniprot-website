@@ -14,7 +14,7 @@ describe('alnClustalNum parser', () => {
   let noHeader: string;
   let inconsitentColumnStart: string;
   let inconsitentNumberSequences: string;
-  let specialChracters: string;
+  let specialCharacters: string;
 
   beforeAll(async () => {
     wellFormed = await readMock('alg-clustal_num.txt');
@@ -26,13 +26,15 @@ describe('alnClustalNum parser', () => {
     inconsitentNumberSequences = await readMock(
       'alg-clustal_num-inconsistent-number-sequences.txt'
     );
-    specialChracters = await readMock('alg-clustal_num-special-characters.txt');
+    specialCharacters = await readMock(
+      'alg-clustal_num-special-characters.txt'
+    );
   });
 
   it('should parse without error', () => {
     expect(() => alnClustalNum(wellFormed)).not.toThrow();
     expect(() => alnClustalNum(toy)).not.toThrow();
-    expect(() => alnClustalNum(specialChracters)).not.toThrow();
+    expect(() => alnClustalNum(specialCharacters)).not.toThrow();
   });
 
   it('should match snapshot', () => {
