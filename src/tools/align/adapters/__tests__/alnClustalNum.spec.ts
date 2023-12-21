@@ -40,6 +40,7 @@ describe('alnClustalNum parser', () => {
   it('should match snapshot', () => {
     expect(alnClustalNum(wellFormed)).toMatchSnapshot();
     expect(alnClustalNum(toy)).toMatchSnapshot();
+    expect(alnClustalNum(specialCharacters)).toMatchSnapshot();
   });
 
   it('should throw an error when no header is present', () => {
