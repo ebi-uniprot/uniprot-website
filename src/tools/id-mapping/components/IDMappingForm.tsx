@@ -1,4 +1,4 @@
-import { useRef, FormEvent, useMemo, useReducer } from 'react';
+import { useRef, FormEvent, useMemo, useReducer, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   PageIntro,
@@ -101,8 +101,13 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   const [{ formValues, textIDs, sending, submitDisabled }, dispatch] =
     useReducer(
       getIDMappingFormDataReducer(defaultFormValues),
-      getIDMappingFormInitialState(initialFormValues)
+      initialFormValues,
+      getIDMappingFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   const [dbNameToDbInfo, ruleIdToRuleInfo]: [
     DbNameToDbInfo | undefined | null,

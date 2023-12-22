@@ -2,6 +2,7 @@ import { action } from 'typesafe-actions';
 
 import {
   IDMappingFormValue,
+  IDMappingFormValues,
   IDMappingFields,
 } from '../config/idMappingFormData';
 
@@ -20,4 +21,5 @@ export const updateInputTextIDs = (textIDs: string) =>
 
 export const updateSending = () => action(UPDATE_SENDING);
 
-export const resetFormState = () => action(RESET);
+export const resetFormState = (formValues?: Readonly<IDMappingFormValues>) =>
+  action(RESET, formValues);
