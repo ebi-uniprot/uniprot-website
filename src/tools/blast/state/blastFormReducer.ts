@@ -10,7 +10,7 @@ import { BLAST_LIMIT } from '../../../shared/config/limits';
 
 import { BlastFormValues, BlastFields } from '../config/BlastFormData';
 
-type BlastFormState = {
+export type BlastFormState = {
   formValues: BlastFormValues;
   parsedSequences: SequenceObject[];
   submitDisabled: boolean;
