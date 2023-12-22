@@ -12,7 +12,7 @@ import styles from './styles/kinetics-table.module.scss';
 const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+-?(([0-9]*[.])?[0-9]+)?)/;
 const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
-const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
+const captureWordsInParentheses = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
 // The following regexp matches up to three levels of nested parentheses
 // source: https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
@@ -129,21 +129,21 @@ export const extractFromFreeText = (data: KineticParameters) => {
 
       // Get any additional info which be included between parentheses at the end of km.substrate
       const [moreInfo] = mc.substrate.match(
-        new RegExp(captureWordsInParanthesis, 'g')
+        new RegExp(captureWordsInParentheses, 'g')
       ) || [null];
       // Iterate over possibly nested parentheses content
-      const paranthesesContent = moreInfo?.match(nestedParenthesesRegEx);
+      const parenthesesContent = moreInfo?.match(nestedParenthesesRegEx);
       let notes = '';
-      paranthesesContent?.forEach((paranthesisContent) => {
-        if (!substrateColumn.includes(paranthesisContent)) {
-          if (possibleInfo.some((e) => paranthesisContent.includes(e))) {
+      parenthesesContent?.forEach((parenthesisContent) => {
+        if (!substrateColumn.includes(parenthesisContent)) {
+          if (possibleInfo.some((e) => parenthesisContent.includes(e))) {
             const match =
-              paranthesisContent.match(captureWordsInParanthesis)?.[1] || '';
+              parenthesisContent.match(captureWordsInParentheses)?.[1] || '';
             // Do not include pH and temperature data in notes
             notes = excludePhTemp(match);
           } else {
-            // Sometimes the abbreviation of the substrate could be inside paranthesis, it has to be under the substrate column
-            substrateColumn += ` ${paranthesisContent.trim()}`;
+            // Sometimes the abbreviation of the substrate could be inside parenthesis, it has to be under the substrate column
+            substrateColumn += ` ${parenthesisContent.trim()}`;
           }
         }
       });
@@ -169,8 +169,8 @@ export const extractFromFreeText = (data: KineticParameters) => {
       let notes = substrateInfo.split('enzyme')?.[1];
       if (condition) {
         const match =
-          `(${condition}`.match(captureWordsInParanthesis)?.[1] || '';
-        // If anything is inside paranthesis, process it to populate the right column
+          `(${condition}`.match(captureWordsInParentheses)?.[1] || '';
+        // If anything is inside parenthesis, process it to populate the right column
         if (match) {
           if (['pH', 'degrees'].some((e) => match.includes(e))) {
             const additionalInfo = excludePhTemp(match);
