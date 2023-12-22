@@ -268,7 +268,9 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
   const miscellaneousComments = data.commentsData
     ?.get('MISCELLANEOUS')
-    ?.filter((comment) => !(comment as FreeTextComment).molecule);
+    ?.filter(
+      (comment) => !(comment as FreeTextComment).molecule?.includes('Isoform')
+    );
 
   return (
     <Card
