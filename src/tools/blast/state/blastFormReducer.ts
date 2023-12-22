@@ -10,7 +10,7 @@ import { BLAST_LIMIT } from '../../../shared/config/limits';
 
 import { BlastFormValues, BlastFields } from '../config/BlastFormData';
 
-type BlastFormState = {
+export type BlastFormState = {
   formValues: BlastFormValues;
   parsedSequences: SequenceObject[];
   submitDisabled: boolean;
@@ -164,7 +164,7 @@ export const getBlastFormDataReducer =
           sending: true,
         };
       case blastFormActions.RESET:
-        return getBlastFormInitialState(defaultFormValues);
+        return getBlastFormInitialState(action.payload || defaultFormValues);
       default:
         return state;
     }

@@ -166,7 +166,9 @@ export const getIDMappingFormDataReducer =
           sending: true,
         };
       case idMappingFormActions.RESET:
-        return getIDMappingFormInitialState(defaultFormValues);
+        return getIDMappingFormInitialState(
+          action.payload || defaultFormValues
+        );
       default:
         return state;
     }

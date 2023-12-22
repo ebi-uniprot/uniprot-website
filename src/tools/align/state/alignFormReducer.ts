@@ -159,7 +159,7 @@ export const getAlignFormDataReducer =
           sending: true,
         };
       case alignFormActions.RESET:
-        return getAlignFormInitialState(defaultFormValues);
+        return getAlignFormInitialState(action.payload || defaultFormValues);
       default:
         return state;
     }

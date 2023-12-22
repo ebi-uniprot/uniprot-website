@@ -5,6 +5,7 @@ import {
   FC,
   useReducer,
   useCallback,
+  useEffect,
 } from 'react';
 import {
   SequenceSubmission,
@@ -113,8 +114,13 @@ const AlignForm = ({ initialFormValues }: Props) => {
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
       getAlignFormDataReducer(defaultFormValues),
-      getAlignFormInitialState(initialFormValues)
+      initialFormValues,
+      getAlignFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   // form event handlers
   const handleReset = (event: FormEvent) => {

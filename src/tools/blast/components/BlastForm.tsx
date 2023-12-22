@@ -1,4 +1,11 @@
-import { FC, FormEvent, MouseEvent, useRef, useReducer } from 'react';
+import {
+  FC,
+  FormEvent,
+  MouseEvent,
+  useRef,
+  useReducer,
+  useEffect,
+} from 'react';
 import {
   Chip,
   SequenceSubmission,
@@ -124,8 +131,13 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
       getBlastFormDataReducer(defaultFormValues),
-      getBlastFormInitialState(initialFormValues)
+      initialFormValues,
+      getBlastFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   // actual form fields
   const excludeTaxonField = excludeTaxonForDB(
