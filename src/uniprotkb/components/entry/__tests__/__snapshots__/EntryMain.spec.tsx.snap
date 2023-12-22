@@ -3372,6 +3372,28 @@ exports[`Entry view should render 1`] = `
                 class="decorated-list-item__content"
               >
                 syn value
+                <button
+                  aria-controls="59"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    PROSITE-ProRule annotation
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="59"
+                />
               </div>
             </div>
           </li>
@@ -3448,41 +3470,6 @@ exports[`Entry view should render 1`] = `
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
           <button
-            aria-controls="59"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="59"
-          />
-        </section>
-        <h3
-          data-article-id="mass_spectrometry"
-        >
-          Mass Spectrometry
-        </h3>
-        <section
-          class="text-block"
-        >
-          <h4>
-            isoform 1
-          </h4>
-          Molecular mass is 2.1 Da. Determined by LSI. note value
-          <button
             aria-controls="60"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
@@ -3506,6 +3493,41 @@ exports[`Entry view should render 1`] = `
           />
         </section>
         <h3
+          data-article-id="mass_spectrometry"
+        >
+          Mass Spectrometry
+        </h3>
+        <section
+          class="text-block"
+        >
+          <h4>
+            isoform 1
+          </h4>
+          Molecular mass is 2.1 Da. Determined by LSI. note value
+          <button
+            aria-controls="61"
+            aria-expanded="false"
+            class="svg-colour-unreviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              automatic annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="61"
+          />
+        </section>
+        <h3
           data-article-id="rna_editing"
         >
           RNA Editing
@@ -3517,33 +3539,6 @@ exports[`Entry view should render 1`] = `
             Edited at position 
             <span>
               1 
-              <button
-                aria-controls="61"
-                aria-expanded="false"
-                class="svg-colour-unreviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="61"
-              />
-            </span>
-          </div>
-          <div>
-            <span>
-              value 
               <button
                 aria-controls="62"
                 aria-expanded="false"
@@ -3565,6 +3560,33 @@ exports[`Entry view should render 1`] = `
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
                 id="62"
+              />
+            </span>
+          </div>
+          <div>
+            <span>
+              value 
+              <button
+                aria-controls="63"
+                aria-expanded="false"
+                class="svg-colour-unreviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="63"
               />
             </span>
           </div>
