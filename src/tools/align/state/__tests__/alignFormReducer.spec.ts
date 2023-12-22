@@ -7,7 +7,7 @@ import * as actions from '../alignFormActions';
 import defaultFormValues, { AlignFields } from '../../config/AlignFormData';
 
 describe('alignFormReducer', () => {
-  it('should reset with new form values when provided', () => {
+  it('should reset with new form values when provided then reset to default if not provided', () => {
     const reducer = getAlignFormDataReducer(defaultFormValues);
     const initialState = getAlignFormInitialState(defaultFormValues);
     let action: AlignFormAction = {

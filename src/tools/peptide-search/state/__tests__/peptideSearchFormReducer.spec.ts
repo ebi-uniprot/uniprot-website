@@ -1,20 +1,22 @@
 import {
-  BlastFormAction,
-  getBlastFormDataReducer,
-  getBlastFormInitialState,
-} from '../blastFormReducer';
-import * as actions from '../blastFormActions';
-import defaultFormValues, { BlastFields } from '../../config/BlastFormData';
+  PeptideSearchFormAction,
+  getPeptideSearchFormDataReducer,
+  getPeptideSearchFormInitialState,
+} from '../peptideSearchFormReducer';
+import * as actions from '../peptideSearchFormActions';
+import defaultFormValues, {
+  PeptideSearchFields,
+} from '../../config/PeptideSearchFormData';
 
-describe('blastFormReducer', () => {
+describe('peptidesearchFormReducer', () => {
   it('should reset with new form values when provided then reset to default if not provided', () => {
-    const reducer = getBlastFormDataReducer(defaultFormValues);
-    const initialState = getBlastFormInitialState(defaultFormValues);
-    let action: BlastFormAction = {
+    const reducer = getPeptideSearchFormDataReducer(defaultFormValues);
+    const initialState = getPeptideSearchFormInitialState(defaultFormValues);
+    let action: PeptideSearchFormAction = {
       type: actions.RESET,
       payload: {
         ...initialState.formValues,
-        [BlastFields.name]: {
+        [PeptideSearchFields.name]: {
           fieldName: 'name',
           selected: 'foo',
         },
