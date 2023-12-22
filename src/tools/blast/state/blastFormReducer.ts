@@ -164,7 +164,7 @@ export const getBlastFormDataReducer =
           sending: true,
         };
       case blastFormActions.RESET:
-        return getBlastFormInitialState(defaultFormValues);
+        return getBlastFormInitialState(action.payload || defaultFormValues);
       default:
         return state;
     }
