@@ -1,4 +1,11 @@
-import { FC, FormEvent, MouseEvent, useRef, useReducer } from 'react';
+import {
+  FC,
+  FormEvent,
+  MouseEvent,
+  useRef,
+  useReducer,
+  useEffect,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -108,8 +115,13 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
       getPeptideSearchFormDataReducer(defaultFormValues),
-      getPeptideSearchFormInitialState(initialFormValues)
+      initialFormValues,
+      getPeptideSearchFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {

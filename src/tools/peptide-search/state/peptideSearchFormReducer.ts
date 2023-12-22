@@ -167,7 +167,9 @@ export const getPeptideSearchFormDataReducer =
           sending: true,
         };
       case peptideSearchFormActions.RESET:
-        return getPeptideSearchFormInitialState(defaultFormValues);
+        return getPeptideSearchFormInitialState(
+          action.payload || defaultFormValues
+        );
       default:
         return state;
     }
