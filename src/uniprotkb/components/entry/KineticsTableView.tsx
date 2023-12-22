@@ -120,9 +120,6 @@ export const extractFromFreeText = (data: KineticParameters) => {
 
   if (data.michaelisConstants) {
     km = data.michaelisConstants.map((mc) => {
-      /*
-        Capture whatever is in the 
-      */
       let [substrateColumn] = mc.substrate.split(' ('); // Ignore splitting the substrate name when '()' is part of it
       const ph = extractPh(mc.substrate);
       const temp = extractTemp(mc.substrate);
