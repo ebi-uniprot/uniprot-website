@@ -73,6 +73,7 @@ const dataToSchema = (
       '@id': event?.['@id'] || undefined,
     },
     provider: organiser,
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'GBP' },
   };
 
   if (event) {
