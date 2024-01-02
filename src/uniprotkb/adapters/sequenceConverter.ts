@@ -115,7 +115,8 @@ export const convertSequence = (
     sequenceData.flag = data.proteinDescription.flag;
 
     sequenceData.status = fragmentFlags.has(data.proteinDescription.flag)
-      ? data.proteinDescription.flag
+      ? // Split to not include precursor flag which is handled in sequenceData.processing below
+        data.proteinDescription.flag.split(',')[0]
       : 'Complete';
 
     sequenceData.processing = precursorFlags.has(data.proteinDescription.flag)
