@@ -31,7 +31,7 @@ exports[`BlastForm test Renders the form 1`] = `
             <input
               data-testid="search-input"
               placeholder="UniProt IDs"
-              type="text"
+              type="search"
               value=""
             />
             <span
@@ -165,7 +165,7 @@ exports[`BlastForm test Renders the form 1`] = `
                 <input
                   data-testid="search-input"
                   placeholder="Enter taxon names or IDs to include"
-                  type="text"
+                  type="search"
                   value=""
                 />
                 <span

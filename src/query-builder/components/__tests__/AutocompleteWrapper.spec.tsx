@@ -36,7 +36,7 @@ describe('Autocomplete Wrapper', () => {
 
   it('should render the correct number of AutocompleteItems when input is human', async () => {
     render(<AutocompleteWrapper {...props} />);
-    const searchInput = screen.getByRole('textbox');
+    const searchInput = screen.getByRole('searchbox');
     fireEvent.change(searchInput, {
       target: { value: mockSuggesterApi.query },
     });
@@ -50,7 +50,7 @@ describe('Autocomplete Wrapper', () => {
 
   it('should not render AutocompleteItems when input is less than minCharsToShowDropdown (=3)', async () => {
     render(<AutocompleteWrapper {...props} />);
-    const searchInput = screen.getByRole('textbox');
+    const searchInput = screen.getByRole('searchbox');
     const value = 'hu';
     fireEvent.change(searchInput, { target: { value } });
     const autocompleteItems = await waitFor(() =>

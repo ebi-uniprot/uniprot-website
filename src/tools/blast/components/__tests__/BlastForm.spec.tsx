@@ -134,7 +134,7 @@ describe('BlastForm test', () => {
   });
 
   it('Adds and removes a taxon', async () => {
-    const autocompleteInput = screen.getByRole('textbox', {
+    const autocompleteInput = screen.getByRole('searchbox', {
       name: 'Restrict by taxonomy',
     });
     fireEvent.change(autocompleteInput, {

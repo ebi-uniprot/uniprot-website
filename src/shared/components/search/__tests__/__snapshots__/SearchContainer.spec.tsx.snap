@@ -28,7 +28,7 @@ exports[`Search component on home page should render 1`] = `
         <input
           aria-label="Text query in uniprotkb"
           style="--input-padding: 12ch;"
-          type="text"
+          type="search"
           value=""
         />
         <div

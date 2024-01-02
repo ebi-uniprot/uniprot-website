@@ -11,7 +11,7 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
       <input
         data-testid="search-input"
         placeholder="Search"
-        type="text"
+        type="search"
         value="canonical"
       />
       <span
