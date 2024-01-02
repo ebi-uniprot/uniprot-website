@@ -68,7 +68,10 @@ const dataToSchema = (
     name: title,
     description: data.fields.description,
     url,
-    hasCourseInstance: event?.['@id'] ? { '@id': event['@id'] } : undefined,
+    hasCourseInstance: {
+      '@type': 'CourseInstance',
+      '@id': event?.['@id'] || undefined,
+    },
     provider: organiser,
   };
 
