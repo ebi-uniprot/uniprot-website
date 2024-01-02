@@ -96,6 +96,8 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   inputParamsData,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [downloadPanelExtraContent, setDownloadPanelExtraContent] =
+    useState(null);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const {
     viewMode,
@@ -218,6 +220,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
                 inBasketMini={inBasketMini}
                 inputParamsData={inputParamsData}
                 jobType={jobType}
+                extraContent={downloadPanelExtraContent}
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -311,6 +314,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
             setDisplayDownloadPanel={setDisplayDownloadPanel}
             namespaceOverride={namespaceOverride}
             disableCardToggle={disableCardToggle}
+            setDownloadExtraContent={setDownloadPanelExtraContent}
           />
         )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />

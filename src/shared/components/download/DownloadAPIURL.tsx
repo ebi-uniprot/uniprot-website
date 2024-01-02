@@ -5,7 +5,7 @@ import {
   ExternalLink,
   LongNumber,
 } from 'franklin-sites';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -66,6 +66,7 @@ const DownloadAPIURL = ({
   isEntry,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
+  const copyRef = useRef<HTMLButtonElement>();
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
     async (text: string) => {
@@ -82,6 +83,12 @@ const DownloadAPIURL = ({
     },
     [dispatch, onCopy]
   );
+
+  useEffect(() => {
+    if (copyRef.current) {
+      copyRef.current.focus();
+    }
+  }, []);
 
   const isStreamEndpoint = apiURL.includes('/stream');
   const isIdMapping = apiURL.includes('/id-mapping/');
@@ -111,6 +118,7 @@ const DownloadAPIURL = ({
             API Documentation
           </ExternalLink>
           <Button
+            ref={copyRef}
             variant="primary"
             className={styles['copy-button']}
             onClick={() => handleCopyURL(apiURL)}
@@ -153,6 +161,7 @@ const DownloadAPIURL = ({
           <CodeBlock lightMode>{ftpURL}</CodeBlock>
           <section className="button-group">
             <Button
+              ref={copyRef}
               variant="primary"
               className={styles['copy-button']}
               onClick={() => handleCopyURL(ftpURL)}
@@ -180,6 +189,7 @@ const DownloadAPIURL = ({
       <section className="button-group">
         <Button
           variant="primary"
+          ref={copyRef}
           className={styles['copy-button']}
           onClick={() => handleCopyURL(apiURL)}
           disabled={disableStream}
@@ -210,6 +220,7 @@ const DownloadAPIURL = ({
           <section className="button-group">
             <Button
               variant="primary"
+              ref={copyRef}
               className={styles['copy-button']}
               onClick={() => handleCopyURL(searchURL)}
             >
