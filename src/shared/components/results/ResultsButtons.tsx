@@ -54,6 +54,7 @@ import {
 } from '../../../messages/types/messagesTypes';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import { ExtraContent } from '../download/downloadReducer';
 
 import styles from './styles/results-buttons.module.scss';
 
@@ -97,7 +98,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const [downloadPanelExtraContent, setDownloadPanelExtraContent] =
-    useState(null);
+    useState<ExtraContent>(null);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const {
     viewMode,
