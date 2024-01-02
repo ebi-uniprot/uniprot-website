@@ -66,7 +66,7 @@ const DownloadAPIURL = ({
   isEntry,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
-  const copyRef = useRef<HTMLButtonElement>();
+  const copyRef = useRef<HTMLButtonElement>(null);
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
     async (text: string) => {
@@ -161,7 +161,6 @@ const DownloadAPIURL = ({
           <CodeBlock lightMode>{ftpURL}</CodeBlock>
           <section className="button-group">
             <Button
-              ref={copyRef}
               variant="primary"
               className={styles['copy-button']}
               onClick={() => handleCopyURL(ftpURL)}
@@ -189,7 +188,6 @@ const DownloadAPIURL = ({
       <section className="button-group">
         <Button
           variant="primary"
-          ref={copyRef}
           className={styles['copy-button']}
           onClick={() => handleCopyURL(apiURL)}
           disabled={disableStream}
