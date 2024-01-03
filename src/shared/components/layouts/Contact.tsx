@@ -3,6 +3,14 @@ import { EnvelopeIcon } from 'franklin-sites';
 
 import ExternalLink from '../ExternalLink';
 
+import {
+  blogspot,
+  facebook,
+  googleGroups,
+  twitter,
+  youtube,
+} from '../../../app/config/socialUrls';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
@@ -27,39 +35,19 @@ const Contact = () => (
       </Link>
     </p>
     <p className={footer.social}>
-      <ExternalLink
-        noIcon
-        url="https://twitter.com/uniprot"
-        title="UniProt posts on Twitter"
-      >
+      <ExternalLink noIcon url={twitter} title="UniProt posts on Twitter">
         <TwitterLogo width="3ch" />
       </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://www.facebook.com/uniprot.org"
-        title="UniProt posts on Facebook"
-      >
+      <ExternalLink noIcon url={facebook} title="UniProt posts on Facebook">
         <FacebookLogo width="3ch" />
       </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://www.youtube.com/user/uniprotvideos"
-        title="UniProt videos on YouTube"
-      >
+      <ExternalLink noIcon url={youtube} title="UniProt videos on YouTube">
         <YouTubeLogo width="3ch" />
       </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://insideuniprot.blogspot.com/"
-        title="UniProt blog"
-      >
+      <ExternalLink noIcon url={blogspot} title="UniProt blog">
         <BloggerLogo width="3ch" />
       </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://groups.google.com/forum/#!forum/ebi-proteins-api"
-        title="UniProt Google Group"
-      >
+      <ExternalLink noIcon url={googleGroups} title="UniProt Google Group">
         <GGroupsLogo width="3ch" />
       </ExternalLink>
     </p>
