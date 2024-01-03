@@ -465,7 +465,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
   render: (data) => {
     const { flag } = data[EntrySection.Sequence];
     const isFragment = flag && fragmentFlags.has(flag);
-    // Split to not include precursor flag
+    // Split to exclude precursor flag
     return isFragment && flag.split(',')[0];
   },
 });
