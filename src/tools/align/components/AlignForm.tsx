@@ -23,6 +23,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SequenceSearchLoader from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
+import DowntimeWarning from '../../components/DowntimeWarning';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
@@ -207,6 +208,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro title={title} translate="no" />
+      <DowntimeWarning>Align service</DowntimeWarning>
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}
