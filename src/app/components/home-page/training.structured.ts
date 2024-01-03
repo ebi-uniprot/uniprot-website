@@ -6,7 +6,7 @@ import { PayloadEBISearch } from './NeedHelp';
 
 export const isCourseOnsite = (
   location?: PayloadEBISearch['entries'][0]['fields']['location']
-) => location?.[0] !== 'Online';
+) => !!location?.[0] && location[0] !== 'Online';
 
 const dataToSchema = (
   data: PayloadEBISearch['entries'][0]
