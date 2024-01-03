@@ -241,7 +241,7 @@ export const getPreviewCount = (
   return previewOptions?.size || 'file';
 };
 
-export const getFtpFilenameAndUrl = (
+export const getFtpFilenamesAndUrls = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
@@ -263,7 +263,7 @@ export const getIsAsyncDownload = (
 ) =>
   (props.namespace === Namespace.uniprotkb &&
     ((state.selectedFileFormat === FileFormat.embeddings &&
-      !getFtpFilenameAndUrl(state, props, location, job)) ||
+      !getFtpFilenamesAndUrls(state, props, location, job)) ||
       getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
   (props.namespace === Namespace.uniref &&
     getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
@@ -292,7 +292,7 @@ export const getExtraContent = (
 ) => {
   if (
     (state.extraContent === 'ftp' || state.extraContent === 'url') &&
-    getFtpFilenameAndUrl(state, props, location, job)
+    getFtpFilenamesAndUrls(state, props, location, job)
   ) {
     return 'ftp';
   }

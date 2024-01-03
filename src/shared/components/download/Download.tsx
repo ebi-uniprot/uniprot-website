@@ -35,7 +35,7 @@ import {
   getDownloadCount,
   getDownloadOptions,
   getPreviewOptions,
-  getFtpFilenameAndUrl,
+  getFtpFilenamesAndUrls,
   getIsAsyncDownload,
   getRedirectToIDMapping,
   getExtraContent,
@@ -44,6 +44,7 @@ import {
   isAsyncDownloadIdMapping,
   showColumnSelect,
 } from './downloadUtils';
+import { pluralise } from '../../utils/utils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
 
@@ -117,7 +118,12 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const downloadUrl = getDownloadUrl(downloadOptions);
   const previewOptions = getPreviewOptions(state, props, location, job);
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
-  const ftpFilenameAndUrl = getFtpFilenameAndUrl(state, props, location, job);
+  const ftpFilenamesAndUrls = getFtpFilenamesAndUrls(
+    state,
+    props,
+    location,
+    job
+  );
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
@@ -130,7 +136,12 @@ const Download = (props: DownloadProps<JobTypes>) => {
           <h4 data-article-id="downloads" className={styles['ftp-header']}>
             File Available On FTP Server
           </h4>
-          This file is available {!isEmbeddings && 'compressed'} within the{' '}
+          {pluralise(
+            'This file is',
+            ftpFilenamesAndUrls?.length || 0,
+            `${ftpFilenamesAndUrls?.length} files are`
+          )}{' '}
+          is available {!isEmbeddings && 'compressed'} within the{' '}
           <Link
             to={generatePath(LocationToPath[Location.HelpEntry], {
               accession: 'downloads',
@@ -138,17 +149,25 @@ const Download = (props: DownloadProps<JobTypes>) => {
           >
             UniProtKB directory
           </Link>{' '}
-          of the UniProt FTP server:
-          <div className={styles['ftp-url']}>
-            <ExternalLink
-              url={ftpFilenameAndUrl?.url || ''}
-              noIcon
-              onClick={() => onClose('download', 'ftp')}
-            >
-              <DownloadIcon width="1em" />
-              {ftpFilenameAndUrl?.filename}
-            </ExternalLink>
-          </div>
+          of the UniProt FTP server
+          {ftpFilenamesAndUrls &&
+            ftpFilenamesAndUrls?.length > 1 &&
+            ' which can be combined to obtain the full result set'}
+          :
+          <ul className="no-bullet">
+            {ftpFilenamesAndUrls?.map(({ url, filename }) => (
+              <li className={styles['ftp-url']} key={url}>
+                <ExternalLink
+                  url={url || ''}
+                  noIcon
+                  onClick={() => onClose('download', 'ftp')}
+                >
+                  <DownloadIcon width="1em" />
+                  {filename}
+                </ExternalLink>
+              </li>
+            ))}
+          </ul>
         </>
       );
       break;
@@ -157,7 +176,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
         <DownloadAPIURL
           // Remove the download attribute as it's unnecessary for API access
           apiURL={downloadUrl.replace('download=true&', '')}
-          ftpURL={ftpFilenameAndUrl?.url}
           onCopy={() => onClose('copy', 'api-url')}
           disableSearch={
             isEmbeddings ||
@@ -348,7 +366,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl}
+          href={
+            isAsyncDownload || ftpFilenamesAndUrls ? undefined : downloadUrl
+          }
           className={cn('button', 'primary', {
             [helper.disabled]: state.disableForm,
           })}
@@ -360,7 +380,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           target="_blank"
           rel="noreferrer"
           onClick={() => {
-            if (ftpFilenameAndUrl) {
+            if (ftpFilenamesAndUrls) {
               dispatch(updateExtraContent('ftp'));
             } else if (isAsyncDownload) {
               dispatch(updateExtraContent('generate'));
