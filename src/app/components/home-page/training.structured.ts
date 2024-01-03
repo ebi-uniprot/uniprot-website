@@ -4,6 +4,10 @@ import parseDate from '../../../shared/utils/parseDate';
 
 import { PayloadEBISearch } from './NeedHelp';
 
+export const isCourseOnsite = (
+  location?: PayloadEBISearch['entries'][0]['fields']['location']
+) => location?.[0] !== 'Online';
+
 const dataToSchema = (
   data: PayloadEBISearch['entries'][0]
 ): WithContext<Course> | Graph | undefined => {
@@ -71,9 +75,16 @@ const dataToSchema = (
     hasCourseInstance: {
       '@type': 'CourseInstance',
       '@id': event?.['@id'] || undefined,
+      courseMode: isCourseOnsite(data.fields.location) ? 'Onsite' : 'Online',
+      courseWorkload: 'PT1H',
     },
     provider: organiser,
-    offers: { '@type': 'Offer', price: 0, priceCurrency: 'GBP' },
+    offers: {
+      '@type': 'Offer',
+      price: 0,
+      priceCurrency: 'GBP',
+      category: 'Free',
+    },
   };
 
   if (event) {
