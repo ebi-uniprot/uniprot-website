@@ -35,6 +35,7 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
+import description from '../config/description';
 
 import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
@@ -366,7 +367,7 @@ const App = () => {
         <meta
           name="description"
           // default description, to override wherever needed
-          content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
+          content={description}
         />
       </Helmet>
       <DevDeploymentWarning />
