@@ -7,6 +7,7 @@ import ErrorBoundary from '../../../../shared/components/error-component/ErrorBo
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ResultButtons from '../../../components/ResultButtons';
+import DowntimeWarning from '../../../components/DowntimeWarning';
 
 import useDataApi, {
   UseDataAPIState,
@@ -173,6 +174,7 @@ const AlignResult = () => {
         title={namespaceAndToolsLabels[jobType]}
         titlePostscript={<small> results</small>}
       />
+      <DowntimeWarning>Align service</DowntimeWarning>
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
