@@ -71,7 +71,7 @@ describe('getUniprotkbFtpUrl', () => {
   it('should not generate FTP link', () => {
     expect(
       getUniprotkbFtpFilenamesAndUrls(
-        'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=fasta&query=(*)',
+        'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=fasta&query=(foo)',
         FileFormat.fastaCanonical
       )
     ).toEqual(null);
