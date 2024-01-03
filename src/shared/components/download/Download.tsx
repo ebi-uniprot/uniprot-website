@@ -18,6 +18,7 @@ import {
   DownloadSelectOptions,
   downloadReducer,
   getDownloadInitialState,
+  ExtraContent,
 } from './downloadReducer';
 import {
   updateSelectedFileFormat,
@@ -77,6 +78,7 @@ export type DownloadProps<T extends JobTypes> = {
   inBasketMini?: boolean;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
+  extraContent?: ExtraContent;
 };
 
 const Download = (props: DownloadProps<JobTypes>) => {
