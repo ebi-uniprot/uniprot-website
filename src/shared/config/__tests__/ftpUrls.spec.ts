@@ -141,7 +141,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.fasta
       )?.[0]?.url
     ).toEqual(
-      'https://ftp.uniprot.org/pub/databases/uniprot/uniparc/fasta/active/'
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/fasta/active/'
     );
   });
 });
