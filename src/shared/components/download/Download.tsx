@@ -44,7 +44,6 @@ import {
   isAsyncDownloadIdMapping,
   showColumnSelect,
 } from './downloadUtils';
-import { pluralise } from '../../utils/utils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
 
@@ -130,29 +129,31 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
   let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
-    case 'ftp':
+    case 'ftp': {
+      const isMultipleFiles =
+        (ftpFilenamesAndUrls || [])?.length > 1 ||
+        (ftpFilenamesAndUrls?.length === 1 &&
+          ftpFilenamesAndUrls[0].filename.endsWith('/'));
       extraContentNode = (
         <>
           <h4 data-article-id="downloads" className={styles['ftp-header']}>
-            File Available On FTP Server
+            Download Available On FTP Server
           </h4>
-          {pluralise(
-            'This file is',
-            ftpFilenamesAndUrls?.length || 0,
-            `${ftpFilenamesAndUrls?.length} files are`
-          )}{' '}
-          is available {!isEmbeddings && 'compressed'} within the{' '}
+          This download is available on the{' '}
           <Link
             to={generatePath(LocationToPath[Location.HelpEntry], {
               accession: 'downloads',
             })}
           >
-            UniProtKB directory
-          </Link>{' '}
-          of the UniProt FTP server
-          {ftpFilenamesAndUrls &&
-            ftpFilenamesAndUrls?.length > 1 &&
-            ' which can be combined to obtain the full result set'}
+            UniProt FTP server
+          </Link>
+          {` as a ${isMultipleFiles ? 'set of ' : 'single '} ${
+            isEmbeddings ? '' : 'compressed'
+          } file${
+            isMultipleFiles
+              ? 's which can be combined to obtain the full result set'
+              : ''
+          }`}
           :
           <ul className="no-bullet">
             {ftpFilenamesAndUrls?.map(({ url, filename }) => (
@@ -171,6 +172,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
         </>
       );
       break;
+    }
     case 'url':
       extraContentNode = (
         <DownloadAPIURL

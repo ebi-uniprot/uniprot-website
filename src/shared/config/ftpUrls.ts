@@ -167,8 +167,8 @@ export const getUniprotkbFtpFilenamesAndUrls = (
   }
   if (namespace === Namespace.uniparc) {
     const filename =
-      (format === FileFormat.fasta && 'fasta/active/') ||
-      (format === FileFormat.xml && 'xml/all/');
+      (format === FileFormat.fasta && '/fasta/active/') ||
+      (format === FileFormat.xml && '/xml/all/');
     if (!filename) {
       return null;
     }
