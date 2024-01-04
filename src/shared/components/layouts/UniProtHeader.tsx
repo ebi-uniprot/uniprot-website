@@ -132,6 +132,10 @@ const organizationSchema: WithContext<Organization> = {
   name: 'UniProt',
   description,
   sameAs: Object.values(socialUrls),
+  contactPoint: {
+    '@type': 'ContactPoint',
+    url: 'https://www.uniprot.org/contact',
+  },
 };
 
 const UniProtHeader = () => {
