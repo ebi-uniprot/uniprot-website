@@ -68,6 +68,7 @@ const namespaceToRestQueryToFtpFilenames = new Map([
   [
     Namespace.uniref,
     new Map([
+      ['*', ['uniref50/uniref50', 'uniref90/uniref90', 'uniref100/uniref100']],
       ['identity:1.0', ['uniref100/uniref100']],
       ['identity:0.9', ['uniref90/uniref90']],
       ['identity:0.5', ['uniref50/uniref50']],
