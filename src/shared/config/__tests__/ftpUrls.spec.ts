@@ -32,6 +32,8 @@ describe('simplifyQuery', () => {
     ['*', '*'],
     ['(*)', '*'],
     ['((*))', '*'],
+    ['(*) AND (identity:0.9)', 'identity:0.9'],
+    ['(identity:1.0) AND (*) ', 'identity:1.0'],
   ];
   test.each(testCases)(
     'should simplify query %p → %p',
@@ -118,6 +120,17 @@ describe('getUniprotkbFtpUrl', () => {
       )?.[0]?.url
     ).toEqual(
       'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/UP000005640_9606/per-protein.h5'
+    );
+  });
+  it('should generate FTP link to UniRef file', () => {
+    expect(
+      getUniprotkbFtpFilenamesAndUrls(
+        Namespace.uniref,
+        'https://rest.uniprot.org/uniref/stream?compressed=true&download=true&format=fasta&query=(*) AND (identity:0.9)',
+        FileFormat.fastaRepresentative
+      )?.[0]?.url
+    ).toEqual(
+      'https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz'
     );
   });
 });
