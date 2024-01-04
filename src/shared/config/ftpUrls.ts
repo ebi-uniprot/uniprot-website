@@ -56,7 +56,7 @@ const namespaceToAvailableFormats = new Map([
       FileFormat.embeddings,
     ]),
   ],
-  [Namespace.uniref, new Set([FileFormat.fastaRepresentative, FileFormat.xml])],
+  [Namespace.uniref, new Set([FileFormat.fastaRepresentative])],
 ]);
 
 const namespaceToRestQueryToFtpFilenames = new Map([
