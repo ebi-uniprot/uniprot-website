@@ -247,7 +247,6 @@ export const getFtpFilenamesAndUrls = (
   location: HistoryLocation<unknown>,
   job: JobFromUrl
 ) =>
-  props.namespace === Namespace.uniprotkb &&
   job.jobResultsLocation !== Location.IDMappingResult
     ? getUniprotkbFtpFilenamesAndUrls(
         props.namespace,
