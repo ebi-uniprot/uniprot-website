@@ -250,6 +250,7 @@ export const getFtpFilenamesAndUrls = (
   props.namespace === Namespace.uniprotkb &&
   job.jobResultsLocation !== Location.IDMappingResult
     ? getUniprotkbFtpFilenamesAndUrls(
+        props.namespace,
         getDownloadUrl(getDownloadOptions(state, props, location, job)),
         state.selectedFileFormat
       )

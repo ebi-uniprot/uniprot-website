@@ -2,6 +2,7 @@ import { capitalize } from 'lodash-es';
 import joinUrl from 'url-join';
 
 import { FileFormat } from '../types/resultsDownload';
+import { Namespace } from '../types/namespaces';
 
 const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
@@ -35,6 +36,19 @@ const restFormatToFtpFormat = new Map([
   [FileFormat.fastaCanonical, 'fasta'],
   [FileFormat.text, 'dat'],
   [FileFormat.xml, 'xml'],
+]);
+
+const namespaceToAvailableFormats = new Map([
+  [
+    Namespace.uniprotkb,
+    new Set([
+      FileFormat.fastaCanonical,
+      FileFormat.text,
+      FileFormat.xml,
+      FileFormat.embeddings,
+    ]),
+  ],
+  [Namespace.uniref, new Set([FileFormat.fastaCanonical, FileFormat.xml])],
 ]);
 
 const restQueryToFtpFilenames = new Map([
@@ -92,9 +106,13 @@ export const simplifyQuery = (query: string) => {
 };
 
 export const getUniprotkbFtpFilenamesAndUrls = (
+  namespace: Namespace,
   downloadUrl: string,
   format: FileFormat
 ) => {
+  if (!namespaceToAvailableFormats.get(namespace)?.has(format)) {
+    return null;
+  }
   const sp = new URLSearchParams(downloadUrl);
   const query = sp.get('query');
   if (!query) {
