@@ -31,12 +31,13 @@ const ftpUrls = {
     ),
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
-  uniparc: joinUrl(ftpUniProt, 'uniparc'),
+  uniparc: joinUrl(ftpUniProt, 'current_release/uniparc'),
 };
 
 const namespaceToFtpUrlBase = new Map([
   [Namespace.uniprotkb, ftpUrls.uniprotkb],
   [Namespace.uniref, ftpUrls.uniref],
+  [Namespace.uniparc, ftpUrls.uniparc],
 ]);
 
 const restFormatToFtpFormat = new Map([
@@ -57,9 +58,13 @@ const namespaceToAvailableFormats = new Map([
     ]),
   ],
   [Namespace.uniref, new Set([FileFormat.fastaRepresentative])],
+  [Namespace.uniparc, new Set([FileFormat.fasta, FileFormat.xml])],
 ]);
 
 const namespaceToRestQueryToFtpFilenames = new Map([
+  // UniParc is exceptional as it's two directories: xml/all/ and fasta/active/ so creating this Map
+  // element to indicate that uniparc does have ftp analogs and handle the awkward logic later on.
+  [Namespace.uniparc, new Map([['*', []]])],
   [
     Namespace.uniref,
     new Map([
@@ -137,7 +142,7 @@ export const getUniprotkbFtpFilenamesAndUrls = (
   namespace: Namespace,
   downloadUrl: string,
   format: FileFormat
-) => {
+): { filename: string; url: string }[] | null => {
   if (!namespaceToAvailableFormats.get(namespace)?.has(format)) {
     return null;
   }
@@ -159,6 +164,20 @@ export const getUniprotkbFtpFilenamesAndUrls = (
     ?.get(simplifiedQuery);
   if (!ftpFilenames) {
     return null;
+  }
+  if (namespace === Namespace.uniparc) {
+    const filename =
+      (format === FileFormat.fasta && 'fasta/active/') ||
+      (format === FileFormat.xml && 'xml/all/');
+    if (!filename) {
+      return null;
+    }
+    return [
+      {
+        filename,
+        url: joinUrl(ftpUrlBase, filename),
+      },
+    ];
   }
   if (format === FileFormat.embeddings && ftpFilenames.length === 1) {
     if (ftpFilenames[0] === 'uniprot_sprot') {
