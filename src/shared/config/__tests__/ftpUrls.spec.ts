@@ -133,4 +133,15 @@ describe('getUniprotkbFtpUrl', () => {
       'https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz'
     );
   });
+  it('should generate FTP link to UniParc directory', () => {
+    expect(
+      getUniprotkbFtpFilenamesAndUrls(
+        Namespace.uniparc,
+        'https://rest.uniprot.org/uniparc/stream?compressed=true&format=fasta&query=(*)',
+        FileFormat.fasta
+      )?.[0]?.url
+    ).toEqual(
+      'https://ftp.uniprot.org/pub/databases/uniprot/uniparc/fasta/active/'
+    );
+  });
 });
