@@ -13,15 +13,17 @@ type PreparedField = {
   id: Column;
   label: string;
   key: string;
+  full?: boolean;
 };
 
 export const prepareFields = (fields: ReceivedField[], exclude?: Column[]) =>
   (exclude ? fields.filter(({ name }) => !exclude.includes(name)) : fields).map(
-    ({ label, name, id }) =>
+    ({ label, name, id, isMultiValueCrossReference }) =>
       ({
         id: name,
         label,
         key: id,
+        full: isMultiValueCrossReference,
       } as PreparedField)
   );
 

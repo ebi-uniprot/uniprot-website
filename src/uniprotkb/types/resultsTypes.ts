@@ -26,6 +26,7 @@ export type FieldDatum = {
   id: string;
   label: string;
   items?: FieldDatum[];
+  full?: boolean;
 };
 
 export type FieldData = FieldDatum[];
@@ -35,6 +36,7 @@ export type ReceivedField = {
   label: string;
   id: string;
   sortField?: string;
+  isMultiValueCrossReference?: boolean;
 };
 
 export type ReceivedFieldData = {
