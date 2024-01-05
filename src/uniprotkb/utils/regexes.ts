@@ -7,6 +7,8 @@ export const reUniProtKBAccessionWithIsoform = new RegExp(
   `(?:${reUniProtKBAccession.source})(?:-[0-9]+)?`,
   'i'
 );
+export const reUniRefAccession = /UniRef(?:50|90|100)_[\w|-]+/i;
+export const reUniParc = /UPI[\w]{10}/i;
 
 export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const reIsoform = /\bisoform [\w-]+/i;
