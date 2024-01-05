@@ -32,6 +32,9 @@ describe('simplifyQuery', () => {
     ['*', '*'],
     ['(*)', '*'],
     ['((*))', '*'],
+    ['identity:0.5', 'identity:0.5'],
+    ['(identity:0.5)', 'identity:0.5'],
+    ['(((identity:0.5)))', 'identity:0.5'],
     ['(*) AND (identity:0.9)', 'identity:0.9'],
     ['(identity:1.0) AND (*) ', 'identity:1.0'],
   ];

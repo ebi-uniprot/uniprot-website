@@ -98,6 +98,7 @@ const reToSimple = new Map([
   [[/^\(*\*\)*$/], '*'],
   [
     [
+      /^\(*identity:(?<identity>0.5|0.9|1.0)\)*\)?$/,
       /^\(*identity:(?<identity>0.5|0.9|1.0)\)*(?:\s+and\s+\(*\*\)*)?$/,
       /^(?:\(*\*\)*\s+and\s+)?\(*identity:(?<identity>0.5|0.9|1.0)\)*$/,
     ],
