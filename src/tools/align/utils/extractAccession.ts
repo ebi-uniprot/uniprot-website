@@ -1,5 +1,9 @@
-const re =
-  /(^|\W)([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2})(\W|$)/i;
+import { reUniProtKBAccessionWithIsoform } from '../../../uniprotkb/utils/regexes';
+
+const re = new RegExp(
+  `(?:^|\\W)(${reUniProtKBAccessionWithIsoform.source})(?:\\W|$)`,
+  'i'
+);
 
 const extractAccession = (string?: string): string | undefined => {
   if (!string) {
@@ -7,9 +11,8 @@ const extractAccession = (string?: string): string | undefined => {
   }
   const match = string.match(re);
   // index 0: full matching string
-  // index 1: what's before the interesting bit
-  // index 2: the actual accession <--
-  return match?.[2].toUpperCase() ?? undefined;
+  // index 1: the actual accession <--
+  return match?.[1].toUpperCase() ?? undefined;
 };
 
 export default extractAccession;
