@@ -3,6 +3,10 @@
 // NOTE: modified to use a non-capturing group with "?:"
 export const reUniProtKBAccession =
   /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
+export const reUniProtKBAccessionWithIsoform = new RegExp(
+  `(?:${reUniProtKBAccession.source})(?:-[0-9]+)?`,
+  'i'
+);
 
 export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const reIsoform = /\bisoform [\w-]+/i;
