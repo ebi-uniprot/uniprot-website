@@ -1,5 +1,11 @@
 /* eslint-disable react/no-unused-prop-types */
-import { ChangeEvent, useCallback, useReducer } from 'react';
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 import { Location as HistoryLocation } from 'history';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
@@ -13,6 +19,7 @@ import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDow
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useDataApi from '../../hooks/useDataApi';
 
 import {
   DownloadSelectOptions,
@@ -27,9 +34,11 @@ import {
   updateCompressed,
   updateExtraContent,
   updateDisableForm,
+  updateMultiValueField,
 } from './downloadActions';
+import { prepareFieldData } from '../column-select/utils';
 
-import { getDownloadUrl } from '../../config/apiUrls';
+import apiUrls, { getDownloadUrl } from '../../config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   getColumnsNamespace,
@@ -56,6 +65,11 @@ import {
 } from '../../utils/gtagEvents';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import {
+  FieldData,
+  FieldDatum,
+  ReceivedFieldData,
+} from '../../../uniprotkb/types/resultsTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -102,6 +116,39 @@ const Download = (props: DownloadProps<JobTypes>) => {
     { props, job, selectedColumns: columnNames },
     getDownloadInitialState
   );
+  const { data } = useDataApi<ReceivedFieldData>(
+    apiUrls.resultsFields(namespace)
+  );
+
+  const fieldData = useMemo(() => prepareFieldData(data), [data]);
+
+  const getFullXref = useCallback(
+    (fieldData: FieldData | FieldDatum, id: string): boolean | undefined => {
+      if (Array.isArray(fieldData)) {
+        for (const item of fieldData) {
+          const isFull = getFullXref(item, id);
+          if (isFull) {
+            return true;
+          }
+        }
+      } else if (fieldData.items) {
+        return getFullXref(fieldData.items, id);
+      } else if (fieldData.id === id) {
+        return fieldData.full;
+      }
+      return undefined;
+    },
+    []
+  );
+
+  useEffect(() => {
+    for (const column of state.selectedColumns) {
+      const isPresent = getFullXref(fieldData, column);
+      if (isPresent) {
+        dispatch(updateMultiValueField(true));
+      }
+    }
+  }, [fieldData, getFullXref, state.selectedColumns]);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -319,6 +366,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           />
         </>
       )}
+
       <section
         className={cn(
           'button-group',
@@ -327,6 +375,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
+        {state.multiValueField && (
+          <span>* Full XRef IDs available for starred items</span>
+        )}
         <Button
           variant="tertiary"
           onClick={() => dispatch(updateExtraContent('url'))}
