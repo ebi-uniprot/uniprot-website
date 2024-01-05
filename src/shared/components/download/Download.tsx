@@ -375,8 +375,28 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
-        {state.multiValueField && (
-          <span>* Full XRef IDs available for starred items</span>
+        {showColumnSelect(state, props, job) && state.multiValueField && (
+          <div className={styles['multiple-values-section']}>
+            * Full XRef IDs available for starred items
+            <label>
+              <input
+                aria-label="include multiple values"
+                type="checkbox"
+                name="multivalueXref"
+                value="false"
+                // checked={!state.multiValueField}
+                // onChange={handleCompressedChange}
+              />
+              Check box to include it in the download
+            </label>
+            <Link
+              to={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: 'return_fields_databases',
+              })}
+            >
+              See documentation & examples
+            </Link>
+          </div>
         )}
         <Button
           variant="tertiary"
