@@ -42,6 +42,11 @@ const getURLForAccessionOrID = (input: string) => {
     return null;
   }
 
+  // UniRef accession
+  if (cleanedInput.startsWith('UNIREF')) {
+    return apiUrls.entry(cleanedInput, Namespace.uniref);
+  }
+
   // UniParc accession
   if (cleanedInput.startsWith('UPI')) {
     return apiUrls.entry(cleanedInput, Namespace.uniparc);
