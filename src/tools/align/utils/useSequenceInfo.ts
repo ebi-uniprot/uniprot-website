@@ -12,7 +12,6 @@ import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/U
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
-import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 export type ParsedSequenceAndFeatures = SequenceObject & {
@@ -40,31 +39,54 @@ const processSequences = (rawSequences = '') => {
   return processedSequences;
 };
 
-const getEndpoint = (
-  processedArray: ParsedSequenceAndFeatures[],
-  namespace: Namespace
-) =>
-  getAccessionsURL(
-    processedArray
-      .filter((p) => p.namespace === namespace)
-      .map((p) => p.accession),
-    { namespace, facets: null }
-  );
-
 const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
   const processedArray: ParsedSequenceAndFeatures[] = useMemo(
     () => processSequences(rawSequences),
     [rawSequences]
   );
 
-  const uniprotkbEndpoint = getEndpoint(processedArray, Namespace.uniprotkb);
-  const unirefEndpoint = getEndpoint(processedArray, Namespace.uniref);
-  const uniparcEndpoint = getEndpoint(processedArray, Namespace.uniparc);
+  const [
+    uniprotkbAccessions,
+    uniparcAccessions,
+    representativeUniprotkbToUniref,
+  ] = useMemo(() => {
+    const uniprotkbAccessions = new Set<string>();
+    const uniparcAccessions = new Set<string>();
+    const representativeUniprotkbToUniref = new Map<string, string>();
+    for (const { namespace, accession } of processedArray) {
+      if (namespace === Namespace.uniprotkb) {
+        uniprotkbAccessions.add(accession);
+      } else if (namespace === Namespace.uniparc) {
+        uniparcAccessions.add(accession);
+      } else if (namespace === Namespace.uniref) {
+        const representativeUniprotkbAccession = accession.split('_')?.[1];
+        if (representativeUniprotkbAccession) {
+          uniprotkbAccessions.add(representativeUniprotkbAccession);
+          representativeUniprotkbToUniref.set(
+            representativeUniprotkbAccession,
+            accession
+          );
+        }
+      }
+    }
+    return [
+      uniprotkbAccessions,
+      uniparcAccessions,
+      representativeUniprotkbToUniref,
+    ];
+  }, [processedArray]);
+
+  const uniprotkbEndpoint = getAccessionsURL(Array.from(uniprotkbAccessions), {
+    namespace: Namespace.uniprotkb,
+    facets: null,
+  });
+  const uniparcEndpoint = getAccessionsURL(Array.from(uniparcAccessions), {
+    namespace: Namespace.uniparc,
+    facets: null,
+  });
 
   const uniprotkbResults =
     useDataApi<SearchResults<UniProtkbAPIModel>>(uniprotkbEndpoint);
-  const unirefResults =
-    useDataApi<SearchResults<UniRefAPIModel>>(unirefEndpoint);
   const uniparcResults =
     useDataApi<SearchResults<UniParcAPIModel>>(uniparcEndpoint);
 
@@ -78,20 +100,21 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
           | UniParcAPIModel['sequenceFeatures'];
       }
     >();
-    for (const result of uniprotkbResults?.data?.results || []) {
-      idToSequenceAndFeatures.set(result.primaryAccession, {
-        sequence: result.sequence.value,
-        features: result.features,
-      });
+    for (const { primaryAccession, sequence, features } of uniprotkbResults
+      ?.data?.results || []) {
+      const sequencedAndFeatures = {
+        sequence: sequence.value,
+        features,
+      };
+      idToSequenceAndFeatures.set(primaryAccession, sequencedAndFeatures);
+      const uniref = representativeUniprotkbToUniref.get(primaryAccession);
+      if (uniref) {
+        idToSequenceAndFeatures.set(uniref, sequencedAndFeatures);
+      }
     }
-    for (const result of unirefResults?.data?.results || []) {
-      idToSequenceAndFeatures.set(result.id, {
-        sequence: result.representativeMember.sequence.value,
-      });
-    }
-    for (const result of uniparcResults?.data?.results || []) {
-      idToSequenceAndFeatures.set(result.uniParcId, {
-        sequence: result.sequence.value,
+    for (const { uniParcId, sequence } of uniparcResults?.data?.results || []) {
+      idToSequenceAndFeatures.set(uniParcId, {
+        sequence: sequence.value,
         // features: result.sequenceFeatures,
       });
     }
@@ -110,8 +133,8 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     return new Map(pa.map((processed) => [processed.accession, processed]));
   }, [
     processedArray,
+    representativeUniprotkbToUniref,
     uniprotkbResults?.data?.results,
-    unirefResults?.data?.results,
     uniparcResults?.data?.results,
   ]);
 
@@ -121,12 +144,10 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
       loading:
         !rawSequences ||
         uniprotkbResults.loading ||
-        unirefResults.loading ||
         uniparcResults.loading ||
         (uniprotkbEndpoint &&
           !uniprotkbResults.data &&
           !uniprotkbResults.error) ||
-        (unirefEndpoint && !unirefResults.data && !unirefResults.error) ||
         (uniparcEndpoint && !uniparcResults.data && !uniparcResults.error),
     }),
     [
@@ -135,14 +156,10 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
       uniprotkbResults.loading,
       uniprotkbResults.data,
       uniprotkbResults.error,
-      unirefResults.loading,
-      unirefResults.data,
-      unirefResults.error,
       uniparcResults.loading,
       uniparcResults.data,
       uniparcResults.error,
       uniprotkbEndpoint,
-      unirefEndpoint,
       uniparcEndpoint,
     ]
   );
