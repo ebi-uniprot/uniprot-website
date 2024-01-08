@@ -1,6 +1,5 @@
 import { action } from 'typesafe-actions';
 
-import { Column } from '../../config/columns';
 import { FileFormat } from '../../types/resultsDownload';
 import { DownloadSelectOptions, ExtraContent } from './downloadReducer';
 
@@ -11,9 +10,10 @@ export const UPDATE_DOWNLOAD_SELECT = 'UPDATE_DOWNLOAD_SELECT' as const;
 export const UPDATE_COMPRESSED = 'UPDATE_COMPRESSED' as const;
 export const UPDATE_EXTRA_CONTENT = 'UPDATE_EXTRA_CONTENT' as const;
 export const UPDATE_DISABLE_FORM = 'UPDATE_DISABLE_FORM' as const;
-export const UPDATE_MULTI_VALUE_FIELD = 'UPDATE_MULTI_VALUE_FIELD' as const;
+export const UPDATE_MULTI_VALUE_XREF_FIELDS =
+  'UPDATE_MULTI_VALUE_XREF_FIELDS' as const;
 
-export const updateSelectedColumns = (columns: Column[]) =>
+export const updateSelectedColumns = (columns: string[]) =>
   action(UPDATE_SELECTED_COLUMNS, { columns });
 
 export const updateSelectedFileFormat = (selectedFileFormat: FileFormat) =>
@@ -31,5 +31,5 @@ export const updateExtraContent = (extraContent: ExtraContent) =>
 export const updateDisableForm = (disableForm: boolean) =>
   action(UPDATE_DISABLE_FORM, { disableForm });
 
-export const updateMultiValueField = (multiValueField: boolean) =>
-  action(UPDATE_MULTI_VALUE_FIELD, { multiValueField });
+export const updateMultiValueXrefFields = (multiValueXrefFields: string[]) =>
+  action(UPDATE_MULTI_VALUE_XREF_FIELDS, { multiValueXrefFields });

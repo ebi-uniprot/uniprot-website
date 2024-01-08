@@ -34,7 +34,7 @@ import {
   updateCompressed,
   updateExtraContent,
   updateDisableForm,
-  updateMultiValueField,
+  updateMultiValueXrefFields,
 } from './downloadActions';
 import { prepareFieldData } from '../column-select/utils';
 
@@ -122,17 +122,17 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
   const fieldData = useMemo(() => prepareFieldData(data), [data]);
 
-  const getFullXref = useCallback(
+  const getFieldsWithMultipleValueXref = useCallback(
     (fieldData: FieldData | FieldDatum, id: string): boolean | undefined => {
       if (Array.isArray(fieldData)) {
         for (const item of fieldData) {
-          const isFull = getFullXref(item, id);
+          const isFull = getFieldsWithMultipleValueXref(item, id);
           if (isFull) {
             return true;
           }
         }
       } else if (fieldData.items) {
-        return getFullXref(fieldData.items, id);
+        return getFieldsWithMultipleValueXref(fieldData.items, id);
       } else if (fieldData.id === id) {
         return fieldData.full;
       }
@@ -142,13 +142,18 @@ const Download = (props: DownloadProps<JobTypes>) => {
   );
 
   useEffect(() => {
+    const multiValueXrefColumns = [];
     for (const column of state.selectedColumns) {
-      const isPresent = getFullXref(fieldData, column);
+      const isPresent = getFieldsWithMultipleValueXref(
+        fieldData,
+        column.includes('_full') ? column.replace('_full', '') : column
+      );
       if (isPresent) {
-        dispatch(updateMultiValueField(true));
+        multiValueXrefColumns.push(column);
       }
     }
-  }, [fieldData, getFullXref, state.selectedColumns]);
+    dispatch(updateMultiValueXrefFields(multiValueXrefColumns));
+  }, [fieldData, getFieldsWithMultipleValueXref, state.selectedColumns]);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -159,6 +164,26 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleDisableForm = useCallback((disableForm) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
+
+  const handleMultiValueXrefChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked === true) {
+      const addFullXref = state.selectedColumns.map((column) => {
+        if (state.multiValueXrefFields.includes(column)) {
+          return `${column}_full`;
+        }
+        return column;
+      });
+      dispatch(updateSelectedColumns(addFullXref));
+    } else {
+      const removeFullXref = state.selectedColumns.map((column) => {
+        if (column.includes('_full')) {
+          return column.replace('_full', '');
+        }
+        return column;
+      });
+      dispatch(updateSelectedColumns(removeFullXref));
+    }
+  };
 
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
@@ -375,7 +400,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
-        {showColumnSelect(state, props, job) && state.multiValueField && (
+        {showColumnSelect(state, props, job) &&
+        state.multiValueXrefFields.length ? (
           <div className={styles['multiple-values-section']}>
             * Full XRef IDs available for starred items
             <label>
@@ -383,9 +409,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
                 aria-label="include multiple values"
                 type="checkbox"
                 name="multivalueXref"
-                value="false"
-                // checked={!state.multiValueField}
-                // onChange={handleCompressedChange}
+                onChange={handleMultiValueXrefChange}
               />
               Check box to include it in the download
             </label>
@@ -397,7 +421,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
               See documentation & examples
             </Link>
           </div>
-        )}
+        ) : null}
         <Button
           variant="tertiary"
           onClick={() => dispatch(updateExtraContent('url'))}

@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { AccordionSearch, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
 
@@ -21,7 +21,7 @@ import {
 import './styles/column-select.scss';
 
 type ColumnSelectProps = {
-  selectedColumns: Column[];
+  selectedColumns: string[];
   onChange: (columndIds: Column[]) => void;
   namespace: Namespace;
   isEntryPage?: boolean;
@@ -35,14 +35,19 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   children,
 }) => {
   const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
+  const [columns, setColumns] = useState<Column[]>();
+
+  useEffect(() => {
+    const removeFullXref = selectedColumns.map((column) =>
+      column.includes('_full') ? column.replace('_full', '') : column
+    );
+    setColumns(removeFullXref as Column[]);
+  }, [selectedColumns]);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
-  const removableSelectedColumns = difference(
-    selectedColumns,
-    primaryKeyColumns
-  );
+  const removableSelectedColumns = difference(columns, primaryKeyColumns);
   const handleChange = useCallback(
     (columns: Column[]) => {
       onChange([...primaryKeyColumns, ...columns]);
@@ -109,7 +114,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
           onSelect={(itemId: string) => {
             handleSelect(itemId as Column);
           }}
-          selected={selectedColumns}
+          selected={columns as Column[]}
           placeholder="Search for available columns"
           columns
         />

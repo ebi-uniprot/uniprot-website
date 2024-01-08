@@ -19,7 +19,7 @@ export type ExtraContent = null | 'url' | 'generate' | 'preview' | 'ftp';
 export type DownloadSelectOptions = 'all' | 'selected';
 
 export type DownloadState = {
-  selectedColumns: Column[];
+  selectedColumns: string[];
   fileFormatOptions: FileFormat[];
   selectedFileFormat: FileFormat;
   downloadSelect: DownloadSelectOptions;
@@ -27,7 +27,7 @@ export type DownloadState = {
   extraContent: ExtraContent;
   nSelectedEntries: number;
   disableForm: boolean;
-  multiValueField: boolean;
+  multiValueXrefFields: string[];
 };
 
 export const getDownloadInitialState = ({
@@ -50,7 +50,7 @@ export const getDownloadInitialState = ({
     nSelectedEntries:
       props.numberSelectedEntries || props.selectedEntries?.length || 0,
     disableForm: false,
-    multiValueField: false,
+    multiValueXrefFields: [],
   };
 };
 
@@ -77,8 +77,11 @@ export function downloadReducer(
       return { ...state, extraContent: action.payload.extraContent };
     case downloadActions.UPDATE_DISABLE_FORM:
       return { ...state, disableForm: action.payload.disableForm };
-    case downloadActions.UPDATE_MULTI_VALUE_FIELD:
-      return { ...state, multiValueField: action.payload.multiValueField };
+    case downloadActions.UPDATE_MULTI_VALUE_XREF_FIELDS:
+      return {
+        ...state,
+        multiValueXrefFields: action.payload.multiValueXrefFields,
+      };
     default:
       return state;
   }
