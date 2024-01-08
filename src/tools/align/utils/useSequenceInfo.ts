@@ -27,11 +27,11 @@ export type SequenceInfo = {
   data: Map<ParsedSequenceAndFeatures['accession'], ParsedSequenceAndFeatures>;
 };
 
-// TODO: always push something to keep order?
 const processSequences = (rawSequences = '') => {
   const processedSequences = [];
   for (const processedSequence of sequenceProcessor(rawSequences)) {
     const extracted = extractAccession(processedSequence.name);
+    // ensures we managed to extract an accession from header, otherwise discard
     if (extracted?.accession) {
       processedSequences.push({
         ...processedSequence,
