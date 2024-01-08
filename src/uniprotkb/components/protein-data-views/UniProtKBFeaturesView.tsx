@@ -79,69 +79,78 @@ type FeatureProps = {
   showSourceColumn?: boolean;
 };
 
+export const processFeaturesDatum = (
+  feature: FeatureDatum,
+  sequence?: string,
+  includeSource?: boolean
+): ProcessedFeature => {
+  let s: string | undefined;
+  let description: ReactNode = feature.description || '';
+  if (feature.alternativeSequence) {
+    if (
+      feature.alternativeSequence.originalSequence &&
+      feature.alternativeSequence.alternativeSequences
+    ) {
+      s = feature.alternativeSequence.originalSequence;
+      if (feature.alternativeSequence.alternativeSequences?.length) {
+        s += ` → ${feature.alternativeSequence.alternativeSequences
+          .map(
+            (alternative, index, array) =>
+              `${listFormat(index, array, 'or')}${alternative}`
+          )
+          .join('')}`;
+      }
+    } else {
+      s = 'Missing';
+    }
+  } else {
+    s = sequence?.substring(
+      feature.location.start.value - 1,
+      feature.location.end.value
+    );
+  }
+  if (feature.location.sequence) {
+    description = `In isoform ${feature.location.sequence}; ${description}`;
+  }
+
+  if (feature.ligand) {
+    description = (
+      <LigandDescriptionView
+        ligand={feature.ligand}
+        ligandPart={feature.ligandPart}
+        description={description}
+      />
+    );
+  }
+
+  return {
+    protvistaFeatureId: feature.featureId || v1(),
+    featureId: feature.featureId,
+    start: feature.location.start.value,
+    end: feature.location.end.value,
+    startModifier: feature.location.start.modifier,
+    endModifier: feature.location.end.modifier,
+    type: feature.type,
+    description,
+    evidences: feature.evidences,
+    sequence: s,
+    source: includeSource ? feature.source || 'UniProt' : undefined,
+    confidenceScore: feature.confidenceScore,
+    ligand: feature.ligand,
+    ligandPart: feature.ligandPart,
+    ligandDescription: feature.description,
+  };
+};
+
 export const processFeaturesData = (
   data: FeatureDatum[],
   sequence?: string,
   includeSource?: boolean
 ): ProcessedFeature[] =>
-  data.map((feature): ProcessedFeature => {
-    let s: string | undefined;
-    let description: ReactNode = feature.description || '';
-    if (feature.alternativeSequence) {
-      if (
-        feature.alternativeSequence.originalSequence &&
-        feature.alternativeSequence.alternativeSequences
-      ) {
-        s = feature.alternativeSequence.originalSequence;
-        if (feature.alternativeSequence.alternativeSequences?.length) {
-          s += ` → ${feature.alternativeSequence.alternativeSequences
-            .map(
-              (alternative, index, array) =>
-                `${listFormat(index, array, 'or')}${alternative}`
-            )
-            .join('')}`;
-        }
-      } else {
-        s = 'Missing';
-      }
-    } else {
-      s = sequence?.substring(
-        feature.location.start.value - 1,
-        feature.location.end.value
-      );
-    }
-    if (feature.location.sequence) {
-      description = `In isoform ${feature.location.sequence}; ${description}`;
-    }
-
-    if (feature.ligand) {
-      description = (
-        <LigandDescriptionView
-          ligand={feature.ligand}
-          ligandPart={feature.ligandPart}
-          description={description}
-        />
-      );
-    }
-
-    return {
-      protvistaFeatureId: feature.featureId || v1(),
-      featureId: feature.featureId,
-      start: feature.location.start.value,
-      end: feature.location.end.value,
-      startModifier: feature.location.start.modifier,
-      endModifier: feature.location.end.modifier,
-      type: feature.type,
-      description,
-      evidences: feature.evidences,
-      sequence: s,
-      source: includeSource ? feature.source || 'UniProt' : undefined,
-      confidenceScore: feature.confidenceScore,
-      ligand: feature.ligand,
-      ligandPart: feature.ligandPart,
-      ligandDescription: feature.description,
-    };
-  });
+  data.map(
+    (feature): ProcessedFeature =>
+      processFeaturesDatum(feature, sequence, includeSource)
+  );
 
 const UniProtKBFeaturesView = ({
   primaryAccession,

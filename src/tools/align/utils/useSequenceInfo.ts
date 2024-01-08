@@ -25,6 +25,7 @@ export type SequenceInfo = {
   data: Map<ParsedSequenceAndFeatures['accession'], ParsedSequenceAndFeatures>;
 };
 
+// TODO: always push something to keep order?
 const processSequences = (rawSequences = '') => {
   const processedSequences = [];
   for (const processedSequence of sequenceProcessor(rawSequences)) {
@@ -112,10 +113,11 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
         idToSequenceAndFeatures.set(uniref, sequencedAndFeatures);
       }
     }
-    for (const { uniParcId, sequence } of uniparcResults?.data?.results || []) {
+    for (const { uniParcId, sequence, sequenceFeatures = [] } of uniparcResults
+      ?.data?.results || []) {
       idToSequenceAndFeatures.set(uniParcId, {
         sequence: sequence.value,
-        // features: result.sequenceFeatures,
+        features: sequenceFeatures,
       });
     }
     const pa = processedArray
