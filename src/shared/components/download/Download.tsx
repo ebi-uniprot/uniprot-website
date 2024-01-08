@@ -137,7 +137,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
       } else if (fieldData.items) {
         return getFieldsWithMultipleValueXref(fieldData.items, id);
       } else if (fieldData.id === id) {
-        return fieldData.isMultiValueXref;
+        return fieldData.addAsterix;
       }
       return undefined;
     },

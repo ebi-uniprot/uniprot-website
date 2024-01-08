@@ -26,7 +26,7 @@ export type FieldDatum = {
   id: string;
   label: string;
   items?: FieldDatum[];
-  isMultiValueXref?: boolean;
+  addAsterix?: boolean;
 };
 
 export type FieldData = FieldDatum[];

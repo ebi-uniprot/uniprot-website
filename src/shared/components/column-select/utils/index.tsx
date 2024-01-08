@@ -13,7 +13,7 @@ type PreparedField = {
   id: Column;
   label: string;
   key: string;
-  isMultiValueXref?: boolean;
+  addAsterix?: boolean;
 };
 
 export const prepareFields = (
@@ -28,7 +28,7 @@ export const prepareFields = (
             id: name,
             label,
             key: id,
-            isMultiValueXref: isMultiValueCrossReference,
+            addAsterix: isMultiValueCrossReference,
           } as PreparedField)
         : ({
             id: name,
