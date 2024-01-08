@@ -120,7 +120,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
     apiUrls.resultsFields(namespace)
   );
 
-  const fieldData = useMemo(() => prepareFieldData(data), [data]);
+  const fieldData = useMemo(
+    () => prepareFieldData(data, undefined, true),
+    [data]
+  );
 
   const getFieldsWithMultipleValueXref = useCallback(
     (fieldData: FieldData | FieldDatum, id: string): boolean | undefined => {
@@ -134,7 +137,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
       } else if (fieldData.items) {
         return getFieldsWithMultipleValueXref(fieldData.items, id);
       } else if (fieldData.id === id) {
-        return fieldData.full;
+        return fieldData.isMultiValueXref;
       }
       return undefined;
     },
@@ -388,6 +391,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
             onChange={(columns) => dispatch(updateSelectedColumns(columns))}
             selectedColumns={state.selectedColumns}
             namespace={columnsNamespace}
+            isDownload
           />
         </>
       )}

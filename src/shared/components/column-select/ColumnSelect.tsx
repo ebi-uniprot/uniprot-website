@@ -25,6 +25,7 @@ type ColumnSelectProps = {
   onChange: (columndIds: Column[]) => void;
   namespace: Namespace;
   isEntryPage?: boolean;
+  isDownload?: boolean;
 };
 
 const ColumnSelect: FC<ColumnSelectProps> = ({
@@ -32,6 +33,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   onChange,
   namespace,
   isEntryPage,
+  isDownload,
   children,
 }) => {
   const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
@@ -82,8 +84,8 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
   const fieldData = useMemo(
-    () => prepareFieldData(data, primaryKeyColumns),
-    [data, primaryKeyColumns]
+    () => prepareFieldData(data, primaryKeyColumns, isDownload),
+    [data, primaryKeyColumns, isDownload]
   );
 
   if (loading) {
