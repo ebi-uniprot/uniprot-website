@@ -8,16 +8,19 @@ import extractAccession from './extractAccession';
 
 import { getAccessionsURL } from '../../../shared/config/apiUrls';
 
-import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { processFeaturesData as processUniProtKBFeaturesData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { removeFeaturesWithUnknownModifier } from '../../utils/sequences';
+import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
+import { convertData as processUniParcFeaturesData } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
 export type ParsedSequenceAndFeatures = SequenceObject & {
   accession: string;
   namespace: Namespace;
-  features?: FeatureDatum[];
+  features?: ProcessedFeature[];
 };
 
 export type SequenceInfo = {
@@ -96,16 +99,16 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
       string,
       {
         sequence: string;
-        features?:
-          | UniProtkbAPIModel['features']
-          | UniParcAPIModel['sequenceFeatures'];
+        features?: ProcessedFeature[];
       }
     >();
     for (const { primaryAccession, sequence, features } of uniprotkbResults
       ?.data?.results || []) {
       const sequencedAndFeatures = {
         sequence: sequence.value,
-        features,
+        features: processUniProtKBFeaturesData(
+          removeFeaturesWithUnknownModifier(features)
+        ),
       };
       idToSequenceAndFeatures.set(primaryAccession, sequencedAndFeatures);
       const uniref = representativeUniprotkbToUniref.get(primaryAccession);
@@ -117,7 +120,7 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
       ?.data?.results || []) {
       idToSequenceAndFeatures.set(uniParcId, {
         sequence: sequence.value,
-        features: sequenceFeatures,
+        features: processUniParcFeaturesData(sequenceFeatures),
       });
     }
     const pa = processedArray

@@ -22,7 +22,9 @@ export type UniParcProcessedFeature = ProcessedFeature & {
 };
 
 // Convert data
-const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
+export const convertData = (
+  data: SequenceFeature[]
+): UniParcProcessedFeature[] =>
   data
     .flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
