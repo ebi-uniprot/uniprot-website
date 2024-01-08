@@ -5,17 +5,16 @@ import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequenc
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import extractAccession from './extractAccession';
-
 import { getAccessionsURL } from '../../../shared/config/apiUrls';
-
+import { removeFeaturesWithUnknownModifier } from '../../utils/sequences';
 import { processFeaturesData as processUniProtKBFeaturesData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { convertData as processUniParcFeaturesData } from '../../../uniparc/components/entry/UniParcFeaturesView';
+
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
-import { removeFeaturesWithUnknownModifier } from '../../utils/sequences';
 import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
-import { convertData as processUniParcFeaturesData } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
 export type ParsedSequenceAndFeatures = SequenceObject & {
   accession: string;

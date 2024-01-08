@@ -1,9 +1,10 @@
-import { Namespace } from '../../../shared/types/namespaces';
 import {
   reUniParc,
   reUniProtKBAccessionWithIsoform,
   reUniRefAccession,
 } from '../../../uniprotkb/utils/regexes';
+
+import { Namespace } from '../../../shared/types/namespaces';
 
 const namespaceToReAccession = [
   {
