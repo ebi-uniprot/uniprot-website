@@ -9,7 +9,7 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
-import { getUniprotkbFtpFilenamesAndUrls } from '../../config/ftpUrls';
+import { getUniprotFtpFilenamesAndUrls } from '../../config/ftpUrls';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
 
@@ -248,7 +248,7 @@ export const getFtpFilenamesAndUrls = (
   job: JobFromUrl
 ) =>
   job.jobResultsLocation !== Location.IDMappingResult
-    ? getUniprotkbFtpFilenamesAndUrls(
+    ? getUniprotFtpFilenamesAndUrls(
         props.namespace,
         getDownloadUrl(getDownloadOptions(state, props, location, job)),
         state.selectedFileFormat

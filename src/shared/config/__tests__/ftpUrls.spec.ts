@@ -1,4 +1,4 @@
-import { getUniprotkbFtpFilenamesAndUrls, simplifyQuery } from '../ftpUrls';
+import { getUniprotFtpFilenamesAndUrls, simplifyQuery } from '../ftpUrls';
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 
@@ -49,7 +49,7 @@ describe('simplifyQuery', () => {
 describe('getUniprotkbFtpUrl', () => {
   it('should generate FTP link', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniprotkb,
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=xml&query=(*) AND (reviewed:true)',
         FileFormat.xml
@@ -60,7 +60,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should generate FTP link to *', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniprotkb,
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=xml&query=(*)',
         FileFormat.xml
@@ -78,7 +78,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should not generate FTP link because there is no corresponding FTP dataset for the query', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniprotkb,
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=fasta&query=(foo)',
         FileFormat.fastaCanonical
@@ -87,7 +87,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should not generate FTP link because there is no corresponding FTP dataset for the file format', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniprotkb,
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=fasta&query=(*)',
         FileFormat.excel
@@ -96,7 +96,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should not generate FTP link because there is no corresponding FTP dataset for the namespace', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.taxonomy,
         'https://rest.uniprot.org/taxonomy/stream?compressed=true&fields=id%2Ccommon_name%2Cscientific_name%2Clineage%2Clinks&format=tsv&query=%28*%29',
         FileFormat.tsv
@@ -105,7 +105,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should generate FTP link to reviewed embeddings', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniprotkb,
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=h5&query=(*) AND (reviewed:true)',
         FileFormat.embeddings
@@ -116,7 +116,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should generate FTP link to human proteome embeddings', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniprotkb,
         'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=h5&query=(*) AND (proteome:UP000005640)',
         FileFormat.embeddings
@@ -127,7 +127,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should generate FTP link to UniRef file', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniref,
         'https://rest.uniprot.org/uniref/stream?compressed=true&download=true&format=fasta&query=(*) AND (identity:0.9)',
         FileFormat.fastaRepresentative
@@ -138,7 +138,7 @@ describe('getUniprotkbFtpUrl', () => {
   });
   it('should generate FTP link to UniParc directory', () => {
     expect(
-      getUniprotkbFtpFilenamesAndUrls(
+      getUniprotFtpFilenamesAndUrls(
         Namespace.uniparc,
         'https://rest.uniprot.org/uniparc/stream?compressed=true&format=fasta&query=(*)',
         FileFormat.fasta

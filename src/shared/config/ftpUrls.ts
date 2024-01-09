@@ -140,7 +140,7 @@ export const simplifyQuery = (query: string) => {
   return null;
 };
 
-export const getUniprotkbFtpFilenamesAndUrls = (
+export const getUniprotFtpFilenamesAndUrls = (
   namespace: Namespace,
   downloadUrl: string,
   format: FileFormat
