@@ -1,4 +1,5 @@
 import * as logging from './logging';
+
 import { AttributesItem } from '../../uniprotkb/types/databaseRefs';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
@@ -29,9 +30,6 @@ export const getUrlFromDatabaseInfo = (
   }
   const { databaseToDatabaseInfo } = databaseInfoMaps;
   const databaseInfo = databaseToDatabaseInfo[database];
-  console.log('here');
-  console.log(database, params, attribute);
-  // TODO: ensure expected params are there
   const uriLink = attribute
     ? databaseInfo.attributes?.find((a) => a.name === attribute)?.uriLink
     : databaseInfo.uriLink;
