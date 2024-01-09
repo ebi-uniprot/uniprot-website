@@ -87,7 +87,7 @@ export const ECNumbersView = ({
           |{' '}
           <ExternalLink
             url={getUrlFromDatabaseInfo(databaseInfoMaps, 'ENZYME', {
-              id: ecNumber.value,
+              ec: ecNumber.value,
             })}
           >
             ENZYME

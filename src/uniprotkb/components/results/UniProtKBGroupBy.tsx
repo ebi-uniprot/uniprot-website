@@ -93,7 +93,7 @@ export const GroupByLink = ({
     case 'ec':
       return (
         <ExternalLink
-          url={getUrlFromDatabaseInfo(databaseInfoMaps, 'ENZYME', { id })}
+          url={getUrlFromDatabaseInfo(databaseInfoMaps, 'ENZYME', { ec: id })}
           title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
         >
           {child}
