@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { uniqBy } from 'lodash-es';
+import { partialRight, uniqBy } from 'lodash-es';
 import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 
 import ExternalLink from '../../shared/components/ExternalLink';
@@ -77,48 +77,63 @@ export const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcAPIModel
 > = new Map();
 
-const familyAndDomainRenderer =
-  (
-    db: SequenceFeature['database'],
-    externalURLAccessor?: (id: string) => string
-  ) =>
-  (data: UniParcAPIModel) => {
-    const databaseInfoMaps = useDatabaseInfoMaps();
-    return (
-      <ExpandableList displayNumberOfHiddenItems>
-        {data.sequenceFeatures
-          ?.filter(
-            (feature): feature is SequenceFeature => feature.database === db
-          )
-          .map((feature) => (
-            <span title={feature.interproGroup?.name} key={feature.databaseId}>
-              <ExternalLink
-                url={
-                  externalURLAccessor
-                    ? externalURLAccessor(feature.databaseId)
-                    : getUrlFromDatabaseInfo(databaseInfoMaps, db, {
-                        id: feature.databaseId,
-                      })
-                }
-              >
-                {feature.databaseId}
-              </ExternalLink>
-              {feature.interproGroup && (
-                <>
-                  &nbsp;(&nbsp;
-                  <ExternalLink
-                    url={externalUrls.InterProEntry(feature.interproGroup.id)}
-                  >
-                    {feature.interproGroup.id}
-                  </ExternalLink>
-                  )
-                </>
-              )}
-            </span>
-          ))}
-      </ExpandableList>
-    );
-  };
+const FamilyAndDomain = ({
+  data,
+  db,
+  externalURLAccessor,
+}: {
+  data: UniParcAPIModel;
+  db: SequenceFeature['database'];
+  externalURLAccessor?: (id: string) => string;
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <ExpandableList displayNumberOfHiddenItems>
+      {data.sequenceFeatures
+        ?.filter(
+          (feature): feature is SequenceFeature => feature.database === db
+        )
+        .map((feature) => (
+          <span title={feature.interproGroup?.name} key={feature.databaseId}>
+            <ExternalLink
+              url={
+                externalURLAccessor
+                  ? externalURLAccessor(feature.databaseId)
+                  : getUrlFromDatabaseInfo(databaseInfoMaps, db, {
+                      id: feature.databaseId,
+                    })
+              }
+            >
+              {feature.databaseId}
+            </ExternalLink>
+            {feature.interproGroup && (
+              <>
+                &nbsp;(&nbsp;
+                <ExternalLink
+                  url={externalUrls.InterProEntry(feature.interproGroup.id)}
+                >
+                  {feature.interproGroup.id}
+                </ExternalLink>
+                )
+              </>
+            )}
+          </span>
+        ))}
+    </ExpandableList>
+  );
+};
+
+const familyAndDomainRenderer = (
+  data: UniParcAPIModel,
+  db: SequenceFeature['database'],
+  externalURLAccessor?: (id: string) => string
+) => (
+  <FamilyAndDomain
+    data={data}
+    db={db}
+    externalURLAccessor={externalURLAccessor}
+  />
+);
 
 // COLUMN RENDERERS BELOW
 UniParcColumnConfiguration.set(UniParcColumn.upi, {
@@ -301,64 +316,64 @@ UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
 
 UniParcColumnConfiguration.set(UniParcColumn.cdd, {
   label: 'CDD',
-  render: familyAndDomainRenderer('CDD'),
+  render: partialRight(familyAndDomainRenderer, 'CDD'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.gene3D, {
   label: 'Gene3D',
-  render: familyAndDomainRenderer('Gene3D', (id: string) =>
+  render: partialRight(familyAndDomainRenderer, 'Gene3D', (id: string) =>
     externalUrls.Gene3DEntry(id)
   ),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.hamap, {
   label: 'HAMAP',
-  render: familyAndDomainRenderer('HAMAP'),
+  render: partialRight(familyAndDomainRenderer, 'HAMAP'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.panther, {
   label: 'PANTHER',
-  render: familyAndDomainRenderer('PANTHER'),
+  render: partialRight(familyAndDomainRenderer, 'PANTHER'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.pfam, {
   label: 'Pfam',
-  render: familyAndDomainRenderer('Pfam'),
+  render: partialRight(familyAndDomainRenderer, 'Pfam'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.pirsf, {
   label: 'PIRSF',
-  render: familyAndDomainRenderer('PIRSF'),
+  render: partialRight(familyAndDomainRenderer, 'PIRSF'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.prints, {
   label: 'PRINTS',
-  render: familyAndDomainRenderer('PRINTS'),
+  render: partialRight(familyAndDomainRenderer, 'PRINTS'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.prosite, {
   label: 'PROSITE',
-  render: familyAndDomainRenderer('PROSITE'),
+  render: partialRight(familyAndDomainRenderer, 'PROSITE'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.sfld, {
   label: 'SFLD',
-  render: familyAndDomainRenderer('SFLD'),
+  render: partialRight(familyAndDomainRenderer, 'SFLD'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.smart, {
   label: 'SMART',
-  render: familyAndDomainRenderer('SMART'),
+  render: partialRight(familyAndDomainRenderer, 'SMART'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.supfam, {
   label: 'SUPFAM',
-  render: familyAndDomainRenderer('SUPFAM'),
+  render: partialRight(familyAndDomainRenderer, 'SUPFAM'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.ncbifam, {
   label: 'NCBIfam',
-  render: familyAndDomainRenderer('NCBIfam'),
+  render: partialRight(familyAndDomainRenderer, 'NCBIfam'),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.from, fromColumnConfig);
