@@ -1,4 +1,6 @@
+import * as logging from './logging';
 import { AttributesItem } from '../../uniprotkb/types/databaseRefs';
+import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 export const processUrlTemplate = (
   urlTemplate: string,
@@ -15,3 +17,30 @@ export const getDatabaseInfoAttribute = (
   attributes: AttributesItem[],
   name: string
 ) => attributes.find(({ name: n }) => n === name);
+
+export const getAllDatabasesUrl = (
+  databaseInfoMaps: DatabaseInfoMaps | null,
+  database: string,
+  params: Record<string, string>,
+  attribute?: string
+) => {
+  if (!databaseInfoMaps) {
+    return '';
+  }
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
+  const databaseInfo = databaseToDatabaseInfo[database];
+  console.log('here');
+  console.log(database, params, attribute);
+  // TODO: ensure expected params are there
+  const uriLink = attribute
+    ? databaseInfo.attributes?.find((a) => a.name === attribute)?.uriLink
+    : databaseInfo.uriLink;
+  if (!uriLink) {
+    const attributeError = attribute ? `with attribute : ${attribute}` : '';
+    logging.error(
+      `${database} not found in databaseToDatabaseInfo ${attributeError}`
+    );
+    return '';
+  }
+  return processUrlTemplate(uriLink, params);
+};
