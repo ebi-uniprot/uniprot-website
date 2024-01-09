@@ -5,9 +5,12 @@ import { InfoList, ExpandableList } from 'franklin-sites';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
 import externalUrls from '../../../shared/config/externalUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringToID } from '../../utils';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import {
   ProteinNames,
@@ -66,6 +69,7 @@ export const ECNumbersView = ({
   noLinks = false,
   orientation = 'horizontal',
 }: ECNumbersViewProps) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const content = ecNumbers?.map((ecNumber) => (
     <Fragment key={ecNumber.value}>
       {`EC:${ecNumber.value}`}
@@ -81,7 +85,11 @@ export const ECNumbersView = ({
             UniProtKB
           </Link>{' '}
           |{' '}
-          <ExternalLink url={externalUrls.ENZYME(ecNumber.value)}>
+          <ExternalLink
+            url={getUrlFromDatabaseInfo(databaseInfoMaps, 'ENZYME', {
+              id: ecNumber.value,
+            })}
+          >
             ENZYME
           </ExternalLink>{' '}
           |{' '}
