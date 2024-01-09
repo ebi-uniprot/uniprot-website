@@ -10,11 +10,12 @@ import AddToBasketButton from '../action-buttons/AddToBasket';
 import LazyComponent from '../LazyComponent';
 
 import useDataApi from '../../hooks/useDataApi';
+import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
 
 import { pluralise } from '../../utils/utils';
 import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
+import { getAllDatabasesUrl } from '../../utils/xrefs';
 
-import externalUrls from '../../config/externalUrls';
 import apiUrls from '../../config/apiUrls';
 
 import {
@@ -293,22 +294,34 @@ export const SequenceCautionView = ({
   data,
 }: {
   data: SequenceCautionComment[];
-}) => (
-  <>
-    {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
-      <section
-        className="text-block"
-        key={`${sequenceCautionType}-${sequence}`}
-      >
-        {`The sequence `}
-        <ExternalLink url={externalUrls.ENA(sequence)}>{sequence}</ExternalLink>
-        {` differs from that shown. Reason: ${sequenceCautionType} `}
-        {note}
-        {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
-      </section>
-    ))}
-  </>
-);
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <>
+      {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
+        <section
+          className="text-block"
+          key={`${sequenceCautionType}-${sequence}`}
+        >
+          {`The sequence `}
+          <ExternalLink
+            url={getAllDatabasesUrl(
+              databaseInfoMaps,
+              'EMBL',
+              { ProteinId: sequence },
+              'ProteinId'
+            )}
+          >
+            {sequence}
+          </ExternalLink>
+          {` differs from that shown. Reason: ${sequenceCautionType} `}
+          {note}
+          {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+        </section>
+      ))}
+    </>
+  );
+};
 
 export const MassSpectrometryView = ({
   data,
