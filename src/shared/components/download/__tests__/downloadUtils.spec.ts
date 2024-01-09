@@ -7,7 +7,7 @@ import {
   getDownloadCount,
   getDownloadOptions,
   getExtraContent,
-  getFtpFilenameAndUrl,
+  getFtpFilenamesAndUrls,
   getIsAsyncDownload,
   isAsyncDownloadIdMapping,
   getIsEmbeddings,
@@ -122,7 +122,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -197,7 +197,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -279,10 +279,12 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
-      filename: 'uniprot_sprot.fasta.gz',
-      url: 'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz',
-    });
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual([
+      {
+        filename: 'uniprot_sprot.fasta.gz',
+        url: 'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz',
+      },
+    ]);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -365,7 +367,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(1);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -454,7 +456,7 @@ describe('Download Utils', () => {
     expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
     expect(getPreviewCount(state, props, location, job)).toEqual(null);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -542,7 +544,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(1);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.idmapping);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -630,7 +632,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(10);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.idmapping);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -699,10 +701,12 @@ describe('Download Utils', () => {
     expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
     expect(getPreviewCount(state, props, location, job)).toEqual(null);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual({
-      filename: 'uniprot_sprot/per-protein.h5',
-      url: 'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5',
-    });
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual([
+      {
+        filename: 'uniprot_sprot/per-protein.h5',
+        url: 'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5',
+      },
+    ]);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(true);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -771,7 +775,7 @@ describe('Download Utils', () => {
     expect(getPreviewOptions(state, props, location, job)).toEqual(undefined);
     expect(getPreviewCount(state, props, location, job)).toEqual(null);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(true);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(true);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -845,7 +849,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual('file');
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.unisave);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);
@@ -932,7 +936,7 @@ describe('Download Utils', () => {
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(1);
     expect(getIsAsyncDownload(state, props, location, job)).toEqual(false);
-    expect(getFtpFilenameAndUrl(state, props, location, job)).toEqual(null);
+    expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual(null);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
     expect(getIsEmbeddings(state)).toEqual(false);
     expect(getIsTooLargeForEmbeddings(state, props)).toEqual(false);

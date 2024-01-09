@@ -50,7 +50,6 @@ export const getSearchURL = (streamURL: string, batchSize = 500) => {
 
 type Props = {
   apiURL: string;
-  ftpURL?: string | null;
   onCopy: () => void;
   disableSearch?: boolean;
   disableStream?: boolean;
@@ -59,7 +58,6 @@ type Props = {
 
 const DownloadAPIURL = ({
   apiURL,
-  ftpURL,
   onCopy,
   disableSearch,
   disableStream,
@@ -146,31 +144,6 @@ const DownloadAPIURL = ({
 
   return (
     <div className={styles['api-url']} ref={scrollRef}>
-      {ftpURL && (
-        <>
-          <br />
-          <h4>FTP URL</h4>
-          This file is available compressed on the{' '}
-          <Link
-            to={generatePath(LocationToPath[Location.HelpEntry], {
-              accession: 'downloads',
-            })}
-          >
-            UniProt FTP server
-          </Link>
-          <CodeBlock lightMode>{ftpURL}</CodeBlock>
-          <section className="button-group">
-            <Button
-              variant="primary"
-              className={styles['copy-button']}
-              onClick={() => handleCopyURL(ftpURL)}
-            >
-              <CopyIcon />
-              Copy
-            </Button>
-          </section>
-        </>
-      )}
       <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
       {isStreamEndpoint &&
         'This endpoint is resource-heavy but will return all requested results.'}
