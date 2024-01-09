@@ -8,7 +8,7 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import ComponentsButtons from './ComponentsButtons';
 
-import { getAllDatabasesUrl } from '../../../shared/utils/xrefs';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import externalUrls from '../../../shared/config/externalUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -80,7 +80,7 @@ export const Components = ({
               switch (genomeAnnotation.source) {
                 case 'Refseq':
                 case 'RefSeq':
-                  url = getAllDatabasesUrl(
+                  url = getUrlFromDatabaseInfo(
                     databaseInfoMaps,
                     'GenBank',
                     {
@@ -90,7 +90,7 @@ export const Components = ({
                   );
                   break;
                 case 'ENA/EMBL':
-                  url = getAllDatabasesUrl(databaseInfoMaps, 'EMBL', {
+                  url = getUrlFromDatabaseInfo(databaseInfoMaps, 'EMBL', {
                     id,
                   });
                   break;

@@ -14,7 +14,7 @@ import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
 
 import { pluralise } from '../../utils/utils';
 import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
-import { getAllDatabasesUrl } from '../../utils/xrefs';
+import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
 
 import apiUrls from '../../config/apiUrls';
 
@@ -305,7 +305,7 @@ export const SequenceCautionView = ({
         >
           {`The sequence `}
           <ExternalLink
-            url={getAllDatabasesUrl(
+            url={getUrlFromDatabaseInfo(
               databaseInfoMaps,
               'EMBL',
               { ProteinId: sequence },

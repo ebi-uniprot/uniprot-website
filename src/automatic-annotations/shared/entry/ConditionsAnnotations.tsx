@@ -24,7 +24,7 @@ import { pluralise } from '../../../shared/utils/utils';
 import externalUrls from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 import * as logging from '../../../shared/utils/logging';
-import { getAllDatabasesUrl } from '../../../shared/utils/xrefs';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
@@ -260,7 +260,7 @@ const conditionsToInfoData = (
             // Not in allDatabases
             url = externalUrls.PROSITEEntry(value);
           } else if (value.startsWith('MF')) {
-            url = getAllDatabasesUrl(databaseInfoMaps, 'HAMAP', {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'HAMAP', {
               id: value,
             });
           }
@@ -427,7 +427,7 @@ const GroupedAnnotation = (
             annotation.dbReference?.id && (
               <li key={annotation.dbReference.id}>
                 <ExternalLink
-                  url={getAllDatabasesUrl(databaseInfoMaps, 'GO', {
+                  url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', {
                     id: annotation.dbReference.id,
                   })}
                 >

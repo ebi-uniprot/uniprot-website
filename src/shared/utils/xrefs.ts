@@ -18,7 +18,7 @@ export const getDatabaseInfoAttribute = (
   name: string
 ) => attributes.find(({ name: n }) => n === name);
 
-export const getAllDatabasesUrl = (
+export const getUrlFromDatabaseInfo = (
   databaseInfoMaps: DatabaseInfoMaps | null,
   database: string,
   params: Record<string, string>,
