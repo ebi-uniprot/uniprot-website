@@ -4,9 +4,11 @@ import { ExpandableList } from 'franklin-sites';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
 
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
 import { getEntryPathFor } from '../../../app/config/urls';
-import externalUrls from '../../../shared/config/externalUrls';
 import { mapToLinks } from '../../../shared/components/MapTo';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import { LocationsAPIModel } from '../adapters/locationsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -68,18 +70,23 @@ LocationsColumnConfiguration.set(LocationsColumn.definition, {
 // NOTE: no content, otherwise it gets a truthy empty fragment instead
 LocationsColumnConfiguration.set(LocationsColumn.geneOntologies, {
   label: 'Gene Ontology (GO)',
-  render: ({ geneOntologies }) =>
-    geneOntologies?.length ? (
+  render: ({ geneOntologies }) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const databaseInfoMaps = useDatabaseInfoMaps();
+    return geneOntologies?.length ? (
       <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
         {geneOntologies?.map(({ name, goId }) => (
-          <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
+          <ExternalLink
+            key={goId}
+            url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id: goId })}
+          >
             {name} ({goId})
           </ExternalLink>
         ))}
       </ExpandableList>
-    ) : null,
+    ) : null;
+  },
 });
-
 LocationsColumnConfiguration.set(LocationsColumn.id, {
   label: 'ID',
   render: ({ id }) =>
