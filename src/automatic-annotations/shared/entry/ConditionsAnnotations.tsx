@@ -44,10 +44,9 @@ import {
   CatalyticActivityComment,
   CofactorComment,
 } from '../../../uniprotkb/types/commentTypes';
+import { DatabaseInfoMaps } from '../../../uniprotkb/utils/database';
 
 import styles from './styles/conditions-annotations.module.scss';
-import { DatabaseInfoMaps } from '../../../uniprotkb/utils/database';
-import databaseInfoMaps from '../../../uniprotkb/utils/__tests__/__mocks__/databaseInfoMaps';
 
 type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
 
@@ -765,54 +764,60 @@ const PositionalFeatureComponent = ({
   positionalFeatureSet,
 }: {
   positionalFeatureSet: PositionFeatureSet;
-}) => (
-  <div className={styles.rule}>
-    <ul className={cn(styles.conditions, 'no-bullet')}>
-      <li>
-        <div className={cn(styles.statement, styles.if)}>if</div>
-        <InfoList
-          infoData={conditionsToInfoData(
-            positionalFeatureSet.conditions || [],
-            databaseInfoMaps,
-            [positionalFeatureSet],
-            true
-          )}
-        />
-      </li>
-    </ul>
-    <AnnotationsComponent
-      annotations={positionalFeatureSet.annotations}
-      featureSet={positionalFeatureSet}
-      exceptions={positionalFeatureSet.ruleExceptions}
-    />
-  </div>
-);
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <div className={styles.rule}>
+      <ul className={cn(styles.conditions, 'no-bullet')}>
+        <li>
+          <div className={cn(styles.statement, styles.if)}>if</div>
+          <InfoList
+            infoData={conditionsToInfoData(
+              positionalFeatureSet.conditions || [],
+              databaseInfoMaps,
+              [positionalFeatureSet],
+              true
+            )}
+          />
+        </li>
+      </ul>
+      <AnnotationsComponent
+        annotations={positionalFeatureSet.annotations}
+        featureSet={positionalFeatureSet}
+        exceptions={positionalFeatureSet.ruleExceptions}
+      />
+    </div>
+  );
+};
 
 const SAMFeatureComponent = ({
   samFeatureSet,
 }: {
   samFeatureSet: SAMFeatureSet;
-}) => (
-  <div className={styles.rule}>
-    <ul className={cn(styles.conditions, 'no-bullet')}>
-      <li>
-        <div className={cn(styles.statement, styles.if)}>if</div>
-        <InfoList
-          infoData={conditionsToInfoData(
-            samFeatureSet.conditions || [],
-            databaseInfoMaps,
-            [samFeatureSet],
-            true
-          )}
-        />
-      </li>
-    </ul>
-    <AnnotationsComponent
-      annotations={samFeatureSet.annotations}
-      featureSet={samFeatureSet}
-    />
-  </div>
-);
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <div className={styles.rule}>
+      <ul className={cn(styles.conditions, 'no-bullet')}>
+        <li>
+          <div className={cn(styles.statement, styles.if)}>if</div>
+          <InfoList
+            infoData={conditionsToInfoData(
+              samFeatureSet.conditions || [],
+              databaseInfoMaps,
+              [samFeatureSet],
+              true
+            )}
+          />
+        </li>
+      </ul>
+      <AnnotationsComponent
+        annotations={samFeatureSet.annotations}
+        featureSet={samFeatureSet}
+      />
+    </div>
+  );
+};
 
 const ConditionsAnnotations = ({
   data,
