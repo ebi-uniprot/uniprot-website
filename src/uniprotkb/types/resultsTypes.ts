@@ -26,7 +26,7 @@ export type FieldDatum = {
   id: string;
   label: string;
   items?: FieldDatum[];
-  addAsterix?: boolean;
+  addAsterisk?: boolean;
 };
 
 export type FieldData = FieldDatum[];
