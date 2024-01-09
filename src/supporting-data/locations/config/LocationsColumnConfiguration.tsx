@@ -66,26 +66,29 @@ LocationsColumnConfiguration.set(LocationsColumn.definition, {
   render: ({ definition }) => definition,
 });
 
+const GeneOntologies = ({ geneOntologies }: Partial<LocationsAPIModel>) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return geneOntologies?.length ? (
+    <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
+      {geneOntologies?.map(({ name, goId }) => (
+        <ExternalLink
+          key={goId}
+          url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id: goId })}
+        >
+          {name} ({goId})
+        </ExternalLink>
+      ))}
+    </ExpandableList>
+  ) : null;
+};
+
 // NOTE: since these will be used in an info list, we need to return null when
 // NOTE: no content, otherwise it gets a truthy empty fragment instead
 LocationsColumnConfiguration.set(LocationsColumn.geneOntologies, {
   label: 'Gene Ontology (GO)',
-  render: ({ geneOntologies }) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const databaseInfoMaps = useDatabaseInfoMaps();
-    return geneOntologies?.length ? (
-      <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-        {geneOntologies?.map(({ name, goId }) => (
-          <ExternalLink
-            key={goId}
-            url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id: goId })}
-          >
-            {name} ({goId})
-          </ExternalLink>
-        ))}
-      </ExpandableList>
-    ) : null;
-  },
+  render: ({ geneOntologies }) => (
+    <GeneOntologies geneOntologies={geneOntologies} />
+  ),
 });
 LocationsColumnConfiguration.set(LocationsColumn.id, {
   label: 'ID',

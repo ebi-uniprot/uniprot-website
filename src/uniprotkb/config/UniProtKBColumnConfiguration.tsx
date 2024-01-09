@@ -1182,41 +1182,40 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
   },
 });
 
+const GoId = ({ data }: { data: UniProtkbUIModel }) => {
+  const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!goTerms) {
+    return null;
+  }
+  return (
+    <section className="text-block">
+      <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
+        {Array.from(goTerms.values())
+          .flat()
+          .map(
+            ({ id }: GoTerm) =>
+              id && (
+                <a
+                  key={id}
+                  href={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
+                >
+                  {id}
+                </a>
+              )
+          )}
+      </ExpandableList>
+    </section>
+  );
+};
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
   ...getLabelAndTooltip(
     'Gene Ontology IDs',
     'Gene Ontology (GO) identifiers associated with the entry',
     'gene_ontology'
   ),
-  render: (data) => {
-    const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const databaseInfoMaps = useDatabaseInfoMaps();
-    if (!goTerms) {
-      return null;
-    }
-    return (
-      <section className="text-block">
-        <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-          {Array.from(goTerms.values())
-            .flat()
-            .map(
-              ({ id }: GoTerm) =>
-                id && (
-                  <a
-                    key={id}
-                    href={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', {
-                      id,
-                    })}
-                  >
-                    {id}
-                  </a>
-                )
-            )}
-        </ExpandableList>
-      </section>
-    );
-  },
+  render: (data) => <GoId data={data} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
