@@ -3,6 +3,10 @@ import { LocationPinIcon } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { GoXref } from '../../adapters/subcellularLocationConverter';
@@ -19,6 +23,7 @@ const SubcellularLocationGOView: FC<{
   goXrefs?: GoXref[];
   primaryAccession?: string;
 }> = ({ goXrefs, primaryAccession }) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
   if (!goXrefs?.length) {
     return null;
   }
@@ -37,7 +42,9 @@ const SubcellularLocationGOView: FC<{
               className="sub-cell-viz__in-view-pin"
               height="1em"
             />
-            <ExternalLink url={externalUrls.QuickGO(id)}>
+            <ExternalLink
+              url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
+            >
               {properties.GoTerm}
             </ExternalLink>
           </li>
