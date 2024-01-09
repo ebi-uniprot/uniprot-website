@@ -3458,7 +3458,7 @@ exports[`Entry view should render 1`] = `
           The sequence 
           <a
             class="external-link"
-            href="//www.ebi.ac.uk/ena/data/view/sequence"
+            href="https://www.ebi.ac.uk/ena/data/view/sequence"
             rel="noopener"
             target="_blank"
           >
@@ -4632,7 +4632,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       <a
                         class="external-link"
-                        href="//www.ebi.ac.uk/QuickGO/term/GO:0016798"
+                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
                         rel="noopener"
                         target="_blank"
                       >
@@ -4673,7 +4673,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       <a
                         class="external-link"
-                        href="//www.ebi.ac.uk/QuickGO/term/GO:0046872"
+                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
                         rel="noopener"
                         target="_blank"
                       >
@@ -4714,7 +4714,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       <a
                         class="external-link"
-                        href="//www.ebi.ac.uk/QuickGO/term/GO:0008152"
+                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0008152"
                         rel="noopener"
                         target="_blank"
                       >

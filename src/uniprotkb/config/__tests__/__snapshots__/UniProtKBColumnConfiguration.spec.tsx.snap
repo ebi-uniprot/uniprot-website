@@ -561,7 +561,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
     The sequence 
     <a
       class="external-link"
-      href="//www.ebi.ac.uk/ena/data/view/sequence"
+      href="https://www.ebi.ac.uk/ena/data/view/sequence"
       rel="noopener"
       target="_blank"
     >
@@ -1220,7 +1220,7 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
     The sequence 
     <a
       class="external-link"
-      href="//www.ebi.ac.uk/ena/data/view/sequence"
+      href="https://www.ebi.ac.uk/ena/data/view/sequence"
       rel="noopener"
       target="_blank"
     >
