@@ -255,7 +255,7 @@ const conditionsToInfoData = (
             return null;
           }
           // Not in allDatabases
-          let url = externalUrls.InterProSearch(value);
+          let url: string | null = externalUrls.InterProSearch(value);
           if (value.startsWith('PS')) {
             // Not in allDatabases
             url = externalUrls.PROSITEEntry(value);
