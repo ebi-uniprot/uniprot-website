@@ -11,6 +11,13 @@ export const processUrlTemplate = (
   Object.entries(params).forEach(([param, value]) => {
     url = url.replace(new RegExp(`%${param}`, 'g'), value);
   });
+  if (url === urlTemplate) {
+    logging.error(
+      `${urlTemplate} template values not filled in with params: ${JSON.stringify(
+        params
+      )}`
+    );
+  }
   return url;
 };
 
@@ -40,16 +47,5 @@ export const getUrlFromDatabaseInfo = (
     );
     return null;
   }
-  const processedUrl = processUrlTemplate(uriLink, params);
-  if (processedUrl === uriLink) {
-    const attributeError = attribute ? ` and with attribute: ${attribute}` : '';
-    logging.error(
-      `${database} ${uriLink} template values not filled in with params: ${JSON.stringify(
-        params
-      )} ${attributeError}`
-    );
-    return null;
-  }
-
-  return processedUrl;
+  return processUrlTemplate(uriLink, params);
 };
