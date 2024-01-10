@@ -1196,12 +1196,12 @@ const GoId = ({ data }: { data: UniProtkbUIModel }) => {
           .map(
             ({ id }: GoTerm) =>
               id && (
-                <a
+                <ExternalLink
                   key={id}
-                  href={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
+                  url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
                 >
                   {id}
-                </a>
+                </ExternalLink>
               )
           )}
       </ExpandableList>
