@@ -26,7 +26,7 @@ export const getUrlFromDatabaseInfo = (
   attribute?: string
 ) => {
   if (!databaseInfoMaps) {
-    return '';
+    return null;
   }
   const { databaseToDatabaseInfo } = databaseInfoMaps;
   const databaseInfo = databaseToDatabaseInfo[database];
@@ -34,11 +34,22 @@ export const getUrlFromDatabaseInfo = (
     ? databaseInfo.attributes?.find((a) => a.name === attribute)?.uriLink
     : databaseInfo.uriLink;
   if (!uriLink) {
-    const attributeError = attribute ? `with attribute : ${attribute}` : '';
+    const attributeError = attribute ? ` with attribute: ${attribute}` : '';
     logging.error(
-      `${database} not found in databaseToDatabaseInfo ${attributeError}`
+      `${database} not found in databaseToDatabaseInfo${attributeError}`
     );
-    return '';
+    return null;
   }
-  return processUrlTemplate(uriLink, params);
+  const processedUrl = processUrlTemplate(uriLink, params);
+  if (processedUrl === uriLink) {
+    const attributeError = attribute ? ` and with attribute: ${attribute}` : '';
+    logging.error(
+      `${database} ${uriLink} template values not filled in with params: ${JSON.stringify(
+        params
+      )} ${attributeError}`
+    );
+    return null;
+  }
+
+  return processedUrl;
 };
