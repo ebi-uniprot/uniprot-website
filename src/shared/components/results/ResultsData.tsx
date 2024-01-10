@@ -39,6 +39,7 @@ import { PaginatedResults } from '../../hooks/usePagination';
 import { Basket } from '../../hooks/useBasket';
 
 import styles from './styles/results-data.module.scss';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 type Props = {
   resultsDataObject: PaginatedResults;
@@ -106,10 +107,10 @@ const ResultsData = ({
 
   // redirect to entry directly when...
   useEffect(() => {
+    const trimmedQuery = query.toUpperCase().trim();
     // ... only 1 result and ...
     if (!hasMoreData && allResults.length === 1) {
       const uniqueItem = allResults[0];
-      const trimmedQuery = query.toUpperCase().trim();
       let idKey;
       try {
         idKey = getIdKey(uniqueItem);
@@ -125,6 +126,16 @@ const ResultsData = ({
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
         history.replace(getEntryPathForEntry(uniqueItem));
+      }
+    } else if (allResults.length && 'uniProtkbId' in allResults[0]) {
+      // Multiple results and if any one of them matches the UniProtKB ID, redirect to entry page (same behaviour as accession)
+      const matchingItem = allResults.find(
+        (entry) =>
+          (entry as UniProtkbAPIModel).uniProtkbId?.toUpperCase() ===
+          trimmedQuery
+      );
+      if (matchingItem) {
+        history.replace(getEntryPathForEntry(matchingItem));
       }
     }
   }, [
