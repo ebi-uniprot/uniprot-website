@@ -22,6 +22,8 @@ import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 import useViewMode from '../../hooks/useViewMode';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
+import { PaginatedResults } from '../../hooks/usePagination';
+import { Basket } from '../../hooks/useBasket';
 
 import { getIdKeyForData } from '../../utils/getIdKey';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -35,11 +37,9 @@ import getCardRenderer from '../../config/resultsCardRenderers';
 
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
-import { PaginatedResults } from '../../hooks/usePagination';
-import { Basket } from '../../hooks/useBasket';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 import styles from './styles/results-data.module.scss';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 type Props = {
   resultsDataObject: PaginatedResults;
