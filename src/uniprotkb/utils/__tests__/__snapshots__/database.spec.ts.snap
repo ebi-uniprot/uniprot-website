@@ -2923,10 +2923,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   "entrySectionToDatabaseCategoryOrder": {
     "disease_variants": [
       "ORG",
+      "MISC",
       "CHEMISTRY",
       "GVD",
       "PFAM",
-      "MISC",
     ],
     "expression": [
       "GEP",
@@ -2952,6 +2952,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "interaction": [
       "PPI",
       "CHEMISTRY",
+      "MISC",
     ],
     "names_and_taxonomy": [
       "ORG",
@@ -2980,6 +2981,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OpenTargets",
       "Orphanet",
       "PharmGKB",
+      "Pharos",
       "ChEMBL",
       "DrugBank",
       "DrugCentral",
@@ -3131,6 +3133,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MINT",
       "STRING",
       "BindingDB",
+      "RNAct",
     ],
     "names_and_taxonomy": [
       "AGR",

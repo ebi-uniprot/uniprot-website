@@ -73,6 +73,7 @@ export const getEntrySectionToDatabaseNames = (
     'OpenTargets',
     'Orphanet',
     'PharmGKB',
+    'Pharos',
     'ChEMBL',
     'DrugBank',
     'DrugCentral',
@@ -112,7 +113,7 @@ export const getEntrySectionToDatabaseNames = (
     EntrySection.Interaction,
     databaseSelector({
       categories: [DatabaseCategory.INTERACTION],
-      include: ['BindingDB'],
+      include: ['BindingDB', 'RNAct'],
     })
   );
   entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
