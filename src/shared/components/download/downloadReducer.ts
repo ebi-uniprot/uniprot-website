@@ -27,7 +27,7 @@ export type DownloadState = {
   extraContent: ExtraContent;
   nSelectedEntries: number;
   disableForm: boolean;
-  multiValueXrefFields: string[];
+  fullXrefFields: string[];
 };
 
 export const getDownloadInitialState = ({
@@ -50,7 +50,7 @@ export const getDownloadInitialState = ({
     nSelectedEntries:
       props.numberSelectedEntries || props.selectedEntries?.length || 0,
     disableForm: false,
-    multiValueXrefFields: [],
+    fullXrefFields: [],
   };
 };
 
@@ -77,10 +77,10 @@ export function downloadReducer(
       return { ...state, extraContent: action.payload.extraContent };
     case downloadActions.UPDATE_DISABLE_FORM:
       return { ...state, disableForm: action.payload.disableForm };
-    case downloadActions.UPDATE_MULTI_VALUE_XREF_FIELDS:
+    case downloadActions.UPDATE_FULL_XREF_FIELDS:
       return {
         ...state,
-        multiValueXrefFields: action.payload.multiValueXrefFields,
+        fullXrefFields: action.payload.fullXrefFields,
       };
     default:
       return state;

@@ -34,7 +34,7 @@ import {
   updateCompressed,
   updateExtraContent,
   updateDisableForm,
-  updateMultiValueXrefFields,
+  updateFullXrefFields,
 } from './downloadActions';
 import { prepareFieldData } from '../column-select/utils';
 
@@ -125,38 +125,38 @@ const Download = (props: DownloadProps<JobTypes>) => {
     [data]
   );
 
-  const getFieldsWithMultipleValueXref = useCallback(
+  const isXrefWithFullOption = useCallback(
     (fieldData: FieldData | FieldDatum, id: string): boolean | undefined => {
       if (Array.isArray(fieldData)) {
         for (const item of fieldData) {
-          const isFull = getFieldsWithMultipleValueXref(item, id);
+          const isFull = isXrefWithFullOption(item, id);
           if (isFull) {
             return true;
           }
         }
       } else if (fieldData.items) {
-        return getFieldsWithMultipleValueXref(fieldData.items, id);
+        return isXrefWithFullOption(fieldData.items, id);
       } else if (fieldData.id === id) {
         return fieldData.addAsterisk;
       }
-      return undefined;
+      return false;
     },
     []
   );
 
   useEffect(() => {
-    const multiValueXrefColumns = [];
+    const fullXrefColumns = [];
     for (const column of state.selectedColumns) {
-      const isPresent = getFieldsWithMultipleValueXref(
+      const hasFullOption = isXrefWithFullOption(
         fieldData,
         column.includes('_full') ? column.replace('_full', '') : column
       );
-      if (isPresent) {
-        multiValueXrefColumns.push(column);
+      if (hasFullOption) {
+        fullXrefColumns.push(column);
       }
     }
-    dispatch(updateMultiValueXrefFields(multiValueXrefColumns));
-  }, [fieldData, getFieldsWithMultipleValueXref, state.selectedColumns]);
+    dispatch(updateFullXrefFields(fullXrefColumns));
+  }, [fieldData, isXrefWithFullOption, state.selectedColumns]);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -168,10 +168,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
 
-  const handleMultiValueXrefChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFullXrefChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked === true) {
       const addFullXref = state.selectedColumns.map((column) => {
-        if (state.multiValueXrefFields.includes(column)) {
+        if (state.fullXrefFields.includes(column)) {
           return `${column}_full`;
         }
         return column;
@@ -404,16 +404,15 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
-        {showColumnSelect(state, props, job) &&
-        state.multiValueXrefFields.length ? (
-          <div className={styles['multiple-values-section']}>
+        {showColumnSelect(state, props, job) && state.fullXrefFields.length ? (
+          <div className={styles['full-xref-section']}>
             * Full XRef IDs available for starred items
             <label>
               <input
                 aria-label="include multiple values"
                 type="checkbox"
-                name="multivalueXref"
-                onChange={handleMultiValueXrefChange}
+                name="fullXref"
+                onChange={handleFullXrefChange}
               />
               Check box to include it in the download
             </label>

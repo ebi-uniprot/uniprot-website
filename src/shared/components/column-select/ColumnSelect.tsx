@@ -37,19 +37,23 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   children,
 }) => {
   const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
-  const [columns, setColumns] = useState<Column[]>();
+  const [selectedColumnsWithoutFullXrefs, setSelectedColumnsWithoutFullXrefs] =
+    useState<Column[]>([]);
 
   useEffect(() => {
     const removeFullXref = selectedColumns.map((column) =>
       column.includes('_full') ? column.replace('_full', '') : column
     );
-    setColumns(removeFullXref as Column[]);
+    setSelectedColumnsWithoutFullXrefs(removeFullXref as Column[]);
   }, [selectedColumns]);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
-  const removableSelectedColumns = difference(columns, primaryKeyColumns);
+  const removableSelectedColumns = difference(
+    selectedColumnsWithoutFullXrefs,
+    primaryKeyColumns
+  );
   const handleChange = useCallback(
     (columns: Column[]) => {
       onChange([...primaryKeyColumns, ...columns]);
@@ -116,7 +120,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
           onSelect={(itemId: string) => {
             handleSelect(itemId as Column);
           }}
-          selected={columns as Column[]}
+          selected={selectedColumnsWithoutFullXrefs}
           placeholder="Search for available columns"
           columns
         />
