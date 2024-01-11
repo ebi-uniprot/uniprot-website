@@ -96,6 +96,7 @@ const toolsMiddleware = (
   // Rehydrate jobs, run only once in the application lifetime
   rehydrateJobs(toolsDispatch).then(() => {
     pollJobs.schedule(0);
+    // don't check that rightaway, to avoid using up important connections
     expiredJobs.schedule(5_000);
   });
 
