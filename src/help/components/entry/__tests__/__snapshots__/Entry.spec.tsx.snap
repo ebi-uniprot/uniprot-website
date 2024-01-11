@@ -271,9 +271,9 @@ exports[`Help entry tests should render the Entry component 1`] = `
         <small>
            Page last modified: 
           <time
-            datetime="2023-02-14T00:00:00.000Z"
+            datetime="2022-12-23T00:00:00.000Z"
           >
-            Tue Feb 14 2023
+            Fri Dec 23 2022
           </time>
         </small>
       </div>

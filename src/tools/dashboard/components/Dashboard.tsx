@@ -13,7 +13,6 @@ import { partition } from 'lodash-es';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
-import DowntimeWarning from '../../components/DowntimeWarning';
 
 import useToolsState from '../../../shared/hooks/useToolsState';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
@@ -82,7 +81,6 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   return (
     <>
       {fullPageContent}
-      <DowntimeWarning>Align and BLAST service</DowntimeWarning>
       <p>
         Your tool analysis results from the last{' '}
         <ClockIcon height="1em" width="3ch" /> 7 days are listed below. If you

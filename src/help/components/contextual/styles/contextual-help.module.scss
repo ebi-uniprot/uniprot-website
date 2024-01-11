@@ -27,7 +27,7 @@ $help-height: 35em;
 .contextual-help-panel {
   block-size: max($help-height, 50vh);
   margin-block-start: calc(50vh - 0.5 * max($help-height, 50vh));
-  z-index: 2147483641;
+  z-index: 2147483642;
 
   :global(.sliding-panel__header) {
     background-color: $colour-help-green;
