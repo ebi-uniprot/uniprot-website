@@ -18,21 +18,55 @@ import useToolsState from '../../../shared/hooks/useToolsState';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 
 import { pollJobs } from '../../state/toolsActions';
+import { heuristic } from '../../state/utils/heuristic';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Job } from '../../types/toolsJob';
 
 import './styles/Dashboard.scss';
-import { heuristic } from '../../state/utils/heuristic';
 
 const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
+const useDashboardEffect = () => {
+  const dispatch = useToolsDispatch();
+
+  useEffect(() => {
+    // Visibility change event listener
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        // Do an immediate check when the dashboard gets visible
+        dispatch(pollJobs());
+        // Speed up polls
+        heuristic.dashboardSpeedUpFactor = 4;
+      } else {
+        // if page is not visible
+        // Reset poll frequency (although might not)
+        heuristic.dashboardSpeedUpFactor = 1;
+      }
+    };
+    // Add visibility change event listener
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    // On mount
+    // Speed up polls
+    heuristic.dashboardSpeedUpFactor = 4;
+    // Trigger visibility check
+    onVisibilityChange();
+    return () => {
+      // On unmount
+      // Reset poll frequency
+      heuristic.dashboardSpeedUpFactor = 1;
+      // Remove visibility change event listener
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, [dispatch]);
+};
+
 const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   const tools = useToolsState();
-  const dispatch = useToolsDispatch();
 
   const [activeJobs, expiredJobs] = useMemo(() => {
     const jobs = Array.from(Object.values(tools ?? {})).sort(sortNewestFirst);
@@ -40,23 +74,8 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
     return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
   }, [tools]);
 
-  useEffect(() => {
-    const onVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        dispatch(pollJobs());
-        heuristic.dashboardSpeedUpFactor = 4;
-      } else {
-        heuristic.dashboardSpeedUpFactor = 1;
-      }
-    };
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    heuristic.dashboardSpeedUpFactor = 4;
-    onVisibilityChange();
-    return () => {
-      heuristic.dashboardSpeedUpFactor = 1;
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-    };
-  }, [dispatch]);
+  // Trigger effects related to the rendering of the dashboard into view
+  useDashboardEffect();
 
   const fullPageContent = onFullView ? null : (
     <>
