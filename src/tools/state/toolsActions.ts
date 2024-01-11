@@ -8,6 +8,7 @@ export const REHYDRATE_JOBS = 'REHYDRATE_JOBS';
 export const CREATE_JOB = 'CREATE_JOB';
 export const DELETE_JOB = 'DELETE_JOB';
 export const UPDATE_JOB = 'UPDATE_JOB';
+export const POLL_JOBS = 'POLL_JOBS';
 
 /**
  * @param {FormParameters[T]} parameters job parameters to be kept in the application logic
@@ -35,3 +36,5 @@ export const updateJob = (id: Job['internalID'], partialJob: Partial<Job>) =>
   action(UPDATE_JOB, { id, partialJob });
 
 export const deleteJob = (id: Job['internalID']) => action(DELETE_JOB, id);
+
+export const pollJobs = () => action(POLL_JOBS);

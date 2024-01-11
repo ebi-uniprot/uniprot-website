@@ -17,6 +17,7 @@ import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
 import { ToolsState } from '../state/toolsInitialState';
+import { ServerStatus } from '../async-download/types/asyncDownloadServerStatus';
 
 const reHex = /^[a-f\d]+$/;
 
@@ -69,17 +70,32 @@ const statuses = Object.values(Status);
 export const getStatusFromResponse = async (
   jobType: JobTypes,
   response: Response
-): Promise<[status: Status, idMappingResultsUrl?: string]> => {
+): Promise<
+  [status: Status, progress?: number, idMappingResultsUrl?: string]
+> => {
   let status: Status | undefined;
+  let progress: number | undefined;
   let idMappingResultsUrl: string | undefined;
   switch (jobType) {
     case JobTypes.ALIGN:
     case JobTypes.BLAST:
       status = (await response.text()) as Status;
       break;
-    case JobTypes.ASYNC_DOWNLOAD:
-      status = (await response.json()).jobStatus;
+    case JobTypes.ASYNC_DOWNLOAD: {
+      const data: ServerStatus = await response.json();
+      status = data.jobStatus;
+      if (data.totalEntries && data.processedEntries) {
+        // Round down to the closest integer
+        const potentialProgress = Math.floor(
+          // Make sure it never goes over 100%, just in case...
+          Math.min((data.processedEntries / data.totalEntries) * 100, 100)
+        );
+        if (potentialProgress) {
+          progress = potentialProgress;
+        }
+      }
       break;
+    }
     case JobTypes.ID_MAPPING:
       if (response.status >= 400) {
         status = Status.FAILURE;
@@ -113,7 +129,7 @@ export const getStatusFromResponse = async (
     throw new Error(`Got an unexpected status of "${status}" from the server`);
   }
 
-  return [status, idMappingResultsUrl];
+  return [status, progress, idMappingResultsUrl];
 };
 
 const parseXML = (xml: string) =>

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -16,12 +16,16 @@ import EmptyDashboard from './EmptyDashboard';
 import DowntimeWarning from '../../components/DowntimeWarning';
 
 import useToolsState from '../../../shared/hooks/useToolsState';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
+
+import { pollJobs } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Job } from '../../types/toolsJob';
 
 import './styles/Dashboard.scss';
+import { heuristic } from '../../state/utils/heuristic';
 
 const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
@@ -29,12 +33,31 @@ const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
 const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   const tools = useToolsState();
+  const dispatch = useToolsDispatch();
 
   const [activeJobs, expiredJobs] = useMemo(() => {
     const jobs = Array.from(Object.values(tools ?? {})).sort(sortNewestFirst);
     const now = Date.now();
     return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
   }, [tools]);
+
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        dispatch(pollJobs());
+        heuristic.dashboardSpeedUpFactor = 4;
+      } else {
+        heuristic.dashboardSpeedUpFactor = 1;
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    heuristic.dashboardSpeedUpFactor = 4;
+    onVisibilityChange();
+    return () => {
+      heuristic.dashboardSpeedUpFactor = 1;
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, [dispatch]);
 
   const fullPageContent = onFullView ? null : (
     <>

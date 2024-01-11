@@ -164,6 +164,15 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
     case Status.QUEUED:
       return <SpinningNotify>Queued</SpinningNotify>;
     case Status.RUNNING:
+      if (job.type === JobTypes.ASYNC_DOWNLOAD) {
+        return (
+          <SpinningNotify>
+            {job.progress
+              ? `Writing entries to file (${job.progress}%)`
+              : 'Retrieving entries'}
+          </SpinningNotify>
+        );
+      }
       return <SpinningNotify>Running</SpinningNotify>;
     case Status.FAILURE:
     case Status.ERRORED:
