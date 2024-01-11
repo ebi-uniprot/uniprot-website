@@ -127,15 +127,20 @@ const ResultsData = ({
       ) {
         history.replace(getEntryPathForEntry(uniqueItem));
       }
-    } else if (allResults.length && 'uniProtkbId' in allResults[0]) {
-      // Multiple results and if any one of them matches the UniProtKB ID, redirect to entry page (same behaviour as accession)
-      const matchingItem = allResults.find(
+    } else if (
+      // Limit it to the first set of results as the exact match is very likely in the top results and it applies only for UniProtKB
+      allResults.length &&
+      allResults.length <= 25 &&
+      'uniProtkbId' in allResults[0]
+    ) {
+      // if any one of them matches the UniProtKB ID, redirect to entry page (same behaviour as accession)
+      const firstMatch = allResults.find(
         (entry) =>
           (entry as UniProtkbAPIModel).uniProtkbId?.toUpperCase() ===
           trimmedQuery
       );
-      if (matchingItem) {
-        history.replace(getEntryPathForEntry(matchingItem));
+      if (firstMatch) {
+        history.replace(getEntryPathForEntry(firstMatch));
       }
     }
   }, [
