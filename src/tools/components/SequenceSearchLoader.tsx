@@ -52,7 +52,7 @@ const getURLForAccessionOrID = (input: string) => {
   }
 
   // UniParc accession
-  if (reUniParc.test('UPI')) {
+  if (reUniParc.test(cleanedInput)) {
     return apiUrls.entry(cleanedInput.toUpperCase(), Namespace.uniparc);
   }
 
