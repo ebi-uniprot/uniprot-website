@@ -26,7 +26,7 @@ export const heuristic: Heuristic = {
   },
 };
 
-if ('hardwareConcurrency' in navigator) {
+if ('hardwareConcurrency' in navigator && navigator.hardwareConcurrency) {
   // EBI JD server is using HTTP 1.1, so keep between 1 and 6 connections
   // Use half of the concurrency available to limit impact on the page
   heuristic.concurrency = Math.min(
@@ -54,7 +54,7 @@ type ExtendedNavigator = Navigator & {
   };
 };
 
-if ('getBattery' in navigator) {
+if ('getBattery' in navigator && (navigator as ExtendedNavigator).getBattery) {
   (navigator as ExtendedNavigator)
     .getBattery()
     .then((batteryManager) => {
@@ -83,7 +83,7 @@ if ('getBattery' in navigator) {
     });
 }
 
-if ('connection' in navigator) {
+if ('connection' in navigator && (navigator as ExtendedNavigator).connection) {
   const { connection } = navigator as ExtendedNavigator;
   const setPollingFactor = () => {
     if (connection.saveData) {
