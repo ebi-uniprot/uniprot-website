@@ -87,12 +87,16 @@ export const getStatusFromResponse = async (
       if (data.totalEntries && data.processedEntries) {
         // Round down to the closest integer
         const potentialProgress = Math.floor(
-          // Make sure it never goes over 100%, just in case...
+          // Make sure it never goes over 100% while still RUNNING
           Math.min((data.processedEntries / data.totalEntries) * 100, 100)
         );
         if (potentialProgress) {
           progress = potentialProgress;
         }
+      }
+      // But if we're FINISHED, we can set to 100%
+      if (status === Status.FINISHED) {
+        progress = 100;
       }
       break;
     }

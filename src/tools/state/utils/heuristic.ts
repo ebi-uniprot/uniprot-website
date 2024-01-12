@@ -1,8 +1,11 @@
 type Heuristic = {
-  // Values to use as such
+  // Concurrency values to use as such, not a modifier factor
   concurrency: number;
+  // Modifier factor: higher => Less frequent updates, magic numbers
   batteryFactor: 1 | 2 | 4;
+  // Modifier factor: higher => Less frequent updates, magic numbers
   connectionFactor: 1 | 2 | 4;
+  // Modifier factor: higher => More frequent updates, magic numbers
   dashboardSpeedUpFactor: 1 | 4;
   // Or helper function to combine them together
   compoundFactors: (baseDelay: number) => number;
@@ -34,6 +37,7 @@ if ('hardwareConcurrency' in navigator) {
 
 // Not standardised, so we need to extend types
 type ExtendedNavigator = Navigator & {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery
   getBattery: () => Promise<{
     addEventListener: (
       type: 'chargingchange' | 'levelchange',
@@ -42,6 +46,7 @@ type ExtendedNavigator = Navigator & {
     charging?: boolean;
     level?: number;
   }>;
+  // https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation
   connection: {
     addEventListener: (type: 'change', listener: EventListener) => void;
     saveData?: boolean;
