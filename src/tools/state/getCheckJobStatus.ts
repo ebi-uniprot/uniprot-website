@@ -54,7 +54,7 @@ const getCheckJobStatus: GetCheckJobState =
         redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
       });
       const [status, progress, idMappingResultsUrl] =
-        await getStatusFromResponse(job.type, response);
+        await getStatusFromResponse(job.type, response, job.remoteID);
 
       if (
         // When doing Peptide Search weird redirects happen and mess this up

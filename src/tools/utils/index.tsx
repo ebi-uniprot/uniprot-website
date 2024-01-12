@@ -1,9 +1,10 @@
+import { MutableRefObject } from 'react';
 import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-
-import { MutableRefObject } from 'react';
 import { BytesNumber, LongNumber } from 'franklin-sites';
+
 import { pluralise } from '../../shared/utils/utils';
+import * as logging from '../../shared/utils/logging';
 
 import { Location, jobTypeToPath } from '../../app/config/urls';
 
@@ -69,7 +70,8 @@ const statuses = Object.values(Status);
 
 export const getStatusFromResponse = async (
   jobType: JobTypes,
-  response: Response
+  response: Response,
+  jobID: string
 ): Promise<
   [status: Status, progress?: number, idMappingResultsUrl?: string]
 > => {
@@ -87,9 +89,14 @@ export const getStatusFromResponse = async (
       if (data.totalEntries && data.processedEntries) {
         // Round down to the closest integer
         const potentialProgress = Math.floor(
-          // Make sure it never goes over 100% while still RUNNING
-          Math.min((data.processedEntries / data.totalEntries) * 100, 100)
+          (data.processedEntries / data.totalEntries) * 100
         );
+        /* istanbul ignore if */
+        if (potentialProgress > 100) {
+          logging.warn(
+            `progress reached ${potentialProgress}% for async download job ${jobID}`
+          );
+        }
         if (potentialProgress) {
           progress = potentialProgress;
         }

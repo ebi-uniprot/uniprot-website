@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -15,10 +15,7 @@ import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
 import useToolsState from '../../../shared/hooks/useToolsState';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
-
-import { pollJobs } from '../../state/toolsActions';
-import { heuristic } from '../../state/utils/heuristic';
+import useDashboardPollingEffect from '../hooks/useDashboardPollingEffect';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -30,41 +27,6 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
-const useDashboardEffect = () => {
-  const dispatch = useToolsDispatch();
-
-  useEffect(() => {
-    // Visibility change event listener
-    const onVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        // Do an immediate check when the dashboard gets visible
-        dispatch(pollJobs());
-        // Speed up polls
-        heuristic.dashboardSpeedUpFactor = 4;
-      } else {
-        // if page is not visible
-        // Reset poll frequency (although might not)
-        heuristic.dashboardSpeedUpFactor = 1;
-      }
-    };
-    // Add visibility change event listener
-    document.addEventListener('visibilitychange', onVisibilityChange);
-
-    // On mount
-    // Speed up polls
-    heuristic.dashboardSpeedUpFactor = 4;
-    // Trigger visibility check
-    onVisibilityChange();
-    return () => {
-      // On unmount
-      // Reset poll frequency
-      heuristic.dashboardSpeedUpFactor = 1;
-      // Remove visibility change event listener
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-    };
-  }, [dispatch]);
-};
-
 const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   const tools = useToolsState();
 
@@ -75,7 +37,7 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   }, [tools]);
 
   // Trigger effects related to the rendering of the dashboard into view
-  useDashboardEffect();
+  useDashboardPollingEffect();
 
   const fullPageContent = onFullView ? null : (
     <>
