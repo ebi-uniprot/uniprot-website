@@ -96,7 +96,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(24094);
@@ -167,7 +167,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     // Manually set state
     state.selectedFileFormat = FileFormat.tsv;
@@ -243,7 +243,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     // Manually set state
     state.extraContent = 'url';
@@ -338,7 +338,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     // Manually set state
     state.extraContent = 'generate';
@@ -437,7 +437,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     // Manually set state
     state.extraContent = 'generate';
@@ -519,7 +519,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(1);
@@ -608,7 +608,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(335578);
@@ -681,7 +681,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     // Manually set state
     state.extraContent = 'ftp';
@@ -754,7 +754,7 @@ describe('Download Utils', () => {
       compressed: true,
       disableForm: false,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     // Manually set state
     state.selectedFileFormat = FileFormat.embeddings;
@@ -828,7 +828,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.text);
     expect(getDownloadCount(state, props)).toEqual(306);
@@ -914,7 +914,7 @@ describe('Download Utils', () => {
       disableForm: false,
       extraContent: null,
       nSelectedEntries: 0,
-      multiValueXrefFields: [],
+      fullXrefFields: [],
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaSubsequence);
     expect(getDownloadCount(state, props)).toEqual(1);
