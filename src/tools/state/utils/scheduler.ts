@@ -17,7 +17,6 @@ export class Scheduler {
   }
 
   schedule(delay: number) {
-    console.log(`scheduling in ${delay / 1000}s`);
     if (this.#currentSchedule) {
       // Clear any possible previously scheduled run
       window.clearTimeout(this.#currentSchedule);
