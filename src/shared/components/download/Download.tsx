@@ -53,6 +53,7 @@ import {
   getPreviewCount,
   isAsyncDownloadIdMapping,
   showColumnSelect,
+  fullToStandardColumnName,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -145,16 +146,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
   );
 
   useEffect(() => {
-    const fullXrefColumns = [];
-    for (const column of state.selectedColumns) {
-      const hasFullOption = isXrefWithFullOption(
-        fieldData,
-        column.includes('_full') ? column.replace('_full', '') : column
-      );
-      if (hasFullOption) {
-        fullXrefColumns.push(column);
-      }
-    }
+    const fullXrefColumns = state.selectedColumns.filter((column) =>
+      isXrefWithFullOption(fieldData, fullToStandardColumnName(column))
+    );
     dispatch(updateFullXrefFields(fullXrefColumns));
   }, [fieldData, isXrefWithFullOption, state.selectedColumns]);
 

@@ -11,6 +11,8 @@ import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
 import { getLabel, prepareFieldData } from './utils';
+import { fullToStandardColumnName } from '../download/downloadUtils';
+
 import { Namespace } from '../../types/namespaces';
 
 import {
@@ -42,7 +44,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
 
   useEffect(() => {
     const removeFullXref = selectedColumns.map((column) =>
-      column.includes('_full') ? column.replace('_full', '') : column
+      fullToStandardColumnName(column)
     );
     setSelectedColumnsWithoutFullXrefs(removeFullXref as Column[]);
   }, [selectedColumns]);

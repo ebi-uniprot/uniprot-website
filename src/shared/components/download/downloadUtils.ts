@@ -128,6 +128,9 @@ export const showColumnSelect = (
   job: JobFromUrl
 ) => hasColumns(state, props, job) && !state.disableForm;
 
+export const fullToStandardColumnName = (column: string) =>
+  column.includes('_full') ? column.replace('_full', '') : column;
+
 export const getDownloadOptions = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
