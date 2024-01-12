@@ -18,7 +18,7 @@ import { ToolsAction } from './toolsReducers';
 import { MessagesAction } from '../../messages/state/messagesReducers';
 
 const BASE_POLLING_INTERVAL = 1_000 * 15; // 15 seconds baseline / minimum
-// See ./utils/heuristic.ts possible changing factors => min 15s, max 2min
+// See ./utils/heuristic.ts possible changing factors => min 15s, max 4min
 const EXPIRED_INTERVAL = 1_000 * 60 * 60; // 1 hour
 const AUTO_DELETE_TIME = 1_000 * 60 * 60 * 24 * 14; // 2 weeks
 
