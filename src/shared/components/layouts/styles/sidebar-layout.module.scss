@@ -46,6 +46,7 @@
     // Hides the scrollbar, but keeps functionality
     // See https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width#accessibility_concerns
     scrollbar-width: thin;
+    overscroll-behavior: contain;
     &::-webkit-scrollbar {
       display: none;
     }

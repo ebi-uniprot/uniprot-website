@@ -22,6 +22,8 @@ import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 import useViewMode from '../../hooks/useViewMode';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
+import { PaginatedResults } from '../../hooks/usePagination';
+import { Basket } from '../../hooks/useBasket';
 
 import { getIdKeyForData } from '../../utils/getIdKey';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -35,8 +37,7 @@ import getCardRenderer from '../../config/resultsCardRenderers';
 
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
-import { PaginatedResults } from '../../hooks/usePagination';
-import { Basket } from '../../hooks/useBasket';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 import styles from './styles/results-data.module.scss';
 
@@ -106,10 +107,10 @@ const ResultsData = ({
 
   // redirect to entry directly when...
   useEffect(() => {
+    const trimmedQuery = query.toUpperCase().trim();
     // ... only 1 result and ...
     if (!hasMoreData && allResults.length === 1) {
       const uniqueItem = allResults[0];
-      const trimmedQuery = query.toUpperCase().trim();
       let idKey;
       try {
         idKey = getIdKey(uniqueItem);
@@ -125,6 +126,21 @@ const ResultsData = ({
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
         history.replace(getEntryPathForEntry(uniqueItem));
+      }
+    } else if (
+      // Limit it to the first set of results as the exact match is very likely in the top results and it applies only for UniProtKB
+      allResults.length &&
+      allResults.length <= 25 &&
+      'uniProtkbId' in allResults[0]
+    ) {
+      // if any one of them matches the UniProtKB ID, redirect to entry page (same behaviour as accession)
+      const firstMatch = allResults.find(
+        (entry) =>
+          (entry as UniProtkbAPIModel).uniProtkbId?.toUpperCase() ===
+          trimmedQuery
+      );
+      if (firstMatch) {
+        history.replace(getEntryPathForEntry(firstMatch));
       }
     }
   }, [
