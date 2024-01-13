@@ -1,11 +1,9 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { TreeSelect, Loader, Message } from 'franklin-sites';
+import { TreeSelect, Loader } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
-
-import ExternalLink from '../../shared/components/ExternalLink';
 
 import {
   MsaColorScheme,
@@ -315,30 +313,8 @@ const AlignmentView = ({
     return <Loader />;
   }
 
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
   return (
     <>
-      {isSafari ? (
-        <Message level="warning">
-          <small>
-            It looks like you are using Safari. Unfortunately, there is an issue
-            displaying the page with this browser. We recommend you use{' '}
-            <ExternalLink url="https://support.mozilla.org/en-US/kb/choosing-firefox-update-channel">
-              Firefox
-            </ExternalLink>
-            ,{' '}
-            <ExternalLink url="https://www.google.com/chrome/">
-              Chrome
-            </ExternalLink>
-            , or{' '}
-            <ExternalLink url="https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel">
-              Edge
-            </ExternalLink>{' '}
-            until this is fixed.
-          </small>
-        </Message>
-      ) : null}
       <div className="button-group">
         <TreeSelect
           data={colorSchemeTree}

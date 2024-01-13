@@ -19,8 +19,11 @@ import { stringifyQuery } from '../../utils/url';
 import { Namespace } from '../../types/namespaces';
 import { ExtraContent } from '../download/downloadReducer';
 
-const isCopySupported =
-  'clipboard' in navigator && 'writeText' in navigator.clipboard;
+const isCopySupported = Boolean(
+  'clipboard' in navigator &&
+    'writeText' in navigator.clipboard &&
+    navigator.clipboard.writeText
+);
 
 // TODO: expose way to close dropdown (in Franklin)
 const clickOnDropdown = (element: HTMLElement) => {

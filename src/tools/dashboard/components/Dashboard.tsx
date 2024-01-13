@@ -15,6 +15,7 @@ import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
 import useToolsState from '../../../shared/hooks/useToolsState';
+import useDashboardPollingEffect from '../hooks/useDashboardPollingEffect';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -34,6 +35,9 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
     const now = Date.now();
     return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
   }, [tools]);
+
+  // Trigger effects related to the rendering of the dashboard into view
+  useDashboardPollingEffect();
 
   const fullPageContent = onFullView ? null : (
     <>
