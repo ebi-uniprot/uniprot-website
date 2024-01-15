@@ -10052,7 +10052,7 @@ protvista-uniprot@2.10.10:
     timing-functions "^2.0.1"
     url-join "^4.0.1"
 
-protvista-utils@3.8.10, protvista-utils@^3.8.10:
+protvista-utils@^3.8.10:
   version "3.8.10"
   resolved "https://registry.yarnpkg.com/protvista-utils/-/protvista-utils-3.8.10.tgz#8f975fd605f586d728312f8824772ddb6e5ddbc1"
   integrity sha512-HcQJXBkhkpbwEgDD5ZZfp6OuJryEOt8m41gPYEmdNoLaTzHPea1OHrPNaiXWVdV2fcBTOA8yhBswIt65oHIrOQ==
