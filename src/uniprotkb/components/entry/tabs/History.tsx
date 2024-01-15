@@ -56,7 +56,7 @@ type UniSaveVersionWithEvents = UniSaveVersion & {
   events?: Record<UniSaveEventType, string[]>;
 };
 
-export const EntryHistoryDiff = ({
+const EntryHistoryDiff = ({
   accession,
   version1,
   version2,
@@ -109,28 +109,6 @@ export const EntryHistoryDiff = ({
       compareMethod={DiffMethod.LINES}
     />
   );
-};
-
-export const EntryHistoryView = ({
-  accession,
-  version,
-}: {
-  accession: string;
-  version: number;
-}) => {
-  const { data, loading, error, progress, status } = useDataApi<string>(
-    unisave.accession(accession, { entryVersions: version, format: 'txt' })
-  );
-
-  if (loading) {
-    return <Loader progress={progress} />;
-  }
-
-  if (error || !data) {
-    return <ErrorHandler status={status} />;
-  }
-
-  return <CodeBlock lightMode>{data}</CodeBlock>;
 };
 
 const ListOfEntries = ({
@@ -267,7 +245,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
 
 const getIdKey = (entry: UniSaveVersionWithEvents) => `${entry.entryVersion}`;
 
-export const EntryHistoryList = ({ accession }: { accession: string }) => {
+const EntryHistoryList = ({ accession }: { accession: string }) => {
   const accessionData = useDataApi<UniSaveAccession>(
     unisave.accession(accession)
   );
