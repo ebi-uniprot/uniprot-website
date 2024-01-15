@@ -9,7 +9,7 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
-import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
+import { getUniprotFtpFilenamesAndUrls } from '../../config/ftpUrls';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
 
@@ -244,15 +244,15 @@ export const getPreviewCount = (
   return previewOptions?.size || 'file';
 };
 
-export const getFtpFilenameAndUrl = (
+export const getFtpFilenamesAndUrls = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
   job: JobFromUrl
 ) =>
-  props.namespace === Namespace.uniprotkb &&
   job.jobResultsLocation !== Location.IDMappingResult
-    ? getUniprotkbFtpFilenameAndUrl(
+    ? getUniprotFtpFilenamesAndUrls(
+        props.namespace,
         getDownloadUrl(getDownloadOptions(state, props, location, job)),
         state.selectedFileFormat
       )
@@ -266,7 +266,7 @@ export const getIsAsyncDownload = (
 ) =>
   (props.namespace === Namespace.uniprotkb &&
     ((state.selectedFileFormat === FileFormat.embeddings &&
-      !getFtpFilenameAndUrl(state, props, location, job)) ||
+      !getFtpFilenamesAndUrls(state, props, location, job)) ||
       getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
   (props.namespace === Namespace.uniref &&
     getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
@@ -295,7 +295,7 @@ export const getExtraContent = (
 ) => {
   if (
     (state.extraContent === 'ftp' || state.extraContent === 'url') &&
-    getFtpFilenameAndUrl(state, props, location, job)
+    getFtpFilenamesAndUrls(state, props, location, job)
   ) {
     return 'ftp';
   }

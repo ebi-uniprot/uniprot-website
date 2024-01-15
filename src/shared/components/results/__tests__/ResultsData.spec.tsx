@@ -128,4 +128,27 @@ describe('ResultsData component', () => {
       )
     );
   });
+
+  it('should redirect to the entry page when query matches the id of any one of the results from first fetch', async () => {
+    const potentialMatch = results.results[0];
+    const { history } = customRender(
+      <ResultsData
+        setSelectedItemFromEvent={jest.fn()}
+        resultsDataObject={{
+          allResults: results.results,
+          initialLoading: false,
+          progress: 1,
+          hasMoreData: true,
+          handleLoadMoreRows: jest.fn(),
+          total: 1000,
+        }}
+      />,
+      { route: `/uniprotkb?query=${potentialMatch.uniProtkbId}` }
+    );
+    await waitFor(() =>
+      expect(history.location.pathname).toBe(
+        `/uniprotkb/${potentialMatch.primaryAccession}`
+      )
+    );
+  });
 });

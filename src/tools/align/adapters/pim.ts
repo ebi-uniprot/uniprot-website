@@ -32,7 +32,7 @@ export default (string: string): PIM => {
 
     output.push({
       name: match[1],
-      accession: extractAccession(match[1]),
+      accession: extractAccession(match[1])?.accession,
       values,
     });
   }

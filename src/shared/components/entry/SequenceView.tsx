@@ -125,7 +125,7 @@ export const SequenceInfo = ({
           onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
         />
       ) : (
-        'Sequence is not available'
+        <p>Sequence is not available</p>
       )}
     </LazyComponent>
   );
