@@ -58,5 +58,3 @@ export const useSmallScreen = () =>
 // Medium screen (as defined in Franklin)
 export const useMediumScreen = () =>
   useMatchMedia('only screen and (max-width: 1024px)');
-
-export const useTouchScreen = () => useMatchMedia('(pointer: coarse)');
