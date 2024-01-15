@@ -28,7 +28,7 @@ export type DatabaseInfoMaps = {
   entrySectionToDatabaseCategoryOrder: EntrySectionToDatabaseCategoryOrder;
 };
 
-export const getEntrySectionToDatabaseCategoryOrder = (
+const getEntrySectionToDatabaseCategoryOrder = (
   entrySectionToDatabaseNames: Map<EntrySection, string[]>,
   databaseNameToCategory: DatabaseNameToCategory
 ) => {
