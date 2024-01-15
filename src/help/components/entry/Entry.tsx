@@ -98,7 +98,7 @@ type HelpEntryContentProps = {
   upperHeadingLevel?: HeadingLevels;
 };
 
-export const HelpEntryContent = ({
+const HelpEntryContent = ({
   data,
   upperHeadingLevel = 'h1',
 }: HelpEntryContentProps) => {
