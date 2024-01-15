@@ -30,7 +30,7 @@ export type HSPDetailPanelProps = {
   namespace: Namespace;
 };
 
-export const convertHSPtoMSAInputs = (
+const convertHSPtoMSAInputs = (
   hsp: BlastHsp,
   queryLength: number,
   hitLength: number,
