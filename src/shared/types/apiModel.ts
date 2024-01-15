@@ -18,7 +18,7 @@ import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConv
 
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
-import { HelpAPIModel } from '../../help/adapters/helpConverter';
+import { HelpAPIModel } from '../../help/types/apiModel';
 
 import { Evidence } from '../../uniprotkb/types/modelTypes';
 

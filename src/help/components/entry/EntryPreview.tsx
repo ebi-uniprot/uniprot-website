@@ -13,7 +13,7 @@ import { help as helpURL } from '../../../shared/config/apiUrls';
 import cleanText from '../../../shared/utils/cleanText';
 import { pluralise } from '../../../shared/utils/utils';
 
-import { HelpEntryResponse } from '../../adapters/helpConverter';
+import { HelpEntryResponse } from '../../types/apiModel';
 
 import styles from './styles/entry-preview.module.scss';
 

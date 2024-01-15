@@ -28,7 +28,7 @@ import {
   Location,
   getLocationEntryPath,
 } from '../../../app/config/urls';
-import { HelpSearchResponse } from '../../adapters/helpConverter';
+import { HelpSearchResponse } from '../../types/apiModel';
 
 import styles from './styles/contextual-help.module.scss';
 
