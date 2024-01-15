@@ -4,7 +4,7 @@ import { Card, InfoList, LongNumber } from 'franklin-sites';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import { PanProteome } from './PanProteome';
