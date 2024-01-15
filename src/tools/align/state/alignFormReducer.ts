@@ -64,7 +64,7 @@ export const getAlignFormInitialState = (
   sending: false,
 });
 
-export const alignFormParsedSequencesReducer = (
+const alignFormParsedSequencesReducer = (
   state: AlignFormState,
   {
     payload: parsedSequences,
@@ -127,7 +127,7 @@ export const alignFormParsedSequencesReducer = (
   };
 };
 
-export const alignFormUpdateSelectedReducer = (
+const alignFormUpdateSelectedReducer = (
   state: AlignFormValues,
   {
     payload: { id, selected },
