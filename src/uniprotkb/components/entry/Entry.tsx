@@ -124,7 +124,7 @@ const HistoryTab = lazy(
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
 );
 
-export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
+const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
     const data = transformedData[id];
     return Boolean('xrefData' in data && data.xrefData?.length);
