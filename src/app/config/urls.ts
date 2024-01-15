@@ -6,7 +6,6 @@ import {
   Namespace,
   searchableNamespaceLabels,
   SearchableNamespace,
-  supportingDataNamespaces,
   supportingDataAndAANamespaces,
   namespaceAndToolsLabels,
 } from '../../shared/types/namespaces';
