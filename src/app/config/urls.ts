@@ -168,18 +168,13 @@ export const allEntryPages = `/:namespace(${Object.keys(
   searchableNamespaceLabels
 ).join('|')})/:accession`;
 
-// same as above, but only with supporting data namespaces, and with accession
-export const allSupportingDataEntryLocations = `/:namespace(${Array.from(
-  supportingDataNamespaces
-).join('|')})/:accession`;
-
 // same as above, but with automatic annotations, and with accession
 export const allSupportingDataAndAAEntryLocations = `/:namespace(${Array.from(
   supportingDataAndAANamespaces
 ).join('|')})/:accession`;
 
 // All "entry" locations need to have a "accession" param in the pattern
-export const EntryLocations: Record<SearchableNamespace, string> = {
+const EntryLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBEntry],
   [Namespace.uniref]: LocationToPath[Location.UniRefEntry],
