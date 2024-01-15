@@ -26,6 +26,7 @@ import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { DownloadProps } from './Download';
 import { DownloadState } from './downloadReducer';
+import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
 
 const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
   Namespace.uniparc,
@@ -130,6 +131,33 @@ export const showColumnSelect = (
 
 export const fullToStandardColumnName = (column: string) =>
   column.includes('_full') ? column.replace('_full', '') : column;
+
+export const isXrefWithFullOption = (
+  fieldData: FieldData | FieldDatum,
+  id: string
+): boolean | undefined => {
+  if (Array.isArray(fieldData)) {
+    for (const item of fieldData) {
+      const isFull = isXrefWithFullOption(item, id);
+      if (isFull) {
+        return true;
+      }
+    }
+  } else if (fieldData.items) {
+    return isXrefWithFullOption(fieldData.items, id);
+  } else if (fieldData.id === id) {
+    return fieldData.addAsterisk;
+  }
+  return false;
+};
+
+export const filterFullXrefColumns = (
+  columns: string[],
+  fieldData: FieldData
+) =>
+  columns
+    .map((column) => fullToStandardColumnName(column))
+    .filter((column) => isXrefWithFullOption(fieldData, column));
 
 export const getDownloadOptions = (
   state: DownloadState,

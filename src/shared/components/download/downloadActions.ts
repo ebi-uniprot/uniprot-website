@@ -1,6 +1,7 @@
 import { action } from 'typesafe-actions';
 
 import { FileFormat } from '../../types/resultsDownload';
+import { FieldData } from '../../../uniprotkb/types/resultsTypes';
 import { DownloadSelectOptions, ExtraContent } from './downloadReducer';
 
 export const UPDATE_SELECTED_COLUMNS = 'UPDATE_SELECTED_COLUMNS' as const;
@@ -10,10 +11,12 @@ export const UPDATE_DOWNLOAD_SELECT = 'UPDATE_DOWNLOAD_SELECT' as const;
 export const UPDATE_COMPRESSED = 'UPDATE_COMPRESSED' as const;
 export const UPDATE_EXTRA_CONTENT = 'UPDATE_EXTRA_CONTENT' as const;
 export const UPDATE_DISABLE_FORM = 'UPDATE_DISABLE_FORM' as const;
-export const UPDATE_FULL_XREF_FIELDS = 'UPDATE_FULL_XREF_FIELDS' as const;
+export const UPDATE_FULL_XREF = 'UPDATE_FULL_XREF' as const;
 
-export const updateSelectedColumns = (columns: string[]) =>
-  action(UPDATE_SELECTED_COLUMNS, { columns });
+export const updateSelectedColumns = (
+  columns: string[],
+  fieldData: FieldData
+) => action(UPDATE_SELECTED_COLUMNS, { columns, fieldData });
 
 export const updateSelectedFileFormat = (selectedFileFormat: FileFormat) =>
   action(UPDATE_SELECTED_FILE_FORMAT, { selectedFileFormat });
@@ -30,5 +33,5 @@ export const updateExtraContent = (extraContent: ExtraContent) =>
 export const updateDisableForm = (disableForm: boolean) =>
   action(UPDATE_DISABLE_FORM, { disableForm });
 
-export const updateFullXrefFields = (fullXrefFields: string[]) =>
-  action(UPDATE_FULL_XREF_FIELDS, { fullXrefFields });
+export const updateFullXref = (fullXref: boolean) =>
+  action(UPDATE_FULL_XREF, { fullXref });

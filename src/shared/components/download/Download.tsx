@@ -1,11 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-} from 'react';
+import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { Location as HistoryLocation } from 'history';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
@@ -34,7 +28,7 @@ import {
   updateCompressed,
   updateExtraContent,
   updateDisableForm,
-  updateFullXrefFields,
+  updateFullXref,
 } from './downloadActions';
 import { prepareFieldData } from '../column-select/utils';
 
@@ -53,7 +47,7 @@ import {
   getPreviewCount,
   isAsyncDownloadIdMapping,
   showColumnSelect,
-  fullToStandardColumnName,
+  filterFullXrefColumns,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -66,11 +60,7 @@ import {
 } from '../../utils/gtagEvents';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
-import {
-  FieldData,
-  FieldDatum,
-  ReceivedFieldData,
-} from '../../../uniprotkb/types/resultsTypes';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -126,31 +116,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
     [data]
   );
 
-  const isXrefWithFullOption = useCallback(
-    (fieldData: FieldData | FieldDatum, id: string): boolean | undefined => {
-      if (Array.isArray(fieldData)) {
-        for (const item of fieldData) {
-          const isFull = isXrefWithFullOption(item, id);
-          if (isFull) {
-            return true;
-          }
-        }
-      } else if (fieldData.items) {
-        return isXrefWithFullOption(fieldData.items, id);
-      } else if (fieldData.id === id) {
-        return fieldData.addAsterisk;
-      }
-      return false;
-    },
-    []
+  const fullXrefColumns = filterFullXrefColumns(
+    state.selectedColumns,
+    fieldData
   );
-
-  useEffect(() => {
-    const fullXrefColumns = state.selectedColumns.filter((column) =>
-      isXrefWithFullOption(fieldData, fullToStandardColumnName(column))
-    );
-    dispatch(updateFullXrefFields(fullXrefColumns));
-  }, [fieldData, isXrefWithFullOption, state.selectedColumns]);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -162,24 +131,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
 
-  const handleFullXrefChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked === true) {
-      const addFullXref = state.selectedColumns.map((column) => {
-        if (state.fullXrefFields.includes(column)) {
-          return `${column}_full`;
-        }
-        return column;
-      });
-      dispatch(updateSelectedColumns(addFullXref));
-    } else {
-      const removeFullXref = state.selectedColumns.map((column) => {
-        if (column.includes('_full')) {
-          return column.replace('_full', '');
-        }
-        return column;
-      });
-      dispatch(updateSelectedColumns(removeFullXref));
-    }
+  const handleFullXrefChange = () => {
+    dispatch(updateFullXref(!state.fullXref));
+    dispatch(updateSelectedColumns(state.selectedColumns, fieldData));
   };
 
   // Variables derived from state, props, location and/or job
@@ -402,7 +356,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
         <>
           <legend>Customize columns</legend>
           <ColumnSelect
-            onChange={(columns) => dispatch(updateSelectedColumns(columns))}
+            onChange={(columns) =>
+              dispatch(updateSelectedColumns(columns, fieldData))
+            }
             selectedColumns={state.selectedColumns}
             namespace={columnsNamespace}
             isDownload
@@ -418,7 +374,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
-        {showColumnSelect(state, props, job) && state.fullXrefFields.length ? (
+        {showColumnSelect(state, props, job) && fullXrefColumns.length ? (
           <div className={styles['full-xref-section']}>
             * Full XRef IDs available for starred items
             <label>
