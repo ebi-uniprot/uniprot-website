@@ -18,7 +18,7 @@ import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 import '../styles/overview.scss';
 
-export const Overview = ({ data }: { data: ProteomesUIModel }) => {
+const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
     const renderColumnContent = (column: ProteomesColumn) => {
       const config = ProteomesColumnConfiguration.get(column);
