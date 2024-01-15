@@ -33,7 +33,7 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-export const MemberIcons: FC<{ id: string }> = ({ id }) => {
+const MemberIcons: FC<{ id: string }> = ({ id }) => {
   const { loading, data } = useDataApi<UniRefMembersResults>(
     apiUrls.members(id, {
       facets: uniRefMembersFacets,
@@ -122,13 +122,13 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
   );
 };
 
-export const Seed: FC<{ seedId: string }> = ({ seedId }) => (
+const Seed: FC<{ seedId: string }> = ({ seedId }) => (
   <strong>
     Built on seed sequence <MemberLink accession={seedId} />
   </strong>
 );
 
-export const Updated: FC<{ updated: string }> = ({ updated }) => (
+const Updated: FC<{ updated: string }> = ({ updated }) => (
   <>
     Updated:&nbsp;
     <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>
