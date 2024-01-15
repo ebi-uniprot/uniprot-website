@@ -159,7 +159,7 @@ const columns: ColumDescriptor[] = [
   },
 ];
 
-export const RelatedClusters = memo(
+const RelatedClusters = memo(
   ({
     identity,
     id,
