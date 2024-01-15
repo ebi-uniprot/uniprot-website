@@ -85,7 +85,7 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
     UniRule: (value) => getEntryPath(Namespace.unirule, value),
   };
 
-export const evidenceUrls: Record<ExternalSource, string> = {
+const evidenceUrls: Record<ExternalSource, string> = {
   Araport: 'https://apps.araport.org/thalemine/portal.do?externalids=%value',
   CGD: 'http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%value',
   dictyBase: 'http://dictybase.org/gene/%value',
