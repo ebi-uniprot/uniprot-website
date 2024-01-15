@@ -4,7 +4,6 @@ import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
 import {
   Button,
   Card,
-  CodeBlock,
   DataTable,
   DownloadIcon,
   Loader,
