@@ -161,7 +161,7 @@ type ApiData = SearchResults<
   UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel
 >;
 
-export const enrich = (
+const enrich = (
   blastData?: BlastResults,
   apiData?: ApiData
 ): EnrichedData | null => {
