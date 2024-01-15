@@ -15,7 +15,7 @@ type PreparedField = {
   key: string;
 };
 
-export const prepareFields = (fields: ReceivedField[], exclude?: Column[]) =>
+const prepareFields = (fields: ReceivedField[], exclude?: Column[]) =>
   (exclude ? fields.filter(({ name }) => !exclude.includes(name)) : fields).map(
     ({ label, name, id }) =>
       ({
