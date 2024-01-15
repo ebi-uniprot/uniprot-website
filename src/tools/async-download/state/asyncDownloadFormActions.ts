@@ -8,9 +8,7 @@ import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
 export const UPDATE_SELECTED = 'UPDATE_SELECTED' as const;
 export const UPDATE_DOWNLOAD_URL_OPTIONS =
   'UPDATE_DOWNLOAD_URL_OPTIONS' as const;
-export const UPDATE_COUNT = 'UPDATE_COUNT' as const;
 export const UPDATE_SENDING = 'UPDATE_SENDING' as const;
-export const RESET = 'RESET' as const;
 export const UPDATE_CONFIRMATION = 'UPDATE_CONFIRMATION' as const;
 
 export const updateSelected = (
@@ -26,8 +24,6 @@ export const updateDownloadUrlOptions = (
   });
 
 export const updateSending = () => action(UPDATE_SENDING);
-
-export const resetFormState = () => action(RESET);
 
 export const updateConfirmation = (show: boolean) =>
   action(UPDATE_CONFIRMATION, { show });
