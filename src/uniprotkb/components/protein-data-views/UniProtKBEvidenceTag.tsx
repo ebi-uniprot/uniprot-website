@@ -30,7 +30,7 @@ export type UniProtEvidenceTagContentProps = {
   useGOEvidenceContent?: boolean;
 };
 
-export const UniProtEvidenceTagContent = ({
+const UniProtEvidenceTagContent = ({
   evidenceCode,
   evidenceData,
   evidences,
