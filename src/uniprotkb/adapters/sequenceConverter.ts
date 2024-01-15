@@ -78,7 +78,7 @@ export const sequenceFeaturesToColumns: Readonly<
   'Alternative sequence': UniProtKBColumn.ftVarSeq,
 };
 
-export const featuresCategories = Object.keys(
+const featuresCategories = Object.keys(
   sequenceFeaturesToColumns
 ) as FeatureType[];
 
