@@ -37,7 +37,7 @@ type ComponentsProps = Pick<
   | 'taxonomy'
 >;
 
-export const Components = ({
+const Components = ({
   components,
   id,
   proteinCount,
