@@ -18,7 +18,7 @@ import {
   Location,
 } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
-import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../tools/peptide-search/components/PeptideSearchForm';
+import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../config/limits';
 
 import {
   Namespace,

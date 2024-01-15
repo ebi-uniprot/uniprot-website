@@ -1,5 +1,4 @@
-import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
-
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { MappingAPIModel, MappingFlat } from '../types/idMappingSearchResults';
 
 const idMappingConverter =

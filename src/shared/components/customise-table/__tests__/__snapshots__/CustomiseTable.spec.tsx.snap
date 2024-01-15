@@ -58,7 +58,7 @@ exports[`CustomiseTable component should render 1`] = `
         <input
           data-testid="search-input"
           placeholder="Search for available columns"
-          type="text"
+          type="search"
           value=""
         />
         <span

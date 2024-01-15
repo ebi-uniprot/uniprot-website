@@ -5,6 +5,7 @@ import {
   FC,
   useReducer,
   useCallback,
+  useEffect,
 } from 'react';
 import {
   SequenceSubmission,
@@ -61,8 +62,6 @@ import {
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-export const ALIGN_LIMIT = 100;
-
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
 const FormSelect: FC<{
@@ -115,8 +114,13 @@ const AlignForm = ({ initialFormValues }: Props) => {
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
       getAlignFormDataReducer(defaultFormValues),
-      getAlignFormInitialState(initialFormValues)
+      initialFormValues,
+      getAlignFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   // form event handlers
   const handleReset = (event: FormEvent) => {

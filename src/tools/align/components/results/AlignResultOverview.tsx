@@ -10,8 +10,6 @@ import {
   ParsedSequenceAndFeatures,
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum, AlnClustalSequence } from '../../types/alignResults';
-import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
-import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { ProcessedFeature } from '../../../../shared/components/views/FeaturesView';
 
 type AlignResultOverviewProps = {
@@ -58,9 +56,7 @@ const enrichParsed = (
     if (sequence.name && nameToSequenceInfo[sequence.name]) {
       info = nameToSequenceInfo[sequence?.name];
       if (info?.features) {
-        features = processFeaturesData(
-          removeFeaturesWithUnknownModifier(info.features)
-        );
+        features = info.features;
       }
     }
     sequences[index] = {

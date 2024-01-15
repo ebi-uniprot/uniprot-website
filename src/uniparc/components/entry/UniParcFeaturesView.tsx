@@ -9,7 +9,7 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
-import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
@@ -22,7 +22,9 @@ export type UniParcProcessedFeature = ProcessedFeature & {
 };
 
 // Convert data
-const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
+export const convertData = (
+  data: SequenceFeature[]
+): UniParcProcessedFeature[] =>
   data
     .flatMap((feature) =>
       feature.locations.map((locationFeature) => ({

@@ -58,7 +58,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
                 <input
                   data-testid="search-input"
                   placeholder="Enter taxon names or IDs to include"
-                  type="text"
+                  type="search"
                   value=""
                 />
                 <span

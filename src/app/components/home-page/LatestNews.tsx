@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'The further south and east you go, the spicier food tends to get. A spice many of us store in the kitchen cupboard are chili peppers. Fresh or dried, crushed or finely sliced and thrown into a sauce, chili peppers can set your palate on fire to varying degrees.';
+  "Like smells and tastes, sounds can whizz you back to forgotten places. The shriek of a seagull. The wash of waves. The crack of lightning. A motor's rumble. A Christmas carol. A childhood tune. More often than not, these castaway memories emerge wrapped in a delicate veil of magic. It is a wonderful feeling, of something you would like to know again but cannot, although it is there hidden deep inside you.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -446,21 +446,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/263/"
+            url="https://www.proteinspotlight.org/back_issues/264/"
             noIcon
           >
-            Hot
+            Sound and silence
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/263/"
+          url="https://www.proteinspotlight.org/back_issues/264/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt263.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt264.jpg"
             alt=""
             width="123"
             height="129"

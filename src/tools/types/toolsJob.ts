@@ -38,6 +38,7 @@ export interface RunningJob extends BaseJob<JobTypes> {
   status: Status.RUNNING | Status.QUEUED;
   remoteID: string;
   timeSubmitted: number;
+  progress?: number; // percentage
 }
 
 export type DataForDashboard = {
@@ -53,6 +54,7 @@ export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
   remoteID: string;
   timeSubmitted: number;
   timeFinished: number;
+  progress?: number; // percentage
   // just data needed for the dashboard, not more than this
   data?: DataForDashboard[T];
 }

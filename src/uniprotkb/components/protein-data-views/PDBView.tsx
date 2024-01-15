@@ -5,8 +5,9 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { getPDBMirrorsInfo } from '../../config/database';
-import { processUrlTemplate } from './XRefView';
+
 import { Xref } from '../../../shared/types/apiModel';
 
 const processData = (xrefs: Xref[]) =>

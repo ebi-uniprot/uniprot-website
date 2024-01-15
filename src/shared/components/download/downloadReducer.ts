@@ -45,7 +45,7 @@ export const getDownloadInitialState = ({
     selectedFileFormat: fileFormatOptions[0],
     downloadSelect: props?.selectedEntries?.length ? 'selected' : 'all', // Defaults to "download all" if no selection
     compressed: props.namespace !== Namespace.unisave,
-    extraContent: null,
+    extraContent: props.extraContent || null,
     nSelectedEntries:
       props.numberSelectedEntries || props.selectedEntries?.length || 0,
     disableForm: false,

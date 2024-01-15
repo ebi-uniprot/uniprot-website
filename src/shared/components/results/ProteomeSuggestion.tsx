@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { SearchTextLink } from './SearchSuggestions';
+import { SearchTextLink } from './SearchTextLink';
 
 import useDataApi from '../../hooks/useDataApi';
 

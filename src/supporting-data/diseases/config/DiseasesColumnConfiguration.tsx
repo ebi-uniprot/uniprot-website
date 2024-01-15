@@ -5,7 +5,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import * as logging from '../../../shared/utils/logging';
 
 import databaseToDatabaseInfo from './databaseInfoMaps';

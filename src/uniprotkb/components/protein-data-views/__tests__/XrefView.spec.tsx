@@ -6,9 +6,7 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import XRefView, {
   getPropertyString,
-  processUrlTemplate,
   getPropertyLinkAttributes,
-  getDatabaseInfoAttribute,
 } from '../XRefView';
 
 import { PropertyKey } from '../../../types/modelTypes';
@@ -34,17 +32,6 @@ describe('XRefView', () => {
       <XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />
     );
     expect(screen.getAllByText(/BAA14793/)).toHaveLength(1);
-  });
-});
-
-describe('processUrlTemplate', () => {
-  it('should fill url', () => {
-    expect(
-      processUrlTemplate('https://endpoint/%id/param=%Param', {
-        id: '12',
-        Param: 'foo',
-      })
-    ).toEqual('https://endpoint/12/param=foo');
   });
 });
 
@@ -83,32 +70,6 @@ describe('getPropertyLinkAttributes', () => {
     ).toEqual({
       text: 'ENSG00000142192',
       url: 'https://www.ensembl.org/id/ENSG00000142192',
-    });
-  });
-});
-
-describe('getDatabaseInfoAttribute', () => {
-  it('should find return database info attribute', () => {
-    expect(
-      getDatabaseInfoAttribute(
-        [
-          {
-            name: 'ProteinId',
-            xmlTag: 'protein sequence ID',
-            uriLink: 'https://www.ensembl.org/id/%ProteinId',
-          },
-          {
-            name: 'GeneId',
-            xmlTag: 'gene ID',
-            uriLink: 'https://www.ensembl.org/id/%GeneId',
-          },
-        ],
-        'GeneId'
-      )
-    ).toEqual({
-      name: 'GeneId',
-      uriLink: 'https://www.ensembl.org/id/%GeneId',
-      xmlTag: 'gene ID',
     });
   });
 });

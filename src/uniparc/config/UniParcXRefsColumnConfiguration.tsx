@@ -9,7 +9,7 @@ import {
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import BasketStatus from '../../basket/BasketStatus';
-import EvidenceLink from '../../uniprotkb/config/evidenceUrls';
+import EvidenceLink from '../../uniprotkb/components/protein-data-views/EvidenceLink';
 
 import { getEntryPath } from '../../app/config/urls';
 
@@ -24,7 +24,7 @@ import {
 } from '../adapters/uniParcConverter';
 import { ColumnDescriptor } from '../../shared/hooks/useColumns';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { TabLocation } from '../../uniprotkb/components/entry/Entry';
+import { TabLocation } from '../../uniprotkb/types/entry';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy

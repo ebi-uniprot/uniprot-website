@@ -90,24 +90,6 @@ export const getDatabaseInfoMaps = (
   };
 };
 
-export const selectDatabases =
-  (databaseCategoryToNames: Map<DatabaseCategory, string[]>) =>
-  ({
-    categories = [],
-    include = [],
-    exclude = [],
-  }: {
-    categories?: DatabaseCategory[];
-    include?: string[];
-    exclude?: string[];
-  }) =>
-    [
-      ...(categories?.flatMap(
-        (category) => databaseCategoryToNames.get(category) || []
-      ) || []),
-      ...include,
-    ].filter((db) => !exclude.includes(db));
-
 const reXrefPrefix = /^xref_/;
 
 export const isDatabaseColumn = (column: UniProtKBColumn) =>

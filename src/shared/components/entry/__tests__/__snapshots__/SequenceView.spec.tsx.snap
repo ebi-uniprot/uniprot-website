@@ -179,150 +179,152 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       </div>
     </li>
   </ul>
-  <section
-    class="sequence-container"
-  >
-    <div
-      class="action-bar button-group"
+  <div>
+    <section
+      class="sequence-container"
     >
       <div
-        aria-expanded="false"
-        aria-haspopup="true"
-        class="dropdown"
+        class="action-bar button-group"
       >
-        <button
+        <div
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="dropdown"
+        >
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            Tools
+          </button>
+        </div>
+        <a
           class="button tertiary"
+          download=""
+          href="/<testing>/api/uniprotkb/P05067.fasta"
+        >
+          <test-file-stub />
+          Download
+        </a>
+        <button
+          class="button tertiary no-small"
+          title="Add 1 entry to the basket"
           type="button"
         >
-          Tools
+          <test-file-stub />
+          Add
         </button>
+        <div
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="dropdown"
+        >
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            Highlight
+          </button>
+        </div>
       </div>
-      <a
-        class="button tertiary"
-        download=""
-        href="/<testing>/api/uniprotkb/P05067.fasta"
+      <ul
+        class="info-list info-list--columns"
       >
-        <test-file-stub />
-        Download
-      </a>
-      <button
-        class="button tertiary no-small"
-        title="Add 1 entry to the basket"
-        type="button"
-      >
-        <test-file-stub />
-        Add
-      </button>
-      <div
-        aria-expanded="false"
-        aria-haspopup="true"
-        class="dropdown"
-      >
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          Highlight
-        </button>
-      </div>
-    </div>
-    <ul
-      class="info-list info-list--columns"
-    >
-      <li>
-        <div
-          class="decorated-list-item decorated-list-item--compact"
-        >
+        <li>
           <div
-            class="decorated-list-item__title tiny"
+            class="decorated-list-item decorated-list-item--compact"
           >
-            Length
-          </div>
-          <div
-            class="decorated-list-item__content"
-          >
-            1,234
-          </div>
-        </div>
-      </li>
-      <li>
-        <div
-          class="decorated-list-item decorated-list-item--compact"
-        >
-          <div
-            class="decorated-list-item__title tiny"
-          >
-            Mass (Da)
-          </div>
-          <div
-            class="decorated-list-item__content"
-          >
-            5,678
-          </div>
-        </div>
-      </li>
-      <li>
-        <div
-          class="decorated-list-item decorated-list-item--compact"
-        >
-          <div
-            class="decorated-list-item__title tiny"
-          >
-            Last updated
-          </div>
-          <div
-            class="decorated-list-item__content"
-          >
-            12/04/2010
-          </div>
-        </div>
-      </li>
-      <li>
-        <div
-          class="decorated-list-item decorated-list-item--compact"
-        >
-          <div
-            class="decorated-list-item__title tiny"
-          >
-            <span
-              data-article-id="checksum"
+            <div
+              class="decorated-list-item__title tiny"
             >
-              Checksum
-            </span>
+              Length
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              1,234
+            </div>
           </div>
+        </li>
+        <li>
           <div
-            class="decorated-list-item__content"
+            class="decorated-list-item decorated-list-item--compact"
           >
-            ASSDFFFDSAASDDSDFSASDF
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Mass (Da)
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              5,678
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
-    <div
-      class="sequence"
-    >
-      <span
-        class="sequence__chunk"
+        </li>
+        <li>
+          <div
+            class="decorated-list-item decorated-list-item--compact"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Last updated
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              12/04/2010
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item decorated-list-item--compact"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              <span
+                data-article-id="checksum"
+              >
+                Checksum
+              </span>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              ASSDFFFDSAASDDSDFSASDF
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div
+        class="sequence"
       >
-        ATGHASOADS
-      </span>
-      <span
-        class="sequence__chunk"
-      >
-        DKDSAJALDS
-      </span>
-      <span
-        class="sequence__chunk"
-      >
-        AMCMNDSKMD
-      </span>
-      <span
-        class="sequence__chunk"
-      >
-        SKNCSAKN
-      </span>
-    </div>
-  </section>
+        <span
+          class="sequence__chunk"
+        >
+          ATGHASOADS
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          DKDSAJALDS
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          AMCMNDSKMD
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          SKNCSAKN
+        </span>
+      </div>
+    </section>
+  </div>
   <h3
     id="Isoform_APP770-2"
   >

@@ -1,6 +1,10 @@
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { action } from 'typesafe-actions';
-import { BlastFields, BlastFormValue } from '../config/BlastFormData';
+import {
+  BlastFields,
+  BlastFormValue,
+  BlastFormValues,
+} from '../config/BlastFormData';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';
 export const UPDATE_PARSED_SEQUENCES = 'UPDATE_PARSED_SEQUENCES';
@@ -17,4 +21,5 @@ export const updateParsedSequences = (parsedSequences: SequenceObject[]) =>
 
 export const updateSending = () => action(UPDATE_SENDING);
 
-export const resetFormState = () => action(RESET);
+export const resetFormState = (formValues?: Readonly<BlastFormValues>) =>
+  action(RESET, formValues);

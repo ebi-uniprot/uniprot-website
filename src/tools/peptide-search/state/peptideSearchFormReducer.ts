@@ -1,7 +1,7 @@
 import { ActionType } from 'typesafe-actions';
 import { truncate } from 'lodash-es';
 
-import { PEPTIDE_SEARCH_SEQUENCES_COUNT } from '../components/PeptideSearchForm';
+import { PEPTIDE_SEARCH_SEQUENCES_COUNT } from '../../../shared/config/limits';
 import * as peptideSearchFormActions from './peptideSearchFormActions';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
@@ -167,7 +167,9 @@ export const getPeptideSearchFormDataReducer =
           sending: true,
         };
       case peptideSearchFormActions.RESET:
-        return getPeptideSearchFormInitialState(defaultFormValues);
+        return getPeptideSearchFormInitialState(
+          action.payload || defaultFormValues
+        );
       default:
         return state;
     }

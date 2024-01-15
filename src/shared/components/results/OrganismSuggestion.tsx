@@ -1,4 +1,5 @@
-import { SearchTextLink } from './SearchSuggestions';
+import { SearchTextLink } from './SearchTextLink';
+
 import useDataApi from '../../hooks/useDataApi';
 
 import { stringifyUrl } from '../../utils/url';

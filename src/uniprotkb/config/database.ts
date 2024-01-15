@@ -1,11 +1,28 @@
 import EntrySection from '../types/entrySection';
 import { DatabaseCategory } from '../types/databaseRefs';
 import {
-  selectDatabases,
   DatabaseToDatabaseInfo,
   DatabaseCategoryToNames,
 } from '../utils/database';
 import externalUrls from '../../shared/config/externalUrls';
+
+export const selectDatabases =
+  (databaseCategoryToNames: Map<DatabaseCategory, string[]>) =>
+  ({
+    categories = [],
+    include = [],
+    exclude = [],
+  }: {
+    categories?: DatabaseCategory[];
+    include?: string[];
+    exclude?: string[];
+  }) =>
+    [
+      ...(categories?.flatMap(
+        (category) => databaseCategoryToNames.get(category) || []
+      ) || []),
+      ...include,
+    ].filter((db) => !exclude.includes(db));
 
 export const databaseCategoryToString = {
   [DatabaseCategory.CHEMISTRY]: 'Chemistry',
@@ -56,6 +73,7 @@ export const getEntrySectionToDatabaseNames = (
     'OpenTargets',
     'Orphanet',
     'PharmGKB',
+    'Pharos',
     'ChEMBL',
     'DrugBank',
     'DrugCentral',
@@ -95,7 +113,7 @@ export const getEntrySectionToDatabaseNames = (
     EntrySection.Interaction,
     databaseSelector({
       categories: [DatabaseCategory.INTERACTION],
-      include: ['BindingDB'],
+      include: ['BindingDB', 'RNAct'],
     })
   );
   entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [

@@ -12,8 +12,14 @@ import styles from './styles/kinetics-table.module.scss';
 const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+-?(([0-9]*[.])?[0-9]+)?)/;
 const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
-const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
+const captureWordsInParentheses = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
+// The following regexp matches up to three levels of nested parentheses
+// source: https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
+const nestedParenthesesRegEx =
+  /\([^)(]*(?:\([^)(]*(?:\([^)(]*(?:\([^)(]*\)[^)(]*)*\)[^)(]*)*\)[^)(]*)*\)/g;
+
+const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
 
 type KinecticsTableRow = {
   key: string;
@@ -50,8 +56,7 @@ const KineticsTable = ({
             <tr>
               {columns.map((name) => (
                 <th key={name} className={helper['no-text-transform']}>
-                  {' '}
-                  {name}{' '}
+                  {` ${name} `}
                 </th>
               ))}
             </tr>
@@ -104,6 +109,9 @@ const excludePhTemp = (str: string) => {
   return newStr?.replace(removeLeadingTrailingComma, '');
 };
 
+const extractPh = (s: string) => s.match(pHRegEx)?.[1];
+const extractTemp = (s: string) => s.match(tempRegEx)?.[1];
+
 export const extractFromFreeText = (data: KineticParameters) => {
   let km: KinecticsTableRow[] = [];
   let vmax: KinecticsTableRow[] = [];
@@ -111,54 +119,55 @@ export const extractFromFreeText = (data: KineticParameters) => {
   const kcatEvidences: Evidence[] = [];
 
   if (data.michaelisConstants) {
-    km = data.michaelisConstants.map((km) => {
-      let [substrate] = km.substrate.split(' ('); // Ignore splitting the substrate name when '()' is part of it
-      const ph = km.substrate.match(pHRegEx)?.[1];
-      const temp = km.substrate.match(tempRegEx)?.[1];
+    km = data.michaelisConstants.map((mc) => {
+      let [substrateColumn] = mc.substrate.split(' ('); // Ignore splitting the substrate name when '()' is part of it
+      const ph = extractPh(mc.substrate);
+      const temp = extractTemp(mc.substrate);
 
-      const [moreInfo] = km.substrate.match(
-        new RegExp(captureWordsInParanthesis, 'g')
+      // Get any additional info which be included between parentheses at the end of km.substrate
+      const [moreInfo] = mc.substrate.match(
+        new RegExp(captureWordsInParentheses, 'g')
       ) || [null];
-
-      const additionInfo = moreInfo?.match(/\((.*?)\)/g);
+      // Iterate over possibly nested parentheses content
+      const parenthesesContent = moreInfo?.match(nestedParenthesesRegEx);
       let notes = '';
-      additionInfo?.forEach((str) => {
-        if (!substrate.includes(str)) {
-          const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
-          if (possibleInfo.some((e) => str.includes(e))) {
-            const match = str.match(captureWordsInParanthesis)?.[1] || '';
+      parenthesesContent?.forEach((parenthesisContent) => {
+        if (!substrateColumn.includes(parenthesisContent)) {
+          if (possibleInfo.some((e) => parenthesisContent.includes(e))) {
+            const match =
+              parenthesisContent.match(captureWordsInParentheses)?.[1] || '';
             // Do not include pH and temperature data in notes
             notes = excludePhTemp(match);
           } else {
-            // Sometimes the abbreviation of the substrate could be inside paranthesis, it has to be under the substrate column
-            substrate += str;
+            // Sometimes the abbreviation of the substrate could be inside parenthesis, it has to be under the substrate column
+            substrateColumn += ` ${parenthesisContent.trim()}`;
           }
         }
       });
 
       return {
-        key: `${km.constant}${km.substrate}`,
-        constant: `${km.constant} ${km.unit.replace(muRegEx, 'μ')}`,
-        substrate: substrate.trim(),
+        key: `${mc.constant}${mc.substrate}`,
+        constant: `${mc.constant} ${mc.unit.replace(muRegEx, 'μ')}`,
+        substrate: substrateColumn.trim(),
         ph,
         temp,
         notes,
-        evidences: km.evidences,
+        evidences: mc.evidences,
       };
     });
   }
 
   if (data.maximumVelocities) {
     vmax = data.maximumVelocities.map((mv) => {
-      const ph = mv.enzyme.match(pHRegEx)?.[1];
-      const temp = mv.enzyme.match(tempRegEx)?.[1];
+      const ph = extractPh(mv.enzyme);
+      const temp = extractTemp(mv.enzyme);
 
       const [substrateInfo, condition] = mv.enzyme.split(' (');
       let notes = substrateInfo.split('enzyme')?.[1];
       if (condition) {
         const match =
-          `(${condition}`.match(captureWordsInParanthesis)?.[1] || '';
-        // If anything is inside paranthesis, process it to populate the right column
+          `(${condition}`.match(captureWordsInParentheses)?.[1] || '';
+        // If anything is inside parenthesis, process it to populate the right column
         if (match) {
           if (['pH', 'degrees'].some((e) => match.includes(e))) {
             const additionalInfo = excludePhTemp(match);

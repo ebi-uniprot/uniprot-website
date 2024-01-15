@@ -1,15 +1,15 @@
 import { Namespace } from '../types/namespaces';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
-import {
+import UniProtKBColumnConfiguration, {
   defaultColumns as defaultUniProtKBColumns,
   primaryKeyColumns as primaryKeyColumnsUniProtKB,
 } from '../../uniprotkb/config/UniProtKBColumnConfiguration';
-import {
+import UniRefColumnConfiguration, {
   UniRefColumn,
   defaultColumns as defaultUniRefColumns,
   primaryKeyColumns as primaryKeyColumnsUniRef,
 } from '../../uniref/config/UniRefColumnConfiguration';
-import {
+import UniParcColumnConfiguration, {
   UniParcColumn,
   defaultColumns as defaultUniParcColumns,
   primaryKeyColumns as primaryKeyColumnsUniParc,
@@ -19,52 +19,53 @@ import {
   defaultColumns as defaultUniParcEntryColumns,
   primaryKeyColumns as primaryKeyColumnsUniParcEntry,
 } from '../../uniparc/config/UniParcXRefsColumnConfiguration';
-import {
+import ProteomesColumnConfiguration, {
   ProteomesColumn,
   defaultColumns as defaultProteomesColumns,
   primaryKeyColumns as primaryKeyColumnsProteomes,
 } from '../../proteomes/config/ProteomesColumnConfiguration';
-import {
+import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
   defaultColumns as defaultTaxonomyColumns,
   primaryKeyColumns as primaryKeyColumnsTaxonomy,
 } from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
-import {
+import KeywordsColumnConfiguration, {
   KeywordsColumn,
   defaultColumns as defaultKeywordsColumns,
   primaryKeyColumns as primaryKeyColumnsKeywords,
 } from '../../supporting-data/keywords/config/KeywordsColumnConfiguration';
-import {
+import CitationsColumnConfiguration, {
   CitationsColumn,
   defaultColumns as defaultCitationsColumns,
   primaryKeyColumns as primaryKeyColumnsCitations,
 } from '../../supporting-data/citations/config/CitationsColumnConfiguration';
-import {
+import DiseasesColumnConfiguration, {
   DiseasesColumn,
   defaultColumns as defaultDiseasesColumns,
   primaryKeyColumns as primaryKeyColumnsDiseases,
 } from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
-import {
+import DatabaseColumnConfiguration, {
   DatabaseColumn,
   defaultColumns as defaultDatabaseColumns,
   primaryKeyColumns as primaryKeyColumnsDatabase,
 } from '../../supporting-data/database/config/DatabaseColumnConfiguration';
-import {
+import LocationsColumnConfiguration, {
   LocationsColumn,
   defaultColumns as defaultLocationsColumns,
   primaryKeyColumns as primaryKeyColumnsLocations,
 } from '../../supporting-data/locations/config/LocationsColumnConfiguration';
-import {
+import UniRuleColumnConfiguration, {
   UniRuleColumn,
   defaultColumns as defaultUniRuleColumns,
   primaryKeyColumns as primaryKeyColumnsUniRule,
 } from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
-import {
+import ARBAColumnConfiguration, {
   ARBAColumn,
   defaultColumns as defaultARBAColumns,
   primaryKeyColumns as primaryKeyColumnsARBA,
 } from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
 import {
+  IdMappingColumnConfiguration,
   IDMappingColumn,
   defaultColumns as defaultIdMappingColumns,
   primaryKeyColumns as primaryKeyColumnsIdMapping,
@@ -172,4 +173,23 @@ export const nsToPrimaryKeyColumns = (
     default:
       return [];
   }
+};
+
+// TODO: create a "Column" type to cover the different column types
+// and a Column renderer type with label: string and a render definition.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
+  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
+  [Namespace.uniref]: UniRefColumnConfiguration,
+  [Namespace.uniparc]: UniParcColumnConfiguration,
+  [Namespace.proteomes]: ProteomesColumnConfiguration,
+  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
+  [Namespace.keywords]: KeywordsColumnConfiguration,
+  [Namespace.citations]: CitationsColumnConfiguration,
+  [Namespace.diseases]: DiseasesColumnConfiguration,
+  [Namespace.database]: DatabaseColumnConfiguration,
+  [Namespace.locations]: LocationsColumnConfiguration,
+  [Namespace.unirule]: UniRuleColumnConfiguration,
+  [Namespace.arba]: ARBAColumnConfiguration,
+  [Namespace.idmapping]: IdMappingColumnConfiguration,
 };

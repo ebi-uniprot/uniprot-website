@@ -1,14 +1,15 @@
 import { ActionType } from 'typesafe-actions';
 
-import { ID_MAPPING_LIMIT } from '../components/IDMappingForm';
 import * as idMappingFormActions from './idMappingFormActions';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+
+import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
 
 import {
   IDMappingFields,
   IDMappingFormValue,
   IDMappingFormValues,
 } from '../config/idMappingFormData';
-import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 type IDMappingFormState = {
   formValues: IDMappingFormValues;
@@ -165,7 +166,9 @@ export const getIDMappingFormDataReducer =
           sending: true,
         };
       case idMappingFormActions.RESET:
-        return getIDMappingFormInitialState(defaultFormValues);
+        return getIDMappingFormInitialState(
+          action.payload || defaultFormValues
+        );
       default:
         return state;
     }

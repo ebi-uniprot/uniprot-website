@@ -9,12 +9,16 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
-import { getUniprotkbFtpFilenameAndUrl } from '../../config/ftpUrls';
+import { getUniprotFtpFilenamesAndUrls } from '../../config/ftpUrls';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
 
-import { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
+import {
+  DOWNLOAD_SIZE_LIMIT,
+  DOWNLOAD_SIZE_LIMIT_EMBEDDINGS,
+  DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED,
+  MAX_PEPTIDE_FACETS_OR_DOWNLOAD,
+} from '../../config/limits';
 
 import { Location } from '../../../app/config/urls';
 import { FileFormat } from '../../types/resultsDownload';
@@ -22,9 +26,6 @@ import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { DownloadProps } from './Download';
 import { DownloadState } from './downloadReducer';
-
-const DOWNLOAD_SIZE_LIMIT_EMBEDDINGS = 1_000_000 as const;
-export const DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED = 100_000 as const;
 
 const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
   Namespace.uniparc,
@@ -240,15 +241,15 @@ export const getPreviewCount = (
   return previewOptions?.size || 'file';
 };
 
-export const getFtpFilenameAndUrl = (
+export const getFtpFilenamesAndUrls = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
   job: JobFromUrl
 ) =>
-  props.namespace === Namespace.uniprotkb &&
   job.jobResultsLocation !== Location.IDMappingResult
-    ? getUniprotkbFtpFilenameAndUrl(
+    ? getUniprotFtpFilenamesAndUrls(
+        props.namespace,
         getDownloadUrl(getDownloadOptions(state, props, location, job)),
         state.selectedFileFormat
       )
@@ -262,7 +263,7 @@ export const getIsAsyncDownload = (
 ) =>
   (props.namespace === Namespace.uniprotkb &&
     ((state.selectedFileFormat === FileFormat.embeddings &&
-      !getFtpFilenameAndUrl(state, props, location, job)) ||
+      !getFtpFilenamesAndUrls(state, props, location, job)) ||
       getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
   (props.namespace === Namespace.uniref &&
     getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
@@ -291,7 +292,7 @@ export const getExtraContent = (
 ) => {
   if (
     (state.extraContent === 'ftp' || state.extraContent === 'url') &&
-    getFtpFilenameAndUrl(state, props, location, job)
+    getFtpFilenamesAndUrls(state, props, location, job)
   ) {
     return 'ftp';
   }

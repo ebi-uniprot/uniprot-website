@@ -13,7 +13,7 @@ import useCustomElement from '../../hooks/useCustomElement';
 import { getEntryPath } from '../../../app/config/urls';
 import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
 
-import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
+import { TabLocation } from '../../../uniprotkb/types/entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
 import { GenericFeature } from './FeaturesView';

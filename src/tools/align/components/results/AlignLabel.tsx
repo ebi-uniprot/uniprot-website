@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { noop } from 'lodash-es';
 
-import { MSAInput } from '../../../components/AlignmentView';
+import { MSAInput } from '../../../types/alignment';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../../../app/config/urls';

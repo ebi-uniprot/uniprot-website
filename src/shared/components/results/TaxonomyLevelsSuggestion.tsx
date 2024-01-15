@@ -1,15 +1,15 @@
 import ProteomeSuggestion from './ProteomeSuggestion';
-import {
-  modifyQueryWithSuggestions,
-  SearchTextLink,
-  taxonHierarchySearchTerms,
-} from './SearchSuggestions';
 import OrganismSuggestion from './OrganismSuggestion';
+import { SearchTextLink } from './SearchTextLink';
 
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
 import { stringifyUrl } from '../../utils/url';
+import {
+  modifyQueryWithSuggestions,
+  taxonHierarchySearchTerms,
+} from '../../utils/searchSuggestions';
 
 import { SearchResults } from '../../types/results';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
