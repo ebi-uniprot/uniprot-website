@@ -18,11 +18,7 @@ import { EvidenceTagSourceTypes } from './UniProtKBEvidenceTag';
 
 import style from './styles/ptmexchange-evidence-tag.module.scss';
 
-export const PtmExchangeEvidence = ({
-  evidences,
-}: {
-  evidences?: Evidence[];
-}) => {
+const PtmExchangeEvidence = ({ evidences }: { evidences?: Evidence[] }) => {
   if (!evidences?.length) {
     return null;
   }
