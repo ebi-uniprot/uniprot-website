@@ -24,9 +24,7 @@ import {
 } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import { Namespace } from '../../../shared/types/namespaces';
 import {
   Identity,
@@ -36,6 +34,7 @@ import {
 import { UniRefMembersResults } from '../../types/membersEndpoint';
 
 import helper from '../../../shared/styles/helper.module.scss';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
