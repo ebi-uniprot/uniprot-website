@@ -256,11 +256,7 @@ type Props = {
   representativeMember: RepresentativeMember;
 };
 
-export const MembersSection = ({
-  id,
-  identity,
-  representativeMember,
-}: Props) => {
+const MembersSection = ({ id, identity, representativeMember }: Props) => {
   const { search } = useLocation();
   const [{ selectedFacets }] = getParamsFromURL(search);
 
