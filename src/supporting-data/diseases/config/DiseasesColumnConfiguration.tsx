@@ -38,7 +38,7 @@ export const primaryKeyColumns = [DiseasesColumn.id];
 const getEntryPath = getEntryPathFor(Namespace.diseases);
 const getEntryPathForKeyword = getEntryPathFor(Namespace.keywords);
 
-export const DiseasesColumnConfiguration: ColumnConfiguration<
+const DiseasesColumnConfiguration: ColumnConfiguration<
   DiseasesColumn,
   Partial<DiseasesAPIModel>
 > = new Map();
