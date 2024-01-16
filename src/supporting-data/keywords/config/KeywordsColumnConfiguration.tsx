@@ -41,7 +41,7 @@ export const primaryKeyColumns = [KeywordsColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.keywords);
 
-export const KeywordsColumnConfiguration: ColumnConfiguration<
+const KeywordsColumnConfiguration: ColumnConfiguration<
   KeywordsColumn,
   Partial<KeywordsAPIModel>
 > = new Map();
