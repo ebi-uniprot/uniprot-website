@@ -1,4 +1,4 @@
-export enum EntrySection {
+enum EntrySection {
   Function = 'function',
   FamilyAndDomains = 'family_and_domains',
   Expression = 'expression',
