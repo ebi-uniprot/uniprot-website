@@ -43,7 +43,7 @@ export const primaryKeyColumns = [TaxonomyColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.taxonomy);
 
-export const TaxonomyColumnConfiguration: ColumnConfiguration<
+const TaxonomyColumnConfiguration: ColumnConfiguration<
   TaxonomyColumn,
   Partial<TaxonomyAPIModel>
 > = new Map();
