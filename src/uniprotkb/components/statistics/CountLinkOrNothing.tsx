@@ -6,7 +6,7 @@ type CountLinkOrNothingProps<T> = {
   children: number;
 } & Omit<LinkProps<T>, 'children'>;
 
-export const CountLinkOrNothing = <T,>({
+const CountLinkOrNothing = <T,>({
   condition = true,
   children,
   ...props
