@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
 import ExternalLink from '../../../shared/components/ExternalLink';
 import KeywordsGraph from '../components/entry/KeywordsGraph';
+import GeneOntologies from '../../../shared/components/results/GeneOnotologies';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -75,22 +73,6 @@ KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
   label: 'Definition',
   render: ({ definition }) => definition,
 });
-
-const GeneOntologies = ({ geneOntologies }: Partial<KeywordsAPIModel>) => {
-  const databaseInfoMaps = useDatabaseInfoMaps();
-  return geneOntologies?.length ? (
-    <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-      {geneOntologies?.map(({ name, goId }) => (
-        <ExternalLink
-          key={goId}
-          url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id: goId })}
-        >
-          {name} ({goId})
-        </ExternalLink>
-      ))}
-    </ExpandableList>
-  ) : null;
-};
 
 KeywordsColumnConfiguration.set(KeywordsColumn.geneOntologies, {
   label: 'Gene Ontology (GO)',

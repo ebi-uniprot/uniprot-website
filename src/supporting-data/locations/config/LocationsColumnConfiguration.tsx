@@ -3,12 +3,10 @@ import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import GeneOntologies from '../../../shared/components/results/GeneOnotologies';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import { LocationsAPIModel } from '../adapters/locationsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -65,22 +63,6 @@ LocationsColumnConfiguration.set(LocationsColumn.definition, {
   label: 'Definition',
   render: ({ definition }) => definition,
 });
-
-const GeneOntologies = ({ geneOntologies }: Partial<LocationsAPIModel>) => {
-  const databaseInfoMaps = useDatabaseInfoMaps();
-  return geneOntologies?.length ? (
-    <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-      {geneOntologies?.map(({ name, goId }) => (
-        <ExternalLink
-          key={goId}
-          url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id: goId })}
-        >
-          {name} ({goId})
-        </ExternalLink>
-      ))}
-    </ExpandableList>
-  ) : null;
-};
 
 // NOTE: since these will be used in an info list, we need to return null when
 // NOTE: no content, otherwise it gets a truthy empty fragment instead
