@@ -135,7 +135,7 @@ const Updated: FC<{ updated: string }> = ({ updated }) => (
   </>
 );
 
-export const Overview: FC<{
+const Overview: FC<{
   transformedData: UniRefUIModel;
 }> = ({ transformedData }) => (
   <section>
