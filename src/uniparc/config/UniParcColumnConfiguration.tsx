@@ -69,7 +69,7 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [UniParcColumn.upi];
 
-export const UniParcColumnConfiguration: ColumnConfiguration<
+const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcColumn,
   UniParcAPIModel
 > = new Map();
