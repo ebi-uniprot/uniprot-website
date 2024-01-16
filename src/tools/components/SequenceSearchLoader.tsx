@@ -19,7 +19,11 @@ import { addMessage } from '../../messages/state/messagesActions';
 import apiUrls from '../../shared/config/apiUrls';
 
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
-import { reUniProtKBAccession } from '../../uniprotkb/utils/regexes';
+import {
+  reUniParc,
+  reUniProtKBAccession,
+  reUniRefAccession,
+} from '../../uniprotkb/utils/regexes';
 import fetchData from '../../shared/utils/fetchData';
 import { stringifyUrl } from '../../shared/utils/url';
 import * as logging from '../../shared/utils/logging';
@@ -37,24 +41,29 @@ import {
 import { SearchResults } from '../../shared/types/results';
 
 const getURLForAccessionOrID = (input: string) => {
-  const cleanedInput = input.trim().toUpperCase();
+  const cleanedInput = input.trim();
   if (!cleanedInput) {
     return null;
   }
 
+  // UniRef accession
+  if (reUniRefAccession.test(cleanedInput)) {
+    return apiUrls.entry(cleanedInput, Namespace.uniref);
+  }
+
   // UniParc accession
-  if (cleanedInput.startsWith('UPI')) {
-    return apiUrls.entry(cleanedInput, Namespace.uniparc);
+  if (reUniParc.test(cleanedInput)) {
+    return apiUrls.entry(cleanedInput.toUpperCase(), Namespace.uniparc);
   }
 
   // UniProtKB accession
   if (reUniProtKBAccession.test(cleanedInput)) {
-    return apiUrls.entry(cleanedInput, Namespace.uniprotkb);
+    return apiUrls.entry(cleanedInput.toUpperCase(), Namespace.uniprotkb);
   }
 
   // UniProtKB ID
   return stringifyUrl(apiUrls.search(), {
-    query: `id:${cleanedInput}`,
+    query: `id:${cleanedInput.toUpperCase()}`,
     fields:
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',
   });

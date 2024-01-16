@@ -30,7 +30,7 @@ module.exports = {
         ],
         xrefNames: ['TOPMed', 'gnomAD'],
         cytogeneticBand: '21q21.3',
-        genomicLocation: 'NC_000021.9:g.26170608A>C',
+        genomicLocation: ['NC_000021.9:g.26170608A>C'],
         locations: [
           {
             loc: 'p.Leu5Val',

@@ -26,7 +26,7 @@ ReactDOM.render(
 // the user's cache can be cleared
 const obsoleteHosts = new Set(['beta.uniprot.org', 'covid-19.uniprot.org']);
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && navigator.serviceWorker) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {

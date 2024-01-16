@@ -13,22 +13,35 @@ type PreparedField = {
   id: Column;
   label: string;
   key: string;
+  addAsterisk?: boolean;
 };
 
-export const prepareFields = (fields: ReceivedField[], exclude?: Column[]) =>
+export const prepareFields = (
+  fields: ReceivedField[],
+  exclude?: Column[],
+  isDownload?: boolean
+) =>
   (exclude ? fields.filter(({ name }) => !exclude.includes(name)) : fields).map(
-    ({ label, name, id }) =>
-      ({
-        id: name,
-        label,
-        key: id,
-      } as PreparedField)
+    ({ label, name, id, isMultiValueCrossReference }) =>
+      isDownload
+        ? ({
+            id: name,
+            label,
+            key: id,
+            addAsterisk: isMultiValueCrossReference,
+          } as PreparedField)
+        : ({
+            id: name,
+            label,
+            key: id,
+          } as PreparedField)
   );
 
 export const prepareFieldData = (
   fieldData?: ReceivedFieldData,
   // Exclude primaryKeyColumns which should not be user-selectable eg accession
-  exclude?: Column[]
+  exclude?: Column[],
+  isDownload?: boolean
 ): FieldData => {
   if (!fieldData?.length) {
     return [];
@@ -36,7 +49,7 @@ export const prepareFieldData = (
   const dataFields: FieldDatum[] = [];
   const externalFields: FieldDatum[] = [];
   fieldData.forEach(({ groupName, fields, isDatabaseGroup, id }) => {
-    const items = prepareFields(fields, exclude);
+    const items = prepareFields(fields, exclude, isDownload);
     if (items.length) {
       const group = {
         id,

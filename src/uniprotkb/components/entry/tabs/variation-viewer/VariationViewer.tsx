@@ -510,7 +510,7 @@ const VariationViewer = ({
                   </div>
                   <div>
                     <strong>Genomic location: </strong>{' '}
-                    {variantFeature.genomicLocation}
+                    {variantFeature.genomicLocation?.join(', ')}
                   </div>
                   {variantFeature.locations?.length ? (
                     <div>

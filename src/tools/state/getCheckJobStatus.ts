@@ -27,13 +27,14 @@ import { JobTypes } from '../types/toolsJobTypes';
 import { MappingError } from '../id-mapping/types/idMappingSearchResults';
 import { FormParameters } from '../types/toolsFormParameters';
 
-const getCheckJobStatus =
-  (
-    dispatch: Dispatch<ToolsAction>,
-    stateRef: MutableRefObject<ToolsState>,
-    messagesDispatch: Dispatch<MessagesAction>
-  ) =>
-  async (job: NewJob | RunningJob | FinishedJob<JobTypes>) => {
+type GetCheckJobState = (
+  dispatch: Dispatch<ToolsAction>,
+  stateRef: MutableRefObject<ToolsState>,
+  messagesDispatch: Dispatch<MessagesAction>
+) => (job: NewJob | RunningJob | FinishedJob<JobTypes>) => Promise<void>;
+
+const getCheckJobStatus: GetCheckJobState =
+  (dispatch, stateRef, messagesDispatch) => async (job) => {
     const urlConfig =
       job.type === JobTypes.ASYNC_DOWNLOAD
         ? asyncDownloadUrlObjectCreator(
@@ -52,10 +53,8 @@ const getCheckJobStatus =
         // 'manual' to block redirect is the bit we cannot do with Axios
         redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
       });
-      const [status, idMappingResultsUrl] = await getStatusFromResponse(
-        job.type,
-        response
-      );
+      const [status, progress, idMappingResultsUrl] =
+        await getStatusFromResponse(job.type, response, job.remoteID);
 
       if (
         // When doing Peptide Search weird redirects happen and mess this up
@@ -91,6 +90,7 @@ const getCheckJobStatus =
         dispatch(
           updateJob(job.internalID, {
             status,
+            progress,
           })
         );
         return;
