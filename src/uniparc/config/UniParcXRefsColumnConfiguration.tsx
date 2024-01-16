@@ -60,7 +60,7 @@ export const primaryKeyColumns = [
   UniParcXRefsColumn.accession,
 ];
 
-export const UniParcXRefsColumnConfiguration: ColumnConfiguration<
+const UniParcXRefsColumnConfiguration: ColumnConfiguration<
   UniParcXRefsColumn,
   UniParcXRef
 > = new Map();
