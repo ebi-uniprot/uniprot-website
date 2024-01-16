@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import { ChangeEvent, useCallback, useReducer } from 'react';
+import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { Location as HistoryLocation } from 'history';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
@@ -13,6 +13,7 @@ import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDow
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useDataApi from '../../hooks/useDataApi';
 
 import {
   DownloadSelectOptions,
@@ -27,9 +28,11 @@ import {
   updateCompressed,
   updateExtraContent,
   updateDisableForm,
+  updateFullXref,
 } from './downloadActions';
+import { prepareFieldData } from '../column-select/utils';
 
-import { getDownloadUrl } from '../../config/apiUrls';
+import apiUrls, { getDownloadUrl } from '../../config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   getColumnsNamespace,
@@ -44,6 +47,7 @@ import {
   getPreviewCount,
   isAsyncDownloadIdMapping,
   showColumnSelect,
+  filterFullXrefColumns,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -56,6 +60,7 @@ import {
 } from '../../utils/gtagEvents';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -102,6 +107,19 @@ const Download = (props: DownloadProps<JobTypes>) => {
     { props, job, selectedColumns: columnNames },
     getDownloadInitialState
   );
+  const { data } = useDataApi<ReceivedFieldData>(
+    apiUrls.resultsFields(namespace)
+  );
+
+  const fieldData = useMemo(
+    () => prepareFieldData(data, undefined, true),
+    [data]
+  );
+
+  const fullXrefColumns = filterFullXrefColumns(
+    state.selectedColumns,
+    fieldData
+  );
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -112,6 +130,11 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleDisableForm = useCallback((disableForm) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
+
+  const handleFullXrefChange = () => {
+    dispatch(updateFullXref(!state.fullXref));
+    dispatch(updateSelectedColumns(state.selectedColumns, fieldData));
+  };
 
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
@@ -333,12 +356,16 @@ const Download = (props: DownloadProps<JobTypes>) => {
         <>
           <legend>Customize columns</legend>
           <ColumnSelect
-            onChange={(columns) => dispatch(updateSelectedColumns(columns))}
+            onChange={(columns) =>
+              dispatch(updateSelectedColumns(columns, fieldData))
+            }
             selectedColumns={state.selectedColumns}
             namespace={columnsNamespace}
+            isDownload
           />
         </>
       )}
+
       <section
         className={cn(
           'button-group',
@@ -347,6 +374,27 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
+        {showColumnSelect(state, props, job) && fullXrefColumns.length ? (
+          <div className={styles['full-xref-section']}>
+            * Full XRef IDs available for starred items
+            <label>
+              <input
+                aria-label="include multiple values"
+                type="checkbox"
+                name="fullXref"
+                onChange={handleFullXrefChange}
+              />
+              Check box to include it in the download
+            </label>
+            <Link
+              to={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: 'return_fields_databases',
+              })}
+            >
+              See documentation & examples
+            </Link>
+          </div>
+        ) : null}
         <Button
           variant="tertiary"
           onClick={() => dispatch(updateExtraContent('url'))}
