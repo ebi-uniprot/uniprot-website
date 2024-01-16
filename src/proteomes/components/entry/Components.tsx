@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { Card, DataTable, LongNumber } from 'franklin-sites';
 
 import useItemSelect from '../../../shared/hooks/useItemSelect';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import ComponentsButtons from './ComponentsButtons';
+
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import externalUrls from '../../../shared/config/externalUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -46,6 +49,7 @@ export const Components = ({
   taxonomy,
 }: ComponentsProps) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
+  const databaseInfoMaps = useDatabaseInfoMaps();
 
   const columns = useMemo<
     Array<{
@@ -76,12 +80,22 @@ export const Components = ({
               switch (genomeAnnotation.source) {
                 case 'Refseq':
                 case 'RefSeq':
-                  url = externalUrls.NCBINucleotide(id);
+                  url = getUrlFromDatabaseInfo(
+                    databaseInfoMaps,
+                    'GenBank',
+                    {
+                      ProteinId: id,
+                    },
+                    'ProteinId'
+                  );
                   break;
                 case 'ENA/EMBL':
-                  url = externalUrls.ENABrowser(id);
+                  url = getUrlFromDatabaseInfo(databaseInfoMaps, 'EMBL', {
+                    id,
+                  });
                   break;
                 case 'Ensembl':
+                  // Not in allDatabases
                   url = externalUrls.EnsemblComponent(taxonomy.taxonId, id);
                   break;
                 default:
@@ -137,7 +151,7 @@ export const Components = ({
         },
       },
     ],
-    [id, proteomeType, taxonomy.taxonId]
+    [databaseInfoMaps, id, proteomeType, taxonomy.taxonId]
   );
 
   if (!components?.length) {

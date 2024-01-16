@@ -65,7 +65,7 @@ describe('RichText component', () => {
   });
 
   it('should render dbSNP link', () => {
-    render(
+    customRender(
       <RichText>
         in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973
       </RichText>
@@ -77,7 +77,7 @@ describe('RichText component', () => {
   });
 
   it('should render two dbSNP links', () => {
-    render(
+    customRender(
       <RichText>
         in AD1; increased amyloid-beta protein 42/40 ratio; dbSNP:rs63750973;
         dbSNP:rs12345678

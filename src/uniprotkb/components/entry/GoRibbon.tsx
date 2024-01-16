@@ -10,11 +10,12 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 
 import useSafeState from '../../../shared/hooks/useSafeState';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { GOTermID, GroupedGoTerms } from '../../adapters/functionConverter';
-
 import {
   AGRRibbonGroup,
   AGRRibbonSubject,
@@ -57,6 +58,7 @@ const GoRibbon = ({
   organismData,
 }: GoRibbonType) => {
   const isSmallScreen = useSmallScreen();
+  const databaseInfoMaps = useDatabaseInfoMaps();
 
   const nodeRef = useRef<HTMLElement>();
 
@@ -230,7 +232,11 @@ const GoRibbon = ({
               <tr key={goTerm.id}>
                 <td>{goTerm.aspect}</td>
                 <td>
-                  <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
+                  <ExternalLink
+                    url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', {
+                      id: goTerm.id,
+                    })}
+                  >
                     {goTerm.termDescription || goTerm.id}
                   </ExternalLink>
                   <GOTermEvidenceTag

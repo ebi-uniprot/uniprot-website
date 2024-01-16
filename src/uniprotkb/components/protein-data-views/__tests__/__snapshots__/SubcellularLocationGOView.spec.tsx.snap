@@ -14,7 +14,7 @@ exports[`SubcellularLocationGOView should render 1`] = `
       />
       <a
         class="external-link"
-        href="//www.ebi.ac.uk/QuickGO/term/GO:0005576"
+        href="https://www.ebi.ac.uk/QuickGO/term/GO:0005576"
         rel="noopener"
         target="_blank"
       >
@@ -34,7 +34,7 @@ exports[`SubcellularLocationGOView should render 1`] = `
       />
       <a
         class="external-link"
-        href="//www.ebi.ac.uk/QuickGO/term/GO:0005615"
+        href="https://www.ebi.ac.uk/QuickGO/term/GO:0005615"
         rel="noopener"
         target="_blank"
       >

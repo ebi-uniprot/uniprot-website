@@ -105,6 +105,7 @@ import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
+import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
 
 import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';
 import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
@@ -1181,33 +1182,40 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
   },
 });
 
+const GoId = ({ data }: { data: UniProtkbUIModel }) => {
+  const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!goTerms) {
+    return null;
+  }
+  return (
+    <section className="text-block">
+      <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
+        {Array.from(goTerms.values())
+          .flat()
+          .map(
+            ({ id }: GoTerm) =>
+              id && (
+                <ExternalLink
+                  key={id}
+                  url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
+                >
+                  {id}
+                </ExternalLink>
+              )
+          )}
+      </ExpandableList>
+    </section>
+  );
+};
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
   ...getLabelAndTooltip(
     'Gene Ontology IDs',
     'Gene Ontology (GO) identifiers associated with the entry',
     'gene_ontology'
   ),
-  render(data) {
-    const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-    return (
-      goTerms && (
-        <section className="text-block">
-          <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-            {Array.from(goTerms.values())
-              .flat()
-              .map(
-                ({ id }: GoTerm) =>
-                  id && (
-                    <a key={id} href={externalUrls.QuickGO(id)}>
-                      {id}
-                    </a>
-                  )
-              )}
-          </ExpandableList>
-        </section>
-      )
-    );
-  },
+  render: (data) => <GoId data={data} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
@@ -1515,7 +1523,11 @@ const getXrefColumn = (databaseName: string) => {
                     <span className={helper['no-wrap']}>
                       {` ${dbSNPRef.id}`}
                       {' ( '}
-                      <ExternalLink url={externalUrls.dbSNP(dbSNPRef.id)}>
+                      <ExternalLink
+                        url={getUrlFromDatabaseInfo(databaseInfoMaps, 'dbSNP', {
+                          id: dbSNPRef.id,
+                        })}
+                      >
                         dbSNP
                       </ExternalLink>
                       {'| '}

@@ -9,6 +9,8 @@ import {
 import { isEqual, pullAll /* , omit */ } from 'lodash-es';
 import cn from 'classnames';
 
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
 import ExternalLink from '../../../shared/components/ExternalLink';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 // import AccessionView from '../../../shared/components/results/AccessionView';
@@ -22,6 +24,7 @@ import { pluralise } from '../../../shared/utils/utils';
 import externalUrls from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 import * as logging from '../../../shared/utils/logging';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
@@ -41,6 +44,7 @@ import {
   CatalyticActivityComment,
   CofactorComment,
 } from '../../../uniprotkb/types/commentTypes';
+import { DatabaseInfoMaps } from '../../../uniprotkb/utils/database';
 
 import styles from './styles/conditions-annotations.module.scss';
 
@@ -103,6 +107,7 @@ const samFeatureSetToInfoDatumCondition = (samFeatureSet: SAMFeatureSet) => {
 // NOTE: except for positional features: AND
 const conditionsToInfoData = (
   conditions: Condition[],
+  databaseInfoMaps: DatabaseInfoMaps | null,
   featureSets: Array<PositionFeatureSet | SAMFeatureSet> = [],
   featureFocus = false
 ) => {
@@ -249,11 +254,15 @@ const conditionsToInfoData = (
           if (!value) {
             return null;
           }
-          let url = externalUrls.InterProSearch(value);
+          // Not in allDatabases
+          let url: string | null = externalUrls.InterProSearch(value);
           if (value.startsWith('PS')) {
+            // Not in allDatabases
             url = externalUrls.PROSITEEntry(value);
           } else if (value.startsWith('MF')) {
-            url = externalUrls.HAMAPEntry(value);
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'HAMAP', {
+              id: value,
+            });
           }
 
           return (
@@ -287,28 +296,35 @@ const ConditionsComponent = ({
 }: {
   conditionSets?: ConditionSet[];
   positionalFeatureSets?: PositionFeatureSet[];
-}) => (
-  <ul className={cn(styles.conditions, 'no-bullet')}>
-    {conditionSets?.map(({ conditions }, index) => {
-      if (!conditions?.length) {
-        // Would be absurd
-        return null;
-      }
-      return (
-        // eslint-disable-next-line react/no-array-index-key
-        <li key={index}>
-          {index !== 0 && (
-            <div className={cn(styles.statement, styles.or)}>or</div>
-          )}
-          <div className={cn(styles.statement, styles.if)}>if</div>
-          <InfoList
-            infoData={conditionsToInfoData(conditions, positionalFeatureSets)}
-          />
-        </li>
-      );
-    })}
-  </ul>
-);
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <ul className={cn(styles.conditions, 'no-bullet')}>
+      {conditionSets?.map(({ conditions }, index) => {
+        if (!conditions?.length) {
+          // Would be absurd
+          return null;
+        }
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={index}>
+            {index !== 0 && (
+              <div className={cn(styles.statement, styles.or)}>or</div>
+            )}
+            <div className={cn(styles.statement, styles.if)}>if</div>
+            <InfoList
+              infoData={conditionsToInfoData(
+                conditions,
+                databaseInfoMaps,
+                positionalFeatureSets
+              )}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ExceptionComponent: any = () => null;
@@ -377,10 +393,11 @@ const ExceptionComponent: any = () => null;
 //   );
 // };
 
-const groupedAnnotation = (
+const GroupedAnnotation = (
   type: string,
   annotations: Array<AnnotationWithExceptions | PositionFeatureSet>
 ) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const typedAnnotations = annotations as AnnotationWithExceptions[];
   // Keyword
   if (type === 'keyword') {
@@ -402,7 +419,7 @@ const groupedAnnotation = (
       </ul>
     );
   }
-  if (type === 'GO term') {
+  if (type === 'GO term' && databaseInfoMaps) {
     return (
       <ul className="no-bullet">
         {typedAnnotations.map(
@@ -410,7 +427,9 @@ const groupedAnnotation = (
             annotation.dbReference?.id && (
               <li key={annotation.dbReference.id}>
                 <ExternalLink
-                  url={externalUrls.QuickGO(annotation.dbReference.id)}
+                  url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', {
+                    id: annotation.dbReference.id,
+                  })}
                 >
                   {annotation.dbReference.id}
                 </ExternalLink>
@@ -559,7 +578,7 @@ function annotationsToInfoData(
 
   const infoData = Array.from(map.entries()).map(([type, annotations]) => ({
     title: type,
-    content: groupedAnnotation(type, annotations),
+    content: GroupedAnnotation(type, annotations),
   }));
 
   if (featureSet) {
@@ -745,52 +764,60 @@ const PositionalFeatureComponent = ({
   positionalFeatureSet,
 }: {
   positionalFeatureSet: PositionFeatureSet;
-}) => (
-  <div className={styles.rule}>
-    <ul className={cn(styles.conditions, 'no-bullet')}>
-      <li>
-        <div className={cn(styles.statement, styles.if)}>if</div>
-        <InfoList
-          infoData={conditionsToInfoData(
-            positionalFeatureSet.conditions || [],
-            [positionalFeatureSet],
-            true
-          )}
-        />
-      </li>
-    </ul>
-    <AnnotationsComponent
-      annotations={positionalFeatureSet.annotations}
-      featureSet={positionalFeatureSet}
-      exceptions={positionalFeatureSet.ruleExceptions}
-    />
-  </div>
-);
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <div className={styles.rule}>
+      <ul className={cn(styles.conditions, 'no-bullet')}>
+        <li>
+          <div className={cn(styles.statement, styles.if)}>if</div>
+          <InfoList
+            infoData={conditionsToInfoData(
+              positionalFeatureSet.conditions || [],
+              databaseInfoMaps,
+              [positionalFeatureSet],
+              true
+            )}
+          />
+        </li>
+      </ul>
+      <AnnotationsComponent
+        annotations={positionalFeatureSet.annotations}
+        featureSet={positionalFeatureSet}
+        exceptions={positionalFeatureSet.ruleExceptions}
+      />
+    </div>
+  );
+};
 
 const SAMFeatureComponent = ({
   samFeatureSet,
 }: {
   samFeatureSet: SAMFeatureSet;
-}) => (
-  <div className={styles.rule}>
-    <ul className={cn(styles.conditions, 'no-bullet')}>
-      <li>
-        <div className={cn(styles.statement, styles.if)}>if</div>
-        <InfoList
-          infoData={conditionsToInfoData(
-            samFeatureSet.conditions || [],
-            [samFeatureSet],
-            true
-          )}
-        />
-      </li>
-    </ul>
-    <AnnotationsComponent
-      annotations={samFeatureSet.annotations}
-      featureSet={samFeatureSet}
-    />
-  </div>
-);
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <div className={styles.rule}>
+      <ul className={cn(styles.conditions, 'no-bullet')}>
+        <li>
+          <div className={cn(styles.statement, styles.if)}>if</div>
+          <InfoList
+            infoData={conditionsToInfoData(
+              samFeatureSet.conditions || [],
+              databaseInfoMaps,
+              [samFeatureSet],
+              true
+            )}
+          />
+        </li>
+      </ul>
+      <AnnotationsComponent
+        annotations={samFeatureSet.annotations}
+        featureSet={samFeatureSet}
+      />
+    </div>
+  );
+};
 
 const ConditionsAnnotations = ({
   data,
