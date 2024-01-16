@@ -3,9 +3,9 @@ import { Card } from 'franklin-sites';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../../utils/entrySection';
+
+import EntrySection from '../../../types/entrySection';
 
 const SimilarProteins = lazy(
   () => import(/* webpackChunkName: "similar-proteins" */ './SimilarProteins')

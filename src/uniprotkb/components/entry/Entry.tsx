@@ -4,9 +4,7 @@ import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import ContactLink from '../../../contact/components/ContactLink';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -53,6 +51,7 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import dataToSchema from './entry.structured';
 

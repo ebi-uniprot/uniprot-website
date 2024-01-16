@@ -6,10 +6,9 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
 
 import { hasContent } from '../../../shared/utils/utils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';

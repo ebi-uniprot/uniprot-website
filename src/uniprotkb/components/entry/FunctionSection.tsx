@@ -24,16 +24,15 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { hasContent } from '../../../shared/utils/utils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
   Absorption,
   KineticParameters,
 } from '../../adapters/functionConverter';
-
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import {
   CatalyticActivityComment,
   CofactorComment,
