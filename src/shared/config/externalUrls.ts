@@ -24,13 +24,7 @@ const externalUrls = {
       'G3DSA:',
       ''
     )}`,
-  PRINTSEntry: (id: string | number) =>
-    `http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?prints_accn=${id}&display_opts=Prints&category=None&queryform=false&regexpr=off`,
   PROSITEEntry: (id: string | number) => `//prosite.expasy.org/${id}`,
-  SFLDEntry: (id: string | number) =>
-    `http://sfld.rbvi.ucsf.edu/django/family/${id}/`,
-  SMARTEntry: (id: string | number) =>
-    `http://smart.embl-heidelberg.de/smart/do_annotation.pl?DOMAIN=${id}`,
   InterProEntry: (id: string | number) =>
     `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm: string | number) =>
