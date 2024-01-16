@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { AccordionSearch, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
 
@@ -11,6 +11,8 @@ import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
 import { getLabel, prepareFieldData } from './utils';
+import { fullToStandardColumnName } from '../download/downloadUtils';
+
 import { Namespace } from '../../types/namespaces';
 
 import {
@@ -21,10 +23,11 @@ import {
 import './styles/column-select.scss';
 
 type ColumnSelectProps = {
-  selectedColumns: Column[];
+  selectedColumns: string[];
   onChange: (columndIds: Column[]) => void;
   namespace: Namespace;
   isEntryPage?: boolean;
+  isDownload?: boolean;
 };
 
 const ColumnSelect: FC<ColumnSelectProps> = ({
@@ -32,15 +35,25 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   onChange,
   namespace,
   isEntryPage,
+  isDownload,
   children,
 }) => {
   const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
+  const [selectedColumnsWithoutFullXrefs, setSelectedColumnsWithoutFullXrefs] =
+    useState<Column[]>([]);
+
+  useEffect(() => {
+    const removeFullXref = selectedColumns.map((column) =>
+      fullToStandardColumnName(column)
+    );
+    setSelectedColumnsWithoutFullXrefs(removeFullXref as Column[]);
+  }, [selectedColumns]);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
   const removableSelectedColumns = difference(
-    selectedColumns,
+    selectedColumnsWithoutFullXrefs,
     primaryKeyColumns
   );
   const handleChange = useCallback(
@@ -77,8 +90,8 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
   const fieldData = useMemo(
-    () => prepareFieldData(data, primaryKeyColumns),
-    [data, primaryKeyColumns]
+    () => prepareFieldData(data, primaryKeyColumns, isDownload),
+    [data, primaryKeyColumns, isDownload]
   );
 
   if (loading) {
@@ -109,7 +122,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
           onSelect={(itemId: string) => {
             handleSelect(itemId as Column);
           }}
-          selected={selectedColumns}
+          selected={selectedColumnsWithoutFullXrefs}
           placeholder="Search for available columns"
           columns
         />
