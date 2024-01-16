@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import helpURL from '../../config/apiUrls';
 import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 

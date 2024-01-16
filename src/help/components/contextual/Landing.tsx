@@ -7,7 +7,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import helpURL from '../../config/apiUrls';
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import {
   getLocationEntryPathFor,
