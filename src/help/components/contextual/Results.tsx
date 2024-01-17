@@ -8,7 +8,7 @@ import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
-import { HelpSearchResponse } from '../../adapters/helpConverter';
+import { HelpSearchResponse } from '../../types/apiModel';
 import { Location, getLocationEntryPath } from '../../../app/config/urls';
 
 import styles from './styles/results.module.scss';

@@ -2,10 +2,9 @@ import { FC } from 'react';
 import { Card, LongNumber, Sequence } from 'franklin-sites';
 
 import { hasContent } from '../../../shared/utils/utils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import { Sequence as SequenceType } from '../../../shared/types/sequence';
 
 const SequenceSection: FC<{

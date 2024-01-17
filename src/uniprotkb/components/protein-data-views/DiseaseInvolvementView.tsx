@@ -73,7 +73,7 @@ export const protvarVariantLink = (
   return variantEl;
 };
 
-export const DiseaseVariants = ({
+const DiseaseVariants = ({
   variants,
   accession,
 }: {
@@ -152,7 +152,7 @@ type DiseaseInvolvementEntryProps = {
   accession: string;
 };
 
-export const DiseaseInvolvementEntry = ({
+const DiseaseInvolvementEntry = ({
   comment,
   features,
   accession,

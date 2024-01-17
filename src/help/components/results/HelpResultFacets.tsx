@@ -7,7 +7,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { HelpSearchResponse } from '../../adapters/helpConverter';
+import { HelpSearchResponse } from '../../types/apiModel';
 
 const HelpResultFacets: FC = () => {
   const { search } = useLocation();

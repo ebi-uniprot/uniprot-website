@@ -169,7 +169,7 @@ const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
   },
 });
 
-export const UniProtKBColumnConfiguration: ColumnConfiguration<
+const UniProtKBColumnConfiguration: ColumnConfiguration<
   UniProtKBColumn,
   UniProtkbUIModel
 > = new Map();

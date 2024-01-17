@@ -57,7 +57,7 @@ export const getIDMappingFormInitialState = (
   sending: false,
 });
 
-export const idMappingFormInputTextIDsReducer = (
+const idMappingFormInputTextIDsReducer = (
   state: IDMappingFormState,
   {
     payload: textIDs,
@@ -128,7 +128,7 @@ export const idMappingFormInputTextIDsReducer = (
   };
 };
 
-export const idMappingFormUpdateSelectedReducer = (
+const idMappingFormUpdateSelectedReducer = (
   state: IDMappingFormValues,
   {
     payload: { id, selected },

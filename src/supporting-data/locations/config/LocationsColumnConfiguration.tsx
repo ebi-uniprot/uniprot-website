@@ -43,7 +43,7 @@ export const primaryKeyColumns = [LocationsColumn.id];
 const getEntryPath = getEntryPathFor(Namespace.locations);
 const getEntryPathForKeywords = getEntryPathFor(Namespace.keywords);
 
-export const LocationsColumnConfiguration: ColumnConfiguration<
+const LocationsColumnConfiguration: ColumnConfiguration<
   LocationsColumn,
   Partial<LocationsAPIModel>
 > = new Map();

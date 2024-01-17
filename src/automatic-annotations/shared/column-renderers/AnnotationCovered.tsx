@@ -46,5 +46,3 @@ export const annotationCoveredRenderer = {
   ),
   render: AnnotationCovered,
 };
-
-export default AnnotationCovered;

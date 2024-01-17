@@ -18,20 +18,17 @@ export const rePubMedCapture = new RegExp(
   `pubmed:(?<pmid>${rePubMedID.source})`,
   'i'
 );
-export const rePubMedNonCapture = new RegExp(
-  `pubmed:${rePubMedID.source}`,
-  'i'
-);
+const rePubMedNonCapture = new RegExp(`pubmed:${rePubMedID.source}`, 'i');
 const reDbSnpID = /rs\d+/;
 export const reDbSnpCapture = new RegExp(
   `dbSNP:(?<rsid>${reDbSnpID.source})`,
   'i'
 );
-export const reDbSnpNonCapture = new RegExp(`dbSNP:${reDbSnpID.source}`, 'i');
+const reDbSnpNonCapture = new RegExp(`dbSNP:${reDbSnpID.source}`, 'i');
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
-export const reNeedsTextProcessing = new RegExp(
+const reNeedsTextProcessing = new RegExp(
   `(${rePubMedNonCapture.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnpNonCapture.source})`,
   'i'
 );

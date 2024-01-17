@@ -4,11 +4,10 @@ import { groupBy } from 'lodash-es';
 import ExternalLink from '../../../../shared/components/ExternalLink';
 import XRefView from '../../protein-data-views/XRefView';
 
-import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../../types/entrySection';
+import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import EntrySection from '../../../types/entrySection';
 import { XrefUIModel, XrefsGoupedByDatabase } from '../../../utils/xrefUtils';
 import { WebResourceComment } from '../../../types/commentTypes';
 import { DatabaseCategory } from '../../../types/databaseRefs';

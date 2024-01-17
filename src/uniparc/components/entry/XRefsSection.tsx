@@ -12,11 +12,10 @@ import {
   defaultColumns,
   getUniParcXRefsColumns,
 } from '../../config/UniParcXRefsColumnConfiguration';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import { UniParcAPIModel, UniParcXRef } from '../../adapters/uniParcConverter';
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 import { Namespace } from '../../../shared/types/namespaces';
 

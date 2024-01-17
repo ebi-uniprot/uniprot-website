@@ -53,7 +53,7 @@ export const primaryKeyColumns = [CitationsColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.citations);
 
-export const CitationsColumnConfiguration: ColumnConfiguration<
+const CitationsColumnConfiguration: ColumnConfiguration<
   CitationsColumn,
   Partial<CitationsAPIModel>
 > = new Map();

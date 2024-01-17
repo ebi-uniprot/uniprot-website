@@ -18,7 +18,7 @@ import {
 } from '../functionConverter';
 import { GeneNamesData } from '../namesAndTaxonomyConverter';
 
-export const SLIM_SETS_URL =
+const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
 
 const SLIMMING_URL = 'https://www.ebi.ac.uk/QuickGO/services/ontology/go/slim';

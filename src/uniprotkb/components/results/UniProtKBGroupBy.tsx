@@ -81,7 +81,7 @@ type GroupByLinkProps = {
   parentLabel: string;
 };
 
-export const GroupByLink = ({
+const GroupByLink = ({
   groupBy,
   id,
   groupByLabel,

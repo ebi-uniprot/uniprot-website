@@ -35,7 +35,7 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [UniRuleColumn.ruleId];
 
-export const UniRuleColumnConfiguration: ColumnConfiguration<
+const UniRuleColumnConfiguration: ColumnConfiguration<
   UniRuleColumn,
   Partial<UniRuleAPIModel>
 > = new Map();

@@ -45,7 +45,7 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [UniRefColumn.id];
 
-export const UniRefColumnConfiguration: ColumnConfiguration<
+const UniRefColumnConfiguration: ColumnConfiguration<
   UniRefColumn,
   Partial<UniRefLiteAPIModel>
 > = new Map();

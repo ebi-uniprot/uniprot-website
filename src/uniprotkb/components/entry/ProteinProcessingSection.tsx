@@ -1,9 +1,7 @@
 import { memo } from 'react';
 import { Card, Loader } from 'franklin-sites';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -14,6 +12,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { hasContent } from '../../../shared/utils/utils';
 import { proteinsApi } from '../../../shared/config/apiUrls';
 import { convertPtmExchangeFeatures } from '../../adapters/ptmExchangeFeaturesConverter';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import { FreeTextComment } from '../../types/commentTypes';
 import { ProteomicsPtm } from '../../types/proteomicsPtm';

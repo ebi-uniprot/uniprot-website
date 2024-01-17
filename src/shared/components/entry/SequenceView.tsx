@@ -61,7 +61,7 @@ type SequenceInfoProps = {
   openByDefault?: boolean;
 };
 
-export const SequenceInfo = ({
+const SequenceInfo = ({
   isoformId,
   isoformSequence,
   lastUpdateDate,
@@ -177,7 +177,7 @@ type IsoformInfoProps = {
   isoformNotes?: IsoformNotes;
 };
 
-export const IsoformInfo = ({
+const IsoformInfo = ({
   isoformData,
   canonicalAccession,
   isoformNotes,

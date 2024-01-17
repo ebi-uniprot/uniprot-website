@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
@@ -16,6 +14,7 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import { hasContent } from '../../../shared/utils/utils';
 import { getIntActQueryUrl } from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import {
   FreeTextComment,
