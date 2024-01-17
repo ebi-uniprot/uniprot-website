@@ -113,7 +113,7 @@ const SequenceInfo = ({
           onShowSequence={() => setIsoformToFetch(isoformId)}
           infoData={infoData}
           accession={isoformId}
-          downloadUrl={apiUrls.sequenceFasta(isoformId)}
+          downloadUrl={apiUrls.entry.sequenceFasta(isoformId)}
           onBlastClick={() =>
             history.push(LocationToPath[Location.Blast], {
               parameters: { sequence: dataToDisplay?.value },

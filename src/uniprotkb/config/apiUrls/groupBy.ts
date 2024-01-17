@@ -6,5 +6,5 @@ import { apiPrefix } from '../../../shared/config/apiUrls/apiPrefix';
 
 export type GroupBy = 'ec' | 'go' | 'keyword' | 'taxonomy';
 
-export const groupBy = (by: GroupBy, query: string, parent?: string) =>
+export const search = (by: GroupBy, query: string, parent?: string) =>
   stringifyUrl(joinUrl(apiPrefix, 'uniprotkb/groups', by), { query, parent });

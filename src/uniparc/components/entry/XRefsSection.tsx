@@ -7,7 +7,7 @@ import ContactLink from '../../../contact/components/ContactLink';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import {
   defaultColumns,
   getUniParcXRefsColumns,
@@ -56,7 +56,7 @@ type Props = {
 
 const XRefsSection = ({ xrefData, totalNResults }: Props) => {
   const { data: dataDB } = useDataApi<DataDBModel>(
-    apiUrls.allDatabases(Namespace.uniparc)
+    apiUrls.configure.allDatabases(Namespace.uniparc)
   );
   const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
