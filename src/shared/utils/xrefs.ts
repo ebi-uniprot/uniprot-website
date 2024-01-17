@@ -32,11 +32,15 @@ export const getUrlFromDatabaseInfo = (
   params: Record<string, string>,
   attribute?: string
 ) => {
-  if (!databaseInfoMaps) {
+  if (
+    !(
+      databaseInfoMaps &&
+      Object.keys(databaseInfoMaps.databaseToDatabaseInfo).length
+    )
+  ) {
     return null;
   }
-  const { databaseToDatabaseInfo } = databaseInfoMaps;
-  const databaseInfo = databaseToDatabaseInfo[database];
+  const databaseInfo = databaseInfoMaps.databaseToDatabaseInfo[database];
   const uriLink = attribute
     ? databaseInfo.attributes?.find((a) => a.name === attribute)?.uriLink
     : databaseInfo.uriLink;
