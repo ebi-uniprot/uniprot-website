@@ -9,7 +9,7 @@ import {
 } from '../sequences';
 
 import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
-import { MSAInput } from '../../components/AlignmentView';
+import { MSAInput } from '../../types/alignment';
 
 // import featuresMock from '../__mocks__/features.json';
 // import sequenceChunkPairsMock from '../__mocks__/sequences.json';

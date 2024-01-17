@@ -4,7 +4,7 @@ import { Card, InfoList, LongNumber } from 'franklin-sites';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import { PanProteome } from './PanProteome';
@@ -18,7 +18,7 @@ import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 import '../styles/overview.scss';
 
-export const Overview = ({ data }: { data: ProteomesUIModel }) => {
+const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
     const renderColumnContent = (column: ProteomesColumn) => {
       const config = ProteomesColumnConfiguration.get(column);

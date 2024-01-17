@@ -24,16 +24,15 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { hasContent } from '../../../shared/utils/utils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
   Absorption,
   KineticParameters,
 } from '../../adapters/functionConverter';
-
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import {
   CatalyticActivityComment,
   CofactorComment,
@@ -268,7 +267,9 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
   const miscellaneousComments = data.commentsData
     ?.get('MISCELLANEOUS')
-    ?.filter((comment) => !(comment as FreeTextComment).molecule);
+    ?.filter(
+      (comment) => !(comment as FreeTextComment).molecule?.includes('Isoform')
+    );
 
   return (
     <Card

@@ -8,7 +8,7 @@ import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
 
 import { stringifyQuery } from '../../../utils/url';
 
-import { DOWNLOAD_SIZE_LIMIT } from '../DownloadAPIURL';
+import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
 
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';

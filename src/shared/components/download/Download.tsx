@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import { ChangeEvent, useCallback, useReducer } from 'react';
+import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { Location as HistoryLocation } from 'history';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
@@ -11,15 +11,15 @@ import DownloadAPIURL from './DownloadAPIURL';
 import ExternalLink from '../ExternalLink';
 import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
 
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
-
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useDataApi from '../../hooks/useDataApi';
 
 import {
   DownloadSelectOptions,
   downloadReducer,
   getDownloadInitialState,
+  ExtraContent,
 } from './downloadReducer';
 import {
   updateSelectedFileFormat,
@@ -28,16 +28,18 @@ import {
   updateCompressed,
   updateExtraContent,
   updateDisableForm,
+  updateFullXref,
 } from './downloadActions';
+import { prepareFieldData } from '../column-select/utils';
 
-import { getDownloadUrl } from '../../config/apiUrls';
+import apiUrls, { getDownloadUrl } from '../../config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   getColumnsNamespace,
   getDownloadCount,
   getDownloadOptions,
   getPreviewOptions,
-  getFtpFilenameAndUrl,
+  getFtpFilenamesAndUrls,
   getIsAsyncDownload,
   getRedirectToIDMapping,
   getExtraContent,
@@ -45,7 +47,10 @@ import {
   getPreviewCount,
   isAsyncDownloadIdMapping,
   showColumnSelect,
+  filterFullXrefColumns,
 } from './downloadUtils';
+
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
@@ -55,6 +60,7 @@ import {
 } from '../../utils/gtagEvents';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -77,6 +83,7 @@ export type DownloadProps<T extends JobTypes> = {
   inBasketMini?: boolean;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
+  extraContent?: ExtraContent;
 };
 
 const Download = (props: DownloadProps<JobTypes>) => {
@@ -100,6 +107,19 @@ const Download = (props: DownloadProps<JobTypes>) => {
     { props, job, selectedColumns: columnNames },
     getDownloadInitialState
   );
+  const { data } = useDataApi<ReceivedFieldData>(
+    apiUrls.resultsFields(namespace)
+  );
+
+  const fieldData = useMemo(
+    () => prepareFieldData(data, undefined, true),
+    [data]
+  );
+
+  const fullXrefColumns = filterFullXrefColumns(
+    state.selectedColumns,
+    fieldData
+  );
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(updateDownloadSelect(e.target.name as DownloadSelectOptions));
@@ -111,53 +131,78 @@ const Download = (props: DownloadProps<JobTypes>) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
 
+  const handleFullXrefChange = () => {
+    dispatch(updateFullXref(!state.fullXref));
+    dispatch(updateSelectedColumns(state.selectedColumns, fieldData));
+  };
+
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
   const downloadUrl = getDownloadUrl(downloadOptions);
   const previewOptions = getPreviewOptions(state, props, location, job);
   const previewUrl = previewOptions && getDownloadUrl(previewOptions);
-  const ftpFilenameAndUrl = getFtpFilenameAndUrl(state, props, location, job);
+  const ftpFilenamesAndUrls = getFtpFilenamesAndUrls(
+    state,
+    props,
+    location,
+    job
+  );
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
 
   let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
-    case 'ftp':
+    case 'ftp': {
+      const isMultipleFiles =
+        (ftpFilenamesAndUrls || [])?.length > 1 ||
+        (ftpFilenamesAndUrls?.length === 1 &&
+          ftpFilenamesAndUrls[0].filename.endsWith('/'));
       extraContentNode = (
         <>
           <h4 data-article-id="downloads" className={styles['ftp-header']}>
-            File Available On FTP Server
+            Download Available On FTP Server
           </h4>
-          This file is available {!isEmbeddings && 'compressed'} within the{' '}
+          This download is available on the{' '}
           <Link
             to={generatePath(LocationToPath[Location.HelpEntry], {
               accession: 'downloads',
             })}
           >
-            UniProtKB directory
-          </Link>{' '}
-          of the UniProt FTP server:
-          <div className={styles['ftp-url']}>
-            <ExternalLink
-              url={ftpFilenameAndUrl?.url || ''}
-              noIcon
-              onClick={() => onClose('download', 'ftp')}
-            >
-              <DownloadIcon width="1em" />
-              {ftpFilenameAndUrl?.filename}
-            </ExternalLink>
-          </div>
+            UniProt FTP server
+          </Link>
+          {` as a ${isMultipleFiles ? 'set of ' : 'single '} ${
+            isEmbeddings ? '' : 'compressed'
+          } file${
+            isMultipleFiles
+              ? 's which can be combined to obtain the full result set'
+              : ''
+          }`}
+          :
+          <ul className="no-bullet">
+            {ftpFilenamesAndUrls?.map(({ url, filename }) => (
+              <li className={styles['ftp-url']} key={url}>
+                <ExternalLink
+                  url={url || ''}
+                  noIcon
+                  onClick={() => onClose('download', 'ftp')}
+                >
+                  <DownloadIcon width="1em" />
+                  {filename}
+                </ExternalLink>
+              </li>
+            ))}
+          </ul>
         </>
       );
       break;
+    }
     case 'url':
       extraContentNode = (
         <DownloadAPIURL
           // Remove the download attribute as it's unnecessary for API access
           apiURL={downloadUrl.replace('download=true&', '')}
-          ftpURL={ftpFilenameAndUrl?.url}
           onCopy={() => onClose('copy', 'api-url')}
           disableSearch={
             isEmbeddings ||
@@ -311,12 +356,16 @@ const Download = (props: DownloadProps<JobTypes>) => {
         <>
           <legend>Customize columns</legend>
           <ColumnSelect
-            onChange={(columns) => dispatch(updateSelectedColumns(columns))}
+            onChange={(columns) =>
+              dispatch(updateSelectedColumns(columns, fieldData))
+            }
             selectedColumns={state.selectedColumns}
             namespace={columnsNamespace}
+            isDownload
           />
         </>
       )}
+
       <section
         className={cn(
           'button-group',
@@ -325,6 +374,27 @@ const Download = (props: DownloadProps<JobTypes>) => {
           styles['action-buttons']
         )}
       >
+        {showColumnSelect(state, props, job) && fullXrefColumns.length ? (
+          <div className={styles['full-xref-section']}>
+            * Full XRef IDs available for starred items
+            <label>
+              <input
+                aria-label="include multiple values"
+                type="checkbox"
+                name="fullXref"
+                onChange={handleFullXrefChange}
+              />
+              Check box to include it in the download
+            </label>
+            <Link
+              to={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: 'return_fields_databases',
+              })}
+            >
+              See documentation & examples
+            </Link>
+          </div>
+        ) : null}
         <Button
           variant="tertiary"
           onClick={() => dispatch(updateExtraContent('url'))}
@@ -348,7 +418,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={isAsyncDownload || ftpFilenameAndUrl ? undefined : downloadUrl}
+          href={
+            isAsyncDownload || ftpFilenamesAndUrls ? undefined : downloadUrl
+          }
           className={cn('button', 'primary', {
             [helper.disabled]: state.disableForm,
           })}
@@ -360,7 +432,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
           target="_blank"
           rel="noreferrer"
           onClick={() => {
-            if (ftpFilenameAndUrl) {
+            if (ftpFilenamesAndUrls) {
               dispatch(updateExtraContent('ftp'));
             } else if (isAsyncDownload) {
               dispatch(updateExtraContent('generate'));

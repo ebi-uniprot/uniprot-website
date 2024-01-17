@@ -27,9 +27,3 @@ export type HelpEntryResponse = SetRequired<
   Omit<HelpAPIModel, 'matches'>,
   'content'
 >;
-
-const helpConverter = (data: HelpAPIModel): HelpUIModel => ({
-  ...data,
-});
-
-export default helpConverter;

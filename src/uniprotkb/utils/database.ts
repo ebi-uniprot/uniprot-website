@@ -28,7 +28,7 @@ export type DatabaseInfoMaps = {
   entrySectionToDatabaseCategoryOrder: EntrySectionToDatabaseCategoryOrder;
 };
 
-export const getEntrySectionToDatabaseCategoryOrder = (
+const getEntrySectionToDatabaseCategoryOrder = (
   entrySectionToDatabaseNames: Map<EntrySection, string[]>,
   databaseNameToCategory: DatabaseNameToCategory
 ) => {
@@ -89,24 +89,6 @@ export const getDatabaseInfoMaps = (
     entrySectionToDatabaseCategoryOrder,
   };
 };
-
-export const selectDatabases =
-  (databaseCategoryToNames: Map<DatabaseCategory, string[]>) =>
-  ({
-    categories = [],
-    include = [],
-    exclude = [],
-  }: {
-    categories?: DatabaseCategory[];
-    include?: string[];
-    exclude?: string[];
-  }) =>
-    [
-      ...(categories?.flatMap(
-        (category) => databaseCategoryToNames.get(category) || []
-      ) || []),
-      ...include,
-    ].filter((db) => !exclude.includes(db));
 
 const reXrefPrefix = /^xref_/;
 

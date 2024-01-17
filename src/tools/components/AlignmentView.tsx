@@ -1,19 +1,9 @@
-import {
-  useState,
-  useEffect,
-  useMemo,
-  Dispatch,
-  SetStateAction,
-  useRef,
-  useCallback,
-} from 'react';
-import { TreeSelect, Loader, Message } from 'franklin-sites';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { TreeSelect, Loader } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
-
-import ExternalLink from '../../shared/components/ExternalLink';
 
 import {
   MsaColorScheme,
@@ -28,17 +18,16 @@ import {
   getMSAFeature,
   MSAFeature,
 } from '../utils/sequences';
-
-import FeatureType from '../../uniprotkb/types/featureType';
-import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import { prepareFeatureForTooltip } from '../utils/feature';
 
-import './styles/AlignmentView.scss';
+import FeatureType from '../../uniprotkb/types/featureType';
+import {
+  ConservationOptions,
+  MSAInput,
+  UpdateTooltip,
+} from '../types/alignment';
 
-export type ConservationOptions = {
-  'calculate-conservation'?: true;
-  'overlay-conservation'?: true;
-};
+import './styles/AlignmentView.scss';
 
 export enum View {
   overview = 'Overview',
@@ -49,16 +38,6 @@ export enum Tool {
   align = 'Align',
   blast = 'BLAST',
 }
-
-export type MSAInput = {
-  name?: string;
-  accession?: string;
-  sequence: string;
-  from: number;
-  to: number;
-  length: number;
-  features?: ProcessedFeature[];
-};
 
 type PossiblyEmptyMenuItem = {
   label: string | undefined;
@@ -77,53 +56,8 @@ type MenuItem = {
   }[];
 };
 
-type NightingaleChangeEvent = {
-  eventtype: string;
-  feature: { protvistaFeatureId: string };
-  coords: number[];
-};
-
-export type AlignmentComponentProps = {
-  alignment: MSAInput[];
-  alignmentLength: number;
-  highlightProperty: MsaColorScheme | undefined;
-  conservationOptions: ConservationOptions;
-  totalLength: number;
-  annotation: FeatureType | undefined;
-  activeId?: string;
-  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  omitInsertionsInCoords?: boolean;
-  selectedEntries?: string[];
-  handleEntrySelection?: (rowId: string) => void;
-  selectedMSAFeatures?: MSAFeature[];
-  activeAnnotation: ProcessedFeature[];
-  activeAlignment?: MSAInput;
-  onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
-  updateTooltip: UpdateTooltip;
-};
-
 const isNonEmptyMenuItem = (item: PossiblyEmptyMenuItem): item is MenuItem =>
   Boolean(item.id && item.label && item.items.length);
-
-type UpdateTooltip = (arg: {
-  id: string;
-  x: number;
-  y: number;
-  event: CustomEvent<NightingaleChangeEvent>;
-}) => void;
-
-export const handleEvent =
-  (updateTooltip: UpdateTooltip) =>
-  (event: CustomEvent<NightingaleChangeEvent>) => {
-    if (event?.detail?.eventtype === 'click') {
-      updateTooltip({
-        event,
-        id: event.detail.feature.protvistaFeatureId,
-        x: event.detail.coords[0],
-        y: event.detail.coords[1],
-      });
-    }
-  };
 
 type AlignmentViewProps = {
   alignment: MSAInput[];
@@ -379,30 +313,8 @@ const AlignmentView = ({
     return <Loader />;
   }
 
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
   return (
     <>
-      {isSafari ? (
-        <Message level="warning">
-          <small>
-            It looks like you are using Safari. Unfortunately, there is an issue
-            displaying the page with this browser. We recommend you use{' '}
-            <ExternalLink url="https://support.mozilla.org/en-US/kb/choosing-firefox-update-channel">
-              Firefox
-            </ExternalLink>
-            ,{' '}
-            <ExternalLink url="https://www.google.com/chrome/">
-              Chrome
-            </ExternalLink>
-            , or{' '}
-            <ExternalLink url="https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel">
-              Edge
-            </ExternalLink>{' '}
-            until this is fixed.
-          </small>
-        </Message>
-      ) : null}
       <div className="button-group">
         <TreeSelect
           data={colorSchemeTree}

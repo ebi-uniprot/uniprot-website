@@ -24,5 +24,3 @@ mock
   .reply(200, mockFasta, { 'content-type': ContentType.fasta })
   .onGet(/\/uniprotkb\//)
   .reply(200, entry);
-
-export default mock;

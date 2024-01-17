@@ -69,7 +69,7 @@ type EntryTypeIconProps = {
   title?: string;
 };
 
-export const EntryTypeIcon = ({
+const EntryTypeIcon = ({
   entryType,
   entryAccession,
   entryId,

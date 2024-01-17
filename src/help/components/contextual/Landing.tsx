@@ -15,7 +15,7 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 
-import { HelpEntryResponse } from '../../adapters/helpConverter';
+import { HelpEntryResponse } from '../../types/apiModel';
 
 import styles from './styles/landing.module.scss';
 

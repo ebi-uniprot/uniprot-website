@@ -37,7 +37,7 @@ import * as logging from '../../../shared/utils/logging';
 import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
 import { stringifyQuery } from '../../../shared/utils/url';
 
-import { HelpEntryResponse } from '../../adapters/helpConverter';
+import { HelpEntryResponse } from '../../types/apiModel';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import helper from '../../../shared/styles/helper.module.scss';
@@ -98,7 +98,7 @@ type HelpEntryContentProps = {
   upperHeadingLevel?: HeadingLevels;
 };
 
-export const HelpEntryContent = ({
+const HelpEntryContent = ({
   data,
   upperHeadingLevel = 'h1',
 }: HelpEntryContentProps) => {

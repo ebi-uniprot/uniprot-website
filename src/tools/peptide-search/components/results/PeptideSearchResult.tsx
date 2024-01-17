@@ -37,6 +37,8 @@ import {
 } from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../../shared/config/limits';
+
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../../../shared/types/results';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
@@ -93,8 +95,6 @@ enum ServerJobParameters {
   lEqi = 'lEqi',
   swissProtOnly = 'swissProtOnly',
 }
-
-export const MAX_PEPTIDE_FACETS_OR_DOWNLOAD = 1_000;
 
 const PeptideSearchResult = () => {
   const match = useMatchWithRedirect<Params>(

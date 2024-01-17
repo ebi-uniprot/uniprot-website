@@ -1,4 +1,4 @@
-import { useRef, FormEvent, useMemo, useReducer } from 'react';
+import { useRef, FormEvent, useMemo, useReducer, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   PageIntro,
@@ -40,6 +40,8 @@ import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
+import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
+
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
@@ -63,8 +65,6 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-
-export const ID_MAPPING_LIMIT = 100_000;
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 
@@ -101,8 +101,13 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   const [{ formValues, textIDs, sending, submitDisabled }, dispatch] =
     useReducer(
       getIDMappingFormDataReducer(defaultFormValues),
-      getIDMappingFormInitialState(initialFormValues)
+      initialFormValues,
+      getIDMappingFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   const [dbNameToDbInfo, ruleIdToRuleInfo]: [
     DbNameToDbInfo | undefined | null,

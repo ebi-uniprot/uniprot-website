@@ -23,7 +23,7 @@ import {
 import * as logging from '../utils/logging';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
-import { Column } from '../config/columns';
+import { Column, ColumnConfigurations } from '../config/columns';
 import {
   ReceivedFieldData,
   SortDirection,
@@ -47,23 +47,6 @@ import { LocationsAPIModel } from '../../supporting-data/locations/adapters/loca
 
 import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
 import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
-
-import UniProtKBColumnConfiguration from '../../uniprotkb/config/UniProtKBColumnConfiguration';
-import UniRefColumnConfiguration from '../../uniref/config/UniRefColumnConfiguration';
-import UniParcColumnConfiguration from '../../uniparc/config/UniParcColumnConfiguration';
-import ProteomesColumnConfiguration from '../../proteomes/config/ProteomesColumnConfiguration';
-
-import TaxonomyColumnConfiguration from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
-import KeywordsColumnConfiguration from '../../supporting-data/keywords/config/KeywordsColumnConfiguration';
-import CitationsColumnConfiguration from '../../supporting-data/citations/config/CitationsColumnConfiguration';
-import DiseasesColumnConfiguration from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
-import DatabaseColumnConfiguration from '../../supporting-data/database/config/DatabaseColumnConfiguration';
-import LocationsColumnConfiguration from '../../supporting-data/locations/config/LocationsColumnConfiguration';
-
-import UniRuleColumnConfiguration from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
-import ARBAColumnConfiguration from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
-
-import { IdMappingColumnConfiguration } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
@@ -119,25 +102,6 @@ const convertRow = (
       logging.warn(`Unrecognised namespace: "${namespace}"`);
       return null;
   }
-};
-
-// TODO: create a "Column" type to cover the different column types
-// and a Column renderer type with label: string and a render definition.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
-  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
-  [Namespace.uniref]: UniRefColumnConfiguration,
-  [Namespace.uniparc]: UniParcColumnConfiguration,
-  [Namespace.proteomes]: ProteomesColumnConfiguration,
-  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
-  [Namespace.keywords]: KeywordsColumnConfiguration,
-  [Namespace.citations]: CitationsColumnConfiguration,
-  [Namespace.diseases]: DiseasesColumnConfiguration,
-  [Namespace.database]: DatabaseColumnConfiguration,
-  [Namespace.locations]: LocationsColumnConfiguration,
-  [Namespace.unirule]: UniRuleColumnConfiguration,
-  [Namespace.arba]: ARBAColumnConfiguration,
-  [Namespace.idmapping]: IdMappingColumnConfiguration,
 };
 
 export const getColumnsToDisplay = (

@@ -3,6 +3,12 @@
 // NOTE: modified to use a non-capturing group with "?:"
 export const reUniProtKBAccession =
   /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
+export const reUniProtKBAccessionWithIsoform = new RegExp(
+  `(?:${reUniProtKBAccession.source})(?:-[0-9]+)?`,
+  'i'
+);
+export const reUniRefAccession = /UniRef(?:50|90|100)_[\w|-]+/i;
+export const reUniParc = /UPI[\w]{10}/i;
 
 export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const reIsoform = /\bisoform [\w-]+/i;
@@ -12,20 +18,17 @@ export const rePubMedCapture = new RegExp(
   `pubmed:(?<pmid>${rePubMedID.source})`,
   'i'
 );
-export const rePubMedNonCapture = new RegExp(
-  `pubmed:${rePubMedID.source}`,
-  'i'
-);
+const rePubMedNonCapture = new RegExp(`pubmed:${rePubMedID.source}`, 'i');
 const reDbSnpID = /rs\d+/;
 export const reDbSnpCapture = new RegExp(
   `dbSNP:(?<rsid>${reDbSnpID.source})`,
   'i'
 );
-export const reDbSnpNonCapture = new RegExp(`dbSNP:${reDbSnpID.source}`, 'i');
+const reDbSnpNonCapture = new RegExp(`dbSNP:${reDbSnpID.source}`, 'i');
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
-export const reNeedsTextProcessing = new RegExp(
+const reNeedsTextProcessing = new RegExp(
   `(${rePubMedNonCapture.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnpNonCapture.source})`,
   'i'
 );

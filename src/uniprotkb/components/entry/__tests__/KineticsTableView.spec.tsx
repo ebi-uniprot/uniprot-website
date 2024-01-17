@@ -21,4 +21,11 @@ describe('Kinetics section', () => {
     const { kcatEvidences } = extractFromFreeText(mock.data3);
     expect(kcatEvidences).toMatchSnapshot();
   });
+
+  it('should return substrate with nested parentheses', () => {
+    const { km } = extractFromFreeText(mock.nestedParenthesesInSubstrate);
+    expect(km[0].substrate).toEqual(
+      'methyl viologen (sodium dithionate and H(+) as cosubstrates)'
+    );
+  });
 });

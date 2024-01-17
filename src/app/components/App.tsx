@@ -35,6 +35,7 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
+import description from '../config/description';
 
 import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
@@ -78,8 +79,8 @@ if (process.env.NODE_ENV !== 'development') {
     //   }
     //   return event;
     // },
-    replaysSessionSampleRate: 0.001,
-    replaysOnErrorSampleRate: 1.0,
+    replaysSessionSampleRate: 0.00001,
+    replaysOnErrorSampleRate: 0.001,
   });
   sentrySetTag('bundle', MODERN_BUNDLE ? 'modern' : 'legacy');
 }
@@ -366,7 +367,7 @@ const App = () => {
         <meta
           name="description"
           // default description, to override wherever needed
-          content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
+          content={description}
         />
       </Helmet>
       <DevDeploymentWarning />

@@ -24,8 +24,9 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 
 import { LocationToPath, Location } from '../../config/urls';
+import { facebook, twitter } from '../../config/socialUrls';
 
-import dataToSchema from './training.structured';
+import dataToSchema, { isCourseOnsite } from './training.structured';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -101,6 +102,9 @@ const fallback: PayloadEBISearch['entries'][0] = {
   ],
 };
 
+const isCourseOnline = (source: PayloadEBISearch['entries'][0]['source']) =>
+  source === 'ebiweb_training_online';
+
 const NeedHelp = () => {
   const { data, loading } = useDataApi<PayloadEBISearch>(urlEBISearch);
 
@@ -112,12 +116,10 @@ const NeedHelp = () => {
   const venue = seminar.fields.venue[0];
   const location = seminar.fields.location[0];
 
-  let seminarHeading = 'Live webinar';
-  if (source === 'ebiweb_training_online') {
-    seminarHeading = 'Online training';
-  } else if (data?.entries[0]?.fields.location[0] !== 'Online') {
-    seminarHeading = 'Live seminar';
-  }
+  const seminarHeading =
+    (isCourseOnline(source) && 'Online training') ||
+    (isCourseOnsite(data?.entries[0]?.fields.location) && 'Live seminar') ||
+    'Live webinar';
 
   return (
     <HeroContainer
@@ -161,18 +163,10 @@ const NeedHelp = () => {
           Contact us
         </ContactLink>
         <br />
-        <ExternalLink
-          url="https://twitter.com/uniprot"
-          title="UniProt posts on Twitter"
-          noIcon
-        >
+        <ExternalLink url={twitter} title="UniProt posts on Twitter" noIcon>
           <TwitterLogo width="2em" />
         </ExternalLink>
-        <ExternalLink
-          url="https://www.facebook.com/uniprot.org"
-          title="UniProt posts on Facebook"
-          noIcon
-        >
+        <ExternalLink url={facebook} title="UniProt posts on Facebook" noIcon>
           <FacebookLogo width="2em" />
         </ExternalLink>
       </div>

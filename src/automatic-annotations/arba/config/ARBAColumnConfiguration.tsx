@@ -28,7 +28,7 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [ARBAColumn.ruleId];
 
-export const ARBAColumnConfiguration: ColumnConfiguration<
+const ARBAColumnConfiguration: ColumnConfiguration<
   ARBAColumn,
   Partial<ARBAAPIModel>
 > = new Map();

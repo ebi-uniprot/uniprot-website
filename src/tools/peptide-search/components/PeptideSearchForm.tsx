@@ -1,4 +1,11 @@
-import { FC, FormEvent, MouseEvent, useRef, useReducer } from 'react';
+import {
+  FC,
+  FormEvent,
+  MouseEvent,
+  useRef,
+  useReducer,
+  useEffect,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -28,6 +35,11 @@ import {
 
 import { truncateTaxonLabel } from '../../utils';
 
+import {
+  PEPTIDE_SEARCH_SEQUENCES_COUNT,
+  PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH,
+} from '../../../shared/config/limits';
+
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/peptideSearchFormParameters';
 import { peps, lEQi, spOnly } from '../types/peptideSearchServerParameters';
@@ -48,10 +60,6 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-
-// just because, no actual known limit
-export const PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH = 7;
-export const PEPTIDE_SEARCH_SEQUENCES_COUNT = 100;
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
@@ -107,8 +115,13 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
       getPeptideSearchFormDataReducer(defaultFormValues),
-      getPeptideSearchFormInitialState(initialFormValues)
+      initialFormValues,
+      getPeptideSearchFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {

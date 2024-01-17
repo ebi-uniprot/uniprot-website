@@ -1,4 +1,11 @@
-import { FC, FormEvent, MouseEvent, useRef, useReducer } from 'react';
+import {
+  FC,
+  FormEvent,
+  MouseEvent,
+  useRef,
+  useReducer,
+  useEffect,
+} from 'react';
 import {
   Chip,
   SequenceSubmission,
@@ -36,6 +43,9 @@ import {
   updateSelected,
   updateSending,
 } from '../state/blastFormActions';
+import { getAutoMatrixFor } from '../utils';
+
+import { BLAST_LIMIT } from '../../../shared/config/limits';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
@@ -69,28 +79,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-export const BLAST_LIMIT = 5;
-
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
-
-// https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
-export const getAutoMatrixFor = (
-  sequence?: string
-): FormParameters['matrix'] => {
-  if (!sequence?.length) {
-    return 'BLOSUM62';
-  }
-  if (sequence.length <= 34) {
-    return 'PAM30';
-  }
-  if (sequence.length <= 49) {
-    return 'PAM70';
-  }
-  if (sequence.length <= 85) {
-    return 'BLOSUM80';
-  }
-  return 'BLOSUM62';
-};
 
 const FormSelect: FC<{
   formValue: BlastFormValue;
@@ -142,8 +131,13 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
       getBlastFormDataReducer(defaultFormValues),
-      getBlastFormInitialState(initialFormValues)
+      initialFormValues,
+      getBlastFormInitialState
     );
+
+  useEffect(() => {
+    dispatch(resetFormState(initialFormValues));
+  }, [initialFormValues]);
 
   // actual form fields
   const excludeTaxonField = excludeTaxonForDB(

@@ -4,7 +4,7 @@ import { groupBy } from 'lodash-es';
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink from '../../config/evidenceUrls';
+import EvidenceLink from './EvidenceLink';
 import { pluralise } from '../../../shared/utils/utils';
 
 import {
@@ -30,7 +30,7 @@ export type UniProtEvidenceTagContentProps = {
   useGOEvidenceContent?: boolean;
 };
 
-export const UniProtEvidenceTagContent = ({
+const UniProtEvidenceTagContent = ({
   evidenceCode,
   evidenceData,
   evidences,

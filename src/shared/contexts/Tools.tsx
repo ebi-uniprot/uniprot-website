@@ -4,8 +4,8 @@ import {
   useReducer,
   useEffect,
   useRef,
-  useMemo,
   ReactNode,
+  useMemo,
 } from 'react';
 
 import useMessagesDispatch from '../hooks/useMessagesDispatch';
@@ -27,18 +27,20 @@ export const ToolsProvider = ({ children }: { children: ReactNode }) => {
   const messagesDispatch = useMessagesDispatch();
 
   const stateRef = useRef(state);
+  // on state change
   useEffect(() => {
     stateRef.current = state;
   }, [state]);
 
-  const dispatchUsingMiddleware: Dispatch<ToolsAction> = useMemo(() => {
-    const middleware = toolsMiddleware(dispatch, stateRef, messagesDispatch);
+  // on unmount, to avoid the middleware to work on unmounted state
+  useEffect(() => () => {
+    stateRef.current = {};
+  });
 
-    return (action) => {
-      middleware(action);
-      dispatch(action);
-    };
-  }, [messagesDispatch]);
+  const dispatchUsingMiddleware: Dispatch<ToolsAction> = useMemo(
+    () => toolsMiddleware(dispatch, stateRef, messagesDispatch),
+    [messagesDispatch]
+  );
 
   return (
     <ToolsDispatchContext.Provider value={dispatchUsingMiddleware}>

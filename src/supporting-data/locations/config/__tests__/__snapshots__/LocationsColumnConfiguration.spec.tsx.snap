@@ -26,7 +26,7 @@ exports[`LocationsColumnConfiguration component should render column "gene_ontol
     <li>
       <a
         class="external-link"
-        href="//www.ebi.ac.uk/QuickGO/term/GO:0033116"
+        href="https://www.ebi.ac.uk/QuickGO/term/GO:0033116"
         rel="noopener"
         target="_blank"
       >

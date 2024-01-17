@@ -9,12 +9,11 @@ import AccessionsView from '../protein-data-views/AccessionsView';
 import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
 
 import { hasContent, pluralise } from '../../../shared/utils/utils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import UniProtKBEvidenceTag, {
   EvidenceTagSourceTypes,
 } from '../protein-data-views/UniProtKBEvidenceTag';

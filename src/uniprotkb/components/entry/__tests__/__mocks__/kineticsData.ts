@@ -57,6 +57,23 @@ const mock: { [key: string]: KineticParameters } = {
       ],
     },
   },
+  nestedParenthesesInSubstrate: {
+    michaelisConstants: [
+      {
+        constant: 1.25,
+        unit: 'mM',
+        substrate:
+          'methyl viologen (sodium dithionate and H(+) as cosubstrates)',
+        evidences: [
+          {
+            evidenceCode: 'ECO:0000269',
+            source: 'PubMed',
+            id: '10714990',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 export default mock;

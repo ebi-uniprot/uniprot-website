@@ -54,6 +54,7 @@ import {
 } from '../../../messages/types/messagesTypes';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import { ExtraContent } from '../download/downloadReducer';
 
 import styles from './styles/results-buttons.module.scss';
 
@@ -96,6 +97,8 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   inputParamsData,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [downloadPanelExtraContent, setDownloadPanelExtraContent] =
+    useState<ExtraContent>(null);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const {
     viewMode,
@@ -218,6 +221,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
                 inBasketMini={inBasketMini}
                 inputParamsData={inputParamsData}
                 jobType={jobType}
+                extraContent={downloadPanelExtraContent}
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -311,6 +315,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
             setDisplayDownloadPanel={setDisplayDownloadPanel}
             namespaceOverride={namespaceOverride}
             disableCardToggle={disableCardToggle}
+            setDownloadExtraContent={setDownloadPanelExtraContent}
           />
         )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />

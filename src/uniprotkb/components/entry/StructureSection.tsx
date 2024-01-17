@@ -5,9 +5,7 @@ import { Button, Card, Message } from 'franklin-sites';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
@@ -17,6 +15,8 @@ import {
   partitionStructureDatabases,
   XrefUIModel,
 } from '../../utils/xrefUtils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 const StructureView = lazy(

@@ -18,7 +18,8 @@ import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { FeatureDatum } from './UniProtKBFeaturesView';
 
-import styles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
+import styles from './styles/disease-involvement-view.module.scss';
+import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
 
 const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
   const aStart = +a.location.start.value;
@@ -72,7 +73,7 @@ export const protvarVariantLink = (
   return variantEl;
 };
 
-export const DiseaseVariants = ({
+const DiseaseVariants = ({
   variants,
   accession,
 }: {
@@ -123,7 +124,7 @@ export const DiseaseVariants = ({
                   )}
                 </td>
                 <td>{position}</td>
-                <td className={styles.change}>
+                <td className={variationViewerStyles.change}>
                   {protvarVariantLink(variant, accession)}
                 </td>
                 <td translate="yes">
@@ -151,7 +152,7 @@ type DiseaseInvolvementEntryProps = {
   accession: string;
 };
 
-export const DiseaseInvolvementEntry = ({
+const DiseaseInvolvementEntry = ({
   comment,
   features,
   accession,
@@ -189,25 +190,27 @@ export const DiseaseInvolvementEntry = ({
     <UniProtKBEvidenceTag evidences={disease.evidences} />
   );
 
-  if (note) {
-    const { texts } = note;
-    if (texts) {
+  if (note?.texts) {
+    const noteContent = (
+      <ExpandableList descriptionString="notes">
+        {note.texts.map((text, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            {text.value}
+            {text.evidences && (
+              <UniProtKBEvidenceTag evidences={text.evidences} />
+            )}
+          </Fragment>
+        ))}
+      </ExpandableList>
+    );
+    if (disease?.diseaseId) {
       infoData.push({
         title: 'Note',
-        content: (
-          <ExpandableList descriptionString="notes">
-            {texts.map((text, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                {text.value}
-                {text.evidences && (
-                  <UniProtKBEvidenceTag evidences={text.evidences} />
-                )}
-              </Fragment>
-            ))}
-          </ExpandableList>
-        ),
+        content: noteContent,
       });
+    } else {
+      return <div className={styles['note-only']}>{noteContent}</div>;
     }
   }
 

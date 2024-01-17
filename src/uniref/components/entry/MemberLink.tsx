@@ -5,10 +5,7 @@ import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 
-export const MemberLink: FC<{ accession: string }> = ({
-  accession,
-  children,
-}) => {
+const MemberLink: FC<{ accession: string }> = ({ accession, children }) => {
   const path = getEntryPath(
     accession.startsWith('UPI') ? Namespace.uniparc : Namespace.uniprotkb,
     accession

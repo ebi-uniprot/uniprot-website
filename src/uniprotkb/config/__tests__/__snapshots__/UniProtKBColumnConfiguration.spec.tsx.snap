@@ -561,7 +561,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
     The sequence 
     <a
       class="external-link"
-      href="//www.ebi.ac.uk/ena/data/view/sequence"
+      href="https://www.ebi.ac.uk/ena/data/view/sequence"
       rel="noopener"
       target="_blank"
     >
@@ -1220,7 +1220,7 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
     The sequence 
     <a
       class="external-link"
-      href="//www.ebi.ac.uk/ena/data/view/sequence"
+      href="https://www.ebi.ac.uk/ena/data/view/sequence"
       rel="noopener"
       target="_blank"
     >
@@ -2131,19 +2131,21 @@ exports[`UniProtKBColumnConfiguration component should render column "rhea": rhe
 
 exports[`UniProtKBColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
-  <section
-    class="sequence-container"
-  >
-    <div
-      class="sequence"
+  <div>
+    <section
+      class="sequence-container"
     >
-      <span
-        class="sequence__chunk sequence__chunk--display-last"
+      <div
+        class="sequence"
       >
-        SAPSQDFMRF
-      </span>
-    </div>
-  </section>
+        <span
+          class="sequence__chunk sequence__chunk--display-last"
+        >
+          SAPSQDFMRF
+        </span>
+      </div>
+    </section>
+  </div>
 </DocumentFragment>
 `;
 

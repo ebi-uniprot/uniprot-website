@@ -236,9 +236,11 @@ export const getAPIQueryParams = ({
       .join(' AND ')}`,
     fields: columns?.join(',') || undefined,
     facets: facetField?.join(','),
-    sort: sortColumn
-      ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
-      : undefined,
+    sort:
+      // 'score' is invalid, but it's a user input so it might still happen
+      sortColumn && (sortColumn as string) !== 'score'
+        ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
+        : undefined,
   };
 };
 

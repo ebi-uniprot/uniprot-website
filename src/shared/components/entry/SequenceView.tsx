@@ -10,11 +10,12 @@ import AddToBasketButton from '../action-buttons/AddToBasket';
 import LazyComponent from '../LazyComponent';
 
 import useDataApi from '../../hooks/useDataApi';
+import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
 
 import { pluralise } from '../../utils/utils';
 import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
+import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
 
-import externalUrls from '../../config/externalUrls';
 import apiUrls from '../../config/apiUrls';
 
 import {
@@ -23,6 +24,7 @@ import {
   MassSpectrometryComment,
   RNAEditingComment,
   AlternativeProductsComment,
+  TextWithEvidence,
 } from '../../../uniprotkb/types/commentTypes';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import {
@@ -59,7 +61,7 @@ type SequenceInfoProps = {
   openByDefault?: boolean;
 };
 
-export const SequenceInfo = ({
+const SequenceInfo = ({
   isoformId,
   isoformSequence,
   lastUpdateDate,
@@ -124,7 +126,7 @@ export const SequenceInfo = ({
           onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
         />
       ) : (
-        'Sequence is not available'
+        <p>Sequence is not available</p>
       )}
     </LazyComponent>
   );
@@ -155,13 +157,27 @@ const SeeAlso = ({ isoform }: { isoform: string }) => (
   </>
 );
 
+const Synonyms = ({ synonyms }: { synonyms: TextWithEvidence[] }) => (
+  <>
+    {synonyms.map((synonym, index) => (
+      <Fragment key={synonym.value}>
+        {synonym.value}
+        {synonym.evidences && (
+          <UniProtKBEvidenceTag evidences={synonym.evidences} />
+        )}
+        {index !== synonyms.length - 1 && ', '}
+      </Fragment>
+    ))}
+  </>
+);
+
 type IsoformInfoProps = {
   isoformData: Isoform;
   canonicalAccession: string;
   isoformNotes?: IsoformNotes;
 };
 
-export const IsoformInfo = ({
+const IsoformInfo = ({
   isoformData,
   canonicalAccession,
   isoformNotes,
@@ -178,7 +194,9 @@ export const IsoformInfo = ({
     },
     {
       title: 'Synonyms',
-      content: (isoformData?.synonyms ?? []).map((syn) => syn.value).join(', '),
+      content: isoformData.synonyms && (
+        <Synonyms synonyms={isoformData.synonyms} />
+      ),
     },
     {
       title: 'Note',
@@ -276,22 +294,34 @@ export const SequenceCautionView = ({
   data,
 }: {
   data: SequenceCautionComment[];
-}) => (
-  <>
-    {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
-      <section
-        className="text-block"
-        key={`${sequenceCautionType}-${sequence}`}
-      >
-        {`The sequence `}
-        <ExternalLink url={externalUrls.ENA(sequence)}>{sequence}</ExternalLink>
-        {` differs from that shown. Reason: ${sequenceCautionType} `}
-        {note}
-        {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
-      </section>
-    ))}
-  </>
-);
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <>
+      {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
+        <section
+          className="text-block"
+          key={`${sequenceCautionType}-${sequence}`}
+        >
+          {`The sequence `}
+          <ExternalLink
+            url={getUrlFromDatabaseInfo(
+              databaseInfoMaps,
+              'EMBL',
+              { ProteinId: sequence },
+              'ProteinId'
+            )}
+          >
+            {sequence}
+          </ExternalLink>
+          {` differs from that shown. Reason: ${sequenceCautionType} `}
+          {note}
+          {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+        </section>
+      ))}
+    </>
+  );
+};
 
 export const MassSpectrometryView = ({
   data,

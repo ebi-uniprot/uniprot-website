@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { getColorByType } from 'protvista-track';
-import { MSAInput } from '../components/AlignmentView';
+import { MSAInput } from '../types/alignment';
 import { FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 

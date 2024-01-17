@@ -3372,6 +3372,28 @@ exports[`Entry view should render 1`] = `
                 class="decorated-list-item__content"
               >
                 syn value
+                <button
+                  aria-controls="59"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    PROSITE-ProRule annotation
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="59"
+                />
               </div>
             </div>
           </li>
@@ -3436,7 +3458,7 @@ exports[`Entry view should render 1`] = `
           The sequence 
           <a
             class="external-link"
-            href="//www.ebi.ac.uk/ena/data/view/sequence"
+            href="https://www.ebi.ac.uk/ena/data/view/sequence"
             rel="noopener"
             target="_blank"
           >
@@ -3447,41 +3469,6 @@ exports[`Entry view should render 1`] = `
             />
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
-          <button
-            aria-controls="59"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="59"
-          />
-        </section>
-        <h3
-          data-article-id="mass_spectrometry"
-        >
-          Mass Spectrometry
-        </h3>
-        <section
-          class="text-block"
-        >
-          <h4>
-            isoform 1
-          </h4>
-          Molecular mass is 2.1 Da. Determined by LSI. note value
           <button
             aria-controls="60"
             aria-expanded="false"
@@ -3506,6 +3493,41 @@ exports[`Entry view should render 1`] = `
           />
         </section>
         <h3
+          data-article-id="mass_spectrometry"
+        >
+          Mass Spectrometry
+        </h3>
+        <section
+          class="text-block"
+        >
+          <h4>
+            isoform 1
+          </h4>
+          Molecular mass is 2.1 Da. Determined by LSI. note value
+          <button
+            aria-controls="61"
+            aria-expanded="false"
+            class="svg-colour-unreviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              automatic annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="61"
+          />
+        </section>
+        <h3
           data-article-id="rna_editing"
         >
           RNA Editing
@@ -3517,33 +3539,6 @@ exports[`Entry view should render 1`] = `
             Edited at position 
             <span>
               1 
-              <button
-                aria-controls="61"
-                aria-expanded="false"
-                class="svg-colour-unreviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="61"
-              />
-            </span>
-          </div>
-          <div>
-            <span>
-              value 
               <button
                 aria-controls="62"
                 aria-expanded="false"
@@ -3565,6 +3560,33 @@ exports[`Entry view should render 1`] = `
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
                 id="62"
+              />
+            </span>
+          </div>
+          <div>
+            <span>
+              value 
+              <button
+                aria-controls="63"
+                aria-expanded="false"
+                class="svg-colour-unreviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="63"
               />
             </span>
           </div>
@@ -4570,6 +4592,22 @@ exports[`Entry view should render for non-human entry 1`] = `
             GO annotations
           </h3>
           <div
+            class="quickgo-link"
+          >
+            <a
+              class="external-link"
+              href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
+              rel="noopener"
+              target="_blank"
+            >
+              Access the complete set of GO annotations on QuickGO 
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </div>
+          <div
             class="datatable-wrapper"
           >
             <protvista-datatable
@@ -4594,7 +4632,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       <a
                         class="external-link"
-                        href="//www.ebi.ac.uk/QuickGO/term/GO:0016798"
+                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
                         rel="noopener"
                         target="_blank"
                       >
@@ -4635,7 +4673,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       <a
                         class="external-link"
-                        href="//www.ebi.ac.uk/QuickGO/term/GO:0046872"
+                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
                         rel="noopener"
                         target="_blank"
                       >
@@ -4676,7 +4714,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       <a
                         class="external-link"
-                        href="//www.ebi.ac.uk/QuickGO/term/GO:0008152"
+                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0008152"
                         rel="noopener"
                         target="_blank"
                       >
@@ -4720,18 +4758,6 @@ exports[`Entry view should render for non-human entry 1`] = `
               Expand table
             </button>
           </div>
-          <a
-            class="external-link quickgo-link"
-            href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
-            rel="noopener"
-            target="_blank"
-          >
-            Complete GO annotation on QuickGO 
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
         </div>
         <h3
           data-article-id="keywords"
@@ -6729,520 +6755,522 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
           </li>
         </ul>
-        <section
-          class="sequence-container"
-        >
-          <div
-            class="action-bar button-group"
+        <div>
+          <section
+            class="sequence-container"
           >
             <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
+              class="action-bar button-group"
             >
-              <button
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="dropdown"
+              >
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Tools
+                </button>
+              </div>
+              <a
                 class="button tertiary"
+                download=""
+                href="/<testing>/api/uniprotkb/P0DTR4.fasta"
+              >
+                <test-file-stub />
+                Download
+              </a>
+              <button
+                class="button tertiary no-small"
+                title="Add 1 entry to the basket"
                 type="button"
               >
-                Tools
+                <test-file-stub />
+                Add
               </button>
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="dropdown"
+              >
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Highlight
+                </button>
+              </div>
             </div>
-            <a
-              class="button tertiary"
-              download=""
-              href="/<testing>/api/uniprotkb/P0DTR4.fasta"
+            <ul
+              class="info-list info-list--columns"
             >
-              <test-file-stub />
-              Download
-            </a>
-            <button
-              class="button tertiary no-small"
-              title="Add 1 entry to the basket"
-              type="button"
-            >
-              <test-file-stub />
-              Add
-            </button>
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
-            >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                Highlight
-              </button>
-            </div>
-          </div>
-          <ul
-            class="info-list info-list--columns"
-          >
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--compact"
-              >
+              <li>
                 <div
-                  class="decorated-list-item__title tiny"
+                  class="decorated-list-item decorated-list-item--compact"
                 >
-                  Length
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  772
-                </div>
-              </div>
-            </li>
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--compact"
-              >
-                <div
-                  class="decorated-list-item__title tiny"
-                >
-                  Mass (Da)
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  84,441
-                </div>
-              </div>
-            </li>
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--compact"
-              >
-                <div
-                  class="decorated-list-item__title tiny"
-                >
-                  Last updated
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  2019-11-13 v1
-                </div>
-              </div>
-            </li>
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--compact"
-              >
-                <div
-                  class="decorated-list-item__title tiny"
-                >
-                  <span
-                    data-article-id="checksum"
+                  <div
+                    class="decorated-list-item__title tiny"
                   >
-                    Checksum
-                  </span>
+                    Length
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    772
+                  </div>
                 </div>
+              </li>
+              <li>
                 <div
-                  class="decorated-list-item__content"
+                  class="decorated-list-item decorated-list-item--compact"
                 >
-                  55C1AD3F8018D0D7
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Mass (Da)
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    84,441
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-          <div
-            class="sequence"
-          >
-            <span
-              class="sequence__chunk"
-            >
-              MRNRRKAVSL
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              LTGLLVTAQL
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              FPTAALAADS
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SESALNKAPG
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              YQDFPAYYSD
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SAHADDQVTH
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              PDVVVLEEPW
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              NGYRYWAVYT
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              PNVMRISIYE
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              NPSIVASSDG
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VHWVEPEGLS
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              NPIEPQPPST
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              RYHNCDADMV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              YNAEYDAMMA
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              YWNWADDQGG
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              GVGAEVRLRI
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SYDGVHWGVP
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VTYDEMTRVW
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SKPTSDAERQ
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VADGEDDFIT
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              AIASPDRYDM
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              LSPTIVYDDF
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              RDVFILWANN
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              TGDVGYQNGQ
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              ANFVEMRYSD
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              DGITWGEPVR
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VNGFLGLDEN
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              GQQLAPWHQD
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VQYVPDLKEF
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VCISQCFAGR
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              NPDGSVLHLT
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              TSKDGVNWEQ
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VGTKPLLSPG
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              PDGSWDDFQI
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              YRSSFYYEPG
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SSAGDGTMRV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              WYSALQKDTN
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              NKMVADSSGN
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              LTIQAKSEDD
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              RIWRIGYAEN
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SFVEMMRVLL
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              DDPGYTTPAL
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VSGNSLMLSA
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              ETTSLPTGDV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              MKLETSFAPV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              DTSDQVVKYT
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SSDPDVATVD
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              EFGTITGVSV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              GSARIMAETR
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              EGLSDDLEIA
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VVENPYTLIP
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              QSNMTATATS
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VYGGTTEGPA
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SNVLDGNVRT
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              IWHTNYAPKD
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              ELPQSITVSF
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              DQPYTVGRFV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              YTPRQNGTNG
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              IISEYELYAI
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              HQDGSKDLVA
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              SGSDWALDAK
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              DKTVSFAPVE
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              AVGLELKAIA
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              GAGGFGTAAE
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              LNVYAYGPIE
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              PAPVYVPVDD
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              RDASLVFTGA
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              WNSDSNGSFY
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              EGTARYTNEI
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              GASVEFTFVG
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              TAIRWYGQND
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VNFGAAEVYV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              DGVLAGEVNV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              YGPAAAQQLL
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              FEADGLAYGK
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              HTIRIVCVSP
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              VVDFDYFSYV
-            </span>
-            <span
-              class="sequence__chunk"
-            >
-              GE
-            </span>
-          </div>
-        </section>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--compact"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Last updated
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    2019-11-13 v1
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--compact"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <span
+                      data-article-id="checksum"
+                    >
+                      Checksum
+                    </span>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    55C1AD3F8018D0D7
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div
+              class="sequence"
+            >
+              <span
+                class="sequence__chunk"
+              >
+                MRNRRKAVSL
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                LTGLLVTAQL
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                FPTAALAADS
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SESALNKAPG
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                YQDFPAYYSD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SAHADDQVTH
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                PDVVVLEEPW
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                NGYRYWAVYT
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                PNVMRISIYE
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                NPSIVASSDG
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VHWVEPEGLS
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                NPIEPQPPST
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                RYHNCDADMV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                YNAEYDAMMA
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                YWNWADDQGG
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                GVGAEVRLRI
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SYDGVHWGVP
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VTYDEMTRVW
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SKPTSDAERQ
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VADGEDDFIT
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                AIASPDRYDM
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                LSPTIVYDDF
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                RDVFILWANN
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                TGDVGYQNGQ
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                ANFVEMRYSD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                DGITWGEPVR
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VNGFLGLDEN
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                GQQLAPWHQD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VQYVPDLKEF
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VCISQCFAGR
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                NPDGSVLHLT
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                TSKDGVNWEQ
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VGTKPLLSPG
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                PDGSWDDFQI
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                YRSSFYYEPG
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SSAGDGTMRV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                WYSALQKDTN
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                NKMVADSSGN
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                LTIQAKSEDD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                RIWRIGYAEN
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SFVEMMRVLL
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                DDPGYTTPAL
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VSGNSLMLSA
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                ETTSLPTGDV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                MKLETSFAPV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                DTSDQVVKYT
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SSDPDVATVD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                EFGTITGVSV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                GSARIMAETR
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                EGLSDDLEIA
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VVENPYTLIP
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                QSNMTATATS
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VYGGTTEGPA
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SNVLDGNVRT
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                IWHTNYAPKD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                ELPQSITVSF
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                DQPYTVGRFV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                YTPRQNGTNG
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                IISEYELYAI
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                HQDGSKDLVA
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SGSDWALDAK
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                DKTVSFAPVE
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                AVGLELKAIA
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                GAGGFGTAAE
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                LNVYAYGPIE
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                PAPVYVPVDD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                RDASLVFTGA
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                WNSDSNGSFY
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                EGTARYTNEI
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                GASVEFTFVG
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                TAIRWYGQND
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VNFGAAEVYV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                DGVLAGEVNV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                YGPAAAQQLL
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                FEADGLAYGK
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                HTIRIVCVSP
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                VVDFDYFSYV
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                GE
+              </span>
+            </div>
+          </section>
+        </div>
         <h3
           data-article-id="keywords"
         >

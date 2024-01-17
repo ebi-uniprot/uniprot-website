@@ -22,7 +22,7 @@ type KeywordItempProps = {
   value?: string;
 };
 
-export const KeywordItem = ({ id, value }: KeywordItempProps) => {
+const KeywordItem = ({ id, value }: KeywordItempProps) => {
   if (!id || !value) {
     return null;
   }

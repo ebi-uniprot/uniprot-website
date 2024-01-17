@@ -13,6 +13,8 @@ import useMatchMedia from '../../hooks/useMatchMedia';
 import useStructuredData from '../../hooks/useStructuredData';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+import description from '../../../app/config/description';
+import * as socialUrls from '../../../app/config/socialUrls';
 
 import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
 
@@ -127,6 +129,13 @@ const organizationSchema: WithContext<Organization> = {
   '@type': 'Organization',
   url: 'https://www.uniprot.org',
   logo: ['https://www.uniprot.org/android-chrome-512x512.png', Logo],
+  name: 'UniProt',
+  description,
+  sameAs: Object.values(socialUrls),
+  contactPoint: {
+    '@type': 'ContactPoint',
+    url: 'https://www.uniprot.org/contact',
+  },
 };
 
 const UniProtHeader = () => {

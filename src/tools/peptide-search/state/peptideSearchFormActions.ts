@@ -3,6 +3,7 @@ import { action } from 'typesafe-actions';
 import {
   PeptideSearchFields,
   PeptideSearchFormValue,
+  PeptideSearchFormValues,
 } from '../config/PeptideSearchFormData';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';
@@ -20,4 +21,6 @@ export const updatePeptideSequences = (peps: string) =>
 
 export const updateSending = () => action(UPDATE_SENDING);
 
-export const resetFormState = () => action(RESET);
+export const resetFormState = (
+  formValues?: Readonly<PeptideSearchFormValues>
+) => action(RESET, formValues);

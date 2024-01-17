@@ -1,13 +1,13 @@
-import {
-  exactMatchSearchTerms,
-  modifyQueryWithSuggestions,
-  SearchTextLink,
-} from './SearchSuggestions';
+import { SearchTextLink } from './SearchTextLink';
 
 import useDataApi from '../../hooks/useDataApi';
 
 import { stringifyUrl } from '../../utils/url';
 import apiUrls from '../../config/apiUrls';
+import {
+  exactMatchSearchTerms,
+  modifyQueryWithSuggestions,
+} from '../../utils/searchSuggestions';
 
 import { Namespace } from '../../types/namespaces';
 import { SearchResults } from '../../types/results';

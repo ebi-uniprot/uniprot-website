@@ -5,12 +5,13 @@ import { ExternalLink } from 'franklin-sites';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import SimilarityView from './SimilarityView';
 
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
 import {
   getEntryPath,
   getEntryPathFor,
   allEntryPages,
 } from '../../../app/config/urls';
-import externalUrls from '../../../shared/config/externalUrls';
 import {
   getTextProcessingParts,
   reAC,
@@ -21,6 +22,7 @@ import {
   rePubMedCapture,
   reDbSnpCapture,
 } from '../../utils/regexes';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import {
@@ -49,101 +51,114 @@ type RichTextProps = {
   noLink?: boolean;
 };
 
-export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
-  <>
-    {getTextProcessingParts(children)?.map((part, index, mappedArr) => {
-      if (!noLink) {
-        const pubMedMatch = part.match(rePubMedCapture);
-        if (pubMedMatch?.groups) {
-          // PubMed ID, insert a link
-          // eg A0A075B6S6
-          const { pmid } = pubMedMatch.groups;
+export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  return (
+    <>
+      {getTextProcessingParts(children)?.map((part, index, mappedArr) => {
+        if (!noLink) {
+          const pubMedMatch = part.match(rePubMedCapture);
+          if (pubMedMatch?.groups) {
+            // PubMed ID, insert a link
+            // eg A0A075B6S6
+            const { pmid } = pubMedMatch.groups;
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                PubMed:
+                <Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
+              </Fragment>
+            );
+          }
+          const accession = part.match(reUniProtKBAccession)?.[0];
+          if (reAC.test(part) && accession) {
+            // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
+            // eg A0A075B6S6
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                {/* Somehow the part kept "AC ", so put it back */}
+                {part.startsWith('AC ') ? `AC ` : ''}
+                <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                  {accession}
+                </Link>
+              </Fragment>
+            );
+          }
+          const isoformMatch = part.match(reIsoform)?.[0];
+          if (isoformMatch) {
+            const [text, isoform] = isoformMatch.split(' ');
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                {text}{' '}
+                {/* eslint-disable-next-line uniprot-website/use-config-location */}
+                <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
+              </Fragment>
+            );
+          }
+          const dbSnpMatch = part.match(reDbSnpCapture);
+          if (dbSnpMatch?.groups) {
+            const { rsid } = dbSnpMatch.groups;
+            return (
+              <Fragment key={rsid}>
+                dbSNP:
+                <ExternalLink
+                  url={getUrlFromDatabaseInfo(databaseInfoMaps, 'dbSNP', {
+                    id: rsid,
+                  })}
+                >
+                  {rsid}
+                </ExternalLink>
+              </Fragment>
+            );
+          }
+        }
+        if (reSubscript.test(part)) {
+          // Exceptional case to handle scientific notations present in kinetic specific constants. Example: 5.38x10(2) has be to superscript
+          if (mappedArr[index - 1].endsWith('x10')) {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <sup key={index}>{part.substring(1, part.length - 1)}</sup>
+            );
+          }
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={index}>
-              PubMed:
-              <Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
-            </Fragment>
+            <sub key={index}>{part.substring(1, part.length - 1)}</sub>
           );
         }
-        const accession = part.match(reUniProtKBAccession)?.[0];
-        if (reAC.test(part) && accession) {
-          // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
-          // eg A0A075B6S6
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={index}>
-              {/* Somehow the part kept "AC ", so put it back */}
-              {part.startsWith('AC ') ? `AC ` : ''}
-              <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-                {accession}
-              </Link>
-            </Fragment>
-          );
-        }
-        const isoformMatch = part.match(reIsoform)?.[0];
-        if (isoformMatch) {
-          const [text, isoform] = isoformMatch.split(' ');
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={index}>
-              {text}{' '}
-              {/* eslint-disable-next-line uniprot-website/use-config-location */}
-              <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
-            </Fragment>
-          );
-        }
-        const dbSnpMatch = part.match(reDbSnpCapture);
-        if (dbSnpMatch?.groups) {
-          const { rsid } = dbSnpMatch.groups;
-          return (
-            <Fragment key={rsid}>
-              dbSNP:
-              <ExternalLink url={externalUrls.dbSNP(rsid)}>{rsid}</ExternalLink>
-            </Fragment>
-          );
-        }
-      }
-      if (reSubscript.test(part)) {
-        // Exceptional case to handle scientific notations present in kinetic specific constants. Example: 5.38x10(2) has be to superscript
-        if (mappedArr[index - 1].endsWith('x10')) {
+        if (reSuperscript.test(part)) {
           return (
             // eslint-disable-next-line react/no-array-index-key
             <sup key={index}>{part.substring(1, part.length - 1)}</sup>
           );
         }
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <sub key={index}>{part.substring(1, part.length - 1)}</sub>
-        );
-      }
-      if (reSuperscript.test(part)) {
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <sup key={index}>{part.substring(1, part.length - 1)}</sup>
-        );
-      }
-      // On blocks starting with "). " replace the whitespaces with <br />
-      if (needsNewLineRE.test(part)) {
-        // add new line before adding the rest of the plain text
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            ).
-            <br />
-            {part.replace(needsNewLineRE, '')}
-          </Fragment>
-        );
-      }
-      // If the last section doesn't end with a period, add it
-      if (addPeriod && index + 1 === mappedArr.length && !part.endsWith('.')) {
-        return `${part}.`;
-      }
-      // use plain text as such
-      return part;
-    })}
-  </>
-);
+        // On blocks starting with "). " replace the whitespaces with <br />
+        if (needsNewLineRE.test(part)) {
+          // add new line before adding the rest of the plain text
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              ).
+              <br />
+              {part.replace(needsNewLineRE, '')}
+            </Fragment>
+          );
+        }
+        // If the last section doesn't end with a period, add it
+        if (
+          addPeriod &&
+          index + 1 === mappedArr.length &&
+          !part.endsWith('.')
+        ) {
+          return `${part}.`;
+        }
+        // use plain text as such
+        return part;
+      })}
+    </>
+  );
+};
 
 type TextViewProps = {
   comments: TextWithEvidence[];

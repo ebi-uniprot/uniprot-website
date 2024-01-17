@@ -11,8 +11,9 @@ import {
   getEndCoordinate,
   createGappedFeature,
 } from '../utils/sequences';
+import { handleEvent } from './Wrapped';
 
-import { AlignmentComponentProps, handleEvent } from './AlignmentView';
+import { AlignmentComponentProps } from '../types/alignment';
 
 import './styles/alignment-view.scss';
 

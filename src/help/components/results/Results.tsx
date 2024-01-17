@@ -24,7 +24,7 @@ import {
 import { stringifyQuery } from '../../../shared/utils/url';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
+import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';
 
 import styles from './styles/results.module.scss';
 

@@ -7,6 +7,10 @@
   bottom: -$global-padding;
   // Override .button-group's margin
   margin-block-end: 0;
+
+  div:first-child {
+    margin-right: auto;
+  }
 }
 
 .not-selectable {
@@ -34,4 +38,8 @@
   label {
     margin: 0.5rem;
   }
+}
+
+.multiple-values-section {
+  font-size: small;
 }

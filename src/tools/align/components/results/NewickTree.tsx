@@ -348,7 +348,7 @@ const NewickTree: FC<NewickTreeProps> = ({
           <g className="links" />
           <g className="labels">
             {root.leaves().map(({ data: { name } }) => {
-              const accession = extractAccession(name);
+              const accession = extractAccession(name)?.accession;
               return (
                 <foreignObject className="label" key={name}>
                   <AlignLabel

@@ -95,6 +95,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "dbSNP",
       "ClinGen",
       "GenCC",
+      "Alzforum",
     ],
     "MISC": [
       "ChiTaRS",
@@ -108,6 +109,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "Pharos",
       "RNAct",
       "BioGRID-ORCS",
+      "eMIND",
+      "PGenN",
+      "ORCID",
+      "PubTator",
     ],
     "ORG": [
       "ArachnoServer",
@@ -150,6 +155,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ZFIN",
       "HUGE",
       "Rouge",
+      "IC4R",
     ],
     "OTG": [
       "GO",
@@ -208,6 +214,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PRIDE",
       "ProMEX",
       "ProteomicsDB",
+      "Pumba",
       "TopDownProteomics",
       "jPOST",
       "MassIVE",
@@ -231,6 +238,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CCDS",
       "PIR",
       "RefSeq",
+      "GeneRIF",
     ],
   },
   "databaseNameToCategory": {
@@ -238,6 +246,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "AGR": "ORG",
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
+    "Alzforum": "GVD",
     "Antibodypedia": "PAM",
     "ArachnoServer": "ORG",
     "Araport": "ORG",
@@ -300,6 +309,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "Gene3D": "FMD",
     "GeneCards": "ORG",
     "GeneID": "GMA",
+    "GeneRIF": "SEQ",
     "GeneReviews": "ORG",
     "GeneTree": "PLG",
     "GeneWiki": "MISC",
@@ -315,6 +325,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "HOGENOM": "PLG",
     "HPA": "ORG",
     "HUGE": "ORG",
+    "IC4R": "ORG",
     "IDEAL": "FMD",
     "IMGT_GENE-DB": "PFAM",
     "InParanoid": "PLG",
@@ -342,6 +353,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "NIAGADS": "ORG",
     "OGP": "2DG",
     "OMA": "PLG",
+    "ORCID": "MISC",
     "OpenTargets": "ORG",
     "Orphanet": "ORG",
     "OrthoDB": "PLG",
@@ -352,6 +364,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "PDBe-KB": "3DS",
     "PDBj": "3DS",
     "PDBsum": "3DS",
+    "PGenN": "MISC",
     "PHI-base": "MISC",
     "PIR": "SEQ",
     "PIRSF": "FMD",
@@ -375,6 +388,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "Proteomes": "PRM",
     "ProteomicsDB": "PROTEOMIC",
     "PseudoCAP": "ORG",
+    "PubTator": "MISC",
+    "Pumba": "PROTEOMIC",
     "RCSB-PDB": "3DS",
     "REBASE": "PFAM",
     "REPRODUCTION-2DPAGE": "2DG",
@@ -420,6 +435,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "ZFIN": "ORG",
     "dbSNP": "GVD",
     "dictyBase": "ORG",
+    "eMIND": "MISC",
     "eggNOG": "PLG",
     "euHCVdb": "ORG",
     "iPTMnet": "PTM",
@@ -474,6 +490,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "AlphaFoldDB",
       "name": "AlphaFoldDB",
       "uriLink": "https://alphafold.ebi.ac.uk/entry/%id",
+    },
+    "Alzforum": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "GVD",
+      "displayName": "Alzforum",
+      "name": "Alzforum",
+      "uriLink": "https://www.alzforum.org/node/%id",
     },
     "Antibodypedia": {
       "attributes": [
@@ -1219,7 +1247,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "implicit": true,
       "linkedReason": "CC:SIMILARITY: Belongs to the G-protein coupled receptor",
       "name": "GPCRDB",
-      "uriLink": "https://gpcrdb.org/protein/%uniprotId/",
+      "uriLink": "https://gpcrdb.org/protein/%primaryAccession/",
     },
     "GenAtlas": {
       "attributes": [
@@ -1311,6 +1339,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "GeneID",
       "name": "GeneID",
       "uriLink": "https://www.ncbi.nlm.nih.gov/gene/%id",
+    },
+    "GeneRIF": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "SEQ",
+      "displayName": "GeneRIF",
+      "name": "GeneRIF",
+      "uriLink": "https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=%id",
     },
     "GeneReviews": {
       "attributes": [
@@ -1503,6 +1543,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "linkedReason": "GN:KIAAnnnn, Human Entries, can be multiple",
       "name": "HUGE",
       "uriLink": "http://www.kazusa.or.jp/huge/gfpage/%gene",
+    },
+    "IC4R": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "ORG",
+      "displayName": "IC4R",
+      "name": "IC4R",
+      "uriLink": "http://ic4r.org/osGene/%id",
     },
     "IDEAL": {
       "attributes": [
@@ -1847,6 +1899,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "OMA",
       "uriLink": "https://omabrowser.org/oma/group/%primaryAccession",
     },
+    "ORCID": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "ORCID",
+      "name": "ORCID",
+      "uriLink": "https://orcid.org/%id",
+    },
     "OpenTargets": {
       "attributes": [
         {
@@ -1982,6 +2046,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "PDBsum",
       "name": "PDBsum",
       "uriLink": "https://www.ebi.ac.uk/pdbsum/%id",
+    },
+    "PGenN": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "PGenN",
+      "name": "PGenN",
+      "uriLink": "https://research.bioinformatics.udel.edu/itextmine/pgenn/doc/pgenn/medline/%id",
     },
     "PHI-base": {
       "attributes": [
@@ -2274,6 +2350,30 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "PseudoCAP",
       "name": "PseudoCAP",
       "uriLink": "https://www.pseudomonas.com/feature/show?locus_tag=%id",
+    },
+    "PubTator": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "PubTator",
+      "name": "PubTator",
+      "uriLink": "https://www.ncbi.nlm.nih.gov/research/pubtator/?query=%id",
+    },
+    "Pumba": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "PROTEOMIC",
+      "displayName": "Pumba",
+      "name": "Pumba",
+      "uriLink": "https://pumba.dcsr.unil.ch/lanes/%id",
     },
     "RCSB-PDB": {
       "attributes": [
@@ -2596,7 +2696,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "TAIR",
       "name": "TAIR",
-      "uriLink": "https://www.arabidopsis.org/servlets/TairObject?accession=%id",
+      "uriLink": "https://www.arabidopsis.org/servlets/TairObject?type=locus&name=%id",
     },
     "TCDB": {
       "attributes": [
@@ -2859,6 +2959,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "dictyBase",
       "uriLink": "http://dictybase.org/db/cgi-bin/gene_page.pl?primary_id=%id",
     },
+    "eMIND": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "eMIND",
+      "name": "eMIND",
+      "uriLink": "https://research.bioinformatics.udel.edu/itextmine/integrate/doc/emind/medline/%id",
+    },
     "eggNOG": {
       "attributes": [
         {
@@ -2923,10 +3035,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   "entrySectionToDatabaseCategoryOrder": {
     "disease_variants": [
       "ORG",
+      "MISC",
       "CHEMISTRY",
       "GVD",
       "PFAM",
-      "MISC",
     ],
     "expression": [
       "GEP",
@@ -2952,6 +3064,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "interaction": [
       "PPI",
       "CHEMISTRY",
+      "MISC",
     ],
     "names_and_taxonomy": [
       "ORG",
@@ -2980,6 +3093,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OpenTargets",
       "Orphanet",
       "PharmGKB",
+      "Pharos",
       "ChEMBL",
       "DrugBank",
       "DrugCentral",
@@ -3011,6 +3125,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "Pharos",
       "RNAct",
       "BioGRID-ORCS",
+      "eMIND",
+      "PGenN",
+      "ORCID",
+      "PubTator",
       "DNASU",
       "ABCD",
       "Antibodypedia",
@@ -3055,6 +3173,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ZFIN",
       "HUGE",
       "Rouge",
+      "IC4R",
       "HUGE",
       "Rouge",
       "GenAtlas",
@@ -3131,6 +3250,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MINT",
       "STRING",
       "BindingDB",
+      "RNAct",
     ],
     "names_and_taxonomy": [
       "AGR",
@@ -3170,6 +3290,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PRIDE",
       "ProMEX",
       "ProteomicsDB",
+      "Pumba",
       "TopDownProteomics",
       "jPOST",
       "MassIVE",
@@ -3199,6 +3320,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CCDS",
       "PIR",
       "RefSeq",
+      "GeneRIF",
       "Ensembl",
       "EnsemblBacteria",
       "EnsemblFungi",

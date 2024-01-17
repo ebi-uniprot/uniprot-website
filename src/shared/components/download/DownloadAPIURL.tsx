@@ -5,7 +5,7 @@ import {
   ExternalLink,
   LongNumber,
 } from 'franklin-sites';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -21,7 +21,10 @@ import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 import { splitUrl, stringifyUrl } from '../../utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED } from './downloadUtils';
+import {
+  DOWNLOAD_SIZE_LIMIT,
+  DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED,
+} from '../../config/limits';
 import { proteinsApiPrefix } from '../../config/apiUrls';
 
 import { Namespace } from '../../types/namespaces';
@@ -45,12 +48,8 @@ export const getSearchURL = (streamURL: string, batchSize = 500) => {
   );
 };
 
-// NOTE: update as needed if backend limitations change!
-export const DOWNLOAD_SIZE_LIMIT = 10_000_000 as const;
-
 type Props = {
   apiURL: string;
-  ftpURL?: string | null;
   onCopy: () => void;
   disableSearch?: boolean;
   disableStream?: boolean;
@@ -59,13 +58,13 @@ type Props = {
 
 const DownloadAPIURL = ({
   apiURL,
-  ftpURL,
   onCopy,
   disableSearch,
   disableStream,
   isEntry,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
+  const copyRef = useRef<HTMLButtonElement>(null);
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
     async (text: string) => {
@@ -82,6 +81,12 @@ const DownloadAPIURL = ({
     },
     [dispatch, onCopy]
   );
+
+  useEffect(() => {
+    if (copyRef.current) {
+      copyRef.current.focus();
+    }
+  }, []);
 
   const isStreamEndpoint = apiURL.includes('/stream');
   const isIdMapping = apiURL.includes('/id-mapping/');
@@ -111,6 +116,7 @@ const DownloadAPIURL = ({
             API Documentation
           </ExternalLink>
           <Button
+            ref={copyRef}
             variant="primary"
             className={styles['copy-button']}
             onClick={() => handleCopyURL(apiURL)}
@@ -138,31 +144,6 @@ const DownloadAPIURL = ({
 
   return (
     <div className={styles['api-url']} ref={scrollRef}>
-      {ftpURL && (
-        <>
-          <br />
-          <h4>FTP URL</h4>
-          This file is available compressed on the{' '}
-          <Link
-            to={generatePath(LocationToPath[Location.HelpEntry], {
-              accession: 'downloads',
-            })}
-          >
-            UniProt FTP server
-          </Link>
-          <CodeBlock lightMode>{ftpURL}</CodeBlock>
-          <section className="button-group">
-            <Button
-              variant="primary"
-              className={styles['copy-button']}
-              onClick={() => handleCopyURL(ftpURL)}
-            >
-              <CopyIcon />
-              Copy
-            </Button>
-          </section>
-        </>
-      )}
       <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
       {isStreamEndpoint &&
         'This endpoint is resource-heavy but will return all requested results.'}
@@ -210,6 +191,7 @@ const DownloadAPIURL = ({
           <section className="button-group">
             <Button
               variant="primary"
+              ref={copyRef}
               className={styles['copy-button']}
               onClick={() => handleCopyURL(searchURL)}
             >

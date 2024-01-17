@@ -78,7 +78,7 @@ export const sequenceFeaturesToColumns: Readonly<
   'Alternative sequence': UniProtKBColumn.ftVarSeq,
 };
 
-export const featuresCategories = Object.keys(
+const featuresCategories = Object.keys(
   sequenceFeaturesToColumns
 ) as FeatureType[];
 
@@ -111,17 +111,20 @@ export const convertSequence = (
   }
 
   // Deal with flags
-  if (data.proteinDescription && data.proteinDescription.flag) {
-    sequenceData.flag = data.proteinDescription.flag;
+  sequenceData.flag = data.proteinDescription?.flag;
 
-    sequenceData.status = fragmentFlags.has(data.proteinDescription.flag)
-      ? data.proteinDescription.flag
+  sequenceData.status =
+    data.proteinDescription?.flag &&
+    fragmentFlags.has(data.proteinDescription.flag)
+      ? // Split to exclude precursor flag which is handled in sequenceData.processing below
+        data.proteinDescription.flag.split(',')[0]
       : 'Complete';
 
-    sequenceData.processing = precursorFlags.has(data.proteinDescription.flag)
+  sequenceData.processing =
+    data.proteinDescription?.flag &&
+    precursorFlags.has(data.proteinDescription.flag)
       ? 'The displayed sequence is further processed into a mature form.'
       : undefined;
-  }
 
   // Add the last update
   if (data.entryAudit) {

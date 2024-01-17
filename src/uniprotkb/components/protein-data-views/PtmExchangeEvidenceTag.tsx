@@ -4,7 +4,7 @@ import { groupBy } from 'lodash-es';
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink from '../../config/evidenceUrls';
+import EvidenceLink from './EvidenceLink';
 
 import {
   getEvidenceCodeData,
@@ -18,11 +18,7 @@ import { EvidenceTagSourceTypes } from './UniProtKBEvidenceTag';
 
 import style from './styles/ptmexchange-evidence-tag.module.scss';
 
-export const PtmExchangeEvidence = ({
-  evidences,
-}: {
-  evidences?: Evidence[];
-}) => {
+const PtmExchangeEvidence = ({ evidences }: { evidences?: Evidence[] }) => {
   if (!evidences?.length) {
     return null;
   }

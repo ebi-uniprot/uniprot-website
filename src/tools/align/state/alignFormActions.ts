@@ -1,7 +1,11 @@
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { action } from 'typesafe-actions';
 
-import { AlignFormValue, AlignFields } from '../config/AlignFormData';
+import {
+  AlignFormValue,
+  AlignFields,
+  AlignFormValues,
+} from '../config/AlignFormData';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';
 export const UPDATE_PARSED_SEQUENCES = 'UPDATE_PARSED_SEQUENCES';
@@ -18,4 +22,5 @@ export const updateParsedSequences = (parsedSequences: SequenceObject[]) =>
 
 export const updateSending = () => action(UPDATE_SENDING);
 
-export const resetFormState = () => action(RESET);
+export const resetFormState = (formValues?: Readonly<AlignFormValues>) =>
+  action(RESET, formValues);

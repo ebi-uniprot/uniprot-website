@@ -2,10 +2,9 @@ import { memo } from 'react';
 import { Card } from 'franklin-sites';
 
 import { hasContent } from '../../../shared/utils/utils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';

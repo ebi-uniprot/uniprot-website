@@ -76,7 +76,7 @@ export type UniRefAPIModel = {
   members?: UniRefMember[];
 };
 
-export const identityLevels = [50, 90, 100] as const;
+const identityLevels = [50, 90, 100] as const;
 export type Identity = typeof identityLevels[number];
 
 export type UniRefUIModel<

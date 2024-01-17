@@ -11,14 +11,14 @@ import GenomicLoc, { getEnsemblLink } from './GenomicLoc';
 
 import useDatabaseInfoMaps from '../../../../../shared/hooks/useDatabaseInfoMaps';
 
-import { processUrlTemplate } from '../../../protein-data-views/XRefView';
+import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
 import { pluralise } from '../../../../../shared/utils/utils';
 import listFormat from '../../../../../shared/utils/listFormat';
 import { getEntryPathFor } from '../../../../../app/config/urls';
 import { sortExons } from './utils';
 
 import { Namespace } from '../../../../../shared/types/namespaces';
-import { TabLocation } from '../../Entry';
+import { TabLocation } from '../../../../types/entry';
 import { FlatGenomicEntry } from './types';
 import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
 

@@ -3,15 +3,16 @@ import { LocationDescriptorObject } from 'history';
 import { getEntryPath } from '../../app/config/urls';
 
 import { pluralise } from '../../shared/utils/utils';
+import { getEntrySectionNameAndId } from '../utils/entrySection';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { TabLocation } from '../components/entry/Entry';
+import { TabLocation } from '../types/entry';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import {
   EntryType,
   getEntryTypeFromString,
 } from '../../shared/components/entry/EntryTypeIcon';
-import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
+import EntrySection from '../types/entrySection';
 
 enum highlightSection {
   domains = 'domain',

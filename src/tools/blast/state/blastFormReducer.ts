@@ -2,13 +2,15 @@ import { sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { ActionType } from 'typesafe-actions';
 
-import { BLAST_LIMIT, getAutoMatrixFor } from '../components/BlastForm';
+import { getAutoMatrixFor } from '../utils';
 
 import * as blastFormActions from './blastFormActions';
 
+import { BLAST_LIMIT } from '../../../shared/config/limits';
+
 import { BlastFormValues, BlastFields } from '../config/BlastFormData';
 
-type BlastFormState = {
+export type BlastFormState = {
   formValues: BlastFormValues;
   parsedSequences: SequenceObject[];
   submitDisabled: boolean;
@@ -46,7 +48,7 @@ export const getBlastFormInitialState = (
   sending: false,
 });
 
-export const blastFormParsedSequencesReducer = (
+const blastFormParsedSequencesReducer = (
   state: BlastFormState,
   {
     payload: parsedSequences,
@@ -130,7 +132,7 @@ export const blastFormParsedSequencesReducer = (
   };
 };
 
-export const blastFormUpdateSelectedReducer = (
+const blastFormUpdateSelectedReducer = (
   state: BlastFormValues,
   {
     payload: { id, selected },
@@ -162,7 +164,7 @@ export const getBlastFormDataReducer =
           sending: true,
         };
       case blastFormActions.RESET:
-        return getBlastFormInitialState(defaultFormValues);
+        return getBlastFormInitialState(action.payload || defaultFormValues);
       default:
         return state;
     }

@@ -12,7 +12,7 @@ import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 
 const viewModes: Set<ViewMode> = new Set(['cards', 'table', null]);
 export type ViewMode = 'table' | 'cards' | null;
-export const defaultViewMode: ViewMode = null;
+const defaultViewMode: ViewMode = null;
 
 // TODO: eventually remove it
 // This is just to convert for people currently using the website as they

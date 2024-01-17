@@ -4,11 +4,7 @@ import { Loader, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import AlignmentView, {
-  MSAInput,
-  View,
-  Tool,
-} from '../../../components/AlignmentView';
+import AlignmentView, { View, Tool } from '../../../components/AlignmentView';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -21,6 +17,7 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { MSAInput } from '../../../types/alignment';
 
 import './styles/HSPDetailPanel.scss';
 
@@ -33,7 +30,7 @@ export type HSPDetailPanelProps = {
   namespace: Namespace;
 };
 
-export const convertHSPtoMSAInputs = (
+const convertHSPtoMSAInputs = (
   hsp: BlastHsp,
   queryLength: number,
   hitLength: number,

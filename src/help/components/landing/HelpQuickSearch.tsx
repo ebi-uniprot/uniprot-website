@@ -15,7 +15,7 @@ import {
 } from '../../../app/config/urls';
 import { stringifyQuery } from '../../../shared/utils/url';
 
-import { HelpSearchResponse } from '../../adapters/helpConverter';
+import { HelpSearchResponse } from '../../types/apiModel';
 
 import styles from './styles/help-quick-search.module.scss';
 

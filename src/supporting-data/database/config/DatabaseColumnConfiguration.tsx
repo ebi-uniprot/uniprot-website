@@ -40,7 +40,7 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [DatabaseColumn.id];
 
-export const DatabaseColumnConfiguration: ColumnConfiguration<
+const DatabaseColumnConfiguration: ColumnConfiguration<
   DatabaseColumn,
   Partial<DatabaseAPIModel>
 > = new Map();

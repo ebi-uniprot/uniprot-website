@@ -1,4 +1,4 @@
-export enum EntrySection {
+enum EntrySection {
   Overview = 'overview',
   Components = 'components',
   Publications = 'publications',
