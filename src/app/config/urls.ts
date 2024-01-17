@@ -76,6 +76,7 @@ export enum Location {
   // Help
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
+  Documentation = 'Documentation',
   // Release Notes
   ReleaseNotesEntry = 'ReleaseNotesEntry',
   ReleaseNotesResults = 'ReleaseNotesResults',
@@ -132,6 +133,7 @@ export const LocationToPath: Record<Location, string> = {
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
+  [Location.Documentation]: '/documentation',
   // News
   [Location.ReleaseNotesEntry]: '/release-notes/:accession+',
   [Location.ReleaseNotesResults]: '/release-notes',

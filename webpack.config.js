@@ -156,6 +156,7 @@ const getConfigFor = ({
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
             ),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
+            fs.realpathSync(`${__dirname}/node_modules/swagger-ui/dist`),
           ],
           use: [
             {
