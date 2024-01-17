@@ -1,4 +1,4 @@
-import { GroupBy } from '../../config/apiUrls';
+import { GroupBy } from '../../config/apiUrls/apiUrls';
 
 export const getPercentageLabel = (percentage: number) => {
   const percentageLabel = percentage?.toFixed(0);

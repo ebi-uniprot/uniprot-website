@@ -20,7 +20,7 @@ import AutocompleteWrapper from '../../../query-builder/components/AutocompleteW
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
-import apiUrls, { GroupBy } from '../../config/apiUrls';
+import apiUrls, { GroupBy } from '../../config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';

@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import { stringifyUrl } from '../../../shared/utils/url';
 
-import { GroupBy } from '../../config/apiUrls';
+import { GroupBy } from '../../config/apiUrls/apiUrls';
 
 const groupByLabelAndParams: [string, GroupBy][] = [
   ['Taxonomy', 'taxonomy'],

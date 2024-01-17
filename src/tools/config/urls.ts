@@ -132,6 +132,7 @@ export function asyncDownloadUrlObjectCreator(
   );
   return deepFreeze({
     runUrl: (options) =>
+      // All parameters need to go in the URL.
       getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),
     statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
     resultUrl: (jobId) => joinUrl(baseURL, 'results', jobId),
