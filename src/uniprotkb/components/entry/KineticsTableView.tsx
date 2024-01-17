@@ -199,7 +199,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
   return { km, vmax, notes, kcatEvidences };
 };
 
-export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
+const KineticsTableView = ({ data }: { data: KineticParameters }) => {
   const { km, vmax, notes, kcatEvidences } = extractFromFreeText(data);
   const columns = ['pH', 'TEMPERATURE[C]', 'NOTES', 'EVIDENCE'];
 

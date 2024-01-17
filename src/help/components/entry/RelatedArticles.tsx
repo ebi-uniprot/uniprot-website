@@ -7,7 +7,7 @@ import usePagination from '../../../shared/hooks/usePagination';
 import { help as helpURL } from '../../../shared/config/apiUrls';
 import { pluralise } from '../../../shared/utils/utils';
 
-import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
+import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';
 
 const getIdKey = (article: HelpUIModel) => article.id;
 

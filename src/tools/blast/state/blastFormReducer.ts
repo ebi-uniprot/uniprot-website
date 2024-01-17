@@ -48,7 +48,7 @@ export const getBlastFormInitialState = (
   sending: false,
 });
 
-export const blastFormParsedSequencesReducer = (
+const blastFormParsedSequencesReducer = (
   state: BlastFormState,
   {
     payload: parsedSequences,
@@ -132,7 +132,7 @@ export const blastFormParsedSequencesReducer = (
   };
 };
 
-export const blastFormUpdateSelectedReducer = (
+const blastFormUpdateSelectedReducer = (
   state: BlastFormValues,
   {
     payload: { id, selected },

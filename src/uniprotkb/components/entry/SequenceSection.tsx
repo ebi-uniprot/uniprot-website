@@ -2,9 +2,7 @@ import { memo } from 'react';
 import { Card, Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -18,6 +16,7 @@ import ComputationalyMappedSequences from './ComputationallyMappedSequences';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { getEntryPath } from '../../../app/config/urls';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation } from '../../types/entry';

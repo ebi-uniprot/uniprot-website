@@ -91,6 +91,7 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
             sequence={sequence}
             height="20"
             filter-scroll
+            no-scroll
           />
           <filterElement.name
             for="variation-component"
@@ -100,6 +101,7 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
             id="variation-component"
             length={sequence.length}
             ref={protvistaVariationRef}
+            no-scroll
           />
         </div>
       )}

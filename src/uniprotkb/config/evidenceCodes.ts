@@ -81,7 +81,7 @@ const manualevidenceTagLabeler = (evidences: Evidence[]) => {
   return label;
 };
 
-export const ecoCodeToData = {
+const ecoCodeToData = {
   [ecoCode.EXP]: {
     manual: true,
     evidenceTagContentHeading: () => 'Manual assertion based on experiment',

@@ -7,12 +7,11 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
 import KeywordView from '../protein-data-views/KeywordView';
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
+import EntrySection from '../../types/entrySection';
 
 import { hasContent, pluralise } from '../../../shared/utils/utils';
 import { getEntryPath } from '../../../app/config/urls';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import { UIModel } from '../../adapters/sectionConverter';
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';

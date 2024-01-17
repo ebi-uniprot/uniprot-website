@@ -2,7 +2,7 @@ import { groupBy } from 'lodash-es';
 
 import { ExonMap, FlatGenomicEntry, GenomicEntry } from './types';
 
-export const sortIsoforms = (
+const sortIsoforms = (
   isoform1: { accession: string },
   isoform2: { accession: string }
 ) => {

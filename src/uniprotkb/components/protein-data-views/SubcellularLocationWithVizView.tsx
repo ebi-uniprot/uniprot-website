@@ -51,8 +51,7 @@ const isVirus = ([superkingdom]: Lineage | string[]) => {
   return superkingdom.scientificName === Superkingdom.Viruses;
 };
 
-export const getSubcellularLocationId = (id: string) =>
-  id.match(/SL-(\d+)/)?.[1];
+const getSubcellularLocationId = (id: string) => id.match(/SL-(\d+)/)?.[1];
 
 export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
 

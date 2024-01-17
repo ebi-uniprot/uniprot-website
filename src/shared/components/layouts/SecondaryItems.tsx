@@ -166,7 +166,7 @@ const ToolsDashboard = () => {
   );
 };
 
-export const Basket = () => {
+const Basket = () => {
   const [basket] = useBasket();
 
   const [display, setDisplay] = useState(false);

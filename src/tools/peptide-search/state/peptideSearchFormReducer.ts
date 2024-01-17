@@ -62,7 +62,7 @@ export const getPeptideSearchFormInitialState = (
   sending: false,
 });
 
-export const peptideSearchFormSequenceReducer = (
+const peptideSearchFormSequenceReducer = (
   state: PeptideSearchFormState,
   {
     payload: peptideSequences,
@@ -129,7 +129,7 @@ export const peptideSearchFormSequenceReducer = (
   };
 };
 
-export const peptideSearchFormUpdateSelectedReducer = (
+const peptideSearchFormUpdateSelectedReducer = (
   state: PeptideSearchFormValues,
   {
     payload: { id, selected },

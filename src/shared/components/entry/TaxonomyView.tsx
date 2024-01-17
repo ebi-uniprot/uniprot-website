@@ -22,7 +22,7 @@ import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProt
 
 import styles from './styles/taxonomy-view.module.css';
 
-export const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
+const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
   if (!taxonId) {
     return null;
   }

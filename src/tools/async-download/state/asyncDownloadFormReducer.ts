@@ -29,10 +29,8 @@ export const isExcel = (downloadUrlOptions: DownloadUrlOptions) =>
 export const isUncompressed = (downloadUrlOptions: DownloadUrlOptions) =>
   !downloadUrlOptions.compressed;
 
-export const isInvalid = (
-  name: string,
-  downloadUrlOptions: DownloadUrlOptions
-) => !name || isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions);
+const isInvalid = (name: string, downloadUrlOptions: DownloadUrlOptions) =>
+  !name || isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions);
 
 const getJobName = (
   count: number,
@@ -67,7 +65,7 @@ export const getAsyncDownloadFormInitialState = ({
   showConfirmation: false,
 });
 
-export const asyncDownloadFormUpdateUrlOptionsReducer = (
+const asyncDownloadFormUpdateUrlOptionsReducer = (
   state: AsyncDownloadFormState,
   {
     payload: { downloadUrlOptions },
@@ -96,7 +94,7 @@ export const asyncDownloadFormUpdateUrlOptionsReducer = (
   };
 };
 
-export const asyncDownloadFormUpdateSelectedReducer = (
+const asyncDownloadFormUpdateSelectedReducer = (
   state: AsyncDownloadFormState,
   {
     payload: { id, selected },

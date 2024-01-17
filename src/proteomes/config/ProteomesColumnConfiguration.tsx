@@ -49,7 +49,7 @@ export const defaultColumns = [
 export const primaryKeyColumns = [ProteomesColumn.upid];
 
 type Schema = ProteomesAPIModel | ProteomesUIModel;
-export const ProteomesColumnConfiguration: ColumnConfiguration<
+const ProteomesColumnConfiguration: ColumnConfiguration<
   ProteomesColumn,
   Schema
 > = new Map();

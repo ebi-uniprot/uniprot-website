@@ -127,7 +127,7 @@ export const goAspects: {
   },
 ];
 
-export const getAspect = (term: GOAspectName | GOAspectShort) =>
+const getAspect = (term: GOAspectName | GOAspectShort) =>
   goAspects.find(
     (aspectInfo) => aspectInfo.name === term || aspectInfo.short === term
   );
@@ -141,7 +141,7 @@ export const functionFeaturesToColumns: Readonly<
   Site: UniProtKBColumn.ftSite,
 };
 
-export const featureCategories = Object.keys(
+const featureCategories = Object.keys(
   functionFeaturesToColumns
 ) as FunctionFeatures[];
 

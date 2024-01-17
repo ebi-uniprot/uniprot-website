@@ -68,5 +68,3 @@ export const taxonomicScopeRenderer = {
   ),
   render: TaxonomicScope,
 };
-
-export default TaxonomicScope;

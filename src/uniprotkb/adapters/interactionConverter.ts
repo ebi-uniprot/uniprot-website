@@ -14,7 +14,7 @@ export type Interactant = {
   intActId: string;
 };
 
-export const convertInteraction = (
+const convertInteraction = (
   data: UniProtkbAPIModel,
   databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]

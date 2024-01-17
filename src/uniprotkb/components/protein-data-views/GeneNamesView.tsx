@@ -7,7 +7,7 @@ import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 
 import { ValueWithEvidence } from '../../types/modelTypes';
 
-export const geneAlternativeNamesView = (
+const geneAlternativeNamesView = (
   alternativeNames: ValueWithEvidence[],
   firstComma?: boolean
 ) => (
