@@ -7,7 +7,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import helpURL from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls';
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import {
   getLocationEntryPathFor,
@@ -139,7 +139,7 @@ const ArticleTitle = ({ id, firstVisible, isVisible }: ArticleTitleProps) => {
   const ref = useRef<HTMLAnchorElement>(null);
 
   const { data } = useDataApi<HelpEntryResponse>(
-    `${helpURL.accession(id)}?fields=title`
+    `${apiUrls.entry(id)}?fields=title`
   );
 
   useEffect(() => {

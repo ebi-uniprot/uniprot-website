@@ -23,10 +23,8 @@ import RelatedArticles from './RelatedArticles';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import {
-  help as helpURL,
-  news as newsURL,
-} from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import helpApiUrls from '../../config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
@@ -178,9 +176,9 @@ const HelpEntry = ({
   let url = null;
   if (!overrideContent) {
     if (isReleaseNotes) {
-      url = newsURL.accession(accession);
+      url = apiUrls.releaseNotes.entry(accession);
     } else {
-      url = helpURL.accession(accession);
+      url = helpApiUrls.entry(accession);
     }
   }
 

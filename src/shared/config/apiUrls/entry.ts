@@ -40,8 +40,3 @@ export const entryDownload = (
 
 export const sequenceFasta = (accession: string) =>
   `${entry(accession, Namespace.uniprotkb)}.fasta`;
-
-export const genecentric = (accession: string) =>
-  stringifyUrl(joinUrl(apiPrefix, 'genecentric/search'), {
-    query: `accession:${accession}`,
-  });
