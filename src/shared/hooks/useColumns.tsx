@@ -13,7 +13,7 @@ import useNS from './useNS';
 import useColumnNames from './useColumnNames';
 import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 
-import apiUrls from '../config/apiUrls';
+import apiUrls from '../config/apiUrls/apiUrls';
 import { getIdKeyForData } from '../utils/getIdKey';
 import {
   getParamsFromURL,
@@ -181,7 +181,7 @@ const useColumns = (
     // For now, assume no configure endpoint for supporting data
     // TODO: change this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
     namespace !== 'id-mapping' && mainNamespaces.has(namespace)
-      ? apiUrls.resultsFields(namespace)
+      ? apiUrls.configure.resultsFields(namespace)
       : null
   );
 

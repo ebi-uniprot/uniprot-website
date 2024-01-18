@@ -6,22 +6,23 @@ import { apiPrefix } from '../../../shared/config/apiUrls/apiPrefix';
 
 import { SelectedFacet } from '../../types/resultsTypes';
 
-export const entryPublications = (accession: string) =>
+export const entryPublicationsPrefix = (accession: string) =>
   joinUrl(apiPrefix, 'uniprotkb', accession, 'publications');
 
-type GetUniProtPublicationsQueryUrl = {
+type EntryPublications = {
   accession: string;
   facets?: string[];
   selectedFacets: SelectedFacet[];
   size?: number;
 };
-export const getUniProtPublicationsQueryUrl = ({
+
+export const entryPublications = ({
   accession,
   facets,
   selectedFacets,
   size,
-}: GetUniProtPublicationsQueryUrl) =>
-  stringifyUrl(entryPublications(accession), {
+}: EntryPublications) =>
+  stringifyUrl(entryPublicationsPrefix(accession), {
     facets: facets?.join(','),
     facetFilter:
       selectedFacets

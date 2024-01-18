@@ -1,4 +1,5 @@
-import { getSuggesterUrl, apiPrefix } from '../../../../shared/config/apiUrls';
+import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 const query = 'human';
 const baseUrl = `${apiPrefix}/suggester?dict=taxonomy&query=?`;
@@ -6,7 +7,7 @@ const baseUrl = `${apiPrefix}/suggester?dict=taxonomy&query=?`;
 export const mockSuggesterApi = {
   query,
   baseUrl,
-  request: getSuggesterUrl(baseUrl, query),
+  request: apiUrls.suggester.search(baseUrl, query),
   response: {
     query,
     dictionary: 'taxonomy',

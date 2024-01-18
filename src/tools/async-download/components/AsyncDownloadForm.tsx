@@ -31,13 +31,13 @@ import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Status } from '../../types/toolsStatuses';
 import { PublicServerParameters } from '../../types/toolsServerParameters';
 import { FormParameters } from '../types/asyncDownloadFormParameters';
+import { DownloadUrlOptions } from '../../../shared/types/results';
 
 import '../../styles/ToolsForm.scss';
 

@@ -20,13 +20,12 @@ import AutocompleteWrapper from '../../../query-builder/components/AutocompleteW
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import { stringifyQuery } from '../../../shared/utils/url';
+import { getSearchParams, stringifyQuery } from '../../../shared/utils/url';
 import {
   getGroupBySuggesterUrl,
   getPercentageLabel,
@@ -543,7 +542,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const locationSearch = useLocation().search;
   const [params] = getParamsFromURL(locationSearch);
   // This query will include facets
-  const { query } = apiUrls.search.getAPIQueryParams(params);
+  const { query } = getSearchParams(params);
   const { parent, groupBy } = params;
 
   const handleAutocompleteFormValue = useCallback(

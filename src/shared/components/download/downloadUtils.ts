@@ -3,7 +3,7 @@ import { Location as HistoryLocation } from 'history';
 import { JobFromUrl } from '../../hooks/useJobFromUrl';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
-import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
 import {
   fileFormatsWithColumns,
@@ -27,6 +27,7 @@ import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { DownloadProps } from './Download';
 import { DownloadState } from './downloadReducer';
 import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
+import { DownloadUrlOptions } from '../../types/results';
 
 const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
   Namespace.uniparc,
@@ -281,7 +282,9 @@ export const getFtpFilenamesAndUrls = (
   job.jobResultsLocation !== Location.IDMappingResult
     ? getUniprotFtpFilenamesAndUrls(
         props.namespace,
-        getDownloadUrl(getDownloadOptions(state, props, location, job)),
+        apiUrls.results.download(
+          getDownloadOptions(state, props, location, job)
+        ),
         state.selectedFileFormat
       )
     : null;

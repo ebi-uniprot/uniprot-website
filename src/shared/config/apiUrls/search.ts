@@ -3,7 +3,9 @@ import joinUrl from 'url-join';
 import {
   createFacetsQueryString,
   excludeLocalBlastFacets,
+  getSearchParams,
   stringifyUrl,
+  SearchOptions,
 } from '../../utils/url';
 
 import { apiPrefix } from './apiPrefix';
@@ -18,9 +20,14 @@ import { Namespace } from '../../types/namespaces';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import { Facets } from '../../types/facets';
 
-// Retrieve results
-export const search = (namespace: Namespace = Namespace.uniprotkb) =>
+export const searchPrefix = (namespace: Namespace = Namespace.uniprotkb) =>
   joinUrl(apiPrefix, namespace, 'search');
+
+export const search = (options: SearchOptions = {}) =>
+  stringifyUrl(
+    searchPrefix(options.namespace || Namespace.uniprotkb),
+    getSearchParams(options)
+  );
 
 type AccessionsOptions = {
   namespace?: Namespace;

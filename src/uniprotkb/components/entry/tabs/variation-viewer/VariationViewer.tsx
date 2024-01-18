@@ -33,7 +33,7 @@ import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 
-import { proteinsApi } from '../../../../../shared/config/apiUrls';
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
 import { sortByLocation } from '../../../../utils';
 
@@ -148,7 +148,7 @@ const VariationViewer = ({
 
   const { loading, data, progress, error, status } =
     useDataApi<ProteinsAPIVariation>(
-      shouldRender ? proteinsApi.variation(primaryAccession) : undefined
+      shouldRender ? apiUrls.proteinsApi.variation(primaryAccession) : undefined
     );
 
   const [filters, setFilters] = useState([]);

@@ -9,7 +9,7 @@ import EntryDownloadButton from '../../../../../shared/components/entry/EntryDow
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 
-import { proteinsApi } from '../../../../../shared/config/apiUrls';
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import { groupCoordinates } from './utils';
 
 import { Isoform } from '../../../../types/commentTypes';
@@ -40,7 +40,7 @@ const GenomicCoordinates = ({
   }
   // For the future, add computationally mapped isoforms somehow
   const { loading, data, progress, error, status } = useDataApi<GenomicEntry[]>(
-    proteinsApi.coordinates(isoformIDs)
+    apiUrls.proteinsApi.coordinates(isoformIDs)
   );
 
   if (loading) {

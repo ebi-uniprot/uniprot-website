@@ -1,22 +1,21 @@
 import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
-import ResultsFacets from '../../../shared/components/results/ResultsFacets';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-
 import { getParamsFromURL } from '../../utils/resultsUtils';
+import apiUrls from '../../config/apiUrls/apiUrls';
 
+import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 import { FacetObject } from '../../../shared/types/results';
 
 const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
 
   const [{ selectedFacets }] = getParamsFromURL(search);
-  const url = getUniProtPublicationsQueryUrl({
+  const url = apiUrls.publications.entryPublications({
     accession,
     facets: ['types', 'categories', 'is_large_scale'],
     selectedFacets,

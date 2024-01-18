@@ -4,7 +4,7 @@ import { EllipsisReveal } from 'franklin-sites';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import listFormat from '../../utils/listFormat';
 import { flatten } from '../../../query-builder/utils/parseAndMatchQuery';
 import { stringifyUrl } from '../../utils/url';
@@ -35,7 +35,7 @@ const AdvancedSearchSuggestion = ({
   const ref = useRef<HTMLElement>(null);
 
   const { data } = useDataApi<MatchedFieldsResponse>(
-    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+    stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
       size: '0',
       query,
       showSingleTermMatchedFields: 'true',
@@ -45,7 +45,7 @@ const AdvancedSearchSuggestion = ({
   // Data to enrich the suggestions with nice labels
   const { data: searchTermsData } = useDataApi<SearchTermType[]>(
     data?.matchedFields?.length
-      ? apiUrls.queryBuilderTerms(Namespace.uniprotkb)
+      ? apiUrls.configure.queryBuilderTerms(Namespace.uniprotkb)
       : undefined
   );
 

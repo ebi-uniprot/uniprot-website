@@ -10,7 +10,7 @@ import ColumnSelect from '../column-select/ColumnSelect';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls, { proteinsApi, proteinsApiPrefix } from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
 import {
@@ -131,7 +131,7 @@ const getEntryDownloadUrl = (
         });
       }
 
-      const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+      const entryUrl = apiUrls.entry.download(accession, fileFormat, namespace);
 
       if (
         columns &&
@@ -144,23 +144,23 @@ const getEntryDownloadUrl = (
     }
     case Dataset.features:
     case Dataset.selectedFeatures: {
-      const entryUrl = apiUrls.entryDownload(accession, fileFormat, namespace);
+      const entryUrl = apiUrls.entry.download(accession, fileFormat, namespace);
       return stringifyUrl(entryUrl, {
         fields: fields?.filter(Boolean).join(','),
       });
     }
     case Dataset.coordinates:
-      return proteinsApi.coordinates(accession, fileFormat);
+      return apiUrls.proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
-      return proteinsApi.variation(accession, fileFormat);
+      return apiUrls.proteinsApi.variation(accession, fileFormat);
     case Dataset.proteomics:
-      return proteinsApi.proteomics(accession, fileFormat);
+      return apiUrls.proteinsApi.proteomics(accession, fileFormat);
     case Dataset.proteomicsPtm:
-      return proteinsApi.proteomicsPtm(accession, fileFormat);
+      return apiUrls.proteinsApi.proteomicsPtm(accession, fileFormat);
     case Dataset.mutagenesis:
-      return proteinsApi.mutagenesis(accession, fileFormat);
+      return apiUrls.proteinsApi.mutagenesis(accession, fileFormat);
     case Dataset.antigen:
-      return proteinsApi.antigen(accession, fileFormat);
+      return apiUrls.proteinsApi.antigen(accession, fileFormat);
     default:
       return '';
   }
@@ -237,11 +237,13 @@ const EntryDownload = ({
       namespace !== Namespace.uniparc &&
       (fileFormats?.includes(FileFormat.tsv) ||
         fileFormats?.includes(FileFormat.excel))
-      ? apiUrls.resultsFields(namespace)
+      ? apiUrls.configure.resultsFields(namespace)
       : null
   );
   const { data: resultFieldsData } = useDataApi<ReceivedFieldData>(
-    namespace === Namespace.uniprotkb ? apiUrls.resultsFields(namespace) : null
+    namespace === Namespace.uniprotkb
+      ? apiUrls.configure.resultsFields(namespace)
+      : null
   );
 
   const uniprotFeaturesMap = useMemo(() => {
@@ -269,48 +271,48 @@ const EntryDownload = ({
 
   const entryFeatures = useDataApi<UniProtkbAPIModel>(
     namespace === Namespace.uniprotkb && accession
-      ? apiUrls.entry(accession, namespace)
+      ? apiUrls.entry.entry(accession, namespace)
       : ''
   );
 
   const proteinsApiVariation = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(proteinsApi.variation(accession))
+      ? joinUrl(apiUrls.proteinsApi.variation(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiProteomics = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(proteinsApi.proteomics(accession))
+      ? joinUrl(apiUrls.proteinsApi.proteomics(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiPTMs = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(proteinsApi.proteomicsPtm(accession))
+      ? joinUrl(apiUrls.proteinsApi.proteomicsPtm(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiMutagenesis = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(proteinsApi.mutagenesis(accession))
+      ? joinUrl(apiUrls.proteinsApi.mutagenesis(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiAntigen = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(proteinsApi.antigen(accession))
+      ? joinUrl(apiUrls.proteinsApi.antigen(accession))
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiCoordinates = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(proteinsApi.coordinates(accession))
+      ? joinUrl(apiUrls.proteinsApi.coordinates(accession))
       : '',
     { method: 'HEAD' }
   );
@@ -503,7 +505,9 @@ const EntryDownload = ({
       <div>
         There are additional PTM data available from large scale studies for
         this entry. It is provided by the{' '}
-        <ExternalLink url={`${proteinsApiPrefix}/doc/#/proteomics-ptm`}>
+        <ExternalLink
+          url={`${apiUrls.proteinsApi.proteinsApiPrefix}/doc/#/proteomics-ptm`}
+        >
           Proteomics-ptm
         </ExternalLink>{' '}
         service of Proteins API in the{' '}

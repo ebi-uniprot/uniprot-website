@@ -13,7 +13,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import {
   Namespace,
@@ -27,7 +27,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } = useDataApi<ARBAAPIModel>(
-    apiUrls.entry(accession, Namespace.arba)
+    apiUrls.entry.entry(accession, Namespace.arba)
   );
 
   if (loading) {

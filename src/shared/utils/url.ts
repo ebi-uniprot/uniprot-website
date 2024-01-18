@@ -7,7 +7,6 @@ import {
   SortDirection,
   getApiSortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { search } from '../config/apiUrls/search';
 import { defaultFacets } from '../config/facets';
 
 import { Location, LocationToPath } from '../../app/config/urls';
@@ -92,7 +91,7 @@ export const createSelectedQueryString = (ids: string[], idField: Column) =>
     .sort() // to improve possible cache hit
     .join(' OR ');
 
-type ApiUrlOptions = {
+export type SearchOptions = {
   namespace?: Namespace;
   query?: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
@@ -104,7 +103,7 @@ type ApiUrlOptions = {
   size?: number;
 };
 
-export const getAPIQueryParams = ({
+export const getSearchParams = ({
   namespace = Namespace.uniprotkb,
   query = '*',
   columns = [],
@@ -113,7 +112,7 @@ export const getAPIQueryParams = ({
   sortDirection = SortDirection.ascend,
   facets,
   size,
-}: ApiUrlOptions = {}) => {
+}: SearchOptions = {}) => {
   let facetField = facets;
   // if null or empty list, don't set default, only for undefined
   // note: could this be moved to useNSQuery?
@@ -134,12 +133,6 @@ export const getAPIQueryParams = ({
         : undefined,
   };
 };
-
-export const getAPIQueryUrl = (options: ApiUrlOptions = {}) =>
-  stringifyUrl(
-    search(options.namespace || Namespace.uniprotkb),
-    getAPIQueryParams(options)
-  );
 
 const localBlastFacets = Object.values(BlastFacet) as string[];
 export const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>

@@ -245,7 +245,7 @@ const BlastResult = () => {
     useDataApi<ApiData>(
       useMemo(
         () =>
-          apiUrls.search.getAccessionsURL(accessionsFilteredByLocalFacets, {
+          apiUrls.search.accessions(accessionsFilteredByLocalFacets, {
             namespace,
             selectedFacets: urlParams.selectedFacets,
             facets: [],

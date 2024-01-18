@@ -1,7 +1,6 @@
 import joinUrl from 'url-join';
 
 import {
-  SelectedFacet,
   SortDirection,
   getApiSortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
@@ -15,15 +14,14 @@ import {
   fileFormatToUrlParameter,
   fileFormatsWithColumns,
 } from '../resultsDownload';
-import { search } from './search';
 import { apiPrefix } from './apiPrefix';
+import { searchPrefix } from './search';
 
 import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
-import { Column } from '../columns';
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import { DownloadUrlOptions } from '../../types/results';
 
-export const downloadEndpoint = (namespace: Namespace) =>
+export const stream = (namespace: Namespace) =>
   joinUrl(apiPrefix, namespace, 'stream');
 
 type Parameters = {
@@ -43,25 +41,6 @@ type Parameters = {
   compressed?: boolean;
   download?: true;
   jobId?: string;
-};
-
-export type DownloadUrlOptions = {
-  base?: string;
-  query?: string;
-  columns?: string[];
-  selectedFacets?: SelectedFacet[];
-  sortColumn?: SortableColumn;
-  sortDirection?: SortDirection;
-  fileFormat: FileFormat;
-  compressed: boolean;
-  size?: number;
-  selected: string[];
-  selectedIdField: Column;
-  namespace: Namespace;
-  accessions?: string[];
-  download?: boolean;
-  jobId?: string; // ID Mapping Async Download
-  version?: string;
 };
 
 export const download = ({
@@ -92,7 +71,7 @@ export const download = ({
     accessionKey = 'upis';
   }
 
-  let endpoint = downloadEndpoint(namespace);
+  let endpoint = stream(namespace);
   if (base) {
     if (base.startsWith(apiPrefix)) {
       endpoint = base;
@@ -102,7 +81,7 @@ export const download = ({
   } else if (accessions) {
     endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
   } else if (size) {
-    endpoint = search(namespace);
+    endpoint = searchPrefix(namespace);
   }
 
   // fallback to json if something goes wrong

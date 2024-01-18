@@ -13,7 +13,7 @@ import { LocationDescriptor } from 'history';
 import useDataApi from '../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 
-import apiUrls from '../../shared/config/apiUrls';
+import apiUrls from '../config/apiUrls';
 import { addMessage } from '../../messages/state/messagesActions';
 import { stringifyUrl } from '../../shared/utils/url';
 
@@ -67,7 +67,7 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const subject = formData?.get('subject') as undefined | string;
 
   const tokenData = useDataApi<{ token: string }>(
-    subject ? stringifyUrl(apiUrls.contact.token, { key: subject }) : null
+    subject ? stringifyUrl(apiUrls.token, { key: subject }) : null
   );
   const token = tokenData.data?.token;
 
@@ -85,7 +85,7 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     };
   }, [formData, token]);
 
-  const sendData = useDataApi(postData ? apiUrls.contact.send : null, postData);
+  const sendData = useDataApi(postData ? apiUrls.send : null, postData);
 
   const loading = tokenData.loading || sendData.loading;
   const error = tokenData.error || sendData.error;

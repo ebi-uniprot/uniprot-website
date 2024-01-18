@@ -22,7 +22,6 @@ import { getParamsFromURL } from '../../../utils/resultsUtils';
 import { processUrlTemplate } from '../../../../shared/utils/xrefs';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
-import { getUniProtPublicationsQueryUrl } from '../../../../shared/config/apiUrls';
 
 import {
   CitationsAPIModel,
@@ -30,6 +29,7 @@ import {
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { SearchResults } from '../../../../shared/types/results';
+import apiUrls from '../../../config/apiUrls/apiUrls';
 
 type PublicationsReferenceProps = {
   references: Reference[];
@@ -231,7 +231,7 @@ type PublicationsProps = { accession: string };
 const Publications = ({ accession }: PublicationsProps) => {
   const { search } = useLocation();
   const [{ selectedFacets }] = getParamsFromURL(search);
-  const initialUrl = getUniProtPublicationsQueryUrl({
+  const initialUrl = apiUrls.publications.entryPublications({
     accession,
     selectedFacets,
   });

@@ -51,7 +51,7 @@ import defaultFormValues, {
   PeptideSearchFields,
 } from '../config/PeptideSearchFormData';
 import { SelectedTaxon } from '../../types/toolsFormData';
-import uniProtKBApiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import {
   MessageFormat,
@@ -264,7 +264,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
-                url={uniProtKBApiUrls.organismSuggester}
+                url={apiUrls.suggester.organism}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"
                 clearOnSelect

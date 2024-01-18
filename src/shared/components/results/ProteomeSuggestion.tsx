@@ -4,7 +4,7 @@ import { SearchTextLink } from './SearchTextLink';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { stringifyUrl } from '../../utils/url';
 
 import { SearchResults } from '../../types/results';
@@ -21,7 +21,7 @@ const ProteomeSuggestion = ({
   const [proteomeInfo, setProteomeInfo] = useState<ProteomesAPIModel>();
 
   const { data } = useDataApi<SearchResults<ProteomesAPIModel>>(
-    stringifyUrl(apiUrls.search(Namespace.proteomes), {
+    stringifyUrl(apiUrls.search.searchPrefix(Namespace.proteomes), {
       query: `organism_id:${organismID}`,
       fields: 'upid',
     })

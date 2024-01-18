@@ -39,7 +39,7 @@ import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 import { databaseValueToName } from '../../blast/config/BlastFormData';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
@@ -296,7 +296,9 @@ const taxonsWithEllipsisReveal = (taxIDs: SelectedTaxon[]) => {
 
 const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
   const { data: idMappingFields } = useDataApi<IDMappingFormConfig>(
-    job.type === JobTypes.ID_MAPPING ? apiUrls.idMappingFields : undefined
+    job.type === JobTypes.ID_MAPPING
+      ? apiUrls.configure.idMappingFields
+      : undefined
   );
 
   const idMappingDBToDisplayName: Record<string, string> = useMemo(

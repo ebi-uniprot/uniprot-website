@@ -17,10 +17,9 @@ import HelpResultFacets from './HelpResultFacets';
 
 import usePagination from '../../../shared/hooks/usePagination';
 
-import {
-  help as helpURL,
-  news as newsURL,
-} from '../../../shared/config/apiUrls';
+import helpApiUrls from '../../config/apiUrls';
+import sharedApiUrls from '../../../shared/config/apiUrls/apiUrls';
+
 import { stringifyQuery } from '../../../shared/utils/url';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -72,8 +71,8 @@ const Results = ({
     handleLoadMoreRows,
   } = usePagination<HelpAPIModel, HelpUIModel>(
     isReleaseNotes
-      ? newsURL.search({ ...parsed })
-      : helpURL.search({
+      ? sharedApiUrls.releaseNotes.search({ ...parsed })
+      : helpApiUrls.search({
           ...parsed,
           queryFacets: parsed.facets,
           facets: 'category',

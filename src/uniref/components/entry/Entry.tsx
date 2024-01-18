@@ -24,7 +24,7 @@ import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import uniRefConverter, {
@@ -52,7 +52,7 @@ const Entry = () => {
 
   const accession = match?.params.accession;
 
-  const baseURL = `${apiUrls.entry(accession, Namespace.uniref)}/light`;
+  const baseURL = `${apiUrls.entry.entry(accession, Namespace.uniref)}/light`;
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniRefLiteAPIModel>(baseURL);
 
