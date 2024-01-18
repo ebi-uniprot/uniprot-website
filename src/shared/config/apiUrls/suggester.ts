@@ -8,5 +8,5 @@ export const organismSuggester = 'suggester?dict=organism&query=?';
 
 const RE_QUERY = /\?$/;
 
-export const getSuggesterUrl = (url: string, value: string) =>
+export const search = (url: string, value: string) =>
   joinUrl(apiPrefix, url.replace(RE_QUERY, value));

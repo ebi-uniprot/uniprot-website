@@ -5,17 +5,17 @@ import {
   SortDirection,
   getApiSortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
-import { stringifyUrl } from '../../utils/url';
+import {
+  createFacetsQueryString,
+  createSelectedQueryString,
+  stringifyUrl,
+} from '../../utils/url';
 
 import {
   fileFormatToUrlParameter,
   fileFormatsWithColumns,
 } from '../resultsDownload';
-import {
-  createFacetsQueryString,
-  createSelectedQueryString,
-  search,
-} from './search';
+import { search } from './search';
 import { apiPrefix } from './apiPrefix';
 
 import { Namespace } from '../../types/namespaces';
@@ -23,7 +23,7 @@ import { FileFormat } from '../../types/resultsDownload';
 import { Column } from '../columns';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 
-export const download = (namespace: Namespace) =>
+export const downloadEndpoint = (namespace: Namespace) =>
   joinUrl(apiPrefix, namespace, 'stream');
 
 type Parameters = {
@@ -64,7 +64,7 @@ export type DownloadUrlOptions = {
   version?: string;
 };
 
-export const getDownloadUrl = ({
+export const download = ({
   base,
   query,
   columns,
@@ -92,7 +92,7 @@ export const getDownloadUrl = ({
     accessionKey = 'upis';
   }
 
-  let endpoint = download(namespace);
+  let endpoint = downloadEndpoint(namespace);
   if (base) {
     if (base.startsWith(apiPrefix)) {
       endpoint = base;

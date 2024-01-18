@@ -1,6 +1,6 @@
 import joinUrl from 'url-join';
 
-import { apiPrefix } from '../../shared/config/apiUrls';
+import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
 import { fileFormatToUrlParameter } from '../../shared/config/resultsDownload';
 import { stringifyUrl } from '../../shared/utils/url';
 

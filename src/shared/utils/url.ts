@@ -1,6 +1,21 @@
 import { matchPath } from 'react-router-dom';
 
+import { fromCleanMapper } from './getIdKey';
+
+import {
+  SelectedFacet,
+  SortDirection,
+  getApiSortDirection,
+} from '../../uniprotkb/types/resultsTypes';
+import { search } from '../config/apiUrls/search';
+import { defaultFacets } from '../config/facets';
+
 import { Location, LocationToPath } from '../../app/config/urls';
+import { Namespace } from '../types/namespaces';
+import { Column } from '../config/columns';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
+import { BlastFacet } from '../../tools/blast/types/blastResults';
+import { Facets } from '../types/facets';
 
 export const getLocationForPathname = (pathname: string) => {
   const found = Object.entries(LocationToPath).find(([, path]) =>
@@ -52,3 +67,80 @@ export const splitUrl = (url: string) => {
   const [base, query] = url.split('?');
   return { base, query };
 };
+
+export const createFacetsQueryString = (facets: SelectedFacet[]) =>
+  /**
+   * Add double quotes to facet values which contain
+   * spaces as otherwise the backend doesn't escape special characters
+   * such as '.' or '-'.
+   * Single word values shouldn't have double quotes as they can be boolean.
+   * Range queries (/^\[.*]$/) should not have double quotes either.
+   * */
+  facets
+    .map(
+      (facet) =>
+        `(${facet.name}:${
+          facet.value.includes(' ') && !facet.value.match(/^\[.*\]$/)
+            ? `"${facet.value}"`
+            : facet.value
+        })`
+    )
+    .join(' AND ');
+
+export const createSelectedQueryString = (ids: string[], idField: Column) =>
+  Array.from(new Set(ids.map((id) => `${idField}:${fromCleanMapper(id)}`)))
+    .sort() // to improve possible cache hit
+    .join(' OR ');
+
+type ApiUrlOptions = {
+  namespace?: Namespace;
+  query?: string;
+  // TODO: change to set of possible fields (if possible, depending on namespace)
+  columns?: Column[] | null;
+  selectedFacets?: SelectedFacet[];
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
+  facets?: Facets[] | null;
+  size?: number;
+};
+
+export const getAPIQueryParams = ({
+  namespace = Namespace.uniprotkb,
+  query = '*',
+  columns = [],
+  selectedFacets = [],
+  sortColumn = undefined,
+  sortDirection = SortDirection.ascend,
+  facets,
+  size,
+}: ApiUrlOptions = {}) => {
+  let facetField = facets;
+  // if null or empty list, don't set default, only for undefined
+  // note: could this be moved to useNSQuery?
+  if (facetField === undefined) {
+    facetField = defaultFacets.get(namespace);
+  }
+  return {
+    size,
+    query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]
+      .filter(Boolean)
+      .join(' AND ')}`,
+    fields: columns?.join(',') || undefined,
+    facets: facetField?.join(','),
+    sort:
+      // 'score' is invalid, but it's a user input so it might still happen
+      sortColumn && (sortColumn as string) !== 'score'
+        ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
+        : undefined,
+  };
+};
+
+export const getAPIQueryUrl = (options: ApiUrlOptions = {}) =>
+  stringifyUrl(
+    search(options.namespace || Namespace.uniprotkb),
+    getAPIQueryParams(options)
+  );
+
+const localBlastFacets = Object.values(BlastFacet) as string[];
+export const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
+  !localBlastFacets.includes(name);

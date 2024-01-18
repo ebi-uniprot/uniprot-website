@@ -10,7 +10,7 @@ import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
 import { Column } from '../columns';
 
-export const entry = (
+export const endpoint = (
   id: string | undefined,
   namespace: Namespace,
   columns?: Column[]
@@ -25,7 +25,7 @@ export const entry = (
   return url;
 };
 
-export const entryDownload = (
+export const download = (
   accession: string,
   format: FileFormat,
   namespace: Namespace = Namespace.uniprotkb
@@ -36,7 +36,7 @@ export const entryDownload = (
         includeIsoform: true,
         format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
       })
-    : `${entry(accession, namespace)}.${fileFormatToUrlParameter[format]}`;
+    : `${endpoint(accession, namespace)}.${fileFormatToUrlParameter[format]}`;
 
 export const sequenceFasta = (accession: string) =>
-  `${entry(accession, Namespace.uniprotkb)}.fasta`;
+  `${endpoint(accession, Namespace.uniprotkb)}.fasta`;
