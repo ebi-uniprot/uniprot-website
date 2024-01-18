@@ -3,9 +3,9 @@ import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import KeywordsGraph from '../components/entry/KeywordsGraph';
+import GeneOntologies from '../../../shared/components/results/GeneOnotologies';
 
 import { getEntryPathFor } from '../../../app/config/urls';
-import externalUrls from '../../../shared/config/externalUrls';
 import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
@@ -76,16 +76,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
 
 KeywordsColumnConfiguration.set(KeywordsColumn.geneOntologies, {
   label: 'Gene Ontology (GO)',
-  render: ({ geneOntologies }) =>
-    geneOntologies?.length ? (
-      <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-        {geneOntologies?.map(({ name, goId }) => (
-          <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
-            {name} ({goId})
-          </ExternalLink>
-        ))}
-      </ExpandableList>
-    ) : null,
+  render: ({ geneOntologies }) => (
+    <GeneOntologies geneOntologies={geneOntologies} />
+  ),
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.id, {

@@ -19,9 +19,9 @@ import AutocompleteWrapper from '../../../query-builder/components/AutocompleteW
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
-import externalUrls from '../../../shared/config/externalUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
@@ -33,6 +33,7 @@ import {
   groupByToLabel,
   groupByToTerm,
 } from './UniProtKBGroupByUtils';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
 import {
   LocationToPath,
@@ -86,12 +87,13 @@ const GroupByLink = ({
   groupByLabel,
   parentLabel,
 }: GroupByLinkProps) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const child = `${groupByLabel} ID:${id}`;
   switch (groupBy) {
     case 'ec':
       return (
         <ExternalLink
-          url={externalUrls.ENZYME(id)}
+          url={getUrlFromDatabaseInfo(databaseInfoMaps, 'ENZYME', { ec: id })}
           title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
         >
           {child}
@@ -100,7 +102,7 @@ const GroupByLink = ({
     case 'go':
       return (
         <ExternalLink
-          url={externalUrls.QuickGO(id)}
+          url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
           title={`The ${groupByLabel} entry page for ${parentLabel} (ID:${id})`}
         >
           {child}

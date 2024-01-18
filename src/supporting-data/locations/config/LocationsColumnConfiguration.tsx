@@ -3,9 +3,9 @@ import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
+import GeneOntologies from '../../../shared/components/results/GeneOnotologies';
 
 import { getEntryPathFor } from '../../../app/config/urls';
-import externalUrls from '../../../shared/config/externalUrls';
 import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { LocationsAPIModel } from '../adapters/locationsConverter';
@@ -68,18 +68,10 @@ LocationsColumnConfiguration.set(LocationsColumn.definition, {
 // NOTE: no content, otherwise it gets a truthy empty fragment instead
 LocationsColumnConfiguration.set(LocationsColumn.geneOntologies, {
   label: 'Gene Ontology (GO)',
-  render: ({ geneOntologies }) =>
-    geneOntologies?.length ? (
-      <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-        {geneOntologies?.map(({ name, goId }) => (
-          <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
-            {name} ({goId})
-          </ExternalLink>
-        ))}
-      </ExpandableList>
-    ) : null,
+  render: ({ geneOntologies }) => (
+    <GeneOntologies geneOntologies={geneOntologies} />
+  ),
 });
-
 LocationsColumnConfiguration.set(LocationsColumn.id, {
   label: 'ID',
   render: ({ id }) =>

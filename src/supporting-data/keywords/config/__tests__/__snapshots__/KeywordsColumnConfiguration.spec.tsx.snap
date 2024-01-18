@@ -40,7 +40,7 @@ exports[`KeywordsColumnConfiguration component should render column "gene_ontolo
     <li>
       <a
         class="external-link"
-        href="//www.ebi.ac.uk/QuickGO/term/GO:0003824"
+        href="https://www.ebi.ac.uk/QuickGO/term/GO:0003824"
         rel="noopener"
         target="_blank"
       >
@@ -54,7 +54,7 @@ exports[`KeywordsColumnConfiguration component should render column "gene_ontolo
     <li>
       <a
         class="external-link"
-        href="//www.ebi.ac.uk/QuickGO/term/GO:0008152"
+        href="https://www.ebi.ac.uk/QuickGO/term/GO:0008152"
         rel="noopener"
         target="_blank"
       >
