@@ -21,7 +21,7 @@ import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
 import { DownloadUrlOptions } from '../../types/results';
 
-export const stream = (namespace: Namespace) =>
+const streamPrefix = (namespace: Namespace) =>
   joinUrl(apiPrefix, namespace, 'stream');
 
 type Parameters = {
@@ -71,7 +71,7 @@ export const download = ({
     accessionKey = 'upis';
   }
 
-  let endpoint = stream(namespace);
+  let endpoint = streamPrefix(namespace);
   if (base) {
     if (base.startsWith(apiPrefix)) {
       endpoint = base;
