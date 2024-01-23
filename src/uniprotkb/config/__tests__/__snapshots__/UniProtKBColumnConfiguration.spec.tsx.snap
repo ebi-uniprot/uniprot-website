@@ -2346,6 +2346,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_elm":
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_embl": xref_embl 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_emdb": xref_emdb 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_emind": xref_emind 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ensembl": xref_ensembl 1`] = `
@@ -2463,6 +2465,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_intac
 exports[`UniProtKBColumnConfiguration component should render column "xref_interpro": xref_interpro 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_iptmnet": xref_iptmnet 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_japonicusdb": xref_japonicusdb 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_jpost": xref_jpost 1`] = `<DocumentFragment />`;
 
