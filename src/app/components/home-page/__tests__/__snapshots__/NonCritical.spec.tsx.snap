@@ -389,6 +389,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2024-01-24-release"
+              >
+                UniProt release 2024_01
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Vitamin K beyond coagulation | Cross-references to EMDB | Cross-references to JaponicusDB | Changes to the controlled vocabulary...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2023-11-08-release"
               >
                 UniProt release 2023_05
