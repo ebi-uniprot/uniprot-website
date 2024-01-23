@@ -9,7 +9,7 @@ export type DatabaseAPIModel = {
   category: string;
   name: string;
   id: string;
-  server: string;
+  servers: string[];
   statistics?: Statistics;
 };
 
