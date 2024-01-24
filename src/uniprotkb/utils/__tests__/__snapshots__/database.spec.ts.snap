@@ -3257,6 +3257,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "dictyBase",
       "EcoGene",
       "VEuPathDB",
+      "JaponicusDB",
       "FlyBase",
       "Gramene",
       "HGNC",
