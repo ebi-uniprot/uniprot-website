@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2024-01-09
+// Retrieved: 2024-01-23
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -353,7 +353,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'STRING',
     displayName: 'STRING',
     category: 'PPI',
-    uriLink: 'https://version-11-5.string-db.org/network/%id',
+    uriLink: 'https://string-db.org/network/%id',
     attributes: [
       {
         name: 'Description',
@@ -636,7 +636,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'GlyGen',
     displayName: 'GlyGen',
     category: 'PTM',
-    uriLink: 'https://glygen.org/protein/%id#glycosylation',
+    uriLink: 'https://glygen.org/protein/%id#Glycosylation',
     attributes: [
       {
         name: 'glycosylation',
@@ -866,7 +866,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PaxDb',
     displayName: 'PaxDb',
     category: 'PROTEOMIC',
-    uriLink: 'https://pax-db.org/search?q=%id',
+    uriLink: 'https://pax-db.org/uniprot_redirect/%id',
     attributes: [
       {
         name: 'Description',
@@ -1216,18 +1216,6 @@ const databaseInfo: DatabaseInfo = [
         name: 'GeneId',
         xmlTag: 'gene ID',
         uriLink: 'https://parasite.wormbase.org/id/%GeneId',
-      },
-    ],
-  },
-  {
-    name: 'WBParaSiteTranscriptProtein',
-    displayName: 'WBParaSite Transcript/Protein',
-    category: 'GMA',
-    uriLink: 'https://parasite.wormbase.org/id/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
       },
     ],
   },
@@ -2284,23 +2272,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'ProDom',
-    displayName: 'ProDom',
-    category: 'FMD',
-    uriLink:
-      'http://prodom.prabi.fr/prodom/current/cgi-bin/request.pl?question=SPTR&query=%id',
-    attributes: [
-      {
-        name: 'EntryName',
-        xmlTag: 'entry name',
-      },
-      {
-        name: 'MatchStatus',
-        xmlTag: 'match status',
-      },
-    ],
-  },
-  {
     name: 'SFLD',
     displayName: 'SFLD',
     category: 'FMD',
@@ -2631,6 +2602,30 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'Description',
         xmlTag: 'description',
+      },
+    ],
+  },
+  {
+    name: 'EMDB',
+    displayName: 'EMDB',
+    category: '3DS',
+    uriLink: 'https://www.ebi.ac.uk/emdb/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
+      },
+    ],
+  },
+  {
+    name: 'JaponicusDB',
+    displayName: 'JaponicusDB',
+    category: 'ORG',
+    uriLink: 'https://www.japonicusdb.org/gene/%id',
+    attributes: [
+      {
+        name: 'GeneDesignation',
+        xmlTag: 'gene designation',
       },
     ],
   },

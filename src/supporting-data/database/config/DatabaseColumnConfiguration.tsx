@@ -27,7 +27,7 @@ export enum DatabaseColumn {
   name = 'name',
   pubmedId = 'pubmed_id',
   // URL of the home page of the database
-  server = 'server',
+  servers = 'servers',
   statistics = 'statistics',
 }
 
@@ -112,9 +112,14 @@ DatabaseColumnConfiguration.set(DatabaseColumn.pubmedId, {
     ),
 });
 
-DatabaseColumnConfiguration.set(DatabaseColumn.server, {
-  label: 'Server',
-  render: ({ server }) => server && <ExternalLink url={server} tidyUrl />,
+DatabaseColumnConfiguration.set(DatabaseColumn.servers, {
+  label: 'Servers',
+  render: ({ servers }) =>
+    servers?.map((server) => (
+      <div key={server}>
+        <ExternalLink url={server} tidyUrl />
+      </div>
+    )),
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.statistics, {
