@@ -288,7 +288,6 @@ export enum UniProtKBColumn {
   xrefPride = 'xref_pride',
   xrefPrints = 'xref_prints',
   xrefPro = 'xref_pro',
-  xrefProdom = 'xref_prodom',
   xrefPromex = 'xref_promex',
   xrefProsite = 'xref_prosite',
   xrefProteomes = 'xref_proteomes',

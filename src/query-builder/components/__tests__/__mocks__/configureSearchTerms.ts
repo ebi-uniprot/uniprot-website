@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: /configure/uniprotkb/search-fields
-// Retrieved: 2023-11-07
+// Retrieved: 2024-01-24
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -87,11 +87,26 @@ const configureSearchTerms = [
     fieldType: 'general',
     example: '1',
     values: [
-      { name: 'Evidence at protein level', value: '1' },
-      { name: 'Evidence at transcript level', value: '2' },
-      { name: 'Inferred from homology', value: '3' },
-      { name: 'Predicted', value: '4' },
-      { name: 'Uncertain', value: '5' },
+      {
+        name: 'Evidence at protein level',
+        value: '1',
+      },
+      {
+        name: 'Evidence at transcript level',
+        value: '2',
+      },
+      {
+        name: 'Inferred from homology',
+        value: '3',
+      },
+      {
+        name: 'Predicted',
+        value: '4',
+      },
+      {
+        name: 'Uncertain',
+        value: '5',
+      },
     ],
   },
   {
@@ -1320,8 +1335,14 @@ const configureSearchTerms = [
         example: 'true',
         regex: '^true|false$',
         values: [
-          { name: 'Yes', value: 'true' },
-          { name: 'No', value: 'false' },
+          {
+            name: 'Yes',
+            value: 'true',
+          },
+          {
+            name: 'No',
+            value: 'false',
+          },
         ],
       },
       {
@@ -1961,8 +1982,14 @@ const configureSearchTerms = [
         example: 'true',
         regex: '^true|false$',
         values: [
-          { name: 'Yes', value: 'true' },
-          { name: 'No', value: 'false' },
+          {
+            name: 'Yes',
+            value: 'true',
+          },
+          {
+            name: 'No',
+            value: 'false',
+          },
         ],
       },
       {
@@ -1974,11 +2001,30 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'mitochondrion',
         values: [
-          { name: 'Mitochondrion', value: 'mitochondrion' },
-          { name: 'Plastid', value: 'plastid' },
-          { name: 'Chloroplast', value: 'chloroplast' },
-          { name: 'Cyanelle', value: 'cyanelle' },
-          { name: 'Apicoplast', value: 'apicoplast' },
+          {
+            name: 'Mitochondrion',
+            value: 'mitochondrion',
+          },
+          {
+            name: 'Plasmid',
+            value: 'plasmid',
+          },
+          {
+            name: 'Plastid',
+            value: 'plastid',
+          },
+          {
+            name: 'Chloroplast',
+            value: 'chloroplast',
+          },
+          {
+            name: 'Cyanelle',
+            value: 'cyanelle',
+          },
+          {
+            name: 'Apicoplast',
+            value: 'apicoplast',
+          },
           {
             name: 'Organellar chromatophore',
             value: 'organellar chromatophore',
@@ -1987,8 +2033,14 @@ const configureSearchTerms = [
             name: 'Non-photosynthetic plastid',
             value: 'non-photosynthetic plastid',
           },
-          { name: 'Nucleomorph', value: 'nucleomorph' },
-          { name: 'Hydrogenosome', value: 'hydrogenosome' },
+          {
+            name: 'Nucleomorph',
+            value: 'nucleomorph',
+          },
+          {
+            name: 'Hydrogenosome',
+            value: 'hydrogenosome',
+          },
         ],
       },
       {
@@ -2001,8 +2053,14 @@ const configureSearchTerms = [
         example: 'true',
         regex: '^true|false$',
         values: [
-          { name: 'Yes', value: 'true' },
-          { name: 'No', value: 'false' },
+          {
+            name: 'Yes',
+            value: 'true',
+          },
+          {
+            name: 'No',
+            value: 'false',
+          },
         ],
       },
       {
@@ -2144,7 +2202,7 @@ const configureSearchTerms = [
             term: 'ft_compbias',
             dataType: 'string',
             fieldType: 'general',
-            example: 'glu-rich',
+            example: 'basic residues',
           },
           {
             id: 'ft_compbias_exp',
@@ -2152,7 +2210,7 @@ const configureSearchTerms = [
             term: 'ft_compbias_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'glu-rich',
+            example: 'basic residues',
           },
         ],
       },
@@ -2403,6 +2461,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'alphafolddb-',
+          },
+          {
+            id: 'xref_emdb',
+            label: 'EMDB',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'emdb-',
           },
         ],
       },
@@ -3151,15 +3218,6 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'wbparasite-',
           },
-          {
-            id: 'xref_wbparasitetranscriptprotein',
-            label: 'WBParaSiteTranscriptProtein',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'wbparasitetranscriptprotein-',
-          },
         ],
       },
       {
@@ -3499,6 +3557,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'zfin-',
+          },
+          {
+            id: 'xref_japonicusdb',
+            label: 'JaponicusDB',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'japonicusdb-',
           },
         ],
       },
@@ -3905,15 +3972,6 @@ const configureSearchTerms = [
             valuePrefix: 'prints-',
           },
           {
-            id: 'xref_prodom',
-            label: 'ProDom',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'prodom-',
-          },
-          {
             id: 'xref_sfld',
             label: 'SFLD',
             itemType: 'single',
@@ -4078,35 +4136,83 @@ const configureSearchTerms = [
           {
             groupName: 'Any',
             items: [
-              { name: 'Any assertion method', code: 'any' },
-              { name: 'Any manual assertion', code: 'manual' },
-              { name: 'Any automatic assertion', code: 'automatic' },
+              {
+                name: 'Any assertion method',
+                code: 'any',
+              },
+              {
+                name: 'Any manual assertion',
+                code: 'manual',
+              },
+              {
+                name: 'Any automatic assertion',
+                code: 'automatic',
+              },
             ],
           },
           {
             groupName: 'Manual assertions',
             items: [
-              { name: 'Inferred from experiment [EXP]', code: 'exp' },
+              {
+                name: 'Inferred from experiment [EXP]',
+                code: 'exp',
+              },
               {
                 name: 'Inferred from biological aspect of ancestor [IBA]',
                 code: 'iba',
               },
-              { name: 'Inferred by curator [IC]', code: 'ic' },
-              { name: 'Inferred from direct assay [IDA]', code: 'ida' },
-              { name: 'Inferred from expression pattern [IEP]', code: 'iep' },
-              { name: 'Inferred from genomic context [IGC]', code: 'igc' },
-              { name: 'Inferred from genetic interaction [IGI]', code: 'igi' },
-              { name: 'Inferred from mutant phenotype [IMP]', code: 'imp' },
-              { name: 'Inferred from physical interaction [IPI]', code: 'ipi' },
-              { name: 'Inferred from sequence alignment [ISA]', code: 'isa' },
-              { name: 'Inferred from sequence mode [ISM]', code: 'ism' },
-              { name: 'Inferred from sequence orthology [ISO]', code: 'iso' },
+              {
+                name: 'Inferred by curator [IC]',
+                code: 'ic',
+              },
+              {
+                name: 'Inferred from direct assay [IDA]',
+                code: 'ida',
+              },
+              {
+                name: 'Inferred from expression pattern [IEP]',
+                code: 'iep',
+              },
+              {
+                name: 'Inferred from genomic context [IGC]',
+                code: 'igc',
+              },
+              {
+                name: 'Inferred from genetic interaction [IGI]',
+                code: 'igi',
+              },
+              {
+                name: 'Inferred from mutant phenotype [IMP]',
+                code: 'imp',
+              },
+              {
+                name: 'Inferred from physical interaction [IPI]',
+                code: 'ipi',
+              },
+              {
+                name: 'Inferred from sequence alignment [ISA]',
+                code: 'isa',
+              },
+              {
+                name: 'Inferred from sequence mode [ISM]',
+                code: 'ism',
+              },
+              {
+                name: 'Inferred from sequence orthology [ISO]',
+                code: 'iso',
+              },
               {
                 name: 'Inferred from sequence or structural similarity [ISS]',
                 code: 'iss',
               },
-              { name: 'Non-traceable author statement [NAS]', code: 'nas' },
-              { name: 'Traceable author statement [TAS]', code: 'tas' },
+              {
+                name: 'Non-traceable author statement [NAS]',
+                code: 'nas',
+              },
+              {
+                name: 'Traceable author statement [TAS]',
+                code: 'tas',
+              },
               {
                 name: 'Inferred from high throughput direct assay [HDA]',
                 code: 'hda',
@@ -4304,8 +4410,14 @@ const configureSearchTerms = [
     example: 'true',
     regex: '^true|false$',
     values: [
-      { name: 'Yes', value: 'true' },
-      { name: 'No', value: 'false' },
+      {
+        name: 'Yes',
+        value: 'true',
+      },
+      {
+        name: 'No',
+        value: 'false',
+      },
     ],
   },
   {
@@ -4318,8 +4430,14 @@ const configureSearchTerms = [
     example: 'true',
     regex: '^true|false$',
     values: [
-      { name: 'Yes', value: 'true' },
-      { name: 'No', value: 'false' },
+      {
+        name: 'Yes',
+        value: 'true',
+      },
+      {
+        name: 'No',
+        value: 'false',
+      },
     ],
   },
   {
@@ -4335,7 +4453,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef50_P05067',
-        regex: '^UniRef50_[\\w|-]+$',
+        regex: '^UniRef50_[w|-]+$',
       },
       {
         id: 'uniref_cluster_90',
@@ -4345,7 +4463,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef90_P05067',
-        regex: '^UniRef90_[\\w|-]+$',
+        regex: '^UniRef90_[w|-]+$',
       },
       {
         id: 'uniref_cluster_100',
@@ -4355,7 +4473,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef100_P05067',
-        regex: '^UniRef100_[\\w|-]+$',
+        regex: '^UniRef100_[w|-]+$',
       },
     ],
   },
@@ -4367,7 +4485,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'UPI000002DB1C',
-    regex: 'UPI[\\w]{10}',
+    regex: 'UPI[w]{10}',
   },
 ] as SearchTermType[];
 // TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787

@@ -2566,8 +2566,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_print
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pro": xref_pro 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_prodom": xref_prodom 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_promex": xref_promex 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_prosite": xref_prosite 1`] = `<DocumentFragment />`;
