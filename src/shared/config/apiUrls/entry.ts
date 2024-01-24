@@ -35,6 +35,8 @@ export const download = (
         query: `accession:${accession}`,
         includeIsoform: true,
         format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
+        size: 500,
+        sort: 'accession asc',
       })
     : `${entry(accession, namespace)}.${fileFormatToUrlParameter[format]}`;
 

@@ -324,7 +324,14 @@ const EntryDownload = ({
       availableDatasets.push(Dataset.features);
     }
   }
-  if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
+  if (
+    !proteinsApiVariation.loading &&
+    proteinsApiVariation.status === 200 &&
+    // Proteins associated with a proteome will have status code of 200 even if there is no variation data. All proteins that belong to a proteome are included in the XML file.
+    // So that we can fetch PEFF fasta (which variation API supports) for all proteins that belong to a single proteome.
+    // Use 'x-feature-records' form the headers to check in this case
+    proteinsApiVariation.headers?.['x-feature-records'] !== '0'
+  ) {
     availableDatasets.push(Dataset.variation);
   }
   if (!proteinsApiProteomics.loading && proteinsApiProteomics.status === 200) {

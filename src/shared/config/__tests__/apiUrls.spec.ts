@@ -31,7 +31,7 @@ describe('apiUrls.entry.download', () => {
     [FileFormat.fastaCanonical, 'P123456.fasta'],
     [
       FileFormat.fastaCanonicalIsoform,
-      'search?format=fasta&includeIsoform=true&query=accession%3AP123456',
+      'search?format=fasta&includeIsoform=true&query=accession%3AP123456&size=500&sort=accession+asc',
     ],
     [FileFormat.xml, 'P123456.xml'],
     [FileFormat.rdfXml, 'P123456.rdf'],
