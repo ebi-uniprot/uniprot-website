@@ -1,7 +1,7 @@
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 
 // Source: /api/database/search?query=embl&size=2
-// Retrieved: 2021-10-15
+// Retrieved: 2024-01-23
 const mock: DatabaseAPIModel[] = [
   {
     name: 'EMBL nucleotide sequence database',
@@ -10,27 +10,30 @@ const mock: DatabaseAPIModel[] = [
     pubMedId: '33175160',
     doiId: '10.1093/nar/gkaa1028',
     linkType: 'Explicit',
-    server: 'https://www.ebi.ac.uk/ena',
+    servers: ['https://www.ebi.ac.uk/ena'],
     dbUrl: 'https://www.ebi.ac.uk/ena/browser/view/%s',
     category: 'Sequence databases',
     statistics: {
-      reviewedProteinCount: 553525,
-      unreviewedProteinCount: 214958439,
+      reviewedProteinCount: 558056,
+      unreviewedProteinCount: 234508615,
     },
   },
   {
-    name: 'ChEMBL database of bioactive drug-like small molecules',
-    id: 'DB-0174',
-    abbrev: 'ChEMBL',
-    pubMedId: '21948594',
-    doiId: '10.1093/nar/gkr777',
+    name: 'Matched Annotation from NCBI and EMBL-EBI (MANE) - Phase one',
+    id: 'DB-0261',
+    abbrev: 'MANE-Select',
+    pubMedId: '35388217',
+    doiId: '10.1038/s41586-022-04558-8',
     linkType: 'Explicit',
-    server: 'https://www.ebi.ac.uk/chembldb',
-    dbUrl: 'https://www.ebi.ac.uk/chembldb/target/inspect/%s',
-    category: 'Chemistry databases',
+    servers: [
+      'https://www.ensembl.org/info/genome/genebuild/mane.html',
+      'https://www.ncbi.nlm.nih.gov/refseq/MANE/',
+    ],
+    dbUrl: 'https://www.ensembl.org/id/%s',
+    category: 'Genome annotation databases',
     statistics: {
-      reviewedProteinCount: 8251,
-      unreviewedProteinCount: 1146,
+      reviewedProteinCount: 18310,
+      unreviewedProteinCount: 765,
     },
   },
 ];

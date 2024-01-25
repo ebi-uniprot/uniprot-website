@@ -29,7 +29,7 @@ import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   DatabaseColumn.name,
-  DatabaseColumn.server,
+  DatabaseColumn.servers,
   DatabaseColumn.dbUrl,
   DatabaseColumn.linkType,
   DatabaseColumn.category,

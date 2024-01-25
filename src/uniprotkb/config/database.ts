@@ -125,6 +125,7 @@ export const getEntrySectionToDatabaseNames = (
     'dictyBase',
     'EcoGene',
     'VEuPathDB',
+    'JaponicusDB',
     'FlyBase',
     'Gramene',
     'HGNC',

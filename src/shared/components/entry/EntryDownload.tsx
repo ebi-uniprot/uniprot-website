@@ -62,6 +62,8 @@ const formatMap = new Map<Namespace, FileFormat[]>([
 ]);
 
 const uniprotkbFeatureFormats = [FileFormat.json, FileFormat.gff];
+// GFF is not supported for specific fields. Once backend has got it enabled filtering in GFF too, we expose both formats
+const uniprotkbSpecificFeatureFormats = [FileFormat.json];
 
 const proteinsAPICommonFormats = [
   FileFormat.json,
@@ -80,22 +82,22 @@ export enum Dataset {
   features = 'Features Only',
   selectedFeatures = 'Features - ',
   variation = 'Variations (includes UniProtKB)',
+  mutagenesis = 'Mutagenesis (includes UniProtKB)',
   coordinates = 'Genomic Coordinates',
   proteomics = 'Proteomics',
   proteomicsPtm = 'Proteomics-PTM',
   antigen = 'Antigen',
-  mutagenesis = 'Mutagenesis',
 }
 
 const uniprotKBEntryDatasets = {
   UniProtKB: [Dataset.uniprotData, Dataset.features, Dataset.selectedFeatures],
   'Additional Datasets': [
     Dataset.variation,
+    Dataset.mutagenesis,
     Dataset.coordinates,
     Dataset.proteomics,
     Dataset.proteomicsPtm,
     Dataset.antigen,
-    Dataset.mutagenesis,
   ],
 };
 
@@ -320,7 +322,14 @@ const EntryDownload = ({
       availableDatasets.push(Dataset.features);
     }
   }
-  if (!proteinsApiVariation.loading && proteinsApiVariation.status === 200) {
+  if (
+    !proteinsApiVariation.loading &&
+    proteinsApiVariation.status === 200 &&
+    // Proteins associated with a proteome will have status code of 200 even if there is no variation data. All proteins that belong to a proteome are included in the XML file.
+    // So that we can fetch PEFF fasta (which variation API supports) for all proteins that belong to a single proteome.
+    // Use 'x-feature-records' form the headers to check in this case
+    proteinsApiVariation.headers?.['x-feature-records'] !== '0'
+  ) {
     availableDatasets.push(Dataset.variation);
   }
   if (!proteinsApiProteomics.loading && proteinsApiProteomics.status === 200) {
@@ -358,8 +367,10 @@ const EntryDownload = ({
         setFileFormats(namespace ? formatMap.get(namespace) : []);
         break;
       case Dataset.features:
-      case Dataset.selectedFeatures:
         setFileFormats(uniprotkbFeatureFormats);
+        break;
+      case Dataset.selectedFeatures:
+        setFileFormats(uniprotkbSpecificFeatureFormats);
         break;
       // case Dataset.variation:
       //   setFileFormats(proteinsAPIVariationFormats);

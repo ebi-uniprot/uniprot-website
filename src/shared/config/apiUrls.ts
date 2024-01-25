@@ -121,6 +121,8 @@ const apiUrls = {
           query: `accession:${accession}`,
           includeIsoform: true,
           format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
+          size: 500,
+          sort: 'accession asc',
         })
       : `${apiUrls.entry(accession, namespace)}.${
           fileFormatToUrlParameter[format]
