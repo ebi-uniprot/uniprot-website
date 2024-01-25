@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  "Like smells and tastes, sounds can whizz you back to forgotten places. The shriek of a seagull. The wash of waves. The crack of lightning. A motor's rumble. A Christmas carol. A childhood tune. More often than not, these castaway memories emerge wrapped in a delicate veil of magic. It is a wonderful feeling, of something you would like to know again but cannot, although it is there hidden deep inside you.";
+  'Who has not been accosted by someone they would prefer to avoid? You greet them meekly, exchange a few polite words while wondering how to cut the exchange short without being disrespectful. If being disrespectful is not an issue, however, things become gloriously easy. You could tell them that their company bores you, that you have more important things to tend to or interrupt the chat with a brisk shake of the hand and move on.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -469,21 +469,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/264/"
+            url="https://www.proteinspotlight.org/back_issues/265/"
             noIcon
           >
-            Sound and silence
+            Rupture
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/264/"
+          url="https://www.proteinspotlight.org/back_issues/265/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt264.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt265.jpg"
             alt=""
             width="123"
             height="129"

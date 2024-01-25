@@ -688,17 +688,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/264/"
+          href="https://www.proteinspotlight.org/back_issues/265/"
           rel="noopener"
           target="_blank"
         >
-          Sound and silence
+          Rupture
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/264/"
+        href="https://www.proteinspotlight.org/back_issues/265/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -707,14 +707,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt264.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt265.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Like  smells  and  tastes,  sounds  can  whizz  you  back  to  forgotten  places.  The  shriek  of  a  seagull.  The  wash  of  waves.  The  crack  of  lightning.  A  motor's  rumble.  A  Christmas  carol.  A  childhood  tune.  More  often  than  not,  these  castaway  memories  emerge  wrapped  in…
+          Who  has  not  been  accosted  by  someone  they  would  prefer  to  avoid?  You  greet  them  meekly,  exchange  a  few  polite  words  while  wondering  how  to  cut  the  exchange  short  without  being  disrespectful.  If  being  disrespectful  is  not  an  issue,  however,  things  become…
       </p>
     </article>
   </section>
