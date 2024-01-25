@@ -27,9 +27,11 @@ describe('ComponentsButtons', () => {
           id="id"
           components={components as Component[]}
           selectedEntries={selectedComponents}
-          proteinCount={100}
           proteomeType="Reference and representative proteome"
-          superkingdom="superkingdom"
+          proteomeStatistics={{
+            reviewedProteinCount: 50,
+            unreviewedProteinCount: 50,
+          }}
         />
       );
       const link = screen.getByRole<HTMLAnchorElement>('link', {
@@ -46,10 +48,12 @@ describe('ComponentsButtons', () => {
     const { container } = customRender(
       <ComponentsButtons
         id="id"
-        proteinCount={100}
         selectedEntries={[]}
         proteomeType="Reference and representative proteome"
-        superkingdom="superkingdom"
+        proteomeStatistics={{
+          reviewedProteinCount: 50,
+          unreviewedProteinCount: 50,
+        }}
       />
     );
     expect(container).toBeEmptyDOMElement();
@@ -59,11 +63,13 @@ describe('ComponentsButtons', () => {
     customRender(
       <ComponentsButtons
         id="id"
-        proteinCount={100}
         selectedEntries={[]}
         components={getComponents(10) as Component[]}
         proteomeType="Reference and representative proteome"
-        superkingdom="superkingdom"
+        proteomeStatistics={{
+          reviewedProteinCount: 50,
+          unreviewedProteinCount: 50,
+        }}
       />
     );
     const downloadButton = screen.getByRole('button', { name: 'Download' });

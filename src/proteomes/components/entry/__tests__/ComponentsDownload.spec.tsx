@@ -18,18 +18,17 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
   it('should check the filteredNumberResults and add the additional select options', async () => {
     const onCloseMock = jest.fn();
     const query = '(proteome:UP000005640)';
-    const totalNumberResults = 82678;
-    const isoformStats = {
-      reviewed: 20408,
-      isoforms: 22024,
+    const proteomeStatistics = {
+      reviewedProteinCount: 20422,
+      unreviewedProteinCount: 62067,
+      isoformProteinCount: 22072,
     };
 
     customRender(
       <ComponentsDownload
         query={query}
-        totalNumberResults={totalNumberResults}
         onClose={onCloseMock}
-        statistics={isoformStats}
+        proteomeStatistics={proteomeStatistics}
         proteomeType="Reference and representative proteome"
         numberSelectedEntries={0}
         // selectedEntries={[]}
@@ -49,7 +48,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
 
     fireEvent.click(
       screen.getByLabelText(
-        `Download only reviewed (Swiss-Prot) canonical proteins (20,408)`
+        `Download only reviewed (Swiss-Prot) canonical proteins (20,422)`
       )
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
