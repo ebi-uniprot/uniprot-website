@@ -9,7 +9,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import helpURL from '../../config/apiUrls';
 import cleanText from '../../../shared/utils/cleanText';
 import { pluralise } from '../../../shared/utils/utils';
 

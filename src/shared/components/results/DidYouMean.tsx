@@ -17,7 +17,7 @@ import {
   LocationToPath,
   Location,
 } from '../../../app/config/urls';
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../config/limits';
 
 import {
@@ -138,7 +138,11 @@ const DidYouMean = ({
 
     const promises = otherNamespaces.map((ns) =>
       fetchData<{ results: APIModel[] }>(
-        stringifyUrl(apiUrls.search(ns), { query, size: 0, didyoumean: true })
+        stringifyUrl(apiUrls.search.searchPrefix(ns), {
+          query,
+          size: 0,
+          didyoumean: true,
+        })
       ).then(
         (response) => {
           const hits = +(response?.headers?.['x-total-results'] || 0);

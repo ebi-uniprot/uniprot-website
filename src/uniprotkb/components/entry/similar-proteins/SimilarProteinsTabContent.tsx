@@ -7,7 +7,7 @@ import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
 
 import useSafeState from '../../../../shared/hooks/useSafeState';
 
-import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
 import listFormat from '../../../../shared/utils/listFormat';
 import { pluralise } from '../../../../shared/utils/utils';
@@ -60,7 +60,7 @@ const SimilarProteinsTabContent = ({
       if (isoforms.length <= 1 && cluster.memberCount <= 1) {
         return null;
       }
-      const url = getAPIQueryUrl({
+      const url = apiUrls.search.search({
         namespace: Namespace.uniprotkb,
         query: getUniprotkbQuery(cluster, isoforms),
         columns,

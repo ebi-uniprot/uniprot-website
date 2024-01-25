@@ -14,7 +14,7 @@ import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloa
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { getEntryPath } from '../../../../app/config/urls';
 
 import {
@@ -48,7 +48,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<DiseasesAPIModel>(
-      redirectTo ? null : apiUrls.entry(accession, Namespace.diseases)
+      redirectTo ? null : apiUrls.entry.entry(accession, Namespace.diseases)
     );
 
   if (redirectTo) {

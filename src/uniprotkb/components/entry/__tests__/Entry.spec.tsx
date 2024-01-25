@@ -6,9 +6,8 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import Entry from '../Entry';
 
-import apiUrls, {
-  getUniProtPublicationsQueryUrl,
-} from '../../../../shared/config/apiUrls';
+import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import uniprotkbApiUrls from '../../../config/apiUrls/apiUrls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 
@@ -27,17 +26,17 @@ jest.mock('../../../../shared/components/layouts/UniProtFooter', () => ({
   default: () => '{{ Footer }}',
 }));
 
-const filteredUrl = getUniProtPublicationsQueryUrl({
+const filteredUrl = uniprotkbApiUrls.publications.entryPublications({
   accession: primaryAccession,
   selectedFacets: [{ name: 'study_type', value: 'small_scale' }],
 });
 
 const mock = new MockAdapter(axios);
 mock
-  .onGet(apiUrls.entry(primaryAccession, Namespace.uniprotkb))
+  .onGet(sharedApiUrls.entry.entry(primaryAccession, Namespace.uniprotkb))
   .reply(200, entryData)
   .onGet(
-    getUniProtPublicationsQueryUrl({
+    uniprotkbApiUrls.publications.entryPublications({
       accession: primaryAccession,
       selectedFacets: [],
     })

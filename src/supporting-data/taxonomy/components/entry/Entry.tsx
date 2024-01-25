@@ -14,7 +14,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import generatePageTitle from '../../adapters/generatePageTitle';
 
 import {
@@ -54,10 +54,10 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
   const mainData = useDataApi<TaxonomyAPIModel>(
-    apiUrls.entry(accession, Namespace.taxonomy)
+    apiUrls.entry.entry(accession, Namespace.taxonomy)
   );
   const childrenData = useDataApi<SearchResults<TaxonomyAPIModel>>(
-    getAPIQueryUrl({
+    apiUrls.search.search({
       namespace: Namespace.taxonomy,
       query: `parent:${accession}`,
       columns: [TaxonomyColumn.scientificName, TaxonomyColumn.commonName],

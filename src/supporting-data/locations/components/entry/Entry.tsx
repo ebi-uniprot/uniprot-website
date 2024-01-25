@@ -14,7 +14,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { getEntryPathFor } from '../../../../app/config/urls';
 
 import {
@@ -62,7 +62,9 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<LocationsAPIModel>(
-      redirectTo ? undefined : apiUrls.entry(accession, Namespace.locations)
+      redirectTo
+        ? undefined
+        : apiUrls.entry.entry(accession, Namespace.locations)
     );
 
   if (redirectTo) {

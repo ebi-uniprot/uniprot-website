@@ -30,7 +30,7 @@ import { stringifyQuery } from '../../shared/utils/url';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
-import apiUrls from '../../shared/config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import {
   Namespace,
   SearchableNamespace,
@@ -120,7 +120,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     useIDMappingDetails() || {};
   const { data: searchTermsData, loading: searchTermsLoading } = useDataApi<
     SearchTermType[]
-  >(namespace ? apiUrls.queryBuilderTerms(namespace) : undefined);
+  >(namespace ? apiUrls.configure.queryBuilderTerms(namespace) : undefined);
 
   const loading = idMappingDetailsLoading || searchTermsLoading;
   useEffect(() => {

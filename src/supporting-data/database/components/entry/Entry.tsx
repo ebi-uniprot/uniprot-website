@@ -13,7 +13,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import {
   Namespace,
@@ -44,7 +44,7 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<DatabaseAPIModel>(
-      apiUrls.entry(accession, Namespace.database)
+      apiUrls.entry.entry(accession, Namespace.database)
     );
 
   if (error || !accession || (!loading && !data)) {

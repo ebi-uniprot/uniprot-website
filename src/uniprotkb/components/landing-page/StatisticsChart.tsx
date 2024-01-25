@@ -6,7 +6,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { nameToQueryKingdoms } from '../statistics/taxonomyQueries';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import {
@@ -27,14 +27,14 @@ const StatisticsChart = ({
 }: StatisticsChartProps) => {
   const reviewedStats = useDataApi<StatisticsPayload>(
     releaseNumber &&
-      stringifyUrl(apiUrls.statistics(releaseNumber, 'reviewed'), {
+      stringifyUrl(apiUrls.statistics.statistics(releaseNumber, 'reviewed'), {
         categories: 'superkingdom',
       })
   );
 
   const unreviewedStats = useDataApi<StatisticsPayload>(
     releaseNumber &&
-      stringifyUrl(apiUrls.statistics(releaseNumber, 'unreviewed'), {
+      stringifyUrl(apiUrls.statistics.statistics(releaseNumber, 'unreviewed'), {
         categories: 'superkingdom',
       })
   );

@@ -5,7 +5,7 @@ import useViewMode, { ViewMode } from './useViewMode';
 import useColumnNames from './useColumnNames';
 
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
-import { getAccessionsURL, getAPIQueryUrl } from '../config/apiUrls';
+import apiUrls from '../config/apiUrls/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 
 import { Column } from '../config/columns';
@@ -77,8 +77,8 @@ const useNSQuery = ({
     noSort,
   };
   return accessions
-    ? getAccessionsURL(accessions, options)
-    : getAPIQueryUrl(options);
+    ? apiUrls.search.accessions(accessions, options)
+    : apiUrls.search.search(options);
 };
 
 export default useNSQuery;

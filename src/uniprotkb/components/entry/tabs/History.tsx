@@ -27,7 +27,7 @@ import { useMediumScreen } from '../../../../shared/hooks/useMatchMedia';
 import lazy from '../../../../shared/utils/lazy';
 import parseDate from '../../../../shared/utils/parseDate';
 import listFormat from '../../../../shared/utils/listFormat';
-import { unisave } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../config/apiUrls/apiUrls';
 import { getEntryPath } from '../../../../app/config/urls';
 import * as logging from '../../../../shared/utils/logging';
 
@@ -68,14 +68,14 @@ const EntryHistoryDiff = ({
 }) => {
   // 2 different calls to improve cache hit when doing multiple comparisons
   const v1Data = useDataApi<UniSaveAccession>(
-    unisave.accession(accession, {
+    apiUrls.unisave.entry(accession, {
       entryVersions: version1,
       format: 'json',
       includeContent: true,
     })
   );
   const v2Data = useDataApi<UniSaveAccession>(
-    unisave.accession(accession, {
+    apiUrls.unisave.entry(accession, {
       entryVersions: version2,
       format: 'json',
       includeContent: true,
@@ -150,7 +150,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
         {entry.entryVersion}&nbsp;
         {/* eslint-disable-next-line react/jsx-no-target-blank */}
         <a
-          href={unisave.accession(entry.accession, {
+          href={apiUrls.unisave.entry(entry.accession, {
             entryVersions: entry.entryVersion,
             format: 'txt',
           })}
@@ -175,7 +175,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
         {entry.sequenceVersion}&nbsp;
         {/* eslint-disable-next-line react/jsx-no-target-blank */}
         <a
-          href={unisave.accession(entry.accession, {
+          href={apiUrls.unisave.entry(entry.accession, {
             entryVersions: entry.entryVersion,
             format: 'fasta',
           })}
@@ -246,9 +246,11 @@ const getIdKey = (entry: UniSaveVersionWithEvents) => `${entry.entryVersion}`;
 
 const EntryHistoryList = ({ accession }: { accession: string }) => {
   const accessionData = useDataApi<UniSaveAccession>(
-    unisave.accession(accession)
+    apiUrls.unisave.entry(accession)
   );
-  const statusData = useDataApi<UniSaveStatus>(unisave.status(accession));
+  const statusData = useDataApi<UniSaveStatus>(
+    apiUrls.unisave.status(accession)
+  );
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 

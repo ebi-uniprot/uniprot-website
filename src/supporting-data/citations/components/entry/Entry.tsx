@@ -13,7 +13,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import {
   Namespace,
@@ -30,7 +30,7 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const { data, loading, error, status, progress } = useDataApiWithStale<
     SetOptional<CitationsAPIModel, 'statistics'>
-  >(apiUrls.entry(accession, Namespace.citations));
+  >(apiUrls.entry.entry(accession, Namespace.citations));
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;

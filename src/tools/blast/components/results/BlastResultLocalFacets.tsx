@@ -15,8 +15,8 @@ import {
   blastFacetToKeyName,
   blastFacetToNiceName,
 } from '../../utils/blastFacetDataUtils';
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -135,7 +135,7 @@ const BlastResultLocalFacets: FC<{
         // No need to load for UniRef (no facet)
         // No need to load when no facet applied
         namespace !== Namespace.uniref && selectedFacets.length
-          ? getAccessionsURL(
+          ? apiUrls.search.accessions(
               allHits.map((hit) => hit.hit_acc),
               {
                 namespace,

@@ -5,7 +5,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
@@ -16,7 +16,7 @@ import { SearchResults } from '../../../shared/types/results';
 import style from './styles/inline-publication.module.scss';
 
 const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
-  const url = getAPIQueryUrl({
+  const url = apiUrls.search.search({
     namespace: Namespace.citations,
     query: Array.from(pubmedIds).sort().join(' OR '),
   });

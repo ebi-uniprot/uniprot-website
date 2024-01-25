@@ -13,7 +13,7 @@ import useItemSelect from '../../../shared/hooks/useItemSelect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { pluralise } from '../../../shared/utils/utils';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -90,7 +90,7 @@ const ComputationalyMappedSequences = ({
   // Hooks
   const { data, loading, error, status } = useDataApi<
     SearchResults<GeneCentricData>
-  >(apiUrls.genecentric(primaryAccession));
+  >(apiUrls.genecentric.search(primaryAccession));
 
   const filteredData = useMemo(
     () =>
