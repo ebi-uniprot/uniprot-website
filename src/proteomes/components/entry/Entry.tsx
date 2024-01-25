@@ -11,7 +11,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import AccessionView from '../../../shared/components/results/AccessionView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -36,12 +36,12 @@ const Entry = () => {
   const accession = match?.params.accession;
 
   const mainData = useDataApi<ProteomesAPIModel>(
-    apiUrls.entry(accession, Namespace.proteomes)
+    apiUrls.entry.entry(accession, Namespace.proteomes)
   );
 
   const panProteomeData = useDataApi<ProteomesAPIModel>(
     mainData.data?.panproteome && mainData.data.panproteome !== mainData.data.id
-      ? apiUrls.entry(mainData.data.panproteome, Namespace.proteomes)
+      ? apiUrls.entry.entry(mainData.data.panproteome, Namespace.proteomes)
       : null
   );
 

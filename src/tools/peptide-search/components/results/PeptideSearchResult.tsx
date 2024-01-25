@@ -25,7 +25,7 @@ import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPa
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
-import { apiPrefix } from '../../../../shared/config/apiUrls';
+import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
 import {
   Namespace,
   namespaceAndToolsLabels,

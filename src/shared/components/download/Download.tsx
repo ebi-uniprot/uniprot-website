@@ -32,7 +32,7 @@ import {
 } from './downloadActions';
 import { prepareFieldData } from '../column-select/utils';
 
-import apiUrls, { getDownloadUrl } from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   getColumnsNamespace,
@@ -108,7 +108,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
     getDownloadInitialState
   );
   const { data } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(namespace)
+    apiUrls.configure.resultsFields(namespace)
   );
 
   const fieldData = useMemo(
@@ -139,9 +139,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
-  const downloadUrl = getDownloadUrl(downloadOptions);
+  const downloadUrl = apiUrls.results.download(downloadOptions);
   const previewOptions = getPreviewOptions(state, props, location, job);
-  const previewUrl = previewOptions && getDownloadUrl(previewOptions);
+  const previewUrl = previewOptions && apiUrls.results.download(previewOptions);
   const ftpFilenamesAndUrls = getFtpFilenamesAndUrls(
     state,
     props,

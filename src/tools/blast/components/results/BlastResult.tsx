@@ -35,7 +35,7 @@ import {
   Location,
 } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import {
   Namespace,
@@ -245,7 +245,7 @@ const BlastResult = () => {
     useDataApi<ApiData>(
       useMemo(
         () =>
-          getAccessionsURL(accessionsFilteredByLocalFacets, {
+          apiUrls.search.accessions(accessionsFilteredByLocalFacets, {
             namespace,
             selectedFacets: urlParams.selectedFacets,
             facets: [],

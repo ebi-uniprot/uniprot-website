@@ -10,7 +10,7 @@ import {
 import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
 import { ViewMode } from '../../shared/hooks/useViewMode';
-import { GroupBy } from '../config/apiUrls';
+import { GroupBy } from '../config/apiUrls/groupBy';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {

@@ -68,7 +68,7 @@ import defaultFormValues, {
   BlastFields,
   excludeTaxonForDB,
 } from '../config/BlastFormData';
-import uniProtKBApiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import {
   MessageFormat,
@@ -359,7 +359,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             >
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
-                url={uniProtKBApiUrls.taxonomySuggester}
+                url={apiUrls.suggester.taxonomy}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"
                 clearOnSelect

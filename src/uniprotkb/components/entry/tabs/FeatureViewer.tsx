@@ -8,14 +8,14 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
-import { proteinsApi } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Dataset } from '../../../../shared/components/entry/EntryDownload';
 
 const FeatureViewer = ({ accession }: { accession: string }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
-    proteinsApi.proteins(accession)
+    apiUrls.proteinsApi.proteins(accession)
   );
 
   const protvistaElement = useCustomElement(

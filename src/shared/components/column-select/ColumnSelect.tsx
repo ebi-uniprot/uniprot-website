@@ -6,7 +6,7 @@ import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
@@ -85,7 +85,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(namespace, isEntryPage)
+    apiUrls.configure.resultsFields(namespace, isEntryPage)
   );
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection

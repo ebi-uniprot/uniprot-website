@@ -43,7 +43,7 @@ import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
 
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
   IDMappingFormValues,
@@ -347,7 +347,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               <section className="tools-form-section__item tools-form-section__item--taxon-select">
                 <AutocompleteWrapper
                   placeholder="Enter taxon name or ID"
-                  url={apiUrls.taxonomySuggester}
+                  url={apiUrls.suggester.taxonomy}
                   onSelect={handleTaxonFormValue}
                   title="Restrict by taxonomy"
                   value={
@@ -425,7 +425,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
 
 const IDMappingFormWithProvider = () => {
   const { loading, progress, data, error } = useDataApi<IDMappingFormConfig>(
-    apiUrls.idMappingFields
+    apiUrls.configure.idMappingFields
   );
 
   if (loading) {

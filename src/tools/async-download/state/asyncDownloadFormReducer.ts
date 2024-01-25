@@ -6,7 +6,7 @@ import {
   AsyncDownloadFields,
   AsyncDownloadFormValues,
 } from '../config/asyncDownloadFormData';
-import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
+import { DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 
 export type AsyncDownloadFormState = {

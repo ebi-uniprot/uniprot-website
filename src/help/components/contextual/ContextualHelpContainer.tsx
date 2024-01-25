@@ -21,7 +21,7 @@ import HelpLandingPage from './Landing';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import helpURL from '../../config/apiUrls';
 
 import {
   LocationToPath,

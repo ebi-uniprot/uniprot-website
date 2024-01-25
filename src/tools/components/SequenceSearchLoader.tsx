@@ -16,7 +16,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
-import apiUrls from '../../shared/config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import {
@@ -48,21 +48,21 @@ const getURLForAccessionOrID = (input: string) => {
 
   // UniRef accession
   if (reUniRefAccession.test(cleanedInput)) {
-    return apiUrls.entry(cleanedInput, Namespace.uniref);
+    return apiUrls.entry.entry(cleanedInput, Namespace.uniref);
   }
 
   // UniParc accession
   if (reUniParc.test(cleanedInput)) {
-    return apiUrls.entry(cleanedInput.toUpperCase(), Namespace.uniparc);
+    return apiUrls.entry.entry(cleanedInput.toUpperCase(), Namespace.uniparc);
   }
 
   // UniProtKB accession
   if (reUniProtKBAccession.test(cleanedInput)) {
-    return apiUrls.entry(cleanedInput.toUpperCase(), Namespace.uniprotkb);
+    return apiUrls.entry.entry(cleanedInput.toUpperCase(), Namespace.uniprotkb);
   }
 
   // UniProtKB ID
-  return stringifyUrl(apiUrls.search(), {
+  return stringifyUrl(apiUrls.search.searchPrefix(), {
     query: `id:${cleanedInput.toUpperCase()}`,
     fields:
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',

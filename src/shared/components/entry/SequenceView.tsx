@@ -16,7 +16,7 @@ import { pluralise } from '../../utils/utils';
 import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
 import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 
 import {
   Isoform,
@@ -73,7 +73,7 @@ const SequenceInfo = ({
   const history = useHistory();
 
   const { data, loading } = useDataApi<UniProtkbAPIModel>(
-    isoformToFetch && apiUrls.entry(isoformToFetch, Namespace.uniprotkb)
+    isoformToFetch && apiUrls.entry.entry(isoformToFetch, Namespace.uniprotkb)
   );
 
   const dataToDisplay = data?.sequence || isoformSequence;
@@ -114,7 +114,7 @@ const SequenceInfo = ({
           onShowSequence={() => setIsoformToFetch(isoformId)}
           infoData={infoData}
           accession={isoformId}
-          downloadUrl={apiUrls.sequenceFasta(isoformId)}
+          downloadUrl={apiUrls.entry.sequenceFasta(isoformId)}
           onBlastClick={() =>
             history.push(LocationToPath[Location.Blast], {
               parameters: { sequence: dataToDisplay?.value },

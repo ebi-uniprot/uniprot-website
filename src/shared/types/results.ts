@@ -1,4 +1,12 @@
 import { ReactNode } from 'react';
+import {
+  SelectedFacet,
+  SortDirection,
+} from '../../uniprotkb/types/resultsTypes';
+import { Column } from '../config/columns';
+import { Namespace } from './namespaces';
+import { FileFormat } from './resultsDownload';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 
 export type FacetValue<Label extends ReactNode = string> = {
   // if from API, a simple string and always there,
@@ -53,4 +61,23 @@ export type Response<Schema> = {
     ['x-total-results']: string;
     link: string;
   };
+};
+
+export type DownloadUrlOptions = {
+  base?: string;
+  query?: string;
+  columns?: string[];
+  selectedFacets?: SelectedFacet[];
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
+  fileFormat: FileFormat;
+  compressed: boolean;
+  size?: number;
+  selected: string[];
+  selectedIdField: Column;
+  namespace: Namespace;
+  accessions?: string[];
+  download?: boolean;
+  jobId?: string; // ID Mapping Async Download
+  version?: string;
 };

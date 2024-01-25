@@ -3,7 +3,7 @@ import { SearchTextLink } from './SearchTextLink';
 import useDataApi from '../../hooks/useDataApi';
 
 import { stringifyUrl } from '../../utils/url';
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 
 import { SearchResults } from '../../types/results';
 import { Namespace } from '../../types/namespaces';
@@ -19,7 +19,7 @@ const OrganismSuggestion = ({
   total: number;
 }) => {
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+    stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
       query: `organism_id:${taxonID}`,
       size: 0,
     })

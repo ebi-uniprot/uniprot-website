@@ -94,6 +94,38 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <div
                   class="decorated-list-item__title tiny"
                 >
+                  Assembly Name
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  GRCh38
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title tiny"
+                >
+                  Nucleotide ID
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  CM000670.2
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title tiny"
+                >
                   Ensembl gene ID
                 </div>
                 <div

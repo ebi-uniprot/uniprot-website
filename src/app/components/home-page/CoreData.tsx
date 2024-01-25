@@ -7,7 +7,7 @@ import colors from '../../../../node_modules/franklin-sites/src/styles/colours.j
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { Location, LocationToPath } from '../../config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -27,7 +27,7 @@ const getNamespaceTo = (location: Location) => ({
 
 const UniProtKBLinks = () => {
   const { data } = useDataApi<SearchResults<never>>(
-    getAPIQueryUrl({
+    apiUrls.search.search({
       namespace: Namespace.uniprotkb,
       query: '*',
       size: 0,

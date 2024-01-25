@@ -1,9 +1,10 @@
 import { action } from 'typesafe-actions';
+
 import {
   AsyncDownloadFields,
   AsyncDownloadFormValue,
 } from '../config/asyncDownloadFormData';
-import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
+import { DownloadUrlOptions } from '../../../shared/types/results';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED' as const;
 export const UPDATE_DOWNLOAD_URL_OPTIONS =

@@ -162,6 +162,14 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
         : 'Forward',
     },
     {
+      title: 'Assembly Name',
+      content: representativeEntry.gnCoordinate.genomicLocation.assemblyName,
+    },
+    {
+      title: 'Nucleotide ID',
+      content: representativeEntry.gnCoordinate.genomicLocation.nucleotideId,
+    },
+    {
       title: `${ensID ? 'Ensembl g' : 'G'}ene ID`,
       content:
         representativeEntry.gnCoordinate.ensemblGeneId &&
