@@ -38,6 +38,8 @@ export type GenomicLocation = {
   start: number; // Swagger says optional, but apparently not
   end: number; // Swagger says optional, but apparently not
   reverseStrand?: boolean;
+  nucleotideId?: string;
+  assemblyName?: string;
 };
 
 export type ExonMap = {

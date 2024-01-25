@@ -126,6 +126,8 @@ const mock: GenomicEntry[] = [
           start: 58565034,
           end: 58581737,
           reverseStrand: false,
+          nucleotideId: 'CM000670.2',
+          assemblyName: 'GRCh38',
         },
         feature: [
           {
@@ -794,6 +796,8 @@ const mock: GenomicEntry[] = [
           start: 58565034,
           end: 58581737,
           reverseStrand: false,
+          nucleotideId: 'CM000670.2',
+          assemblyName: 'GRCh38',
         },
         feature: [
           {
