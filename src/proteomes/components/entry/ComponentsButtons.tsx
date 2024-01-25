@@ -33,14 +33,9 @@ const ComponentsDownloadComponent = lazy(
 
 type Props = Pick<
   ProteomesAPIModel,
-  'id' | 'components' | 'proteinCount' | 'proteomeType' | 'superkingdom'
+  'id' | 'components' | 'proteomeType' | 'proteomeStatistics'
 > & {
   selectedEntries: string[];
-};
-
-export type ProteomeStatistics = {
-  reviewed: number | undefined;
-  isoforms: number | undefined;
 };
 
 const fetchOptions = { method: 'HEAD' };
@@ -49,44 +44,10 @@ const ComponentsButtons = ({
   id,
   components,
   selectedEntries,
-  proteinCount,
   proteomeType,
-  superkingdom,
+  proteomeStatistics,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    displayDownloadPanel
-      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
-          query: `(proteome=${id}) AND (reviewed=true)`,
-          size: '0',
-        })
-      : null,
-    fetchOptions
-  );
-
-  const { headers: isoformHeaders } = useDataApi<
-    SearchResults<UniProtkbAPIModel>
-  >(
-    displayDownloadPanel && superkingdom === 'eukaryota'
-      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
-          query: `(proteome=${id}) AND (reviewed=true)`,
-          size: '0',
-          includeIsoform: 'true',
-        })
-      : null,
-    fetchOptions
-  );
-
-  const isoformCount =
-    Number(isoformHeaders?.['x-total-results'] || 0) -
-    Number(headers?.['x-total-results'] || 0);
-
-  // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
-  const isoformStats: ProteomeStatistics = {
-    reviewed: Number(headers?.['x-total-results'] || 0),
-    isoforms: isoformCount,
-  };
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
@@ -156,10 +117,9 @@ const ComponentsButtons = ({
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
                 numberSelectedEntries={numberSelectedProteins}
-                totalNumberResults={proteinCount}
                 onClose={handleToggleDownload}
                 proteomeType={proteomeType}
-                statistics={isoformStats}
+                proteomeStatistics={proteomeStatistics}
               />
             </ErrorBoundary>
           </SlidingPanel>

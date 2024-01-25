@@ -32,21 +32,15 @@ const getIdKey = ({ name }: Component) => name;
 
 type ComponentsProps = Pick<
   ProteomesAPIModel,
-  | 'components'
-  | 'id'
-  | 'proteinCount'
-  | 'proteomeType'
-  | 'superkingdom'
-  | 'taxonomy'
+  'components' | 'id' | 'proteomeType' | 'taxonomy' | 'proteomeStatistics'
 >;
 
 const Components = ({
   components,
   id,
-  proteinCount,
   proteomeType,
-  superkingdom,
   taxonomy,
+  proteomeStatistics,
 }: ComponentsProps) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -163,10 +157,9 @@ const Components = ({
       <ComponentsButtons
         components={components}
         selectedEntries={selectedEntries}
-        proteinCount={proteinCount}
         id={id}
         proteomeType={proteomeType}
-        superkingdom={superkingdom}
+        proteomeStatistics={proteomeStatistics}
       />
       <DataTable
         getIdKey={getIdKey}
