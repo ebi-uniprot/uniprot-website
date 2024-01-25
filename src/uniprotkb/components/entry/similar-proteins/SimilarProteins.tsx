@@ -6,7 +6,7 @@ import SimilarProteinsTabContent from './SimilarProteinsTabContent';
 
 import useSafeState from '../../../../shared/hooks/useSafeState';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
 
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -78,7 +78,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
       fetchData<{
         results: UniRefLiteAPIModel[];
       }>(
-        `${apiUrls.search(Namespace.uniref)}?query=(uniprot_id:${
+        `${apiUrls.search.searchPrefix(Namespace.uniref)}?query=(uniprot_id:${
           // replace isoform name "-1" for canonical to get data from API
           accession.replace(canonicalIsoformRE, '')
         })`

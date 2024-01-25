@@ -1,13 +1,7 @@
 import deepFreeze from 'deep-freeze';
 import joinUrl from 'url-join';
 
-import {
-  apiPrefix,
-  DownloadUrlOptions,
-  getAPIQueryParams,
-  getDownloadUrl,
-} from '../../shared/config/apiUrls';
-import { stringifyUrl } from '../../shared/utils/url';
+import { getSearchParams, stringifyUrl } from '../../shared/utils/url';
 
 import {
   SelectedFacet,
@@ -17,6 +11,9 @@ import { JobTypes } from '../types/toolsJobTypes';
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../shared/types/namespaces';
+import { DownloadUrlOptions } from '../../shared/types/results';
+import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
 type CommonResultFormats =
   | 'out' // raw output of the tool
@@ -92,7 +89,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
         resultUrl: (redirectUrl, extra) =>
-          stringifyUrl(redirectUrl, getAPIQueryParams(extra)),
+          stringifyUrl(redirectUrl, getSearchParams(extra)),
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:
@@ -132,7 +129,8 @@ export function asyncDownloadUrlObjectCreator(
   );
   return deepFreeze({
     runUrl: (options) =>
-      getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),
+      // All parameters need to go in the URL.
+      apiUrls.results.download({ ...options, base: joinUrl(baseURL, 'run') }),
     statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
     resultUrl: (jobId) => joinUrl(baseURL, 'results', jobId),
     detailsUrl: (jobId) => joinUrl(baseURL, 'details', jobId),

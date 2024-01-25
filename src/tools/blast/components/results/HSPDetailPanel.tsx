@@ -10,7 +10,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import { BlastHsp } from '../../types/blastResults';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -81,7 +81,7 @@ const HSPDetailPanel = ({
   namespace,
 }: HSPDetailPanelProps) => {
   const { hsp_align_len } = hsp;
-  let url = apiUrls.entry(hitAccession, namespace);
+  let url = apiUrls.entry.entry(hitAccession, namespace);
   if (namespace === Namespace.uniref) {
     url += '/light';
   }

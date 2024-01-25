@@ -4,7 +4,7 @@ import { SearchTextLink } from './SearchTextLink';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { stringifyUrl } from '../../utils/url';
 import {
   modifyQueryWithSuggestions,
@@ -29,7 +29,7 @@ const TaxonomyLevelsSuggestion = ({
   );
 
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+    stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
       query: `${modifiedQuery}`,
       size: 0,
     })

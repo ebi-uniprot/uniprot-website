@@ -8,7 +8,7 @@ import LazyComponent from '../LazyComponent';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
@@ -122,7 +122,7 @@ const SelfLoadingTaxonomyLineage = ({
   blockLoading?: boolean;
 }) => {
   const { data } = useDataApi<TaxonomyAPIModel>(
-    blockLoading ? null : apiUrls.entry(`${taxonId}`, Namespace.taxonomy)
+    blockLoading ? null : apiUrls.entry.entry(`${taxonId}`, Namespace.taxonomy)
   );
 
   let lineage: Array<Partial<Lineage>> = fallbackData.map((scientificName) => ({

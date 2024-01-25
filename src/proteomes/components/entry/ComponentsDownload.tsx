@@ -8,10 +8,8 @@ import DownloadPreview from '../../../shared/components/download/DownloadPreview
 
 import useColumnNames from '../../../shared/hooks/useColumnNames';
 
-import {
-  DownloadUrlOptions,
-  getDownloadUrl,
-} from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+
 import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
 import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
 import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
@@ -25,6 +23,7 @@ import {
 } from '../../../shared/utils/gtagEvents';
 import { ProteomeType } from '../../adapters/proteomesConverter';
 import { Statistics } from '../../../shared/types/apiModel';
+import { DownloadUrlOptions } from '../../../shared/types/results';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import styles from '../../../shared/components/download/styles/download.module.scss';
@@ -145,13 +144,13 @@ const ComponentsDownload = ({
     downloadOptions.columns = selectedColumns;
   }
 
-  const downloadUrl = getDownloadUrl(downloadOptions);
+  const downloadUrl = apiUrls.results.download(downloadOptions);
 
   const nPreview = Math.min(10, downloadCount);
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewUrl =
     previewFileFormat &&
-    getDownloadUrl({
+    apiUrls.results.download({
       ...downloadOptions,
       selected: downloadOptions.selected.slice(0, 10), // get only the first 10 entries instead of using the size parameters
       fileFormat: previewFileFormat,

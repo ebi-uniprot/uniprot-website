@@ -25,7 +25,7 @@ import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import {
   defaultColumns,
   UniParcXRefsColumn,
@@ -63,7 +63,10 @@ const Entry = () => {
     defaultColumns
   );
 
-  const baseURL = apiUrls.entry(match?.params.accession, Namespace.uniparc);
+  const baseURL = apiUrls.entry.entry(
+    match?.params.accession,
+    Namespace.uniparc
+  );
   const xRefsURL = useMemo(() => {
     const [{ selectedFacets }] = getParamsFromURL(search);
     if (!selectedFacets.length) {

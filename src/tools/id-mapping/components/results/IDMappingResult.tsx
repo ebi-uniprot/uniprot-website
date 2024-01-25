@@ -22,8 +22,10 @@ import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import apiUrls, { defaultFacets } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import * as logging from '../../../../shared/utils/logging';
+
+import { defaultFacets } from '../../../../shared/config/facets';
 
 import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -121,7 +123,7 @@ const IDMappingResult = () => {
     getParamsFromURL(location.search);
 
   const { loading: fieldsLoading, data: fieldsData } =
-    useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
+    useDataApi<IDMappingFormConfig>(apiUrls.configure.idMappingFields);
 
   const namespaceOverride = rawDBToNamespace(detailsData?.to);
 

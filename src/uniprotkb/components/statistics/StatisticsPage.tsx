@@ -27,7 +27,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { stringifyQuery } from '../../../shared/utils/url';
 import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import {
   MergedStatisticsItem,
   setAminoAcidsTotalCount,
@@ -511,10 +511,11 @@ const StatisticsPage = () => {
   const release = useUniProtDataVersion();
 
   const reviewedStats = useDataApi<StatisticsPayload>(
-    release && apiUrls.statistics(release.releaseNumber, 'reviewed')
+    release && apiUrls.statistics.statistics(release.releaseNumber, 'reviewed')
   );
   const unreviewedStats = useDataApi<StatisticsPayload>(
-    release && apiUrls.statistics(release.releaseNumber, 'unreviewed')
+    release &&
+      apiUrls.statistics.statistics(release.releaseNumber, 'unreviewed')
   );
 
   if (!release || reviewedStats.loading || unreviewedStats.loading) {

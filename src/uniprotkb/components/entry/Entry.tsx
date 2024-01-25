@@ -41,7 +41,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
-import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
 
@@ -147,16 +147,18 @@ const Entry = () => {
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
-      apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
+      apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession && proteinsApi.variation(match?.params.accession),
+    match?.params.accession &&
+      apiUrls.proteinsApi.variation(match?.params.accession),
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    match?.params.accession && proteinsApi.coordinates(match?.params.accession),
+    match?.params.accession &&
+      apiUrls.proteinsApi.coordinates(match?.params.accession),
     { method: 'HEAD' }
   );
 

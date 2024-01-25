@@ -8,7 +8,7 @@ import {
   getDatabaseNameFromColumn,
   isDatabaseColumn,
 } from '../../uniprotkb/utils/database';
-import apiUrls from '../config/apiUrls';
+import apiUrls from '../config/apiUrls/apiUrls';
 import * as logging from '../utils/logging';
 
 import { Namespace } from '../types/namespaces';
@@ -55,7 +55,7 @@ export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
 
 export const UniProtDataProvider = ({ children }: { children: ReactNode }) => {
   const { data, headers } = useDataApi<DatabaseInfo>(
-    apiUrls.allDatabases(Namespace.uniprotkb)
+    apiUrls.configure.allDatabases(Namespace.uniprotkb)
   );
 
   const uniProtDataVersion = useMemo(() => {

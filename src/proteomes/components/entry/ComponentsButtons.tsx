@@ -13,11 +13,12 @@ import {
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
-import { stringifyUrl } from '../../../shared/utils/url';
-
-import apiUrls, {
+import {
   createSelectedQueryString,
-} from '../../../shared/config/apiUrls';
+  stringifyUrl,
+} from '../../../shared/utils/url';
+
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -85,7 +86,7 @@ const ComponentsButtons = ({
     SearchResults<UniProtkbAPIModel>
   >(
     displayDownloadPanel && selectedEntries.length
-      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
+      ? stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
           query: selectedQuery,
           size: '0',
         })

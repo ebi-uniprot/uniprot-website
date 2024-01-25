@@ -7,7 +7,7 @@ import useMessagesDispatch from './useMessagesDispatch';
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
 import * as logging from '../utils/logging';
-import { apiPrefix } from '../config/apiUrls';
+import { apiPrefix } from '../config/apiUrls/apiPrefix';
 
 import {
   MessageFormat,
