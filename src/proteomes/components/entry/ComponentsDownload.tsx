@@ -113,15 +113,14 @@ const ComponentsDownload = ({
   let downloadCount;
   switch (downloadSelect) {
     case 'all':
-      downloadCount = includeIsoform
-        ? totalNumberResults + (proteomeStatistics.isoformProteinCount || 0)
-        : totalNumberResults;
+      downloadCount =
+        totalNumberResults +
+        ((includeIsoform && proteomeStatistics.isoformProteinCount) || 0);
       break;
     case 'reviewed':
-      downloadCount = includeIsoform
-        ? (proteomeStatistics.reviewedProteinCount || 0) +
-          (proteomeStatistics.isoformProteinCount || 0)
-        : proteomeStatistics.reviewedProteinCount || 0;
+      downloadCount =
+        proteomeStatistics.reviewedProteinCount +
+        ((includeIsoform && proteomeStatistics.isoformProteinCount) || 0);
       break;
     case 'selected':
       /* The isoform counts for selected entries is not available here. We show only (+ isoforms) in the select option 
@@ -237,9 +236,8 @@ const ComponentsDownload = ({
         />
         Download all reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins (
         <LongNumber>
-          {includeIsoform
-            ? totalNumberResults + (proteomeStatistics.isoformProteinCount || 0)
-            : totalNumberResults}
+          {totalNumberResults +
+            ((includeIsoform && proteomeStatistics.isoformProteinCount) || 0)}
         </LongNumber>
         )
       </label>
