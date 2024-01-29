@@ -1,0 +1,118 @@
+.table-container {
+  overflow-y: auto;
+  width: calc(100% + 2em);
+  padding-inline: 1em;
+  margin-inline-start: -1em;
+}
+
+.table {
+  width: 100%;
+  padding: 0;
+  margin: 1em 0;
+  border-spacing: 0;
+
+  th {
+    text-align: left;
+    vertical-align: top;
+    background-color: var(--protvista-datable__header-background, #fff);
+    color: var(--protvista-datable__header-text, #393b42);
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+  }
+
+  td,
+  th {
+    padding: 0.2rem;
+    border-block-end: 1px solid #c2c4c4;
+  }
+
+  tbody tr {
+    background-color: var(--protvista-datatable__even, #fff);
+
+    &:nth-of-type(4n + 1),
+    &:nth-of-type(4n + 2) {
+      background-color: var(--protvista-datatable__odd, #e4e8eb);
+    }
+  }
+
+  /* row containing a checked checkbox */
+  tr:has(input:checked) {
+    // the cells within
+    & td {
+      border-color: #c2c4c455;
+    }
+
+    /* the next row */
+    & + tr {
+      display: table-row;
+    }
+  }
+
+  td:first-child {
+    width: 0;
+    padding: 0;
+  }
+
+  label {
+    width: min-content;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0 1em;
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
+
+    &::before {
+      content: '+';
+    }
+
+    &:has(input:checked)::before {
+      content: '-';
+    }
+  }
+
+  .extra {
+    display: none;
+  }
+}
+
+/* protvista-datatable table .pd-group-trigger button:before {
+  display: inline-block;
+  content: " ";
+  border-style: solid;
+  border-width: 0.4rem 0 0.4rem 0.6rem;
+  border-color: transparent transparent transparent #161d39;
+  transition-duration: 0.3s;
+  transition-property: transform;
+} */
+
+/* protvista-datatable table .pd-group-trigger button.pd-group-trigger__expanded:before {
+  transform: rotate(90deg);
+} */
+
+/* protvista-datatable table .active {
+  background-color: var(
+    --protvista-datatable__active,
+    rgba(255, 235, 59, 0.3)
+  );
+} */
+
+.coordinates-table {
+  .coordinates {
+    text-align: end;
+    width: 0;
+    padding-inline: 0;
+
+    &:nth-of-type(4n + 4) {
+      text-align: center;
+      width: 1ch;
+    }
+
+    &:nth-of-type(4n + 2) {
+      width: initial;
+    }
+  }
+}

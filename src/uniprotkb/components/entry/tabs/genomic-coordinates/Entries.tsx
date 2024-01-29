@@ -2,11 +2,10 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, InfoList, LongNumber, Message } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
-
 import cn from 'classnames';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
-import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
+// import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
 import GenomicLoc, { getEnsemblLink } from './GenomicLoc';
 
 import useDatabaseInfoMaps from '../../../../../shared/hooks/useDatabaseInfoMaps';
@@ -22,8 +21,9 @@ import { TabLocation } from '../../../../types/entry';
 import { FlatGenomicEntry } from './types';
 import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
 
-import styles from './styles/entries.module.css';
+import styles from './styles/entries.module.scss';
 import helper from '../../../../../shared/styles/helper.module.scss';
+import Table from './Table';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 
@@ -54,44 +54,12 @@ const Entry = ({ entries, xrefInfo, ensID, oneIsoformOnly }: EntryProps) => {
       content: representativeEntry.gnCoordinate.genomicLocation.exon.length,
     },
     {
-      title: `${ensID ? 'Ensembl t' : 'T'}ranslation ${pluralise(
-        'ID',
-        entries.length
-      )}`,
+      title: `${ensID ? 'Ensembl t' : 'T'}ranscript and translation IDs`,
       content: (
         <>
           {entries.map((entry, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={index}>
-              {listFormat(index, entries)}
-              {entry.gnCoordinate.ensemblTranslationId &&
-                (xrefInfo?.uriLink ? (
-                  <ExternalLink
-                    url={processUrlTemplate(xrefInfo.uriLink, {
-                      id: entry.gnCoordinate.ensemblTranslationId,
-                    })}
-                  >
-                    {entry.gnCoordinate.ensemblTranslationId}
-                  </ExternalLink>
-                ) : (
-                  entry.gnCoordinate.ensemblTranslationId
-                ))}
-            </Fragment>
-          ))}
-        </>
-      ),
-    },
-    {
-      title: `${ensID ? 'Ensembl t' : 'T'}ranscript ${pluralise(
-        'ID',
-        entries.length
-      )}`,
-      content: (
-        <>
-          {entries.map((entry, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={index}>
-              {listFormat(index, entries)}
+            <div key={index}>
               {entry.gnCoordinate.ensemblTranscriptId &&
                 (xrefInfo?.uriLink ? (
                   <ExternalLink
@@ -104,7 +72,19 @@ const Entry = ({ entries, xrefInfo, ensID, oneIsoformOnly }: EntryProps) => {
                 ) : (
                   entry.gnCoordinate.ensemblTranscriptId
                 ))}
-            </Fragment>
+              {entry.gnCoordinate.ensemblTranslationId &&
+                (xrefInfo?.uriLink ? (
+                  <ExternalLink
+                    url={processUrlTemplate(xrefInfo.uriLink, {
+                      id: entry.gnCoordinate.ensemblTranslationId,
+                    })}
+                  >
+                    {entry.gnCoordinate.ensemblTranslationId}
+                  </ExternalLink>
+                ) : (
+                  entry.gnCoordinate.ensemblTranslationId
+                ))}
+            </div>
           ))}
         </>
       ),
@@ -233,11 +213,166 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
           oneIsoformOnly={isoformIDs.length === 1}
         />
       ))}
-      <DatatableWrapper alwaysExpanded>
-        <table className={cn(styles.table, helper['no-wrap'])}>
+      {/* <DatatableWrapper alwaysExpanded> */}
+      <Table className={cn(styles['coordinates-table'], helper['no-wrap'])}>
+        <Table.Head>
+          <th>Genomic coordinates</th>
+          {mappedIsoforms.map((isoformID) => (
+            <th
+              key={isoformID}
+              title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
+              colSpan={4}
+            >
+              <Link to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}>
+                {isoformID}
+              </Link>
+            </th>
+          ))}
+        </Table.Head>
+        <Table.Body>
+          {Object.entries(groupedExons).map(([id, exons], index) => {
+            const location = (
+              <>
+                {representativeEntry.gnCoordinate.genomicLocation.chromosome &&
+                  `${representativeEntry.gnCoordinate.genomicLocation.chromosome}:`}
+                {exons[0].genomeLocation.position ? (
+                  <LongNumber>
+                    {exons[0].genomeLocation.position.position}
+                  </LongNumber>
+                ) : (
+                  <>
+                    <LongNumber>
+                      {representativeEntry.gnCoordinate.genomicLocation
+                        .reverseStrand
+                        ? exons[0].genomeLocation.end.position
+                        : exons[0].genomeLocation.begin.position}
+                    </LongNumber>
+                    {' - '}
+                    <LongNumber>
+                      {representativeEntry.gnCoordinate.genomicLocation
+                        .reverseStrand
+                        ? exons[0].genomeLocation.begin.position
+                        : exons[0].genomeLocation.end.position}
+                    </LongNumber>
+                  </>
+                )}
+              </>
+            );
+            return (
+              <Table.Row
+                key={id}
+                isOdd={Boolean((index + 1) % 2)}
+                extraContent={
+                  <td colSpan={1 + 4 * mappedIsoforms.length}>
+                    {ensID && xrefInfo.uriLink ? (
+                      <ExternalLink
+                        url={processUrlTemplate(xrefInfo.uriLink, { id })}
+                      >
+                        {id}
+                      </ExternalLink>
+                    ) : (
+                      id
+                    )}
+                  </td>
+                }
+              >
+                <td>
+                  {ensID ? (
+                    <ExternalLink
+                      url={
+                        exons[0].genomeLocation.position
+                          ? getEnsemblLink(
+                              representativeEntry.taxid,
+                              exons[0].genomeLocation.position.position
+                            )
+                          : getEnsemblLink(
+                              representativeEntry.taxid,
+                              representativeEntry.gnCoordinate.genomicLocation
+                                .reverseStrand
+                                ? exons[0].genomeLocation.end.position
+                                : exons[0].genomeLocation.begin.position,
+                              representativeEntry.gnCoordinate.genomicLocation
+                                .reverseStrand
+                                ? exons[0].genomeLocation.begin.position
+                                : exons[0].genomeLocation.end.position,
+                              representativeEntry.gnCoordinate.genomicLocation
+                                .chromosome
+                            )
+                      }
+                    >
+                      {location}
+                    </ExternalLink>
+                  ) : (
+                    location
+                  )}
+                </td>
+                {mappedIsoforms.map((isoformID) => {
+                  const exon = exons.find(
+                    (exon) => exon.accession === isoformID
+                  );
+                  // Structure of the 4 elements:
+                  // td1: start
+                  // td2: separator (or "no data" line)
+                  // td3: end (or unique position)
+                  // td4: margin to separate from the next isoform
+                  if (!exon) {
+                    return (
+                      <Fragment key={isoformID}>
+                        <td className={styles.coordinates} />
+                        <td className={styles.coordinates}>―</td>
+                        <td className={styles.coordinates} />
+                        <td className={styles.coordinates} />
+                      </Fragment>
+                    );
+                  }
+                  if (exon.proteinLocation.position) {
+                    return (
+                      <Fragment key={isoformID}>
+                        <td className={styles.coordinates} />
+                        <td className={styles.coordinates} />
+                        <td className={styles.coordinates}>
+                          <LongNumber>
+                            {exon.proteinLocation.position.position}
+                          </LongNumber>
+                        </td>
+                        <td className={styles.coordinates} />
+                      </Fragment>
+                    );
+                  }
+                  return (
+                    <Fragment key={isoformID}>
+                      <td className={styles.coordinates}>
+                        <LongNumber>
+                          {exon.proteinLocation.begin.position}
+                        </LongNumber>
+                      </td>
+                      <td className={styles.coordinates}>-</td>
+                      <td className={styles.coordinates}>
+                        <LongNumber>
+                          {exon.proteinLocation.end.position}
+                        </LongNumber>
+                      </td>
+                      <td className={styles.coordinates} />
+                    </Fragment>
+                  );
+                })}
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+      </Table>
+      <div className={styles['table-container']}>
+        <table
+          className={cn(
+            styles.table,
+            styles['coordinates-table'],
+            helper['no-wrap']
+          )}
+        >
           <thead>
             <tr>
-              {/* <th>{ensID && 'Ensembl'} exon ID</th> */}
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+              <th />
               <th>Genomic coordinates</th>
               {mappedIsoforms.map((isoformID) => (
                 <th
@@ -286,7 +421,12 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
               );
               return (
                 <Fragment key={id}>
-                  <tr data-id={id}>
+                  <tr>
+                    <td>
+                      <label>
+                        <input type="checkbox" />
+                      </label>
+                    </td>
                     <td>
                       {ensID ? (
                         <ExternalLink
@@ -368,8 +508,9 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
                       );
                     })}
                   </tr>
-                  <tr data-group-for={id}>
-                    <td colSpan={10}>
+                  <tr className={styles.extra}>
+                    <td />
+                    <td colSpan={1 + 4 * mappedIsoforms.length}>
                       {ensID && xrefInfo.uriLink ? (
                         <ExternalLink
                           url={processUrlTemplate(xrefInfo.uriLink, { id })}
@@ -386,7 +527,8 @@ const Entries = ({ entries, index, isoformIDs }: EntriesProps) => {
             })}
           </tbody>
         </table>
-      </DatatableWrapper>
+      </div>
+      {/* </DatatableWrapper> */}
       {notMappedIsoforms.length ? (
         <Message level="info">
           The {pluralise('isoform', notMappedIsoforms.length)}{' '}

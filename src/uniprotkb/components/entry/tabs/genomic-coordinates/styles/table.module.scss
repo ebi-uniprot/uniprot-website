@@ -1,0 +1,66 @@
+.container {
+  overflow-y: auto;
+  width: calc(100% + 2em);
+  padding-inline: 1em;
+  margin-inline-start: -1em;
+}
+
+.table {
+  width: 100%;
+  padding: 0;
+  margin: 1em 0;
+  border-spacing: 0;
+  border-block-end: 1px solid #c2c4c4;
+
+  & th {
+    text-align: left;
+    vertical-align: top;
+    background-color: var(--protvista-datable__header-background, #fff);
+    color: var(--protvista-datable__header-text, #393b42);
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+  }
+
+  & td,
+  & th {
+    padding: 0.2rem 1ch;
+    border-block-start: 1px solid #c2c4c4;
+  }
+}
+
+.row {
+  background-color: var(--protvista-datatable__even, #fff);
+
+  &.odd {
+    background-color: var(--protvista-datatable__odd, #e4e8eb);
+  }
+
+  & td:first-child {
+    padding-inline-end: 0;
+    width: 0;
+  }
+
+  &.has-extra-content {
+    cursor: pointer;
+
+    & td:first-child button {
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      width: 2ch;
+    }
+  }
+
+  &.extra-content {
+    display: none;
+
+    td {
+      border-color: #c2c4c455;
+    }
+
+    &.expanded {
+      display: table-row;
+    }
+  }
+}
