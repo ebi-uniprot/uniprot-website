@@ -243,9 +243,11 @@ const UniProtKBFeaturesView = ({
                 <td id={feature.featureId}>
                   {feature.type === 'Natural variant' &&
                   position === positionStart &&
-                  feature.sequence?.length === 5 ? ( // Expasy links are only valid for SNPs
+                  // Expasy links are only valid for SNPs (e.g. "R → G":)
+                  feature.sequence?.length === 5 &&
+                  feature.featureId ? (
                     <ExternalLink
-                      url={externalUrls.UniProt(feature.featureId || '')}
+                      url={externalUrls.UniProt(feature.featureId)}
                       title="View in Expasy"
                       noIcon
                     >
