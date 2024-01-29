@@ -8,7 +8,7 @@ import {
   useImperativeHandle,
   useCallback,
 } from 'react';
-import { SearchInput } from 'franklin-sites';
+import { EllipsisReveal, SearchInput } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
@@ -84,6 +84,8 @@ type NetworkResponses = SearchResults<APISequenceData> | APISequenceData;
 export interface SequenceSearchLoaderInterface {
   reset: () => void;
 }
+
+const ERROR_MESSAGE_THRESHOLD = 150;
 
 const SequenceSearchLoader = forwardRef<
   SequenceSearchLoaderInterface,
@@ -218,11 +220,24 @@ const SequenceSearchLoader = forwardRef<
         }
         onLoad(parsedSequences);
         if (errors.length) {
+          const error = errors.join(', ');
           dispatch(
             addMessage({
-              content: `There was an issue retrieving sequence data for: ${errors.join(
-                ', '
-              )}`,
+              content: (
+                <>
+                  There was an issue retrieving sequence data for:
+                  {error.length > ERROR_MESSAGE_THRESHOLD ? (
+                    <>
+                      {error.substring(0, ERROR_MESSAGE_THRESHOLD)}
+                      <EllipsisReveal>
+                        {error.substring(ERROR_MESSAGE_THRESHOLD)}
+                      </EllipsisReveal>
+                    </>
+                  ) : (
+                    error
+                  )}
+                </>
+              ),
               format: MessageFormat.POP_UP,
               level: MessageLevel.FAILURE,
             })
