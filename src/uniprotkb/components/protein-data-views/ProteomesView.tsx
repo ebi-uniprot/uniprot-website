@@ -18,9 +18,10 @@ const ProteomesView = ({ data, isCompact = false }: Props) => {
     data.forEach((proteome) => {
       const { id, properties } = proteome;
       if (id && properties?.Component) {
-        mergedData[id] = mergedData[id]
-          ? [...mergedData[id], properties.Component]
-          : [properties.Component];
+        if (!mergedData[id]) {
+          mergedData[id] = [];
+        }
+        mergedData[id].push(properties.Component);
       }
     });
   }
