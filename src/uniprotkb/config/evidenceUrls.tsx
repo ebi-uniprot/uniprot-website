@@ -160,20 +160,17 @@ export const formatEvidenceContent = (id: string, source?: string) => {
 export const getEvidenceLink = (
   source: string,
   value: string
-): { url?: string; isInternal: boolean } => {
+): { url?: string | null; isInternal: boolean } => {
   // source could be any string
   if (source in internalEvidenceUrls) {
     // source is a known internal source
     const url = internalEvidenceUrls[source as InternalSource](value);
     return { url, isInternal: true };
   }
-  if (source in evidenceUrls) {
-    // source is a known external source
-    const url = processUrlTemplate(evidenceUrls[source as ExternalSource], {
+  return {
+    url: processUrlTemplate(evidenceUrls[source as ExternalSource], {
       value,
-    });
-    return { url, isInternal: false };
-  }
-  // source is an unregistered external source
-  return { isInternal: false };
+    }),
+    isInternal: false,
+  };
 };

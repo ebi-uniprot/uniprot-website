@@ -25,6 +25,7 @@ import {
   EllipsisReveal,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
+import cn from 'classnames';
 
 import { updateJob, deleteJob } from '../../state/toolsActions';
 
@@ -34,7 +35,7 @@ import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
+import { pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
@@ -541,14 +542,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   return (
     <Card
       ref={ref}
-      className={bem({
-        b: 'card',
-        m: [
-          (job.status === Status.FAILURE || job.status === Status.ERRORED) &&
-            'failure',
-          Boolean(hasExpired) && 'expired',
-        ],
-      })}
+      className={cn(
+        'card',
+        (job.status === Status.FAILURE || job.status === Status.ERRORED) &&
+          'card--failure',
+        hasExpired && 'card--expired'
+      )}
     >
       <span className="dashboard__body__type">
         {job.type}

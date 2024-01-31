@@ -111,9 +111,10 @@ const DiseaseVariants = ({
                   {variant.alternativeSequence?.originalSequence?.length ===
                     1 &&
                   variant.alternativeSequence?.alternativeSequences?.[0]
-                    .length === 1 ? (
+                    .length === 1 &&
+                  variant.featureId ? (
                     <ExternalLink
-                      url={externalUrls.UniProt(variant.featureId || '')}
+                      url={externalUrls.UniProt(variant.featureId)}
                       title="View in Expasy"
                       noIcon
                     >

@@ -42,10 +42,6 @@ const PublicationReference = ({
 }: PublicationsReferenceProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  let url: string | null;
-  if (!databaseInfoMaps) {
-    url = null;
-  }
   const infoListWithContent = references.map((reference) => {
     const {
       referencePositions,
@@ -58,11 +54,9 @@ const PublicationReference = ({
 
     const databaseInfo =
       source && databaseInfoMaps?.databaseToDatabaseInfo[source.name];
-    if (databaseInfo?.uriLink && source?.id) {
-      url = processUrlTemplate(databaseInfo.uriLink, { id: source.id });
-    } else {
-      url = null;
-    }
+    let url =
+      source?.id &&
+      processUrlTemplate(databaseInfo?.uriLink, { id: source.id });
     if (source?.name === 'GeneRif') {
       url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }

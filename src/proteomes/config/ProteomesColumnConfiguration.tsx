@@ -140,14 +140,11 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
     if (!genomeAssembly) {
       return null;
     }
-    if (genomeAssembly.genomeAssemblyUrl) {
-      return (
-        <ExternalLink url={genomeAssembly.genomeAssemblyUrl}>
-          {genomeAssembly.assemblyId}
-        </ExternalLink>
-      );
-    }
-    return genomeAssembly.assemblyId;
+    return (
+      <ExternalLink url={genomeAssembly.genomeAssemblyUrl || null}>
+        {genomeAssembly.assemblyId}
+      </ExternalLink>
+    );
   },
 });
 

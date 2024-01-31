@@ -1,5 +1,3 @@
-import { Loader } from 'franklin-sites';
-
 import ExternalLink from '../../../shared/components/ExternalLink';
 import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
@@ -9,7 +7,6 @@ import {
   getDatabaseInfoAttribute,
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
-import * as logging from '../../../shared/utils/logging';
 
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
@@ -58,54 +55,24 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  if (!databaseInfoMaps) {
-    return <Loader />;
-  }
+  const databaseToDatabaseInfo = databaseInfoMaps?.databaseToDatabaseInfo;
 
-  const { databaseToDatabaseInfo } = databaseInfoMaps;
-
-  const emblInfo = databaseToDatabaseInfo.EMBL;
-  const genBankInfo = databaseToDatabaseInfo.GenBank;
-  const ddbjInfo = databaseToDatabaseInfo.DDBJ;
-
-  const emblProteinLink = emblInfo.uriLink;
-  const genBankProteinLink = genBankInfo.uriLink;
-  const ddbjProteinLink = ddbjInfo.uriLink;
-
-  if (
-    !emblInfo?.attributes ||
-    !genBankInfo?.attributes ||
-    !ddbjInfo?.attributes
-  ) {
-    logging.error(
-      'EMBL, GenBank or DDBJ database information not found in database configuration file'
-    );
-    return null;
-  }
+  const emblInfo = databaseToDatabaseInfo?.EMBL;
+  const genBankInfo = databaseToDatabaseInfo?.GenBank;
+  const ddbjInfo = databaseToDatabaseInfo?.DDBJ;
 
   const emblDnaLink = getDatabaseInfoAttribute(
     emblInfo?.attributes,
     PropertyKey.ProteinId
   )?.uriLink;
   const genBankDnaLink = getDatabaseInfoAttribute(
-    genBankInfo.attributes,
+    genBankInfo?.attributes,
     PropertyKey.ProteinId
   )?.uriLink;
   const ddbjDnaLink = getDatabaseInfoAttribute(
-    ddbjInfo.attributes,
+    ddbjInfo?.attributes,
     PropertyKey.ProteinId
   )?.uriLink;
-
-  if (
-    !emblProteinLink ||
-    !genBankProteinLink ||
-    !ddbjProteinLink ||
-    !emblDnaLink ||
-    !genBankDnaLink ||
-    !ddbjDnaLink
-  ) {
-    return null;
-  }
 
   const table = (
     <table>
@@ -162,7 +129,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                       {d.proteinId}
                       <br />
                       <ExternalLink
-                        url={processUrlTemplate(emblProteinLink, {
+                        url={processUrlTemplate(emblInfo?.uriLink, {
                           id: d.proteinId,
                         })}
                       >
@@ -170,7 +137,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                       </ExternalLink>
                       {'· '}
                       <ExternalLink
-                        url={processUrlTemplate(genBankProteinLink, {
+                        url={processUrlTemplate(genBankInfo?.uriLink, {
                           id: d.proteinId,
                         })}
                       >
@@ -178,7 +145,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                       </ExternalLink>
                       {'· '}
                       <ExternalLink
-                        url={processUrlTemplate(ddbjProteinLink, {
+                        url={processUrlTemplate(ddbjInfo?.uriLink, {
                           id: d.proteinId,
                         })}
                       >

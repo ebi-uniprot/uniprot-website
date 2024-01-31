@@ -329,7 +329,6 @@ export enum UniProtKBColumn {
   xrefVeupathdb = 'xref_veupathdb',
   xrefVgnc = 'xref_vgnc',
   xrefWbparasite = 'xref_wbparasite',
-  xrefWbparasitetranscriptprotein = 'xref_wbparasitetranscriptprotein',
   xrefWorld2Dpage = 'xref_world-2dpage',
   xrefWormbase = 'xref_wormbase',
   xrefXenbase = 'xref_xenbase',

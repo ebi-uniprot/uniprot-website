@@ -112,15 +112,9 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
           </span>
         ),
         content: data.genomeAssembly?.assemblyId && (
-          <>
-            {data.genomeAssembly.genomeAssemblyUrl ? (
-              <ExternalLink url={data.genomeAssembly.genomeAssemblyUrl}>
-                {genomeAssemblyContent}
-              </ExternalLink>
-            ) : (
-              genomeAssemblyContent
-            )}
-          </>
+          <ExternalLink url={data.genomeAssembly.genomeAssemblyUrl || null}>
+            {genomeAssemblyContent}
+          </ExternalLink>
         ),
       },
       {
