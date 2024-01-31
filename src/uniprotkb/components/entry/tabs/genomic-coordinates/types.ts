@@ -14,10 +14,6 @@ export type GenomicEntry = {
   gnCoordinate?: Array<GenomicCoordinate>;
 };
 
-export type FlatGenomicEntry = Omit<GenomicEntry, 'gnCoordinate'> & {
-  gnCoordinate: GenomicCoordinate;
-};
-
 export type GenomicCoordinate = {
   genomicLocation: GenomicLocation;
   /**
@@ -77,4 +73,19 @@ type Position = {
   position: number; // Swagger says optional, but apparently not
   status?: string;
   evidence?: number[];
+};
+
+// Transformed types
+export type FlatGenomicEntry = Omit<GenomicEntry, 'gnCoordinate'> & {
+  gnCoordinate: GenomicCoordinate;
+};
+
+export type GroupedExon = {
+  accession: string;
+  transcriptID?: string;
+  translationID?: string;
+  proteinLocation: LocationWithStartEnd | LocationWithSinglePosition;
+  genomeLocation: LocationWithStartEnd | LocationWithSinglePosition;
+  proteinSequence: string;
+  id?: string;
 };
