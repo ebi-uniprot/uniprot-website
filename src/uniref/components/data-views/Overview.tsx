@@ -11,7 +11,7 @@ import MemberLink from '../entry/MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getBEMClassName, pluralise } from '../../../shared/utils/utils';
+import { pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import { getEntryPath } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
@@ -76,10 +76,7 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
             pathname,
             search: `facets=uniprot_member_id_type:${MemberTypes.Reviewed}`,
           }}
-          className={getBEMClassName({
-            b: 'member-icons',
-            m: 'uniprotkb-reviewed',
-          })}
+          className="member-icons member-icons--uniprotkb-reviewed"
           title={`${uniProtReviewedCount} UniProtKB reviewed ${pluralise(
             'member',
             uniProtReviewedCount
@@ -94,10 +91,7 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
             pathname,
             search: `facets=uniprot_member_id_type:${MemberTypes.Unreviewed}`,
           }}
-          className={getBEMClassName({
-            b: 'member-icons',
-            m: 'uniprotkb-unreviewed',
-          })}
+          className="member-icons member-icons--uniprotkb-unreviewed"
           title={`${uniProtUnreviewedCount} UniProtKB unreviewed ${pluralise(
             'member',
             uniProtUnreviewedCount
@@ -112,7 +106,7 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
             pathname,
             search: `facets=member_id_type:${MemberTypes.UniParc}`,
           }}
-          className={getBEMClassName({ b: 'member-icons', m: 'uniparc' })}
+          className="member-icons member-icons--uniparc"
           title={`${uniParcCount} UniParc ${pluralise('member', uniParcCount)}`}
         >
           <UniParcIcon />

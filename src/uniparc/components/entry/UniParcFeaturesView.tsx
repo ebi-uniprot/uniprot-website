@@ -49,9 +49,7 @@ type UniParcFeaturesViewProps = {
 const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
   const processedData = useMemo(() => convertData(data), [data]);
   const databaseInfoMaps = useDatabaseInfoMaps();
-  if (!databaseInfoMaps) {
-    return null;
-  }
+
   // Define table contents
   const table = (
     <table>
@@ -67,7 +65,7 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
         {processedData.map((feature) => {
           const { database, databaseId } = feature;
           const databaseInfo =
-            databaseInfoMaps.databaseToDatabaseInfo[database];
+            databaseInfoMaps?.databaseToDatabaseInfo[database];
           let position = `${feature.start}`;
           if (feature.start !== feature.end) {
             position += `-${feature.end}`;

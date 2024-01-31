@@ -42,9 +42,7 @@ const StructureSection = ({
   const databaseInfoMaps = useDatabaseInfoMaps();
   const isSmallScreen = useSmallScreen();
   const [displayStructure, setDisplayStructure] = useState(!isSmallScreen);
-  if (!databaseInfoMaps) {
-    return null;
-  }
+
   // NOTE: do not check if content is there or not, always display because of AF
   const { arrayStructureDatabases, otherDatabases } = groupBy(
     data.xrefData,
@@ -76,7 +74,7 @@ const StructureSection = ({
   if (nonPDBDatabases && nonPDBDatabases.length) {
     // The non-PDB databases need to be re-ordered accordingly
     const categoryOrder =
-      databaseInfoMaps.entrySectionToDatabaseCategoryOrder.get(
+      databaseInfoMaps?.entrySectionToDatabaseCategoryOrder.get(
         EntrySection.Structure
       );
     if (categoryOrder) {

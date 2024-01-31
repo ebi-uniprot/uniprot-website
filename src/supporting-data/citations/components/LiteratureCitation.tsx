@@ -256,10 +256,6 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     url = getLocatorUrl(locator, name);
   }
 
-  if (!url) {
-    return content;
-  }
-
   return <ExternalLink url={url}>{content}</ExternalLink>;
 };
 

@@ -76,7 +76,7 @@ const Components = ({
                 Boolean(xref.id) && xref.database === genomeAccessionDB
             )
             .map(({ id }, index) => {
-              let url;
+              let url = null;
               switch (genomeAnnotation.source) {
                 case 'Refseq':
                 case 'RefSeq':
@@ -104,13 +104,9 @@ const Components = ({
               return (
                 <Fragment key={id}>
                   {index ? ', ' : ''}
-                  {url ? (
-                    <ExternalLink url={url} key={id}>
-                      {id}
-                    </ExternalLink>
-                  ) : (
-                    id
-                  )}
+                  <ExternalLink url={url} key={id}>
+                    {id}
+                  </ExternalLink>
                 </Fragment>
               );
             }),

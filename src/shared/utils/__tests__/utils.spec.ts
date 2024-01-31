@@ -4,7 +4,6 @@
 import {
   hasContent,
   pluralise,
-  getBEMClassName,
   formatPercentage,
   deepFindAllByKey,
   addBlastLinksToFreeText,
@@ -52,62 +51,6 @@ describe('pluralise', () => {
     expect(pluralise('mouse', 0, 'mice')).toBe('mice');
     expect(pluralise('cat', 2)).toBe('cats');
     expect(pluralise('mouse', 2, 'mice')).toBe('mice');
-  });
-});
-
-describe('getBEMClassName', () => {
-  test('block and element', () => {
-    expect(
-      getBEMClassName({
-        b: 'block',
-        e: 'element',
-      })
-    ).toEqual('block__element');
-  });
-
-  test('block and array of elements', () => {
-    expect(
-      getBEMClassName({
-        b: 'block',
-        e: ['element_1', 'element_2'],
-      })
-    ).toEqual('block__element_1__element_2');
-  });
-
-  test('block, element and conditioned modifier', () => {
-    expect(
-      getBEMClassName({
-        b: 'block',
-        e: 'element_1',
-        m: true && 'modifier_1',
-      })
-    ).toEqual('block__element_1 block__element_1--modifier_1');
-  });
-
-  test('block, element and array of mixed conditioned modifiers', () => {
-    expect(
-      getBEMClassName({
-        b: 'block',
-        e: 'element_1',
-        m: [
-          true && 'modifier_1',
-          false && 'modifier_2',
-          // eslint-disable-next-line no-constant-condition
-          true ? 'modifier_3a' : 'modifier_3b',
-        ],
-      })
-    ).toEqual(
-      'block__element_1 block__element_1--modifier_1 block__element_1--modifier_3a'
-    );
-  });
-
-  test('block and array of a single modifier', () => {
-    expect(
-      getBEMClassName({
-        b: 'block',
-        m: [true && 'modifier_1'],
-      })
-    ).toEqual('block block--modifier_1');
   });
 });
 

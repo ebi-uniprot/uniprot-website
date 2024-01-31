@@ -3,8 +3,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Chip } from 'franklin-sites';
 import cn from 'classnames';
 
-import { getBEMClassName as bem } from '../../utils/utils';
-
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
 
@@ -48,10 +46,7 @@ const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
         {(droppableProvided) => (
           <div
             ref={droppableProvided.innerRef}
-            className={bem({
-              b: 'column-select-drag-drop',
-              e: 'list',
-            })}
+            className="column-select-drag-drop__list"
             {...droppableProvided.droppableProps}
           >
             {columns.map(({ itemId, label }, index) => (

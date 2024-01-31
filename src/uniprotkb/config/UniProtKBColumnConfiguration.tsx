@@ -1504,9 +1504,6 @@ const getXrefColumn = (databaseName: string) => {
 
   const Renderer = ({ data }: { data: UniProtkbUIModel }) => {
     const databaseInfoMaps = useDatabaseInfoMaps();
-    if (!databaseInfoMaps) {
-      return null;
-    }
 
     if (databaseName === 'dbsnp') {
       const features = data?.features;
@@ -1551,8 +1548,10 @@ const getXrefColumn = (databaseName: string) => {
       ({ database }) => database?.toLowerCase() === databaseName
     );
     const database = xrefs?.[0]?.database;
-    if (!database) {
-      // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+    if (
+      !database || // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+      !databaseInfoMaps
+    ) {
       return null;
     }
     const xrefsGoupedByDatabase = {

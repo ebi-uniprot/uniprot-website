@@ -547,13 +547,9 @@ const VariationViewer = ({
                       {variantFeature.xrefs?.map((xref) => (
                         <div key={`${xref.name}-${xref.id}`}>
                           {'- '}
-                          {xref.url ? (
-                            <ExternalLink url={xref.url}>
-                              {xref.name}: {xref.id}
-                            </ExternalLink>
-                          ) : (
-                            `${xref.name}: ${xref.id}`
-                          )}
+                          <ExternalLink url={xref.url}>
+                            {xref.name}: {xref.id}
+                          </ExternalLink>
                         </div>
                       ))}
                     </div>

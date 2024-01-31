@@ -3,7 +3,7 @@ import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
-import GeneOntologies from '../../../shared/components/results/GeneOnotologies';
+import GeneOntologies from '../../../shared/components/results/GeneOntologies';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';

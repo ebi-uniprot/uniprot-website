@@ -28,7 +28,7 @@ const EvidenceLink = ({
 
   if (!renderedURL) {
     const evidenceLink = getEvidenceLink(source, value);
-    renderedURL = evidenceLink.url;
+    renderedURL = evidenceLink.url || undefined;
     isInternal = evidenceLink.isInternal;
   }
 

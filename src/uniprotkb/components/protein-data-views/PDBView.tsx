@@ -1,4 +1,4 @@
-import { Loader } from 'franklin-sites';
+import { Fragment } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
@@ -53,12 +53,6 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  if (!databaseInfoMaps) {
-    return <Loader />;
-  }
-
-  const { databaseToDatabaseInfo } = databaseInfoMaps;
-
   return (
     <DatatableWrapper>
       <table>
@@ -83,22 +77,22 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
                   <td>{d.chain}</td>
                   <td>{d.positions}</td>
                   <td>
-                    {getPDBMirrorsInfo(databaseToDatabaseInfo)
-                      .map(({ displayName, uriLink }) =>
-                        d.id && uriLink ? (
+                    {databaseInfoMaps &&
+                      getPDBMirrorsInfo(
+                        databaseInfoMaps.databaseToDatabaseInfo
+                      ).map(({ displayName, uriLink }, index) => (
+                        <Fragment key={uriLink}>
+                          {index ? ' · ' : null}
                           <ExternalLink
-                            url={processUrlTemplate(uriLink, { id: d.id })}
+                            url={
+                              d.id
+                                ? processUrlTemplate(uriLink, { id: d.id })
+                                : null
+                            }
                           >
                             {displayName}
                           </ExternalLink>
-                        ) : (
-                          { displayName }
-                        )
-                      )
-                      .reduce((prev, curr) => (
-                        <>
-                          {prev} · {curr}
-                        </>
+                        </Fragment>
                       ))}
                   </td>
                 </tr>

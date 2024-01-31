@@ -59,17 +59,11 @@ export const getPropertyLinkAttributes = (
   xref: Xref
 ) => {
   const { attributes } = databaseInfo;
-  if (!attributes) {
-    return null;
-  }
   const attribute = getDatabaseInfoAttribute(attributes, property);
   const id = xref.properties?.[property];
-  if (!id || !attribute?.uriLink) {
-    return null;
-  }
-  const url = processUrlTemplate(attribute.uriLink, { [property]: id });
+
   return {
-    url,
+    url: id && processUrlTemplate(attribute?.uriLink, { [property]: id }),
     text: id,
   };
 };
@@ -173,7 +167,7 @@ export const XRef = ({
   const linkAttributes = uniqWith(
     [
       // Main link attributes
-      { url: uriLink ? processUrlTemplate(uriLink, params) : undefined, text },
+      { url: processUrlTemplate(uriLink, params), text },
       // Property links
       ...propertyLinkAttributes,
     ],
@@ -182,15 +176,11 @@ export const XRef = ({
 
   return (
     <>
-      {linkAttributes.map(({ url, text }) =>
-        url ? (
-          <ExternalLink url={url} key={url}>
-            {text}
-          </ExternalLink>
-        ) : (
-          text
-        )
-      )}
+      {linkAttributes.map(({ url, text }, index) => (
+        <ExternalLink url={url || null} key={url || index}>
+          {text}
+        </ExternalLink>
+      ))}
       <RichText noLink>
         {propertyStrings
           // remove empty strings
