@@ -14,7 +14,7 @@
 
   & th {
     text-align: left;
-    vertical-align: top;
+    vertical-align: middle;
     background-color: var(--protvista-datable__header-background, #fff);
     color: var(--protvista-datable__header-text, #393b42);
     text-overflow: ellipsis;
@@ -25,6 +25,14 @@
   & th {
     padding: 0.2rem 1ch;
     border-block-start: 1px solid #c2c4c4;
+  }
+
+  & thead :global(.dropdown) > button {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1em;
+    width: 2ch;
+    margin: 0;
   }
 }
 
@@ -52,15 +60,7 @@
     }
   }
 
-  &.extra-content {
-    display: none;
-
-    td {
-      border-color: #c2c4c455;
-    }
-
-    &.expanded {
-      display: table-row;
-    }
+  &.extra-content td {
+    border-color: #c2c4c455;
   }
 }

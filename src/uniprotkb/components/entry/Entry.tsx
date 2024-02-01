@@ -71,6 +71,7 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 import { TabLocation } from '../../types/entry';
+import { DatabaseCategory } from '../../types/databaseRefs';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -603,6 +604,22 @@ const Entry = () => {
                 isoforms={
                   transformedData[EntrySection.Sequence].alternativeProducts
                     ?.isoforms
+                }
+                maneSelect={
+                  new Set(
+                    transformedData[EntrySection.Sequence].xrefData
+                      ?.find(
+                        (xrefDatum) =>
+                          xrefDatum.category === DatabaseCategory.GENOME
+                      )
+                      ?.databases.find(
+                        (database) => database.database === 'MANE-Select'
+                      )
+                      ?.xrefs.map((xref) => xref.id?.split('.')[0])
+                      .filter((id: string | undefined): id is string =>
+                        Boolean(id)
+                      )
+                  )
                 }
                 title="Genomic coordinates"
               />

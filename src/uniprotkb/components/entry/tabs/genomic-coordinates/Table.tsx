@@ -4,9 +4,13 @@ import {
   Key,
   MouseEventHandler,
   ReactNode,
+  useCallback,
+  useRef,
   useState,
 } from 'react';
+import { Button, ControlledDropdown } from 'franklin-sites';
 import cn from 'classnames';
+import { v1 } from 'uuid';
 
 import styles from './styles/table.module.scss';
 
@@ -22,20 +26,66 @@ const Table = ({
   </div>
 );
 
-const Head = ({
-  children,
-  className,
-  ...props
-}: HTMLAttributes<HTMLTableSectionElement>) => (
-  <thead className={cn(className)} {...props}>
-    <tr className={styles.row}>
-      {/* Placeholder cell for the expand toggle column */}
-      {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-      <th />
-      {children}
-    </tr>
-  </thead>
-);
+type HeadProps = HTMLAttributes<HTMLTableSectionElement> & {
+  toggleAll?: boolean;
+};
+
+const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleClick = () => setExpanded((expanded) => !expanded);
+
+  const handleToggle: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (event) => {
+      const button = event.target as HTMLButtonElement;
+      const { expand } = button.dataset;
+      const buttons = button
+        .closest('table')
+        ?.querySelectorAll<HTMLButtonElement>(
+          // get only the direct children, not the ones within another inner table
+          `:scope > tbody > tr > td > button[aria-expanded="${!expand}"]`
+        );
+      for (const button of buttons || []) {
+        button.click();
+      }
+      setExpanded(false);
+    },
+    []
+  );
+
+  return (
+    <thead className={cn(className)} {...props}>
+      <tr className={styles.row}>
+        <th>
+          {toggleAll && (
+            <ControlledDropdown
+              visibleElement={
+                <Button variant="tertiary" onClick={handleClick}>
+                  ±
+                </Button>
+              }
+              expanded={expanded}
+            >
+              <ul>
+                <li>
+                  <Button variant="tertiary" onClick={handleToggle} data-expand>
+                    Expand all
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="tertiary" onClick={handleToggle}>
+                    Collapse all
+                  </Button>
+                </li>
+              </ul>
+            </ControlledDropdown>
+          )}
+        </th>
+        {children}
+      </tr>
+    </thead>
+  );
+};
 
 interface NodeBodyProps
   extends Omit<HTMLAttributes<HTMLTableSectionElement>, 'children'> {
@@ -97,12 +147,14 @@ const Row = ({
 
   const [expanded, setExpanded] = useState(false);
 
+  const idRef = useRef(v1());
+
   const handleClick: MouseEventHandler<HTMLElement> | undefined =
     hasExtraContent
       ? (event) => {
           if (
             (event.target as HTMLElement).closest(
-              'a, button:not([data-toggle]), input'
+              'a, button:not([aria-controls]), input'
             )
           ) {
             return;
@@ -127,23 +179,28 @@ const Row = ({
       >
         <td>
           {hasExtraContent && (
-            <button type="button" data-toggle>
+            <button
+              type="button"
+              aria-expanded={expanded ? 'true' : 'false'}
+              aria-controls={idRef.current}
+            >
               {expanded ? '-' : '+'}
             </button>
           )}
         </td>
         {children}
       </tr>
-      {expanded && (
+      {hasExtraContent && (
         <tr
           className={cn(styles.row, styles['extra-content'], {
-            [styles.expanded]: expanded,
             [styles.odd]: isOdd,
           })}
+          id={idRef.current}
+          hidden={!expanded}
         >
           {/* Placeholder cell for the expand toggle column */}
           <td />
-          {extraContent}
+          {expanded && extraContent}
         </tr>
       )}
     </Fragment>

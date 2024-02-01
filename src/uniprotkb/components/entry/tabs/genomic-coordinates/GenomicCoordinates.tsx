@@ -21,23 +21,28 @@ import tabsStyles from '../styles/tabs-styles.module.scss';
 type GenomicCoordinatesProps = {
   primaryAccession: string;
   isoforms?: Isoform[];
+  maneSelect: Set<string>;
   title?: string;
 };
 
 const GenomicCoordinates = ({
   primaryAccession,
   isoforms,
+  maneSelect,
   title,
 }: GenomicCoordinatesProps) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  let isoformIDs = [
-    // Only if there are non-canonical isoforms, otherwise will be empty
-    ...(isoforms?.flatMap((i) => i.isoformIds) || []),
-  ];
-  // Somehow if only canonical the canonical will not be in the list of isoforms
-  if (!isoformIDs.length) {
-    isoformIDs = [primaryAccession];
+  console.log(maneSelect);
+  let isoformIDs = [primaryAccession];
+  let canonical = primaryAccession;
+  // If defined, it means there is more than one isoform
+  if (isoforms) {
+    isoformIDs = isoforms.flatMap((isoform) => isoform.isoformIds);
+    canonical =
+      isoforms.find((isoform) => isoform.isoformSequenceStatus === 'Displayed')
+        ?.isoformIds[0] || canonical;
   }
+
   // For the future, add computationally mapped isoforms somehow
   const { loading, data, progress, error, status } = useDataApi<GenomicEntry[]>(
     apiUrls.proteinsApi.coordinates(isoformIDs)
@@ -100,6 +105,8 @@ const GenomicCoordinates = ({
           entries={data}
           index={index}
           isoformIDs={isoformIDs}
+          canonical={canonical}
+          maneSelect={maneSelect}
         />
       ))}
     </section>

@@ -87,5 +87,6 @@ export type GroupedExon = {
   proteinLocation: LocationWithStartEnd | LocationWithSinglePosition;
   genomeLocation: LocationWithStartEnd | LocationWithSinglePosition;
   proteinSequence: string;
+  accessionWithCoordinates: string; // e.g. P05067[1-10]
   id?: string;
 };
