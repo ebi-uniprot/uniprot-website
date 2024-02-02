@@ -16,7 +16,7 @@ describe('GenomicCoordinates component', () => {
     const { asFragment } = render(
       <GenomicCoordinates
         primaryAccession="O00560"
-        maneSelect={new Set(['ENST00000413219.5'])}
+        maneSelect={new Set(['ENST00000413219'])}
       />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -31,7 +31,7 @@ describe('GenomicCoordinates component', () => {
     const { asFragment } = render(
       <GenomicCoordinates
         primaryAccession="O00560"
-        maneSelect={new Set(['ENST00000413219.5'])}
+        maneSelect={new Set(['ENST00000413219'])}
       />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -45,7 +45,7 @@ describe('GenomicCoordinates component', () => {
     const { asFragment } = render(
       <GenomicCoordinates
         primaryAccession="O00560"
-        maneSelect={new Set(['ENST00000413219.5'])}
+        maneSelect={new Set(['ENST00000413219'])}
       />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -60,7 +60,7 @@ describe('GenomicCoordinates component', () => {
     const { asFragment } = customRender(
       <GenomicCoordinates
         primaryAccession="O00560"
-        maneSelect={new Set(['ENST00000413219.5'])}
+        maneSelect={new Set(['ENST00000413219'])}
       />
     );
     expect(asFragment()).toMatchSnapshot();

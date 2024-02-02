@@ -241,6 +241,12 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                           width="12.5"
                         />
                       </a>
+                      <button
+                        class="chip chip--compact"
+                        type="button"
+                      >
+                        MANE-Select
+                      </button>
                     </div>
                     <div>
                       <a
