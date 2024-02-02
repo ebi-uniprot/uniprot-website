@@ -224,8 +224,8 @@ const SequenceSearchLoader = forwardRef<
           dispatch(
             addMessage({
               content: (
-                <>
-                  There was an issue retrieving sequence data for:
+                <div style={{ wordBreak: 'break-all' }}>
+                  There was an issue retrieving sequence data for:{' '}
                   {error.length > ERROR_MESSAGE_THRESHOLD ? (
                     <>
                       {error.substring(0, ERROR_MESSAGE_THRESHOLD)}
@@ -236,7 +236,7 @@ const SequenceSearchLoader = forwardRef<
                   ) : (
                     error
                   )}
-                </>
+                </div>
               ),
               format: MessageFormat.POP_UP,
               level: MessageLevel.FAILURE,
