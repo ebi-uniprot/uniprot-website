@@ -8,7 +8,11 @@ const Source = ({ source }: { source?: Information['oldRuleNum'] }) => {
   if (!source) {
     return null;
   }
-  if (source.startsWith('RU')) {
+  if (
+    source.startsWith('RU') ||
+    source.startsWith('PIRSF') ||
+    source.startsWith('PIRNR')
+  ) {
     return <div>Source ID: {source}</div>;
   }
   let url = externalUrls.InterProSearch(source);

@@ -24,7 +24,6 @@ const externalUrls = {
       'G3DSA:',
       ''
     )}`,
-  PROSITEEntry: (id: string | number) => `//prosite.expasy.org/${id}`,
   InterProEntry: (id: string | number) =>
     `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm: string | number) =>
