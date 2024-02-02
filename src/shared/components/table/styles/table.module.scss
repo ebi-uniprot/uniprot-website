@@ -43,6 +43,15 @@
     background-color: var(--protvista-datatable__odd, #e4e8eb);
   }
 
+  &:hover {
+    /* Select a row that is hovered and its next .extra-content sibling */
+    /* => keep groups of rows highlighted in sync */
+    &,
+    & + .extra-content {
+      background-color: var(--protvista-datatable__hover, #f1f1f1);
+    }
+  }
+
   & td:first-child {
     padding-inline-end: 0;
     width: 0;
@@ -63,4 +72,12 @@
   &.extra-content td {
     border-color: #c2c4c455;
   }
+}
+
+/* Keeping that outside of nesting as SCSS preprocessing and :has selector */
+/* are not working well together */
+/* Select a row that has a next .extra-content sibling that is hovered */
+/* => keep groups of rows highlighted in sync */
+.row:has(+ .extra-content:hover) {
+  background-color: var(--protvista-datatable__hover, #f1f1f1);
 }

@@ -14,7 +14,10 @@ describe('GenomicCoordinates component', () => {
   it('renders on loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
     const { asFragment } = render(
-      <GenomicCoordinates primaryAccession="O00560" />
+      <GenomicCoordinates
+        primaryAccession="O00560"
+        maneSelect={new Set(['ENST00000413219.5'])}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -26,7 +29,10 @@ describe('GenomicCoordinates component', () => {
       status: 500,
     });
     const { asFragment } = render(
-      <GenomicCoordinates primaryAccession="O00560" />
+      <GenomicCoordinates
+        primaryAccession="O00560"
+        maneSelect={new Set(['ENST00000413219.5'])}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -37,7 +43,10 @@ describe('GenomicCoordinates component', () => {
       status: 404,
     });
     const { asFragment } = render(
-      <GenomicCoordinates primaryAccession="O00560" />
+      <GenomicCoordinates
+        primaryAccession="O00560"
+        maneSelect={new Set(['ENST00000413219.5'])}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -49,7 +58,10 @@ describe('GenomicCoordinates component', () => {
       status: 200,
     });
     const { asFragment } = customRender(
-      <GenomicCoordinates primaryAccession="O00560" />
+      <GenomicCoordinates
+        primaryAccession="O00560"
+        maneSelect={new Set(['ENST00000413219.5'])}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });

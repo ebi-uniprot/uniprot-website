@@ -606,6 +606,7 @@ const Entry = () => {
                     ?.isoforms
                 }
                 maneSelect={
+                  // Get all unique unversioned MANE-Select IDs
                   new Set(
                     transformedData[EntrySection.Sequence].xrefData
                       ?.find(
