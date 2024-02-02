@@ -24,7 +24,7 @@ import helper from '../../../../../shared/styles/helper.module.scss';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 
-type InnerRowProps = {
+type ExonRowProps = {
   exon: GroupedExon;
   xrefInfo?: DatabaseInfoPoint;
   isEnsemblID: boolean;
@@ -32,13 +32,13 @@ type InnerRowProps = {
   maneSelect?: string;
 };
 
-const InnerRow = ({
+const ExonRow = ({
   exon,
   xrefInfo,
   isEnsemblID,
   canonical,
   maneSelect,
-}: InnerRowProps) => (
+}: ExonRowProps) => (
   <>
     <td>
       <ExternalLink
@@ -101,7 +101,7 @@ const InnerRow = ({
   </>
 );
 
-type RowProps = {
+type CoordinateRowProps = {
   gnCoordinates: GenomicCoordinate;
   taxID: number;
   exons: GroupedExon[];
@@ -109,13 +109,13 @@ type RowProps = {
   mappedIsoforms: string[];
 };
 
-const Row = ({
+const CoordinateRow = ({
   gnCoordinates,
   taxID,
   exons,
   isEnsemblID,
   mappedIsoforms,
-}: RowProps) => {
+}: CoordinateRowProps) => {
   const location = (
     <>
       {gnCoordinates.genomicLocation.chromosome &&
@@ -216,19 +216,19 @@ const Row = ({
   );
 };
 
-type ExtraContentProps = {
+type CoordinateExtraContentProps = {
   exons: GroupedExon[];
   xrefInfo?: DatabaseInfoPoint;
   isEnsemblID: boolean;
   colSpan: number;
 };
 
-const ExtraContent = ({
+const CoordinateExtraContent = ({
   exons,
   xrefInfo,
   isEnsemblID,
   colSpan,
-}: ExtraContentProps) => {
+}: CoordinateExtraContentProps) => {
   const uniqueSequences = new Set(exons.map((exon) => exon.proteinSequence));
 
   return (
@@ -268,7 +268,7 @@ const ExtraContent = ({
             {(exon) => ({
               key: `${exon.transcriptID}|${exon.translationID}|${exon.id}`,
               row: (
-                <InnerRow
+                <ExonRow
                   exon={exon}
                   xrefInfo={xrefInfo}
                   isEnsemblID={isEnsemblID}
@@ -328,7 +328,7 @@ const CoordinateTable = ({
         {([genomicCoordinates, exons]) => ({
           key: genomicCoordinates,
           row: (
-            <Row
+            <CoordinateRow
               gnCoordinates={flatGenomicEntries[0].gnCoordinate}
               taxID={flatGenomicEntries[0].taxid}
               exons={exons}
@@ -337,7 +337,7 @@ const CoordinateTable = ({
             />
           ),
           extraContent: (
-            <ExtraContent
+            <CoordinateExtraContent
               exons={exons}
               xrefInfo={xrefInfo}
               isEnsemblID={isEnsemblID}
