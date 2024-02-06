@@ -16,6 +16,7 @@
     /* 4th cell whitespace (used to have a separator between columns) */
     &:nth-of-type(4n + 2) {
       width: initial;
+      min-width: 1ch;
     }
   }
 }
