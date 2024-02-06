@@ -5,7 +5,6 @@ import cn from 'classnames';
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
-import { ProteomeStatistics } from './ComponentsButtons';
 
 import useColumnNames from '../../../shared/hooks/useColumnNames';
 
@@ -23,6 +22,7 @@ import {
   DownloadMethod,
 } from '../../../shared/utils/gtagEvents';
 import { ProteomeType } from '../../adapters/proteomesConverter';
+import { Statistics } from '../../../shared/types/apiModel';
 import { DownloadUrlOptions } from '../../../shared/types/results';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -35,14 +35,13 @@ type DownloadProps = {
   query: string;
   selectedEntries?: string[];
   selectedQuery: string;
-  totalNumberResults: number;
   numberSelectedEntries: number;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
     downloadMethod?: DownloadMethod
   ) => void;
   proteomeType: ProteomeType;
-  statistics: ProteomeStatistics;
+  proteomeStatistics: Statistics;
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -53,17 +52,20 @@ const ComponentsDownload = ({
   query,
   selectedQuery,
   selectedEntries = [],
-  totalNumberResults,
   numberSelectedEntries,
   onClose,
   proteomeType,
-  statistics,
+  proteomeStatistics,
 }: DownloadProps) => {
   const namespace =
     // Excluded not supported at the moment, need to wait for TRM-28011
     proteomeType === 'Redundant proteome'
       ? Namespace.uniparc
       : Namespace.uniprotkb;
+
+  const totalNumberResults =
+    proteomeStatistics.reviewedProteinCount +
+    proteomeStatistics.unreviewedProteinCount;
 
   const { columnNames } = useColumnNames({ namespaceOverride: namespace });
 
@@ -106,19 +108,19 @@ const ComponentsDownload = ({
     namespace,
   };
 
-  const isoformsAvailable = Boolean(statistics.isoforms);
+  const isoformsAvailable = Boolean(proteomeStatistics.isoformProteinCount);
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   let downloadCount;
   switch (downloadSelect) {
     case 'all':
-      downloadCount = includeIsoform
-        ? totalNumberResults + (statistics.isoforms || 0)
-        : totalNumberResults;
+      downloadCount =
+        totalNumberResults +
+        ((includeIsoform && proteomeStatistics.isoformProteinCount) || 0);
       break;
     case 'reviewed':
-      downloadCount = includeIsoform
-        ? (statistics?.reviewed || 0) + (statistics.isoforms || 0)
-        : statistics?.reviewed || 0;
+      downloadCount =
+        proteomeStatistics.reviewedProteinCount +
+        ((includeIsoform && proteomeStatistics.isoformProteinCount) || 0);
       break;
     case 'selected':
       /* The isoform counts for selected entries is not available here. We show only (+ isoforms) in the select option 
@@ -217,8 +219,9 @@ const ComponentsDownload = ({
         {isoformsAvailable ? ' canonical ' : ''} proteins (
         <LongNumber>
           {includeIsoform
-            ? (statistics.reviewed || 0) + (statistics.isoforms || 0)
-            : statistics?.reviewed || 0}
+            ? (proteomeStatistics.reviewedProteinCount || 0) +
+              (proteomeStatistics.isoformProteinCount || 0)
+            : proteomeStatistics.reviewedProteinCount || 0}
         </LongNumber>
         )
       </label>
@@ -233,9 +236,8 @@ const ComponentsDownload = ({
         />
         Download all reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins (
         <LongNumber>
-          {includeIsoform
-            ? totalNumberResults + (statistics.isoforms || 0)
-            : totalNumberResults}
+          {totalNumberResults +
+            ((includeIsoform && proteomeStatistics.isoformProteinCount) || 0)}
         </LongNumber>
         )
       </label>
