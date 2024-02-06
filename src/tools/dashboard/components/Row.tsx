@@ -201,12 +201,19 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
                       formValues: {
                         subject: `Failed ${job.type} job`,
                         message: `
-                        --------------- prefilled job details ---------------
-                        ${job.remoteID ? `ID: ${job.remoteID}, ` : ''} 
-Error: 
-${job.errorDescription}, 
-Input: 
-${Object.entries(job.parameters).map(([key, value]) => `${key}: ${value}`)}`,
+--------------- prefilled job details ---------------
+
+*** Error ***
+${job.errorDescription}
+
+${
+  job.remoteID
+    ? `*** Job ID *** 
+${job.remoteID}`
+    : `*** Input *** 
+${Object.entries(job.parameters).map(([key, value]) => `${key}: ${value}`)}`
+}
+`,
                       },
                     },
                   })}
