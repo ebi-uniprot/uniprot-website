@@ -29,8 +29,6 @@ const UniProtKBCard = ({ data, isNotSelectable }: Props) => {
 
   const highlights = getProteinHighlights(data);
 
-  console.log(highlights);
-
   const keywords =
     data.keywords &&
     getKeywordsForCategories(data.keywords, [

@@ -163,7 +163,11 @@ const getProteinHighlights = ({
         count || 0
       )}`;
       // eslint-disable-next-line uniprot-website/use-config-location
-      return <Link to={to}>{name}</Link>;
+      return (
+        <Link to={to} key={name}>
+          {name}
+        </Link>
+      );
     });
 };
 
