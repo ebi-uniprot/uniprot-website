@@ -149,13 +149,16 @@ const UniProtHeader = () => {
     <Header
       isNegative={isHomePage}
       search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
-      logo={
-        <div
-          className={cn(styles.logo, {
-            [styles.home]: isHomePage,
-          })}
-          aria-label="UniProt home page"
-        />
+      homepageLink={
+        // eslint-disable-next-line uniprot-website/use-config-location
+        <Link to="/">
+          <div
+            className={cn(styles.logo, {
+              [styles.home]: isHomePage,
+            })}
+            aria-label="UniProt home page"
+          />
+        </Link>
       }
       secondaryItems={<SecondaryItems />}
     >
