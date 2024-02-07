@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { sleep, schedule, frame } from 'timing-functions';
 import cn from 'classnames';
 
-import './styles/in-page-nav.scss';
+import styles from './styles/in-page-nav.module.scss';
 
 const GRANULARITY = 11;
 
@@ -147,7 +147,9 @@ const InPageNav = ({
       return;
     }
 
-    const target = marker.current?.parentElement?.querySelector('.active');
+    const target = marker.current?.parentElement?.querySelector(
+      `.${styles.active}`
+    );
     if (!target) {
       return;
     }
@@ -185,12 +187,15 @@ const InPageNav = ({
   }, [active]);
 
   return (
-    <ul className="in-page-nav" {...props}>
-      <div ref={marker} className="marker" />
+    <ul className={styles['in-page-nav']} {...props}>
+      <div ref={marker} className={styles.marker} />
       {sections.map(({ id, label, disabled }) => (
-        <li key={label} className={cn({ disabled })}>
-          {/* eslint-disable-next-line uniprot-website/use-config-location */}
-          <Link to={`#${id}`} className={cn({ active: active === id })}>
+        <li key={label} className={cn({ [styles.disabled]: disabled })}>
+          <Link
+            // eslint-disable-next-line uniprot-website/use-config-location
+            to={`#${id}`}
+            className={cn({ [styles.active]: active === id })}
+          >
             {label}
           </Link>
         </li>
