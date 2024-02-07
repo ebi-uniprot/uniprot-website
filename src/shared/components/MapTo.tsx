@@ -303,9 +303,10 @@ export const mapToLinks = (
   // eslint-disable-next-line consistent-return
   return enrichedStatistics
     .filter((stat) => 'text' in stat)
-    .map((stat) => ({
+    .map((stat) => (
       // eslint-disable-next-line uniprot-website/use-config-location
-      link: <Link to={stat.to}>{stat.text}</Link>,
-      key: stat.key,
-    }));
+      <Link to={stat.to} key={stat.key}>
+        {stat.text}
+      </Link>
+    ));
 };
