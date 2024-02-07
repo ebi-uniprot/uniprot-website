@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ExpandableList, formatLargeNumber } from 'franklin-sites';
 import cn from 'classnames';
 
-import './styles/facets.scss';
+import styles from './styles/facets.module.scss';
 
 type FacetValue = { label?: ReactNode; value: string; count: number };
 
@@ -20,7 +20,7 @@ type CustomQueryValue = Record<string, Set<string>>;
 export type CustomParsedQuery = Record<string, string | CustomQueryValue>;
 
 /**
- * Takes a search string and parse it, handle facets specifically, keeps them
+ * Takes a search string and parses it, handle facets specifically, keeps them
  * as sets of values
  */
 export const parse = (
@@ -102,16 +102,13 @@ export const Facet: FC<FacetProps & HTMLAttributes<HTMLDivElement>> = ({
   if (!data.values?.length) {
     return null;
   }
+  const queryField = search[queryStringKey] as CustomQueryValue | undefined;
   return (
     <div {...props}>
-      <div className="facet-name">{data.label || data.name}</div>
+      <div className={styles['facet-name']}>{data.label || data.name}</div>
       <ExpandableList extraActions={extraActions}>
         {data.values.map(({ value, label, count }) => {
-          const queryField = search[queryStringKey] as
-            | CustomQueryValue
-            | undefined;
           const isActive = queryField?.[data.name]?.has(value);
-
           const facetSet = new Set(
             data.allowMultipleSelection && queryField
               ? queryField[data.name]
@@ -137,7 +134,7 @@ export const Facet: FC<FacetProps & HTMLAttributes<HTMLDivElement>> = ({
             <Link
               key={`${data.name}_${value}`}
               to={to}
-              className={isActive ? 'facet-active' : undefined}
+              className={cn({ [styles['facet-active']]: isActive })}
               onClick={facetClickHandler}
             >
               {label || value}
@@ -183,7 +180,7 @@ export const Facets: FC<FacetsProps & HTMLAttributes<HTMLDivElement>> = ({
   }
 
   return (
-    <div className={cn(className, 'facets')} {...props}>
+    <div className={cn(className, styles.facets)} {...props}>
       <ul className="no-bullet">
         {data?.map((facet) =>
           facet.values?.length ? (
