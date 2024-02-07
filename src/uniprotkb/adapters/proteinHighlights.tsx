@@ -1,4 +1,6 @@
+import { ReactElement } from 'react';
 import { LocationDescriptorObject } from 'history';
+import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../app/config/urls';
 
@@ -91,10 +93,7 @@ const getProteinHighlights = ({
   extraAttributes,
   entryType,
   organism,
-}: UniProtkbAPIModel): Array<{
-  name: string;
-  link: LocationDescriptorObject;
-}> => {
+}: UniProtkbAPIModel): ReactElement[] => {
   const highlightTuples: Array<
     [section: highlightSection, count: number | undefined]
   > = [
@@ -155,16 +154,16 @@ const getProteinHighlights = ({
         typeof link === 'function'
           ? link(primaryAccession, organism?.taxonId)
           : link;
-      return {
-        link: {
-          pathname: entryPathname,
-          ...locationObject,
-        },
-        name: `${count} ${prefixResolver?.(entryType) ?? ''}${pluralise(
-          entryHighlightSection,
-          count || 0
-        )}`,
+      const to = {
+        pathname: entryPathname,
+        ...locationObject,
       };
+      const name = `${count} ${prefixResolver?.(entryType) ?? ''}${pluralise(
+        entryHighlightSection,
+        count || 0
+      )}`;
+      // eslint-disable-next-line uniprot-website/use-config-location
+      return <Link to={to}>{name}</Link>;
     });
 };
 
