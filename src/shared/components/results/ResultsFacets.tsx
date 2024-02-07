@@ -1,9 +1,10 @@
 import { memo } from 'react';
-import { Facets, Facet, Loader } from 'franklin-sites';
-
+import { Loader } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
+
 import useNS from '../../hooks/useNS';
 
+import { Facets, Facet } from './Facets';
 import TaxonomyFacet from './TaxonomyFacet';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';

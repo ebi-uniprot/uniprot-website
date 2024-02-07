@@ -1,6 +1,8 @@
 import { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Facets, HistogramFilter } from 'franklin-sites';
+import { HistogramFilter } from 'franklin-sites';
+
+import { Facets } from '../../../../shared/components/results/Facets';
 
 import {
   getLocationObjForParams,
