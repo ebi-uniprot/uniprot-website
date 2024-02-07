@@ -1,0 +1,60 @@
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
+
+.in-page-nav {
+  position: relative;
+  padding: 0;
+  margin: 0;
+
+  li {
+    list-style: none;
+    margin-left: 0.5rem;
+    margin-bottom: $global-margin;
+
+    &.disabled {
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.4;
+    }
+  }
+
+  a {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      // border-bottom: 1px solid currentColor;
+      opacity: 0;
+      transition: opacity ease-in-out 500ms;
+    }
+
+    &:hover::after {
+      opacity: 0.25;
+    }
+
+    &.active::after {
+      opacity: 1;
+    }
+  }
+
+  > .marker {
+    pointer-events: none;
+    position: absolute;
+    left: 0.25rem;
+    top: 0;
+    height: 1px;
+    background: currentColor;
+    width: 0.1rem;
+    transform-origin: top;
+    display: none; /* feature check in javascript before displaying */
+  }
+
+  &:hover > .marker {
+    will-change: transform;
+  }
+}
