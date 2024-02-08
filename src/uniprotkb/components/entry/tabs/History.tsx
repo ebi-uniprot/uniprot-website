@@ -1,6 +1,6 @@
 import { Fragment, useMemo, ReactNode, useState, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import {
   Button,
   Card,
