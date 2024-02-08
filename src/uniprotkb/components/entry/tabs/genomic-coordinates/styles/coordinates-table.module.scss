@@ -2,7 +2,7 @@
   /* | <whitespace> | <no data line> | <whitespace>      | <whitespace> | */
   /* | <whitespace> | <whitespace>   | <single position> | <whitespace> | */
   /* | <start>      | <separator>    | <end>             | <whitespace> | */
-  .coordinates {
+  & .coordinates {
     text-align: end;
     width: 0;
     padding-inline: 0;
@@ -17,6 +17,16 @@
     &:nth-of-type(4n + 2) {
       width: initial;
       min-width: 1ch;
+    }
+  }
+
+  & .inner-card {
+    /* shrinks the table to the minimum needed*/
+    width: min-content;
+
+    & :global(.button-group) {
+      /* ...but make sure the group of buttons doesn't wrap unnecessarily */
+      width: max-content;
     }
   }
 }

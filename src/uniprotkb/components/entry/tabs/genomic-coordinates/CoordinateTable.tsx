@@ -19,7 +19,7 @@ import { TabLocation } from '../../../../types/entry';
 import { FlatGenomicEntry, GenomicCoordinate, GroupedExon } from './types';
 import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
 
-import styles from './styles/entries.module.scss';
+import styles from './styles/coordinates-table.module.scss';
 import helper from '../../../../../shared/styles/helper.module.scss';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
@@ -238,7 +238,7 @@ const CoordinateExtraContent = ({
 
   return (
     <td colSpan={colSpan}>
-      <Card>
+      <Card className={styles['inner-card']}>
         {exons.length > 1 && (
           <div>
             {uniqueSequences.size === 1 ? (
