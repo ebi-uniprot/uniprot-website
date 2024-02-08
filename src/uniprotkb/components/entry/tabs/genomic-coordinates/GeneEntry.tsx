@@ -43,10 +43,10 @@ const GeneEntry = ({
   const isEnsemblID = Boolean(
     representativeEntry.gnCoordinate.ensemblGeneId?.startsWith('ENS')
   );
-  let xrefInfo = databaseInfoMap?.databaseToDatabaseInfo.EnsemblBacteria;
-  if (isEnsemblID) {
-    xrefInfo = databaseInfoMap?.databaseToDatabaseInfo.Ensembl;
-  }
+  const xrefInfo =
+    databaseInfoMap?.databaseToDatabaseInfo[
+      isEnsemblID ? 'Ensembl' : 'EnsemblBacteria'
+    ];
 
   const infoData = [
     {
