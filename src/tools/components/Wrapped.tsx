@@ -109,8 +109,11 @@ export const WrappedRow = ({
 }: WrappedRowProps) => {
   const msaElement = useCustomElement(
     /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
-    'protvista-msa'
+    () =>
+      import(
+        /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
+      ),
+    '@nightingale-elements/nightingale-msa'
   );
   const setMSAAttributes = useCallback(
     (node): void => {
