@@ -102,7 +102,7 @@ const AlignOverview = ({
       import(
         /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
       ),
-    '@nightingale-elements/nightingale-msa'
+    'nightingale-msa'
   );
 
   const setMSAAttributes = useCallback(

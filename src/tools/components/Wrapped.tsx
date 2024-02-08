@@ -113,21 +113,26 @@ export const WrappedRow = ({
       import(
         /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
       ),
-    '@nightingale-elements/nightingale-msa'
+    'nightingale-msa'
   );
   const setMSAAttributes = useCallback(
     (node): void => {
       if (node && msaElement.defined) {
         // Just pick the sequence from the object as it's the only thing needed
-        node.data = sequences.map(({ sequence }) => ({ sequence }));
-        node.features = selectedMSAFeatures?.map((f) => ({
-          ...f,
-          residues: {
-            from: f.residues.from - trackStart + 1,
-            to: f.residues.to - trackStart + 1,
-          },
-        }));
-        node.onFeatureClick = onMSAFeatureClick;
+        requestAnimationFrame(() => {
+          node.data = sequences.map(({ sequence, name }) => ({
+            sequence,
+            name,
+          }));
+          node.features = selectedMSAFeatures?.map((f) => ({
+            ...f,
+            residues: {
+              from: f.residues.from - trackStart + 1,
+              to: f.residues.to - trackStart + 1,
+            },
+          }));
+          node.onFeatureClick = onMSAFeatureClick;
+        });
       }
     },
     [
@@ -195,8 +200,7 @@ export const WrappedRow = ({
             ref={setMSAAttributes}
             length={rowLength}
             height={sequences.length * sequenceHeight}
-            colorscheme={highlightProperty}
-            hidelabel
+            color-scheme={highlightProperty}
             {...conservationOptions}
           />
         )}
