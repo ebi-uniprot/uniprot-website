@@ -88,9 +88,14 @@ const ExonRow = ({
       {exon.transcriptID === maneSelect && <Chip compact>MANE-Select</Chip>}
     </td>
     <td>
-      {exon.proteinLocation.position
-        ? exon.proteinLocation.position.position
-        : `${exon.proteinLocation.begin.position}-${exon.proteinLocation.end.position}`}
+      {exon.proteinLocation.position ? (
+        <LongNumber>{exon.proteinLocation.position.position}</LongNumber>
+      ) : (
+        <>
+          <LongNumber>{exon.proteinLocation.begin.position}</LongNumber>-
+          <LongNumber>{exon.proteinLocation.end.position}</LongNumber>
+        </>
+      )}
     </td>
     <td>
       <div className="button-group">
