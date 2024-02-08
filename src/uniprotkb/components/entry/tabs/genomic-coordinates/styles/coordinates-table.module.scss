@@ -23,6 +23,8 @@
   & .inner-card {
     /* shrinks the table to the minimum needed*/
     width: min-content;
+    position: sticky;
+    left: 0;
 
     & :global(.button-group) {
       /* ...but make sure the group of buttons doesn't wrap unnecessarily */
