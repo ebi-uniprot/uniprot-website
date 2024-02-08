@@ -9933,10 +9933,10 @@ protvista-filter@3.8.4:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
-protvista-interpro-adapter@3.8.13:
-  version "3.8.13"
-  resolved "https://registry.yarnpkg.com/protvista-interpro-adapter/-/protvista-interpro-adapter-3.8.13.tgz#efc7ef11229f634dcbc5d7765586a19f078d5912"
-  integrity sha512-t2hzzH56ZZld+E8GOXq2OIJtNLp5ZFaa/XuHgaS7fmpmh2QW6KgsaaEAi8AQ8XrmtggGnV3g7ZKnFsqwTzv0nA==
+protvista-interpro-adapter@3.8.14:
+  version "3.8.14"
+  resolved "https://registry.yarnpkg.com/protvista-interpro-adapter/-/protvista-interpro-adapter-3.8.14.tgz#de4b70d6934a3455758d89316184a0505f0167b8"
+  integrity sha512-aH5vakgC3axZ9wSbHZD6IO3PYvNhq1/T5AoNxnBjezVSU6Q65G4SmEJGPadDjVbhf2hrOieL2NdiMyZw1ftiEQ==
   dependencies:
     color-hash "2.0.2"
 
@@ -10022,10 +10022,10 @@ protvista-track@3.8.13, protvista-track@^3.8.13:
     lodash-es "^4.17.11"
     protvista-zoomable "^3.8.13"
 
-protvista-uniprot@2.10.14:
-  version "2.10.14"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.10.14.tgz#e8ffb92185cef72091fb8ef88f77aee21bcc8ddf"
-  integrity sha512-k64IQMskkj1h305shSPmLCMsYZ88uBKWOht2Vr+ifWnM74f8WPoVbo6Of+3jIVAVUSATO20XsrHJXI5nv18O3g==
+protvista-uniprot@2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.11.0.tgz#27a67b9424b2dc3c901cac8abf646ddc16f26464"
+  integrity sha512-U9fkodp1ics4SxEnvjG/+TRFXLpZHxmbcL0YZKrPlIqNFf1fhd7MM2e9sH4Hg66/LZibVwasKY8gLqHxqdOAtg==
   dependencies:
     core-js "^3.13.0"
     data-loader "^2.9.1"
@@ -10035,7 +10035,7 @@ protvista-uniprot@2.10.14:
     protvista-datatable "3.8.10"
     protvista-feature-adapter "3.8.13"
     protvista-filter "3.8.4"
-    protvista-interpro-adapter "3.8.13"
+    protvista-interpro-adapter "3.8.14"
     protvista-interpro-track "3.8.13"
     protvista-manager "3.8.4"
     protvista-navigation "3.8.10"

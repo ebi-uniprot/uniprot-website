@@ -19,18 +19,16 @@ const ProteomesEntryConfig: {
     sectionContent: ({
       components,
       id,
-      proteinCount,
       proteomeType,
-      superkingdom,
       taxonomy,
+      proteomeStatistics,
     }) => (
       <Components
         components={components}
         id={id}
-        proteinCount={proteinCount}
         proteomeType={proteomeType}
-        superkingdom={superkingdom}
         taxonomy={taxonomy}
+        proteomeStatistics={proteomeStatistics}
       />
     ),
   },

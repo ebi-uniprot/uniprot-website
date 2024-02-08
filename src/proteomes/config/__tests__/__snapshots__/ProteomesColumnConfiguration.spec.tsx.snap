@@ -15,7 +15,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:39.1% D:60.4%) F:0% M:0.4%
+      C:99.5% (S:37.8% D:61.7%) F:0% M:0.5%
     </div>
   </div>
 </DocumentFragment>
@@ -164,7 +164,7 @@ exports[`ProteomesColumnConfiguration component should render column "genome_ass
     rel="noopener"
     target="_blank"
   >
-    GCA_000001405.27
+    GCA_000001405.28
     <test-file-stub
       data-testid="external-link-icon"
       width="12.5"
@@ -181,6 +181,12 @@ exports[`ProteomesColumnConfiguration component should render column "genome_rep
 
 exports[`ProteomesColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
+  <a
+    href="/taxonomy/131567"
+  >
+    cellular organisms
+  </a>
+  , 
   <a
     href="/taxonomy/2759"
   >
@@ -392,7 +398,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    78,128
+    82,485
   </a>
 </DocumentFragment>
 `;

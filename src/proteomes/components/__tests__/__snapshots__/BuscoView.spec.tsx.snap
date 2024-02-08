@@ -15,7 +15,7 @@ exports[`BuscoView should render 1`] = `
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:39.1% D:60.4%) F:0% M:0.4%
+      C:99.5% (S:37.8% D:61.7%) F:0% M:0.5%
     </div>
   </div>
 </DocumentFragment>

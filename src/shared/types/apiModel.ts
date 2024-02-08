@@ -41,6 +41,8 @@ export type APIModel =
 export type Statistics = {
   reviewedProteinCount: number;
   unreviewedProteinCount: number;
+  // proteomes
+  isoformProteinCount?: number;
   // in citations
   computationallyMappedProteinCount?: number;
   communityMappedProteinCount?: number;

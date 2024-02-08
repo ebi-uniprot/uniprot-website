@@ -11,7 +11,6 @@ import ErrorBoundary from '../../../../shared/components/error-component/ErrorBo
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 import BlastResultSidebar from './BlastResultSidebar';
 import ResultButtons from '../../../components/ResultButtons';
-import { DowntimeWarning } from '../../../components/DowntimeWarning';
 
 import useDataApi, {
   UseDataAPIState,
@@ -359,7 +358,6 @@ const BlastResult = () => {
         }
         resultsCount={loading ? undefined : hitsFiltered.length}
       />
-      <DowntimeWarning>BLAST service</DowntimeWarning>
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
