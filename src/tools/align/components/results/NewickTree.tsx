@@ -56,7 +56,7 @@ type NewickTreeProps = {
   handleEntrySelection: (rowId: string) => void;
 };
 
-const NewickTree: FC<NewickTreeProps> = ({
+const NewickTree: FC<React.PropsWithChildren<NewickTreeProps>> = ({
   newick,
   showDistance,
   alignLabels,

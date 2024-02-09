@@ -107,7 +107,10 @@ type APIRequestProps = {
   jobType: JobTypes;
 };
 
-const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
+const APIRequest: FC<React.PropsWithChildren<APIRequestProps>> = ({
+  inputParamsData,
+  jobType,
+}) => {
   if (
     inputParamsData &&
     // This is for TS to typeguard, after that we're sure it's not a local job

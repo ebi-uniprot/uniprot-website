@@ -14,11 +14,9 @@ export type ColumnSelectDragDropProps = {
   onRemove: (columnId: Column) => void;
 };
 
-const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
-  columns,
-  onDragDrop,
-  onRemove,
-}) => {
+const ColumnSelectDragDrop: FC<
+  React.PropsWithChildren<ColumnSelectDragDropProps>
+> = ({ columns, onDragDrop, onRemove }) => {
   const previousColumns = useRef(columns);
 
   useEffect(() => {

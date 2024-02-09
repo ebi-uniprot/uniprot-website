@@ -80,7 +80,9 @@ type ResultsButtonsProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
 };
 
-const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
+const ResultsButtons: FC<
+  React.PropsWithChildren<ResultsButtonsProps<JobTypes>>
+> = ({
   selectedEntries,
   setSelectedEntries,
   total,

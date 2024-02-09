@@ -25,9 +25,9 @@ const QueryBuilder = lazy(
 
 const interestingTerms = /taxonomy|organism/;
 
-const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
-  namespace,
-}) => {
+const TaxonomyFacet: FC<
+  React.PropsWithChildren<{ namespace: SearchableNamespace }>
+> = ({ namespace }) => {
   const { search } = useLocation();
   const { jobId } = useJobFromUrl();
 

@@ -9,7 +9,7 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { HelpSearchResponse } from '../../types/apiModel';
 
-const HelpResultFacets: FC = () => {
+const HelpResultFacets: FC<React.PropsWithChildren<unknown>> = () => {
   const { search } = useLocation();
 
   const parsed = Object.fromEntries(new URLSearchParams(search));

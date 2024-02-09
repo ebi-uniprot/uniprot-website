@@ -33,7 +33,7 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-const MemberIcons: FC<{ id: string }> = ({ id }) => {
+const MemberIcons: FC<React.PropsWithChildren<{ id: string }>> = ({ id }) => {
   const { loading, data } = useDataApi<UniRefMembersResults>(
     apiUrls.members(id, {
       facets: uniRefMembersFacets,
@@ -116,22 +116,26 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
   );
 };
 
-const Seed: FC<{ seedId: string }> = ({ seedId }) => (
+const Seed: FC<React.PropsWithChildren<{ seedId: string }>> = ({ seedId }) => (
   <strong>
     Built on seed sequence <MemberLink accession={seedId} />
   </strong>
 );
 
-const Updated: FC<{ updated: string }> = ({ updated }) => (
+const Updated: FC<React.PropsWithChildren<{ updated: string }>> = ({
+  updated,
+}) => (
   <>
     Updated:&nbsp;
     <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>
   </>
 );
 
-const Overview: FC<{
-  transformedData: UniRefUIModel;
-}> = ({ transformedData }) => (
+const Overview: FC<
+  React.PropsWithChildren<{
+    transformedData: UniRefUIModel;
+  }>
+> = ({ transformedData }) => (
   <section>
     {transformedData.name} · <MemberIcons id={transformedData.id} /> ·{' '}
     <Updated updated={transformedData.updated} /> ·{' '}

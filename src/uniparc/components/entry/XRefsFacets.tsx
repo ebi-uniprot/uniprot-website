@@ -133,9 +133,11 @@ const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject<ReactNode>[] => {
   ];
 };
 
-const XRefsFacets: FC<{
-  xrefs?: UseDataAPIWithStaleState<UniParcAPIModel>;
-}> = ({ xrefs }) => {
+const XRefsFacets: FC<
+  React.PropsWithChildren<{
+    xrefs?: UseDataAPIWithStaleState<UniParcAPIModel>;
+  }>
+> = ({ xrefs }) => {
   const facets = useMemo(
     () => xrefsToFacets(xrefs?.data?.uniParcCrossReferences),
     [xrefs]

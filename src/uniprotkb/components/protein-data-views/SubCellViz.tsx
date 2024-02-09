@@ -150,7 +150,7 @@ type Props = RequireExactlyOne<
   'uniProtLocations' | 'goLocations'
 >;
 
-const SubCellViz: FC<Props> = memo(
+const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
   ({ uniProtLocations, goLocations, taxonId, children }) => {
     const instanceName = useRef(
       `${canonicalName}-${

@@ -6,11 +6,13 @@ import initializer from '../utils/fieldInitializer';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-const AutocompleteField: FC<{
-  field: SearchTermType;
-  handleChange: (queryBit: QueryBit, reset?: boolean) => void;
-  initialValue?: QueryBit;
-}> = ({ field, handleChange, initialValue }) => {
+const AutocompleteField: FC<
+  React.PropsWithChildren<{
+    field: SearchTermType;
+    handleChange: (queryBit: QueryBit, reset?: boolean) => void;
+    initialValue?: QueryBit;
+  }>
+> = ({ field, handleChange, initialValue }) => {
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );

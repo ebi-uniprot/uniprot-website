@@ -309,8 +309,16 @@ const BackToTheTop = lazy(() =>
 // the presence of absence of a query
 const ResultsOrLanding =
   (
-    ResultsPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>,
-    LandingPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>
+    ResultsPage: FC<
+      React.PropsWithChildren<
+        RouteChildrenProps<{ namespace: SearchableNamespace }>
+      >
+    >,
+    LandingPage: FC<
+      React.PropsWithChildren<
+        RouteChildrenProps<{ namespace: SearchableNamespace }>
+      >
+    >
   ) =>
   (props: RouteChildrenProps<{ namespace: SearchableNamespace }>) => {
     if (props.location.search) {

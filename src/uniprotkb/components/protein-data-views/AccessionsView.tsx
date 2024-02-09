@@ -3,7 +3,9 @@ import { InfoList, ExpandableList } from 'franklin-sites';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
-const AccessionsView: FC<{ data: NamesAndTaxonomyUIModel }> = ({ data }) => {
+const AccessionsView: FC<
+  React.PropsWithChildren<{ data: NamesAndTaxonomyUIModel }>
+> = ({ data }) => {
   const secondaryAccessions = data.secondaryAccessions?.map((accession) => (
     <Fragment key={accession}>{accession}</Fragment>
   ));

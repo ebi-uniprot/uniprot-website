@@ -19,10 +19,12 @@ export const getSwissBioPicLocationId = (id: string) => {
   return match?.[1] ? `GO${match?.[1]}` : undefined;
 };
 
-const SubcellularLocationGOView: FC<{
-  goXrefs?: GoXref[];
-  primaryAccession?: string;
-}> = ({ goXrefs, primaryAccession }) => {
+const SubcellularLocationGOView: FC<
+  React.PropsWithChildren<{
+    goXrefs?: GoXref[];
+    primaryAccession?: string;
+  }>
+> = ({ goXrefs, primaryAccession }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
   if (!goXrefs?.length) {
     return null;

@@ -43,7 +43,7 @@ type LocalFacetProps = {
   optimisedBinNumber: number;
 };
 
-const LocalFacet: FC<LocalFacetProps> = ({
+const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
   facet,
   bounds,
   facetBounds,
@@ -119,10 +119,12 @@ const LocalFacet: FC<LocalFacetProps> = ({
   );
 };
 
-const BlastResultLocalFacets: FC<{
-  allHits: BlastHit[];
-  namespace: Namespace;
-}> = ({ allHits, namespace }) => {
+const BlastResultLocalFacets: FC<
+  React.PropsWithChildren<{
+    allHits: BlastHit[];
+    namespace: Namespace;
+  }>
+> = ({ allHits, namespace }) => {
   const { search: queryParamFromUrl } = useLocation();
 
   const [{ selectedFacets, query }] = getParamsFromURL(queryParamFromUrl);

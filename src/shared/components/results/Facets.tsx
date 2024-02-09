@@ -89,7 +89,9 @@ type FacetProps = {
   facetClickHandler?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-export const Facet: FC<FacetProps & HTMLAttributes<HTMLDivElement>> = ({
+export const Facet: FC<
+  React.PropsWithChildren<FacetProps & HTMLAttributes<HTMLDivElement>>
+> = ({
   data,
   extraActions,
   queryStringKey = 'facets',
@@ -166,7 +168,9 @@ type FacetsProps = {
   facetClickHandler?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-export const Facets: FC<FacetsProps & HTMLAttributes<HTMLDivElement>> = ({
+export const Facets: FC<
+  React.PropsWithChildren<FacetsProps & HTMLAttributes<HTMLDivElement>>
+> = ({
   data,
   extraActionsFor,
   queryStringKey = 'facets',

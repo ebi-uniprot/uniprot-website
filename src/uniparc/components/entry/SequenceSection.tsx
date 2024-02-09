@@ -7,9 +7,11 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import EntrySection from '../../types/entrySection';
 import { Sequence as SequenceType } from '../../../shared/types/sequence';
 
-const SequenceSection: FC<{
-  data: SequenceType;
-}> = ({ data }) => {
+const SequenceSection: FC<
+  React.PropsWithChildren<{
+    data: SequenceType;
+  }>
+> = ({ data }) => {
   if (!hasContent(data)) {
     return null;
   }
