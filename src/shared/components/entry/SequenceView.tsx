@@ -246,8 +246,13 @@ const IsoformInfo = ({
   const [name] = isoformData.isoformIds;
   return (
     <Fragment key={name}>
-      <h3 id={isoformData.name.value && `Isoform_${isoformData.name.value}`}>
-        <span id={isoformData.name.value}>
+      <h3
+        id={
+          isoformData.name.value &&
+          `Isoform_${isoformData.name.value.replaceAll(' ', '_')}`
+        }
+      >
+        <span>
           {' '}
           <span id={name}>{name}</span>
         </span>
