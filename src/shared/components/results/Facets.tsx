@@ -135,6 +135,7 @@ export const Facet: FC<
           return (
             <Link
               key={`${data.name}_${value}`}
+              // eslint-disable-next-line uniprot-website/use-config-location
               to={to}
               className={cn({ [styles['facet-active']]: isActive })}
               onClick={facetClickHandler}
