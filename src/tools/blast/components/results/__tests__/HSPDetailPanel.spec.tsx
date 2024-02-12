@@ -44,7 +44,7 @@ describe('HSPDetailPanel', () => {
 
   it('should load correct query and match sequence data', async () => {
     const slidingPanel = screen.getByTestId('sliding-panel');
-    const msa = slidingPanel.querySelector('protvista-msa');
+    const msa = slidingPanel.querySelector('nightingale-msa');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((msa as any).data).toEqual([
       { name: 'Query', sequence: hsp.hsp_qseq },
