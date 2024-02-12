@@ -165,7 +165,6 @@
     "@types/lodash-es": "4.17.6",
     "@types/marked": "4.0.7",
     "@types/react": "18.2.55",
-    "@types/react-beautiful-dnd": "13.1.2",
     "@types/react-dom": "18.2.0",
     "@types/react-router-dom": "5.3.3",
     "@types/sanitize-html": "2.6.2",
