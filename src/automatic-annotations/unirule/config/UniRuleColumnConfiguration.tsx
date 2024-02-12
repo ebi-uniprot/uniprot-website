@@ -107,12 +107,7 @@ UniRuleColumnConfiguration.set(UniRuleColumn.statistics, {
         Namespace.unirule,
         information?.oldRuleNum || uniRuleId,
         statistics
-      )?.map(({ key, link, name }) => (
-        // eslint-disable-next-line uniprot-website/use-config-location
-        <Link key={key} to={link}>
-          {name}
-        </Link>
-      ))}
+      )}
     </ExpandableList>
   ),
 });

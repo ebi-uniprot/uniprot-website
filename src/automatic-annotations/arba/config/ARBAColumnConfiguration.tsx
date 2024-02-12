@@ -53,14 +53,7 @@ ARBAColumnConfiguration.set(ARBAColumn.statistics, {
   ),
   render: ({ uniRuleId, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.unirule, uniRuleId, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.unirule, uniRuleId, statistics)}
     </ExpandableList>
   ),
 });
