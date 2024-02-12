@@ -19,9 +19,7 @@ describe('CSVView', () => {
         supplementaryText="includes"
       />
     );
-    const ellipsisButton = await screen.findByRole('button', {
-      name: 'Show more',
-    });
+    const ellipsisButton = await screen.findByTitle('Show more');
     fireEvent.click(ellipsisButton);
     expect(
       await screen.findByText('includes', { exact: false })
