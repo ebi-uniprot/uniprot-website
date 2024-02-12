@@ -270,7 +270,9 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
        * We create a new definition everytime otherwise if we navigate to another
        * entry page the definition will already be registered and it will crash...
        */
-      customElements.define(instanceName.current, InstanceClass);
+      if (!customElements.get(instanceName.current)) {
+        customElements.define(instanceName.current, InstanceClass);
+      }
       // get the instance to modify its shadow root
       const instance = document.querySelector<InstanceClass>(
         instanceName.current
