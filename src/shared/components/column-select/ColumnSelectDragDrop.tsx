@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Chip } from 'franklin-sites';
 import cn from 'classnames';
 
