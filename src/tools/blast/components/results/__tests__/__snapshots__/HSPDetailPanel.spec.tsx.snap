@@ -103,17 +103,15 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
               >
                 U6MKN0
               </a>
-              
             </button>
           </div>
           <div
             class="track"
           >
-            <protvista-msa
+            <nightingale-msa
               calculate-conservation="true"
-              colorscheme="conservation"
+              color-scheme="conservation"
               height="40"
-              hidelabel="true"
               length="45"
               overlay-conservation="true"
             />
@@ -295,7 +293,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               >
                 U6MKN0
               </a>
-              
             </button>
           </div>
           <div
@@ -309,7 +306,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               <protvista-navigation
                 length="28"
               />
-              <protvista-msa
+              <nightingale-msa
                 calculate-conservation="true"
                 colorscheme="conservation"
                 height="40"

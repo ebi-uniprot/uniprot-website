@@ -218,7 +218,7 @@ exports[`AlignmentView Align should render 1`] = `
             <protvista-navigation
               length="957"
             />
-            <protvista-msa
+            <nightingale-msa
               calculate-conservation="true"
               colorscheme="conservation"
               height="80"
@@ -390,7 +390,7 @@ exports[`AlignmentView BLAST should render 1`] = `
             <protvista-navigation
               length="565"
             />
-            <protvista-msa
+            <nightingale-msa
               calculate-conservation="true"
               colorscheme="conservation"
               height="40"

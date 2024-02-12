@@ -217,64 +217,12 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
       </a>
     </li>
     <li>
-      <a
-        href="/uniprotkb/Q6RZL4/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q6RZL4
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/Q71TT2/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q71TT2
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/Q76QK2/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q76QK2
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/Q76ZT7/history"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q76ZT7.1 (obsolete)
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less entries
+        4 more entries
       </button>
     </li>
   </ul>
@@ -353,51 +301,12 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
       N1R
     </li>
     <li>
-      CPXV_FIN2000_MAN_093
-    </li>
-    <li>
-      VACV_TT8_108
-    </li>
-    <li>
-      VACV_TT12_108
-    </li>
-    <li>
-      VAC_TKT3_078
-    </li>
-    <li>
-      VAC_TKT4_078
-    </li>
-    <li>
-      VACV_IOC_B141_114
-    </li>
-    <li>
-      VACV_IOC_B388_114
-    </li>
-    <li>
-      LIVPclone14_096
-    </li>
-    <li>
-      VACV_VK01_RKI-115
-    </li>
-    <li>
-      VACV_VK02_RKI-092
-    </li>
-    <li>
-      HSPV_VK05_RKI-089
-    </li>
-    <li>
-      VACV_VK08_RKI-108
-    </li>
-    <li>
-      VACV_VK12_RKI-121
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less gene names
+        13 more gene names
       </button>
     </li>
   </ul>
@@ -534,30 +443,12 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
       </a>
     </li>
     <li>
-      <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
-        translate="no"
-      >
-        Cowpox virus (CPV)
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/32630"
-        title="synthetic construct, taxon ID 32630"
-        translate="no"
-      >
-        synthetic construct
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less organisms
+        2 more organisms
       </button>
     </li>
   </ul>
@@ -678,30 +569,12 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
       </a>
     </li>
     <li>
-      <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
-        translate="no"
-      >
-        10243
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/32630"
-        title="synthetic construct, taxon ID 32630"
-        translate="no"
-      >
-        32630
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less organisms
+        2 more organisms
       </button>
     </li>
   </ul>
@@ -764,36 +637,12 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
       RPXV077
     </li>
     <li>
-      L1R
-    </li>
-    <li>
-      Myristylated MP IMV
-    </li>
-    <li>
-      Neutralizing antibody IMV membrane protein target
-    </li>
-    <li>
-      Neutralizing antibody MV membrane protein
-    </li>
-    <li>
-      F2 polypeptide
-    </li>
-    <li>
-      N1R protein
-    </li>
-    <li>
-      Hypothetical protein
-    </li>
-    <li>
-      Putative L1R
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less protein names
+        8 more protein names
       </button>
     </li>
   </ul>
@@ -904,84 +753,12 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
        (Genome)
     </li>
     <li>
-      <a
-        href="/proteomes/UP000181062"
-      >
-        UP000181062
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000181110"
-      >
-        UP000181110
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000153808"
-      >
-        UP000153808
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000097422"
-      >
-        UP000097422
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000181484"
-      >
-        UP000181484
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000315999"
-      >
-        UP000315999
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000137384"
-      >
-        UP000137384
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000501395"
-      >
-        UP000501395
-      </a>
-       (Genome)
-    </li>
-    <li>
-      <a
-        href="/proteomes/UP000274976"
-      >
-        UP000274976
-      </a>
-       (Genome)
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less proteomes
+        9 more proteomes
       </button>
     </li>
   </ul>

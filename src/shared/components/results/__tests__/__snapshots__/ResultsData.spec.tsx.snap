@@ -139,49 +139,41 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P11413#ptm_processing"
           >
             11 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11413#disease_variants"
           >
             71 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11413#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11413#sequences"
           >
             3 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11413#interaction"
           >
             3 interactions
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11413#disease_variants"
           >
             1 disease
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11413#structure"
           >
             12 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11413/publications"
           >
             57 reviewed publications
@@ -299,19 +291,16 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P19926#function"
           >
             2 active sites
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P19926#structure"
           >
             2 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P19926/publications"
           >
             6 reviewed publications
@@ -441,19 +430,16 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P11411#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11411#structure"
           >
             9 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11411/publications"
           >
             9 reviewed publications
@@ -601,37 +587,31 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P13866#ptm_processing"
           >
             1 PTM
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P13866#disease_variants"
           >
             25 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P13866#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P13866#interaction"
           >
             1 interaction
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P13866#disease_variants"
           >
             1 disease
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P13866/publications"
           >
             17 reviewed publications
@@ -761,25 +741,21 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q42525#function"
           >
             1 domain
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q42525#interaction"
           >
             2 interactions
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q42525#structure"
           >
             3 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q42525/publications"
           >
             11 reviewed publications
@@ -915,19 +891,16 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q9FK51#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9FK51#structure"
           >
             5 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9FK51/publications"
           >
             7 reviewed publications
@@ -1075,49 +1048,41 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P36871#ptm_processing"
           >
             22 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P36871#disease_variants"
           >
             18 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P36871#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P36871#sequences"
           >
             3 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P36871#interaction"
           >
             1 interaction
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P36871#disease_variants"
           >
             1 disease
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P36871#structure"
           >
             14 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P36871/publications"
           >
             26 reviewed publications
@@ -1247,37 +1212,31 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q96G03#ptm_processing"
           >
             2 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q96G03#disease_variants"
           >
             2 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q96G03#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q96G03#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q96G03#interaction"
           >
             2 interactions
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q96G03/publications"
           >
             18 reviewed publications
@@ -1425,31 +1384,26 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P31639#disease_variants"
           >
             1 reviewed variant
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P31639#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P31639#disease_variants"
           >
             1 disease
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P31639#structure"
           >
             1 3D structure
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P31639/publications"
           >
             7 reviewed publications
@@ -1597,37 +1551,31 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/O95479#ptm_processing"
           >
             2 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/O95479#disease_variants"
           >
             10 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/O95479#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/O95479#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/O95479#disease_variants"
           >
             1 disease
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/O95479/publications"
           >
             10 reviewed publications
@@ -1763,25 +1711,21 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/A0SVK0#function"
           >
             1 domain
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/A0SVK0#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/A0SVK0#interaction"
           >
             6 interactions
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/A0SVK0/publications"
           >
             16 reviewed publications
@@ -1911,19 +1855,16 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P38263#ptm_processing"
           >
             1 PTM
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P38263#structure"
           >
             1 3D structure
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P38263/publications"
           >
             12 reviewed publications
@@ -2083,37 +2024,31 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P11166#ptm_processing"
           >
             5 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11166#disease_variants"
           >
             53 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11166#interaction"
           >
             2 interactions
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11166#disease_variants"
           >
             5 diseases
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11166#structure"
           >
             5 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11166/publications"
           >
             49 reviewed publications
@@ -2249,37 +2184,31 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P35575#disease_variants"
           >
             56 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P35575#function"
           >
             2 active sites
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P35575#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P35575#interaction"
           >
             2 interactions
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P35575#disease_variants"
           >
             1 disease
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P35575/publications"
           >
             33 reviewed publications
@@ -2415,49 +2344,41 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q16851#ptm_processing"
           >
             8 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q16851#disease_variants"
           >
             2 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q16851#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q16851#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q16851#interaction"
           >
             6 interactions
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q16851#disease_variants"
           >
             1 disease
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q16851#structure"
           >
             3 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q16851/publications"
           >
             15 reviewed publications
@@ -2581,13 +2502,11 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q9NY64#disease_variants"
           >
             1 reviewed variant
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9NY64/publications"
           >
             6 reviewed publications
@@ -2717,25 +2636,21 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q9VUY9#ptm_processing"
           >
             1 PTM
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9VUY9#phenotypes_variants"
           >
             22 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9VUY9#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9VUY9/publications"
           >
             9 reviewed publications
@@ -2871,25 +2786,21 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q6PCE3#ptm_processing"
           >
             1 PTM
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q6PCE3#disease_variants"
           >
             3 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q6PCE3#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q6PCE3/publications"
           >
             13 reviewed publications
@@ -3019,19 +2930,16 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P37012#ptm_processing"
           >
             4 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P37012#function"
           >
             1 active site
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P37012/publications"
           >
             21 reviewed publications
@@ -3155,7 +3063,6 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q8TD20/publications"
           >
             5 reviewed publications
@@ -3279,13 +3186,11 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q6PXP3#disease_variants"
           >
             2 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q6PXP3/publications"
           >
             6 reviewed publications
@@ -3415,25 +3320,21 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q9BUM1#disease_variants"
           >
             22 reviewed variants
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9BUM1#function"
           >
             2 active sites
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9BUM1#disease_variants"
           >
             2 diseases
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9BUM1/publications"
           >
             18 reviewed publications
@@ -3575,19 +3476,16 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q8TDB8#disease_variants"
           >
             1 reviewed variant
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q8TDB8#sequences"
           >
             5 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q8TDB8/publications"
           >
             9 reviewed publications
@@ -3711,31 +3609,26 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/P11169#ptm_processing"
           >
             4 PTMs
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11169#disease_variants"
           >
             1 reviewed variant
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11169#interaction"
           >
             1 interaction
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11169#structure"
           >
             5 3D structures
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/P11169/publications"
           >
             10 reviewed publications
@@ -3859,31 +3752,26 @@ exports[`ResultsData component should render the card view with the correct numb
           class="card__actions"
         >
           <a
-            class="card-action"
             href="/uniprotkb/Q9UGQ3#ptm_processing"
           >
             1 PTM
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9UGQ3#disease_variants"
           >
             1 reviewed variant
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9UGQ3#sequences"
           >
             2 isoforms
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9UGQ3#interaction"
           >
             1 interaction
           </a>
           <a
-            class="card-action"
             href="/uniprotkb/Q9UGQ3/publications"
           >
             11 reviewed publications

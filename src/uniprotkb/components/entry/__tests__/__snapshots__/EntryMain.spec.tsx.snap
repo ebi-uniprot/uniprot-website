@@ -2430,48 +2430,6 @@ exports[`Entry view should render 1`] = `
       >
         <div
           class="tabs"
-          style="display: none;"
-        >
-          <div
-            class="tabs__header"
-            role="tablist"
-          >
-            <div
-              aria-controls="49"
-              class="tabs__header__item tabs__header__item--active"
-              data-target="0"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              UniProt Annotation
-            </div>
-            <div
-              aria-controls="49"
-              class="tabs__header__item"
-              data-target="1"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              GO Annotation
-            </div>
-          </div>
-          <div
-            data-testid="tab-content"
-            id="49"
-            role="tabpanel"
-          >
-            <div
-              style="display: block;"
-            />
-            <div
-              style="display: none;"
-            />
-          </div>
-        </div>
-        <div
-          class="tabs"
         >
           <div
             class="tabs__header"

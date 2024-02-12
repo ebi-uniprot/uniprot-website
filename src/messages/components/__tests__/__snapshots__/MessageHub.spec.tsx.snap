@@ -23,6 +23,7 @@ exports[`InPageMessageHub tests should render 1`] = `
         </small>
       </div>
       <button
+        aria-label="dismiss"
         class="message__dismiss"
         type="button"
       >

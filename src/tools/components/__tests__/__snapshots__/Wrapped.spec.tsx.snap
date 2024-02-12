@@ -89,11 +89,10 @@ exports[`WrappedRow should render 1`] = `
   <div
     class="track"
   >
-    <protvista-msa
+    <nightingale-msa
       calculate-conservation="true"
-      colorscheme="conservation"
+      color-scheme="conservation"
       height="80"
-      hidelabel="true"
       length="46"
       overlay-conservation="true"
     />
