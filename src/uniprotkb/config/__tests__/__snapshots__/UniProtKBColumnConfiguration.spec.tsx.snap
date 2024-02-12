@@ -97,9 +97,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
   <h3
     id="Isoform_name"
   >
-    <span
-      id="name"
-    >
+    <span>
        
       <span
         id="isoID1"
