@@ -45,7 +45,7 @@ const ProteinProcessingSection = ({
   if (!hasContent(data) && !convertedPtmExchangeFeatures.length) {
     return null;
   }
-  const { featuresData, keywordData, xrefData, commentsData } = data;
+  const { featuresData, keywordData, xrefData, commentsData, isoforms } = data;
   return (
     <Card
       header={
@@ -61,11 +61,13 @@ const ProteinProcessingSection = ({
         features={[...featuresData, ...convertedPtmExchangeFeatures]}
         sequence={sequence}
         showSourceColumn={!!convertedPtmExchangeFeatures.length}
+        isoforms={isoforms}
       />
       <FreeTextView
         comments={commentsData.get('PTM') as FreeTextComment[] | undefined}
         articleId="post-translational_modification"
         title="Post-translational modification"
+        isoforms={isoforms}
       />
       <KeywordView keywords={keywordData} />
       <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />

@@ -219,6 +219,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           comments={comments}
           title="Subunit"
           articleId="subunit_structure"
+          isoforms={data.isoforms}
         />
       )}
       {tableData.length ? (

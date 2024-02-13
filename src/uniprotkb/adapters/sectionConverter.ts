@@ -11,12 +11,14 @@ import FeatureType from '../types/featureType';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { DatabaseInfoMaps } from '../utils/database';
+import { extractIsoformNames } from './extractIsoformsConverter';
 
 export type UIModel = {
   commentsData: Map<CommentType, Comment[] | undefined>;
   keywordData: KeywordUIModel[];
   featuresData: FeatureDatum[];
   xrefData: XrefUIModel[];
+  isoforms: string[];
 };
 
 export const convertSection = (
@@ -33,9 +35,13 @@ export const convertSection = (
     keywordData: [],
     featuresData: [],
     xrefData: [],
+    isoforms: [],
   };
 
   const { comments, keywords, features, genes, organism, uniProtkbId } = data;
+
+  const isoformNames = extractIsoformNames(data);
+
   if (sectionComments && comments) {
     sectionComments.forEach((commentType) => {
       convertedData.commentsData.set(
@@ -71,6 +77,9 @@ export const convertSection = (
       uniProtkbId,
       data?.proteinDescription?.recommendedName?.ecNumbers
     );
+  }
+  if (isoformNames) {
+    convertedData.isoforms = isoformNames;
   }
   return convertedData;
 };

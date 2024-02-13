@@ -60,6 +60,7 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
         primaryAccession={data.primaryAccession}
         features={data.featuresData}
         sequence={sequence}
+        isoforms={data.isoforms}
       />
       <KeywordView keywords={data.keywordData} />
     </Card>

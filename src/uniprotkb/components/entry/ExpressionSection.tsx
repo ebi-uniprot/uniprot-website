@@ -39,6 +39,7 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
         }
         title="Tissue specificity"
         articleId="tissue_specificity"
+        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -46,6 +47,7 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
         }
         title="Induction"
         articleId="induction"
+        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -55,6 +57,7 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
         }
         title="Developmental stage"
         articleId="developmental_stage"
+        isoforms={data.isoforms}
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

@@ -49,9 +49,18 @@ type RichTextProps = {
    * Just do enrichments that don't involve adding links. Only the visual ones
    */
   noLink?: boolean;
+  /**
+   * Link isoforms that exist in the data
+   */
+  isoforms?: string[] | undefined;
 };
 
-export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
+export const RichText = ({
+  children,
+  addPeriod,
+  noLink,
+  isoforms,
+}: RichTextProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
   return (
     <>
@@ -88,14 +97,19 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
           const isoformMatch = part.match(reIsoform)?.[0];
           if (isoformMatch) {
             const [text, isoform] = isoformMatch.split(' ');
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                {text}{' '}
-                {/* eslint-disable-next-line uniprot-website/use-config-location */}
-                <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
-              </Fragment>
-            );
+            if (
+              (isoforms && isoforms.includes(isoform)) ||
+              isoform.match(/[A-Z0-9]+-\d+/i)
+            ) {
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  {text}{' '}
+                  {/* eslint-disable-next-line uniprot-website/use-config-location */}
+                  <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
+                </Fragment>
+              );
+            }
           }
           const dbSnpMatch = part.match(reDbSnpCapture);
           if (dbSnpMatch?.groups) {
@@ -164,9 +178,15 @@ type TextViewProps = {
   comments: TextWithEvidence[];
   type?: FreeTextType;
   children?: ReactNode;
+  isoforms?: string[] | undefined;
 };
 
-export const TextView = ({ comments, type, children }: TextViewProps) => (
+export const TextView = ({
+  comments,
+  type,
+  children,
+  isoforms,
+}: TextViewProps) => (
   <div className="text-block">
     {children}
     {comments.map((comment, index) => (
@@ -175,7 +195,9 @@ export const TextView = ({ comments, type, children }: TextViewProps) => (
         {type && type === 'SIMILARITY' ? (
           <SimilarityView>{comment.value}</SimilarityView>
         ) : (
-          <RichText addPeriod>{comment.value}</RichText>
+          <RichText isoforms={isoforms} addPeriod>
+            {comment.value}
+          </RichText>
         )}
         <UniProtKBEvidenceTag evidences={comment.evidences} />
       </Fragment>
@@ -188,6 +210,7 @@ type FreeTextProps = {
   title?: ReactNode;
   articleId?: string;
   showMolecule?: boolean;
+  isoforms?: string[] | undefined;
 };
 
 const FreeTextView: FC<FreeTextProps> = ({
@@ -195,6 +218,7 @@ const FreeTextView: FC<FreeTextProps> = ({
   title,
   articleId,
   showMolecule = true,
+  isoforms,
 }) => {
   const entryPageMatch = useRouteMatch(allEntryPages);
 
@@ -218,7 +242,11 @@ const FreeTextView: FC<FreeTextProps> = ({
               )}
             </h4>
           )}
-          <TextView comments={item.texts} type={item.commentType} />
+          <TextView
+            comments={item.texts}
+            type={item.commentType}
+            isoforms={isoforms}
+          />
         </Fragment>
       )
   );

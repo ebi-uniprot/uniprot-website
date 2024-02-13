@@ -41,6 +41,7 @@ const FamilyAndDomainsSection = ({
         primaryAccession={primaryAccession}
         features={data.featuresData}
         sequence={sequence}
+        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -48,6 +49,7 @@ const FamilyAndDomainsSection = ({
         }
         title="Domain"
         articleId="domain_cc"
+        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -55,6 +57,7 @@ const FamilyAndDomainsSection = ({
         }
         title="Sequence similarities"
         articleId="sequence_similarities"
+        isoforms={data.isoforms}
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

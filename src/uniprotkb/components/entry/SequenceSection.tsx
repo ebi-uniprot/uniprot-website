@@ -37,6 +37,9 @@ const SequenceSection = ({
     return null;
   }
   const numberOfIsoforms = data?.alternativeProducts?.isoforms.length;
+  const isoformNames = data?.alternativeProducts?.isoforms.map(
+    (isoform) => isoform.name.value
+  );
   return (
     <Card
       header={
@@ -66,6 +69,7 @@ const SequenceSection = ({
           primaryAccession={primaryAccession}
           features={data.featuresData}
           sequence={data.sequence.value}
+          isoforms={isoformNames}
         />
       )}
       {data.massSpectrometry && data.massSpectrometry.length > 0 && (
@@ -77,7 +81,7 @@ const SequenceSection = ({
       {data.polymorphism && data.polymorphism.length > 0 && (
         <>
           <h3 data-article-id="polymorphism">Polymorphism</h3>
-          <FreeTextView comments={data.polymorphism} />
+          <FreeTextView comments={data.polymorphism} isoforms={isoformNames} />
         </>
       )}
       {data.rnaEditing && data.rnaEditing.length > 0 && (

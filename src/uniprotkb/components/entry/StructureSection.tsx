@@ -124,6 +124,7 @@ const StructureSection = ({
         primaryAccession={primaryAccession}
         features={data.featuresData}
         sequence={sequence}
+        isoforms={data.isoforms}
       />
       {XrefViewNode}
     </Card>

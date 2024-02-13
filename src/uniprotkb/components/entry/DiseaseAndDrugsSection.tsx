@@ -68,6 +68,7 @@ const DiseaseAndDrugsSection = ({
         }
         title="Allergenic properties"
         articleId="allergenic_properties"
+        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -77,6 +78,7 @@ const DiseaseAndDrugsSection = ({
         }
         title="Disruption phenotype"
         articleId="disruption_phenotype"
+        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -86,6 +88,7 @@ const DiseaseAndDrugsSection = ({
         }
         title="Pharmaceutical"
         articleId="pharmaceutical_use"
+        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -93,11 +96,13 @@ const DiseaseAndDrugsSection = ({
         }
         title="Toxic dose"
         articleId="toxic_dose"
+        isoforms={data.isoforms}
       />
       <FeaturesView
         primaryAccession={primaryAccession}
         features={data.featuresData}
         sequence={sequence}
+        isoforms={data.isoforms}
       />
       {importedVariants !== 'loading' && importedVariants > 0 && (
         <section>
