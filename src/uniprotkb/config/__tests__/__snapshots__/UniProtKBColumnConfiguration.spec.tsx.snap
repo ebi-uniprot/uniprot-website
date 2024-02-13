@@ -78,7 +78,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_allerge
 exports[`UniProtKBColumnConfiguration component should render column "cc_alternative_products": cc_alternative_products 1`] = `
 <DocumentFragment>
   <p>
-    This entry describes  
+    This entry describes 
     <strong>
       1
     </strong>

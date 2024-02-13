@@ -19,12 +19,92 @@ exports[`SequenceSection component should render the SequenceSection properly an
       <div
         class="card__content"
       >
-        <button
-          class="button secondary"
-          type="button"
-        >
-          Show sequence 
-        </button>
+        <div>
+          <section
+            class="sequence-container"
+          >
+            <ul
+              class="info-list info-list--columns"
+            >
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--compact"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Length
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    1234
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--compact"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Mass (Da)
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    5,678
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--compact"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <span
+                      data-article-id="checksum"
+                    >
+                      Checksum
+                    </span>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    ASSDFFFDSAASDDSDFSASDF
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div
+              class="sequence"
+            >
+              <span
+                class="sequence__chunk"
+              >
+                ATGHASOADS
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                DKDSAJALDS
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                AMCMNDSKMD
+              </span>
+              <span
+                class="sequence__chunk"
+              >
+                SKNCSAKN
+              </span>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </section>
