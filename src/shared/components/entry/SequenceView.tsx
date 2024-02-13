@@ -104,7 +104,7 @@ const SequenceInfo = ({
       fallback={
         <div className={styles['lazy-fallback']}>
           <InfoList infoData={infoData} />
-          {dataToDisplay?.value || null}
+          {(openByDefault && dataToDisplay?.value) || null}
         </div>
       }
     >
@@ -397,13 +397,12 @@ export const IsoformView = ({
 }: IsoformViewProps) => {
   const { isoforms, events } = alternativeProducts;
   const canonical = accession.split('-')[0];
-  const isIsoformPage = accession !== canonical;
 
   const notes: ReactNode[] = [];
   if (isoforms && events) {
     notes.push(
       <Fragment key="this entry describes...">
-        {`This entry describes ${isIsoformPage ? 'one of the' : ''} `}
+        {`This entry describes `}
         <strong>{isoforms.length}</strong>
         {` `}
         <span data-article-id="alternative_products">isoforms</span>
@@ -411,17 +410,6 @@ export const IsoformView = ({
         <strong>{events.join(' & ')}</strong>.{' '}
       </Fragment>
     );
-    if (isIsoformPage) {
-      notes.push(
-        <Fragment key="canonical link">
-          For the canonical entry page see{' '}
-          <Link to={getEntryPath(Namespace.uniprotkb, canonical)}>
-            {canonical}
-          </Link>
-          .{' '}
-        </Fragment>
-      );
-    }
   }
   for (const [index, { value }] of (
     alternativeProducts.note?.texts || []
@@ -431,34 +419,28 @@ export const IsoformView = ({
 
   let isoformsNode;
   if (isoforms.length) {
-    isoformsNode = isoforms.map((isoform) =>
-      isIsoformPage && isoform.isoformIds[0] !== accession ? null : (
-        <Fragment key={isoform.isoformIds.join('')}>
-          <IsoformInfo
-            isoformData={isoform}
-            canonicalAccession={canonical}
-            isoformNotes={isoformNotes}
-          />
-          {includeSequences && isoform.isoformSequenceStatus !== 'External' && (
-            <>
-              {isIsoformPage ||
-              (canonicalComponent &&
-                isoform.isoformSequenceStatus === 'Displayed') ? (
-                canonicalComponent
-              ) : (
-                <SequenceInfo
-                  isoformId={isoform.isoformIds[0]}
-                  openByDefault={isIsoformPage}
-                  showSequence={
-                    isoform.isoformSequenceStatus !== 'Not described'
-                  }
-                />
-              )}
-            </>
-          )}
-        </Fragment>
-      )
-    );
+    isoformsNode = isoforms.map((isoform) => (
+      <Fragment key={isoform.isoformIds.join('')}>
+        <IsoformInfo
+          isoformData={isoform}
+          canonicalAccession={canonical}
+          isoformNotes={isoformNotes}
+        />
+        {includeSequences && isoform.isoformSequenceStatus !== 'External' && (
+          <>
+            {canonicalComponent &&
+            isoform.isoformSequenceStatus === 'Displayed' ? (
+              canonicalComponent
+            ) : (
+              <SequenceInfo
+                isoformId={isoform.isoformIds[0]}
+                showSequence={isoform.isoformSequenceStatus !== 'Not described'}
+              />
+            )}
+          </>
+        )}
+      </Fragment>
+    ));
   }
   return (
     <>
@@ -494,7 +476,9 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
       isoformId={accession}
       isoformSequence={data.sequence}
       lastUpdateDate={data.lastUpdateDate}
-      openByDefault
+      // Only show the sequence by default if the sequence is not too big
+      // As of 2024_01: 155,003 entries with more than 4000 aa (0.06%)
+      openByDefault={data.sequence.length <= 4_000}
     />
   );
 

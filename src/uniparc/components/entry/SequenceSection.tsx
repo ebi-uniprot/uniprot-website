@@ -1,5 +1,6 @@
-import { FC } from 'react';
 import { Card, LongNumber, Sequence } from 'franklin-sites';
+
+import { useMediumScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -7,9 +8,9 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import EntrySection from '../../types/entrySection';
 import { Sequence as SequenceType } from '../../../shared/types/sequence';
 
-const SequenceSection: FC<{
-  data: SequenceType;
-}> = ({ data }) => {
+const SequenceSection = ({ data }: { data: SequenceType }) => {
+  const mediumScreen = useMediumScreen();
+
   if (!hasContent(data)) {
     return null;
   }
@@ -33,7 +34,13 @@ const SequenceSection: FC<{
     <Card
       header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
     >
-      <Sequence sequence={data.value} infoData={infoData} isCollapsible />
+      <Sequence
+        sequence={data.value}
+        infoData={infoData}
+        isCollapsible={
+          mediumScreen ? data.value.length > 200 : data.value.length > 400
+        }
+      />
     </Card>
   );
 };

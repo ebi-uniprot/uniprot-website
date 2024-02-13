@@ -149,6 +149,7 @@ const Entry = () => {
           <BasketStatus id={transformedData.uniParcId} className="small" />
         </h1>
       </ErrorBoundary>
+      {/* Put overview here if we ever have data to display there */}
       <Tabs active={match.params.subPage}>
         <Tab
           title={

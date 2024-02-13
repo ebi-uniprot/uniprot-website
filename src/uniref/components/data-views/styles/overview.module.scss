@@ -1,0 +1,22 @@
+@import 'franklin-sites/src/styles/colours';
+
+.members {
+  &.uniprotkb-reviewed {
+    color: $colour-reviewed;
+  }
+
+  &.uniprotkb-unreviewed {
+    color: $colour-unreviewed;
+    /* manual adjustments */
+    margin-inline-end: -0.2em;
+  }
+
+  &.uniparc {
+    color: $colour-uniparc;
+  }
+
+  & svg {
+    inline-size: 1em;
+    block-size: 1em;
+  }
+}

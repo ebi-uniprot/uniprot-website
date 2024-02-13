@@ -386,14 +386,14 @@ const Entry = () => {
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
           />
-          <h3>
+          <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
             <BasketStatus id={data.primaryAccession} className="small" />
-          </h3>
+          </h1>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       )}
