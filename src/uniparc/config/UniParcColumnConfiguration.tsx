@@ -259,21 +259,38 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
         ?.filter((xref): xref is XRefWithDatabase =>
           Boolean(xref.database?.startsWith('UniProtKB') && xref.id)
         )
-        .map((xref) => (
-          <Link
-            // id might be repeated because it's referring to different versions
-            key={`${xref.id}-${xref.version}-${xref.database}-${xref.active}`}
-            to={getEntryPath(
-              Namespace.uniprotkb,
-              xref.id,
-              xref.active ? TabLocation.Entry : TabLocation.History
-            )}
-          >
-            <EntryTypeIcon entryType={xref.database} />
-            {xref.id}
-            {xref.active ? '' : `.${xref.version} (obsolete)`}
-          </Link>
-        ))}
+        .map((xref, index) => {
+          const key = `${xref.id}-${
+            // isoforms will not have versions
+            xref.version || index
+          }-${xref.database}-${xref.active}`;
+          const icon = <EntryTypeIcon entryType={xref.database} />;
+
+          // If it's an inactive isoform, no link
+          if (xref.id.includes('-') && !xref.active) {
+            return (
+              <span key={key}>
+                {icon}
+                {xref.id} (obsolete)
+              </span>
+            );
+          }
+          return (
+            <Link
+              key={key}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                xref.id,
+                xref.active ? TabLocation.Entry : TabLocation.History
+              )}
+            >
+              <EntryTypeIcon entryType={xref.database} />
+              {xref.id}
+              {xref.version && !xref.active ? `.${xref.version}` : ''}
+              {xref.active ? '' : ' (obsolete)'}
+            </Link>
+          );
+        })}
     </ExpandableList>
   ),
 });
