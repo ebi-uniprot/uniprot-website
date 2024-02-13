@@ -18,7 +18,7 @@ export type UIModel = {
   keywordData: KeywordUIModel[];
   featuresData: FeatureDatum[];
   xrefData: XrefUIModel[];
-  isoforms: string[];
+  isoforms?: string[];
 };
 
 export const convertSection = (
@@ -35,7 +35,6 @@ export const convertSection = (
     keywordData: [],
     featuresData: [],
     xrefData: [],
-    isoforms: [],
   };
 
   const { comments, keywords, features, genes, organism, uniProtkbId } = data;

@@ -42,7 +42,7 @@ const ProteinProcessingSection = ({
     ? convertPtmExchangeFeatures(proteomicsPtmData.features)
     : [];
 
-  if (!hasContent(data) && !convertedPtmExchangeFeatures.length) {
+  if (!hasContent(data, 'isoforms') && !convertedPtmExchangeFeatures.length) {
     return null;
   }
   const { featuresData, keywordData, xrefData, commentsData, isoforms } = data;

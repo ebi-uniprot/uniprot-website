@@ -24,7 +24,7 @@ const FamilyAndDomainsSection = ({
   sequence,
   primaryAccession,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data, 'isoforms')) {
     return null;
   }
   return (

@@ -18,7 +18,7 @@ type Props = {
 };
 
 const ExpressionSection = ({ data, primaryAccession }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data, 'isoforms')) {
     return null;
   }
   return (

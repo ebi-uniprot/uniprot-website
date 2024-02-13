@@ -37,7 +37,7 @@ const DiseaseAndDrugsSection = ({
   taxId,
   importedVariants,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data, 'isoforms')) {
     return null;
   }
   const nameAndId = getEntrySectionNameAndId(

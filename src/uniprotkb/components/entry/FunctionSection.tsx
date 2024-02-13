@@ -250,7 +250,7 @@ type Props = {
 const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   const isSmallScreen = useSmallScreen();
 
-  if (!hasContent(data)) {
+  if (!hasContent(data, 'isoforms')) {
     return null;
   }
 

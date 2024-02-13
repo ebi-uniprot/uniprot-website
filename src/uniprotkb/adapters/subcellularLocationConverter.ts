@@ -85,7 +85,7 @@ const convertSubcellularLocation = (
 
   // If there is no subcellular data, don't add organism data which will cause
   // the section renderer to falsely believe the section should be rendered
-  if (hasContent(subcellularLocationData) && data.organism) {
+  if (hasContent(subcellularLocationData, 'isoforms') && data.organism) {
     subcellularLocationData.organismData = data.organism;
   }
   return subcellularLocationData;

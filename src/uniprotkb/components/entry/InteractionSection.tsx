@@ -111,7 +111,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     [data]
   );
 
-  if (!hasContent(data)) {
+  if (!hasContent(data, 'isoforms')) {
     return null;
   }
 
