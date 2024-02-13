@@ -162,9 +162,7 @@ const Synonyms = ({ synonyms }: { synonyms: TextWithEvidence[] }) => (
     {synonyms.map((synonym, index) => (
       <Fragment key={synonym.value}>
         {synonym.value}
-        {synonym.evidences && (
-          <UniProtKBEvidenceTag evidences={synonym.evidences} />
-        )}
+        <UniProtKBEvidenceTag evidences={synonym.evidences} />
         {index !== synonyms.length - 1 && ', '}
       </Fragment>
     ))}
@@ -229,7 +227,7 @@ const IsoformInfo = ({
                 ) : (
                   'Missing'
                 )}
-                {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+                <UniProtKBEvidenceTag evidences={evidences} />
               </li>
             )
           )}
@@ -316,7 +314,7 @@ export const SequenceCautionView = ({
           </ExternalLink>
           {` differs from that shown. Reason: ${sequenceCautionType} `}
           {note}
-          {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+          <UniProtKBEvidenceTag evidences={evidences} />
         </section>
       ))}
     </>
@@ -367,10 +365,7 @@ export const RNAEditingView = ({ data }: { data: RNAEditingComment[] }) => (
           <div>
             {item.note.texts.map((text) => (
               <span key={text.value}>
-                {text.value}{' '}
-                {text.evidences && (
-                  <UniProtKBEvidenceTag evidences={text.evidences} />
-                )}
+                {text.value} <UniProtKBEvidenceTag evidences={text.evidences} />
               </span>
             ))}
           </div>
