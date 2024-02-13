@@ -17,6 +17,7 @@ describe('Family and Domains data converter', () => {
         ['SIMILARITY', []],
       ]),
       featuresData: [],
+      isoforms: ['name'],
       keywordData: [
         {
           category: 'Domain',

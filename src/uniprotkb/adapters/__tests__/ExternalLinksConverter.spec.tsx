@@ -29,6 +29,7 @@ describe('External links data converter', () => {
       ]),
       keywordData: [],
       featuresData: [],
+      isoforms: [],
       xrefData: [],
     });
   });

@@ -19,6 +19,7 @@ describe('Expression data converter', () => {
       ]),
       xrefData: [],
       featuresData: [],
+      isoforms: ['name'],
       keywordData: [],
     });
   });

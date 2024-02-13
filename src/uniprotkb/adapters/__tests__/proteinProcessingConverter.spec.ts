@@ -44,6 +44,7 @@ describe('Protein processing data converter', () => {
           type: 'Chain',
         },
       ],
+      isoforms: ['name'],
       commentsData: new Map([['PTM', []]]),
       xrefData: [],
       keywordData: [],

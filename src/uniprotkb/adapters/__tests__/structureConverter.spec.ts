@@ -14,6 +14,7 @@ describe('Structure data converter', () => {
     expect(convertedData).toEqual({
       commentsData: new Map(),
       featuresData: [],
+      isoforms: ['name'],
       keywordData: [],
       structures: {},
       xrefData: [
