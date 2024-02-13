@@ -267,7 +267,7 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
           const icon = <EntryTypeIcon entryType={xref.database} />;
 
           // If it's an inactive isoform, no link
-          if (xref.id.includes('-') && !xref.active) {
+          if (xref.database.includes('isoforms') && !xref.active) {
             return (
               <span key={key}>
                 {icon}
