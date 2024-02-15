@@ -28,9 +28,9 @@ const EntryMain = ({
         <ErrorBoundary>
           {sectionContent(
             transformedData,
+            communityReferences,
             importedVariants,
-            hasGenomicCoordinates,
-            communityReferences
+            hasGenomicCoordinates
           )}
         </ErrorBoundary>
       </Suspense>

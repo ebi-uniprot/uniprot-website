@@ -20,18 +20,19 @@ const UniProtKBEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniProtkbUIModel,
+    communityReferences: Reference[],
     importedVariants: number | 'loading',
-    hasGenomicCoordinates: boolean | 'loading',
-    communityReferences: Reference[]
+    hasGenomicCoordinates: boolean | 'loading'
   ) => JSX.Element;
 }[] = [
   {
     id: EntrySection.Function,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <FunctionSection
         data={data[EntrySection.Function] as FunctionUIModel}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        communityReferences={communityReferences}
         key={EntrySection.Function}
       />
     ),
@@ -49,67 +50,73 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.SubCellularLocation,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <SubcellularLocationSection
         data={
           data[EntrySection.SubCellularLocation] as SubcellularLocationUIModel
         }
         sequence={data[EntrySection.Sequence].sequence.value}
+        // communityReferences={communityReferences}
         key={EntrySection.SubCellularLocation}
       />
     ),
   },
   {
     id: EntrySection.DiseaseVariants,
-    sectionContent: (data, importedVariants) => (
+    sectionContent: (data, communityReferences, importedVariants) => (
       <DiseaseAndDrugsSection
         data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
         importedVariants={importedVariants}
+        // communityReferences={communityReferences}
         key={EntrySection.DiseaseVariants}
       />
     ),
   },
   {
     id: EntrySection.ProteinProcessing,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <ProteinProcessingSection
         data={data[EntrySection.ProteinProcessing]}
         sequence={data[EntrySection.Sequence].sequence.value}
         primaryAccession={data.primaryAccession}
+        // communityReferences={communityReferences}
         key={EntrySection.ProteinProcessing}
       />
     ),
   },
   {
     id: EntrySection.Expression,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <ExpressionSection
         data={data[EntrySection.Expression]}
         primaryAccession={data.primaryAccession}
+        // communityReferences={communityReferences}
         key={EntrySection.FamilyAndDomains}
       />
     ),
   },
   {
     id: EntrySection.Interaction,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <InteractionSection
         data={data[EntrySection.Interaction]}
         primaryAccession={data.primaryAccession}
+        // communityReferences={communityReferences}
         key={EntrySection.Interaction}
       />
     ),
   },
   {
     id: EntrySection.Structure,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <StructureSection
         data={data[EntrySection.Structure]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        // communityReferences={communityReferences}
         key={EntrySection.Structure}
         crc64={data[EntrySection.Sequence].sequence.crc64}
       />
@@ -117,22 +124,24 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.FamilyAndDomains,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <FamilyAndDomainsSection
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        // communityReferences={communityReferences}
         key={EntrySection.Expression}
       />
     ),
   },
   {
     id: EntrySection.Sequence,
-    sectionContent: (data, _, hasGenomicCoordinates) => (
+    sectionContent: (data, communityReferences, _, hasGenomicCoordinates) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
         hasGenomicCoordinates={hasGenomicCoordinates}
+        // communityReferences={communityReferences}
         key={EntrySection.Sequence}
       />
     ),

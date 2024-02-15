@@ -63,7 +63,19 @@ export type Reference = {
   evidences?: Evidence[];
   source?: { name: string; id?: string };
   pubMedId?: string;
-  sourceCategories?: string[];
+  sourceCategories?: (
+    | 'Function'
+    | 'Names'
+    | 'Subcellular Location'
+    | 'Disease & Variants'
+    | 'Phenotypes & Variants'
+    | 'PTM / Processing'
+    | 'Expression'
+    | 'Interaction'
+    | 'Structure'
+    | 'Family & Domains'
+    | 'Sequences'
+  )[];
   referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)
   communityAnnotation?: CommunityAnnotation; // Only for community annotations
   annotation?: string; // Only for computationally mapped
