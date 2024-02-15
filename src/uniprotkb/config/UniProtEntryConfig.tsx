@@ -14,13 +14,15 @@ import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
 import EntrySection from '../types/entrySection';
+import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniProtkbUIModel,
     importedVariants: number | 'loading',
-    hasGenomicCoordinates: boolean | 'loading'
+    hasGenomicCoordinates: boolean | 'loading',
+    communityReferences: Reference[]
   ) => JSX.Element;
 }[] = [
   {

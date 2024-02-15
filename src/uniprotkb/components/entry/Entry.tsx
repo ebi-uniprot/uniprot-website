@@ -44,6 +44,7 @@ import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
+import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -71,6 +72,11 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 import { TabLocation } from '../../types/entry';
+import { SearchResults } from '../../../shared/types/results';
+import {
+  CitationsAPIModel,
+  Reference,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -160,6 +166,19 @@ const Entry = () => {
     match?.params.accession &&
       apiUrls.proteinsApi.coordinates(match?.params.accession),
     { method: 'HEAD' }
+  );
+
+  const communityCurationPayload = useDataApi<SearchResults<CitationsAPIModel>>(
+    match?.params.accession &&
+      uniprotkbApiUrls.publications.entryPublications({
+        accession: match?.params.accession,
+        selectedFacets: [
+          {
+            name: 'types',
+            value: '0',
+          },
+        ],
+      })
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -348,6 +367,14 @@ const Entry = () => {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
 
+  let communityReferences: Reference[] = [];
+  if (communityCurationPayload.data?.results?.[0]?.references?.length) {
+    communityReferences =
+      communityCurationPayload.data?.results?.[0]?.references.filter(
+        (reference) => reference.source?.name === 'ORCID'
+      );
+  }
+
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
   }
@@ -459,6 +486,7 @@ const Entry = () => {
                 transformedData={transformedData}
                 importedVariants={importedVariants}
                 hasGenomicCoordinates={hasGenomicCoordinates}
+                communityReferences={communityReferences}
               />
             </>
           )}
