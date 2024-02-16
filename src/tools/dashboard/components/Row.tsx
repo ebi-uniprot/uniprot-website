@@ -29,7 +29,11 @@ import cn from 'classnames';
 
 import { updateJob, deleteJob } from '../../state/toolsActions';
 
-import { jobTypeToPath } from '../../../app/config/urls';
+import {
+  jobTypeToPath,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
@@ -49,6 +53,7 @@ import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 import { FormParameters } from '../../types/toolsFormParameters';
 import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
 import { SelectedTaxon } from '../../types/toolsFormData';
+import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
 import './styles/Dashboard.scss';
 
@@ -186,6 +191,37 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
               <span className="dashboard__body__notify_message">
                 {job.errorDescription}
               </span>
+              <div className="dashboard__body__contact_link">
+                For further inquiry, please{' '}
+                <Link<ContactLocationState>
+                  to={(location) => ({
+                    pathname: LocationToPath[Location.ContactGeneric],
+                    state: {
+                      referrer: location,
+                      formValues: {
+                        subject: `Failed ${job.type} job`,
+                        message: `
+--------------- prefilled job details ---------------
+
+*** Error ***
+${job.errorDescription}
+
+${
+  job.remoteID
+    ? `*** Job ID *** 
+${job.remoteID}`
+    : `*** Input *** 
+${Object.entries(job.parameters).map(([key, value]) => `${key}: ${value}`)}`
+}
+`,
+                      },
+                    },
+                  })}
+                  title="Contact"
+                >
+                  contact us
+                </Link>
+              </div>
             </>
           )}
         </>
