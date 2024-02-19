@@ -4,6 +4,8 @@ import {
   ExternalLink,
   HeroContainer,
   CommunityAnnotationIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
 } from 'franklin-sites';
 
 import {
@@ -36,10 +38,23 @@ const CommunityCuration = ({
   if (communityReferences.length) {
     return (
       <div>
-        <Button variant="tertiary" onClick={() => setToggleView(!toggleView)}>
-          <CommunityAnnotationIcon />
-          {`Community curation (${communityReferences.length})`}
-        </Button>
+        <div className={styles.header}>
+          <Button
+            variant="tertiary"
+            className={styles['community-curation-button']}
+            onClick={() => setToggleView(!toggleView)}
+          >
+            <CommunityAnnotationIcon />
+            {`Community curation (${communityReferences.length}) `}
+            {toggleView ? (
+              <ChevronUpIcon width="1ch" />
+            ) : (
+              <ChevronDownIcon width="1ch" />
+            )}
+          </Button>
+          <hr className={styles.separator} />
+        </div>
+
         {toggleView && (
           <HeroContainer className={styles.content}>
             {communityReferences.map((reference) => (

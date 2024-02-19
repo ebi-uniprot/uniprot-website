@@ -1,5 +1,20 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .community-curation-button {
+    margin: 0.5rem 0 0.2rem 0;
+  }
+
+  .separator {
+    width: 70%;
+  }
+}
+
 .content {
   background-color: #abc7d64d;
+  margin-top: 0;
 
   .contributor-details {
     display: flex;
