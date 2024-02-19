@@ -35,7 +35,7 @@ const NamesAndTaxonomySection = ({
   references,
   communityReferences,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
   const domains = data.proteinNamesData?.includes;

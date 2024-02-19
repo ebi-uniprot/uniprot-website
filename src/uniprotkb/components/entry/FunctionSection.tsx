@@ -251,7 +251,7 @@ const FunctionSection = ({
 }: Props) => {
   const isSmallScreen = useSmallScreen();
 
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
 

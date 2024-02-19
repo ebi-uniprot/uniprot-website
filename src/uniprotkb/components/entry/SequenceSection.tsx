@@ -37,7 +37,7 @@ const SequenceSection = ({
   hasGenomicCoordinates,
   communityReferences,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
   const numberOfIsoforms = data?.alternativeProducts?.isoforms.length;

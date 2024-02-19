@@ -38,7 +38,10 @@ const SubcellularLocationSection = ({
   sequence,
   communityReferences,
 }: Props) => {
-  if (!subcellularLocationSectionHasContent(data)) {
+  if (
+    !subcellularLocationSectionHasContent(data) &&
+    !communityReferences.length
+  ) {
     return null;
   }
 

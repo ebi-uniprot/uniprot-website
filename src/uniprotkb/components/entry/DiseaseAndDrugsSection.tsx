@@ -41,7 +41,7 @@ const DiseaseAndDrugsSection = ({
   importedVariants,
   communityReferences,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
   const nameAndId = getEntrySectionNameAndId(

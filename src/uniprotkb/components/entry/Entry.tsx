@@ -76,6 +76,7 @@ import { SearchResults } from '../../../shared/types/results';
 import {
   CitationsAPIModel,
   Reference,
+  SectionToSourceCategory,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import helper from '../../../shared/styles/helper.module.scss';
@@ -181,6 +182,15 @@ const Entry = () => {
       })
   );
 
+  const communityReferences: Reference[] = useMemo(() => {
+    if (communityCurationPayload.data?.results?.[0]?.references?.length) {
+      return communityCurationPayload.data?.results?.[0]?.references.filter(
+        (reference) => reference.source?.name === 'ORCID'
+      );
+    }
+    return [];
+  }, [communityCurationPayload.data]);
+
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const [transformedData, pageTitle] = useMemo(() => {
@@ -213,12 +223,24 @@ const Entry = () => {
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
-            disabled = !subcellularLocationSectionHasContent(
-              transformedData[EntrySection.SubCellularLocation]
-            );
+            disabled =
+              !subcellularLocationSectionHasContent(
+                transformedData[EntrySection.SubCellularLocation]
+              ) &&
+              !communityReferences.some((reference) =>
+                reference.sourceCategories?.includes(
+                  SectionToSourceCategory[EntrySection.SubCellularLocation]
+                )
+              );
             break;
           default:
-            disabled = !hasContent(transformedData[nameAndId.id]);
+            disabled =
+              !hasContent(transformedData[nameAndId.id]) &&
+              !communityReferences.some((reference) =>
+                reference.sourceCategories?.includes(
+                  SectionToSourceCategory[nameAndId.id]
+                )
+              );
         }
         return {
           label: nameAndId.name,
@@ -228,7 +250,7 @@ const Entry = () => {
       });
     }
     return [];
-  }, [transformedData]);
+  }, [transformedData, communityReferences]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),
@@ -365,14 +387,6 @@ const Entry = () => {
     hasGenomicCoordinates = 'loading';
   } else {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
-  }
-
-  let communityReferences: Reference[] = [];
-  if (communityCurationPayload.data?.results?.[0]?.references?.length) {
-    communityReferences =
-      communityCurationPayload.data?.results?.[0]?.references.filter(
-        (reference) => reference.source?.name === 'ORCID'
-      );
   }
 
   if (error || !match?.params.accession || !transformedData) {

@@ -28,7 +28,7 @@ const FamilyAndDomainsSection = ({
   primaryAccession,
   communityReferences,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
   return (
