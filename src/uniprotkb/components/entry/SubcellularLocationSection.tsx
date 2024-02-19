@@ -72,7 +72,10 @@ const SubcellularLocationSection = ({
         sequence={sequence}
       />
       <KeywordView keywords={data.keywordData} />
-      <CommunityCuration communityReferences={communityReferences} />
+      <CommunityCuration
+        accession={data.primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

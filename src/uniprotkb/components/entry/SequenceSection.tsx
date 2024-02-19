@@ -109,7 +109,10 @@ const SequenceSection = ({
           tab which has more genomic information about this entry
         </Message>
       )}
-      <CommunityCuration communityReferences={communityReferences} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

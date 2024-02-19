@@ -141,7 +141,10 @@ const DiseaseAndDrugsSection = ({
       )}
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration communityReferences={communityReferences} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

@@ -73,7 +73,10 @@ const ProteinProcessingSection = ({
       />
       <KeywordView keywords={keywordData} />
       <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration communityReferences={communityReferences} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

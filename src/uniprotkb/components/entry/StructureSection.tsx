@@ -130,7 +130,10 @@ const StructureSection = ({
         sequence={sequence}
       />
       {XrefViewNode}
-      <CommunityCuration communityReferences={communityReferences} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

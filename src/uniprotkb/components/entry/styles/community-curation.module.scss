@@ -1,0 +1,17 @@
+.content {
+  background-color: #abc7d64d;
+
+  .contributor-details {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    & span {
+      margin-right: 2rem;
+
+      img {
+        margin: 2px;
+      }
+    }
+  }
+}

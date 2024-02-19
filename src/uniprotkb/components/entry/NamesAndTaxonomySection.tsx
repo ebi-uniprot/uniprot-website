@@ -135,7 +135,10 @@ const NamesAndTaxonomySection = ({
         </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration communityReferences={communityReferences} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };
