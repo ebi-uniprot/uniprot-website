@@ -58,7 +58,6 @@ const CommunityCuration = ({
                       Source:&nbsp;&nbsp;
                       <ExternalLink
                         url={externalUrls.PubMed(reference.citationId)}
-                        noIcon
                       >
                         PMID - {reference.citationId}
                       </ExternalLink>
@@ -68,7 +67,6 @@ const CommunityCuration = ({
                     Contributor:&nbsp;&nbsp;
                     <ExternalLink
                       url={`https://orcid.org/${reference.source?.id}`}
-                      noIcon
                     >
                       <img src={ORCIDiDLogo} alt="" width="15" height="15" />
                       {reference.source?.id}
