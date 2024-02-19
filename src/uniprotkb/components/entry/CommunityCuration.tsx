@@ -1,6 +1,17 @@
 import { ExternalLink } from 'franklin-sites';
 
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import {
+  Reference,
+  SourceCategory,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
+
+export const filterReferencesByCategory = (
+  communityReferences: Reference[],
+  category: SourceCategory
+) =>
+  communityReferences.filter((reference) =>
+    reference.sourceCategories?.includes(category)
+  );
 
 const CommunityCuration = ({
   communityReferences,

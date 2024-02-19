@@ -10,6 +10,8 @@ import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection
 import StructureSection from '../components/entry/StructureSection';
 import SimilarProteinsSection from '../components/entry/similar-proteins/SimilarProteinsSection';
 
+import { filterReferencesByCategory } from '../components/entry/CommunityCuration';
+
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
@@ -32,19 +34,26 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.Function] as FunctionUIModel}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
-        communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Function'
+        )}
         key={EntrySection.Function}
       />
     ),
   },
   {
     id: EntrySection.NamesAndTaxonomy,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <NamesAndTaxonomySection
         data={data[EntrySection.NamesAndTaxonomy]}
         primaryAccession={data.primaryAccession}
         key={EntrySection.NamesAndTaxonomy}
         references={data.references}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Names'
+        )}
       />
     ),
   },
@@ -56,7 +65,10 @@ const UniProtKBEntryConfig: {
           data[EntrySection.SubCellularLocation] as SubcellularLocationUIModel
         }
         sequence={data[EntrySection.Sequence].sequence.value}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Subcellular Location'
+        )}
         key={EntrySection.SubCellularLocation}
       />
     ),
@@ -70,7 +82,10 @@ const UniProtKBEntryConfig: {
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
         importedVariants={importedVariants}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Disease & Variants'
+        )}
         key={EntrySection.DiseaseVariants}
       />
     ),
@@ -82,7 +97,10 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.ProteinProcessing]}
         sequence={data[EntrySection.Sequence].sequence.value}
         primaryAccession={data.primaryAccession}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'PTM / Processing'
+        )}
         key={EntrySection.ProteinProcessing}
       />
     ),
@@ -93,7 +111,10 @@ const UniProtKBEntryConfig: {
       <ExpressionSection
         data={data[EntrySection.Expression]}
         primaryAccession={data.primaryAccession}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Expression'
+        )}
         key={EntrySection.FamilyAndDomains}
       />
     ),
@@ -104,7 +125,10 @@ const UniProtKBEntryConfig: {
       <InteractionSection
         data={data[EntrySection.Interaction]}
         primaryAccession={data.primaryAccession}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Interaction'
+        )}
         key={EntrySection.Interaction}
       />
     ),
@@ -116,7 +140,10 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.Structure]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Structure'
+        )}
         key={EntrySection.Structure}
         crc64={data[EntrySection.Sequence].sequence.crc64}
       />
@@ -129,7 +156,10 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Family & Domains'
+        )}
         key={EntrySection.Expression}
       />
     ),
@@ -141,7 +171,10 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
         hasGenomicCoordinates={hasGenomicCoordinates}
-        // communityReferences={communityReferences}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Sequences'
+        )}
         key={EntrySection.Sequence}
       />
     ),

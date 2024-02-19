@@ -279,10 +279,6 @@ const FunctionSection = ({
       (comment) => !(comment as FreeTextComment).molecule?.includes('Isoform')
     );
 
-  const functionRelatedCommunityReferences = communityReferences.filter(
-    (reference) => reference.sourceCategories?.includes('Function')
-  );
-
   return (
     <Card
       header={
@@ -381,9 +377,7 @@ const FunctionSection = ({
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration
-        communityReferences={functionRelatedCommunityReferences}
-      />
+      <CommunityCuration communityReferences={communityReferences} />
     </Card>
   );
 };

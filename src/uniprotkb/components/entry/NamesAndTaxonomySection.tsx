@@ -7,6 +7,7 @@ import ProteomesListView from '../protein-data-views/ProteomesView';
 import XRefView from '../protein-data-views/XRefView';
 import AccessionsView from '../protein-data-views/AccessionsView';
 import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
+import CommunityCuration from './CommunityCuration';
 
 import { hasContent, pluralise } from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -19,10 +20,12 @@ import UniProtKBEvidenceTag, {
 } from '../protein-data-views/UniProtKBEvidenceTag';
 import { UniProtKBReference } from '../../adapters/uniProtkbConverter';
 import { ecoCode } from '../../config/evidenceCodes';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type Props = {
   data: NamesAndTaxonomyUIModel;
   primaryAccession: string;
+  communityReferences: Reference[];
   references?: UniProtKBReference[];
 };
 
@@ -30,6 +33,7 @@ const NamesAndTaxonomySection = ({
   data,
   primaryAccession,
   references,
+  communityReferences,
 }: Props) => {
   if (!hasContent(data)) {
     return null;
@@ -131,6 +135,7 @@ const NamesAndTaxonomySection = ({
         </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+      <CommunityCuration communityReferences={communityReferences} />
     </Card>
   );
 };

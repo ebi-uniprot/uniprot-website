@@ -52,6 +52,19 @@ export type Citation = {
   submissionDatabase?: string;
 };
 
+export type SourceCategory =
+  | 'Function'
+  | 'Names'
+  | 'Subcellular Location'
+  | 'Disease & Variants'
+  | 'Phenotypes & Variants'
+  | 'PTM / Processing'
+  | 'Expression'
+  | 'Interaction'
+  | 'Structure'
+  | 'Family & Domains'
+  | 'Sequences';
+
 export type Reference = {
   citationId?: Citation['id'];
   referencePositions?: string[];
@@ -63,19 +76,7 @@ export type Reference = {
   evidences?: Evidence[];
   source?: { name: string; id?: string };
   pubMedId?: string;
-  sourceCategories?: (
-    | 'Function'
-    | 'Names'
-    | 'Subcellular Location'
-    | 'Disease & Variants'
-    | 'Phenotypes & Variants'
-    | 'PTM / Processing'
-    | 'Expression'
-    | 'Interaction'
-    | 'Structure'
-    | 'Family & Domains'
-    | 'Sequences'
-  )[];
+  sourceCategories?: SourceCategory[];
   referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)
   communityAnnotation?: CommunityAnnotation; // Only for community annotations
   annotation?: string; // Only for computationally mapped

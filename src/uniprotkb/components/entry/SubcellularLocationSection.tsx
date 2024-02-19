@@ -4,6 +4,7 @@ import { Card } from 'franklin-sites';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
+import CommunityCuration from './CommunityCuration';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -12,10 +13,12 @@ import EntrySection from '../../types/entrySection';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type Props = {
   data: SubcellularLocationUIModel;
   sequence: string;
+  communityReferences: Reference[];
 };
 
 export const subcellularLocationSectionHasContent = <
@@ -30,7 +33,11 @@ export const subcellularLocationSectionHasContent = <
   return hasContent({ commentsData, featuresData, goXrefs });
 };
 
-const SubcellularLocationSection = ({ data, sequence }: Props) => {
+const SubcellularLocationSection = ({
+  data,
+  sequence,
+  communityReferences,
+}: Props) => {
   if (!subcellularLocationSectionHasContent(data)) {
     return null;
   }
@@ -62,6 +69,7 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
         sequence={sequence}
       />
       <KeywordView keywords={data.keywordData} />
+      <CommunityCuration communityReferences={communityReferences} />
     </Card>
   );
 };
