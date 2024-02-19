@@ -1,6 +1,5 @@
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   .community-curation-button {
@@ -8,7 +7,7 @@
   }
 
   .separator {
-    width: 70%;
+    width: 100%;
   }
 }
 
