@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Community annotatation should render the button and show content on click 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="header"
+    >
+      <button
+        class="button tertiary community-curation-button"
+        type="button"
+      >
+        <test-file-stub />
+        Community curation (1) 
+        <test-file-stub
+          width="1ch"
+        />
+      </button>
+      <hr
+        class="separator"
+      />
+    </div>
+    <section
+      class="hero-container content hero-container--side-padding"
+    >
+      <div>
+        <b>
+          Epicuticlin
+        </b>
+        <p>
+          Disordered proteins organized in tandem repeats with molecular recognition features and tyrosine motifs (Pfam02756 and Pfam02757). The epicuticlins form the insoluble outermost layer of the cuticle and can interact with cuticular collagens.
+        </p>
+        <p>
+          The cDNA AJ408886 is one of several sequences of nematodes, which is now identified as forming the epicuticlin structure of nematodes.
+        </p>
+        <div
+          class="contributor-details"
+        >
+          <span>
+            Source:  
+            <a
+              class="external-link"
+              href="https://pubmed.ncbi.nlm.nih.gov/36301857"
+              rel="noopener"
+              target="_blank"
+            >
+              PMID - 36301857
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </span>
+          <span>
+            Contributor:  
+            <a
+              class="external-link"
+              href="https://orcid.org/0000-0001-6057-9374"
+              rel="noopener"
+              target="_blank"
+            >
+              <img
+                alt=""
+                height="15"
+                src="test-file-stub"
+                width="15"
+              />
+              0000-0001-6057-9374
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </span>
+          <a
+            class="external-link"
+            href="https://community.uniprot.org/cgi-bin/bbsub_query?accession=Q95PB5"
+            rel="noopener"
+            target="_blank"
+          >
+            View submission
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
