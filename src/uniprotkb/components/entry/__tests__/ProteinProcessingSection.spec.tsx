@@ -33,6 +33,7 @@ describe('ProteinProcessingSection', () => {
         sequence={transformedData[EntrySection.Sequence].sequence.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
+        communityReferences={[]}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
@@ -51,6 +52,7 @@ describe('ProteinProcessingSection', () => {
         sequence={transformedData[EntrySection.Sequence].sequence.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
+        communityReferences={[]}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
