@@ -236,11 +236,18 @@ const Entry = () => {
           default:
             disabled =
               !hasContent(transformedData[nameAndId.id]) &&
-              !communityReferences.some((reference) =>
-                reference.sourceCategories?.includes(
-                  SectionToSourceCategory[nameAndId.id]
-                )
-              );
+              !communityReferences.some((reference) => {
+                // Though EntrySection.ExternalLinks and EntrySection.SimilarProteins are taken care of before this, TS is not happy
+                if (
+                  nameAndId.id !== EntrySection.ExternalLinks &&
+                  nameAndId.id !== EntrySection.SimilarProteins
+                ) {
+                  return reference.sourceCategories?.includes(
+                    SectionToSourceCategory[nameAndId.id]
+                  );
+                }
+                return false;
+              });
         }
         return {
           label: nameAndId.name,

@@ -77,8 +77,6 @@ export enum SectionToSourceCategory {
   sequences = 'Sequences',
   structure = 'Structure',
   subcellular_location = 'Subcellular Location',
-  external_links = 'Function',
-  similar_proteins = 'Function',
 }
 
 export type Reference = {
