@@ -2231,6 +2231,42 @@ exports[`Entry view should render 1`] = `
                 class="decorated-list-item__title tiny"
               >
                 <span
+                  data-article-id="taxonomic_identifier"
+                >
+                  Taxonomic identifier
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <a
+                  href="/taxonomy/9606"
+                >
+                  9606 
+                </a>
+                <a
+                  class="external-link"
+                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  NCBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
                   data-article-id="organism-name"
                 >
                   Organism
@@ -2268,42 +2304,6 @@ exports[`Entry view should render 1`] = `
                   data-testid="evidence-tag-content"
                   id="48"
                 />
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <span
-                  data-article-id="taxonomic_identifier"
-                >
-                  Taxonomic identifier
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <a
-                  href="/taxonomy/9606"
-                >
-                  9606 
-                </a>
-                <a
-                  class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  NCBI
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
               </div>
             </div>
           </li>
@@ -5107,32 +5107,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="decorated-list-item__title tiny"
               >
                 <span
-                  data-article-id="organism-name"
-                >
-                  Organism
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <a
-                  href="/taxonomy/292800"
-                  title="Flavonifractor plautii (Fusobacterium plautii), taxon ID 292800"
-                  translate="no"
-                >
-                  Flavonifractor plautii (Fusobacterium plautii)
-                </a>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <span
                   data-article-id="taxonomic_identifier"
                 >
                   Taxonomic identifier
@@ -5157,6 +5131,32 @@ exports[`Entry view should render for non-human entry 1`] = `
                     data-testid="external-link-icon"
                     width="12.5"
                   />
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
+                  data-article-id="organism-name"
+                >
+                  Organism
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <a
+                  href="/taxonomy/292800"
+                  title="Flavonifractor plautii (Fusobacterium plautii), taxon ID 292800"
+                  translate="no"
+                >
+                  Flavonifractor plautii (Fusobacterium plautii)
                 </a>
               </div>
             </div>

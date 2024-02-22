@@ -79,7 +79,7 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
         <>
           <EntryTypeIcon entryType={EntryType.REVIEWED} />
           UniProtKB reviewed
-          {xref.database.includes('isoform') ? ' protein isoforms' : ''}
+          {xref.database.includes('isoforms') ? ' protein isoforms' : ''}
         </>
       );
     } else if (entryType === EntryType.UNREVIEWED) {
@@ -108,21 +108,25 @@ const getAccessionColumn =
       xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
       xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
     ) {
-      // internal link
-      cell = (
-        <>
-          <Link
-            to={getEntryPath(
-              Namespace.uniprotkb,
-              xref.id,
-              xref.active ? TabLocation.Entry : TabLocation.History
-            )}
-          >
-            {xref.id}
-          </Link>
-          {xref.active && <BasketStatus id={xref.id} />}
-        </>
-      );
+      if (xref.database.includes('isoforms') && !xref.active) {
+        cell = xref.id;
+      } else {
+        // internal link
+        cell = (
+          <>
+            <Link
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                xref.id,
+                xref.active ? TabLocation.Entry : TabLocation.History
+              )}
+            >
+              {xref.id}
+            </Link>
+            {xref.active && <BasketStatus id={xref.id} />}
+          </>
+        );
+      }
     } else {
       const template = xref.database && templateMap.get(xref.database);
       if (template) {

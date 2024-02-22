@@ -88,7 +88,7 @@ const UniProtKBEvidenceTag = ({
   goTermEvidence?: boolean;
 }) => {
   const entryPageMatch = useRouteMatch(allEntryPages);
-  if (!entryPageMatch || !evidences) {
+  if (!entryPageMatch || !evidences?.length) {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);

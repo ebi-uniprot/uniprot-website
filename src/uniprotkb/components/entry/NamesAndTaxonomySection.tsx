@@ -19,6 +19,7 @@ import UniProtKBEvidenceTag, {
 } from '../protein-data-views/UniProtKBEvidenceTag';
 import { UniProtKBReference } from '../../adapters/uniProtkbConverter';
 import { ecoCode } from '../../config/evidenceCodes';
+import { ReferenceComment } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type Props = {
   data: NamesAndTaxonomyUIModel;
@@ -121,7 +122,21 @@ const NamesAndTaxonomySection = ({
         </>
       )}
       <h3>Organism names</h3>
-      <TaxonomyListView data={data.organismData} hosts={data.organismHosts} />
+      <TaxonomyListView
+        data={data.organismData}
+        hosts={data.organismHosts}
+        strains={references
+          ?.flatMap((ref) =>
+            ref.referenceComments?.filter(
+              (refComm) => refComm.type === 'STRAIN'
+            )
+          )
+          .filter(
+            (
+              refComm: undefined | ReferenceComment
+            ): refComm is ReferenceComment => Boolean(refComm)
+          )}
+      />
       <h3>Accessions</h3>
       <AccessionsView data={data} />
       {!!data.proteomesData?.length && (

@@ -269,7 +269,7 @@ const CatalyticActivityView = ({
               </h4>
             )}
             <RichText>{reaction.name}</RichText>
-            {!noEvidence && reaction.evidences && (
+            {!noEvidence && (
               <UniProtKBEvidenceTag evidences={reaction.evidences} />
             )}
             {physiologicalReactions && physiologicalReactions.length && (

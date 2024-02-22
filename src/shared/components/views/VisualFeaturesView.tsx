@@ -27,8 +27,6 @@ type Props<T> = {
   noLinkToFullView?: boolean;
 };
 
-// Can't use arrow function because of TS generic annotation
-// eslint-disable-next-line react/function-component-definition
 function VisualFeaturesView<T extends GenericFeature>({
   features,
   sequence,
