@@ -78,6 +78,7 @@ import {
   Reference,
   SectionToSourceCategory,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { DatabaseCategory } from '../../types/databaseRefs';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -652,6 +653,23 @@ const Entry = () => {
                 isoforms={
                   transformedData[EntrySection.Sequence].alternativeProducts
                     ?.isoforms
+                }
+                maneSelect={
+                  // Get all unique unversioned MANE-Select IDs
+                  new Set(
+                    transformedData[EntrySection.Sequence].xrefData
+                      ?.find(
+                        (xrefDatum) =>
+                          xrefDatum.category === DatabaseCategory.GENOME
+                      )
+                      ?.databases.find(
+                        (database) => database.database === 'MANE-Select'
+                      )
+                      ?.xrefs.map((xref) => xref.id?.split('.')[0])
+                      .filter((id: string | undefined): id is string =>
+                        Boolean(id)
+                      )
+                  )
                 }
                 title="Genomic coordinates"
               />

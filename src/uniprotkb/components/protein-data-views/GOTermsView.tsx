@@ -29,7 +29,7 @@ const GOTermsView = ({ data, className, ...props }: Props) => {
                 </ExternalLink>
                 {/* TODO: currently not displaying the GoEvidenceType property
         which will have to be displayed like an evidence tag */}
-                {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+                <UniProtKBEvidenceTag evidences={evidences} />
               </Fragment>
             )
         )}

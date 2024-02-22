@@ -688,17 +688,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/265/"
+          href="https://www.proteinspotlight.org/back_issues/266/"
           rel="noopener"
           target="_blank"
         >
-          Rupture
+          Fierce
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/265/"
+        href="https://www.proteinspotlight.org/back_issues/266/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -707,14 +707,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt265.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt266.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Who  has  not  been  accosted  by  someone  they  would  prefer  to  avoid?  You  greet  them  meekly,  exchange  a  few  polite  words  while  wondering  how  to  cut  the  exchange  short  without  being  disrespectful.  If  being  disrespectful  is  not  an  issue,  however,  things  become…
+          Scents  communicate.  Wrapped  in  silence  perhaps,  yet  they  have  much  to  say.  They  may  revolt  us  or  delight  us,  go  unnoticed  or  do  nothing  for  us,  but  scents  always  have  something  to  convey.  So  much  so  that  many  of  us  dab  a  little  perfume  on  the  nape  of…
       </p>
     </article>
   </section>

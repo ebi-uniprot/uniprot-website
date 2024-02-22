@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Who has not been accosted by someone they would prefer to avoid? You greet them meekly, exchange a few polite words while wondering how to cut the exchange short without being disrespectful. If being disrespectful is not an issue, however, things become gloriously easy. You could tell them that their company bores you, that you have more important things to tend to or interrupt the chat with a brisk shake of the hand and move on.';
+  'Scents communicate. Wrapped in silence perhaps, yet they have much to say. They may revolt us or delight us, go unnoticed or do nothing for us, but scents always have something to convey. So much so that many of us dab a little perfume on the nape of our neck or spray eau de toilette on our torso at the start of each day. We want to smell nice, or at the very least clean.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -469,21 +469,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/265/"
+            url="https://www.proteinspotlight.org/back_issues/266/"
             noIcon
           >
-            Rupture
+            Fierce
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/265/"
+          url="https://www.proteinspotlight.org/back_issues/266/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt265.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt266.jpg"
             alt=""
             width="123"
             height="129"

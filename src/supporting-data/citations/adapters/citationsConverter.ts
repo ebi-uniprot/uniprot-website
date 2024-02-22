@@ -79,14 +79,16 @@ export enum SectionToSourceCategory {
   subcellular_location = 'Subcellular Location',
 }
 
+export type ReferenceComment = {
+  value: string;
+  type: string;
+  evidences?: Evidence[];
+};
+
 export type Reference = {
   citationId?: Citation['id'];
   referencePositions?: string[];
-  referenceComments?: {
-    value: string;
-    type: string;
-    evidences?: Evidence[];
-  }[];
+  referenceComments?: ReferenceComment[];
   evidences?: Evidence[];
   source?: { name: string; id?: string };
   pubMedId?: string;

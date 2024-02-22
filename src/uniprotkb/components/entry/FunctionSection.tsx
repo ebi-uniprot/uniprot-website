@@ -53,7 +53,7 @@ export const AbsorptionView = ({ data }: { data: Absorption }) => (
     </section>
     <section className="text-block">
       {data.note && <TextView comments={data.note.texts} />}
-      {data.evidences && <UniProtKBEvidenceTag evidences={data.evidences} />}
+      <UniProtKBEvidenceTag evidences={data.evidences} />
     </section>
   </>
 );
@@ -220,9 +220,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
                         )
                       </>
                     )}
-                  {cofactor.evidences && (
-                    <UniProtKBEvidenceTag evidences={cofactor.evidences} />
-                  )}
+                  <UniProtKBEvidenceTag evidences={cofactor.evidences} />
                 </span>
                 <br />
               </Fragment>

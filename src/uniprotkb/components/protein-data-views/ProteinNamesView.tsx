@@ -99,9 +99,7 @@ export const ECNumbersView = ({
           )
         </>
       )}
-      {!noEvidence && ecNumber.evidences?.length && (
-        <UniProtKBEvidenceTag evidences={ecNumber.evidences} />
-      )}
+      {!noEvidence && <UniProtKBEvidenceTag evidences={ecNumber.evidences} />}
     </Fragment>
   ));
 
