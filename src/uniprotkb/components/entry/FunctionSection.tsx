@@ -156,7 +156,7 @@ const BioPhysicoChemicalPropertiesView = ({
 type CofactorViewProps = {
   cofactors?: CofactorComment[];
   title?: string;
-  isoforms?: string[] | undefined;
+  isoforms?: string[];
 };
 
 export const CofactorView = ({

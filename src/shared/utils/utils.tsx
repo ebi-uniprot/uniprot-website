@@ -36,13 +36,12 @@ export function removeItemFromList<T>(list: T[], index: number) {
 export const hasContent = (
   obj: Record<string | number | symbol, unknown>,
   exclude?: string
-) => {
-  // If certain property has to be excluded while checking for content (like section specific)
-  const objCopy = { ...obj };
-  if (exclude && objCopy[exclude]) {
-    delete objCopy[exclude];
-  }
-  return Object.values(objCopy).some((val) => {
+) =>
+  Object.entries(obj).some(([key, val]) => {
+    // If certain property has to be excluded while checking for content (like section specific)
+    if (key === exclude) {
+      return false;
+    }
     if (Array.isArray(val)) {
       const valArray = val as unknown[];
       return valArray.length > 0;
@@ -57,7 +56,6 @@ export const hasContent = (
     }
     return typeof val !== 'undefined';
   });
-};
 
 export function* deepFindAllByKey<T = string>(
   input: unknown,

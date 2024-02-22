@@ -52,7 +52,7 @@ type RichTextProps = {
   /**
    * Link isoforms that exist in the data
    */
-  isoforms?: string[] | undefined;
+  isoforms?: string[];
 };
 
 export const RichText = ({
@@ -178,7 +178,7 @@ type TextViewProps = {
   comments: TextWithEvidence[];
   type?: FreeTextType;
   children?: ReactNode;
-  isoforms?: string[] | undefined;
+  isoforms?: string[];
 };
 
 export const TextView = ({
@@ -210,7 +210,7 @@ type FreeTextProps = {
   title?: ReactNode;
   articleId?: string;
   showMolecule?: boolean;
-  isoforms?: string[] | undefined;
+  isoforms?: string[];
 };
 
 const FreeTextView: FC<FreeTextProps> = ({

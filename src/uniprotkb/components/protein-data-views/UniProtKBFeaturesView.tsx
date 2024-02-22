@@ -75,7 +75,7 @@ type FeatureProps = {
   features: FeatureDatum[];
   inResultsTable?: boolean;
   showSourceColumn?: boolean;
-  isoforms?: string[] | undefined;
+  isoforms?: string[];
 };
 
 export const processFeaturesData = (
