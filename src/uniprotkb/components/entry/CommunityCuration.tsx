@@ -62,11 +62,16 @@ const CommunityCuration = ({
                 {reference.communityAnnotation?.proteinOrGene && (
                   <b>{reference.communityAnnotation.proteinOrGene}</b>
                 )}
-                <p>
-                  {reference.communityAnnotation?.function}
-                  {reference.communityAnnotation?.disease}
-                </p>
-                <p>{reference.communityAnnotation?.comment}</p>
+                {(reference.communityAnnotation?.function ||
+                  reference.communityAnnotation?.disease) && (
+                  <p>
+                    {reference.communityAnnotation?.function}
+                    {reference.communityAnnotation?.disease}
+                  </p>
+                )}
+                {reference.communityAnnotation?.comment && (
+                  <p>{reference.communityAnnotation?.comment}</p>
+                )}
                 <div className={styles['contributor-details']}>
                   {reference.citationId && (
                     <span>
