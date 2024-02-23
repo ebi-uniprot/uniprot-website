@@ -8,12 +8,15 @@ import {
   ChevronDownIcon,
 } from 'franklin-sites';
 
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
+import externalUrls from '../../../shared/config/externalUrls';
+
 import {
   Reference,
   SourceCategory,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
-
-import externalUrls from '../../../shared/config/externalUrls';
 
 import styles from './styles/community-curation.module.scss';
 
@@ -35,6 +38,8 @@ const CommunityCuration = ({
   communityReferences: Reference[];
 }) => {
   const [toggleView, setToggleView] = useState(false);
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
   if (communityReferences.length) {
     return (
       <div>
@@ -57,49 +62,65 @@ const CommunityCuration = ({
 
         {toggleView && (
           <HeroContainer className={styles.content}>
-            {communityReferences.map((reference) => (
-              <div key={reference.source?.id}>
-                {reference.communityAnnotation?.proteinOrGene && (
-                  <b>{reference.communityAnnotation.proteinOrGene}</b>
-                )}
-                {(reference.communityAnnotation?.function ||
-                  reference.communityAnnotation?.disease) && (
-                  <p>
-                    {reference.communityAnnotation?.function}
-                    {reference.communityAnnotation?.disease}
-                  </p>
-                )}
-                {reference.communityAnnotation?.comment && (
-                  <p>{reference.communityAnnotation?.comment}</p>
-                )}
-                <div className={styles['contributor-details']}>
-                  {reference.citationId && (
-                    <span>
-                      Source:&nbsp;&nbsp;
-                      <ExternalLink
-                        url={externalUrls.PubMed(reference.citationId)}
-                      >
-                        PMID - {reference.citationId}
-                      </ExternalLink>
-                    </span>
+            {communityReferences.map(
+              ({ source, communityAnnotation, citationId }) => (
+                <div key={source?.id}>
+                  {communityAnnotation?.proteinOrGene && (
+                    <b>{communityAnnotation.proteinOrGene}</b>
                   )}
-                  <span>
-                    Contributor:&nbsp;&nbsp;
+                  {(communityAnnotation?.function ||
+                    communityAnnotation?.disease) && (
+                    <p>
+                      {communityAnnotation?.function}
+                      {communityAnnotation?.disease}
+                    </p>
+                  )}
+                  {communityAnnotation?.comment && (
+                    <p>{communityAnnotation?.comment}</p>
+                  )}
+                  <div className={styles['contributor-details']}>
+                    {citationId && (
+                      <span>
+                        Source:&nbsp;&nbsp;
+                        <ExternalLink url={externalUrls.PubMed(citationId)}>
+                          PMID - {citationId}
+                        </ExternalLink>
+                      </span>
+                    )}
+                    {source && (
+                      <span>
+                        Contributor:&nbsp;&nbsp;
+                        {source.id && source.id !== 'Anonymous' ? (
+                          <ExternalLink
+                            url={processUrlTemplate(
+                              databaseInfoMaps?.databaseToDatabaseInfo[
+                                source.name
+                              ].uriLink,
+                              { id: source.id }
+                            )}
+                          >
+                            <img
+                              src={ORCIDiDLogo}
+                              alt=""
+                              width="15"
+                              height="15"
+                            />
+                            {source.id}
+                          </ExternalLink>
+                        ) : (
+                          source.id
+                        )}
+                      </span>
+                    )}
                     <ExternalLink
-                      url={`https://orcid.org/${reference.source?.id}`}
+                      url={externalUrls.CommunityCurationGet(accession)}
                     >
-                      <img src={ORCIDiDLogo} alt="" width="15" height="15" />
-                      {reference.source?.id}
+                      View submission
                     </ExternalLink>
-                  </span>
-                  <ExternalLink
-                    url={externalUrls.CommunityCurationGet(accession)}
-                  >
-                    View submission
-                  </ExternalLink>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </HeroContainer>
         )}
       </div>
