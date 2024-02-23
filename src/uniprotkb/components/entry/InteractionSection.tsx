@@ -111,7 +111,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     [data]
   );
 
-  if (!hasContent(data, 'isoforms')) {
+  if (!hasContent(data)) {
     return null;
   }
 
@@ -219,7 +219,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           comments={comments}
           title="Subunit"
           articleId="subunit_structure"
-          isoforms={data.isoforms}
         />
       )}
       {tableData.length ? (

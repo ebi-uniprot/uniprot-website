@@ -200,7 +200,7 @@ const Entry = () => {
             );
             break;
           default:
-            disabled = !hasContent(transformedData[nameAndId.id], 'isoforms');
+            disabled = !hasContent(transformedData[nameAndId.id]);
         }
         return {
           label: nameAndId.name,

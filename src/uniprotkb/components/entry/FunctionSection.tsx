@@ -248,7 +248,7 @@ type Props = {
 const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   const isSmallScreen = useSmallScreen();
 
-  if (!hasContent(data, 'isoforms')) {
+  if (!hasContent(data)) {
     return null;
   }
 
@@ -296,12 +296,10 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
           data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
         }
         title={<span className="visually-hidden">function</span>}
-        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={miscellaneousComments as FreeTextComment[] | undefined}
         title="Miscellaneous"
-        isoforms={data.isoforms}
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning" heading={<h3>Caution</h3>}>
@@ -312,7 +310,6 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
                   | FreeTextComment[]
                   | undefined
               }
-              isoforms={data.isoforms}
             />
           </small>
         </Message>
@@ -331,7 +328,6 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
           data.commentsData.get('COFACTOR') as CofactorComment[] | undefined
         }
         title="Cofactor"
-        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -341,7 +337,6 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         }
         title="Activity regulation"
         articleId="activity_regulation"
-        isoforms={data.isoforms}
       />
       <FreeTextView
         comments={
@@ -351,7 +346,6 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         }
         title="Biotechnology"
         articleId="biotechnological_use"
-        isoforms={data.isoforms}
       />
       <BioPhysicoChemicalPropertiesView
         data={data.bioPhysicoChemicalProperties}
@@ -362,13 +356,11 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         }
         title="Pathway"
         articleId="pathway"
-        isoforms={data.isoforms}
       />
       <FeaturesView
         primaryAccession={primaryAccession}
         features={data.featuresData}
         sequence={sequence}
-        isoforms={data.isoforms}
       />
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>

@@ -32,7 +32,7 @@ const NamesAndTaxonomySection = ({
   primaryAccession,
   references,
 }: Props) => {
-  if (!hasContent(data, 'isoforms')) {
+  if (!hasContent(data)) {
     return null;
   }
   const domains = data.proteinNamesData?.includes;

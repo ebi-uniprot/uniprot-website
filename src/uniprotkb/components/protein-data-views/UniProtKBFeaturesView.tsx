@@ -75,7 +75,6 @@ type FeatureProps = {
   features: FeatureDatum[];
   inResultsTable?: boolean;
   showSourceColumn?: boolean;
-  isoforms?: string[];
 };
 
 export const processFeaturesData = (
@@ -148,7 +147,6 @@ const UniProtKBFeaturesView = ({
   features,
   inResultsTable,
   showSourceColumn = false,
-  isoforms,
 }: FeatureProps) => {
   const processedData = useMemo(
     () => processFeaturesData(features, sequence, showSourceColumn),
@@ -203,9 +201,7 @@ const UniProtKBFeaturesView = ({
 
           let { description } = feature;
           if (typeof feature.description === 'string') {
-            description = (
-              <RichText isoforms={isoforms}>{feature.description}</RichText>
-            );
+            description = <RichText>{feature.description}</RichText>;
           }
           return (
             <Fragment key={feature.protvistaFeatureId}>

@@ -15,7 +15,6 @@ const convertExternalLinks = (
     keywordData: [],
     featuresData: [],
     xrefData: [],
-    isoforms: [],
   };
   const { comments, genes, organism } = data;
 

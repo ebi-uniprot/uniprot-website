@@ -33,15 +33,8 @@ export function removeItemFromList<T>(list: T[], index: number) {
   return [...list.slice(0, index), ...list.slice(index + 1)];
 }
 
-export const hasContent = (
-  obj: Record<string | number | symbol, unknown>,
-  exclude?: string
-) =>
-  Object.entries(obj).some(([key, val]) => {
-    // If certain property has to be excluded while checking for content (like section specific)
-    if (key === exclude) {
-      return false;
-    }
+export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
+  Object.values(obj).some((val) => {
     if (Array.isArray(val)) {
       const valArray = val as unknown[];
       return valArray.length > 0;
