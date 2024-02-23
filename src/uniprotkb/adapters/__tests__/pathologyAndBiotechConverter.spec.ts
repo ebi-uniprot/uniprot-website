@@ -93,7 +93,6 @@ describe('Disease and Drugs data converter', () => {
         ['BIOTECHNOLOGY', []],
       ]),
       featuresData: [],
-      isoforms: ['name'],
       keywordData: [],
       xrefData: [],
     });

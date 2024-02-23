@@ -156,14 +156,9 @@ const BioPhysicoChemicalPropertiesView = ({
 type CofactorViewProps = {
   cofactors?: CofactorComment[];
   title?: string;
-  isoforms?: string[];
 };
 
-export const CofactorView = ({
-  cofactors,
-  title,
-  isoforms,
-}: CofactorViewProps) => {
+export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   if (!cofactors?.length) {
     return null;
   }
@@ -229,9 +224,7 @@ export const CofactorView = ({
               </Fragment>
             ))}
           {cofactorComment.note && (
-            <TextView comments={cofactorComment.note.texts} isoforms={isoforms}>
-              Note:{' '}
-            </TextView>
+            <TextView comments={cofactorComment.note.texts}>Note: </TextView>
           )}
         </section>
       ))}

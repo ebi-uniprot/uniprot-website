@@ -59,7 +59,6 @@ describe('Interaction data converter', () => {
       ]),
       xrefData: [],
       featuresData: [],
-      isoforms: ['name'],
       keywordData: [],
     });
   });

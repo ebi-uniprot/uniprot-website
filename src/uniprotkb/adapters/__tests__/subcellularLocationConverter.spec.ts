@@ -78,7 +78,6 @@ describe('Subcellular data converter', () => {
         ],
       ]),
       featuresData: [],
-      isoforms: ['name'],
       goXrefs: [],
       keywordData: [],
       organismData: {

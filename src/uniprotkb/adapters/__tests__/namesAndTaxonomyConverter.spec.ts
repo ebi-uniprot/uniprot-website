@@ -481,7 +481,6 @@ describe('Names and taxonomy data converter', () => {
       commentsData: new Map(),
       keywordData: [],
       featuresData: [],
-      isoforms: ['name'],
       geneLocations: [
         {
           evidences: [
