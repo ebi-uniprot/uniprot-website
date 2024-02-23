@@ -6,6 +6,7 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import SimilarityView from './SimilarityView';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useIsoforms from '../../../shared/hooks/useIsoforms';
 
 import {
   getEntryPath,
@@ -49,19 +50,12 @@ type RichTextProps = {
    * Just do enrichments that don't involve adding links. Only the visual ones
    */
   noLink?: boolean;
-  /**
-   * Link isoforms that exist in the data
-   */
-  isoforms?: string[];
 };
 
-export const RichText = ({
-  children,
-  addPeriod,
-  noLink,
-  isoforms,
-}: RichTextProps) => {
+export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const isoforms = useIsoforms();
+
   return (
     <>
       {getTextProcessingParts(children)?.map((part, index, mappedArr) => {
@@ -178,15 +172,9 @@ type TextViewProps = {
   comments: TextWithEvidence[];
   type?: FreeTextType;
   children?: ReactNode;
-  isoforms?: string[];
 };
 
-export const TextView = ({
-  comments,
-  type,
-  children,
-  isoforms,
-}: TextViewProps) => (
+export const TextView = ({ comments, type, children }: TextViewProps) => (
   <div className="text-block">
     {children}
     {comments.map((comment, index) => (
@@ -195,9 +183,7 @@ export const TextView = ({
         {type && type === 'SIMILARITY' ? (
           <SimilarityView>{comment.value}</SimilarityView>
         ) : (
-          <RichText isoforms={isoforms} addPeriod>
-            {comment.value}
-          </RichText>
+          <RichText addPeriod>{comment.value}</RichText>
         )}
         <UniProtKBEvidenceTag evidences={comment.evidences} />
       </Fragment>
@@ -210,7 +196,6 @@ type FreeTextProps = {
   title?: ReactNode;
   articleId?: string;
   showMolecule?: boolean;
-  isoforms?: string[];
 };
 
 const FreeTextView: FC<FreeTextProps> = ({
@@ -218,7 +203,6 @@ const FreeTextView: FC<FreeTextProps> = ({
   title,
   articleId,
   showMolecule = true,
-  isoforms,
 }) => {
   const entryPageMatch = useRouteMatch(allEntryPages);
 
@@ -242,11 +226,7 @@ const FreeTextView: FC<FreeTextProps> = ({
               )}
             </h4>
           )}
-          <TextView
-            comments={item.texts}
-            type={item.commentType}
-            isoforms={isoforms}
-          />
+          <TextView comments={item.texts} type={item.commentType} />
         </Fragment>
       )
   );
