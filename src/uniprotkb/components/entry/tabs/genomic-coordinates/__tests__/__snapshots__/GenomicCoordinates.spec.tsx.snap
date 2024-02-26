@@ -306,7 +306,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     </div>
                   </th>
                   <th>
-                    Genomic coordinates
+                    Exon coordinates
                   </th>
                   <th
                     colspan="4"
