@@ -84,7 +84,9 @@ const UniProtKBEntryConfig: {
         importedVariants={importedVariants}
         communityReferences={filterReferencesByCategory(
           communityReferences,
-          'Disease & Variants'
+          data[EntrySection.NamesAndTaxonomy].organismData?.taxonId === 9606
+            ? 'Disease & Variants'
+            : 'Phenotypes & Variants'
         )}
         key={EntrySection.DiseaseVariants}
       />
