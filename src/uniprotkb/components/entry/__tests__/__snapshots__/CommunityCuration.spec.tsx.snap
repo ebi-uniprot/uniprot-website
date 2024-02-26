@@ -1,25 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Community annotatation should render the button and show content on click 1`] = `
+exports[`Community annotatation should render the community annotation content 1`] = `
 <DocumentFragment>
-  <div>
-    <div
+  <details
+    class="community-annotation-details"
+  >
+    <summary
       class="header"
     >
-      <button
-        class="button tertiary community-curation-button"
-        type="button"
+      <span
+        class="button tertiary community-button"
       >
-        <test-file-stub />
-        Community curation (1) 
         <test-file-stub
           width="1ch"
         />
-      </button>
+        Community curation (1) 
+        <test-file-stub
+          classname="chevron-icon"
+          width="1ch"
+        />
+      </span>
       <hr
         class="separator"
       />
-    </div>
+    </summary>
     <section
       class="hero-container content hero-container--side-padding"
     >
@@ -87,6 +91,6 @@ exports[`Community annotatation should render the button and show content on cli
         </div>
       </div>
     </section>
-  </div>
+  </details>
 </DocumentFragment>
 `;

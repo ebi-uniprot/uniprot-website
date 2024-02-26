@@ -1,4 +1,4 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import CommunityCuration from '../CommunityCuration';
 
@@ -30,14 +30,10 @@ const mock: Reference[] = [
 ];
 
 describe('Community annotatation', () => {
-  it('should render the button and show content on click', async () => {
+  it('should render the community annotation content', async () => {
     const { asFragment } = customRender(
       <CommunityCuration accession="Q95PB5" communityReferences={mock} />
     );
-    const communityCurationButton = await screen.findByRole('button', {
-      name: /community curation/i,
-    });
-    fireEvent.click(communityCurationButton);
     expect(await screen.findByText('Epicuticlin')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
