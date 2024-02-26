@@ -1,12 +1,12 @@
-import { Fragment, FC, ReactNode } from 'react';
+import { Fragment, FC, ReactNode, useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-
 import { ExternalLink } from 'franklin-sites';
+
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import SimilarityView from './SimilarityView';
 
+import { IsoformsContext } from '../entry/EntryMain';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import useIsoforms from '../../../shared/hooks/useIsoforms';
 
 import {
   getEntryPath,
@@ -54,7 +54,7 @@ type RichTextProps = {
 
 export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const isoforms = useIsoforms();
+  const isoforms = useContext(IsoformsContext);
 
   return (
     <>

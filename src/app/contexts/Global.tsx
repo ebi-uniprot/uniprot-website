@@ -10,7 +10,6 @@ import { MessagesProvider } from '../../shared/contexts/Messages';
 import { ToolsProvider } from '../../shared/contexts/Tools';
 import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
 import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
-import { IsoformsProvider } from '../../shared/contexts/Isoform';
 
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 
@@ -26,9 +25,7 @@ const GlobalContext: FC = ({ children }) => (
             {/* Order is important, tools needs to be within messages */}
             <ToolsProvider>
               <UniProtDataProvider>
-                <IDMappingDetailsProvider>
-                  <IsoformsProvider>{children}</IsoformsProvider>
-                </IDMappingDetailsProvider>
+                <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
               </UniProtDataProvider>
             </ToolsProvider>
           </MessagesProvider>

@@ -16,7 +16,10 @@ const extractIsoforms = (data: UniProtkbAPIModel) => {
   );
 };
 
-export const extractIsoformNames = (data: UniProtkbAPIModel) => {
+export const extractIsoformNames = (data?: UniProtkbAPIModel) => {
+  if (!data) {
+    return [];
+  }
   const alternativeProducts = data.comments?.find(finder);
   return alternativeProducts?.isoforms.flatMap((isoform) => isoform.name.value);
 };
