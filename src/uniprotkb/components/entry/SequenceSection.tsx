@@ -37,6 +37,7 @@ const SequenceSection = ({
     return null;
   }
   const numberOfIsoforms = data?.alternativeProducts?.isoforms.length;
+
   return (
     <Card
       header={

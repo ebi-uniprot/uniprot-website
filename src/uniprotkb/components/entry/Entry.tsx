@@ -77,6 +77,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
+import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
@@ -216,6 +217,8 @@ const Entry = () => {
     () => getListOfIsoformAccessions(data),
     [data]
   );
+
+  const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
 
   // Redirect to new entry when obsolete and merged into one
   useEffect(() => {
@@ -460,6 +463,7 @@ const Entry = () => {
                 transformedData={transformedData}
                 importedVariants={importedVariants}
                 hasGenomicCoordinates={hasGenomicCoordinates}
+                isoforms={listOfIsoformNames}
               />
             </>
           )}

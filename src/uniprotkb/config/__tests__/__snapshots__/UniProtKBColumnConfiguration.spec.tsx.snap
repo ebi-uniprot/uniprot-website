@@ -97,9 +97,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
   <h3
     id="Isoform_name"
   >
-    <span
-      id="name"
-    >
+    <span>
        
       <span
         id="isoID1"
@@ -1356,13 +1354,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
                     width="12.5"
                   />
                 </a>
-                ); Some note; In isoform 
-                <a
-                  href="/#Isoform_sequence"
-                >
-                  sequence
-                </a>
-                 1; description value 123
+                ); Some note; In isoform sequence 1; description value 123
               </td>
               <td>
                 <div

@@ -1,10 +1,11 @@
-import { Fragment, FC, ReactNode } from 'react';
+import { Fragment, FC, ReactNode, useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-
 import { ExternalLink } from 'franklin-sites';
+
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import SimilarityView from './SimilarityView';
 
+import { IsoformsContext } from '../entry/EntryMain';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import {
@@ -53,6 +54,8 @@ type RichTextProps = {
 
 export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const isoforms = useContext(IsoformsContext);
+
   return (
     <>
       {getTextProcessingParts(children)?.map((part, index, mappedArr) => {
@@ -88,14 +91,19 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
           const isoformMatch = part.match(reIsoform)?.[0];
           if (isoformMatch) {
             const [text, isoform] = isoformMatch.split(' ');
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                {text}{' '}
-                {/* eslint-disable-next-line uniprot-website/use-config-location */}
-                <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
-              </Fragment>
-            );
+            if (
+              (isoforms && isoforms.includes(isoform)) ||
+              isoform.match(/[A-Z0-9]+-\d+/i)
+            ) {
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  {text}{' '}
+                  {/* eslint-disable-next-line uniprot-website/use-config-location */}
+                  <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
+                </Fragment>
+              );
+            }
           }
           const dbSnpMatch = part.match(reDbSnpCapture);
           if (dbSnpMatch?.groups) {
