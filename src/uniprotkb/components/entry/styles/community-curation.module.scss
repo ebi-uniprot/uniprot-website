@@ -1,9 +1,23 @@
+details {
+  .chevron-icon {
+    transform: scale(1);
+  }
+
+  &[open] {
+    .chevron-icon {
+      transform: scale(-1);
+    }
+  }
+}
+
 .header {
   display: flex;
   align-items: center;
+  margin: 0.5rem 0 0.2rem 0;
+  cursor: pointer;
 
-  .community-curation-button {
-    margin: 0.5rem 0 0.2rem 0;
+  .community-button {
+    margin-bottom: 0.2rem;
   }
 
   .separator {

@@ -1,12 +1,10 @@
-import { useState } from 'react';
 import {
-  Button,
   ExternalLink,
   HeroContainer,
   CommunityAnnotationIcon,
-  ChevronUpIcon,
   ChevronDownIcon,
 } from 'franklin-sites';
+import cn from 'classnames';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -37,30 +35,22 @@ const CommunityCuration = ({
   accession: string;
   communityReferences: Reference[];
 }) => {
-  const [toggleView, setToggleView] = useState(false);
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   if (communityReferences.length) {
     return (
       <div>
-        <div className={styles.header}>
-          <Button
-            variant="tertiary"
-            className={styles['community-curation-button']}
-            onClick={() => setToggleView(!toggleView)}
-          >
-            <CommunityAnnotationIcon />
-            {`Community curation (${communityReferences.length}) `}
-            {toggleView ? (
-              <ChevronUpIcon width="1ch" />
-            ) : (
-              <ChevronDownIcon width="1ch" />
-            )}
-          </Button>
-          <hr className={styles.separator} />
-        </div>
-
-        {toggleView && (
+        <details>
+          <summary className={styles.header}>
+            <span
+              className={cn('button', 'tertiary', styles['community-button'])}
+            >
+              <CommunityAnnotationIcon width="1ch" />
+              {`Community curation (${communityReferences.length}) `}
+              <ChevronDownIcon width="1ch" className={styles['chevron-icon']} />
+            </span>
+            <hr className={styles.separator} />
+          </summary>
           <HeroContainer className={styles.content}>
             {communityReferences.map(
               ({ source, communityAnnotation, citationId }) => (
@@ -122,7 +112,7 @@ const CommunityCuration = ({
               )
             )}
           </HeroContainer>
-        )}
+        </details>
       </div>
     );
   }
