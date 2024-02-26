@@ -39,81 +39,79 @@ const CommunityCuration = ({
 
   if (communityReferences.length) {
     return (
-      <div>
-        <details>
-          <summary className={styles.header}>
-            <span
-              className={cn('button', 'tertiary', styles['community-button'])}
-            >
-              <CommunityAnnotationIcon width="1ch" />
-              {`Community curation (${communityReferences.length}) `}
-              <ChevronDownIcon width="1ch" className={styles['chevron-icon']} />
-            </span>
-            <hr className={styles.separator} />
-          </summary>
-          <HeroContainer className={styles.content}>
-            {communityReferences.map(
-              ({ source, communityAnnotation, citationId }) => (
-                <div key={source?.id}>
-                  {communityAnnotation?.proteinOrGene && (
-                    <b>{communityAnnotation.proteinOrGene}</b>
+      <details className={styles['community-annotation-details']}>
+        <summary className={styles.header}>
+          <span
+            className={cn('button', 'tertiary', styles['community-button'])}
+          >
+            <CommunityAnnotationIcon width="1ch" />
+            {`Community curation (${communityReferences.length}) `}
+            <ChevronDownIcon width="1ch" className={styles['chevron-icon']} />
+          </span>
+          <hr className={styles.separator} />
+        </summary>
+        <HeroContainer className={styles.content}>
+          {communityReferences.map(
+            ({ source, communityAnnotation, citationId }) => (
+              <div key={source?.id}>
+                {communityAnnotation?.proteinOrGene && (
+                  <b>{communityAnnotation.proteinOrGene}</b>
+                )}
+                {(communityAnnotation?.function ||
+                  communityAnnotation?.disease) && (
+                  <p>
+                    {communityAnnotation?.function}
+                    {communityAnnotation?.disease}
+                  </p>
+                )}
+                {communityAnnotation?.comment && (
+                  <p>{communityAnnotation?.comment}</p>
+                )}
+                <div className={styles['contributor-details']}>
+                  {citationId && (
+                    <span>
+                      Source:&nbsp;&nbsp;
+                      <ExternalLink url={externalUrls.PubMed(citationId)}>
+                        PMID - {citationId}
+                      </ExternalLink>
+                    </span>
                   )}
-                  {(communityAnnotation?.function ||
-                    communityAnnotation?.disease) && (
-                    <p>
-                      {communityAnnotation?.function}
-                      {communityAnnotation?.disease}
-                    </p>
-                  )}
-                  {communityAnnotation?.comment && (
-                    <p>{communityAnnotation?.comment}</p>
-                  )}
-                  <div className={styles['contributor-details']}>
-                    {citationId && (
-                      <span>
-                        Source:&nbsp;&nbsp;
-                        <ExternalLink url={externalUrls.PubMed(citationId)}>
-                          PMID - {citationId}
+                  {source && (
+                    <span>
+                      Contributor:&nbsp;&nbsp;
+                      {source.id && source.id !== 'Anonymous' ? (
+                        <ExternalLink
+                          url={processUrlTemplate(
+                            databaseInfoMaps?.databaseToDatabaseInfo[
+                              source.name
+                            ].uriLink,
+                            { id: source.id }
+                          )}
+                        >
+                          <img
+                            src={ORCIDiDLogo}
+                            alt=""
+                            width="15"
+                            height="15"
+                          />
+                          {source.id}
                         </ExternalLink>
-                      </span>
-                    )}
-                    {source && (
-                      <span>
-                        Contributor:&nbsp;&nbsp;
-                        {source.id && source.id !== 'Anonymous' ? (
-                          <ExternalLink
-                            url={processUrlTemplate(
-                              databaseInfoMaps?.databaseToDatabaseInfo[
-                                source.name
-                              ].uriLink,
-                              { id: source.id }
-                            )}
-                          >
-                            <img
-                              src={ORCIDiDLogo}
-                              alt=""
-                              width="15"
-                              height="15"
-                            />
-                            {source.id}
-                          </ExternalLink>
-                        ) : (
-                          source.id
-                        )}
-                      </span>
-                    )}
-                    <ExternalLink
-                      url={externalUrls.CommunityCurationGet(accession)}
-                    >
-                      View submission
-                    </ExternalLink>
-                  </div>
+                      ) : (
+                        source.id
+                      )}
+                    </span>
+                  )}
+                  <ExternalLink
+                    url={externalUrls.CommunityCurationGet(accession)}
+                  >
+                    View submission
+                  </ExternalLink>
                 </div>
-              )
-            )}
-          </HeroContainer>
-        </details>
-      </div>
+              </div>
+            )
+          )}
+        </HeroContainer>
+      </details>
     );
   }
   return null;
