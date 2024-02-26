@@ -52,6 +52,33 @@ export type Citation = {
   submissionDatabase?: string;
 };
 
+export type SourceCategory =
+  | 'Function'
+  | 'Names'
+  | 'Subcellular Location'
+  | 'Disease & Variants'
+  | 'Phenotypes & Variants'
+  | 'PTM / Processing'
+  | 'Expression'
+  | 'Interaction'
+  | 'Structure'
+  | 'Family & Domains'
+  | 'Sequences';
+
+export enum SectionToSourceCategory {
+  function = 'Function',
+  family_and_domains = 'Family & Domains',
+  expression = 'Expression',
+  interaction = 'Interaction',
+  names_and_taxonomy = 'Names',
+  disease_variants = 'Disease & Variants',
+  phenotypes_variants = 'Phenotypes & Variants',
+  ptm_processing = 'PTM / Processing',
+  sequences = 'Sequences',
+  structure = 'Structure',
+  subcellular_location = 'Subcellular Location',
+}
+
 export type ReferenceComment = {
   value: string;
   type: string;
@@ -65,7 +92,7 @@ export type Reference = {
   evidences?: Evidence[];
   source?: { name: string; id?: string };
   pubMedId?: string;
-  sourceCategories?: string[];
+  sourceCategories?: SourceCategory[];
   referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)
   communityAnnotation?: CommunityAnnotation; // Only for community annotations
   annotation?: string; // Only for computationally mapped

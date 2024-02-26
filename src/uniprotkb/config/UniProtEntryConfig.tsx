@@ -10,104 +10,142 @@ import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection
 import StructureSection from '../components/entry/StructureSection';
 import SimilarProteinsSection from '../components/entry/similar-proteins/SimilarProteinsSection';
 
+import { filterReferencesByCategory } from '../components/entry/CommunityCuration';
+
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
 import EntrySection from '../types/entrySection';
+import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniProtkbUIModel,
+    communityReferences: Reference[],
     importedVariants: number | 'loading',
     hasGenomicCoordinates: boolean | 'loading'
   ) => JSX.Element;
 }[] = [
   {
     id: EntrySection.Function,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <FunctionSection
         data={data[EntrySection.Function] as FunctionUIModel}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Function'
+        )}
         key={EntrySection.Function}
       />
     ),
   },
   {
     id: EntrySection.NamesAndTaxonomy,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <NamesAndTaxonomySection
         data={data[EntrySection.NamesAndTaxonomy]}
         primaryAccession={data.primaryAccession}
         key={EntrySection.NamesAndTaxonomy}
         references={data.references}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Names'
+        )}
       />
     ),
   },
   {
     id: EntrySection.SubCellularLocation,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <SubcellularLocationSection
         data={
           data[EntrySection.SubCellularLocation] as SubcellularLocationUIModel
         }
         sequence={data[EntrySection.Sequence].sequence.value}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Subcellular Location'
+        )}
         key={EntrySection.SubCellularLocation}
       />
     ),
   },
   {
     id: EntrySection.DiseaseVariants,
-    sectionContent: (data, importedVariants) => (
+    sectionContent: (data, communityReferences, importedVariants) => (
       <DiseaseAndDrugsSection
         data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
         importedVariants={importedVariants}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          data[EntrySection.NamesAndTaxonomy].organismData?.taxonId === 9606
+            ? 'Disease & Variants'
+            : 'Phenotypes & Variants'
+        )}
         key={EntrySection.DiseaseVariants}
       />
     ),
   },
   {
     id: EntrySection.ProteinProcessing,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <ProteinProcessingSection
         data={data[EntrySection.ProteinProcessing]}
         sequence={data[EntrySection.Sequence].sequence.value}
         primaryAccession={data.primaryAccession}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'PTM / Processing'
+        )}
         key={EntrySection.ProteinProcessing}
       />
     ),
   },
   {
     id: EntrySection.Expression,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <ExpressionSection
         data={data[EntrySection.Expression]}
         primaryAccession={data.primaryAccession}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Expression'
+        )}
         key={EntrySection.FamilyAndDomains}
       />
     ),
   },
   {
     id: EntrySection.Interaction,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <InteractionSection
         data={data[EntrySection.Interaction]}
         primaryAccession={data.primaryAccession}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Interaction'
+        )}
         key={EntrySection.Interaction}
       />
     ),
   },
   {
     id: EntrySection.Structure,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <StructureSection
         data={data[EntrySection.Structure]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Structure'
+        )}
         key={EntrySection.Structure}
         crc64={data[EntrySection.Sequence].sequence.crc64}
       />
@@ -115,22 +153,30 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.FamilyAndDomains,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <FamilyAndDomainsSection
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Family & Domains'
+        )}
         key={EntrySection.Expression}
       />
     ),
   },
   {
     id: EntrySection.Sequence,
-    sectionContent: (data, _, hasGenomicCoordinates) => (
+    sectionContent: (data, communityReferences, _, hasGenomicCoordinates) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
         hasGenomicCoordinates={hasGenomicCoordinates}
+        communityReferences={filterReferencesByCategory(
+          communityReferences,
+          'Sequences'
+        )}
         key={EntrySection.Sequence}
       />
     ),

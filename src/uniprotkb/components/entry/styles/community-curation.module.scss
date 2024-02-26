@@ -1,0 +1,45 @@
+.community-annoation-details {
+  .chevron-icon {
+    transform: scale(1);
+  }
+
+  &[open] {
+    .chevron-icon {
+      transform: scale(-1);
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0 0.2rem 0;
+  cursor: pointer;
+
+  .community-button {
+    margin-bottom: 0.2rem;
+  }
+
+  .separator {
+    width: 100%;
+  }
+}
+
+.content {
+  background-color: #abc7d64d;
+  margin-top: 0;
+
+  .contributor-details {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    & span {
+      margin-right: 2rem;
+
+      img {
+        margin: 2px;
+      }
+    }
+  }
+}

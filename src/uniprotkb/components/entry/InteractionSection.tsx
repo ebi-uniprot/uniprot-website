@@ -8,6 +8,7 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
+import CommunityCuration from './CommunityCuration';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -23,6 +24,7 @@ import {
 } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import styles from './styles/interaction-section.module.scss';
 
@@ -89,6 +91,7 @@ const interactionSorter = (a: Interaction, b: Interaction) => {
 type Props = {
   data: UIModel;
   primaryAccession: string;
+  communityReferences: Reference[];
 };
 
 const InteractionViewer = lazy(
@@ -97,7 +100,11 @@ const InteractionViewer = lazy(
     import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
 );
 
-const InteractionSection = ({ data, primaryAccession }: Props) => {
+const InteractionSection = ({
+  data,
+  primaryAccession,
+  communityReferences,
+}: Props) => {
   const isSmallScreen = useSmallScreen();
   const tableData = useMemo(
     () =>
@@ -111,7 +118,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     [data]
   );
 
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
 
@@ -232,6 +239,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ) : null}
 
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

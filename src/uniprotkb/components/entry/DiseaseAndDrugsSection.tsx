@@ -7,16 +7,18 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
 import KeywordView from '../protein-data-views/KeywordView';
-import EntrySection from '../../types/entrySection';
+import CommunityCuration from './CommunityCuration';
 
 import { hasContent, pluralise } from '../../../shared/utils/utils';
 import { getEntryPath } from '../../../app/config/urls';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
+import EntrySection from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation } from '../../types/entry';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import styles from './styles/disease-and-drugs.module.scss';
 
@@ -28,6 +30,7 @@ type Props = {
   sequence: string;
   taxId: number | undefined;
   importedVariants: number | 'loading';
+  communityReferences: Reference[];
 };
 
 const DiseaseAndDrugsSection = ({
@@ -36,8 +39,9 @@ const DiseaseAndDrugsSection = ({
   sequence,
   taxId,
   importedVariants,
+  communityReferences,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
   const nameAndId = getEntrySectionNameAndId(
@@ -137,6 +141,10 @@ const DiseaseAndDrugsSection = ({
       )}
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

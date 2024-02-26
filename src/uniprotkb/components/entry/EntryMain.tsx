@@ -7,17 +7,20 @@ import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
   importedVariants: number | 'loading';
   hasGenomicCoordinates: boolean | 'loading';
+  communityReferences: Reference[];
 };
 
 const EntryMain = ({
   transformedData,
   importedVariants,
   hasGenomicCoordinates,
+  communityReferences,
 }: EntryMainProps) => (
   <>
     {UniProtKBEntryConfig.map(({ id, sectionContent }) => (
@@ -25,6 +28,7 @@ const EntryMain = ({
         <ErrorBoundary>
           {sectionContent(
             transformedData,
+            communityReferences,
             importedVariants,
             hasGenomicCoordinates
           )}

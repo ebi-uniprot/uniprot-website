@@ -38,6 +38,8 @@ import {
   CofactorComment,
   FreeTextComment,
 } from '../../types/commentTypes';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import CommunityCuration from './CommunityCuration';
 
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
@@ -236,12 +238,18 @@ type Props = {
   data: FunctionUIModel;
   sequence: string;
   primaryAccession: string;
+  communityReferences: Reference[];
 };
 
-const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
+const FunctionSection = ({
+  data,
+  sequence,
+  primaryAccession,
+  communityReferences,
+}: Props) => {
   const isSmallScreen = useSmallScreen();
 
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
 
@@ -367,6 +375,10 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

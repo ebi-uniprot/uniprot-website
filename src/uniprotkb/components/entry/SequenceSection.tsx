@@ -13,6 +13,7 @@ import SequenceView, {
 } from '../../../shared/components/entry/SequenceView';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import ComputationalyMappedSequences from './ComputationallyMappedSequences';
+import CommunityCuration from './CommunityCuration';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { getEntryPath } from '../../../app/config/urls';
@@ -21,19 +22,22 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation } from '../../types/entry';
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type Props = {
   data: SequenceUIModel;
   primaryAccession: string;
   hasGenomicCoordinates: boolean | 'loading';
+  communityReferences: Reference[];
 };
 
 const SequenceSection = ({
   data,
   primaryAccession,
   hasGenomicCoordinates,
+  communityReferences,
 }: Props) => {
-  if (!hasContent(data)) {
+  if (!hasContent(data) && !communityReferences.length) {
     return null;
   }
   const numberOfIsoforms = data?.alternativeProducts?.isoforms.length;
@@ -105,6 +109,10 @@ const SequenceSection = ({
           tab which has more genomic information about this entry
         </Message>
       )}
+      <CommunityCuration
+        accession={primaryAccession}
+        communityReferences={communityReferences}
+      />
     </Card>
   );
 };

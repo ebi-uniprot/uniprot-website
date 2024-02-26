@@ -44,6 +44,7 @@ import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
+import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -71,6 +72,12 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 import { TabLocation } from '../../types/entry';
+import { SearchResults } from '../../../shared/types/results';
+import {
+  CitationsAPIModel,
+  Reference,
+  SectionToSourceCategory,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 import helper from '../../../shared/styles/helper.module.scss';
@@ -163,6 +170,28 @@ const Entry = () => {
     { method: 'HEAD' }
   );
 
+  const communityCurationPayload = useDataApi<SearchResults<CitationsAPIModel>>(
+    match?.params.accession &&
+      uniprotkbApiUrls.publications.entryPublications({
+        accession: match?.params.accession,
+        selectedFacets: [
+          {
+            name: 'types',
+            value: '0',
+          },
+        ],
+      })
+  );
+
+  const communityReferences: Reference[] = useMemo(() => {
+    if (communityCurationPayload.data?.results?.[0]?.references?.length) {
+      return communityCurationPayload.data?.results?.[0]?.references.filter(
+        (reference) => reference.source?.name === 'ORCID'
+      );
+    }
+    return [];
+  }, [communityCurationPayload.data]);
+
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const [transformedData, pageTitle] = useMemo(() => {
@@ -195,12 +224,31 @@ const Entry = () => {
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
-            disabled = !subcellularLocationSectionHasContent(
-              transformedData[EntrySection.SubCellularLocation]
-            );
+            disabled =
+              !subcellularLocationSectionHasContent(
+                transformedData[EntrySection.SubCellularLocation]
+              ) &&
+              !communityReferences.some((reference) =>
+                reference.sourceCategories?.includes(
+                  SectionToSourceCategory[EntrySection.SubCellularLocation]
+                )
+              );
             break;
           default:
-            disabled = !hasContent(transformedData[nameAndId.id]);
+            disabled =
+              !hasContent(transformedData[nameAndId.id]) &&
+              !communityReferences.some((reference) => {
+                // Though EntrySection.ExternalLinks and EntrySection.SimilarProteins are taken care of before this, TS is not happy
+                if (
+                  nameAndId.id !== EntrySection.ExternalLinks &&
+                  nameAndId.id !== EntrySection.SimilarProteins
+                ) {
+                  return reference.sourceCategories?.includes(
+                    SectionToSourceCategory[nameAndId.id]
+                  );
+                }
+                return false;
+              });
         }
         return {
           label: nameAndId.name,
@@ -210,7 +258,7 @@ const Entry = () => {
       });
     }
     return [];
-  }, [transformedData]);
+  }, [transformedData, communityReferences]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),
@@ -460,6 +508,7 @@ const Entry = () => {
                 transformedData={transformedData}
                 importedVariants={importedVariants}
                 hasGenomicCoordinates={hasGenomicCoordinates}
+                communityReferences={communityReferences}
               />
             </>
           )}
