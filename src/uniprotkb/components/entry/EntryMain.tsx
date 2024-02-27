@@ -1,14 +1,14 @@
-import { createContext, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Loader } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
 
+import { IsoformsContext } from '../../../shared/contexts/Isoforms';
+
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
-
-export const IsoformsContext = createContext<string[] | undefined>(undefined);
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;

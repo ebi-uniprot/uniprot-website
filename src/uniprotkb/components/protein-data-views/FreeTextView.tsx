@@ -5,7 +5,8 @@ import { ExternalLink } from 'franklin-sites';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import SimilarityView from './SimilarityView';
 
-import { IsoformsContext } from '../entry/EntryMain';
+import { IsoformsContext } from '../../../shared/contexts/Isoforms';
+
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import {
