@@ -242,7 +242,7 @@ UniParcColumnConfiguration.set(UniParcColumn.length, {
 UniParcColumnConfiguration.set(UniParcColumn.sequence, {
   ...getLabelAndTooltip('Sequence', 'Amino acid sequence'),
   render: ({ sequence }) => (
-    <Sequence sequence={sequence.value} showActionBar={false} />
+    <Sequence sequence={sequence.value} isCollapsible={sequence.length > 400} />
   ),
 });
 
