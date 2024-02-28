@@ -25,7 +25,8 @@ describe('ChildNavigation', () => {
         taxonId={9606}
         childTaxons={Array.from({ length: 5 }, (_, i) => ({
           ...taxonomyData[i % 2],
-          taxonId: i,
+          // Start at 2, 0 doesn't exist and 1 is the root special case
+          taxonId: i + 2,
         }))}
         total={10}
       />

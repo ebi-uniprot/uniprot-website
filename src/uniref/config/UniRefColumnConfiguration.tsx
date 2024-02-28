@@ -166,7 +166,7 @@ UniRefColumnConfiguration.set(UniRefColumn.sequence, {
     representativeMember?.sequence?.value ? (
       <Sequence
         sequence={representativeMember.sequence.value}
-        showActionBar={false}
+        isCollapsible={representativeMember.sequence.length > 400}
       />
     ) : null,
 });
