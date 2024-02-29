@@ -1,4 +1,4 @@
-import { Tile, HeroContainer } from 'franklin-sites';
+import { Tile, HeroContainer, ToolboxIcon } from 'franklin-sites';
 import cn from 'classnames';
 
 // eslint-disable-next-line import/no-relative-packages
@@ -17,7 +17,11 @@ import styles from './styles/non-critical.module.scss';
 
 const AnalysisTools = () => (
   <HeroContainer
-    title="Analysis Tools"
+    title={
+      <>
+        <ToolboxIcon width="1.4ch" /> Analysis Tools
+      </>
+    }
     className={cn(
       'uniprot-grid',
       'uniprot-grid--centered',
@@ -29,6 +33,7 @@ const AnalysisTools = () => (
     noSidePadding
   >
     <Tile
+      headingLevel="h3"
       title="BLAST"
       translate="no"
       className="uniprot-grid-cell--span-3"
@@ -49,6 +54,7 @@ const AnalysisTools = () => (
       alignment
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Align"
       translate="no"
       className="uniprot-grid-cell--span-3"
@@ -69,6 +75,7 @@ const AnalysisTools = () => (
       regions
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Search with Lists Map IDs"
       className="uniprot-grid-cell--span-3"
       backgroundImage={
@@ -88,6 +95,7 @@ const AnalysisTools = () => (
       IDs
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Search Peptides"
       className="uniprot-grid-cell--span-3"
       backgroundImage={

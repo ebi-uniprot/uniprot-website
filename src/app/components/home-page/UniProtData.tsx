@@ -28,6 +28,7 @@ const UniProtData = () => (
     noSidePadding
   >
     <Tile
+      headingLevel="h3"
       title="FTP Download"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -49,6 +50,7 @@ const UniProtData = () => (
       Download UniProt release data
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Technical Documentation"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -72,6 +74,7 @@ const UniProtData = () => (
       Manuals, schemas and ontology descriptions
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Programmatic Access"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -95,6 +98,7 @@ const UniProtData = () => (
       Query UniProt data using APIs providing REST, SPARQL and Java services
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Submit Data"
       className={cn(
         'uniprot-grid-cell--small-span-6',

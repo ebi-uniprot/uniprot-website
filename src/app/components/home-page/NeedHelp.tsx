@@ -190,9 +190,9 @@ const NeedHelp = () => {
           styles['need-help__attend-training-bottom']
         )}
       >
-        <h2 className="small">
+        <h3 className="small">
           <CalendarIcon height="1em" /> Attend training
-        </h2>
+        </h3>
         <ExternalLink url="https://www.ebi.ac.uk/training/" noIcon>
           European Bioinformatics Institute (EBI)
         </ExternalLink>
