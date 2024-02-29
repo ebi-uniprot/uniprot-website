@@ -83,10 +83,6 @@ const GenomicCoordinates = ({
 
   return (
     <section className="wider-tab-content hotjar-margin">
-      <Message level="info">
-        The content of this tab is in beta, feel free to{' '}
-        <ContactLink>get in touch</ContactLink> to provide feedback about it
-      </Message>
       {title && <h2>{title}</h2>}
       {displayDownloadPanel && (
         <EntryDownloadPanel
