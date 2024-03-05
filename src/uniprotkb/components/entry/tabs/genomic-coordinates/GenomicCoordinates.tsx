@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Loader, Message } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 
 import GeneEntry from './GeneEntry';
-import ContactLink from '../../../../../contact/components/ContactLink';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
