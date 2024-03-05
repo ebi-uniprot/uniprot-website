@@ -48,6 +48,7 @@ import {
   isAsyncDownloadIdMapping,
   showColumnSelect,
   filterFullXrefColumns,
+  getAccessionFromSubSequenceMap,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -78,6 +79,7 @@ export type DownloadProps<T extends JobTypes> = {
     downloadMethod?: DownloadMethod
   ) => void;
   accessions?: string[];
+  accessionSubSequenceMap?: Map<string, string>;
   base?: string;
   notCustomisable?: boolean;
   inBasketMini?: boolean;
@@ -238,6 +240,23 @@ const Download = (props: DownloadProps<JobTypes>) => {
       break;
   }
 
+  let total = totalNumberResults;
+  let selectedCount = state.nSelectedEntries;
+  if (props.accessionSubSequenceMap) {
+    if (state.selectedFileFormat !== FileFormat.fastaCanonical) {
+      total = getAccessionFromSubSequenceMap(
+        props.accessions,
+        props.accessionSubSequenceMap
+      ).length;
+      selectedCount = props.selectedEntries?.length
+        ? getAccessionFromSubSequenceMap(
+            props.selectedEntries,
+            props.accessionSubSequenceMap
+          ).length
+        : 0;
+    }
+  }
+
   return (
     <>
       {notCustomisable ? (
@@ -260,8 +279,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
                 state.disableForm
               }
             />
-            Download selected (<LongNumber>{state.nSelectedEntries}</LongNumber>
-            )
+            Download selected (<LongNumber>{selectedCount}</LongNumber>)
           </label>
           <label htmlFor="data-selection-true">
             <input
@@ -273,7 +291,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
               onChange={handleDownloadAllChange}
               disabled={redirectToIDMapping || state.disableForm}
             />
-            Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+            Download all (<LongNumber>{total}</LongNumber>)
           </label>
         </>
       )}

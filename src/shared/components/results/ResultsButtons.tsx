@@ -190,11 +190,6 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
 
   const isMain = mainNamespaces.has(namespace);
 
-  // Download expect accessions without modifications (applicable in Basket views)
-  const selectedAccWithoutSubset = subsetsMap
-    ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
-    : selectedEntries;
-
   return (
     <>
       {displayDownloadPanel && (
@@ -207,12 +202,9 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
           >
             <ErrorBoundary>
               <DownloadComponent
-                selectedEntries={selectedAccWithoutSubset}
-                accessions={
-                  subsetsMap
-                    ? Array.from(new Set(subsetsMap?.values()))
-                    : accessions
-                } // Passing all accessions without modifications to Download
+                selectedEntries={selectedEntries}
+                accessions={accessions}
+                accessionSubSequenceMap={subsetsMap}
                 totalNumberResults={total}
                 onClose={handleToggleDownload}
                 namespace={namespace}
