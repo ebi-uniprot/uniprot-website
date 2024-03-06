@@ -54,7 +54,7 @@ const CommunityCuration = ({
                   className={cn(
                     styles['contributor-details'],
                     section === EntrySection.NamesAndTaxonomy
-                      ? styles['names-contributor-details']
+                      ? styles['names-section']
                       : ''
                   )}
                 >

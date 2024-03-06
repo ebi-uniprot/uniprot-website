@@ -27,69 +27,90 @@ exports[`Community annotatation should render the community annotation content 1
     <section
       class="hero-container content hero-container--side-padding"
     >
-      <div>
-        <b>
-          Epicuticlin
-        </b>
-        <p>
-          Disordered proteins organized in tandem repeats with molecular recognition features and tyrosine motifs (Pfam02756 and Pfam02757). The epicuticlins form the insoluble outermost layer of the cuticle and can interact with cuticular collagens.
-        </p>
-        <p>
-          The cDNA AJ408886 is one of several sequences of nematodes, which is now identified as forming the epicuticlin structure of nematodes.
-        </p>
+      <section
+        class="reference-card card"
+      >
         <div
-          class="contributor-details"
+          class="card__container"
         >
-          <span>
-            Source:  
-            <a
-              class="external-link"
-              href="https://pubmed.ncbi.nlm.nih.gov/36301857"
-              rel="noopener"
-              target="_blank"
-            >
-              PMID - 36301857
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-          </span>
-          <span>
-            Contributor:  
-            <a
-              class="external-link"
-              href="https://orcid.org/0000-0001-6057-9374"
-              rel="noopener"
-              target="_blank"
-            >
-              <img
-                alt=""
-                height="15"
-                src="test-file-stub"
-                width="15"
-              />
-              0000-0001-6057-9374
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-          </span>
-          <a
-            class="external-link"
-            href="https://community.uniprot.org/cgi-bin/bbsub_query?accession=Q95PB5"
-            rel="noopener"
-            target="_blank"
+          <div
+            class="card__content"
           >
-            View submission
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
+            <ul
+              class="info-list"
+            >
+              <li>
+                <div
+                  class="decorated-list-item"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Community suggested names
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    Epicuticlin
+                    <div
+                      class="contributor-details names-section"
+                    >
+                      <span>
+                        Source:  
+                        <a
+                          class="external-link"
+                          href="https://pubmed.ncbi.nlm.nih.gov/36301857"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          PMID - 36301857
+                          <test-file-stub
+                            data-testid="external-link-icon"
+                            width="12.5"
+                          />
+                        </a>
+                      </span>
+                      <span>
+                        Contributor:  
+                        <a
+                          class="external-link"
+                          href="https://orcid.org/0000-0001-6057-9374"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          <img
+                            alt=""
+                            height="15"
+                            src="test-file-stub"
+                            width="15"
+                          />
+                          0000-0001-6057-9374
+                          <test-file-stub
+                            data-testid="external-link-icon"
+                            width="12.5"
+                          />
+                        </a>
+                      </span>
+                      <a
+                        class="external-link"
+                        href="https://community.uniprot.org/cgi-bin/bbsub_query?accession=Q95PB5"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        View submission
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
     </section>
   </details>
 </DocumentFragment>

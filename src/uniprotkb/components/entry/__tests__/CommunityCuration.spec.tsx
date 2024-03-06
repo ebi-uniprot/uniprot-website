@@ -5,6 +5,7 @@ import CommunityCuration from '../CommunityCuration';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import { Reference } from '../../../../supporting-data/citations/adapters/citationsConverter';
+import EntrySection from '../../../types/entrySection';
 
 const mock: Reference[] = [
   {
@@ -32,7 +33,11 @@ const mock: Reference[] = [
 describe('Community annotatation', () => {
   it('should render the community annotation content', async () => {
     const { asFragment } = customRender(
-      <CommunityCuration accession="Q95PB5" communityReferences={mock} />
+      <CommunityCuration
+        accession="Q95PB5"
+        section={EntrySection.NamesAndTaxonomy}
+        communityReferences={mock}
+      />
     );
     expect(await screen.findByText('Epicuticlin')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
