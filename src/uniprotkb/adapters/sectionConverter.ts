@@ -36,6 +36,7 @@ export const convertSection = (
   };
 
   const { comments, keywords, features, genes, organism, uniProtkbId } = data;
+
   if (sectionComments && comments) {
     sectionComments.forEach((commentType) => {
       convertedData.commentsData.set(
@@ -72,5 +73,6 @@ export const convertSection = (
       data?.proteinDescription?.recommendedName?.ecNumbers
     );
   }
+
   return convertedData;
 };

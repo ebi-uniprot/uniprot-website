@@ -84,6 +84,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
+import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
@@ -263,6 +264,8 @@ const Entry = () => {
     [data]
   );
 
+  const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
+
   // Redirect to new entry when obsolete and merged into one
   useEffect(() => {
     if (
@@ -433,14 +436,14 @@ const Entry = () => {
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
           />
-          <h3>
+          <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
             <BasketStatus id={data.primaryAccession} className="small" />
-          </h3>
+          </h1>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       )}
@@ -507,6 +510,7 @@ const Entry = () => {
                 importedVariants={importedVariants}
                 hasGenomicCoordinates={hasGenomicCoordinates}
                 communityReferences={communityReferences}
+                isoforms={listOfIsoformNames}
               />
             </>
           )}

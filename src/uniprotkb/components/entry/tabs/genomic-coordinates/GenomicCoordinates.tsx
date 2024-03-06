@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Loader, Message } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 
 import GeneEntry from './GeneEntry';
-import ContactLink from '../../../../../contact/components/ContactLink';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
@@ -83,10 +82,6 @@ const GenomicCoordinates = ({
 
   return (
     <section className="wider-tab-content hotjar-margin">
-      <Message level="info">
-        The content of this tab is in beta, feel free to{' '}
-        <ContactLink>get in touch</ContactLink> to provide feedback about it
-      </Message>
       {title && <h2>{title}</h2>}
       {displayDownloadPanel && (
         <EntryDownloadPanel

@@ -1,4 +1,6 @@
-import { Card, LongNumber, Sequence } from 'franklin-sites';
+import { Card } from 'franklin-sites';
+
+import SimpleSequence from '../../../shared/components/simple-sequence/SimpleSequence';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -11,27 +13,12 @@ const SequenceSection = ({ data }: { data: SequenceType }) => {
     return null;
   }
 
-  const infoData = [
-    {
-      title: 'Length',
-      content: data.length,
-    },
-    {
-      title: 'Mass (Da)',
-      content: <LongNumber>{data.molWeight}</LongNumber>,
-    },
-    {
-      title: <span data-article-id="checksum">Checksum</span>,
-      content: data.crc64,
-    },
-  ];
-
   return (
     <Card
       header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
       id={EntrySection.Sequence}
     >
-      <Sequence sequence={data.value} infoData={infoData} isCollapsible />
+      <SimpleSequence sequence={data} />
     </Card>
   );
 };

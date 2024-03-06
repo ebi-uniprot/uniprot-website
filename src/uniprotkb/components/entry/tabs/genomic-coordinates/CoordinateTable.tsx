@@ -310,7 +310,7 @@ const CoordinateTable = ({
   return (
     <Table className={cn(styles['coordinates-table'], helper['no-wrap'])}>
       <Table.Head toggleAll={groupedExonEntries.length > 1}>
-        <th>Genomic coordinates</th>
+        <th>Exon coordinates</th>
         {mappedIsoforms.map((isoformID) => (
           <th
             key={isoformID}

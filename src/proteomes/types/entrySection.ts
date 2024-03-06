@@ -1,5 +1,5 @@
 enum EntrySection {
-  Overview = 'overview',
+  Description = 'description',
   Components = 'components',
   Publications = 'publications',
 }

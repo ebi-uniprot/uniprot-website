@@ -56,6 +56,10 @@ const TaxonomyView = ({
 }: TaxonomyDataProps) => {
   const { scientificName, commonName, taxonId, synonyms } = data;
 
+  if (taxonId === 1) {
+    return <span className={className}>Top level (root)</span>;
+  }
+
   const termValue = `${scientificName || taxonId}${
     commonName ? ` (${commonName})` : ''
   }${synonyms?.length ? ` (${synonyms.join(', ')})` : ''}${

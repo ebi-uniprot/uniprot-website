@@ -207,13 +207,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                           width="12.5"
                         />
                       </a>
-                      ); Some note; In isoform 
-                      <a
-                        href="/#Isoform_sequence"
-                      >
-                        sequence
-                      </a>
-                       1; description value 123
+                      ); Some note; In isoform sequence 1; description value 123
                       <button
                         aria-controls="1"
                         aria-expanded="false"

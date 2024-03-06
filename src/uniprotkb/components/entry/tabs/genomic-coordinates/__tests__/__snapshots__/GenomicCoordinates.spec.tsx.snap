@@ -5,30 +5,6 @@ exports[`GenomicCoordinates component renders on data 1`] = `
   <section
     class="wider-tab-content hotjar-margin"
   >
-    <div
-      class="message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        classname="message--icon-align-top"
-        height="1.125em"
-        width="1.125em"
-      />
-      <div
-        class="message__title"
-      >
-        The content of this tab is in beta, feel free to 
-        <a
-          href="/contact"
-        >
-          get in touch
-        </a>
-         to provide feedback about it
-      </div>
-    </div>
     <button
       class="button tertiary"
       type="button"
@@ -306,7 +282,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                     </div>
                   </th>
                   <th>
-                    Genomic coordinates
+                    Exon coordinates
                   </th>
                   <th
                     colspan="4"
