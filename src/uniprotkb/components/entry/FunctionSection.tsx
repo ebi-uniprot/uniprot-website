@@ -248,8 +248,11 @@ const FunctionSection = ({
   communityReferences,
 }: Props) => {
   const isSmallScreen = useSmallScreen();
+  const functionRelatedReferences = communityReferences?.filter(
+    (reference) => reference?.communityAnnotation?.function
+  );
 
-  if (!hasContent(data) && !communityReferences.length) {
+  if (!hasContent(data) && !functionRelatedReferences.length) {
     return null;
   }
 
@@ -377,7 +380,8 @@ const FunctionSection = ({
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration
         accession={primaryAccession}
-        communityReferences={communityReferences}
+        category="Function"
+        communityReferences={functionRelatedReferences}
       />
     </Card>
   );

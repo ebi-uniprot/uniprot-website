@@ -3,6 +3,7 @@ import {
   HeroContainer,
   CommunityAnnotationIcon,
   ChevronDownIcon,
+  Card,
 } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -22,9 +23,11 @@ import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
 
 const CommunityCuration = ({
   accession,
+  category,
   communityReferences,
 }: {
   accession: string;
+  category: SourceCategory;
   communityReferences: (Reference | undefined)[];
 }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -43,65 +46,61 @@ const CommunityCuration = ({
           <hr className={styles.separator} />
         </summary>
         <HeroContainer className={styles.content}>
-          {communityReferences.map(
-            ({ source, communityAnnotation, citationId }) => (
-              <div key={source?.id}>
-                {communityAnnotation?.proteinOrGene && (
-                  <b>{communityAnnotation.proteinOrGene}</b>
-                )}
-                {(communityAnnotation?.function ||
-                  communityAnnotation?.disease) && (
-                  <p>
-                    {communityAnnotation?.function}
-                    {communityAnnotation?.disease}
-                  </p>
-                )}
-                {communityAnnotation?.comment && (
-                  <p>{communityAnnotation?.comment}</p>
-                )}
-                <div className={styles['contributor-details']}>
-                  {citationId && (
-                    <span>
-                      Source:&nbsp;&nbsp;
-                      <ExternalLink url={externalUrls.PubMed(citationId)}>
-                        PMID - {citationId}
-                      </ExternalLink>
-                    </span>
-                  )}
-                  {source && (
-                    <span>
-                      Contributor:&nbsp;&nbsp;
-                      {source.id && source.id !== 'Anonymous' ? (
-                        <ExternalLink
-                          url={processUrlTemplate(
-                            databaseInfoMaps?.databaseToDatabaseInfo[
-                              source.name
-                            ].uriLink,
-                            { id: source.id }
-                          )}
-                        >
-                          <img
-                            src={ORCIDiDLogo}
-                            alt=""
-                            width="15"
-                            height="15"
-                          />
-                          {source.id}
-                        </ExternalLink>
-                      ) : (
-                        source.id
+          {(category === 'Function' || category === 'Disease & Variants') &&
+            communityReferences.map((reference) => {
+              if (reference) {
+                const { source, communityAnnotation, citationId } = reference;
+                return (
+                  <Card key={citationId} className={styles['reference-card']}>
+                    <p>
+                      {communityAnnotation?.function}
+                      {communityAnnotation?.disease}
+                    </p>
+                    <div className={styles['contributor-details']}>
+                      {citationId && (
+                        <span>
+                          Source:&nbsp;&nbsp;
+                          <ExternalLink url={externalUrls.PubMed(citationId)}>
+                            PMID - {citationId}
+                          </ExternalLink>
+                        </span>
                       )}
-                    </span>
-                  )}
-                  <ExternalLink
-                    url={externalUrls.CommunityCurationGet(accession)}
-                  >
-                    View submission
-                  </ExternalLink>
-                </div>
-              </div>
-            )
-          )}
+                      {source && (
+                        <span>
+                          Contributor:&nbsp;&nbsp;
+                          {source.id && source.id !== 'Anonymous' ? (
+                            <ExternalLink
+                              url={processUrlTemplate(
+                                databaseInfoMaps?.databaseToDatabaseInfo[
+                                  source.name
+                                ].uriLink,
+                                { id: source.id }
+                              )}
+                            >
+                              <img
+                                src={ORCIDiDLogo}
+                                alt=""
+                                width="15"
+                                height="15"
+                              />
+                              {source.id}
+                            </ExternalLink>
+                          ) : (
+                            source.id
+                          )}
+                        </span>
+                      )}
+                      <ExternalLink
+                        url={externalUrls.CommunityCurationGet(accession)}
+                      >
+                        View submission
+                      </ExternalLink>
+                    </div>
+                  </Card>
+                );
+              }
+              return null;
+            })}
         </HeroContainer>
       </details>
     );

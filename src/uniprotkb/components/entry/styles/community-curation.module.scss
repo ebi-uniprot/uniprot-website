@@ -26,8 +26,13 @@
 }
 
 .content {
-  background-color: #abc7d64d;
-  margin-top: 0;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+
+  .reference-card {
+    background-color: #abc7d64d;
+  }
 
   .contributor-details {
     display: flex;

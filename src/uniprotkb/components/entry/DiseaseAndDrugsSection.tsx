@@ -41,7 +41,11 @@ const DiseaseAndDrugsSection = ({
   importedVariants,
   communityReferences,
 }: Props) => {
-  if (!hasContent(data) && !communityReferences.length) {
+  const diseaseRelatedReferences = communityReferences?.filter(
+    (reference) => reference?.communityAnnotation?.disease
+  );
+
+  if (!hasContent(data) && !diseaseRelatedReferences.length) {
     return null;
   }
   const nameAndId = getEntrySectionNameAndId(
@@ -143,7 +147,8 @@ const DiseaseAndDrugsSection = ({
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration
         accession={primaryAccession}
-        communityReferences={communityReferences}
+        category="Disease & Variants"
+        communityReferences={diseaseRelatedReferences}
       />
     </Card>
   );
