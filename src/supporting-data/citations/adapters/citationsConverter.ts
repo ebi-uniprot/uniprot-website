@@ -52,19 +52,6 @@ export type Citation = {
   submissionDatabase?: string;
 };
 
-export type SourceCategory =
-  | 'Function'
-  | 'Names'
-  | 'Subcellular Location'
-  | 'Disease & Variants'
-  | 'Phenotypes & Variants'
-  | 'PTM / Processing'
-  | 'Expression'
-  | 'Interaction'
-  | 'Structure'
-  | 'Family & Domains'
-  | 'Sequences';
-
 export type ReferenceComment = {
   value: string;
   type: string;
@@ -78,7 +65,7 @@ export type Reference = {
   evidences?: Evidence[];
   source?: { name: string; id?: string };
   pubMedId?: string;
-  sourceCategories?: SourceCategory[];
+  sourceCategories?: string[];
   referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)
   communityAnnotation?: CommunityAnnotation; // Only for community annotations
   annotation?: string; // Only for computationally mapped
@@ -89,6 +76,13 @@ export interface CommunityAnnotation {
   function?: string;
   comment?: string;
   disease?: string;
+}
+
+export enum SectionToCommunityAnnotationField {
+  function = 'function',
+  names_and_taxonomy = 'proteinOrGene',
+  disease_variants = 'disease',
+  phenotypes_variants = 'disease',
 }
 
 export type CitationsAPIModel = {

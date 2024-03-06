@@ -118,7 +118,7 @@ const NamesAndTaxonomySection = ({
       )}
       <CommunityCuration
         accession={primaryAccession}
-        category="Names"
+        section={EntrySection.NamesAndTaxonomy}
         communityReferences={nameRelatedReferences}
       />
       {data.geneNamesData && (

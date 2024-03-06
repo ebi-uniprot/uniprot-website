@@ -76,6 +76,7 @@ import { SearchResults } from '../../../shared/types/results';
 import {
   CitationsAPIModel,
   Reference,
+  SectionToCommunityAnnotationField,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
@@ -229,7 +230,23 @@ const Entry = () => {
             );
             break;
           default:
-            disabled = !hasContent(transformedData[nameAndId.id]);
+            disabled =
+              !hasContent(transformedData[nameAndId.id]) &&
+              !communityReferences.some((reference) => {
+                if (
+                  reference?.communityAnnotation &&
+                  (nameAndId.id === EntrySection.Function ||
+                    nameAndId.id === EntrySection.NamesAndTaxonomy ||
+                    nameAndId.id === EntrySection.DiseaseVariants ||
+                    nameAndId.id === EntrySection.PhenotypesVariants)
+                ) {
+                  return (
+                    SectionToCommunityAnnotationField[nameAndId.id] in
+                    reference.communityAnnotation
+                  );
+                }
+                return false;
+              });
         }
         return {
           label: nameAndId.name,
@@ -239,7 +256,7 @@ const Entry = () => {
       });
     }
     return [];
-  }, [transformedData]);
+  }, [transformedData, communityReferences]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),

@@ -13,10 +13,8 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import externalUrls from '../../../shared/config/externalUrls';
 
-import {
-  Reference,
-  SourceCategory,
-} from '../../../supporting-data/citations/adapters/citationsConverter';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import EntrySection from '../../types/entrySection';
 
 import styles from './styles/community-curation.module.scss';
 
@@ -24,11 +22,11 @@ import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
 
 const CommunityCuration = ({
   accession,
-  category,
+  section,
   communityReferences,
 }: {
   accession: string;
-  category: SourceCategory;
+  section: EntrySection;
   communityReferences: (Reference | undefined)[];
 }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -55,7 +53,7 @@ const CommunityCuration = ({
                 <div
                   className={cn(
                     styles['contributor-details'],
-                    category === 'Names'
+                    section === EntrySection.NamesAndTaxonomy
                       ? styles['names-contributor-details']
                       : ''
                   )}
@@ -103,19 +101,21 @@ const CommunityCuration = ({
 
               return (
                 <Card key={citationId} className={styles['reference-card']}>
-                  {(category === 'Function' ||
-                    category === 'Disease & Variants') && (
+                  {(section === EntrySection.Function ||
+                    section === EntrySection.PhenotypesVariants ||
+                    section === EntrySection.DiseaseVariants) && (
                     <>
                       <p>
-                        {category === 'Function' &&
+                        {section === EntrySection.Function &&
                           communityAnnotation?.function}
-                        {category === 'Disease & Variants' &&
+                        {(section === EntrySection.DiseaseVariants ||
+                          section === EntrySection.PhenotypesVariants) &&
                           communityAnnotation?.disease}
                       </p>
                       {contributorElement}
                     </>
                   )}
-                  {category === 'Names' && (
+                  {section === EntrySection.NamesAndTaxonomy && (
                     <InfoList
                       infoData={[
                         {

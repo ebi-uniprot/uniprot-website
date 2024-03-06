@@ -380,7 +380,7 @@ const FunctionSection = ({
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration
         accession={primaryAccession}
-        category="Function"
+        section={EntrySection.Function}
         communityReferences={functionRelatedReferences}
       />
     </Card>

@@ -147,7 +147,11 @@ const DiseaseAndDrugsSection = ({
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration
         accession={primaryAccession}
-        category="Disease & Variants"
+        section={
+          taxId && taxId === 9606
+            ? EntrySection.DiseaseVariants
+            : EntrySection.PhenotypesVariants
+        }
         communityReferences={diseaseRelatedReferences}
       />
     </Card>
