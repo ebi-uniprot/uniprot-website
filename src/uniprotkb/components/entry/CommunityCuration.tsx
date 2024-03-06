@@ -4,6 +4,7 @@ import {
   CommunityAnnotationIcon,
   ChevronDownIcon,
   Card,
+  InfoList,
 } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -46,61 +47,94 @@ const CommunityCuration = ({
           <hr className={styles.separator} />
         </summary>
         <HeroContainer className={styles.content}>
-          {(category === 'Function' || category === 'Disease & Variants') &&
-            communityReferences.map((reference) => {
-              if (reference) {
-                const { source, communityAnnotation, citationId } = reference;
-                return (
-                  <Card key={citationId} className={styles['reference-card']}>
-                    <p>
-                      {communityAnnotation?.function}
-                      {communityAnnotation?.disease}
-                    </p>
-                    <div className={styles['contributor-details']}>
-                      {citationId && (
-                        <span>
-                          Source:&nbsp;&nbsp;
-                          <ExternalLink url={externalUrls.PubMed(citationId)}>
-                            PMID - {citationId}
-                          </ExternalLink>
-                        </span>
-                      )}
-                      {source && (
-                        <span>
-                          Contributor:&nbsp;&nbsp;
-                          {source.id && source.id !== 'Anonymous' ? (
-                            <ExternalLink
-                              url={processUrlTemplate(
-                                databaseInfoMaps?.databaseToDatabaseInfo[
-                                  source.name
-                                ].uriLink,
-                                { id: source.id }
-                              )}
-                            >
-                              <img
-                                src={ORCIDiDLogo}
-                                alt=""
-                                width="15"
-                                height="15"
-                              />
-                              {source.id}
-                            </ExternalLink>
-                          ) : (
-                            source.id
-                          )}
-                        </span>
-                      )}
-                      <ExternalLink
-                        url={externalUrls.CommunityCurationGet(accession)}
-                      >
-                        View submission
+          {communityReferences.map((reference) => {
+            if (reference) {
+              const { source, communityAnnotation, citationId } = reference;
+
+              const contributorElement = (
+                <div
+                  className={cn(
+                    styles['contributor-details'],
+                    category === 'Names'
+                      ? styles['names-contributor-details']
+                      : ''
+                  )}
+                >
+                  {citationId && (
+                    <span>
+                      Source:&nbsp;&nbsp;
+                      <ExternalLink url={externalUrls.PubMed(citationId)}>
+                        PMID - {citationId}
                       </ExternalLink>
-                    </div>
-                  </Card>
-                );
-              }
-              return null;
-            })}
+                    </span>
+                  )}
+                  {source && (
+                    <span>
+                      Contributor:&nbsp;&nbsp;
+                      {source.id && source.id !== 'Anonymous' ? (
+                        <ExternalLink
+                          url={processUrlTemplate(
+                            databaseInfoMaps?.databaseToDatabaseInfo[
+                              source.name
+                            ].uriLink,
+                            { id: source.id }
+                          )}
+                        >
+                          <img
+                            src={ORCIDiDLogo}
+                            alt=""
+                            width="15"
+                            height="15"
+                          />
+                          {source.id}
+                        </ExternalLink>
+                      ) : (
+                        source.id
+                      )}
+                    </span>
+                  )}
+                  <ExternalLink
+                    url={externalUrls.CommunityCurationGet(accession)}
+                  >
+                    View submission
+                  </ExternalLink>
+                </div>
+              );
+
+              return (
+                <Card key={citationId} className={styles['reference-card']}>
+                  {(category === 'Function' ||
+                    category === 'Disease & Variants') && (
+                    <>
+                      <p>
+                        {category === 'Function' &&
+                          communityAnnotation?.function}
+                        {category === 'Disease & Variants' &&
+                          communityAnnotation?.disease}
+                      </p>
+                      {contributorElement}
+                    </>
+                  )}
+                  {category === 'Names' && (
+                    <InfoList
+                      infoData={[
+                        {
+                          title: 'Community suggested names',
+                          content: (
+                            <>
+                              {communityAnnotation?.proteinOrGene}
+                              {contributorElement}
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+                  )}
+                </Card>
+              );
+            }
+            return null;
+          })}
         </HeroContainer>
       </details>
     );

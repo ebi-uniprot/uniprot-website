@@ -82,7 +82,11 @@ const NamesAndTaxonomySection = ({
     [references]
   );
 
-  if (!hasContent(data) && !communityReferences.length) {
+  const nameRelatedReferences = communityReferences?.filter(
+    (reference) => reference?.communityAnnotation?.proteinOrGene
+  );
+
+  if (!hasContent(data) && !nameRelatedReferences.length) {
     return null;
   }
   const domains = data.proteinNamesData?.includes;
@@ -112,6 +116,11 @@ const NamesAndTaxonomySection = ({
           ))}
         </>
       )}
+      <CommunityCuration
+        accession={primaryAccession}
+        category="Names"
+        communityReferences={nameRelatedReferences}
+      />
       {data.geneNamesData && (
         <>
           <h3 data-article-id="gene_name">Gene names</h3>
@@ -186,10 +195,6 @@ const NamesAndTaxonomySection = ({
         </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration
-        accession={primaryAccession}
-        communityReferences={communityReferences}
-      />
     </Card>
   );
 };
