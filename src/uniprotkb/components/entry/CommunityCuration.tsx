@@ -20,20 +20,12 @@ import styles from './styles/community-curation.module.scss';
 
 import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
 
-export const filterReferencesByCategory = (
-  communityReferences: Reference[],
-  category: SourceCategory
-) =>
-  communityReferences.filter((reference) =>
-    reference.sourceCategories?.includes(category)
-  );
-
 const CommunityCuration = ({
   accession,
   communityReferences,
 }: {
   accession: string;
-  communityReferences: Reference[];
+  communityReferences: (Reference | undefined)[];
 }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 

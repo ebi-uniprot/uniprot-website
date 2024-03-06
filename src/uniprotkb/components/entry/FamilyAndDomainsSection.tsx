@@ -5,7 +5,6 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import CommunityCuration from './CommunityCuration';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -13,22 +12,19 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import EntrySection from '../../types/entrySection';
 import { FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type Props = {
   data: UIModel;
   sequence: string;
   primaryAccession: string;
-  communityReferences: Reference[];
 };
 
 const FamilyAndDomainsSection = ({
   data,
   sequence,
   primaryAccession,
-  communityReferences,
 }: Props) => {
-  if (!hasContent(data) && !communityReferences.length) {
+  if (!hasContent(data)) {
     return null;
   }
   return (
@@ -62,10 +58,6 @@ const FamilyAndDomainsSection = ({
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration
-        accession={primaryAccession}
-        communityReferences={communityReferences}
-      />
     </Card>
   );
 };

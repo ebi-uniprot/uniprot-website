@@ -238,7 +238,7 @@ type Props = {
   data: FunctionUIModel;
   sequence: string;
   primaryAccession: string;
-  communityReferences: Reference[];
+  communityReferences: (Reference | undefined)[];
 };
 
 const FunctionSection = ({

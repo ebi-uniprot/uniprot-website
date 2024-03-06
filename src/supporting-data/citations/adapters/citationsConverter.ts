@@ -65,20 +65,6 @@ export type SourceCategory =
   | 'Family & Domains'
   | 'Sequences';
 
-export enum SectionToSourceCategory {
-  function = 'Function',
-  family_and_domains = 'Family & Domains',
-  expression = 'Expression',
-  interaction = 'Interaction',
-  names_and_taxonomy = 'Names',
-  disease_variants = 'Disease & Variants',
-  phenotypes_variants = 'Phenotypes & Variants',
-  ptm_processing = 'PTM / Processing',
-  sequences = 'Sequences',
-  structure = 'Structure',
-  subcellular_location = 'Subcellular Location',
-}
-
 export type ReferenceComment = {
   value: string;
   type: string;

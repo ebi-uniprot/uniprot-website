@@ -31,7 +31,7 @@ import { Evidence } from '../../types/modelTypes';
 type Props = {
   data: NamesAndTaxonomyUIModel;
   primaryAccession: string;
-  communityReferences: Reference[];
+  communityReferences: (Reference | undefined)[];
   references?: UniProtKBReference[];
 };
 

@@ -6,7 +6,6 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FreeTextView from '../protein-data-views/FreeTextView';
-import CommunityCuration from './CommunityCuration';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -18,20 +17,17 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import { FreeTextComment } from '../../types/commentTypes';
 import { ProteomicsPtm } from '../../types/proteomicsPtm';
 import { UIModel } from '../../adapters/sectionConverter';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence: string;
-  communityReferences: Reference[];
 };
 
 const ProteinProcessingSection = ({
   data,
   sequence,
   primaryAccession,
-  communityReferences,
 }: Props) => {
   const { loading: proteomicsPtmLoading, data: proteomicsPtmData } =
     useDataApi<ProteomicsPtm>(
@@ -73,10 +69,6 @@ const ProteinProcessingSection = ({
       />
       <KeywordView keywords={keywordData} />
       <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration
-        accession={primaryAccession}
-        communityReferences={communityReferences}
-      />
     </Card>
   );
 };

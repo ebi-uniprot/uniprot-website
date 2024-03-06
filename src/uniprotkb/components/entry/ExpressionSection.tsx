@@ -7,25 +7,18 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
-import CommunityCuration from './CommunityCuration';
 
 import EntrySection from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
 import { FreeTextComment } from '../../types/commentTypes';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type Props = {
   data: UIModel;
   primaryAccession: string;
-  communityReferences: Reference[];
 };
 
-const ExpressionSection = ({
-  data,
-  primaryAccession,
-  communityReferences,
-}: Props) => {
-  if (!hasContent(data) && !communityReferences.length) {
+const ExpressionSection = ({ data, primaryAccession }: Props) => {
+  if (!hasContent(data)) {
     return null;
   }
   return (
@@ -65,10 +58,6 @@ const ExpressionSection = ({
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration
-        accession={primaryAccession}
-        communityReferences={communityReferences}
-      />
     </Card>
   );
 };

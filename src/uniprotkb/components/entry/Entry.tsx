@@ -76,7 +76,6 @@ import { SearchResults } from '../../../shared/types/results';
 import {
   CitationsAPIModel,
   Reference,
-  SectionToSourceCategory,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
@@ -183,13 +182,14 @@ const Entry = () => {
       })
   );
 
-  const communityReferences: Reference[] = useMemo(() => {
-    if (communityCurationPayload.data?.results?.[0]?.references?.length) {
-      return communityCurationPayload.data?.results?.[0]?.references.filter(
-        (reference) => reference.source?.name === 'ORCID'
-      );
-    }
-    return [];
+  const communityReferences: (Reference | undefined)[] = useMemo(() => {
+    const filteredReferences = communityCurationPayload.data?.results.map(
+      (citation) =>
+        citation.references?.filter(
+          (reference) => reference.source?.name === 'ORCID'
+        )
+    );
+    return filteredReferences?.flat() || [];
   }, [communityCurationPayload.data]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -224,31 +224,12 @@ const Entry = () => {
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
-            disabled =
-              !subcellularLocationSectionHasContent(
-                transformedData[EntrySection.SubCellularLocation]
-              ) &&
-              !communityReferences.some((reference) =>
-                reference.sourceCategories?.includes(
-                  SectionToSourceCategory[EntrySection.SubCellularLocation]
-                )
-              );
+            disabled = !subcellularLocationSectionHasContent(
+              transformedData[EntrySection.SubCellularLocation]
+            );
             break;
           default:
-            disabled =
-              !hasContent(transformedData[nameAndId.id]) &&
-              !communityReferences.some((reference) => {
-                // Though EntrySection.ExternalLinks and EntrySection.SimilarProteins are taken care of before this, TS is not happy
-                if (
-                  nameAndId.id !== EntrySection.ExternalLinks &&
-                  nameAndId.id !== EntrySection.SimilarProteins
-                ) {
-                  return reference.sourceCategories?.includes(
-                    SectionToSourceCategory[nameAndId.id]
-                  );
-                }
-                return false;
-              });
+            disabled = !hasContent(transformedData[nameAndId.id]);
         }
         return {
           label: nameAndId.name,
@@ -258,7 +239,7 @@ const Entry = () => {
       });
     }
     return [];
-  }, [transformedData, communityReferences]);
+  }, [transformedData]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),

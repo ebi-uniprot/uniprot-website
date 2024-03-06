@@ -13,7 +13,7 @@ type EntryMainProps = {
   transformedData: UniProtkbUIModel;
   importedVariants: number | 'loading';
   hasGenomicCoordinates: boolean | 'loading';
-  communityReferences: Reference[];
+  communityReferences: (Reference | undefined)[];
 };
 
 const EntryMain = ({

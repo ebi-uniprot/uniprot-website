@@ -10,7 +10,6 @@ import { UIModel } from '../../adapters/sectionConverter';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import CommunityCuration from './CommunityCuration';
 
 import {
   partitionStructureDatabases,
@@ -19,7 +18,6 @@ import {
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import { DatabaseCategory } from '../../types/databaseRefs';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 const StructureView = lazy(
   () =>
@@ -32,7 +30,6 @@ type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence: string;
-  communityReferences: Reference[];
   crc64?: string;
 };
 
@@ -41,7 +38,6 @@ const StructureSection = ({
   primaryAccession,
   sequence,
   crc64,
-  communityReferences,
 }: Props) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
   const isSmallScreen = useSmallScreen();
@@ -130,10 +126,6 @@ const StructureSection = ({
         sequence={sequence}
       />
       {XrefViewNode}
-      <CommunityCuration
-        accession={primaryAccession}
-        communityReferences={communityReferences}
-      />
     </Card>
   );
 };

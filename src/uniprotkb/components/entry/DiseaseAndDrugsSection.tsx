@@ -30,7 +30,7 @@ type Props = {
   sequence: string;
   taxId: number | undefined;
   importedVariants: number | 'loading';
-  communityReferences: Reference[];
+  communityReferences: (Reference | undefined)[];
 };
 
 const DiseaseAndDrugsSection = ({
