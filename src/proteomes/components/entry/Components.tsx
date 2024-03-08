@@ -112,15 +112,9 @@ const Components = ({
           if (!proteinCount) {
             return 0;
           }
-          if (
-            // Excluded not supported at the moment, need to wait for TRM-28011
-            proteomeType === 'Excluded'
-          ) {
-            return <LongNumber>{proteinCount}</LongNumber>;
-          }
-          // const shouldPointToUniParc =
-          //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
-          const shouldPointToUniParc = proteomeType === 'Redundant proteome';
+          const shouldPointToUniParc =
+            proteomeType === 'Redundant proteome' ||
+            proteomeType === 'Excluded';
           return (
             <Link
               to={{
@@ -162,10 +156,7 @@ const Components = ({
         density="compact"
         columns={columns}
         data={components}
-        onSelectionChange={
-          // Excluded not supported at the moment, need to wait for TRM-28011
-          proteomeType === 'Excluded' ? undefined : setSelectedItemFromEvent
-        }
+        onSelectionChange={setSelectedItemFromEvent}
         fixedLayout
       />
     </Card>
