@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
-import { useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import useNS from '../../hooks/useNS';
 
 import TaxonomyFacet from './TaxonomyFacet';
@@ -41,9 +41,10 @@ type Props = {
 
 const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const namespace = useNS(namespaceOverride);
-  const isUniProtKBResults = useRouteMatch(
+  const uniprotKBResultsRoute = useRouteMatch(
     LocationToPath[Location.UniProtKBResults]
   );
+  const { subPage } = useParams<{ subPage: string }>();
 
   const { data, isStale, loading, progress } = dataApiObject;
 
@@ -109,10 +110,12 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
             />
           )
       )}
-      {namespace && mainNamespaces.has(namespace) && (
-        <TaxonomyFacet namespace={namespace as SearchableNamespace} />
-      )}
-      {namespace === Namespace.uniprotkb && isUniProtKBResults && (
+      {namespace &&
+        mainNamespaces.has(namespace) &&
+        subPage !== 'publications' && (
+          <TaxonomyFacet namespace={namespace as SearchableNamespace} />
+        )}
+      {namespace === Namespace.uniprotkb && uniprotKBResultsRoute?.isExact && (
         <UniProtKBGroupByFacet />
       )}
       {after.map(

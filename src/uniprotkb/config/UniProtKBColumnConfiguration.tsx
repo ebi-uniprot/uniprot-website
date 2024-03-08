@@ -451,8 +451,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
     return (
       <Sequence
         sequence={sequenceData.sequence.value}
-        accession={data.primaryAccession}
-        showActionBar={false}
+        isCollapsible={sequenceData.sequence.length > 400}
       />
     );
   },
