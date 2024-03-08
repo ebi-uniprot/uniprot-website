@@ -4,7 +4,9 @@ import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
-import EntrySection from '../../types/entrySection';
+import EntrySection, {
+  entrySectionToCommunityAnnotationField,
+} from '../../types/entrySection';
 import ContactLink from '../../../contact/components/ContactLink';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -76,7 +78,6 @@ import { SearchResults } from '../../../shared/types/results';
 import {
   CitationsAPIModel,
   Reference,
-  SectionToCommunityAnnotationField,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
@@ -174,7 +175,7 @@ const Entry = () => {
   const communityCurationPayload = useDataApi<SearchResults<CitationsAPIModel>>(
     match?.params.accession &&
       uniprotkbApiUrls.publications.entryPublications({
-        accession: match?.params.accession,
+        accession: match.params.accession,
         selectedFacets: [
           {
             name: 'types',
@@ -185,13 +186,11 @@ const Entry = () => {
   );
 
   const communityReferences: (Reference | undefined)[] = useMemo(() => {
-    const filteredReferences = communityCurationPayload.data?.results.map(
-      (citation) =>
-        citation.references?.filter(
-          (reference) => reference.source?.name === 'ORCID'
-        )
+    const filteredReferences = communityCurationPayload.data?.results.flatMap(
+      ({ references }) =>
+        references?.filter((reference) => reference.source?.name === 'ORCID')
     );
-    return filteredReferences?.flat() || [];
+    return filteredReferences || [];
   }, [communityCurationPayload.data]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -236,14 +235,11 @@ const Entry = () => {
               !communityReferences.some((reference) => {
                 if (
                   reference?.communityAnnotation &&
-                  (nameAndId.id === EntrySection.Function ||
-                    nameAndId.id === EntrySection.NamesAndTaxonomy ||
-                    nameAndId.id === EntrySection.DiseaseVariants ||
-                    nameAndId.id === EntrySection.PhenotypesVariants)
+                  entrySectionToCommunityAnnotationField.has(nameAndId.id)
                 ) {
                   return (
-                    SectionToCommunityAnnotationField[nameAndId.id] in
-                    reference.communityAnnotation
+                    (entrySectionToCommunityAnnotationField.get(nameAndId.id) ||
+                      '') in reference.communityAnnotation
                   );
                 }
                 return false;

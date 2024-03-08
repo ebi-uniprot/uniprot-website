@@ -78,13 +78,6 @@ export interface CommunityAnnotation {
   disease?: string;
 }
 
-export enum SectionToCommunityAnnotationField {
-  function = 'function',
-  names_and_taxonomy = 'proteinOrGene',
-  disease_variants = 'disease',
-  phenotypes_variants = 'disease',
-}
-
 export type CitationsAPIModel = {
   statistics?: SetRequired<
     Statistics,
