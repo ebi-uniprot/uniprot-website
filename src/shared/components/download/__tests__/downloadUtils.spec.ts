@@ -954,4 +954,62 @@ describe('Download Utils', () => {
     expect(getExtraContent(state, props, location, job)).toEqual(null);
     expect(getRedirectToIDMapping(state, props, job)).toEqual(false);
   });
+
+  test('Entries with subsequence download from basket', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: ['P05067[96-110]', 'P05067'],
+      totalNumberResults: 3,
+      namespace: Namespace.uniprotkb,
+      notCustomisable: false,
+      inBasketMini: true,
+      accessionSubSequenceMap: new Map([
+        ['P05067[96-110]', 'P05067'],
+        ['P05067', 'P05067'],
+        ['A0JP26[1-581]', 'A0JP26'],
+      ]),
+      onClose: jest.fn(),
+    };
+    const location: HistoryLocation = {
+      pathname: '/uniprotkb/P05067/entry',
+      search: '',
+      hash: '',
+      key: '',
+      state: undefined,
+    };
+    const job: JobFromUrl = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+
+    expect(state).toEqual({
+      selectedColumns: defaultColumns,
+      fileFormatOptions: normalFileFormatOptions,
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'selected',
+      compressed: true,
+      disableForm: false,
+      extraContent: null,
+      nSelectedEntries: 2,
+      fullXref: false,
+    });
+    // Manually set state
+    state.selectedFileFormat = FileFormat.fastaCanonicalIsoform;
+    expect(getDownloadCount(state, props)).toEqual(1);
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      base: undefined,
+      compressed: true,
+      fileFormat: FileFormat.fastaCanonicalIsoform,
+      namespace: Namespace.uniprotkb,
+      selected: ['P05067'],
+      accessions: [],
+      selectedIdField: 'accession',
+    });
+    expect(getPreviewCount(state, props, location, job)).toEqual(1);
+  });
 });
