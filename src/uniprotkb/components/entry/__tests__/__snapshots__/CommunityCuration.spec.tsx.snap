@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Community annotatation should render the community annotation content 1`] = `
+<DocumentFragment>
+  <details
+    class="community-annotation-details"
+  >
+    <summary
+      class="header"
+    >
+      <span
+        class="button tertiary community-button"
+      >
+        <test-file-stub
+          width="1ch"
+        />
+        Community curation (1) 
+        <test-file-stub
+          classname="chevron-icon"
+          width="1ch"
+        />
+      </span>
+      <hr
+        class="separator"
+      />
+    </summary>
+    <section
+      class="hero-container content hero-container--side-padding"
+    >
+      <section
+        class="reference-card card"
+      >
+        <div
+          class="card__container"
+        >
+          <div
+            class="card__content"
+          >
+            <ul
+              class="info-list"
+            >
+              <li>
+                <div
+                  class="decorated-list-item"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Community suggested names
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    Epicuticlin
+                    <div
+                      class="contributor-details names-section"
+                    >
+                      <span>
+                        Source:  
+                        <a
+                          class="external-link"
+                          href="https://pubmed.ncbi.nlm.nih.gov/36301857"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          PMID - 36301857
+                          <test-file-stub
+                            data-testid="external-link-icon"
+                            width="12.5"
+                          />
+                        </a>
+                      </span>
+                      <span>
+                        Contributor:  
+                        <a
+                          class="external-link"
+                          href="https://orcid.org/0000-0001-6057-9374"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          <img
+                            alt=""
+                            height="15"
+                            src="test-file-stub"
+                            width="15"
+                          />
+                          0000-0001-6057-9374
+                          <test-file-stub
+                            data-testid="external-link-icon"
+                            width="12.5"
+                          />
+                        </a>
+                      </span>
+                      <a
+                        class="external-link"
+                        href="https://community.uniprot.org/cgi-bin/bbsub_query?accession=Q95PB5"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        View submission
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </section>
+  </details>
+</DocumentFragment>
+`;

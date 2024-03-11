@@ -9,11 +9,13 @@ import { IsoformsContext } from '../../../shared/contexts/Isoforms';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
   importedVariants: number | 'loading';
   hasGenomicCoordinates: boolean | 'loading';
+  communityReferences: Reference[];
   isoforms?: string[];
 };
 
@@ -21,6 +23,7 @@ const EntryMain = ({
   transformedData,
   importedVariants,
   hasGenomicCoordinates,
+  communityReferences,
   isoforms,
 }: EntryMainProps) => (
   <IsoformsContext.Provider value={isoforms}>
@@ -29,6 +32,7 @@ const EntryMain = ({
         <ErrorBoundary>
           {sectionContent(
             transformedData,
+            communityReferences,
             importedVariants,
             hasGenomicCoordinates
           )}
