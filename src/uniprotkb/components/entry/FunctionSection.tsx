@@ -238,7 +238,7 @@ type Props = {
   data: FunctionUIModel;
   sequence: string;
   primaryAccession: string;
-  communityReferences: (Reference | undefined)[];
+  communityReferences: Reference[];
 };
 
 const FunctionSection = ({
@@ -248,8 +248,8 @@ const FunctionSection = ({
   communityReferences,
 }: Props) => {
   const isSmallScreen = useSmallScreen();
-  const functionRelatedReferences = communityReferences?.filter(
-    (reference) => reference?.communityAnnotation?.function
+  const functionRelatedReferences = communityReferences.filter(
+    (reference) => reference.communityAnnotation?.function
   );
 
   if (!hasContent(data) && !functionRelatedReferences.length) {

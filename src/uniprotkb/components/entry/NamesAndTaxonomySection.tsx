@@ -31,7 +31,7 @@ import { Evidence } from '../../types/modelTypes';
 type Props = {
   data: NamesAndTaxonomyUIModel;
   primaryAccession: string;
-  communityReferences: (Reference | undefined)[];
+  communityReferences: Reference[];
   references?: UniProtKBReference[];
 };
 
@@ -82,8 +82,8 @@ const NamesAndTaxonomySection = ({
     [references]
   );
 
-  const nameRelatedReferences = communityReferences?.filter(
-    (reference) => reference?.communityAnnotation?.proteinOrGene
+  const nameRelatedReferences = communityReferences.filter(
+    (reference) => reference.communityAnnotation?.proteinOrGene
   );
 
   if (!hasContent(data) && !nameRelatedReferences.length) {

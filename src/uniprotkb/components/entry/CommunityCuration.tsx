@@ -27,7 +27,7 @@ const CommunityCuration = ({
 }: {
   accession: string;
   section: EntrySection;
-  communityReferences: (Reference | undefined)[];
+  communityReferences: Reference[];
 }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 

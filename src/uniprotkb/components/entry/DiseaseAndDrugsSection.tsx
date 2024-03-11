@@ -30,7 +30,7 @@ type Props = {
   sequence: string;
   taxId: number | undefined;
   importedVariants: number | 'loading';
-  communityReferences: (Reference | undefined)[];
+  communityReferences: Reference[];
 };
 
 const DiseaseAndDrugsSection = ({
@@ -41,8 +41,8 @@ const DiseaseAndDrugsSection = ({
   importedVariants,
   communityReferences,
 }: Props) => {
-  const diseaseRelatedReferences = communityReferences?.filter(
-    (reference) => reference?.communityAnnotation?.disease
+  const diseaseRelatedReferences = communityReferences.filter(
+    (reference) => reference.communityAnnotation?.disease
   );
 
   if (!hasContent(data) && !diseaseRelatedReferences.length) {

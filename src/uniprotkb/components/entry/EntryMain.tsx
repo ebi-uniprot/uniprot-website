@@ -15,7 +15,7 @@ type EntryMainProps = {
   transformedData: UniProtkbUIModel;
   importedVariants: number | 'loading';
   hasGenomicCoordinates: boolean | 'loading';
-  communityReferences: (Reference | undefined)[];
+  communityReferences: Reference[];
   isoforms?: string[];
 };
 

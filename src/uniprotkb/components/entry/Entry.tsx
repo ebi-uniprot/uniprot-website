@@ -185,12 +185,12 @@ const Entry = () => {
       })
   );
 
-  const communityReferences: (Reference | undefined)[] = useMemo(() => {
+  const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCurationPayload.data?.results.flatMap(
       ({ references }) =>
         references?.filter((reference) => reference.source?.name === 'ORCID')
     );
-    return filteredReferences || [];
+    return filteredReferences?.filter((r): r is Reference => Boolean(r)) || [];
   }, [communityCurationPayload.data]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();

@@ -20,7 +20,7 @@ const UniProtKBEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniProtkbUIModel,
-    communityReferences: (Reference | undefined)[],
+    communityReferences: Reference[],
     importedVariants: number | 'loading',
     hasGenomicCoordinates: boolean | 'loading'
   ) => JSX.Element;
