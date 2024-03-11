@@ -197,7 +197,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
           <SlidingPanel
             title="Download"
             // Meaning, in basket mini view, slide from the right
-            position={notCustomisable && inBasket ? 'right' : 'left'}
+            position={inBasketMini ? 'right' : 'left'}
             onClose={handleToggleDownload}
           >
             <ErrorBoundary>
