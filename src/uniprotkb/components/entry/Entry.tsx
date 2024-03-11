@@ -234,8 +234,8 @@ const Entry = () => {
               !hasContent(transformedData[nameAndId.id]) &&
               !communityReferences.some((reference) => {
                 if (
-                  reference?.communityAnnotation &&
-                  entrySectionToCommunityAnnotationField.has(nameAndId.id)
+                  reference.communityAnnotation &&
+                  !!entrySectionToCommunityAnnotationField.get(nameAndId.id)
                 ) {
                   return (
                     (entrySectionToCommunityAnnotationField.get(nameAndId.id) ||

@@ -45,10 +45,8 @@ const CommunityCuration = ({
           <hr className={styles.separator} />
         </summary>
         <HeroContainer className={styles.content}>
-          {communityReferences.map((reference) => {
-            if (reference) {
-              const { source, communityAnnotation, citationId } = reference;
-
+          {communityReferences.map(
+            ({ source, communityAnnotation, citationId }) => {
               const contributorElement = (
                 <div
                   className={cn(
@@ -133,8 +131,7 @@ const CommunityCuration = ({
                 </Card>
               );
             }
-            return null;
-          })}
+          )}
         </HeroContainer>
       </details>
     );
