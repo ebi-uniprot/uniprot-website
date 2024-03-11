@@ -100,7 +100,7 @@ export const getDownloadCount = (
   state: DownloadState,
   props: DownloadProps<JobTypes>
 ) => {
-  // Handle subsequences present in the basket
+  // Count will vary if there is subsequence in the basket
   if (props.accessionSubSequenceMap) {
     if (state.selectedFileFormat === FileFormat.fastaCanonical) {
       return state.downloadSelect === 'all'
@@ -186,9 +186,12 @@ export const getDownloadOptions = (
   job: JobFromUrl
 ) => {
   const [urlParams] = getParamsFromURL(location.search);
-  const hasSubSequence =
+
+  // Subsequence map is passed from the basket alone and subsequences are considered only in file format FASTA(Canonical)
+  const subSequenceCompatible =
     props.accessionSubSequenceMap &&
     state.selectedFileFormat !== FileFormat.fastaCanonical;
+
   // If query prop provided use this otherwise fallback to query from URL
   const query =
     state.downloadSelect === 'all'
@@ -224,12 +227,12 @@ export const getDownloadOptions = (
   const downloadOptions: DownloadUrlOptions = {
     fileFormat: state.selectedFileFormat,
     compressed: state.compressed,
-    selected: hasSubSequence
+    selected: subSequenceCompatible
       ? getAccessionFromSubSequenceMap(selected, props.accessionSubSequenceMap)
       : selected,
     selectedIdField,
     namespace: props.namespace,
-    accessions: hasSubSequence
+    accessions: subSequenceCompatible
       ? getAccessionFromSubSequenceMap(
           props.accessions,
           props.accessionSubSequenceMap
