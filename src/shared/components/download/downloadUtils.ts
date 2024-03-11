@@ -100,6 +100,7 @@ export const getDownloadCount = (
   state: DownloadState,
   props: DownloadProps<JobTypes>
 ) => {
+  // Handle subsequences present in the basket
   if (props.accessionSubSequenceMap) {
     if (state.selectedFileFormat === FileFormat.fastaCanonical) {
       return state.downloadSelect === 'all'
@@ -111,6 +112,7 @@ export const getDownloadCount = (
       props.accessionSubSequenceMap
     ).length;
   }
+
   return state.downloadSelect === 'all'
     ? props.totalNumberResults
     : state.nSelectedEntries || 0;
@@ -186,7 +188,7 @@ export const getDownloadOptions = (
   const [urlParams] = getParamsFromURL(location.search);
   const hasSubSequence =
     props.accessionSubSequenceMap &&
-    state.selectedFileFormat === FileFormat.fastaCanonical;
+    state.selectedFileFormat !== FileFormat.fastaCanonical;
   // If query prop provided use this otherwise fallback to query from URL
   const query =
     state.downloadSelect === 'all'
@@ -223,16 +225,16 @@ export const getDownloadOptions = (
     fileFormat: state.selectedFileFormat,
     compressed: state.compressed,
     selected: hasSubSequence
-      ? selected
-      : getAccessionFromSubSequenceMap(selected, props.accessionSubSequenceMap),
+      ? getAccessionFromSubSequenceMap(selected, props.accessionSubSequenceMap)
+      : selected,
     selectedIdField,
     namespace: props.namespace,
     accessions: hasSubSequence
-      ? props.accessions
-      : getAccessionFromSubSequenceMap(
+      ? getAccessionFromSubSequenceMap(
           props.accessions,
           props.accessionSubSequenceMap
-        ),
+        )
+      : props.accessions,
     base: downloadBase,
   };
 
