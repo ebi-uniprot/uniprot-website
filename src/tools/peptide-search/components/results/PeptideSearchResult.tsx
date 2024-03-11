@@ -109,13 +109,13 @@ const PeptideSearchResult = () => {
     error: jobResultError,
     status: jobResultStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}), {
-    headers: { accept: 'text/plain' },
+    headers: { Accept: 'text/plain' },
   });
 
   const { data: jobParameters } = useDataApi<PeptideSearchResults>(
     urls.detailsUrl?.(jobID),
     {
-      headers: { accept: 'text/plain' },
+      headers: { Accept: 'text/plain' },
     }
   );
 
