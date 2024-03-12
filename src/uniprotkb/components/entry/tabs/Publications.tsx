@@ -150,7 +150,7 @@ const PublicationReference = ({
                           ? processUrlTemplate(
                               databaseInfoMaps?.databaseToDatabaseInfo[
                                 source.name
-                              ].uriLink,
+                              ]?.uriLink,
                               { id: source.id }
                             )
                           : null

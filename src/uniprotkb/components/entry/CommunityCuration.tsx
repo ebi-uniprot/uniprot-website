@@ -72,7 +72,7 @@ const CommunityCuration = ({
                           url={processUrlTemplate(
                             databaseInfoMaps?.databaseToDatabaseInfo[
                               source.name
-                            ].uriLink,
+                            ]?.uriLink,
                             { id: source.id }
                           )}
                         >
