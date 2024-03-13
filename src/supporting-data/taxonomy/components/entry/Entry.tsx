@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { RouteChildrenProps, useHistory } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import { pick } from 'lodash-es';
+import { frame } from 'timing-functions';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
@@ -13,14 +14,23 @@ import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloa
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import useMessagesDispatch from '../../../../shared/hooks/useMessagesDispatch';
+
+import { addMessage } from '../../../../messages/state/messagesActions';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import { getEntryPath } from '../../../../app/config/urls';
 
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
+import {
+  MessageFormat,
+  MessageLevel,
+  MessageTag,
+} from '../../../../messages/types/messagesTypes';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
@@ -49,6 +59,8 @@ const lastColumns = [
 ];
 
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+  const dispatch = useMessagesDispatch();
+  const history = useHistory();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const accession = props.match?.params.accession;
@@ -65,6 +77,34 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       size: 5, // Match the "ExpandableList" default count
     })
   );
+
+  // Redirect to new entry when obsolete and merged into one
+  useEffect(() => {
+    if (mainData.redirectedTo) {
+      const split = new URL(mainData.redirectedTo).pathname.split('/');
+      const newEntry = split[split.length - 1];
+      dispatch(
+        addMessage({
+          id: 'accession-merge',
+          content: (
+            <>
+              {accession} has been merged into {newEntry}. You have
+              automatically been redirected.
+            </>
+          ),
+          format: MessageFormat.IN_PAGE,
+          level: MessageLevel.SUCCESS,
+          tag: MessageTag.REDIRECT,
+        })
+      );
+      frame().then(() =>
+        history.replace(getEntryPath(Namespace.taxonomy, newEntry))
+      );
+    }
+    // (I hope) I know what I'm doing here, I want to stick with whatever value
+    // match?.params.subPage had when the component was mounted.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, mainData.redirectedTo]);
 
   if (mainData.error || !accession || (!mainData.loading && !mainData.data)) {
     return <ErrorHandler status={mainData.status} />;

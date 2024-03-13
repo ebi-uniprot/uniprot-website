@@ -129,7 +129,7 @@ exports[`Entry basic should render main 1`] = `
     <main
       class="content"
     >
-      <h3>
+      <h1>
         <span
           class="entry-title"
         >
@@ -141,7 +141,7 @@ exports[`Entry basic should render main 1`] = `
           </span>
           P21802 · uniprot_id
         </span>
-      </h3>
+      </h1>
       <ul
         class="info-list info-list--columns"
       >

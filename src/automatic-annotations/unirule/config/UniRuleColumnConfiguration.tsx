@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';

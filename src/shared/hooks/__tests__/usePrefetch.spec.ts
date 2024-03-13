@@ -1,5 +1,4 @@
-import { getByTestId } from '@testing-library/react';
-import { renderHook } from '@testing-library/react';
+import { getByTestId, renderHook } from '@testing-library/react';
 
 import './__mocks__/relListSupportMock';
 

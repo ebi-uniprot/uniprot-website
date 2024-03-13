@@ -39,7 +39,8 @@
       & .dashboard__body__status {
         color: $colour-failure;
 
-        & .dashboard__body__notify_message {
+        & .dashboard__body__notify_message,
+        & .dashboard__body__contact_link {
           color: initial;
         }
       }
@@ -188,6 +189,10 @@
     }
 
     &__notify_message {
+      font-size: 75%;
+    }
+
+    &__contact_link {
       font-size: 75%;
     }
 

@@ -4,6 +4,8 @@ import { Loader } from 'franklin-sites';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
 
+import { IsoformsContext } from '../../../shared/contexts/Isoforms';
+
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
@@ -12,14 +14,16 @@ type EntryMainProps = {
   transformedData: UniProtkbUIModel;
   importedVariants: number | 'loading';
   hasGenomicCoordinates: boolean | 'loading';
+  isoforms?: string[];
 };
 
 const EntryMain = ({
   transformedData,
   importedVariants,
   hasGenomicCoordinates,
+  isoforms,
 }: EntryMainProps) => (
-  <>
+  <IsoformsContext.Provider value={isoforms}>
     {UniProtKBEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
         <ErrorBoundary>
@@ -32,7 +36,7 @@ const EntryMain = ({
       </Suspense>
     ))}
     <MedicalDisclaimer />
-  </>
+  </IsoformsContext.Provider>
 );
 
 export default EntryMain;

@@ -1,6 +1,6 @@
 import { groupBy } from 'lodash-es';
 
-import { ExonMap, FlatGenomicEntry, GenomicEntry } from './types';
+import { ExonMap, FlatGenomicEntry, GenomicEntry, GroupedExon } from './types';
 
 const sortIsoforms = (
   isoform1: { accession: string },
@@ -46,9 +46,7 @@ export type GroupedData = Record<
   Record<string, Array<FlatGenomicEntry>>
 >;
 
-export const groupCoordinates = (
-  genomicEntries: GenomicEntry[]
-): GroupedData => {
+export const groupByGene = (genomicEntries: GenomicEntry[]): GroupedData => {
   const flattenedAndSorted = Array.from(genomicEntries)
     .sort(sortIsoforms)
     .flatMap(
@@ -79,3 +77,46 @@ export const groupCoordinates = (
 
   return groupedByGeneAndIsoform;
 };
+
+export const groupByGenomicCoordinates = (
+  flatGenomicEntries: FlatGenomicEntry[]
+) =>
+  groupBy<GroupedExon>(
+    flatGenomicEntries
+      .map((entry) =>
+        entry.gnCoordinate.genomicLocation.exon.map((exon) => {
+          const groupedExon: GroupedExon = {
+            ...exon,
+            // Add accession info to each exon info before flattening
+            accession: entry.accession,
+            // Add transcript info to each exon info before flattening
+            transcriptID: entry.gnCoordinate.ensemblTranscriptId,
+            // Add translation info to each exon info before flattening
+            translationID: entry.gnCoordinate.ensemblTranslationId,
+            proteinSequence: exon.proteinLocation.position
+              ? entry.sequence.charAt(
+                  exon.proteinLocation.position.position - 1
+                )
+              : entry.sequence.slice(
+                  exon.proteinLocation.begin.position - 1,
+                  exon.proteinLocation.end.position - 1
+                ),
+            accessionWithCoordinates: `${entry.accession}[${
+              exon.proteinLocation.position
+                ? exon.proteinLocation.position.position
+                : `${exon.proteinLocation.begin.position}-${exon.proteinLocation.end.position}`
+            }]`,
+          };
+          return groupedExon;
+        })
+      )
+      .flat(2)
+      .sort(
+        sortExons(
+          flatGenomicEntries[0].gnCoordinate.genomicLocation.reverseStrand
+        )
+      ),
+    (data) =>
+      data.genomeLocation.position?.position ||
+      `${data.genomeLocation.begin?.position}-${data.genomeLocation.end?.position}`
+  );

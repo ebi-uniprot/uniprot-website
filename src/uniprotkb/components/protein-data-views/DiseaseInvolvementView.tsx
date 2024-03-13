@@ -130,9 +130,7 @@ const DiseaseVariants = ({
                 </td>
                 <td translate="yes">
                   <RichText>{description}</RichText>
-                  {variant.evidences && (
-                    <UniProtKBEvidenceTag evidences={variant.evidences} />
-                  )}
+                  <UniProtKBEvidenceTag evidences={variant.evidences} />
                 </td>
               </tr>
             </Fragment>
@@ -187,10 +185,6 @@ const DiseaseInvolvementEntry = ({
 
   const infoData = [];
 
-  const evidenceNodes = disease?.evidences && (
-    <UniProtKBEvidenceTag evidences={disease.evidences} />
-  );
-
   if (note?.texts) {
     const noteContent = (
       <ExpandableList descriptionString="notes">
@@ -198,9 +192,7 @@ const DiseaseInvolvementEntry = ({
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={index}>
             {text.value}
-            {text.evidences && (
-              <UniProtKBEvidenceTag evidences={text.evidences} />
-            )}
+            <UniProtKBEvidenceTag evidences={text.evidences} />
           </Fragment>
         ))}
       </ExpandableList>
@@ -262,7 +254,9 @@ const DiseaseInvolvementEntry = ({
           title
         )}
       </h4>
-      <span className="text-block">{evidenceNodes}</span>
+      <span className="text-block">
+        <UniProtKBEvidenceTag evidences={disease?.evidences} />
+      </span>
       <InfoList infoData={infoData} />
       {diseaseVariants && diseaseVariants.length ? (
         <>

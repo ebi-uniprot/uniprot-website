@@ -1,8 +1,8 @@
 /**
  * @jest-environment node
  */
-import { renderHook } from '@testing-library/react';
-import axios from 'axios';
+import axios, { AxiosHeaders } from 'axios';
+import { renderHook } from '@testing-library/react-hooks';
 import MockAdapter from 'axios-mock-adapter';
 
 import useDataApi from '../useDataApi';
@@ -42,6 +42,8 @@ describe('useDataApi hook', () => {
       url,
       data: 'some data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -107,6 +109,9 @@ describe('useDataApi hook', () => {
       loading: false,
       url,
       status: 400,
+      progress: undefined,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -123,6 +128,9 @@ describe('useDataApi hook', () => {
       loading: false,
       url,
       status: 404,
+      progress: undefined,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -155,6 +163,8 @@ describe('useDataApi hook', () => {
       url,
       data: 'some data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
 
     rerender({ url: url2 });
@@ -169,6 +179,8 @@ describe('useDataApi hook', () => {
       url: url2,
       data: 'some other data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -194,6 +206,8 @@ describe('useDataApi hook', () => {
       url: url2,
       data: 'some other data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -213,6 +227,8 @@ describe('useDataApi hook', () => {
       data: 'some data',
       status: 200,
       redirectedTo: url,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 });
@@ -236,6 +252,8 @@ describe('useDataApiWithStale hook', () => {
       url,
       data: 'some data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
 
     rerender({ url: url2 });
@@ -255,6 +273,8 @@ describe('useDataApiWithStale hook', () => {
       url: url2,
       data: 'some other data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 

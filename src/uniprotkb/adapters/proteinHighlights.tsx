@@ -162,8 +162,8 @@ const getProteinHighlights = ({
         entryHighlightSection,
         count || 0
       )}`;
-      // eslint-disable-next-line uniprot-website/use-config-location
       return (
+        // eslint-disable-next-line uniprot-website/use-config-location
         <Link to={to} key={name}>
           {name}
         </Link>

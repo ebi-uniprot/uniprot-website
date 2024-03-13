@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import { mapToLinks } from '../../../shared/components/MapTo';

@@ -1,4 +1,4 @@
-import Overview from '../components/entry/Overview';
+import Description from '../components/entry/Description';
 import Components from '../components/entry/Components';
 import Publications from '../components/entry/Publications';
 
@@ -11,8 +11,9 @@ const ProteomesEntryConfig: {
   sectionContent: (entryData: ProteomesUIModel) => JSX.Element | null;
 }[] = [
   {
-    id: EntrySection.Overview,
-    sectionContent: (data) => <Overview data={data} />,
+    id: EntrySection.Description,
+    sectionContent: (data) =>
+      data.description ? <Description>{data.description}</Description> : null,
   },
   {
     id: EntrySection.Components,

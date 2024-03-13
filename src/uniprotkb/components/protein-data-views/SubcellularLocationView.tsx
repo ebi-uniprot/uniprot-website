@@ -65,17 +65,11 @@ const SubcellularLocationView = ({ comments }: Props) => {
                         location.value
                       )}
                     </strong>{' '}
-                    {location.evidences && (
-                      <UniProtKBEvidenceTag evidences={location.evidences} />
-                    )}
+                    <UniProtKBEvidenceTag evidences={location.evidences} />
                     {topology && (
                       <>
                         {`; ${topology.value} `}
-                        {topology.evidences && (
-                          <UniProtKBEvidenceTag
-                            evidences={topology.evidences}
-                          />
-                        )}
+                        <UniProtKBEvidenceTag evidences={topology.evidences} />
                       </>
                     )}
                   </div>
