@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Facet /> should render facet with a lot of data 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="facet-name"
+    >
+      Proteins with
+    </div>
+    <ul
+      class="expandable-list no-bullet"
+    >
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3A3dstructure"
+        >
+          3D structure (1,858)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aact_site"
+        >
+          Active site (386,659)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aactivity_regulation"
+        >
+          Activity regulation (30,848)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aallergen"
+        >
+          Allergen (21)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aalternative_products"
+        >
+          Alternative products(isoforms) (1,066)
+        </a>
+      </li>
+      <li>
+        <button
+          class="button tertiary expandable-list__action"
+          data-testid="expandable-message"
+          type="button"
+        >
+          More items
+        </button>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Facet /> should render facet with a lot of data 2`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="facet-name"
+    >
+      Proteins with
+    </div>
+    <ul
+      class="expandable-list no-bullet"
+    >
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3A3dstructure"
+        >
+          3D structure (1,858)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aact_site"
+        >
+          Active site (386,659)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aactivity_regulation"
+        >
+          Activity regulation (30,848)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aallergen"
+        >
+          Allergen (21)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=proteins_with%3Aalternative_products"
+        >
+          Alternative products(isoforms) (1,066)
+        </a>
+      </li>
+      <li>
+        <button
+          class="button tertiary expandable-list__action"
+          data-testid="expandable-message"
+          type="button"
+        >
+          More items
+        </button>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Facet /> should render facet with few data 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="facet-name"
+    >
+      Status
+    </div>
+    <ul
+      class="expandable-list no-bullet"
+    >
+      <li>
+        <a
+          class=""
+          href="/?facets=reviewed%3Afalse"
+        >
+          Unreviewed (TrEMBL) (1,271,454)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=reviewed%3Atrue"
+        >
+          Reviewed (Swiss-Prot) (11,729)
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Facet /> should render facet with few data 2`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="facet-name"
+    >
+      Status
+    </div>
+    <ul
+      class="expandable-list no-bullet"
+    >
+      <li>
+        <a
+          class=""
+          href="/?facets=reviewed%3Afalse"
+        >
+          Unreviewed (TrEMBL) (1,271,454)
+        </a>
+      </li>
+      <li>
+        <a
+          class=""
+          href="/?facets=reviewed%3Atrue"
+        >
+          Reviewed (Swiss-Prot) (11,729)
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

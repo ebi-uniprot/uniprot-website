@@ -1,10 +1,9 @@
 /* eslint-disable class-methods-use-this, lines-between-class-members */
 import { screen, waitFor } from '@testing-library/react';
 
-// TODO: fix
-import renderWithRouter from '../../testHelpers/renderWithRouter';
-
 import InPageNav from '../InPageNav';
+
+import customRender from '../../__test-helpers__/customRender';
 
 describe('InPageNav component', () => {
   beforeAll(() => {
@@ -43,12 +42,12 @@ describe('InPageNav component', () => {
   ];
 
   it('should render', () => {
-    const { asFragment } = renderWithRouter(<InPageNav sections={sections} />);
+    const { asFragment } = customRender(<InPageNav sections={sections} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should scroll the default target element into view', async () => {
-    renderWithRouter(
+    customRender(
       <div>
         <InPageNav sections={sections} />
         <div id="id3" data-testid="target" />
@@ -61,7 +60,7 @@ describe('InPageNav component', () => {
   });
 
   it('should scroll the target element into view after hash change', async () => {
-    const { history } = renderWithRouter(
+    const { history } = customRender(
       <div>
         <InPageNav sections={sections} />
         <div id="id3" data-testid="target" />
@@ -77,7 +76,7 @@ describe('InPageNav component', () => {
   });
 
   it('should scroll to top of rootElement after hash removed', async () => {
-    const { history } = renderWithRouter(
+    const { history } = customRender(
       <div>
         <InPageNav sections={sections} rootElement={document.body} />
         <div id="id3" data-testid="target" />
