@@ -43,7 +43,8 @@ const UniProtData = () => (
         />
       }
       backgroundColor={colors.independence}
-      url={ftpUrls.uniprot}
+      // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-has-content
+      link={<a href={ftpUrls.uniprot} />}
       gradient
     >
       Download UniProt release data
