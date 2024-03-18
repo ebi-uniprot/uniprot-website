@@ -1,6 +1,7 @@
 /**
  * @jest-environment node
  */
+import { ReactNode } from 'react';
 import axios, { AxiosHeaders } from 'axios';
 import { renderHook } from '@testing-library/react-hooks';
 import MockAdapter from 'axios-mock-adapter';
@@ -82,7 +83,7 @@ describe('useDataApi hook', () => {
     mock.onGet(url).reply(400, { messages: [message] });
     const mockDispatch = jest.fn();
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: { children: ReactNode }) => (
         <MessagesDispatchContext.Provider value={mockDispatch}>
           {children}
         </MessagesDispatchContext.Provider>
