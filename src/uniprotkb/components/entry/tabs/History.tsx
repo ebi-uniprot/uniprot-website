@@ -245,6 +245,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
 const getIdKey = (entry: UniSaveVersionWithEvents) => `${entry.entryVersion}`;
 
 const EntryHistoryList = ({ accession }: { accession: string }) => {
+  const location = useLocation();
   const accessionData = useDataApi<UniSaveAccession>(
     apiUrls.unisave.entry(accession)
   );
@@ -362,6 +363,7 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
             // Meaning, in basket mini view, slide from the right
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
+            pathname={location.pathname}
           >
             <ErrorBoundary>
               <DownloadComponent
