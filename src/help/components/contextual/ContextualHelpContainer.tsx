@@ -91,6 +91,7 @@ type Props = {
 const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
   const [articleId, hash] = (articlePath || '').split('#');
   const globalHistory = useHistory();
+  const { pathname } = useLocation();
   const localHistoryRef = useRef(createMemoryHistory());
 
   useEffect(() => {
@@ -115,6 +116,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
       className={styles['contextual-help-panel']}
       size="small"
       position="right"
+      pathname={pathname}
     >
       <ErrorBoundary>
         <Router history={localHistoryRef.current}>

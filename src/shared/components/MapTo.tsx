@@ -297,7 +297,7 @@ export const mapToLinks = (
 ) => {
   const fieldName = namespaceToUniProtKBFieldMap.get(namespace);
   if (!(accession && statistics && fieldName)) {
-    return null;
+    return [];
   }
   const enrichedStatistics = enrichStatistics(
     statistics,
