@@ -116,17 +116,17 @@ const NamesAndTaxonomySection = ({
           ))}
         </>
       )}
-      <CommunityCuration
-        accession={primaryAccession}
-        section={EntrySection.NamesAndTaxonomy}
-        communityReferences={nameRelatedReferences}
-      />
       {data.geneNamesData && (
         <>
           <h3 data-article-id="gene_name">Gene names</h3>
           <GeneNamesView geneNamesData={data.geneNamesData} />
         </>
       )}
+      <CommunityCuration
+        accession={primaryAccession}
+        section={EntrySection.NamesAndTaxonomy}
+        communityReferences={nameRelatedReferences}
+      />
       {data.geneLocations?.length && (
         <>
           <h3 data-article-id="encoded_on">Encoded on</h3>
