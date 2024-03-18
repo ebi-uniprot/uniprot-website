@@ -8,7 +8,7 @@ import {
   ChangeEvent,
   useCallback,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import {
   DownloadIcon,
   // StatisticsIcon,
@@ -111,6 +111,7 @@ const ResultsButtons: FC<
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
     useColumnNames({ namespaceOverride });
   const history = useHistory();
+  const { pathname } = useLocation();
   const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
@@ -206,6 +207,7 @@ const ResultsButtons: FC<
             // Meaning, in basket mini view, slide from the right
             position={notCustomisable && inBasket ? 'right' : 'left'}
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <DownloadComponent
