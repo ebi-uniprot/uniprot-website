@@ -127,7 +127,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(updateCompressed(e.target.value === 'true'));
 
-  const handleDisableForm = useCallback((disableForm) => {
+  const handleDisableForm = useCallback((disableForm: boolean) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
 
