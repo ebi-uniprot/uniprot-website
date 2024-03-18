@@ -28,7 +28,7 @@ const interestingTerms = /taxonomy|organism/;
 const TaxonomyFacet: FC<
   React.PropsWithChildren<{ namespace: SearchableNamespace }>
 > = ({ namespace }) => {
-  const { search } = useLocation();
+  const { pathname, search } = useLocation();
   const { jobId } = useJobFromUrl();
 
   const parsedSearch = new URLSearchParams(search);
@@ -87,6 +87,7 @@ const TaxonomyFacet: FC<
             title="Advanced Search"
             position="left"
             onClose={handleClose}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <QueryBuilder
