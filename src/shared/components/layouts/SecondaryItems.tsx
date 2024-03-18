@@ -170,6 +170,7 @@ const ToolsDashboard = () => {
 
 const Basket = () => {
   const [basket] = useBasket();
+  const { pathname } = useLocation();
 
   const [display, setDisplay] = useState(false);
   const close = useCallback((reason: PanelCloseReason) => {
@@ -250,6 +251,7 @@ const Basket = () => {
           onClose={close}
           arrowX={buttonX}
           className={styles['basket-panel']}
+          pathname={pathname}
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
