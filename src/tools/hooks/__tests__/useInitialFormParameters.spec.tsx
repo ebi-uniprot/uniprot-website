@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+import { waitFor } from '@testing-library/react';
 import getCustomRenderHook from '../../../shared/__test-helpers__/customRenderHook';
 
 import useInitialFormParameters from '../useInitialFormParameters';
@@ -40,7 +41,7 @@ describe('useInitialFormParameters: Align', () => {
     const sequence = 'ABCDEF';
     const axiosMock = new MockAdapter(axios);
     axiosMock.onGet(/\/uniprotkb\/accessions/).reply(200, accessionsData);
-    const { result, waitForNextUpdate } = customRenderHook(
+    const { result } = customRenderHook(
       stringifyUrl(LocationToPath[Location.Blast], {
         ids: 'P05067[1-10]',
       }),
@@ -48,12 +49,13 @@ describe('useInitialFormParameters: Align', () => {
         parameters: { sequence },
       }
     );
-    await waitForNextUpdate();
-    expect(result.current.initialFormValues).toEqual({
-      ...defaultAlignFormValues,
-      Sequence: { fieldName: 'sequence', selected: '>\nMLPGLALLLL' },
+    waitFor(() => {
+      expect(result.current.initialFormValues).toEqual({
+        ...defaultAlignFormValues,
+        Sequence: { fieldName: 'sequence', selected: '>\nMLPGLALLLL' },
+      });
+      expect(result.current.loading).toBe(false);
     });
-    expect(result.current.loading).toBe(false);
   });
 });
 
