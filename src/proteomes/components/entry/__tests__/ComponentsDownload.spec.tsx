@@ -29,10 +29,11 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
         query={query}
         onClose={onCloseMock}
         proteomeStatistics={proteomeStatistics}
-        proteomeType="Reference and representative proteome"
+        totalNumberResults={82485}
         numberSelectedEntries={0}
         // selectedEntries={[]}
         selectedQuery="(proteome:UP000005640)"
+        isUniparcSearch={false}
       />,
       {
         route: '/proteomes/UP000005640',
@@ -79,5 +80,37 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     fireEvent.click(screen.getByRole('checkbox'));
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
+  });
+});
+
+describe('Download proteins for a redundant proteome', () => {
+  it('should point to uniparc search', async () => {
+    const onCloseMock = jest.fn();
+    const query = '(proteome:UP000006503)';
+    const proteomeStatistics = {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 0,
+      isoformProteinCount: 0,
+    };
+
+    customRender(
+      <ComponentsDownload
+        query={query}
+        onClose={onCloseMock}
+        proteomeStatistics={proteomeStatistics}
+        totalNumberResults={5841}
+        numberSelectedEntries={0}
+        selectedQuery="(proteome:UP000006503)"
+        isUniparcSearch
+      />,
+      {
+        route: '/proteomes/UP000006503',
+      }
+    );
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toContain('uniparc');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
+    );
   });
 });
