@@ -94,7 +94,7 @@
   },
   "dependencies": {
     "@hello-pangea/dnd": "16.5.0",
-    "@nightingale-elements/nightingale-msa": "4.5.1",
+    "@nightingale-elements/nightingale-msa": "4.5.2",
     "@sentry/react": "7.27.0",
     "@sentry/tracing": "7.27.0",
     "@sentry/types": "7.27.0",

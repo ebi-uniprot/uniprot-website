@@ -1763,10 +1763,10 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@nightingale-elements/nightingale-msa@4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-msa/-/nightingale-msa-4.5.1.tgz#0a9971c7eb4f5f8c4a298627dcc7ae0c89c1ecb4"
-  integrity sha512-h3PYq+oVWMv46lhtTWHbGm5kBzJUZZ90cH4vQsz8Yv+c5P22km8yEnxPUoaNXa6pBFysacuFXTyczhv6hp/fsw==
+"@nightingale-elements/nightingale-msa@4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-msa/-/nightingale-msa-4.5.2.tgz#5f2df865a3628ff290d22e9ebed06d672c6dffc7"
+  integrity sha512-1eQn0zvKfehwMADGIfRE0rurwXOqTA5mMIWrfm6yb6556LbZv3N+RXI4ytb3G6TzFu/6+0Ut6K5gcz30FLtA5Q==
   dependencies:
     "@nightingale-elements/nightingale-new-core" "^4.5.0"
     d3 "7.8.5"
