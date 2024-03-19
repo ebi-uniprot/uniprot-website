@@ -48,7 +48,7 @@ import {
   isAsyncDownloadIdMapping,
   showColumnSelect,
   filterFullXrefColumns,
-  getAccessionFromSubSequenceMap,
+  getCountForCustomisableSet,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -240,22 +240,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
       break;
   }
 
-  let total = totalNumberResults;
-  let selectedCount = state.nSelectedEntries;
-  if (props.accessionSubSequenceMap) {
-    if (state.selectedFileFormat !== FileFormat.fastaCanonical) {
-      total = getAccessionFromSubSequenceMap(
-        props.accessions,
-        props.accessionSubSequenceMap
-      ).length;
-      selectedCount = props.selectedEntries?.length
-        ? getAccessionFromSubSequenceMap(
-            props.selectedEntries,
-            props.accessionSubSequenceMap
-          ).length
-        : 0;
-    }
-  }
+  const { totalCount: totalCountForCustomisableSet, selectedCount } =
+    getCountForCustomisableSet(state, props, totalNumberResults);
 
   return (
     <>
@@ -291,7 +277,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
               onChange={handleDownloadAllChange}
               disabled={redirectToIDMapping || state.disableForm}
             />
-            Download all (<LongNumber>{total}</LongNumber>)
+            Download all (
+            <LongNumber>{totalCountForCustomisableSet}</LongNumber>)
           </label>
         </>
       )}

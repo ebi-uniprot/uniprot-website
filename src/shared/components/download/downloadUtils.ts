@@ -96,6 +96,34 @@ export const getPreviewFileFormat = (
   return state.selectedFileFormat;
 };
 
+export const getCountForCustomisableSet = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  totalNumberResults: number
+) => {
+  let totalCount = totalNumberResults;
+  let selectedCount = state.nSelectedEntries;
+  if (props.accessionSubSequenceMap) {
+    // Basket view
+    if (state.selectedFileFormat !== FileFormat.fastaCanonical) {
+      totalCount = getAccessionFromSubSequenceMap(
+        props.accessions,
+        props.accessionSubSequenceMap
+      ).length;
+      selectedCount = props.selectedEntries?.length
+        ? getAccessionFromSubSequenceMap(
+            props.selectedEntries,
+            props.accessionSubSequenceMap
+          ).length
+        : 0;
+    }
+  }
+  return {
+    totalCount,
+    selectedCount,
+  };
+};
+
 export const getDownloadCount = (
   state: DownloadState,
   props: DownloadProps<JobTypes>
