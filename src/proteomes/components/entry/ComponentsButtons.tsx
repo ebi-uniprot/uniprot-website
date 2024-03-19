@@ -32,7 +32,7 @@ const ComponentsDownloadComponent = lazy(
 
 type Props = Pick<
   ProteomesAPIModel,
-  'id' | 'components' | 'proteomeType' | 'proteomeStatistics'
+  'id' | 'proteinCount' | 'components' | 'proteomeType' | 'proteomeStatistics'
 > & {
   selectedEntries: string[];
 };
@@ -41,6 +41,7 @@ const fetchOptions = { method: 'HEAD' };
 
 const ComponentsButtons = ({
   id,
+  proteinCount,
   components,
   selectedEntries,
   proteomeType,
@@ -116,6 +117,7 @@ const ComponentsButtons = ({
                 query={allQuery}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
+                totalNumberResults={proteinCount}
                 numberSelectedEntries={numberSelectedProteins}
                 onClose={handleToggleDownload}
                 proteomeStatistics={proteomeStatistics}

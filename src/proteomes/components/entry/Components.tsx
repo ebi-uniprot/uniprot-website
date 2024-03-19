@@ -32,12 +32,18 @@ const getIdKey = ({ name }: Component) => name;
 
 type ComponentsProps = Pick<
   ProteomesAPIModel,
-  'components' | 'id' | 'proteomeType' | 'taxonomy' | 'proteomeStatistics'
+  | 'components'
+  | 'id'
+  | 'proteinCount'
+  | 'proteomeType'
+  | 'taxonomy'
+  | 'proteomeStatistics'
 >;
 
 const Components = ({
   components,
   id,
+  proteinCount,
   proteomeType,
   taxonomy,
   proteomeStatistics,
@@ -148,6 +154,7 @@ const Components = ({
         components={components}
         selectedEntries={selectedEntries}
         id={id}
+        proteinCount={proteinCount}
         proteomeType={proteomeType}
         proteomeStatistics={proteomeStatistics}
       />

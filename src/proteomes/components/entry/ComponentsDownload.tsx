@@ -34,6 +34,7 @@ type DownloadProps = {
   query: string;
   selectedEntries?: string[];
   selectedQuery: string;
+  totalNumberResults: number;
   numberSelectedEntries: number;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
@@ -51,16 +52,13 @@ const ComponentsDownload = ({
   query,
   selectedQuery,
   selectedEntries = [],
+  totalNumberResults,
   numberSelectedEntries,
   onClose,
   proteomeStatistics,
   isUniparcSearch,
 }: DownloadProps) => {
   const namespace = isUniparcSearch ? Namespace.uniparc : Namespace.uniprotkb;
-
-  const totalNumberResults =
-    proteomeStatistics.reviewedProteinCount +
-    proteomeStatistics.unreviewedProteinCount;
 
   const { columnNames } = useColumnNames({ namespaceOverride: namespace });
 
@@ -198,13 +196,12 @@ const ComponentsDownload = ({
           onChange={handleDownloadAllChange}
           disabled={nSelectedEntries === 0}
         />
-        Download selected{' '}
+        Download selected{' ('}
+        <LongNumber>{nSelectedEntries}</LongNumber>
         {!isUniparcSearch && (
-          <>
-            <LongNumber>{nSelectedEntries}</LongNumber>
-            {includeIsoform && nSelectedEntries ? ' + isoforms' : ''}
-          </>
+          <>{includeIsoform && nSelectedEntries ? ' + isoforms' : ''}</>
         )}
+        )
       </label>
       {isUniparcSearch ? (
         <label htmlFor="data-selection-all">
@@ -216,7 +213,7 @@ const ComponentsDownload = ({
             checked={downloadSelect === 'all'}
             onChange={handleDownloadAllChange}
           />
-          Download all
+          Download all (<LongNumber>{totalNumberResults}</LongNumber>)
         </label>
       ) : (
         <>

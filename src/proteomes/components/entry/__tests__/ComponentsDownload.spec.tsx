@@ -29,6 +29,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
         query={query}
         onClose={onCloseMock}
         proteomeStatistics={proteomeStatistics}
+        totalNumberResults={82485}
         numberSelectedEntries={0}
         // selectedEntries={[]}
         selectedQuery="(proteome:UP000005640)"
@@ -97,6 +98,7 @@ describe('Download proteins for a redundant proteome', () => {
         query={query}
         onClose={onCloseMock}
         proteomeStatistics={proteomeStatistics}
+        totalNumberResults={5841}
         numberSelectedEntries={0}
         selectedQuery="(proteome:UP000006503)"
         isUniparcSearch
