@@ -18,6 +18,7 @@ import {
   getRedirectToIDMapping,
   hasColumns,
   isSubsequenceFrom,
+  getCountForCustomisableSet,
 } from '../downloadUtils';
 
 import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
@@ -958,6 +959,7 @@ describe('Download Utils', () => {
   test('Entries with subsequence download from basket', () => {
     const props: DownloadProps<JobTypes> = {
       selectedEntries: ['P05067[96-110]', 'P05067'],
+      accessions: ['P05067[96-110]', 'P05067', 'A0JP26[1-581]'],
       totalNumberResults: 3,
       namespace: Namespace.uniprotkb,
       notCustomisable: false,
@@ -998,8 +1000,16 @@ describe('Download Utils', () => {
       nSelectedEntries: 2,
       fullXref: false,
     });
+    expect(getCountForCustomisableSet(state, props, 3)).toEqual({
+      totalCount: 3,
+      selectedCount: 2,
+    });
     // Manually set state
     state.selectedFileFormat = FileFormat.fastaCanonicalIsoform;
+    expect(getCountForCustomisableSet(state, props, 3)).toEqual({
+      totalCount: 2,
+      selectedCount: 1,
+    });
     expect(getDownloadCount(state, props)).toEqual(1);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
       base: undefined,
@@ -1007,7 +1017,7 @@ describe('Download Utils', () => {
       fileFormat: FileFormat.fastaCanonicalIsoform,
       namespace: Namespace.uniprotkb,
       selected: ['P05067'],
-      accessions: [],
+      accessions: ['P05067', 'A0JP26'],
       selectedIdField: 'accession',
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(1);
