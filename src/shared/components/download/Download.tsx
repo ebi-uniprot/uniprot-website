@@ -241,7 +241,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   }
 
   const { totalCount: totalCountForCustomisableSet, selectedCount } =
-    getCountForCustomisableSet(state, props, totalNumberResults);
+    getCountForCustomisableSet(state, props);
 
   return (
     <>

@@ -98,10 +98,9 @@ export const getPreviewFileFormat = (
 
 export const getCountForCustomisableSet = (
   state: DownloadState,
-  props: DownloadProps<JobTypes>,
-  totalNumberResults: number
+  props: DownloadProps<JobTypes>
 ) => {
-  let totalCount = totalNumberResults;
+  let totalCount = props.totalNumberResults;
   let selectedCount = state.nSelectedEntries;
   if (props.accessionSubSequenceMap) {
     // Basket view

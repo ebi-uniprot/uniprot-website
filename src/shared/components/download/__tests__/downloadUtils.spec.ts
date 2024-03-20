@@ -1000,13 +1000,13 @@ describe('Download Utils', () => {
       nSelectedEntries: 2,
       fullXref: false,
     });
-    expect(getCountForCustomisableSet(state, props, 3)).toEqual({
+    expect(getCountForCustomisableSet(state, props)).toEqual({
       totalCount: 3,
       selectedCount: 2,
     });
     // Manually set state
     state.selectedFileFormat = FileFormat.fastaCanonicalIsoform;
-    expect(getCountForCustomisableSet(state, props, 3)).toEqual({
+    expect(getCountForCustomisableSet(state, props)).toEqual({
       totalCount: 2,
       selectedCount: 1,
     });
