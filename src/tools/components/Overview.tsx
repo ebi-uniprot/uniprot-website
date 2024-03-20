@@ -4,6 +4,7 @@ import { Loader } from 'franklin-sites';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
+import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
@@ -97,14 +98,14 @@ const AlignOverview = ({
     };
   }, [updateTooltip]);
 
-  const msaElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
-      ),
-    'nightingale-msa'
-  );
+  // const msaElement = useCustomElement(
+  //   /* istanbul ignore next */
+  //   () =>
+  //     import(
+  //       /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
+  //     ),
+  //   'nightingale-msa'
+  // );
 
   const setMSAAttributes = useCallback(
     (node: {
@@ -113,7 +114,7 @@ const AlignOverview = ({
       getSingleBaseWidth: () => number;
       data: { name: string | undefined; sequence: string }[];
     }): void => {
-      if (!(node && msaElement.defined)) {
+      if (!node) {
         return;
       }
 
@@ -134,7 +135,6 @@ const AlignOverview = ({
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
     [
-      msaElement.defined,
       selectedMSAFeatures,
       alignmentLength,
       alignment,
@@ -163,10 +163,7 @@ const AlignOverview = ({
     'protvista-manager'
   );
   const ceDefined =
-    trackElement.defined &&
-    navigationElement.defined &&
-    msaElement.defined &&
-    managerElement.defined;
+    trackElement.defined && navigationElement.defined && managerElement.defined;
 
   const setFeatureTrackData = useCallback(
     (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
@@ -189,6 +186,16 @@ const AlignOverview = ({
     () => (alignment ? getFullAlignmentSegments(alignment) : []),
     [alignment]
   );
+
+  const singleBaseWidth = 15;
+  const displayEndValue = alignmentLength / (15 / singleBaseWidth);
+
+  // const maxSequenceLength = Math.max(
+  //   ...alignment.map((al) => al.sequence.length)
+  // );
+  // if (typeof displayEnd === 'undefined') {
+  //   setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
+  // }
 
   if (!ceDefined) {
     return <Loader />;
@@ -250,12 +257,32 @@ const AlignOverview = ({
           attributes="displaystart displayend"
         >
           <navigationElement.name length={alignmentLength} />
-          <msaElement.name
-            ref={setMSAAttributes}
+          {/* 
+             node.features = selectedMSAFeatures;
+      node.onFeatureClick = onMSAFeatureClick;
+
+      const singleBaseWidth =
+        'getSingleBaseWidth' in node ? node.getSingleBaseWidth() : 15;
+      const displayEndValue = alignmentLength / (15 / singleBaseWidth);
+
+      const maxSequenceLength = Math.max(
+        ...alignment.map((al) => al.sequence.length)
+      );
+      if (typeof displayEnd === 'undefined') {
+        setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
+      }
+
+      node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
+       */}
+          <NightingaleMSA
+            // ref={setMSAAttributes}
             length={alignmentLength}
             height={alignment.length * sequenceHeight}
             colorscheme={highlightProperty}
             hidelabel
+            features={selectedMSAFeatures}
+            onFeatureClick={onMSAFeatureClick}
+            data={alignment.map(({ name, sequence }) => ({ name, sequence }))}
             {...conservationOptions}
           />
         </managerElement.name>

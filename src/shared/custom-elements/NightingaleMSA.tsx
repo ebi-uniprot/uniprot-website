@@ -7,8 +7,7 @@ export const NightingaleMSAComponent = createComponent({
   elementClass: NightingaleMSA,
   react: React,
   events: {
-    onFeatureClick: 'featureclick',
-    onchange: 'change',
+    onFeatureClick: 'onFeatureClick',
   },
 });
 
