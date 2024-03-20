@@ -94,10 +94,10 @@ const BasketFullView = () => {
   }
 
   let total: undefined | number = accessions.length;
-  if (facetTotal !== undefined) {
+  if (facetTotal !== undefined && !subsetsMap) {
     total = +facetTotal;
   }
-  if (resultsDataTotal !== undefined) {
+  if (resultsDataTotal !== undefined && !subsetsMap) {
     total = +resultsDataTotal;
   }
 
