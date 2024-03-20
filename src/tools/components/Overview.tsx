@@ -10,6 +10,7 @@ import {
   getFullAlignmentSegments,
   getEndCoordinate,
   createGappedFeature,
+  MSAFeature,
 } from '../utils/sequences';
 import { handleEvent } from './Wrapped';
 
@@ -106,7 +107,12 @@ const AlignOverview = ({
   );
 
   const setMSAAttributes = useCallback(
-    (node): void => {
+    (node: {
+      features: MSAFeature[] | undefined;
+      onFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
+      getSingleBaseWidth: () => number;
+      data: { name: string | undefined; sequence: string }[];
+    }): void => {
       if (!(node && msaElement.defined)) {
         return;
       }
@@ -163,7 +169,7 @@ const AlignOverview = ({
     managerElement.defined;
 
   const setFeatureTrackData = useCallback(
-    (node): void => {
+    (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
       if (node && ceDefined && activeAnnotation && activeAlignment?.sequence) {
         node.data = activeAnnotation
           // The Overview feature track always starts from the start of the protein

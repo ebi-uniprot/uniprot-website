@@ -218,7 +218,7 @@ const AlignmentView = ({
   }, []);
 
   const tooltipCloseCallback = useCallback(
-    (e) => {
+    (e: Event) => {
       // If click is inside of the tooltip, don't do anything
       if (tooltipRef.current.contains(e.target)) {
         return;

@@ -10,6 +10,8 @@ import {
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
 
+import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
+
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
@@ -107,17 +109,17 @@ export const WrappedRow = ({
   selectedMSAFeatures,
   onMSAFeatureClick,
 }: WrappedRowProps) => {
-  const msaElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
-      ),
-    'nightingale-msa'
-  );
+  // const msaElement = useCustomElement(
+  //   /* istanbul ignore next */
+  //   () =>
+  //     import(
+  //       /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
+  //     ),
+  //   'nightingale-msa'
+  // );
   const setMSAAttributes = useCallback(
     (node): void => {
-      if (node && msaElement.defined) {
+      if (node) {
         // Just pick the sequence from the object as it's the only thing needed
         requestAnimationFrame(() => {
           node.data = sequences.map(({ sequence, name }) => ({
@@ -135,13 +137,7 @@ export const WrappedRow = ({
         });
       }
     },
-    [
-      msaElement.defined,
-      onMSAFeatureClick,
-      selectedMSAFeatures,
-      sequences,
-      trackStart,
-    ]
+    [onMSAFeatureClick, selectedMSAFeatures, sequences, trackStart]
   );
 
   const trackElement = useCustomElement(
@@ -170,7 +166,7 @@ export const WrappedRow = ({
     // -> to keep the right column of the right size to fit all possible values
     [activeAlignment, activeAnnotation, trackElement.defined]
   );
-  if (!(msaElement.defined && trackElement.defined)) {
+  if (!trackElement.defined) {
     return <Loader />;
   }
   return (
@@ -196,7 +192,7 @@ export const WrappedRow = ({
       </div>
       <div className="track">
         {!delayRender && (
-          <msaElement.name
+          <NightingaleMSA
             ref={setMSAAttributes}
             length={rowLength}
             height={sequences.length * sequenceHeight}
