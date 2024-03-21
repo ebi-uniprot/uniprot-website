@@ -32,6 +32,7 @@ import {
   ConservationOptions,
   MSAInput,
   NightingaleChangeEvent,
+  OnMSAFeatureClick,
   UpdateTooltip,
 } from '../types/alignment';
 
@@ -77,7 +78,7 @@ export type WrappedRowProps = {
   selectedMSAFeatures?: MSAFeature[];
   activeAnnotation: ProcessedFeature[];
   activeAlignment?: MSAInput;
-  onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
+  onMSAFeatureClick: OnMSAFeatureClick;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -87,9 +88,9 @@ const heightStyle = { height: `${sequenceHeight}px` };
 export const handleEvent =
   (updateTooltip: UpdateTooltip) =>
   (event: CustomEvent<NightingaleChangeEvent>) => {
+    event.stopPropagation();
     if (event?.detail?.eventtype === 'click') {
       updateTooltip({
-        event,
         id: event.detail.feature.protvistaFeatureId,
         x: event.detail.coords[0],
         y: event.detail.coords[1],
