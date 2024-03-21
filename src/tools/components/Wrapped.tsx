@@ -122,7 +122,7 @@ export const WrappedRow = ({
   );
 
   const setFeatureTrackData = useCallback(
-    (node): void => {
+    (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
       if (node && trackElement.defined && activeAlignment?.sequence) {
         node.data = activeAnnotation
           .map((f) =>
