@@ -36,7 +36,7 @@ import {
   UpdateTooltip,
 } from '../types/alignment';
 
-const widthOfAA = 20;
+const widthOfAA = 18;
 
 export type Sequence = {
   name: string;
@@ -117,28 +117,6 @@ export const WrappedRow = ({
   //     ),
   //   'nightingale-msa'
   // );
-  const setMSAAttributes = useCallback(
-    (node): void => {
-      if (node) {
-        // Just pick the sequence from the object as it's the only thing needed
-        requestAnimationFrame(() => {
-          node.data = sequences.map(({ sequence, name }) => ({
-            sequence,
-            name,
-          }));
-          node.features = selectedMSAFeatures?.map((f) => ({
-            ...f,
-            residues: {
-              from: f.residues.from - trackStart + 1,
-              to: f.residues.to - trackStart + 1,
-            },
-          }));
-          node.onFeatureClick = onMSAFeatureClick;
-        });
-      }
-    },
-    [onMSAFeatureClick, selectedMSAFeatures, sequences, trackStart]
-  );
 
   const trackElement = useCustomElement(
     /* istanbul ignore next */
@@ -193,10 +171,24 @@ export const WrappedRow = ({
       <div className="track">
         {!delayRender && (
           <NightingaleMSA
-            ref={setMSAAttributes}
             length={rowLength}
             height={sequences.length * sequenceHeight}
+            width={rowLength * widthOfAA}
+            tile-width={widthOfAA}
+            // tile-height={15}
             color-scheme={highlightProperty}
+            features={selectedMSAFeatures?.map((f) => ({
+              ...f,
+              residues: {
+                from: f.residues.from - trackStart + 1,
+                to: f.residues.to - trackStart + 1,
+              },
+            }))}
+            data={sequences.map(({ sequence, name }) => ({
+              sequence,
+              name,
+            }))}
+            onFeatureClick={onMSAFeatureClick}
             {...conservationOptions}
           />
         )}
@@ -269,7 +261,8 @@ const Wrapped = ({
       debounce((width: number) => {
         // using 9 tenths of the available size as its the proportion assigned
         // to the track in the CSS
-        setRowLength(Math.floor((0.9 * width) / widthOfAA));
+        // I had to play with the constant when upgrading to nightingale-msa to get a better fit
+        setRowLength(Math.floor((0.85 * width) / widthOfAA));
       }, 1000),
     [setRowLength]
   );
