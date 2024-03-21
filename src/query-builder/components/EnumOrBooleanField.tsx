@@ -4,7 +4,22 @@ import initializer from '../utils/fieldInitializer';
 
 import { FieldProps } from './Field';
 
-const EnumField = ({ field, handleChange, initialValue }: FieldProps) => {
+export const booleanValues = [
+  {
+    name: 'Yes',
+    value: 'true',
+  },
+  {
+    name: 'No',
+    value: 'false',
+  },
+];
+
+const EnumOrBooleanField = ({
+  field,
+  handleChange,
+  initialValue,
+}: FieldProps) => {
   // should initialValue be initialised to the first item?
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
@@ -21,15 +36,14 @@ const EnumField = ({ field, handleChange, initialValue }: FieldProps) => {
     <label>
       {field.label}
       <select onChange={(e) => setValue(e.target.value)} value={value}>
-        {field.values &&
-          field.values.map((item) => (
-            <option value={item.value} key={`select_${item.value}`}>
-              {item.name}
-            </option>
-          ))}
+        {(field.values || booleanValues).map((item) => (
+          <option value={item.value} key={`select_${item.value}`}>
+            {item.name}
+          </option>
+        ))}
       </select>
     </label>
   );
 };
 
-export default EnumField;
+export default EnumOrBooleanField;
