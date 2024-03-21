@@ -6,11 +6,10 @@ import {
   SetStateAction,
   Dispatch,
   useEffect,
+  lazy,
 } from 'react';
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
-
-import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
@@ -35,6 +34,13 @@ import {
   NightingaleChangeEvent,
   UpdateTooltip,
 } from '../types/alignment';
+
+const NightingaleMSA = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "nightingale-msa" */ '../../shared/custom-elements/NightingaleMSA'
+    )
+);
 
 const widthOfAA = 18;
 
@@ -109,15 +115,6 @@ export const WrappedRow = ({
   selectedMSAFeatures,
   onMSAFeatureClick,
 }: WrappedRowProps) => {
-  // const msaElement = useCustomElement(
-  //   /* istanbul ignore next */
-  //   () =>
-  //     import(
-  //       /* webpackChunkName: "@nightingale-elements/nightingale-msa" */ '@nightingale-elements/nightingale-msa'
-  //     ),
-  //   'nightingale-msa'
-  // );
-
   const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
