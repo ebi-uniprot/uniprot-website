@@ -43,14 +43,17 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
 
     sleep(3000).then(() => {
       // If there's already Hotjar's feedback, don't do anything
-      if (document.querySelector('._hj_feedback_container')) {
+      if (document.querySelector('#survey_999231')) {
         if (scrollBarWidth) {
           const hjButton = document.querySelector<HTMLElement>(
-            '#_hj_feedback_container div button'
+            '#survey_999231 button'
           );
 
           if (hjButton) {
-            hjButton.style.right = `${scrollBarWidth.toString()}px`;
+            // hjButton.style.right = `${scrollBarWidth.toString()}px`;
+            hjButton.style.transform = `rotate(-90deg) translateY(${(
+              -19 - scrollBarWidth
+            ).toString()}px)`;
           }
         }
 
