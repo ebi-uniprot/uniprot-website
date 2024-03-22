@@ -42,14 +42,25 @@
 
   &.feedback {
     bottom: calc(50% - 5ch);
+    right: calc(var(--scroll-bar-width, 0px) + 2px);
   }
 
   &.help {
     bottom: calc(50% - 18ch);
+    right: calc(var(--scroll-bar-width, 0px) + 2px);
 
     &,
     &:hover {
       background-color: $colour-help-green;
     }
+  }
+}
+
+#survey_999231 [role='dialog'] > div {
+  right: calc(var(--scroll-bar-width, 0px) + 2px);
+
+  &[class~='__minimizedButton'] {
+    background: transparent;
+    border: transparent;
   }
 }

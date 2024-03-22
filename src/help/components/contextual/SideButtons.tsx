@@ -21,41 +21,32 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
     const mainContent = document?.querySelector<HTMLElement>(
       `.${baseStyles['main-content']}`
     );
-    let scrollBarWidth =
+    const scrollBarWidth =
       mainContent && mainContent.offsetWidth - mainContent.clientWidth;
 
     if (scrollBarWidth) {
-      scrollBarWidth += 2;
-      const sideButton = document?.querySelector<HTMLElement>(
-        `.${sideButtonStyles['side-button']}`
+      // Set the scroll bar width as a Custom Property for the CSS to use
+      window.document.body.style.setProperty(
+        '--scroll-bar-width',
+        `${scrollBarWidth.toString()}px`
       );
-      const sideButtonHelp = document?.querySelector<HTMLElement>(
-        `.${sideButtonStyles.help}`
-      );
-
-      if (sideButton) {
-        sideButton.style.right = `${scrollBarWidth.toString()}px`;
-      }
-      if (sideButtonHelp) {
-        sideButtonHelp.style.right = `${scrollBarWidth.toString()}px`;
-      }
     }
 
     sleep(3000).then(() => {
       // If there's already Hotjar's feedback, don't do anything
       if (document.querySelector('#survey_999231')) {
-        if (scrollBarWidth) {
-          const hjButton = document.querySelector<HTMLElement>(
-            '#survey_999231 button'
-          );
+        // if (scrollBarWidth) {
+        //   const hjButton = document.querySelector<HTMLElement>(
+        //     '#survey_999231 button'
+        //   );
 
-          if (hjButton) {
-            // hjButton.style.right = `${scrollBarWidth.toString()}px`;
-            hjButton.style.transform = `rotate(-90deg) translateY(${(
-              -19 - scrollBarWidth
-            ).toString()}px)`;
-          }
-        }
+        //   if (hjButton) {
+        //     // hjButton.style.right = `${scrollBarWidth.toString()}px`;
+        //     hjButton.style.transform = `rotate(-90deg) translateY(${(
+        //       -19 - scrollBarWidth
+        //     ).toString()}px)`;
+        //   }
+        // }
 
         return;
       }
