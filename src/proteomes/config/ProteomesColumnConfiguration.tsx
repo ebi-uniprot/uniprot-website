@@ -181,12 +181,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
           search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
         }}
       >
-        {/* Excluded not supported at the moment, need to wait for TRM-28011 */}
-        {proteomeType === 'Excluded' ? (
-          'Browse UniParc entries'
-        ) : (
-          <LongNumber>{proteinCount}</LongNumber>
-        )}
+        <LongNumber>{proteinCount}</LongNumber>
       </Link>
     );
   },

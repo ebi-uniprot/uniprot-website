@@ -228,6 +228,30 @@ const conditionsToInfoData = (
         key,
       };
     }
+    // Proteome property
+    if (condition.type === 'proteome property') {
+      return {
+        title: 'proteome property',
+        content: condition.conditionValues?.map(({ value }) => {
+          if (!value) {
+            return null;
+          }
+          return (
+            <Fragment key={value}>
+              {condition.isNegative && (
+                <>
+                  <span className={cn(styles.statement, styles.negation)}>
+                    not
+                  </span>{' '}
+                </>
+              )}
+              {value}
+            </Fragment>
+          );
+        }),
+        key,
+      };
+    }
     // Signature match
     if (condition.type?.endsWith('id') || condition.type?.endsWith('hits')) {
       const signatureDB: string = condition.type.replace(/ (id|hits)$/, '');
@@ -247,6 +271,7 @@ const conditionsToInfoData = (
           } ${pluralise('hit', condition.range.end.value)}`;
         }
       }
+
       return {
         // NOTE: don't pluralise, the values are "OR"-separated
         title: `${signatureDB}${
