@@ -17,6 +17,7 @@ import {
 } from 'franklin-sites';
 import cn from 'classnames';
 
+import ToolsDropdown from '../action-buttons/ToolsDropdown';
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import MapIDButton from '../action-buttons/MapID';
@@ -228,6 +229,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
         </Suspense>
       )}
       <div className={cn('button-group', styles['results-buttons'])}>
+        <ToolsDropdown />
         {isMain && namespace !== Namespace.proteomes && (
           <BlastButton selectedEntries={selectedEntries} />
         )}
