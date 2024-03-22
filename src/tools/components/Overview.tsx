@@ -53,8 +53,8 @@ const AlignOverview = ({
     number | undefined
   >();
   const [displayPosition, setDisplayPosition] = useState<
-    [number | null, number | null]
-  >([null, null]);
+    [number | undefined, number | undefined]
+  >([undefined, undefined]);
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlightPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
@@ -168,8 +168,6 @@ const AlignOverview = ({
     return <Loader />;
   }
 
-  const data = alignment.map(({ name, sequence }) => ({ name, sequence }));
-
   return (
     <section
       data-testid="alignment-view"
@@ -229,13 +227,16 @@ const AlignOverview = ({
           <NightingaleMSA
             length={alignmentLength}
             height={alignment.length * sequenceHeight}
-            colorscheme={highlightProperty}
+            color-scheme={highlightProperty}
             width={1000}
-            hidelabel
+            hide-label
             tile-width={widthOfAA}
             features={selectedMSAFeatures}
             onFeatureClick={onMSAFeatureClick}
-            data={data}
+            data={alignment.map(({ name, sequence }) => ({
+              name: name || '',
+              sequence,
+            }))}
             display-start={displayPosition[0]}
             display-end={displayPosition[1]}
             {...conservationOptions}
