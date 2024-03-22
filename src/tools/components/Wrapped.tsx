@@ -173,7 +173,6 @@ export const WrappedRow = ({
             height={sequences.length * sequenceHeight}
             width={rowLength * widthOfAA}
             tile-width={widthOfAA}
-            // tile-height={15}
             color-scheme={highlightProperty}
             features={selectedMSAFeatures?.map((f) => ({
               ...f,

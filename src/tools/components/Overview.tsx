@@ -159,7 +159,7 @@ const AlignOverview = ({
     const maxSequenceLength = Math.max(
       ...alignment.map((al) => al.sequence.length)
     );
-    if (displayPosition[1] === null) {
+    if (typeof displayPosition[1] === 'undefined') {
       setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
     }
   }, [alignmentLength, alignment, displayPosition]);
