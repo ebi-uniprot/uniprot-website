@@ -132,6 +132,29 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-03-27-release',
+                  })}
+                >
+                  UniProt release 2024_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                CMV infections: plants beaten at their own game | Changes to the
+                controlled vocabulary of human diseases | Changes to the
+                controlled vocabulary for PTMs
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2024-01-24-release',
                   })}
                 >
@@ -259,120 +282,6 @@ const LatestNews = () => {
               >
                 Killing me softly | Cross-references to GlyCosmos | Change to
                 the cross-references to Gene3D | Changes to the controlled...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-12-14-release',
-                  })}
-                >
-                  UniProt release 2022_05
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Plant adaptation to global warming through epigenetic memory |
-                Cross-references to AGR | Changes to the controlled...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-10-12-release',
-                  })}
-                >
-                  UniProt release 2022_04
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The (phenolic) Rings of Power | UniProtKB news: Protein
-                embeddings | Changes to the controlled vocabulary of human
-                diseases | Changes to the controlled vocabulary for PTMs
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-08-03-release',
-                  })}
-                >
-                  UniProt release 2022_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Not just for proteins: new targets for ADP-ribosylation |
-                Annotation of biologically relevant ligands in UniProtKB using
-                ChEBI | Changes to the controlled vocabulary of human
-                diseases...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-05-25-release',
-                  })}
-                >
-                  UniProt release 2022_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Prenylation for antiviral activity | Cross-references to
-                AlphaFoldDB | Version numbers for identifiers in Ensembl
-                cross-references in Uni...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-02-23-release',
-                  })}
-                >
-                  UniProt release 2022_01
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                A phospholipase for clear vision | Cross-references to
-                MANE-Select
               </p>
             </article>
           </li>
