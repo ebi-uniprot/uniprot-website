@@ -1,17 +1,25 @@
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
 
 // Source: /api/unirule/search?query=insulin&size=2
-// Retrieved: 2023-11-07
+// Retrieved: 2024-05-25
 const mock: UniRuleAPIModel[] = [
   {
     uniRuleId: 'UR000048432',
-    information: { version: '0', oldRuleNum: 'RU241113', dataClass: 'Protein' },
+    information: {
+      version: '0',
+      oldRuleNum: 'RU241113',
+      dataClass: 'Protein',
+    },
     mainRule: {
       conditionSets: [
         {
           conditions: [
             {
-              conditionValues: [{ value: 'PF07281' }],
+              conditionValues: [
+                {
+                  value: 'PF07281',
+                },
+              ],
               type: 'Pfam id',
               isNegative: false,
             },
@@ -19,12 +27,23 @@ const mock: UniRuleAPIModel[] = [
               type: 'sequence length',
               isNegative: false,
               range: {
-                start: { value: 100, modifier: 'EXACT' },
-                end: { value: 400, modifier: 'EXACT' },
+                start: {
+                  value: 100,
+                  modifier: 'EXACT',
+                },
+                end: {
+                  value: 400,
+                  modifier: 'EXACT',
+                },
               },
             },
             {
-              conditionValues: [{ value: 'Euteleostomi', cvId: '117571' }],
+              conditionValues: [
+                {
+                  value: 'Euteleostomi',
+                  cvId: '117571',
+                },
+              ],
               type: 'taxon',
               isNegative: false,
             },
@@ -36,7 +55,9 @@ const mock: UniRuleAPIModel[] = [
           annotationType: 'ANNOTATION',
           proteinDescription: {
             recommendedName: {
-              fullName: { value: 'Insulin-induced gene protein' },
+              fullName: {
+                value: 'Insulin-induced gene protein',
+              },
             },
           },
         },
@@ -44,7 +65,9 @@ const mock: UniRuleAPIModel[] = [
           annotationType: 'ANNOTATION',
           comment: {
             texts: [
-              { value: 'Mediates feedback control of cholesterol synthesis' },
+              {
+                value: 'Mediates feedback control of cholesterol synthesis',
+              },
             ],
             commentType: 'FUNCTION',
           },
@@ -52,7 +75,11 @@ const mock: UniRuleAPIModel[] = [
         {
           annotationType: 'ANNOTATION',
           comment: {
-            texts: [{ value: 'Belongs to the INSIG family' }],
+            texts: [
+              {
+                value: 'Belongs to the INSIG family',
+              },
+            ],
             commentType: 'SIMILARITY',
           },
         },
@@ -88,7 +115,9 @@ const mock: UniRuleAPIModel[] = [
             annotationType: 'ANNOTATION',
             proteinDescription: {
               recommendedName: {
-                fullName: { value: 'Insulin-induced gene protein' },
+                fullName: {
+                  value: 'Insulin-induced gene protein',
+                },
               },
             },
           },
@@ -125,8 +154,12 @@ const mock: UniRuleAPIModel[] = [
               commentType: 'SUBCELLULAR LOCATION',
               subcellularLocations: [
                 {
-                  location: { value: 'Endoplasmic reticulum membrane' },
-                  topology: { value: 'Multi-pass membrane protein' },
+                  location: {
+                    value: 'Endoplasmic reticulum membrane',
+                  },
+                  topology: {
+                    value: 'Multi-pass membrane protein',
+                  },
                 },
               ],
             },
@@ -143,13 +176,22 @@ const mock: UniRuleAPIModel[] = [
         samTrigger: {
           samTriggerType: 'transmembrane',
           expectedHits: {
-            start: { value: 5, modifier: 'EXACT' },
-            end: { value: 5, modifier: 'EXACT' },
+            start: {
+              value: 5,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 5,
+              modifier: 'EXACT',
+            },
           },
         },
       },
     ],
-    statistics: { reviewedProteinCount: 0, unreviewedProteinCount: 1804 },
+    statistics: {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 1842,
+    },
     createdDate: '2012-07-03',
     modifiedDate: '2018-11-13',
   },
@@ -166,7 +208,11 @@ const mock: UniRuleAPIModel[] = [
         {
           conditions: [
             {
-              conditionValues: [{ value: 'PIRSF037062' }],
+              conditionValues: [
+                {
+                  value: 'PIRSF037062',
+                },
+              ],
               type: 'PIR superfamily id',
               isNegative: false,
             },
@@ -174,16 +220,30 @@ const mock: UniRuleAPIModel[] = [
               type: 'sequence length',
               isNegative: false,
               range: {
-                start: { value: 188, modifier: 'EXACT' },
-                end: { value: 213, modifier: 'EXACT' },
+                start: {
+                  value: 188,
+                  modifier: 'EXACT',
+                },
+                end: {
+                  value: 213,
+                  modifier: 'EXACT',
+                },
               },
             },
             {
-              conditionValues: [{ value: 'Mammalia', cvId: '40674' }],
+              conditionValues: [
+                {
+                  value: 'Mammalia',
+                  cvId: '40674',
+                },
+              ],
               type: 'taxon',
               isNegative: false,
             },
-            { type: 'fragment', isNegative: true },
+            {
+              type: 'fragment',
+              isNegative: true,
+            },
           ],
         },
       ],
@@ -192,7 +252,9 @@ const mock: UniRuleAPIModel[] = [
           annotationType: 'ANNOTATION',
           proteinDescription: {
             recommendedName: {
-              fullName: { value: 'Insulin-like peptide INSL6' },
+              fullName: {
+                value: 'Insulin-like peptide INSL6',
+              },
             },
           },
         },
@@ -211,19 +273,33 @@ const mock: UniRuleAPIModel[] = [
           annotationType: 'ANNOTATION',
           comment: {
             commentType: 'SUBCELLULAR LOCATION',
-            subcellularLocations: [{ location: { value: 'Secreted' } }],
+            subcellularLocations: [
+              {
+                location: {
+                  value: 'Secreted',
+                },
+              },
+            ],
           },
         },
         {
           annotationType: 'ANNOTATION',
           comment: {
-            texts: [{ value: 'Belongs to the insulin family' }],
+            texts: [
+              {
+                value: 'Belongs to the insulin family',
+              },
+            ],
             commentType: 'SIMILARITY',
           },
         },
         {
           annotationType: 'ANNOTATION',
-          keyword: { id: 'KW-0372', category: 'Unknown', name: 'Hormone' },
+          keyword: {
+            id: 'KW-0372',
+            category: 'Unknown',
+            name: 'Hormone',
+          },
         },
         {
           annotationType: 'ANNOTATION',
@@ -231,8 +307,14 @@ const mock: UniRuleAPIModel[] = [
             database: 'GO',
             id: 'GO:0005179',
             properties: [
-              { key: 'GoTerm', value: '-' },
-              { key: 'GoEvidenceType', value: ':-' },
+              {
+                key: 'GoTerm',
+                value: '-',
+              },
+              {
+                key: 'GoEvidenceType',
+                value: ':-',
+              },
             ],
           },
         },
@@ -242,8 +324,14 @@ const mock: UniRuleAPIModel[] = [
             database: 'GO',
             id: 'GO:0005576',
             properties: [
-              { key: 'GoTerm', value: '-' },
-              { key: 'GoEvidenceType', value: ':-' },
+              {
+                key: 'GoTerm',
+                value: '-',
+              },
+              {
+                key: 'GoEvidenceType',
+                value: ':-',
+              },
             ],
           },
         },
@@ -254,19 +342,32 @@ const mock: UniRuleAPIModel[] = [
         annotations: [
           {
             annotationType: 'ANNOTATION',
-            keyword: { id: 'KW-0964', category: 'Unknown', name: 'Secreted' },
+            keyword: {
+              id: 'KW-0964',
+              category: 'Unknown',
+              name: 'Secreted',
+            },
           },
         ],
         samTrigger: {
           samTriggerType: 'signal',
           expectedHits: {
-            start: { value: 1, modifier: 'EXACT' },
-            end: { value: 1, modifier: 'EXACT' },
+            start: {
+              value: 1,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 1,
+              modifier: 'EXACT',
+            },
           },
         },
       },
     ],
-    statistics: { reviewedProteinCount: 0, unreviewedProteinCount: 43 },
+    statistics: {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 44,
+    },
     createdDate: '2015-05-22',
     modifiedDate: '2018-11-13',
   },

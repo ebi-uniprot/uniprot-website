@@ -36,14 +36,14 @@ exports[`ARBAColumnConfiguration component should render column "statistics": st
       <a
         href="/uniprotkb?query=%28source%3AARBA00020180%29"
       >
-        329 UniProtKB entries
+        729 UniProtKB entries
       </a>
     </li>
     <li>
       <a
         href="/uniprotkb?query=%28source%3AARBA00020180%29+AND+%28reviewed%3Afalse%29"
       >
-        329 unreviewed UniProtKB entries
+        729 unreviewed UniProtKB entries
       </a>
     </li>
   </ul>
@@ -65,6 +65,19 @@ exports[`ARBAColumnConfiguration component should render column "taxonomic_scope
           translate="no"
         >
           Laurasiatheria
+        </a>
+      </span>
+    </li>
+    <li>
+      <span
+        class="no-wrap"
+      >
+        <a
+          href="/taxonomy/1329799"
+          title="Archelosauria, taxon ID 1329799"
+          translate="no"
+        >
+          Archelosauria
         </a>
       </span>
     </li>

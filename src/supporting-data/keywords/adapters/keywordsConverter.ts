@@ -16,7 +16,7 @@ export type KeywordNameID = {
 export type KeywordsLite = {
   keyword: KeywordNameID;
   links?: string[];
-  definition: string;
+  definition?: string;
   synonyms?: string[];
   geneOntologies?: GO[];
   category?: KeywordNameID;

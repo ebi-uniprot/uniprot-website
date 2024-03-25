@@ -61,14 +61,14 @@ exports[`UniRuleColumnConfiguration component should render column "statistics":
       <a
         href="/uniprotkb?query=%28source%3APIRNR037062%29"
       >
-        43 UniProtKB entries
+        44 UniProtKB entries
       </a>
     </li>
     <li>
       <a
         href="/uniprotkb?query=%28source%3APIRNR037062%29+AND+%28reviewed%3Afalse%29"
       >
-        43 unreviewed UniProtKB entries
+        44 unreviewed UniProtKB entries
       </a>
     </li>
   </ul>
