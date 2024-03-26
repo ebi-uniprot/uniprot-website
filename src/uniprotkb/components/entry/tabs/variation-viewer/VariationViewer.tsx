@@ -52,7 +52,7 @@ const VisualVariationView = lazy(
 );
 
 // hardcoded threshold
-const VARIANT_COUNT_LIMIT = 5_000;
+const VARIANT_COUNT_LIMIT = 2_000;
 
 type ProteinsAPIEvidence = SetRequired<
   PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
@@ -229,9 +229,9 @@ const VariationViewer = ({
         <EntryDownloadButton handleToggle={handleToggleDownload} />
         <div className={styles['too-many']}>
           <Message>
-            As there are <LongNumber>{importedVariants}</LongNumber> variations,
-            the variant viewer has not automatically been loaded for performance
-            reasons.
+            Due to the large number (<LongNumber>{importedVariants}</LongNumber>
+            ) of variations for this entry, the variant viewer will not be
+            loaded automatically for performance reasons.
           </Message>
           <Button onClick={() => setForceRender(true)}>
             Click to load the <LongNumber>{importedVariants}</LongNumber>{' '}
