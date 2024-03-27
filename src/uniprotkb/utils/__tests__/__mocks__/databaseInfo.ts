@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2024-01-23
+// Retrieved: 2024-03-25
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -1533,8 +1533,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'NIAGADS',
     displayName: 'NIAGADS',
     category: 'ORG',
-    uriLink:
-      'https://www.niagads.org/genomics/showRecord.do?name=GeneRecordClasses.GeneRecordClass&source_id=%id',
+    uriLink: 'https://www.niagads.org/genomics/app/record/gene/%id',
     attributes: [
       {
         name: 'Description',
@@ -2082,7 +2081,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'Bgee',
     displayName: 'Bgee',
     category: 'GEP',
-    uriLink: 'https://bgee.org/gene/%id',
+    uriLink: 'https://www.bgee.org/gene/%id',
     attributes: [
       {
         name: 'ExpressionPatterns',
@@ -2486,7 +2485,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'RNAct',
     displayName: 'RNAct',
     category: 'MISC',
-    uriLink: 'https://rnact.crg.eu/protein?query=%id',
+    uriLink: ' https://rnact.tartaglialab.com/protein?query=%id',
     attributes: [
       {
         name: 'moleculeType',

@@ -55,6 +55,11 @@ export const isSubsequenceFrom = (ids: string) =>
   // Until then we can just rely on the job submission IDs.
   ids.split(',').every((id) => id.match(reSubsequenceFrom));
 
+export const getAccessionFromSubSequenceMap = (
+  entries?: string[],
+  subSeqMap?: Map<string, string>
+) => Array.from(new Set(entries?.map((e) => subSeqMap?.get(e) || e)));
+
 export const getFileFormatsOptions = (
   props: DownloadProps<JobTypes>,
   job: JobFromUrl
@@ -91,13 +96,54 @@ export const getPreviewFileFormat = (
   return state.selectedFileFormat;
 };
 
+export const getCountForCustomisableSet = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>
+) => {
+  let totalCount = props.totalNumberResults;
+  let selectedCount = state.nSelectedEntries;
+  if (props.accessionSubSequenceMap) {
+    // Basket view
+    if (state.selectedFileFormat !== FileFormat.fastaCanonical) {
+      totalCount = getAccessionFromSubSequenceMap(
+        props.accessions,
+        props.accessionSubSequenceMap
+      ).length;
+      selectedCount = props.selectedEntries?.length
+        ? getAccessionFromSubSequenceMap(
+            props.selectedEntries,
+            props.accessionSubSequenceMap
+          ).length
+        : 0;
+    }
+  }
+  return {
+    totalCount,
+    selectedCount,
+  };
+};
+
 export const getDownloadCount = (
   state: DownloadState,
   props: DownloadProps<JobTypes>
-) =>
-  state.downloadSelect === 'all'
+) => {
+  // Count will vary if there is subsequence in the basket
+  if (props.accessionSubSequenceMap) {
+    if (state.selectedFileFormat === FileFormat.fastaCanonical) {
+      return state.downloadSelect === 'all'
+        ? props.accessions?.length || 0
+        : props.selectedEntries?.length || 0;
+    }
+    return getAccessionFromSubSequenceMap(
+      state.downloadSelect === 'all' ? props.accessions : props.selectedEntries,
+      props.accessionSubSequenceMap
+    ).length;
+  }
+
+  return state.downloadSelect === 'all'
     ? props.totalNumberResults
     : state.nSelectedEntries || 0;
+};
 
 export const isAsyncDownloadIdMapping = (
   state: DownloadState,
@@ -167,6 +213,12 @@ export const getDownloadOptions = (
   job: JobFromUrl
 ) => {
   const [urlParams] = getParamsFromURL(location.search);
+
+  // Subsequence map is passed from the basket alone and subsequences are considered only in file format FASTA(Canonical)
+  const subSequenceCompatible =
+    props.accessionSubSequenceMap &&
+    state.selectedFileFormat !== FileFormat.fastaCanonical;
+
   // If query prop provided use this otherwise fallback to query from URL
   const query =
     state.downloadSelect === 'all'
@@ -202,10 +254,17 @@ export const getDownloadOptions = (
   const downloadOptions: DownloadUrlOptions = {
     fileFormat: state.selectedFileFormat,
     compressed: state.compressed,
-    selected,
+    selected: subSequenceCompatible
+      ? getAccessionFromSubSequenceMap(selected, props.accessionSubSequenceMap)
+      : selected,
     selectedIdField,
     namespace: props.namespace,
-    accessions: props.accessions,
+    accessions: subSequenceCompatible
+      ? getAccessionFromSubSequenceMap(
+          props.accessions,
+          props.accessionSubSequenceMap
+        )
+      : props.accessions,
     base: downloadBase,
   };
 

@@ -160,7 +160,6 @@ const BasketMiniViewTab = ({
         subsetsMap={subsetsMap}
         inBasket
         inBasketMini
-        notCustomisable
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
