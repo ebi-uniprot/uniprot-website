@@ -146,6 +146,7 @@ exports[`EntryPublication facets tests should render 1`] = `
             </li>
             <li>
               <a
+                class=""
                 href="/?facets=categories%3ASequences"
               >
                 Sequences (14)
@@ -153,6 +154,7 @@ exports[`EntryPublication facets tests should render 1`] = `
             </li>
             <li>
               <a
+                class=""
                 href="/?facets=categories%3APTM+%2F+Processing"
               >
                 PTM / Processing (11)
@@ -160,6 +162,7 @@ exports[`EntryPublication facets tests should render 1`] = `
             </li>
             <li>
               <a
+                class=""
                 href="/?facets=categories%3ADisease+%26+Variants"
               >
                 Disease & Variants (7)
