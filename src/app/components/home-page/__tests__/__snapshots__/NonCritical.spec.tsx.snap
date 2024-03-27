@@ -1079,9 +1079,14 @@ exports[`non-critical HomePage component should render 1`] = `
       UniProt data
     </h2>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #4e5a71;"
     >
+      <a
+        aria-hidden="true"
+        href="https://ftp.uniprot.org/pub/databases/uniprot/"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
