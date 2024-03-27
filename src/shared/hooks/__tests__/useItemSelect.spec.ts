@@ -26,7 +26,7 @@ describe('useItemSelect', () => {
         target: checkbox,
       });
     });
-    await act(() => waitFor(() => expect(result.current[0]).toEqual(['id1'])));
+    await waitFor(() => expect(result.current[0]).toEqual(['id1']));
     checkbox.checked = false;
     act(() => {
       result.current[1]({
@@ -34,6 +34,6 @@ describe('useItemSelect', () => {
         target: checkbox,
       });
     });
-    await act(() => waitFor(() => expect(result.current[0]).toEqual([])));
+    await waitFor(() => expect(result.current[0]).toEqual([]));
   });
 });
