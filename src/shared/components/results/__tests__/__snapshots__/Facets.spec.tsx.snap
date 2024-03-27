@@ -193,3 +193,319 @@ exports[`<Facet /> should render facet with few data 2`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`<Facets /> should render multiple facets 1`] = `
+<DocumentFragment>
+  <div
+    class="facets"
+  >
+    <ul
+      class="no-bullet"
+    >
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Status
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                class=""
+                href="/?facets=reviewed%3Afalse"
+              >
+                Unreviewed (TrEMBL) (1,271,454)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=reviewed%3Atrue"
+              >
+                Reviewed (Swiss-Prot) (11,729)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Model organisms
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                class=""
+                href="/?facets=model_organism%3AHuman"
+              >
+                Human (1,470)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=model_organism%3AMouse"
+              >
+                Mouse (1,261)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=model_organism%3AA.+thaliana"
+              >
+                A. thaliana (1,239)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=model_organism%3ARat"
+              >
+                Rat (1,030)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=model_organism%3ARice"
+              >
+                Rice (646)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Proteins with
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                class=""
+                href="/?facets=proteins_with%3A3dstructure"
+              >
+                3D structure (1,858)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=proteins_with%3Aact_site"
+              >
+                Active site (386,659)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=proteins_with%3Aactivity_regulation"
+              >
+                Activity regulation (30,848)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=proteins_with%3Aallergen"
+              >
+                Allergen (21)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=proteins_with%3Aalternative_products"
+              >
+                Alternative products(isoforms) (1,066)
+              </a>
+            </li>
+            <li>
+              <button
+                class="button tertiary expandable-list__action"
+                data-testid="expandable-message"
+                type="button"
+              >
+                More items
+              </button>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Protein Existence
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                class=""
+                href="/?facets=existence%3AHOMOLOGY"
+              >
+                HOMOLOGY (1,000,254)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=existence%3APREDICTED"
+              >
+                PREDICTED (261,161)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=existence%3ATRANSCRIPT_LEVEL"
+              >
+                TRANSCRIPT_LEVEL (15,049)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=existence%3APROTEIN_LEVEL"
+              >
+                PROTEIN_LEVEL (6,700)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=existence%3AUNCERTAIN"
+              >
+                UNCERTAIN (19)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Annotation Score
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                class=""
+                href="/?facets=annotation_score%3A2"
+              >
+                2 (683,263)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=annotation_score%3A1"
+              >
+                1 (377,015)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=annotation_score%3A3"
+              >
+                3 (175,410)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=annotation_score%3A4"
+              >
+                4 (39,819)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=annotation_score%3A5"
+              >
+                5 (7,676)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Sequence length
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                class=""
+                href="/?facets=length%3A%5B1+TO+200%5D"
+              >
+                1 - 200 (101,062)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=length%3A%5B201+TO+400%5D"
+              >
+                201 - 400 (553,257)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=length%3A%5B401+TO+600%5D"
+              >
+                401 - 600 (423,158)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=length%3A%5B601+TO+800%5D"
+              >
+                601 - 800 (120,501)
+              </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=length%3A%5B801+TO+*%5D"
+              >
+                &gt;= 801 (85,205)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
