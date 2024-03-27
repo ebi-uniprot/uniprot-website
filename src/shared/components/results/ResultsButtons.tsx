@@ -229,7 +229,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
         </Suspense>
       )}
       <div className={cn('button-group', styles['results-buttons'])}>
-        <ToolsDropdown />
+        <ToolsDropdown selectedEntries={selectedEntries} />
         {isMain && namespace !== Namespace.proteomes && (
           <BlastButton selectedEntries={selectedEntries} />
         )}
