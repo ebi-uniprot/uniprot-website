@@ -21,7 +21,6 @@ import {
   DownloadPanelFormCloseReason,
   DownloadMethod,
 } from '../../../shared/utils/gtagEvents';
-import { ProteomeType } from '../../adapters/proteomesConverter';
 import { Statistics } from '../../../shared/types/apiModel';
 import { DownloadUrlOptions } from '../../../shared/types/results';
 
@@ -35,13 +34,14 @@ type DownloadProps = {
   query: string;
   selectedEntries?: string[];
   selectedQuery: string;
+  totalNumberResults: number;
   numberSelectedEntries: number;
   onClose: (
     panelCloseReason: DownloadPanelFormCloseReason,
     downloadMethod?: DownloadMethod
   ) => void;
-  proteomeType: ProteomeType;
   proteomeStatistics: Statistics;
+  isUniparcSearch: boolean;
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -52,20 +52,13 @@ const ComponentsDownload = ({
   query,
   selectedQuery,
   selectedEntries = [],
+  totalNumberResults,
   numberSelectedEntries,
   onClose,
-  proteomeType,
   proteomeStatistics,
+  isUniparcSearch,
 }: DownloadProps) => {
-  const namespace =
-    // Excluded not supported at the moment, need to wait for TRM-28011
-    proteomeType === 'Redundant proteome'
-      ? Namespace.uniparc
-      : Namespace.uniprotkb;
-
-  const totalNumberResults =
-    proteomeStatistics.reviewedProteinCount +
-    proteomeStatistics.unreviewedProteinCount;
+  const namespace = isUniparcSearch ? Namespace.uniparc : Namespace.uniprotkb;
 
   const { columnNames } = useColumnNames({ namespaceOverride: namespace });
 
@@ -77,7 +70,7 @@ const ComponentsDownload = ({
 
   const fileFormats = useMemo(
     () =>
-      proteomeType === 'Redundant proteome'
+      isUniparcSearch
         ? fileFormatsResultsDownloadForRedundant
         : [
             FileFormat.fasta,
@@ -85,7 +78,7 @@ const ComponentsDownload = ({
               (format) => !format.includes('FASTA')
             ),
           ],
-    [proteomeType]
+    [isUniparcSearch]
   );
 
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
@@ -203,58 +196,80 @@ const ComponentsDownload = ({
           onChange={handleDownloadAllChange}
           disabled={nSelectedEntries === 0}
         />
-        Download selected (<LongNumber>{nSelectedEntries}</LongNumber>
-        {includeIsoform && nSelectedEntries ? ' + isoforms' : ''})
-      </label>
-      <label htmlFor="data-selection-reviewed">
-        <input
-          id="data-selection-reviewed"
-          type="radio"
-          name="reviewed"
-          value="false"
-          checked={downloadSelect === 'reviewed'}
-          onChange={handleDownloadAllChange}
-        />
-        Download only reviewed (Swiss-Prot){' '}
-        {isoformsAvailable ? ' canonical ' : ''} proteins (
-        <LongNumber>
-          {includeIsoform
-            ? (proteomeStatistics.reviewedProteinCount || 0) +
-              (proteomeStatistics.isoformProteinCount || 0)
-            : proteomeStatistics.reviewedProteinCount || 0}
-        </LongNumber>
+        Download selected{' ('}
+        <LongNumber>{nSelectedEntries}</LongNumber>
+        {!isUniparcSearch && (
+          <>{includeIsoform && nSelectedEntries ? ' + isoforms' : ''}</>
+        )}
         )
       </label>
-      <label htmlFor="data-selection-true">
-        <input
-          id="data-selection-true"
-          type="radio"
-          name="all"
-          value="true"
-          checked={downloadSelect === 'all'}
-          onChange={handleDownloadAllChange}
-        />
-        Download all reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins (
-        <LongNumber>
-          {totalNumberResults +
-            ((includeIsoform && proteomeStatistics.isoformProteinCount) || 0)}
-        </LongNumber>
-        )
-      </label>
-      {isoformsAvailable && (
-        <div className={styles['isoform-option']}>
-          Additional sequence data
-          <label htmlFor="data-selection-isoform">
+      {isUniparcSearch ? (
+        <label htmlFor="data-selection-all">
+          <input
+            id="data-selection-all"
+            type="radio"
+            name="all"
+            value="true"
+            checked={downloadSelect === 'all'}
+            onChange={handleDownloadAllChange}
+          />
+          Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+        </label>
+      ) : (
+        <>
+          <label htmlFor="data-selection-reviewed">
             <input
-              id="data-selection-isoform"
-              type="checkbox"
-              name="reviewed-isoform"
-              onChange={handleIsoformSelect}
+              id="data-selection-reviewed"
+              type="radio"
+              name="reviewed"
+              value="false"
+              checked={downloadSelect === 'reviewed'}
+              onChange={handleDownloadAllChange}
             />
-            Include reviewed (Swiss-Prot) isoforms ―{' '}
-            <i>this option will limit file formats to FASTA</i>
+            Download only reviewed (Swiss-Prot){' '}
+            {isoformsAvailable ? ' canonical ' : ''} proteins (
+            <LongNumber>
+              {includeIsoform
+                ? (proteomeStatistics.reviewedProteinCount || 0) +
+                  (proteomeStatistics.isoformProteinCount || 0)
+                : proteomeStatistics.reviewedProteinCount || 0}
+            </LongNumber>
+            )
           </label>
-        </div>
+          <label htmlFor="data-selection-true">
+            <input
+              id="data-selection-true"
+              type="radio"
+              name="all"
+              value="true"
+              checked={downloadSelect === 'all'}
+              onChange={handleDownloadAllChange}
+            />
+            Download all reviewed (Swiss-Prot) and unreviewed (TrEMBL) proteins
+            (
+            <LongNumber>
+              {totalNumberResults +
+                ((includeIsoform && proteomeStatistics.isoformProteinCount) ||
+                  0)}
+            </LongNumber>
+            )
+          </label>
+          {isoformsAvailable && (
+            <div className={styles['isoform-option']}>
+              Additional sequence data
+              <label htmlFor="data-selection-isoform">
+                <input
+                  id="data-selection-isoform"
+                  type="checkbox"
+                  name="reviewed-isoform"
+                  onChange={handleIsoformSelect}
+                />
+                Include reviewed (Swiss-Prot) isoforms ―{' '}
+                <i>this option will limit file formats to FASTA</i>
+              </label>
+            </div>
+          )}
+        </>
       )}
       <fieldset>
         <label>

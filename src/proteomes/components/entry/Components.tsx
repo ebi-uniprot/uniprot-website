@@ -32,12 +32,18 @@ const getIdKey = ({ name }: Component) => name;
 
 type ComponentsProps = Pick<
   ProteomesAPIModel,
-  'components' | 'id' | 'proteomeType' | 'taxonomy' | 'proteomeStatistics'
+  | 'components'
+  | 'id'
+  | 'proteinCount'
+  | 'proteomeType'
+  | 'taxonomy'
+  | 'proteomeStatistics'
 >;
 
 const Components = ({
   components,
   id,
+  proteinCount,
   proteomeType,
   taxonomy,
   proteomeStatistics,
@@ -112,15 +118,9 @@ const Components = ({
           if (!proteinCount) {
             return 0;
           }
-          if (
-            // Excluded not supported at the moment, need to wait for TRM-28011
-            proteomeType === 'Excluded'
-          ) {
-            return <LongNumber>{proteinCount}</LongNumber>;
-          }
-          // const shouldPointToUniParc =
-          //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
-          const shouldPointToUniParc = proteomeType === 'Redundant proteome';
+          const shouldPointToUniParc =
+            proteomeType === 'Redundant proteome' ||
+            proteomeType === 'Excluded';
           return (
             <Link
               to={{
@@ -154,6 +154,7 @@ const Components = ({
         components={components}
         selectedEntries={selectedEntries}
         id={id}
+        proteinCount={proteinCount}
         proteomeType={proteomeType}
         proteomeStatistics={proteomeStatistics}
       />
@@ -162,10 +163,7 @@ const Components = ({
         density="compact"
         columns={columns}
         data={components}
-        onSelectionChange={
-          // Excluded not supported at the moment, need to wait for TRM-28011
-          proteomeType === 'Excluded' ? undefined : setSelectedItemFromEvent
-        }
+        onSelectionChange={setSelectedItemFromEvent}
         fixedLayout
       />
     </Card>
