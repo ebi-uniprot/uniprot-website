@@ -36,10 +36,10 @@ if ('serviceWorker' in navigator && navigator.serviceWorker) {
         location.replace('https://www.uniprot.org');
       });
     } else {
-      // serviceWorkerModule.register();
+      serviceWorkerModule.register();
       // switch commented lines if we want to enable/disable service worker
       // Use in case of emergency! (if something wrong with caching in production)
-      serviceWorkerModule.unregister();
+      // serviceWorkerModule.unregister();
     }
   });
 } else if (obsoleteHosts.has(window.location.host)) {
