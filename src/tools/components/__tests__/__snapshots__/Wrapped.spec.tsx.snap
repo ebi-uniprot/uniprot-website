@@ -92,9 +92,8 @@ exports[`WrappedRow should render 1`] = `
     <nightingale-msa
       calculate-conservation="true"
       color-scheme="conservation"
-      height="80"
-      length="46"
       overlay-conservation="true"
+      tile-width="18"
     />
   </div>
   <span
