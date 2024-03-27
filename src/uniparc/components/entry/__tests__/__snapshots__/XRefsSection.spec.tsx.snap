@@ -121,9 +121,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-06-02T00:00:00.000Z"
+                    datetime="2024-03-27T00:00:00.000Z"
                   >
-                    2021-06-02
+                    2024-03-27
                   </time>
                 </td>
                 <td>
@@ -213,171 +213,6 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 <td>
                   <span>
                     <a
-                      href="/uniprotkb/A0A2I2MDI1/entry"
-                    >
-                      A0A2I2MDI1
-                    </a>
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/10254"
-                    title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
-                    translate="no"
-                  >
-                    Vaccinia virus (strain Western Reserve) (VACV)
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2018-02-28T00:00:00.000Z"
-                  >
-                    2018-02-28
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-06-02T00:00:00.000Z"
-                  >
-                    2021-06-02
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    <span
-                      class="entry-title__status icon--unreviewed"
-                      title="This marks an unreviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    UniProtKB unreviewed
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/A0A7I8V511/entry"
-                    >
-                      A0A7I8V511
-                    </a>
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/9606"
-                    title="Homo sapiens (Human), taxon ID 9606"
-                    translate="no"
-                  >
-                    Homo sapiens (Human)
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-04-07T00:00:00.000Z"
-                  >
-                    2021-04-07
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-06-02T00:00:00.000Z"
-                  >
-                    2021-06-02
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    <span
-                      class="entry-title__status icon--unreviewed"
-                      title="This marks an unreviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    UniProtKB unreviewed
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/Q0GNZ6/entry"
-                    >
-                      Q0GNZ6
-                    </a>
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/397342"
-                    title="Horsepox virus (HSPV), taxon ID 397342"
-                    translate="no"
-                  >
-                    Horsepox virus (HSPV)
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2006-10-03T00:00:00.000Z"
-                  >
-                    2006-10-03
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-06-02T00:00:00.000Z"
-                  >
-                    2021-06-02
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    <span
-                      class="entry-title__status icon--unreviewed"
-                      title="This marks an unreviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    UniProtKB unreviewed
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    <a
                       href="/uniprotkb/Q6RZL4/entry"
                     >
                       Q6RZL4
@@ -407,64 +242,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-06-02T00:00:00.000Z"
+                    datetime="2024-03-27T00:00:00.000Z"
                   >
-                    2021-06-02
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    <span
-                      class="entry-title__status icon--unreviewed"
-                      title="This marks an unreviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    UniProtKB unreviewed
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/Q71TT2/entry"
-                    >
-                      Q71TT2
-                    </a>
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/10245"
-                    title="Vaccinia virus, taxon ID 10245"
-                    translate="no"
-                  >
-                    Vaccinia virus
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2006-04-18T00:00:00.000Z"
-                  >
-                    2006-04-18
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-06-02T00:00:00.000Z"
-                  >
-                    2021-06-02
+                    2024-03-27
                   </time>
                 </td>
                 <td>
@@ -517,9 +297,174 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-06-02T00:00:00.000Z"
+                    datetime="2024-03-27T00:00:00.000Z"
                   >
-                    2021-06-02
+                    2024-03-27
+                  </time>
+                </td>
+                <td>
+                  <span>
+                    Yes
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    <a
+                      href="/uniprotkb/Q71TT2/entry"
+                    >
+                      Q71TT2
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/10245"
+                    title="Vaccinia virus, taxon ID 10245"
+                    translate="no"
+                  >
+                    Vaccinia virus
+                  </a>
+                </td>
+                <td>
+                  <time
+                    datetime="2006-04-18T00:00:00.000Z"
+                  >
+                    2006-04-18
+                  </time>
+                </td>
+                <td>
+                  <time
+                    datetime="2024-03-27T00:00:00.000Z"
+                  >
+                    2024-03-27
+                  </time>
+                </td>
+                <td>
+                  <span>
+                    Yes
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    <a
+                      href="/uniprotkb/Q0GNZ6/entry"
+                    >
+                      Q0GNZ6
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/397342"
+                    title="Horsepox virus (HSPV), taxon ID 397342"
+                    translate="no"
+                  >
+                    Horsepox virus (HSPV)
+                  </a>
+                </td>
+                <td>
+                  <time
+                    datetime="2006-10-03T00:00:00.000Z"
+                  >
+                    2006-10-03
+                  </time>
+                </td>
+                <td>
+                  <time
+                    datetime="2024-03-27T00:00:00.000Z"
+                  >
+                    2024-03-27
+                  </time>
+                </td>
+                <td>
+                  <span>
+                    Yes
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    <a
+                      href="/uniprotkb/A0A2I2MDI1/entry"
+                    >
+                      A0A2I2MDI1
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/10254"
+                    title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                    translate="no"
+                  >
+                    Vaccinia virus (strain Western Reserve) (VACV)
+                  </a>
+                </td>
+                <td>
+                  <time
+                    datetime="2018-02-28T00:00:00.000Z"
+                  >
+                    2018-02-28
+                  </time>
+                </td>
+                <td>
+                  <time
+                    datetime="2024-03-27T00:00:00.000Z"
+                  >
+                    2024-03-27
                   </time>
                 </td>
                 <td>
@@ -587,6 +532,72 @@ exports[`SequenceSection component should render the SequenceSection properly an
               </tr>
               <tr>
                 <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <a
+                      href="/uniprotkb/A0A7I8V511/history"
+                    >
+                      A0A7I8V511
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    class="xref-inactive"
+                    href="/taxonomy/9606"
+                    title="Homo sapiens (Human), taxon ID 9606"
+                    translate="no"
+                  >
+                    Homo sapiens (Human)
+                  </a>
+                </td>
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2021-04-07T00:00:00.000Z"
+                  >
+                    2021-04-07
+                  </time>
+                </td>
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2021-06-02T00:00:00.000Z"
+                  >
+                    2021-06-02
+                  </time>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <span>
                     RefSeq
                   </span>
@@ -619,9 +630,54 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-03-01T00:00:00.000Z"
+                    datetime="2024-01-08T00:00:00.000Z"
                   >
-                    2021-03-01
+                    2024-01-08
+                  </time>
+                </td>
+                <td>
+                  <span>
+                    Yes
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    RefSeq
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    YP_010509298
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/397342"
+                    title="Horsepox virus (HSPV), taxon ID 397342"
+                    translate="no"
+                  >
+                    Horsepox virus (HSPV)
+                  </a>
+                </td>
+                <td>
+                  <time
+                    datetime="2022-10-19T00:00:00.000Z"
+                  >
+                    2022-10-19
+                  </time>
+                </td>
+                <td>
+                  <time
+                    datetime="2024-01-08T00:00:00.000Z"
+                  >
+                    2024-01-08
                   </time>
                 </td>
                 <td>
@@ -679,46 +735,113 @@ exports[`SequenceSection component should render the SequenceSection properly an
               </tr>
               <tr>
                 <td>
-                  <span>
-                    EMBL
+                  <span
+                    class="xref-inactive"
+                  >
+                    RefSeq
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AAF63732
+                  <span
+                    class="xref-inactive"
+                  >
+                    YP_010488138
                   </span>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-inactive"
+                  >
                     1
                   </span>
                 </td>
                 <td>
                   <a
-                    href="/taxonomy/10245"
-                    title="Vaccinia virus, taxon ID 10245"
+                    class="xref-inactive"
+                    href="/taxonomy/397342"
+                    title="Horsepox virus (HSPV), taxon ID 397342"
                     translate="no"
                   >
-                    Vaccinia virus
+                    Horsepox virus (HSPV)
                   </a>
                 </td>
                 <td>
                   <time
-                    datetime="2003-03-12T00:00:00.000Z"
+                    class="xref-inactive"
+                    datetime="2022-09-30T00:00:00.000Z"
                   >
-                    2003-03-12
+                    2022-09-30
                   </time>
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    class="xref-inactive"
+                    datetime="2022-11-07T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2022-11-07
                   </time>
                 </td>
                 <td>
-                  <span>
-                    Yes
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    RefSeq
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    YP_010500340
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    class="xref-inactive"
+                    href="/taxonomy/397342"
+                    title="Horsepox virus (HSPV), taxon ID 397342"
+                    translate="no"
+                  >
+                    Horsepox virus (HSPV)
+                  </a>
+                </td>
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2022-10-09T00:00:00.000Z"
+                  >
+                    2022-10-09
+                  </time>
+                </td>
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2022-11-07T00:00:00.000Z"
+                  >
+                    2022-11-07
+                  </time>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
                   </span>
                 </td>
               </tr>
@@ -756,9 +879,54 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
+                  </time>
+                </td>
+                <td>
+                  <span>
+                    Yes
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    EMBL
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    CAD90637
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/10243"
+                    title="Cowpox virus (CPV), taxon ID 10243"
+                    translate="no"
+                  >
+                    Cowpox virus (CPV)
+                  </a>
+                </td>
+                <td>
+                  <time
+                    datetime="2003-06-16T00:00:00.000Z"
+                  >
+                    2003-06-16
+                  </time>
+                </td>
+                <td>
+                  <time
+                    datetime="2023-12-22T00:00:00.000Z"
+                  >
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -801,9 +969,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -846,9 +1014,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -891,9 +1059,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -936,9 +1104,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -981,9 +1149,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -1026,9 +1194,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -1071,9 +1239,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -1116,9 +1284,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>
@@ -1161,144 +1329,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2021-04-24T00:00:00.000Z"
+                    datetime="2023-12-22T00:00:00.000Z"
                   >
-                    2021-04-24
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    EMBL
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    AQQ12956
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/10243"
-                    title="Cowpox virus (CPV), taxon ID 10243"
-                    translate="no"
-                  >
-                    Cowpox virus (CPV)
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2017-02-22T00:00:00.000Z"
-                  >
-                    2017-02-22
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-04-24T00:00:00.000Z"
-                  >
-                    2021-04-24
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    EMBL
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    AQY54862
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/10245"
-                    title="Vaccinia virus, taxon ID 10245"
-                    translate="no"
-                  >
-                    Vaccinia virus
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2017-04-08T00:00:00.000Z"
-                  >
-                    2017-04-08
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-04-24T00:00:00.000Z"
-                  >
-                    2021-04-24
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    EMBL
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    AUD55251
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/397342"
-                    title="Horsepox virus (HSPV), taxon ID 397342"
-                    translate="no"
-                  >
-                    Horsepox virus (HSPV)
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2018-07-24T00:00:00.000Z"
-                  >
-                    2018-07-24
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2021-04-24T00:00:00.000Z"
-                  >
-                    2021-04-24
+                    2023-12-22
                   </time>
                 </td>
                 <td>

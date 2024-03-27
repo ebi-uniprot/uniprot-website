@@ -63,14 +63,13 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.DiseaseVariants,
-    sectionContent: (data, communityReferences, importedVariants) => (
+    sectionContent: (data, _, importedVariants) => (
       <DiseaseAndDrugsSection
         data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
         importedVariants={importedVariants}
-        communityReferences={communityReferences}
         key={EntrySection.DiseaseVariants}
       />
     ),

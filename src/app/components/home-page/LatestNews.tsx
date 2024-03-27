@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Scents communicate. Wrapped in silence perhaps, yet they have much to say. They may revolt us or delight us, go unnoticed or do nothing for us, but scents always have something to convey. So much so that many of us dab a little perfume on the nape of our neck or spray eau de toilette on our torso at the start of each day. We want to smell nice, or at the very least clean.';
+  'Many years ago, I was sitting opposite a man whose body suddenly froze. His eyes seemed to be staring at something on the wall behind me while his left hand drew small circles in the air, repetitively. I had no idea what was happening to him until he came back to his senses and told me that he had just had an epileptic fit. Deeply embarrassed, he got up and left the room.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -124,6 +124,29 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-03-27-release',
+                  })}
+                >
+                  UniProt release 2024_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                CMV infections: plants beaten at their own game | Changes to the
+                controlled vocabulary of human diseases | Changes to the
+                controlled vocabulary for PTMs
               </p>
             </article>
           </li>
@@ -262,120 +285,6 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-12-14-release',
-                  })}
-                >
-                  UniProt release 2022_05
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Plant adaptation to global warming through epigenetic memory |
-                Cross-references to AGR | Changes to the controlled...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-10-12-release',
-                  })}
-                >
-                  UniProt release 2022_04
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The (phenolic) Rings of Power | UniProtKB news: Protein
-                embeddings | Changes to the controlled vocabulary of human
-                diseases | Changes to the controlled vocabulary for PTMs
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-08-03-release',
-                  })}
-                >
-                  UniProt release 2022_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Not just for proteins: new targets for ADP-ribosylation |
-                Annotation of biologically relevant ligands in UniProtKB using
-                ChEBI | Changes to the controlled vocabulary of human
-                diseases...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-05-25-release',
-                  })}
-                >
-                  UniProt release 2022_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Prenylation for antiviral activity | Cross-references to
-                AlphaFoldDB | Version numbers for identifiers in Ensembl
-                cross-references in Uni...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-02-23-release',
-                  })}
-                >
-                  UniProt release 2022_01
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                A phospholipase for clear vision | Cross-references to
-                MANE-Select
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
@@ -469,21 +378,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/266/"
+            url="https://www.proteinspotlight.org/back_issues/267/"
             noIcon
           >
-            Fierce
+            Seizure
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/266/"
+          url="https://www.proteinspotlight.org/back_issues/267/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt266.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt267.jpg"
             alt=""
             width="123"
             height="129"

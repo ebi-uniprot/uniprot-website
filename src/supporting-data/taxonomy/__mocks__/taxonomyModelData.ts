@@ -1,83 +1,8 @@
 import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 // Source: /api/taxonomy/search?size=2&query=primate
-// Retrieved: 2023-06-28
+// Retrieved: 2024-03-25
 const mock: TaxonomyAPIModel[] = [
-  {
-    scientificName: 'Primate lentivirus group',
-    taxonId: 11652,
-    mnemonic: '9PLVG',
-    parent: {
-      scientificName: 'Lentivirus',
-      taxonId: 11646,
-    },
-    rank: 'no rank',
-    hidden: false,
-    active: true,
-    otherNames: ['Primate immunodeficiency viruses'],
-    lineage: [
-      {
-        scientificName: 'Viruses',
-        taxonId: 10239,
-        rank: 'superkingdom',
-        hidden: false,
-      },
-      {
-        scientificName: 'Riboviria',
-        taxonId: 2559587,
-        rank: 'no rank',
-        hidden: false,
-      },
-      {
-        scientificName: 'Pararnavirae',
-        taxonId: 2732397,
-        rank: 'kingdom',
-        hidden: false,
-      },
-      {
-        scientificName: 'Artverviricota',
-        taxonId: 2732409,
-        rank: 'phylum',
-        hidden: false,
-      },
-      {
-        scientificName: 'Revtraviricetes',
-        taxonId: 2732514,
-        rank: 'class',
-        hidden: false,
-      },
-      {
-        scientificName: 'Ortervirales',
-        taxonId: 2169561,
-        rank: 'order',
-        hidden: false,
-      },
-      {
-        scientificName: 'Retroviridae',
-        taxonId: 11632,
-        rank: 'family',
-        hidden: false,
-      },
-      {
-        scientificName: 'Orthoretrovirinae',
-        taxonId: 327045,
-        rank: 'subfamily',
-        hidden: false,
-      },
-      {
-        scientificName: 'Lentivirus',
-        taxonId: 11646,
-        rank: 'genus',
-        hidden: false,
-      },
-    ],
-    statistics: {
-      reviewedProteinCount: 0,
-      unreviewedProteinCount: 35809,
-      referenceProteomeCount: 0,
-      proteomeCount: 0,
-    },
-  },
   {
     scientificName: 'Primate calicivirus',
     taxonId: 37299,
@@ -144,7 +69,7 @@ const mock: TaxonomyAPIModel[] = [
         commonName: 'VESV',
         taxonId: 35612,
         rank: 'species',
-        hidden: true,
+        hidden: false,
       },
     ],
     statistics: {
@@ -154,6 +79,74 @@ const mock: TaxonomyAPIModel[] = [
       proteomeCount: 0,
     },
   },
+  {
+    scientificName: 'primate papillomaviruses',
+    taxonId: 333933,
+    mnemonic: '9PAPI',
+    parent: {
+      scientificName: 'unclassified Papillomaviridae',
+      taxonId: 333774,
+    },
+    rank: 'no rank',
+    hidden: false,
+    active: true,
+    lineage: [
+      {
+        scientificName: 'Viruses',
+        taxonId: 10239,
+        rank: 'superkingdom',
+        hidden: false,
+      },
+      {
+        scientificName: 'Monodnaviria',
+        commonName: 'single-stranded DNA viruses',
+        taxonId: 2731342,
+        rank: 'no rank',
+        hidden: false,
+      },
+      {
+        scientificName: 'Shotokuvirae',
+        taxonId: 2732092,
+        rank: 'kingdom',
+        hidden: false,
+      },
+      {
+        scientificName: 'Cossaviricota',
+        taxonId: 2732415,
+        rank: 'phylum',
+        hidden: false,
+      },
+      {
+        scientificName: 'Papovaviricetes',
+        taxonId: 2732421,
+        rank: 'class',
+        hidden: false,
+      },
+      {
+        scientificName: 'Zurhausenvirales',
+        taxonId: 2732533,
+        rank: 'order',
+        hidden: false,
+      },
+      {
+        scientificName: 'Papillomaviridae',
+        taxonId: 151340,
+        rank: 'family',
+        hidden: false,
+      },
+      {
+        scientificName: 'unclassified Papillomaviridae',
+        taxonId: 333774,
+        rank: 'no rank',
+        hidden: true,
+      },
+    ],
+    statistics: {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 59,
+      referenceProteomeCount: 0,
+      proteomeCount: 0,
+    },
+  },
 ];
-
 export default mock;

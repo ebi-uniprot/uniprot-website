@@ -32,7 +32,7 @@ const testCases: [Namespace, APIModel, string][] = [
   [Namespace.keywords, keywordsModelData[0], 'KW-0021'],
   [Namespace.locations, locationsModelData[0], 'SL-0099'],
   [Namespace.proteomes, proteomesEntryModelData, 'UP000005640'],
-  [Namespace.taxonomy, taxonomyModelData[0], '11652'],
+  [Namespace.taxonomy, taxonomyModelData[0], '37299'],
   [Namespace.uniparc, uniparcModelData, 'UPI0000000001'],
   [
     Namespace.uniprotkb,
@@ -42,7 +42,7 @@ const testCases: [Namespace, APIModel, string][] = [
   [
     Namespace.uniref,
     unirefModelData.results[0] as UniRefLiteAPIModel,
-    'UniRef100_A0A0B7GQ86',
+    'UniRef50_A0A3E1E969',
   ],
   [Namespace.unirule, uniruleModelData[0], 'UR000048432'],
 ];

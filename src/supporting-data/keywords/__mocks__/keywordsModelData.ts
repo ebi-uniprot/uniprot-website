@@ -1,7 +1,7 @@
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 
 // Source: /api/keywords/search?query=site&size=2
-// Proposed change as of 21/09/2022
+// Retrieved: 2024/03/25
 const mock: KeywordsAPIModel[] = [
   {
     keyword: {
@@ -20,23 +20,21 @@ const mock: KeywordsAPIModel[] = [
         name: 'metabolic process',
       },
     ],
-    category: {
-      name: 'Molecular function',
-      id: 'KW-9992',
-    },
     parents: [
       {
         keyword: {
           name: 'Molecular function',
           id: 'KW-9992',
         },
-        definition:
-          'Keywords assigned to proteins due to their particular molecular function.',
       },
     ],
+    category: {
+      name: 'Molecular function',
+      id: 'KW-9992',
+    },
     statistics: {
-      reviewedProteinCount: 2482,
-      unreviewedProteinCount: 139810,
+      reviewedProteinCount: 2512,
+      unreviewedProteinCount: 146438,
     },
   },
   {
@@ -53,23 +51,11 @@ const mock: KeywordsAPIModel[] = [
         name: 'calcium-dependent phospholipid binding',
       },
     ],
-    category: {
-      name: 'Ligand',
-      id: 'KW-9993',
-    },
     parents: [
       {
         keyword: {
           name: 'Calcium',
           id: 'KW-0106',
-        },
-        definition:
-          'Protein which binds at least one calcium atom, or protein whose function is calcium-dependent. Calcium is a metal, chemical symbol Ca. Calcium is essential for a variety of bodily functions, such as neurotransmission, muscle contraction and proper heart function.',
-        synonyms: ['Ca', 'Calcium ion'],
-        links: ['https://www.webelements.com/calcium/'],
-        category: {
-          name: 'Ligand',
-          id: 'KW-9993',
         },
         parents: [
           {
@@ -77,15 +63,17 @@ const mock: KeywordsAPIModel[] = [
               name: 'Ligand',
               id: 'KW-9993',
             },
-            definition:
-              'Keywords assigned to proteins because they bind, are associated with, or whose activity is dependent of some molecule.',
           },
         ],
       },
     ],
+    category: {
+      name: 'Ligand',
+      id: 'KW-9993',
+    },
     statistics: {
       reviewedProteinCount: 102,
-      unreviewedProteinCount: 14480,
+      unreviewedProteinCount: 20048,
     },
   },
 ];
