@@ -72,7 +72,7 @@ describe('ComponentsButtons', () => {
         }}
       />
     );
-    const downloadButton = screen.getByRole('button', { name: 'Download' });
+    const downloadButton = screen.getByRole('button', { name: /Download/ });
     fireEvent.click(downloadButton);
     expect(await screen.findByTestId('sliding-panel')).toBeInTheDocument();
   });
