@@ -1256,12 +1256,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <input
                     data-id="P11413"
-                    id="4"
+                    id="5"
                     type="checkbox"
                   />
                   <label
                     aria-label="P11413"
-                    for="4"
+                    for="5"
                     title="click to select, shift+click for multiple selection"
                   />
                 </td>
@@ -1334,12 +1334,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <input
                     data-id="P19926"
-                    id="5"
+                    id="6"
                     type="checkbox"
                   />
                   <label
                     aria-label="P19926"
-                    for="5"
+                    for="6"
                     title="click to select, shift+click for multiple selection"
                   />
                 </td>
