@@ -218,14 +218,6 @@ exports[`AlignmentView Align should render 1`] = `
             <protvista-navigation
               length="957"
             />
-            <nightingale-msa
-              calculate-conservation="true"
-              colorscheme="conservation"
-              height="80"
-              hidelabel="true"
-              length="957"
-              overlay-conservation="true"
-            />
           </protvista-manager>
         </div>
         <span
@@ -389,14 +381,6 @@ exports[`AlignmentView BLAST should render 1`] = `
           >
             <protvista-navigation
               length="565"
-            />
-            <nightingale-msa
-              calculate-conservation="true"
-              colorscheme="conservation"
-              height="40"
-              hidelabel="true"
-              length="565"
-              overlay-conservation="true"
             />
           </protvista-manager>
         </div>

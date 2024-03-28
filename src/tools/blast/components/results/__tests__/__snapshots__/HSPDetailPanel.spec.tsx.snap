@@ -306,14 +306,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               <protvista-navigation
                 length="28"
               />
-              <nightingale-msa
-                calculate-conservation="true"
-                colorscheme="conservation"
-                height="40"
-                hidelabel="true"
-                length="28"
-                overlay-conservation="true"
-              />
             </protvista-manager>
           </div>
           <span
