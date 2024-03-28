@@ -88,14 +88,7 @@ exports[`WrappedRow should render 1`] = `
   </div>
   <div
     class="track"
-  >
-    <nightingale-msa
-      calculate-conservation="true"
-      color-scheme="conservation"
-      overlay-conservation="true"
-      tile-width="18"
-    />
-  </div>
+  />
   <span
     class="right-coord"
   >
