@@ -1,5 +1,4 @@
 import { fireEvent, waitFor, screen } from '@testing-library/react';
-import { makeDnd, DND_DIRECTION_RIGHT } from 'react-beautiful-dnd-test-utils';
 
 import customRender from '../../../__test-helpers__/customRender';
 
@@ -64,22 +63,5 @@ describe('ColumnSelect component', () => {
     expect(onChange).toHaveBeenCalledWith(
       selectedColumns.filter((c) => c !== UniProtKBColumn.proteinName)
     );
-  });
-
-  it.skip('should call onChange with the correct column order when "Protein names" is dragged to the right', async () => {
-    await makeDnd({
-      getByText: screen.getAllByText,
-      getDragElement: () =>
-        screen
-          .getByText('Protein names')
-          .parentNode?.querySelector('[data-rfd-drag-handle-draggable-id]'),
-      direction: DND_DIRECTION_RIGHT,
-      positions: 2,
-    });
-    expect(onChange).toHaveBeenCalledWith([
-      UniProtKBColumn.accession,
-      UniProtKBColumn.organismName,
-      UniProtKBColumn.proteinName,
-    ]);
   });
 });
