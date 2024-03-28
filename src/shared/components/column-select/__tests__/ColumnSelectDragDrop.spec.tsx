@@ -1,9 +1,5 @@
 import { render, fireEvent, RenderResult } from '@testing-library/react';
-import {
-  makeDnd,
-  DND_DRAGGABLE_DATA_ATTR,
-  DND_DIRECTION_LEFT,
-} from 'react-beautiful-dnd-test-utils';
+import { makeDnd, DND_DIRECTION_LEFT } from 'react-beautiful-dnd-test-utils';
 
 import ColumnSelectDragDrop, {
   ColumnSelectDragDropProps,

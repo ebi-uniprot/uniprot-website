@@ -9310,11 +9310,6 @@ raw-body@2.5.2:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-beautiful-dnd-test-utils@4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/react-beautiful-dnd-test-utils/-/react-beautiful-dnd-test-utils-4.1.1.tgz#e4bf0d997cee2ce28987866c7b22b887424fe179"
-  integrity sha512-2l8IrPyKpmjBmYr89kAOltNVG3m09FWlAofjpX018Bmz+7hYEoh1AV1FowX3ab/CFjAgt28W0sakf1juuRwF4w==
-
 react-diff-viewer-continued@3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/react-diff-viewer-continued/-/react-diff-viewer-continued-3.4.0.tgz#0501ffb2b5ab740f88b9ae5f18771aa90d3803c2"
