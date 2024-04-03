@@ -226,7 +226,7 @@ const VariationViewer = ({
           />
         )}
         <EntryDownloadButton handleToggle={handleToggleDownload} />
-        <div className={styles['too-many']}>
+        <div className={tabsStyles['too-many']}>
           <Message>
             Due to the large number (<LongNumber>{importedVariants}</LongNumber>
             ) of variations for this entry, the variant viewer will not be
