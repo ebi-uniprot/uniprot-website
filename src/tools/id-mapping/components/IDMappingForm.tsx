@@ -14,7 +14,6 @@ import cn from 'classnames';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import DowntimeWarning from '../../components/DowntimeWarning';
 
 import { pluralise } from '../../../shared/utils/utils';
 
@@ -245,7 +244,6 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro title={title} />
-      <DowntimeWarning>ID Mapping service</DowntimeWarning>
       <form
         onSubmit={submitIDMappingJob}
         onReset={handleReset}
