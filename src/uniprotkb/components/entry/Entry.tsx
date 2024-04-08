@@ -604,7 +604,10 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewerTab accession={accession} />
+                <FeatureViewerTab
+                  accession={accession}
+                  importedVariants={importedVariants}
+                />
               </ErrorBoundary>
             </Suspense>
           )}
