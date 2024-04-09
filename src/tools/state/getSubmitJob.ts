@@ -64,7 +64,12 @@ const getSubmitJob =
 
       // we use plain fetch as through Axios we cannot block redirects
       const response = await window.fetch(url, {
-        headers: { Accept: 'text/plain,application/json' },
+        headers: {
+          Accept:
+            job.type === JobTypes.ASYNC_DOWNLOAD
+              ? 'application/json'
+              : 'text/plain,application/json',
+        },
         method: 'POST',
         body,
         // 'manual' to block redirect is the bit we cannot do with Axios
