@@ -280,7 +280,7 @@ const Publications = ({ accession }: PublicationsProps) => {
   const cardRenderer = useMemo(() => cardRendererFor(accession), [accession]);
 
   if (error) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   if (allResults.length === 0 && loading) {

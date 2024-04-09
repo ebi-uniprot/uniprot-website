@@ -283,7 +283,7 @@ const ContactForm = lazy(
 const ResourceNotFoundPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFoundPage'
+      /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFound'
     )
 );
 

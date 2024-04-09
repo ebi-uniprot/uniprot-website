@@ -29,7 +29,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { status, error } = dataObject;
 
   if (error) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} noReload />;
   }
 
   return <ResultsFacets dataApiObject={dataObject} />;

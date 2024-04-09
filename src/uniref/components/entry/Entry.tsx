@@ -57,7 +57,7 @@ const Entry = () => {
     useDataApi<UniRefLiteAPIModel>(baseURL);
 
   if (error || !accession) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (loading || !data) {

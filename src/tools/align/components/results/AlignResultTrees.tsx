@@ -38,7 +38,7 @@ const AlignResultTrees: FC<AlignResultTreesProps> = ({
   );
 
   if (error || !(loading || data)) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   return (

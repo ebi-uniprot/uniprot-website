@@ -8,7 +8,7 @@ import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayo
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import JobErrorPage from '../../../../shared/components/error-pages/JobErrorPage';
+import JobErrorPage from '../../../../shared/components/error-pages/full-pages/JobErrorPage';
 
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -226,7 +226,9 @@ const IDMappingResult = () => {
   }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
 
   if (!match || detailsError) {
-    return <ErrorHandler status={detailsStatus} />;
+    return (
+      <ErrorHandler status={detailsStatus} error={detailsError} fullPage />
+    );
   }
 
   if (
@@ -242,7 +244,7 @@ const IDMappingResult = () => {
   }
 
   if (!detailsData) {
-    return <ErrorHandler />;
+    return <ErrorHandler fullPage />;
   }
 
   if (errors.length) {
