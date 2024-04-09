@@ -8,13 +8,8 @@ import {
   ReactNode,
   Suspense,
 } from 'react';
-import {
-  Button,
-  EllipsisReveal,
-  Loader,
-  LongNumber,
-  Message,
-} from 'franklin-sites';
+import { Link, useLocation } from 'react-router-dom';
+import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
@@ -36,8 +31,11 @@ import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
 import { sortByLocation } from '../../../../utils';
+import { getEntryPath } from '../../../../../app/config/urls';
 
 import { Evidence } from '../../../../types/modelTypes';
+import { Namespace } from '../../../../../shared/types/namespaces';
+import { TabLocation } from '../../../../types/entry';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
 
 import styles from './styles/variation-viewer.module.scss';
@@ -52,7 +50,7 @@ const VisualVariationView = lazy(
 );
 
 // hardcoded threshold
-const VARIANT_COUNT_LIMIT = 5_000;
+export const VARIANT_COUNT_LIMIT = 2_000;
 
 type ProteinsAPIEvidence = SetRequired<
   PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
@@ -137,14 +135,15 @@ const VariationViewer = ({
   title,
 }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
+  const searchParams = new URLSearchParams(useLocation().search);
+  const loadAllVariants = searchParams.get('loadVariants');
 
-  const [forcedRender, setForceRender] = useState(false);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const shouldRender =
     (importedVariants !== 'loading' &&
       importedVariants <= VARIANT_COUNT_LIMIT) ||
-    forcedRender;
+    loadAllVariants;
 
   const { loading, data, progress, error, status } =
     useDataApi<ProteinsAPIVariation>(
@@ -227,16 +226,29 @@ const VariationViewer = ({
           />
         )}
         <EntryDownloadButton handleToggle={handleToggleDownload} />
-        <div className={styles['too-many']}>
+        <div className={tabsStyles['too-many']}>
           <Message>
-            As there are <LongNumber>{importedVariants}</LongNumber> variations,
-            the variant viewer has not automatically been loaded for performance
-            reasons.
+            Due to the large number (<LongNumber>{importedVariants}</LongNumber>
+            ) of variations for this entry, the variant viewer will not be
+            loaded automatically for performance reasons.
           </Message>
-          <Button onClick={() => setForceRender(true)}>
+          <Link
+            className="button primary"
+            to={{
+              pathname: getEntryPath(
+                Namespace.uniprotkb,
+                primaryAccession,
+                TabLocation.VariantViewer
+              ),
+              search: new URLSearchParams({
+                loadVariants: 'true',
+              }).toString(),
+            }}
+            target="variants"
+          >
             Click to load the <LongNumber>{importedVariants}</LongNumber>{' '}
             variations
-          </Button>
+          </Link>
         </div>
       </div>
     );
