@@ -115,7 +115,12 @@ const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
     // We now have a data payload for sure, check for errors normally
     (inputParamsData.error || !inputParamsData.data)
   ) {
-    return <ErrorHandler status={inputParamsData.status} />;
+    return (
+      <ErrorHandler
+        status={inputParamsData.status}
+        error={inputParamsData.error}
+      />
+    );
   }
 
   const documentationURL = documentation.get(jobType);

@@ -26,7 +26,7 @@ export type PaginatedResults<R extends APIModel = APIModel> = {
   suggestedIds?: Array<{ from: string; to: string }>;
   // For ID Mapping
   obsoleteCount?: number;
-  error?: AxiosError<{ messages?: string[] }>;
+  error?: AxiosError<undefined | { messages?: string[] }>;
   status?: number | undefined;
   warnings?: SearchResultsWarning[];
   suggestions?: Suggestion[];

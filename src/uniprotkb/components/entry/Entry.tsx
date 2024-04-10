@@ -367,7 +367,7 @@ const Entry = () => {
     (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
     if (error) {
-      return <ErrorHandler status={status} />;
+      return <ErrorHandler status={status} error={error} fullPage />;
     }
     return <Loader progress={progress} />;
   }
@@ -395,7 +395,7 @@ const Entry = () => {
   }
 
   if (error || !match?.params.accession || !transformedData) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   const entrySidebar = (

@@ -18,7 +18,7 @@ import {
   DeletedEntryMessage,
   DemergedEntryMessage,
   MergedEntryMessage,
-} from '../../../../shared/components/error-pages/ObsoleteEntryPage';
+} from '../../../../shared/components/error-pages/full-pages/ObsoleteEntryPage';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
@@ -96,7 +96,10 @@ const EntryHistoryDiff = ({
 
   if (v1Data.error || v2Data.error || !v1Data.data || !v2Data.data) {
     return (
-      <ErrorHandler status={v1Data.error ? v1Data.status : v2Data.status} />
+      <ErrorHandler
+        status={v1Data.error ? v1Data.status : v2Data.status}
+        error={v1Data.error || v2Data.error}
+      />
     );
   }
 
@@ -294,7 +297,9 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
   // Don't check statusData.error either!
   // Might return 404 when no events in the data (most TrEMBL entries)
   // if (statusData.error || !data) {
-  //   return <ErrorHandler status={accessionData.status} />;
+  //   return (
+  //     <ErrorHandler status={accessionData.status} error={statusData.error} />
+  //   );
   // }
 
   const compareDisabled = selectedEntries.length !== 2;
