@@ -1,16 +1,23 @@
 import { HTMLAttributes, useEffect } from 'react';
 import { Message } from 'franklin-sites';
 
-import ErrorPage from './ErrorPage';
+import ErrorComponent from './ErrorComponent';
 
 import ArtWork from './svgs/503.img.svg';
 
-const BACKOFF = [5] as const;
+const BACKOFF = [5, 20] as const;
 const KEY = 'retry-index';
 
-const ServiceUnavailablePage = (props: HTMLAttributes<HTMLDivElement>) => {
+type ServiceUnavailableProps = {
+  noReload?: boolean;
+} & HTMLAttributes<HTMLDivElement>;
+
+const ServiceUnavailable = ({
+  noReload,
+  ...props
+}: ServiceUnavailableProps) => {
   const retryIndex = +(sessionStorage.getItem(KEY) || 0);
-  const willReload = navigator.onLine && retryIndex in BACKOFF;
+  const willReload = !noReload && navigator.onLine && retryIndex in BACKOFF;
 
   useEffect(() => {
     let timeout: number | undefined;
@@ -19,17 +26,16 @@ const ServiceUnavailablePage = (props: HTMLAttributes<HTMLDivElement>) => {
         sessionStorage.setItem(KEY, `${retryIndex + 1}`);
         document.location.reload();
       }, BACKOFF[retryIndex] * 1000);
-    } else {
-      window.sessionStorage.removeItem(KEY);
     }
 
     return () => {
+      window.sessionStorage.removeItem(KEY);
       window.clearTimeout(timeout);
     };
   }, [retryIndex, willReload]);
 
   return (
-    <ErrorPage
+    <ErrorComponent
       {...props}
       artwork={<img src={ArtWork} width="400" height="400" alt="" />}
     >
@@ -48,8 +54,8 @@ const ServiceUnavailablePage = (props: HTMLAttributes<HTMLDivElement>) => {
           </small>
         )}
       </Message>
-    </ErrorPage>
+    </ErrorComponent>
   );
 };
 
-export default ServiceUnavailablePage;
+export default ServiceUnavailable;

@@ -11,7 +11,7 @@ import HTMLHead from '../HTMLHead';
 import ResultsData from './ResultsData';
 import ResultsFacets from './ResultsFacets';
 import { SidebarLayout } from '../layouts/SideBarLayout';
-import NoResultsPage from '../error-pages/NoResultsPage';
+import NoResultsPage from '../error-pages/full-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ResultsDataHeader from './ResultsDataHeader';
@@ -102,7 +102,13 @@ const Results = () => {
   }
 
   if (!resultsDataObject.allResults.length && resultsDataObject.error) {
-    return <ErrorHandler status={resultsDataObject.status} />;
+    return (
+      <ErrorHandler
+        status={resultsDataObject.status}
+        error={resultsDataObject.error}
+        fullPage
+      />
+    );
   }
 
   const { suggestions } = facetApiObject.data || {};

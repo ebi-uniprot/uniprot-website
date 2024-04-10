@@ -85,7 +85,7 @@ const HSPDetailPanel = ({
   if (namespace === Namespace.uniref) {
     url += '/light';
   }
-  const { data, loading, status } = useDataApi<ApiData>(url);
+  const { data, loading, status, error } = useDataApi<ApiData>(url);
 
   let recommendedName: string | undefined;
   if (data && 'proteinDescription' in data) {
@@ -120,7 +120,7 @@ const HSPDetailPanel = ({
     if (loading) {
       content = <Loader />;
     } else {
-      content = <ErrorHandler status={status} />;
+      content = <ErrorHandler status={status} error={error} />;
     }
   } else {
     content = (

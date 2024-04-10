@@ -30,9 +30,9 @@ exports[`ResourceNotFoundPage component should render 1`] = `
         <h4>
           Sorry, this page can't be found!
         </h4>
-        <span>
+        <div>
           Please check the address bar for any mistakes
-        </span>
+        </div>
       </div>
     </div>
   </div>

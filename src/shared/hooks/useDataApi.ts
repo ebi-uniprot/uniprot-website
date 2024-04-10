@@ -21,7 +21,7 @@ import {
 import { Namespace } from '../types/namespaces';
 import { UserPreferenceKey } from './useLocalStorage';
 
-type CustomError = AxiosError<{ messages?: string[] }>;
+export type CustomError = AxiosError<undefined | { messages?: string[] }>;
 
 const invalidFieldMessage = /Invalid fields parameter value '(?<field>[^']*)'/;
 const namespacedURL = new RegExp(

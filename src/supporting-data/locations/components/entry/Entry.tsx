@@ -72,7 +72,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   }
 
   if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (!data) {

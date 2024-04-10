@@ -257,7 +257,7 @@ const VariationViewer = ({
   if (error && status !== 404) {
     return (
       <div className="wider-tab-content hotjar-margin">
-        <ErrorHandler status={status} />
+        <ErrorHandler status={status} error={error} />
       </div>
     );
   }
