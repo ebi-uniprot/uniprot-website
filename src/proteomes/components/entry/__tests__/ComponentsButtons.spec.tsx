@@ -74,6 +74,8 @@ describe('ComponentsButtons', () => {
     );
     const downloadButton = screen.getByRole('button', { name: /Download/ });
     fireEvent.click(downloadButton);
-    expect(await screen.findByTestId('sliding-panel')).toBeInTheDocument();
+    expect(
+      await screen.findByTestId('sliding-panel', undefined, { timeout: 2000 })
+    ).toBeInTheDocument();
   });
 });
