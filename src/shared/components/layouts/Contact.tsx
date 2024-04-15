@@ -7,7 +7,7 @@ import {
   blogspot,
   facebook,
   googleGroups,
-  twitter,
+  twitterX,
   youtube,
 } from '../../../app/config/socialUrls';
 
@@ -16,7 +16,7 @@ import { ContactLocationState } from '../../../contact/adapters/contactFormAdapt
 
 import footer from './styles/contact.module.scss';
 
-import TwitterLogo from '../../../images/twitter-logo.svg';
+import XLogo from '../../../images/x-logo.svg';
 import FacebookLogo from '../../../images/facebook-logo.svg';
 import YouTubeLogo from '../../../images/youtube-logo.svg';
 import BloggerLogo from '../../../images/blogger-logo.svg';
@@ -35,8 +35,12 @@ const Contact = () => (
       </Link>
     </p>
     <p className={footer.social}>
-      <ExternalLink noIcon url={twitter} title="UniProt posts on Twitter">
-        <TwitterLogo width="3ch" />
+      <ExternalLink
+        noIcon
+        url={twitterX}
+        title="UniProt posts on X (formerly Twitter)"
+      >
+        <XLogo width="3ch" />
       </ExternalLink>
       <ExternalLink noIcon url={facebook} title="UniProt posts on Facebook">
         <FacebookLogo width="3ch" />

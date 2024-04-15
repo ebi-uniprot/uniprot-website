@@ -808,7 +808,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
               href="https://twitter.com/uniprot"
               rel="noopener"
               target="_blank"
-              title="UniProt posts on Twitter"
+              title="UniProt posts on X (formerly Twitter)"
             >
               <test-file-stub
                 width="3ch"
@@ -1774,7 +1774,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
               href="https://twitter.com/uniprot"
               rel="noopener"
               target="_blank"
-              title="UniProt posts on Twitter"
+              title="UniProt posts on X (formerly Twitter)"
             >
               <test-file-stub
                 width="3ch"
