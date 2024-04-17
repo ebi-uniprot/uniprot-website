@@ -330,7 +330,7 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
-  const isObsolete = Boolean(
+  let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
   );
@@ -403,6 +403,11 @@ const Entry = () => {
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
+
+  // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
+  // merged entry's history), the user is viewing content of an obsolete entry
+  isObsolete =
+    (redirectedTo && accession !== match.params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {
