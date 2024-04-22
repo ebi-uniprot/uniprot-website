@@ -39,6 +39,7 @@ import {
 import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
 
@@ -177,6 +178,10 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
           formValues[IDMappingFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.ID_MAPPING, {
+        fromDB: parameters.from,
+        toDB: parameters.to,
+      });
     });
   };
 

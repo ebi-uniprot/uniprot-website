@@ -44,6 +44,7 @@ import {
   updateSending,
 } from '../state/blastFormActions';
 import { getAutoMatrixFor } from '../utils';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import { BLAST_LIMIT } from '../../../shared/config/limits';
 
@@ -271,6 +272,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               formValues[BlastFields.database].selected === 'uniparc'
           )
         );
+        sendGtagEventJobSubmit(JobTypes.BLAST, { target: parameters.database });
         // Ensure there's a bit of wait between creating the jobs in order to
         // have different creation times and have consistent ordering.
         // eslint-disable-next-line no-await-in-loop
