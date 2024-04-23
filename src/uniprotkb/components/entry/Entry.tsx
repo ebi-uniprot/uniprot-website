@@ -780,7 +780,9 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <HistoryTab accession={accession} />
+              <HistoryTab
+                accession={isObsolete ? match.params.accession : accession}
+              />
             </ErrorBoundary>
           </Suspense>
         </Tab>
