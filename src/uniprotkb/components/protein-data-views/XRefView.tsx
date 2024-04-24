@@ -348,11 +348,28 @@ const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
       if (category && databaseCategoryToString[category]) {
         title = databaseCategoryToString[category];
       }
+
+      let complexPortalXrefs = [];
+      let loadComplexViewer = false;
+      if (category === DatabaseCategory.INTERACTION) {
+        complexPortalXrefs = databases
+          .flatMap((d) =>
+            d.xrefs.flatMap((xref) =>
+              xref.database === 'ComplexPortal' ? xref.id : ''
+            )
+          )
+          .filter(Boolean);
+        if (complexPortalXrefs.length) {
+          loadComplexViewer = true;
+        }
+      }
+
       return (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
           <h3>{title}</h3>
           {xrefsNode}
+          {loadComplexViewer && 'Complex Viewer'}
         </Fragment>
       );
     })}
