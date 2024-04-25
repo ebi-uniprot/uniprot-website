@@ -3,6 +3,7 @@ import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import 'complexviewer';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import PDBView from './PDBView';
