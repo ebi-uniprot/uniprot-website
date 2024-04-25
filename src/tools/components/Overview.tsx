@@ -26,8 +26,8 @@ type EventDetail = {
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
 const sequenceHeight = 20;
-const heightStyle = { height: `${sequenceHeight}px` };
-const widthOfAA = 18;
+const labelHeightStyle = { height: `${sequenceHeight}px` };
+const widthOfAA = 9;
 
 const AlignOverview = ({
   alignment,
@@ -48,6 +48,7 @@ const AlignOverview = ({
   updateTooltip,
 }: AlignmentComponentProps) => {
   const containerRef = useRef<HTMLElement>(null);
+  const navigationRef = useRef<HTMLElement>(null);
   const [highlightPosition, setHighlightPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
@@ -75,6 +76,28 @@ const AlignOverview = ({
     [tracksOffset]
   );
 
+  const setMSAAttributes = useCallback(
+    (
+      node: {
+        data: { name: string; sequence: string }[];
+        'display-end'?: number;
+        width: number;
+      } | null
+    ) => {
+      if (!node) {
+        return;
+      }
+      requestAnimationFrame(() => {
+        node.data = alignment.map(({ name, sequence }) => ({
+          name: name || '',
+          sequence,
+        }));
+        node['display-end'] = initialDisplayEnd;
+        node.width = 550;
+      });
+    },
+    [alignment, initialDisplayEnd]
+  );
   const managerRef = useCallback(
     (node: {
       addEventListener: (
@@ -82,7 +105,7 @@ const AlignOverview = ({
         event: ({ detail }: { detail: EventDetail }) => void
       ) => void;
       setAttribute: (
-        attributre: 'displaystart' | 'displayend',
+        attributre: 'displaystart' | 'displayend' | 'height',
         value: number
       ) => void;
     }): void => {
@@ -100,6 +123,7 @@ const AlignOverview = ({
     },
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
+  const navigationHeight = navigationRef.current?.getClientRects()?.[0].height;
 
   useEffect(() => {
     const handler = handleEvent(updateTooltip) as (e: Event) => void;
@@ -155,7 +179,7 @@ const AlignOverview = ({
   );
 
   useEffect(() => {
-    const displayEndValue = alignmentLength / (15 / widthOfAA);
+    const displayEndValue = Math.round(alignmentLength / widthOfAA);
     const maxSequenceLength = Math.max(
       ...alignment.map((al) => al.sequence.length)
     );
@@ -206,7 +230,7 @@ const AlignOverview = ({
             info={s}
             loading={false}
             key={s.name}
-            style={heightStyle}
+            style={labelHeightStyle}
             checked={Boolean(
               s.accession && selectedEntries?.includes(s.accession)
             )}
@@ -218,34 +242,43 @@ const AlignOverview = ({
           </AlignLabel>
         ))}
       </div>
-      <div className="track">
+      <div
+        className="track"
+        // Need to set this explicitly as for some reason the MSA will come up a few
+        // pixels longer and will mess up the alignment with the left/right labels.
+        style={{
+          height: navigationHeight
+            ? navigationHeight + 2 * sequenceHeight
+            : 'undefined',
+        }}
+      >
         <managerElement.name
           ref={managerRef}
           attributes="displaystart displayend"
         >
-          <navigationElement.name length={alignmentLength} />
-          <NightingaleMSA
+          <navigationElement.name
+            ref={navigationRef}
             length={alignmentLength}
-            height={alignment.length * sequenceHeight}
+          />
+          <NightingaleMSA
+            ref={setMSAAttributes}
+            length={alignmentLength}
+            height={2 * sequenceHeight}
             color-scheme={highlightProperty}
-            width={1000}
             hide-label
             tile-width={widthOfAA}
+            tile-height={sequenceHeight}
             features={selectedMSAFeatures}
             onFeatureClick={onMSAFeatureClick}
-            data={alignment.map(({ name, sequence }) => ({
-              name: name || '',
-              sequence,
-            }))}
             display-start={displayPosition[0]}
             display-end={displayPosition[1]}
             {...conservationOptions}
           />
         </managerElement.name>
       </div>
-      <span className="right-coord">
+      <div className="right-coord">
         {alignment.map((s) => (
-          <div style={heightStyle} key={s.name}>
+          <div style={labelHeightStyle} key={s.name}>
             {Math.floor(
               omitInsertionsInCoords
                 ? getEndCoordinate(
@@ -256,7 +289,7 @@ const AlignOverview = ({
             )}
           </div>
         ))}
-      </span>
+      </div>
     </section>
   );
 };
