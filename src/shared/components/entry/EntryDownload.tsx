@@ -13,6 +13,7 @@ import useDataApi from '../../hooks/useDataApi';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
+import externalUrls from '../../config/externalUrls';
 import {
   allEntryPages,
   getLocationEntryPathFor,
@@ -87,6 +88,7 @@ export enum Dataset {
   proteomics = 'Proteomics',
   proteomicsPtm = 'Proteomics-PTM',
   antigen = 'Antigen',
+  interProRepresentativeDomains = 'interProRepresentativeDomains',
 }
 
 const uniprotKBEntryDatasets = {
@@ -98,6 +100,7 @@ const uniprotKBEntryDatasets = {
     Dataset.proteomics,
     Dataset.proteomicsPtm,
     Dataset.antigen,
+    Dataset.interProRepresentativeDomains,
   ],
 };
 
@@ -163,6 +166,11 @@ const getEntryDownloadUrl = (
       return apiUrls.proteinsApi.mutagenesis(accession, fileFormat);
     case Dataset.antigen:
       return apiUrls.proteinsApi.antigen(accession, fileFormat);
+    case Dataset.interProRepresentativeDomains:
+      return fileFormat === FileFormat.tsv || fileFormat === FileFormat.json
+        ? externalUrls.InterProRepresentativeDomains(accession, fileFormat)
+        : '';
+
     default:
       return '';
   }
