@@ -33,7 +33,7 @@ const externalUrls = {
     `https://www.ebi.ac.uk/interpro/search/text/${searchTerm}`,
   InterProRepresentativeDomains: (
     id: string,
-    format: FileFormat.json | FileFormat.tsv
+    format: FileFormat.json | FileFormat.tsv = FileFormat.json
   ) =>
     stringifyUrl(
       `https://www.ebi.ac.uk/interpro/api/entry/all/protein/uniprot/${id}`,

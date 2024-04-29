@@ -72,6 +72,8 @@ const proteinsAPICommonFormats = [
   FileFormat.gff,
 ];
 
+const interProRepresentativeDomainsFormats = [FileFormat.json, FileFormat.tsv];
+
 // once it is OK to expose peff format, uncomment the following
 // const proteinsAPIVariationFormats = [
 //   ...proteinsAPICommonFormats,
@@ -88,7 +90,7 @@ export enum Dataset {
   proteomics = 'Proteomics',
   proteomicsPtm = 'Proteomics-PTM',
   antigen = 'Antigen',
-  interProRepresentativeDomains = 'interProRepresentativeDomains',
+  interProRepresentativeDomains = 'InterPro Representative Domains',
 }
 
 const uniprotKBEntryDatasets = {
@@ -287,42 +289,50 @@ const EntryDownload = ({
 
   const proteinsApiVariation = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.variation(accession))
+      ? apiUrls.proteinsApi.variation(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiProteomics = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.proteomics(accession))
+      ? apiUrls.proteinsApi.proteomics(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiPTMs = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.proteomicsPtm(accession))
+      ? apiUrls.proteinsApi.proteomicsPtm(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiMutagenesis = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.mutagenesis(accession))
+      ? apiUrls.proteinsApi.mutagenesis(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiAntigen = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.antigen(accession))
+      ? apiUrls.proteinsApi.antigen(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiCoordinates = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.coordinates(accession))
+      ? apiUrls.proteinsApi.coordinates(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const interProRepresentativeDomains = useDataApi(
+    (namespace === Namespace.uniprotkb || namespace === Namespace.uniparc) &&
+      accession
+      ? externalUrls.InterProRepresentativeDomains(accession)
       : '',
     { method: 'HEAD' }
   );
@@ -363,6 +373,12 @@ const EntryDownload = ({
   ) {
     availableDatasets.push(Dataset.coordinates);
   }
+  if (
+    !interProRepresentativeDomains.loading &&
+    interProRepresentativeDomains.status === 200
+  ) {
+    availableDatasets.push(Dataset.interProRepresentativeDomains);
+  }
 
   useEffect(() => {
     if (data) {
@@ -392,6 +408,9 @@ const EntryDownload = ({
       case Dataset.antigen:
       case Dataset.mutagenesis:
         setFileFormats(proteinsAPICommonFormats);
+        break;
+      case Dataset.interProRepresentativeDomains:
+        setFileFormats(interProRepresentativeDomainsFormats);
         break;
       default:
         break;
@@ -642,6 +661,7 @@ const EntryDownload = ({
 
       {(selectedFormat === FileFormat.tsv ||
         selectedFormat === FileFormat.excel) &&
+        selectedDataset !== Dataset.interProRepresentativeDomains &&
         downloadColumns && (
           <>
             <legend>Customize columns</legend>
