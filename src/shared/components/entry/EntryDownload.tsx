@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Button, ExternalLink, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
-import joinUrl from 'url-join';
 
 import DownloadPreview from '../download/DownloadPreview';
 import DownloadAPIURL from '../download/DownloadAPIURL';
@@ -565,6 +564,11 @@ const EntryDownload = ({
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
+        acceptHeaderOverride={
+          selectedDataset === Dataset.interProRepresentativeDomains
+            ? '*/*'
+            : undefined
+        }
       />
     );
   } else if (extraContent === 'url') {
