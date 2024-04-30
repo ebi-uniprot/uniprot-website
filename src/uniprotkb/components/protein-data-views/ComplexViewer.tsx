@@ -5,6 +5,8 @@ import * as complexviewer from 'complexviewer';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import externalUrls from '../../../shared/config/externalUrls';
 
+import styles from './styles/complex-viewer.module.scss';
+
 const ComplexViewer = ({ complexID }: { complexID: string }) => {
   const { loading, data } = useDataApi(externalUrls.ComplexPortal(complexID));
 
@@ -26,7 +28,13 @@ const ComplexViewer = ({ complexID }: { complexID: string }) => {
   if (loading) {
     return <Loader />;
   }
-  return <div ref={createComplexViewer} />;
+
+  return (
+    <div
+      ref={createComplexViewer}
+      className={styles['complex-viewer-container']}
+    />
+  );
 };
 
 export default ComplexViewer;

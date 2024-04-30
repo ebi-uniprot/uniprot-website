@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from 'franklin-sites';
+import { Card, Tab, Tabs } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import EntrySection from '../../types/entrySection';
@@ -97,6 +97,14 @@ const InteractionViewer = lazy(
     import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
 );
 
+const ComplexViewer = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "complexviewer" */ '../protein-data-views/ComplexViewer'
+    )
+);
+
 const InteractionSection = ({ data, primaryAccession }: Props) => {
   const isSmallScreen = useSmallScreen();
   const tableData = useMemo(
@@ -115,9 +123,26 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     return null;
   }
 
+  let displayVizTabs = false;
+
   const comments = data.commentsData.get('SUBUNIT') as
     | FreeTextComment[]
     | undefined;
+
+  const interactionViz: Record<string, string[]> = {};
+
+  interactionViz['Complex Viewer'] = data.xrefData
+    .flatMap((d) => d.databases)
+    .flatMap((d) =>
+      d.xrefs.flatMap((xref) =>
+        xref.database === 'ComplexPortal' ? (xref.id as string) : ''
+      )
+    )
+    .filter(Boolean);
+
+  if (Object.values(interactionViz).length) {
+    displayVizTabs = true;
+  }
 
   const table = (
     <table>
@@ -231,6 +256,15 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         </>
       ) : null}
 
+      {displayVizTabs && (
+        <Tabs>
+          {Object.entries(interactionViz).map(([key, value]) => (
+            <Tab cache title={key} key={key}>
+              <ComplexViewer complexID={value[0]} />
+            </Tab>
+          ))}
+        </Tabs>
+      )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
   );

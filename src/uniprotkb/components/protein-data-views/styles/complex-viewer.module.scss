@@ -1,0 +1,14 @@
+.complex-viewer-container {
+  display: flex;
+
+  & svg {
+    width: 100%;
+    height: 275px;
+  }
+
+  .custom-menu-margin {
+    position: absolute;
+    top: 0px !important;
+    left: 50px !important;
+  }
+}

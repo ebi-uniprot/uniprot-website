@@ -1,4 +1,4 @@
-import { Fragment, lazy } from 'react';
+import { Fragment } from 'react';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
@@ -327,11 +327,6 @@ type XRefViewProps = {
   crc64?: string;
 };
 
-const ComplexViewer = lazy(
-  /* istanbul ignore next */
-  () => import(/* webpackChunkName: "complexviewer" */ './ComplexViewer')
-);
-
 const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
   <>
     {xrefs?.map(({ databases, category }, index): JSX.Element => {
@@ -354,29 +349,11 @@ const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
         title = databaseCategoryToString[category];
       }
 
-      let complexPortalXrefs: string[] = [];
-      let loadComplexViewer = false;
-      if (category === DatabaseCategory.INTERACTION) {
-        complexPortalXrefs = databases
-          .flatMap((d) =>
-            d.xrefs.flatMap((xref) =>
-              xref.database === 'ComplexPortal' ? (xref.id as string) : ''
-            )
-          )
-          .filter(Boolean);
-        if (complexPortalXrefs.length) {
-          loadComplexViewer = true;
-        }
-      }
-
       return (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
           <h3>{title}</h3>
           {xrefsNode}
-          {loadComplexViewer && (
-            <ComplexViewer complexID={complexPortalXrefs[0]} />
-          )}
         </Fragment>
       );
     })}
