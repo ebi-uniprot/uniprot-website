@@ -260,7 +260,9 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         <Tabs>
           {Object.entries(interactionViz).map(([key, value]) => (
             <Tab cache title={key} key={key}>
-              <ComplexViewer complexID={value[0]} />
+              <LazyComponent render={isSmallScreen ? false : undefined}>
+                <ComplexViewer complexID={value[0]} />
+              </LazyComponent>
             </Tab>
           ))}
         </Tabs>
