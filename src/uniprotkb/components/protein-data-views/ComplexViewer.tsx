@@ -8,14 +8,13 @@ import externalUrls from '../../../shared/config/externalUrls';
 import styles from './styles/complex-viewer.module.scss';
 
 const ComplexViewer = ({ complexID }: { complexID: string }) => {
-  const { loading, data } = useDataApi(externalUrls.ComplexPortal(complexID));
+  const { loading, data } = useDataApi(externalUrls.ComplexViewer(complexID));
 
   let viewer: typeof complexviewer.App;
   const createComplexViewer = useCallback(
     (node) => {
       if (!viewer && node) {
         viewer = new complexviewer.App(node);
-        console.log('enter');
       }
       if (data) {
         viewer.clear();

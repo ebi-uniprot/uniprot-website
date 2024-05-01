@@ -1,6 +1,6 @@
-import { lazy, useMemo, memo } from 'react';
+import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Tab, Tabs } from 'franklin-sites';
+import { Button, Card, Tab, Tabs } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import EntrySection from '../../types/entrySection';
@@ -12,7 +12,9 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { getIntActQueryUrl } from '../../../shared/config/externalUrls';
+import externalUrls, {
+  getIntActQueryUrl,
+} from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
@@ -118,6 +120,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ).sort(interactionSorter),
     [data]
   );
+  const [viewerID, setViewerID] = useState<string | undefined>(undefined);
 
   if (!hasContent(data)) {
     return null;
@@ -228,6 +231,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       </tbody>
     </table>
   );
+
   return (
     <Card
       header={
@@ -260,9 +264,35 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         <Tabs>
           {Object.entries(interactionViz).map(([key, value]) => (
             <Tab cache title={key} key={key}>
-              <LazyComponent render={isSmallScreen ? false : undefined}>
-                <ComplexViewer complexID={value[0]} />
-              </LazyComponent>
+              <div className={styles['viewer-ids-container']}>
+                <LazyComponent render={isSmallScreen ? false : undefined}>
+                  <ComplexViewer complexID={viewerID ? viewerID : value[0]} />
+                </LazyComponent>
+                <div className={styles['id-list']}>
+                  {value.map((id, index) => (
+                    <Button
+                      variant={
+                        viewerID === id ||
+                        (viewerID === undefined && index === 0)
+                          ? 'primary'
+                          : 'secondary'
+                      }
+                      className={styles['id-button']}
+                      key={id}
+                      onClick={(event) => {
+                        setViewerID(event.target.innerText as string);
+                      }}
+                    >
+                      {id}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <ExternalLink
+                url={externalUrls.ComplexPortal(viewerID ? viewerID : value[0])}
+              >
+                Visit the ComplexPortal for more &gt;&gt;
+              </ExternalLink>
             </Tab>
           ))}
         </Tabs>
