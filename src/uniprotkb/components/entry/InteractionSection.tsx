@@ -126,15 +126,13 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     return null;
   }
 
-  let displayVizTabs = false;
+  let displayVizTab = false;
 
   const comments = data.commentsData.get('SUBUNIT') as
     | FreeTextComment[]
     | undefined;
 
-  const interactionViz: Record<string, string[]> = {};
-
-  interactionViz['Complex Viewer'] = data.xrefData
+  const complexPortalXrefs = data.xrefData
     .flatMap((d) => d.databases)
     .flatMap((d) =>
       d.xrefs.flatMap((xref) =>
@@ -143,8 +141,8 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     )
     .filter(Boolean);
 
-  if (Object.values(interactionViz).length) {
-    displayVizTabs = true;
+  if (complexPortalXrefs.length) {
+    displayVizTab = true;
   }
 
   const table = (
@@ -260,16 +258,18 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         </>
       ) : null}
 
-      {displayVizTabs && (
+      {displayVizTab && (
         <Tabs>
-          {Object.entries(interactionViz).map(([key, value]) => (
-            <Tab cache title={key} key={key}>
+          {complexPortalXrefs.length ? (
+            <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>
                 <LazyComponent render={isSmallScreen ? false : undefined}>
-                  <ComplexViewer complexID={viewerID ? viewerID : value[0]} />
+                  <ComplexViewer
+                    complexID={viewerID ? viewerID : complexPortalXrefs[0]}
+                  />
                 </LazyComponent>
                 <div className={styles['id-list']}>
-                  {value.map((id, index) => (
+                  {complexPortalXrefs.map((id, index) => (
                     <Button
                       variant={
                         viewerID === id ||
@@ -289,12 +289,14 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                 </div>
               </div>
               <ExternalLink
-                url={externalUrls.ComplexPortal(viewerID ? viewerID : value[0])}
+                url={externalUrls.ComplexPortal(
+                  viewerID ? viewerID : complexPortalXrefs[0]
+                )}
               >
                 Visit the ComplexPortal for more &gt;&gt;
               </ExternalLink>
             </Tab>
-          ))}
+          ) : null}
         </Tabs>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
