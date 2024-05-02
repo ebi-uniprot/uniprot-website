@@ -5,6 +5,8 @@ import { FileFormat } from '../types/resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
 const externalUrls = {
+  AlphaFoldPrediction: (id: string) =>
+    `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
   QuickGOAnnotations: (id: string | number) =>
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
   NCBI: (id: string | number) =>

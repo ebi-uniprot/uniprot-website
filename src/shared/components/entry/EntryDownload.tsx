@@ -45,6 +45,7 @@ import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverte
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from '../download/styles/download.module.scss';
+import { fileFormatToUrlParameter } from '../../config/resultsDownload';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.uniprotkb, uniProtKBFFED],
@@ -72,6 +73,7 @@ const proteinsAPICommonFormats = [
 ];
 
 const interProRepresentativeDomainsFormats = [FileFormat.json, FileFormat.tsv];
+const alphaFoldConfidenceFormats = [FileFormat.json];
 
 // once it is OK to expose peff format, uncomment the following
 // const proteinsAPIVariationFormats = [
@@ -90,6 +92,7 @@ export enum Dataset {
   proteomicsPtm = 'Proteomics-PTM',
   antigen = 'Antigen',
   interProRepresentativeDomains = 'InterPro Representative Domains',
+  alphaFoldConfidence = 'AlphaFold Confidence',
 }
 
 const uniprotKBEntryDatasets = {
@@ -102,14 +105,42 @@ const uniprotKBEntryDatasets = {
     Dataset.proteomicsPtm,
     Dataset.antigen,
     Dataset.interProRepresentativeDomains,
+    Dataset.alphaFoldConfidence,
   ],
 };
+
+type AlphafoldPayload = Array<{
+  entryId: string;
+  gene: string;
+  uniprotAccession: string;
+  uniprotId: string;
+  uniprotDescription: string;
+  taxId: number;
+  organismScientificName: string;
+  uniprotStart: number;
+  uniprotEnd: number;
+  uniprotSequence: string;
+  modelCreatedDate: string;
+  latestVersion: number;
+  allVersions: number[];
+  cifUrl: string;
+  bcifUrl: string;
+  pdbUrl: string;
+  paeImageUrl: string;
+  paeDocUrl: string;
+}>;
 
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniparc && fileFormat === FileFormat.tsv;
 const isUniRefList = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniref && fileFormat === FileFormat.list;
+export const getConfidenceUrlFromPayload = (data: AlphafoldPayload) => {
+  const cifURL = data?.[0]?.cifUrl;
+  return cifURL?.length
+    ? cifURL.replace('-model', '-confidence').replace('.cif', '.json')
+    : undefined;
+};
 
 const getEntryDownloadUrl = (
   accession: string,
@@ -117,7 +148,8 @@ const getEntryDownloadUrl = (
   namespace: Namespace,
   dataset: Dataset,
   columns?: Column[],
-  fields?: string[]
+  fields?: string[],
+  baseUrl?: string // AlphaFold confidence dynamic url
 ) => {
   switch (dataset) {
     case Dataset.uniprotData: {
@@ -171,7 +203,8 @@ const getEntryDownloadUrl = (
       return fileFormat === FileFormat.tsv || fileFormat === FileFormat.json
         ? externalUrls.InterProRepresentativeDomains(accession, fileFormat)
         : '';
-
+    case Dataset.alphaFoldConfidence:
+      return baseUrl;
     default:
       return '';
   }
@@ -183,6 +216,7 @@ type DownloadAnchorProps = {
   namespace: Namespace;
   dataset: Dataset;
   columns?: Column[];
+  baseUrl?: string;
 };
 
 const DownloadAnchor = ({
@@ -191,6 +225,7 @@ const DownloadAnchor = ({
   namespace,
   dataset,
   columns,
+  baseUrl,
 }: DownloadAnchorProps) => (
   <a
     target="_blank"
@@ -199,7 +234,9 @@ const DownloadAnchor = ({
       fileFormat,
       namespace,
       dataset,
-      columns
+      columns,
+      undefined,
+      baseUrl
     )}
     rel="noreferrer"
     download
@@ -336,6 +373,23 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
+  const alphaFoldPrediction = useDataApi<AlphafoldPayload>(
+    namespace === Namespace.uniprotkb && accession
+      ? externalUrls.AlphaFoldPrediction(accession)
+      : ''
+  );
+
+  const alphaFoldConfdienceUrl =
+    alphaFoldPrediction?.data &&
+    getConfidenceUrlFromPayload(alphaFoldPrediction.data);
+
+  if (
+    document.querySelector('#category_ALPHAFOLD_CONFIDENCE') &&
+    alphaFoldConfdienceUrl
+  ) {
+    availableDatasets.push(Dataset.alphaFoldConfidence);
+  }
+
   if (!entryFeatures.loading && entryFeatures.data) {
     if (entryFeatures.data?.features) {
       availableDatasets.push(Dataset.features);
@@ -411,6 +465,9 @@ const EntryDownload = ({
       case Dataset.interProRepresentativeDomains:
         setFileFormats(interProRepresentativeDomainsFormats);
         break;
+      case Dataset.alphaFoldConfidence:
+        setFileFormats(alphaFoldConfidenceFormats);
+        break;
       default:
         break;
     }
@@ -441,11 +498,13 @@ const EntryDownload = ({
     downloadColumns,
     selectedDataset === Dataset.selectedFeatures
       ? uniprotkbFields
-      : Array.from(uniprotFeaturesMap.values())
+      : Array.from(uniprotFeaturesMap.values()),
+    alphaFoldConfdienceUrl
   );
 
   const previewFileFormat =
     selectedFormat === FileFormat.excel ? FileFormat.tsv : selectedFormat;
+
   const previewUrl = getEntryDownloadUrl(
     accession,
     previewFileFormat || FileFormat.fasta,
@@ -454,7 +513,8 @@ const EntryDownload = ({
     downloadColumns,
     selectedDataset === Dataset.selectedFeatures
       ? uniprotkbFields
-      : Array.from(uniprotFeaturesMap.values())
+      : Array.from(uniprotFeaturesMap.values()),
+    alphaFoldConfdienceUrl
   );
 
   if (nResults && nResults > maxPaginationDownload) {
