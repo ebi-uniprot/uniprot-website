@@ -293,7 +293,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                   viewerID ? viewerID : complexPortalXrefs[0]
                 )}
               >
-                Visit the ComplexPortal for more &gt;&gt;
+                Visit the Complex Portal for more
               </ExternalLink>
             </Tab>
           ) : null}
