@@ -1,6 +1,7 @@
 .complex-viewer-container {
   width: 90%;
   display: flex;
+  position: relative;
 
   & svg {
     width: 100%;
@@ -9,7 +10,5 @@
 
   .custom-menu-margin {
     position: absolute;
-    top: 0px !important;
-    left: 50px !important;
   }
 }

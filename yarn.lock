@@ -4905,7 +4905,7 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
 
-complexviewer@^2.2.1:
+complexviewer@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/complexviewer/-/complexviewer-2.2.1.tgz#dca30d39c428ab0553af271c5261eea45d0bf2c2"
   integrity sha512-UWRbEvrNireqZnw/iEX7sWZkWLr3vuKSMYVIqVSV3mUmIF+0DWNgQlUcFh4bY67jyB8hUvxUtPbWTwHScoYu7g==
