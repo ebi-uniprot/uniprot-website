@@ -2,43 +2,6 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="uniprot-grid uniprot-grid--centered home-page-section"
-  >
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        classname="message--icon-align-top"
-        height="1.125em"
-        width="1.125em"
-      />
-      <div
-        class="message__title"
-      >
-        <small>
-          UniProt invites you to participate in a survey on the use and value of UniProt. 
-          <a
-            class="external-link"
-            href="https://ec.europa.eu/eusurvey/runner/use_value_assessment_of_UniProt"
-            rel="noopener"
-            target="_blank"
-          >
-            Please click on the link provided to complete the survey
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          .
-        </small>
-      </div>
-    </div>
-  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
