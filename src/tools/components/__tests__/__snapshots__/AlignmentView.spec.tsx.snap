@@ -72,25 +72,25 @@ exports[`AlignmentView Align should render 1`] = `
           <div>
             <protvista-track
               height="7"
-              highlight="1:958"
+              highlight="1:107"
               layout="non-overlapping"
               length="957"
             />
             <protvista-track
               height="7"
-              highlight="1:958"
+              highlight="1:107"
               layout="non-overlapping"
               length="957"
             />
             <protvista-track
               height="7"
-              highlight="1:958"
+              highlight="1:107"
               layout="non-overlapping"
               length="957"
             />
             <protvista-track
               height="7"
-              highlight="1:958"
+              highlight="1:107"
               layout="non-overlapping"
               length="957"
             />
@@ -106,7 +106,7 @@ exports[`AlignmentView Align should render 1`] = `
           class="track"
         >
           <protvista-track
-            highlight="1:958"
+            highlight="1:107"
             layout="non-overlapping"
             length="957"
           />
@@ -212,7 +212,7 @@ exports[`AlignmentView Align should render 1`] = `
         >
           <protvista-manager
             attributes="displaystart displayend"
-            displayend="957"
+            displayend="106"
             displaystart="1"
           >
             <protvista-navigation
@@ -220,30 +220,30 @@ exports[`AlignmentView Align should render 1`] = `
             />
           </protvista-manager>
         </div>
-        <span
+        <div
           class="right-coord"
         >
           <div
             style="height: 20px;"
           >
-            565
+            44
           </div>
           <div
             style="height: 20px;"
           >
-            770
+            101
           </div>
           <div
             style="height: 20px;"
           >
-            364
+            0
           </div>
           <div
             style="height: 20px;"
           >
-            364
+            0
           </div>
-        </span>
+        </div>
       </section>
     </div>
   </div>
@@ -322,13 +322,13 @@ exports[`AlignmentView BLAST should render 1`] = `
           <div>
             <protvista-track
               height="15"
-              highlight="1:566"
+              highlight="1:64"
               layout="non-overlapping"
               length="565"
             />
             <protvista-track
               height="15"
-              highlight="1:566"
+              highlight="1:64"
               layout="non-overlapping"
               length="565"
             />
@@ -344,7 +344,7 @@ exports[`AlignmentView BLAST should render 1`] = `
           class="track"
         >
           <protvista-track
-            highlight="1:566"
+            highlight="1:64"
             layout="non-overlapping"
             length="565"
           />
@@ -376,7 +376,7 @@ exports[`AlignmentView BLAST should render 1`] = `
         >
           <protvista-manager
             attributes="displaystart displayend"
-            displayend="565"
+            displayend="63"
             displaystart="1"
           >
             <protvista-navigation
@@ -384,20 +384,20 @@ exports[`AlignmentView BLAST should render 1`] = `
             />
           </protvista-manager>
         </div>
-        <span
+        <div
           class="right-coord"
         >
           <div
             style="height: 20px;"
           >
-            565
+            63
           </div>
           <div
             style="height: 20px;"
           >
-            565
+            63
           </div>
-        </span>
+        </div>
       </section>
     </div>
   </div>

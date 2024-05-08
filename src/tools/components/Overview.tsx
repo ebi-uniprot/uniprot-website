@@ -123,7 +123,9 @@ const AlignOverview = ({
     },
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
-  const navigationHeight = navigationRef.current?.getClientRects()?.[0].height;
+
+  const navigationHeight =
+    navigationRef.current?.getClientRects()?.[0]?.height || 0;
 
   useEffect(() => {
     const handler = handleEvent(updateTooltip) as (e: Event) => void;
