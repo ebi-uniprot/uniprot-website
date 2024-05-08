@@ -63,7 +63,6 @@ type Chunk = {
 };
 
 export type WrappedRowProps = {
-  rowLength: number;
   highlightProperty: MsaColorScheme | undefined;
   conservationOptions: ConservationOptions;
   annotation: FeatureType | undefined;
@@ -99,7 +98,6 @@ export const handleEvent =
   };
 
 export const WrappedRow = ({
-  rowLength,
   highlightProperty,
   conservationOptions,
   annotation,
@@ -145,6 +143,7 @@ export const WrappedRow = ({
   if (!trackElement.defined) {
     return <Loader />;
   }
+  const width = Math.max(...sequences.map(({ start, end }) => end - start));
   return (
     <>
       <div className="track-label track-label--align-labels">
@@ -169,9 +168,9 @@ export const WrappedRow = ({
       <div className="track">
         {!delayRender && (
           <NightingaleMSA
-            length={rowLength}
+            length={width}
             height={sequences.length * sequenceHeight}
-            width={rowLength * widthOfAA}
+            width={width * widthOfAA}
             tile-width={widthOfAA}
             color-scheme={highlightProperty}
             features={selectedMSAFeatures?.map((f) => ({
@@ -322,7 +321,6 @@ const Wrapped = ({
       {sequenceChunks.map(({ sequences, id, trackStart, trackEnd }, index) => (
         <WrappedRow
           key={id}
-          rowLength={rowLength}
           sequences={sequences}
           annotation={annotation}
           highlightProperty={highlightProperty}
