@@ -612,6 +612,7 @@ const Entry = () => {
                 <FeatureViewerTab
                   accession={accession}
                   importedVariants={importedVariants}
+                  sequence={data.sequence.value}
                 />
               </ErrorBoundary>
             </Suspense>

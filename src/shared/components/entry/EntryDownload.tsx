@@ -298,6 +298,7 @@ export type EntryDownloadProps = {
   columns?: Column[];
   dataset?: Dataset;
   featureTypes?: string[];
+  sequence?: string;
 };
 
 const EntryDownload = ({
@@ -307,6 +308,7 @@ const EntryDownload = ({
   columns,
   dataset,
   featureTypes,
+  sequence,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
@@ -422,7 +424,11 @@ const EntryDownload = ({
       : ''
   );
 
-  const alphaFoldUrls = getAlphaFoldUrls(alphaFoldPrediction?.data);
+  const alphaFoldUrls =
+    // As there can be a build mismatch only use AlphaFold predictions if the sequence is the same as the entry's
+    sequence && sequence === alphaFoldPrediction?.data?.[0].uniprotSequence
+      ? getAlphaFoldUrls(alphaFoldPrediction?.data)
+      : undefined;
 
   if (alphaFoldUrls) {
     availableDatasets.push(Dataset.alphaFoldConfidence);
