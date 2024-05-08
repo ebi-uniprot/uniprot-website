@@ -127,12 +127,14 @@ type VariationViewProps = {
   importedVariants: number | 'loading';
   primaryAccession: string;
   title?: string;
+  sequence?: string;
 };
 
 const VariationViewer = ({
   importedVariants,
   primaryAccession,
   title,
+  sequence,
 }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
   const searchParams = new URLSearchParams(useLocation().search);
@@ -214,7 +216,6 @@ const VariationViewer = ({
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
-
   if (!shouldRender) {
     return (
       <div className="wider-tab-content hotjar-margin">
@@ -223,6 +224,7 @@ const VariationViewer = ({
           <EntryDownloadPanel
             handleToggle={handleToggleDownload}
             dataset={Dataset.variation}
+            sequence={sequence}
           />
         )}
         <EntryDownloadButton handleToggle={handleToggleDownload} />
@@ -591,6 +593,7 @@ const VariationViewer = ({
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}
           dataset={Dataset.variation}
+          sequence={sequence}
         />
       )}
       <EntryDownloadButton handleToggle={handleToggleDownload} />

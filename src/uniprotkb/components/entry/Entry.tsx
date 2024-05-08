@@ -568,6 +568,7 @@ const Entry = () => {
                 importedVariants={importedVariants}
                 primaryAccession={accession}
                 title="Variants"
+                sequence={data.sequence.value}
               />
             </ErrorBoundary>
           </Suspense>
