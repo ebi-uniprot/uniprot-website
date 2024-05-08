@@ -431,8 +431,8 @@ const EntryDownload = ({
       : undefined;
 
   if (alphaFoldUrls) {
-    availableDatasets.push(Dataset.alphaFoldConfidence);
     availableDatasets.push(Dataset.alphaFoldCoordinates);
+    availableDatasets.push(Dataset.alphaFoldConfidence);
   }
 
   if (!entryFeatures.loading && entryFeatures.data) {
