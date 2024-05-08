@@ -471,6 +471,7 @@ const Entry = () => {
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                  sequence={data.sequence.value}
                 />
               )}
               <div className="button-group">
