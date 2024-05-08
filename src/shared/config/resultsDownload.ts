@@ -39,6 +39,9 @@ export const fileFormatToContentType: Record<FileFormat, ContentType> = {
   [FileFormat.obo]: ContentType.obo,
   [FileFormat.embeddings]: ContentType.embeddings,
   [FileFormat.peff]: ContentType.peff,
+  [FileFormat.mmCIF]: ContentType.mmCIF,
+  [FileFormat.binaryCif]: ContentType.binaryCIF,
+  [FileFormat.pdb]: ContentType.pdb,
 };
 
 export const fileFormatToUrlParameter: Record<FileFormat, string> = {
@@ -61,6 +64,9 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
   [FileFormat.obo]: 'obo',
   [FileFormat.embeddings]: 'h5',
   [FileFormat.peff]: 'peff',
+  [FileFormat.binaryCif]: 'bcif', // Not actually needed but added for completeness
+  [FileFormat.mmCIF]: 'cif', // Not actually needed but added for completeness
+  [FileFormat.pdb]: 'pdb', // Not actually needed but added for completeness
 };
 
 export const fileFormatsWithColumns = new Set([

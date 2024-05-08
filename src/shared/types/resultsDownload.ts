@@ -13,6 +13,7 @@ export enum ContentType {
   peff = 'text/x-peff',
   pdb = 'chemical/x-pdb',
   mmCIF = 'chemical/x-mmcif',
+  binaryCIF = 'application/octet-stream; charset=binary',
 }
 
 export enum FileFormat {
