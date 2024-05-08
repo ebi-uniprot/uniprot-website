@@ -278,7 +278,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               >
                 <small>
                   Your input contains{' '}
-                  <LongNumber>{parsedIDs.length}</LongNumber>
+                  <LongNumber>{parsedIDs.length}</LongNumber> unique
                   {pluralise(' ID', parsedIDs.length)}
                   {parsedIDs.length > ID_MAPPING_LIMIT && (
                     <>
