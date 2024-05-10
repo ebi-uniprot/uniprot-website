@@ -29,6 +29,7 @@ import { BlastFacet, BlastHit } from '../../types/blastResults';
 import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import facetsStyles from '../../../../shared/components/results/styles/facets.module.scss';
 import './styles/results-view.scss';
 
 type Range = [start: number, end: number];
@@ -191,7 +192,7 @@ const BlastResultLocalFacets: FC<
       {/* div needed in order to make the facet styles understand there is one
       facet below, otherwise each would element would be a different facet */}
       <div>
-        <span className="facet-name">Blast parameters</span>
+        <span className={facetsStyles['facet-name']}>Blast parameters</span>
         <ul className="expandable-list no-bullet blast-parameters-facet">
           {localFacets.map((facet) => (
             <LocalFacet

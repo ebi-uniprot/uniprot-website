@@ -16,6 +16,8 @@ import { stringifyQuery } from '../../utils/url';
 
 import { SearchableNamespace } from '../../types/namespaces';
 
+import facetsStyles from './styles/facets.module.scss';
+
 const QueryBuilder = lazy(
   () =>
     import(
@@ -42,14 +44,14 @@ const TaxonomyFacet: FC<
 
   return (
     <div>
-      <span className="facet-name">Taxonomy</span>
+      <span className={facetsStyles['facet-name']}>Taxonomy</span>
       <ul className="expandable-list no-bullet">
         {interestingClauses.map((clause) => {
           const textSearch = clause.searchTerm.term.includes('name');
           return (
             <li key={clause.id}>
               <Link
-                className="facet-active"
+                className={facetsStyles['facet-active']}
                 // eslint-disable-next-line uniprot-website/use-config-location
                 to={(location) => ({
                   ...location,
