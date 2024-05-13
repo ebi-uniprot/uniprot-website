@@ -4,7 +4,9 @@ import { Loader, Message } from 'franklin-sites';
 
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
+import NightingaleZoomTool, {
+  ZoomOperations,
+} from '../../protein-data-views/NightingaleZoomTool';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
@@ -49,7 +51,7 @@ const FeatureViewer = ({
   );
 
   const handleZoom = useCallback(
-    (operation) => {
+    (operation: ZoomOperations) => {
       if (!protvistaElement.defined || !protvistaUniprotRef.current) {
         return;
       }
