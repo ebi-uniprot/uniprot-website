@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Loader, Message } from 'franklin-sites';
 
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
@@ -19,14 +20,22 @@ import { TabLocation } from '../../../types/entry';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
 
+interface ProtvistaManager extends HTMLElement {
+  displaystart: number;
+  displayend: number;
+}
+
 const FeatureViewer = ({
   accession,
   importedVariants,
+  sequenceLength,
 }: {
   accession: string;
   importedVariants: number | 'loading';
+  sequenceLength: number;
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const protvistaUniprotRef = useRef<HTMLElement>(null);
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession)
@@ -37,6 +46,44 @@ const FeatureViewer = ({
     () =>
       import(/* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'),
     'protvista-uniprot'
+  );
+
+  const handleZoom = useCallback(
+    (operation) => {
+      if (!protvistaElement.defined || !protvistaUniprotRef.current) {
+        return;
+      }
+      const manager: ProtvistaManager | null =
+        protvistaUniprotRef.current.querySelector('protvista-manager');
+      if (!manager) {
+        return;
+      }
+      // Following logic is lifted from ProtvistaZoomTool
+      const scaleFactor = sequenceLength / 5;
+      const { displayend, displaystart } = manager;
+      let k = 0;
+      if (operation === 'zoom-in') {
+        k = scaleFactor;
+      } else if (operation === 'zoom-out') {
+        k = -scaleFactor;
+      } else if (operation === 'zoom-in-seq') {
+        k = displayend - displaystart - 29;
+      }
+      const newEnd = displayend - k;
+      let newStart = displaystart;
+      // if we've reached the end when zooming out, remove from start
+      if (newEnd > sequenceLength) {
+        newStart -= newEnd - sequenceLength;
+      }
+      if (displaystart < newEnd) {
+        manager.setAttribute('displaystart', Math.max(1, newStart).toString());
+        manager.setAttribute(
+          'displayend',
+          Math.min(newEnd, sequenceLength).toString()
+        );
+      }
+    },
+    [protvistaElement.defined, sequenceLength]
   );
 
   const searchParams = new URLSearchParams(useLocation().search);
@@ -71,7 +118,13 @@ const FeatureViewer = ({
         <EntryDownloadButton handleToggle={handleToggleDownload} />
       )}
       {shouldRender ? (
-        <protvistaElement.name accession={accession} />
+        <>
+          <NightingaleZoomTool length={sequenceLength} onZoom={handleZoom} />
+          <protvistaElement.name
+            accession={accession}
+            ref={protvistaUniprotRef}
+          />
+        </>
       ) : (
         <div className={tabsStyles['too-many']}>
           <Message>
