@@ -3,6 +3,7 @@ import { SlidingPanel } from 'franklin-sites';
 
 import { Column } from '../config/columns';
 import { ViewMode } from '../hooks/useViewMode';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 type GtagEventName =
   | 'api_data_load_fail'
@@ -28,7 +29,8 @@ type GtagEventName =
   | 'panel_results_download_open'
   | 'results_view_mode_click'
   | 'results_view_mode_popup_click'
-  | 'results_view_render';
+  | 'results_view_render'
+  | 'job_submit';
 
 /*
 | Reason     | User action                |
@@ -193,4 +195,11 @@ export const sendGtagEventCacheUpdate = (
     updated_url: updatedURL,
     cache_name: cacheName,
   });
+};
+
+export const sendGtagEventJobSubmit = (
+  job: JobTypes,
+  parameters?: Record<string, string>
+) => {
+  sendGtagEvent('job_submit', parameters);
 };
