@@ -115,16 +115,18 @@ const FeatureViewer = ({
         />
       )}
       {data?.features && (
-        <EntryDownloadButton handleToggle={handleToggleDownload} />
+        <>
+          {shouldRender && (
+            <NightingaleZoomTool length={sequenceLength} onZoom={handleZoom} />
+          )}
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
+        </>
       )}
       {shouldRender ? (
-        <>
-          <NightingaleZoomTool length={sequenceLength} onZoom={handleZoom} />
-          <protvistaElement.name
-            accession={accession}
-            ref={protvistaUniprotRef}
-          />
-        </>
+        <protvistaElement.name
+          accession={accession}
+          ref={protvistaUniprotRef}
+        />
       ) : (
         <div className={tabsStyles['too-many']}>
           <Message>
