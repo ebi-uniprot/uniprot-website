@@ -782,6 +782,7 @@ const Entry = () => {
               />
               <HistoryTab
                 accession={isObsolete ? match.params.accession : accession}
+                lastVersion={data.entryAudit?.entryVersion}
               />
             </ErrorBoundary>
           </Suspense>
