@@ -495,9 +495,9 @@ const EntryHistory = ({
         header={
           <>
             {title}
-            <span>
+            <h3 className="small">
               Comparing version {min} to version {max}
-            </span>
+            </h3>
           </>
         }
         className="wider-tab-content"
