@@ -78,6 +78,7 @@ export type WrappedRowProps = {
   activeAnnotation: ProcessedFeature[];
   activeAlignment?: MSAInput;
   onMSAFeatureClick: OnMSAFeatureClick;
+  lastRow?: boolean;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -113,6 +114,7 @@ export const WrappedRow = ({
   activeAlignment,
   selectedMSAFeatures,
   onMSAFeatureClick,
+  lastRow,
 }: WrappedRowProps) => {
   const trackElement = useCustomElement(
     /* istanbul ignore next */
@@ -143,7 +145,15 @@ export const WrappedRow = ({
   if (!trackElement.defined) {
     return <Loader />;
   }
-  const width = Math.max(...sequences.map(({ start, end }) => end - start));
+
+  // Using just the sequences resulted in occassional off by one errors so do this only for
+  // the last row which will most likely be less than trackEnd - trackStart
+  const width =
+    (lastRow
+      ? Math.max(...sequences.map(({ start, end }) => end - start))
+      : trackEnd - trackStart) * widthOfAA;
+  const length = trackEnd - trackStart + 1;
+
   return (
     <>
       <div className="track-label track-label--align-labels">
@@ -165,14 +175,18 @@ export const WrappedRow = ({
           </AlignLabel>
         ))}
       </div>
-      <div className="track">
+      <div className="track" style={{ width }}>
         {!delayRender && (
           <NightingaleMSA
-            length={width}
+            margin-left={0}
+            margin-right={0}
+            length={length}
             height={sequences.length * sequenceHeight}
-            width={width * widthOfAA}
+            width={width}
             tile-width={widthOfAA}
             color-scheme={highlightProperty}
+            display-start={1}
+            display-end={length}
             features={selectedMSAFeatures?.map((f) => ({
               ...f,
               residues: {
@@ -201,13 +215,13 @@ export const WrappedRow = ({
           activeAlignment?.accession &&
           `${activeAlignment?.accession}:${annotation}`}
       </span>
-      <div className="track annotation-track">
+      <div className="track annotation-track" style={{ width }}>
         {annotation && !delayRender && (
           <trackElement.name
             ref={setFeatureTrackData}
             displaystart={trackStart}
             displayend={trackEnd}
-            length={trackEnd - trackStart + 1}
+            length={length}
             layout="non-overlapping"
           />
         )}
@@ -255,10 +269,11 @@ const Wrapped = ({
   const debouncedSetRowLength = useMemo(
     () =>
       debounce((width: number) => {
-        // using 9 tenths of the available size as its the proportion assigned
-        // to the track in the CSS
-        // I had to play with the constant when upgrading to nightingale-msa to get a better fit
-        setRowLength(Math.floor((0.85 * width) / widthOfAA));
+        // Historical: using 9 tenths of the available size as its the proportion assigned to the track in the CSS
+        // Latest: empirically derived the coefficients of this quadratic polynomial
+        setRowLength(
+          Math.floor((5 + 0.55 * width + 0.00018 * width ** 2) / widthOfAA)
+        );
       }, 1000),
     [setRowLength]
   );
@@ -336,6 +351,7 @@ const Wrapped = ({
           activeAlignment={activeAlignment}
           selectedMSAFeatures={selectedMSAFeatures}
           onMSAFeatureClick={onMSAFeatureClick}
+          lastRow={index === sequenceChunks.length - 1}
         />
       ))}
     </div>
