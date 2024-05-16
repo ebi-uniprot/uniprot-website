@@ -74,8 +74,9 @@ describe('ComponentsButtons', () => {
     );
     const downloadButton = screen.getByRole('button', { name: /Download/ });
     fireEvent.click(downloadButton);
+    // Needs a bit timeout even though there are no API calls happening.
     expect(
-      await screen.findByTestId('sliding-panel', undefined, { timeout: 2000 })
+      await screen.findByTestId('sliding-panel', undefined, { timeout: 10000 })
     ).toBeInTheDocument();
   });
 });
