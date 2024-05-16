@@ -250,7 +250,7 @@ const AlignOverview = ({
         // pixels longer and will mess up the alignment with the left/right labels.
         style={{
           height: navigationHeight
-            ? navigationHeight + 2 * sequenceHeight
+            ? navigationHeight + alignment.length * sequenceHeight
             : 'undefined',
         }}
       >
@@ -265,7 +265,7 @@ const AlignOverview = ({
           <NightingaleMSA
             ref={setMSAAttributes}
             length={alignmentLength}
-            height={2 * sequenceHeight}
+            height={alignment.length * sequenceHeight}
             color-scheme={highlightProperty}
             hide-label
             tile-width={widthOfAA}

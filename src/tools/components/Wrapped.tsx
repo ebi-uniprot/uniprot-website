@@ -142,6 +142,7 @@ export const WrappedRow = ({
     // -> to keep the right column of the right size to fit all possible values
     [activeAlignment, activeAnnotation, trackElement.defined]
   );
+
   if (!trackElement.defined) {
     return <Loader />;
   }
@@ -156,7 +157,10 @@ export const WrappedRow = ({
 
   return (
     <>
-      <div className="track-label track-label--align-labels">
+      <div
+        className="track-label track-label--align-labels"
+        style={{ bottom: 7, position: 'relative' }}
+      >
         {sequences.map((s) => (
           <AlignLabel
             accession={s.accession}
@@ -184,6 +188,7 @@ export const WrappedRow = ({
             height={sequences.length * sequenceHeight}
             width={width}
             tile-width={widthOfAA}
+            tile-height={sequenceHeight}
             color-scheme={highlightProperty}
             display-start={1}
             display-end={length}
@@ -203,7 +208,7 @@ export const WrappedRow = ({
           />
         )}
       </div>
-      <span className="right-coord">
+      <span className="right-coord" style={{ bottom: 2, position: 'relative' }}>
         {sequences.map((s) => (
           <div style={heightStyle} key={s.name}>
             {s.end}
