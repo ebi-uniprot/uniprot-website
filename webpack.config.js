@@ -140,7 +140,7 @@ const getConfigFor = ({
          * making dependency optional
          * */
         {
-          test: /\.worker\.js$/,
+          test: /\.worker\.[jt]s$/i,
           use: { loader: 'worker-loader' },
         },
         // Stylesheets
@@ -230,6 +230,7 @@ const getConfigFor = ({
           failOnError: true,
         }),
       // Needed for '@nightingale-elements/nightingale-msa' as of June 1st 2021
+      // TODO: May not need this
       new ProvidePlugin({
         assert: 'assert',
         process: 'process/browser.js',
