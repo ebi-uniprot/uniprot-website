@@ -269,12 +269,18 @@ const Wrapped = ({
   const debouncedSetRowLength = useMemo(
     () =>
       debounce((width: number) => {
-        // Historical: using 9 tenths of the available size as its the proportion assigned to the track in the CSS
-        // Latest: empirically derived the coefficients of this quadratic polynomial
+        // Determine width of left/rigth labels and subtract from total width.
+        // Unfortunately this causes the initial render to be a little off then this corrects itself.
+        const leftLabelWidth =
+          document.querySelector('.track-label')?.getBoundingClientRect()
+            .width || 200;
+        const rightLabelWidth =
+          document.querySelector('.right-coord')?.getBoundingClientRect()
+            .width || 50;
         setRowLength(
-          Math.floor((5 + 0.55 * width + 0.00018 * width ** 2) / widthOfAA)
+          Math.floor((width - leftLabelWidth - rightLabelWidth) / widthOfAA)
         );
-      }, 1000),
+      }, 500),
     [setRowLength]
   );
 
