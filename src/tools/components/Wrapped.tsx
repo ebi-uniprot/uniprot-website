@@ -271,12 +271,17 @@ const Wrapped = ({
       debounce((width: number) => {
         // Determine width of left/rigth labels and subtract from total width.
         // Unfortunately this causes the initial render to be a little off then this corrects itself.
+        const leftLabelChars = Math.max(
+          ...alignment.map(({ name }) => name?.length || 0)
+        );
+        const rightLabelChars = alignment[0].length.toString().length;
+
         const leftLabelWidth =
           document.querySelector('.track-label')?.getBoundingClientRect()
-            .width || 200;
+            .width || 8.5 * leftLabelChars;
         const rightLabelWidth =
           document.querySelector('.right-coord')?.getBoundingClientRect()
-            .width || 50;
+            .width || 8.5 * rightLabelChars;
         setRowLength(
           Math.floor((width - leftLabelWidth - rightLabelWidth) / widthOfAA)
         );
