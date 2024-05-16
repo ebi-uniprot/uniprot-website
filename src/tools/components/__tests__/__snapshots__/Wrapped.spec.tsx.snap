@@ -88,6 +88,7 @@ exports[`WrappedRow should render 1`] = `
   </div>
   <div
     class="track"
+    style="width: 810px;"
   />
   <span
     class="right-coord"
@@ -120,6 +121,7 @@ exports[`WrappedRow should render 1`] = `
   </span>
   <div
     class="track annotation-track"
+    style="width: 810px;"
   >
     <protvista-track
       displayend="46"
