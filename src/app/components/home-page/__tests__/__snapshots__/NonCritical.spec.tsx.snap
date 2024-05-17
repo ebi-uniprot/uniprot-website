@@ -616,17 +616,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/267/"
+          href="https://www.proteinspotlight.org/back_issues/268/"
           rel="noopener"
           target="_blank"
         >
-          Seizure
+          Mouths, enemies and spit
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/267/"
+        href="https://www.proteinspotlight.org/back_issues/268/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -635,14 +635,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt267.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt268.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Many  years  ago,  I  was  sitting  opposite  a  man  whose  body  suddenly  froze.  His  eyes  seemed  to  be  staring  at  something  on  the  wall  behind  me  while  his  left  hand  drew  small  circles  in  the  air,  repetitively.  I  had  no  idea  what  was  happening  to  him  until  he…
+          Our  mouths  are  teeming  with  inhabitants  of  the  most  diverse  origin.  Bacteria  and  fungi  for  one,  but  all  sorts  of  various-sized  peptides  too,  each  of  which  carry  out  various  tasks...
       </p>
     </article>
   </section>
