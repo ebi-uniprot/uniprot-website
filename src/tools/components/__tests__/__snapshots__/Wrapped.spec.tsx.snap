@@ -4,6 +4,7 @@ exports[`WrappedRow should render 1`] = `
 <DocumentFragment>
   <div
     class="track-label track-label--align-labels"
+    style="bottom: 7px; position: relative;"
   >
     <button
       class="align-label align-label--active align-label--selectable"
@@ -92,6 +93,7 @@ exports[`WrappedRow should render 1`] = `
   />
   <span
     class="right-coord"
+    style="bottom: 2px; position: relative;"
   >
     <div
       style="height: 20px;"
