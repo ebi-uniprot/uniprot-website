@@ -34,7 +34,7 @@ const HomePageNonCritical = () => (
           life sciences research.
           <br />
           Survey link:{' '}
-          <ExternalLink url="https://www.surveymonkey.com/r/HJKYKTT?channel=uniprot">
+          <ExternalLink url="https://www.surveymonkey.com/r/HJKYKTT?channel=[uniprot]">
             https://www.surveymonkey.com/r/HJKYKTT
           </ExternalLink>
         </small>
