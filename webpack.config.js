@@ -135,14 +135,6 @@ const getConfigFor = ({
             },
           },
         },
-        /**
-         * Worker required for msa-react-viewer. Gustavo looking at
-         * making dependency optional
-         * */
-        {
-          test: /\.worker\.[jt]s$/i,
-          use: { loader: 'worker-loader' },
-        },
         // Stylesheets
         {
           test: /\.(css|sass|scss)$/,
@@ -229,12 +221,6 @@ const getConfigFor = ({
           exclude: /node_modules/,
           failOnError: true,
         }),
-      // Needed for '@nightingale-elements/nightingale-msa' as of June 1st 2021
-      // TODO: May not need this
-      new ProvidePlugin({
-        assert: 'assert',
-        process: 'process/browser.js',
-      }),
       !isLiveReload &&
         isModern &&
         // Copy static (or near-static) files
