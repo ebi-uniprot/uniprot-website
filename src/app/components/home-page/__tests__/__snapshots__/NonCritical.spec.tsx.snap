@@ -2,6 +2,47 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
+   
+  <div
+    class="uniprot-grid uniprot-grid--centered home-page-section"
+  >
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        <small>
+          Do data resources managed by EMBL-EBI and our collaborators make a difference to your work?
+          <br />
+          Please take 10 minutes to fill in our annual user survey, and help us make the case for why sustaining open data resources is critical for life sciences research.
+          <br />
+          Survey link: 
+          <a
+            class="external-link"
+            href="https://www.surveymonkey.com/r/HJKYKTT?channel=uniprot"
+            rel="noopener"
+            target="_blank"
+          >
+            https://www.surveymonkey.com/r/HJKYKTT
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </small>
+      </div>
+    </div>
+  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
