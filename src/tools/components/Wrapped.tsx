@@ -291,7 +291,7 @@ const Wrapped = ({
           Math.floor((width - leftLabelWidth - rightLabelWidth) / widthOfAA)
         );
       }, 500),
-    [setRowLength]
+    [alignment, setRowLength]
   );
 
   if (size?.width) {
