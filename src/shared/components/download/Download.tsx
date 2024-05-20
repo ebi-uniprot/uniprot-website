@@ -48,6 +48,7 @@ import {
   isAsyncDownloadIdMapping,
   showColumnSelect,
   filterFullXrefColumns,
+  getCountForCustomisableSet,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -78,6 +79,7 @@ export type DownloadProps<T extends JobTypes> = {
     downloadMethod?: DownloadMethod
   ) => void;
   accessions?: string[];
+  accessionSubSequenceMap?: Map<string, string>;
   base?: string;
   notCustomisable?: boolean;
   inBasketMini?: boolean;
@@ -238,6 +240,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
       break;
   }
 
+  const { totalCount: totalCountForCustomisableSet, selectedCount } =
+    getCountForCustomisableSet(state, props);
+
   return (
     <>
       {notCustomisable ? (
@@ -260,8 +265,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
                 state.disableForm
               }
             />
-            Download selected (<LongNumber>{state.nSelectedEntries}</LongNumber>
-            )
+            Download selected (<LongNumber>{selectedCount}</LongNumber>)
           </label>
           <label htmlFor="data-selection-true">
             <input
@@ -273,7 +277,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
               onChange={handleDownloadAllChange}
               disabled={redirectToIDMapping || state.disableForm}
             />
-            Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+            Download all (
+            <LongNumber>{totalCountForCustomisableSet}</LongNumber>)
           </label>
         </>
       )}

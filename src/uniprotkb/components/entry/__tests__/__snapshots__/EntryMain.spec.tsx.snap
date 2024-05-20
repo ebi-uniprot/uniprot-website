@@ -5135,7 +5135,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                Bacteria &gt; Firmicutes &gt; Clostridia &gt; Eubacteriales &gt; Oscillospiraceae &gt; Flavonifractor
+                Bacteria &gt; Bacillota &gt; Clostridia &gt; Eubacteriales &gt; Oscillospiraceae &gt; Flavonifractor
               </div>
             </div>
           </li>
@@ -6193,17 +6193,32 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://www.cathdb.info/superfamily/2.115.10.20"
+                      href="http://www.cathdb.info/superfamily/2.60.40.1080"
                       rel="noopener"
                       target="_blank"
                     >
-                      2.115.10.20
+                      2.60.40.1080
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
                       />
                     </a>
                     1 hit
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://www.cathdb.info/superfamily/2.60.120.260"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      2.60.120.260
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    Galactose-binding domain-like 2 hits
                   </li>
                 </ul>
               </div>
@@ -6513,17 +6528,17 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
                       rel="noopener"
                       target="_blank"
                     >
-                      SSF49373
+                      SSF75005
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
                       />
                     </a>
-                    SSF49373 1 hit
+                    Arabinanase/levansucrase/invertase 1 hit
                   </li>
                   <li>
                     <a
@@ -6538,7 +6553,22 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                    SSF49785 1 hit
+                    Galactose-binding domain-like 1 hit
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      SSF49373
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    Invasin/intimin cell-adhesion fragments 1 hit
                   </li>
                   <li>
                     <a
@@ -6553,22 +6583,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                    SSF50939 1 hit
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      SSF75005
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                    SSF75005 1 hit
+                    Sialidases 1 hit
                   </li>
                 </ul>
               </div>

@@ -18,7 +18,7 @@ import {
   DeletedEntryMessage,
   DemergedEntryMessage,
   MergedEntryMessage,
-} from '../../../../shared/components/error-pages/ObsoleteEntryPage';
+} from '../../../../shared/components/error-pages/full-pages/ObsoleteEntryPage';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
@@ -29,6 +29,7 @@ import parseDate from '../../../../shared/utils/parseDate';
 import listFormat from '../../../../shared/utils/listFormat';
 import apiUrls from '../../../config/apiUrls/apiUrls';
 import { getEntryPath } from '../../../../app/config/urls';
+import { stringifyQuery } from '../../../../shared/utils/url';
 import * as logging from '../../../../shared/utils/logging';
 
 import { TabLocation } from '../../../types/entry';
@@ -41,6 +42,7 @@ import {
 import { ColumnDescriptor } from '../../../../shared/hooks/useColumns';
 import { Namespace } from '../../../../shared/types/namespaces';
 
+import styles from './styles/history.module.scss';
 import helper from '../../../../shared/styles/helper.module.scss';
 
 const DownloadComponent = lazy(
@@ -50,6 +52,37 @@ const DownloadComponent = lazy(
       /* webpackChunkName: "download" */ '../../../../shared/components/download/Download'
     )
 );
+
+export const getOtherDiffs = (v1: number, v2: number, lastVersion = 0) =>
+  (
+    ((v1 >= v2 || !lastVersion) && []) || // Shouldn't be the case so return empty array
+    (v2 - v1 === 1 && [
+      // Consecutive versions
+      [v1 - 1, v2 - 1],
+      [v1 + 1, v2 + 1],
+    ]) ||
+    (v1 === 1 &&
+      v2 === lastVersion && [
+        // First and last version
+        [v1, v1 + 1],
+        [v2 - 1, v2],
+      ]) ||
+    (v2 === lastVersion && [
+      // Last version and something else
+      [v1 - 1, v1],
+      [v2 - 1, v2],
+    ]) ||
+    (v1 === 1 && [
+      // First version and something else
+      [v1, v1 + 1],
+      [v2, v2 + 1],
+    ]) || [
+      // Everything else
+      [v1 - 1, v1],
+      [v2, v2 + 1],
+    ]
+  ) // Only keep links that are within the bounds
+    .filter(([w1, w2]) => w1 >= 1 && w2 <= lastVersion);
 
 type UniSaveVersionWithEvents = UniSaveVersion & {
   events?: Record<UniSaveEventType, string[]>;
@@ -96,7 +129,10 @@ const EntryHistoryDiff = ({
 
   if (v1Data.error || v2Data.error || !v1Data.data || !v2Data.data) {
     return (
-      <ErrorHandler status={v1Data.error ? v1Data.status : v2Data.status} />
+      <ErrorHandler
+        status={v1Data.error ? v1Data.status : v2Data.status}
+        error={v1Data.error || v2Data.error}
+      />
     );
   }
 
@@ -295,7 +331,9 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
   // Don't check statusData.error either!
   // Might return 404 when no events in the data (most TrEMBL entries)
   // if (statusData.error || !data) {
-  //   return <ErrorHandler status={accessionData.status} />;
+  //   return (
+  //     <ErrorHandler status={accessionData.status} error={statusData.error} />
+  //   );
   // }
 
   const compareDisabled = selectedEntries.length !== 2;
@@ -389,11 +427,11 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
           disabled={compareDisabled}
           to={{
             pathname,
-            search: compareDisabled
-              ? undefined
-              : `versions=${Array.from(selectedEntries).sort(
-                  (a, b) => +a - +b
-                )}`,
+            search: stringifyQuery({
+              versions: compareDisabled
+                ? undefined
+                : Array.from(selectedEntries).sort((a, b) => +a - +b),
+            }),
           }}
           title={
             compareDisabled ? 'Please select 2 versions to compare' : undefined
@@ -428,7 +466,13 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
   );
 };
 
-const EntryHistory = ({ accession }: { accession: string }) => {
+const EntryHistory = ({
+  accession,
+  lastVersion,
+}: {
+  accession: string;
+  lastVersion?: number;
+}) => {
   const sp = new URLSearchParams(useLocation().search);
   const rawVersions = sp.get('versions');
   const rawView = sp.get('view');
@@ -445,14 +489,17 @@ const EntryHistory = ({ accession }: { accession: string }) => {
     const v2 = versions[1] || 0;
     const min = Math.min(v1, v2);
     const max = Math.max(v1, v2);
+
+    const otherDiffs = getOtherDiffs(min, max, lastVersion);
+
     return (
       <Card
         header={
           <>
             {title}
-            <span>
+            <h3 className="small">
               Comparing version {min} to version {max}
-            </span>
+            </h3>
           </>
         }
         className="wider-tab-content"
@@ -487,6 +534,31 @@ const EntryHistory = ({ accession }: { accession: string }) => {
           >
             Display in {view === 'unified' ? 'split' : 'unified'} view
           </Button>
+          {otherDiffs.length && (
+            <span className={styles['other-diffs']}>
+              <span>Jump to</span>
+              <ul className="no-bullet">
+                {otherDiffs.map(([w1, w2]) => (
+                  <li key={`${w1}:${w2}`}>
+                    <Link
+                      to={{
+                        pathname: getEntryPath(
+                          Namespace.uniprotkb,
+                          accession,
+                          TabLocation.History
+                        ),
+                        search: stringifyQuery({
+                          versions: [w1, w2],
+                        }),
+                      }}
+                    >
+                      v{w1}:v{w2}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </span>
+          )}
         </div>
         <EntryHistoryDiff
           accession={accession}

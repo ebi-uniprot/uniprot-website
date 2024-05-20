@@ -32,9 +32,6 @@ exports[`EntryPublication facets tests should handle errors 1`] = `
         <div>
           Please try again later
         </div>
-        <small>
-          We will reload this page for you in 5 seconds
-        </small>
       </div>
     </div>
   </div>

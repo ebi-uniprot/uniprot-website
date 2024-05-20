@@ -163,22 +163,26 @@ const ResultsData = ({
     );
   } else {
     // Table view
-    content = (
-      <EllipsisReveal.Provider>
-        <DataTableWithLoader
-          getIdKey={getIdKey}
-          columns={columns}
-          data={allResults}
-          loading={loading}
-          onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
-          onHeaderClick={updateColumnSort}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-          className={cn('hotjar-margin', styles['results-data'])}
-        />
-      </EllipsisReveal.Provider>
-    );
+    // Check if there is content to avoid showing empty table header for no results
+    content =
+      resultsDataObject.total || allResults.length ? (
+        <EllipsisReveal.Provider>
+          <DataTableWithLoader
+            getIdKey={getIdKey}
+            columns={columns}
+            data={allResults}
+            loading={loading}
+            onSelectionChange={
+              smallScreen ? undefined : setSelectedItemFromEvent
+            }
+            onHeaderClick={updateColumnSort}
+            onLoadMoreItems={handleLoadMoreRows}
+            hasMoreData={hasMoreData}
+            loaderComponent={loadComponent}
+            className={cn('hotjar-margin', styles['results-data'])}
+          />
+        </EllipsisReveal.Provider>
+      ) : null;
   }
 
   return (

@@ -14,34 +14,38 @@ import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
 import EntrySection from '../types/entrySection';
+import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniProtkbUIModel,
+    communityReferences: Reference[],
     importedVariants: number | 'loading',
     hasGenomicCoordinates: boolean | 'loading'
   ) => JSX.Element;
 }[] = [
   {
     id: EntrySection.Function,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <FunctionSection
         data={data[EntrySection.Function] as FunctionUIModel}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        communityReferences={communityReferences}
         key={EntrySection.Function}
       />
     ),
   },
   {
     id: EntrySection.NamesAndTaxonomy,
-    sectionContent: (data) => (
+    sectionContent: (data, communityReferences) => (
       <NamesAndTaxonomySection
         data={data[EntrySection.NamesAndTaxonomy]}
         primaryAccession={data.primaryAccession}
         key={EntrySection.NamesAndTaxonomy}
         references={data.references}
+        communityReferences={communityReferences}
       />
     ),
   },
@@ -59,7 +63,7 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.DiseaseVariants,
-    sectionContent: (data, importedVariants) => (
+    sectionContent: (data, _, importedVariants) => (
       <DiseaseAndDrugsSection
         data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
@@ -126,7 +130,7 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.Sequence,
-    sectionContent: (data, _, hasGenomicCoordinates) => (
+    sectionContent: (data, _, __, hasGenomicCoordinates) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}

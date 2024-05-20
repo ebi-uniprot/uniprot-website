@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: /api/uniprotkb/P05067.json
-// Retrieved: 2022-08-01
+// Retrieved: 2024-03-25
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P05067',
@@ -33,9 +33,9 @@ const mock: UniProtkbAPIModel = {
   uniProtkbId: 'A4_HUMAN',
   entryAudit: {
     firstPublicDate: '1987-08-13',
-    lastAnnotationUpdateDate: '2022-08-03',
+    lastAnnotationUpdateDate: '2024-03-27',
     lastSequenceUpdateDate: '1991-11-01',
-    entryVersion: 301,
+    entryVersion: 310,
     sequenceVersion: 3,
   },
   annotationScore: 5,
@@ -516,7 +516,7 @@ const mock: UniProtkbAPIModel = {
             },
           ],
           value:
-            'Functions as a cell surface receptor and performs physiological functions on the surface of neurons relevant to neurite growth, neuronal adhesion and axonogenesis. Interaction between APP molecules on neighboring cells promotes synaptogenesis (PubMed:25122912). Involved in cell mobility and transcription regulation through protein-protein interactions. Can promote transcription activation through binding to APBB1-KAT5 and inhibits Notch signaling through interaction with Numb. Couples to apoptosis-inducing pathways such as those mediated by G(o) and JIP. Inhibits G(o) alpha ATPase activity (By similarity). Acts as a kinesin I membrane receptor, mediating the axonal transport of beta-secretase and presenilin 1 (By similarity). By acting as a kinesin I membrane receptor, plays a role in axonal anterograde transport of cargo towards synapes in axons (PubMed:17062754, PubMed:23011729). Involved in copper homeostasis/oxidative stress through copper ion reduction. In vitro, copper-metallated APP induces neuronal death directly or is potentiated through Cu(2+)-mediated low-density lipoprotein oxidation. Can regulate neurite outgrowth through binding to components of the extracellular matrix such as heparin and collagen I and IV. The splice isoforms that contain the BPTI domain possess protease inhibitor activity. Induces a AGER-dependent pathway that involves activation of p38 MAPK, resulting in internalization of amyloid-beta peptide and leading to mitochondrial dysfunction in cultured cortical neurons. Provides Cu(2+) ions for GPC1 which are required for release of nitric oxide (NO) and subsequent degradation of the heparan sulfate chains on GPC1',
+            'Functions as a cell surface receptor and performs physiological functions on the surface of neurons relevant to neurite growth, neuronal adhesion and axonogenesis. Interaction between APP molecules on neighboring cells promotes synaptogenesis (PubMed:25122912). Involved in cell mobility and transcription regulation through protein-protein interactions. Can promote transcription activation through binding to APBB1-KAT5 and inhibits Notch signaling through interaction with Numb. Couples to apoptosis-inducing pathways such as those mediated by G(o) and JIP. Inhibits G(o) alpha ATPase activity (By similarity). Acts as a kinesin I membrane receptor, mediating the axonal transport of beta-secretase and presenilin 1 (By similarity). By acting as a kinesin I membrane receptor, plays a role in axonal anterograde transport of cargo towards synapses in axons (PubMed:17062754, PubMed:23011729). Involved in copper homeostasis/oxidative stress through copper ion reduction. In vitro, copper-metallated APP induces neuronal death directly or is potentiated through Cu(2+)-mediated low-density lipoprotein oxidation. Can regulate neurite outgrowth through binding to components of the extracellular matrix such as heparin and collagen I and IV. The splice isoforms that contain the BPTI domain possess protease inhibitor activity. Induces a AGER-dependent pathway that involves activation of p38 MAPK, resulting in internalization of amyloid-beta peptide and leading to mitochondrial dysfunction in cultured cortical neurons. Provides Cu(2+) ions for GPC1 which are required for release of nitric oxide (NO) and subsequent degradation of the heparan sulfate chains on GPC1',
         },
       ],
       commentType: 'FUNCTION',
@@ -944,7 +944,7 @@ const mock: UniProtkbAPIModel = {
             geneName: 'APBA1',
             intActId: 'EBI-368690',
           },
-          numberOfExperiments: 4,
+          numberOfExperiments: 5,
           organismDiffer: false,
         },
         {
@@ -983,7 +983,7 @@ const mock: UniProtkbAPIModel = {
             geneName: 'APBB1',
             intActId: 'EBI-81694',
           },
-          numberOfExperiments: 7,
+          numberOfExperiments: 8,
           organismDiffer: false,
         },
         {
@@ -1009,7 +1009,7 @@ const mock: UniProtkbAPIModel = {
             geneName: 'APBB2',
             intActId: 'EBI-79277',
           },
-          numberOfExperiments: 3,
+          numberOfExperiments: 4,
           organismDiffer: false,
         },
         {
@@ -1035,7 +1035,7 @@ const mock: UniProtkbAPIModel = {
             geneName: 'APBB3',
             intActId: 'EBI-286427',
           },
-          numberOfExperiments: 5,
+          numberOfExperiments: 6,
           organismDiffer: false,
         },
         {
@@ -2981,11 +2981,37 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-77613',
           },
           interactantTwo: {
+            uniProtKBAccession: 'Q9UQF2',
+            geneName: 'MAPK8IP1',
+            intActId: 'EBI-78404',
+          },
+          numberOfExperiments: 3,
+          organismDiffer: false,
+        },
+        {
+          interactantOne: {
+            uniProtKBAccession: 'P05067',
+            intActId: 'EBI-77613',
+          },
+          interactantTwo: {
             uniProtKBAccession: 'P10636',
             geneName: 'MAPT',
             intActId: 'EBI-366182',
           },
           numberOfExperiments: 8,
+          organismDiffer: false,
+        },
+        {
+          interactantOne: {
+            uniProtKBAccession: 'P05067',
+            intActId: 'EBI-77613',
+          },
+          interactantTwo: {
+            uniProtKBAccession: 'P10636-8',
+            geneName: 'MAPT',
+            intActId: 'EBI-366233',
+          },
+          numberOfExperiments: 4,
           organismDiffer: false,
         },
         {
@@ -4463,6 +4489,19 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-77613',
           },
           interactantTwo: {
+            uniProtKBAccession: 'Q9GZS3',
+            geneName: 'SKIC8',
+            intActId: 'EBI-358545',
+          },
+          numberOfExperiments: 3,
+          organismDiffer: false,
+        },
+        {
+          interactantOne: {
+            uniProtKBAccession: 'P05067',
+            intActId: 'EBI-77613',
+          },
+          interactantTwo: {
             uniProtKBAccession: 'Q7Z2H8',
             geneName: 'SLC36A1',
             intActId: 'EBI-9978258',
@@ -5334,19 +5373,6 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtKBAccession: 'Q9GZS3',
-            geneName: 'WDR61',
-            intActId: 'EBI-358545',
-          },
-          numberOfExperiments: 3,
-          organismDiffer: false,
-        },
-        {
-          interactantOne: {
-            uniProtKBAccession: 'P05067',
-            intActId: 'EBI-77613',
-          },
-          interactantTwo: {
             uniProtKBAccession: 'O76024',
             geneName: 'WFS1',
             intActId: 'EBI-720609',
@@ -5389,6 +5415,19 @@ const mock: UniProtkbAPIModel = {
             uniProtKBAccession: 'P31946',
             geneName: 'YWHAB',
             intActId: 'EBI-359815',
+          },
+          numberOfExperiments: 3,
+          organismDiffer: false,
+        },
+        {
+          interactantOne: {
+            uniProtKBAccession: 'P05067',
+            intActId: 'EBI-77613',
+          },
+          interactantTwo: {
+            uniProtKBAccession: 'O60293',
+            geneName: 'ZFC3H1',
+            intActId: 'EBI-746701',
           },
           numberOfExperiments: 3,
           organismDiffer: false,
@@ -5735,6 +5774,19 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
+            uniProtKBAccession: 'Q9GZS3',
+            geneName: 'SKIC8',
+            intActId: 'EBI-358545',
+          },
+          numberOfExperiments: 3,
+          organismDiffer: false,
+        },
+        {
+          interactantOne: {
+            uniProtKBAccession: 'P05067-2',
+            intActId: 'EBI-17264467',
+          },
+          interactantTwo: {
             uniProtKBAccession: 'Q99932-2',
             geneName: 'SPAG8',
             intActId: 'EBI-11959123',
@@ -5803,19 +5855,6 @@ const mock: UniProtkbAPIModel = {
             uniProtKBAccession: 'P09936',
             geneName: 'UCHL1',
             intActId: 'EBI-714860',
-          },
-          numberOfExperiments: 3,
-          organismDiffer: false,
-        },
-        {
-          interactantOne: {
-            uniProtKBAccession: 'P05067-2',
-            intActId: 'EBI-17264467',
-          },
-          interactantTwo: {
-            uniProtKBAccession: 'Q9GZS3',
-            geneName: 'WDR61',
-            intActId: 'EBI-358545',
           },
           numberOfExperiments: 3,
           organismDiffer: false,
@@ -6376,6 +6415,19 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-821758',
           },
           interactantTwo: {
+            uniProtKBAccession: 'O95411',
+            geneName: 'MYO18A',
+            intActId: 'EBI-302378',
+          },
+          numberOfExperiments: 3,
+          organismDiffer: false,
+        },
+        {
+          interactantOne: {
+            chainId: 'PRO_0000000092',
+            intActId: 'EBI-821758',
+          },
+          interactantTwo: {
             uniProtKBAccession: 'O95631',
             geneName: 'NTN1',
             intActId: 'EBI-2678626',
@@ -6473,19 +6525,6 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-727668',
           },
           numberOfExperiments: 2,
-          organismDiffer: false,
-        },
-        {
-          interactantOne: {
-            chainId: 'PRO_0000000092',
-            intActId: 'EBI-821758',
-          },
-          interactantTwo: {
-            uniProtKBAccession: 'O95411',
-            geneName: 'TIAF1',
-            intActId: 'EBI-302378',
-          },
-          numberOfExperiments: 3,
           organismDiffer: false,
         },
         {
@@ -7661,7 +7700,7 @@ const mock: UniProtkbAPIModel = {
         diseaseAccession: 'DI-00085',
         acronym: 'AD1',
         description:
-          'A familial early-onset form of Alzheimer disease. It can be associated with cerebral amyloid angiopathy. Alzheimer disease is a neurodegenerative disorder characterized by progressive dementia, loss of cognitive abilities, and deposition of fibrillar amyloid proteins as intraneuronal neurofibrillary tangles, extracellular amyloid plaques and vascular amyloid deposits. The major constituents of these plaques are neurotoxic amyloid-beta protein 40 and amyloid-beta protein 42, that are produced by the proteolysis of the transmembrane APP protein. The cytotoxic C-terminal fragments (CTFs) and the caspase-cleaved products, such as C31, are also implicated in neuronal death.',
+          'A form of Alzheimer disease, a neurodegenerative disorder characterized by progressive dementia, loss of cognitive abilities, and deposition of fibrillar amyloid proteins as intraneuronal neurofibrillary tangles, extracellular amyloid plaques and vascular amyloid deposits. The major constituents of these plaques are neurotoxic amyloid-beta protein 40 and amyloid-beta protein 42, that are produced by the proteolysis of the transmembrane APP protein. The cytotoxic C-terminal fragments (CTFs) and the caspase-cleaved products, such as C31, are also implicated in neuronal death. It can be associated with cerebral amyloid angiopathy. Alzheimer disease can be associated with cerebral amyloid angiopathy.',
         diseaseCrossReference: {
           database: 'MIM',
           id: '104300',
@@ -11356,7 +11395,7 @@ const mock: UniProtkbAPIModel = {
         },
       },
       description:
-        'in one chronic schizophrenia patient; unknown pathological significance; dbSNP:rs1800557',
+        'in one chronic schizophrenia patient; uncertain significance; dbSNP:rs1800557',
       featureCrossReferences: [
         {
           database: 'dbSNP',
@@ -13875,7 +13914,7 @@ const mock: UniProtkbAPIModel = {
           modifier: 'EXACT',
         },
         end: {
-          value: 680,
+          value: 679,
           modifier: 'EXACT',
         },
       },
@@ -13884,7 +13923,7 @@ const mock: UniProtkbAPIModel = {
         {
           evidenceCode: 'ECO:0007829',
           source: 'PDB',
-          id: '5MYO',
+          id: '7OW1',
         },
       ],
     },
@@ -13892,7 +13931,7 @@ const mock: UniProtkbAPIModel = {
       type: 'Beta strand',
       location: {
         start: {
-          value: 681,
+          value: 682,
           modifier: 'EXACT',
         },
         end: {
@@ -13905,7 +13944,7 @@ const mock: UniProtkbAPIModel = {
         {
           evidenceCode: 'ECO:0007829',
           source: 'PDB',
-          id: '7Q4B',
+          id: '7OXN',
         },
       ],
     },
@@ -14334,6 +14373,7 @@ const mock: UniProtkbAPIModel = {
   ],
   references: [
     {
+      referenceNumber: 1,
       citation: {
         id: '2881207',
         citationType: 'journal article',
@@ -14375,6 +14415,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 2,
       citation: {
         id: '2893289',
         citationType: 'journal article',
@@ -14418,6 +14459,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 3,
       citation: {
         id: '2783775',
         citationType: 'journal article',
@@ -14454,6 +14496,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 4,
       citation: {
         id: '2110105',
         citationType: 'journal article',
@@ -14487,6 +14530,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 5,
       citation: {
         id: '1908403',
         citationType: 'journal article',
@@ -14516,6 +14560,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['ERRATUM OF PUBMED:2110105'],
     },
     {
+      referenceNumber: 6,
       citation: {
         id: '1587857',
         citationType: 'journal article',
@@ -14557,6 +14602,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 7,
       citation: {
         id: '9108164',
         citationType: 'journal article',
@@ -14593,6 +14639,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 8,
       citation: {
         id: '12859342',
         citationType: 'journal article',
@@ -14634,6 +14681,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 9,
       citation: {
         id: '14702039',
         citationType: 'journal article',
@@ -14829,6 +14877,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 10,
       citation: {
         id: 'CI-7CAL69OST03DI',
         citationType: 'submission',
@@ -14842,6 +14891,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 11,
       citation: {
         id: '10830953',
         citationType: 'journal article',
@@ -14930,6 +14980,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
     },
     {
+      referenceNumber: 12,
       citation: {
         id: 'CI-5GBD0VIIJ7C63',
         citationType: 'submission',
@@ -14978,6 +15029,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
     },
     {
+      referenceNumber: 13,
       citation: {
         id: '15489334',
         citationType: 'journal article',
@@ -15015,6 +15067,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 14,
       citation: {
         id: '3140222',
         citationType: 'journal article',
@@ -15046,6 +15099,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 15,
       citation: {
         id: 'CI-5TR5E0BV47JE8',
         citationType: 'journal article',
@@ -15059,6 +15113,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['ERRATUM OF PUBMED:3140222', 'SEQUENCE REVISION'],
     },
     {
+      referenceNumber: 16,
       citation: {
         id: '2538123',
         citationType: 'journal article',
@@ -15084,6 +15139,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 1-75'],
     },
     {
+      referenceNumber: 17,
       citation: {
         id: '3597385',
         citationType: 'journal article',
@@ -15114,6 +15170,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 18,
       citation: {
         id: '12665801',
         citationType: 'journal article',
@@ -15153,6 +15210,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 19,
       citation: {
         id: '2893290',
         citationType: 'journal article',
@@ -15185,6 +15243,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['NUCLEOTIDE SEQUENCE [MRNA] OF 286-366'],
     },
     {
+      referenceNumber: 20,
       citation: {
         id: '2893291',
         citationType: 'journal article',
@@ -15216,6 +15275,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['NUCLEOTIDE SEQUENCE [MRNA] OF 287-367'],
     },
     {
+      referenceNumber: 21,
       citation: {
         id: '2893379',
         citationType: 'journal article',
@@ -15254,6 +15314,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 22,
       citation: {
         id: '8576160',
         citationType: 'journal article',
@@ -15282,6 +15343,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 23,
       citation: {
         id: '8476439',
         citationType: 'journal article',
@@ -15310,6 +15372,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 24,
       citation: {
         id: '2675837',
         citationType: 'journal article',
@@ -15342,6 +15405,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 656-737'],
     },
     {
+      referenceNumber: 25,
       citation: {
         id: '15201367',
         citationType: 'journal article',
@@ -15381,6 +15445,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 26,
       citation: {
         id: '3312495',
         citationType: 'journal article',
@@ -15421,6 +15486,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 27,
       citation: {
         id: '1406936',
         citationType: 'journal article',
@@ -15457,6 +15523,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['PROTEIN SEQUENCE OF 672-704', 'TISSUE SPECIFICITY'],
     },
     {
+      referenceNumber: 28,
       citation: {
         id: '8229004',
         citationType: 'journal article',
@@ -15494,6 +15561,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 29,
       citation: {
         id: '8248178',
         citationType: 'journal article',
@@ -15533,6 +15601,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 30,
       citation: {
         id: '8109908',
         citationType: 'journal article',
@@ -15564,6 +15633,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['PROTEIN SEQUENCE OF 672-701 AND 707-713'],
     },
     {
+      referenceNumber: 31,
       citation: {
         id: '3810169',
         citationType: 'journal article',
@@ -15601,6 +15671,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 32,
       citation: {
         id: '2949367',
         citationType: 'journal article',
@@ -15643,6 +15714,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 33,
       citation: {
         id: '22576872',
         citationType: 'journal article',
@@ -15694,6 +15766,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 34,
       citation: {
         id: '16816112',
         citationType: 'journal article',
@@ -15722,6 +15795,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 35,
       citation: {
         id: '2569763',
         citationType: 'journal article',
@@ -15755,6 +15829,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 36,
       citation: {
         id: '3035574',
         citationType: 'journal article',
@@ -15793,6 +15868,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 37,
       citation: {
         id: '2900137',
         citationType: 'journal article',
@@ -15832,6 +15908,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 38,
       citation: {
         id: '2649245',
         citationType: 'journal article',
@@ -15871,6 +15948,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 39,
       citation: {
         id: '2506449',
         citationType: 'journal article',
@@ -15907,6 +15985,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['IDENTITY OF APP WITH NEXIN-II'],
     },
     {
+      referenceNumber: 40,
       citation: {
         id: '1969731',
         citationType: 'journal article',
@@ -15939,6 +16018,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['PROTEASE-SPECIFICITY OF INHIBITOR DOMAIN'],
     },
     {
+      referenceNumber: 41,
       citation: {
         id: '8344894',
         citationType: 'journal article',
@@ -15974,6 +16054,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['EXTRACELLULAR ZINC-BINDING DOMAIN'],
     },
     {
+      referenceNumber: 42,
       citation: {
         id: '8446172',
         citationType: 'journal article',
@@ -16007,6 +16088,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH G(O)'],
     },
     {
+      referenceNumber: 43,
       citation: {
         id: '8131745',
         citationType: 'journal article',
@@ -16039,6 +16121,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['PHOSPHORYLATION AT THR-743'],
     },
     {
+      referenceNumber: 44,
       citation: {
         id: '7913895',
         citationType: 'journal article',
@@ -16066,6 +16149,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 45,
       citation: {
         id: '8158260',
         citationType: 'journal article',
@@ -16102,6 +16186,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 46,
       citation: {
         id: '7737970',
         citationType: 'journal article',
@@ -16135,6 +16220,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 47,
       citation: {
         id: '8626687',
         citationType: 'journal article',
@@ -16160,6 +16246,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH APP-BP1'],
     },
     {
+      referenceNumber: 48,
       citation: {
         id: '8887653',
         citationType: 'journal article',
@@ -16188,6 +16275,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 49,
       citation: {
         id: '8855266',
         citationType: 'journal article',
@@ -16213,6 +16301,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH APBB2'],
     },
     {
+      referenceNumber: 50,
       citation: {
         id: '9168929',
         citationType: 'journal article',
@@ -16241,6 +16330,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 51,
       citation: {
         id: '9357988',
         citationType: 'journal article',
@@ -16277,6 +16367,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['HEPARIN-BINDING DOMAINS'],
     },
     {
+      referenceNumber: 52,
       citation: {
         id: '9338779',
         citationType: 'journal article',
@@ -16323,6 +16414,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 53,
       citation: {
         id: '9585534',
         citationType: 'journal article',
@@ -16357,6 +16449,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['COPPER-BINDING', 'DISULFIDE BOND FORMATION'],
     },
     {
+      referenceNumber: 54,
       citation: {
         id: '9843960',
         citationType: 'journal article',
@@ -16386,6 +16479,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 55,
       citation: {
         id: '10413512',
         citationType: 'journal article',
@@ -16414,6 +16508,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 56,
       citation: {
         id: '10319819',
         citationType: 'journal article',
@@ -16462,6 +16557,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 57,
       citation: {
         id: '10535332',
         citationType: 'journal article',
@@ -16496,6 +16592,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 58,
       citation: {
         id: '10341243',
         citationType: 'journal article',
@@ -16535,6 +16632,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 59,
       citation: {
         id: '9890987',
         citationType: 'journal article',
@@ -16570,6 +16668,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH APBA2'],
     },
     {
+      referenceNumber: 60,
       citation: {
         id: '10383380',
         citationType: 'journal article',
@@ -16609,6 +16708,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 61,
       citation: {
         id: '10461923',
         citationType: 'journal article',
@@ -16643,6 +16743,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 62,
       citation: {
         id: '10656250',
         citationType: 'journal article',
@@ -16688,6 +16789,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 63,
       citation: {
         id: '10081969',
         citationType: 'journal article',
@@ -16713,6 +16815,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH APBB3'],
     },
     {
+      referenceNumber: 64,
       citation: {
         id: '10816430',
         citationType: 'journal article',
@@ -16751,6 +16854,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION OF AMYLOID-BETA WITH APOE'],
     },
     {
+      referenceNumber: 65,
       citation: {
         id: '10681545',
         citationType: 'journal article',
@@ -16783,6 +16887,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION OF APP42-BETA WITH CHRNA7'],
     },
     {
+      referenceNumber: 66,
       citation: {
         id: '12214090',
         citationType: 'journal article',
@@ -16822,6 +16927,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 67,
       citation: {
         id: '11775062',
         citationType: 'journal article',
@@ -16847,6 +16953,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['REVIEW ON FUNCTION OF AMYLOID-BETA AS ANTIOXIDANT'],
     },
     {
+      referenceNumber: 68,
       citation: {
         id: '11689470',
         citationType: 'journal article',
@@ -16885,6 +16992,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 69,
       citation: {
         id: '11278849',
         citationType: 'journal article',
@@ -16930,6 +17038,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH BBP'],
     },
     {
+      referenceNumber: 70,
       citation: {
         id: '11274207',
         citationType: 'journal article',
@@ -16966,6 +17075,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['AMYLOID-BETA COPPER AND ZINC-BINDING SITES'],
     },
     {
+      referenceNumber: 71,
       citation: {
         id: '11438549',
         citationType: 'journal article',
@@ -17001,6 +17111,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['SUBUNIT'],
     },
     {
+      referenceNumber: 72,
       citation: {
         id: '11544248',
         citationType: 'journal article',
@@ -17035,6 +17146,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 73,
       citation: {
         id: '11238726',
         citationType: 'journal article',
@@ -17060,6 +17172,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH FBLN1'],
     },
     {
+      referenceNumber: 74,
       citation: {
         id: '11943163',
         citationType: 'journal article',
@@ -17094,6 +17207,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH MAPT', 'FUNCTION'],
     },
     {
+      referenceNumber: 75,
       citation: {
         id: '11724784',
         citationType: 'journal article',
@@ -17129,6 +17243,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 76,
       citation: {
         id: '11784781',
         citationType: 'journal article',
@@ -17167,6 +17282,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 77,
       citation: {
         id: '12032279',
         citationType: 'journal article',
@@ -17191,6 +17307,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['REVIEW ON ZINC-BINDING'],
     },
     {
+      referenceNumber: 78,
       citation: {
         id: '8999878',
         citationType: 'journal article',
@@ -17229,6 +17346,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 79,
       citation: {
         id: '10806211',
         citationType: 'journal article',
@@ -17257,6 +17375,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 80,
       citation: {
         id: '10742146',
         citationType: 'journal article',
@@ -17295,6 +17414,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 81,
       citation: {
         id: '11517218',
         citationType: 'journal article',
@@ -17330,6 +17450,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 82,
       citation: {
         id: '11604391',
         citationType: 'journal article',
@@ -17357,6 +17478,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 83,
       citation: {
         id: '11146006',
         citationType: 'journal article',
@@ -17393,6 +17515,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 84,
       citation: {
         id: '11851430',
         citationType: 'journal article',
@@ -17430,6 +17553,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 85,
       citation: {
         id: '11877420',
         citationType: 'journal article',
@@ -17465,6 +17589,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 86,
       citation: {
         id: '12142279',
         citationType: 'journal article',
@@ -17489,6 +17614,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['REVIEW'],
     },
     {
+      referenceNumber: 87,
       citation: {
         id: '14527950',
         citationType: 'journal article',
@@ -17523,6 +17649,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH APBB2'],
     },
     {
+      referenceNumber: 88,
       citation: {
         id: '15084524',
         citationType: 'journal article',
@@ -17558,6 +17685,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 89,
       citation: {
         id: '15347684',
         citationType: 'journal article',
@@ -17583,6 +17711,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH ANKS1B'],
     },
     {
+      referenceNumber: 90,
       citation: {
         id: '16154999',
         citationType: 'journal article',
@@ -17611,6 +17740,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 91,
       citation: {
         id: '16335952',
         citationType: 'journal article',
@@ -17650,6 +17780,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 92,
       citation: {
         id: '16174740',
         citationType: 'journal article',
@@ -17695,6 +17826,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH SORL1', 'SUBCELLULAR LOCATION'],
     },
     {
+      referenceNumber: 93,
       citation: {
         id: '16407538',
         citationType: 'journal article',
@@ -17734,6 +17866,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 94,
       citation: {
         id: '17062754',
         citationType: 'journal article',
@@ -17765,6 +17898,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['FUNCTION'],
     },
     {
+      referenceNumber: 95,
       citation: {
         id: '17855360',
         citationType: 'journal article',
@@ -17798,6 +17932,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH SORL1'],
     },
     {
+      referenceNumber: 96,
       citation: {
         id: '18468999',
         citationType: 'journal article',
@@ -17823,6 +17958,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH APBB1'],
     },
     {
+      referenceNumber: 97,
       citation: {
         id: '19366692',
         citationType: 'journal article',
@@ -17848,6 +17984,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH ITM2C'],
     },
     {
+      referenceNumber: 98,
       citation: {
         id: '19225519',
         citationType: 'journal article',
@@ -17882,6 +18019,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 99,
       citation: {
         id: '19901339',
         citationType: 'journal article',
@@ -17926,6 +18064,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['FUNCTION', 'INTERACTION WITH AGER'],
     },
     {
+      referenceNumber: 100,
       citation: {
         id: '20580937',
         citationType: 'journal article',
@@ -17961,6 +18100,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['SUBCELLULAR LOCATION'],
     },
     {
+      referenceNumber: 101,
       citation: {
         id: '20811458',
         citationType: 'journal article',
@@ -17998,6 +18138,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH GSAP'],
     },
     {
+      referenceNumber: 102,
       citation: {
         id: '21269460',
         citationType: 'journal article',
@@ -18033,6 +18174,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 103,
       citation: {
         id: '21712440',
         citationType: 'journal article',
@@ -18072,6 +18214,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 104,
       citation: {
         id: '23011729',
         citationType: 'journal article',
@@ -18105,6 +18248,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['FUNCTION', 'INTERACTION WITH KIF5B'],
     },
     {
+      referenceNumber: 105,
       citation: {
         id: '22457725',
         citationType: 'journal article',
@@ -18130,6 +18274,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH S100A9'],
     },
     {
+      referenceNumber: 106,
       citation: {
         id: '24275569',
         citationType: 'journal article',
@@ -18175,6 +18320,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 107,
       citation: {
         id: '24336208',
         citationType: 'journal article',
@@ -18286,6 +18432,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH PLD3'],
     },
     {
+      referenceNumber: 108,
       citation: {
         id: '25168729',
         citationType: 'journal article',
@@ -18317,6 +18464,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH VDAC1'],
     },
     {
+      referenceNumber: 109,
       citation: {
         id: '24523320',
         citationType: 'journal article',
@@ -18355,6 +18503,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH SORL1'],
     },
     {
+      referenceNumber: 110,
       citation: {
         id: '26091039',
         citationType: 'journal article',
@@ -18396,6 +18545,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['PHOSPHORYLATION AT SER-441 AND TYR-497'],
     },
     {
+      referenceNumber: 111,
       citation: {
         id: '28720718',
         citationType: 'journal article',
@@ -18440,6 +18590,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 112,
       citation: {
         id: '2125487',
         citationType: 'journal article',
@@ -18471,6 +18622,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['X-RAY CRYSTALLOGRAPHY (1.5 ANGSTROMS) OF 287-344'],
     },
     {
+      referenceNumber: 113,
       citation: {
         id: '1718421',
         citationType: 'journal article',
@@ -18508,6 +18660,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 289-344'],
     },
     {
+      referenceNumber: 114,
       citation: {
         id: '7516706',
         citationType: 'journal article',
@@ -18538,6 +18691,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-699'],
     },
     {
+      referenceNumber: 115,
       citation: {
         id: '7588758',
         citationType: 'journal article',
@@ -18571,6 +18725,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-711'],
     },
     {
+      referenceNumber: 116,
       citation: {
         id: '8973180',
         citationType: 'journal article',
@@ -18602,6 +18757,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 696-706'],
     },
     {
+      referenceNumber: 117,
       citation: {
         id: '9300481',
         citationType: 'journal article',
@@ -18635,6 +18791,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 118,
       citation: {
         id: '9693002',
         citationType: 'journal article',
@@ -18666,6 +18823,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-711'],
     },
     {
+      referenceNumber: 119,
       citation: {
         id: '10201399',
         citationType: 'journal article',
@@ -18703,6 +18861,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['X-RAY CRYSTALLOGRAPHY (1.8 ANGSTROMS) OF 28-123'],
     },
     {
+      referenceNumber: 120,
       citation: {
         id: '10821838',
         citationType: 'journal article',
@@ -18737,6 +18896,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE OF CAA-APP VARIANTS'],
     },
     {
+      referenceNumber: 121,
       citation: {
         id: '10940221',
         citationType: 'journal article',
@@ -18773,6 +18933,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 681-706'],
     },
     {
+      referenceNumber: 122,
       citation: {
         id: '10940222',
         citationType: 'journal article',
@@ -18798,6 +18959,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-699'],
     },
     {
+      referenceNumber: 123,
       citation: {
         id: '12611883',
         citationType: 'journal article',
@@ -18849,6 +19011,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 124,
       citation: {
         id: '15304215',
         citationType: 'journal article',
@@ -18879,6 +19042,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 125,
       citation: {
         id: '17051221',
         citationType: 'journal article',
@@ -18906,6 +19070,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 126,
       citation: {
         id: '17909280',
         citationType: 'journal article',
@@ -18934,6 +19099,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 127,
       citation: {
         id: '17239395',
         citationType: 'journal article',
@@ -19001,6 +19167,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 128,
       citation: {
         id: '17895381',
         citationType: 'journal article',
@@ -19039,6 +19206,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 129,
       citation: {
         id: '19923222',
         citationType: 'journal article',
@@ -19091,6 +19259,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 130,
       citation: {
         id: '20212142',
         citationType: 'journal article',
@@ -19129,6 +19298,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 131,
       citation: {
         id: '22584060',
         citationType: 'journal article',
@@ -19169,6 +19339,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 132,
       citation: {
         id: '22654059',
         citationType: 'journal article',
@@ -19213,6 +19384,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 133,
       citation: {
         id: '25122912',
         citationType: 'journal article',
@@ -19268,6 +19440,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 134,
       citation: {
         id: '26898943',
         citationType: 'journal article',
@@ -19313,6 +19486,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 135,
       citation: {
         id: '28570778',
         citationType: 'journal article',
@@ -19356,6 +19530,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 136,
       citation: {
         id: '28882996',
         citationType: 'journal article',
@@ -19403,6 +19578,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 137,
       citation: {
         id: '29282295',
         citationType: 'journal article',
@@ -19453,6 +19629,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 138,
       citation: {
         id: '30630874',
         citationType: 'journal article',
@@ -19492,6 +19669,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 139,
       citation: {
         id: '1363811',
         citationType: 'journal article',
@@ -19516,6 +19694,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['REVIEW ON VARIANTS'],
     },
     {
+      referenceNumber: 140,
       citation: {
         id: '2111584',
         citationType: 'journal article',
@@ -19551,6 +19730,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP GLN-693'],
     },
     {
+      referenceNumber: 141,
       citation: {
         id: '1671712',
         citationType: 'journal article',
@@ -19598,6 +19778,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
+      referenceNumber: 142,
       citation: {
         id: '1908231',
         citationType: 'journal article',
@@ -19629,6 +19810,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
+      referenceNumber: 143,
       citation: {
         id: '1678058',
         citationType: 'journal article',
@@ -19666,6 +19848,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
+      referenceNumber: 144,
       citation: {
         id: '1944558',
         citationType: 'journal article',
@@ -19703,6 +19886,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-717'],
     },
     {
+      referenceNumber: 145,
       citation: {
         id: '1925564',
         citationType: 'journal article',
@@ -19728,6 +19912,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 PHE-717'],
     },
     {
+      referenceNumber: 146,
       citation: {
         id: '1415269',
         citationType: 'journal article',
@@ -19774,6 +19959,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-693'],
     },
     {
+      referenceNumber: 147,
       citation: {
         id: '1303239',
         citationType: 'journal article',
@@ -19812,6 +19998,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-692'],
     },
     {
+      referenceNumber: 148,
       citation: {
         id: '1302033',
         citationType: 'journal article',
@@ -19845,6 +20032,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 670-LYS-MET-671 DELINS ASN-LEU'],
     },
     {
+      referenceNumber: 149,
       citation: {
         id: '1465129',
         citationType: 'journal article',
@@ -19882,6 +20070,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 150,
       citation: {
         id: '1307241',
         citationType: 'journal article',
@@ -19915,6 +20104,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT VAL-713'],
     },
     {
+      referenceNumber: 151,
       citation: {
         id: '1303275',
         citationType: 'journal article',
@@ -19949,6 +20139,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 THR-713'],
     },
     {
+      referenceNumber: 152,
       citation: {
         id: '8267572',
         citationType: 'journal article',
@@ -19980,6 +20171,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANTS AD1 ILE-717 AND PHE-717'],
     },
     {
+      referenceNumber: 153,
       citation: {
         id: '8154870',
         citationType: 'journal article',
@@ -20012,6 +20204,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT ASP-665'],
     },
     {
+      referenceNumber: 154,
       citation: {
         id: '8290042',
         citationType: 'journal article',
@@ -20044,6 +20237,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 PHE-717'],
     },
     {
+      referenceNumber: 155,
       citation: {
         id: '8577393',
         citationType: 'journal article',
@@ -20079,6 +20273,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
+      referenceNumber: 156,
       citation: {
         id: '8886002',
         citationType: 'journal article',
@@ -20117,6 +20312,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 157,
       citation: {
         id: '9328472',
         citationType: 'journal article',
@@ -20158,6 +20354,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 VAL-716'],
     },
     {
+      referenceNumber: 158,
       citation: {
         id: '9754958',
         citationType: 'journal article',
@@ -20197,6 +20394,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 159,
       citation: {
         id: '10097173',
         citationType: 'journal article',
@@ -20234,6 +20432,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 160,
       citation: {
         id: '10631141',
         citationType: 'journal article',
@@ -20271,6 +20470,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
+      referenceNumber: 161,
       citation: {
         id: '10665499',
         citationType: 'journal article',
@@ -20305,6 +20505,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 PRO-723'],
     },
     {
+      referenceNumber: 162,
       citation: {
         id: '10867787',
         citationType: 'journal article',
@@ -20336,6 +20537,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 LEU-717'],
     },
     {
+      referenceNumber: 163,
       citation: {
         id: '11063718',
         citationType: 'journal article',
@@ -20379,6 +20581,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 164,
       citation: {
         id: '10677483',
         citationType: 'journal article',
@@ -20413,6 +20616,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      referenceNumber: 165,
       citation: {
         id: '11409420',
         citationType: 'journal article',
@@ -20444,6 +20648,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP ASN-694'],
     },
     {
+      referenceNumber: 166,
       citation: {
         id: '11311152',
         citationType: 'journal article',
@@ -20475,6 +20680,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['CHARACTERIZATION OF VARIANT AD1 GLY-692'],
     },
     {
+      referenceNumber: 167,
       citation: {
         id: '11528419',
         citationType: 'journal article',
@@ -20513,6 +20719,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-693'],
     },
     {
+      referenceNumber: 168,
       citation: {
         id: '12034808',
         citationType: 'journal article',
@@ -20548,6 +20755,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ALA-714'],
     },
     {
+      referenceNumber: 169,
       citation: {
         id: '12654973',
         citationType: 'journal article',
@@ -20583,6 +20791,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP ASN-694'],
     },
     {
+      referenceNumber: 170,
       citation: {
         id: '15365148',
         citationType: 'journal article',
@@ -20623,6 +20832,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 THR-713'],
     },
     {
+      referenceNumber: 171,
       citation: {
         id: '16178030',
         citationType: 'journal article',
@@ -20662,6 +20872,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP VAL-705'],
     },
     {
+      referenceNumber: 172,
       citation: {
         id: '15668448',
         citationType: 'journal article',
@@ -20699,6 +20910,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-714'],
     },
     {
+      referenceNumber: 173,
       citation: {
         id: '20697050',
         citationType: 'journal article',
@@ -25299,6 +25511,24 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDB',
+      id: '7F29',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.10 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F=677-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
       id: '7JXN',
       properties: [
         {
@@ -25353,6 +25583,42 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDB',
+      id: '7OW1',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '1.40 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A=674-685',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '7OXN',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '2.50 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A=672-685',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
       id: '7Q4B',
       properties: [
         {
@@ -25384,6 +25650,510 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'Chains',
           value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '7RTZ',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '2.10 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B=682-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '7U4P',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '1.80 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C=687-707',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '7WFY',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '2.45 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A=754-761',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '7WVY',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.00 A',
+        },
+        {
+          key: 'Chains',
+          value: 'L=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '7Y3J',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '2.60 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A=687-697',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '7Y8Q',
+      properties: [
+        {
+          key: 'Method',
+          value: 'NMR',
+        },
+        {
+          key: 'Resolution',
+          value: '-',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8AZS',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.90 A',
+        },
+        {
+          key: 'Chains',
+          value: 'H=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8AZT',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.70 A',
+        },
+        {
+          key: 'Chains',
+          value: 'B=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8B9Q',
+      properties: [
+        {
+          key: 'Method',
+          value: 'NMR',
+        },
+        {
+          key: 'Resolution',
+          value: '-',
+        },
+        {
+          key: 'Chains',
+          value: 'A=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8B9R',
+      properties: [
+        {
+          key: 'Method',
+          value: 'NMR',
+        },
+        {
+          key: 'Resolution',
+          value: '-',
+        },
+        {
+          key: 'Chains',
+          value: 'A=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8BFA',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.00 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8BFB',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.20 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8BFZ',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.79 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8BG0',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '1.90 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8C3H',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '1.71 A',
+        },
+        {
+          key: 'Chains',
+          value: 'D/E=763-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8EZD',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.83 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8EZE',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.76 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8FF2',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.87 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/I/J/K=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8FF3',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.09 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/a/b/c=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OL2',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.00 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OL3',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.50 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OL5',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.40 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OL6',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.80 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OL7',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.00 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OLG',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '4.20 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OLN',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OLO',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.50 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OLQ',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '4.00 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E=672-713',
         },
       ],
     },
@@ -26939,6 +27709,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDBsum',
+      id: '7F29',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
       id: '7JXN',
       properties: [
         {
@@ -26969,6 +27749,26 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDBsum',
+      id: '7OW1',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '7OXN',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
       id: '7Q4B',
       properties: [
         {
@@ -26980,6 +27780,286 @@ const mock: UniProtkbAPIModel = {
     {
       database: 'PDBsum',
       id: '7Q4M',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '7RTZ',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '7U4P',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '7WFY',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '7WVY',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '7Y3J',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '7Y8Q',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8AZS',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8AZT',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8B9Q',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8B9R',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8BFA',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8BFB',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8BFZ',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8BG0',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8C3H',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8EZD',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8EZE',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8FF2',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8FF3',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OL2',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OL3',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OL5',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OL6',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OL7',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OLG',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OLN',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OLO',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OLQ',
       properties: [
         {
           key: 'Description',
@@ -27000,6 +28080,236 @@ const mock: UniProtkbAPIModel = {
     {
       database: 'BMRB',
       id: 'P05067',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-0405',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-0619',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-10204',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-13800',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-13809',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-15770',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-15771',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16942',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16944',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16949',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16952',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16953',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16957',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16959',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16960',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-16961',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-20082',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-21501',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-22281',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-32862',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-3851',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-8720',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-9751',
       properties: [
         {
           key: 'Description',
@@ -27043,7 +28353,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '2308',
+          value: '2321',
         },
       ],
     },
@@ -27143,7 +28453,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '867',
+          value: '873',
         },
       ],
     },
@@ -27309,11 +28619,31 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'DrugBank',
+      id: 'DB12034',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Gantenerumab',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
       id: 'DB02235',
       properties: [
         {
           key: 'GenericName',
           value: 'L-methionine (R)-S-oxide',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
+      id: 'DB14580',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Lecanemab',
         },
       ],
     },
@@ -27448,13 +28778,23 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'GlyCosmos',
+      id: 'P05067',
+      properties: [
+        {
+          key: 'glycosylation',
+          value: '15 sites, 9 glycans',
+        },
+      ],
+    },
+    {
       database: 'GlyGen',
       id: 'P05067',
       properties: [
         {
           key: 'glycosylation',
           value:
-            '17 sites, 4 N-linked glycans (1 site), 5 O-linked glycans (8 sites)',
+            '26 sites, 4 N-linked glycans (1 site), 5 O-linked glycans (22 sites)',
         },
       ],
     },
@@ -27570,7 +28910,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PaxDb',
-      id: 'P05067',
+      id: '9606-ENSP00000284981',
       properties: [
         {
           key: 'Description',
@@ -27580,16 +28920,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PeptideAtlas',
-      id: 'P05067',
-      properties: [
-        {
-          key: 'Description',
-          value: '-',
-        },
-      ],
-    },
-    {
-      database: 'PRIDE',
       id: 'P05067',
       properties: [
         {
@@ -27719,12 +29049,22 @@ const mock: UniProtkbAPIModel = {
       isoformId: 'P05067-9',
     },
     {
+      database: 'Pumba',
+      id: 'P05067',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
       database: 'ABCD',
       id: 'P05067',
       properties: [
         {
           key: 'antibodies',
-          value: '52 sequenced antibodies',
+          value: '73 sequenced antibodies',
         },
       ],
     },
@@ -27734,7 +29074,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '3991 antibodies from 52 providers',
+          value: '4873 antibodies from 52 providers',
         },
       ],
     },
@@ -27758,7 +29098,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GeneId',
-          value: 'ENSG00000142192.21',
+          value: 'ENSG00000142192.22',
         },
       ],
       isoformId: 'P05067-1',
@@ -27773,7 +29113,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GeneId',
-          value: 'ENSG00000142192.21',
+          value: 'ENSG00000142192.22',
         },
       ],
       isoformId: 'P05067-4',
@@ -27788,7 +29128,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GeneId',
-          value: 'ENSG00000142192.21',
+          value: 'ENSG00000142192.22',
         },
       ],
       isoformId: 'P05067-10',
@@ -27803,7 +29143,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GeneId',
-          value: 'ENSG00000142192.21',
+          value: 'ENSG00000142192.22',
         },
       ],
       isoformId: 'P05067-8',
@@ -27818,7 +29158,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GeneId',
-          value: 'ENSG00000142192.21',
+          value: 'ENSG00000142192.22',
         },
       ],
       isoformId: 'P05067-9',
@@ -27833,7 +29173,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GeneId',
-          value: 'ENSG00000142192.21',
+          value: 'ENSG00000142192.22',
         },
       ],
       isoformId: 'P05067-11',
@@ -27886,6 +29226,16 @@ const mock: UniProtkbAPIModel = {
         },
       ],
       isoformId: 'P05067-1',
+    },
+    {
+      database: 'AGR',
+      id: 'HGNC:620',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
     },
     {
       database: 'CTD',
@@ -28138,6 +29488,16 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'OrthoDB',
+      id: '2907766at2759',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
       database: 'PhylomeDB',
       id: 'P05067',
       properties: [
@@ -28159,7 +29519,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'BioCyc',
-      id: 'MetaCyc:ENSG00000142192-MON',
+      id: 'MetaCyc:ENSG00000142192-MONOMER',
       properties: [
         {
           key: 'Description',
@@ -28377,7 +29737,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'hits',
-          value: '11 hits in 1084 CRISPR screens',
+          value: '12 hits in 1170 CRISPR screens',
         },
       ],
     },
@@ -28427,7 +29787,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'DevelopmentLevel',
-          value: 'Tchem',
+          value: 'Tclin',
         },
       ],
     },
@@ -28457,7 +29817,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'moleculeType',
-          value: 'protein',
+          value: 'Protein',
         },
       ],
     },
@@ -28467,7 +29827,8 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'ExpressionPatterns',
-          value: 'Expressed in prefrontal cortex and 206 other tissues',
+          value:
+            'Expressed in prefrontal cortex and 208 other cell types or tissues',
         },
       ],
     },
@@ -28493,39 +29854,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0106003',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:amyloid-beta complex',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0045177',
       properties: [
         {
           key: 'GoTerm',
           value: 'C:apical part of cell',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0097449',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:astrocyte projection',
         },
         {
           key: 'GoEvidenceType',
@@ -28639,7 +29972,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'IDA:UniProtKB',
         },
       ],
       evidences: [
@@ -28716,7 +30049,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'IDA:UniProtKB',
         },
       ],
       evidences: [
@@ -28793,21 +30126,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'TAS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0070381',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:endosome to plasma membrane transport vesicle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'TAS:Reactome',
         },
       ],
     },
@@ -28923,120 +30242,15 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:1990812',
+      id: 'GO:0030426',
       properties: [
         {
           key: 'GoTerm',
-          value: 'C:growth cone filopodium',
+          value: 'C:growth cone',
         },
         {
           key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1990761',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:growth cone lamellipodium',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0034364',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:high-density lipoprotein particle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0016021',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:integral component of membrane',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0005887',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:integral component of plasma membrane',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'TAS:ProtInc',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000304',
-          source: 'PubMed',
-          id: '10806211',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0034363',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:intermediate-density lipoprotein particle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1990777',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:lipoprotein particle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0044304',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:main axon',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
+          value: 'IEA:UniProtKB-SubCell',
         },
       ],
     },
@@ -29050,7 +30264,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'ISS:UniProtKB',
         },
       ],
     },
@@ -29072,20 +30286,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',
           id: '24499793',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0005739',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:mitochondrion',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
         },
       ],
     },
@@ -29121,20 +30321,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',
           id: '21989385',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0005634',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:nucleus',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -29183,7 +30369,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'IDA:UniProtKB',
         },
       ],
       evidences: [
@@ -29234,20 +30420,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0032991',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:protein-containing complex',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0043235',
       properties: [
         {
@@ -29278,20 +30450,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0005791',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:rough endoplasmic reticulum',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -29374,104 +30532,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0030549',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:acetylcholine receptor activator activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'TAS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0033130',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:acetylcholine receptor binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0097645',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:amylin binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'TAS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0034185',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:apolipoprotein binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051087',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:chaperone binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0042056',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:chemoattractant activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0003682',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:chromatin binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0003677',
       properties: [
         {
@@ -29507,90 +30567,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000353',
           source: 'PubMed',
           id: '24499793',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0046875',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:ephrin receptor binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0005109',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:frizzled binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0001664',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:G protein-coupled receptor binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0070851',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:growth factor receptor binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1904399',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:heparan sulfate binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'TAS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0043395',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:heparan sulfate proteoglycan binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:ARUK-UCL',
         },
       ],
     },
@@ -29731,104 +30707,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0005158',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:insulin receptor binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0005178',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:integrin binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0050750',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:low-density lipoprotein particle receptor binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'ISS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0016504',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:peptidase activator activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0046983',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:protein dimerization activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0046982',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:protein heterodimerization activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0042803',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:protein homodimerization activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0051425',
       properties: [
         {
@@ -29850,15 +30728,22 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0050786',
+      id: 'GO:0048018',
       properties: [
         {
           key: 'GoTerm',
-          value: 'F:RAGE receptor binding',
+          value: 'F:receptor ligand activity',
         },
         {
           key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
+          value: 'IDA:UniProt',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000314',
+          source: 'PubMed',
+          id: '29518356',
         },
       ],
     },
@@ -29908,7 +30793,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'IBA:GO_Central',
         },
       ],
       evidences: [
@@ -29929,7 +30814,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IPI:ARUK-UCL',
+          value: 'IPI:BHF-UCL',
         },
       ],
       evidences: [
@@ -29951,36 +30836,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IEA:InterPro',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0007189',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:adenylate cyclase-activating G protein-coupled receptor signaling pathway',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0007193',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:adenylate cyclase-inhibiting G protein-coupled receptor signaling pathway',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -30016,63 +30871,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000315',
           source: 'PubMed',
           id: '25620700',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0019731',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:antibacterial humoral response',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0019732',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:antifungal humoral response',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0061844',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:antimicrobial humoral immune response mediated by antimicrobial peptide',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0008306',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:associative learning',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -30167,20 +30965,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0019722',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:calcium-mediated signaling',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0007155',
       properties: [
         {
@@ -30190,20 +30974,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IEA:UniProtKB-KW',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0006878',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cellular copper ion homeostasis',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'ISS:UniProtKB',
         },
       ],
     },
@@ -30225,76 +30995,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
           id: '23152628',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0071320',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cellular response to cAMP',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0071280',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cellular response to copper ion',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0071287',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cellular response to manganese ion',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1990090',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cellular response to nerve growth factor stimulus',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0071874',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cellular response to norepinephrine stimulus',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -30363,29 +31063,15 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0050829',
+      id: 'GO:0180011',
       properties: [
         {
           key: 'GoTerm',
-          value: 'P:defense response to Gram-negative bacterium',
+          value: 'P:cytoplasmic polyadenylation',
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0050830',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:defense response to Gram-positive bacterium',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:UniProtKB',
+          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -30447,20 +31133,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0007186',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:G protein-coupled receptor signaling pathway',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0000086',
       properties: [
         {
@@ -30475,15 +31147,15 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0045087',
+      id: 'GO:0006878',
       properties: [
         {
           key: 'GoTerm',
-          value: 'P:innate immune response',
+          value: 'P:intracellular copper ion homeostasis',
         },
         {
           key: 'GoEvidenceType',
-          value: 'IMP:UniProtKB',
+          value: 'ISS:UniProtKB',
         },
       ],
     },
@@ -30550,20 +31222,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0042157',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:lipoprotein metabolic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IC:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0007626',
       properties: [
         {
@@ -30587,20 +31245,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0007613',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:memory',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -30688,34 +31332,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:1903523',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of blood circulation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0090090',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of canonical Wnt signaling pathway',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0008285',
       properties: [
         {
@@ -30737,20 +31353,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:1902951',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of dendritic spine maintenance',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ComplexPortal',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0010629',
       properties: [
         {
@@ -30759,7 +31361,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'IGI:ARUK-UCL',
         },
       ],
       evidences: [
@@ -30795,7 +31397,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ComplexPortal',
+          value: 'IGI:ARUK-UCL',
         },
       ],
       evidences: [
@@ -30813,48 +31415,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:1902894',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of miRNA transcription',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0010823',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of mitochondrion organization',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'TAS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1901215',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of neuron death',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0045665',
       properties: [
         {
@@ -30864,48 +31424,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1900181',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of protein localization to nucleus',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0000122',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of transcription by RNA polymerase II',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0030178',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of Wnt signaling pathway',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ComplexPortal',
         },
       ],
     },
@@ -31023,21 +31541,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0061903',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of 1-phosphatidylinositol-3-kinase activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:1905908',
       properties: [
         {
@@ -31059,72 +31562,22 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0043065',
+      id: 'GO:0050850',
       properties: [
         {
           key: 'GoTerm',
-          value: 'P:positive regulation of apoptotic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1902961',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of aspartic-type endopeptidase activity involved in amyloid precursor protein catabolic process',
+          value: 'P:positive regulation of calcium-mediated signaling',
         },
         {
           key: 'GoEvidenceType',
           value: 'IGI:ARUK-UCL',
         },
       ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0050867',
-      properties: [
+      evidences: [
         {
-          key: 'GoTerm',
-          value: 'P:positive regulation of cell activation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'NAS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1905893',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of cellular response to thapsigargin',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1905896',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of cellular response to tunicamycin',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          evidenceCode: 'ECO:0000316',
+          source: 'PubMed',
+          id: '22500019',
         },
       ],
     },
@@ -31146,35 +31599,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
           id: '22406537',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0043280',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of cysteine-type endopeptidase activity involved in apoptotic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0007204',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of cytosolic calcium ion concentration',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'NAS:ARUK-UCL',
         },
       ],
     },
@@ -31202,20 +31626,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:1904472',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of endothelin production',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0070374',
       properties: [
         {
@@ -31232,50 +31642,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
           id: '15457210',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:2000463',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of excitatory postsynaptic potential',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1904022',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of G protein-coupled receptor internalization',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0045745',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of G protein-coupled receptor signaling pathway',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
         },
       ],
     },
@@ -31304,7 +31670,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'IMP:ARUK-UCL',
         },
       ],
       evidences: [
@@ -31343,20 +31709,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0035066',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of histone acetylation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0050729',
       properties: [
         {
@@ -31373,20 +31725,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000315',
           source: 'PubMed',
           id: '29961672',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0032729',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of interferon-gamma production',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -31455,20 +31793,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:1900454',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of long-term synaptic depression',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ComplexPortal',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:1900273',
       properties: [
         {
@@ -31490,49 +31814,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0043406',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of MAP kinase activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'ISS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0043410',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of MAPK cascade',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051044',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of membrane protein ectodomain proteolysis',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0045931',
       properties: [
         {
@@ -31547,93 +31828,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0090026',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of monocyte chemotaxis',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0043525',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of neuron apoptotic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1901216',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of neuron death',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0045666',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of neuron differentiation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051092',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of NF-kappaB transcription factor activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000316',
-          source: 'PubMed',
-          id: '15457210',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:1901224',
       properties: [
         {
           key: 'GoTerm',
-          value: 'P:positive regulation of NIK/NF-kappaB signaling',
+          value:
+            'P:positive regulation of non-canonical NF-kappaB signal transduction',
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
+          value: 'IMP:ARUK-UCL',
         },
       ],
       evidences: [
@@ -31641,35 +31845,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000315',
           source: 'PubMed',
           id: '29961672',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0045429',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of nitric oxide biosynthetic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1903223',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of oxidative stress-induced neuron death',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -31717,11 +31892,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0042327',
+      id: 'GO:0032092',
       properties: [
         {
           key: 'GoTerm',
-          value: 'P:positive regulation of phosphorylation',
+          value: 'P:positive regulation of protein binding',
         },
         {
           key: 'GoEvidenceType',
@@ -31732,70 +31907,7 @@ const mock: UniProtkbAPIModel = {
         {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
-          id: '25707991',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0032092',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of protein binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000316',
-          source: 'PubMed',
           id: '24052308',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1904591',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of protein import',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0010739',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of protein kinase A signaling',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'NAS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051897',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of protein kinase B signaling',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'NAS:ARUK-UCL',
         },
       ],
     },
@@ -31843,63 +31955,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0061098',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of protein tyrosine kinase activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1900122',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of receptor binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1905898',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of response to endoplasmic reticulum stress',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0032930',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of superoxide anion generation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:2000406',
       properties: [
         {
@@ -31916,20 +31971,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000315',
           source: 'PubMed',
           id: '19660551',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1902949',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of tau-protein kinase activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -31987,20 +32028,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0051260',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:protein homooligomerization',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0006468',
       properties: [
         {
@@ -32010,104 +32037,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051262',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:protein tetramerization',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0070206',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:protein trimerization',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1903048',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of acetylcholine-gated cation channel activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1905906',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of amyloid fibril formation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1900221',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of amyloid-beta clearance',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0032268',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of cellular protein metabolic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:UniProt',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1902950',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of dendritic spine maintenance',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -32165,20 +32094,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
           id: '23921129',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0043408',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of MAPK cascade',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IC:ComplexPortal',
         },
       ],
     },
@@ -32261,48 +32176,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0061097',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of protein tyrosine kinase activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IC:ComplexPortal',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1905945',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of response to calcium ion',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'ISS:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0010469',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of signaling receptor activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ComplexPortal',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0150003',
       properties: [
         {
@@ -32333,34 +32206,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0034121',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of toll-like receptor signaling pathway',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0006357',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of transcription by RNA polymerase II',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
         },
       ],
     },
@@ -32415,20 +32260,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0010288',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:response to lead ion',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0006979',
       properties: [
         {
@@ -32438,20 +32269,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0001878',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:response to yeast',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:UniProtKB',
         },
       ],
     },
@@ -32539,11 +32356,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'CDD',
-      id: 'cd00109',
+      id: 'cd22607',
       properties: [
         {
           key: 'EntryName',
-          value: 'KU',
+          value: 'Kunitz_ABPP-like',
         },
         {
           key: 'MatchStatus',
@@ -32567,49 +32384,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: '-',
-        },
-        {
-          key: 'MatchStatus',
-          value: '1',
-        },
-      ],
-    },
-    {
-      database: 'Gene3D',
-      id: '2.30.29.30',
-      properties: [
-        {
-          key: 'EntryName',
-          value: '-',
-        },
-        {
-          key: 'MatchStatus',
-          value: '1',
-        },
-      ],
-    },
-    {
-      database: 'Gene3D',
-      id: '3.30.1490.140',
-      properties: [
-        {
-          key: 'EntryName',
-          value: '-',
-        },
-        {
-          key: 'MatchStatus',
-          value: '1',
-        },
-      ],
-    },
-    {
-      database: 'Gene3D',
-      id: '3.90.570.10',
-      properties: [
-        {
-          key: 'EntryName',
-          value: '-',
+          value: 'Amyloid precursor protein, E2 domain',
         },
         {
           key: 'MatchStatus',
@@ -32623,7 +32398,35 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: '-',
+          value: 'Amyloidogenic glycoprotein, amyloid-beta peptide',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'Gene3D',
+      id: '3.30.1490.140',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Amyloidogenic glycoprotein, copper-binding domain',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'Gene3D',
+      id: '3.90.570.10',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Amyloidogenic glycoprotein, heparin-binding domain',
         },
         {
           key: 'MatchStatus',
@@ -32637,7 +32440,22 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: '-',
+          value: 'Pancreatic trypsin inhibitor Kunitz domain',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'Gene3D',
+      id: '2.30.29.30',
+      properties: [
+        {
+          key: 'EntryName',
+          value:
+            'Pleckstrin-homology domain (PH domain)/Phosphotyrosine-binding domain (PTB)',
         },
         {
           key: 'MatchStatus',
@@ -32757,16 +32575,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'InterPro',
-      id: 'IPR028866',
-      properties: [
-        {
-          key: 'EntryName',
-          value: 'APP',
-        },
-      ],
-    },
-    {
-      database: 'InterPro',
       id: 'IPR019543',
       properties: [
         {
@@ -32841,7 +32649,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: 'PTHR23103',
+          value: "ALZHEIMER'S DISEASE BETA-AMYLOID RELATED",
         },
         {
           key: 'MatchStatus',
@@ -32855,7 +32663,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: 'PTHR23103:SF7',
+          value: 'AMYLOID-BETA PRECURSOR PROTEIN',
         },
         {
           key: 'MatchStatus',
@@ -33007,39 +32815,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'SUPFAM',
-      id: 'SSF109843',
-      properties: [
-        {
-          key: 'EntryName',
-          value: 'SSF109843',
-        },
-        {
-          key: 'MatchStatus',
-          value: '1',
-        },
-      ],
-    },
-    {
-      database: 'SUPFAM',
       id: 'SSF56491',
       properties: [
         {
           key: 'EntryName',
-          value: 'SSF56491',
-        },
-        {
-          key: 'MatchStatus',
-          value: '1',
-        },
-      ],
-    },
-    {
-      database: 'SUPFAM',
-      id: 'SSF57362',
-      properties: [
-        {
-          key: 'EntryName',
-          value: 'SSF57362',
+          value: 'A heparin-binding domain',
         },
         {
           key: 'MatchStatus',
@@ -33053,7 +32833,35 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: 'SSF89811',
+          value: 'Amyloid beta a4 protein copper binding domain (domain 2)',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'SUPFAM',
+      id: 'SSF57362',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'BPTI-like',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'SUPFAM',
+      id: 'SSF109843',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'CAPPD, an extracellular domain of amyloid beta A4 protein',
         },
         {
           key: 'MatchStatus',
@@ -33158,7 +32966,7 @@ const mock: UniProtkbAPIModel = {
     countByCommentType: {
       FUNCTION: 5,
       SUBUNIT: 1,
-      INTERACTION: 463,
+      INTERACTION: 466,
       'SUBCELLULAR LOCATION': 7,
       'ALTERNATIVE PRODUCTS': 11,
       'TISSUE SPECIFICITY': 1,

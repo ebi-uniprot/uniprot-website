@@ -573,7 +573,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GEP",
       "displayName": "Bgee",
       "name": "Bgee",
-      "uriLink": "https://bgee.org/gene/%id",
+      "uriLink": "https://www.bgee.org/gene/%id",
     },
     "BindingDB": {
       "attributes": [
@@ -1897,7 +1897,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "NIAGADS",
       "name": "NIAGADS",
-      "uriLink": "https://www.niagads.org/genomics/showRecord.do?name=GeneRecordClasses.GeneRecordClass&source_id=%id",
+      "uriLink": "https://www.niagads.org/genomics/app/record/gene/%id",
     },
     "OGP": {
       "attributes": [
@@ -2443,7 +2443,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "MISC",
       "displayName": "RNAct",
       "name": "RNAct",
-      "uriLink": "https://rnact.crg.eu/protein?query=%id",
+      "uriLink": " https://rnact.tartaglialab.com/protein?query=%id",
     },
     "Reactome": {
       "attributes": [

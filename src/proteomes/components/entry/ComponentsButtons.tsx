@@ -23,9 +23,7 @@ import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { SearchResults } from '../../../shared/types/results';
 
 const ComponentsDownloadComponent = lazy(
   () =>
@@ -34,7 +32,7 @@ const ComponentsDownloadComponent = lazy(
 
 type Props = Pick<
   ProteomesAPIModel,
-  'id' | 'components' | 'proteomeType' | 'proteomeStatistics'
+  'id' | 'proteinCount' | 'components' | 'proteomeType' | 'proteomeStatistics'
 > & {
   selectedEntries: string[];
 };
@@ -43,6 +41,7 @@ const fetchOptions = { method: 'HEAD' };
 
 const ComponentsButtons = ({
   id,
+  proteinCount,
   components,
   selectedEntries,
   proteomeType,
@@ -64,11 +63,10 @@ const ComponentsButtons = ({
     },
     []
   );
+  const isUniparcSearch =
+    proteomeType === 'Redundant proteome' || proteomeType === 'Excluded';
 
-  const allQuery = `(${
-    // Excluded not supported at the moment, need to wait for TRM-28011
-    proteomeType === 'Redundant proteome' ? 'upid' : 'proteome'
-  }:${id})`;
+  const allQuery = `(${isUniparcSearch ? 'upid' : 'proteome'}:${id})`;
   const selectedQuery = useMemo(
     () =>
       `${allQuery}${
@@ -83,14 +81,17 @@ const ComponentsButtons = ({
     [allQuery, components?.length, selectedEntries]
   );
 
-  const { headers: selectedHeaders } = useDataApi<
-    SearchResults<UniProtkbAPIModel>
-  >(
+  const { headers: selectedHeaders } = useDataApi(
     displayDownloadPanel && selectedEntries.length
-      ? stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
-          query: selectedQuery,
-          size: '0',
-        })
+      ? stringifyUrl(
+          apiUrls.search.searchPrefix(
+            isUniparcSearch ? Namespace.uniparc : Namespace.uniprotkb
+          ),
+          {
+            query: selectedQuery,
+            size: '0',
+          }
+        )
       : null,
     fetchOptions
   );
@@ -99,8 +100,7 @@ const ComponentsButtons = ({
     selectedHeaders?.['x-total-results'] || 0
   );
 
-  // Excluded not supported at the moment, need to wait for TRM-28011
-  if (!components?.length || proteomeType === 'Excluded') {
+  if (!components?.length) {
     return null;
   }
 
@@ -119,10 +119,11 @@ const ComponentsButtons = ({
                 query={allQuery}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
+                totalNumberResults={proteinCount}
                 numberSelectedEntries={numberSelectedProteins}
                 onClose={handleToggleDownload}
-                proteomeType={proteomeType}
                 proteomeStatistics={proteomeStatistics}
+                isUniparcSearch={isUniparcSearch}
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -143,7 +144,7 @@ const ComponentsButtons = ({
           to={{
             pathname:
               LocationToPath[
-                proteomeType === 'Redundant proteome'
+                isUniparcSearch
                   ? Location.UniParcResults
                   : Location.UniProtKBResults
               ],

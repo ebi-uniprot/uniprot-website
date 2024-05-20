@@ -30,7 +30,7 @@ import './styles/BlastResultTable.scss';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
+import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',

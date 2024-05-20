@@ -10,6 +10,7 @@ import {
 
 import { apiPrefix } from './apiPrefix';
 import { defaultFacets } from '../facets';
+import { fileFormatToUrlParameter } from '../resultsDownload';
 
 import {
   SelectedFacet,
@@ -19,6 +20,7 @@ import {
 import { Namespace } from '../../types/namespaces';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import { Facets } from '../../types/facets';
+import { FileFormat } from '../../types/resultsDownload';
 
 export const searchPrefix = (namespace: Namespace = Namespace.uniprotkb) =>
   joinUrl(apiPrefix, namespace, 'search');
@@ -39,6 +41,7 @@ type AccessionsOptions = {
   size?: number;
   query?: string;
   noSort?: boolean;
+  format?: FileFormat;
 };
 
 export const accessions = (
@@ -53,6 +56,7 @@ export const accessions = (
     size,
     query,
     noSort,
+    format,
   }: AccessionsOptions = {}
 ) => {
   if (!accessions?.length) {
@@ -68,10 +72,20 @@ export const accessions = (
     key = 'upis';
   }
   let accs = accessions;
+
+  // Get FASTA for accessions that may include range. In this case, API returns bad request if 'query', 'sort', 'facets' are present.
+  if (format && format === FileFormat.fasta) {
+    return stringifyUrl(joinUrl(apiPrefix, namespace, key), {
+      [key]: accs.join(','),
+      format: fileFormatToUrlParameter[format],
+    });
+  }
+
   if (!noSort) {
     // sort to improve possible cache hit
     accs = Array.from(accessions).sort();
   }
+
   return stringifyUrl(joinUrl(apiPrefix, namespace, key), {
     size,
     [key]: accs.join(','),

@@ -4,7 +4,9 @@ import { Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
-import EntrySection from '../../types/entrySection';
+import EntrySection, {
+  entrySectionToCommunityAnnotationField,
+} from '../../types/entrySection';
 import ContactLink from '../../../contact/components/ContactLink';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -45,6 +47,7 @@ import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
+import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -72,6 +75,11 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 import { TabLocation } from '../../types/entry';
+import { SearchResults } from '../../../shared/types/results';
+import {
+  CitationsAPIModel,
+  Reference,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 import helper from '../../../shared/styles/helper.module.scss';
@@ -165,6 +173,27 @@ const Entry = () => {
     { method: 'HEAD' }
   );
 
+  const communityCurationPayload = useDataApi<SearchResults<CitationsAPIModel>>(
+    match?.params.accession &&
+      uniprotkbApiUrls.publications.entryPublications({
+        accession: match.params.accession,
+        selectedFacets: [
+          {
+            name: 'types',
+            value: '0',
+          },
+        ],
+      })
+  );
+
+  const communityReferences: Reference[] = useMemo(() => {
+    const filteredReferences = communityCurationPayload.data?.results.flatMap(
+      ({ references }) =>
+        references?.filter((reference) => reference.source?.name === 'ORCID')
+    );
+    return filteredReferences?.filter((r): r is Reference => Boolean(r)) || [];
+  }, [communityCurationPayload.data]);
+
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const [transformedData, pageTitle] = useMemo(() => {
@@ -202,7 +231,20 @@ const Entry = () => {
             );
             break;
           default:
-            disabled = !hasContent(transformedData[nameAndId.id]);
+            disabled =
+              !hasContent(transformedData[nameAndId.id]) &&
+              !communityReferences.some((reference) => {
+                if (
+                  reference.communityAnnotation &&
+                  !!entrySectionToCommunityAnnotationField.get(nameAndId.id)
+                ) {
+                  return (
+                    (entrySectionToCommunityAnnotationField.get(nameAndId.id) ||
+                      '') in reference.communityAnnotation
+                  );
+                }
+                return false;
+              });
         }
         return {
           label: nameAndId.name,
@@ -212,7 +254,7 @@ const Entry = () => {
       });
     }
     return [];
-  }, [transformedData]);
+  }, [transformedData, communityReferences]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),
@@ -289,7 +331,7 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
-  const isObsolete = Boolean(
+  let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
   );
@@ -326,7 +368,7 @@ const Entry = () => {
     (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
     if (error) {
-      return <ErrorHandler status={status} />;
+      return <ErrorHandler status={status} error={error} fullPage />;
     }
     return <Loader progress={progress} />;
   }
@@ -354,7 +396,7 @@ const Entry = () => {
   }
 
   if (error || !match?.params.accession || !transformedData) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   const entrySidebar = (
@@ -362,6 +404,11 @@ const Entry = () => {
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
+
+  // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
+  // merged entry's history), the user is viewing content of an obsolete entry
+  isObsolete =
+    (redirectedTo && accession !== match.params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {
@@ -464,6 +511,7 @@ const Entry = () => {
                 transformedData={transformedData}
                 importedVariants={importedVariants}
                 hasGenomicCoordinates={hasGenomicCoordinates}
+                communityReferences={communityReferences}
                 isoforms={listOfIsoformNames}
               />
             </>
@@ -562,7 +610,10 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewerTab accession={accession} />
+                <FeatureViewerTab
+                  accession={accession}
+                  importedVariants={importedVariants}
+                />
               </ErrorBoundary>
             </Suspense>
           )}
@@ -627,7 +678,11 @@ const Entry = () => {
                       )
                   )
                 }
-                title="Genomic coordinates"
+                title={
+                  <span data-article-id="genomic-coordinates">
+                    Genomic coordinates
+                  </span>
+                }
               />
             </ErrorBoundary>
           </Suspense>
@@ -730,7 +785,10 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <HistoryTab accession={accession} />
+              <HistoryTab
+                accession={isObsolete ? match.params.accession : accession}
+                lastVersion={data.entryAudit?.entryVersion}
+              />
             </ErrorBoundary>
           </Suspense>
         </Tab>

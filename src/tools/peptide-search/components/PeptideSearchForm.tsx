@@ -34,6 +34,7 @@ import {
 } from '../state/peptideSearchFormActions';
 
 import { truncateTaxonLabel } from '../../utils';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import {
   PEPTIDE_SEARCH_SEQUENCES_COUNT,
@@ -206,6 +207,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           formValues[PeptideSearchFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.PEPTIDE_SEARCH);
     });
   };
 

@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: /configure/uniprotkb/search-fields
-// Retrieved: 2024-01-24
+// Retrieved: 2024-03-25
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -86,6 +86,7 @@ const configureSearchTerms = [
     dataType: 'enum',
     fieldType: 'general',
     example: '1',
+    regex: '[1-5]',
     values: [
       {
         name: 'Evidence at protein level',
@@ -1334,16 +1335,6 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         regex: '^true|false$',
-        values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
-        ],
       },
       {
         id: 'secondary_structure',
@@ -1981,16 +1972,6 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         regex: '^true|false$',
-        values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
-        ],
       },
       {
         id: 'organelle',
@@ -2052,16 +2033,6 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         regex: '^true|false$',
-        values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
-        ],
       },
       {
         id: 'sequence_from_rc',
@@ -4409,16 +4380,6 @@ const configureSearchTerms = [
     fieldType: 'general',
     example: 'true',
     regex: '^true|false$',
-    values: [
-      {
-        name: 'Yes',
-        value: 'true',
-      },
-      {
-        name: 'No',
-        value: 'false',
-      },
-    ],
   },
   {
     id: 'active',
@@ -4429,16 +4390,6 @@ const configureSearchTerms = [
     fieldType: 'general',
     example: 'true',
     regex: '^true|false$',
-    values: [
-      {
-        name: 'Yes',
-        value: 'true',
-      },
-      {
-        name: 'No',
-        value: 'false',
-      },
-    ],
   },
   {
     id: 'uniref_group',

@@ -10,6 +10,7 @@ import { TreeSelect } from 'franklin-sites';
 
 import LogicalOperator from './LogicalOperator';
 import Field from './Field';
+import { booleanValues } from './EnumOrBooleanField';
 
 import {
   Clause,
@@ -149,13 +150,19 @@ const ClauseList: FC<React.PropsWithChildren<ClauseListProps>> = ({
           if (clauseId !== clause.id) {
             return clause;
           }
+
+          let value;
+          if (searchTerm.values?.length) {
+            value = searchTerm.values[0].value;
+          } else if (searchTerm.dataType === 'boolean') {
+            value = booleanValues[0].value;
+          }
+
           return {
             ...clause,
             searchTerm,
             // reset queryBits on change of field
-            queryBits: searchTerm.values?.length
-              ? { [searchTerm.term]: searchTerm.values[0].value }
-              : {},
+            queryBits: value ? { [searchTerm.term]: value } : {},
           };
         })
       );

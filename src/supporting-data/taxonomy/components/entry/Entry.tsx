@@ -107,11 +107,19 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   }, [dispatch, mainData.redirectedTo]);
 
   if (mainData.error || !accession || (!mainData.loading && !mainData.data)) {
-    return <ErrorHandler status={mainData.status} />;
+    return (
+      <ErrorHandler status={mainData.status} error={mainData.error} fullPage />
+    );
   }
 
   if (childrenData.error || (!childrenData.loading && !childrenData.data)) {
-    return <ErrorHandler status={childrenData.status} />;
+    return (
+      <ErrorHandler
+        status={childrenData.status}
+        error={childrenData.error}
+        fullPage
+      />
+    );
   }
 
   const { data } = mainData;

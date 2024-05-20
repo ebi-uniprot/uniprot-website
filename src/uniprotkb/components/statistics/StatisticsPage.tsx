@@ -524,11 +524,23 @@ const StatisticsPage = () => {
   }
 
   if (reviewedStats.error || !reviewedStats.data) {
-    return <ErrorHandler status={reviewedStats.status} />;
+    return (
+      <ErrorHandler
+        status={reviewedStats.status}
+        error={reviewedStats.error}
+        fullPage
+      />
+    );
   }
 
   if (unreviewedStats.error || !unreviewedStats.data) {
-    return <ErrorHandler status={unreviewedStats.status} />;
+    return (
+      <ErrorHandler
+        status={unreviewedStats.status}
+        error={unreviewedStats.error}
+        fullPage
+      />
+    );
   }
 
   const reviewedData = Object.fromEntries(

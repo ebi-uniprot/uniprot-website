@@ -28,6 +28,7 @@ describe('ComponentsButtons', () => {
           components={components as Component[]}
           selectedEntries={selectedComponents}
           proteomeType="Reference and representative proteome"
+          proteinCount={100}
           proteomeStatistics={{
             reviewedProteinCount: 50,
             unreviewedProteinCount: 50,
@@ -50,6 +51,7 @@ describe('ComponentsButtons', () => {
         id="id"
         selectedEntries={[]}
         proteomeType="Reference and representative proteome"
+        proteinCount={100}
         proteomeStatistics={{
           reviewedProteinCount: 50,
           unreviewedProteinCount: 50,
@@ -66,6 +68,7 @@ describe('ComponentsButtons', () => {
         selectedEntries={[]}
         components={getComponents(10) as Component[]}
         proteomeType="Reference and representative proteome"
+        proteinCount={100}
         proteomeStatistics={{
           reviewedProteinCount: 50,
           unreviewedProteinCount: 50,

@@ -23,7 +23,7 @@ const TextOutput: FC<
   }
 
   if (error || !data) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   return <CodeBlock>{data}</CodeBlock>;
