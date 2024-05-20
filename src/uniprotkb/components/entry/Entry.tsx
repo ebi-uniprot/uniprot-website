@@ -677,7 +677,11 @@ const Entry = () => {
                       )
                   )
                 }
-                title="Genomic coordinates"
+                title={
+                  <span data-article-id="genomic-coordinates">
+                    Genomic coordinates
+                  </span>
+                }
               />
             </ErrorBoundary>
           </Suspense>
