@@ -79,6 +79,7 @@ const alphaFoldCoordinatesFormats = [
   FileFormat.pdb,
 ];
 const alphaFoldConfidenceFormats = [FileFormat.json];
+const alphaMissenseAnnotationsFormats = [FileFormat.csv];
 
 // once it is OK to expose peff format, uncomment the following
 // const proteinsAPIVariationFormats = [
@@ -99,6 +100,7 @@ export enum Dataset {
   interProRepresentativeDomains = 'InterPro Representative Domains',
   alphaFoldConfidence = 'AlphaFold Confidence',
   alphaFoldCoordinates = 'AlphaFold Coordinates',
+  alphaMissenseAnnotations = 'AlphaMissense Annotations',
 }
 
 const uniprotKBEntryDatasets = {
@@ -113,6 +115,7 @@ const uniprotKBEntryDatasets = {
     Dataset.interProRepresentativeDomains,
     Dataset.alphaFoldConfidence,
     Dataset.alphaFoldCoordinates,
+    Dataset.alphaMissenseAnnotations,
   ],
 };
 
@@ -140,10 +143,9 @@ type AlphafoldPayloadEntry = {
 
 type AlphafoldPayload = AlphafoldPayloadEntry[];
 
-// TODO: add amAnnotationsUrl
 type AlphaFoldUrls = Pick<
   AlphafoldPayloadEntry,
-  'cifUrl' | 'bcifUrl' | 'pdbUrl'
+  'cifUrl' | 'bcifUrl' | 'pdbUrl' | 'amAnnotationsUrl'
 > & { confidenceUrl?: string };
 
 const maxPaginationDownload = 500;
@@ -158,7 +160,12 @@ const getAlphaFoldUrls = (
   if (!first) {
     return undefined;
   }
-  const alphaFoldUrls = pick(first, ['cifUrl', 'bcifUrl', 'pdbUrl']);
+  const alphaFoldUrls = pick(first, [
+    'cifUrl',
+    'bcifUrl',
+    'pdbUrl',
+    'amAnnotationsUrl',
+  ]);
   if (Object.values(alphaFoldUrls).some((url) => !url)) {
     return undefined;
   }
@@ -248,6 +255,8 @@ const getEntryDownloadUrl = (
     }
     case Dataset.alphaFoldConfidence:
       return alphaFoldUrls?.confidenceUrl || '';
+    case Dataset.alphaMissenseAnnotations:
+      return alphaFoldUrls?.amAnnotationsUrl || '';
     default:
       return '';
   }
@@ -433,6 +442,7 @@ const EntryDownload = ({
   if (alphaFoldUrls) {
     availableDatasets.push(Dataset.alphaFoldCoordinates);
     availableDatasets.push(Dataset.alphaFoldConfidence);
+    availableDatasets.push(Dataset.alphaMissenseAnnotations);
   }
 
   if (!entryFeatures.loading && entryFeatures.data) {
@@ -515,6 +525,9 @@ const EntryDownload = ({
         break;
       case Dataset.alphaFoldCoordinates:
         setFileFormats(alphaFoldCoordinatesFormats);
+        break;
+      case Dataset.alphaMissenseAnnotations:
+        setFileFormats(alphaMissenseAnnotationsFormats);
         break;
       default:
         break;
