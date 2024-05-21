@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Many years ago, I was sitting opposite a man whose body suddenly froze. His eyes seemed to be staring at something on the wall behind me while his left hand drew small circles in the air, repetitively. I had no idea what was happening to him until he came back to his senses and told me that he had just had an epileptic fit. Deeply embarrassed, he got up and left the room.';
+  'Our mouths are teeming with inhabitants of the most diverse origin. Bacteria and fungi for one, but all sorts of various-sized peptides too, each of which carry out various tasks...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -378,21 +378,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/267/"
+            url="https://www.proteinspotlight.org/back_issues/268/"
             noIcon
           >
-            Seizure
+            Mouths, enemies and spit
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/267/"
+          url="https://www.proteinspotlight.org/back_issues/268/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt267.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt268.jpg"
             alt=""
             width="123"
             height="129"

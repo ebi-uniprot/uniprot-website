@@ -680,7 +680,11 @@ const Entry = () => {
                       )
                   )
                 }
-                title="Genomic coordinates"
+                title={
+                  <span data-article-id="genomic-coordinates">
+                    Genomic coordinates
+                  </span>
+                }
               />
             </ErrorBoundary>
           </Suspense>
@@ -785,6 +789,7 @@ const Entry = () => {
               />
               <HistoryTab
                 accession={isObsolete ? match.params.accession : accession}
+                lastVersion={data.entryAudit?.entryVersion}
               />
             </ErrorBoundary>
           </Suspense>
