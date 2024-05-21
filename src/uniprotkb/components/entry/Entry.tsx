@@ -471,6 +471,7 @@ const Entry = () => {
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                  sequence={data.sequence.value}
                 />
               )}
               <div className="button-group">
@@ -567,6 +568,7 @@ const Entry = () => {
                 importedVariants={importedVariants}
                 primaryAccession={accession}
                 title="Variants"
+                sequence={data.sequence.value}
               />
             </ErrorBoundary>
           </Suspense>
@@ -612,6 +614,7 @@ const Entry = () => {
                 <FeatureViewerTab
                   accession={accession}
                   importedVariants={importedVariants}
+                  sequence={data.sequence.value}
                 />
               </ErrorBoundary>
             </Suspense>

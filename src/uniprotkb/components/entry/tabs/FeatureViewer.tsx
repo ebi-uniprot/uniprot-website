@@ -22,9 +22,11 @@ import tabsStyles from './styles/tabs-styles.module.scss';
 const FeatureViewer = ({
   accession,
   importedVariants,
+  sequence,
 }: {
   accession: string;
   importedVariants: number | 'loading';
+  sequence: string;
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   // just to make sure not to render protvista-uniprot if we won't get any data
@@ -65,6 +67,7 @@ const FeatureViewer = ({
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}
           dataset={Dataset.features}
+          sequence={sequence}
         />
       )}
       {data?.features && (
