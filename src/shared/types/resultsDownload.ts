@@ -14,6 +14,7 @@ export enum ContentType {
   pdb = 'chemical/x-pdb',
   mmCIF = 'chemical/x-mmcif',
   binaryCIF = 'application/octet-stream; charset=binary',
+  csv = 'text/csv',
 }
 
 export enum FileFormat {
@@ -39,4 +40,5 @@ export enum FileFormat {
   pdb = 'PDB', // AlphaFold coordinates
   mmCIF = 'mmCIF', // AlphaFold coordinates
   binaryCif = 'BinaryCIF', // AlphaFold coordinates
+  csv = 'CSV', // AlphaMissense annotations
 }
