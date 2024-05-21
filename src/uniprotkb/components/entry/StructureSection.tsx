@@ -29,7 +29,7 @@ const StructureView = lazy(
 type Props = {
   data: UIModel;
   primaryAccession: string;
-  sequence: string;
+  sequence?: string;
   crc64?: string;
 };
 

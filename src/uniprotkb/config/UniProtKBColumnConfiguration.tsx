@@ -450,8 +450,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
     const sequenceData = data[EntrySection.Sequence];
     return (
       <Sequence
-        sequence={sequenceData.sequence.value}
-        isCollapsible={sequenceData.sequence.length > 400}
+        sequence={sequenceData.sequence?.value}
+        isCollapsible={
+          !!sequenceData?.sequence?.length && sequenceData.sequence.length > 400
+        }
       />
     );
   },
