@@ -201,5 +201,5 @@ export const sendGtagEventJobSubmit = (
   job: JobTypes,
   parameters?: Record<string, string>
 ) => {
-  sendGtagEvent('job_submit', parameters);
+  sendGtagEvent('job_submit', { job_type: job, ...parameters });
 };
