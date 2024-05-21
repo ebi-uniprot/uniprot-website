@@ -160,17 +160,13 @@ const getAlphaFoldUrls = (
   if (!first) {
     return undefined;
   }
-  const alphaFoldUrls = pick(first, [
-    'cifUrl',
-    'bcifUrl',
-    'pdbUrl',
-    'amAnnotationsUrl',
-  ]);
+  const alphaFoldUrls = pick(first, ['cifUrl', 'bcifUrl', 'pdbUrl']);
   if (Object.values(alphaFoldUrls).some((url) => !url)) {
     return undefined;
   }
   return {
     ...alphaFoldUrls,
+    amAnnotationsUrl: first.amAnnotationsUrl,
     confidenceUrl: alphaFoldUrls.cifUrl
       .replace('-model', '-confidence')
       .replace('.cif', '.json'),
@@ -442,7 +438,9 @@ const EntryDownload = ({
   if (alphaFoldUrls) {
     availableDatasets.push(Dataset.alphaFoldCoordinates);
     availableDatasets.push(Dataset.alphaFoldConfidence);
-    availableDatasets.push(Dataset.alphaMissenseAnnotations);
+    if (alphaFoldUrls.amAnnotationsUrl) {
+      availableDatasets.push(Dataset.alphaMissenseAnnotations);
+    }
   }
 
   if (!entryFeatures.loading && entryFeatures.data) {
