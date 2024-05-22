@@ -30,7 +30,7 @@ const entryToFASTAWithHeaders = (
   let sequence =
     ('representativeMember' in entry
       ? entry.representativeMember.sequence.value
-      : entry.sequence.value) || '';
+      : entry.sequence?.value) || '';
 
   const subsets = [];
   // if any change is required on the sequence, do it here

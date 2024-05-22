@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Loader } from 'franklin-sites';
 
 import GeneEntry from './GeneEntry';
@@ -21,7 +21,7 @@ type GenomicCoordinatesProps = {
   primaryAccession: string;
   isoforms?: Isoform[];
   maneSelect: Set<string>;
-  title?: string;
+  title?: ReactNode;
 };
 
 const GenomicCoordinates = ({

@@ -30,11 +30,11 @@ interface ProtvistaManager extends HTMLElement {
 const FeatureViewer = ({
   accession,
   importedVariants,
-  sequenceLength,
+  sequence,
 }: {
   accession: string;
   importedVariants: number | 'loading';
-  sequenceLength: number;
+  sequence: string;
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const protvistaUniprotRef = useRef<HTMLElement>(null);
@@ -61,7 +61,7 @@ const FeatureViewer = ({
         return;
       }
       // Following logic is lifted from ProtvistaZoomTool
-      const scaleFactor = sequenceLength / 5;
+      const scaleFactor = sequence.length / 5;
       const { displayend, displaystart } = manager;
       let k = 0;
       if (operation === 'zoom-in') {
@@ -74,18 +74,18 @@ const FeatureViewer = ({
       const newEnd = displayend - k;
       let newStart = displaystart;
       // if we've reached the end when zooming out, remove from start
-      if (newEnd > sequenceLength) {
-        newStart -= newEnd - sequenceLength;
+      if (newEnd > sequence.length) {
+        newStart -= newEnd - sequence.length;
       }
       if (displaystart < newEnd) {
         manager.setAttribute('displaystart', Math.max(1, newStart).toString());
         manager.setAttribute(
           'displayend',
-          Math.min(newEnd, sequenceLength).toString()
+          Math.min(newEnd, sequence.length).toString()
         );
       }
     },
-    [protvistaElement.defined, sequenceLength]
+    [protvistaElement.defined, sequence]
   );
 
   const searchParams = new URLSearchParams(useLocation().search);
@@ -114,12 +114,13 @@ const FeatureViewer = ({
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}
           dataset={Dataset.features}
+          sequence={sequence}
         />
       )}
       {data?.features && (
         <>
           {shouldRender && (
-            <NightingaleZoomTool length={sequenceLength} onZoom={handleZoom} />
+            <NightingaleZoomTool length={sequence.length} onZoom={handleZoom} />
           )}
           <EntryDownloadButton handleToggle={handleToggleDownload} />
         </>

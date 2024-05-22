@@ -30,7 +30,7 @@ describe('ProteinProcessingSection', () => {
     const { asFragment } = customRender(
       <ProteinProcessingSection
         data={transformedData[EntrySection.ProteinProcessing]}
-        sequence={transformedData[EntrySection.Sequence].sequence.value}
+        sequence={transformedData[EntrySection.Sequence].sequence?.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
       />,
@@ -48,7 +48,7 @@ describe('ProteinProcessingSection', () => {
     const { asFragment } = customRender(
       <ProteinProcessingSection
         data={transformedData[EntrySection.ProteinProcessing]}
-        sequence={transformedData[EntrySection.Sequence].sequence.value}
+        sequence={transformedData[EntrySection.Sequence].sequence?.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
       />,

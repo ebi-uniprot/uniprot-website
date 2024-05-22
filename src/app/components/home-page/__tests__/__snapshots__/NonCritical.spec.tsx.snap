@@ -2,6 +2,47 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
+   
+  <div
+    class="uniprot-grid uniprot-grid--centered home-page-section"
+  >
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        <small>
+          Do data resources managed by EMBL-EBI and our collaborators make a difference to your work?
+          <br />
+          Please take 10 minutes to fill in our annual user survey, and help us make the case for why sustaining open data resources is critical for life sciences research.
+          <br />
+          Survey link: 
+          <a
+            class="external-link"
+            href="https://www.surveymonkey.com/r/HJKYKTT?channel=[uniprot]"
+            rel="noopener"
+            target="_blank"
+          >
+            https://www.surveymonkey.com/r/HJKYKTT
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </small>
+      </div>
+    </div>
+  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
@@ -616,17 +657,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/267/"
+          href="https://www.proteinspotlight.org/back_issues/268/"
           rel="noopener"
           target="_blank"
         >
-          Seizure
+          Mouths, enemies and spit
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/267/"
+        href="https://www.proteinspotlight.org/back_issues/268/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -635,14 +676,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt267.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt268.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Many  years  ago,  I  was  sitting  opposite  a  man  whose  body  suddenly  froze.  His  eyes  seemed  to  be  staring  at  something  on  the  wall  behind  me  while  his  left  hand  drew  small  circles  in  the  air,  repetitively.  I  had  no  idea  what  was  happening  to  him  until  he…
+          Our  mouths  are  teeming  with  inhabitants  of  the  most  diverse  origin.  Bacteria  and  fungi  for  one,  but  all  sorts  of  various-sized  peptides  too,  each  of  which  carry  out  various  tasks...
       </p>
     </article>
   </section>

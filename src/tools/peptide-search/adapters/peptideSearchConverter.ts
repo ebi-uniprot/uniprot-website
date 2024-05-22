@@ -35,7 +35,7 @@ const peptideSearchConverter = (
   const querySequences = peptides.split(/[\s+,\s+]/).filter(Boolean);
 
   return results.map((result) => {
-    const sequence = 'sequence' in result && result.sequence.value;
+    const sequence = 'sequence' in result && result.sequence?.value;
     if (sequence) {
       return {
         ...result,

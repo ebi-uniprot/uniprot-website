@@ -13,6 +13,7 @@ type EntryDownloadPanelProps = {
   columns?: Column[];
   dataset?: Dataset;
   featureTypes?: string[];
+  sequence?: string;
 };
 const EntryDownloadPanel = ({
   handleToggle,
@@ -21,6 +22,7 @@ const EntryDownloadPanel = ({
   columns,
   dataset,
   featureTypes,
+  sequence,
 }: EntryDownloadPanelProps) => (
   <Suspense fallback={null}>
     <SlidingPanel title="Download" position="left" onClose={handleToggle}>
@@ -32,6 +34,7 @@ const EntryDownloadPanel = ({
           columns={columns}
           dataset={dataset}
           featureTypes={featureTypes}
+          sequence={sequence}
         />
       </ErrorBoundary>
     </SlidingPanel>
