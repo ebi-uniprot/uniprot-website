@@ -47,6 +47,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             length="10"
           >
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in"
             >
@@ -55,6 +56,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-out"
             >
@@ -63,6 +65,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in-seq"
             >
@@ -390,6 +393,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             length="772"
           >
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in"
             >
@@ -398,6 +402,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-out"
             >
@@ -406,6 +411,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in-seq"
             >
