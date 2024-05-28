@@ -111,7 +111,6 @@ const UniProtKBEntryConfig: {
       <StructureSection
         data={data[EntrySection.Structure]}
         primaryAccession={data.primaryAccession}
-        sequence={data[EntrySection.Sequence].sequence?.value}
         key={EntrySection.Structure}
         crc64={data[EntrySection.Sequence].sequence?.crc64}
       />

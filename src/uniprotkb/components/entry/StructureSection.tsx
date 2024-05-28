@@ -7,7 +7,6 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import EntrySection from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 
@@ -29,16 +28,10 @@ const StructureView = lazy(
 type Props = {
   data: UIModel;
   primaryAccession: string;
-  sequence?: string;
   crc64?: string;
 };
 
-const StructureSection = ({
-  data,
-  primaryAccession,
-  sequence,
-  crc64,
-}: Props) => {
+const StructureSection = ({ data, primaryAccession, crc64 }: Props) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
   const isSmallScreen = useSmallScreen();
   const [displayStructure, setDisplayStructure] = useState(!isSmallScreen);
@@ -120,11 +113,6 @@ const StructureSection = ({
           </Button>
         </>
       )}
-      <FeaturesView
-        primaryAccession={primaryAccession}
-        features={data.featuresData}
-        sequence={sequence}
-      />
       {XrefViewNode}
     </Card>
   );
