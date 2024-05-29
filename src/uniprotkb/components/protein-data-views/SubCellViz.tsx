@@ -13,6 +13,7 @@ import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
+import addTooltip from '../../../shared/utils/tooltip';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
@@ -134,11 +135,16 @@ const attachTooltips = (
     ...locationTextElements,
     ...triggerTargetSvgs,
   ].filter(Boolean);
-  tippy(tooltipTarget, {
-    allowHTML: true,
-    content: `${name}<br/>${description}`,
-    triggerTarget: tooltipTriggerTargets,
-  });
+  // tippy(tooltipTarget, {
+  //   allowHTML: true,
+  //   content: `${name}<br/>${description}`,
+  //   triggerTarget: tooltipTriggerTargets,
+  // });
+  addTooltip(
+    tooltipTarget,
+    `${name}<br/>${description}`,
+    tooltipTriggerTargets
+  );
 };
 
 type Props = RequireExactlyOne<
