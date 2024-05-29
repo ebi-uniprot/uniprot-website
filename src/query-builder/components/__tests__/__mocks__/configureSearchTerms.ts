@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: /configure/uniprotkb/search-fields
-// Retrieved: 2024-03-25
+// Retrieved: 2024-05-29
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -2871,33 +2871,6 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'reproduction-2dpage-',
           },
-          {
-            id: 'xref_swiss-2dpage',
-            label: 'SWISS-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'swiss-2dpage-',
-          },
-          {
-            id: 'xref_ucd-2dpage',
-            label: 'UCD-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'ucd-2dpage-',
-          },
-          {
-            id: 'xref_world-2dpage',
-            label: 'World-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'world-2dpage-',
-          },
         ],
       },
       {
@@ -3582,15 +3555,6 @@ const configureSearchTerms = [
             valuePrefix: 'inparanoid-',
           },
           {
-            id: 'xref_ko',
-            label: 'KO',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'ko-',
-          },
-          {
             id: 'xref_oma',
             label: 'OMA',
             itemType: 'single',
@@ -3844,15 +3808,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'expressionatlas-',
-          },
-          {
-            id: 'xref_genevisible',
-            label: 'Genevisible',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'genevisible-',
           },
         ],
       },
@@ -4404,7 +4359,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef50_P05067',
-        regex: '^UniRef50_[w|-]+$',
+        regex: '^UniRef50_[\\w|-]+$',
       },
       {
         id: 'uniref_cluster_90',
@@ -4414,7 +4369,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef90_P05067',
-        regex: '^UniRef90_[w|-]+$',
+        regex: '^UniRef90_[\\w|-]+$',
       },
       {
         id: 'uniref_cluster_100',
@@ -4424,7 +4379,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef100_P05067',
-        regex: '^UniRef100_[w|-]+$',
+        regex: '^UniRef100_[\\w|-]+$',
       },
     ],
   },
@@ -4436,7 +4391,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'UPI000002DB1C',
-    regex: 'UPI[w]{10}',
+    regex: 'UPI[\\w]{10}',
   },
 ] as SearchTermType[];
 // TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
