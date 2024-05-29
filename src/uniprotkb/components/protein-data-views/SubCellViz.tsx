@@ -135,11 +135,6 @@ const attachTooltips = (
     ...locationTextElements,
     ...triggerTargetSvgs,
   ].filter(Boolean);
-  // tippy(tooltipTarget, {
-  //   allowHTML: true,
-  //   content: `${name}<br/>${description}`,
-  //   triggerTarget: tooltipTriggerTargets,
-  // });
   addTooltip(
     tooltipTarget,
     `${name}<br/>${description}`,

@@ -69,6 +69,7 @@ const addTooltip = (target: Element, content: string, triggers: Element[]) => {
     ['focus', showTooltip],
     ['mouseleave', hideTooltip],
     ['blur', hideTooltip],
+    ['click', hideTooltip],
   ];
   const allTriggers = [target, ...triggers];
   eventsAndListeners.forEach(([event, listener]) => {
