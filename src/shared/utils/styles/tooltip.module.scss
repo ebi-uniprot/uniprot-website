@@ -1,0 +1,27 @@
+@import 'franklin-sites/src/styles/common/z-index';
+
+.tooltip {
+  max-width: 350px;
+  position: absolute;
+  background: #333;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 5px 9px;
+  line-height: 1.4;
+  white-space: normal;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  z-index: $z-index-high;
+}
+
+.arrow {
+  position: absolute;
+  background: #222;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  z-index: $z-index-high;
+}
