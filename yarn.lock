@@ -2847,13 +2847,6 @@
     "@testing-library/dom" "^8.0.0"
     "@types/react-dom" "*"
 
-"@tippyjs/react@4.2.6":
-  version "4.2.6"
-  resolved "https://registry.yarnpkg.com/@tippyjs/react/-/react-4.2.6.tgz#971677a599bf663f20bb1c60a62b9555b749cc71"
-  integrity sha512-91RicDR+H7oDSyPycI13q3b7o4O60wa2oRbjlz2fyRLmHImc4vyDwuUP8NtZaN0VARJY5hybvDYrFzhY9+Lbyw==
-  dependencies:
-    tippy.js "^6.3.1"
-
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
@@ -6701,19 +6694,15 @@ foundation-sites@6.7.5:
   resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.7.5.tgz#6bc2bdd06819e6ed4d7fd8e3090246a0b6ac81c0"
   integrity sha512-MEjAENdF/IV2XQvlQmg20o+iDTyyWu0N/j440e8fKbEylbKxARzgg5S7vcnxtjukC1Lqg+rRm7ZDSSyGhVVoUQ==
 
-franklin-sites@0.0.229:
+"franklin-sites@file:.yalc/franklin-sites":
   version "0.0.229"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.229.tgz#0b9069e124e29b7f44d680bfc77556faef1beff3"
-  integrity sha512-TZoVPTH8Hk/PJy0Haj/8TCmkjwjnXk+cuLojWGE7qBZ7i3U94yfsfEdRUncSzJnltFBdhm5lY16FDPdcSbTSNQ==
   dependencies:
-    "@tippyjs/react" "4.2.6"
     classnames "2.3.2"
     d3 "5.16.0"
     foundation-sites "6.7.5"
     history "4.10.1"
     lodash-es "4.17.21"
     timing-functions "2.0.1"
-    tippy.js "6.3.7"
     type-fest "3.1.0"
     uuid "9.0.0"
 
@@ -11680,7 +11669,7 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.3:
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
 
-tippy.js@6.3.7, tippy.js@^6.3.1:
+tippy.js@6.3.7:
   version "6.3.7"
   resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-6.3.7.tgz#8ccfb651d642010ed9a32ff29b0e9e19c5b8c61c"
   integrity sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==

@@ -21,12 +21,17 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../types/entry';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
-import addTooltip, { showTooltip } from '../../../../shared/utils/tooltip';
+import addTooltip, {
+  showTooltip,
+  showTooltip2,
+} from '../../../../shared/utils/tooltip';
 
 interface ProtvistaManager extends HTMLElement {
   displaystart: number;
   displayend: number;
 }
+
+const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
 const FeatureViewer = ({
   accession,
@@ -39,6 +44,7 @@ const FeatureViewer = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const protvistaUniprotRef = useRef<HTMLElement>(null);
+  const hideTooltip = useRef<ReturnType<typeof showTooltip>>(null);
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession)
@@ -90,26 +96,18 @@ const FeatureViewer = ({
   );
 
   protvistaUniprotRef.current?.addEventListener('change', (e) => {
-    if (
-      e.detail?.eventtype !== 'click' ||
-      !e.detail?.feature?.tooltipContent ||
-      !e.target
-    ) {
-      return;
+    if (hideTooltipEvents.has(e.detail?.eventtype)) {
+      hideTooltip.current?.();
     }
-    const content = e.detail.feature.tooltipContent;
-    const [x, y] = e.detail.coords;
-    showTooltip(x, y, content);
-
-    // tooltip.title = `${d.type} ${d.start}-${d.end}`;
-    // tooltip.innerHTML = d.tooltipContent;
-    // tooltip.visible = true;
-
-    // if (e.detail?.coords) {
-    //   const [x, y] = e.detail.coords;
-    //   tooltip.x = x;
-    //   tooltip.y = y;
-    // }
+    if (
+      e.detail?.eventtype === 'click' &&
+      e.detail?.feature?.tooltipContent &&
+      e.target
+    ) {
+      const content = e.detail.feature.tooltipContent;
+      const [x, y] = e.detail.coords;
+      hideTooltip.current = showTooltip2(x, y, content, e.target);
+    }
   });
 
   const searchParams = new URLSearchParams(useLocation().search);
