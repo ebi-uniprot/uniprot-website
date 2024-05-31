@@ -15,6 +15,7 @@ Steps:
 6. `rm -rf node_modules; yarn; yarn build:ux-netlify`
 7. Make sure `netlify.toml` is in the `build` directory
 8. Upload the `build` directory to netlify
+9. Double check to make sure you can see yourself in google analytics real time
 
 ### Installing JavaScript Dependencies
 
