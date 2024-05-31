@@ -12,7 +12,6 @@
     "build:dev": "rimraf build && webpack --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/api --env PUBLIC_PATH=/uniprot/front-end/dev/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
     "build:prod": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode production",
     "build:ux": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env PUBLIC_PATH=/uniprot/front-end/ux/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
-    "build:ux-netlify": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
     "lint-fix": "eslint src --ext .ts,.tsx --fix",
     "jest-coverage-ratchet": "jest-coverage-ratchet",
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
