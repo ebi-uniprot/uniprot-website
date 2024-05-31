@@ -3,7 +3,7 @@
 - Hosted on netlify
 - Needs netlify.toml in order for netlify to redirect all requests to index.html
 - Uses GA4 > wwwdev.ebi.ac.uk/uniprot/front-end/ux (377516108) to track data
-- Use UX branch but build with build:ux-netlify so that the PUBLIC_PATH is / and the GA4 tracking from above is used.
+- Use UX branch but build with build:ux-netlify so that the PUBLIC_PATH is / and the GA4 tracking from above is used. Because of this the assets from gitlab cannot be used and instead we must build on our local machines.
 
 Steps:
 
@@ -12,7 +12,7 @@ Steps:
 3. `git fetch`
 4. `git merge origin/main`
 5. `rm -rf node_modules; yarn; yarn build:ux-netlify`
-6. Make sure is in the `build` directory
+6. Make sure `netlify.toml` is in the `build` directory
 7. Upload the `build` directory to netlify
 
 ### Installing JavaScript Dependencies
