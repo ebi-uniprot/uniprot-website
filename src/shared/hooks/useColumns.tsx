@@ -4,6 +4,9 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  useRef,
+  useEffect,
+  MutableRefObject,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { BinIcon, Button } from 'franklin-sites';
@@ -52,6 +55,7 @@ import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
+import { showTooltip } from '../utils/tooltip';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -59,6 +63,15 @@ export type ColumnDescriptor<Datum = APIModel> = {
   render: (row: Datum) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
+  tooltip?: ReactNode;
+};
+
+type CommonColumn<Datum> = {
+  label?: ReactNode;
+  name: string;
+  render: (datum: Datum) => ReactNode;
+  tooltip?: ReactNode;
+  width?: string;
 };
 
 const convertRow = (
@@ -163,7 +176,11 @@ const useColumns = (
   columnsOverride?: ColumnDescriptor[],
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>,
   displayPeptideSearchMatchColumns?: boolean
-): [ColumnDescriptor[] | undefined, ((columnName: string) => void) | null] => {
+): [
+  ColumnDescriptor[] | undefined,
+  ((columnName: string) => void) | null,
+  MutableRefObject<HTMLDivElement>
+] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
@@ -173,6 +190,7 @@ const useColumns = (
     displayPeptideSearchMatchColumns,
   });
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const hoverRef = useRef<HTMLDivElement>(null);
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
@@ -246,6 +264,23 @@ const useColumns = (
     setSelectedEntries,
   ]);
 
+  useEffect(() => {
+    // Detect mouseover events on column header and show tooltip
+    const onHover = (e: MouseEvent) => {
+      const eventTarget = e.target as HTMLElement;
+      const { columnName } = eventTarget.dataset;
+      if (columns && columnName) {
+        const info = columns.find(({ name }) => name === columnName);
+        if (info?.tooltip) {
+          showTooltip(0, 0, info.tooltip, eventTarget);
+        }
+      }
+    };
+    const wrapper = hoverRef.current;
+    wrapper?.addEventListener('mouseover', onHover);
+    return () => wrapper?.removeEventListener('mouseover', onHover);
+  });
+
   const updateColumnSort = useCallback(
     (columnName: string) => {
       if (
@@ -290,7 +325,7 @@ const useColumns = (
       sortableColumnToSortColumn,
     ]
   );
-  return [columns, updateColumnSort];
+  return [columns, updateColumnSort, hoverRef];
 };
 
 export default useColumns;
