@@ -1,3 +1,20 @@
+# UX Log Study
+
+- Hosted on netlify
+- Needs netlify.toml in order for netlify to redirect all requests to index.html
+- Uses GA4 > wwwdev.ebi.ac.uk/uniprot/front-end/ux (377516108) to track data
+- Use UX branch but build with build:ux-netlify so that the PUBLIC_PATH is / and the GA4 tracking from above is used.
+
+Steps:
+
+1. From local machine goto uniprot-website repository.
+2. `git checkout ux`
+3. `git fetch`
+4. `git merge origin/main`
+5. `rm -rf node_modules; yarn; yarn build:ux-netlify`
+6. Make sure is in the `build` directory
+7. Upload the `build` directory to netlify
+
 ### Installing JavaScript Dependencies
 
 To install JavaScript dependencies, first make sure you are in the root directory of your `uniprot-website` project -- this directory should contain a file named `package.json`, then type `yarn` in the command-line and press return. This should download and install the required JavaScript packages -- this may take a few minutes to finish.
