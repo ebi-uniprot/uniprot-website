@@ -9,11 +9,12 @@ Steps:
 
 1. From local machine goto uniprot-website repository.
 2. `git checkout ux`
-3. `git fetch`
-4. `git merge origin/main`
-5. `rm -rf node_modules; yarn; yarn build:ux-netlify`
-6. Make sure `netlify.toml` is in the `build` directory
-7. Upload the `build` directory to netlify
+3. `git pull origin ux`
+4. `git fetch`
+5. `git merge origin/main`
+6. `rm -rf node_modules; yarn; yarn build:ux-netlify`
+7. Make sure `netlify.toml` is in the `build` directory
+8. Upload the `build` directory to netlify
 
 ### Installing JavaScript Dependencies
 
