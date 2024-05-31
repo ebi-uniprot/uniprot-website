@@ -2,6 +2,7 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
+   
   <div
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
@@ -21,20 +22,23 @@ exports[`non-critical HomePage component should render 1`] = `
         class="message__title"
       >
         <small>
-          UniProt invites you to participate in a survey on the use and value of UniProt. 
+          Do data resources managed by EMBL-EBI and our collaborators make a difference to your work?
+          <br />
+          Please take 10 minutes to fill in our annual user survey, and help us make the case for why sustaining open data resources is critical for life sciences research.
+          <br />
+          Survey link: 
           <a
             class="external-link"
-            href="https://ec.europa.eu/eusurvey/runner/use_value_assessment_of_UniProt"
+            href="https://www.surveymonkey.com/r/HJKYKTT?channel=[uniprot]"
             rel="noopener"
             target="_blank"
           >
-            Please click on the link provided to complete the survey
+            https://www.surveymonkey.com/r/HJKYKTT
             <test-file-stub
               data-testid="external-link-icon"
               width="12.5"
             />
           </a>
-          .
         </small>
       </div>
     </div>
@@ -426,6 +430,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2024-05-29-release"
+              >
+                UniProt release 2024_03
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              The culprit for extreme morning sickness identified | Removal of the cross-references to Genevisible | Removal of the cross-references to SWISS-2DPAGE
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2024-03-27-release"
               >
                 UniProt release 2024_02
@@ -653,17 +675,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/267/"
+          href="https://www.proteinspotlight.org/back_issues/269/"
           rel="noopener"
           target="_blank"
         >
-          Seizure
+          A motherly mesh
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/267/"
+        href="https://www.proteinspotlight.org/back_issues/269/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -672,14 +694,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt267.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt269.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Many  years  ago,  I  was  sitting  opposite  a  man  whose  body  suddenly  froze.  His  eyes  seemed  to  be  staring  at  something  on  the  wall  behind  me  while  his  left  hand  drew  small  circles  in  the  air,  repetitively.  I  had  no  idea  what  was  happening  to  him  until  he…
+          Toxic  waste.  Since  the  19th  century,  our  species  has  had  to  find  ways  of  scrapping  industrial  detritus  which  is  frequently  dangerous.  So,  we  dig  deep  down  into  the  earth  and  leave  the  nasty  stuff  there  or  we  build  thick  crusts  of  cement  around  it...
       </p>
     </article>
   </section>
@@ -865,7 +887,7 @@ exports[`non-critical HomePage component should render 1`] = `
         href="https://twitter.com/uniprot"
         rel="noopener"
         target="_blank"
-        title="UniProt posts on Twitter"
+        title="UniProt posts on X (formerly Twitter)"
       >
         <test-file-stub
           width="2em"

@@ -149,7 +149,7 @@ const AlignResult = () => {
   }
 
   if (error || !data || !match) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   const actionBar = (

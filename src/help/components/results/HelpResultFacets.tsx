@@ -49,7 +49,7 @@ const HelpResultFacets: FC = () => {
   const { status, error } = dataObject;
 
   if (error) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   return (

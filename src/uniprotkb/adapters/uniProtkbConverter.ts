@@ -77,7 +77,7 @@ export type UniProtkbAPIModel = {
   geneLocations?: GeneLocation[];
   features?: FeatureDatum[];
   uniProtKBCrossReferences?: UniProtKBXref[];
-  sequence: SequenceData;
+  sequence?: SequenceData;
   internalSection?: InternalSectionType;
   annotationScore: AnnotationScoreValue;
   entryAudit?: EntryAudit;

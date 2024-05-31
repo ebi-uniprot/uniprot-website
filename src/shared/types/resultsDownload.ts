@@ -11,6 +11,10 @@ export enum ContentType {
   obo = 'text/plain; format=obo',
   embeddings = 'application/x-hdf5',
   peff = 'text/x-peff',
+  pdb = 'chemical/x-pdb',
+  mmCIF = 'chemical/x-mmcif',
+  binaryCIF = 'application/octet-stream; charset=binary',
+  csv = 'text/csv',
 }
 
 export enum FileFormat {
@@ -33,4 +37,8 @@ export enum FileFormat {
   obo = 'OBO',
   embeddings = 'Embeddings',
   peff = 'PEFF',
+  pdb = 'PDB', // AlphaFold coordinates
+  mmCIF = 'mmCIF', // AlphaFold coordinates
+  binaryCif = 'BinaryCIF', // AlphaFold coordinates
+  csv = 'CSV', // AlphaMissense annotations
 }

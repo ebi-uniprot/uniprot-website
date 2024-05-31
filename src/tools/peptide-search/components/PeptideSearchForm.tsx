@@ -14,7 +14,6 @@ import cn from 'classnames';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import DowntimeWarning from '../../components/DowntimeWarning';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
@@ -35,6 +34,7 @@ import {
 } from '../state/peptideSearchFormActions';
 
 import { truncateTaxonLabel } from '../../utils';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import {
   PEPTIDE_SEARCH_SEQUENCES_COUNT,
@@ -205,6 +205,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           formValues[PeptideSearchFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.PEPTIDE_SEARCH);
     });
   };
 
@@ -229,7 +230,6 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro title={title} />
-      <DowntimeWarning>Peptide Search service</DowntimeWarning>
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}

@@ -21,7 +21,7 @@ const TextOutput: FC<{ id: string; jobType: JobTypes }> = ({ id, jobType }) => {
   }
 
   if (error || !data) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   return <CodeBlock>{data}</CodeBlock>;

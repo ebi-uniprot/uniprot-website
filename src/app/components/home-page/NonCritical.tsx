@@ -16,6 +16,7 @@ import styles from './styles/non-critical.module.scss';
 
 const HomePageNonCritical = () => (
   <>
+    {' '}
     <div
       className={cn(
         'uniprot-grid',
@@ -25,25 +26,25 @@ const HomePageNonCritical = () => (
     >
       <Message level="info" className="uniprot-grid-cell--span-12">
         <small>
-          UniProt invites you to participate in a survey on the use and value of
-          UniProt.{' '}
-          <ExternalLink url="https://ec.europa.eu/eusurvey/runner/use_value_assessment_of_UniProt">
-            Please click on the link provided to complete the survey
+          Do data resources managed by EMBL-EBI and our collaborators make a
+          difference to your work?
+          <br />
+          Please take 10 minutes to fill in our annual user survey, and help us
+          make the case for why sustaining open data resources is critical for
+          life sciences research.
+          <br />
+          Survey link:{' '}
+          <ExternalLink url="https://www.surveymonkey.com/r/HJKYKTT?channel=[uniprot]">
+            https://www.surveymonkey.com/r/HJKYKTT
           </ExternalLink>
-          .
         </small>
       </Message>
     </div>
     <CoreData />
-
     <SupportingData />
-
     <LatestNews />
-
     <AnalysisTools />
-
     <NeedHelp />
-
     <UniProtData />
   </>
 );

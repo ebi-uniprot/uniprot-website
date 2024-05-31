@@ -1,21 +1,18 @@
-import { HTMLAttributes, lazy, Suspense, useEffect } from 'react';
+import { HTMLAttributes, useEffect } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 import { createPath } from 'history';
 import { Message } from 'franklin-sites';
 
 import HTMLHead from '../HTMLHead';
-import ErrorPage from './ErrorPage';
-import ErrorBoundary from '../error-component/ErrorBoundary';
+import ErrorComponent from './ErrorComponent';
 
 import * as logging from '../../utils/logging';
+
+import { CustomError } from '../../hooks/useDataApi';
 
 import { Namespace } from '../../types/namespaces';
 
 import ArtWork from './svgs/404.img.svg';
-
-const UniProtFooter = lazy(
-  () => import(/* webpackChunkName: "footer" */ '../layouts/UniProtFooter')
-);
 
 type RedirectEntry = [pattern: RegExp, replacement: string];
 
@@ -74,7 +71,7 @@ export const redirectFromTo = (
   }
 };
 
-const ErrorMessage = () => {
+const ErrorMessage = ({ error }: { error?: CustomError }) => {
   useEffect(() => {
     logging.error('client-side 404');
   }, []);
@@ -82,12 +79,21 @@ const ErrorMessage = () => {
   return (
     <Message level="failure">
       <h4>Sorry, this page can&apos;t be found!</h4>
-      <span>Please check the address bar for any mistakes</span>
+      <div>Please check the address bar for any mistakes</div>
+      {error?.response?.data?.messages?.length ? (
+        <div>
+          Error message: <em>{error.response.data.messages}</em>
+        </div>
+      ) : null}
     </Message>
   );
 };
 
-const ResourceNotFoundPage = (props: HTMLAttributes<HTMLDivElement>) => {
+type ResourceNotFoundProps = {
+  error?: CustomError;
+} & HTMLAttributes<HTMLDivElement>;
+
+const ResourceNotFound = ({ error, ...props }: ResourceNotFoundProps) => {
   const location = useLocation();
 
   const newPathname = redirectFromTo(location.pathname);
@@ -110,25 +116,14 @@ const ResourceNotFoundPage = (props: HTMLAttributes<HTMLDivElement>) => {
   }
 
   return (
-    <>
-      <HTMLHead>
-        {/* Don't index 4xx pages */}
-        <meta name="robots" content="noindex" />
-      </HTMLHead>
-      <ErrorPage
-        {...props}
-        artwork={<img src={ArtWork} width="400" height="400" alt="" />}
-        data-testid="error-page"
-      >
-        <ErrorMessage />
-      </ErrorPage>
-      <ErrorBoundary>
-        <Suspense fallback={null}>
-          <UniProtFooter />
-        </Suspense>
-      </ErrorBoundary>
-    </>
+    <ErrorComponent
+      {...props}
+      artwork={<img src={ArtWork} width="400" height="400" alt="" />}
+      data-testid="error-page"
+    >
+      <ErrorMessage error={error} />
+    </ErrorComponent>
   );
 };
 
-export default ResourceNotFoundPage;
+export default ResourceNotFound;

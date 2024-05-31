@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import customRender from '../../../../../../shared/__test-helpers__/customRender';
 
@@ -18,7 +18,7 @@ jest.mock('../../../../protein-data-views/VisualVariationView', () => ({
 describe('VariationViewer component', () => {
   it('renders on loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
-    const { asFragment } = render(
+    const { asFragment } = customRender(
       <VariationViewer importedVariants={0} primaryAccession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -30,7 +30,7 @@ describe('VariationViewer component', () => {
       error: new Error('some error'),
       status: 500,
     });
-    const { asFragment } = render(
+    const { asFragment } = customRender(
       <VariationViewer importedVariants={0} primaryAccession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -41,7 +41,7 @@ describe('VariationViewer component', () => {
       loading: false,
       status: 404,
     });
-    const { asFragment } = render(
+    const { asFragment } = customRender(
       <VariationViewer importedVariants={0} primaryAccession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();

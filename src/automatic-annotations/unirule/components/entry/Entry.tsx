@@ -40,7 +40,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   }
 
   if (error || !accession || !data) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (accession !== data.uniRuleId) {

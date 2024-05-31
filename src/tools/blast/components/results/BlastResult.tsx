@@ -305,7 +305,7 @@ const BlastResult = () => {
   }
 
   if (blastError || !blastData || !match) {
-    return <ErrorHandler status={blastStatus} />;
+    return <ErrorHandler status={blastStatus} error={blastError} fullPage />;
   }
 
   let sidebar: JSX.Element;

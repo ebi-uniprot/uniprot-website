@@ -1,15 +1,15 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import listFormat from '../../utils/listFormat';
+import listFormat from '../../../utils/listFormat';
 
 import {
   Location,
   LocationToPath,
   getEntryPath,
-} from '../../../app/config/urls';
-import { Namespace } from '../../types/namespaces';
-import { TabLocation } from '../../../uniprotkb/types/entry';
+} from '../../../../app/config/urls';
+import { Namespace } from '../../../types/namespaces';
+import { TabLocation } from '../../../../uniprotkb/types/entry';
 
 const ObsoleteMessageHeading = ({ release }: { release?: string }) => (
   <h4>This entry is obsolete{release && ` since release ${release}`}</h4>

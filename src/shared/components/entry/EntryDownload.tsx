@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Button, ExternalLink, LongNumber } from 'franklin-sites';
+import { pick } from 'lodash-es';
 import cn from 'classnames';
-import joinUrl from 'url-join';
 
 import DownloadPreview from '../download/DownloadPreview';
 import DownloadAPIURL from '../download/DownloadAPIURL';
@@ -13,6 +13,7 @@ import useDataApi from '../../hooks/useDataApi';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
+import externalUrls from '../../config/externalUrls';
 import {
   allEntryPages,
   getLocationEntryPathFor,
@@ -71,6 +72,15 @@ const proteinsAPICommonFormats = [
   FileFormat.gff,
 ];
 
+const interProRepresentativeDomainsFormats = [FileFormat.json, FileFormat.tsv];
+const alphaFoldCoordinatesFormats = [
+  FileFormat.mmCIF,
+  FileFormat.binaryCif,
+  FileFormat.pdb,
+];
+const alphaFoldConfidenceFormats = [FileFormat.json];
+const alphaMissenseAnnotationsFormats = [FileFormat.csv];
+
 // once it is OK to expose peff format, uncomment the following
 // const proteinsAPIVariationFormats = [
 //   ...proteinsAPICommonFormats,
@@ -87,6 +97,10 @@ export enum Dataset {
   proteomics = 'Proteomics',
   proteomicsPtm = 'Proteomics-PTM',
   antigen = 'Antigen',
+  interProRepresentativeDomains = 'InterPro Representative Domains',
+  alphaFoldConfidence = 'AlphaFold Confidence',
+  alphaFoldCoordinates = 'AlphaFold Coordinates',
+  alphaMissenseAnnotations = 'AlphaMissense Annotations',
 }
 
 const uniprotKBEntryDatasets = {
@@ -98,14 +112,66 @@ const uniprotKBEntryDatasets = {
     Dataset.proteomics,
     Dataset.proteomicsPtm,
     Dataset.antigen,
+    Dataset.interProRepresentativeDomains,
+    Dataset.alphaFoldConfidence,
+    Dataset.alphaFoldCoordinates,
+    Dataset.alphaMissenseAnnotations,
   ],
 };
+
+type AlphafoldPayloadEntry = {
+  entryId: string;
+  gene: string;
+  uniprotAccession: string;
+  uniprotId: string;
+  uniprotDescription: string;
+  taxId: number;
+  organismScientificName: string;
+  uniprotStart: number;
+  uniprotEnd: number;
+  uniprotSequence: string;
+  modelCreatedDate: string;
+  latestVersion: number;
+  allVersions: number[];
+  cifUrl: string;
+  bcifUrl: string;
+  pdbUrl: string;
+  paeImageUrl: string;
+  paeDocUrl: string;
+  amAnnotationsUrl?: string;
+};
+
+type AlphafoldPayload = AlphafoldPayloadEntry[];
+
+type AlphaFoldUrls = Pick<
+  AlphafoldPayloadEntry,
+  'cifUrl' | 'bcifUrl' | 'pdbUrl' | 'amAnnotationsUrl'
+> & { confidenceUrl?: string };
 
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniparc && fileFormat === FileFormat.tsv;
 const isUniRefList = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniref && fileFormat === FileFormat.list;
+const getAlphaFoldUrls = (
+  data?: AlphafoldPayload
+): AlphaFoldUrls | undefined => {
+  const first = data?.[0];
+  if (!first) {
+    return undefined;
+  }
+  const alphaFoldUrls = pick(first, ['cifUrl', 'bcifUrl', 'pdbUrl']);
+  if (Object.values(alphaFoldUrls).some((url) => !url)) {
+    return undefined;
+  }
+  return {
+    ...alphaFoldUrls,
+    amAnnotationsUrl: first.amAnnotationsUrl,
+    confidenceUrl: alphaFoldUrls.cifUrl
+      .replace('-model', '-confidence')
+      .replace('.cif', '.json'),
+  };
+};
 
 const getEntryDownloadUrl = (
   accession: string,
@@ -113,7 +179,8 @@ const getEntryDownloadUrl = (
   namespace: Namespace,
   dataset: Dataset,
   columns?: Column[],
-  fields?: string[]
+  fields?: string[],
+  alphaFoldUrls?: AlphaFoldUrls
 ) => {
   switch (dataset) {
     case Dataset.uniprotData: {
@@ -163,6 +230,29 @@ const getEntryDownloadUrl = (
       return apiUrls.proteinsApi.mutagenesis(accession, fileFormat);
     case Dataset.antigen:
       return apiUrls.proteinsApi.antigen(accession, fileFormat);
+    case Dataset.interProRepresentativeDomains:
+      return fileFormat === FileFormat.tsv || fileFormat === FileFormat.json
+        ? externalUrls.InterProRepresentativeDomains(accession, fileFormat)
+        : '';
+    case Dataset.alphaFoldCoordinates: {
+      if (!alphaFoldUrls) {
+        return '';
+      }
+      switch (fileFormat) {
+        case FileFormat.binaryCif:
+          return alphaFoldUrls.bcifUrl;
+        case FileFormat.mmCIF:
+          return alphaFoldUrls.cifUrl;
+        case FileFormat.pdb:
+          return alphaFoldUrls.pdbUrl;
+        default:
+          return '';
+      }
+    }
+    case Dataset.alphaFoldConfidence:
+      return alphaFoldUrls?.confidenceUrl || '';
+    case Dataset.alphaMissenseAnnotations:
+      return alphaFoldUrls?.amAnnotationsUrl || '';
     default:
       return '';
   }
@@ -174,6 +264,7 @@ type DownloadAnchorProps = {
   namespace: Namespace;
   dataset: Dataset;
   columns?: Column[];
+  alphaFoldUrls?: AlphaFoldUrls;
 };
 
 const DownloadAnchor = ({
@@ -182,6 +273,7 @@ const DownloadAnchor = ({
   namespace,
   dataset,
   columns,
+  alphaFoldUrls,
 }: DownloadAnchorProps) => (
   <a
     target="_blank"
@@ -190,7 +282,9 @@ const DownloadAnchor = ({
       fileFormat,
       namespace,
       dataset,
-      columns
+      columns,
+      undefined,
+      alphaFoldUrls
     )}
     rel="noreferrer"
     download
@@ -209,6 +303,7 @@ export type EntryDownloadProps = {
   columns?: Column[];
   dataset?: Dataset;
   featureTypes?: string[];
+  sequence?: string;
 };
 
 const EntryDownload = ({
@@ -218,6 +313,7 @@ const EntryDownload = ({
   columns,
   dataset,
   featureTypes,
+  sequence,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
@@ -279,45 +375,73 @@ const EntryDownload = ({
 
   const proteinsApiVariation = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.variation(accession))
+      ? apiUrls.proteinsApi.variation(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiProteomics = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.proteomics(accession))
+      ? apiUrls.proteinsApi.proteomics(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiPTMs = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.proteomicsPtm(accession))
+      ? apiUrls.proteinsApi.proteomicsPtm(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiMutagenesis = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.mutagenesis(accession))
+      ? apiUrls.proteinsApi.mutagenesis(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiAntigen = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.antigen(accession))
+      ? apiUrls.proteinsApi.antigen(accession)
       : '',
     { method: 'HEAD' }
   );
 
   const proteinsApiCoordinates = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? joinUrl(apiUrls.proteinsApi.coordinates(accession))
+      ? apiUrls.proteinsApi.coordinates(accession)
       : '',
     { method: 'HEAD' }
   );
+
+  const interProRepresentativeDomains = useDataApi(
+    (namespace === Namespace.uniprotkb || namespace === Namespace.uniparc) &&
+      accession
+      ? externalUrls.InterProRepresentativeDomains(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const alphaFoldPrediction = useDataApi<AlphafoldPayload>(
+    namespace === Namespace.uniprotkb && accession
+      ? externalUrls.AlphaFoldPrediction(accession)
+      : ''
+  );
+
+  const alphaFoldUrls =
+    // As there can be a build mismatch only use AlphaFold predictions if the sequence is the same as the entry's
+    sequence && sequence === alphaFoldPrediction?.data?.[0].uniprotSequence
+      ? getAlphaFoldUrls(alphaFoldPrediction?.data)
+      : undefined;
+
+  if (alphaFoldUrls) {
+    availableDatasets.push(Dataset.alphaFoldCoordinates);
+    availableDatasets.push(Dataset.alphaFoldConfidence);
+    if (alphaFoldUrls.amAnnotationsUrl) {
+      availableDatasets.push(Dataset.alphaMissenseAnnotations);
+    }
+  }
 
   if (!entryFeatures.loading && entryFeatures.data) {
     if (entryFeatures.data?.features) {
@@ -355,6 +479,12 @@ const EntryDownload = ({
   ) {
     availableDatasets.push(Dataset.coordinates);
   }
+  if (
+    !interProRepresentativeDomains.loading &&
+    interProRepresentativeDomains.status === 200
+  ) {
+    availableDatasets.push(Dataset.interProRepresentativeDomains);
+  }
 
   useEffect(() => {
     if (data) {
@@ -384,6 +514,18 @@ const EntryDownload = ({
       case Dataset.antigen:
       case Dataset.mutagenesis:
         setFileFormats(proteinsAPICommonFormats);
+        break;
+      case Dataset.interProRepresentativeDomains:
+        setFileFormats(interProRepresentativeDomainsFormats);
+        break;
+      case Dataset.alphaFoldConfidence:
+        setFileFormats(alphaFoldConfidenceFormats);
+        break;
+      case Dataset.alphaFoldCoordinates:
+        setFileFormats(alphaFoldCoordinatesFormats);
+        break;
+      case Dataset.alphaMissenseAnnotations:
+        setFileFormats(alphaMissenseAnnotationsFormats);
         break;
       default:
         break;
@@ -415,11 +557,13 @@ const EntryDownload = ({
     downloadColumns,
     selectedDataset === Dataset.selectedFeatures
       ? uniprotkbFields
-      : Array.from(uniprotFeaturesMap.values())
+      : Array.from(uniprotFeaturesMap.values()),
+    alphaFoldUrls
   );
 
   const previewFileFormat =
     selectedFormat === FileFormat.excel ? FileFormat.tsv : selectedFormat;
+
   const previewUrl = getEntryDownloadUrl(
     accession,
     previewFileFormat || FileFormat.fasta,
@@ -428,7 +572,8 @@ const EntryDownload = ({
     downloadColumns,
     selectedDataset === Dataset.selectedFeatures
       ? uniprotkbFields
-      : Array.from(uniprotFeaturesMap.values())
+      : Array.from(uniprotFeaturesMap.values()),
+    alphaFoldUrls
   );
 
   if (nResults && nResults > maxPaginationDownload) {
@@ -538,6 +683,11 @@ const EntryDownload = ({
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
+        acceptHeaderOverride={
+          selectedDataset === Dataset.interProRepresentativeDomains
+            ? '*/*'
+            : undefined
+        }
       />
     );
   } else if (extraContent === 'url') {
@@ -634,6 +784,7 @@ const EntryDownload = ({
 
       {(selectedFormat === FileFormat.tsv ||
         selectedFormat === FileFormat.excel) &&
+        selectedDataset !== Dataset.interProRepresentativeDomains &&
         downloadColumns && (
           <>
             <legend>Customize columns</legend>

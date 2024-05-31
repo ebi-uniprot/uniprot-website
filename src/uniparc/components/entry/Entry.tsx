@@ -102,7 +102,13 @@ const Entry = () => {
     baseURL === xRefsURL ? wholeXrefsDataObject : partialXrefsDataObject;
 
   if (dataObject.error || !match?.params.accession || !match) {
-    return <ErrorHandler status={dataObject.status} />;
+    return (
+      <ErrorHandler
+        status={dataObject.status}
+        error={dataObject.error}
+        fullPage
+      />
+    );
   }
 
   if (!dataObject.data) {

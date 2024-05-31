@@ -3,8 +3,8 @@ import { Message } from 'franklin-sites';
 
 import styles from './styles/downtime-warning.module.scss';
 
-const from = new Date('2024-04-01T09:30:00-04:00');
-const to = new Date('2024-04-01T10:00:00-04:00');
+const from = new Date('2024-05-07T08:00:00');
+const to = new Date('2024-05-08T08:00:00');
 
 const TZ = () => {
   try {

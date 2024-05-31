@@ -330,7 +330,7 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
-  const isObsolete = Boolean(
+  let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
   );
@@ -367,7 +367,7 @@ const Entry = () => {
     (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
     if (error) {
-      return <ErrorHandler status={status} />;
+      return <ErrorHandler status={status} error={error} fullPage />;
     }
     return <Loader progress={progress} />;
   }
@@ -395,7 +395,7 @@ const Entry = () => {
   }
 
   if (error || !match?.params.accession || !transformedData) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   const entrySidebar = (
@@ -403,6 +403,11 @@ const Entry = () => {
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
+
+  // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
+  // merged entry's history), the user is viewing content of an obsolete entry
+  isObsolete =
+    (redirectedTo && accession !== match.params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {
@@ -460,12 +465,13 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
-          {!isObsolete && (
+          {!isObsolete && data.sequence && (
             <>
               {displayDownloadPanel && (
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                  sequence={data.sequence.value}
                 />
               )}
               <div className="button-group">
@@ -533,7 +539,8 @@ const Entry = () => {
               )}
             >
               Variant viewer
-              {!mediumScreen &&
+              {data.sequence &&
+                !mediumScreen &&
                 importedVariants !== 'loading' &&
                 importedVariants > 0 && (
                   <>
@@ -558,11 +565,13 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <VariationViewerTab
-                importedVariants={importedVariants}
-                primaryAccession={accession}
-                title="Variants"
-              />
+              {data.sequence && (
+                <VariationViewerTab
+                  importedVariants={importedVariants}
+                  primaryAccession={accession}
+                  title="Variants"
+                />
+              )}
             </ErrorBoundary>
           </Suspense>
         </Tab>
@@ -604,7 +613,13 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewerTab accession={accession} />
+                {data.sequence && (
+                  <FeatureViewerTab
+                    accession={accession}
+                    importedVariants={importedVariants}
+                    sequence={data.sequence.value}
+                  />
+                )}
               </ErrorBoundary>
             </Suspense>
           )}
@@ -669,7 +684,11 @@ const Entry = () => {
                       )
                   )
                 }
-                title="Genomic coordinates"
+                title={
+                  <span data-article-id="genomic-coordinates">
+                    Genomic coordinates
+                  </span>
+                }
               />
             </ErrorBoundary>
           </Suspense>
@@ -772,7 +791,10 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <HistoryTab accession={accession} />
+              <HistoryTab
+                accession={isObsolete ? match.params.accession : accession}
+                lastVersion={data.entryAudit?.entryVersion}
+              />
             </ErrorBoundary>
           </Suspense>
         </Tab>
