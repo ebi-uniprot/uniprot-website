@@ -3,9 +3,14 @@ import { ReactNode } from 'react';
 const getLabelAndTooltip = (
   label: ReactNode,
   tooltip: ReactNode,
+  columnName: string,
   articleId?: string
 ) => ({
-  label: <span data-article-id={articleId}>{label}</span>,
+  label: (
+    <span data-column-name={columnName} data-article-id={articleId}>
+      {label}
+    </span>
+  ),
   tooltip: (
     <>
       {tooltip}
