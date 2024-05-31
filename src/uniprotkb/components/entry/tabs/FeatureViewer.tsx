@@ -21,6 +21,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../types/entry';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
+import addTooltip, { showTooltip } from '../../../../shared/utils/tooltip';
 
 interface ProtvistaManager extends HTMLElement {
   displaystart: number;
@@ -87,6 +88,29 @@ const FeatureViewer = ({
     },
     [protvistaElement.defined, sequence]
   );
+
+  protvistaUniprotRef.current?.addEventListener('change', (e) => {
+    if (
+      e.detail?.eventtype !== 'click' ||
+      !e.detail?.feature?.tooltipContent ||
+      !e.target
+    ) {
+      return;
+    }
+    const content = e.detail.feature.tooltipContent;
+    const [x, y] = e.detail.coords;
+    showTooltip(x, y, content);
+
+    // tooltip.title = `${d.type} ${d.start}-${d.end}`;
+    // tooltip.innerHTML = d.tooltipContent;
+    // tooltip.visible = true;
+
+    // if (e.detail?.coords) {
+    //   const [x, y] = e.detail.coords;
+    //   tooltip.x = x;
+    //   tooltip.y = y;
+    // }
+  });
 
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllFeatures = searchParams.get('loadFeatures');
