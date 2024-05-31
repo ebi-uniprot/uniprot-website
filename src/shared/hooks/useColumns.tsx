@@ -190,7 +190,7 @@ const useColumns = (
     displayPeptideSearchMatchColumns,
   });
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const hoverRef = useRef<HTMLDivElement>(null);
+  const tooltipOnHoverRef = useRef<HTMLDivElement>(null);
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
@@ -276,7 +276,7 @@ const useColumns = (
         }
       }
     };
-    const wrapper = hoverRef.current;
+    const wrapper = tooltipOnHoverRef.current;
     wrapper?.addEventListener('mouseover', onHover);
     return () => wrapper?.removeEventListener('mouseover', onHover);
   });
@@ -325,7 +325,7 @@ const useColumns = (
       sortableColumnToSortColumn,
     ]
   );
-  return [columns, updateColumnSort, hoverRef];
+  return [columns, updateColumnSort, tooltipOnHoverRef];
 };
 
 export default useColumns;
