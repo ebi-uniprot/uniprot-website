@@ -17,27 +17,20 @@ const TZ = () => {
 
 type Props = {
   children: ReactNode;
-  overrideContent?: boolean;
 };
 
-export const DowntimeWarning = ({ children, overrideContent }: Props) => (
+export const DowntimeWarning = ({ children }: Props) => (
   <Message level="warning">
-    {overrideContent ? (
-      children
-    ) : (
-      <>
-        Scheduled maintenance will cause {children} to be unavailable at the
-        following time:
-        <div className={styles.time}>
-          {from.toLocaleString()}
-          <span className={styles.spaced}>to</span>
-          {to.toLocaleString()}
-          <TZ />
-        </div>
-        Please submit jobs before or after this period. In addition, running
-        jobs will be interrupted and so will need to be resubmitted.
-      </>
-    )}
+    Scheduled maintenance will cause {children} to be unavailable at the
+    following time:
+    <div className={styles.time}>
+      {from.toLocaleString()}
+      <span className={styles.spaced}>to</span>
+      {to.toLocaleString()}
+      <TZ />
+    </div>
+    Please submit jobs before or after this period. In addition, running jobs
+    will be interrupted and so will need to be resubmitted.
   </Message>
 );
 

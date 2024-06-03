@@ -64,8 +64,6 @@ import {
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-import DowntimeWarning from '../../components/DowntimeWarning';
-
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
 const FormSelect: FC<{
@@ -212,11 +210,6 @@ const AlignForm = ({ initialFormValues }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro title={title} translate="no" />
-      <DowntimeWarning overrideContent>
-        We are experiencing some issues with the &quot;Align&quot; service, we
-        are working on fixing it as soon as possible. If it fails, please retry
-        later.
-      </DowntimeWarning>
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}

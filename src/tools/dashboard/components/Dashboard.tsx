@@ -23,8 +23,6 @@ import { Job } from '../../types/toolsJob';
 
 import './styles/Dashboard.scss';
 
-import DowntimeWarning from '../../components/DowntimeWarning';
-
 const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
@@ -64,11 +62,6 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   return (
     <>
       {fullPageContent}
-      <DowntimeWarning overrideContent>
-        We are experiencing some issues with the &quot;Align&quot; and
-        &quot;BLAST&quot; services, we are working on fixing them as soon as
-        possible. If they fail, please retry later.
-      </DowntimeWarning>
       <p>
         Your tool analysis results from the last{' '}
         <ClockIcon height="1em" width="3ch" /> 7 days are listed below. If you
