@@ -80,6 +80,8 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
+import DowntimeWarning from '../../components/DowntimeWarning';
+
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
 const FormSelect: FC<{
@@ -305,6 +307,11 @@ const BlastForm = ({ initialFormValues }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro translate="no" title={title} />
+      <DowntimeWarning overrideContent>
+        We are experiencing some issues with the &quot;BLAST&quot; service, we
+        are working on fixing it as soon as possible. If it fails, please retry
+        later.
+      </DowntimeWarning>
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}

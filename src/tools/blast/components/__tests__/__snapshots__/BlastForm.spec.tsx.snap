@@ -12,6 +12,24 @@ exports[`BlastForm test Renders the form 1`] = `
       BLAST
     </h1>
   </div>
+  <div
+    class="message message--warning"
+    role="status"
+  >
+    <div
+      class="message__side-border"
+    />
+    <test-file-stub
+      classname="message--icon-align-top"
+      height="1.125em"
+      width="1.125em"
+    />
+    <div
+      class="message__title"
+    >
+      We are experiencing some issues with the "BLAST" service, we are working on fixing it as soon as possible. If it fails, please retry later.
+    </div>
+  </div>
   <form
     aria-label="BLAST job submission form"
   >
