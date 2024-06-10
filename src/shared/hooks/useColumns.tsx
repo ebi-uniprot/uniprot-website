@@ -272,7 +272,7 @@ const useColumns = (
       if (columns && columnName) {
         const info = columns.find(({ name }) => name === columnName);
         if (info?.tooltip) {
-          showTooltip(0, 0, info.tooltip, eventTarget, eventTarget.firstChild);
+          showTooltip(info.tooltip, eventTarget, eventTarget.firstChild);
         }
       }
     };

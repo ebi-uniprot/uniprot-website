@@ -1,6 +1,5 @@
 /* eslint-disable react/no-this-in-sfc */
 import { FC, memo, useEffect, useRef } from 'react';
-import tippy from 'tippy.js';
 import { v1 } from 'uuid';
 import '@swissprot/swissbiopics-visualizer';
 import { groupBy } from 'lodash-es';
@@ -11,9 +10,10 @@ import colors from '../../../../node_modules/franklin-sites/src/styles/colours.j
 
 import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
+import { addTooltip } from '../../../shared/utils/tooltip';
+
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
-import addTooltip from '../../../shared/utils/tooltip';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
@@ -377,6 +377,7 @@ const SubCellViz: FC<Props> = memo(
                     scopedShapesSelector
                   );
               }
+              // const detachTooltips =
               attachTooltips(
                 subcellularPresentSVG,
                 instance,
@@ -389,6 +390,7 @@ const SubCellViz: FC<Props> = memo(
       };
       shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
       return () => {
+        // detachTooltips()
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
     }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);

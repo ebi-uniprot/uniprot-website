@@ -21,10 +21,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../types/entry';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
-import addTooltip, {
-  showTooltip,
-  showTooltip2,
-} from '../../../../shared/utils/tooltip';
+import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
 
 interface ProtvistaManager extends HTMLElement {
   displaystart: number;
@@ -44,7 +41,7 @@ const FeatureViewer = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const protvistaUniprotRef = useRef<HTMLElement>(null);
-  const hideTooltip = useRef<ReturnType<typeof showTooltip>>(null);
+  const hideTooltip = useRef<ReturnType<typeof showTooltipAtCoordinates>>(null);
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession)
@@ -106,7 +103,7 @@ const FeatureViewer = ({
     ) {
       const content = e.detail.feature.tooltipContent;
       const [x, y] = e.detail.coords;
-      hideTooltip.current = showTooltip2(x, y, content, e.target);
+      hideTooltip.current = showTooltipAtCoordinates(x, y, content, e.target);
     }
   });
 
