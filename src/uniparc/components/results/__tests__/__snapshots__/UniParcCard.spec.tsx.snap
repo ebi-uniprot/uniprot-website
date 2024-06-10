@@ -96,9 +96,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="2024-03-27T00:00:00.000Z"
+              datetime="2024-05-29T00:00:00.000Z"
             >
-              2024-03-27
+              2024-05-29
             </time>
           </span>
           <span
