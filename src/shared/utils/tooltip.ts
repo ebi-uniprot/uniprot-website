@@ -229,8 +229,6 @@ export const showTooltip2 = (
 
   document.body.append(tooltip);
 
-  // option "once" to remove as soon as it has exited
-
   const cleanup = autoUpdate(reference, tooltip, update);
 
   document.body.addEventListener('click', onClick);
@@ -245,12 +243,12 @@ export const showTooltip2 = (
     document.body.removeEventListener('wheel', hideTooltip);
   }
 
-  function onClick(e) {
-    // console.log(!e.target.contains(target));
+  function onClick(e: Event) {
+    const eventTarget = e.target as Node;
     if (
-      !target.contains(e.target) &&
-      !tooltip.contains(e.target) &&
-      !e.target.contains(tooltip)
+      eventTarget &&
+      !target.contains(eventTarget) &&
+      !tooltip.contains(eventTarget)
     ) {
       hideTooltip();
     }
