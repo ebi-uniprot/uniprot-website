@@ -100,7 +100,7 @@ const attachTooltips = (
   partOfShown: boolean
 ) => {
   if (!triggerTargetSvgs?.length) {
-    return;
+    return null;
   }
   const name = locationGroup.querySelector('.subcell_name')?.textContent;
   let description = locationGroup.querySelector(
@@ -121,7 +121,7 @@ const attachTooltips = (
   const locationTextQueryResult =
     instance?.querySelectorAll(locationTextSelector);
   if (!locationTextQueryResult) {
-    return;
+    return null;
   }
   const locationTextElements = Array.from(locationTextQueryResult);
 
@@ -135,7 +135,8 @@ const attachTooltips = (
     ...locationTextElements,
     ...triggerTargetSvgs,
   ].filter(Boolean);
-  addTooltip(
+
+  return addTooltip(
     tooltipTarget,
     `${name}<br/>${description}`,
     tooltipTriggerTargets
@@ -277,6 +278,7 @@ const SubCellViz: FC<Props> = memo(
         instanceName.current
       );
       const shadowRoot = instance?.shadowRoot;
+      const cleanupTooltips: ReturnType<typeof attachTooltips>[] = [];
 
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
@@ -377,12 +379,13 @@ const SubCellViz: FC<Props> = memo(
                     scopedShapesSelector
                   );
               }
-              // const detachTooltips =
-              attachTooltips(
-                subcellularPresentSVG,
-                instance,
-                triggerTargetSvgs,
-                false
+              cleanupTooltips.push(
+                attachTooltips(
+                  subcellularPresentSVG,
+                  instance,
+                  triggerTargetSvgs,
+                  false
+                )
               );
             }
           }
@@ -390,7 +393,7 @@ const SubCellViz: FC<Props> = memo(
       };
       shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
       return () => {
-        // detachTooltips()
+        cleanupTooltips.forEach((cleanup) => cleanup?.());
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
     }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);

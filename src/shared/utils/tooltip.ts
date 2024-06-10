@@ -85,7 +85,15 @@ export const addTooltip = (
     });
   });
 
-  // return fn to remove event listeners and remove from view and remove click behavior
+  // Return cleanup function to remove tooltip and remove event listeners
+  return () => {
+    hideTooltip();
+    eventsAndListeners.forEach(([event, listener]) => {
+      allTriggers.forEach((trigger) => {
+        trigger.removeEventListener(event, listener);
+      });
+    });
+  };
 };
 
 export const showTooltip = (
@@ -93,20 +101,18 @@ export const showTooltip = (
   target: Element,
   displayTarget: Element
 ) => {
-  const [tooltip, arrowElement] = getTooltip(content);
-  if (!displayTarget) {
-    return null;
+  if (displayTarget) {
+    const [tooltip, arrowElement] = getTooltip(content);
+    const update = getUpdate(displayTarget, tooltip, arrowElement);
+    const cleanup = autoUpdate(displayTarget, tooltip, update);
+    document.body.append(tooltip);
+    const hideTooltip = () => {
+      tooltip.remove();
+      cleanup?.();
+    };
+    // The listener will be automatically removed when invoked just once
+    target?.addEventListener('mouseleave', hideTooltip, { once: true });
   }
-  const update = getUpdate(displayTarget, tooltip, arrowElement);
-  const cleanup = autoUpdate(displayTarget, tooltip, update);
-  document.body.append(tooltip);
-  const hideTooltip = () => {
-    tooltip.remove();
-    cleanup?.();
-  };
-  // The listener will be automatically removed when invoked just once
-  target?.addEventListener('mouseleave', hideTooltip, { once: true });
-  return hideTooltip;
 };
 
 export const showTooltipAtCoordinates = (
