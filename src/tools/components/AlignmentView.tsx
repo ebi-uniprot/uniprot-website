@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { TreeSelect, Loader } from 'franklin-sites';
+import { TreeSelect } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
 
 import Wrapped from './Wrapped';
@@ -11,7 +11,6 @@ import {
   msaColorSchemeToString,
 } from '../config/msaColorSchemes';
 
-import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
   findSequenceFeature,
   getFullAlignmentLength,
@@ -28,6 +27,7 @@ import {
 } from '../types/alignment';
 
 import './styles/AlignmentView.scss';
+import { showTooltipAtCoordinates } from '../../shared/utils/tooltip';
 
 export enum View {
   overview = 'Overview',
@@ -78,18 +78,6 @@ const AlignmentView = ({
   handleEntrySelection,
   containerSelector,
 }: AlignmentViewProps) => {
-  const [tooltipContent, setTooltipContent] = useState<{
-    __html: string;
-  } | null>();
-  const tooltipRef = useRef<JSX.IntrinsicElements['protvista-tooltip']>();
-
-  const tooltipElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-tooltip" */ 'protvista-tooltip'),
-    'protvista-tooltip'
-  );
-
   const annotationChoices = useMemo(() => {
     const features = alignment
       .map(({ features }) => features)
@@ -217,31 +205,12 @@ const AlignmentView = ({
     setActiveId(accession);
   }, []);
 
-  const tooltipCloseCallback = useCallback(
-    (e) => {
-      // If click is inside of the tooltip, don't do anything
-      if (tooltipRef.current.contains(e.target)) {
-        return;
-      }
-
-      setTooltipContent(null);
-    },
-    [setTooltipContent]
-  );
-
-  if (tooltipRef?.current) {
-    tooltipRef.current.container = containerSelector;
-  }
-
   const updateTooltip: UpdateTooltip = useCallback(
-    ({ id, x, y, event }) => {
-      event.stopPropagation();
+    ({ id, x, y }) => {
       const sequenceFeature = findSequenceFeature(id, alignment);
-
       if (!sequenceFeature) {
         return;
       }
-
       const preparedFeature = prepareFeatureForTooltip(sequenceFeature);
       let yOffset = 0;
       if (containerSelector) {
@@ -251,10 +220,12 @@ const AlignmentView = ({
           yOffset = rect.y;
         }
       }
-      tooltipRef.current.title = `${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}`;
-      setTooltipContent({ __html: formatTooltip(preparedFeature) });
-      tooltipRef.current.x = x;
-      tooltipRef.current.y = y - yOffset;
+      const title = `${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}`;
+      showTooltipAtCoordinates(
+        x,
+        y - yOffset,
+        `<h4>${title}</h4>${formatTooltip(preparedFeature)}`
+      );
     },
     [alignment, containerSelector]
   );
@@ -266,52 +237,7 @@ const AlignmentView = ({
     [updateTooltip]
   );
 
-  useEffect(() => {
-    if (tooltipContent) {
-      window.addEventListener('click', tooltipCloseCallback, true);
-    } else {
-      window.removeEventListener('click', tooltipCloseCallback, true);
-    }
-
-    return () =>
-      window.removeEventListener('click', tooltipCloseCallback, true);
-  }, [tooltipCloseCallback, tooltipContent]);
-
-  // Need to listen for scroll events to close the tooltip to prevent
-  // it from persisting and giving the appearance of floating, unanchored.
-  // Can see this in the Wrapped view specifically when the number of rows
-  // causes the page to scroll.
-  const mainContentAndFooter = useMemo(() => {
-    const className = '.main-content-and-footer';
-    const el = document.querySelector(className);
-    // tooltip is here but main-content-and-footer isn't
-    if (tooltipRef.current && !el) {
-      throw Error(`Cannot find :${className}`);
-    }
-    return el;
-  }, [tooltipRef]);
-
-  useEffect(() => {
-    if (!(mainContentAndFooter && 'addEventListener' in mainContentAndFooter)) {
-      return;
-    }
-    const handler = () => {
-      setTooltipContent(null);
-    };
-    mainContentAndFooter.addEventListener('scroll', handler, { passive: true });
-    // eslint-disable-next-line consistent-return
-    return () => {
-      mainContentAndFooter.removeEventListener('scroll', handler);
-    };
-  }, [mainContentAndFooter]);
-
-  const tooltipVisibility = tooltipContent ? { visible: true } : {};
-
   const defaultActiveNodes = useMemo(() => [MsaColorScheme.CONSERVATION], []);
-
-  if (!tooltipElement.defined) {
-    return <Loader />;
-  }
 
   return (
     <>
@@ -371,12 +297,6 @@ const AlignmentView = ({
         </fieldset>
       </div>
       <div>
-        <tooltipElement.name
-          ref={tooltipRef}
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={tooltipContent}
-          {...tooltipVisibility}
-        />
         <AlignmentComponent
           updateTooltip={updateTooltip}
           alignment={alignment}
