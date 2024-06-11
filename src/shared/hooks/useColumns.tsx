@@ -63,15 +63,7 @@ export type ColumnDescriptor<Datum = APIModel> = {
   render: (row: Datum) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
-  tooltip?: ReactNode;
-};
-
-type CommonColumn<Datum> = {
-  label?: ReactNode;
-  name: string;
-  render: (datum: Datum) => ReactNode;
-  tooltip?: ReactNode;
-  width?: string;
+  tooltip?: string;
 };
 
 const convertRow = (
@@ -179,7 +171,7 @@ const useColumns = (
 ): [
   ColumnDescriptor[] | undefined,
   ((columnName: string) => void) | null,
-  MutableRefObject<HTMLDivElement>
+  MutableRefObject<HTMLDivElement | null>
 ] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -271,8 +263,12 @@ const useColumns = (
       const { columnName } = eventTarget.dataset;
       if (columns && columnName) {
         const info = columns.find(({ name }) => name === columnName);
-        if (info?.tooltip) {
-          showTooltip(info.tooltip, eventTarget, eventTarget.firstChild);
+        if (info?.tooltip && eventTarget.firstChild) {
+          showTooltip(
+            info.tooltip,
+            eventTarget,
+            eventTarget.firstChild as Element
+          );
         }
       }
     };

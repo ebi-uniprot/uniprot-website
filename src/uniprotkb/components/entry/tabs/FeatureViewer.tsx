@@ -41,7 +41,9 @@ const FeatureViewer = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const protvistaUniprotRef = useRef<HTMLElement>(null);
-  const hideTooltip = useRef<ReturnType<typeof showTooltipAtCoordinates>>(null);
+  const hideTooltip = useRef<ReturnType<
+    typeof showTooltipAtCoordinates
+  > | null>(null);
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession)
@@ -93,17 +95,23 @@ const FeatureViewer = ({
   );
 
   protvistaUniprotRef.current?.addEventListener('change', (e) => {
-    if (hideTooltipEvents.has(e.detail?.eventtype)) {
+    const { detail } = e as CustomEvent;
+    if (hideTooltipEvents.has(detail?.eventtype)) {
       hideTooltip.current?.();
     }
     if (
-      e.detail?.eventtype === 'click' &&
-      e.detail?.feature?.tooltipContent &&
+      detail?.eventtype === 'click' &&
+      detail?.feature?.tooltipContent &&
       e.target
     ) {
-      const content = e.detail.feature.tooltipContent;
-      const [x, y] = e.detail.coords;
-      hideTooltip.current = showTooltipAtCoordinates(x, y, content, e.target);
+      const content = detail.feature.tooltipContent;
+      const [x, y] = detail.coords;
+      hideTooltip.current = showTooltipAtCoordinates(
+        x,
+        y,
+        content,
+        e.target as Element
+      );
     }
   });
 
