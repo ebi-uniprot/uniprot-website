@@ -64,14 +64,14 @@ export const addTooltip = (
   const [tooltip, arrowElement] = getTooltip(content);
   const update = getUpdate(target, tooltip, arrowElement);
   let cleanup: ReturnType<typeof autoUpdate> | undefined;
-  const showTooltip = () => {
+  function showTooltip() {
     document.body.append(tooltip);
     cleanup = autoUpdate(target, tooltip, update);
-  };
-  const hideTooltip = () => {
+  }
+  function hideTooltip() {
     tooltip.remove();
     cleanup?.();
-  };
+  }
   const eventsAndListeners: [string, () => void][] = [
     ['mouseenter', showTooltip],
     ['focus', showTooltip],
@@ -101,18 +101,37 @@ export const showTooltip = (
   target: Element,
   displayTarget: Element
 ) => {
-  if (displayTarget) {
-    const [tooltip, arrowElement] = getTooltip(content);
-    const update = getUpdate(displayTarget, tooltip, arrowElement);
-    const cleanup = autoUpdate(displayTarget, tooltip, update);
-    document.body.append(tooltip);
-    const hideTooltip = () => {
-      tooltip.remove();
-      cleanup?.();
-    };
-    // The listener will be automatically removed when invoked just once
-    target?.addEventListener('mouseleave', hideTooltip, { once: true });
+  const [tooltip, arrowElement] = getTooltip(content);
+  const update = getUpdate(displayTarget, tooltip, arrowElement);
+  const cleanup = autoUpdate(displayTarget, tooltip, update);
+  document.body.append(tooltip);
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  function onLeave() {
+    // Start a timer when the mouse has left either the target or the tooltip
+    timeoutId = setTimeout(() => {
+      hideTooltip();
+    }, 50);
   }
+
+  function onEnterTooltip() {
+    // Cancel the timer if user enters the tooltip to keep it visible
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+  }
+
+  function hideTooltip() {
+    cleanup?.();
+    tooltip.remove();
+    target.removeEventListener('mouseleave', onLeave);
+    tooltip.removeEventListener('mouseleave', onLeave);
+    tooltip.removeEventListener('mouseenter', onEnterTooltip);
+  }
+
+  target.addEventListener('mouseleave', onLeave);
+  tooltip.addEventListener('mouseleave', onLeave);
+  tooltip.addEventListener('mouseenter', onEnterTooltip);
 };
 
 export const showTooltipAtCoordinates = (

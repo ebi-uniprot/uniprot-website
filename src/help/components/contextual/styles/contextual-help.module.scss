@@ -10,10 +10,6 @@
     cursor: inherit;
     opacity: 1;
   }
-
-  [data-tippy-root] &::after {
-    display: initial;
-  }
 }
 
 $help-height: 35em;

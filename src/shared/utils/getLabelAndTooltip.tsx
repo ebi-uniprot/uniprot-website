@@ -2,25 +2,17 @@ import { ReactNode } from 'react';
 
 const getLabelAndTooltip = (
   label: ReactNode,
-  tooltip: ReactNode,
-  columnName: string,
+  tooltip: string,
   articleId?: string
 ) => ({
-  label: (
-    <span data-column-name={columnName} data-article-id={articleId}>
-      {label}
-    </span>
-  ),
-  tooltip: (
-    <>
-      {tooltip}
-      {articleId && (
-        <div data-article-id={articleId} style={{ textAlign: 'right' }}>
+  label: <span data-article-id={articleId}>{label}</span>,
+  tooltip: `${tooltip}${
+    articleId
+      ? `<div data-article-id=${articleId} style="text-align:right;margin-top:1em" }>
           more
-        </div>
-      )}
-    </>
-  ),
+        </div>`
+      : ''
+  }`,
 });
 
 export default getLabelAndTooltip;

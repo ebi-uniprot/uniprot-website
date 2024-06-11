@@ -12,7 +12,6 @@ import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
 import { addTooltip } from '../../../shared/utils/tooltip';
 
-import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
 
 /*
