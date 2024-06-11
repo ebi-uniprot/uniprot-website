@@ -78,6 +78,9 @@ const AlignmentView = ({
   handleEntrySelection,
   containerSelector,
 }: AlignmentViewProps) => {
+  const hideTooltip = useRef<ReturnType<
+    typeof showTooltipAtCoordinates
+  > | null>(null);
   const annotationChoices = useMemo(() => {
     const features = alignment
       .map(({ features }) => features)
@@ -145,6 +148,13 @@ const AlignmentView = ({
       setAnnotation(annotationChoices[0]);
     }
   }, [annotation, annotationChoices]);
+
+  useEffect(
+    () => () => {
+      hideTooltip.current?.();
+    },
+    []
+  );
 
   const selectedMSAFeatures = useMemo(
     // This gets the features to display on all of the MSA sequences (ie not
@@ -221,7 +231,7 @@ const AlignmentView = ({
         }
       }
       const title = `${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}`;
-      showTooltipAtCoordinates(
+      hideTooltip.current = showTooltipAtCoordinates(
         x,
         y - yOffset,
         `<h4>${title}</h4>${formatTooltip(preparedFeature)}`

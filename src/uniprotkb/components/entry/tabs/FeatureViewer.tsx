@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Loader, Message } from 'franklin-sites';
 
@@ -94,7 +94,7 @@ const FeatureViewer = ({
     [protvistaElement.defined, sequence]
   );
 
-  protvistaUniprotRef.current?.addEventListener('change', (e) => {
+  const onProtvistaUniprotChange = (e: Event) => {
     const { detail } = e as CustomEvent;
     if (hideTooltipEvents.has(detail?.eventtype)) {
       hideTooltip.current?.();
@@ -106,14 +106,25 @@ const FeatureViewer = ({
     ) {
       const content = detail.feature.tooltipContent;
       const [x, y] = detail.coords;
-      hideTooltip.current = showTooltipAtCoordinates(
-        x,
-        y,
-        content,
-        e.target as Element
-      );
+      hideTooltip.current = showTooltipAtCoordinates(x, y, content);
     }
-  });
+  };
+
+  useEffect(() => {
+    const ref = protvistaUniprotRef.current;
+    ref?.addEventListener('change', onProtvistaUniprotChange);
+  }, [protvistaElement]);
+
+  useEffect(
+    () => () => {
+      hideTooltip.current?.();
+      protvistaUniprotRef.current?.removeEventListener(
+        'change',
+        onProtvistaUniprotChange
+      );
+    },
+    []
+  );
 
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllFeatures = searchParams.get('loadFeatures');

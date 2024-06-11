@@ -169,7 +169,7 @@ export const showTooltipAtCoordinates = (
   });
 
   function hideTooltip() {
-    tooltip.remove();
+    tooltip?.remove();
     cleanup?.();
     document.body.removeEventListener('click', onClick);
     document.body.removeEventListener('scroll', hideTooltip);
