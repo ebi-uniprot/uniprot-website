@@ -230,11 +230,14 @@ const AlignmentView = ({
           yOffset = rect.y;
         }
       }
-      const title = `${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}`;
+      const title =
+        preparedFeature.type && preparedFeature.start && preparedFeature.end
+          ? `<h4>${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}</h4>`
+          : '';
       hideTooltip.current = showTooltipAtCoordinates(
         x,
         y - yOffset,
-        `<h4>${title}</h4>${formatTooltip(preparedFeature)}`
+        `${title}${formatTooltip(preparedFeature)}`
       );
     },
     [alignment, containerSelector]
