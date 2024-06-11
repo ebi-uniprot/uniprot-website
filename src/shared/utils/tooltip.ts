@@ -7,6 +7,7 @@ import {
   autoUpdate,
 } from '@floating-ui/dom';
 
+import { frame } from 'timing-functions';
 import styles from './styles/tooltip.module.scss';
 
 type StaticSide = 'bottom' | 'left' | 'top' | 'right';
@@ -137,8 +138,7 @@ export const showTooltip = (
 export const showTooltipAtCoordinates = (
   x: number,
   y: number,
-  content: string,
-  target: Element
+  content: string
 ) => {
   const [tooltip, arrowElement] = getTooltip(content);
   const reference = {
@@ -160,9 +160,13 @@ export const showTooltipAtCoordinates = (
   const cleanup = autoUpdate(reference, tooltip, update);
 
   document.body.append(tooltip);
-  document.body.addEventListener('click', onClick);
-  document.body.addEventListener('scroll', hideTooltip);
-  document.body.addEventListener('wheel', hideTooltip);
+  // Wait a bit before listening for click events otherwise the initial
+  // click will cause the tooltip to immediately hide
+  frame().then(() => {
+    document.body.addEventListener('click', onClick);
+    document.body.addEventListener('scroll', hideTooltip);
+    document.body.addEventListener('wheel', hideTooltip);
+  });
 
   function hideTooltip() {
     tooltip.remove();
@@ -173,12 +177,8 @@ export const showTooltipAtCoordinates = (
   }
 
   function onClick(e: Event) {
-    const eventTarget = e.target as Node;
-    if (
-      eventTarget &&
-      !target.contains(eventTarget) &&
-      !tooltip.contains(eventTarget)
-    ) {
+    const target = e.target as Node;
+    if (target && !tooltip.contains(target)) {
       hideTooltip();
     }
   }
