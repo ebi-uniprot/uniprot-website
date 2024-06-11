@@ -23,6 +23,7 @@ import {
   getSortableColumnToSortColumn,
   getLocationObjForParams,
 } from '../../uniprotkb/utils/resultsUtils';
+import { showTooltip } from '../utils/tooltip';
 import * as logging from '../utils/logging';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
@@ -55,7 +56,6 @@ import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
-import { showTooltip } from '../utils/tooltip';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
