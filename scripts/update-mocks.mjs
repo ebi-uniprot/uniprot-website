@@ -207,7 +207,7 @@ const main = async () => {
   if (dry) {
     console.log(
       ' -',
-      chalk.bgYellow.italic.bold('dry run, no file will be written')
+      chalk.bgYellow.italic.bold('dry run, no files will be written')
     );
   }
 
