@@ -17,7 +17,7 @@ Here are some examples of patterns recognised by this script:
 ```ts
 // Source: <URL>
 // Retrieved: <date>
-const mock = {field: 'data'};
+const mock = { field: 'data' };
 
 export mock;
 ```
@@ -25,19 +25,19 @@ export mock;
 ```ts
 // Source: <URL>
 // Retrieved: <date>
-export const mock = {field: 'data'};
+export const myMock = [{ field: 'data' }, { field: 'content' }];
 ```
 
 ```ts
 // Source: <URL>
 // Retrieved: <date>
-export const mock: MockType = {field: 'data'};
+export const serverData: MockType = { key: { complex: 'value' } };
 ```
 
 ```ts
 // Source: <URL>
 // Retrieved: <date>
-export default {field: 'data'};
+export default { content: 'ATCG' };
 ```
 
 Note that if there are multiple mocks within the same file, it will update all of them.
@@ -49,7 +49,7 @@ This script will not allow to have a type casting directly on the mock (using `a
 ```ts
 // Source: <URL>
 // Retrieved: <date>
-export const mock = {field: 'data'} as any; // will not work!
+export const mock = { field: 'data' } as MockType; // will not work!
 ```
 
 If a typecasting is needed, it should be somewhere else:
