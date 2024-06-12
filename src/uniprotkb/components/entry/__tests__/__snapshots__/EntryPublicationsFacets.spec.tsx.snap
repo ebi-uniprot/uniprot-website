@@ -147,7 +147,7 @@ exports[`EntryPublication facets tests should render 1`] = `
               <a
                 href="/?facets=categories%3APTM+%2F+Processing"
               >
-                PTM / Processing (11)
+                PTM / Processing (10)
               </a>
             </li>
             <li>

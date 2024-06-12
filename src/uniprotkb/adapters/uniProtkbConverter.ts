@@ -51,7 +51,7 @@ export type UniProtKBReference = Omit<Reference, 'citationId'> & {
 };
 
 // Specific to the API, will be transformed by the adaptor into something usable
-type UniProtKBXref = Omit<Xref, 'properties'> & {
+export type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 

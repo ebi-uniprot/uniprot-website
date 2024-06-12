@@ -121,9 +121,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-03-27T00:00:00.000Z"
+                    datetime="2024-05-29T00:00:00.000Z"
                   >
-                    2024-03-27
+                    2024-05-29
                   </time>
                 </td>
                 <td>
@@ -242,9 +242,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-03-27T00:00:00.000Z"
+                    datetime="2024-05-29T00:00:00.000Z"
                   >
-                    2024-03-27
+                    2024-05-29
                   </time>
                 </td>
                 <td>
@@ -297,9 +297,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-03-27T00:00:00.000Z"
+                    datetime="2024-05-29T00:00:00.000Z"
                   >
-                    2024-03-27
+                    2024-05-29
                   </time>
                 </td>
                 <td>
@@ -352,9 +352,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-03-27T00:00:00.000Z"
+                    datetime="2024-05-29T00:00:00.000Z"
                   >
-                    2024-03-27
+                    2024-05-29
                   </time>
                 </td>
                 <td>
@@ -407,9 +407,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-03-27T00:00:00.000Z"
+                    datetime="2024-05-29T00:00:00.000Z"
                   >
-                    2024-03-27
+                    2024-05-29
                   </time>
                 </td>
                 <td>
@@ -462,9 +462,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-03-27T00:00:00.000Z"
+                    datetime="2024-05-29T00:00:00.000Z"
                   >
-                    2024-03-27
+                    2024-05-29
                   </time>
                 </td>
                 <td>
@@ -630,9 +630,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-01-08T00:00:00.000Z"
+                    datetime="2024-03-04T00:00:00.000Z"
                   >
-                    2024-01-08
+                    2024-03-04
                   </time>
                 </td>
                 <td>
@@ -675,9 +675,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-01-08T00:00:00.000Z"
+                    datetime="2024-03-04T00:00:00.000Z"
                   >
-                    2024-01-08
+                    2024-03-04
                   </time>
                 </td>
                 <td>
@@ -879,9 +879,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -924,9 +924,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -969,9 +969,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1014,9 +1014,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1059,9 +1059,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1104,9 +1104,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1149,9 +1149,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1194,9 +1194,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1239,9 +1239,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1284,9 +1284,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>
@@ -1329,9 +1329,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2023-12-22T00:00:00.000Z"
+                    datetime="2024-03-25T00:00:00.000Z"
                   >
-                    2023-12-22
+                    2024-03-25
                   </time>
                 </td>
                 <td>

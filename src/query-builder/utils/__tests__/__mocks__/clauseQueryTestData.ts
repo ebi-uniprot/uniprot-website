@@ -242,7 +242,6 @@ const testData = [
       },
     ],
   },
-
   {
     description: 'should handle GO term with experimental evidence level',
     queryString: '(go_exp:0002381)',

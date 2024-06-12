@@ -1,14 +1,13 @@
 import { AGRRibbonData } from '../../GORibbonHandler';
 
-// Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2021-11-25
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
-
+// Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
+// Retrieved: 2024-06-10
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
       description:
-        'A molecular process that can be carried out by the action of a single macromolecular machine, usually via direct physical interactions with other molecular entities. Function in this sense denotes an action, or activity, that a gene product (or a complex) performs. These actions are described from two distinct but related perspectives: (1) biochemical activity, and (2) role as a component in a larger system/process.',
+        'A molecular process that can be carried out by the action of a single macromolecular machine, usually via direct physical interactions with other molecular entities. Function in this sense denotes an action, or activity, that a gene product (or a complex) performs.',
       groups: [
         {
           id: 'GO:0003674',
@@ -52,7 +51,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'The action of a molecule that contributes to the structural integrity of a complex or its assembly within or outside a cell.',
+            'The action of a molecule that contributes to the structural integrity of a complex.',
           id: 'GO:0005198',
           label: 'structural molecule activity',
           type: 'Term',
@@ -136,7 +135,7 @@ const goRibbonData: AGRRibbonData = {
     },
     {
       description:
-        'A biological process represents a specific objective that the organism is genetically programmed to achieve. Biological processes are often described by their outcome or ending state, e.g., the biological process of cell division results in the creation of two daughter cells (a divided cell) from a single parent cell. A biological process is accomplished by a particular set of molecular functions carried out by specific gene products (or macromolecular complexes), often in a highly regulated manner and in a particular temporal sequence.',
+        'A biological process is the execution of a genetically-encoded biological module or program. It consists of all the steps required to achieve the specific biological objective of the module. A biological process is accomplished by a particular set of molecular functions carried out by specific gene products (or macromolecular complexes), often in a highly regulated manner and in a particular temporal sequence.',
       groups: [
         {
           id: 'GO:0008150',
@@ -174,7 +173,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            "The process in which relatively unspecialized cells, e.g. embryonic or regenerative cells, acquire specialized structural and/or functional features that characterize the cells, tissues, or organs of the mature organism or some other relatively stable phase of the organism's life history. Differentiation includes the processes involved in commitment of a cell to a specific fate and its subsequent development to the mature state.",
+            'The cellular developmental process in which a relatively unspecialized cell, e.g. embryonic or regenerative cell, acquires specialized structural and/or functional features that characterize a specific cell. Differentiation includes the processes involved in commitment of a cell to a specific fate and its subsequent development to the mature state.',
           id: 'GO:0030154',
           label: 'cell differentiation',
           type: 'Term',
@@ -195,9 +194,9 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'The production of new individuals that contain some portion of genetic material inherited from one or more parent organisms.',
+            'OBSOLETE. The production of new individuals that contain some portion of genetic material inherited from one or more parent organisms.',
           id: 'GO:0000003',
-          label: 'reproduction',
+          label: 'obsolete reproduction',
           type: 'Term',
         },
         {
@@ -251,7 +250,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'The chemical reactions and pathways involving carbohydrates, any of a group of organic compounds based of the general formula Cx(H2O)y. Includes the formation of carbohydrate derivatives by the addition of a carbohydrate residue to another molecule.',
+            'The chemical reactions and pathways involving carbohydrates, any of a group of organic compounds based of the general formula Cx(H2O)y.',
           id: 'GO:0005975',
           label: 'carbohydrate metabolic process',
           type: 'Term',
@@ -304,7 +303,7 @@ const goRibbonData: AGRRibbonData = {
     },
     {
       description:
-        'A location, relative to cellular compartments and structures, occupied by a macromolecular machine when it carries out a molecular function. There are two ways in which the gene ontology describes locations of gene products: (1) relative to cellular structures (e.g., cytoplasmic side of plasma membrane) or compartments (e.g., mitochondrion), and (2) the stable macromolecular complexes of which they are parts (e.g., the ribosome).',
+        'A location, relative to cellular compartments and structures, occupied by a macromolecular machine. There are three types of cellular components described in the gene ontology: (1) the cellular anatomical entity where a gene product carries out a molecular function (e.g., plasma membrane, cytoskeleton) or membrane-enclosed compartments (e.g., mitochondrion); (2) virion components, where viral proteins act, and (3) the stable macromolecular complexes of which gene product are parts (e.g., the clathrin complex).',
       groups: [
         {
           id: 'GO:0005575',
@@ -411,7 +410,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'Any of the various filamentous elements that form the internal framework of cells, and typically remain after treatment of the cells with mild detergent to remove membrane constituents and soluble components of the cytoplasm. The term embraces intermediate filaments, microfilaments, microtubules, the microtrabecular lattice, and other structures characterized by a polymeric filamentous nature and long-range order within the cell. The various elements of the cytoskeleton not only serve in the maintenance of cellular shape but also have roles in other cellular functions, including cellular movement, cell division, endocytosis, and movement of organelles.',
+            'A cellular structure that forms the internal framework of eukaryotic and prokaryotic cells. The cytoskeleton includes intermediate filaments, microfilaments, microtubules, the microtrabecular lattice, and other structures characterized by a polymeric filamentous nature and long-range order within the cell. The various elements of the cytoskeleton not only serve in the maintenance of cellular shape but also have roles in other cellular functions, including cellular movement, cell division, endocytosis, and movement of organelles.',
           id: 'GO:0005856',
           label: 'cytoskeleton',
           type: 'Term',
@@ -441,16 +440,16 @@ const goRibbonData: AGRRibbonData = {
       groups: {
         'GO:0003674': {
           ALL: {
-            nb_classes: 4,
-            nb_annotations: 6,
+            nb_classes: 3,
+            nb_annotations: 9,
+          },
+          IDA: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
           TAS: {
             nb_classes: 2,
-            nb_annotations: 2,
-          },
-          IEA: {
-            nb_classes: 1,
-            nb_annotations: 1,
+            nb_annotations: 5,
           },
           IPI: {
             nb_classes: 1,
@@ -460,23 +459,22 @@ const goRibbonData: AGRRibbonData = {
         'GO:0003824': {
           ALL: {
             nb_classes: 2,
-            nb_annotations: 2,
+            nb_annotations: 6,
+          },
+          IDA: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
           TAS: {
             nb_classes: 2,
-            nb_annotations: 2,
+            nb_annotations: 5,
           },
         },
         'GO:0003674-other': {
           ALL: {
-            terms: ['GO:0005515', 'GO:0005044'],
-            nb_classes: 2,
-            nb_annotations: 4,
-          },
-          IEA: {
-            terms: ['GO:0005044'],
+            terms: ['GO:0005515'],
             nb_classes: 1,
-            nb_annotations: 1,
+            nb_annotations: 3,
           },
           IPI: {
             terms: ['GO:0005515'],
@@ -489,29 +487,19 @@ const goRibbonData: AGRRibbonData = {
             nb_classes: 4,
             nb_annotations: 8,
           },
+          TAS: {
+            nb_classes: 1,
+            nb_annotations: 1,
+          },
           IDA: {
             nb_classes: 2,
             nb_annotations: 5,
-          },
-          IEA: {
-            nb_classes: 1,
-            nb_annotations: 1,
           },
           IMP: {
             nb_classes: 1,
             nb_annotations: 1,
           },
           IBA: {
-            nb_classes: 1,
-            nb_annotations: 1,
-          },
-        },
-        'GO:0051234': {
-          ALL: {
-            nb_classes: 1,
-            nb_annotations: 1,
-          },
-          IEA: {
             nb_classes: 1,
             nb_annotations: 1,
           },
@@ -536,9 +524,14 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0046598'],
+            terms: ['GO:0046598', 'GO:0019081'],
+            nb_classes: 2,
+            nb_annotations: 4,
+          },
+          TAS: {
+            terms: ['GO:0019081'],
             nb_classes: 1,
-            nb_annotations: 3,
+            nb_annotations: 1,
           },
           IDA: {
             terms: ['GO:0046598'],
@@ -548,12 +541,12 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0005575': {
           ALL: {
-            nb_classes: 5,
-            nb_annotations: 10,
+            nb_classes: 4,
+            nb_annotations: 12,
           },
           TAS: {
-            nb_classes: 3,
-            nb_annotations: 4,
+            nb_classes: 2,
+            nb_annotations: 6,
           },
           IDA: {
             nb_classes: 2,
@@ -580,16 +573,16 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0005886': {
           ALL: {
-            nb_classes: 2,
-            nb_annotations: 5,
+            nb_classes: 1,
+            nb_annotations: 7,
           },
           IDA: {
             nb_classes: 1,
             nb_annotations: 2,
           },
           TAS: {
-            nb_classes: 2,
-            nb_annotations: 3,
+            nb_classes: 1,
+            nb_annotations: 5,
           },
         },
         'GO:0005634': {
@@ -610,8 +603,8 @@ const goRibbonData: AGRRibbonData = {
           },
         },
       },
-      nb_classes: 13,
-      nb_annotations: 24,
+      nb_classes: 11,
+      nb_annotations: 29,
       label: 'TMPRSS2',
       taxon_id: 'NCBITaxon:9606',
       taxon_label: 'Homo sapiens',

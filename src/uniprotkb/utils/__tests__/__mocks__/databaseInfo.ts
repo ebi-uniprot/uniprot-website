@@ -5,8 +5,8 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 // and running again. Until then it will have no uriLink.
 
 // TODO: update when TRM-29539 is fixed and deployed
-// Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2024-03-25
+// Source: configure/uniprotkb/allDatabases
+// Retrieved: 2024-06-10
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -377,7 +377,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'ChEMBL',
     displayName: 'ChEMBL',
     category: 'CHEMISTRY',
-    uriLink: 'https://www.ebi.ac.uk/chembldb/target/inspect/%id',
+    uriLink: 'https://www.ebi.ac.uk/chembl/target_report_card/%id',
     attributes: [
       {
         name: 'Description',
@@ -783,42 +783,6 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'REPRODUCTION-2DPAGE',
     category: '2DG',
     uriLink: 'http://reprod.njmu.edu.cn/cgi-bin/2d/2d.cgi?%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'SWISS-2DPAGE',
-    displayName: 'SWISS-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/swiss-2dpage/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'UCD-2DPAGE',
-    displayName: 'UCD-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'World-2DPAGE',
-    displayName: 'World-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/repository/%id',
     attributes: [
       {
         name: 'Description',
@@ -1803,18 +1767,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'KO',
-    displayName: 'KO',
-    category: 'PLG',
-    uriLink: 'https://www.genome.jp/dbget-bin/www_bget?ko:%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OMA',
     displayName: 'OMA',
     category: 'PLG',
@@ -2123,18 +2075,6 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ExpressionPatterns',
         xmlTag: 'expression patterns',
-      },
-    ],
-  },
-  {
-    name: 'Genevisible',
-    displayName: 'Genevisible',
-    category: 'GEP',
-    uriLink: 'https://genevisible.com/tissues/%OrganismId/UniProt/%id',
-    attributes: [
-      {
-        name: 'OrganismId',
-        xmlTag: 'organism ID',
       },
     ],
   },
