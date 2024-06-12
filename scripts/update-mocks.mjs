@@ -177,7 +177,7 @@ const processFile = async (file, baseAPI, dry) => {
   if (!tasks.length) {
     console.log(
       '  ',
-      chalk.bgYellow.italic('No mocks to update have been detected')
+      chalk.whiteBright.bgYellow.italic('No mocks to update have been detected')
     );
 
     // Sanity check:

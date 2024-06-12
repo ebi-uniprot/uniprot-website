@@ -68,7 +68,7 @@ The script should be called through `package.json` script, for example using `ya
 
 #### CLI Options
 
-- **`--glob` (`-g`)**: This option allows you to specify a glob pattern to select the TypeScript files to process. The default is `**/__mocks__/**/*.ts`, which targets TypeScript files in any `__mocks__` directories.
+- **`--glob` (`-g`)**: This option allows you to specify a glob pattern to select the TypeScript files to process. The default is `'**/__mocks__/**/*.ts'`, which targets TypeScript files in any `__mocks__` directories. Make sure to quote the pattern to prevent glob expansion at the command line.
   
 - **`--dev` (`-d`)**: When set, the script uses the development base URL for fetching the data (`https://wwwdev.ebi.ac.uk/uniprot/api/`) instead of the default which is the production base URL (`https://rest.uniprot.org/`).
   
