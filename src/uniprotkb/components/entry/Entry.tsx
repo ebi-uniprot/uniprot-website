@@ -431,7 +431,7 @@ const Entry = () => {
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       {isObsolete ? (
-        <h3>{match.params.accession}</h3>
+        <h1>{match.params.accession}</h1>
       ) : (
         <ErrorBoundary>
           <HTMLHead
@@ -794,6 +794,8 @@ const Entry = () => {
               <HistoryTab
                 accession={isObsolete ? match.params.accession : accession}
                 lastVersion={data.entryAudit?.entryVersion}
+                uniparc={data.extraAttributes?.uniParcId}
+                reason={data.inactiveReason}
               />
             </ErrorBoundary>
           </Suspense>
