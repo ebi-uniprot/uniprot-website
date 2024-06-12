@@ -166,9 +166,9 @@ export const showTooltipAtCoordinates = (
   function hideTooltip() {
     tooltip?.remove();
     cleanup?.();
-    document.body.removeEventListener('click', onClick);
-    document.body.removeEventListener('scroll', hideTooltip);
-    document.body.removeEventListener('wheel', hideTooltip);
+    document.body.removeEventListener('click', onClick, true);
+    document.body.removeEventListener('scroll', hideTooltip, true);
+    document.body.removeEventListener('wheel', hideTooltip, true);
   }
 
   function onClick(e: Event) {
