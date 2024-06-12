@@ -179,6 +179,7 @@
     "axios-mock-adapter": "1.22.0",
     "babel-jest": "29.2.2",
     "babel-loader": "9.0.1",
+    "babel-plugin-dynamic-import-node": "2.3.3",
     "buffer": "6.0.3",
     "circular-dependency-plugin": "5.2.2",
     "copy-webpack-plugin": "11.0.0",
