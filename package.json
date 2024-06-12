@@ -94,7 +94,7 @@
     ]
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.6.5",
+    "@floating-ui/dom": "1.6.5",
     "@sentry/react": "7.27.0",
     "@sentry/tracing": "7.27.0",
     "@sentry/types": "7.27.0",
