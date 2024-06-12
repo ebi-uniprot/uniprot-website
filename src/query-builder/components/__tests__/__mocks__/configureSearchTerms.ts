@@ -4,8 +4,8 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 
 import { SearchTermType } from '../../../types/searchTypes';
 
-// Source: /configure/uniprotkb/search-fields
-// Retrieved: 2024-05-29
+// Source: configure/uniprotkb/search-fields
+// Retrieved: 2024-06-10
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -4393,11 +4393,12 @@ const configureSearchTerms = [
     example: 'UPI000002DB1C',
     regex: 'UPI[\\w]{10}',
   },
-] as SearchTermType[];
-// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
+];
 
 const idToSearchTerm = keyBy(
-  flatten(configureSearchTerms).filter(({ itemType }) => itemType !== 'group'),
+  flatten(configureSearchTerms as SearchTermType[]).filter(
+    ({ itemType }) => itemType !== 'group'
+  ),
   ({ id }) => id
 );
 
@@ -4408,4 +4409,5 @@ export const getSearchTerm = (id: string) => {
   throw new Error(`${id} not in search term mock data`);
 };
 
-export default configureSearchTerms;
+// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
+export default configureSearchTerms as SearchTermType[];

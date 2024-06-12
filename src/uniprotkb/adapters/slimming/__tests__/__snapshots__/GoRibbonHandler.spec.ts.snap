@@ -1,0 +1,513 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GORibbonHandler should generate categories from slim set 1`] = `
+[
+  {
+    "description": "",
+    "groups": [
+      {
+        "description": "Show all Molecular Function annotations",
+        "id": "GO:0003674",
+        "label": "All Molecular Function",
+        "type": "All",
+      },
+      {
+        "description": "",
+        "id": "GO:0003677",
+        "label": "DNA binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0003700",
+        "label": "DNA-binding transcription factor activity",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0003723",
+        "label": "RNA binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0003824",
+        "label": "catalytic activity",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005102",
+        "label": "signaling receptor binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005198",
+        "label": "structural molecule activity",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005215",
+        "label": "transporter activity",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0008092",
+        "label": "cytoskeletal protein binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0008134",
+        "label": "transcription factor binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0008289",
+        "label": "lipid binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0030234",
+        "label": "enzyme regulator activity",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0030246",
+        "label": "carbohydrate binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0036094",
+        "label": "small molecule binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0038023",
+        "label": "signaling receptor activity",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0046872",
+        "label": "metal ion binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0097367",
+        "label": "carbohydrate derivative binding",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0003674",
+        "label": "Other Molecular Function",
+        "type": "Other",
+      },
+    ],
+    "id": "GO:0003674",
+    "label": "molecular_function",
+  },
+  {
+    "description": "",
+    "groups": [
+      {
+        "description": "Show all Biological Process annotations",
+        "id": "GO:0008150",
+        "label": "All Biological Process",
+        "type": "All",
+      },
+      {
+        "description": "",
+        "id": "GO:0002376",
+        "label": "immune system process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005975",
+        "label": "carbohydrate metabolic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0006259",
+        "label": "DNA metabolic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0006629",
+        "label": "lipid metabolic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0007049",
+        "label": "cell cycle",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0007610",
+        "label": "behavior",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0008283",
+        "label": "cell population proliferation",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0009056",
+        "label": "catabolic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0012501",
+        "label": "programmed cell death",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0016043",
+        "label": "cellular component organization",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0016070",
+        "label": "RNA metabolic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0019538",
+        "label": "protein metabolic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0022414",
+        "label": "reproductive process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0023052",
+        "label": "signaling",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0030154",
+        "label": "cell differentiation",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0032502",
+        "label": "developmental process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0042592",
+        "label": "homeostatic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0050877",
+        "label": "nervous system process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0050896",
+        "label": "response to stimulus",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0051234",
+        "label": "establishment of localization",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:1901135",
+        "label": "carbohydrate derivative metabolic process",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0008150",
+        "label": "Other Biological Process",
+        "type": "Other",
+      },
+    ],
+    "id": "GO:0008150",
+    "label": "biological_process",
+  },
+  {
+    "description": "",
+    "groups": [
+      {
+        "description": "Show all Cellular Component annotations",
+        "id": "GO:0005575",
+        "label": "All Cellular Component",
+        "type": "All",
+      },
+      {
+        "description": "",
+        "id": "GO:0005576",
+        "label": "extracellular region",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005634",
+        "label": "nucleus",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005694",
+        "label": "chromosome",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005739",
+        "label": "mitochondrion",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005768",
+        "label": "endosome",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005773",
+        "label": "vacuole",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005783",
+        "label": "endoplasmic reticulum",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005794",
+        "label": "Golgi apparatus",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005829",
+        "label": "cytosol",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005856",
+        "label": "cytoskeleton",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005886",
+        "label": "plasma membrane",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0030054",
+        "label": "cell junction",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0031410",
+        "label": "cytoplasmic vesicle",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0032991",
+        "label": "protein-containing complex",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0042995",
+        "label": "cell projection",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0045202",
+        "label": "synapse",
+        "type": "Term",
+      },
+      {
+        "description": "",
+        "id": "GO:0005575",
+        "label": "Other Cellular Component",
+        "type": "Other",
+      },
+    ],
+    "id": "GO:0005575",
+    "label": "cellular_component",
+  },
+]
+`;
+
+exports[`GORibbonHandler should generate subjects from data 1`] = `
+[
+  {
+    "groups": {
+      "GO:0003674": {
+        "ALL": {
+          "nb_annotations": 4,
+          "nb_classes": 3,
+          "terms": [
+            "GO:0005044",
+            "GO:0004252",
+            "GO:0008236",
+          ],
+        },
+      },
+      "GO:0003674-other": {
+        "ALL": {
+          "nb_annotations": 0,
+          "nb_classes": 0,
+          "terms": [],
+        },
+      },
+      "GO:0003824": {
+        "ALL": {
+          "nb_annotations": 3,
+          "nb_classes": 2,
+          "terms": [
+            "GO:0004252",
+            "GO:0008236",
+          ],
+        },
+      },
+      "GO:0005575": {
+        "ALL": {
+          "nb_annotations": 10,
+          "nb_classes": 5,
+          "terms": [
+            "GO:0070062",
+            "GO:0005576",
+            "GO:0005887",
+            "GO:0005654",
+            "GO:0005886",
+          ],
+        },
+      },
+      "GO:0005575-other": {
+        "ALL": {
+          "nb_annotations": 2,
+          "nb_classes": 1,
+          "terms": [
+            "GO:0005887",
+          ],
+        },
+      },
+      "GO:0005576": {
+        "ALL": {
+          "nb_annotations": 5,
+          "nb_classes": 2,
+          "terms": [
+            "GO:0070062",
+            "GO:0005576",
+          ],
+        },
+      },
+      "GO:0005634": {
+        "ALL": {
+          "nb_annotations": 1,
+          "nb_classes": 1,
+          "terms": [
+            "GO:0005654",
+          ],
+        },
+      },
+      "GO:0005886": {
+        "ALL": {
+          "nb_annotations": 2,
+          "nb_classes": 1,
+          "terms": [
+            "GO:0005886",
+          ],
+        },
+      },
+      "GO:0008150": {
+        "ALL": {
+          "nb_annotations": 9,
+          "nb_classes": 3,
+          "terms": [
+            "GO:0046598",
+            "GO:0016540",
+            "GO:0006508",
+          ],
+        },
+      },
+      "GO:0008150-other": {
+        "ALL": {
+          "nb_annotations": 4,
+          "nb_classes": 1,
+          "terms": [
+            "GO:0046598",
+          ],
+        },
+      },
+      "GO:0019538": {
+        "ALL": {
+          "nb_annotations": 5,
+          "nb_classes": 2,
+          "terms": [
+            "GO:0006508",
+            "GO:0016540",
+          ],
+        },
+      },
+      "GO:0051234": {
+        "ALL": {
+          "nb_annotations": 1,
+          "nb_classes": 1,
+          "terms": [
+            "GO:0005044",
+          ],
+        },
+      },
+    },
+    "id": "P05067",
+    "label": "TP53",
+    "nb_annotations": 23,
+    "nb_classes": 11,
+    "taxon_id": "NCBITaxon:9606",
+    "taxon_label": "Homo sapiens",
+  },
+]
+`;

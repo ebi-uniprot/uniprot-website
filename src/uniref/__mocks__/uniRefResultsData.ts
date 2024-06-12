@@ -6,8 +6,8 @@ type Payload = {
   results: Partial<UniRefLiteAPIModel>[];
 };
 
-// Source: /uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2024-03-25
+// Source: uniref/search?facets=identity&query=glucose&size=1
+// Retrieved: 2024-06-10
 const mock: Payload = {
   facets: [
     {
@@ -18,17 +18,17 @@ const mock: Payload = {
         {
           label: '100%',
           value: '1.0',
-          count: 1155547,
+          count: 1176714,
         },
         {
           label: '90%',
           value: '0.9',
-          count: 448214,
+          count: 450756,
         },
         {
           label: '50%',
           value: '0.5',
-          count: 67961,
+          count: 68208,
         },
       ],
     },
@@ -37,7 +37,7 @@ const mock: Payload = {
     {
       id: 'UniRef50_A0A3E1E969',
       name: 'Cluster: Glucose dehydrogenase/Glucose dehydrogenase/Glucose dehydrogenase',
-      updated: '2023-09-13',
+      updated: '2024-05-29',
       entryType: 'UniRef50',
       commonTaxon: {
         scientificName: 'Bacteria',
@@ -68,11 +68,11 @@ const mock: Payload = {
         },
       },
       seedId: 'A0A3E1E969',
-      memberIdTypes: ['UniParc', 'UniProtKB Unreviewed (TrEMBL)'],
+      memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)', 'UniParc'],
       members: [
         'A0A3E1E969',
-        'A0A7Y5C7M4',
         'B4CTX8',
+        'A0A7Y5C7M4',
         'A0A3C1H8I3',
         'UPI00104BEFB8',
       ],
@@ -82,12 +82,12 @@ const mock: Payload = {
           taxonId: 2026799,
         },
         {
-          scientificName: 'Hydrogenedentes bacterium',
-          taxonId: 2030809,
-        },
-        {
           scientificName: 'Chthoniobacter flavus Ellin428',
           taxonId: 497964,
+        },
+        {
+          scientificName: 'Hydrogenedentota bacterium',
+          taxonId: 2030809,
         },
         {
           scientificName: 'Verrucomicrobiales bacterium',
@@ -105,6 +105,10 @@ const mock: Payload = {
         },
         {
           goId: 'GO:0046872',
+          aspect: 'GO Molecular Function',
+        },
+        {
+          goId: 'GO:0008876',
           aspect: 'GO Molecular Function',
         },
         {

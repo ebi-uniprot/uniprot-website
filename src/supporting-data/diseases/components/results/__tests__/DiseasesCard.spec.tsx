@@ -17,6 +17,6 @@ describe('DiseasesCard tests', () => {
   it('should allow card navigation', () => {
     const { history } = customRender(<DiseasesCard data={diseasesData[0]} />);
     fireEvent.click(within(screen.getByRole('heading')).getByRole('link'));
-    expect(history.location.pathname).toMatch('/diseases/DI-00550');
+    expect(history.location.pathname).toMatch('/diseases/DI-01559');
   });
 });

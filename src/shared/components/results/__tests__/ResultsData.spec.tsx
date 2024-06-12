@@ -30,7 +30,7 @@ describe('ResultsData component', () => {
         },
       }
     );
-    await screen.findByText('P35575');
+    await screen.findByText('P11413');
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -56,7 +56,7 @@ describe('ResultsData component', () => {
       }
     );
     const geneLabels = await screen.findAllByText('Gene:');
-    expect(geneLabels).toHaveLength(25);
+    expect(geneLabels).toHaveLength(results.results.length);
     expect(asFragment()).toMatchSnapshot();
   });
 

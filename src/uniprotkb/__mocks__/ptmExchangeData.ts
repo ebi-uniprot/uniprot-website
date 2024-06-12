@@ -1,7 +1,7 @@
 import { ProteomicsPtm } from '../types/proteomicsPtm';
 
 // Source: https://www.ebi.ac.uk/proteins/api/proteomics-ptm/Q653S1
-// Retrieved: 2023-11-06
+// Retrieved: 2024-06-10
 // TODO: replace this with a human entry when it is released
 const data: ProteomicsPtm = {
   accession: 'Q653S1',
