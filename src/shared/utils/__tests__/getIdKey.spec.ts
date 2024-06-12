@@ -21,16 +21,16 @@ import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
 const testCases: [Namespace, APIModel, string][] = [
   [Namespace.arba, arbaModelData[0], 'ARBA00020180'],
-  [Namespace.citations, citationsModelData[0], '10196735'],
+  [Namespace.citations, citationsModelData[0], 'CI-7TL41NBKJTRQJ'],
   [Namespace.database, databaseModelData[0], 'DB-0022'],
-  [Namespace.diseases, diseasesModelData[0], 'DI-00550'],
+  [Namespace.diseases, diseasesModelData[0], 'DI-01559'],
   [
     Namespace.idmapping,
     idMappingModelData.results[0] as MappingAPIModel,
     'Q9Z0H0||ENSMUSG00000029283',
   ],
   [Namespace.keywords, keywordsModelData[0], 'KW-0021'],
-  [Namespace.locations, locationsModelData[0], 'SL-0099'],
+  [Namespace.locations, locationsModelData[0], 'SL-0037'],
   [Namespace.proteomes, proteomesEntryModelData, 'UP000005640'],
   [Namespace.taxonomy, taxonomyModelData[0], '37299'],
   [Namespace.uniparc, uniparcModelData, 'UPI0000000001'],

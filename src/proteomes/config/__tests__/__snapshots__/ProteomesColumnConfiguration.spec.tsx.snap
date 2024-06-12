@@ -15,7 +15,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:37.8% D:61.7%) F:0% M:0.5%
+      C:99.5% (S:37.4% D:62%) F:0% M:0.5%
     </div>
   </div>
 </DocumentFragment>
@@ -89,7 +89,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
 
 exports[`ProteomesColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>
-  Unknown
+  Outlier (high value)
 </DocumentFragment>
 `;
 
@@ -101,7 +101,7 @@ exports[`ProteomesColumnConfiguration component should render column "genome_ass
     rel="noopener"
     target="_blank"
   >
-    GCA_000001405.28
+    GCA_000001405.29
     <test-file-stub
       data-testid="external-link-icon"
       width="12.5"
@@ -133,7 +133,7 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/33154"
   >
-    Opisthokonta
+    Opisthokonta (clade)
   </a>
   , 
   <a
@@ -145,19 +145,19 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/6072"
   >
-    Eumetazoa
+    Eumetazoa (clade)
   </a>
   , 
   <a
     href="/taxonomy/33213"
   >
-    Bilateria
+    Bilateria (clade)
   </a>
   , 
   <a
     href="/taxonomy/33511"
   >
-    Deuterostomia
+    Deuterostomia (clade)
   </a>
   , 
   <a
@@ -175,25 +175,25 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/7742"
   >
-    Vertebrata
+    Vertebrata (clade)
   </a>
   , 
   <a
     href="/taxonomy/7776"
   >
-    Gnathostomata
+    Gnathostomata (clade)
   </a>
   , 
   <a
     href="/taxonomy/117570"
   >
-    Teleostomi
+    Teleostomi (clade)
   </a>
   , 
   <a
     href="/taxonomy/117571"
   >
-    Euteleostomi
+    Euteleostomi (clade)
   </a>
   , 
   <a
@@ -205,19 +205,19 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/1338369"
   >
-    Dipnotetrapodomorpha
+    Dipnotetrapodomorpha (clade)
   </a>
   , 
   <a
     href="/taxonomy/32523"
   >
-    Tetrapoda
+    Tetrapoda (clade)
   </a>
   , 
   <a
     href="/taxonomy/32524"
   >
-    Amniota
+    Amniota (clade)
   </a>
   , 
   <a
@@ -229,19 +229,19 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/32525"
   >
-    Theria
+    Theria (clade)
   </a>
   , 
   <a
     href="/taxonomy/9347"
   >
-    Eutheria
+    Eutheria (clade)
   </a>
   , 
   <a
     href="/taxonomy/1437010"
   >
-    Boreoeutheria
+    Boreoeutheria (clade)
   </a>
   , 
   <a
@@ -335,7 +335,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    82,485
+    82,518
   </a>
 </DocumentFragment>
 `;

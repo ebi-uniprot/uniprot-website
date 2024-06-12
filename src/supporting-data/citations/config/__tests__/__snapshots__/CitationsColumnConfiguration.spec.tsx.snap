@@ -8,92 +8,61 @@ exports[`CitationsColumnConfiguration component should render column "authors": 
     class="expandable-list no-bullet"
   >
     <li>
-      Itoh M.
+      Wang J.
     </li>
     <li>
-      Kanamori Y.
+      Liu S.J.
     </li>
     <li>
-      Takao M.
-    </li>
-    <li>
-      Eguchi M.
+      Xiao J.
     </li>
   </ul>
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `
-<DocumentFragment>
-  <a
-    class="external-link"
-    href="https://dx.doi.org/10.1016/s0965-1748(98)00115-5"
-    rel="noopener"
-    target="_blank"
-  >
-    10.1016/s0965-1748(98)00115-5
-    <test-file-stub
-      data-testid="external-link-icon"
-      width="12.5"
-    />
-  </a>
-</DocumentFragment>
-`;
+exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `<DocumentFragment />`;
 
-exports[`CitationsColumnConfiguration component should render column "first_page": first_page 1`] = `
-<DocumentFragment>
-  121
-</DocumentFragment>
-`;
+exports[`CitationsColumnConfiguration component should render column "first_page": first_page 1`] = `<DocumentFragment />`;
 
 exports[`CitationsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <a
     class="no-wrap"
-    href="/citations/10196735"
+    href="/citations/CI-7TL41NBKJTRQJ"
   >
-    10196735
+    CI-7TL41NBKJTRQJ
   </a>
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "journal": journal 1`] = `
-<DocumentFragment>
-  Insect Biochem Mol Biol
-</DocumentFragment>
-`;
+exports[`CitationsColumnConfiguration component should render column "journal": journal 1`] = `<DocumentFragment />`;
 
-exports[`CitationsColumnConfiguration component should render column "last_page": last_page 1`] = `
-<DocumentFragment>
-  129
-</DocumentFragment>
-`;
+exports[`CitationsColumnConfiguration component should render column "last_page": last_page 1`] = `<DocumentFragment />`;
 
-exports[`CitationsColumnConfiguration component should render column "lit_abstract": lit_abstract 1`] = `
-<DocumentFragment>
-  <div>
-    A cDNA coding for soluble type alkaline phosphatase (sALP) of Bombyx mori was isolated. Deduced amino acid sequence showed high identities to various ALPs and partial similarities to ATPase of Manduca sexta. Using this cDNA sequence as a probe, the molecular basis of electrophoretic polymorphism in sALP and membrane- bound type ALP (mALP) was studied. As for mALP, the result suggested that post- translational modification was important for the proteins to express activity and to represent their extensive polymorphic nature, whereas the magnitude of activities was mainly regulated by transcription. On the other hand, sALP zymogram showed poor polymorphism, but one exception was the null mutant, in which the sALP gene was largely lost. Interestingly, the sALP gene was shown to be transcribed into two mRNAs of different sizes, 2.0 and 2.4 Kb. In addition to the null mutant of sALP, we found a null mutant for mALP. Both of these mutants seem phenotypically silent, suggesting that the functional differentiation between these isozymes is not perfect, so that they can still work mutually and complement each other as an indispensable enzyme for B. mori.
-  </div>
-</DocumentFragment>
-`;
+exports[`CitationsColumnConfiguration component should render column "lit_abstract": lit_abstract 1`] = `<DocumentFragment />`;
 
 exports[`CitationsColumnConfiguration component should render column "publication_date": publication_date 1`] = `
 <DocumentFragment>
   <time
-    datetime="1999-01-01T00:00:00.000Z"
+    datetime="2007-12-01T00:00:00.000Z"
   >
-    1999
+    DEC-2007
   </time>
 </DocumentFragment>
 `;
 
 exports[`CitationsColumnConfiguration component should render column "reference": reference 1`] = `
 <DocumentFragment>
-  Insect Biochem Mol Biol 29:121-129 (
-  <time
-    datetime="1999-01-01T00:00:00.000Z"
+  <div
+    class="tiny"
   >
-    1999
+    Submission
+  </div>
+   Submitted to EMBL/GenBank/DDBJ databases (
+  <time
+    datetime="2007-12-01T00:00:00.000Z"
+  >
+    DEC-2007
   </time>
   )
 </DocumentFragment>
@@ -106,16 +75,16 @@ exports[`CitationsColumnConfiguration component should render column "statistics
   >
     <li>
       <a
-        href="/uniprotkb?query=%28lit_citation_id%3A10196735%29"
+        href="/uniprotkb?query=%28lit_citation_id%3ACI-7TL41NBKJTRQJ%29"
       >
-        1 UniProtKB entry
+        2 UniProtKB entries
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb?query=%28lit_citation_id%3A10196735%29+AND+%28reviewed%3Afalse%29"
+        href="/uniprotkb?query=%28lit_citation_id%3ACI-7TL41NBKJTRQJ%29+AND+%28reviewed%3Afalse%29"
       >
-        1 unreviewed UniProtKB entry
+        2 unreviewed UniProtKB entries
       </a>
     </li>
   </ul>
@@ -124,12 +93,8 @@ exports[`CitationsColumnConfiguration component should render column "statistics
 
 exports[`CitationsColumnConfiguration component should render column "title": title 1`] = `
 <DocumentFragment>
-  Cloning of soluble alkaline phosphatase cDNA and molecular basis of the polymorphic nature in alkaline phosphatase isozymes of Bombyx mori midgut.
+  Nature gynogenetic fish.
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "volume": volume 1`] = `
-<DocumentFragment>
-  29
-</DocumentFragment>
-`;
+exports[`CitationsColumnConfiguration component should render column "volume": volume 1`] = `<DocumentFragment />`;

@@ -8,9 +8,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "DOSAC-COBS-2DPAGE",
       "OGP",
       "REPRODUCTION-2DPAGE",
-      "SWISS-2DPAGE",
-      "UCD-2DPAGE",
-      "World-2DPAGE",
     ],
     "3DS": [
       "PDB",
@@ -70,7 +67,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
-      "Genevisible",
     ],
     "GMA": [
       "Ensembl",
@@ -186,7 +182,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GeneTree",
       "HOGENOM",
       "InParanoid",
-      "KO",
       "OMA",
       "OrthoDB",
       "PhylomeDB",
@@ -314,7 +309,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "GeneReviews": "ORG",
     "GeneTree": "PLG",
     "GeneWiki": "MISC",
-    "Genevisible": "GEP",
     "GenomeRNAi": "MISC",
     "GlyConnect": "PTM",
     "GlyCosmos": "PTM",
@@ -334,7 +328,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "InterPro": "FMD",
     "JaponicusDB": "ORG",
     "KEGG": "GMA",
-    "KO": "PLG",
     "LegioList": "ORG",
     "Leproma": "ORG",
     "MANE-Select": "GMA",
@@ -410,7 +403,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "SOURCE_MIM": "MISC",
     "STRING": "PPI",
     "SUPFAM": "FMD",
-    "SWISS-2DPAGE": "2DG",
     "SWISS-MODEL-Workspace": "3DS",
     "SignaLink": "EAP",
     "SwissLipids": "CHEMISTRY",
@@ -420,7 +412,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "TopDownProteomics": "PROTEOMIC",
     "TreeFam": "PLG",
     "TubercuList": "ORG",
-    "UCD-2DPAGE": "2DG",
     "UCSC": "GMA",
     "UniCarbKB": "PTM",
     "UniLectin": "PFAM",
@@ -429,7 +420,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "VGNC": "ORG",
     "VectorBase": "GMA",
     "WBParaSite": "GMA",
-    "World-2DPAGE": "2DG",
     "WormBase": "ORG",
     "Xenbase": "ORG",
     "ZFIN": "ORG",
@@ -781,7 +771,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "CHEMISTRY",
       "displayName": "ChEMBL",
       "name": "ChEMBL",
-      "uriLink": "https://www.ebi.ac.uk/chembldb/target/inspect/%id",
+      "uriLink": "https://www.ebi.ac.uk/chembl/target_report_card/%id",
     },
     "ChiTaRS": {
       "attributes": [
@@ -1400,18 +1390,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "GeneWiki",
       "uriLink": "https://en.wikipedia.org/wiki/%id",
     },
-    "Genevisible": {
-      "attributes": [
-        {
-          "name": "OrganismId",
-          "xmlTag": "organism ID",
-        },
-      ],
-      "category": "GEP",
-      "displayName": "Genevisible",
-      "name": "Genevisible",
-      "uriLink": "https://genevisible.com/tissues/%OrganismId/UniProt/%id",
-    },
     "GenomeRNAi": {
       "attributes": [
         {
@@ -1651,18 +1629,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "KEGG",
       "name": "KEGG",
       "uriLink": "https://www.genome.jp/dbget-bin/www_bget?%id",
-    },
-    "KO": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "PLG",
-      "displayName": "KO",
-      "name": "KO",
-      "uriLink": "https://www.genome.jp/dbget-bin/www_bget?ko:%id",
     },
     "LegioList": {
       "attributes": [
@@ -2632,18 +2598,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "SUPFAM",
       "uriLink": "https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=%id",
     },
-    "SWISS-2DPAGE": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "2DG",
-      "displayName": "SWISS-2DPAGE",
-      "name": "SWISS-2DPAGE",
-      "uriLink": "https://world-2dpage.expasy.org/swiss-2dpage/%id",
-    },
     "SWISS-MODEL-Workspace": {
       "attributes": [
         {
@@ -2754,18 +2708,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "TubercuList",
       "uriLink": "https://mycobrowser.epfl.ch/genes/%id",
     },
-    "UCD-2DPAGE": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "2DG",
-      "displayName": "UCD-2DPAGE",
-      "name": "UCD-2DPAGE",
-      "uriLink": "https://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id",
-    },
     "UCSC": {
       "attributes": [
         {
@@ -2872,18 +2814,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "WBParaSite",
       "name": "WBParaSite",
       "uriLink": "https://parasite.wormbase.org/id/%id",
-    },
-    "World-2DPAGE": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "2DG",
-      "displayName": "World-2DPAGE",
-      "name": "World-2DPAGE",
-      "uriLink": "https://world-2dpage.expasy.org/repository/%id",
     },
     "WormBase": {
       "attributes": [
@@ -3106,7 +3036,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
-      "Genevisible",
       "HPA",
     ],
     "external_links": [
@@ -3186,7 +3115,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GeneTree",
       "HOGENOM",
       "InParanoid",
-      "KO",
       "OMA",
       "OrthoDB",
       "PhylomeDB",
@@ -3295,9 +3223,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "DOSAC-COBS-2DPAGE",
       "OGP",
       "REPRODUCTION-2DPAGE",
-      "SWISS-2DPAGE",
-      "UCD-2DPAGE",
-      "World-2DPAGE",
       "CarbonylDB",
       "DEPOD",
       "GlyConnect",

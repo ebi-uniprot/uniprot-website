@@ -118,7 +118,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
-                  6,824
+                  6,831
                 </a>
               </td>
             </tr>
@@ -164,7 +164,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 2")"
                 >
-                  5,433
+                  5,434
                 </a>
               </td>
             </tr>
@@ -210,7 +210,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 3")"
                 >
-                  4,891
+                  4,889
                 </a>
               </td>
             </tr>
@@ -256,7 +256,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 4")"
                 >
-                  3,083
+                  3,081
                 </a>
               </td>
             </tr>
@@ -302,7 +302,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 5")"
                 >
-                  3,432
+                  3,431
                 </a>
               </td>
             </tr>
@@ -348,7 +348,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 6")"
                 >
-                  3,507
+                  3,506
                 </a>
               </td>
             </tr>
@@ -394,7 +394,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 7")"
                 >
-                  3,603
+                  3,604
                 </a>
               </td>
             </tr>
@@ -440,7 +440,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 8")"
                 >
-                  2,978
+                  2,979
                 </a>
               </td>
             </tr>
@@ -486,7 +486,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
                 >
-                  2,600
+                  2,605
                 </a>
               </td>
             </tr>
@@ -532,7 +532,53 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 10")"
                 >
-                  2,782
+                  2,780
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Chromosome X"
+                  id="11"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome X"
+                  for="11"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </td>
+              <td
+                class="data-table__cell--ellipsis"
+              >
+                Chromosome X
+              </td>
+              <td
+                class="data-table__cell--ellipsis"
+              >
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000685"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  CM000685
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
+              <td
+                class="data-table__cell--ellipsis"
+              >
+                <a
+                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome X")"
+                >
+                  2,623
                 </a>
               </td>
             </tr>
@@ -542,12 +588,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 11"
-                  id="11"
+                  id="12"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 11"
-                  for="11"
+                  for="12"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -578,7 +624,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 11")"
                 >
-                  5,214
+                  5,220
                 </a>
               </td>
             </tr>
@@ -588,12 +634,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 12"
-                  id="12"
+                  id="13"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 12"
-                  for="12"
+                  for="13"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -624,7 +670,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 12")"
                 >
-                  4,759
+                  4,760
                 </a>
               </td>
             </tr>
@@ -634,12 +680,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 13"
-                  id="13"
+                  id="14"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 13"
-                  for="13"
+                  for="14"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -680,12 +726,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 14"
-                  id="14"
+                  id="15"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 14"
-                  for="14"
+                  for="15"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -716,7 +762,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
-                  3,115
+                  3,114
                 </a>
               </td>
             </tr>
@@ -726,12 +772,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 15"
-                  id="15"
+                  id="16"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 15"
-                  for="15"
+                  for="16"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -762,7 +808,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 15")"
                 >
-                  2,722
+                  2,725
                 </a>
               </td>
             </tr>
@@ -772,12 +818,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 16"
-                  id="16"
+                  id="17"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 16"
-                  for="16"
+                  for="17"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -808,7 +854,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 16")"
                 >
-                  4,096
+                  4,132
                 </a>
               </td>
             </tr>
@@ -818,12 +864,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 17"
-                  id="17"
+                  id="18"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 17"
-                  for="17"
+                  for="18"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -864,12 +910,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 18"
-                  id="18"
+                  id="19"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 18"
-                  for="18"
+                  for="19"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -910,12 +956,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 19"
-                  id="19"
+                  id="20"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 19"
-                  for="19"
+                  for="20"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -956,12 +1002,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 20"
-                  id="20"
+                  id="21"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 20"
-                  for="20"
+                  for="21"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -992,7 +1038,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 20")"
                 >
-                  1,785
+                  1,784
                 </a>
               </td>
             </tr>
@@ -1002,12 +1048,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 21"
-                  id="21"
+                  id="22"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 21"
-                  for="21"
+                  for="22"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1038,7 +1084,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 21")"
                 >
-                  678
+                  679
                 </a>
               </td>
             </tr>
@@ -1048,12 +1094,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 22"
-                  id="22"
+                  id="23"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 22"
-                  for="22"
+                  for="23"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1084,53 +1130,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
-                  1,758
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="Chromosome X"
-                  id="23"
-                  type="checkbox"
-                />
-                <label
-                  aria-label="Chromosome X"
-                  for="23"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
-                Chromosome X
-              </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000685"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  CM000685
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-              </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
-                <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome X")"
-                >
-                  2,621
+                  1,755
                 </a>
               </td>
             </tr>
@@ -1176,7 +1176,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome Y")"
                 >
-                  90
+                  107
                 </a>
               </td>
             </tr>
@@ -1185,12 +1185,12 @@ exports[`Components view should render 1`] = `
                 class="checkbox-cell"
               >
                 <input
-                  data-id="Mitochondrion"
+                  data-id="Mitochondrion MT"
                   id="25"
                   type="checkbox"
                 />
                 <label
-                  aria-label="Mitochondrion"
+                  aria-label="Mitochondrion MT"
                   for="25"
                   title="click to select, shift+click for multiple selection"
                 />
@@ -1198,7 +1198,7 @@ exports[`Components view should render 1`] = `
               <td
                 class="data-table__cell--ellipsis"
               >
-                Mitochondrion
+                Mitochondrion MT
               </td>
               <td
                 class="data-table__cell--ellipsis"
@@ -1220,7 +1220,7 @@ exports[`Components view should render 1`] = `
                 class="data-table__cell--ellipsis"
               >
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Mitochondrion")"
+                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Mitochondrion MT")"
                 >
                   16
                 </a>
@@ -1255,7 +1255,7 @@ exports[`Components view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Unplaced")"
                 >
-                  2,764
+                  2,746
                 </a>
               </td>
             </tr>

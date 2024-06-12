@@ -51,7 +51,7 @@ export type UniProtKBReference = Omit<Reference, 'citationId'> & {
 };
 
 // Specific to the API, will be transformed by the adaptor into something usable
-type UniProtKBXref = Omit<Xref, 'properties'> & {
+export type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 
@@ -123,12 +123,37 @@ export type UniProtkbUIModel = {
 };
 
 export type InactiveReasonType =
+  // B4DII8
   | 'MERGED' // We will never see this as this is followed by a 303 redirect
+  // P29358
   | 'DEMERGED'
   | 'DELETED';
 
+type Sources = 'EMBL' | 'TAIR' | 'SGD' | 'ENSEMBL' | 'PDB' | 'RefSeq';
+
+export type DeletedReason =
+  // A0A010P2C8
+  // A0A044QJK7
+  // A0A158RFS4
+  // A0A1S2XA85
+  | `Deleted from sequence source (${Sources})`
+  // A0A6A5PVF7
+  | 'Deleted from Swiss-Prot'
+  // A0A009E3R0
+  | 'Redundant sequence'
+  // A0A008APQ8
+  | 'Redundant proteome'
+  // A0A009DWF5
+  | 'Excluded proteome'
+  // A0A679HE24
+  | 'Over-represented sequence';
+
+// And example for "Unknown": A0A1B0GE37 => not exposed to users
+// And example for "Change of entry type": A0A076FL24 => not exposed to users
+
 export type InactiveEntryReason = {
   inactiveReasonType: InactiveReasonType;
+  deletedReason?: DeletedReason;
   mergeDemergeTo?: string[];
 };
 

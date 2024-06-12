@@ -20,6 +20,7 @@ export type CpdStatus =
   | 'Close to Standard'
   | 'Standard'
   | 'Outlier'
+  | 'Outlier (high value)'
   | 'Unknown';
 
 export type CpdReport = {
@@ -73,7 +74,7 @@ export type ProteomesAPIModel = {
   proteomeType: ProteomeType;
   components?: Component[];
   exclusionReasons?: string[];
-  citations: Citation[];
+  citations?: Citation[];
   annotationScore: AnnotationScoreValue;
   superkingdom: string;
   proteomeCompletenessReport?: ProteomeCompletenessReport;
