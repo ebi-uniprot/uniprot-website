@@ -1,4 +1,4 @@
-import { getOtherDiffs } from '../History';
+import { getOtherDiffs } from '../history/History';
 
 describe('getOtherDiffs', () => {
   test('the case the first version is greater than second version, should return empty array', () => {
