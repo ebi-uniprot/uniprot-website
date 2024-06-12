@@ -152,9 +152,6 @@ const getConfigFor = ({
             // We use realpathSync otherwise doesn't work with symlinks
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
-            fs.realpathSync(
-              `${__dirname}/node_modules/tippy.js/dist/tippy.css`
-            ),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
           ],
           use: [
