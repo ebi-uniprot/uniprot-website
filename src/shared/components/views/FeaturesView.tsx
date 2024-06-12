@@ -103,7 +103,7 @@ const FeaturesView = <T extends GenericFeature>({
               <Fragment key={featureType}>
                 {i > 0 && ', '}
                 {featureType === 'Other' ? (
-                  featureType.toLowerCase()
+                  'other'
                 ) : (
                   <span data-article-id={FeatureTypeHelpMappings[featureType]}>
                     {featureType.toLowerCase()}

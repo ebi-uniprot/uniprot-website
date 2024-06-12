@@ -466,12 +466,13 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
-          {!isObsolete && (
+          {!isObsolete && data.sequence && (
             <>
               {displayDownloadPanel && (
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                  sequence={data.sequence.value}
                 />
               )}
               <div className="button-group">
@@ -539,7 +540,8 @@ const Entry = () => {
               )}
             >
               Variant viewer
-              {!mediumScreen &&
+              {data.sequence &&
+                !mediumScreen &&
                 importedVariants !== 'loading' &&
                 importedVariants > 0 && (
                   <>
@@ -564,11 +566,13 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <VariationViewerTab
-                importedVariants={importedVariants}
-                primaryAccession={accession}
-                title="Variants"
-              />
+              {data.sequence && (
+                <VariationViewerTab
+                  importedVariants={importedVariants}
+                  primaryAccession={accession}
+                  title="Variants"
+                />
+              )}
             </ErrorBoundary>
           </Suspense>
         </Tab>
@@ -610,10 +614,13 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewerTab
-                  accession={accession}
-                  importedVariants={importedVariants}
-                />
+                {data.sequence && (
+                  <FeatureViewerTab
+                    accession={accession}
+                    importedVariants={importedVariants}
+                    sequence={data.sequence.value}
+                  />
+                )}
               </ErrorBoundary>
             </Suspense>
           )}

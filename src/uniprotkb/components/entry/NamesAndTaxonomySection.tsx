@@ -48,9 +48,13 @@ const NamesAndTaxonomySection = ({
         groupBy(
           references
             ?.flatMap((ref) =>
-              // Only get comments refering to strains
+              // Only get comments refering to strains that come from the sequence
               ref.referenceComments?.filter(
-                (refComm) => refComm.type === 'STRAIN'
+                (refComm) =>
+                  refComm.type === 'STRAIN' &&
+                  ref.referencePositions?.findIndex((item) =>
+                    item.includes('SEQUENCE')
+                  ) !== -1
               )
             )
             .filter(

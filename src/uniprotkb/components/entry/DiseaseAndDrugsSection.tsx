@@ -25,7 +25,7 @@ import variantsImg from '../../../images/variants.jpg';
 type Props = {
   data: UIModel;
   primaryAccession: string;
-  sequence: string;
+  sequence?: string;
   taxId: number | undefined;
   importedVariants: number | 'loading';
 };

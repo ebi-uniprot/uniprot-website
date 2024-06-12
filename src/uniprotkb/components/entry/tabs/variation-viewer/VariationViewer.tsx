@@ -214,7 +214,6 @@ const VariationViewer = ({
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
-
   if (!shouldRender) {
     return (
       <div className="wider-tab-content hotjar-margin">

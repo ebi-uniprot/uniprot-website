@@ -2272,8 +2272,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_gener
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genetree": xref_genetree 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_genevisible": xref_genevisible 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_genewiki": xref_genewiki 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genomernai": xref_genomernai 1`] = `<DocumentFragment />`;
@@ -2317,8 +2315,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_japon
 exports[`UniProtKBColumnConfiguration component should render column "xref_jpost": xref_jpost 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_kegg": xref_kegg 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_ko": xref_ko 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_legiolist": xref_legiolist 1`] = `<DocumentFragment />`;
 
@@ -2458,8 +2454,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_strin
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_supfam": xref_supfam 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_swiss-2dpage": xref_swiss-2dpage 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_swisslipids": xref_swisslipids 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_swisspalm": xref_swisspalm 1`] = `<DocumentFragment />`;
@@ -2473,8 +2467,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_topdo
 exports[`UniProtKBColumnConfiguration component should render column "xref_treefam": xref_treefam 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_tuberculist": xref_tuberculist 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_ucd-2dpage": xref_ucd-2dpage 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ucsc": xref_ucsc 1`] = `<DocumentFragment />`;
 
@@ -2491,8 +2483,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_veupa
 exports[`UniProtKBColumnConfiguration component should render column "xref_vgnc": xref_vgnc 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_wbparasite": xref_wbparasite 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_world-2dpage": xref_world-2dpage 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_wormbase": xref_wormbase 1`] = `<DocumentFragment />`;
 

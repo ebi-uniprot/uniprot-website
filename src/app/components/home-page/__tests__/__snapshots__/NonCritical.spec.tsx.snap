@@ -438,6 +438,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2024-05-29-release"
+              >
+                UniProt release 2024_03
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              The culprit for extreme morning sickness identified | Removal of the cross-references to Genevisible | Removal of the cross-references to SWISS-2DPAGE
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2024-03-27-release"
               >
                 UniProt release 2024_02
@@ -665,17 +683,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/268/"
+          href="https://www.proteinspotlight.org/back_issues/269/"
           rel="noopener"
           target="_blank"
         >
-          Mouths, enemies and spit
+          A motherly mesh
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/268/"
+        href="https://www.proteinspotlight.org/back_issues/269/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -684,14 +702,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt268.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt269.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Our  mouths  are  teeming  with  inhabitants  of  the  most  diverse  origin.  Bacteria  and  fungi  for  one,  but  all  sorts  of  various-sized  peptides  too,  each  of  which  carry  out  various  tasks...
+          Toxic  waste.  Since  the  19th  century,  our  species  has  had  to  find  ways  of  scrapping  industrial  detritus  which  is  frequently  dangerous.  So,  we  dig  deep  down  into  the  earth  and  leave  the  nasty  stuff  there  or  we  build  thick  crusts  of  cement  around  it...
       </p>
     </article>
   </section>
