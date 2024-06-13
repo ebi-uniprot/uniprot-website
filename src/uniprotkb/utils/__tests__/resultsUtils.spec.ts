@@ -10,6 +10,7 @@ import { ReceivedFieldData } from '../../types/resultsTypes';
 import resultFields from '../../__mocks__/resultFields';
 import { Interactant } from '../../adapters/interactionConverter';
 import { InteractionType } from '../../types/commentTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 describe('getSortableColumnToSortColumn', () => {
   it('should return columns with the sortField property', () => {
@@ -49,13 +50,31 @@ describe('getSortableColumnToSortColumn', () => {
 describe('isInvalidSearchFieldQueryWithColon', () => {
   it('should return true with invalid field error and colon in query string', () => {
     expect(
-      isInvalidSearchFieldQueryWithColon('PTHR34313:SF2', [
+      isInvalidSearchFieldQueryWithColon(Namespace.uniprotkb, 'PTHR34313:SF2', [
         "'PTHR34313' is not a valid search field",
       ])
     ).toBe(true);
   });
-  it('should return false with no error and no colon in query string', () => {
-    expect(isInvalidSearchFieldQueryWithColon('P05067', [])).toBe(false);
+  it('should return false when there are no API error message', () => {
+    expect(
+      isInvalidSearchFieldQueryWithColon(
+        Namespace.uniprotkb,
+        'PTHR34313:SF2',
+        []
+      )
+    ).toBe(false);
+  });
+  it('should return false when not in uniprotkb namespace', () => {
+    expect(
+      isInvalidSearchFieldQueryWithColon(Namespace.uniparc, 'PTHR34313:SF2', [
+        "'PTHR34313' is not a valid search field",
+      ])
+    ).toBe(false);
+  });
+  it('should return false when not in uniprotkb namespace', () => {
+    expect(
+      isInvalidSearchFieldQueryWithColon(Namespace.uniprotkb, 'P05067', ['foo'])
+    ).toBe(false);
   });
 });
 
