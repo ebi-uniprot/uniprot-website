@@ -152,3 +152,16 @@ export const sortInteractionData = (
     }
     return 1;
   });
+
+const invalidSearchFieldMessage = 'is not a valid search field';
+export const isInvalidSearchFieldQueryWithColon = (
+  query: string,
+  errorMessages?: string[]
+) =>
+  Boolean(
+    query.includes(':') &&
+      errorMessages?.some((m) => m.endsWith(invalidSearchFieldMessage))
+  );
+
+export const escapeInvalidSearchFieldQueryWithColon = (query: string) =>
+  query.replace(':', '\\:');

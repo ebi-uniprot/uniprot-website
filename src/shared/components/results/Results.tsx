@@ -6,6 +6,7 @@ import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNSQuery from '../../hooks/useNSQuery';
 import useItemSelect from '../../hooks/useItemSelect';
 import usePagination from '../../hooks/usePagination';
+import useDataApi from '../../hooks/useDataApi';
 
 import HTMLHead from '../HTMLHead';
 import ResultsData from './ResultsData';
@@ -18,14 +19,18 @@ import ResultsDataHeader from './ResultsDataHeader';
 import SearchSuggestions from './SearchSuggestions';
 import DidYouMean from './DidYouMean';
 
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import {
+  escapeInvalidSearchFieldQueryWithColon,
+  getParamsFromURL,
+  isInvalidSearchFieldQueryWithColon,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import {
   searchableNamespaceLabels,
   SearchableNamespace,
   Namespace,
 } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
+import { SearchResults, Suggestion } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
 
 const Results = () => {
@@ -72,6 +77,35 @@ const Results = () => {
 
   const [params] = getParamsFromURL(search);
 
+  // Some cross references legitimately have colons in their ids eg PTHR34313:SF2
+  // The API returns "'PTHR34313' is not a valid search field" on those occassions
+  // so to assist the users, escape the colon PTHR34313\:SF2 and try a head request.
+  // If something found then suggest this with the DidYouMean suggestions.
+  const invalidSearchFieldQueryWithColon = isInvalidSearchFieldQueryWithColon(
+    params.query,
+    facetApiObject?.error?.response?.data?.messages
+  );
+  const escapedColonQuery = escapeInvalidSearchFieldQueryWithColon(
+    params.query
+  );
+  const escapedColonQueryUrl = useNSQuery(
+    invalidSearchFieldQueryWithColon
+      ? {
+          overrideQuery: escapedColonQuery,
+          withFacets: false,
+          size: 0,
+        }
+      : undefined
+  );
+  const escapedColonQueryData = useDataApi(
+    invalidSearchFieldQueryWithColon ? escapedColonQueryUrl : null,
+    {
+      method: 'HEAD',
+    }
+  );
+  const escapedColonQueryTotal =
+    escapedColonQueryData?.headers?.['x-total-results'];
+
   const helmet = ns && (
     <HTMLHead
       title={`${params.query} in ${
@@ -92,7 +126,12 @@ const Results = () => {
     </HTMLHead>
   );
 
-  if (facetInitialLoading && resultsDataInitialLoading && !facetHasStaleData) {
+  if (
+    facetInitialLoading &&
+    resultsDataInitialLoading &&
+    !facetHasStaleData &&
+    escapedColonQueryData.loading
+  ) {
     return (
       <>
         {helmet}
@@ -101,7 +140,11 @@ const Results = () => {
     );
   }
 
-  if (!resultsDataObject.allResults.length && resultsDataObject.error) {
+  if (
+    !resultsDataObject.allResults.length &&
+    resultsDataObject.error &&
+    !invalidSearchFieldQueryWithColon
+  ) {
     return (
       <ErrorHandler
         status={resultsDataObject.status}
@@ -111,7 +154,15 @@ const Results = () => {
     );
   }
 
-  const { suggestions } = facetApiObject.data || {};
+  const suggestions: Suggestion[] =
+    (!facetHasStaleData && facetApiObject.data?.suggestions) || [];
+
+  if (escapedColonQueryTotal) {
+    suggestions.unshift({
+      query: escapedColonQuery,
+      hits: escapedColonQueryTotal,
+    });
+  }
 
   if (
     (!resultsDataInitialLoading && !facetInitialLoading && !total) ||
