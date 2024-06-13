@@ -94,6 +94,10 @@
       "prettier --write"
     ]
   },
+  "resolutions": {
+    "wrap-ansi": "7.0.0",
+    "string-width": "4.1.0"
+  },
   "dependencies": {
     "@hello-pangea/dnd": "16.5.0",
     "@lit/react": "1.0.4",
