@@ -47,7 +47,7 @@ const DatatableWrapper = ({
     // except on first render or when always expanded
     if (!alwaysExpanded && !firstRenderRef.current) {
       // Scroll table back into view when collapsing
-      if (expandTable === true) {
+      if (expandTable === false) {
         tableRef.current?.parentElement?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
