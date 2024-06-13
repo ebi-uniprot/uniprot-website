@@ -46,7 +46,9 @@ export const prepareData = (suggestions: Suggestion[]) =>
     })
   );
 
-const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
+const AutocompleteWrapper: FC<
+  React.PropsWithChildren<AutocompleteWrapperProps>
+> = ({
   url,
   onSelect,
   title,

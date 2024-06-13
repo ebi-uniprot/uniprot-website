@@ -120,7 +120,7 @@ type ClauseListProps = {
   removeClause: RemoveClause;
 };
 
-const ClauseList: FC<ClauseListProps> = ({
+const ClauseList: FC<React.PropsWithChildren<ClauseListProps>> = ({
   clauses,
   setClauses,
   searchTerms,

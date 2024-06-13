@@ -2,7 +2,7 @@
  * This tries to follow what is detailed here:
  * https://testing-library.com/docs/react-testing-library/setup#custom-render
  */
-import { ReactElement, Component, Dispatch } from 'react';
+import { ReactElement, Component, Dispatch, ReactNode } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
 import { HelmetProvider } from 'react-helmet-async';
@@ -42,7 +42,7 @@ type ExtraRenderOptions = {
   toolsDispatch?: jest.Mock<Dispatch<ToolsAction>>;
 };
 
-type WrapperProps = RenderOptions &
+type WrapperProps = { children: ReactNode } & RenderOptions &
   SetRequired<
     ExtraRenderOptions,
     | 'history'

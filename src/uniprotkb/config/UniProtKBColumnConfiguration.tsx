@@ -1568,7 +1568,7 @@ const getXrefColumn = (databaseName: string) => {
     );
   };
   return {
-    label: () => <Label />,
+    label: <Label />,
     render: (data: UniProtkbUIModel) => <Renderer data={data} />,
   };
 };

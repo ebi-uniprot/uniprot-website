@@ -8,7 +8,7 @@ import {
   ChangeEvent,
   useCallback,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import {
   DownloadIcon,
   // StatisticsIcon,
@@ -80,7 +80,9 @@ type ResultsButtonsProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
 };
 
-const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
+const ResultsButtons: FC<
+  React.PropsWithChildren<ResultsButtonsProps<JobTypes>>
+> = ({
   selectedEntries,
   setSelectedEntries,
   total,
@@ -109,6 +111,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
     useColumnNames({ namespaceOverride });
   const history = useHistory();
+  const { pathname } = useLocation();
   const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
@@ -199,6 +202,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
             // Meaning, in basket mini view, slide from the right
             position={inBasketMini ? 'right' : 'left'}
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <DownloadComponent

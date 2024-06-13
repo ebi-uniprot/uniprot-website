@@ -1,5 +1,5 @@
 import { useState, Suspense } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import {
   Button,
@@ -132,6 +132,7 @@ const ResultButtons = ({
   nHits,
   isTableResultsFiltered,
 }: ResultButtonsProps<JobTypes>) => {
+  const { pathname } = useLocation();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   return (
@@ -141,6 +142,7 @@ const ResultButtons = ({
           <SlidingPanel
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <ResultDownload

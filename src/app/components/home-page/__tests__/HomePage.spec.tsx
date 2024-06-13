@@ -24,14 +24,13 @@ describe('HomePage component', () => {
 
   it('should change the text when selecting a different namespace', async () => {
     expect(
-      screen.getByRole('heading', { name: 'Find your protein', exact: true })
+      await screen.findByRole('heading', { name: 'Find your protein' })
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'UniProtKB' }));
-    fireEvent.click(screen.getByRole('button', { name: 'UniRef' }));
+    fireEvent.click(await screen.findByRole('button', { name: /UniProtKB/ }));
+    fireEvent.click(await screen.findByRole('button', { name: /UniRef/ }));
     expect(
       await screen.findByRole('heading', {
         name: 'Find your protein cluster',
-        exact: true,
       })
     ).toBeInTheDocument();
   });

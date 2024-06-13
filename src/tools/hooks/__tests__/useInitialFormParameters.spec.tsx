@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+import { waitFor } from '@testing-library/react';
 import getCustomRenderHook from '../../../shared/__test-helpers__/customRenderHook';
 
 import useInitialFormParameters from '../useInitialFormParameters';
@@ -41,7 +42,7 @@ describe('useInitialFormParameters: Align', () => {
     axiosMock
       .onGet(/\/uniprotkb\/accessions/)
       .reply(200, '>sp|P05067|1-10\nMLPGLALLLL');
-    const { result, waitForNextUpdate } = customRenderHook(
+    const { result } = customRenderHook(
       stringifyUrl(LocationToPath[Location.Blast], {
         ids: 'P05067[1-10]',
       }),
@@ -49,16 +50,17 @@ describe('useInitialFormParameters: Align', () => {
         parameters: { sequence },
       }
     );
-    await waitForNextUpdate();
-    expect(result.current.initialFormValues).toEqual({
-      ...defaultAlignFormValues,
-      Name: { fieldName: 'name', selected: 'sp|P05067|1-10' },
-      Sequence: {
-        fieldName: 'sequence',
-        selected: '>sp|P05067|1-10\nMLPGLALLLL',
-      },
+    waitFor(() => {
+      expect(result.current.initialFormValues).toEqual({
+        ...defaultAlignFormValues,
+        Name: { fieldName: 'name', selected: 'sp|P05067|1-10' },
+        Sequence: {
+          fieldName: 'sequence',
+          selected: '>sp|P05067|1-10\nMLPGLALLLL',
+        },
+      });
+      expect(result.current.loading).toBe(false);
     });
-    expect(result.current.loading).toBe(false);
   });
 });
 

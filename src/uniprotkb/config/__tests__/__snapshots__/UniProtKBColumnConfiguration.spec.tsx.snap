@@ -689,47 +689,12 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
       </span>
     </li>
     <li>
-      <span>
-        disruption phenotype (2)
-      </span>
-    </li>
-    <li>
-      <span>
-        interaction (2)
-      </span>
-    </li>
-    <li>
-      <span>
-        mass spectrometry (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        rna editing (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        sequence caution (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        subcellular location (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        web resource (1)
-      </span>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less comments
+        7 more comments
       </button>
     </li>
   </ul>
@@ -1128,82 +1093,12 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec-ex
       )
     </li>
     <li>
-      EC:1.2.3.4 (
-      <a
-        href="/uniprotkb?query=ec:1.2.3.4"
-      >
-        UniProtKB
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/1.2.3.4"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </li>
-    <li>
-      EC:1.2.3.3 (
-      <a
-        href="/uniprotkb?query=ec:1.2.3.3"
-      >
-        UniProtKB
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/1.2.3.3"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less items
+        More items
       </button>
     </li>
   </ul>
@@ -1797,40 +1692,12 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_doi_id
       </a>
     </li>
     <li>
-      <a
-        class="external-link"
-        href="https://dx.doi.org/doiId"
-        rel="noopener"
-        target="_blank"
-      >
-        doiId
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-    </li>
-    <li>
-      <a
-        class="external-link"
-        href="https://dx.doi.org/doiId"
-        rel="noopener"
-        target="_blank"
-      >
-        doiId
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less IDs
+        2 more IDs
       </button>
     </li>
   </ul>
@@ -1931,26 +1798,12 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
       </a>
     </li>
     <li>
-      <a
-        href="/citations/12345"
-      >
-        12345
-      </a>
-    </li>
-    <li>
-      <a
-        href="/citations/12345"
-      >
-        12345
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less IDs
+        2 more IDs
       </button>
     </li>
   </ul>
@@ -2051,13 +1904,14 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_na
     >
       rec full Name
     </span>
-    , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1, Cleaved into: 
-    <span
-      style="font-weight: bolder;"
+    <button
+      aria-expanded="false"
+      class="button tertiary ellipsis-reveal"
+      title="Show more"
+      type="button"
     >
-      containsrec full Name
-    </span>
-    , containsrecommended short name, 1.2.3.4, containsa full alt Name, containsshort alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen
+      [...]
+    </button>
   </span>
 </DocumentFragment>
 `;

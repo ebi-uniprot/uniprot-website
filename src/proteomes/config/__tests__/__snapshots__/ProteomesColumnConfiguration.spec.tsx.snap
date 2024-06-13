@@ -75,75 +75,12 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 5
     </li>
     <li>
-      Chromosome 6
-    </li>
-    <li>
-      Chromosome 7
-    </li>
-    <li>
-      Chromosome 8
-    </li>
-    <li>
-      Chromosome 9
-    </li>
-    <li>
-      Chromosome 10
-    </li>
-    <li>
-      Chromosome X
-    </li>
-    <li>
-      Chromosome 11
-    </li>
-    <li>
-      Chromosome 12
-    </li>
-    <li>
-      Chromosome 13
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 15
-    </li>
-    <li>
-      Chromosome 16
-    </li>
-    <li>
-      Chromosome 17
-    </li>
-    <li>
-      Chromosome 18
-    </li>
-    <li>
-      Chromosome 19
-    </li>
-    <li>
-      Chromosome 20
-    </li>
-    <li>
-      Chromosome 21
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome Y
-    </li>
-    <li>
-      Mitochondrion MT
-    </li>
-    <li>
-      Unplaced
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less components
+        21 more components
       </button>
     </li>
   </ul>

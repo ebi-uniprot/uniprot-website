@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InPageNav component should render 1`] = `
+<DocumentFragment>
+  <ul
+    class="in-page-nav"
+  >
+    <div
+      class="marker"
+    />
+    <li
+      class=""
+    >
+      <a
+        class="active"
+        href="/#id1"
+      >
+        First link
+      </a>
+    </li>
+    <li
+      class=""
+    >
+      <a
+        class=""
+        href="/#id2"
+      >
+        Second link
+      </a>
+    </li>
+    <li
+      class=""
+    >
+      <a
+        class=""
+        href="/#id3"
+      >
+        Third link
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;

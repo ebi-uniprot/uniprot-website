@@ -105,7 +105,7 @@ const getConfigFor = ({
         {
           test: /\.(js|jsx|tsx|ts)$/,
           exclude:
-            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
+            /node_modules\/((?!@nightingale-elements\/nightingale-msa|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -134,14 +134,6 @@ const getConfigFor = ({
               plugins: ['@babel/plugin-transform-runtime'],
             },
           },
-        },
-        /**
-         * Worker required for msa-react-viewer. Gustavo looking at
-         * making dependency optional
-         * */
-        {
-          test: /\.worker\.js$/,
-          use: { loader: 'worker-loader' },
         },
         // Stylesheets
         {
@@ -229,11 +221,6 @@ const getConfigFor = ({
           exclude: /node_modules/,
           failOnError: true,
         }),
-      // Needed for 'react-msa-viewer' as of June 1st 2021
-      new ProvidePlugin({
-        assert: 'assert',
-        process: 'process/browser',
-      }),
       !isLiveReload &&
         isModern &&
         // Copy static (or near-static) files

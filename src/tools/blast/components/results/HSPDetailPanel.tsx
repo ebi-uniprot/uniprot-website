@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Loader, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -80,6 +81,7 @@ const HSPDetailPanel = ({
   queryLength,
   namespace,
 }: HSPDetailPanelProps) => {
+  const { pathname } = useLocation();
   const { hsp_align_len } = hsp;
   let url = apiUrls.entry.entry(hitAccession, namespace);
   if (namespace === Namespace.uniref) {
@@ -142,6 +144,7 @@ const HSPDetailPanel = ({
       position="bottom"
       className={containerClass}
       onClose={onClose}
+      pathname={pathname}
     >
       <ErrorBoundary>{content}</ErrorBoundary>
     </SlidingPanel>

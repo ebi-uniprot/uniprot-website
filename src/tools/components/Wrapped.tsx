@@ -6,6 +6,7 @@ import {
   SetStateAction,
   Dispatch,
   useEffect,
+  lazy,
 } from 'react';
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
@@ -31,10 +32,18 @@ import {
   ConservationOptions,
   MSAInput,
   NightingaleChangeEvent,
+  OnMSAFeatureClick,
   UpdateTooltip,
 } from '../types/alignment';
 
-const widthOfAA = 20;
+const NightingaleMSA = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "nightingale-msa" */ '../../shared/custom-elements/NightingaleMSA'
+    )
+);
+
+const widthOfAA = 18;
 
 export type Sequence = {
   name: string;
@@ -54,7 +63,6 @@ type Chunk = {
 };
 
 export type WrappedRowProps = {
-  rowLength: number;
   highlightProperty: MsaColorScheme | undefined;
   conservationOptions: ConservationOptions;
   annotation: FeatureType | undefined;
@@ -69,7 +77,8 @@ export type WrappedRowProps = {
   selectedMSAFeatures?: MSAFeature[];
   activeAnnotation: ProcessedFeature[];
   activeAlignment?: MSAInput;
-  onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
+  onMSAFeatureClick: OnMSAFeatureClick;
+  lastRow?: boolean;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -79,9 +88,9 @@ const heightStyle = { height: `${sequenceHeight}px` };
 export const handleEvent =
   (updateTooltip: UpdateTooltip) =>
   (event: CustomEvent<NightingaleChangeEvent>) => {
+    event.stopPropagation();
     if (event?.detail?.eventtype === 'click') {
       updateTooltip({
-        event,
         id: event.detail.feature.protvistaFeatureId,
         x: event.detail.coords[0],
         y: event.detail.coords[1],
@@ -90,7 +99,6 @@ export const handleEvent =
   };
 
 export const WrappedRow = ({
-  rowLength,
   highlightProperty,
   conservationOptions,
   annotation,
@@ -106,36 +114,8 @@ export const WrappedRow = ({
   activeAlignment,
   selectedMSAFeatures,
   onMSAFeatureClick,
+  lastRow,
 }: WrappedRowProps) => {
-  const msaElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
-    'protvista-msa'
-  );
-  const setMSAAttributes = useCallback(
-    (node): void => {
-      if (node && msaElement.defined) {
-        // Just pick the sequence from the object as it's the only thing needed
-        node.data = sequences.map(({ sequence }) => ({ sequence }));
-        node.features = selectedMSAFeatures?.map((f) => ({
-          ...f,
-          residues: {
-            from: f.residues.from - trackStart + 1,
-            to: f.residues.to - trackStart + 1,
-          },
-        }));
-        node.onFeatureClick = onMSAFeatureClick;
-      }
-    },
-    [
-      msaElement.defined,
-      onMSAFeatureClick,
-      selectedMSAFeatures,
-      sequences,
-      trackStart,
-    ]
-  );
-
   const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
@@ -143,7 +123,7 @@ export const WrappedRow = ({
   );
 
   const setFeatureTrackData = useCallback(
-    (node): void => {
+    (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
       if (node && trackElement.defined && activeAlignment?.sequence) {
         node.data = activeAnnotation
           .map((f) =>
@@ -162,12 +142,25 @@ export const WrappedRow = ({
     // -> to keep the right column of the right size to fit all possible values
     [activeAlignment, activeAnnotation, trackElement.defined]
   );
-  if (!(msaElement.defined && trackElement.defined)) {
+
+  if (!trackElement.defined) {
     return <Loader />;
   }
+
+  // Using just the sequences resulted in occassional off by one errors so do this only for
+  // the last row which will most likely be less than trackEnd - trackStart
+  const width =
+    (lastRow
+      ? Math.max(...sequences.map(({ start, end }) => end - start))
+      : trackEnd - trackStart) * widthOfAA;
+  const length = trackEnd - trackStart + 1;
+
   return (
     <>
-      <div className="track-label track-label--align-labels">
+      <div
+        className="track-label track-label--align-labels"
+        style={{ bottom: 7, position: 'relative' }}
+      >
         {sequences.map((s) => (
           <AlignLabel
             accession={s.accession}
@@ -186,19 +179,36 @@ export const WrappedRow = ({
           </AlignLabel>
         ))}
       </div>
-      <div className="track">
+      <div className="track" style={{ width }}>
         {!delayRender && (
-          <msaElement.name
-            ref={setMSAAttributes}
-            length={rowLength}
+          <NightingaleMSA
+            margin-left={0}
+            margin-right={0}
+            length={length}
             height={sequences.length * sequenceHeight}
-            colorscheme={highlightProperty}
-            hidelabel
+            width={width}
+            tile-width={widthOfAA}
+            tile-height={sequenceHeight}
+            color-scheme={highlightProperty}
+            display-start={1}
+            display-end={length}
+            features={selectedMSAFeatures?.map((f) => ({
+              ...f,
+              residues: {
+                from: f.residues.from - trackStart + 1,
+                to: f.residues.to - trackStart + 1,
+              },
+            }))}
+            data={sequences.map(({ sequence, name }) => ({
+              sequence,
+              name,
+            }))}
+            onFeatureClick={onMSAFeatureClick}
             {...conservationOptions}
           />
         )}
       </div>
-      <span className="right-coord">
+      <span className="right-coord" style={{ bottom: 2, position: 'relative' }}>
         {sequences.map((s) => (
           <div style={heightStyle} key={s.name}>
             {s.end}
@@ -210,13 +220,13 @@ export const WrappedRow = ({
           activeAlignment?.accession &&
           `${activeAlignment?.accession}:${annotation}`}
       </span>
-      <div className="track annotation-track">
+      <div className="track annotation-track" style={{ width }}>
         {annotation && !delayRender && (
           <trackElement.name
             ref={setFeatureTrackData}
             displaystart={trackStart}
             displayend={trackEnd}
-            length={trackEnd - trackStart + 1}
+            length={length}
             layout="non-overlapping"
           />
         )}
@@ -264,11 +274,24 @@ const Wrapped = ({
   const debouncedSetRowLength = useMemo(
     () =>
       debounce((width: number) => {
-        // using 9 tenths of the available size as its the proportion assigned
-        // to the track in the CSS
-        setRowLength(Math.floor((0.9 * width) / widthOfAA));
-      }, 1000),
-    [setRowLength]
+        // Determine width of left/rigth labels and subtract from total width.
+        // Unfortunately this causes the initial render to be a little off then this corrects itself.
+        const leftLabelChars = Math.max(
+          ...alignment.map(({ name }) => name?.length || 0)
+        );
+        const rightLabelChars = alignment[0].length.toString().length;
+
+        const leftLabelWidth =
+          document.querySelector('.track-label')?.getBoundingClientRect()
+            .width || 8.5 * leftLabelChars;
+        const rightLabelWidth =
+          document.querySelector('.right-coord')?.getBoundingClientRect()
+            .width || 8.5 * rightLabelChars;
+        setRowLength(
+          Math.floor((width - leftLabelWidth - rightLabelWidth) / widthOfAA)
+        );
+      }, 500),
+    [alignment, setRowLength]
   );
 
   if (size?.width) {
@@ -329,7 +352,6 @@ const Wrapped = ({
       {sequenceChunks.map(({ sequences, id, trackStart, trackEnd }, index) => (
         <WrappedRow
           key={id}
-          rowLength={rowLength}
           sequences={sequences}
           annotation={annotation}
           highlightProperty={highlightProperty}
@@ -345,6 +367,7 @@ const Wrapped = ({
           activeAlignment={activeAlignment}
           selectedMSAFeatures={selectedMSAFeatures}
           onMSAFeatureClick={onMSAFeatureClick}
+          lastRow={index === sequenceChunks.length - 1}
         />
       ))}
     </div>

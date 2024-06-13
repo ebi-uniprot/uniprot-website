@@ -49,13 +49,11 @@ exports[`DiseasesCard tests should render the card component 1`] = `
       class="card__actions"
     >
       <a
-        class="card-action"
         href="/uniprotkb?query=%28cc_disease%3ADI-01559%29"
       >
         1 UniProtKB entry
       </a>
       <a
-        class="card-action"
         href="/uniprotkb?query=%28cc_disease%3ADI-01559%29+AND+%28reviewed%3Atrue%29"
       >
         1 reviewed UniProtKB entry

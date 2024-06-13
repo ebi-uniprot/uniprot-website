@@ -12,7 +12,7 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useMatchMedia from '../../hooks/useMatchMedia';
 import useStructuredData from '../../hooks/useStructuredData';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import description from '../../../app/config/description';
 import * as socialUrls from '../../../app/config/socialUrls';
 
@@ -149,13 +149,15 @@ const UniProtHeader = () => {
     <Header
       isNegative={isHomePage}
       search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
-      logo={
-        <div
-          className={cn(styles.logo, {
-            [styles.home]: isHomePage,
-          })}
-          aria-label="UniProt home page"
-        />
+      homepageLink={
+        <Link to={LocationToPath[Location.Home]}>
+          <div
+            className={cn(styles.logo, {
+              [styles.home]: isHomePage,
+            })}
+            aria-label="UniProt home page"
+          />
+        </Link>
       }
       secondaryItems={<SecondaryItems />}
     >

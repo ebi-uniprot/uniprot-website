@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from './app/components/App';
 import GlobalContext from './app/contexts/Global';
@@ -13,13 +13,14 @@ console.info(
   } on ${GIT_BRANCH} branch`
 );
 
-ReactDOM.render(
+const container = document.getElementById('root') as Element;
+const root = createRoot(container);
+root.render(
   <StrictMode>
     <GlobalContext>
       <App />
     </GlobalContext>
-  </StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 );
 
 // These obsolete hosts have been routed to the uniprot.org front-end so that

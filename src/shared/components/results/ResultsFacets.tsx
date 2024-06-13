@@ -1,12 +1,13 @@
 import { memo } from 'react';
-import { Facets, Facet, Loader } from 'franklin-sites';
-
 import { useParams, useRouteMatch } from 'react-router-dom';
-import useNS from '../../hooks/useNS';
+import { Loader } from 'franklin-sites';
 
+import { Facets, Facet } from './Facets';
 import TaxonomyFacet from './TaxonomyFacet';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
+
+import useNS from '../../hooks/useNS';
 
 import {
   mainNamespaces,

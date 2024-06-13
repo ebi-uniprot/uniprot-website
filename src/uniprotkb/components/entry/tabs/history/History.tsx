@@ -1,6 +1,6 @@
 import { Fragment, useMemo, ReactNode, useState, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import {
   Button,
   Card,
@@ -280,6 +280,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
 
 const getIdKey = (entry: UniSaveVersionWithEvents) => `${entry.entryVersion}`;
 
+
 type EntryHistoryListProps = {
   accession: string;
   uniparc?: string;
@@ -291,6 +292,7 @@ const EntryHistoryList = ({
   uniparc,
   reason,
 }: EntryHistoryListProps) => {
+  const location = useLocation();
   const accessionData = useDataApi<UniSaveAccession>(
     apiUrls.unisave.entry(accession)
   );
@@ -412,6 +414,7 @@ const EntryHistoryList = ({
             // Meaning, in basket mini view, slide from the right
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
+            pathname={location.pathname}
           >
             <ErrorBoundary>
               <DownloadComponent
