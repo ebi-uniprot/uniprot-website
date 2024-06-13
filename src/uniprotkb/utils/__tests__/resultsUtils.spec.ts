@@ -50,30 +50,34 @@ describe('getSortableColumnToSortColumn', () => {
 describe('isInvalidSearchFieldQueryWithColon', () => {
   it('should return true with invalid field error and colon in query string', () => {
     expect(
-      isInvalidSearchFieldQueryWithColon(Namespace.uniprotkb, 'PTHR34313:SF2', [
-        "'PTHR34313' is not a valid search field",
-      ])
+      isInvalidSearchFieldQueryWithColon(
+        'PTHR34313:SF2',
+        ["'PTHR34313' is not a valid search field"],
+        Namespace.uniprotkb
+      )
     ).toBe(true);
   });
   it('should return false when there are no API error message', () => {
     expect(
       isInvalidSearchFieldQueryWithColon(
-        Namespace.uniprotkb,
         'PTHR34313:SF2',
-        []
+        [],
+        Namespace.uniprotkb
       )
     ).toBe(false);
   });
   it('should return false when not in uniprotkb namespace', () => {
     expect(
-      isInvalidSearchFieldQueryWithColon(Namespace.uniparc, 'PTHR34313:SF2', [
-        "'PTHR34313' is not a valid search field",
-      ])
+      isInvalidSearchFieldQueryWithColon(
+        'PTHR34313:SF2',
+        ["'PTHR34313' is not a valid search field"],
+        Namespace.uniparc
+      )
     ).toBe(false);
   });
   it('should return false when not in uniprotkb namespace', () => {
     expect(
-      isInvalidSearchFieldQueryWithColon(Namespace.uniprotkb, 'P05067', ['foo'])
+      isInvalidSearchFieldQueryWithColon('P05067', ['foo'], Namespace.uniprotkb)
     ).toBe(false);
   });
 });

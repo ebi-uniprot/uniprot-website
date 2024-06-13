@@ -154,6 +154,7 @@ export const sortInteractionData = (
     return 1;
   });
 
+// To pick up xrefs with colons in their ids eg PTHR34313:SF2
 const invalidSearchFieldMessage = 'is not a valid search field';
 export const isInvalidSearchFieldQueryWithColon = (
   query: string,
@@ -166,5 +167,6 @@ export const isInvalidSearchFieldQueryWithColon = (
       errorMessages?.some((m) => m.endsWith(invalidSearchFieldMessage))
   );
 
+// PTHR34313:SF2 --> PTHR34313\:SF2
 export const escapeInvalidSearchFieldQueryWithColon = (query: string) =>
   query.replace(':', '\\:');
