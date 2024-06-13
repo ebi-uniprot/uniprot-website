@@ -11,6 +11,7 @@ import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
 import { ViewMode } from '../../shared/hooks/useViewMode';
 import { GroupBy } from '../config/apiUrls/groupBy';
+import { Namespace } from '../../shared/types/namespaces';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -156,10 +157,12 @@ export const sortInteractionData = (
 const invalidSearchFieldMessage = 'is not a valid search field';
 export const isInvalidSearchFieldQueryWithColon = (
   query: string,
-  errorMessages?: string[]
+  errorMessages?: string[],
+  namespace?: Namespace
 ) =>
   Boolean(
-    query.includes(':') &&
+    namespace === Namespace.uniprotkb &&
+      query.includes(':') &&
       errorMessages?.some((m) => m.endsWith(invalidSearchFieldMessage))
   );
 

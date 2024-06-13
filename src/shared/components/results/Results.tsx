@@ -83,7 +83,8 @@ const Results = () => {
   // If something found then suggest this with the DidYouMean suggestions.
   const invalidSearchFieldQueryWithColon = isInvalidSearchFieldQueryWithColon(
     params.query,
-    facetApiObject?.error?.response?.data?.messages
+    facetApiObject?.error?.response?.data?.messages,
+    ns
   );
   const escapedColonQuery = escapeInvalidSearchFieldQueryWithColon(
     params.query
