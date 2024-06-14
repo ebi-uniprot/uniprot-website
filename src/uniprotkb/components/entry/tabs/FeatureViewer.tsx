@@ -94,7 +94,7 @@ const FeatureViewer = ({
     [protvistaElement.defined, sequence]
   );
 
-  const onProtvistaUniprotChange = (e: Event) => {
+  const onProtvistaUniprotChange = useCallback((e: Event) => {
     const { detail } = e as CustomEvent;
     if (hideTooltipEvents.has(detail?.eventtype)) {
       hideTooltip.current?.();
@@ -113,12 +113,12 @@ const FeatureViewer = ({
       const content = `${title}${detail.feature.tooltipContent}`;
       hideTooltip.current = showTooltipAtCoordinates(x, y, content);
     }
-  };
+  }, []);
 
   useEffect(() => {
     const ref = protvistaUniprotRef.current;
     ref?.addEventListener('change', onProtvistaUniprotChange);
-  }, [protvistaElement]);
+  }, [onProtvistaUniprotChange, protvistaElement]);
 
   useEffect(
     () => () => {
@@ -128,7 +128,7 @@ const FeatureViewer = ({
         onProtvistaUniprotChange
       );
     },
-    []
+    [onProtvistaUniprotChange]
   );
 
   const searchParams = new URLSearchParams(useLocation().search);
