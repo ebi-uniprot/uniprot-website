@@ -11,6 +11,7 @@ import {
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
 
+import { Region } from '@nightingale-elements/nightingale-msa';
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
@@ -143,10 +144,6 @@ export const WrappedRow = ({
     [activeAlignment, activeAnnotation, trackElement.defined]
   );
 
-  if (!trackElement.defined) {
-    return <Loader />;
-  }
-
   // Using just the sequences resulted in occassional off by one errors so do this only for
   // the last row which will most likely be less than trackEnd - trackStart
   const width =
@@ -154,6 +151,41 @@ export const WrappedRow = ({
       ? Math.max(...sequences.map(({ start, end }) => end - start))
       : trackEnd - trackStart) * widthOfAA;
   const length = trackEnd - trackStart + 1;
+
+  const setMSAAttributes = useCallback(
+    (
+      node: {
+        data: { name: string; sequence: string }[];
+        'display-end'?: number;
+        width: number;
+        features?: Region[];
+      } | null
+    ) => {
+      if (!node) {
+        return;
+      }
+      requestAnimationFrame(() => {
+        node.data = sequences.map(({ sequence, name }) => ({
+          sequence,
+          name,
+        }));
+        node.features = (selectedMSAFeatures || []).map((f) => ({
+          ...f,
+          residues: {
+            from: f.residues.from - trackStart + 1,
+            to: f.residues.to - trackStart + 1,
+          },
+        }));
+        node['display-end'] = length;
+        node.width = width;
+      });
+    },
+    [length, selectedMSAFeatures, sequences, trackStart, width]
+  );
+
+  if (!trackElement.defined) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -182,27 +214,15 @@ export const WrappedRow = ({
       <div className="track" style={{ width }}>
         {!delayRender && (
           <NightingaleMSA
+            ref={setMSAAttributes}
             margin-left={0}
             margin-right={0}
             length={length}
             height={sequences.length * sequenceHeight}
-            width={width}
             tile-width={widthOfAA}
             tile-height={sequenceHeight}
             color-scheme={highlightProperty}
             display-start={1}
-            display-end={length}
-            features={selectedMSAFeatures?.map((f) => ({
-              ...f,
-              residues: {
-                from: f.residues.from - trackStart + 1,
-                to: f.residues.to - trackStart + 1,
-              },
-            }))}
-            data={sequences.map(({ sequence, name }) => ({
-              sequence,
-              name,
-            }))}
             onFeatureClick={onMSAFeatureClick}
             {...conservationOptions}
           />
