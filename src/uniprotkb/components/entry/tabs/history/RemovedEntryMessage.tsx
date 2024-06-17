@@ -38,7 +38,7 @@ const RemovedEntryHeading = ({
         search: stringifyQuery({ query: accession, direct: true }),
       };
   return (
-    <h4>
+    <h4 data-article-id="deleted_accessions">
       This entry is no longer annotated in UniProtKB and can be found in{' '}
       <Link to={uniParcLink}>UniParc</Link>.
     </h4>
@@ -80,7 +80,7 @@ const RemovedEntryMessage = ({
   return (
     <>
       <RemovedEntryHeading accession={accession} uniparc={uniparc} />
-      {children ||
+      {/* {children ||
         (reason?.deletedReason && (
           <div>
             Reason:{' '}
@@ -88,7 +88,7 @@ const RemovedEntryMessage = ({
               {reason.deletedReason}
             </strong>
           </div>
-        ))}
+        ))} */}
       {release && (
         <div>
           Since release: <strong>{release}</strong>
