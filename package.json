@@ -4,9 +4,6 @@
   "private": true,
   "homepage": "https://ebi-uniprot.github.io/uniprot-website/",
   "license": "MIT",
-  "engines": {
-    "node": ">=22.0.0"
-  },
   "scripts": {
     "start": "npm run start:prod",
     "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/api --mode development",
