@@ -70,10 +70,12 @@ const RemovedEntryMessage = ({
   accession,
   uniparc,
   release,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   children,
 }: RemovedEntryMessageProps) => {
   let helpArticleLink = 'deleted_accessions';
   if (reason?.deletedReason) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     helpArticleLink += `#${reasonToFragment[reason.deletedReason]}`;
   }
 
