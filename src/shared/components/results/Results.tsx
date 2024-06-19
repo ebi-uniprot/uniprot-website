@@ -104,8 +104,9 @@ const Results = () => {
       method: 'HEAD',
     }
   );
-  const escapedColonQueryTotal =
+  const xTotalResults: string | undefined =
     escapedColonQueryData?.headers?.['x-total-results'];
+  const escapedColonQueryTotal = xTotalResults ? +xTotalResults : 0;
 
   const helmet = ns && (
     <HTMLHead
