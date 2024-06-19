@@ -30,7 +30,7 @@ const AlignmentOverviewTrack = ({
   );
 
   const setTrackData = useCallback(
-    (node): void => {
+    (node: { data: SegmentTrackData[] }): void => {
       if (node && trackElement.defined) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;

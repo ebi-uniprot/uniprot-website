@@ -15,13 +15,13 @@ export type FieldProps = {
   initialValue?: QueryBit;
 };
 
-const Field: FC<FieldProps> = ({
+const Field: FC<React.PropsWithChildren<FieldProps>> = ({
   field,
   handleChange,
   initialValue,
 }: FieldProps) => {
   const { dataType, fieldType, autoComplete } = field;
-  let GenericField: FC<FieldProps>;
+  let GenericField: FC<React.PropsWithChildren<FieldProps>>;
 
   switch (true) {
     case Boolean(autoComplete):

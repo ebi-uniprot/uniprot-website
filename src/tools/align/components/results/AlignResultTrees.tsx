@@ -22,7 +22,7 @@ type AlignResultTreesProps = {
   handleEntrySelection: (rowId: string) => void;
 };
 
-const AlignResultTrees: FC<AlignResultTreesProps> = ({
+const AlignResultTrees: FC<React.PropsWithChildren<AlignResultTreesProps>> = ({
   id,
   sequenceInfo,
   selectedEntries,

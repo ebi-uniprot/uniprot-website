@@ -37,6 +37,7 @@ describe('ProteinProcessingSection', () => {
       { route: `/uniprotkb/P05067/entry` }
     );
     await screen.findByText('PTM/Processing');
+    await screen.findByText('Download');
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -55,6 +56,7 @@ describe('ProteinProcessingSection', () => {
       { route: `/uniprotkb/P05067/entry` }
     );
     await screen.findByText('PTM/Processing');
+    await screen.findByText('Download');
     expect(asFragment()).toMatchSnapshot();
   });
 });

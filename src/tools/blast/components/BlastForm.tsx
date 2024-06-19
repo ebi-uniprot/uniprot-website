@@ -82,10 +82,12 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
-const FormSelect: FC<{
-  formValue: BlastFormValue;
-  updateFormValue: (selected: BlastFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: BlastFormValue;
+    updateFormValue: (selected: BlastFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }

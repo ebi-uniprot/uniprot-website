@@ -10,16 +10,18 @@ import { toolsResultsLocationToLabel } from '../../../app/config/urls';
 
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 
-const ResultsDataHeader: FC<{
-  total?: number;
-  loadedTotal: number;
-  selectedEntries: string[];
-  namespaceOverride?: Namespace;
-  titlePostscript?: ReactNode;
-  accessions?: string[];
-  base?: string;
-  disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
-}> = ({
+const ResultsDataHeader: FC<
+  React.PropsWithChildren<{
+    total?: number;
+    loadedTotal: number;
+    selectedEntries: string[];
+    namespaceOverride?: Namespace;
+    titlePostscript?: ReactNode;
+    accessions?: string[];
+    base?: string;
+    disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
+  }>
+> = ({
   total = 0,
   loadedTotal,
   selectedEntries,

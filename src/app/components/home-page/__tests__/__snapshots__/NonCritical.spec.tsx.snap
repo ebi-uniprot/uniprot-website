@@ -2,47 +2,6 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
-   
-  <div
-    class="uniprot-grid uniprot-grid--centered home-page-section"
-  >
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        classname="message--icon-align-top"
-        height="1.125em"
-        width="1.125em"
-      />
-      <div
-        class="message__title"
-      >
-        <small>
-          Do data resources managed by EMBL-EBI and our collaborators make a difference to your work?
-          <br />
-          Please take 10 minutes to fill in our annual user survey, and help us make the case for why sustaining open data resources is critical for life sciences research.
-          <br />
-          Survey link: 
-          <a
-            class="external-link"
-            href="https://www.surveymonkey.com/r/HJKYKTT?channel=[uniprot]"
-            rel="noopener"
-            target="_blank"
-          >
-            https://www.surveymonkey.com/r/HJKYKTT
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-        </small>
-      </div>
-    </div>
-  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
@@ -52,9 +11,14 @@ exports[`non-critical HomePage component should render 1`] = `
       UniProt core data
     </h2>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
       style="--tile-background: #00639a;"
     >
+      <a
+        aria-hidden="true"
+        href="/uniprotkb"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -67,23 +31,20 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/uniprotkb"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Proteins
-          </h2>
-          <h3
-            class="tile__subtitle small"
-          >
-            UniProt Knowledgebase
-          </h3>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Proteins
+        </h2>
+        <h3
+          class="tile__subtitle small"
+        >
+          UniProt Knowledgebase
+        </h3>
+      </div>
       <small
         class="tile__description"
       >
@@ -127,9 +88,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
       style="--tile-background: #e56358;"
     >
+      <a
+        aria-hidden="true"
+        href="/proteomes?query=*"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -142,23 +108,20 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/proteomes?query=*"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Species
-          </h2>
-          <h3
-            class="tile__subtitle small"
-          >
-            Proteomes
-          </h3>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Species
+        </h2>
+        <h3
+          class="tile__subtitle small"
+        >
+          Proteomes
+        </h3>
+      </div>
       <small
         class="tile__description"
       >
@@ -166,9 +129,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
       style="--tile-background: #f2994c;"
     >
+      <a
+        aria-hidden="true"
+        href="/uniref?query=*"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -181,23 +149,20 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/uniref?query=*"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Protein Clusters
-          </h2>
-          <h3
-            class="tile__subtitle small"
-          >
-            UniRef
-          </h3>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Protein Clusters
+        </h2>
+        <h3
+          class="tile__subtitle small"
+        >
+          UniRef
+        </h3>
+      </div>
       <small
         class="tile__description"
       >
@@ -205,9 +170,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
       style="--tile-background: #88c19d;"
     >
+      <a
+        aria-hidden="true"
+        href="/uniparc?query=*"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -220,23 +190,20 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/uniparc?query=*"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Sequence Archive
-          </h2>
-          <h3
-            class="tile__subtitle small"
-          >
-            UniParc
-          </h3>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Sequence Archive
+        </h2>
+        <h3
+          class="tile__subtitle small"
+        >
+          UniParc
+        </h3>
+      </div>
       <small
         class="tile__description"
       >
@@ -714,9 +681,14 @@ exports[`non-critical HomePage component should render 1`] = `
       Analysis Tools
     </h2>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #00A6D5;"
     >
+      <a
+        aria-hidden="true"
+        href="/blast"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -729,19 +701,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/blast"
-        translate="no"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            BLAST
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          BLAST
+        </h2>
+      </div>
       <small
         class="tile__description"
       >
@@ -749,9 +717,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #B8CE48;"
     >
+      <a
+        aria-hidden="true"
+        href="/align"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -764,19 +737,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/align"
-        translate="no"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Align
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Align
+        </h2>
+      </div>
       <small
         class="tile__description"
       >
@@ -784,9 +753,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #357B92;"
     >
+      <a
+        aria-hidden="true"
+        href="/id-mapping"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -799,18 +773,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/id-mapping"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Search with Lists Map IDs
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Search with Lists Map IDs
+        </h2>
+      </div>
       <small
         class="tile__description"
       >
@@ -818,9 +789,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #A748BD;"
     >
+      <a
+        aria-hidden="true"
+        href="/peptide-search"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -833,18 +809,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/peptide-search"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Search Peptides
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Search Peptides
+        </h2>
+      </div>
       <small
         class="tile__description"
       >
@@ -1015,9 +988,14 @@ exports[`non-critical HomePage component should render 1`] = `
       UniProt data
     </h2>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #4e5a71;"
     >
+      <a
+        aria-hidden="true"
+        href="https://ftp.uniprot.org/pub/databases/uniprot/"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -1030,20 +1008,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
-        class="external-link tile__main-content"
-        href="https://ftp.uniprot.org/pub/databases/uniprot/"
-        rel="noopener"
-        target="_blank"
+      <div
+        class="tile__main-content"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            FTP Download
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          FTP Download
+        </h2>
+      </div>
       <small
         class="tile__description"
       >
@@ -1051,9 +1024,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #4e5a71;"
     >
+      <a
+        aria-hidden="true"
+        href="/help/technical"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -1066,18 +1044,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/help/technical"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Technical Documentation
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Technical Documentation
+        </h2>
+      </div>
       <small
         class="tile__description"
       >
@@ -1085,9 +1060,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #4e5a71;"
     >
+      <a
+        aria-hidden="true"
+        href="/help/programmatic_access"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -1100,18 +1080,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/help/programmatic_access"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Programmatic Access
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Programmatic Access
+        </h2>
+      </div>
       <small
         class="tile__description"
       >
@@ -1119,9 +1096,14 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #4e5a71;"
     >
+      <a
+        aria-hidden="true"
+        href="/help/submissions"
+        tabindex="-1"
+      />
       <div
         aria-hidden="true"
         class="tile__background-image"
@@ -1134,18 +1116,15 @@ exports[`non-critical HomePage component should render 1`] = `
           width="240"
         />
       </div>
-      <a
+      <div
         class="tile__main-content"
-        href="/help/submissions"
       >
-        <span>
-          <h2
-            class="tile__header big"
-          >
-            Submit Data
-          </h2>
-        </span>
-      </a>
+        <h2
+          class="tile__header big"
+        >
+          Submit Data
+        </h2>
+      </div>
       <small
         class="tile__description"
       >

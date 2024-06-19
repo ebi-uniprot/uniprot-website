@@ -1,6 +1,6 @@
 import { Fragment, useMemo, ReactNode, useState, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import {
   Button,
   Card,
@@ -11,45 +11,45 @@ import {
   SlidingPanel,
 } from 'franklin-sites';
 
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
-import {
-  DeletedEntryMessage,
+import ErrorBoundary from '../../../../../shared/components/error-component/ErrorBoundary';
+import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
+import EntryTypeIcon from '../../../../../shared/components/entry/EntryTypeIcon';
+import RemovedEntryMessage, {
   DemergedEntryMessage,
   MergedEntryMessage,
-} from '../../../../shared/components/error-pages/full-pages/ObsoleteEntryPage';
+} from './RemovedEntryMessage';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import useItemSelect from '../../../../shared/hooks/useItemSelect';
-import { useMediumScreen } from '../../../../shared/hooks/useMatchMedia';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
+import useItemSelect from '../../../../../shared/hooks/useItemSelect';
+import { useMediumScreen } from '../../../../../shared/hooks/useMatchMedia';
 
-import lazy from '../../../../shared/utils/lazy';
-import parseDate from '../../../../shared/utils/parseDate';
-import listFormat from '../../../../shared/utils/listFormat';
-import apiUrls from '../../../config/apiUrls/apiUrls';
-import { getEntryPath } from '../../../../app/config/urls';
-import { stringifyQuery } from '../../../../shared/utils/url';
-import * as logging from '../../../../shared/utils/logging';
+import lazy from '../../../../../shared/utils/lazy';
+import parseDate from '../../../../../shared/utils/parseDate';
+import listFormat from '../../../../../shared/utils/listFormat';
+import apiUrls from '../../../../config/apiUrls/apiUrls';
+import { getEntryPath } from '../../../../../app/config/urls';
+import { stringifyQuery } from '../../../../../shared/utils/url';
+import * as logging from '../../../../../shared/utils/logging';
 
-import { TabLocation } from '../../../types/entry';
+import { InactiveEntryReason } from '../../../../adapters/uniProtkbConverter';
+import { TabLocation } from '../../../../types/entry';
 import {
   UniSaveAccession,
   UniSaveEventType,
   UniSaveStatus,
   UniSaveVersion,
-} from '../../../types/uniSave';
-import { ColumnDescriptor } from '../../../../shared/hooks/useColumns';
-import { Namespace } from '../../../../shared/types/namespaces';
+} from '../../../../types/uniSave';
+import { ColumnDescriptor } from '../../../../../shared/hooks/useColumns';
+import { Namespace } from '../../../../../shared/types/namespaces';
 
 import styles from './styles/history.module.scss';
-import helper from '../../../../shared/styles/helper.module.scss';
+import helper from '../../../../../shared/styles/helper.module.scss';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
   () =>
     import(
-      /* webpackChunkName: "download" */ '../../../../shared/components/download/Download'
+      /* webpackChunkName: "download" */ '../../../../../shared/components/download/Download'
     )
 );
 
@@ -280,7 +280,19 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
 
 const getIdKey = (entry: UniSaveVersionWithEvents) => `${entry.entryVersion}`;
 
-const EntryHistoryList = ({ accession }: { accession: string }) => {
+
+type EntryHistoryListProps = {
+  accession: string;
+  uniparc?: string;
+  reason?: InactiveEntryReason;
+};
+
+const EntryHistoryList = ({
+  accession,
+  uniparc,
+  reason,
+}: EntryHistoryListProps) => {
+  const location = useLocation();
   const accessionData = useDataApi<UniSaveAccession>(
     apiUrls.unisave.entry(accession)
   );
@@ -367,6 +379,7 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
       message = (
         <MergedEntryMessage
           accession={accession}
+          uniparc={uniparc}
           mergedInto={mergedEvents[0].targetAccession}
           release={mergedEvents[0].release}
         />
@@ -375,18 +388,19 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
       message = (
         <DemergedEntryMessage
           accession={accession}
+          uniparc={uniparc}
           demergedTo={mergedEvents.map((e) => e.targetAccession)}
           release={mergedEvents[0].release}
-          inHistory
         />
       );
     }
-  } else if (deleteEvent) {
+  } else if (reason) {
     message = (
-      <DeletedEntryMessage
+      <RemovedEntryMessage
         accession={accession}
-        release={deleteEvent.release}
-        inHistory
+        uniparc={uniparc}
+        release={deleteEvent?.release}
+        reason={reason}
       />
     );
   }
@@ -400,6 +414,7 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
             // Meaning, in basket mini view, slide from the right
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
+            pathname={location.pathname}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -467,9 +482,13 @@ const EntryHistoryList = ({ accession }: { accession: string }) => {
 const EntryHistory = ({
   accession,
   lastVersion,
+  uniparc,
+  reason,
 }: {
   accession: string;
   lastVersion?: number;
+  uniparc?: string;
+  reason?: InactiveEntryReason;
 }) => {
   const sp = new URLSearchParams(useLocation().search);
   const rawVersions = sp.get('versions');
@@ -569,7 +588,11 @@ const EntryHistory = ({
   }
   return (
     <Card header={title} className="wider-tab-content">
-      <EntryHistoryList accession={accession} />
+      <EntryHistoryList
+        accession={accession}
+        uniparc={uniparc}
+        reason={reason}
+      />
     </Card>
   );
 };

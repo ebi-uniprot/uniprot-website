@@ -1,6 +1,6 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
+import { Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
@@ -25,6 +25,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
+import InPageNav from '../../../shared/components/InPageNav';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -130,7 +131,9 @@ const ExternalLinksTab = lazy(
 
 const HistoryTab = lazy(
   () =>
-    import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
+    import(
+      /* webpackChunkName: "uniprotkb-entry-history" */ './tabs/history/History'
+    )
 );
 
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
@@ -431,7 +434,7 @@ const Entry = () => {
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       {isObsolete ? (
-        <h3>{match.params.accession}</h3>
+        <h1>{match.params.accession}</h1>
       ) : (
         <ErrorBoundary>
           <HTMLHead
@@ -794,6 +797,8 @@ const Entry = () => {
               <HistoryTab
                 accession={isObsolete ? match.params.accession : accession}
                 lastVersion={data.entryAudit?.entryVersion}
+                uniparc={data.extraAttributes?.uniParcId}
+                reason={data.inactiveReason}
               />
             </ErrorBoundary>
           </Suspense>

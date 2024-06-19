@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
-import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
+import { Card, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
 
@@ -21,6 +21,7 @@ import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+import InPageNav from '../../../shared/components/InPageNav';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';

@@ -107,7 +107,7 @@ const CoreData = () => (
         />
       }
       backgroundColor={colors.seaBlue}
-      to={LocationToPath[Location.UniProtKBResults]}
+      link={<Link to={LocationToPath[Location.UniProtKBResults]} />}
       gradient
     >
       <span className={styles['core-data']}>
@@ -132,7 +132,7 @@ const CoreData = () => (
         />
       }
       backgroundColor={colors.proteomes}
-      to={getNamespaceTo(Location.ProteomesResults)}
+      link={<Link to={getNamespaceTo(Location.ProteomesResults)} />}
       gradient
     >
       Protein sets for species with sequenced genomes from across the tree of
@@ -156,7 +156,7 @@ const CoreData = () => (
         />
       }
       backgroundColor={colors.uniref}
-      to={getNamespaceTo(Location.UniRefResults)}
+      link={<Link to={getNamespaceTo(Location.UniRefResults)} />}
       gradient
     >
       Clusters of protein sequences at 100%, 90% &amp; 50% identity
@@ -179,7 +179,7 @@ const CoreData = () => (
         />
       }
       backgroundColor={colors.uniparc}
-      to={getNamespaceTo(Location.UniParcResults)}
+      link={<Link to={getNamespaceTo(Location.UniParcResults)} />}
       gradient
     >
       Non-redundant archive of publicly available protein sequences seen across

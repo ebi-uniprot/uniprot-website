@@ -64,10 +64,12 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
-const FormSelect: FC<{
-  formValue: PeptideSearchFormValue;
-  updateFormValue: (selected: PeptideSearchFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: PeptideSearchFormValue;
+    updateFormValue: (selected: PeptideSearchFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }

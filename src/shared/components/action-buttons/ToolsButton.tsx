@@ -16,7 +16,7 @@ type ToolsButtonProps = {
   location: Location;
 };
 
-const ToolsButton: FC<ToolsButtonProps> = ({
+const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
   selectedEntries,
   sequence,
   disabled,

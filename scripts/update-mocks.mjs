@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console, import/no-extraneous-dependencies */
-import fs from 'node:fs/promises';
-import { parseArgs } from 'node:util';
+import { readFile, writeFile, glob } from 'node:fs/promises';
+import { parseArgs, styleText } from 'node:util';
 
-import { Glob } from 'glob';
 import recast from 'recast';
 import parser from '@babel/parser';
 import prettier from 'prettier';
-import chalk from 'chalk';
 
 /* Configs and options */
 
@@ -49,6 +47,11 @@ const fetchOptions = {
 const prettierConfig = await prettier.resolveConfig(import.meta.dirname);
 
 const objectKeyRE = /^[$_a-zA-Z][$_a-zA-Z0-9]*$/;
+const timeStampRE = /\d{4}-\d{2}-\d{2}/;
+const retrievedCommentRE = new RegExp(
+  `// Retrieved: ${timeStampRE.source}`,
+  'g'
+);
 
 /* Helper functions */
 
@@ -115,10 +118,10 @@ const astPathHandler = (path, context, baseAPI, tasks) => {
 
         console.log(
           '   - replacing content of variable',
-          chalk.bgBlueBright(declaration.id.name),
+          styleText('bgBlueBright', declaration.id.name),
           'with content from URL'
         );
-        console.log('    ', chalk.bgBlueBright(parsedURL));
+        console.log('    ', styleText('bgBlueBright', parsedURL.toString()));
 
         const response = await fetch(parsedURL, fetchOptions);
         if (!response.ok) {
@@ -143,7 +146,7 @@ const astPathHandler = (path, context, baseAPI, tasks) => {
 };
 
 const processFile = async (file, baseAPI, dry) => {
-  const content = await fs.readFile(file, 'utf8');
+  const content = await readFile(file, 'utf8');
 
   const ast = recast.parse(content, recastOptions);
 
@@ -170,14 +173,26 @@ const processFile = async (file, baseAPI, dry) => {
   });
 
   if (!dry) {
-    console.log(`writing to ${file}`);
-    await fs.writeFile(file, output);
+    const hasChanged =
+      content.replaceAll(retrievedCommentRE, '') !==
+      output.replaceAll(retrievedCommentRE, '');
+    console.log(
+      `   - writing to file`,
+      styleText(
+        [hasChanged ? 'bgGreen' : 'bgBlue', 'whiteBright'],
+        hasChanged ? '➡ updated content' : '➡ no change'
+      )
+    );
+    await writeFile(file, output);
   }
 
   if (!tasks.length) {
     console.log(
       '  ',
-      chalk.whiteBright.bgYellow.italic('No mocks to update have been detected')
+      styleText(
+        ['bgYellow', 'whiteBright', 'italic'],
+        'No mocks to update have been detected'
+      )
     );
 
     // Sanity check:
@@ -194,35 +209,38 @@ const processFile = async (file, baseAPI, dry) => {
 /* Main */
 
 const main = async () => {
-  const {
-    values: { glob, dev, dry },
-  } = parseArgs(argsConfig);
-  console.log(chalk.bgGreen.bold('Will process mocks, with these parameters:'));
-  console.log(' - glob for files to process:', chalk.green(glob));
-  const baseAPI = dev
+  const { values } = parseArgs(argsConfig);
+  console.log(
+    styleText(['bgGreen', 'bold'], 'Will process mocks, with these parameters:')
+  );
+  console.log(' - glob for files to process:', styleText('green', values.glob));
+  const baseAPI = values.dev
     ? 'https://wwwdev.ebi.ac.uk/uniprot/api/'
     : 'https://rest.uniprot.org/';
-  console.log(' - base UniProt website API:', chalk.green(baseAPI));
+  console.log(' - base UniProt website API:', styleText('green', baseAPI));
 
-  if (dry) {
+  if (values.dry) {
     console.log(
       ' -',
-      chalk.bgYellow.italic.bold('dry run, no files will be written')
+      styleText(
+        ['bgYellow', 'italic', 'bold'],
+        'dry run, no files will be written'
+      )
     );
   }
 
-  console.log(chalk.bgGreen.bold('Processing...'));
-  const globObject = new Glob(glob, {});
+  console.log(styleText(['bgGreen', 'bold'], 'Processing...'));
   let files = 0;
   let variables = 0;
-  for await (const file of globObject) {
-    console.log(' - processing mock file:', chalk.bgBlue(file));
-    variables += await processFile(file, baseAPI, dry);
+  for await (const file of glob(values.glob)) {
+    console.log(' - processing mock file:', styleText('bgBlue', file));
+    variables += await processFile(file, baseAPI, values.dry);
     files++; // eslint-disable-line no-plusplus
   }
 
   console.log(
-    chalk.bgGreen(
+    styleText(
+      'bgGreen',
       `Finished updating ${variables} mock variables across ${files} processed files`
     )
   );
@@ -231,6 +249,6 @@ const main = async () => {
 try {
   await main();
 } catch (error) {
-  console.error(chalk.red.bold(error));
+  console.error(styleText(['red', 'bold'], error.stack));
   process.exit(1);
 }

@@ -165,14 +165,7 @@ CitationsColumnConfiguration.set(CitationsColumn.statistics, {
   label: 'Statistics',
   render: ({ citation, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.citations, citation?.id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.citations, citation?.id, statistics)}
     </ExpandableList>
   ),
 });

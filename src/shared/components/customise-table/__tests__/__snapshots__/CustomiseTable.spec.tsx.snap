@@ -10,15 +10,15 @@ exports[`CustomiseTable component should render 1`] = `
     >
       <div
         class="column-select-drag-drop__list"
-        data-rbd-droppable-context-id="0"
-        data-rbd-droppable-id="droppable"
+        data-rfd-droppable-context-id=":r0:"
+        data-rfd-droppable-id="droppable"
       >
         <div
-          aria-describedby="rbd-hidden-text-0-hidden-text-0"
-          data-rbd-drag-handle-context-id="0"
-          data-rbd-drag-handle-draggable-id="protein_name"
-          data-rbd-draggable-context-id="0"
-          data-rbd-draggable-id="protein_name"
+          aria-describedby="rfd-hidden-text-:r0:-hidden-text-:r1:"
+          data-rfd-drag-handle-context-id=":r0:"
+          data-rfd-drag-handle-draggable-id="protein_name"
+          data-rfd-draggable-context-id=":r0:"
+          data-rfd-draggable-id="protein_name"
           draggable="false"
           role="button"
           tabindex="0"
@@ -33,11 +33,11 @@ exports[`CustomiseTable component should render 1`] = `
           </span>
         </div>
         <div
-          aria-describedby="rbd-hidden-text-0-hidden-text-0"
-          data-rbd-drag-handle-context-id="0"
-          data-rbd-drag-handle-draggable-id="protein_existence"
-          data-rbd-draggable-context-id="0"
-          data-rbd-draggable-id="protein_existence"
+          aria-describedby="rfd-hidden-text-:r0:-hidden-text-:r1:"
+          data-rfd-drag-handle-context-id=":r0:"
+          data-rfd-drag-handle-draggable-id="protein_existence"
+          data-rfd-draggable-context-id=":r0:"
+          data-rfd-draggable-id="protein_existence"
           draggable="false"
           role="button"
           tabindex="0"

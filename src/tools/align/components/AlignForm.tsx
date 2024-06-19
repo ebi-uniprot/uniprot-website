@@ -66,10 +66,12 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
-const FormSelect: FC<{
-  formValue: AlignFormValue;
-  updateFormValue: (selected: AlignFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: AlignFormValue;
+    updateFormValue: (selected: AlignFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }

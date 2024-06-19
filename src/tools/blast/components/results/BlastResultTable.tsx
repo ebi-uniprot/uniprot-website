@@ -44,6 +44,14 @@ const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_expect: colors.outerSpace,
 };
 
+type TrackNodeData = {
+  start: number;
+  end: number;
+  color: string | undefined;
+  shape?: string;
+  opacity?: number;
+};
+
 type BlastSummaryTrackProps = {
   hsp: BlastHsp;
   queryLength: number;
@@ -74,7 +82,7 @@ const BlastSummaryTrack = ({
   );
 
   const setTrackData = useCallback(
-    (node): void => {
+    (node: { data: TrackNodeData[] }): void => {
       if (node && trackElement.defined) {
         /**
          * TODO - would be nice to add gaps
@@ -236,6 +244,8 @@ const BlastSummaryHsps = ({
   );
 };
 
+type QueryNodeData = { start: number; end: number };
+
 type BlastResultTableProps = {
   data: BlastResults | null;
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
@@ -285,7 +295,7 @@ const BlastResultTable = ({
 
   // The "query" column header
   const queryColumnHeaderRef = useCallback(
-    (node) => {
+    (node: { data: QueryNodeData[] }) => {
       if (node && navigationElement.defined && data) {
         const { query_len } = data;
         // eslint-disable-next-line no-param-reassign

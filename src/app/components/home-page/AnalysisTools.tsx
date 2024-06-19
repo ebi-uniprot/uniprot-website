@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Tile, HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -42,7 +43,7 @@ const AnalysisTools = () => (
         />
       }
       backgroundColor={colors.blast}
-      to={jobTypeToPath(JobTypes.BLAST)}
+      link={<Link to={jobTypeToPath(JobTypes.BLAST)} />}
       gradient
     >
       Search with a sequence to find homologs through pairwise sequence
@@ -62,7 +63,7 @@ const AnalysisTools = () => (
         />
       }
       backgroundColor={colors.align}
-      to={jobTypeToPath(JobTypes.ALIGN)}
+      link={<Link to={jobTypeToPath(JobTypes.ALIGN)} />}
       gradient
     >
       Align two or more protein sequences with Clustal Omega to find conserved
@@ -81,7 +82,7 @@ const AnalysisTools = () => (
         />
       }
       backgroundColor={colors.idMapping}
-      to={jobTypeToPath(JobTypes.ID_MAPPING)}
+      link={<Link to={jobTypeToPath(JobTypes.ID_MAPPING)} />}
       gradient
     >
       Find proteins with lists of UniProt IDs or convert from/to other database
@@ -100,7 +101,7 @@ const AnalysisTools = () => (
         />
       }
       backgroundColor={colors.peptideSearch}
-      to={jobTypeToPath(JobTypes.PEPTIDE_SEARCH)}
+      link={<Link to={jobTypeToPath(JobTypes.PEPTIDE_SEARCH)} />}
       gradient
     >
       Search with a peptide sequence to find all UniProt proteins that contain
