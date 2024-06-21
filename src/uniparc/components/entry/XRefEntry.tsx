@@ -4,10 +4,13 @@ import { useRouteMatch } from 'react-router-dom';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { Namespace } from '../../../shared/types/namespaces';
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { UniParcAPIModel } from '../../adapters/uniParcConverter';
+import uniParcConverter, {
+  UniParcAPIModel,
+} from '../../adapters/uniParcConverter';
 import { getXRefsForId } from '../../utils/xrefEntry';
 import { Loader } from 'franklin-sites';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import XRefEntryOverview from './XRefEntryOverview';
 
 const XRefEntry = () => {
   const match = useRouteMatch<{ accession: string; id: string }>(
@@ -30,10 +33,13 @@ const XRefEntry = () => {
     return <Loader progress={uniparcData.progress} />;
   }
   if (!uniparcData.data.uniParcCrossReferences) {
+    // TODO: handle this
     return 'TODO: handle this';
   }
-  const xrefsForId = getXRefsForId(id, uniparcData.data.uniParcCrossReferences);
-  return JSON.stringify(xrefsForId);
+  const transformedData = uniParcConverter(uniparcData.data);
+  const xrefsForId = getXRefsForId(id, transformedData.uniParcCrossReferences);
+  // TODO: handle when no xrefsForId
+  return xrefsForId && <XRefEntryOverview data={xrefsForId} />;
 };
 
 export default XRefEntry;
