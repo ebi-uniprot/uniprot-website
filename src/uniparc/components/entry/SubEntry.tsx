@@ -16,7 +16,7 @@ import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
 
-import { getXRefsForId } from '../../utils/xrefEntry';
+import { getXRefsForId } from '../../utils/subEntry';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
