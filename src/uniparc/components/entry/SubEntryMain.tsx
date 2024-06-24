@@ -9,10 +9,9 @@ import { UniParcUIModel } from '../../adapters/uniParcConverter';
 
 type EntryMainProps = {
   transformedData: UniParcUIModel;
-  totalNResults?: number;
 };
 
-const SubEntryMain = ({ transformedData, totalNResults }: EntryMainProps) => (
+const SubEntryMain = ({ transformedData }: EntryMainProps) => (
   <>
     {UniParcSubEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
