@@ -1,8 +1,8 @@
 // TODO: fix import order
-import { useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
-import { Loader } from 'franklin-sites';
+import { Loader, Tab, Tabs } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -16,7 +16,7 @@ import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
 
-import { getXRefsForId } from '../../utils/subEntry';
+import { getSubEntryPath, getXRefsForId } from '../../utils/subEntry';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
@@ -27,11 +27,14 @@ import {
 } from '../../../shared/types/namespaces';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
+import { TabLocation } from '../../types/subEntry';
 
 const SubEntry = () => {
-  const match = useRouteMatch<{ accession: string; subEntryId: string }>(
-    LocationToPath[Location.UniParcSubEntry]
-  );
+  const match = useRouteMatch<{
+    accession: string;
+    subPage: string;
+    subEntryId: string;
+  }>(LocationToPath[Location.UniParcSubEntry]);
   const { accession, subEntryId } = match?.params || {};
   const baseURL = apiUrls.entry.entry(
     subEntryId && accession,
@@ -39,7 +42,7 @@ const SubEntry = () => {
   );
   const uniparcData = useDataApi<UniParcAPIModel>(baseURL);
 
-  if (uniparcData.error || !accession || !subEntryId) {
+  if (uniparcData.error || !match || !accession || !subEntryId) {
     return (
       <ErrorHandler
         status={uniparcData.status}
@@ -87,6 +90,20 @@ const SubEntry = () => {
         </h1>
         <SubEntryOverview xrefData={xrefForId} uniparcData={uniparcData.data} />
       </ErrorBoundary>
+      <Tabs active={match.params.subPage}>
+        <Tab
+          title={
+            <Link
+              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
+            >
+              Entry
+            </Link>
+          }
+          id={TabLocation.Entry}
+        >
+          foo
+        </Tab>
+      </Tabs>
     </SidebarLayout>
   );
 };

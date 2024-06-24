@@ -411,12 +411,12 @@ const App = () => {
               component={UniRefEntryPage}
             />
             <Route
-              path={LocationToPath[Location.UniParcEntry]}
-              component={UniParcEntryPage}
-            />
-            <Route
               path={LocationToPath[Location.UniParcSubEntry]}
               component={UniParcSubEntryPage}
+            />
+            <Route
+              path={LocationToPath[Location.UniParcEntry]}
+              component={UniParcEntryPage}
             />
             <Route
               path={LocationToPath[Location.ProteomesEntry]}

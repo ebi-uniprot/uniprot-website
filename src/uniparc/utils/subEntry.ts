@@ -6,12 +6,12 @@ export const getXRefsForId = (id: string, xrefs?: UniParcXRef[]) =>
   xrefs?.find((xref) => xref.id === id);
 
 export const getSubEntryPath = (
-  uniparcId: string,
+  accession: string,
   subEntryId: string,
   subPage?: string
 ) =>
   generatePath(LocationToPath[Location.UniParcSubEntry], {
-    uniparcId,
+    accession,
     subEntryId,
     subPage,
   });
