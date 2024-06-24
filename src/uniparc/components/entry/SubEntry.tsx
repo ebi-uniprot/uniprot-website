@@ -10,11 +10,11 @@ import uniParcConverter, {
 import { getXRefsForId } from '../../utils/xrefEntry';
 import { Loader } from 'franklin-sites';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import XRefEntryOverview from './XRefEntryOverview';
+import SubEntryOverview from './SubEntryOverview';
 
-const XRefEntry = () => {
+const SubEntry = () => {
   const match = useRouteMatch<{ accession: string; id: string }>(
-    LocationToPath[Location.UniParcXRefEntry]
+    LocationToPath[Location.UniParcSubEntry]
   );
   const { accession, id } = match?.params || {};
   const baseURL = apiUrls.entry.entry(id && accession, Namespace.uniparc);
@@ -41,9 +41,9 @@ const XRefEntry = () => {
   // TODO: handle when no xrefsForId
   return (
     xrefForId && (
-      <XRefEntryOverview xrefData={xrefForId} uniparcData={uniparcData.data} />
+      <SubEntryOverview xrefData={xrefForId} uniparcData={uniparcData.data} />
     )
   );
 };
 
-export default XRefEntry;
+export default SubEntry;

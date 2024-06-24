@@ -19,7 +19,7 @@ type Props = {
   uniparcData: Partial<UniParcAPIModel>;
 };
 
-const XRefEntryOverview = ({ xrefData, uniparcData }: Props) => {
+const SubEntryOverview = ({ xrefData, uniparcData }: Props) => {
   const isUniprotkbEntry = Boolean(
     xrefData?.database && databaseToEntryType.has(xrefData.database)
   );
@@ -56,6 +56,7 @@ const XRefEntryOverview = ({ xrefData, uniparcData }: Props) => {
       ),
     },
     {
+      // TODO: add link to sequence section
       title: 'Amino acids',
       content: uniparcData.sequence && (
         <span>{uniparcData.sequence?.length} </span>
@@ -66,4 +67,4 @@ const XRefEntryOverview = ({ xrefData, uniparcData }: Props) => {
   return <InfoList columns infoData={infoData} />;
 };
 
-export default memo(XRefEntryOverview);
+export default memo(SubEntryOverview);
