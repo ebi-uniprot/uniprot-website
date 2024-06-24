@@ -8,10 +8,12 @@ import { UseDataAPIWithStaleState } from '../../shared/hooks/useDataApiWithStale
 
 const UniParcSubEntryConfig: {
   id: EntrySection;
+  label: string;
   sectionContent: (entryData: UniParcUIModel) => JSX.Element;
 }[] = [
   {
     id: EntrySection.Sequence,
+    label: 'Sequence',
     sectionContent: (data) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
