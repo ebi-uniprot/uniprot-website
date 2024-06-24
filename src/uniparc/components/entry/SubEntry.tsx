@@ -28,6 +28,7 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import { TabLocation } from '../../types/subEntry';
+import SubEntryMain from './SubEntryMain';
 
 const SubEntry = () => {
   const match = useRouteMatch<{
@@ -101,7 +102,7 @@ const SubEntry = () => {
           }
           id={TabLocation.Entry}
         >
-          foo
+          <SubEntryMain transformedData={transformedData} />
         </Tab>
       </Tabs>
     </SidebarLayout>
