@@ -37,9 +37,13 @@ const XRefEntry = () => {
     return 'TODO: handle this';
   }
   const transformedData = uniParcConverter(uniparcData.data);
-  const xrefsForId = getXRefsForId(id, transformedData.uniParcCrossReferences);
+  const xrefForId = getXRefsForId(id, transformedData.uniParcCrossReferences);
   // TODO: handle when no xrefsForId
-  return xrefsForId && <XRefEntryOverview data={xrefsForId} />;
+  return (
+    xrefForId && (
+      <XRefEntryOverview xrefData={xrefForId} uniparcData={uniparcData.data} />
+    )
+  );
 };
 
 export default XRefEntry;

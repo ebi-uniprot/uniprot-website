@@ -1,56 +1,66 @@
 import { memo } from 'react';
 import { InfoList } from 'franklin-sites';
 
-import { UniParcXRef } from '../../adapters/uniParcConverter';
+import {
+  UniParcAPIModel,
+  UniParcXRef,
+  databaseToEntryType,
+} from '../../adapters/uniParcConverter';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import { Link } from 'react-router-dom';
+import { getEntryPath } from '../../../app/config/urls';
+import { Namespace } from '../../../shared/types/namespaces';
+import data from '../../../uniprotkb/__mocks__/ptmExchangeData';
+import EntrySection from '../../types/entrySection';
+import { TabLocation } from './Entry';
 
-type Props = { data: Partial<UniParcXRef> };
+type Props = {
+  xrefData: Partial<UniParcXRef>;
+  uniparcData: Partial<UniParcAPIModel>;
+};
 
-const XRefEntryOverview = ({ data }: Props) => {
+const XRefEntryOverview = ({ xrefData, uniparcData }: Props) => {
+  const isUniprotkbEntry = Boolean(
+    xrefData?.database && databaseToEntryType.has(xrefData.database)
+  );
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
-      content: data.proteinName && <strong>{data.proteinName}</strong>,
+      content: xrefData.proteinName && <strong>{xrefData.proteinName}</strong>,
     },
     {
       title: <span data-article-id="gene_name">Gene</span>,
-      content: data.geneName && <strong>{data.geneName}</strong>,
+      content: xrefData.geneName && <strong>{xrefData.geneName}</strong>,
+    },
+    {
+      title: <span data-article-id="accession">UniProtKB accession</span>,
+      content: xrefData.id && isUniprotkbEntry && (
+        <Link
+          to={{
+            pathname: getEntryPath(
+              Namespace.uniprotkb,
+              xrefData.id,
+              TabLocation.Entry
+            ),
+          }}
+        >
+          {xrefData.id}
+        </Link>
+      ),
     },
     {
       title: <span data-article-id="organism-name">Organism</span>,
-      content: data.organism?.taxonId, // TODO: use uniprotkb code
+      content: (xrefData.organism?.scientificName ||
+        xrefData.organism?.taxonId) && (
+        <TaxonomyView data={xrefData.organism} />
+      ),
     },
-    // {
-    //   title: 'Amino acids',
-    //   content: (
-    //     <span>
-    //       {data.component.?.length}{' '}
-    //       {data.primaryAccession && (
-    //         <small>
-    //           <Link
-    //             to={{
-    //               pathname: getEntryPath(
-    //                 Namespace.uniprotkb,
-    //                 data.primaryAccession,
-    //                 TabLocation.Entry
-    //               ),
-    //               hash: EntrySection.Sequence,
-    //             }}
-    //           >
-    //             (go to sequence)
-    //           </Link>
-    //         </small>
-    //       )}
-    //     </span>
-    //   ),
-    // },
-    // {
-    //   title: <span data-article-id="protein_existence">Protein existence</span>,
-    //   content: proteinExistence,
-    // },
-    // {
-    //   title: <span data-article-id="annotation_score">Annotation score</span>,
-    //   content: annotationScoreNode,
-    // },
+    {
+      title: 'Amino acids',
+      content: uniparcData.sequence && (
+        <span>{uniparcData.sequence?.length} </span>
+      ),
+    },
   ];
 
   return <InfoList columns infoData={infoData} />;
