@@ -5,6 +5,7 @@ export enum TabLocation {
 
 enum EntrySection {
   Sequence = 'sequence',
+  SimilarProteins = 'similar_proteins',
 }
 
 export type EntrySectionNameAndId = {

@@ -1,10 +1,9 @@
 import SequenceSection from '../components/entry/SequenceSection';
-import XRefsSection from '../components/entry/XRefsSection';
 
 import EntrySection from '../types/subEntry';
+import SimilarProteinsSection from '../../uniprotkb/components/entry/similar-proteins/SimilarProteinsSection';
 
-import { UniParcAPIModel, UniParcUIModel } from '../adapters/uniParcConverter';
-import { UseDataAPIWithStaleState } from '../../shared/hooks/useDataApiWithStale';
+import { UniParcUIModel } from '../adapters/uniParcConverter';
 
 const UniParcSubEntryConfig: {
   id: EntrySection;
@@ -18,6 +17,17 @@ const UniParcSubEntryConfig: {
       <SequenceSection
         data={data[EntrySection.Sequence]}
         key={EntrySection.Sequence}
+      />
+    ),
+  },
+  {
+    id: EntrySection.SimilarProteins,
+    label: 'Similar Proteins',
+    sectionContent: (data) => (
+      <SimilarProteinsSection
+        isoforms={data[EntrySection.SimilarProteins]}
+        primaryAccession={data.primaryAccession}
+        key={EntrySection.SimilarProteins}
       />
     ),
   },
