@@ -12,7 +12,7 @@ const ComplexViewer = ({ complexID }: { complexID: string }) => {
 
   let viewer: typeof complexviewer.App;
   const createComplexViewer = useCallback(
-    (node) => {
+    (node: HTMLDivElement) => {
       if (!viewer && node) {
         viewer = new complexviewer.App(node);
       }

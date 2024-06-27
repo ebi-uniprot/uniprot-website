@@ -265,7 +265,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
               <div className={styles['viewer-ids-container']}>
                 <LazyComponent render={isSmallScreen ? false : undefined}>
                   <ComplexViewer
-                    complexID={viewerID ? viewerID : complexPortalXrefs[0]}
+                    complexID={viewerID || complexPortalXrefs[0]}
                   />
                 </LazyComponent>
                 <div className={styles['id-list']}>
@@ -279,8 +279,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                       }
                       className={styles['id-button']}
                       key={id}
-                      onClick={(event) => {
-                        setViewerID(event.target.innerText as string);
+                      onClick={(event: MouseEvent) => {
+                        setViewerID(
+                          (event.target as HTMLElement).innerText as string
+                        );
                       }}
                     >
                       {id}
@@ -290,7 +292,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
               </div>
               <ExternalLink
                 url={externalUrls.ComplexPortal(
-                  viewerID ? viewerID : complexPortalXrefs[0]
+                  viewerID || complexPortalXrefs[0]
                 )}
               >
                 Visit the Complex Portal for more
