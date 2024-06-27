@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Many years ago, I was sitting opposite a man whose body suddenly froze. His eyes seemed to be staring at something on the wall behind me while his left hand drew small circles in the air, repetitively. I had no idea what was happening to him until he came back to his senses and told me that he had just had an epileptic fit. Deeply embarrassed, he got up and left the room.';
+  'Toxic waste. Since the 19th century, our species has had to find ways of scrapping industrial detritus which is frequently dangerous. So, we dig deep down into the earth and leave the nasty stuff there or we build thick crusts of cement around it...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -124,6 +124,29 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-05-29-release',
+                  })}
+                >
+                  UniProt release 2024_03
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The culprit for extreme morning sickness identified | Removal of
+                the cross-references to Genevisible | Removal of the
+                cross-references to SWISS-2DPAGE
               </p>
             </article>
           </li>
@@ -378,21 +401,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/267/"
+            url="https://www.proteinspotlight.org/back_issues/269/"
             noIcon
           >
-            Seizure
+            A motherly mesh
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/267/"
+          url="https://www.proteinspotlight.org/back_issues/269/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt267.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt269.jpg"
             alt=""
             width="123"
             height="129"

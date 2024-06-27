@@ -1,7 +1,7 @@
 import { UniParcAPIModel } from '../adapters/uniParcConverter';
 
-// Source: /api/uniparc/UPI0000000001
-// Retrieved: 2024-03-25
+// Source: uniparc/UPI0000000001
+// Retrieved: 2024-06-10
 const mock: UniParcAPIModel = {
   uniParcId: 'UPI0000000001',
   uniParcCrossReferences: [
@@ -12,7 +12,7 @@ const mock: UniParcAPIModel = {
       version: 3,
       active: true,
       created: '2007-01-23',
-      lastUpdated: '2024-03-27',
+      lastUpdated: '2024-05-29',
       geneName: 'OPG099',
       proteinName: 'Entry-fusion complex associated protein OPG095',
       organism: {
@@ -43,7 +43,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2024-03-27',
+      lastUpdated: '2024-05-29',
       geneName: 'RPXV077',
       proteinName: 'RPXV077',
       organism: {
@@ -58,7 +58,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2024-03-27',
+      lastUpdated: '2024-05-29',
       geneName: 'N1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -74,7 +74,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2006-04-18',
-      lastUpdated: '2024-03-27',
+      lastUpdated: '2024-05-29',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
@@ -89,7 +89,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2006-10-03',
-      lastUpdated: '2024-03-27',
+      lastUpdated: '2024-05-29',
       geneName: 'HSPV_VK05_RKI-089',
       proteinName: 'HSPV089',
       organism: {
@@ -105,7 +105,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2018-02-28',
-      lastUpdated: '2024-03-27',
+      lastUpdated: '2024-05-29',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -146,7 +146,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2005-10-06',
-      lastUpdated: '2024-01-08',
+      lastUpdated: '2024-03-04',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -162,7 +162,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2022-10-19',
-      lastUpdated: '2024-01-08',
+      lastUpdated: '2024-03-04',
       geneName: 'OPG095',
       proteinName: 'IMV membrane protein L1R',
       organism: {
@@ -219,7 +219,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2003-06-16',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACWR088',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -238,7 +238,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2003-06-16',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'N1R',
       proteinName: 'N1R protein',
       organism: {
@@ -257,7 +257,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2004-03-31',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'RPXV077',
       proteinName: 'RPXV077',
       organism: {
@@ -275,7 +275,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',
@@ -293,7 +293,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2011-08-10',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'CPXV_FIN2000_MAN_093',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -312,7 +312,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2013-04-24',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_TT8_108',
       proteinName: 'Myristylated MP IMV',
       organism: {
@@ -330,7 +330,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2013-04-24',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_TT12_108',
       proteinName: 'Myristylated MP IMV',
       organism: {
@@ -348,7 +348,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2014-12-15',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VAC_TKT3_078',
       proteinName: 'Neutralizing antibody IMV membrane protein target',
       organism: {
@@ -366,7 +366,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2014-12-15',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VAC_TKT4_078',
       proteinName: 'Neutralizing antibody IMV membrane protein target',
       organism: {
@@ -384,7 +384,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2015-10-11',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_IOC_B141_114',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -402,7 +402,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2015-10-11',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_IOC_B388_114',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -420,7 +420,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2017-02-22',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'N1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -439,7 +439,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2017-04-08',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'LIVPclone14_096',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -457,7 +457,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2018-01-26',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -475,7 +475,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2018-07-24',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',
@@ -492,7 +492,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2020-09-29',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       proteinName: 'L1R',
       organism: {
         scientificName: 'Vaccinia virus',
@@ -508,7 +508,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2021-04-10',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_VK01_RKI-115',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -525,7 +525,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2021-04-10',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_VK02_RKI-092',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -542,7 +542,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2021-04-10',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'HSPV_VK05_RKI-089',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -560,7 +560,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2021-04-10',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_VK08_RKI-108',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -577,7 +577,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2021-04-10',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_VK12_RKI-121',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -594,7 +594,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2022-01-26',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'VACV_MFDV-1902_109',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -611,7 +611,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2003-03-12',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
@@ -627,7 +627,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2003-03-12',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       proteinName: 'F2 polypeptide',
       organism: {
         scientificName: 'Vaccinia virus',
@@ -732,7 +732,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2023-05-26',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       proteinName: 'Protein L1',
       organism: {
         scientificName: 'Vaccinia virus',
@@ -746,7 +746,7 @@ const mock: UniParcAPIModel = {
       version: 1,
       active: true,
       created: '2023-08-23',
-      lastUpdated: '2023-12-22',
+      lastUpdated: '2024-03-25',
       proteinName: 'Uncharacterized protein',
       organism: {
         scientificName: 'synthetic construct',
@@ -842,7 +842,7 @@ const mock: UniParcAPIModel = {
     },
   ],
   oldestCrossRefCreated: '1988-11-01',
-  mostRecentCrossRefUpdated: '2024-03-27',
+  mostRecentCrossRefUpdated: '2024-05-29',
 };
 
 export default mock;

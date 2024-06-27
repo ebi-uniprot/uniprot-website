@@ -30,13 +30,14 @@ describe('ProteinProcessingSection', () => {
     const { asFragment } = customRender(
       <ProteinProcessingSection
         data={transformedData[EntrySection.ProteinProcessing]}
-        sequence={transformedData[EntrySection.Sequence].sequence.value}
+        sequence={transformedData[EntrySection.Sequence].sequence?.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
     await screen.findByText('PTM/Processing');
+    await screen.findByText('Download');
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -48,13 +49,14 @@ describe('ProteinProcessingSection', () => {
     const { asFragment } = customRender(
       <ProteinProcessingSection
         data={transformedData[EntrySection.ProteinProcessing]}
-        sequence={transformedData[EntrySection.Sequence].sequence.value}
+        sequence={transformedData[EntrySection.Sequence].sequence?.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
     await screen.findByText('PTM/Processing');
+    await screen.findByText('Download');
     expect(asFragment()).toMatchSnapshot();
   });
 });

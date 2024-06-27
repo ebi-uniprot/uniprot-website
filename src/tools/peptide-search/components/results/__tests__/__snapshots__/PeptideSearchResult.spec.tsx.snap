@@ -182,12 +182,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     class="checkbox-cell"
                   >
                     <input
-                      id="3"
+                      id="2"
                       type="checkbox"
                     />
                     <label
                       aria-label="Selection control for all visible items"
-                      for="3"
+                      for="2"
                     />
                   </div>
                 </th>
@@ -290,12 +290,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <input
                     data-id="P11413"
-                    id="4"
+                    id="3"
                     type="checkbox"
                   />
                   <label
                     aria-label="P11413"
-                    for="4"
+                    for="3"
                     title="click to select, shift+click for multiple selection"
                   />
                 </td>
@@ -368,12 +368,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <input
                     data-id="P19926"
-                    id="5"
+                    id="4"
                     type="checkbox"
                   />
                   <label
                     aria-label="P19926"
-                    for="5"
+                    for="4"
                     title="click to select, shift+click for multiple selection"
                   />
                 </td>
@@ -1148,12 +1148,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     class="checkbox-cell"
                   >
                     <input
-                      id="2"
+                      id="1"
                       type="checkbox"
                     />
                     <label
                       aria-label="Selection control for all visible items"
-                      for="2"
+                      for="1"
                     />
                   </div>
                 </th>

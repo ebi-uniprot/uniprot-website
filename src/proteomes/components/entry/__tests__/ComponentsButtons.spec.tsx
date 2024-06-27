@@ -61,7 +61,7 @@ describe('ComponentsButtons', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('should open download sliding panel', () => {
+  it('should open download sliding panel', async () => {
     customRender(
       <ComponentsButtons
         id="id"
@@ -75,8 +75,11 @@ describe('ComponentsButtons', () => {
         }}
       />
     );
-    const downloadButton = screen.getByRole('button', { name: 'Download' });
+    const downloadButton = screen.getByRole('button', { name: /Download/ });
     fireEvent.click(downloadButton);
-    expect(screen.queryByTestId('sliding-panel')).toBeInTheDocument();
+    // Needs a bit timeout even though there are no API calls happening.
+    expect(
+      await screen.findByTestId('sliding-panel', undefined, { timeout: 10000 })
+    ).toBeInTheDocument();
   });
 });

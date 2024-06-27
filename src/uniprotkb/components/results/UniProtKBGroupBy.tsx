@@ -553,7 +553,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const { parent, groupBy } = params;
 
   const handleAutocompleteFormValue = useCallback(
-    (_, id?: string) => {
+    (_: unknown, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
         history.push({

@@ -29,7 +29,7 @@ type AlignResultPIMProps = {
   handleEntrySelection: (rowId: string) => void;
 };
 
-const AlignResultPIM: FC<AlignResultPIMProps> = ({
+const AlignResultPIM: FC<React.PropsWithChildren<AlignResultPIMProps>> = ({
   id,
   sequenceInfo,
   selectedEntries,

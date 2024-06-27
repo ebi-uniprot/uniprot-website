@@ -1,6 +1,6 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
+import { Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
@@ -25,6 +25,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
+import InPageNav from '../../../shared/components/InPageNav';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -130,7 +131,9 @@ const ExternalLinksTab = lazy(
 
 const HistoryTab = lazy(
   () =>
-    import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
+    import(
+      /* webpackChunkName: "uniprotkb-entry-history" */ './tabs/history/History'
+    )
 );
 
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
@@ -431,7 +434,7 @@ const Entry = () => {
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       {isObsolete ? (
-        <h3>{match.params.accession}</h3>
+        <h1>{match.params.accession}</h1>
       ) : (
         <ErrorBoundary>
           <HTMLHead
@@ -465,12 +468,13 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
-          {!isObsolete && (
+          {!isObsolete && data.sequence && (
             <>
               {displayDownloadPanel && (
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                  sequence={data.sequence.value}
                 />
               )}
               <div className="button-group">
@@ -538,7 +542,8 @@ const Entry = () => {
               )}
             >
               Variant viewer
-              {!mediumScreen &&
+              {data.sequence &&
+                !mediumScreen &&
                 importedVariants !== 'loading' &&
                 importedVariants > 0 && (
                   <>
@@ -563,11 +568,13 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <VariationViewerTab
-                importedVariants={importedVariants}
-                primaryAccession={accession}
-                title="Variants"
-              />
+              {data.sequence && (
+                <VariationViewerTab
+                  importedVariants={importedVariants}
+                  primaryAccession={accession}
+                  title="Variants"
+                />
+              )}
             </ErrorBoundary>
           </Suspense>
         </Tab>
@@ -609,10 +616,13 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewerTab
-                  accession={accession}
-                  importedVariants={importedVariants}
-                />
+                {data.sequence && (
+                  <FeatureViewerTab
+                    accession={accession}
+                    importedVariants={importedVariants}
+                    sequence={data.sequence.value}
+                  />
+                )}
               </ErrorBoundary>
             </Suspense>
           )}
@@ -677,7 +687,11 @@ const Entry = () => {
                       )
                   )
                 }
-                title="Genomic coordinates"
+                title={
+                  <span data-article-id="genomic-coordinates">
+                    Genomic coordinates
+                  </span>
+                }
               />
             </ErrorBoundary>
           </Suspense>
@@ -782,6 +796,9 @@ const Entry = () => {
               />
               <HistoryTab
                 accession={isObsolete ? match.params.accession : accession}
+                lastVersion={data.entryAudit?.entryVersion}
+                uniparc={data.extraAttributes?.uniParcId}
+                reason={data.inactiveReason}
               />
             </ErrorBoundary>
           </Suspense>

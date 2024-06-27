@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Chip } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -14,11 +14,9 @@ export type ColumnSelectDragDropProps = {
   onRemove: (columnId: Column) => void;
 };
 
-const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
-  columns,
-  onDragDrop,
-  onRemove,
-}) => {
+const ColumnSelectDragDrop: FC<
+  React.PropsWithChildren<ColumnSelectDragDropProps>
+> = ({ columns, onDragDrop, onRemove }) => {
   const previousColumns = useRef(columns);
 
   useEffect(() => {

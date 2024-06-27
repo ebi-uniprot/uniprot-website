@@ -34,6 +34,7 @@ import {
 } from '../state/peptideSearchFormActions';
 
 import { truncateTaxonLabel } from '../../utils';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import {
   PEPTIDE_SEARCH_SEQUENCES_COUNT,
@@ -63,10 +64,12 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
-const FormSelect: FC<{
-  formValue: PeptideSearchFormValue;
-  updateFormValue: (selected: PeptideSearchFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: PeptideSearchFormValue;
+    updateFormValue: (selected: PeptideSearchFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }
@@ -204,6 +207,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           formValues[PeptideSearchFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.PEPTIDE_SEARCH);
     });
   };
 

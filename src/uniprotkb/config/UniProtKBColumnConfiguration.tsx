@@ -450,8 +450,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
     const sequenceData = data[EntrySection.Sequence];
     return (
       <Sequence
-        sequence={sequenceData.sequence.value}
-        isCollapsible={sequenceData.sequence.length > 400}
+        sequence={sequenceData.sequence?.value}
+        isCollapsible={
+          !!sequenceData?.sequence?.length && sequenceData.sequence.length > 400
+        }
       />
     );
   },
@@ -1566,7 +1568,7 @@ const getXrefColumn = (databaseName: string) => {
     );
   };
   return {
-    label: () => <Label />,
+    label: <Label />,
     render: (data: UniProtkbUIModel) => <Renderer data={data} />,
   };
 };

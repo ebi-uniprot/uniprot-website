@@ -1,7 +1,12 @@
 import joinUrl from 'url-join';
+import { fileFormatToUrlParameter } from './resultsDownload';
+import { stringifyUrl } from '../utils/url';
+import { FileFormat } from '../types/resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
 const externalUrls = {
+  AlphaFoldPrediction: (id: string) =>
+    `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
   QuickGOAnnotations: (id: string | number) =>
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
   NCBI: (id: string | number) =>
@@ -32,6 +37,18 @@ const externalUrls = {
     `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm: string | number) =>
     `https://www.ebi.ac.uk/interpro/search/text/${searchTerm}`,
+  InterProRepresentativeDomains: (
+    id: string,
+    format: FileFormat.json | FileFormat.tsv = FileFormat.json
+  ) =>
+    stringifyUrl(
+      `https://www.ebi.ac.uk/interpro/api/entry/all/protein/uniprot/${id}`,
+      {
+        type: 'domain',
+        page_size: 100,
+        format: fileFormatToUrlParameter[format],
+      }
+    ),
   // variation
   UniProt: (id: string | number) =>
     `https://web.expasy.org/variant_pages/${id}.html`,

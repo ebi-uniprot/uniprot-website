@@ -128,6 +128,22 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Loader progress={mainData.progress || childrenData.progress} />;
   }
 
+  if (data.inactiveReason) {
+    return (
+      <SingleColumnLayout>
+        <HTMLHead
+          title={[data.taxonId, searchableNamespaceLabels[Namespace.taxonomy]]}
+        >
+          <meta name="robots" content="noindex" />
+        </HTMLHead>
+        <h1>
+          {searchableNamespaceLabels[Namespace.taxonomy]} - {data.taxonId}{' '}
+          (obsolete)
+        </h1>
+      </SingleColumnLayout>
+    );
+  }
+
   const proteinStatistics = pick<Partial<Statistics>>(data.statistics, [
     'reviewedProteinCount',
     'unreviewedProteinCount',

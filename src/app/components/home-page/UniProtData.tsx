@@ -1,5 +1,5 @@
 import { Tile, HeroContainer } from 'franklin-sites';
-import { generatePath } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
 
 // eslint-disable-next-line import/no-relative-packages
@@ -43,7 +43,8 @@ const UniProtData = () => (
         />
       }
       backgroundColor={colors.independence}
-      url={ftpUrls.uniprot}
+      // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-has-content
+      link={<a href={ftpUrls.uniprot} />}
       gradient
     >
       Download UniProt release data
@@ -64,9 +65,13 @@ const UniProtData = () => (
         />
       }
       backgroundColor={colors.independence}
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'technical',
-      })}
+      link={
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'technical',
+          })}
+        />
+      }
       gradient
     >
       Manuals, schemas and ontology descriptions
@@ -87,9 +92,13 @@ const UniProtData = () => (
         />
       }
       backgroundColor={colors.independence}
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'programmatic_access',
-      })}
+      link={
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'programmatic_access',
+          })}
+        />
+      }
       gradient
     >
       Query UniProt data using APIs providing REST, SPARQL and Java services
@@ -110,9 +119,13 @@ const UniProtData = () => (
         />
       }
       backgroundColor={colors.independence}
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'submissions',
-      })}
+      link={
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'submissions',
+          })}
+        />
+      }
       gradient
     >
       Submit your sequences, publications and annotation updates

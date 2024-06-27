@@ -15,7 +15,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:37.8% D:61.7%) F:0% M:0.5%
+      C:99.5% (S:37.4% D:62%) F:0% M:0.5%
     </div>
   </div>
 </DocumentFragment>
@@ -75,75 +75,12 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 5
     </li>
     <li>
-      Chromosome 6
-    </li>
-    <li>
-      Chromosome 7
-    </li>
-    <li>
-      Chromosome 8
-    </li>
-    <li>
-      Chromosome 9
-    </li>
-    <li>
-      Chromosome 10
-    </li>
-    <li>
-      Chromosome 11
-    </li>
-    <li>
-      Chromosome 12
-    </li>
-    <li>
-      Chromosome 13
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 15
-    </li>
-    <li>
-      Chromosome 16
-    </li>
-    <li>
-      Chromosome 17
-    </li>
-    <li>
-      Chromosome 18
-    </li>
-    <li>
-      Chromosome 19
-    </li>
-    <li>
-      Chromosome 20
-    </li>
-    <li>
-      Chromosome 21
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome X
-    </li>
-    <li>
-      Chromosome Y
-    </li>
-    <li>
-      Mitochondrion
-    </li>
-    <li>
-      Unplaced
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less components
+        21 more components
       </button>
     </li>
   </ul>
@@ -152,7 +89,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
 
 exports[`ProteomesColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>
-  Unknown
+  Outlier (high value)
 </DocumentFragment>
 `;
 
@@ -164,7 +101,7 @@ exports[`ProteomesColumnConfiguration component should render column "genome_ass
     rel="noopener"
     target="_blank"
   >
-    GCA_000001405.28
+    GCA_000001405.29
     <test-file-stub
       data-testid="external-link-icon"
       width="12.5"
@@ -196,7 +133,7 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/33154"
   >
-    Opisthokonta
+    Opisthokonta (clade)
   </a>
   , 
   <a
@@ -208,19 +145,19 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/6072"
   >
-    Eumetazoa
+    Eumetazoa (clade)
   </a>
   , 
   <a
     href="/taxonomy/33213"
   >
-    Bilateria
+    Bilateria (clade)
   </a>
   , 
   <a
     href="/taxonomy/33511"
   >
-    Deuterostomia
+    Deuterostomia (clade)
   </a>
   , 
   <a
@@ -238,25 +175,25 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/7742"
   >
-    Vertebrata
+    Vertebrata (clade)
   </a>
   , 
   <a
     href="/taxonomy/7776"
   >
-    Gnathostomata
+    Gnathostomata (clade)
   </a>
   , 
   <a
     href="/taxonomy/117570"
   >
-    Teleostomi
+    Teleostomi (clade)
   </a>
   , 
   <a
     href="/taxonomy/117571"
   >
-    Euteleostomi
+    Euteleostomi (clade)
   </a>
   , 
   <a
@@ -268,19 +205,19 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/1338369"
   >
-    Dipnotetrapodomorpha
+    Dipnotetrapodomorpha (clade)
   </a>
   , 
   <a
     href="/taxonomy/32523"
   >
-    Tetrapoda
+    Tetrapoda (clade)
   </a>
   , 
   <a
     href="/taxonomy/32524"
   >
-    Amniota
+    Amniota (clade)
   </a>
   , 
   <a
@@ -292,19 +229,19 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/32525"
   >
-    Theria
+    Theria (clade)
   </a>
   , 
   <a
     href="/taxonomy/9347"
   >
-    Eutheria
+    Eutheria (clade)
   </a>
   , 
   <a
     href="/taxonomy/1437010"
   >
-    Boreoeutheria
+    Boreoeutheria (clade)
   </a>
   , 
   <a
@@ -398,7 +335,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    82,485
+    82,518
   </a>
 </DocumentFragment>
 `;

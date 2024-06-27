@@ -4,6 +4,7 @@ exports[`WrappedRow should render 1`] = `
 <DocumentFragment>
   <div
     class="track-label track-label--align-labels"
+    style="bottom: 7px; position: relative;"
   >
     <button
       class="align-label align-label--active align-label--selectable"
@@ -88,18 +89,11 @@ exports[`WrappedRow should render 1`] = `
   </div>
   <div
     class="track"
-  >
-    <protvista-msa
-      calculate-conservation="true"
-      colorscheme="conservation"
-      height="80"
-      hidelabel="true"
-      length="46"
-      overlay-conservation="true"
-    />
-  </div>
+    style="width: 810px;"
+  />
   <span
     class="right-coord"
+    style="bottom: 2px; position: relative;"
   >
     <div
       style="height: 20px;"
@@ -129,6 +123,7 @@ exports[`WrappedRow should render 1`] = `
   </span>
   <div
     class="track annotation-track"
+    style="width: 810px;"
   >
     <protvista-track
       displayend="46"

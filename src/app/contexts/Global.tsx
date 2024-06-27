@@ -15,7 +15,7 @@ import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary
 
 import history from '../../shared/utils/browserHistory';
 
-const GlobalContext: FC = ({ children }) => (
+const GlobalContext: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
   <Router history={history}>
     {/* If anything bad happen at the top level, try to display something */}
     <ErrorBoundary>

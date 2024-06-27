@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
-// Source: /configure/uniprotkb/result-fields
-// Retrieved: 2024-03-25
+// Source: configure/uniprotkb/result-fields
+// Retrieved: 2024-06-10
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -1031,21 +1031,6 @@ const mock = [
         name: 'xref_reproduction-2dpage',
         id: '2d_gel/reproduction-2dpage',
       },
-      {
-        label: 'SWISS-2DPAGE',
-        name: 'xref_swiss-2dpage',
-        id: '2d_gel/swiss-2dpage',
-      },
-      {
-        label: 'UCD-2DPAGE',
-        name: 'xref_ucd-2dpage',
-        id: '2d_gel/ucd-2dpage',
-      },
-      {
-        label: 'World-2DPAGE',
-        name: 'xref_world-2dpage',
-        id: '2d_gel/world-2dpage',
-      },
     ],
   },
   {
@@ -1476,11 +1461,6 @@ const mock = [
         id: 'phylogenomic/inparanoid',
       },
       {
-        label: 'KO',
-        name: 'xref_ko',
-        id: 'phylogenomic/ko',
-      },
-      {
         label: 'OMA',
         name: 'xref_oma',
         isMultiValueCrossReference: true,
@@ -1668,12 +1648,6 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'gene_expression/expressionatlas',
       },
-      {
-        label: 'Genevisible',
-        name: 'xref_genevisible',
-        isMultiValueCrossReference: true,
-        id: 'gene_expression/genevisible',
-      },
     ],
   },
   {
@@ -1771,6 +1745,6 @@ const mock = [
       },
     ],
   },
-] as ReceivedFieldData;
+];
 
-export default mock;
+export default mock as ReceivedFieldData;

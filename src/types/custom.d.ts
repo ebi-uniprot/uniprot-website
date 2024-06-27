@@ -4,7 +4,7 @@
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SvgrComponent
-  extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
+  extends React.FunctionComponent<React.SVGAttributes<SVGElement>> {}
 
 declare module '*img.svg' {
   const content: string;

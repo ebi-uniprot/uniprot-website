@@ -6,6 +6,7 @@ import DatatableWrapper from '../DatatableWrapper';
 
 describe('DatatableWrapper component', () => {
   it('should render with a working toggle button', async () => {
+    Element.prototype.scrollIntoView = jest.fn();
     const { asFragment } = customRender(
       <DatatableWrapper>
         <table />

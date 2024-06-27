@@ -40,7 +40,9 @@ describe('IDMappingForm test', () => {
 
     // One ID with default toDB
     fireEvent.change(idInput, { target: { value: 'P31946' } });
-    expect(screen.getByText('Your input contains 1 ID')).toBeInTheDocument();
+    expect(
+      screen.getByText('Your input contains 1 unique ID')
+    ).toBeInTheDocument();
     expect(jobNameInput.value).toEqual('P31946 UniProtKB_AC-ID → UniProtKB');
 
     // Two IDs with toDB:=CCDS
@@ -48,7 +50,9 @@ describe('IDMappingForm test', () => {
     const ccdsButton = screen.getByRole('button', { name: 'CCDS' });
     fireEvent.click(ccdsButton);
     fireEvent.change(idInput, { target: { value: 'P31946 P62258' } });
-    expect(screen.getByText('Your input contains 2 IDs')).toBeInTheDocument();
+    expect(
+      screen.getByText('Your input contains 2 unique IDs')
+    ).toBeInTheDocument();
     expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → CCDS');
   });
 
