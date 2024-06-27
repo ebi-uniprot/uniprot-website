@@ -8,7 +8,7 @@
     height: 275px;
   }
 
-  .custom-menu-margin {
-    position: absolute;
+  & div {
+    display: none !important; // Do not show the tooltip container. For some reason, class is not respected.
   }
 }
