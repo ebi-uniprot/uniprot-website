@@ -45,7 +45,7 @@ const renderIDMappingResult = (route: string, data: MappingDetails) =>
     }
   );
 
-describe.skip('IDMappingResult tests', () => {
+describe('IDMappingResult tests', () => {
   it('should render simple from/to mapping', async () => {
     renderIDMappingResult('/id-mapping/id1/overview', SimpleMappingDetails);
     expect(await screen.findByText('ENSMUSG00000029283')).toBeInTheDocument();
