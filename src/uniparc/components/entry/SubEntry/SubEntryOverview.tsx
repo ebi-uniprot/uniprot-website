@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { getEntryPath } from '../../../../app/config/urls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import data from '../../../../uniprotkb/__mocks__/ptmExchangeData';
-import EntrySection from '../../../types/entrySection';
+import SubEntrySection from '../../../types/entrySection';
 import { TabLocation } from '../Entry';
 
 type Props = {

@@ -3,14 +3,15 @@ export enum TabLocation {
   FeatureViewer = 'feature-viewer',
 }
 
-enum EntrySection {
+enum SubEntrySection {
+  FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',
   SimilarProteins = 'similar_proteins',
 }
 
 export type EntrySectionNameAndId = {
   name: string;
-  id: EntrySection;
+  id: SubEntrySection;
 };
 
-export default EntrySection;
+export default SubEntrySection;

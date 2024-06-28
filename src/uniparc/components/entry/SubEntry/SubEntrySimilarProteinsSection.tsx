@@ -5,7 +5,7 @@ import LazyComponent from '../../../../shared/components/LazyComponent';
 
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 
-import EntrySection from '../../../types/subEntry';
+import SubEntrySection from '../../../types/subEntry';
 import UniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
 
 const SubEntrySimilarProteins = lazy(
@@ -20,11 +20,14 @@ type Props = {
 };
 
 const SimilarProteinsSection = ({ uniparcId }: Props) => {
-  const { label } = UniParcSubEntryConfig[EntrySection.SimilarProteins];
   return (
     <Card
-      header={<h2 data-article-id="similar_proteins_section">{label}</h2>}
-      id={EntrySection.SimilarProteins}
+      header={
+        <h2 data-article-id="similar_proteins_section">
+          {UniParcSubEntryConfig[SubEntrySection.SimilarProteins].label}
+        </h2>
+      }
+      id={SubEntrySection.SimilarProteins}
       data-entry-section
     >
       <LazyComponent>

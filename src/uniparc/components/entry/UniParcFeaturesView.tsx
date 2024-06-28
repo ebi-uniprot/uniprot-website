@@ -73,7 +73,7 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
 
           return (
             <tr
-              key={feature.protvistaFeatureId}
+              key={`${feature.protvistaFeatureId}-${feature.start}-${feature.end}`}
               data-start={feature.start}
               data-end={feature.end}
             >
