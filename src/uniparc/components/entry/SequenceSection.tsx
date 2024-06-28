@@ -16,6 +16,7 @@ const SequenceSection = ({ data }: { data: SequenceType }) => {
   return (
     <Card
       header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
+      id={EntrySection.Sequence}
     >
       <SimpleSequence sequence={data} />
     </Card>

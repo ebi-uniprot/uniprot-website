@@ -85,7 +85,7 @@ const SimilarProteinsTabContent = ({ clusterType, clusters }: Props) => {
   }
 
   const [noSimilarProteins, hasSimilarProteins] = partitionedProteins;
-  console.log(hasSimilarProteins);
+
   return (
     <>
       {hasSimilarProteins.map(

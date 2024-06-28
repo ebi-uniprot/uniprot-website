@@ -24,7 +24,7 @@ const uniParcSubEntryConfig: Record<
     ),
   },
   [EntrySection.SimilarProteins]: {
-    id: EntrySection.Sequence,
+    id: EntrySection.SimilarProteins,
     label: 'Similar Proteins',
     sectionContent: (data) => (
       <SubEntrySimilarProteinsSection
