@@ -5,14 +5,14 @@ import {
   UniParcAPIModel,
   UniParcXRef,
   databaseToEntryType,
-} from '../../adapters/uniParcConverter';
-import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+} from '../../../adapters/uniParcConverter';
+import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import { Link } from 'react-router-dom';
-import { getEntryPath } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
-import data from '../../../uniprotkb/__mocks__/ptmExchangeData';
-import EntrySection from '../../types/entrySection';
-import { TabLocation } from './Entry';
+import { getEntryPath } from '../../../../app/config/urls';
+import { Namespace } from '../../../../shared/types/namespaces';
+import data from '../../../../uniprotkb/__mocks__/ptmExchangeData';
+import EntrySection from '../../../types/entrySection';
+import { TabLocation } from '../Entry';
 
 type Props = {
   xrefData: Partial<UniParcXRef>;

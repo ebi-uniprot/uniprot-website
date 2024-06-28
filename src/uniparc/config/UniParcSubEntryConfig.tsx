@@ -1,16 +1,19 @@
 import SequenceSection from '../components/entry/SequenceSection';
 
 import EntrySection from '../types/subEntry';
-import SimilarProteinsSection from '../../uniprotkb/components/entry/similar-proteins/SimilarProteinsSection';
+import SubEntrySimilarProteinsSection from '../components/entry/SubEntry/SubEntrySimilarProteinsSection';
 
 import { UniParcUIModel } from '../adapters/uniParcConverter';
 
-const UniParcSubEntryConfig: {
-  id: EntrySection;
-  label: string;
-  sectionContent: (entryData: UniParcUIModel) => JSX.Element;
-}[] = [
+const uniParcSubEntryConfig: Record<
+  EntrySection,
   {
+    id: EntrySection;
+    label: string;
+    sectionContent: (entryData: UniParcUIModel) => JSX.Element;
+  }
+> = {
+  [EntrySection.Sequence]: {
     id: EntrySection.Sequence,
     label: 'Sequence',
     sectionContent: (data) => (
@@ -20,17 +23,16 @@ const UniParcSubEntryConfig: {
       />
     ),
   },
-  {
-    id: EntrySection.SimilarProteins,
+  [EntrySection.SimilarProteins]: {
+    id: EntrySection.Sequence,
     label: 'Similar Proteins',
     sectionContent: (data) => (
-      <SimilarProteinsSection
-        isoforms={data[EntrySection.SimilarProteins]}
-        primaryAccession={data.primaryAccession}
+      <SubEntrySimilarProteinsSection
+        uniparcId={data.uniParcId}
         key={EntrySection.SimilarProteins}
       />
     ),
   },
-];
+};
 
-export default UniParcSubEntryConfig;
+export default uniParcSubEntryConfig;

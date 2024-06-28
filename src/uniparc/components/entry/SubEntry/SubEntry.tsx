@@ -4,34 +4,34 @@ import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
 
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import HTMLHead from '../../../shared/components/HTMLHead';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import EntryTitle from '../../../../shared/components/entry/EntryTitle';
+import HTMLHead from '../../../../shared/components/HTMLHead';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import SubEntryOverview from './SubEntryOverview';
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import SubEntryMain from './SubEntryMain';
-import InPageNav from '../../../shared/components/InPageNav';
+import InPageNav from '../../../../shared/components/InPageNav';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import uniParcConverter, {
   UniParcAPIModel,
-} from '../../adapters/uniParcConverter';
-import { getSubEntryPath, getXRefsForId } from '../../utils/subEntry';
+} from '../../../adapters/uniParcConverter';
+import { getSubEntryPath, getXRefsForId } from '../../../utils/subEntry';
 
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import uniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import {
   Namespace,
   searchableNamespaceLabels,
-} from '../../../shared/types/namespaces';
-import { TabLocation } from '../../types/subEntry';
+} from '../../../../shared/types/namespaces';
+import { TabLocation } from '../../../types/subEntry';
 
-import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import sticky from '../../../shared/styles/sticky.module.scss';
-import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
-import { useMemo } from 'react';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import sticky from '../../../../shared/styles/sticky.module.scss';
+
 const SubEntry = () => {
   const match = useRouteMatch<{
     accession: string;
@@ -74,7 +74,7 @@ const SubEntry = () => {
 
   const sidebar = (
     <InPageNav
-      sections={UniParcSubEntryConfig}
+      sections={Object.values(uniParcSubEntryConfig)}
       rootElement={`.${sidebarStyles.content}`}
     />
   );

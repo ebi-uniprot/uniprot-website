@@ -125,7 +125,7 @@ const UniRefEntryPage = lazy(
 const UniParcSubEntryPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/entry/SubEntry'
+      /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/entry/SubEntry/SubEntry'
     )
 );
 const UniParcEntryPage = lazy(
