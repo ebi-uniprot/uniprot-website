@@ -13,57 +13,28 @@ import {
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import { groupBy } from 'lodash-es';
+import { SearchResults } from '../../../../shared/types/results';
 
 export type ClusterMapping = Record<
   UniRefEntryType,
   Record<string, UniRefLiteAPIModel>
 >;
 
-export const getClusterMapping = (clusterData: UniRefLiteAPIModel[][]) => {
-  const mapping: ClusterMapping = {
-    UniRef100: {},
-    UniRef90: {},
-    UniRef50: {},
-  };
-
-  for (const clusters of clusterData) {
-    /* istanbul ignore if */
-    // if (!isoform || !clusters) {
-    //   break; // Shouldn't happen, used to restric types
-    // }
-    for (const cluster of clusters) {
-      const isoformsAndCluster = mapping[cluster.entryType][cluster.id] || {
-        isoforms: [],
-        cluster,
-      };
-      isoformsAndCluster.isoforms.push(isoform);
-      mapping[cluster.entryType][cluster.id] = isoformsAndCluster;
-    }
-  }
-  return mapping;
-};
-
-// TODO: check cases when the canonical might not be the first isoforms!!!
-const canonicalIsoformRE = /-1$/;
-
 type Props = {
   uniparcId: string;
 };
 
 const SimilarProteins = ({ uniparcId }: Props) => {
-  const [mappingData, setMappingData] = useSafeState<ClusterMapping | null>(
-    null
-  );
-
-  const unirefData = useDataApi(
+  const unirefData = useDataApi<SearchResults<UniRefLiteAPIModel>>(
     `${apiUrls.search.searchPrefix(Namespace.uniref)}?query=(upi:${uniparcId})`
   );
 
-  if (unirefData.loading) {
+  if (unirefData.loading || !unirefData.data) {
     return <Loader />;
   }
-  console.log(unirefData);
-  return 'foo';
+
+  const mappingData = groupBy(unirefData.data.results, 'entryType');
   return mappingData ? (
     <Tabs>
       {Object.entries(uniRefEntryTypeToPercent).map(
@@ -75,9 +46,7 @@ const SimilarProteins = ({ uniparcId }: Props) => {
           >
             <SubEntrySimilarProteinsTabContent
               clusterType={clusterType}
-              isoformsAndClusters={Object.values(
-                mappingData[clusterType as UniRefEntryType]
-              )}
+              clusters={mappingData[clusterType]}
             />
           </Tab>
         )
