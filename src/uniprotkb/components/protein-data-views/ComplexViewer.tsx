@@ -10,13 +10,10 @@ import styles from './styles/complex-viewer.module.scss';
 const ComplexViewer = ({ complexID }: { complexID: string }) => {
   const { loading, data } = useDataApi(externalUrls.ComplexViewer(complexID));
 
-  let viewer: typeof complexviewer.App;
   const createComplexViewer = useCallback(
     (node: HTMLDivElement) => {
-      if (!viewer && node) {
-        viewer = new complexviewer.App(node);
-      }
-      if (data) {
+      if (node && data) {
+        const viewer = new complexviewer.App(node);
         viewer.clear();
         viewer.readMIJSON(data);
       }
