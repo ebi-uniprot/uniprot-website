@@ -8,7 +8,13 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import EntrySection from '../../types/entrySection';
 import { Sequence as SequenceType } from '../../../shared/types/sequence';
 
-const SequenceSection = ({ data }: { data: SequenceType }) => {
+const SequenceSection = ({
+  data,
+  isCollapsible,
+}: {
+  data: SequenceType;
+  isCollapsible?: boolean;
+}) => {
   if (!hasContent(data)) {
     return null;
   }
@@ -18,7 +24,7 @@ const SequenceSection = ({ data }: { data: SequenceType }) => {
       header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
       id={EntrySection.Sequence}
     >
-      <SimpleSequence sequence={data} />
+      <SimpleSequence sequence={data} isCollapsible={isCollapsible} />
     </Card>
   );
 };
