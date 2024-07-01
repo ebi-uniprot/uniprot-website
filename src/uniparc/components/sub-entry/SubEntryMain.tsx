@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
 import { Loader } from 'franklin-sites';
 
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
-import UniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
+import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
-import { UniParcSubEntryUIModel } from '../../../adapters/uniParcSubEntryConverter';
+import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 
 type EntryMainProps = {
   transformedData: UniParcSubEntryUIModel;

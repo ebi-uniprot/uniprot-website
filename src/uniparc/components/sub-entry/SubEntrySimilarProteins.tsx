@@ -3,17 +3,17 @@ import { Loader, Tabs, Tab } from 'franklin-sites';
 
 import SubEntrySimilarProteinsTabContent from './SubEntrySimilarProteinsTabContent';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApi from '../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import { Namespace } from '../../../shared/types/namespaces';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
-} from '../../../../uniref/adapters/uniRefConverter';
-import { SearchResults } from '../../../../shared/types/results';
+} from '../../../uniref/adapters/uniRefConverter';
+import { SearchResults } from '../../../shared/types/results';
 
 export type ClusterMapping = Record<
   UniRefEntryType,

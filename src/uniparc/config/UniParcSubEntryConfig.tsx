@@ -1,9 +1,9 @@
 import SequenceSection from '../components/entry/SequenceSection';
 
 import EntrySection from '../types/subEntry';
-import SubEntryStructureSection from '../components/entry/sub-entry/SubEntryStructureSection';
-import SubEntryFamilyAndDomains from '../components/entry/sub-entry/SubEntryFamilyAndDomainsSection';
-import SubEntrySimilarProteinsSection from '../components/entry/sub-entry/SubEntrySimilarProteinsSection';
+import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
+import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
+import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 
 import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 

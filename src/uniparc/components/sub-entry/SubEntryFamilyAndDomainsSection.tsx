@@ -1,12 +1,12 @@
 import { memo } from 'react';
 import { Card } from 'franklin-sites';
 
-import UniParcFeaturesView from '../UniParcFeaturesView';
+import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 
-import UniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
+import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
-import SubEntrySection from '../../../types/subEntry';
-import { UniParcUIModel } from '../../../adapters/uniParcConverter';
+import SubEntrySection from '../../types/subEntry';
+import { UniParcUIModel } from '../../adapters/uniParcConverter';
 
 type Props = {
   data?: Partial<UniParcUIModel>;

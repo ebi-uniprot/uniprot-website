@@ -1,15 +1,15 @@
 import { lazy } from 'react';
 import { Card } from 'franklin-sites';
 
-import UniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
+import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
-import { UniParcSubEntryUIModel } from '../../../adapters/uniParcSubEntryConverter';
-import SubEntrySection from '../../../types/subEntry';
+import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import SubEntrySection from '../../types/subEntry';
 
 const StructureView = lazy(
   () =>
     import(
-      /* webpackChunkName: "structure-view" */ '../../../../uniprotkb/components/protein-data-views/StructureView'
+      /* webpackChunkName: "structure-view" */ '../../../uniprotkb/components/protein-data-views/StructureView'
     )
 );
 

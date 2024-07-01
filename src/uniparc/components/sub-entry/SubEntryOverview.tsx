@@ -2,13 +2,13 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { InfoList } from 'franklin-sites';
 
-import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
-import { getEntryPath } from '../../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
-import { TabLocation } from '../Entry';
-import { UniParcSubEntryUIModel } from '../../../adapters/uniParcSubEntryConverter';
+import { Namespace } from '../../../shared/types/namespaces';
+import { TabLocation } from '../entry/Entry';
+import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 
 type Props = {
   data: UniParcSubEntryUIModel;

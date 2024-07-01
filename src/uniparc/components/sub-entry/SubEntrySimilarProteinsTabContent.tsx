@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom';
 import { Button, Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 
-import useSafeState from '../../../../shared/hooks/useSafeState';
+import useSafeState from '../../../shared/hooks/useSafeState';
 
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import fetchData from '../../../../shared/utils/fetchData';
-import listFormat from '../../../../shared/utils/listFormat';
-import { pluralise } from '../../../../shared/utils/utils';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import fetchData from '../../../shared/utils/fetchData';
+import listFormat from '../../../shared/utils/listFormat';
+import { pluralise } from '../../../shared/utils/utils';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import SimilarProteinsTable, {
   columns,
-} from '../../../../uniprotkb/components/entry/similar-proteins/SimilarProteinsTable';
+} from '../../../uniprotkb/components/entry/similar-proteins/SimilarProteinsTable';
 
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
-} from '../../../../uniref/adapters/uniRefConverter';
-import { Namespace } from '../../../../shared/types/namespaces';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+} from '../../../uniref/adapters/uniRefConverter';
+import { Namespace } from '../../../shared/types/namespaces';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 type Props = {
   clusterType: string;
