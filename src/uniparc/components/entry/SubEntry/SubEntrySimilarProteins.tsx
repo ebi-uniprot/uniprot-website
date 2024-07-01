@@ -33,8 +33,9 @@ const SimilarProteins = ({ uniparcId }: Props) => {
   if (unirefData.loading || !unirefData.data) {
     return <Loader />;
   }
-
-  const mappingData = groupBy(unirefData.data.results, 'entryType');
+  const mappingData =
+    unirefData.data.results.length &&
+    groupBy(unirefData.data.results, 'entryType');
   return mappingData ? (
     <Tabs>
       {Object.entries(uniRefEntryTypeToPercent).map(
