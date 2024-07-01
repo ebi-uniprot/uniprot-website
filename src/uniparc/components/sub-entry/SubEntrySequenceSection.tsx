@@ -3,11 +3,11 @@ import { Card, LongNumber, Sequence } from 'franklin-sites';
 import SimpleSequence from '../../../shared/components/simple-sequence/SimpleSequence';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import EntrySection from '../../types/entrySection';
+import EntrySection from '../../types/subEntry';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { useMediumScreen } from '../../../shared/hooks/useMatchMedia';
+import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
 const SubEntrySequenceSection = ({
   data,
@@ -15,15 +15,11 @@ const SubEntrySequenceSection = ({
   data?: UniParcSubEntryUIModel;
   isCollapsible?: boolean;
 }) => {
-  console.log(data);
+  const mediumScreen = useMediumScreen();
   if (!data || !hasContent(data) || !data.entry[EntrySection.Sequence]) {
     return null;
   }
-
   const sequence = data.entry[EntrySection.Sequence];
-
-  const mediumScreen = useMediumScreen();
-
   const infoData = [
     {
       title: 'Length',
@@ -39,13 +35,13 @@ const SubEntrySequenceSection = ({
     },
     {
       title: 'Source',
-      content: data.subEntry.source?.database,
+      content: data.subEntry.source?.database, // TODO: add external link
     },
   ];
 
   return (
     <Card
-      header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
+      header={<h2>{uniParcSubEntryConfig[EntrySection.Sequence].label}</h2>}
       id={EntrySection.Sequence}
     >
       <Sequence
