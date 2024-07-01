@@ -5,10 +5,10 @@ import ErrorBoundary from '../../../../shared/components/error-component/ErrorBo
 
 import UniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
 
-import { UniParcUIModel } from '../../../adapters/uniParcConverter';
+import { UniParcSubEntryUIModel } from '../../../adapters/uniParcSubEntryConverter';
 
 type EntryMainProps = {
-  transformedData: UniParcUIModel;
+  transformedData: UniParcSubEntryUIModel;
 };
 
 const SubEntryMain = ({ transformedData }: EntryMainProps) => (

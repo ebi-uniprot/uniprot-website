@@ -16,24 +16,26 @@ const SubEntrySimilarProteins = lazy(
 );
 
 type Props = {
-  uniparcId: string;
+  uniparcId?: string;
 };
 
 const SimilarProteinsSection = ({ uniparcId }: Props) => {
   return (
-    <Card
-      header={
-        <h2 data-article-id="similar_proteins_section">
-          {UniParcSubEntryConfig[SubEntrySection.SimilarProteins].label}
-        </h2>
-      }
-      id={SubEntrySection.SimilarProteins}
-      data-entry-section
-    >
-      <LazyComponent>
-        <SubEntrySimilarProteins uniparcId={uniparcId} />
-      </LazyComponent>
-    </Card>
+    uniparcId && (
+      <Card
+        header={
+          <h2 data-article-id="similar_proteins_section">
+            {UniParcSubEntryConfig[SubEntrySection.SimilarProteins].label}
+          </h2>
+        }
+        id={SubEntrySection.SimilarProteins}
+        data-entry-section
+      >
+        <LazyComponent>
+          <SubEntrySimilarProteins uniparcId={uniparcId} />
+        </LazyComponent>
+      </Card>
+    )
   );
 };
 

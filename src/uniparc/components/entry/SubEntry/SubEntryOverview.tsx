@@ -13,53 +13,54 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import data from '../../../../uniprotkb/__mocks__/ptmExchangeData';
 import SubEntrySection from '../../../types/entrySection';
 import { TabLocation } from '../Entry';
+import { UniParcSubEntryUIModel } from '../../../adapters/uniParcSubEntryConverter';
 
 type Props = {
-  xrefData: Partial<UniParcXRef>;
-  uniparcData: Partial<UniParcAPIModel>;
+  data: UniParcSubEntryUIModel;
 };
 
-const SubEntryOverview = ({ xrefData, uniparcData }: Props) => {
-  const isUniprotkbEntry = Boolean(
-    xrefData?.database && databaseToEntryType.has(xrefData.database)
-  );
+const SubEntryOverview = ({ data }: Props) => {
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
-      content: xrefData.proteinName && <strong>{xrefData.proteinName}</strong>,
+      content: data.subEntry.proteinName && (
+        <strong>{data.subEntry.proteinName}</strong>
+      ),
     },
     {
       title: <span data-article-id="gene_name">Gene</span>,
-      content: xrefData.geneName && <strong>{xrefData.geneName}</strong>,
+      content: data.subEntry.geneName && (
+        <strong>{data.subEntry.geneName}</strong>
+      ),
     },
     {
       title: <span data-article-id="accession">UniProtKB accession</span>,
-      content: xrefData.id && isUniprotkbEntry && (
+      content: data.subEntry.id && data.subEntry.isUniprotkbEntry && (
         <Link
           to={{
             pathname: getEntryPath(
               Namespace.uniprotkb,
-              xrefData.id,
+              data.subEntry.id,
               TabLocation.Entry
             ),
           }}
         >
-          {xrefData.id}
+          {data.subEntry.id}
         </Link>
       ),
     },
     {
       title: <span data-article-id="organism-name">Organism</span>,
-      content: (xrefData.organism?.scientificName ||
-        xrefData.organism?.taxonId) && (
-        <TaxonomyView data={xrefData.organism} />
+      content: (data.subEntry.organism?.scientificName ||
+        data.subEntry.organism?.taxonId) && (
+        <TaxonomyView data={data.subEntry.organism} />
       ),
     },
     {
       // TODO: add link to sequence section
       title: 'Amino acids',
-      content: uniparcData.sequence && (
-        <span>{uniparcData.sequence?.length} </span>
+      content: data.entry.sequence && (
+        <span>{data.entry.sequence?.length} </span>
       ),
     },
   ];

@@ -31,6 +31,7 @@ import { TabLocation } from '../../../types/subEntry';
 
 import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import sticky from '../../../../shared/styles/sticky.module.scss';
+import uniParcSubEntryConverter from '../../../adapters/uniParcSubEntryConverter';
 
 const SubEntry = () => {
   const match = useRouteMatch<{
@@ -62,13 +63,12 @@ const SubEntry = () => {
     // TODO: handle this
     return 'TODO: handle this';
   }
-  const transformedData = uniParcConverter(uniparcData.data);
-  const xrefForId = getXRefsForId(
-    subEntryId,
-    transformedData.uniParcCrossReferences
+  const transformedData = uniParcSubEntryConverter(
+    uniparcData.data,
+    subEntryId
   );
   // TODO: handle when no xrefsForId
-  if (!xrefForId) {
+  if (!transformedData) {
     return 'TODO: handle this';
   }
 
@@ -89,17 +89,17 @@ const SubEntry = () => {
         <HTMLHead
           title={[
             subEntryId,
-            transformedData.uniParcId,
+            transformedData.entry.uniParcId,
             searchableNamespaceLabels[Namespace.uniparc],
           ]}
         />
         <h1>
           <EntryTitle
             mainTitle="UniParc"
-            optionalTitle={`${transformedData.uniParcId} · ${subEntryId}`}
+            optionalTitle={`${transformedData.entry.uniParcId} · ${subEntryId}`}
           />
         </h1>
-        <SubEntryOverview xrefData={xrefForId} uniparcData={uniparcData.data} />
+        <SubEntryOverview data={transformedData} />
       </ErrorBoundary>
       <Tabs active={match.params.subPage}>
         <Tab

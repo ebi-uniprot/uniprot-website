@@ -12,10 +12,10 @@ const SequenceSection = ({
   data,
   isCollapsible,
 }: {
-  data: SequenceType;
+  data?: SequenceType;
   isCollapsible?: boolean;
 }) => {
-  if (!hasContent(data)) {
+  if (!data || !hasContent(data)) {
     return null;
   }
 
