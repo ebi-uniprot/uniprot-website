@@ -4,6 +4,7 @@ export enum TabLocation {
 }
 
 enum SubEntrySection {
+  Structure = 'structure',
   FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',
   SimilarProteins = 'similar_proteins',

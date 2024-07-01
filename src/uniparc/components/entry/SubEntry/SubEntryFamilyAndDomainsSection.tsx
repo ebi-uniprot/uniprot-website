@@ -9,7 +9,7 @@ import SubEntrySection from '../../../types/subEntry';
 import { UniParcUIModel } from '../../../adapters/uniParcConverter';
 
 type Props = {
-  data?: UniParcUIModel;
+  data?: Partial<UniParcUIModel>;
 };
 
 const FamilyAndDomainsSection = ({ data }: Props) => {

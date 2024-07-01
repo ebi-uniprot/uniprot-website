@@ -1,6 +1,7 @@
 import SequenceSection from '../components/entry/SequenceSection';
 
 import EntrySection from '../types/subEntry';
+import SubEntryStructureSection from '../components/entry/SubEntry/SubEntryStructureSection';
 import SubEntryFamilyAndDomains from '../components/entry/SubEntry/SubEntryFamilyAndDomainsSection';
 import SubEntrySimilarProteinsSection from '../components/entry/SubEntry/SubEntrySimilarProteinsSection';
 
@@ -14,6 +15,16 @@ const uniParcSubEntryConfig: Record<
     sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
   }
 > = {
+  [EntrySection.Structure]: {
+    id: EntrySection.Structure,
+    label: 'Structure',
+    sectionContent: (data) => (
+      <SubEntryStructureSection
+        data={data.subEntry}
+        key={EntrySection.Structure}
+      />
+    ),
+  },
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
     label: 'Family & Domains',
