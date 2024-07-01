@@ -1,10 +1,9 @@
-import SequenceSection from '../components/entry/SequenceSection';
-
-import EntrySection from '../types/subEntry';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
+import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 
+import EntrySection from '../types/subEntry';
 import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 
 const uniParcSubEntryConfig: Record<
@@ -34,8 +33,8 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection.Sequence,
     label: 'Sequence',
     sectionContent: (data) => (
-      <SequenceSection
-        data={data.entry[EntrySection.Sequence]}
+      <SubEntrySequenceSection
+        data={data}
         isCollapsible={false}
         key={EntrySection.Sequence}
       />
