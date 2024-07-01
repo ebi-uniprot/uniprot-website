@@ -258,12 +258,12 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         </>
       ) : null}
 
-      {displayVizTab && (
+      {displayVizTab && !isSmallScreen && (
         <Tabs>
           {complexPortalXrefs.length ? (
             <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>
-                <LazyComponent render={isSmallScreen ? false : undefined}>
+                <LazyComponent>
                   <ComplexViewer
                     complexID={viewerID || complexPortalXrefs[0]}
                   />
