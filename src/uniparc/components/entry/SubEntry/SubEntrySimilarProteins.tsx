@@ -1,8 +1,9 @@
+import { groupBy } from 'lodash-es';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
 import SubEntrySimilarProteinsTabContent from './SubEntrySimilarProteinsTabContent';
 
-import useSafeState from '../../../../shared/hooks/useSafeState';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
@@ -12,8 +13,6 @@ import {
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import { groupBy } from 'lodash-es';
 import { SearchResults } from '../../../../shared/types/results';
 
 export type ClusterMapping = Record<

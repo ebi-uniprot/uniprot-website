@@ -1,17 +1,12 @@
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 import { InfoList } from 'franklin-sites';
 
-import {
-  UniParcAPIModel,
-  UniParcXRef,
-  databaseToEntryType,
-} from '../../../adapters/uniParcConverter';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-import { Link } from 'react-router-dom';
+
 import { getEntryPath } from '../../../../app/config/urls';
+
 import { Namespace } from '../../../../shared/types/namespaces';
-import data from '../../../../uniprotkb/__mocks__/ptmExchangeData';
-import SubEntrySection from '../../../types/entrySection';
 import { TabLocation } from '../Entry';
 import { UniParcSubEntryUIModel } from '../../../adapters/uniParcSubEntryConverter';
 
@@ -20,6 +15,7 @@ type Props = {
 };
 
 const SubEntryOverview = ({ data }: Props) => {
+  console.log(data.subEntry);
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
@@ -61,6 +57,21 @@ const SubEntryOverview = ({ data }: Props) => {
       title: 'Amino acids',
       content: data.entry.sequence && (
         <span>{data.entry.sequence?.length} </span>
+      ),
+    },
+    {
+      title: 'Proteome',
+      content: data.subEntry.proteomeId && data.subEntry.proteinName && (
+        <Link
+          to={{
+            pathname: getEntryPath(
+              Namespace.proteomes,
+              data.subEntry.proteomeId
+            ),
+          }}
+        >
+          {data.subEntry.proteomeId} ({data.subEntry.proteinName})
+        </Link>
       ),
     },
   ];

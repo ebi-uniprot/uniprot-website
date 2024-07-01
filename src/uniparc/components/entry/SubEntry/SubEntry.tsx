@@ -14,10 +14,8 @@ import InPageNav from '../../../../shared/components/InPageNav';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import uniParcConverter, {
-  UniParcAPIModel,
-} from '../../../adapters/uniParcConverter';
-import { getSubEntryPath, getXRefsForId } from '../../../utils/subEntry';
+import { UniParcAPIModel } from '../../../adapters/uniParcConverter';
+import { getSubEntryPath } from '../../../utils/subEntry';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import uniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';

@@ -3,10 +3,9 @@ import { Card } from 'franklin-sites';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
 
-import { getEntrySectionNameAndId } from '../../../utils/entrySection';
+import UniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
 
 import SubEntrySection from '../../../types/subEntry';
-import UniParcSubEntryConfig from '../../../config/UniParcSubEntryConfig';
 
 const SubEntrySimilarProteins = lazy(
   () =>

@@ -11,17 +11,17 @@ import listFormat from '../../../../shared/utils/listFormat';
 import { pluralise } from '../../../../shared/utils/utils';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
+import SimilarProteinsTable, {
+  columns,
+} from '../../../../uniprotkb/components/entry/similar-proteins/SimilarProteinsTable';
+
 import {
-  UniRefAPIModel,
   UniRefEntryType,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import SimilarProteinsTable, {
-  columns,
-} from '../../../../uniprotkb/components/entry/similar-proteins/SimilarProteinsTable';
 
 type Props = {
   clusterType: string;
