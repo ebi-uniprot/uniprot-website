@@ -348,6 +348,7 @@ const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
       if (category && databaseCategoryToString[category]) {
         title = databaseCategoryToString[category];
       }
+
       return (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>

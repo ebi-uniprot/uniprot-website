@@ -1,6 +1,6 @@
-import { lazy, useMemo, memo } from 'react';
+import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from 'franklin-sites';
+import { Button, Card, Tab, Tabs } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import EntrySection from '../../types/entrySection';
@@ -12,7 +12,9 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { getIntActQueryUrl } from '../../../shared/config/externalUrls';
+import externalUrls, {
+  getIntActQueryUrl,
+} from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
@@ -97,6 +99,14 @@ const InteractionViewer = lazy(
     import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
 );
 
+const ComplexViewer = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "complexviewer" */ '../protein-data-views/ComplexViewer'
+    )
+);
+
 const InteractionSection = ({ data, primaryAccession }: Props) => {
   const isSmallScreen = useSmallScreen();
   const tableData = useMemo(
@@ -110,14 +120,30 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ).sort(interactionSorter),
     [data]
   );
+  const [viewerID, setViewerID] = useState<string | undefined>(undefined);
 
   if (!hasContent(data)) {
     return null;
   }
 
+  let displayVizTab = false;
+
   const comments = data.commentsData.get('SUBUNIT') as
     | FreeTextComment[]
     | undefined;
+
+  const complexPortalXrefs = data.xrefData
+    .flatMap((d) => d.databases)
+    .flatMap((d) =>
+      d.xrefs.flatMap((xref) =>
+        xref.database === 'ComplexPortal' ? (xref.id as string) : ''
+      )
+    )
+    .filter(Boolean);
+
+  if (complexPortalXrefs.length) {
+    displayVizTab = true;
+  }
 
   const table = (
     <table>
@@ -203,6 +229,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       </tbody>
     </table>
   );
+
   return (
     <Card
       header={
@@ -231,6 +258,49 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         </>
       ) : null}
 
+      {displayVizTab && !isSmallScreen && (
+        <Tabs>
+          {complexPortalXrefs.length ? (
+            <Tab cache title="Complex viewer">
+              <div className={styles['viewer-ids-container']}>
+                <LazyComponent>
+                  <ComplexViewer
+                    complexID={viewerID || complexPortalXrefs[0]}
+                  />
+                </LazyComponent>
+                <div className={styles['id-list']}>
+                  {complexPortalXrefs.map((id, index) => (
+                    <Button
+                      variant={
+                        viewerID === id ||
+                        (viewerID === undefined && index === 0)
+                          ? 'primary'
+                          : 'secondary'
+                      }
+                      className={styles['id-button']}
+                      key={id}
+                      onClick={(event: MouseEvent) =>
+                        setViewerID(
+                          (event.target as HTMLElement).innerText as string
+                        )
+                      }
+                    >
+                      {id}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <ExternalLink
+                url={externalUrls.ComplexPortal(
+                  viewerID || complexPortalXrefs[0]
+                )}
+              >
+                Visit the Complex Portal for more
+              </ExternalLink>
+            </Tab>
+          ) : null}
+        </Tabs>
+      )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
   );

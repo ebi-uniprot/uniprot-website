@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InteractionSection show the viewer tab if there are any xrefs from complex portal 1`] = `
+<DocumentFragment>
+  <section
+    class="interaction-section card"
+    data-entry-section="true"
+    id="interaction"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2
+          data-article-id="interaction_section"
+        >
+          Interaction
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <div
+          class="tabs"
+        >
+          <div
+            class="tabs__header"
+            role="tablist"
+          >
+            <div
+              aria-controls="0"
+              class="tabs__header__item tabs__header__item--active"
+              data-target="0"
+              data-testid="tab-title"
+              role="tab"
+              tabindex="0"
+            >
+              Complex viewer
+            </div>
+          </div>
+          <div
+            data-testid="tab-content"
+            id="0"
+            role="tabpanel"
+          >
+            <div
+              style="display: block;"
+            >
+              <div
+                class="viewer-ids-container"
+              >
+                <div
+                  class="loader-container"
+                >
+                  <test-file-stub
+                    classname="loader"
+                    height="100"
+                    width="100"
+                  />
+                </div>
+                <div
+                  class="id-list"
+                >
+                  <button
+                    class="button primary id-button"
+                    type="button"
+                  >
+                    CPX-1062
+                  </button>
+                  <button
+                    class="button secondary id-button"
+                    type="button"
+                  >
+                    CPX-1069
+                  </button>
+                </div>
+              </div>
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/complexportal/complex/CPX-1062"
+                rel="noopener"
+                target="_blank"
+              >
+                Visit the Complex Portal for more
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+        <h3>
+          Protein-protein interaction databases
+        </h3>
+        <ul
+          class="info-list info-list--columns"
+        >
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <a
+                  href="/database?query=(name:ComplexPortal)&direct"
+                  translate="no"
+                >
+                  ComplexPortal
+                </a>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/complexportal/complex/CPX-1062"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      CPX-1062
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    Amyloid-beta protein 40/42 complex
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/complexportal/complex/CPX-1069"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      CPX-1069
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    Amyloid-beta protein 40 complex
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
