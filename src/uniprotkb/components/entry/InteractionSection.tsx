@@ -279,11 +279,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                       }
                       className={styles['id-button']}
                       key={id}
-                      onClick={(event: MouseEvent) => {
+                      onClick={(event: MouseEvent) =>
                         setViewerID(
                           (event.target as HTMLElement).innerText as string
-                        );
-                      }}
+                        )
+                      }
                     >
                       {id}
                     </Button>
