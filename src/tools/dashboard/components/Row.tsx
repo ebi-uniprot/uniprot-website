@@ -573,6 +573,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
       }
     }
+  } else if (!hasExpired) {
+    if (job.status === Status.CREATED) {
+      jobIdNode = <em>The server has not accepted this job yet</em>;
+    } else {
+      jobIdNode = <em>The server had an issue accepting this job</em>;
+    }
   }
 
   return (
