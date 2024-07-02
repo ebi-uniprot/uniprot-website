@@ -4,13 +4,7 @@ import { useMediumScreen } from '../../hooks/useMatchMedia';
 
 import { Sequence as SequenceType } from '../../types/sequence';
 
-const SimpleSequence = ({
-  sequence,
-  isCollapsible,
-}: {
-  sequence: SequenceType;
-  isCollapsible?: boolean;
-}) => {
+const SimpleSequence = ({ sequence }: { sequence: SequenceType }) => {
   const mediumScreen = useMediumScreen();
 
   const infoData = [
@@ -33,11 +27,7 @@ const SimpleSequence = ({
       sequence={sequence.value}
       infoData={infoData}
       isCollapsible={
-        typeof isCollapsible !== 'undefined'
-          ? isCollapsible
-          : mediumScreen
-          ? sequence.length > 200
-          : sequence.length > 400
+        mediumScreen ? sequence.length > 200 : sequence.length > 400
       }
     />
   );
