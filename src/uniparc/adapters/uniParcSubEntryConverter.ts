@@ -1,4 +1,4 @@
-import { getSource, getXRefsForId } from '../utils/subEntry';
+import { getSource, getXRefsForId, isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
   UniParcAPIModel,
   UniParcUIModel,
@@ -9,7 +9,8 @@ import uniParcConverter, {
 export type UniParcSubEntryUIModel = {
   entry: Partial<UniParcUIModel>;
   subEntry: Partial<UniParcXRef> & {
-    source?: UniParcXRef | null;
+    isSource: boolean;
+    source?: Partial<UniParcXRef> | null;
     isUniprotkbEntry: boolean;
   };
 };
@@ -31,14 +32,15 @@ const uniParcSubEntryConverter = (
   const isUniprotkbEntry = Boolean(
     subEntryData.database && databaseToEntryType.has(subEntryData.database)
   );
-  const source = getSource(
-    subEntryData.organism,
-    transformedEntryData.cross_references
-  );
+
+  const isSource = isSourceDatabase(subEntryData.database);
+  const source = isSource
+    ? undefined
+    : getSource(subEntryData.organism, transformedEntryData.cross_references);
 
   return {
     entry: transformedEntryData,
-    subEntry: { ...subEntryData, source, isUniprotkbEntry },
+    subEntry: { ...subEntryData, isSource, source, isUniprotkbEntry },
   };
 };
 

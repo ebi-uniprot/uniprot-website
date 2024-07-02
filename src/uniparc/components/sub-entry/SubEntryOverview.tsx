@@ -15,7 +15,21 @@ type Props = {
 };
 
 const SubEntryOverview = ({ data }: Props) => {
-  console.log(data.subEntry);
+  const [proteomeId, component] =
+    (data.subEntry.isSource &&
+      data.subEntry.proteomeId &&
+      data.subEntry.component && [
+        data.subEntry.proteomeId,
+        data.subEntry.component,
+      ]) ||
+    (data.subEntry.source &&
+      data.subEntry.source.proteomeId &&
+      data.subEntry.source.component && [
+        data.subEntry.source.proteomeId,
+        data.subEntry.source.component,
+      ]) ||
+    [];
+
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
@@ -28,6 +42,10 @@ const SubEntryOverview = ({ data }: Props) => {
       content: data.subEntry.geneName && (
         <strong>{data.subEntry.geneName}</strong>
       ),
+    },
+    {
+      title: <span data-article-id="accession">Database</span>,
+      content: !data.subEntry.isUniprotkbEntry && data.subEntry.database,
     },
     {
       title: <span data-article-id="accession">UniProtKB accession</span>,
@@ -46,6 +64,10 @@ const SubEntryOverview = ({ data }: Props) => {
       ),
     },
     {
+      title: 'Sequence source',
+      content: data.subEntry.source?.database,
+    },
+    {
       title: <span data-article-id="organism-name">Organism</span>,
       content: (data.subEntry.organism?.scientificName ||
         data.subEntry.organism?.taxonId) && (
@@ -61,16 +83,13 @@ const SubEntryOverview = ({ data }: Props) => {
     },
     {
       title: 'Proteome',
-      content: data.subEntry.proteomeId && data.subEntry.proteinName && (
+      content: proteomeId && component && (
         <Link
           to={{
-            pathname: getEntryPath(
-              Namespace.proteomes,
-              data.subEntry.proteomeId
-            ),
+            pathname: getEntryPath(Namespace.proteomes, proteomeId),
           }}
         >
-          {data.subEntry.proteomeId} ({data.subEntry.proteinName})
+          {proteomeId} ({component})
         </Link>
       ),
     },

@@ -20,8 +20,8 @@ export const getSubEntryPath = (
 
 const reSourceDatabase = /^(refseq|ensembl|embl)/i;
 
-export const isSourceDatabase = (database: string) =>
-  reSourceDatabase.test(database);
+export const isSourceDatabase = (database?: string) =>
+  Boolean(database && reSourceDatabase.test(database));
 
 export const getSource = (organism?: TaxonomyDatum, xrefs?: UniParcXRef[]) => {
   const found = xrefs?.filter(

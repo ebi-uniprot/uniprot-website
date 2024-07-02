@@ -33,11 +33,7 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection.Sequence,
     label: 'Sequence',
     sectionContent: (data) => (
-      <SubEntrySequenceSection
-        data={data}
-        isCollapsible={false}
-        key={EntrySection.Sequence}
-      />
+      <SubEntrySequenceSection data={data} key={EntrySection.Sequence} />
     ),
   },
   [EntrySection.SimilarProteins]: {
