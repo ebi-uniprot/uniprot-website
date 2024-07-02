@@ -1,0 +1,83 @@
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
+
+.landing-page {
+  margin-block: 2 * $global-margin;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  table {
+    margin-bottom: $global-margin;
+    border-spacing: 0;
+    overflow: auto;
+
+    caption {
+      inline-size: max-content;
+    }
+  }
+
+  thead {
+    color: $colour-sky-white;
+    background: $colour-sea-blue;
+
+    th {
+      width: 50%;
+    }
+
+    a {
+      color: $colour-sky-white;
+    }
+  }
+
+  tbody {
+    border: 1px solid $colour-sea-blue;
+  }
+
+  th,
+  td {
+    padding: $global-padding * 0.25 $global-padding * 0.5;
+    border: 1px solid $colour-sea-blue;
+    border-collapse: collapse;
+  }
+}
+
+.table-container {
+  display: grid;
+  gap: $global-margin;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.end {
+  text-align: end;
+}
+
+.image-container {
+  display: grid;
+  place-items: center;
+}
+
+.download {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  a {
+    margin-inline-end: 0.5 * $global-margin;
+  }
+}
+
+.tutorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__title {
+    // Show maximum 2 lines of the title
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}
