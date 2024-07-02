@@ -1,21 +1,17 @@
 import { Card, LongNumber, Sequence } from 'franklin-sites';
 
-import SimpleSequence from '../../../shared/components/simple-sequence/SimpleSequence';
-
 import { hasContent } from '../../../shared/utils/utils';
+
+import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
 import EntrySection from '../../types/subEntry';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
-import { useMediumScreen } from '../../../shared/hooks/useMatchMedia';
-import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
 const SubEntrySequenceSection = ({
   data,
 }: {
   data?: UniParcSubEntryUIModel;
-  isCollapsible?: boolean;
 }) => {
-  const mediumScreen = useMediumScreen();
   if (!data || !hasContent(data) || !data.entry[EntrySection.Sequence]) {
     return null;
   }
@@ -44,15 +40,7 @@ const SubEntrySequenceSection = ({
       header={<h2>{uniParcSubEntryConfig[EntrySection.Sequence].label}</h2>}
       id={EntrySection.Sequence}
     >
-      <Sequence
-        sequence={sequence.value}
-        infoData={infoData}
-        isCollapsible={
-          mediumScreen
-            ? sequence.value.length > 200
-            : sequence.value.length > 400
-        }
-      />
+      <Sequence sequence={sequence.value} infoData={infoData} />
     </Card>
   );
 };

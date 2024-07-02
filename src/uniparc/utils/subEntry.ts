@@ -2,7 +2,7 @@ import { generatePath } from 'react-router-dom';
 import { Location, LocationToPath } from '../../app/config/urls';
 import { UniParcXRef } from '../adapters/uniParcConverter';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { orderBy } from 'lodash-es';
+import { maxBy } from 'lodash-es';
 
 export const getXRefsForId = (id: string, xrefs?: UniParcXRef[]) =>
   xrefs?.find((xref) => xref.id === id);
@@ -39,7 +39,7 @@ export const getSource = (organism?: TaxonomyDatum, xrefs?: UniParcXRef[]) => {
     return found[0];
   }
   if (found.length > 1) {
-    return orderBy(found, 'lastUpdated', 'desc')[0];
+    return maxBy(found, 'lastUpdated');
   }
   return null;
 };
