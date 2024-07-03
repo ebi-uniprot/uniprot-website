@@ -2,6 +2,7 @@ import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, Tab, Tabs } from 'franklin-sites';
 
+import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
@@ -25,6 +26,7 @@ import {
 } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import { Xref } from '../../../shared/types/apiModel';
 
 import styles from './styles/interaction-section.module.scss';
 
@@ -120,31 +122,27 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ).sort(interactionSorter),
     [data]
   );
-  const [viewerID, setViewerID] = useState<string | undefined>(undefined);
+  const [viewerID, setViewerID] = useState<string | null>(null);
 
   if (!hasContent(data)) {
     return null;
   }
 
-  let displayVizTab = false;
-
   const comments = data.commentsData.get('SUBUNIT') as
     | FreeTextComment[]
     | undefined;
 
-  const complexPortalXrefs = data.xrefData
-    .flatMap((d) => d.databases)
-    .flatMap((d) =>
-      d.xrefs.flatMap((xref) =>
-        xref.database === 'ComplexPortal' ? (xref.id as string) : ''
+  const complexPortalXrefs = data.xrefData.flatMap(({ databases }) =>
+    databases
+      .flatMap(({ xrefs }) => xrefs)
+      .filter(
+        (xref): xref is SetRequired<Xref, 'id'> =>
+          xref.database === 'ComplexPortal' && typeof xref.id !== 'undefined'
       )
-    )
-    .filter(Boolean);
+      .map(({ id }) => id)
+  );
 
-  if (complexPortalXrefs.length) {
-    displayVizTab = true;
-  }
-
+  const displayVizTab = complexPortalXrefs.length > 0;
   const table = (
     <table>
       <thead>
@@ -295,7 +293,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                   viewerID || complexPortalXrefs[0]
                 )}
               >
-                Visit the Complex Portal for more
+                View {viewerID || complexPortalXrefs[0]} in Complex Portal
               </ExternalLink>
             </Tab>
           ) : null}
