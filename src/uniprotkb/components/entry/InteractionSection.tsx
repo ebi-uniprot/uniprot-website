@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Tab, Tabs } from 'franklin-sites';
+import { Button, Card, Dropdown, Tab, Tabs } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -29,6 +29,15 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { Xref } from '../../../shared/types/apiModel';
 
 import styles from './styles/interaction-section.module.scss';
+
+const clickOnDropdown = (element: HTMLElement) => {
+  (
+    element.closest('.dropdown')?.firstElementChild as
+      | HTMLElement
+      | null
+      | undefined
+  )?.click();
+};
 
 const interactionSorter = (a: Interaction, b: Interaction) => {
   // Normalise what we'll sort on
@@ -261,32 +270,37 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           {complexPortalXrefs.length ? (
             <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>
+                <Dropdown
+                  visibleElement={
+                    <Button variant="primary">
+                      {viewerID || complexPortalXrefs[0]}
+                    </Button>
+                  }
+                >
+                  <ul className={styles['ids-list']}>
+                    {complexPortalXrefs.map((id) => (
+                      <li key={id}>
+                        <Button
+                          variant="tertiary"
+                          key={id}
+                          onClick={(event: MouseEvent) => {
+                            setViewerID(
+                              (event.target as HTMLElement).innerText as string
+                            );
+                            clickOnDropdown(event.target as HTMLElement);
+                          }}
+                        >
+                          {id}
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                </Dropdown>
                 <LazyComponent>
                   <ComplexViewer
                     complexID={viewerID || complexPortalXrefs[0]}
                   />
                 </LazyComponent>
-                <div className={styles['id-list']}>
-                  {complexPortalXrefs.map((id, index) => (
-                    <Button
-                      variant={
-                        viewerID === id ||
-                        (viewerID === undefined && index === 0)
-                          ? 'primary'
-                          : 'secondary'
-                      }
-                      className={styles['id-button']}
-                      key={id}
-                      onClick={(event: MouseEvent) =>
-                        setViewerID(
-                          (event.target as HTMLElement).innerText as string
-                        )
-                      }
-                    >
-                      {id}
-                    </Button>
-                  ))}
-                </div>
               </div>
               <ExternalLink
                 url={externalUrls.ComplexPortal(

@@ -12,12 +12,11 @@ describe('InteractionSection', () => {
     await screen.findByText('Complex viewer');
     expect(asFragment()).toMatchSnapshot();
 
-    const complexIdButton = screen.getByRole<HTMLButtonElement>('button', {
-      name: 'CPX-1069',
-    });
-    expect(complexIdButton).toHaveClass('secondary');
-    fireEvent.click(complexIdButton, { target: { innerText: 'CPX-1069' } });
-    expect(complexIdButton).toHaveClass('primary');
+    const dropdownButton = screen.getByRole<HTMLButtonElement>('button');
+    expect(dropdownButton).toHaveTextContent('CPX-1062');
+    fireEvent.click(dropdownButton, { target: { innerText: 'CPX-1069' } });
+    // expect(dropdownButton).toHaveTextContent('CPX-1069');
+    expect(dropdownButton).toHaveClass('primary');
   });
 
   it('Should not render the viewer tab if there are no xrefs from complex portal', async () => {

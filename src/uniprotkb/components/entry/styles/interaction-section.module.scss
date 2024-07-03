@@ -19,22 +19,7 @@
 .viewer-ids-container {
   display: flex;
 
-  & .id-list {
-    width: 20%;
-    overflow-y: scroll;
-    height: 200px;
-  }
-
-  & .id-button {
-    margin: 0.5rem;
-  }
-
-  & .highlight {
-    background-color: $button-background;
-    color: $button-color;
-  }
-
-  .resource-link {
-    float: right;
+  & .ids-list {
+    max-height: 15rem;
   }
 }

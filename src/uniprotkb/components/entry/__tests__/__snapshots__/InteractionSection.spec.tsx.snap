@@ -52,6 +52,18 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
                 class="viewer-ids-container"
               >
                 <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="dropdown"
+                >
+                  <button
+                    class="button primary"
+                    type="button"
+                  >
+                    CPX-1062
+                  </button>
+                </div>
+                <div
                   class="loader-container"
                 >
                   <test-file-stub
@@ -59,22 +71,6 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
                     height="100"
                     width="100"
                   />
-                </div>
-                <div
-                  class="id-list"
-                >
-                  <button
-                    class="button secondary id-button"
-                    type="button"
-                  >
-                    CPX-1062
-                  </button>
-                  <button
-                    class="button secondary id-button"
-                    type="button"
-                  >
-                    CPX-1069
-                  </button>
                 </div>
               </div>
               <a
