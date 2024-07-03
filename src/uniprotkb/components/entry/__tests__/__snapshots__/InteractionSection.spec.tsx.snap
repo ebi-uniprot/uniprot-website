@@ -64,7 +64,7 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
                   class="id-list"
                 >
                   <button
-                    class="button primary id-button"
+                    class="button secondary id-button"
                     type="button"
                   >
                     CPX-1062
@@ -83,7 +83,7 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
                 rel="noopener"
                 target="_blank"
               >
-                Visit the Complex Portal for more
+                View CPX-1062 in Complex Portal
                 <test-file-stub
                   data-testid="external-link-icon"
                   width="12.5"
