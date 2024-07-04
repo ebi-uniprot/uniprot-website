@@ -1,5 +1,5 @@
 import { useRef, FormEvent, useMemo, useReducer, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, generatePath, useHistory } from 'react-router-dom';
 import {
   PageIntro,
   Message,
@@ -7,6 +7,7 @@ import {
   SpinnerIcon,
   Loader,
   LongNumber,
+  ExternalLink,
 } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
@@ -66,6 +67,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+import ftpUrls from '../../../shared/config/ftpUrls';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 
@@ -264,6 +266,20 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 <input type="file" ref={fileInputRef} />
               </label>
               . Separate IDs by whitespace (space, tab, newline) or commas.
+              <br />
+              This service can also be used{' '}
+              <Link
+                to={generatePath(LocationToPath[Location.HelpEntry], {
+                  accession: 'id_mapping',
+                })}
+              >
+                programmatically
+              </Link>
+              . Alternatively, the{' '}
+              <ExternalLink url={ftpUrls.idmapping} noIcon>
+                underlying data
+              </ExternalLink>
+              &nbsp;can be downloaded.
             </legend>
             <textarea
               name={defaultFormValues[IDMappingFields.ids].fieldName}
