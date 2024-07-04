@@ -14,9 +14,12 @@ describe('InteractionSection', () => {
 
     const dropdownButton = screen.getByRole<HTMLButtonElement>('button');
     expect(dropdownButton).toHaveTextContent('CPX-1062');
-    fireEvent.click(dropdownButton, { target: { innerText: 'CPX-1069' } });
-    // expect(dropdownButton).toHaveTextContent('CPX-1069');
-    expect(dropdownButton).toHaveClass('primary');
+    fireEvent.click(dropdownButton);
+    const selectButton = screen.getByText(/CPX-1069/, {
+      selector: '.button.tertiary',
+    });
+    fireEvent.click(selectButton, { target: { innerText: 'CPX-1069' } });
+    expect(dropdownButton).toHaveTextContent('CPX-1069');
   });
 
   it('Should not render the viewer tab if there are no xrefs from complex portal', async () => {
