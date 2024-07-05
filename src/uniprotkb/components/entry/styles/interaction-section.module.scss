@@ -16,10 +16,6 @@
   }
 }
 
-.viewer-ids-container {
-  display: flex;
-
-  & .ids-list {
-    max-height: 15rem;
-  }
+.viewer-ids-container .ids-list {
+  max-height: 15rem;
 }
