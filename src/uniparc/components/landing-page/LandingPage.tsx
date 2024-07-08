@@ -29,6 +29,7 @@ import {
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
 
+// TODO: when we do have videos for UniParc, update list and expose
 // const tutorialsInfo = [
 //   {
 //     id: 'yp1O1gDK8oA',
@@ -142,7 +143,7 @@ const LandingPage = () => {
             `uniprot-grid-cell--medium-span-${expanded ? '12' : '4'}`
           )}
         >
-          <h2>Top Databases</h2>
+          <h2>Databases</h2>
           <div className={styles['table-container']}>
             {groupedDatabases.map((databases, index) => (
               // eslint-disable-next-line react/no-array-index-key
@@ -187,7 +188,7 @@ const LandingPage = () => {
             variant="tertiary"
             onClick={() => setExpanded((expanded) => !expanded)}
           >
-            {expanded ? 'View less' : 'Explore more'} databases
+            {expanded ? 'View less' : 'View more'} databases
           </Button>
         </section>
 
@@ -201,13 +202,12 @@ const LandingPage = () => {
           <h2>Searching the Database</h2>
           <br />
           <p>
-            UniParc provides text- and sequence-based searches.
-            Performing a sequence similarity search against UniParc is equivalent to
+            UniParc provides text- and sequence-based searches. Performing a
+            sequence similarity search against UniParc is equivalent to
             performing the same search against all databases cross-referenced in
             UniParc, as UniParc contains all proteins from its source databases.
           </p>
           <p>
-            Sequence similarity searches can be done using{' '}
             <Link
               to={{
                 pathname: LocationToPath[Location.Blast],
@@ -216,7 +216,7 @@ const LandingPage = () => {
                 }),
               }}
             >
-              BLAST
+              Start a sequence similarity search in UniParc using BLAST »
             </Link>
           </p>
         </section>
@@ -229,22 +229,23 @@ const LandingPage = () => {
             <p>
               UniParc sequence archive
               <br />
-              <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/xml/all/">
-                xml
-              </ExternalLink>
-              <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/fasta/active/">
-                fasta
-              </ExternalLink>
-              <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/README">
-                readme
-              </ExternalLink>
-            </p>
-            <p>
-              XML
-              <br />
-              <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/uniparc.xsd">
-                xml schema
-              </ExternalLink>
+              <ul>
+                <li>
+                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/xml/all/">
+                    xml
+                  </ExternalLink>
+                </li>
+                <li>
+                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/fasta/active/">
+                    fasta
+                  </ExternalLink>
+                </li>
+                <li>
+                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/README">
+                    readme
+                  </ExternalLink>
+                </li>
+              </ul>
             </p>
             <p>
               <ExternalLink url={ftpUrls.uniparc}>
