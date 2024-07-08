@@ -201,8 +201,8 @@ const LandingPage = () => {
           <h2>Searching the Database</h2>
           <br />
           <p>
-            UniParc is available for text- and sequence-based searches.
-            Performing a similarity search against UniParc is equivalent to
+            UniParc provides text- and sequence-based searches.
+            Performing a sequence similarity search against UniParc is equivalent to
             performing the same search against all databases cross-referenced in
             UniParc, as UniParc contains all proteins from its source databases.
           </p>
