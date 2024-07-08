@@ -313,7 +313,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                 </LazyComponent>
               </div>
               <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
-                View {complexString} in Complex Portal
+                View {complexId} in Complex Portal
               </ExternalLink>
             </Tab>
           ) : null}
