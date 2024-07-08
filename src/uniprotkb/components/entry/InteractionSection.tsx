@@ -131,16 +131,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ).sort(interactionSorter),
     [data]
   );
-  const [viewerID, setViewerID] = useState<string | null>(null);
-
-  if (!hasContent(data)) {
-    return null;
-  }
-
-  const comments = data.commentsData.get('SUBUNIT') as
-    | FreeTextComment[]
-    | undefined;
-
   const complexPortalXrefs = useMemo(
     () =>
       new Map(
@@ -158,6 +148,16 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ),
     [data.xrefData]
   );
+
+  const [viewerID, setViewerID] = useState<string | null>(null);
+
+  if (!hasContent(data)) {
+    return null;
+  }
+
+  const comments = data.commentsData.get('SUBUNIT') as
+    | FreeTextComment[]
+    | undefined;
 
   const displayVizTab = complexPortalXrefs.size > 0;
   const table = (
