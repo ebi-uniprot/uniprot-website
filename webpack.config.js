@@ -148,6 +148,9 @@ const getConfigFor = ({
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
             ),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
+            fs.realpathSync(
+              `${__dirname}/node_modules/complexviewer/src/css/xinet.css`
+            ),
           ],
           use: [
             {
@@ -187,6 +190,7 @@ const getConfigFor = ({
           include: [
             path.resolve(__dirname, 'src'),
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+            fs.realpathSync(`${__dirname}/node_modules/complexviewer`),
           ],
           exclude: [/\.img\.svg$/],
           issuer: /\.(t|j)sx?$/,
