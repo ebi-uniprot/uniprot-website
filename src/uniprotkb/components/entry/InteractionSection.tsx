@@ -279,7 +279,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ) : null}
 
       {displayVizTab && !isSmallScreen && (
-        <Tabs>
+        <Tabs className={styles['visualisation-tabs']}>
           {complexPortalXrefs.size ? (
             <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>

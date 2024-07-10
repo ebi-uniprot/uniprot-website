@@ -23,7 +23,7 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
         class="card__content"
       >
         <div
-          class="tabs"
+          class="tabs visualisation-tabs"
         >
           <div
             class="tabs__header"
