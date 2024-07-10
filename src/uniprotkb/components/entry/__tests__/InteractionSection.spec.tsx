@@ -13,13 +13,17 @@ describe('InteractionSection', () => {
     expect(asFragment()).toMatchSnapshot();
 
     const dropdownButton = screen.getByRole<HTMLButtonElement>('button');
-    expect(dropdownButton).toHaveTextContent('CPX-1062');
+    expect(dropdownButton).toHaveTextContent(
+      'CPX-1062 Amyloid-beta protein 40/42 complex'
+    );
     fireEvent.click(dropdownButton);
     const selectButton = screen.getByText(/CPX-1069/, {
       selector: '.button.tertiary',
     });
     fireEvent.click(selectButton, { target: { innerText: 'CPX-1069' } });
-    expect(dropdownButton).toHaveTextContent('CPX-1069');
+    expect(dropdownButton).toHaveTextContent(
+      'CPX-1069 Amyloid-beta protein 40 complex'
+    );
   });
 
   it('Should not render the viewer tab if there are no xrefs from complex portal', async () => {

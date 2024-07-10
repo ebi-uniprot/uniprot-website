@@ -131,6 +131,24 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ).sort(interactionSorter),
     [data]
   );
+  const complexPortalXrefs = useMemo(
+    () =>
+      new Map(
+        data.xrefData
+          .flatMap(({ databases }) =>
+            databases
+              .flatMap(({ xrefs }) => xrefs)
+              .filter(
+                (xref): xref is SetRequired<Xref, 'id'> =>
+                  xref.database === 'ComplexPortal' &&
+                  typeof xref.id !== 'undefined'
+              )
+          )
+          .map((xref) => [xref.id, xref])
+      ),
+    [data.xrefData]
+  );
+
   const [viewerID, setViewerID] = useState<string | null>(null);
 
   if (!hasContent(data)) {
@@ -141,17 +159,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  const complexPortalXrefs = data.xrefData.flatMap(({ databases }) =>
-    databases
-      .flatMap(({ xrefs }) => xrefs)
-      .filter(
-        (xref): xref is SetRequired<Xref, 'id'> =>
-          xref.database === 'ComplexPortal' && typeof xref.id !== 'undefined'
-      )
-      .map(({ id }) => id)
-  );
-
-  const displayVizTab = complexPortalXrefs.length > 0;
+  const displayVizTab = complexPortalXrefs.size > 0;
   const table = (
     <table>
       <thead>
@@ -237,6 +245,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     </table>
   );
 
+  const complexId = viewerID || complexPortalXrefs.keys().next().value;
+  const complexName =
+    complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
+  const complexString = `${complexId} ${complexName}`;
+
   return (
     <Card
       header={
@@ -266,48 +279,41 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ) : null}
 
       {displayVizTab && !isSmallScreen && (
-        <Tabs>
-          {complexPortalXrefs.length ? (
+        <Tabs className={styles['visualisation-tabs']}>
+          {complexPortalXrefs.size ? (
             <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>
                 <Dropdown
                   visibleElement={
-                    <Button variant="primary">
-                      {viewerID || complexPortalXrefs[0]}
-                    </Button>
+                    <Button variant="primary">{complexString}</Button>
                   }
                 >
                   <ul className={styles['ids-list']}>
-                    {complexPortalXrefs.map((id) => (
-                      <li key={id}>
-                        <Button
-                          variant="tertiary"
-                          key={id}
-                          onClick={(event: MouseEvent) => {
-                            setViewerID(
-                              (event.target as HTMLElement).innerText as string
-                            );
-                            clickOnDropdown(event.target as HTMLElement);
-                          }}
-                        >
-                          {id}
-                        </Button>
-                      </li>
-                    ))}
+                    {Array.from(complexPortalXrefs.values()).map(
+                      ({ id, properties }) => (
+                        <li key={id}>
+                          <Button
+                            variant="tertiary"
+                            key={id}
+                            id={id}
+                            onClick={(event: MouseEvent) => {
+                              setViewerID((event.target as HTMLElement).id);
+                              clickOnDropdown(event.target as HTMLElement);
+                            }}
+                          >
+                            {id} {properties?.EntryName || ''}
+                          </Button>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </Dropdown>
                 <LazyComponent>
-                  <ComplexViewer
-                    complexID={viewerID || complexPortalXrefs[0]}
-                  />
+                  <ComplexViewer complexID={complexId} />
                 </LazyComponent>
               </div>
-              <ExternalLink
-                url={externalUrls.ComplexPortal(
-                  viewerID || complexPortalXrefs[0]
-                )}
-              >
-                View {viewerID || complexPortalXrefs[0]} in Complex Portal
+              <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+                View {complexId} in Complex Portal
               </ExternalLink>
             </Tab>
           ) : null}
