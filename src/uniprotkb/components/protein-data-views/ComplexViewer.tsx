@@ -47,7 +47,9 @@ interface Type {
 }
 
 const ComplexViewer = ({ complexID }: { complexID: string }) => {
-  const { loading, data } = useDataApi(externalUrls.ComplexViewer(complexID));
+  const { loading, data } = useDataApi<ComplexPortalData>(
+    externalUrls.ComplexViewer(complexID)
+  );
   const [interactors, setInteractors] = useState<string[]>([]);
 
   const createComplexViewer = useCallback(
@@ -58,7 +60,7 @@ const ComplexViewer = ({ complexID }: { complexID: string }) => {
         viewer.readMIJSON(data);
 
         // Get the list of interactors from the data
-        const { data: complexPortalData } = data as ComplexPortalData;
+        const { data: complexPortalData } = data;
         if (complexPortalData.length) {
           const uniprotAccessions = complexPortalData
             .filter(
@@ -93,7 +95,7 @@ const ComplexViewer = ({ complexID }: { complexID: string }) => {
               .join(' OR ')}`,
           }}
         >
-          View the interactors in UniProtKB
+          View interactors in UniProtKB
         </Link>
       )}
     </>
