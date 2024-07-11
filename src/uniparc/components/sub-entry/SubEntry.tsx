@@ -26,7 +26,11 @@ import { hasStructure } from './SubEntryStructureSection';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  Location,
+  LocationToPath,
+  getEntryPath,
+} from '../../../app/config/urls';
 import {
   Namespace,
   searchableNamespaceLabels,
@@ -102,14 +106,21 @@ const SubEntry = () => {
         <HTMLHead
           title={[
             subEntryId,
-            transformedData.entry.uniParcId,
+            accession,
             searchableNamespaceLabels[Namespace.uniparc],
           ]}
         />
         <h1>
           <EntryTitle
             mainTitle="UniParc"
-            optionalTitle={`${transformedData.entry.uniParcId} · ${subEntryId}`}
+            optionalTitle={
+              <>
+                <Link to={getEntryPath(Namespace.uniparc, accession)}>
+                  {accession}
+                </Link>
+                {`  · ${subEntryId}`}
+              </>
+            }
           />
         </h1>
         <SubEntryOverview data={transformedData} />

@@ -22,6 +22,8 @@ export const hasStructure = (data: UniParcSubEntryUIModel['subEntry']) =>
   data.isUniprotkbEntry && data.active && data.id;
 
 const StructureSection = ({ data }: Props) =>
+  // TODO: don't need this duplicate check - how to fix in TS?
+  data.id &&
   hasStructure(data) && (
     <Card
       header={

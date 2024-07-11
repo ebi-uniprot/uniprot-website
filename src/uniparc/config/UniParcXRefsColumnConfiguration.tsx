@@ -102,7 +102,7 @@ const getAccessionColumn =
     const match = useRouteMatch<{
       accession: string;
     }>(LocationToPath[Location.UniParcEntry]);
-    console.log(match?.params);
+
     if (!xref.id || !match?.params.accession) {
       return null;
     }
