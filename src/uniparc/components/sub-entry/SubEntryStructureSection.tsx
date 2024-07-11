@@ -19,6 +19,7 @@ type Props = {
 
 const StructureSection = ({ data }: Props) =>
   data.isUniprotkbEntry &&
+  data.active &&
   data.id && (
     <Card
       header={

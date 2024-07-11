@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { generatePath, Link, useRouteMatch } from 'react-router-dom';
 
 import ExternalLink from '../../shared/components/ExternalLink';
 import Timeline from '../components/entry/Timeline';
@@ -10,7 +10,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import BasketStatus from '../../basket/BasketStatus';
 import EvidenceLink from '../../uniprotkb/components/protein-data-views/EvidenceLink';
 
-import { getEntryPath } from '../../app/config/urls';
+import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 
 import parseDate from '../../shared/utils/parseDate';
 import * as logging from '../../shared/utils/logging';
@@ -99,7 +99,11 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
 const getAccessionColumn =
   (templateMap: Map<string, string> = new Map()) =>
   (xref: UniParcXRef) => {
-    if (!xref.id) {
+    const match = useRouteMatch<{
+      accession: string;
+    }>(LocationToPath[Location.UniParcEntry]);
+    console.log(match?.params);
+    if (!xref.id || !match?.params.accession) {
       return null;
     }
     let cell: ReactNode = xref.id;
@@ -107,7 +111,8 @@ const getAccessionColumn =
       (xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
         xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
         xref.database === 'UniProtKB/Swiss-Prot protein isoforms') &&
-      (!xref.database.includes('isoforms') || xref.active)
+      !xref.database.includes('isoforms') &&
+      xref.active
     ) {
       // internal link
       cell = (
@@ -132,11 +137,24 @@ const getAccessionColumn =
         if (xref.database === 'FusionGDB') {
           id = id.replace(/_\d+$/, '');
         }
+        // TODO: do we want to link all others to a sub entry page?
+        // cell = (
+        //   <ExternalLink url={template.replace('%id', id)}>
+        //     {xref.id}
+        //     {xref.chain && ` (chain ${xref.chain})`}
+        //   </ExternalLink>
+        // );
         cell = (
-          <ExternalLink url={template.replace('%id', id)}>
+          <Link
+            to={generatePath(LocationToPath[Location.UniParcSubEntry], {
+              accession: match.params.accession,
+              subPage: 'entry',
+              subEntryId: xref.id,
+            })}
+          >
             {xref.id}
             {xref.chain && ` (chain ${xref.chain})`}
-          </ExternalLink>
+          </Link>
         );
       }
     }

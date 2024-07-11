@@ -8,6 +8,7 @@ import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation } from '../entry/Entry';
+import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 
 type Props = {
@@ -55,7 +56,9 @@ const SubEntryOverview = ({ data }: Props) => {
             pathname: getEntryPath(
               Namespace.uniprotkb,
               data.subEntry.id,
-              TabLocation.Entry
+              data.subEntry.active
+                ? UniprotkbTabLocation.Entry
+                : UniprotkbTabLocation.History
             ),
           }}
         >
