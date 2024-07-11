@@ -16,8 +16,13 @@ import { hasContent } from '../../../shared/utils/utils';
 import externalUrls, {
   getIntActQueryUrl,
 } from '../../../shared/config/externalUrls';
-import { getEntryPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import {
   FreeTextComment,
@@ -311,6 +316,16 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                 <LazyComponent>
                   <ComplexViewer complexID={complexId} />
                 </LazyComponent>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({
+                      query: `(xref:complexportal-${complexId})`,
+                    }),
+                  }}
+                >
+                  View interactors in UniProtKB
+                </Link>
               </div>
               <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
                 View {complexId} in Complex Portal

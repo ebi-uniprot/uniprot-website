@@ -72,6 +72,11 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
                     width="100"
                   />
                 </div>
+                <a
+                  href="/uniprotkb?query=%28xref%3Acomplexportal-CPX-1062%29"
+                >
+                  View interactors in UniProtKB
+                </a>
               </div>
               <a
                 class="external-link"
