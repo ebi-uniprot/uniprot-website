@@ -3,7 +3,7 @@ export enum TabLocation {
   FeatureViewer = 'feature-viewer',
 }
 
-enum SubEntrySection {
+export enum SubEntrySection {
   Structure = 'structure',
   FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',

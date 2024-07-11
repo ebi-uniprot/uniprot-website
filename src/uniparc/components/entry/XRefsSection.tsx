@@ -22,7 +22,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/XRefsSection.scss';
 
-type DataDBModel = Array<{
+export type DataDBModel = Array<{
   name: string;
   displayName: string;
   category: string;

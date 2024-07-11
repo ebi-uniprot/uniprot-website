@@ -17,10 +17,12 @@ type Props = {
   data: UniParcSubEntryUIModel['subEntry'];
 };
 
+// TODO: this only works for uniprotkb entries but I'm not showing these here
+export const hasStructure = (data: UniParcSubEntryUIModel['subEntry']) =>
+  data.isUniprotkbEntry && data.active && data.id;
+
 const StructureSection = ({ data }: Props) =>
-  data.isUniprotkbEntry &&
-  data.active &&
-  data.id && (
+  hasStructure(data) && (
     <Card
       header={
         <h2 data-article-id="structure_section">

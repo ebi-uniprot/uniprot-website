@@ -21,6 +21,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { getSubEntryPath } from '../../utils/subEntry';
 import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
+import { hasStructure } from './SubEntryStructureSection';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
@@ -30,7 +31,7 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { TabLocation } from '../../types/subEntry';
+import SubEntrySection, { TabLocation } from '../../types/subEntry';
 import { UniParcAPIModel } from '../../adapters/uniParcConverter';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
@@ -81,7 +82,12 @@ const SubEntry = () => {
 
   const sidebar = (
     <InPageNav
-      sections={Object.values(uniParcSubEntryConfig)}
+      sections={Object.values(uniParcSubEntryConfig).map((section) => ({
+        ...section,
+        disabled:
+          section.id === SubEntrySection.Structure &&
+          !hasStructure(transformedData.subEntry),
+      }))}
       rootElement={`.${sidebarStyles.content}`}
     />
   );
