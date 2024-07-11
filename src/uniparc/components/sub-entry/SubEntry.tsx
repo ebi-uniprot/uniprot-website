@@ -1,4 +1,5 @@
 // TODO: fix import order
+import { useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
@@ -11,11 +12,15 @@ import SubEntryOverview from './SubEntryOverview';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import SubEntryMain from './SubEntryMain';
 import InPageNav from '../../../shared/components/InPageNav';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import BlastButton from '../../../shared/components/action-buttons/Blast';
+import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { UniParcAPIModel } from '../../adapters/uniParcConverter';
 import { getSubEntryPath } from '../../utils/subEntry';
+import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
@@ -26,10 +31,10 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { TabLocation } from '../../types/subEntry';
+import { UniParcAPIModel } from '../../adapters/uniParcConverter';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
-import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
 
 const SubEntry = () => {
   const match = useRouteMatch<{
@@ -37,6 +42,7 @@ const SubEntry = () => {
     subPage: string;
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const { accession, subEntryId } = match?.params || {};
   const baseURL = apiUrls.entry.entry(
     subEntryId && accession,
@@ -69,6 +75,9 @@ const SubEntry = () => {
   if (!transformedData) {
     return 'TODO: handle this';
   }
+
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
 
   const sidebar = (
     <InPageNav
@@ -110,6 +119,18 @@ const SubEntry = () => {
           }
           id={TabLocation.Entry}
         >
+          {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+          {displayDownloadPanel && (
+            <EntryDownloadPanel
+              handleToggle={handleToggleDownload}
+              nResults={uniparcData.data?.uniParcCrossReferences?.length}
+            />
+          )}
+          <div className="button-group">
+            <BlastButton selectedEntries={[accession]} />
+            <EntryDownloadButton handleToggle={handleToggleDownload} />
+            <AddToBasketButton selectedEntries={accession} />
+          </div>
           <SubEntryMain transformedData={transformedData} />
         </Tab>
       </Tabs>
