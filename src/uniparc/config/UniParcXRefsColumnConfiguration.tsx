@@ -104,29 +104,26 @@ const getAccessionColumn =
     }
     let cell: ReactNode = xref.id;
     if (
-      xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
-      xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
-      xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
+      (xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
+        xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
+        xref.database === 'UniProtKB/Swiss-Prot protein isoforms') &&
+      (!xref.database.includes('isoforms') || xref.active)
     ) {
-      if (xref.database.includes('isoforms') && !xref.active) {
-        cell = xref.id;
-      } else {
-        // internal link
-        cell = (
-          <>
-            <Link
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                xref.id,
-                xref.active ? TabLocation.Entry : TabLocation.History
-              )}
-            >
-              {xref.id}
-            </Link>
-            {xref.active && <BasketStatus id={xref.id} />}
-          </>
-        );
-      }
+      // internal link
+      cell = (
+        <>
+          <Link
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              xref.id,
+              xref.active ? TabLocation.Entry : TabLocation.History
+            )}
+          >
+            {xref.id}
+          </Link>
+          {xref.active && <BasketStatus id={xref.id} />}
+        </>
+      );
     } else {
       const template = xref.database && templateMap.get(xref.database);
       if (template) {
