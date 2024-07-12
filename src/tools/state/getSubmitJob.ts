@@ -120,7 +120,11 @@ const getSubmitJob =
         errorDescription =
           getServerErrorDescription(error as ServerError) || errorDescription;
       } else if (error instanceof Error) {
-        errorDescription = `Could not run job: ${error.message}`;
+        if (error.message === 'Failed to fetch') {
+          errorDescription = `Could not run job: Server or network issue`;
+        } else {
+          errorDescription = `Could not run job: ${error.message}`;
+        }
       }
       // get a new reference to the job
       const currentStateOfJob = stateRef.current[job.internalID];

@@ -7,7 +7,7 @@ import {
   useEffect,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
+import { Chip, ExternalLink, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
@@ -249,6 +249,16 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
                 <input type="file" ref={fileInputRef} />
               </label>
               .
+              <br />
+              For submissions involving shorter peptides or more than 100
+              sequences, or in case of server problems, a{' '}
+              <ExternalLink
+                url="https://research.bioinformatics.udel.edu/peptidematch/commandlinetool.jsp"
+                noIcon
+              >
+                downloadable tool
+              </ExternalLink>
+              &nbsp;is available to run locally.
             </legend>
             <textarea
               name={defaultFormValues[PeptideSearchFields.peps].fieldName}

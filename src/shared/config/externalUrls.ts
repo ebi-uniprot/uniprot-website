@@ -20,6 +20,10 @@ const externalUrls = {
     `https://smart.embl.de/smart/show_motifs.pl?ID=${id}`,
   PROSITE: (id: string | number) =>
     `https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=${id}&output=nice`,
+  ComplexViewer: (id: string) =>
+    `https://www.ebi.ac.uk/intact/complex-ws/export/${id}`,
+  ComplexPortal: (id: string) =>
+    `https://www.ebi.ac.uk/complexportal/complex/${id}`,
   // rule
   HAMAPRule: (id: string | number) => `//hamap.expasy.org/unirule/${id}`,
   ProRule: (id: string | number) => `//prosite.expasy.org/unirule/${id}`,

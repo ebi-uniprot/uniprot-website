@@ -29,6 +29,17 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
             />
           </label>
           .
+          <br />
+          For submissions involving shorter peptides or more than 100 sequences, or in case of server problems, a 
+          <a
+            class="external-link"
+            href="https://research.bioinformatics.udel.edu/peptidematch/commandlinetool.jsp"
+            rel="noopener"
+            target="_blank"
+          >
+            downloadable tool
+          </a>
+           is available to run locally.
         </legend>
         <textarea
           aria-label="Protein sequence(s) of at least 7 aminoacids"

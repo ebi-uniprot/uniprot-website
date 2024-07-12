@@ -1,3 +1,5 @@
+@import 'franklin-sites/src/styles/colours';
+
 .interaction-section interaction-viewer {
   max-width: 100%;
   overflow-x: scroll;
@@ -12,4 +14,12 @@
     position: sticky;
     left: 0;
   }
+}
+
+.visualisation-tabs {
+  margin-bottom: 1rem;
+}
+
+.viewer-ids-container .ids-list {
+  max-height: 15rem;
 }

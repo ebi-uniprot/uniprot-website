@@ -368,6 +368,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
       DiseaseEntry Id (someAcron)
     </a>
   </h4>
+  <h5
+    class="tiny"
+  >
+    Isoform 3
+  </h5>
   <span
     class="text-block"
   />

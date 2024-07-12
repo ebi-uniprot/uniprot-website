@@ -189,7 +189,7 @@ const Entry = () => {
   );
 
   const communityReferences: Reference[] = useMemo(() => {
-    const filteredReferences = communityCurationPayload.data?.results.flatMap(
+    const filteredReferences = communityCurationPayload.data?.results?.flatMap(
       ({ references }) =>
         references?.filter((reference) => reference.source?.name === 'ORCID')
     );

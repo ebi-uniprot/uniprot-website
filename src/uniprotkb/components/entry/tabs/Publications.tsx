@@ -56,7 +56,10 @@ const PublicationReference = ({
       source && databaseInfoMaps?.databaseToDatabaseInfo[source.name];
     let url =
       source?.id &&
-      processUrlTemplate(databaseInfo?.uriLink, { id: source.id });
+      processUrlTemplate(databaseInfo?.uriLink, {
+        id: source.id,
+        primaryAccession: source.id,
+      });
     if (source?.name === 'GeneRif') {
       url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }

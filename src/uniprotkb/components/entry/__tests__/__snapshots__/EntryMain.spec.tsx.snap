@@ -2600,6 +2600,15 @@ exports[`Entry view should render 1`] = `
             DiseaseEntry Id (someAcron)
           </a>
         </h4>
+        <h5
+          class="tiny"
+        >
+          <a
+            href="#Isoform_3"
+          >
+            Isoform 3
+          </a>
+        </h5>
         <span
           class="text-block"
         >

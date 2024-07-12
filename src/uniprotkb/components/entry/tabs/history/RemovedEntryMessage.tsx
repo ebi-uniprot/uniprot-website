@@ -38,7 +38,7 @@ const RemovedEntryHeading = ({
         search: stringifyQuery({ query: accession, direct: true }),
       };
   return (
-    <h4>
+    <h4 data-article-id="deleted_accessions">
       This entry is no longer annotated in UniProtKB and can be found in{' '}
       <Link to={uniParcLink}>UniParc</Link>.
     </h4>
@@ -70,17 +70,19 @@ const RemovedEntryMessage = ({
   accession,
   uniparc,
   release,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   children,
 }: RemovedEntryMessageProps) => {
   let helpArticleLink = 'deleted_accessions';
   if (reason?.deletedReason) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     helpArticleLink += `#${reasonToFragment[reason.deletedReason]}`;
   }
 
   return (
     <>
       <RemovedEntryHeading accession={accession} uniparc={uniparc} />
-      {children ||
+      {/* {children ||
         (reason?.deletedReason && (
           <div>
             Reason:{' '}
@@ -88,7 +90,7 @@ const RemovedEntryMessage = ({
               {reason.deletedReason}
             </strong>
           </div>
-        ))}
+        ))} */}
       {release && (
         <div>
           Since release: <strong>{release}</strong>

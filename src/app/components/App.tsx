@@ -122,6 +122,12 @@ const UniRefEntryPage = lazy(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
     )
 );
+const UniParcSubEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/sub-entry/SubEntry'
+    )
+);
 const UniParcEntryPage = lazy(
   () =>
     import(
@@ -403,6 +409,10 @@ const App = () => {
             <Route
               path={LocationToPath[Location.UniRefEntry]}
               component={UniRefEntryPage}
+            />
+            <Route
+              path={LocationToPath[Location.UniParcSubEntry]}
+              component={UniParcSubEntryPage}
             />
             <Route
               path={LocationToPath[Location.UniParcEntry]}
