@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Card } from 'franklin-sites';
 
-import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
+import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import SubEntrySection from '../../types/subEntry';
@@ -27,7 +27,7 @@ const StructureSection = ({ data }: Props) =>
     <Card
       header={
         <h2 data-article-id="structure_section">
-          {UniParcSubEntryConfig[SubEntrySection.Structure].label}
+          {entrySectionToLabel[SubEntrySection.Structure]}
         </h2>
       }
       id={SubEntrySection.Structure}

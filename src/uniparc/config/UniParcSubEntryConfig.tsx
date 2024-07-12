@@ -3,6 +3,8 @@ import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndD
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 
+import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
+
 import EntrySection from '../types/subEntry';
 import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 
@@ -16,7 +18,7 @@ const uniParcSubEntryConfig: Record<
 > = {
   [EntrySection.Structure]: {
     id: EntrySection.Structure,
-    label: 'Structure',
+    label: entrySectionToLabel[EntrySection.Structure],
     sectionContent: (data) => (
       <SubEntryStructureSection
         data={data.subEntry}
@@ -26,19 +28,19 @@ const uniParcSubEntryConfig: Record<
   },
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
-    label: 'Family & Domains',
+    label: entrySectionToLabel[EntrySection.FamilyAndDomains],
     sectionContent: (data) => <SubEntryFamilyAndDomains data={data.entry} />,
   },
   [EntrySection.Sequence]: {
     id: EntrySection.Sequence,
-    label: 'Sequence',
+    label: entrySectionToLabel[EntrySection.Sequence],
     sectionContent: (data) => (
       <SubEntrySequenceSection data={data} key={EntrySection.Sequence} />
     ),
   },
   [EntrySection.SimilarProteins]: {
     id: EntrySection.SimilarProteins,
-    label: 'Similar Proteins',
+    label: entrySectionToLabel[EntrySection.SimilarProteins],
     sectionContent: (data) => (
       <SubEntrySimilarProteinsSection
         uniparcId={data.entry.uniParcId}
