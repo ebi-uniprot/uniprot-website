@@ -29,6 +29,23 @@ exports[`IDMappingForm test Renders the form 1`] = `
             />
           </label>
           . Separate IDs by whitespace (space, tab, newline) or commas.
+          <br />
+          This service can also be used 
+          <a
+            href="/help/id_mapping"
+          >
+            programmatically
+          </a>
+          . Alternatively, the 
+          <a
+            class="external-link"
+            href="https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/"
+            rel="noopener"
+            target="_blank"
+          >
+            underlying data
+          </a>
+           can be downloaded.
         </legend>
         <textarea
           autocomplete="off"

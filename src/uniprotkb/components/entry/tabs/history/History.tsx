@@ -280,7 +280,6 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
 
 const getIdKey = (entry: UniSaveVersionWithEvents) => `${entry.entryVersion}`;
 
-
 type EntryHistoryListProps = {
   accession: string;
   uniparc?: string;
