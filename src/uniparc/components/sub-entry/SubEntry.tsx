@@ -70,15 +70,15 @@ const SubEntry = () => {
   }
   if (!uniparcData.data.uniParcCrossReferences) {
     // TODO: handle this
-    return 'TODO: handle this';
+    return <>TODO: handle this</>;
   }
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
     subEntryId
   );
-  // TODO: handle when no xrefsForId
   if (!transformedData) {
-    return 'TODO: handle this';
+    // TODO: handle when no xrefsForId
+    return <>TODO: handle this</>;
   }
 
   const handleToggleDownload = () =>

@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { generatePath, Link, useRouteMatch } from 'react-router-dom';
 
-import ExternalLink from '../../shared/components/ExternalLink';
 import Timeline from '../components/entry/Timeline';
 import EntryTypeIcon, {
   EntryType,

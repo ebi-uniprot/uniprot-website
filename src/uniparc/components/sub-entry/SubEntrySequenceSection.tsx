@@ -12,10 +12,10 @@ const SubEntrySequenceSection = ({
 }: {
   data?: UniParcSubEntryUIModel;
 }) => {
-  if (!data || !hasContent(data) || !data.entry[EntrySection.Sequence]) {
+  const sequence = data?.entry[EntrySection.Sequence];
+  if (!data || !hasContent(data) || !sequence) {
     return null;
   }
-  const sequence = data.entry[EntrySection.Sequence];
   const infoData = [
     {
       title: 'Length',

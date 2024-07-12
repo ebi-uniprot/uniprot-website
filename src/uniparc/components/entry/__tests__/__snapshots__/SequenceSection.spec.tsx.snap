@@ -4,6 +4,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
 <DocumentFragment>
   <section
     class="card"
+    id="sequence"
   >
     <div
       class="card__container"

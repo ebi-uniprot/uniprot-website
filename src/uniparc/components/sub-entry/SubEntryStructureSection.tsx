@@ -23,8 +23,7 @@ export const hasStructure = (data: UniParcSubEntryUIModel['subEntry']) =>
 
 const StructureSection = ({ data }: Props) =>
   // TODO: don't need this duplicate check - how to fix in TS?
-  data.id &&
-  hasStructure(data) && (
+  !data.id || !hasStructure(data) ? null : (
     <Card
       header={
         <h2 data-article-id="structure_section">

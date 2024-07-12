@@ -18,24 +18,21 @@ type Props = {
   uniparcId?: string;
 };
 
-const SimilarProteinsSection = ({ uniparcId }: Props) => {
-  return (
-    uniparcId && (
-      <Card
-        header={
-          <h2 data-article-id="similar_proteins_section">
-            {UniParcSubEntryConfig[SubEntrySection.SimilarProteins].label}
-          </h2>
-        }
-        id={SubEntrySection.SimilarProteins}
-        data-entry-section
-      >
-        <LazyComponent>
-          <SubEntrySimilarProteins uniparcId={uniparcId} />
-        </LazyComponent>
-      </Card>
-    )
+const SimilarProteinsSection = ({ uniparcId }: Props) =>
+  !uniparcId ? null : (
+    <Card
+      header={
+        <h2 data-article-id="similar_proteins_section">
+          {UniParcSubEntryConfig[SubEntrySection.SimilarProteins].label}
+        </h2>
+      }
+      id={SubEntrySection.SimilarProteins}
+      data-entry-section
+    >
+      <LazyComponent>
+        <SubEntrySimilarProteins uniparcId={uniparcId} />
+      </LazyComponent>
+    </Card>
   );
-};
 
 export default memo(SimilarProteinsSection);

@@ -35,8 +35,6 @@ type HasSimilarProteins = {
   uniprotkbQuery: string;
 };
 
-const canonicalIsoformRE = /-1$/;
-
 const getUniprotkbQuery = (cluster: UniRefLiteAPIModel) =>
   `(uniref_cluster_${cluster.entryType.replace('UniRef', '')}:${cluster.id})`;
 

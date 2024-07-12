@@ -10,7 +10,6 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { UniParcXRef } from '../../adapters/uniParcConverter';
-import { template } from 'lodash';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { DataDBModel } from '../entry/XRefsSection';

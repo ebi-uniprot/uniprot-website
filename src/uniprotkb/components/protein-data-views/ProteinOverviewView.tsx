@@ -1,4 +1,4 @@
-import { Fragment, memo, ReactNode } from 'react';
+import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { DoughnutChart, InfoList } from 'franklin-sites';
 

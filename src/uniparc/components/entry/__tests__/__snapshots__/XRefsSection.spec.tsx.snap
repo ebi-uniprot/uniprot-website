@@ -89,15 +89,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB reviewed
                   </span>
                 </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/P07612/entry"
-                    >
-                      P07612
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     3
@@ -146,17 +138,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB reviewed
                   </span>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    <a
-                      href="/uniprotkb/P07612/history"
-                    >
-                      P07612
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span
                     class="xref-inactive"
@@ -210,15 +192,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB unreviewed
                   </span>
                 </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/Q6RZL4/entry"
-                    >
-                      Q6RZL4
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -265,15 +239,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB unreviewed
                   </span>
                 </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/Q76QK2/entry"
-                    >
-                      Q76QK2
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -320,15 +286,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB unreviewed
                   </span>
                 </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/Q71TT2/entry"
-                    >
-                      Q71TT2
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -375,15 +333,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB unreviewed
                   </span>
                 </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/Q0GNZ6/entry"
-                    >
-                      Q0GNZ6
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -430,15 +380,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB unreviewed
                   </span>
                 </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/A0A2I2MDI1/entry"
-                    >
-                      A0A2I2MDI1
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -487,17 +429,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB unreviewed
                   </span>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    <a
-                      href="/uniprotkb/Q76ZT7/history"
-                    >
-                      Q76ZT7
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span
                     class="xref-inactive"
@@ -544,17 +476,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     UniProtKB unreviewed
                   </span>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    <a
-                      href="/uniprotkb/A0A7I8V511/history"
-                    >
-                      A0A7I8V511
-                    </a>
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span
                     class="xref-inactive"
@@ -602,11 +524,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     RefSeq
                   </span>
                 </td>
-                <td>
-                  <span>
-                    YP_232970
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -647,11 +565,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     RefSeq
                   </span>
                 </td>
-                <td>
-                  <span>
-                    YP_010509298
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -694,13 +608,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     RefSeq
                   </span>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    YP_006721
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span
                     class="xref-inactive"
@@ -741,13 +649,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     RefSeq
                   </span>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    YP_010488138
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span
                     class="xref-inactive"
@@ -797,13 +699,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     RefSeq
                   </span>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    YP_010500340
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span
                     class="xref-inactive"
@@ -851,11 +747,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    AAO89367
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -896,11 +788,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    CAD90637
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -941,11 +829,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    AAS49790
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -986,11 +870,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    ABH08195
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -1031,11 +911,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    ADZ29210
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -1076,11 +952,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    AGJ91256
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -1121,11 +993,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    AGJ92346
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -1166,11 +1034,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    AIX99207
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -1211,11 +1075,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    AIX99412
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -1256,11 +1116,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    ALF05084
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1
@@ -1301,11 +1157,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                     EMBL
                   </span>
                 </td>
-                <td>
-                  <span>
-                    ALF05335
-                  </span>
-                </td>
+                <td />
                 <td>
                   <span>
                     1

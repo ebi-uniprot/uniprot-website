@@ -1,8 +1,10 @@
 import { generatePath } from 'react-router-dom';
+import { maxBy } from 'lodash-es';
+
 import { Location, LocationToPath } from '../../app/config/urls';
+
 import { UniParcXRef } from '../adapters/uniParcConverter';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { maxBy } from 'lodash-es';
 
 export const getXRefsForId = (id: string, xrefs?: UniParcXRef[]) =>
   xrefs?.find((xref) => xref.id === id);
