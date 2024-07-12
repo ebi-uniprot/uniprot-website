@@ -3,7 +3,7 @@ import { Card } from 'franklin-sites';
 
 import LazyComponent from '../../../shared/components/LazyComponent';
 
-import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
+import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 
 import SubEntrySection from '../../types/subEntry';
 
@@ -23,7 +23,7 @@ const SimilarProteinsSection = ({ uniparcId }: Props) =>
     <Card
       header={
         <h2 data-article-id="similar_proteins_section">
-          {UniParcSubEntryConfig[SubEntrySection.SimilarProteins].label}
+          {entrySectionToLabel[SubEntrySection.SimilarProteins]}
         </h2>
       }
       id={SubEntrySection.SimilarProteins}

@@ -2,7 +2,7 @@ import { Card, LongNumber, Sequence } from 'franklin-sites';
 
 import { hasContent } from '../../../shared/utils/utils';
 
-import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
+import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 
 import EntrySection from '../../types/subEntry';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
@@ -37,7 +37,7 @@ const SubEntrySequenceSection = ({
 
   return (
     <Card
-      header={<h2>{uniParcSubEntryConfig[EntrySection.Sequence].label}</h2>}
+      header={<h2>{entrySectionToLabel[EntrySection.Sequence]}</h2>}
       id={EntrySection.Sequence}
     >
       <Sequence sequence={sequence.value} infoData={infoData} />

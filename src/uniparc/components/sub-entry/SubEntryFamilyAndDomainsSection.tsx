@@ -3,7 +3,7 @@ import { Card } from 'franklin-sites';
 
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 
-import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
+import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 
 import SubEntrySection from '../../types/subEntry';
 import { UniParcUIModel } from '../../adapters/uniParcConverter';
@@ -22,7 +22,7 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
     <Card
       header={
         <h2 data-article-id="family_and_domains_section">
-          {UniParcSubEntryConfig[SubEntrySection.FamilyAndDomains].label}
+          {entrySectionToLabel[SubEntrySection.FamilyAndDomains]}
         </h2>
       }
       id={SubEntrySection.FamilyAndDomains}
