@@ -1,6 +1,6 @@
 // TODO: fix import order
 import { useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
@@ -16,8 +16,10 @@ import AddToBasketButton from '../../../shared/components/action-buttons/AddToBa
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { getSubEntryPath } from '../../utils/subEntry';
 import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
@@ -42,6 +44,7 @@ import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-lay
 import sticky from '../../../shared/styles/sticky.module.scss';
 
 const SubEntry = () => {
+  const smallScreen = useSmallScreen();
   const match = useRouteMatch<{
     accession: string;
     subPage: string;
@@ -149,6 +152,53 @@ const SubEntry = () => {
             <AddToBasketButton selectedEntries={accession} />
           </div>
           <SubEntryMain transformedData={transformedData} />
+        </Tab>
+        <Tab
+          title={
+            smallScreen ? null : (
+              <Link
+                to={getSubEntryPath(
+                  accession,
+                  subEntryId,
+                  TabLocation.FeatureViewer
+                )}
+              >
+                Feature viewer
+              </Link>
+            )
+          }
+          id={TabLocation.FeatureViewer}
+        >
+          {smallScreen ? (
+            <Redirect
+              to={getSubEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.Entry
+              )}
+            />
+          ) : (
+            <>
+              <HTMLHead
+                title={[
+                  transformedData.entry.uniParcId,
+                  'Feature viewer',
+                  searchableNamespaceLabels[Namespace.uniparc],
+                ]}
+              />
+              {transformedData.entry.sequenceFeatures &&
+              transformedData.entry.sequence?.value ? (
+                <div className="wider-tab-content">
+                  <UniParcFeaturesView
+                    data={transformedData.entry.sequenceFeatures}
+                    sequence={transformedData.entry.sequence?.value}
+                  />
+                </div>
+              ) : (
+                'No features available'
+              )}
+            </>
+          )}
         </Tab>
       </Tabs>
     </SidebarLayout>
