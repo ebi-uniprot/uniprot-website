@@ -44,4 +44,4 @@ const search = ({
 const apiDocumnentationDefinition = (d: ApiDocsDefinition) =>
   `https://wwwdev.ebi.ac.uk/uniprot/api/${d}/api/docs`;
 
-export default { entry, search };
+export default { entry, search, apiDocumnentationDefinition };
