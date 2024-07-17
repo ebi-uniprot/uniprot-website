@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
 
@@ -6,11 +6,13 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 
+import { LocationToPath, Location } from '../../../app/config/urls';
+import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
+
 import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
 
 import uniProtKBOpenAPI from './uniprotkb-open-api.json';
-import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
 
 // Create the layout component
 // const AugmentingLayout = (system) => {
@@ -46,23 +48,31 @@ const HidePlugin = () => ({
   },
 });
 
-const Sidebar = () => (
-  <div className={styles.sidebar}>
-    <fieldset>
-      <label htmlFor="definition-select">
-        Select a definition
-        <select id="definition-select">
-          {Array.from(apiDocsDefinitionToString).map(([d, label]) => (
-            <option key={d} value={d}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </label>
-    </fieldset>
-    <hr />
-  </div>
-);
+const Sidebar = () => {
+  const history = useHistory();
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const definition = e.target.value;
+    history.push(`${LocationToPath[Location.Documentation]}/${definition}`);
+  };
+
+  return (
+    <div className={styles.sidebar}>
+      <fieldset>
+        <label htmlFor="definition-select">
+          Select a definition
+          <select id="definition-select" onChange={handleChange}>
+            {Array.from(apiDocsDefinitionToString).map(([d, label]) => (
+              <option key={d} value={d}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+      <hr />
+    </div>
+  );
+};
 
 const Documentation = () => {
   // const ref = useRef<HTMLDivElement>(null);
