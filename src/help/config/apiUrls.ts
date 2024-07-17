@@ -4,6 +4,7 @@ import { stringifyUrl } from '../../shared/utils/url';
 
 import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
 import { defaultFacets as helpDefaultFacets } from './HelpFacetConfiguration';
+import { ApiDocsDefinition } from '../types/apiDocumentation';
 
 const entry = (id?: string) => id && joinUrl(apiPrefix, 'help', id);
 
@@ -39,5 +40,8 @@ const search = ({
     facets,
     size,
   });
+
+const apiDocumnentationDefinition = (d: ApiDocsDefinition) =>
+  `https://wwwdev.ebi.ac.uk/uniprot/api/${d}/api/docs`;
 
 export default { entry, search };

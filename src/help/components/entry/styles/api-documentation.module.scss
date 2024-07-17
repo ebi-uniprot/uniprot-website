@@ -1,0 +1,17 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+.sidebar {
+  hr {
+    border: none;
+    height: 0.125rem;
+    background-color: $colour-platinum;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.content {
+  :global(.scheme-container) {
+    display: none;
+  }
+}
