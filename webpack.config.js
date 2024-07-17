@@ -148,7 +148,7 @@ const getConfigFor = ({
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
             ),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
-            fs.realpathSync(`${__dirname}/node_modules/swagger-ui/dist`),
+            fs.realpathSync(`${__dirname}/node_modules/swagger-ui-react`),
             fs.realpathSync(
               `${__dirname}/node_modules/complexviewer/src/css/xinet.css`
             ),
