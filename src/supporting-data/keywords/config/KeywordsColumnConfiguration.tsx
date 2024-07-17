@@ -3,7 +3,7 @@ import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import KeywordsGraph from '../components/entry/KeywordsGraph';
-import GeneOntologies from '../../../shared/components/results/GeneOnotologies';
+import GeneOntologies from '../../../shared/components/results/GeneOntologies';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
@@ -135,14 +135,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
   label: 'Statistics',
   render: ({ keyword, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.keywords, keyword?.id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.keywords, keyword?.id, statistics)}
     </ExpandableList>
   ),
 });

@@ -33,34 +33,6 @@ export function removeItemFromList<T>(list: T[], index: number) {
   return [...list.slice(0, index), ...list.slice(index + 1)];
 }
 
-export const getBEMClassName = ({
-  b,
-  e: elements = null,
-  m: modifiers = null,
-}: {
-  b: string;
-  e?: string | string[] | null;
-  m?: (string | boolean) | (string | boolean)[] | null;
-}) => {
-  let className: string = b;
-  if (elements) {
-    const e = Array.isArray(elements) ? elements.join('__') : elements;
-    className = `${b}__${e}`;
-  }
-  if (modifiers) {
-    if (Array.isArray(modifiers)) {
-      className = modifiers.reduce(
-        (accum: string, modifier: string | boolean) =>
-          modifier ? `${accum} ${className}--${modifier}` : accum,
-        className
-      );
-    } else {
-      className += ` ${className}--${modifiers}`;
-    }
-  }
-  return className;
-};
-
 export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
   Object.values(obj).some((val) => {
     if (Array.isArray(val)) {
@@ -78,20 +50,25 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
     return typeof val !== 'undefined';
   });
 
-export function* deepFindAllByKey<T = string>(
+export function* deepFindAllByKey(
   input: unknown,
-  predicateKey: string
-): Generator<T, void, never> {
+  predicateKey: string,
+  groupLabel?: string
+): Generator<string, void, never> {
   if (Array.isArray(input)) {
     for (const item of input) {
-      yield* deepFindAllByKey<T>(item, predicateKey);
+      yield* deepFindAllByKey(item, predicateKey, groupLabel);
     }
   } else if (input && typeof input === 'object') {
     for (const [key, value] of Object.entries(input)) {
       if (key === predicateKey) {
-        yield value;
+        if (groupLabel === 'ecNumbers') {
+          yield `EC:${value}`;
+        } else {
+          yield value;
+        }
       } else {
-        yield* deepFindAllByKey(value, predicateKey);
+        yield* deepFindAllByKey(value, predicateKey, key);
       }
     }
   }

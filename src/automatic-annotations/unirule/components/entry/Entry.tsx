@@ -16,7 +16,7 @@ import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloa
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { getEntryPath } from '../../../../app/config/urls';
 
 import {
@@ -31,14 +31,16 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } =
-    useDataApi<UniRuleAPIModel>(apiUrls.entry(accession, Namespace.unirule));
+    useDataApi<UniRuleAPIModel>(
+      apiUrls.entry.entry(accession, Namespace.unirule)
+    );
 
   if (loading) {
     return <Loader progress={progress} />;
   }
 
   if (error || !accession || !data) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (accession !== data.uniRuleId) {

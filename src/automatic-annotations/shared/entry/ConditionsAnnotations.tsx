@@ -21,7 +21,6 @@ import LigandDescriptionView from '../../../uniprotkb/components/protein-data-vi
 
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
-import externalUrls from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 import * as logging from '../../../shared/utils/logging';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
@@ -229,12 +228,39 @@ const conditionsToInfoData = (
         key,
       };
     }
+    // Proteome property
+    if (condition.type === 'proteome property') {
+      return {
+        title: 'proteome property',
+        content: condition.conditionValues?.map(({ value }) => {
+          if (!value) {
+            return null;
+          }
+          return (
+            <Fragment key={value}>
+              {condition.isNegative && (
+                <>
+                  <span className={cn(styles.statement, styles.negation)}>
+                    not
+                  </span>{' '}
+                </>
+              )}
+              {value}
+            </Fragment>
+          );
+        }),
+        key,
+      };
+    }
     // Signature match
     if (condition.type?.endsWith('id') || condition.type?.endsWith('hits')) {
-      const signatureDB = condition.type.replace(/ (id|hits)$/, '');
+      const signatureDB: string = condition.type.replace(/ (id|hits)$/, '');
       let range: ReactNode = null;
-      if (condition.range?.start?.value && condition.range.end?.value) {
-        if (condition.range.start.value === condition.range.end.value) {
+      if (condition.range?.start?.value) {
+        if (
+          !condition.range.end?.value ||
+          condition.range.start.value === condition.range.end.value
+        ) {
           range = ` has exactly ${condition.range.start.value} ${pluralise(
             'hit',
             condition.range.start.value
@@ -245,22 +271,34 @@ const conditionsToInfoData = (
           } ${pluralise('hit', condition.range.end.value)}`;
         }
       }
+
       return {
         // NOTE: don't pluralise, the values are "OR"-separated
         title: `${signatureDB}${
-          condition.type.endsWith('id') ? ' signature' : ''
+          condition.type.endsWith('id') ? ' signature' : ' hits'
         }`,
         content: condition.conditionValues?.map(({ value }, index, array) => {
           if (!value) {
             return null;
           }
-          // Not in allDatabases
-          let url: string | null = externalUrls.InterProSearch(value);
-          if (value.startsWith('PS')) {
-            // Not in allDatabases
-            url = externalUrls.PROSITEEntry(value);
-          } else if (value.startsWith('MF')) {
-            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'HAMAP', {
+
+          let url: string | null = null;
+          if (signatureDB === 'SRHMM') {
+            // skip, not sure what to link to
+          } else if (signatureDB === 'SCOP Superfamily') {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'SUPFAM', {
+              id: value,
+            });
+          } else if (signatureDB === 'PIR superfamily') {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'PIRSF', {
+              id: value,
+            });
+          } else if (signatureDB === 'PROSITE pattern') {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'PROSITE', {
+              id: value,
+            });
+          } else {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, signatureDB, {
               id: value,
             });
           }
@@ -721,10 +759,11 @@ const AnnotationsComponent = ({
   exceptions?: RuleException[];
 }) => {
   if (!annotations.length && !featureSet) {
-    // Might be absurd, but we never know
+    // Example: UR001569201
     return (
       <div className={styles.annotations}>
-        No specific annotations for this rule.
+        <div className={styles.statement}>then</div>
+        No specific annotations for this rule
       </div>
     );
   }

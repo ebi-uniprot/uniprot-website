@@ -47,6 +47,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             length="10"
           >
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in"
             >
@@ -55,6 +56,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-out"
             >
@@ -63,6 +65,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in-seq"
             >
@@ -207,13 +210,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                           width="12.5"
                         />
                       </a>
-                      ); Some note; In isoform 
-                      <a
-                        href="/#Isoform_sequence"
-                      >
-                        sequence
-                      </a>
-                       1; description value 123
+                      ); Some note; In isoform sequence 1; description value 123
                       <button
                         aria-controls="1"
                         aria-expanded="false"
@@ -396,6 +393,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             length="772"
           >
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in"
             >
@@ -404,6 +402,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-out"
             >
@@ -412,6 +411,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               />
             </span>
             <span
+              aria-hidden="true"
               class="nightingale-button-content"
               slot="zoom-in-seq"
             >

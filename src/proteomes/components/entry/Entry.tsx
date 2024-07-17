@@ -1,17 +1,15 @@
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
+import Overview from './Overview';
 import EntryMain from './EntryMain';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-// import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import AccessionView from '../../../shared/components/results/AccessionView';
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -36,12 +34,12 @@ const Entry = () => {
   const accession = match?.params.accession;
 
   const mainData = useDataApi<ProteomesAPIModel>(
-    apiUrls.entry(accession, Namespace.proteomes)
+    apiUrls.entry.entry(accession, Namespace.proteomes)
   );
 
   const panProteomeData = useDataApi<ProteomesAPIModel>(
     mainData.data?.panproteome && mainData.data.panproteome !== mainData.data.id
-      ? apiUrls.entry(mainData.data.panproteome, Namespace.proteomes)
+      ? apiUrls.entry.entry(mainData.data.panproteome, Namespace.proteomes)
       : null
   );
 
@@ -50,7 +48,13 @@ const Entry = () => {
   }
 
   if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
-    return <ErrorHandler status={mainData.status || panProteomeData.status} />;
+    return (
+      <ErrorHandler
+        status={mainData.status || panProteomeData.status}
+        error={mainData.error}
+        fullPage
+      />
+    );
   }
 
   const transformedData = proteomesConverter(
@@ -71,23 +75,7 @@ const Entry = () => {
         {' · '}
         <TaxonomyView data={mainData.data.taxonomy} noLink />
       </h1>
-      {transformedData.proteomeType === 'Redundant proteome' &&
-      transformedData.redundantTo ? (
-        <div>
-          <EntryTypeIcon entryType={transformedData.proteomeType} />
-          This proteome is{' '}
-          <span data-article-id="proteome_redundancy">redundant</span> to&nbsp;
-          <AccessionView
-            id={transformedData.redundantTo}
-            namespace={Namespace.proteomes}
-          />
-          .
-        </div>
-      ) : null}
-      {/* Commented out for now */}
-      {/* <div className="button-group">
-        <EntryDownload />
-      </div> */}
+      <Overview data={transformedData} />
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );

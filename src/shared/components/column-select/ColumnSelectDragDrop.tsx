@@ -1,9 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Chip } from 'franklin-sites';
 import cn from 'classnames';
-
-import { getBEMClassName as bem } from '../../utils/utils';
 
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
@@ -16,11 +14,9 @@ export type ColumnSelectDragDropProps = {
   onRemove: (columnId: Column) => void;
 };
 
-const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
-  columns,
-  onDragDrop,
-  onRemove,
-}) => {
+const ColumnSelectDragDrop: FC<
+  React.PropsWithChildren<ColumnSelectDragDropProps>
+> = ({ columns, onDragDrop, onRemove }) => {
   const previousColumns = useRef(columns);
 
   useEffect(() => {
@@ -48,10 +44,7 @@ const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
         {(droppableProvided) => (
           <div
             ref={droppableProvided.innerRef}
-            className={bem({
-              b: 'column-select-drag-drop',
-              e: 'list',
-            })}
+            className="column-select-drag-drop__list"
             {...droppableProvided.droppableProps}
           >
             {columns.map(({ itemId, label }, index) => (

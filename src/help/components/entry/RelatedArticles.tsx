@@ -4,7 +4,7 @@ import HelpCard from '../results/HelpCard';
 
 import usePagination from '../../../shared/hooks/usePagination';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import helpURL from '../../config/apiUrls';
 import { pluralise } from '../../../shared/utils/utils';
 
 import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';

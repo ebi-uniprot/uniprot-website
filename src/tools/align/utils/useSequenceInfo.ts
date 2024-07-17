@@ -5,7 +5,7 @@ import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequenc
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import extractAccession from './extractAccession';
-import { getAccessionsURL } from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { removeFeaturesWithUnknownModifier } from '../../utils/sequences';
 import { processFeaturesData as processUniProtKBFeaturesData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { convertData as processUniParcFeaturesData } from '../../../uniparc/components/entry/UniParcFeaturesView';
@@ -79,14 +79,20 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     ];
   }, [processedArray]);
 
-  const uniprotkbEndpoint = getAccessionsURL(Array.from(uniprotkbAccessions), {
-    namespace: Namespace.uniprotkb,
-    facets: null,
-  });
-  const uniparcEndpoint = getAccessionsURL(Array.from(uniparcAccessions), {
-    namespace: Namespace.uniparc,
-    facets: null,
-  });
+  const uniprotkbEndpoint = apiUrls.search.accessions(
+    Array.from(uniprotkbAccessions),
+    {
+      namespace: Namespace.uniprotkb,
+      facets: null,
+    }
+  );
+  const uniparcEndpoint = apiUrls.search.accessions(
+    Array.from(uniparcAccessions),
+    {
+      namespace: Namespace.uniparc,
+      facets: null,
+    }
+  );
 
   const uniprotkbResults =
     useDataApi<SearchResults<UniProtkbAPIModel>>(uniprotkbEndpoint);
@@ -103,6 +109,10 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     >();
     for (const { primaryAccession, sequence, features } of uniprotkbResults
       ?.data?.results || []) {
+      if (!sequence) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
       const sequencedAndFeatures = {
         sequence: sequence.value,
         features: processUniProtKBFeaturesData(

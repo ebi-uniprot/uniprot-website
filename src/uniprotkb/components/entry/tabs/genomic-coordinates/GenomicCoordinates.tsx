@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import { Loader, Message } from 'franklin-sites';
+import { ReactNode, useState } from 'react';
+import { Loader } from 'franklin-sites';
 
-import Entries from './Entries';
-import ContactLink from '../../../../../contact/components/ContactLink';
+import GeneEntry from './GeneEntry';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 
-import { proteinsApi } from '../../../../../shared/config/apiUrls';
-import { groupCoordinates } from './utils';
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
+import { groupByGene } from './utils';
 
 import { Isoform } from '../../../../types/commentTypes';
 import { GenomicEntry } from './types';
@@ -21,26 +20,31 @@ import tabsStyles from '../styles/tabs-styles.module.scss';
 type GenomicCoordinatesProps = {
   primaryAccession: string;
   isoforms?: Isoform[];
-  title?: string;
+  maneSelect: Set<string>;
+  title?: ReactNode;
 };
 
 const GenomicCoordinates = ({
   primaryAccession,
   isoforms,
+  maneSelect,
   title,
 }: GenomicCoordinatesProps) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  let isoformIDs = [
-    // Only if there are non-canonical isoforms, otherwise will be empty
-    ...(isoforms?.flatMap((i) => i.isoformIds) || []),
-  ];
-  // Somehow if only canonical the canonical will not be in the list of isoforms
-  if (!isoformIDs.length) {
-    isoformIDs = [primaryAccession];
+
+  let isoformIDs = [primaryAccession];
+  let canonical: string | undefined; // if only one canonical no need to annotate it
+  // If defined, it means there is more than one isoform
+  if (isoforms) {
+    isoformIDs = isoforms.flatMap((isoform) => isoform.isoformIds);
+    canonical = isoforms.find(
+      (isoform) => isoform.isoformSequenceStatus === 'Displayed'
+    )?.isoformIds[0];
   }
+
   // For the future, add computationally mapped isoforms somehow
   const { loading, data, progress, error, status } = useDataApi<GenomicEntry[]>(
-    proteinsApi.coordinates(isoformIDs)
+    apiUrls.proteinsApi.coordinates(isoformIDs)
   );
 
   if (loading) {
@@ -55,7 +59,7 @@ const GenomicCoordinates = ({
   if (error && status !== 404) {
     return (
       <div className="wider-tab-content hotjar-margin">
-        <ErrorHandler status={status} />
+        <ErrorHandler status={status} error={error} />
       </div>
     );
   }
@@ -71,17 +75,13 @@ const GenomicCoordinates = ({
     );
   }
 
-  const groupedData = groupCoordinates(data);
+  const groupedByGene = groupByGene(data);
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
   return (
     <section className="wider-tab-content hotjar-margin">
-      <Message level="info">
-        The content of this tab is in beta, feel free to{' '}
-        <ContactLink>get in touch</ContactLink> to provide feedback about it
-      </Message>
       {title && <h2>{title}</h2>}
       {displayDownloadPanel && (
         <EntryDownloadPanel
@@ -89,17 +89,15 @@ const GenomicCoordinates = ({
           dataset={Dataset.coordinates}
         />
       )}
-      {/* <p>
-        Mapping based on reference genome assembly:{' '}
-        <i>unknown (information pending)</i>
-      </p> */}
       <EntryDownloadButton handleToggle={handleToggleDownload} />
-      {Object.entries(groupedData).map(([gene, data], index) => (
-        <Entries
+      {Object.entries(groupedByGene).map(([gene, data], index) => (
+        <GeneEntry
           key={gene}
           entries={data}
           index={index}
           isoformIDs={isoformIDs}
+          canonical={canonical}
+          maneSelect={maneSelect}
         />
       ))}
     </section>

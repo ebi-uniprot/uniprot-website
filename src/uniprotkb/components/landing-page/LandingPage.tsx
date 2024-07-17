@@ -20,9 +20,9 @@ import {
   Location,
   getLocationEntryPath,
 } from '../../../app/config/urls';
-import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -60,7 +60,7 @@ const LandingPage = () => {
   const release = useUniProtDataVersion();
 
   const { data } = useDataApi<SearchResults<never>>(
-    getAPIQueryUrl({
+    apiUrls.search.search({
       namespace: Namespace.uniprotkb,
       query: '*',
       size: 0,

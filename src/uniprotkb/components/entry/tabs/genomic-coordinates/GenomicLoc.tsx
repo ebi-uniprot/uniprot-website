@@ -39,22 +39,23 @@ const GenomicLoc = ({ genomicLocation, taxID, noLink }: GenomicLocProps) => {
       </LongNumber>
     </>
   );
-  if (noLink) {
-    return <span className={helper['no-wrap']}>{content}</span>;
-  }
   return (
     <ExternalLink
       className={helper['no-wrap']}
-      url={getEnsemblLink(
-        taxID,
-        genomicLocation.reverseStrand
-          ? genomicLocation.end
-          : genomicLocation.start,
-        genomicLocation.reverseStrand
-          ? genomicLocation.start
-          : genomicLocation.end,
-        genomicLocation.chromosome
-      )}
+      url={
+        noLink
+          ? null
+          : getEnsemblLink(
+              taxID,
+              genomicLocation.reverseStrand
+                ? genomicLocation.end
+                : genomicLocation.start,
+              genomicLocation.reverseStrand
+                ? genomicLocation.start
+                : genomicLocation.end,
+              genomicLocation.chromosome
+            )
+      }
     >
       {content}
     </ExternalLink>

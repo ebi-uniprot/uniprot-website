@@ -25,11 +25,8 @@ import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
-import apiUrls from '../../../shared/config/apiUrls';
-import {
-  defaultColumns,
-  UniParcXRefsColumn,
-} from '../../config/UniParcXRefsColumnConfiguration';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
 import { Location, getEntryPath } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
 
@@ -63,7 +60,10 @@ const Entry = () => {
     defaultColumns
   );
 
-  const baseURL = apiUrls.entry(match?.params.accession, Namespace.uniparc);
+  const baseURL = apiUrls.entry.entry(
+    match?.params.accession,
+    Namespace.uniparc
+  );
   const xRefsURL = useMemo(() => {
     const [{ selectedFacets }] = getParamsFromURL(search);
     if (!selectedFacets.length) {
@@ -73,20 +73,8 @@ const Entry = () => {
       ...Object.fromEntries(
         selectedFacets.map(({ name, value }) => [name, value])
       ),
-      fields: Array.from(
-        new Set([
-          ...columns,
-          // We always need all below to calculate the facets
-          UniParcXRefsColumn.active,
-          UniParcXRefsColumn.organism,
-          UniParcXRefsColumn.database,
-        ])
-      )
-        // Sort to have better cache hits
-        .sort()
-        .join(','),
     });
-  }, [baseURL, search, columns]);
+  }, [baseURL, search]);
   const dataObject = useDataApi<UniParcAPIModel>(
     // Hack to have the backend only return the base object without xref data
     `${baseURL}?taxonIds=0`
@@ -99,7 +87,13 @@ const Entry = () => {
     baseURL === xRefsURL ? wholeXrefsDataObject : partialXrefsDataObject;
 
   if (dataObject.error || !match?.params.accession || !match) {
-    return <ErrorHandler status={dataObject.status} />;
+    return (
+      <ErrorHandler
+        status={dataObject.status}
+        error={dataObject.error}
+        fullPage
+      />
+    );
   }
 
   if (!dataObject.data) {
@@ -146,6 +140,7 @@ const Entry = () => {
           <BasketStatus id={transformedData.uniParcId} className="small" />
         </h1>
       </ErrorBoundary>
+      {/* Put overview here if we ever have data to display there */}
       <Tabs active={match.params.subPage}>
         <Tab
           title={

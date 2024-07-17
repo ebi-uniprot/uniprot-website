@@ -1,7 +1,7 @@
 import { GroupByAPIModel } from '../components/results/UniProtKBGroupBy';
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?query=%28%2A%29
-// Retrieved: 2023-05-18
+// Retrieved: 2024-06-10
 export const taxonomyRoot: GroupByAPIModel = {
   ancestors: [],
   groups: [
@@ -9,33 +9,33 @@ export const taxonomyRoot: GroupByAPIModel = {
       id: '131567',
       label: 'cellular organisms',
       expandable: true,
-      count: 241067738,
+      count: 237365811,
     },
     {
       id: '2787854',
       label: 'other entries',
       expandable: true,
-      count: 1245,
+      count: 1162,
     },
     {
       id: '2787823',
       label: 'unclassified entries',
       expandable: true,
-      count: 2422449,
+      count: 2426676,
     },
     {
       id: '10239',
       label: 'Viruses',
       expandable: true,
-      count: 5392244,
+      count: 5688878,
     },
   ],
   parent: {
-    count: 248842690,
+    count: 245482527,
   },
 };
 // Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?parent=131567&query=%28%2A%29
-// Retrieved: 2023-07-24
+// Retrieved: 2024-06-10
 export const taxonomyCellularOrgranisms = {
   ancestors: [],
   groups: [
@@ -43,29 +43,29 @@ export const taxonomyCellularOrgranisms = {
       id: '2157',
       label: 'Archaea',
       expandable: true,
-      count: 6802294,
+      count: 6658352,
     },
     {
       id: '2',
       label: 'Bacteria',
       expandable: true,
-      count: 164314094,
+      count: 152212928,
     },
     {
       id: '2759',
       label: 'Eukaryota',
       expandable: true,
-      count: 69911065,
+      count: 78494531,
     },
   ],
   parent: {
     label: 'cellular organisms',
-    count: 241027453,
+    count: 237365811,
   },
 };
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/ec?parent=3.-.-.-&query=%28shadab%29
-// Retrieved: 2023-07-24
+// Retrieved: 2024-06-10
 export const ecNonRoot = {
   ancestors: [
     {

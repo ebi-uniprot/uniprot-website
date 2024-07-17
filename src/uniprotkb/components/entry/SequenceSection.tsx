@@ -37,6 +37,7 @@ const SequenceSection = ({
     return null;
   }
   const numberOfIsoforms = data?.alternativeProducts?.isoforms.length;
+
   return (
     <Card
       header={
@@ -65,7 +66,7 @@ const SequenceSection = ({
         <FeaturesView
           primaryAccession={primaryAccession}
           features={data.featuresData}
-          sequence={data.sequence.value}
+          sequence={data.sequence?.value}
         />
       )}
       {data.massSpectrometry && data.massSpectrometry.length > 0 && (

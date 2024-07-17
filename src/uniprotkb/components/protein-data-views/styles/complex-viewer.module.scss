@@ -1,0 +1,14 @@
+.complex-viewer-container {
+  width: 100%;
+  display: flex;
+  position: relative;
+
+  & svg {
+    width: 100%;
+    height: 275px;
+  }
+
+  & div {
+    display: none !important; // Do not show the tooltip container. For some reason, class is not respected.
+  }
+}

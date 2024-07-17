@@ -1,8 +1,9 @@
 /**
  * @jest-environment node
  */
+import { ReactNode } from 'react';
+import axios, { AxiosHeaders } from 'axios';
 import { renderHook } from '@testing-library/react-hooks';
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import useDataApi from '../useDataApi';
@@ -42,6 +43,8 @@ describe('useDataApi hook', () => {
       url,
       data: 'some data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -80,7 +83,7 @@ describe('useDataApi hook', () => {
     mock.onGet(url).reply(400, { messages: [message] });
     const mockDispatch = jest.fn();
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url), {
-      wrapper: ({ children }) => (
+      wrapper: ({ children }: { children: ReactNode }) => (
         <MessagesDispatchContext.Provider value={mockDispatch}>
           {children}
         </MessagesDispatchContext.Provider>
@@ -107,6 +110,9 @@ describe('useDataApi hook', () => {
       loading: false,
       url,
       status: 400,
+      progress: undefined,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -123,6 +129,9 @@ describe('useDataApi hook', () => {
       loading: false,
       url,
       status: 404,
+      progress: undefined,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -155,6 +164,8 @@ describe('useDataApi hook', () => {
       url,
       data: 'some data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
 
     rerender({ url: url2 });
@@ -169,6 +180,8 @@ describe('useDataApi hook', () => {
       url: url2,
       data: 'some other data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -194,6 +207,8 @@ describe('useDataApi hook', () => {
       url: url2,
       data: 'some other data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 
@@ -213,6 +228,8 @@ describe('useDataApi hook', () => {
       data: 'some data',
       status: 200,
       redirectedTo: url,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 });
@@ -236,6 +253,8 @@ describe('useDataApiWithStale hook', () => {
       url,
       data: 'some data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
 
     rerender({ url: url2 });
@@ -255,6 +274,8 @@ describe('useDataApiWithStale hook', () => {
       url: url2,
       data: 'some other data',
       status: 200,
+      headers: new AxiosHeaders(),
+      statusText: undefined,
     });
   });
 

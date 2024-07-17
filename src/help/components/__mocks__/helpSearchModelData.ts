@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
-// Source: /help/search?facets=category&query=canonical&size=500
-// Retrieved: 2024-01-05
+// Source: help/search?facets=category&query=canonical&size=500
+// Retrieved: 2024-06-10
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -399,7 +399,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'manual_curation',
       title: 'How do we manually annotate a UniProtKB entry?',
-      lastModified: '2022-04-28',
+      lastModified: '2024-04-09',
       type: 'help',
       categories: ['UniProtKB', 'Biocuration', 'About UniProt', 'faq'],
       matches: {

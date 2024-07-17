@@ -1,5 +1,10 @@
 import { useEffect, useReducer, useRef } from 'react';
-import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosResponse,
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosProgressEvent,
+} from 'axios';
 import joinUrl from 'url-join';
 
 import useMessagesDispatch from './useMessagesDispatch';
@@ -7,7 +12,7 @@ import useMessagesDispatch from './useMessagesDispatch';
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
 import * as logging from '../utils/logging';
-import { apiPrefix } from '../config/apiUrls';
+import { apiPrefix } from '../config/apiUrls/apiPrefix';
 
 import {
   MessageFormat,
@@ -16,7 +21,7 @@ import {
 import { Namespace } from '../types/namespaces';
 import { UserPreferenceKey } from './useLocalStorage';
 
-type CustomError = AxiosError<{ messages?: string[] }>;
+export type CustomError = AxiosError<undefined | { messages?: string[] }>;
 
 const invalidFieldMessage = /Invalid fields parameter value '(?<field>[^']*)'/;
 const namespacedURL = new RegExp(
@@ -42,7 +47,7 @@ export type UseDataAPIState<T> = {
   data?: T;
   status?: AxiosResponse['status'];
   statusText?: AxiosResponse['statusText'];
-  headers?: Record<string, string>;
+  headers?: AxiosResponse['headers'];
   error?: CustomError;
   redirectedTo?: string;
   url?: string | null;
@@ -92,23 +97,19 @@ const createReducer =
           ...state,
           loading: false,
           progress: action.progress,
-          data: action.response && action.response.data,
-          status: action.response && action.response.status,
-          statusText: action.response && action.response.statusText,
-          headers: action.response && action.response.headers,
+          data: action.response?.data,
+          status: action.response?.status,
+          statusText: action.response?.statusText,
+          headers: action.response?.headers,
         };
         if (
-          action.response &&
-          action.response.request &&
-          action.response.request.responseURL &&
+          action.response?.request?.responseURL &&
           action.response.request.responseURL !== action.originalURL
         ) {
           newState.redirectedTo = action.response.request.responseURL;
         } else if (
           // Issue with casing in axios-mock-adapter?
-          action.response &&
-          action.response.request &&
-          action.response.request.responseUrl &&
+          action.response?.request?.responseUrl &&
           action.response.request.responseUrl !== action.originalURL
         ) {
           newState.redirectedTo = action.response.request.responseUrl;
@@ -119,9 +120,9 @@ const createReducer =
           ...state,
           loading: false,
           progress: undefined,
-          status: action.error.response && action.error.response.status,
-          statusText: action.error.response && action.error.response.statusText,
-          headers: action.error.response && action.error.response.headers,
+          status: action.error.response?.status,
+          statusText: action.error.response?.statusText,
+          headers: action.error.response?.headers,
           error: action.error,
         };
     }
@@ -163,13 +164,9 @@ function useDataApi<T>(
     // actual request
     fetchData<T>(url, source.token, {
       ...optionsRef.current,
-      onDownloadProgress: (progressEvent: ProgressEvent) => {
+      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         optionsRef.current?.onDownloadProgress?.(progressEvent);
-        if (
-          didCancel ||
-          !progressEvent.lengthComputable ||
-          !progressEvent.total
-        ) {
+        if (didCancel || progressEvent.progress === undefined) {
           return;
         }
         const now = Date.now();
@@ -180,7 +177,7 @@ function useDataApi<T>(
         }
         dispatch({
           type: ActionType.PROGRESS,
-          progress: progressEvent.loaded / progressEvent.total,
+          progress: progressEvent.progress,
         });
         lastProgressDate = now;
       },
@@ -199,12 +196,12 @@ function useDataApi<T>(
       },
       // catch error
       (error: CustomError) => {
+        // Ignore 404 because it might mean "valid request but no data"
+        if (error.response?.status && error.response.status !== 404) {
+          logging.error(error, { tags: { origin: 'useDataApi', url } });
+        }
         if (axios.isCancel(error) || didCancel) {
           return;
-        }
-        // Ignore 404 because it might mean "valid request but no data"
-        if (error.response?.status !== 404) {
-          logging.error(error, { tags: { origin: 'useDataApi', url } });
         }
         dispatch({ type: ActionType.ERROR, error });
       }

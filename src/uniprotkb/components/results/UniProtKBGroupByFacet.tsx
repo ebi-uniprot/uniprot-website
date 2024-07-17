@@ -5,7 +5,9 @@ import cn from 'classnames';
 
 import { stringifyUrl } from '../../../shared/utils/url';
 
-import { GroupBy } from '../../config/apiUrls';
+import { GroupBy } from '../../config/apiUrls/groupBy';
+
+import facetsStyles from '../../../shared/components/results/styles/facets.module.scss';
 
 const groupByLabelAndParams: [string, GroupBy][] = [
   ['Taxonomy', 'taxonomy'],
@@ -29,13 +31,13 @@ const UniProtKBGroupByFacet = () => {
 
   return (
     <div>
-      <span className="facet-name">Group by</span>
+      <span className={facetsStyles['facet-name']}>Group by</span>
       <ul className="expandable-list no-bullet">
         {groupByLabelAndParams.map(([label, param]) => (
           <li key={param}>
             <Link
               className={cn({
-                'facet-active': searchParams.groupBy === param,
+                [facetsStyles['facet-active']]: searchParams.groupBy === param,
               })}
               to={getTo(param)}
             >

@@ -4,13 +4,17 @@ import { AttributesItem } from '../../uniprotkb/types/databaseRefs';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 export const processUrlTemplate = (
-  urlTemplate: string,
+  urlTemplate: string | null | undefined,
   params: Record<string, string>
-) => {
-  let url = urlTemplate;
-  Object.entries(params).forEach(([param, value]) => {
+): string | null => {
+  if (!urlTemplate) {
+    return null;
+  }
+  let url: string = urlTemplate;
+  for (const [param, value] of Object.entries(params)) {
     url = url.replace(new RegExp(`%${param}`, 'g'), value);
-  });
+  }
+  /* istanbul ignore if */
   if (url === urlTemplate) {
     logging.error(
       `${urlTemplate} template values not filled in with params: ${JSON.stringify(
@@ -22,9 +26,9 @@ export const processUrlTemplate = (
 };
 
 export const getDatabaseInfoAttribute = (
-  attributes: AttributesItem[],
+  attributes: AttributesItem[] | undefined,
   name: string
-) => attributes.find(({ name: n }) => n === name);
+) => attributes?.find(({ name: n }) => n === name);
 
 export const getUrlFromDatabaseInfo = (
   databaseInfoMaps: DatabaseInfoMaps | null,

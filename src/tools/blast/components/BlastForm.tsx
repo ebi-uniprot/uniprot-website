@@ -44,6 +44,7 @@ import {
   updateSending,
 } from '../state/blastFormActions';
 import { getAutoMatrixFor } from '../utils';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import { BLAST_LIMIT } from '../../../shared/config/limits';
 
@@ -68,7 +69,7 @@ import defaultFormValues, {
   BlastFields,
   excludeTaxonForDB,
 } from '../config/BlastFormData';
-import uniProtKBApiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import {
   MessageFormat,
@@ -81,10 +82,12 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
-const FormSelect: FC<{
-  formValue: BlastFormValue;
-  updateFormValue: (selected: BlastFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: BlastFormValue;
+    updateFormValue: (selected: BlastFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }
@@ -271,6 +274,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               formValues[BlastFields.database].selected === 'uniparc'
           )
         );
+        sendGtagEventJobSubmit(JobTypes.BLAST, { target: parameters.database });
         // Ensure there's a bit of wait between creating the jobs in order to
         // have different creation times and have consistent ordering.
         // eslint-disable-next-line no-await-in-loop
@@ -359,7 +363,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             >
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
-                url={uniProtKBApiUrls.taxonomySuggester}
+                url={apiUrls.suggester.taxonomy}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"
                 clearOnSelect

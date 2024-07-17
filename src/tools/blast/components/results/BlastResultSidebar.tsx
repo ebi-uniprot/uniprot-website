@@ -7,8 +7,8 @@ import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import { FacetsEnum as FacetsEnumUniProtKB } from '../../../../uniprotkb/config/UniProtKBFacetConfiguration';
 import { defaultFacets as defaultFacetsUniParc } from '../../../../uniparc/config/UniParcFacetConfiguration';
@@ -44,7 +44,7 @@ const BlastResultSidebar = memo<BlastResultSidebarProps>(
       // doesn't make sense in BLAST's context where all have the same value
       namespace === Namespace.uniref
         ? null
-        : getAccessionsURL(accessions, {
+        : apiUrls.search.accessions(accessions, {
             namespace,
             size: 0,
             facets:

@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import ResultsData from '../ResultsData';
 
@@ -30,7 +30,7 @@ describe('ResultsData component', () => {
         },
       }
     );
-    await screen.findByText('P35575');
+    await screen.findByText('P11413');
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -56,99 +56,7 @@ describe('ResultsData component', () => {
       }
     );
     const geneLabels = await screen.findAllByText('Gene:');
-    expect(geneLabels).toHaveLength(25);
+    expect(geneLabels).toHaveLength(results.results.length);
     expect(asFragment()).toMatchSnapshot();
-  });
-
-  it('should redirect to the entry page when query matches the accession of the only result', async () => {
-    const singleResult = results.results[0];
-    const { history } = customRender(
-      <ResultsData
-        setSelectedItemFromEvent={jest.fn()}
-        resultsDataObject={{
-          allResults: [singleResult],
-          initialLoading: false,
-          progress: 1,
-          hasMoreData: false,
-          handleLoadMoreRows: jest.fn(),
-          total: 1000,
-        }}
-      />,
-      { route: `/uniprotkb?query=${singleResult.primaryAccession}` }
-    );
-    await waitFor(() =>
-      expect(history.location.pathname).toBe(
-        `/uniprotkb/${singleResult.primaryAccession}`
-      )
-    );
-  });
-
-  it('should redirect to the entry page when query matches the id of the only result', async () => {
-    const singleResult = results.results[0];
-    const { history } = customRender(
-      <ResultsData
-        setSelectedItemFromEvent={jest.fn()}
-        resultsDataObject={{
-          allResults: [singleResult],
-          initialLoading: false,
-          progress: 1,
-          hasMoreData: false,
-          handleLoadMoreRows: jest.fn(),
-          total: 1000,
-        }}
-      />,
-      { route: `/uniprotkb?query=${singleResult.uniProtkbId}` }
-    );
-    await waitFor(() =>
-      expect(history.location.pathname).toBe(
-        `/uniprotkb/${singleResult.primaryAccession}`
-      )
-    );
-  });
-
-  it('should redirect to the entry page when "?direct" is specified', async () => {
-    const singleResult = results.results[0];
-    const { history } = customRender(
-      <ResultsData
-        setSelectedItemFromEvent={jest.fn()}
-        resultsDataObject={{
-          allResults: [singleResult],
-          initialLoading: false,
-          progress: 1,
-          hasMoreData: false,
-          handleLoadMoreRows: jest.fn(),
-          total: 1000,
-        }}
-      />,
-      { route: `/uniprotkb?direct` }
-    );
-    await waitFor(() =>
-      expect(history.location.pathname).toBe(
-        `/uniprotkb/${singleResult.primaryAccession}`
-      )
-    );
-  });
-
-  it('should redirect to the entry page when query matches the id of any one of the results from first fetch', async () => {
-    const potentialMatch = results.results[0];
-    const { history } = customRender(
-      <ResultsData
-        setSelectedItemFromEvent={jest.fn()}
-        resultsDataObject={{
-          allResults: results.results,
-          initialLoading: false,
-          progress: 1,
-          hasMoreData: true,
-          handleLoadMoreRows: jest.fn(),
-          total: 1000,
-        }}
-      />,
-      { route: `/uniprotkb?query=${potentialMatch.uniProtkbId}` }
-    );
-    await waitFor(() =>
-      expect(history.location.pathname).toBe(
-        `/uniprotkb/${potentialMatch.primaryAccession}`
-      )
-    );
   });
 });

@@ -8,7 +8,7 @@ import {
   useImperativeHandle,
   useCallback,
 } from 'react';
-import { SearchInput } from 'franklin-sites';
+import { EllipsisReveal, SearchInput } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
@@ -16,7 +16,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
-import apiUrls from '../../shared/config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import {
@@ -48,21 +48,21 @@ const getURLForAccessionOrID = (input: string) => {
 
   // UniRef accession
   if (reUniRefAccession.test(cleanedInput)) {
-    return apiUrls.entry(cleanedInput, Namespace.uniref);
+    return apiUrls.entry.entry(cleanedInput, Namespace.uniref);
   }
 
   // UniParc accession
   if (reUniParc.test(cleanedInput)) {
-    return apiUrls.entry(cleanedInput.toUpperCase(), Namespace.uniparc);
+    return apiUrls.entry.entry(cleanedInput.toUpperCase(), Namespace.uniparc);
   }
 
   // UniProtKB accession
   if (reUniProtKBAccession.test(cleanedInput)) {
-    return apiUrls.entry(cleanedInput.toUpperCase(), Namespace.uniprotkb);
+    return apiUrls.entry.entry(cleanedInput.toUpperCase(), Namespace.uniprotkb);
   }
 
   // UniProtKB ID
-  return stringifyUrl(apiUrls.search(), {
+  return stringifyUrl(apiUrls.search.searchPrefix(), {
     query: `id:${cleanedInput.toUpperCase()}`,
     fields:
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',
@@ -84,6 +84,8 @@ type NetworkResponses = SearchResults<APISequenceData> | APISequenceData;
 export interface SequenceSearchLoaderInterface {
   reset: () => void;
 }
+
+const ERROR_MESSAGE_THRESHOLD = 150;
 
 const SequenceSearchLoader = forwardRef<
   SequenceSearchLoaderInterface,
@@ -218,11 +220,24 @@ const SequenceSearchLoader = forwardRef<
         }
         onLoad(parsedSequences);
         if (errors.length) {
+          const error = errors.join(', ');
           dispatch(
             addMessage({
-              content: `There was an issue retrieving sequence data for: ${errors.join(
-                ', '
-              )}`,
+              content: (
+                <div style={{ wordBreak: 'break-all' }}>
+                  There was an issue retrieving sequence data for:{' '}
+                  {error.length > ERROR_MESSAGE_THRESHOLD ? (
+                    <>
+                      {error.substring(0, ERROR_MESSAGE_THRESHOLD)}
+                      <EllipsisReveal>
+                        {error.substring(ERROR_MESSAGE_THRESHOLD)}
+                      </EllipsisReveal>
+                    </>
+                  ) : (
+                    error
+                  )}
+                </div>
+              ),
               format: MessageFormat.POP_UP,
               level: MessageLevel.FAILURE,
             })

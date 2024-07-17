@@ -1,5 +1,4 @@
 import { useMemo, Fragment, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { v1 } from 'uuid';
 import { Button, Chip } from 'franklin-sites';
 
@@ -19,7 +18,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
-import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
+import { getURLToJobWithData } from '../../../app/config/urls';
 import { stringToID } from '../../utils';
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -27,7 +26,6 @@ import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { Namespace } from '../../../shared/types/namespaces';
 import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
 import styles from './styles/uniprotkb-features-view.module.scss';
@@ -203,28 +201,7 @@ const UniProtKBFeaturesView = ({
 
           let { description } = feature;
           if (typeof feature.description === 'string') {
-            const isoform = feature.description.match(
-              /isoform\s([A-Z0-9]+-\d+)/i
-            )?.[1];
-            if (isoform) {
-              description = feature.description
-                ?.split(new RegExp(`(${isoform})`))
-                .map((part) => {
-                  if (part === isoform) {
-                    return (
-                      <Link
-                        key={part}
-                        to={getEntryPath(Namespace.uniprotkb, part)}
-                      >
-                        {part}
-                      </Link>
-                    );
-                  }
-                  return <RichText key={part}>{part}</RichText>;
-                });
-            } else {
-              description = <RichText>{feature.description}</RichText>;
-            }
+            description = <RichText>{feature.description}</RichText>;
           }
           return (
             <Fragment key={feature.protvistaFeatureId}>
@@ -243,9 +220,11 @@ const UniProtKBFeaturesView = ({
                 <td id={feature.featureId}>
                   {feature.type === 'Natural variant' &&
                   position === positionStart &&
-                  feature.sequence?.length === 5 ? ( // Expasy links are only valid for SNPs
+                  // Expasy links are only valid for SNPs (e.g. "R → G":)
+                  feature.sequence?.length === 5 &&
+                  feature.featureId ? (
                     <ExternalLink
-                      url={externalUrls.UniProt(feature.featureId || '')}
+                      url={externalUrls.UniProt(feature.featureId)}
                       title="View in Expasy"
                       noIcon
                     >

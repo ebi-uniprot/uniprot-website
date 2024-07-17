@@ -47,7 +47,7 @@ exports[`UniParcXRefsColumnConfiguration component should render column "first_s
 exports[`UniParcXRefsColumnConfiguration component should render column "gene": gene 1`] = `
 <DocumentFragment>
   <span>
-    VACWR088
+    OPG099
   </span>
 </DocumentFragment>
 `;
@@ -55,9 +55,9 @@ exports[`UniParcXRefsColumnConfiguration component should render column "gene": 
 exports[`UniParcXRefsColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2021-06-02T00:00:00.000Z"
+    datetime="2024-05-29T00:00:00.000Z"
   >
-    2021-06-02
+    2024-05-29
   </time>
 </DocumentFragment>
 `;
@@ -106,7 +106,7 @@ exports[`UniParcXRefsColumnConfiguration component should render column "organis
 exports[`UniParcXRefsColumnConfiguration component should render column "protein": protein 1`] = `
 <DocumentFragment>
   <span>
-    Protein L1
+    Entry-fusion complex associated protein OPG095
   </span>
 </DocumentFragment>
 `;

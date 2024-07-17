@@ -15,7 +15,7 @@ import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationCo
 
 type Props = {
   data: SubcellularLocationUIModel;
-  sequence: string;
+  sequence?: string;
 };
 
 export const subcellularLocationSectionHasContent = <

@@ -14,12 +14,12 @@ const dataMock = {
 };
 
 describe('EntryPublications tests', () => {
-  it('should call useDataApi and render', async () => {
+  it('should call useDataApi and render', () => {
     (useDataApi as jest.Mock).mockImplementation(() => dataMock);
     customRender(<EntryPublications accession="P05067" />);
     expect(useDataApi).toHaveBeenCalled();
     expect(
-      await screen.getByText(/S-adenosylhomocysteine/)
+      screen.getByText(/Identification of an S-adenosylhomocysteine/)
     ).toBeInTheDocument();
   });
 });

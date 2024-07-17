@@ -32,9 +32,6 @@ exports[`EntryPublication facets tests should handle errors 1`] = `
         <div>
           Please try again later
         </div>
-        <small>
-          We will reload this page for you in 5 seconds
-        </small>
       </div>
     </div>
   </div>
@@ -75,6 +72,7 @@ exports[`EntryPublication facets tests should render 1`] = `
           >
             <li>
               <a
+                class=""
                 href="/?facets=types%3A2"
               >
                 <span
@@ -83,11 +81,12 @@ exports[`EntryPublication facets tests should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                UniProtKB reviewed (Swiss-Prot) (24)
+                UniProtKB reviewed (Swiss-Prot) (25)
               </a>
             </li>
             <li>
               <a
+                class=""
                 href="/?facets=types%3A1"
               >
                 <span
@@ -96,11 +95,12 @@ exports[`EntryPublication facets tests should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                Computationally mapped (23)
+                Computationally mapped (26)
               </a>
             </li>
             <li>
               <a
+                class=""
                 href="/?facets=types%3A0"
               >
                 <span
@@ -127,38 +127,52 @@ exports[`EntryPublication facets tests should render 1`] = `
           >
             <li>
               <a
+                class=""
                 href="/?facets=categories%3AInteraction"
               >
-                Interaction (23)
+                Interaction (26)
               </a>
             </li>
             <li>
               <a
-                href="/?facets=categories%3ASequence"
-              >
-                Sequence (14)
-              </a>
-            </li>
-            <li>
-              <a
+                class=""
                 href="/?facets=categories%3AFunction"
               >
-                Function (13)
+                Function (14)
               </a>
             </li>
             <li>
               <a
-                href="/?facets=categories%3APTM"
+                class=""
+                href="/?facets=categories%3ASequences"
               >
-                PTM (8)
+                Sequences (14)
               </a>
             </li>
             <li>
               <a
-                href="/?facets=categories%3APathol"
+                class=""
+                href="/?facets=categories%3APTM+%2F+Processing"
               >
-                Pathol (6)
+                PTM / Processing (10)
               </a>
+            </li>
+            <li>
+              <a
+                class=""
+                href="/?facets=categories%3ADisease+%26+Variants"
+              >
+                Disease & Variants (7)
+              </a>
+            </li>
+            <li>
+              <button
+                class="button tertiary expandable-list__action"
+                data-testid="expandable-message"
+                type="button"
+              >
+                More items
+              </button>
             </li>
           </ul>
         </div>
@@ -175,13 +189,15 @@ exports[`EntryPublication facets tests should render 1`] = `
           >
             <li>
               <a
+                class=""
                 href="/?facets=is_large_scale%3Afalse"
               >
-                Small scale (27)
+                Small scale (31)
               </a>
             </li>
             <li>
               <a
+                class=""
                 href="/?facets=is_large_scale%3Atrue"
               >
                 Large scale (20)

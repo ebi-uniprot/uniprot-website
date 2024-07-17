@@ -2231,6 +2231,42 @@ exports[`Entry view should render 1`] = `
                 class="decorated-list-item__title tiny"
               >
                 <span
+                  data-article-id="taxonomic_identifier"
+                >
+                  Taxonomic identifier
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <a
+                  href="/taxonomy/9606"
+                >
+                  9606 
+                </a>
+                <a
+                  class="external-link"
+                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  NCBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
                   data-article-id="organism-name"
                 >
                   Organism
@@ -2268,42 +2304,6 @@ exports[`Entry view should render 1`] = `
                   data-testid="evidence-tag-content"
                   id="48"
                 />
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <span
-                  data-article-id="taxonomic_identifier"
-                >
-                  Taxonomic identifier
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <a
-                  href="/taxonomy/9606"
-                >
-                  9606 
-                </a>
-                <a
-                  class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  NCBI
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
               </div>
             </div>
           </li>
@@ -2428,48 +2428,6 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__content"
       >
-        <div
-          class="tabs"
-          style="display: none;"
-        >
-          <div
-            class="tabs__header"
-            role="tablist"
-          >
-            <div
-              aria-controls="49"
-              class="tabs__header__item tabs__header__item--active"
-              data-target="0"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              UniProt Annotation
-            </div>
-            <div
-              aria-controls="49"
-              class="tabs__header__item"
-              data-target="1"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              GO Annotation
-            </div>
-          </div>
-          <div
-            data-testid="tab-content"
-            id="49"
-            role="tabpanel"
-          >
-            <div
-              style="display: block;"
-            />
-            <div
-              style="display: none;"
-            />
-          </div>
-        </div>
         <div
           class="tabs"
         >
@@ -2642,6 +2600,15 @@ exports[`Entry view should render 1`] = `
             DiseaseEntry Id (someAcron)
           </a>
         </h4>
+        <h5
+          class="tiny"
+        >
+          <a
+            href="#Isoform_3"
+          >
+            Isoform 3
+          </a>
+        </h5>
         <span
           class="text-block"
         >
@@ -3310,7 +3277,7 @@ exports[`Entry view should render 1`] = `
           </li>
         </ul>
         <p>
-          This entry describes  
+          This entry describes 
           <strong>
             1
           </strong>
@@ -3329,9 +3296,7 @@ exports[`Entry view should render 1`] = `
         <h3
           id="Isoform_name"
         >
-          <span
-            id="name"
-          >
+          <span>
              
             <span
               id="isoID1"
@@ -5109,32 +5074,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="decorated-list-item__title tiny"
               >
                 <span
-                  data-article-id="organism-name"
-                >
-                  Organism
-                </span>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <a
-                  href="/taxonomy/292800"
-                  title="Flavonifractor plautii (Fusobacterium plautii), taxon ID 292800"
-                  translate="no"
-                >
-                  Flavonifractor plautii (Fusobacterium plautii)
-                </a>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                <span
                   data-article-id="taxonomic_identifier"
                 >
                   Taxonomic identifier
@@ -5171,6 +5110,32 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="decorated-list-item__title tiny"
               >
                 <span
+                  data-article-id="organism-name"
+                >
+                  Organism
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <a
+                  href="/taxonomy/292800"
+                  title="Flavonifractor plautii (Fusobacterium plautii), taxon ID 292800"
+                  translate="no"
+                >
+                  Flavonifractor plautii (Fusobacterium plautii)
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
                   data-article-id="taxonomic_lineage"
                 >
                   Taxonomic lineage
@@ -5179,7 +5144,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                Bacteria &gt; Firmicutes &gt; Clostridia &gt; Eubacteriales &gt; Oscillospiraceae &gt; Flavonifractor
+                Bacteria &gt; Bacillota &gt; Clostridia &gt; Eubacteriales &gt; Oscillospiraceae &gt; Flavonifractor
               </div>
             </div>
           </li>
@@ -6237,17 +6202,32 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://www.cathdb.info/superfamily/2.115.10.20"
+                      href="http://www.cathdb.info/superfamily/2.60.40.1080"
                       rel="noopener"
                       target="_blank"
                     >
-                      2.115.10.20
+                      2.60.40.1080
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
                       />
                     </a>
                     1 hit
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://www.cathdb.info/superfamily/2.60.120.260"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      2.60.120.260
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    Galactose-binding domain-like 2 hits
                   </li>
                 </ul>
               </div>
@@ -6557,17 +6537,17 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
                       rel="noopener"
                       target="_blank"
                     >
-                      SSF49373
+                      SSF75005
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
                       />
                     </a>
-                    SSF49373 1 hit
+                    Arabinanase/levansucrase/invertase 1 hit
                   </li>
                   <li>
                     <a
@@ -6582,7 +6562,22 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                    SSF49785 1 hit
+                    Galactose-binding domain-like 1 hit
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      SSF49373
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    Invasin/intimin cell-adhesion fragments 1 hit
                   </li>
                   <li>
                     <a
@@ -6597,22 +6592,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                    SSF50939 1 hit
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      SSF75005
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                    SSF75005 1 hit
+                    Sialidases 1 hit
                   </li>
                 </ul>
               </div>

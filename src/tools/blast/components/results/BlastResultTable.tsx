@@ -30,7 +30,7 @@ import './styles/BlastResultTable.scss';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
+import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
@@ -42,6 +42,14 @@ const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: colors.sapphireBlue,
   hsp_score: colors.coyoteBrown,
   hsp_expect: colors.outerSpace,
+};
+
+type TrackNodeData = {
+  start: number;
+  end: number;
+  color: string | undefined;
+  shape?: string;
+  opacity?: number;
 };
 
 type BlastSummaryTrackProps = {
@@ -74,7 +82,7 @@ const BlastSummaryTrack = ({
   );
 
   const setTrackData = useCallback(
-    (node): void => {
+    (node: { data: TrackNodeData[] }): void => {
       if (node && trackElement.defined) {
         /**
          * TODO - would be nice to add gaps
@@ -236,6 +244,8 @@ const BlastSummaryHsps = ({
   );
 };
 
+type QueryNodeData = { start: number; end: number };
+
 type BlastResultTableProps = {
   data: BlastResults | null;
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
@@ -285,7 +295,7 @@ const BlastResultTable = ({
 
   // The "query" column header
   const queryColumnHeaderRef = useCallback(
-    (node) => {
+    (node: { data: QueryNodeData[] }) => {
       if (node && navigationElement.defined && data) {
         const { query_len } = data;
         // eslint-disable-next-line no-param-reassign

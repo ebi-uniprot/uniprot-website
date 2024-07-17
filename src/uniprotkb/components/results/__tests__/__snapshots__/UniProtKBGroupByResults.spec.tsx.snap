@@ -358,7 +358,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
             href="/uniprotkb?query=(*) AND (taxonomy_id:131567)"
             title="UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query:(*)"
           >
-            241,067,738
+            237,365,811
           </a>
         </span>
         <span
@@ -373,11 +373,11 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 241,067,738 which is 96.86% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 237,365,811 which is 96.69% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 290.57880598002737px;"
+            style="width: 290.08070012249794px;"
           />
           <span
             class="percentage"
@@ -408,7 +408,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
             href="/uniprotkb?query=(*) AND (taxonomy_id:2787854)"
             title="UniProtKB search results with Taxonomy: other entries (ID:2787854) and query:(*)"
           >
-            1,245
+            1,162
           </a>
         </span>
         <span
@@ -423,7 +423,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: other entries (ID:2787854) and query (*) is 1,245 which is 0.00% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: other entries (ID:2787854) and query (*) is 1,162 which is 0.00% of all sibling results."
         >
           <span
             class="bar"
@@ -458,7 +458,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
             href="/uniprotkb?query=(*) AND (taxonomy_id:2787823)"
             title="UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query:(*)"
           >
-            2,422,449
+            2,426,676
           </a>
         </span>
         <span
@@ -473,11 +473,11 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query (*) is 2,422,449 which is 0.97% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query (*) is 2,426,676 which is 0.99% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 2.9199773632401667px;"
+            style="width: 2.965599258312996px;"
           />
           <span
             class="percentage"
@@ -508,7 +508,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
             href="/uniprotkb?query=(*) AND (taxonomy_id:10239)"
             title="UniProtKB search results with Taxonomy: Viruses (ID:10239) and query:(*)"
           >
-            5,392,244
+            5,688,878
           </a>
         </span>
         <span
@@ -523,11 +523,11 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: Viruses (ID:10239) and query (*) is 5,392,244 which is 2.17% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: Viruses (ID:10239) and query (*) is 5,688,878 which is 2.32% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 6.499715955657935px;"
+            style="width: 6.9522805588521575px;"
           />
           <span
             class="percentage"

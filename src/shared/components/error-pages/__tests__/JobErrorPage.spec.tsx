@@ -1,6 +1,6 @@
 import customRender from '../../../__test-helpers__/customRender';
 
-import JobErrorPage from '../JobErrorPage';
+import JobErrorPage from '../full-pages/JobErrorPage';
 
 describe('JobErrorPage component', () => {
   it('should render', () => {

@@ -41,6 +41,8 @@ import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -64,10 +66,12 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
-const FormSelect: FC<{
-  formValue: AlignFormValue;
-  updateFormValue: (selected: AlignFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: AlignFormValue;
+    updateFormValue: (selected: AlignFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }
@@ -174,6 +178,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
           formValues[AlignFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.ALIGN);
     });
   };
 

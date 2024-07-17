@@ -3,11 +3,11 @@
 exports[`UniRefColumnConfiguration component should render column "common_taxon": common_taxon 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/1305"
-    title="Streptococcus sanguinis, taxon ID 1305"
+    href="/taxonomy/2"
+    title="Bacteria, taxon ID 2"
     translate="no"
   >
-    Streptococcus sanguinis
+    Bacteria
   </a>
 </DocumentFragment>
 `;
@@ -15,27 +15,27 @@ exports[`UniRefColumnConfiguration component should render column "common_taxon"
 exports[`UniRefColumnConfiguration component should render column "common_taxonid": common_taxonid 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/1305"
-    title="Streptococcus sanguinis, taxon ID 1305"
+    href="/taxonomy/2"
+    title="Bacteria, taxon ID 2"
     translate="no"
   >
-    1305
+    2
   </a>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "count": count 1`] = `
 <DocumentFragment>
-  1 member
+  5 members
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "created": created 1`] = `
 <DocumentFragment>
   <time
-    datetime="2021-02-10T00:00:00.000Z"
+    datetime="2024-05-29T00:00:00.000Z"
   >
-    2021-02-10
+    2024-05-29
   </time>
 </DocumentFragment>
 `;
@@ -49,9 +49,9 @@ exports[`UniRefColumnConfiguration component should render column "id": id 1`] =
   >
     <a
       class="accession"
-      href="/uniref/UniRef100_A0A0B7GQ86"
+      href="/uniref/UniRef50_A0A3E1E969"
     >
-      UniRef100_A0A0B7GQ86
+      UniRef50_A0A3E1E969
     </a>
   </span>
 </DocumentFragment>
@@ -59,13 +59,13 @@ exports[`UniRefColumnConfiguration component should render column "id": id 1`] =
 
 exports[`UniRefColumnConfiguration component should render column "identity": identity 1`] = `
 <DocumentFragment>
-  UniRef100
+  UniRef50
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "length": length 1`] = `
 <DocumentFragment>
-  730
+  1,227
 </DocumentFragment>
 `;
 
@@ -76,9 +76,37 @@ exports[`UniRefColumnConfiguration component should render column "members": mem
   >
     <li>
       <a
-        href="/uniprotkb/A0A0B7GQ86"
+        href="/uniprotkb/A0A3E1E969"
       >
-        A0A0B7GQ86
+        A0A3E1E969
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/B4CTX8"
+      >
+        B4CTX8
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A7Y5C7M4"
+      >
+        A0A7Y5C7M4
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A3C1H8I3"
+      >
+        A0A3C1H8I3
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniparc/UPI00104BEFB8"
+      >
+        UPI00104BEFB8
       </a>
     </li>
   </ul>
@@ -87,7 +115,7 @@ exports[`UniRefColumnConfiguration component should render column "members": mem
 
 exports[`UniRefColumnConfiguration component should render column "name": name 1`] = `
 <DocumentFragment>
-  Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
+  Cluster: Glucose dehydrogenase/Glucose dehydrogenase/Glucose dehydrogenase
 </DocumentFragment>
 `;
 
@@ -98,11 +126,47 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
   >
     <li>
       <a
-        href="/taxonomy/1305"
-        title="Streptococcus sanguinis, taxon ID 1305"
+        href="/taxonomy/2026799"
+        title="Verrucomicrobiota bacterium, taxon ID 2026799"
         translate="no"
       >
-        Streptococcus sanguinis
+        Verrucomicrobiota bacterium
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/497964"
+        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
+        translate="no"
+      >
+        Chthoniobacter flavus Ellin428
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/2030809"
+        title="Hydrogenedentota bacterium, taxon ID 2030809"
+        translate="no"
+      >
+        Hydrogenedentota bacterium
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/2026801"
+        title="Verrucomicrobiales bacterium, taxon ID 2026801"
+        translate="no"
+      >
+        Verrucomicrobiales bacterium
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/191863"
+        title="Chthoniobacter flavus, taxon ID 191863"
+        translate="no"
+      >
+        Chthoniobacter flavus
       </a>
     </li>
   </ul>
@@ -116,11 +180,47 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
   >
     <li>
       <a
-        href="/taxonomy/1305"
-        title="Streptococcus sanguinis, taxon ID 1305"
+        href="/taxonomy/2026799"
+        title="Verrucomicrobiota bacterium, taxon ID 2026799"
         translate="no"
       >
-        1305
+        2026799
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/497964"
+        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
+        translate="no"
+      >
+        497964
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/2030809"
+        title="Hydrogenedentota bacterium, taxon ID 2030809"
+        translate="no"
+      >
+        2030809
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/2026801"
+        title="Verrucomicrobiales bacterium, taxon ID 2026801"
+        translate="no"
+      >
+        2026801
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/191863"
+        title="Chthoniobacter flavus, taxon ID 191863"
+        translate="no"
+      >
+        191863
       </a>
     </li>
   </ul>
@@ -129,381 +229,12 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
 
 exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
-  <div>
-    <section
-      class="sequence-container"
-    >
-      <div
-        class="sequence"
-      >
-        <span
-          class="sequence__chunk"
-        >
-          MMKDSFKNIF
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          SFEFWQKFGK
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          ALMVVVAVMP
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          AAGLMISIGK
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          SIPMINPNLG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VLVTTGGVLE
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          QIGWGVIGNL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          HILFALAIGG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          SWAKERAGGA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          FAAGLSFILI
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          NRITGVMFGV
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          TGDMLADKTA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VVKTMFGASI
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          KVSDYFISVL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          ESPALNMGVF
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VGIIAGFVGA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          TAYNKYYNFR
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          KLPDALSFFN
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          GKRFVPFVVI
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          LRSAIVAIVL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          SFVWPVVQSG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          INSFGIWIAN
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          SQDTAPILAP
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          FIYGTLERLL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          LPFGLHHMLT
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          IPMNYTELGG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VYEVITGSGA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          GTTVAGQDPL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          WLAWVTDLVG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          TKTADPNTYK
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          HLLETVHPAR
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          FKVGQMIGSF
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          GILMGVAAAI
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          YHNVDADKKH
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          KYKGMMIATA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          LATFLTGVTE
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          PIEYMFMFVA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          TPLYLVYSLV
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          QGAAFAMADI
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VALRVHSFGS
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          IEFLTRTPMA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          INAGLGGDII
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          NFIWVTILFG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VVMYFISNFM
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          IKKFNYATPG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          RNGNYETAEG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          SDEASSSDST
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          GGKVAAASQA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VNVINLLGGR
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          ANIVDVDACM
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          TRLRVTVKDA
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          EKVGTEEQWK
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          AEGAMGLVMK
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          GQGVQAIYGP
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          KADVLKSDIQ
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          DLLDSGEVIP
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          ETLPSQKAES
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          EAAEVSYKGV
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          TEEVETVADG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          QVIDLADVKD
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          PVFSQKMMGD
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          GFAVEPENGK
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          IYSPVAGTVT
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          SVFPSKHAIG
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          LVTDNGLEVL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VHIGLETVSL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          EGKPFEVHVS
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          EGQKVAAGDL
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          LVTADLEAIK
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          EAGRETSTIV
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VFTNAAAIKS
-        </span>
-        <span
-          class="sequence__chunk"
-        >
-          VTVEKLGQAS
-        </span>
-        <span
-          class="sequence__chunk sequence__chunk--display-last"
-        >
-          AKTVVAKVEL
-        </span>
-      </div>
-    </section>
-  </div>
+  <button
+    class="button secondary"
+    type="button"
+  >
+    Show sequence 
+  </button>
 </DocumentFragment>
 `;
 
@@ -512,6 +243,12 @@ exports[`UniRefColumnConfiguration component should render column "types": types
   <span
     class="entry-title__status icon--unreviewed"
     title="This marks an unreviewed UniProtKB entry"
+  >
+    <test-file-stub />
+  </span>
+  <span
+    class="entry-title__status icon--uniparc"
+    title="This marks a UniParc entry"
   >
     <test-file-stub />
   </span>

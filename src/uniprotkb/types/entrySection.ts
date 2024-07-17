@@ -28,4 +28,10 @@ export type EntrySectionNameAndId = {
   id: EntrySection;
 };
 
+export const entrySectionToCommunityAnnotationField: Map<EntrySection, string> =
+  new Map([
+    [EntrySection.Function, 'function'],
+    [EntrySection.NamesAndTaxonomy, 'proteinOrGene'],
+  ]);
+
 export default EntrySection;

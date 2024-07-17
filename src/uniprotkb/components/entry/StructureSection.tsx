@@ -7,7 +7,6 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import EntrySection from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 
@@ -29,22 +28,14 @@ const StructureView = lazy(
 type Props = {
   data: UIModel;
   primaryAccession: string;
-  sequence: string;
   crc64?: string;
 };
 
-const StructureSection = ({
-  data,
-  primaryAccession,
-  sequence,
-  crc64,
-}: Props) => {
+const StructureSection = ({ data, primaryAccession, crc64 }: Props) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
   const isSmallScreen = useSmallScreen();
   const [displayStructure, setDisplayStructure] = useState(!isSmallScreen);
-  if (!databaseInfoMaps) {
-    return null;
-  }
+
   // NOTE: do not check if content is there or not, always display because of AF
   const { arrayStructureDatabases, otherDatabases } = groupBy(
     data.xrefData,
@@ -76,7 +67,7 @@ const StructureSection = ({
   if (nonPDBDatabases && nonPDBDatabases.length) {
     // The non-PDB databases need to be re-ordered accordingly
     const categoryOrder =
-      databaseInfoMaps.entrySectionToDatabaseCategoryOrder.get(
+      databaseInfoMaps?.entrySectionToDatabaseCategoryOrder.get(
         EntrySection.Structure
       );
     if (categoryOrder) {
@@ -122,11 +113,6 @@ const StructureSection = ({
           </Button>
         </>
       )}
-      <FeaturesView
-        primaryAccession={primaryAccession}
-        features={data.featuresData}
-        sequence={sequence}
-      />
       {XrefViewNode}
     </Card>
   );

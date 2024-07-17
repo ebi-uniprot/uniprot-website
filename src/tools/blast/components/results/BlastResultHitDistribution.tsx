@@ -16,11 +16,9 @@ type BlastResultHitDistributionProps = {
   filteredHits: BlastHit[];
 };
 
-const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
-  loading,
-  allHits,
-  filteredHits,
-}) => {
+const BlastResultHitDistribution: FC<
+  React.PropsWithChildren<BlastResultHitDistributionProps>
+> = ({ loading, allHits, filteredHits }) => {
   const [nBinsValue, setNBinsValue] =
     useState<typeof nBinOptions[number]>('auto');
 

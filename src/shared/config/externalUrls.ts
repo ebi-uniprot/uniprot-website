@@ -1,7 +1,12 @@
 import joinUrl from 'url-join';
+import { fileFormatToUrlParameter } from './resultsDownload';
+import { stringifyUrl } from '../utils/url';
+import { FileFormat } from '../types/resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
 const externalUrls = {
+  AlphaFoldPrediction: (id: string) =>
+    `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
   QuickGOAnnotations: (id: string | number) =>
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
   NCBI: (id: string | number) =>
@@ -15,6 +20,10 @@ const externalUrls = {
     `https://smart.embl.de/smart/show_motifs.pl?ID=${id}`,
   PROSITE: (id: string | number) =>
     `https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=${id}&output=nice`,
+  ComplexViewer: (id: string) =>
+    `https://www.ebi.ac.uk/intact/complex-ws/export/${id}`,
+  ComplexPortal: (id: string) =>
+    `https://www.ebi.ac.uk/complexportal/complex/${id}`,
   // rule
   HAMAPRule: (id: string | number) => `//hamap.expasy.org/unirule/${id}`,
   ProRule: (id: string | number) => `//prosite.expasy.org/unirule/${id}`,
@@ -24,11 +33,22 @@ const externalUrls = {
       'G3DSA:',
       ''
     )}`,
-  PROSITEEntry: (id: string | number) => `//prosite.expasy.org/${id}`,
   InterProEntry: (id: string | number) =>
     `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm: string | number) =>
     `https://www.ebi.ac.uk/interpro/search/text/${searchTerm}`,
+  InterProRepresentativeDomains: (
+    id: string,
+    format: FileFormat.json | FileFormat.tsv = FileFormat.json
+  ) =>
+    stringifyUrl(
+      `https://www.ebi.ac.uk/interpro/api/entry/all/protein/uniprot/${id}`,
+      {
+        type: 'domain',
+        page_size: 100,
+        format: fileFormatToUrlParameter[format],
+      }
+    ),
   // variation
   UniProt: (id: string | number) =>
     `https://web.expasy.org/variant_pages/${id}.html`,

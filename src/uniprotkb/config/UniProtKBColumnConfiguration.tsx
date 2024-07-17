@@ -450,9 +450,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
     const sequenceData = data[EntrySection.Sequence];
     return (
       <Sequence
-        sequence={sequenceData.sequence.value}
-        accession={data.primaryAccession}
-        showActionBar={false}
+        sequence={sequenceData.sequence?.value}
+        isCollapsible={
+          !!sequenceData?.sequence?.length && sequenceData.sequence.length > 400
+        }
       />
     );
   },
@@ -1504,9 +1505,6 @@ const getXrefColumn = (databaseName: string) => {
 
   const Renderer = ({ data }: { data: UniProtkbUIModel }) => {
     const databaseInfoMaps = useDatabaseInfoMaps();
-    if (!databaseInfoMaps) {
-      return null;
-    }
 
     if (databaseName === 'dbsnp') {
       const features = data?.features;
@@ -1551,8 +1549,10 @@ const getXrefColumn = (databaseName: string) => {
       ({ database }) => database?.toLowerCase() === databaseName
     );
     const database = xrefs?.[0]?.database;
-    if (!database) {
-      // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+    if (
+      !database || // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+      !databaseInfoMaps
+    ) {
       return null;
     }
     const xrefsGoupedByDatabase = {
@@ -1568,7 +1568,7 @@ const getXrefColumn = (databaseName: string) => {
     );
   };
   return {
-    label: () => <Label />,
+    label: <Label />,
     render: (data: UniProtkbUIModel) => <Renderer data={data} />,
   };
 };

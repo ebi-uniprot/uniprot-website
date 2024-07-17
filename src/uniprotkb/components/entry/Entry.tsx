@@ -1,10 +1,12 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
+import { Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
-import EntrySection from '../../types/entrySection';
+import EntrySection, {
+  entrySectionToCommunityAnnotationField,
+} from '../../types/entrySection';
 import ContactLink from '../../../contact/components/ContactLink';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -23,6 +25,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
+import InPageNav from '../../../shared/components/InPageNav';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -41,9 +44,10 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
-import apiUrls, { proteinsApi } from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
+import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -71,11 +75,18 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 import { TabLocation } from '../../types/entry';
+import { SearchResults } from '../../../shared/types/results';
+import {
+  CitationsAPIModel,
+  Reference,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
+import { DatabaseCategory } from '../../types/databaseRefs';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
+import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
@@ -120,7 +131,9 @@ const ExternalLinksTab = lazy(
 
 const HistoryTab = lazy(
   () =>
-    import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
+    import(
+      /* webpackChunkName: "uniprotkb-entry-history" */ './tabs/history/History'
+    )
 );
 
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
@@ -147,18 +160,41 @@ const Entry = () => {
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
-      apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
+      apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession && proteinsApi.variation(match?.params.accession),
+    match?.params.accession &&
+      apiUrls.proteinsApi.variation(match?.params.accession),
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    match?.params.accession && proteinsApi.coordinates(match?.params.accession),
+    match?.params.accession &&
+      apiUrls.proteinsApi.coordinates(match?.params.accession),
     { method: 'HEAD' }
   );
+
+  const communityCurationPayload = useDataApi<SearchResults<CitationsAPIModel>>(
+    match?.params.accession &&
+      uniprotkbApiUrls.publications.entryPublications({
+        accession: match.params.accession,
+        selectedFacets: [
+          {
+            name: 'types',
+            value: '0',
+          },
+        ],
+      })
+  );
+
+  const communityReferences: Reference[] = useMemo(() => {
+    const filteredReferences = communityCurationPayload.data?.results?.flatMap(
+      ({ references }) =>
+        references?.filter((reference) => reference.source?.name === 'ORCID')
+    );
+    return filteredReferences?.filter((r): r is Reference => Boolean(r)) || [];
+  }, [communityCurationPayload.data]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
@@ -197,7 +233,20 @@ const Entry = () => {
             );
             break;
           default:
-            disabled = !hasContent(transformedData[nameAndId.id]);
+            disabled =
+              !hasContent(transformedData[nameAndId.id]) &&
+              !communityReferences.some((reference) => {
+                if (
+                  reference.communityAnnotation &&
+                  !!entrySectionToCommunityAnnotationField.get(nameAndId.id)
+                ) {
+                  return (
+                    (entrySectionToCommunityAnnotationField.get(nameAndId.id) ||
+                      '') in reference.communityAnnotation
+                  );
+                }
+                return false;
+              });
         }
         return {
           label: nameAndId.name,
@@ -207,12 +256,14 @@ const Entry = () => {
       });
     }
     return [];
-  }, [transformedData]);
+  }, [transformedData, communityReferences]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),
     [data]
   );
+
+  const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
 
   // Redirect to new entry when obsolete and merged into one
   useEffect(() => {
@@ -282,7 +333,7 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
-  const isObsolete = Boolean(
+  let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
   );
@@ -319,7 +370,7 @@ const Entry = () => {
     (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
     if (error) {
-      return <ErrorHandler status={status} />;
+      return <ErrorHandler status={status} error={error} fullPage />;
     }
     return <Loader progress={progress} />;
   }
@@ -347,7 +398,7 @@ const Entry = () => {
   }
 
   if (error || !match?.params.accession || !transformedData) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   const entrySidebar = (
@@ -355,6 +406,11 @@ const Entry = () => {
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
+
+  // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
+  // merged entry's history), the user is viewing content of an obsolete entry
+  isObsolete =
+    (redirectedTo && accession !== match.params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {
@@ -378,20 +434,20 @@ const Entry = () => {
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       {isObsolete ? (
-        <h3>{match.params.accession}</h3>
+        <h1>{match.params.accession}</h1>
       ) : (
         <ErrorBoundary>
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
           />
-          <h3>
+          <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
             <BasketStatus id={data.primaryAccession} className="small" />
-          </h3>
+          </h1>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       )}
@@ -412,12 +468,13 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
-          {!isObsolete && (
+          {!isObsolete && data.sequence && (
             <>
               {displayDownloadPanel && (
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                  sequence={data.sequence.value}
                 />
               )}
               <div className="button-group">
@@ -457,6 +514,8 @@ const Entry = () => {
                 transformedData={transformedData}
                 importedVariants={importedVariants}
                 hasGenomicCoordinates={hasGenomicCoordinates}
+                communityReferences={communityReferences}
+                isoforms={listOfIsoformNames}
               />
             </>
           )}
@@ -483,7 +542,8 @@ const Entry = () => {
               )}
             >
               Variant viewer
-              {!mediumScreen &&
+              {data.sequence &&
+                !mediumScreen &&
                 importedVariants !== 'loading' &&
                 importedVariants > 0 && (
                   <>
@@ -508,11 +568,13 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <VariationViewerTab
-                importedVariants={importedVariants}
-                primaryAccession={accession}
-                title="Variants"
-              />
+              {data.sequence && (
+                <VariationViewerTab
+                  importedVariants={importedVariants}
+                  primaryAccession={accession}
+                  title="Variants"
+                />
+              )}
             </ErrorBoundary>
           </Suspense>
         </Tab>
@@ -554,7 +616,13 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewerTab accession={accession} />
+                {data.sequence && (
+                  <FeatureViewerTab
+                    accession={accession}
+                    importedVariants={importedVariants}
+                    sequence={data.sequence.value}
+                  />
+                )}
               </ErrorBoundary>
             </Suspense>
           )}
@@ -602,7 +670,28 @@ const Entry = () => {
                   transformedData[EntrySection.Sequence].alternativeProducts
                     ?.isoforms
                 }
-                title="Genomic coordinates"
+                maneSelect={
+                  // Get all unique unversioned MANE-Select IDs
+                  new Set(
+                    transformedData[EntrySection.Sequence].xrefData
+                      ?.find(
+                        (xrefDatum) =>
+                          xrefDatum.category === DatabaseCategory.GENOME
+                      )
+                      ?.databases.find(
+                        (database) => database.database === 'MANE-Select'
+                      )
+                      ?.xrefs.map((xref) => xref.id?.split('.')[0])
+                      .filter((id: string | undefined): id is string =>
+                        Boolean(id)
+                      )
+                  )
+                }
+                title={
+                  <span data-article-id="genomic-coordinates">
+                    Genomic coordinates
+                  </span>
+                }
               />
             </ErrorBoundary>
           </Suspense>
@@ -705,7 +794,12 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <HistoryTab accession={accession} />
+              <HistoryTab
+                accession={isObsolete ? match.params.accession : accession}
+                lastVersion={data.entryAudit?.entryVersion}
+                uniparc={data.extraAttributes?.uniParcId}
+                reason={data.inactiveReason}
+              />
             </ErrorBoundary>
           </Suspense>
         </Tab>

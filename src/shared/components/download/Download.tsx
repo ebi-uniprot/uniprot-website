@@ -32,7 +32,7 @@ import {
 } from './downloadActions';
 import { prepareFieldData } from '../column-select/utils';
 
-import apiUrls, { getDownloadUrl } from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   getColumnsNamespace,
@@ -48,6 +48,7 @@ import {
   isAsyncDownloadIdMapping,
   showColumnSelect,
   filterFullXrefColumns,
+  getCountForCustomisableSet,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -78,6 +79,7 @@ export type DownloadProps<T extends JobTypes> = {
     downloadMethod?: DownloadMethod
   ) => void;
   accessions?: string[];
+  accessionSubSequenceMap?: Map<string, string>;
   base?: string;
   notCustomisable?: boolean;
   inBasketMini?: boolean;
@@ -108,7 +110,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
     getDownloadInitialState
   );
   const { data } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(namespace)
+    apiUrls.configure.resultsFields(namespace)
   );
 
   const fieldData = useMemo(
@@ -127,7 +129,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(updateCompressed(e.target.value === 'true'));
 
-  const handleDisableForm = useCallback((disableForm) => {
+  const handleDisableForm = useCallback((disableForm: boolean) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
 
@@ -139,9 +141,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
-  const downloadUrl = getDownloadUrl(downloadOptions);
+  const downloadUrl = apiUrls.results.download(downloadOptions);
   const previewOptions = getPreviewOptions(state, props, location, job);
-  const previewUrl = previewOptions && getDownloadUrl(previewOptions);
+  const previewUrl = previewOptions && apiUrls.results.download(previewOptions);
   const ftpFilenamesAndUrls = getFtpFilenamesAndUrls(
     state,
     props,
@@ -238,6 +240,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
       break;
   }
 
+  const { totalCount: totalCountForCustomisableSet, selectedCount } =
+    getCountForCustomisableSet(state, props);
+
   return (
     <>
       {notCustomisable ? (
@@ -260,8 +265,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
                 state.disableForm
               }
             />
-            Download selected (<LongNumber>{state.nSelectedEntries}</LongNumber>
-            )
+            Download selected (<LongNumber>{selectedCount}</LongNumber>)
           </label>
           <label htmlFor="data-selection-true">
             <input
@@ -273,7 +277,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
               onChange={handleDownloadAllChange}
               disabled={redirectToIDMapping || state.disableForm}
             />
-            Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+            Download all (
+            <LongNumber>{totalCountForCustomisableSet}</LongNumber>)
           </label>
         </>
       )}

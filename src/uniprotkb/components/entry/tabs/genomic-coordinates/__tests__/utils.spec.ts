@@ -1,10 +1,10 @@
-import { groupCoordinates, sortExons } from '../utils';
+import { groupByGene, sortExons } from '../utils';
 
 import P42283 from './__mocks__/P42283';
 
 describe('groupCoordinates', () => {
   it('groups coordinates according to genes and isoforms', () => {
-    expect(groupCoordinates(P42283)).toMatchSnapshot();
+    expect(groupByGene(P42283)).toMatchSnapshot();
   });
 });
 

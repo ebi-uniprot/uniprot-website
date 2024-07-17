@@ -1,6 +1,8 @@
 import { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Facets, HistogramFilter } from 'franklin-sites';
+import { HistogramFilter } from 'franklin-sites';
+
+import { Facets } from '../../../../shared/components/results/Facets';
 
 import {
   getLocationObjForParams,
@@ -15,8 +17,8 @@ import {
   blastFacetToKeyName,
   blastFacetToNiceName,
 } from '../../utils/blastFacetDataUtils';
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -27,6 +29,7 @@ import { BlastFacet, BlastHit } from '../../types/blastResults';
 import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import facetsStyles from '../../../../shared/components/results/styles/facets.module.scss';
 import './styles/results-view.scss';
 
 type Range = [start: number, end: number];
@@ -41,7 +44,7 @@ type LocalFacetProps = {
   optimisedBinNumber: number;
 };
 
-const LocalFacet: FC<LocalFacetProps> = ({
+const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
   facet,
   bounds,
   facetBounds,
@@ -117,10 +120,12 @@ const LocalFacet: FC<LocalFacetProps> = ({
   );
 };
 
-const BlastResultLocalFacets: FC<{
-  allHits: BlastHit[];
-  namespace: Namespace;
-}> = ({ allHits, namespace }) => {
+const BlastResultLocalFacets: FC<
+  React.PropsWithChildren<{
+    allHits: BlastHit[];
+    namespace: Namespace;
+  }>
+> = ({ allHits, namespace }) => {
   const { search: queryParamFromUrl } = useLocation();
 
   const [{ selectedFacets, query }] = getParamsFromURL(queryParamFromUrl);
@@ -135,7 +140,7 @@ const BlastResultLocalFacets: FC<{
         // No need to load for UniRef (no facet)
         // No need to load when no facet applied
         namespace !== Namespace.uniref && selectedFacets.length
-          ? getAccessionsURL(
+          ? apiUrls.search.accessions(
               allHits.map((hit) => hit.hit_acc),
               {
                 namespace,
@@ -187,7 +192,7 @@ const BlastResultLocalFacets: FC<{
       {/* div needed in order to make the facet styles understand there is one
       facet below, otherwise each would element would be a different facet */}
       <div>
-        <span className="facet-name">Blast parameters</span>
+        <span className={facetsStyles['facet-name']}>Blast parameters</span>
         <ul className="expandable-list no-bullet blast-parameters-facet">
           {localFacets.map((facet) => (
             <LocalFacet

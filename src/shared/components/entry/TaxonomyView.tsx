@@ -8,9 +8,10 @@ import LazyComponent from '../LazyComponent';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
+import { pluralise } from '../../utils/utils';
 
 import { Namespace } from '../../types/namespaces';
 import { Lineage } from '../../types/apiModel';
@@ -19,6 +20,7 @@ import {
   TaxonomyDatum,
 } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { ReferenceComment } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import styles from './styles/taxonomy-view.module.css';
 
@@ -53,6 +55,10 @@ const TaxonomyView = ({
   noLink = false,
 }: TaxonomyDataProps) => {
   const { scientificName, commonName, taxonId, synonyms } = data;
+
+  if (taxonId === 1) {
+    return <span className={className}>Top level (root)</span>;
+  }
 
   const termValue = `${scientificName || taxonId}${
     commonName ? ` (${commonName})` : ''
@@ -122,7 +128,7 @@ const SelfLoadingTaxonomyLineage = ({
   blockLoading?: boolean;
 }) => {
   const { data } = useDataApi<TaxonomyAPIModel>(
-    blockLoading ? null : apiUrls.entry(`${taxonId}`, Namespace.taxonomy)
+    blockLoading ? null : apiUrls.entry.entry(`${taxonId}`, Namespace.taxonomy)
   );
 
   let lineage: Array<Partial<Lineage>> = fallbackData.map((scientificName) => ({
@@ -135,36 +141,53 @@ const SelfLoadingTaxonomyLineage = ({
   return <TaxonomyLineage lineage={lineage} />;
 };
 
+type TaxonomyListViewProps = {
+  data?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
+  hosts?: TaxonomyDatum[];
+  strains?: ReferenceComment[];
+};
+
 export const TaxonomyListView = ({
   data,
   hosts,
-}: {
-  data?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
-  hosts?: TaxonomyDatum[];
-}) => {
+  strains,
+}: TaxonomyListViewProps) => {
   if (!data) {
     return null;
   }
   const infoListData: { title: ReactNode; content: ReactNode }[] = [];
-  if (data.scientificName && data.taxonId) {
-    infoListData.push({
-      title: <span data-article-id="organism-name">Organism</span>,
-      content: (
-        <>
-          <TaxonomyView data={data} />
-          {data.evidences?.length ? (
-            <UniProtKBEvidenceTag evidences={data.evidences} />
-          ) : null}
-        </>
-      ),
-    });
-  }
   if (data.taxonId) {
     infoListData.push({
       title: (
         <span data-article-id="taxonomic_identifier">Taxonomic identifier</span>
       ),
       content: <TaxonomyId taxonId={data.taxonId} />,
+    });
+  }
+  if (data.scientificName && data.taxonId) {
+    infoListData.push({
+      title: <span data-article-id="organism-name">Organism</span>,
+      content: (
+        <>
+          <TaxonomyView data={data} />
+          <UniProtKBEvidenceTag evidences={data.evidences} />
+        </>
+      ),
+    });
+  }
+  if (strains?.length) {
+    infoListData.push({
+      title: pluralise('Strain', strains.length),
+      content: (
+        <ExpandableList displayNumberOfHiddenItems descriptionString="strains">
+          {strains.map((strain) => (
+            <Fragment key={strain.value}>
+              {strain.value}
+              <UniProtKBEvidenceTag evidences={strain.evidences} />
+            </Fragment>
+          ))}
+        </ExpandableList>
+      ),
     });
   }
   if (data.lineage?.length) {

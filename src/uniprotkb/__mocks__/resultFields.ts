@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
-// Source: /configure/uniprotkb/result-fields
-// Retrieved: 2023-11-06
+// Source: configure/uniprotkb/result-fields
+// Retrieved: 2024-06-10
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -105,7 +105,11 @@ const mock = [
         name: 'error_gmodel_pred',
         id: 'sequences/erroneous_gene_model_prediction',
       },
-      { label: 'Fragment', name: 'fragment', id: 'sequences/fragment' },
+      {
+        label: 'Fragment',
+        name: 'fragment',
+        id: 'sequences/fragment',
+      },
       {
         label: 'Gene encoded by',
         name: 'organelle',
@@ -117,7 +121,12 @@ const mock = [
         sortField: 'length',
         id: 'sequences/length',
       },
-      { label: 'Mass', name: 'mass', sortField: 'mass', id: 'sequences/mass' },
+      {
+        label: 'Mass',
+        name: 'mass',
+        sortField: 'mass',
+        id: 'sequences/mass',
+      },
       {
         label: 'Mass spectrometry',
         name: 'cc_mass_spectrometry',
@@ -153,7 +162,11 @@ const mock = [
         name: 'cc_rna_editing',
         id: 'sequences/rna_editing',
       },
-      { label: 'Sequence', name: 'sequence', id: 'sequences/sequence' },
+      {
+        label: 'Sequence',
+        name: 'sequence',
+        id: 'sequences/sequence',
+      },
       {
         label: 'Sequence caution',
         name: 'cc_sequence_caution',
@@ -181,8 +194,16 @@ const mock = [
     isDatabaseGroup: false,
     id: 'function',
     fields: [
-      { label: 'Absorption', name: 'absorption', id: 'function/absorption' },
-      { label: 'Active site', name: 'ft_act_site', id: 'function/active_site' },
+      {
+        label: 'Absorption',
+        name: 'absorption',
+        id: 'function/absorption',
+      },
+      {
+        label: 'Active site',
+        name: 'ft_act_site',
+        id: 'function/active_site',
+      },
       {
         label: 'Binding site',
         name: 'ft_binding',
@@ -193,9 +214,21 @@ const mock = [
         name: 'cc_catalytic_activity',
         id: 'function/catalytic_activity',
       },
-      { label: 'Cofactor', name: 'cc_cofactor', id: 'function/cofactor' },
-      { label: 'DNA binding', name: 'ft_dna_bind', id: 'function/dna_binding' },
-      { label: 'EC number', name: 'ec', id: 'function/ec_number' },
+      {
+        label: 'Cofactor',
+        name: 'cc_cofactor',
+        id: 'function/cofactor',
+      },
+      {
+        label: 'DNA binding',
+        name: 'ft_dna_bind',
+        id: 'function/dna_binding',
+      },
+      {
+        label: 'EC number',
+        name: 'ec',
+        id: 'function/ec_number',
+      },
       {
         label: 'Activity regulation',
         name: 'cc_activity_regulation',
@@ -206,8 +239,16 @@ const mock = [
         name: 'cc_function',
         id: 'function/function_[cc]',
       },
-      { label: 'Kinetics', name: 'kinetics', id: 'function/kinetics' },
-      { label: 'Pathway', name: 'cc_pathway', id: 'function/pathway' },
+      {
+        label: 'Kinetics',
+        name: 'kinetics',
+        id: 'function/kinetics',
+      },
+      {
+        label: 'Pathway',
+        name: 'cc_pathway',
+        id: 'function/pathway',
+      },
       {
         label: 'pH dependence',
         name: 'ph_dependence',
@@ -218,8 +259,16 @@ const mock = [
         name: 'redox_potential',
         id: 'function/redox_potential',
       },
-      { label: 'Rhea ID', name: 'rhea', id: 'function/rhea' },
-      { label: 'Site', name: 'ft_site', id: 'function/site' },
+      {
+        label: 'Rhea ID',
+        name: 'rhea',
+        id: 'function/rhea',
+      },
+      {
+        label: 'Site',
+        name: 'ft_site',
+        id: 'function/site',
+      },
       {
         label: 'Temperature dependence',
         name: 'temp_dependence',
@@ -238,8 +287,16 @@ const mock = [
         sortField: 'annotation_score',
         id: 'miscellaneous/annotation',
       },
-      { label: 'Caution', name: 'cc_caution', id: 'miscellaneous/caution' },
-      { label: 'Keywords', name: 'keyword', id: 'miscellaneous/keywords' },
+      {
+        label: 'Caution',
+        name: 'cc_caution',
+        id: 'miscellaneous/caution',
+      },
+      {
+        label: 'Keywords',
+        name: 'keyword',
+        id: 'miscellaneous/keywords',
+      },
       {
         label: 'Keyword ID',
         name: 'keywordid',
@@ -255,9 +312,21 @@ const mock = [
         name: 'protein_existence',
         id: 'miscellaneous/protein_existence',
       },
-      { label: 'Reviewed', name: 'reviewed', id: 'miscellaneous/reviewed' },
-      { label: 'Tools', name: 'tools', id: 'miscellaneous/tools' },
-      { label: 'UniParc', name: 'uniparc_id', id: 'miscellaneous/uniparc' },
+      {
+        label: 'Reviewed',
+        name: 'reviewed',
+        id: 'miscellaneous/reviewed',
+      },
+      {
+        label: 'Tools',
+        name: 'tools',
+        id: 'miscellaneous/tools',
+      },
+      {
+        label: 'UniParc',
+        name: 'uniparc_id',
+        id: 'miscellaneous/uniparc',
+      },
       {
         label: 'Comments',
         name: 'comment_count',
@@ -297,7 +366,11 @@ const mock = [
         name: 'cc_developmental_stage',
         id: 'expression/developmental_stage',
       },
-      { label: 'Induction', name: 'cc_induction', id: 'expression/induction' },
+      {
+        label: 'Induction',
+        name: 'cc_induction',
+        id: 'expression/induction',
+      },
       {
         label: 'Tissue specificity',
         name: 'cc_tissue_specificity',
@@ -411,7 +484,11 @@ const mock = [
     isDatabaseGroup: false,
     id: 'ptm_/_processing',
     fields: [
-      { label: 'Chain', name: 'ft_chain', id: 'ptm_/_processing/chain' },
+      {
+        label: 'Chain',
+        name: 'ft_chain',
+        id: 'ptm_/_processing/chain',
+      },
       {
         label: 'Cross-link',
         name: 'ft_crosslnk',
@@ -442,7 +519,11 @@ const mock = [
         name: 'ft_mod_res',
         id: 'ptm_/_processing/modified_residue',
       },
-      { label: 'Peptide', name: 'ft_peptide', id: 'ptm_/_processing/peptide' },
+      {
+        label: 'Peptide',
+        name: 'ft_peptide',
+        id: 'ptm_/_processing/peptide',
+      },
       {
         label: 'Post-translational modification',
         name: 'cc_ptm',
@@ -470,10 +551,26 @@ const mock = [
     isDatabaseGroup: false,
     id: 'structure',
     fields: [
-      { label: '3D', name: 'structure_3d', id: 'structure/structure_3d' },
-      { label: 'Beta strand', name: 'ft_strand', id: 'structure/beta_strand' },
-      { label: 'Helix', name: 'ft_helix', id: 'structure/helix' },
-      { label: 'Turn', name: 'ft_turn', id: 'structure/turn' },
+      {
+        label: '3D',
+        name: 'structure_3d',
+        id: 'structure/structure_3d',
+      },
+      {
+        label: 'Beta strand',
+        name: 'ft_strand',
+        id: 'structure/beta_strand',
+      },
+      {
+        label: 'Helix',
+        name: 'ft_helix',
+        id: 'structure/helix',
+      },
+      {
+        label: 'Turn',
+        name: 'ft_turn',
+        id: 'structure/turn',
+      },
     ],
   },
   {
@@ -486,7 +583,11 @@ const mock = [
         name: 'lit_pubmed_id',
         id: 'publications/lit_pubmed_id',
       },
-      { label: 'DOI ID', name: 'lit_doi_id', id: 'publications/lit_doi_id' },
+      {
+        label: 'DOI ID',
+        name: 'lit_doi_id',
+        id: 'publications/lit_doi_id',
+      },
     ],
   },
   {
@@ -509,7 +610,11 @@ const mock = [
         name: 'date_sequence_modified',
         id: 'date_of/date_of_last_sequence_modification',
       },
-      { label: 'Entry version', name: 'version', id: 'date_of/entry_version' },
+      {
+        label: 'Entry version',
+        name: 'version',
+        id: 'date_of/entry_version',
+      },
     ],
   },
   {
@@ -537,14 +642,26 @@ const mock = [
         name: 'ft_domain',
         id: 'family_&_domains/domain_[ft]',
       },
-      { label: 'Motif', name: 'ft_motif', id: 'family_&_domains/motif' },
+      {
+        label: 'Motif',
+        name: 'ft_motif',
+        id: 'family_&_domains/motif',
+      },
       {
         label: 'Protein families',
         name: 'protein_families',
         id: 'family_&_domains/protein_families',
       },
-      { label: 'Region', name: 'ft_region', id: 'family_&_domains/region' },
-      { label: 'Repeat', name: 'ft_repeat', id: 'family_&_domains/repeat' },
+      {
+        label: 'Region',
+        name: 'ft_region',
+        id: 'family_&_domains/region',
+      },
+      {
+        label: 'Repeat',
+        name: 'ft_repeat',
+        id: 'family_&_domains/repeat',
+      },
       {
         label: 'Sequence similarities',
         name: 'cc_similarity',
@@ -562,14 +679,22 @@ const mock = [
     isDatabaseGroup: true,
     id: 'sequence',
     fields: [
-      { label: 'CCDS', name: 'xref_ccds', id: 'sequence/ccds' },
+      {
+        label: 'CCDS',
+        name: 'xref_ccds',
+        id: 'sequence/ccds',
+      },
       {
         label: 'EMBL',
         name: 'xref_embl',
         isMultiValueCrossReference: true,
         id: 'sequence/embl',
       },
-      { label: 'GeneRIF', name: 'xref_generif', id: 'sequence/generif' },
+      {
+        label: 'GeneRIF',
+        name: 'xref_generif',
+        id: 'sequence/generif',
+      },
       {
         label: 'PIR',
         name: 'xref_pir',
@@ -594,17 +719,42 @@ const mock = [
         name: 'xref_alphafolddb',
         id: '3d_structure/alphafolddb',
       },
-      { label: 'BMRB', name: 'xref_bmrb', id: '3d_structure/bmrb' },
-      { label: 'PCDDB', name: 'xref_pcddb', id: '3d_structure/pcddb' },
+      {
+        label: 'BMRB',
+        name: 'xref_bmrb',
+        id: '3d_structure/bmrb',
+      },
+      {
+        label: 'EMDB',
+        name: 'xref_emdb',
+        id: '3d_structure/emdb',
+      },
+      {
+        label: 'PCDDB',
+        name: 'xref_pcddb',
+        id: '3d_structure/pcddb',
+      },
       {
         label: 'PDB',
         name: 'xref_pdb',
         isMultiValueCrossReference: true,
         id: '3d_structure/pdb',
       },
-      { label: 'PDBsum', name: 'xref_pdbsum', id: '3d_structure/pdbsum' },
-      { label: 'SASBDB', name: 'xref_sasbdb', id: '3d_structure/sasbdb' },
-      { label: 'SMR', name: 'xref_smr', id: '3d_structure/smr' },
+      {
+        label: 'PDBsum',
+        name: 'xref_pdbsum',
+        id: '3d_structure/pdbsum',
+      },
+      {
+        label: 'SASBDB',
+        name: 'xref_sasbdb',
+        id: '3d_structure/sasbdb',
+      },
+      {
+        label: 'SMR',
+        name: 'xref_smr',
+        id: '3d_structure/smr',
+      },
     ],
   },
   {
@@ -629,8 +779,16 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'protein-protein_interaction/complexportal',
       },
-      { label: 'DIP', name: 'xref_dip', id: 'protein-protein_interaction/dip' },
-      { label: 'ELM', name: 'xref_elm', id: 'protein-protein_interaction/elm' },
+      {
+        label: 'DIP',
+        name: 'xref_dip',
+        id: 'protein-protein_interaction/dip',
+      },
+      {
+        label: 'ELM',
+        name: 'xref_elm',
+        id: 'protein-protein_interaction/elm',
+      },
       {
         label: 'IntAct',
         name: 'xref_intact',
@@ -654,8 +812,16 @@ const mock = [
     isDatabaseGroup: true,
     id: 'chemistry',
     fields: [
-      { label: 'BindingDB', name: 'xref_bindingdb', id: 'chemistry/bindingdb' },
-      { label: 'ChEMBL', name: 'xref_chembl', id: 'chemistry/chembl' },
+      {
+        label: 'BindingDB',
+        name: 'xref_bindingdb',
+        id: 'chemistry/bindingdb',
+      },
+      {
+        label: 'ChEMBL',
+        name: 'xref_chembl',
+        id: 'chemistry/chembl',
+      },
       {
         label: 'DrugBank',
         name: 'xref_drugbank',
@@ -696,7 +862,11 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'protein_family/group/cazy',
       },
-      { label: 'CLAE', name: 'xref_clae', id: 'protein_family/group/clae' },
+      {
+        label: 'CLAE',
+        name: 'xref_clae',
+        id: 'protein_family/group/clae',
+      },
       {
         label: 'ESTHER',
         name: 'xref_esther',
@@ -754,8 +924,16 @@ const mock = [
     isDatabaseGroup: true,
     id: 'ptm',
     fields: [
-      { label: 'CarbonylDB', name: 'xref_carbonyldb', id: 'ptm/carbonyldb' },
-      { label: 'DEPOD', name: 'xref_depod', id: 'ptm/depod' },
+      {
+        label: 'CarbonylDB',
+        name: 'xref_carbonyldb',
+        id: 'ptm/carbonyldb',
+      },
+      {
+        label: 'DEPOD',
+        name: 'xref_depod',
+        id: 'ptm/depod',
+      },
       {
         label: 'GlyConnect',
         name: 'xref_glyconnect',
@@ -774,15 +952,31 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'ptm/glygen',
       },
-      { label: 'MetOSite', name: 'xref_metosite', id: 'ptm/metosite' },
+      {
+        label: 'MetOSite',
+        name: 'xref_metosite',
+        id: 'ptm/metosite',
+      },
       {
         label: 'PhosphoSitePlus',
         name: 'xref_phosphositeplus',
         id: 'ptm/phosphositeplus',
       },
-      { label: 'SwissPalm', name: 'xref_swisspalm', id: 'ptm/swisspalm' },
-      { label: 'UniCarbKB', name: 'xref_unicarbkb', id: 'ptm/unicarbkb' },
-      { label: 'iPTMnet', name: 'xref_iptmnet', id: 'ptm/iptmnet' },
+      {
+        label: 'SwissPalm',
+        name: 'xref_swisspalm',
+        id: 'ptm/swisspalm',
+      },
+      {
+        label: 'UniCarbKB',
+        name: 'xref_unicarbkb',
+        id: 'ptm/unicarbkb',
+      },
+      {
+        label: 'iPTMnet',
+        name: 'xref_iptmnet',
+        id: 'ptm/iptmnet',
+      },
     ],
   },
   {
@@ -827,22 +1021,15 @@ const mock = [
         name: 'xref_dosac-cobs-2dpage',
         id: '2d_gel/dosac-cobs-2dpage',
       },
-      { label: 'OGP', name: 'xref_ogp', id: '2d_gel/ogp' },
+      {
+        label: 'OGP',
+        name: 'xref_ogp',
+        id: '2d_gel/ogp',
+      },
       {
         label: 'REPRODUCTION-2DPAGE',
         name: 'xref_reproduction-2dpage',
         id: '2d_gel/reproduction-2dpage',
-      },
-      {
-        label: 'SWISS-2DPAGE',
-        name: 'xref_swiss-2dpage',
-        id: '2d_gel/swiss-2dpage',
-      },
-      { label: 'UCD-2DPAGE', name: 'xref_ucd-2dpage', id: '2d_gel/ucd-2dpage' },
-      {
-        label: 'World-2DPAGE',
-        name: 'xref_world-2dpage',
-        id: '2d_gel/world-2dpage',
       },
     ],
   },
@@ -851,30 +1038,66 @@ const mock = [
     isDatabaseGroup: true,
     id: 'proteomic',
     fields: [
-      { label: 'CPTAC', name: 'xref_cptac', id: 'proteomic/cptac' },
-      { label: 'EPD', name: 'xref_epd', id: 'proteomic/epd' },
-      { label: 'MassIVE', name: 'xref_massive', id: 'proteomic/massive' },
-      { label: 'MaxQB', name: 'xref_maxqb', id: 'proteomic/maxqb' },
-      { label: 'PRIDE', name: 'xref_pride', id: 'proteomic/pride' },
-      { label: 'PaxDb', name: 'xref_paxdb', id: 'proteomic/paxdb' },
+      {
+        label: 'CPTAC',
+        name: 'xref_cptac',
+        id: 'proteomic/cptac',
+      },
+      {
+        label: 'EPD',
+        name: 'xref_epd',
+        id: 'proteomic/epd',
+      },
+      {
+        label: 'MassIVE',
+        name: 'xref_massive',
+        id: 'proteomic/massive',
+      },
+      {
+        label: 'MaxQB',
+        name: 'xref_maxqb',
+        id: 'proteomic/maxqb',
+      },
+      {
+        label: 'PRIDE',
+        name: 'xref_pride',
+        id: 'proteomic/pride',
+      },
+      {
+        label: 'PaxDb',
+        name: 'xref_paxdb',
+        id: 'proteomic/paxdb',
+      },
       {
         label: 'PeptideAtlas',
         name: 'xref_peptideatlas',
         id: 'proteomic/peptideatlas',
       },
-      { label: 'ProMEX', name: 'xref_promex', id: 'proteomic/promex' },
+      {
+        label: 'ProMEX',
+        name: 'xref_promex',
+        id: 'proteomic/promex',
+      },
       {
         label: 'ProteomicsDB',
         name: 'xref_proteomicsdb',
         id: 'proteomic/proteomicsdb',
       },
-      { label: 'Pumba', name: 'xref_pumba', id: 'proteomic/pumba' },
+      {
+        label: 'Pumba',
+        name: 'xref_pumba',
+        id: 'proteomic/pumba',
+      },
       {
         label: 'TopDownProteomics',
         name: 'xref_topdownproteomics',
         id: 'proteomic/topdownproteomics',
       },
-      { label: 'jPOST', name: 'xref_jpost', id: 'proteomic/jpost' },
+      {
+        label: 'jPOST',
+        name: 'xref_jpost',
+        id: 'proteomic/jpost',
+      },
     ],
   },
   {
@@ -948,14 +1171,22 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'genome_annotation/ensemblprotists',
       },
-      { label: 'GeneID', name: 'xref_geneid', id: 'genome_annotation/geneid' },
+      {
+        label: 'GeneID',
+        name: 'xref_geneid',
+        id: 'genome_annotation/geneid',
+      },
       {
         label: 'Gramene',
         name: 'xref_gramene',
         isMultiValueCrossReference: true,
         id: 'genome_annotation/gramene',
       },
-      { label: 'KEGG', name: 'xref_kegg', id: 'genome_annotation/kegg' },
+      {
+        label: 'KEGG',
+        name: 'xref_kegg',
+        id: 'genome_annotation/kegg',
+      },
       {
         label: 'MANE-Select',
         name: 'xref_mane-select',
@@ -986,11 +1217,6 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'genome_annotation/wbparasite',
       },
-      {
-        label: 'WBParaSiteTranscriptProtein',
-        name: 'xref_wbparasitetranscriptprotein',
-        id: 'genome_annotation/wbparasitetranscriptprotein',
-      },
     ],
   },
   {
@@ -998,7 +1224,11 @@ const mock = [
     isDatabaseGroup: true,
     id: 'organism-specific',
     fields: [
-      { label: 'AGR', name: 'xref_agr', id: 'organism-specific/agr' },
+      {
+        label: 'AGR',
+        name: 'xref_agr',
+        id: 'organism-specific/agr',
+      },
       {
         label: 'ArachnoServer',
         name: 'xref_arachnoserver',
@@ -1016,7 +1246,11 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'organism-specific/cgd',
       },
-      { label: 'CTD', name: 'xref_ctd', id: 'organism-specific/ctd' },
+      {
+        label: 'CTD',
+        name: 'xref_ctd',
+        id: 'organism-specific/ctd',
+      },
       {
         label: 'ConoServer',
         name: 'xref_conoserver',
@@ -1061,7 +1295,17 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'organism-specific/hpa',
       },
-      { label: 'IC4R', name: 'xref_ic4r', id: 'organism-specific/ic4r' },
+      {
+        label: 'IC4R',
+        name: 'xref_ic4r',
+        id: 'organism-specific/ic4r',
+      },
+      {
+        label: 'JaponicusDB',
+        name: 'xref_japonicusdb',
+        isMultiValueCrossReference: true,
+        id: 'organism-specific/japonicusdb',
+      },
       {
         label: 'LegioList',
         name: 'xref_legiolist',
@@ -1201,27 +1445,42 @@ const mock = [
     isDatabaseGroup: true,
     id: 'phylogenomic',
     fields: [
-      { label: 'GeneTree', name: 'xref_genetree', id: 'phylogenomic/genetree' },
-      { label: 'HOGENOM', name: 'xref_hogenom', id: 'phylogenomic/hogenom' },
+      {
+        label: 'GeneTree',
+        name: 'xref_genetree',
+        id: 'phylogenomic/genetree',
+      },
+      {
+        label: 'HOGENOM',
+        name: 'xref_hogenom',
+        id: 'phylogenomic/hogenom',
+      },
       {
         label: 'InParanoid',
         name: 'xref_inparanoid',
         id: 'phylogenomic/inparanoid',
       },
-      { label: 'KO', name: 'xref_ko', id: 'phylogenomic/ko' },
       {
         label: 'OMA',
         name: 'xref_oma',
         isMultiValueCrossReference: true,
         id: 'phylogenomic/oma',
       },
-      { label: 'OrthoDB', name: 'xref_orthodb', id: 'phylogenomic/orthodb' },
+      {
+        label: 'OrthoDB',
+        name: 'xref_orthodb',
+        id: 'phylogenomic/orthodb',
+      },
       {
         label: 'PhylomeDB',
         name: 'xref_phylomedb',
         id: 'phylogenomic/phylomedb',
       },
-      { label: 'TreeFam', name: 'xref_treefam', id: 'phylogenomic/treefam' },
+      {
+        label: 'TreeFam',
+        name: 'xref_treefam',
+        id: 'phylogenomic/treefam',
+      },
       {
         label: 'eggNOG',
         name: 'xref_eggnog',
@@ -1241,7 +1500,11 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'enzyme_and_pathway/brenda',
       },
-      { label: 'BioCyc', name: 'xref_biocyc', id: 'enzyme_and_pathway/biocyc' },
+      {
+        label: 'BioCyc',
+        name: 'xref_biocyc',
+        id: 'enzyme_and_pathway/biocyc',
+      },
       {
         label: 'PathwayCommons',
         name: 'xref_pathwaycommons',
@@ -1264,7 +1527,11 @@ const mock = [
         name: 'xref_sabio-rk',
         id: 'enzyme_and_pathway/sabio-rk',
       },
-      { label: 'SIGNOR', name: 'xref_signor', id: 'enzyme_and_pathway/signor' },
+      {
+        label: 'SIGNOR',
+        name: 'xref_signor',
+        id: 'enzyme_and_pathway/signor',
+      },
       {
         label: 'SignaLink',
         name: 'xref_signalink',
@@ -1300,26 +1567,58 @@ const mock = [
         name: 'xref_evolutionarytrace',
         id: 'other/evolutionarytrace',
       },
-      { label: 'GeneWiki', name: 'xref_genewiki', id: 'other/genewiki' },
-      { label: 'GenomeRNAi', name: 'xref_genomernai', id: 'other/genomernai' },
-      { label: 'ORCID', name: 'xref_orcid', id: 'other/orcid' },
-      { label: 'PGenN', name: 'xref_pgenn', id: 'other/pgenn' },
-      { label: 'PHI-base', name: 'xref_phi-base', id: 'other/phi-base' },
-      { label: 'PRO', name: 'xref_pro', id: 'other/pro' },
+      {
+        label: 'GeneWiki',
+        name: 'xref_genewiki',
+        id: 'other/genewiki',
+      },
+      {
+        label: 'GenomeRNAi',
+        name: 'xref_genomernai',
+        id: 'other/genomernai',
+      },
+      {
+        label: 'ORCID',
+        name: 'xref_orcid',
+        id: 'other/orcid',
+      },
+      {
+        label: 'PGenN',
+        name: 'xref_pgenn',
+        id: 'other/pgenn',
+      },
+      {
+        label: 'PHI-base',
+        name: 'xref_phi-base',
+        id: 'other/phi-base',
+      },
+      {
+        label: 'PRO',
+        name: 'xref_pro',
+        id: 'other/pro',
+      },
       {
         label: 'Pharos',
         name: 'xref_pharos',
         isMultiValueCrossReference: true,
         id: 'other/pharos',
       },
-      { label: 'PubTator', name: 'xref_pubtator', id: 'other/pubtator' },
+      {
+        label: 'PubTator',
+        name: 'xref_pubtator',
+        id: 'other/pubtator',
+      },
       {
         label: 'RNAct',
         name: 'xref_rnact',
         isMultiValueCrossReference: true,
         id: 'other/rnact',
       },
-      { label: 'eMIND', name: 'xref_emind', id: 'other/emind' },
+      {
+        label: 'eMIND',
+        name: 'xref_emind',
+        id: 'other/emind',
+      },
     ],
   },
   {
@@ -1333,7 +1632,11 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'gene_expression/bgee',
       },
-      { label: 'CleanEx', name: 'xref_cleanex', id: 'gene_expression/cleanex' },
+      {
+        label: 'CleanEx',
+        name: 'xref_cleanex',
+        id: 'gene_expression/cleanex',
+      },
       {
         label: 'CollecTF',
         name: 'xref_collectf',
@@ -1344,12 +1647,6 @@ const mock = [
         name: 'xref_expressionatlas',
         isMultiValueCrossReference: true,
         id: 'gene_expression/expressionatlas',
-      },
-      {
-        label: 'Genevisible',
-        name: 'xref_genevisible',
-        isMultiValueCrossReference: true,
-        id: 'gene_expression/genevisible',
       },
     ],
   },
@@ -1381,7 +1678,11 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'family_and_domain/hamap',
       },
-      { label: 'IDEAL', name: 'xref_ideal', id: 'family_and_domain/ideal' },
+      {
+        label: 'IDEAL',
+        name: 'xref_ideal',
+        id: 'family_and_domain/ideal',
+      },
       {
         label: 'InterPro',
         name: 'xref_interpro',
@@ -1425,12 +1726,6 @@ const mock = [
         id: 'family_and_domain/pfam',
       },
       {
-        label: 'ProDom',
-        name: 'xref_prodom',
-        isMultiValueCrossReference: true,
-        id: 'family_and_domain/prodom',
-      },
-      {
         label: 'SFLD',
         name: 'xref_sfld',
         isMultiValueCrossReference: true,
@@ -1450,6 +1745,6 @@ const mock = [
       },
     ],
   },
-] as ReceivedFieldData;
+];
 
-export default mock;
+export default mock as ReceivedFieldData;

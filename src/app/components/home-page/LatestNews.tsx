@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  "Like smells and tastes, sounds can whizz you back to forgotten places. The shriek of a seagull. The wash of waves. The crack of lightning. A motor's rumble. A Christmas carol. A childhood tune. More often than not, these castaway memories emerge wrapped in a delicate veil of magic. It is a wonderful feeling, of something you would like to know again but cannot, although it is there hidden deep inside you.";
+  'Toxic waste. Since the 19th century, our species has had to find ways of scrapping industrial detritus which is frequently dangerous. So, we dig deep down into the earth and leave the nasty stuff there or we build thick crusts of cement around it...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -124,6 +124,75 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-05-29-release',
+                  })}
+                >
+                  UniProt release 2024_03
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The culprit for extreme morning sickness identified | Removal of
+                the cross-references to Genevisible | Removal of the
+                cross-references to SWISS-2DPAGE
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-03-27-release',
+                  })}
+                >
+                  UniProt release 2024_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                CMV infections: plants beaten at their own game | Changes to the
+                controlled vocabulary of human diseases | Changes to the
+                controlled vocabulary for PTMs
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-01-24-release',
+                  })}
+                >
+                  UniProt release 2024_01
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Vitamin K beyond coagulation | Cross-references to EMDB |
+                Cross-references to JaponicusDB | Changes to the controlled
+                vocabulary...
               </p>
             </article>
           </li>
@@ -239,120 +308,6 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-12-14-release',
-                  })}
-                >
-                  UniProt release 2022_05
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Plant adaptation to global warming through epigenetic memory |
-                Cross-references to AGR | Changes to the controlled...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-10-12-release',
-                  })}
-                >
-                  UniProt release 2022_04
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The (phenolic) Rings of Power | UniProtKB news: Protein
-                embeddings | Changes to the controlled vocabulary of human
-                diseases | Changes to the controlled vocabulary for PTMs
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-08-03-release',
-                  })}
-                >
-                  UniProt release 2022_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Not just for proteins: new targets for ADP-ribosylation |
-                Annotation of biologically relevant ligands in UniProtKB using
-                ChEBI | Changes to the controlled vocabulary of human
-                diseases...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-05-25-release',
-                  })}
-                >
-                  UniProt release 2022_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Prenylation for antiviral activity | Cross-references to
-                AlphaFoldDB | Version numbers for identifiers in Ensembl
-                cross-references in Uni...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2022-02-23-release',
-                  })}
-                >
-                  UniProt release 2022_01
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                A phospholipase for clear vision | Cross-references to
-                MANE-Select
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
@@ -446,21 +401,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/264/"
+            url="https://www.proteinspotlight.org/back_issues/269/"
             noIcon
           >
-            Sound and silence
+            A motherly mesh
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/264/"
+          url="https://www.proteinspotlight.org/back_issues/269/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt264.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt269.jpg"
             alt=""
             width="123"
             height="129"

@@ -1,5 +1,5 @@
 import { useRef, FormEvent, useMemo, useReducer, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, generatePath, useHistory } from 'react-router-dom';
 import {
   PageIntro,
   Message,
@@ -7,6 +7,7 @@ import {
   SpinnerIcon,
   Loader,
   LongNumber,
+  ExternalLink,
 } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
@@ -39,11 +40,12 @@ import {
 import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
 
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
   IDMappingFormValues,
@@ -65,6 +67,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+import ftpUrls from '../../../shared/config/ftpUrls';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 
@@ -177,6 +180,10 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
           formValues[IDMappingFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.ID_MAPPING, {
+        fromDB: parameters.from,
+        toDB: parameters.to,
+      });
     });
   };
 
@@ -259,6 +266,20 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 <input type="file" ref={fileInputRef} />
               </label>
               . Separate IDs by whitespace (space, tab, newline) or commas.
+              <br />
+              This service can also be used{' '}
+              <Link
+                to={generatePath(LocationToPath[Location.HelpEntry], {
+                  accession: 'id_mapping',
+                })}
+              >
+                programmatically
+              </Link>
+              . Alternatively, the{' '}
+              <ExternalLink url={ftpUrls.idmapping} noIcon>
+                underlying data
+              </ExternalLink>
+              &nbsp;can be downloaded.
             </legend>
             <textarea
               name={defaultFormValues[IDMappingFields.ids].fieldName}
@@ -278,7 +299,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               >
                 <small>
                   Your input contains{' '}
-                  <LongNumber>{parsedIDs.length}</LongNumber>
+                  <LongNumber>{parsedIDs.length}</LongNumber> unique
                   {pluralise(' ID', parsedIDs.length)}
                   {parsedIDs.length > ID_MAPPING_LIMIT && (
                     <>
@@ -347,7 +368,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               <section className="tools-form-section__item tools-form-section__item--taxon-select">
                 <AutocompleteWrapper
                   placeholder="Enter taxon name or ID"
-                  url={apiUrls.taxonomySuggester}
+                  url={apiUrls.suggester.taxonomy}
                   onSelect={handleTaxonFormValue}
                   title="Restrict by taxonomy"
                   value={
@@ -425,7 +446,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
 
 const IDMappingFormWithProvider = () => {
   const { loading, progress, data, error } = useDataApi<IDMappingFormConfig>(
-    apiUrls.idMappingFields
+    apiUrls.configure.idMappingFields
   );
 
   if (loading) {

@@ -3,7 +3,7 @@ import { groupBy } from 'lodash-es';
 
 import useDataApi from './useDataApi';
 
-import { getAccessionsURL } from '../config/apiUrls';
+import apiUrls from '../config/apiUrls/apiUrls';
 
 import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
 import accessionToNamespace from '../utils/accessionToNamespace';
@@ -15,6 +15,7 @@ import { SearchResults } from '../types/results';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { FileFormat } from '../types/resultsDownload';
 
 const groupByNamespace = ({ id }: IdMaybeWithRange) => accessionToNamespace(id);
 
@@ -25,30 +26,22 @@ const useGetFASTAFromAccesion = (
     const groups = groupBy(idsMaybeWithRange, groupByNamespace);
 
     const uniProtKBURL = groups[Namespace.uniprotkb]?.length
-      ? getAccessionsURL(
+      ? apiUrls.search.accessions(
           Array.from(
-            new Set(groups[Namespace.uniprotkb].map(({ id }) => id))
-          ).sort(),
+            new Set(
+              groups[Namespace.uniprotkb].map(
+                ({ id, start, end }) =>
+                  `${id}${start && end ? `[${start}-${end}]` : ''}`
+              )
+            )
+          ),
           {
-            facets: null,
-            namespace: Namespace.uniprotkb,
-            columns: [
-              'accession',
-              'reviewed',
-              'id',
-              'gene_names',
-              'organism_id',
-              'organism_name',
-              'sequence',
-              'sequence_version',
-              'protein_existence',
-              'protein_name',
-            ],
+            format: FileFormat.fasta,
           }
         )
       : null;
     const uniRefURL = groups[Namespace.uniref]?.length
-      ? getAccessionsURL(
+      ? apiUrls.search.accessions(
           Array.from(
             new Set(groups[Namespace.uniref].map(({ id }) => id))
           ).sort(),
@@ -69,7 +62,7 @@ const useGetFASTAFromAccesion = (
         )
       : null;
     const uniParcURL = groups[Namespace.uniparc]?.length
-      ? getAccessionsURL(
+      ? apiUrls.search.accessions(
           Array.from(
             new Set(groups[Namespace.uniparc].map(({ id }) => id))
           ).sort(),
@@ -100,8 +93,16 @@ const useGetFASTAFromAccesion = (
   let fasta = '';
 
   if (!loading) {
+    let isUniprotKbDataAdded = false;
     for (const idMaybeWithRange of idsMaybeWithRange || []) {
       const namespace = groupByNamespace(idMaybeWithRange);
+
+      // UniProtKB accessions URL fetches FASTA directly
+      if (namespace === Namespace.uniprotkb && !isUniprotKbDataAdded) {
+        fasta += `\n\n${data[namespace].data}`;
+        isUniprotKbDataAdded = true;
+      }
+
       const entry = (
         data[namespace].data?.results as
           | undefined

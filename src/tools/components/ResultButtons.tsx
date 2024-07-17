@@ -1,5 +1,5 @@
 import { useState, Suspense } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import {
   Button,
@@ -18,7 +18,7 @@ import CustomiseButton from '../../shared/components/action-buttons/CustomiseBut
 import { serverParametersToFormParameters } from '../adapters/parameters';
 
 import { jobTypeToPath } from '../../app/config/urls';
-import apiUrls from '../../shared/config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
 import lazy from '../../shared/utils/lazy';
@@ -68,7 +68,7 @@ export const ResubmitButton = ({
         ).taxId?.toString() || '',
       ].map((id) => {
         const idCleaned = id.trim();
-        const url = apiUrls.entry(idCleaned, Namespace.taxonomy);
+        const url = apiUrls.entry.entry(idCleaned, Namespace.taxonomy);
 
         if (!idCleaned || !url) {
           return;
@@ -132,6 +132,7 @@ const ResultButtons = ({
   nHits,
   isTableResultsFiltered,
 }: ResultButtonsProps<JobTypes>) => {
+  const { pathname } = useLocation();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   return (
@@ -141,6 +142,7 @@ const ResultButtons = ({
           <SlidingPanel
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <ResultDownload

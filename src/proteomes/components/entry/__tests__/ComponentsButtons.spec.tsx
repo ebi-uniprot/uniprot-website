@@ -27,9 +27,12 @@ describe('ComponentsButtons', () => {
           id="id"
           components={components as Component[]}
           selectedEntries={selectedComponents}
-          proteinCount={100}
           proteomeType="Reference and representative proteome"
-          superkingdom="superkingdom"
+          proteinCount={100}
+          proteomeStatistics={{
+            reviewedProteinCount: 50,
+            unreviewedProteinCount: 50,
+          }}
         />
       );
       const link = screen.getByRole<HTMLAnchorElement>('link', {
@@ -46,28 +49,37 @@ describe('ComponentsButtons', () => {
     const { container } = customRender(
       <ComponentsButtons
         id="id"
-        proteinCount={100}
         selectedEntries={[]}
         proteomeType="Reference and representative proteome"
-        superkingdom="superkingdom"
+        proteinCount={100}
+        proteomeStatistics={{
+          reviewedProteinCount: 50,
+          unreviewedProteinCount: 50,
+        }}
       />
     );
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('should open download sliding panel', () => {
+  it('should open download sliding panel', async () => {
     customRender(
       <ComponentsButtons
         id="id"
-        proteinCount={100}
         selectedEntries={[]}
         components={getComponents(10) as Component[]}
         proteomeType="Reference and representative proteome"
-        superkingdom="superkingdom"
+        proteinCount={100}
+        proteomeStatistics={{
+          reviewedProteinCount: 50,
+          unreviewedProteinCount: 50,
+        }}
       />
     );
-    const downloadButton = screen.getByRole('button', { name: 'Download' });
+    const downloadButton = screen.getByRole('button', { name: /Download/ });
     fireEvent.click(downloadButton);
-    expect(screen.queryByTestId('sliding-panel')).toBeInTheDocument();
+    // Needs a bit timeout even though there are no API calls happening.
+    expect(
+      await screen.findByTestId('sliding-panel', undefined, { timeout: 10000 })
+    ).toBeInTheDocument();
   });
 });

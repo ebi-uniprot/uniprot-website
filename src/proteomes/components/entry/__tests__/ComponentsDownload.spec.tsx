@@ -18,22 +18,22 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
   it('should check the filteredNumberResults and add the additional select options', async () => {
     const onCloseMock = jest.fn();
     const query = '(proteome:UP000005640)';
-    const totalNumberResults = 82678;
-    const isoformStats = {
-      reviewed: 20408,
-      isoforms: 22024,
+    const proteomeStatistics = {
+      reviewedProteinCount: 20422,
+      unreviewedProteinCount: 62067,
+      isoformProteinCount: 22072,
     };
 
     customRender(
       <ComponentsDownload
         query={query}
-        totalNumberResults={totalNumberResults}
         onClose={onCloseMock}
-        statistics={isoformStats}
-        proteomeType="Reference and representative proteome"
+        proteomeStatistics={proteomeStatistics}
+        totalNumberResults={82485}
         numberSelectedEntries={0}
         // selectedEntries={[]}
         selectedQuery="(proteome:UP000005640)"
+        isUniparcSearch={false}
       />,
       {
         route: '/proteomes/UP000005640',
@@ -49,7 +49,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
 
     fireEvent.click(
       screen.getByLabelText(
-        `Download only reviewed (Swiss-Prot) canonical proteins (20,408)`
+        `Download only reviewed (Swiss-Prot) canonical proteins (20,422)`
       )
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
@@ -80,5 +80,37 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
     fireEvent.click(screen.getByRole('checkbox'));
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
+  });
+});
+
+describe('Download proteins for a redundant proteome', () => {
+  it('should point to uniparc search', async () => {
+    const onCloseMock = jest.fn();
+    const query = '(proteome:UP000006503)';
+    const proteomeStatistics = {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 0,
+      isoformProteinCount: 0,
+    };
+
+    customRender(
+      <ComponentsDownload
+        query={query}
+        onClose={onCloseMock}
+        proteomeStatistics={proteomeStatistics}
+        totalNumberResults={5841}
+        numberSelectedEntries={0}
+        selectedQuery="(proteome:UP000006503)"
+        isUniparcSearch
+      />,
+      {
+        route: '/proteomes/UP000006503',
+      }
+    );
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toContain('uniparc');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
+    );
   });
 });

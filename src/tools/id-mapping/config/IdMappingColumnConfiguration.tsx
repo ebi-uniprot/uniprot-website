@@ -38,13 +38,10 @@ IdMappingColumnConfiguration.set(IDMappingColumn.to, {
   label: 'To',
   render: (row) => {
     const { url, to } = row as MappingTo & MappingFrom;
-    if (!url) {
-      return to;
-    }
-    if (url.startsWith(origin)) {
+    if (url?.startsWith(origin)) {
       // eslint-disable-next-line uniprot-website/use-config-location
       return <Link to={url.replace(origin, '')}>{to}</Link>;
     }
-    return <ExternalLink url={url}>{to}</ExternalLink>;
+    return <ExternalLink url={url || null}>{to}</ExternalLink>;
   },
 });

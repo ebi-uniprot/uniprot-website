@@ -140,14 +140,11 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
     if (!genomeAssembly) {
       return null;
     }
-    if (genomeAssembly.genomeAssemblyUrl) {
-      return (
-        <ExternalLink url={genomeAssembly.genomeAssemblyUrl}>
-          {genomeAssembly.assemblyId}
-        </ExternalLink>
-      );
-    }
-    return genomeAssembly.assemblyId;
+    return (
+      <ExternalLink url={genomeAssembly.genomeAssemblyUrl || null}>
+        {genomeAssembly.assemblyId}
+      </ExternalLink>
+    );
   },
 });
 
@@ -184,12 +181,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
           search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
         }}
       >
-        {/* Excluded not supported at the moment, need to wait for TRM-28011 */}
-        {proteomeType === 'Excluded' ? (
-          'Browse UniParc entries'
-        ) : (
-          <LongNumber>{proteinCount}</LongNumber>
-        )}
+        <LongNumber>{proteinCount}</LongNumber>
       </Link>
     );
   },

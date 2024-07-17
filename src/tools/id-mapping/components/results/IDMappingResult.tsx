@@ -8,7 +8,7 @@ import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayo
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import JobErrorPage from '../../../../shared/components/error-pages/JobErrorPage';
+import JobErrorPage from '../../../../shared/components/error-pages/full-pages/JobErrorPage';
 
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -22,8 +22,10 @@ import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import apiUrls, { defaultFacets } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import * as logging from '../../../../shared/utils/logging';
+
+import { defaultFacets } from '../../../../shared/config/facets';
 
 import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -121,7 +123,7 @@ const IDMappingResult = () => {
     getParamsFromURL(location.search);
 
   const { loading: fieldsLoading, data: fieldsData } =
-    useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
+    useDataApi<IDMappingFormConfig>(apiUrls.configure.idMappingFields);
 
   const namespaceOverride = rawDBToNamespace(detailsData?.to);
 
@@ -224,7 +226,9 @@ const IDMappingResult = () => {
   }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
 
   if (!match || detailsError) {
-    return <ErrorHandler status={detailsStatus} />;
+    return (
+      <ErrorHandler status={detailsStatus} error={detailsError} fullPage />
+    );
   }
 
   if (
@@ -240,7 +244,7 @@ const IDMappingResult = () => {
   }
 
   if (!detailsData) {
-    return <ErrorHandler />;
+    return <ErrorHandler fullPage />;
   }
 
   if (errors.length) {

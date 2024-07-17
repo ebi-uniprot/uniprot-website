@@ -7,35 +7,26 @@ exports[`ChildNavigation should render, lots 1`] = `
   >
     <li>
       <a
-        href="/taxonomy/0"
-        title="Primate lentivirus group, taxon ID 0"
-        translate="no"
-      >
-        Primate lentivirus group
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/1"
-        title="Primate calicivirus, taxon ID 1"
+        href="/taxonomy/2"
+        title="Primate calicivirus, taxon ID 2"
         translate="no"
       >
         Primate calicivirus
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/2"
-        title="Primate lentivirus group, taxon ID 2"
-        translate="no"
-      >
-        Primate lentivirus group
       </a>
     </li>
     <li>
       <a
         href="/taxonomy/3"
-        title="Primate calicivirus, taxon ID 3"
+        title="primate papillomaviruses, taxon ID 3"
+        translate="no"
+      >
+        primate papillomaviruses
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/4"
+        title="Primate calicivirus, taxon ID 4"
         translate="no"
       >
         Primate calicivirus
@@ -43,11 +34,20 @@ exports[`ChildNavigation should render, lots 1`] = `
     </li>
     <li>
       <a
-        href="/taxonomy/4"
-        title="Primate lentivirus group, taxon ID 4"
+        href="/taxonomy/5"
+        title="primate papillomaviruses, taxon ID 5"
         translate="no"
       >
-        Primate lentivirus group
+        primate papillomaviruses
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/6"
+        title="Primate calicivirus, taxon ID 6"
+        translate="no"
+      >
+        Primate calicivirus
       </a>
     </li>
     <li>
@@ -77,11 +77,11 @@ exports[`ChildNavigation should render, one 1`] = `
   >
     <li>
       <a
-        href="/taxonomy/11652"
-        title="Primate lentivirus group, taxon ID 11652"
+        href="/taxonomy/37299"
+        title="Primate calicivirus, taxon ID 37299"
         translate="no"
       >
-        Primate lentivirus group
+        Primate calicivirus
       </a>
     </li>
     <li>

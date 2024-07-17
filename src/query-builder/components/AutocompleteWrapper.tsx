@@ -4,7 +4,7 @@ import { Autocomplete } from 'franklin-sites';
 import useSafeState from '../../shared/hooks/useSafeState';
 
 import fetchData from '../../shared/utils/fetchData';
-import { getSuggesterUrl } from '../../shared/config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import * as logging from '../../shared/utils/logging';
 
 type AutocompleteWrapperProps = {
@@ -46,7 +46,9 @@ export const prepareData = (suggestions: Suggestion[]) =>
     })
   );
 
-const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
+const AutocompleteWrapper: FC<
+  React.PropsWithChildren<AutocompleteWrapperProps>
+> = ({
   url,
   onSelect,
   title,
@@ -77,7 +79,7 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
       if (textInputValue.length < minAPISuggesterChars) {
         setData([]);
       } else {
-        const suggesterUrl = getSuggesterUrl(url, textInputValue);
+        const suggesterUrl = apiUrls.suggester.search(url, textInputValue);
         setLoading(true);
         fetchData<Suggestions>(suggesterUrl)
           .then((response) => {

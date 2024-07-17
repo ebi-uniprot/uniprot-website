@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import RangeField from './RangeField';
-import EnumField from './EnumField';
+import EnumOrBooleanField from './EnumOrBooleanField';
 import TextField from './TextField';
 import GoEvidenceField from './GoEvidenceField';
 import ExperimentalEvidenceField from './ExperimentalEvidenceField';
@@ -15,20 +15,20 @@ export type FieldProps = {
   initialValue?: QueryBit;
 };
 
-const Field: FC<FieldProps> = ({
+const Field: FC<React.PropsWithChildren<FieldProps>> = ({
   field,
   handleChange,
   initialValue,
 }: FieldProps) => {
   const { dataType, fieldType, autoComplete } = field;
-  let GenericField: FC<FieldProps>;
+  let GenericField: FC<React.PropsWithChildren<FieldProps>>;
 
   switch (true) {
     case Boolean(autoComplete):
       GenericField = AutocompleteField;
       break;
     case dataType === 'enum' || dataType === 'boolean':
-      GenericField = EnumField;
+      GenericField = EnumOrBooleanField;
       break;
     case dataType === 'date':
     case dataType === 'integer' && fieldType === 'range':

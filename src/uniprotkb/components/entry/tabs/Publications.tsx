@@ -22,7 +22,6 @@ import { getParamsFromURL } from '../../../utils/resultsUtils';
 import { processUrlTemplate } from '../../../../shared/utils/xrefs';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
-import { getUniProtPublicationsQueryUrl } from '../../../../shared/config/apiUrls';
 
 import {
   CitationsAPIModel,
@@ -30,6 +29,7 @@ import {
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { SearchResults } from '../../../../shared/types/results';
+import apiUrls from '../../../config/apiUrls/apiUrls';
 
 type PublicationsReferenceProps = {
   references: Reference[];
@@ -42,10 +42,6 @@ const PublicationReference = ({
 }: PublicationsReferenceProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  let url: string | null;
-  if (!databaseInfoMaps) {
-    url = null;
-  }
   const infoListWithContent = references.map((reference) => {
     const {
       referencePositions,
@@ -58,11 +54,12 @@ const PublicationReference = ({
 
     const databaseInfo =
       source && databaseInfoMaps?.databaseToDatabaseInfo[source.name];
-    if (databaseInfo?.uriLink && source?.id) {
-      url = processUrlTemplate(databaseInfo.uriLink, { id: source.id });
-    } else {
-      url = null;
-    }
+    let url =
+      source?.id &&
+      processUrlTemplate(databaseInfo?.uriLink, {
+        id: source.id,
+        primaryAccession: source.id,
+      });
     if (source?.name === 'GeneRif') {
       url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
@@ -137,18 +134,31 @@ const PublicationReference = ({
         content: source && (
           <>
             <EntryTypeIcon entryType={source.name} />
-            {url ? (
+            {url && source.name !== 'ORCID' ? (
               <>
                 <EntryTypeIcon entryType="computationally mapped" />
-                {source.name}:<ExternalLink url={url}>{source.id}</ExternalLink>
+                {source.name}
+                {': '}
+                <ExternalLink url={url}>{source.id}</ExternalLink>
               </>
             ) : (
               <span>
                 {source.name}
-                {source.name === 'ORCID' && source.id ? (
+                {source.name === 'ORCID' ? (
                   <>
                     {': '}
-                    <ExternalLink url={`https://orcid.org/${source.id}`}>
+                    <ExternalLink
+                      url={
+                        source.id && source.id !== 'Anonymous'
+                          ? processUrlTemplate(
+                              databaseInfoMaps?.databaseToDatabaseInfo[
+                                source.name
+                              ]?.uriLink,
+                              { id: source.id }
+                            )
+                          : null
+                      }
+                    >
                       {source.id}
                     </ExternalLink>
                     {' ('}
@@ -231,7 +241,7 @@ type PublicationsProps = { accession: string };
 const Publications = ({ accession }: PublicationsProps) => {
   const { search } = useLocation();
   const [{ selectedFacets }] = getParamsFromURL(search);
-  const initialUrl = getUniProtPublicationsQueryUrl({
+  const initialUrl = apiUrls.publications.entryPublications({
     accession,
     selectedFacets,
   });
@@ -273,7 +283,7 @@ const Publications = ({ accession }: PublicationsProps) => {
   const cardRenderer = useMemo(() => cardRendererFor(accession), [accession]);
 
   if (error) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   if (allResults.length === 0 && loading) {

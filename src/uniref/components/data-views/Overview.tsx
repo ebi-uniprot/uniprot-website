@@ -1,17 +1,20 @@
-import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import {
   SpinnerIcon,
   TremblIcon,
   SwissProtIcon,
   UniParcIcon,
+  InfoList,
+  LongNumber,
 } from 'franklin-sites';
+import cn from 'classnames';
 
 import MemberLink from '../entry/MemberLink';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getBEMClassName, pluralise } from '../../../shared/utils/utils';
+import { pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import { getEntryPath } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
@@ -25,7 +28,7 @@ import {
   uniRefMembersFacets,
 } from '../../types/membersEndpoint';
 
-import './styles/overview.scss';
+import styles from './styles/overview.module.scss';
 
 enum MemberTypes {
   Reviewed = 'uniprotkb_reviewed_swissprot',
@@ -33,7 +36,7 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-const MemberIcons: FC<{ id: string }> = ({ id }) => {
+const MemberIcons = ({ id }: { id: string }) => {
   const { loading, data } = useDataApi<UniRefMembersResults>(
     apiUrls.members(id, {
       facets: uniRefMembersFacets,
@@ -43,8 +46,8 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
 
   if (loading) {
     return (
-      <span className="member-icons">
-        <SpinnerIcon className="member-icons" />
+      <span className={styles.members}>
+        <SpinnerIcon className={styles.members} />
       </span>
     );
   }
@@ -76,10 +79,7 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
             pathname,
             search: `facets=uniprot_member_id_type:${MemberTypes.Reviewed}`,
           }}
-          className={getBEMClassName({
-            b: 'member-icons',
-            m: 'uniprotkb-reviewed',
-          })}
+          className={cn(styles.members, styles['uniprotkb-reviewed'])}
           title={`${uniProtReviewedCount} UniProtKB reviewed ${pluralise(
             'member',
             uniProtReviewedCount
@@ -94,10 +94,7 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
             pathname,
             search: `facets=uniprot_member_id_type:${MemberTypes.Unreviewed}`,
           }}
-          className={getBEMClassName({
-            b: 'member-icons',
-            m: 'uniprotkb-unreviewed',
-          })}
+          className={cn(styles.members, styles['uniprotkb-unreviewed'])}
           title={`${uniProtUnreviewedCount} UniProtKB unreviewed ${pluralise(
             'member',
             uniProtUnreviewedCount
@@ -112,7 +109,7 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
             pathname,
             search: `facets=member_id_type:${MemberTypes.UniParc}`,
           }}
-          className={getBEMClassName({ b: 'member-icons', m: 'uniparc' })}
+          className={cn(styles.members, styles.uniparc)}
           title={`${uniParcCount} UniParc ${pluralise('member', uniParcCount)}`}
         >
           <UniParcIcon />
@@ -122,27 +119,45 @@ const MemberIcons: FC<{ id: string }> = ({ id }) => {
   );
 };
 
-const Seed: FC<{ seedId: string }> = ({ seedId }) => (
-  <strong>
-    Built on seed sequence <MemberLink accession={seedId} />
-  </strong>
-);
+const Overview = ({ transformedData }: { transformedData: UniRefUIModel }) => {
+  const infoData = [
+    {
+      title: 'Cluster name',
+      content: transformedData.name.replace(/^Cluster: /, ''),
+    },
+    {
+      title: 'Composition',
+      content: (
+        <>
+          <LongNumber>{transformedData.memberCount}</LongNumber>{' '}
+          {pluralise('member', transformedData.memberCount)}{' '}
+          <MemberIcons id={transformedData.id} />
+        </>
+      ),
+    },
+    {
+      title: 'Last updated',
+      content: (
+        <time dateTime={parseDate(transformedData.updated)?.toISOString()}>
+          {transformedData.updated}
+        </time>
+      ),
+    },
+    {
+      title: 'Seed',
+      content: (
+        <>
+          Built on sequence <MemberLink accession={transformedData.seedId} />
+        </>
+      ),
+    },
+    {
+      title: 'Common taxon',
+      content: <TaxonomyView data={transformedData.commonTaxon} />,
+    },
+  ];
 
-const Updated: FC<{ updated: string }> = ({ updated }) => (
-  <>
-    Updated:&nbsp;
-    <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>
-  </>
-);
-
-const Overview: FC<{
-  transformedData: UniRefUIModel;
-}> = ({ transformedData }) => (
-  <section>
-    {transformedData.name} · <MemberIcons id={transformedData.id} /> ·{' '}
-    <Updated updated={transformedData.updated} /> ·{' '}
-    <Seed seedId={transformedData.seedId} />
-  </section>
-);
+  return <InfoList columns infoData={infoData} />;
+};
 
 export default Overview;

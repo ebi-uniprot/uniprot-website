@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
-import { Card, InPageNav, Loader, LongNumber } from 'franklin-sites';
+import { Card, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
 
@@ -21,13 +21,14 @@ import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+import InPageNav from '../../../shared/components/InPageNav';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { stringifyQuery } from '../../../shared/utils/url';
 import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import {
   MergedStatisticsItem,
   setAminoAcidsTotalCount,
@@ -511,10 +512,11 @@ const StatisticsPage = () => {
   const release = useUniProtDataVersion();
 
   const reviewedStats = useDataApi<StatisticsPayload>(
-    release && apiUrls.statistics(release.releaseNumber, 'reviewed')
+    release && apiUrls.statistics.statistics(release.releaseNumber, 'reviewed')
   );
   const unreviewedStats = useDataApi<StatisticsPayload>(
-    release && apiUrls.statistics(release.releaseNumber, 'unreviewed')
+    release &&
+      apiUrls.statistics.statistics(release.releaseNumber, 'unreviewed')
   );
 
   if (!release || reviewedStats.loading || unreviewedStats.loading) {
@@ -522,11 +524,23 @@ const StatisticsPage = () => {
   }
 
   if (reviewedStats.error || !reviewedStats.data) {
-    return <ErrorHandler status={reviewedStats.status} />;
+    return (
+      <ErrorHandler
+        status={reviewedStats.status}
+        error={reviewedStats.error}
+        fullPage
+      />
+    );
   }
 
   if (unreviewedStats.error || !unreviewedStats.data) {
-    return <ErrorHandler status={unreviewedStats.status} />;
+    return (
+      <ErrorHandler
+        status={unreviewedStats.status}
+        error={unreviewedStats.error}
+        fullPage
+      />
+    );
   }
 
   const reviewedData = Object.fromEntries(

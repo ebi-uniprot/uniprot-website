@@ -23,6 +23,8 @@ export const buscoPartitionToColor: Record<BuscoPartition, string> = {
   missing: '#314BB4',
 };
 
+type NodeData = { start: number; end: number; color: string };
+
 const trackLength = 100;
 
 const getPercentageOfTotal = (total: number) => (x: number) =>
@@ -48,9 +50,9 @@ const BuscoView = ({ report }: { report: BuscoReport }) => {
     }, [report]);
 
   const setTrackData = useCallback(
-    (node): void => {
+    (node: { data: NodeData[] }): void => {
       if (node && protvistaTrackElement.defined) {
-        const data: { start: number; end: number; color: string }[] = [];
+        const data: NodeData[] = [];
         let start = 0;
         for (const buscoTrackFeature of buscoPartitions) {
           const end = start + buscoPartitionPercentages[buscoTrackFeature];

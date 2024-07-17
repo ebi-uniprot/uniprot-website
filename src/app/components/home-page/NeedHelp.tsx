@@ -24,13 +24,13 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 
 import { LocationToPath, Location } from '../../config/urls';
-import { facebook, twitter } from '../../config/socialUrls';
+import { facebook, twitterX } from '../../config/socialUrls';
 
 import dataToSchema, { isCourseOnsite } from './training.structured';
 
 import styles from './styles/non-critical.module.scss';
 
-import TwitterLogo from '../../../images/twitter-logo.svg';
+import XLogo from '../../../images/x-logo.svg';
 import FacebookLogo from '../../../images/facebook-logo.svg';
 
 import traingImg from '../../../images/training.jpg';
@@ -163,8 +163,12 @@ const NeedHelp = () => {
           Contact us
         </ContactLink>
         <br />
-        <ExternalLink url={twitter} title="UniProt posts on Twitter" noIcon>
-          <TwitterLogo width="2em" />
+        <ExternalLink
+          url={twitterX}
+          title="UniProt posts on X (formerly Twitter)"
+          noIcon
+        >
+          <XLogo width="2em" />
         </ExternalLink>
         <ExternalLink url={facebook} title="UniProt posts on Facebook" noIcon>
           <FacebookLogo width="2em" />

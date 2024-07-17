@@ -32,6 +32,7 @@ const ftpUrls = {
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
   uniparc: joinUrl(ftpUniProt, 'current_release/uniparc'),
+  idmapping: joinUrl(ftpUniProt, '/current_release/knowledgebase/idmapping/'),
 };
 
 const namespaceToFtpUrlBase = new Map([

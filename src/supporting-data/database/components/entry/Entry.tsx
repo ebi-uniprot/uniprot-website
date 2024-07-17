@@ -13,7 +13,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import {
   Namespace,
@@ -29,7 +29,7 @@ import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   DatabaseColumn.name,
-  DatabaseColumn.server,
+  DatabaseColumn.servers,
   DatabaseColumn.dbUrl,
   DatabaseColumn.linkType,
   DatabaseColumn.category,
@@ -44,11 +44,11 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<DatabaseAPIModel>(
-      apiUrls.entry(accession, Namespace.database)
+      apiUrls.entry.entry(accession, Namespace.database)
     );
 
   if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (!data) {

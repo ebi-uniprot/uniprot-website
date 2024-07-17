@@ -11,15 +11,10 @@ import UniProtData from './UniProtData';
 const HomePageNonCritical = () => (
   <>
     <CoreData />
-
     <SupportingData />
-
     <LatestNews />
-
     <AnalysisTools />
-
     <NeedHelp />
-
     <UniProtData />
   </>
 );

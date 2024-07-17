@@ -7,7 +7,7 @@ import {
   useEffect,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
+import { Chip, ExternalLink, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
@@ -34,6 +34,7 @@ import {
 } from '../state/peptideSearchFormActions';
 
 import { truncateTaxonLabel } from '../../utils';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import {
   PEPTIDE_SEARCH_SEQUENCES_COUNT,
@@ -51,7 +52,7 @@ import defaultFormValues, {
   PeptideSearchFields,
 } from '../config/PeptideSearchFormData';
 import { SelectedTaxon } from '../../types/toolsFormData';
-import uniProtKBApiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import {
   MessageFormat,
@@ -63,10 +64,12 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
-const FormSelect: FC<{
-  formValue: PeptideSearchFormValue;
-  updateFormValue: (selected: PeptideSearchFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: PeptideSearchFormValue;
+    updateFormValue: (selected: PeptideSearchFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }
@@ -204,6 +207,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           formValues[PeptideSearchFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.PEPTIDE_SEARCH);
     });
   };
 
@@ -245,6 +249,16 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
                 <input type="file" ref={fileInputRef} />
               </label>
               .
+              <br />
+              For submissions involving shorter peptides or more than 100
+              sequences, or in case of server problems, a{' '}
+              <ExternalLink
+                url="https://research.bioinformatics.udel.edu/peptidematch/commandlinetool.jsp"
+                noIcon
+              >
+                downloadable tool
+              </ExternalLink>
+              &nbsp;is available to run locally.
             </legend>
             <textarea
               name={defaultFormValues[PeptideSearchFields.peps].fieldName}
@@ -264,7 +278,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
-                url={uniProtKBApiUrls.organismSuggester}
+                url={apiUrls.suggester.organism}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"
                 clearOnSelect

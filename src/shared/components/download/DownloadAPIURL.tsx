@@ -25,7 +25,7 @@ import {
   DOWNLOAD_SIZE_LIMIT,
   DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED,
 } from '../../config/limits';
-import { proteinsApiPrefix } from '../../config/apiUrls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 
 import { Namespace } from '../../types/namespaces';
 
@@ -107,7 +107,7 @@ const DownloadAPIURL = ({
             className={cn('button', 'tertiary')}
             url={
               apiURL.includes('proteins/api')
-                ? `${proteinsApiPrefix}/doc/`
+                ? `${apiUrls.proteinsApi.proteinsApiPrefix}/doc/`
                 : generatePath(LocationToPath[Location.HelpEntry], {
                     accession: 'api',
                   })

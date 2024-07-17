@@ -88,7 +88,11 @@ const getChoppedAuthorLists = (authors: string[], limit: number) => {
   return { displayedAuthors, hiddenAuthors, lastAuthor };
 };
 
-const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
+const Authors: FC<React.PropsWithChildren<AuthorProps>> = ({
+  authors,
+  authoringGroup,
+  limit = 10,
+}) => {
   const { displayedAuthors, hiddenAuthors, lastAuthor } = getChoppedAuthorLists(
     authors || [],
     limit
@@ -116,7 +120,7 @@ const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
           {hiddenAuthors.map((author, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={index}>
-              , <Link to={getLinkToAuthor(author)}>{author}</Link>
+              ,<Link to={getLinkToAuthor(author)}>{author}</Link>
             </Fragment>
           ))}
         </EllipsisReveal>
@@ -136,7 +140,10 @@ type AbstractProps = {
   open?: boolean;
 };
 
-const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
+const Abstract: FC<React.PropsWithChildren<AbstractProps>> = ({
+  abstract,
+  open = false,
+}) => {
   const [display, setDisplay] = useState(open);
   return (
     <div className="publication__abstract">
@@ -179,7 +186,7 @@ type JournalInfoProps = {
   };
 };
 
-export const JournalInfo: FC<JournalInfoProps> = ({
+export const JournalInfo: FC<React.PropsWithChildren<JournalInfoProps>> = ({
   journalInfo: {
     publicationDate,
     journal,
@@ -256,10 +263,6 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     url = getLocatorUrl(locator, name);
   }
 
-  if (!url) {
-    return content;
-  }
-
   return <ExternalLink url={url}>{content}</ExternalLink>;
 };
 
@@ -268,7 +271,10 @@ type StatisticsProps = {
   id: number | string;
 };
 
-const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
+const Statistics: FC<React.PropsWithChildren<StatisticsProps>> = ({
+  statistics,
+  id,
+}) => {
   const {
     reviewedProteinCount,
     unreviewedProteinCount,

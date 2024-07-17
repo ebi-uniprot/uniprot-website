@@ -21,12 +21,11 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
-import apiUrls, { GroupBy } from '../../config/apiUrls';
+import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import { getAPIQueryParams } from '../../../shared/config/apiUrls';
-import { stringifyQuery } from '../../../shared/utils/url';
+import { getSearchParams, stringifyQuery } from '../../../shared/utils/url';
 import {
   getGroupBySuggesterUrl,
   getPercentageLabel,
@@ -46,6 +45,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 import { Namespace } from '../../../shared/types/namespaces';
+import { GroupBy } from '../../config/apiUrls/groupBy';
 
 import styles from './styles/group-by.module.scss';
 
@@ -289,7 +289,9 @@ const GroupByNode = ({
 }: GroupByNodeProps) => {
   const messagesDispatch = useMessagesDispatch();
   const [open, setOpen] = useState(false);
-  const url = open ? apiUrls.groupBy(groupBy, query, item.id) : null;
+  const url = open
+    ? uniprotkbApiUrls.groupBy.search(groupBy, query, item.id)
+    : null;
   const { loading, data, error } = useDataApi<GroupByAPIModel>(url);
 
   if (error) {
@@ -406,7 +408,7 @@ type GroupByRootProps = {
 };
 
 const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
-  const groupByUrl = apiUrls.groupBy(groupBy, query, id);
+  const groupByUrl = uniprotkbApiUrls.groupBy.search(groupBy, query, id);
   const groupByResponse = useDataApi<GroupByAPIModel>(groupByUrl);
 
   if (groupByResponse.loading) {
@@ -414,7 +416,12 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   }
 
   if (groupByResponse.error || !groupByResponse.data) {
-    return <ErrorHandler status={groupByResponse.status} />;
+    return (
+      <ErrorHandler
+        status={groupByResponse.status}
+        error={groupByResponse.error}
+      />
+    );
   }
 
   const parentTotal = groupByResponse.data?.parent?.count;
@@ -542,11 +549,11 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const locationSearch = useLocation().search;
   const [params] = getParamsFromURL(locationSearch);
   // This query will include facets
-  const { query } = getAPIQueryParams(params);
+  const { query } = getSearchParams(params);
   const { parent, groupBy } = params;
 
   const handleAutocompleteFormValue = useCallback(
-    (_, id?: string) => {
+    (_: unknown, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
         history.push({

@@ -3,7 +3,7 @@ import { Redirect, RouteChildrenProps, Router } from 'react-router-dom';
 import {
   misspeltHelpTuple,
   redirectFromTo,
-} from '../../../shared/components/error-pages/ResourceNotFoundPage';
+} from '../../../shared/components/error-pages/ResourceNotFound';
 
 type Props = RouteChildrenProps & { globalHistory: History };
 

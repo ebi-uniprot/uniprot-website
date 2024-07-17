@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Loader, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -10,7 +11,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 
 import { BlastHsp } from '../../types/blastResults';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -80,12 +81,13 @@ const HSPDetailPanel = ({
   queryLength,
   namespace,
 }: HSPDetailPanelProps) => {
+  const { pathname } = useLocation();
   const { hsp_align_len } = hsp;
-  let url = apiUrls.entry(hitAccession, namespace);
+  let url = apiUrls.entry.entry(hitAccession, namespace);
   if (namespace === Namespace.uniref) {
     url += '/light';
   }
-  const { data, loading, status } = useDataApi<ApiData>(url);
+  const { data, loading, status, error } = useDataApi<ApiData>(url);
 
   let recommendedName: string | undefined;
   if (data && 'proteinDescription' in data) {
@@ -120,7 +122,7 @@ const HSPDetailPanel = ({
     if (loading) {
       content = <Loader />;
     } else {
-      content = <ErrorHandler status={status} />;
+      content = <ErrorHandler status={status} error={error} />;
     }
   } else {
     content = (
@@ -142,6 +144,7 @@ const HSPDetailPanel = ({
       position="bottom"
       className={containerClass}
       onClose={onClose}
+      pathname={pathname}
     >
       <ErrorBoundary>{content}</ErrorBoundary>
     </SlidingPanel>

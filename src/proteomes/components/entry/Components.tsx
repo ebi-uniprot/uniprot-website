@@ -36,8 +36,8 @@ type ComponentsProps = Pick<
   | 'id'
   | 'proteinCount'
   | 'proteomeType'
-  | 'superkingdom'
   | 'taxonomy'
+  | 'proteomeStatistics'
 >;
 
 const Components = ({
@@ -45,8 +45,8 @@ const Components = ({
   id,
   proteinCount,
   proteomeType,
-  superkingdom,
   taxonomy,
+  proteomeStatistics,
 }: ComponentsProps) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -76,7 +76,7 @@ const Components = ({
                 Boolean(xref.id) && xref.database === genomeAccessionDB
             )
             .map(({ id }, index) => {
-              let url;
+              let url = null;
               switch (genomeAnnotation.source) {
                 case 'Refseq':
                 case 'RefSeq':
@@ -104,13 +104,9 @@ const Components = ({
               return (
                 <Fragment key={id}>
                   {index ? ', ' : ''}
-                  {url ? (
-                    <ExternalLink url={url} key={id}>
-                      {id}
-                    </ExternalLink>
-                  ) : (
-                    id
-                  )}
+                  <ExternalLink url={url} key={id}>
+                    {id}
+                  </ExternalLink>
                 </Fragment>
               );
             }),
@@ -122,15 +118,9 @@ const Components = ({
           if (!proteinCount) {
             return 0;
           }
-          if (
-            // Excluded not supported at the moment, need to wait for TRM-28011
-            proteomeType === 'Excluded'
-          ) {
-            return <LongNumber>{proteinCount}</LongNumber>;
-          }
-          // const shouldPointToUniParc =
-          //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
-          const shouldPointToUniParc = proteomeType === 'Redundant proteome';
+          const shouldPointToUniParc =
+            proteomeType === 'Redundant proteome' ||
+            proteomeType === 'Excluded';
           return (
             <Link
               to={{
@@ -163,20 +153,17 @@ const Components = ({
       <ComponentsButtons
         components={components}
         selectedEntries={selectedEntries}
-        proteinCount={proteinCount}
         id={id}
+        proteinCount={proteinCount}
         proteomeType={proteomeType}
-        superkingdom={superkingdom}
+        proteomeStatistics={proteomeStatistics}
       />
       <DataTable
         getIdKey={getIdKey}
         density="compact"
         columns={columns}
         data={components}
-        onSelectionChange={
-          // Excluded not supported at the moment, need to wait for TRM-28011
-          proteomeType === 'Excluded' ? undefined : setSelectedItemFromEvent
-        }
+        onSelectionChange={setSelectedItemFromEvent}
         fixedLayout
       />
     </Card>

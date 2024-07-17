@@ -29,15 +29,16 @@ import initialFormValues, {
 } from '../config/asyncDownloadFormData';
 import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { DownloadUrlOptions } from '../../../shared/config/apiUrls';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Status } from '../../types/toolsStatuses';
 import { PublicServerParameters } from '../../types/toolsServerParameters';
 import { FormParameters } from '../types/asyncDownloadFormParameters';
+import { DownloadUrlOptions } from '../../../shared/types/results';
 
 import '../../styles/ToolsForm.scss';
 
@@ -143,6 +144,10 @@ const AsyncDownloadForm = ({
             formValues[AsyncDownloadFields.name].selected
           )
         );
+        sendGtagEventJobSubmit(JobTypes.ASYNC_DOWNLOAD, {
+          namespace: downloadUrlOptions.namespace,
+          format: downloadUrlOptions.fileFormat,
+        });
       });
     },
     // NOTE: maybe no point using useCallback if all the values of the form

@@ -3,7 +3,7 @@ import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
-import GeneOntologies from '../../../shared/components/results/GeneOnotologies';
+import GeneOntologies from '../../../shared/components/results/GeneOntologies';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
@@ -161,14 +161,7 @@ LocationsColumnConfiguration.set(LocationsColumn.statistics, {
   label: 'Statistics',
   render: ({ id, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.locations, id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.locations, id, statistics)}
     </ExpandableList>
   ),
 });

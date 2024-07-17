@@ -21,11 +21,11 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
-import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
+import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
-import { apiPrefix } from '../../../../shared/config/apiUrls';
+import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
 import {
   Namespace,
   namespaceAndToolsLabels,
@@ -109,13 +109,13 @@ const PeptideSearchResult = () => {
     error: jobResultError,
     status: jobResultStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}), {
-    headers: { accept: 'text/plain' },
+    headers: { Accept: 'text/plain' },
   });
 
   const { data: jobParameters } = useDataApi<PeptideSearchResults>(
     urls.detailsUrl?.(jobID),
     {
-      headers: { accept: 'text/plain' },
+      headers: { Accept: 'text/plain' },
     }
   );
 
@@ -212,7 +212,9 @@ const PeptideSearchResult = () => {
   }
 
   if (jobResultError || !match) {
-    return <ErrorHandler status={jobResultStatus} />;
+    return (
+      <ErrorHandler status={jobResultStatus} error={jobResultError} fullPage />
+    );
   }
 
   if (

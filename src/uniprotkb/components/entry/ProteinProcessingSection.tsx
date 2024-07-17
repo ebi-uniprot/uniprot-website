@@ -10,7 +10,7 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { proteinsApi } from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { convertPtmExchangeFeatures } from '../../adapters/ptmExchangeFeaturesConverter';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
@@ -21,7 +21,7 @@ import { UIModel } from '../../adapters/sectionConverter';
 type Props = {
   data: UIModel;
   primaryAccession: string;
-  sequence: string;
+  sequence?: string;
 };
 
 const ProteinProcessingSection = ({
@@ -30,7 +30,9 @@ const ProteinProcessingSection = ({
   primaryAccession,
 }: Props) => {
   const { loading: proteomicsPtmLoading, data: proteomicsPtmData } =
-    useDataApi<ProteomicsPtm>(proteinsApi.proteomicsPtm(primaryAccession));
+    useDataApi<ProteomicsPtm>(
+      apiUrls.proteinsApi.proteomicsPtm(primaryAccession)
+    );
 
   if (proteomicsPtmLoading) {
     return <Loader />;

@@ -25,21 +25,26 @@ import {
   EllipsisReveal,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
+import cn from 'classnames';
 
 import { updateJob, deleteJob } from '../../state/toolsActions';
 
-import { jobTypeToPath } from '../../../app/config/urls';
+import {
+  jobTypeToPath,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
+import { pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 import { databaseValueToName } from '../../blast/config/BlastFormData';
-import apiUrls from '../../../shared/config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
@@ -48,6 +53,7 @@ import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 import { FormParameters } from '../../types/toolsFormParameters';
 import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
 import { SelectedTaxon } from '../../types/toolsFormData';
+import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
 import './styles/Dashboard.scss';
 
@@ -185,6 +191,37 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
               <span className="dashboard__body__notify_message">
                 {job.errorDescription}
               </span>
+              <div className="dashboard__body__contact_link">
+                For further inquiry, please{' '}
+                <Link<ContactLocationState>
+                  to={(location) => ({
+                    pathname: LocationToPath[Location.ContactGeneric],
+                    state: {
+                      referrer: location,
+                      formValues: {
+                        subject: `Failed ${job.type} job`,
+                        message: `
+--------------- prefilled job details ---------------
+
+*** Error ***
+${job.errorDescription}
+
+${
+  job.remoteID
+    ? `*** Job ID *** 
+${job.remoteID}`
+    : `*** Input *** 
+${Object.entries(job.parameters).map(([key, value]) => `${key}: ${value}`)}`
+}
+`,
+                      },
+                    },
+                  })}
+                  title="Contact"
+                >
+                  contact us
+                </Link>
+              </div>
             </>
           )}
         </>
@@ -296,7 +333,9 @@ const taxonsWithEllipsisReveal = (taxIDs: SelectedTaxon[]) => {
 
 const JobSpecificParamaters = ({ job }: JobSpecificParametersProps) => {
   const { data: idMappingFields } = useDataApi<IDMappingFormConfig>(
-    job.type === JobTypes.ID_MAPPING ? apiUrls.idMappingFields : undefined
+    job.type === JobTypes.ID_MAPPING
+      ? apiUrls.configure.idMappingFields
+      : undefined
   );
 
   const idMappingDBToDisplayName: Record<string, string> = useMemo(
@@ -534,19 +573,23 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
       }
     }
+  } else if (!hasExpired) {
+    if (job.status === Status.CREATED) {
+      jobIdNode = <em>The server has not accepted this job yet</em>;
+    } else {
+      jobIdNode = <em>The server had an issue accepting this job</em>;
+    }
   }
 
   return (
     <Card
       ref={ref}
-      className={bem({
-        b: 'card',
-        m: [
-          (job.status === Status.FAILURE || job.status === Status.ERRORED) &&
-            'failure',
-          Boolean(hasExpired) && 'expired',
-        ],
-      })}
+      className={cn(
+        'card',
+        (job.status === Status.FAILURE || job.status === Status.ERRORED) &&
+          'card--failure',
+        hasExpired && 'card--expired'
+      )}
     >
       <span className="dashboard__body__type">
         {job.type}

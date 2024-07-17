@@ -8,9 +8,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "DOSAC-COBS-2DPAGE",
       "OGP",
       "REPRODUCTION-2DPAGE",
-      "SWISS-2DPAGE",
-      "UCD-2DPAGE",
-      "World-2DPAGE",
     ],
     "3DS": [
       "PDB",
@@ -25,6 +22,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PDBj",
       "RCSB-PDB",
       "AlphaFoldDB",
+      "EMDB",
     ],
     "CHEMISTRY": [
       "BindingDB",
@@ -56,7 +54,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "Pfam",
       "PIRSF",
       "PRINTS",
-      "ProDom",
       "SFLD",
       "SMART",
       "SUPFAM",
@@ -70,7 +67,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
-      "Genevisible",
     ],
     "GMA": [
       "Ensembl",
@@ -87,7 +83,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "UCSC",
       "VectorBase",
       "WBParaSite",
-      "WBParaSiteTranscriptProtein",
     ],
     "GVD": [
       "BioMuta",
@@ -156,6 +151,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "HUGE",
       "Rouge",
       "IC4R",
+      "JaponicusDB",
     ],
     "OTG": [
       "GO",
@@ -186,7 +182,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GeneTree",
       "HOGENOM",
       "InParanoid",
-      "KO",
       "OMA",
       "OrthoDB",
       "PhylomeDB",
@@ -288,6 +283,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "DrugCentral": "CHEMISTRY",
     "ELM": "PPI",
     "EMBL": "SEQ",
+    "EMDB": "3DS",
     "ENZYME": "EAP",
     "EPD": "PROTEOMIC",
     "ESTHER": "PFAM",
@@ -313,7 +309,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "GeneReviews": "ORG",
     "GeneTree": "PLG",
     "GeneWiki": "MISC",
-    "Genevisible": "GEP",
     "GenomeRNAi": "MISC",
     "GlyConnect": "PTM",
     "GlyCosmos": "PTM",
@@ -331,8 +326,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "InParanoid": "PLG",
     "IntAct": "PPI",
     "InterPro": "FMD",
+    "JaponicusDB": "ORG",
     "KEGG": "GMA",
-    "KO": "PLG",
     "LegioList": "ORG",
     "Leproma": "ORG",
     "MANE-Select": "GMA",
@@ -383,7 +378,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "PhylomeDB": "PLG",
     "PlantReactome": "EAP",
     "PomBase": "ORG",
-    "ProDom": "FMD",
     "ProMEX": "PROTEOMIC",
     "Proteomes": "PRM",
     "ProteomicsDB": "PROTEOMIC",
@@ -409,7 +403,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "SOURCE_MIM": "MISC",
     "STRING": "PPI",
     "SUPFAM": "FMD",
-    "SWISS-2DPAGE": "2DG",
     "SWISS-MODEL-Workspace": "3DS",
     "SignaLink": "EAP",
     "SwissLipids": "CHEMISTRY",
@@ -419,7 +412,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "TopDownProteomics": "PROTEOMIC",
     "TreeFam": "PLG",
     "TubercuList": "ORG",
-    "UCD-2DPAGE": "2DG",
     "UCSC": "GMA",
     "UniCarbKB": "PTM",
     "UniLectin": "PFAM",
@@ -428,8 +420,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "VGNC": "ORG",
     "VectorBase": "GMA",
     "WBParaSite": "GMA",
-    "WBParaSiteTranscriptProtein": "GMA",
-    "World-2DPAGE": "2DG",
     "WormBase": "ORG",
     "Xenbase": "ORG",
     "ZFIN": "ORG",
@@ -573,7 +563,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "GEP",
       "displayName": "Bgee",
       "name": "Bgee",
-      "uriLink": "https://bgee.org/gene/%id",
+      "uriLink": "https://www.bgee.org/gene/%id",
     },
     "BindingDB": {
       "attributes": [
@@ -781,7 +771,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "CHEMISTRY",
       "displayName": "ChEMBL",
       "name": "ChEMBL",
-      "uriLink": "https://www.ebi.ac.uk/chembldb/target/inspect/%id",
+      "uriLink": "https://www.ebi.ac.uk/chembl/target_report_card/%id",
     },
     "ChiTaRS": {
       "attributes": [
@@ -1020,6 +1010,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "EMBL",
       "name": "EMBL",
       "uriLink": "https://www.ebi.ac.uk/ena/browser/view/%id",
+    },
+    "EMDB": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "3DS",
+      "displayName": "EMDB",
+      "name": "EMDB",
+      "uriLink": "https://www.ebi.ac.uk/emdb/%id",
     },
     "ENZYME": {
       "attributes": [
@@ -1388,18 +1390,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "GeneWiki",
       "uriLink": "https://en.wikipedia.org/wiki/%id",
     },
-    "Genevisible": {
-      "attributes": [
-        {
-          "name": "OrganismId",
-          "xmlTag": "organism ID",
-        },
-      ],
-      "category": "GEP",
-      "displayName": "Genevisible",
-      "name": "Genevisible",
-      "uriLink": "https://genevisible.com/tissues/%OrganismId/UniProt/%id",
-    },
     "GenomeRNAi": {
       "attributes": [
         {
@@ -1446,7 +1436,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "GlyGen",
       "name": "GlyGen",
-      "uriLink": "https://glygen.org/protein/%id#glycosylation",
+      "uriLink": "https://glygen.org/protein/%id#Glycosylation",
     },
     "Gramene": {
       "attributes": [
@@ -1616,6 +1606,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "InterPro",
       "uriLink": "https://www.ebi.ac.uk/interpro/entry/%id",
     },
+    "JaponicusDB": {
+      "attributes": [
+        {
+          "name": "GeneDesignation",
+          "xmlTag": "gene designation",
+        },
+      ],
+      "category": "ORG",
+      "displayName": "JaponicusDB",
+      "name": "JaponicusDB",
+      "uriLink": "https://www.japonicusdb.org/gene/%id",
+    },
     "KEGG": {
       "attributes": [
         {
@@ -1627,18 +1629,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "KEGG",
       "name": "KEGG",
       "uriLink": "https://www.genome.jp/dbget-bin/www_bget?%id",
-    },
-    "KO": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "PLG",
-      "displayName": "KO",
-      "name": "KO",
-      "uriLink": "https://www.genome.jp/dbget-bin/www_bget?ko:%id",
     },
     "LegioList": {
       "attributes": [
@@ -1873,7 +1863,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "NIAGADS",
       "name": "NIAGADS",
-      "uriLink": "https://www.niagads.org/genomics/showRecord.do?name=GeneRecordClasses.GeneRecordClass&source_id=%id",
+      "uriLink": "https://www.niagads.org/genomics/app/record/gene/%id",
     },
     "OGP": {
       "attributes": [
@@ -2173,7 +2163,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PROTEOMIC",
       "displayName": "PaxDb",
       "name": "PaxDb",
-      "uriLink": "https://pax-db.org/search?q=%id",
+      "uriLink": "https://pax-db.org/uniprot_redirect/%id",
     },
     "PeptideAtlas": {
       "attributes": [
@@ -2286,22 +2276,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "PomBase",
       "name": "PomBase",
       "uriLink": "https://www.pombase.org/gene/%id",
-    },
-    "ProDom": {
-      "attributes": [
-        {
-          "name": "EntryName",
-          "xmlTag": "entry name",
-        },
-        {
-          "name": "MatchStatus",
-          "xmlTag": "match status",
-        },
-      ],
-      "category": "FMD",
-      "displayName": "ProDom",
-      "name": "ProDom",
-      "uriLink": "http://prodom.prabi.fr/prodom/current/cgi-bin/request.pl?question=SPTR&query=%id",
     },
     "ProMEX": {
       "attributes": [
@@ -2435,7 +2409,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "MISC",
       "displayName": "RNAct",
       "name": "RNAct",
-      "uriLink": "https://rnact.crg.eu/protein?query=%id",
+      "uriLink": " https://rnact.tartaglialab.com/protein?query=%id",
     },
     "Reactome": {
       "attributes": [
@@ -2606,7 +2580,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PPI",
       "displayName": "STRING",
       "name": "STRING",
-      "uriLink": "https://version-11-5.string-db.org/network/%id",
+      "uriLink": "https://string-db.org/network/%id",
     },
     "SUPFAM": {
       "attributes": [
@@ -2623,18 +2597,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "SUPFAM",
       "name": "SUPFAM",
       "uriLink": "https://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=%id",
-    },
-    "SWISS-2DPAGE": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "2DG",
-      "displayName": "SWISS-2DPAGE",
-      "name": "SWISS-2DPAGE",
-      "uriLink": "https://world-2dpage.expasy.org/swiss-2dpage/%id",
     },
     "SWISS-MODEL-Workspace": {
       "attributes": [
@@ -2746,18 +2708,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "TubercuList",
       "uriLink": "https://mycobrowser.epfl.ch/genes/%id",
     },
-    "UCD-2DPAGE": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "2DG",
-      "displayName": "UCD-2DPAGE",
-      "name": "UCD-2DPAGE",
-      "uriLink": "https://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id",
-    },
     "UCSC": {
       "attributes": [
         {
@@ -2864,30 +2814,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "WBParaSite",
       "name": "WBParaSite",
       "uriLink": "https://parasite.wormbase.org/id/%id",
-    },
-    "WBParaSiteTranscriptProtein": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "GMA",
-      "displayName": "WBParaSite Transcript/Protein",
-      "name": "WBParaSiteTranscriptProtein",
-      "uriLink": "https://parasite.wormbase.org/id/%id",
-    },
-    "World-2DPAGE": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "2DG",
-      "displayName": "World-2DPAGE",
-      "name": "World-2DPAGE",
-      "uriLink": "https://world-2dpage.expasy.org/repository/%id",
     },
     "WormBase": {
       "attributes": [
@@ -3110,7 +3036,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
-      "Genevisible",
       "HPA",
     ],
     "external_links": [
@@ -3174,6 +3099,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "HUGE",
       "Rouge",
       "IC4R",
+      "JaponicusDB",
       "HUGE",
       "Rouge",
       "GenAtlas",
@@ -3189,7 +3115,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GeneTree",
       "HOGENOM",
       "InParanoid",
-      "KO",
       "OMA",
       "OrthoDB",
       "PhylomeDB",
@@ -3203,7 +3128,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "Pfam",
       "PIRSF",
       "PRINTS",
-      "ProDom",
       "SFLD",
       "SMART",
       "SUPFAM",
@@ -3261,6 +3185,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "dictyBase",
       "EcoGene",
       "VEuPathDB",
+      "JaponicusDB",
       "FlyBase",
       "Gramene",
       "HGNC",
@@ -3298,9 +3223,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "DOSAC-COBS-2DPAGE",
       "OGP",
       "REPRODUCTION-2DPAGE",
-      "SWISS-2DPAGE",
-      "UCD-2DPAGE",
-      "World-2DPAGE",
       "CarbonylDB",
       "DEPOD",
       "GlyConnect",
@@ -3335,7 +3257,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "UCSC",
       "VectorBase",
       "WBParaSite",
-      "WBParaSiteTranscriptProtein",
     ],
     "structure": [
       "PDB",
@@ -3350,6 +3271,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PDBj",
       "RCSB-PDB",
       "AlphaFoldDB",
+      "EMDB",
       "EvolutionaryTrace",
       "ModBase",
     ],

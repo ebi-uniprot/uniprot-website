@@ -1,93 +1,84 @@
+import { SearchResults } from '../../../shared/types/results';
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 
-// Source: /api/keywords/search?query=site&size=2
-// Proposed change as of 21/09/2022
-const mock: KeywordsAPIModel[] = [
-  {
-    keyword: {
-      name: 'Allosteric enzyme',
-      id: 'KW-0021',
-    },
-    definition:
-      'Enzyme whose activity is modified by the noncovalent binding of an allosteric effector at a site other than the active site. This binding mediates conformational changes, altering its catalytic or binding properties.',
-    geneOntologies: [
-      {
-        goId: 'GO:0003824',
-        name: 'catalytic activity',
+// Source: keywords/search?query=site&size=2
+// Retrieved: 2024-06-10
+const mock: SearchResults<KeywordsAPIModel> = {
+  results: [
+    {
+      keyword: {
+        name: 'Allosteric enzyme',
+        id: 'KW-0021',
       },
-      {
-        goId: 'GO:0008152',
-        name: 'metabolic process',
-      },
-    ],
-    category: {
-      name: 'Molecular function',
-      id: 'KW-9992',
-    },
-    parents: [
-      {
-        keyword: {
-          name: 'Molecular function',
-          id: 'KW-9992',
+      definition:
+        'Enzyme whose activity is modified by the noncovalent binding of an allosteric effector at a site other than the active site. This binding mediates conformational changes, altering its catalytic or binding properties.',
+      geneOntologies: [
+        {
+          goId: 'GO:0003824',
+          name: 'catalytic activity',
         },
-        definition:
-          'Keywords assigned to proteins due to their particular molecular function.',
-      },
-    ],
-    statistics: {
-      reviewedProteinCount: 2482,
-      unreviewedProteinCount: 139810,
-    },
-  },
-  {
-    keyword: {
-      name: 'Calcium/phospholipid-binding',
-      id: 'KW-0111',
-    },
-    definition:
-      'Protein which contains at least one binding site for calcium and phospholipid. For example, proteins with annexin repeats, of which a pair may form one binding site for calcium and phospholipid, or some proteins with C2 domains.',
-    synonyms: ['Calcium-dependent phospholipid binding'],
-    geneOntologies: [
-      {
-        goId: 'GO:0005544',
-        name: 'calcium-dependent phospholipid binding',
-      },
-    ],
-    category: {
-      name: 'Ligand',
-      id: 'KW-9993',
-    },
-    parents: [
-      {
-        keyword: {
-          name: 'Calcium',
-          id: 'KW-0106',
+        {
+          goId: 'GO:0008152',
+          name: 'metabolic process',
         },
-        definition:
-          'Protein which binds at least one calcium atom, or protein whose function is calcium-dependent. Calcium is a metal, chemical symbol Ca. Calcium is essential for a variety of bodily functions, such as neurotransmission, muscle contraction and proper heart function.',
-        synonyms: ['Ca', 'Calcium ion'],
-        links: ['https://www.webelements.com/calcium/'],
-        category: {
-          name: 'Ligand',
-          id: 'KW-9993',
-        },
-        parents: [
-          {
-            keyword: {
-              name: 'Ligand',
-              id: 'KW-9993',
-            },
-            definition:
-              'Keywords assigned to proteins because they bind, are associated with, or whose activity is dependent of some molecule.',
+      ],
+      parents: [
+        {
+          keyword: {
+            name: 'Molecular function',
+            id: 'KW-9992',
           },
-        ],
+        },
+      ],
+      category: {
+        name: 'Molecular function',
+        id: 'KW-9992',
       },
-    ],
-    statistics: {
-      reviewedProteinCount: 102,
-      unreviewedProteinCount: 14480,
+      statistics: {
+        reviewedProteinCount: 2513,
+        unreviewedProteinCount: 143060,
+      },
     },
-  },
-];
+    {
+      keyword: {
+        name: 'Calcium/phospholipid-binding',
+        id: 'KW-0111',
+      },
+      definition:
+        'Protein which contains at least one binding site for calcium and phospholipid. For example, proteins with annexin repeats, of which a pair may form one binding site for calcium and phospholipid, or some proteins with C2 domains.',
+      synonyms: ['Calcium-dependent phospholipid binding'],
+      geneOntologies: [
+        {
+          goId: 'GO:0005544',
+          name: 'calcium-dependent phospholipid binding',
+        },
+      ],
+      parents: [
+        {
+          keyword: {
+            name: 'Calcium',
+            id: 'KW-0106',
+          },
+          parents: [
+            {
+              keyword: {
+                name: 'Ligand',
+                id: 'KW-9993',
+              },
+            },
+          ],
+        },
+      ],
+      category: {
+        name: 'Ligand',
+        id: 'KW-9993',
+      },
+      statistics: {
+        reviewedProteinCount: 102,
+        unreviewedProteinCount: 20153,
+      },
+    },
+  ],
+};
 
-export default mock;
+export default mock.results;

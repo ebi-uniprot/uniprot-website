@@ -29,7 +29,7 @@ type AlignResultPIMProps = {
   handleEntrySelection: (rowId: string) => void;
 };
 
-const AlignResultPIM: FC<AlignResultPIMProps> = ({
+const AlignResultPIM: FC<React.PropsWithChildren<AlignResultPIMProps>> = ({
   id,
   sequenceInfo,
   selectedEntries,
@@ -47,13 +47,13 @@ const AlignResultPIM: FC<AlignResultPIMProps> = ({
   }
 
   if (error || !data) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   const parsed = pim(data);
 
   if (!parsed.length) {
-    return <ErrorHandler status={404} />;
+    return <ErrorHandler status={404} error={error} />;
   }
 
   return (

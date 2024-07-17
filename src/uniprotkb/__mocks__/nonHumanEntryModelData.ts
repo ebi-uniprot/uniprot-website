@@ -1,16 +1,16 @@
 import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
-// Source: /api/uniprotkb/P0DTR4
-// Retrieved: 2022-08-02
+// Source: uniprotkb/P0DTR4
+// Retrieved: 2024-06-10
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P0DTR4',
   uniProtkbId: 'ADAC_FLAPL',
   entryAudit: {
     firstPublicDate: '2019-11-13',
-    lastAnnotationUpdateDate: '2022-08-03',
+    lastAnnotationUpdateDate: '2023-05-03',
     lastSequenceUpdateDate: '2019-11-13',
-    entryVersion: 10,
+    entryVersion: 13,
     sequenceVersion: 1,
   },
   annotationScore: 5,
@@ -20,7 +20,7 @@ const mock: UniProtkbAPIModel = {
     taxonId: 292800,
     lineage: [
       'Bacteria',
-      'Firmicutes',
+      'Bacillota',
       'Clostridia',
       'Eubacteriales',
       'Oscillospiraceae',
@@ -704,6 +704,7 @@ const mock: UniProtkbAPIModel = {
   ],
   references: [
     {
+      referenceNumber: 1,
       citation: {
         id: '31182795',
         citationType: 'journal article',
@@ -882,7 +883,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'Gene3D',
-      id: '2.115.10.20',
+      id: '2.60.40.1080',
       properties: [
         {
           key: 'EntryName',
@@ -891,6 +892,20 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'MatchStatus',
           value: '1',
+        },
+      ],
+    },
+    {
+      database: 'Gene3D',
+      id: '2.60.120.260',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Galactose-binding domain-like',
+        },
+        {
+          key: 'MatchStatus',
+          value: '2',
         },
       ],
     },
@@ -998,11 +1013,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'SUPFAM',
-      id: 'SSF49373',
+      id: 'SSF75005',
       properties: [
         {
           key: 'EntryName',
-          value: 'SSF49373',
+          value: 'Arabinanase/levansucrase/invertase',
         },
         {
           key: 'MatchStatus',
@@ -1016,7 +1031,21 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: 'SSF49785',
+          value: 'Galactose-binding domain-like',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'SUPFAM',
+      id: 'SSF49373',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Invasin/intimin cell-adhesion fragments',
         },
         {
           key: 'MatchStatus',
@@ -1030,21 +1059,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'EntryName',
-          value: 'SSF50939',
-        },
-        {
-          key: 'MatchStatus',
-          value: '1',
-        },
-      ],
-    },
-    {
-      database: 'SUPFAM',
-      id: 'SSF75005',
-      properties: [
-        {
-          key: 'EntryName',
-          value: 'SSF75005',
+          value: 'Sialidases',
         },
         {
           key: 'MatchStatus',

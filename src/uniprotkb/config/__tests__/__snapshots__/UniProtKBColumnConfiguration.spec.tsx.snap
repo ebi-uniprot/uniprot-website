@@ -78,7 +78,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_allerge
 exports[`UniProtKBColumnConfiguration component should render column "cc_alternative_products": cc_alternative_products 1`] = `
 <DocumentFragment>
   <p>
-    This entry describes  
+    This entry describes 
     <strong>
       1
     </strong>
@@ -97,9 +97,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
   <h3
     id="Isoform_name"
   >
-    <span
-      id="name"
-    >
+    <span>
        
       <span
         id="isoID1"
@@ -370,6 +368,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
       DiseaseEntry Id (someAcron)
     </a>
   </h4>
+  <h5
+    class="tiny"
+  >
+    Isoform 3
+  </h5>
   <span
     class="text-block"
   />
@@ -691,47 +694,12 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
       </span>
     </li>
     <li>
-      <span>
-        disruption phenotype (2)
-      </span>
-    </li>
-    <li>
-      <span>
-        interaction (2)
-      </span>
-    </li>
-    <li>
-      <span>
-        mass spectrometry (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        rna editing (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        sequence caution (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        subcellular location (1)
-      </span>
-    </li>
-    <li>
-      <span>
-        web resource (1)
-      </span>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less comments
+        7 more comments
       </button>
     </li>
   </ul>
@@ -1130,82 +1098,12 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec-ex
       )
     </li>
     <li>
-      EC:1.2.3.4 (
-      <a
-        href="/uniprotkb?query=ec:1.2.3.4"
-      >
-        UniProtKB
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/1.2.3.4"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </li>
-    <li>
-      EC:1.2.3.3 (
-      <a
-        href="/uniprotkb?query=ec:1.2.3.3"
-      >
-        UniProtKB
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/1.2.3.3"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less items
+        More items
       </button>
     </li>
   </ul>
@@ -1356,13 +1254,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
                     width="12.5"
                   />
                 </a>
-                ); Some note; In isoform 
-                <a
-                  href="/#Isoform_sequence"
-                >
-                  sequence
-                </a>
-                 1; description value 123
+                ); Some note; In isoform sequence 1; description value 123
               </td>
               <td>
                 <div
@@ -1805,40 +1697,12 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_doi_id
       </a>
     </li>
     <li>
-      <a
-        class="external-link"
-        href="https://dx.doi.org/doiId"
-        rel="noopener"
-        target="_blank"
-      >
-        doiId
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-    </li>
-    <li>
-      <a
-        class="external-link"
-        href="https://dx.doi.org/doiId"
-        rel="noopener"
-        target="_blank"
-      >
-        doiId
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less IDs
+        2 more IDs
       </button>
     </li>
   </ul>
@@ -1939,26 +1803,12 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
       </a>
     </li>
     <li>
-      <a
-        href="/citations/12345"
-      >
-        12345
-      </a>
-    </li>
-    <li>
-      <a
-        href="/citations/12345"
-      >
-        12345
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        Less IDs
+        2 more IDs
       </button>
     </li>
   </ul>
@@ -2059,13 +1909,14 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_na
     >
       rec full Name
     </span>
-    , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1, Cleaved into: 
-    <span
-      style="font-weight: bolder;"
+    <button
+      aria-expanded="false"
+      class="button tertiary ellipsis-reveal"
+      title="Show more"
+      type="button"
     >
-      containsrec full Name
-    </span>
-    , containsrecommended short name, 1.2.3.4, containsa full alt Name, containsshort alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen
+      [...]
+    </button>
   </span>
 </DocumentFragment>
 `;
@@ -2346,6 +2197,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_elm":
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_embl": xref_embl 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_emdb": xref_emdb 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_emind": xref_emind 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ensembl": xref_ensembl 1`] = `
@@ -2424,8 +2277,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_gener
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genetree": xref_genetree 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_genevisible": xref_genevisible 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_genewiki": xref_genewiki 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genomernai": xref_genomernai 1`] = `<DocumentFragment />`;
@@ -2464,11 +2315,11 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_inter
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_iptmnet": xref_iptmnet 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_japonicusdb": xref_japonicusdb 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_jpost": xref_jpost 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_kegg": xref_kegg 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_ko": xref_ko 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_legiolist": xref_legiolist 1`] = `<DocumentFragment />`;
 
@@ -2562,8 +2413,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_print
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pro": xref_pro 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_prodom": xref_prodom 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_promex": xref_promex 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_prosite": xref_prosite 1`] = `<DocumentFragment />`;
@@ -2610,8 +2459,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_strin
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_supfam": xref_supfam 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_swiss-2dpage": xref_swiss-2dpage 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_swisslipids": xref_swisslipids 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_swisspalm": xref_swisspalm 1`] = `<DocumentFragment />`;
@@ -2625,8 +2472,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_topdo
 exports[`UniProtKBColumnConfiguration component should render column "xref_treefam": xref_treefam 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_tuberculist": xref_tuberculist 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_ucd-2dpage": xref_ucd-2dpage 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ucsc": xref_ucsc 1`] = `<DocumentFragment />`;
 
@@ -2643,10 +2488,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_veupa
 exports[`UniProtKBColumnConfiguration component should render column "xref_vgnc": xref_vgnc 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_wbparasite": xref_wbparasite 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_wbparasitetranscriptprotein": xref_wbparasitetranscriptprotein 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_world-2dpage": xref_world-2dpage 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_wormbase": xref_wormbase 1`] = `<DocumentFragment />`;
 

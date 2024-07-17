@@ -7,7 +7,7 @@ import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import helpURL from '../../config/apiUrls';
 import {
   LocationToPath,
   Location,
@@ -71,7 +71,7 @@ const HelpQuickSearch = () => {
       ) : (
         ' '
       ),
-      to,
+      link: <Link to={to} />,
     };
   });
 

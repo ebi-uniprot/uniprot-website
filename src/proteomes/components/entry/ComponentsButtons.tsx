@@ -1,5 +1,5 @@
 import { useState, Suspense, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -13,18 +13,17 @@ import {
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
-import { stringifyUrl } from '../../../shared/utils/url';
-
-import apiUrls, {
+import {
   createSelectedQueryString,
-} from '../../../shared/config/apiUrls';
+  stringifyUrl,
+} from '../../../shared/utils/url';
+
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { SearchResults } from '../../../shared/types/results';
 
 const ComponentsDownloadComponent = lazy(
   () =>
@@ -33,60 +32,23 @@ const ComponentsDownloadComponent = lazy(
 
 type Props = Pick<
   ProteomesAPIModel,
-  'id' | 'components' | 'proteinCount' | 'proteomeType' | 'superkingdom'
+  'id' | 'proteinCount' | 'components' | 'proteomeType' | 'proteomeStatistics'
 > & {
   selectedEntries: string[];
-};
-
-export type ProteomeStatistics = {
-  reviewed: number | undefined;
-  isoforms: number | undefined;
 };
 
 const fetchOptions = { method: 'HEAD' };
 
 const ComponentsButtons = ({
   id,
+  proteinCount,
   components,
   selectedEntries,
-  proteinCount,
   proteomeType,
-  superkingdom,
+  proteomeStatistics,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    displayDownloadPanel
-      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
-          query: `(proteome=${id}) AND (reviewed=true)`,
-          size: '0',
-        })
-      : null,
-    fetchOptions
-  );
-
-  const { headers: isoformHeaders } = useDataApi<
-    SearchResults<UniProtkbAPIModel>
-  >(
-    displayDownloadPanel && superkingdom === 'eukaryota'
-      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
-          query: `(proteome=${id}) AND (reviewed=true)`,
-          size: '0',
-          includeIsoform: 'true',
-        })
-      : null,
-    fetchOptions
-  );
-
-  const isoformCount =
-    Number(isoformHeaders?.['x-total-results'] || 0) -
-    Number(headers?.['x-total-results'] || 0);
-
-  // Below is a mock prototype for passing counts to download. Once the endpoint is ready. it needs to be updated
-  const isoformStats: ProteomeStatistics = {
-    reviewed: Number(headers?.['x-total-results'] || 0),
-    isoforms: isoformCount,
-  };
+  const { pathname } = useLocation();
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
@@ -101,11 +63,10 @@ const ComponentsButtons = ({
     },
     []
   );
+  const isUniparcSearch =
+    proteomeType === 'Redundant proteome' || proteomeType === 'Excluded';
 
-  const allQuery = `(${
-    // Excluded not supported at the moment, need to wait for TRM-28011
-    proteomeType === 'Redundant proteome' ? 'upid' : 'proteome'
-  }:${id})`;
+  const allQuery = `(${isUniparcSearch ? 'upid' : 'proteome'}:${id})`;
   const selectedQuery = useMemo(
     () =>
       `${allQuery}${
@@ -120,14 +81,17 @@ const ComponentsButtons = ({
     [allQuery, components?.length, selectedEntries]
   );
 
-  const { headers: selectedHeaders } = useDataApi<
-    SearchResults<UniProtkbAPIModel>
-  >(
+  const { headers: selectedHeaders } = useDataApi(
     displayDownloadPanel && selectedEntries.length
-      ? stringifyUrl(apiUrls.search(Namespace.uniprotkb), {
-          query: selectedQuery,
-          size: '0',
-        })
+      ? stringifyUrl(
+          apiUrls.search.searchPrefix(
+            isUniparcSearch ? Namespace.uniparc : Namespace.uniprotkb
+          ),
+          {
+            query: selectedQuery,
+            size: '0',
+          }
+        )
       : null,
     fetchOptions
   );
@@ -136,8 +100,7 @@ const ComponentsButtons = ({
     selectedHeaders?.['x-total-results'] || 0
   );
 
-  // Excluded not supported at the moment, need to wait for TRM-28011
-  if (!components?.length || proteomeType === 'Excluded') {
+  if (!components?.length) {
     return null;
   }
 
@@ -149,17 +112,18 @@ const ComponentsButtons = ({
             title="Download"
             position="left"
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <ComponentsDownloadComponent
                 query={allQuery}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
-                numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
+                numberSelectedEntries={numberSelectedProteins}
                 onClose={handleToggleDownload}
-                proteomeType={proteomeType}
-                statistics={isoformStats}
+                proteomeStatistics={proteomeStatistics}
+                isUniparcSearch={isUniparcSearch}
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -180,7 +144,7 @@ const ComponentsButtons = ({
           to={{
             pathname:
               LocationToPath[
-                proteomeType === 'Redundant proteome'
+                isUniparcSearch
                   ? Location.UniParcResults
                   : Location.UniProtKBResults
               ],

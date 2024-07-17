@@ -13,7 +13,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { getEntryPathFor } from '../../../../app/config/urls';
 
 import {
@@ -59,7 +59,9 @@ const KeywordsEntry = ({
 
   const { data, loading, error, status, progress } =
     useDataApi<KeywordsAPIModel>(
-      redirectTo ? undefined : apiUrls.entry(accession, Namespace.keywords)
+      redirectTo
+        ? undefined
+        : apiUrls.entry.entry(accession, Namespace.keywords)
     );
 
   if (redirectTo) {
@@ -67,7 +69,7 @@ const KeywordsEntry = ({
   }
 
   if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (!data) {
