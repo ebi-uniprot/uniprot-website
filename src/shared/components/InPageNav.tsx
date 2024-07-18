@@ -192,7 +192,7 @@ const InPageNav = ({
     <ul className={styles['in-page-nav']} {...props}>
       <div ref={marker} className={styles.marker} />
       {sections.map(({ id, label, disabled }) => (
-        <li key={label} className={cn({ [styles.disabled]: disabled })}>
+        <li key={id} className={cn({ [styles.disabled]: disabled })}>
           <Link
             // eslint-disable-next-line uniprot-website/use-config-location
             to={`#${id}`}
