@@ -277,6 +277,12 @@ const HelpResults = lazy(
       /* webpackChunkName: "help-results" */ '../../help/components/results/Results'
     )
 );
+const DocumentationPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "documentation" */ '../../help/components/entry/Documentation'
+    )
+);
 
 // Contact
 const ContactForm = lazy(
@@ -555,6 +561,10 @@ const App = () => {
             <Route
               path={LocationToPath[Location.ReleaseNotesResults]}
               component={HelpResults}
+            />
+            <Route
+              path={LocationToPath[Location.Documentation]}
+              component={DocumentationPage}
             />
             {/* Contact */}
             <Route
