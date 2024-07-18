@@ -1,6 +1,12 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
 
+.wider {
+  grid-template-columns: 3rem calc(1.33 * var(--sidebar-size) - 3rem) minmax(
+      min-content,
+      1fr
+    );
+}
 .sidebar {
   background: none;
   hr {
@@ -8,6 +14,9 @@
     height: 0.125rem;
     background-color: $colour-platinum;
     margin-bottom: 0.25rem;
+  }
+  .section-path {
+    margin-left: 1rem;
   }
 }
 

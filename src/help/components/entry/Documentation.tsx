@@ -12,7 +12,9 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
-import InPageNav from '../../../shared/components/InPageNav';
+import InPageNav, {
+  InPageNavSection,
+} from '../../../shared/components/InPageNav';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -25,25 +27,9 @@ import { ApiDocsDefinition } from '../../types/apiDocumentation';
 import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
 
-const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
-  new Map(
-    Object.entries(paths).flatMap(([path, methods]) =>
-      Object.values(methods).map((method) => {
-        const tag = method.tags?.[0];
-        const { operationId } = method;
-        return [
-          `operations-${tag.replaceAll(' ', '_')}-${operationId}`,
-          {
-            path,
-            tag,
-            operationId,
-          },
-        ];
-      })
-    )
-  );
+const tagNameToId = (name: string) => name.replaceAll(' ', '_');
 
-const Sidebar = () => {
+const Sidebar = ({ sections }: { sections: InPageNavSection[] }) => {
   const history = useHistory();
   const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
     LocationToPath[Location.Documentation]
@@ -59,14 +45,6 @@ const Sidebar = () => {
     );
   };
 
-  // It is possible to get this from the spec file but the order is different
-  // from what is actually rendered by swagger-ui-react
-  const sections = Array.from(document.querySelectorAll('.opblock')).map(
-    (el) => ({
-      id: el.id,
-      label: el.querySelector('.opblock-summary-path')?.textContent || el.id,
-    })
-  );
   return (
     <div className={styles.sidebar}>
       <fieldset>
@@ -96,7 +74,9 @@ const OperationTag = ({ tagObj, children }: any) => {
   const tagDetails = tagObj.get('tagDetails');
   return (
     <div className={styles['operation-tag']}>
-      <h1 className="medium">{tagDetails.get('name')}</h1>
+      <h1 id={tagNameToId(tagDetails.get('name'))} className="medium">
+        {tagDetails.get('name')}
+      </h1>
       <p>{tagDetails.get('description')}</p>
       <hr />
       {children}
@@ -104,15 +84,45 @@ const OperationTag = ({ tagObj, children }: any) => {
   );
 };
 
+const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
+  new Map(
+    Object.entries(paths).flatMap(([path, methods]) =>
+      Object.values(methods).map((method) => {
+        const tag = method.tags?.[0];
+        const { operationId } = method;
+        const id = `operations-${tag.replaceAll(' ', '_')}-${operationId}`;
+        return [id, { path, tag, operationId }];
+      })
+    )
+  );
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   const history = useHistory();
   const BaseLayout = getComponent('BaseLayout', true);
-  const spec = getSpec();
+  const spec = getSpec().get('json');
   const idToOperation = useMemo(
-    () => getIdToOperation(spec.get('json').get('paths').toJSON()),
+    () => getIdToOperation(spec.get('paths').toJSON()),
     [spec]
   );
+  const sections = [];
+  for (const tag of spec.get('tags')) {
+    const tagName = tag.get('name');
+    sections.push({
+      id: tagNameToId(tagName),
+      label: tagName,
+    });
+    for (const [id, operation] of idToOperation) {
+      if (operation.tag === tagName) {
+        sections.push({
+          id,
+          label: (
+            <span className={styles['section-path']}>{operation.path}</span>
+          ),
+        });
+      }
+    }
+  }
 
   const openOperationAtLocation = useCallback(
     (location: HistoryLocation) => {
@@ -140,7 +150,10 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   }, [history, openOperationAtLocation]);
 
   return (
-    <SidebarLayout sidebar={<Sidebar />}>
+    <SidebarLayout
+      className={styles.wider}
+      sidebar={<Sidebar sections={sections} />}
+    >
       <HTMLHead title="UniProt website API documentation">
         <meta name="robots" content="noindex" />
       </HTMLHead>
@@ -220,14 +233,12 @@ const Documentation = () => {
   //   }
   // }, []);
 
-  return (
-    definition && (
-      <SwaggerUI
-        spec={data.data}
-        plugins={[AugmentingLayoutPlugin]}
-        layout="AugmentingLayout"
-      />
-    )
+  return !definition ? null : (
+    <SwaggerUI
+      spec={data.data}
+      plugins={[AugmentingLayoutPlugin]}
+      layout="AugmentingLayout"
+    />
   );
 };
 

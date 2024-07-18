@@ -7,12 +7,14 @@ import styles from './styles/in-page-nav.module.scss';
 
 const GRANULARITY = 11;
 
+export type InPageNavSection = {
+  id: string;
+  label: string;
+  disabled?: boolean;
+};
+
 type Props = {
-  sections: Array<{
-    id: string;
-    label: string;
-    disabled?: boolean;
-  }>;
+  sections: InPageNavSection[];
   rootElement?: string | HTMLElement;
 };
 
