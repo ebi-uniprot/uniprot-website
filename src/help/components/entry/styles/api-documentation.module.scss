@@ -12,6 +12,25 @@
 }
 
 .content {
+  .operation-tag {
+    &:not(:first-child) {
+      margin-top: 3rem;
+    }
+    h1 {
+      margin: 1rem 0;
+    }
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    hr {
+      border: none;
+      height: 0.125rem;
+      background-color: $colour-platinum;
+      margin-bottom: 0.5rem;
+    }
+  }
+
   :global(.scheme-container) {
     display: none;
   }

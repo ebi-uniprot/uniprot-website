@@ -41,6 +41,18 @@ const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
     )
   );
 
+const OperationTag = ({ tagObj, children }: any) => {
+  const tagDetails = tagObj.get('tagDetails');
+  return (
+    <div className={styles['operation-tag']}>
+      <h1 className="medium">{tagDetails.get('name')}</h1>
+      <p>{tagDetails.get('description')}</p>
+      <hr />
+      {children}
+    </div>
+  );
+};
+
 const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   const history = useHistory();
   const BaseLayout = getComponent('BaseLayout', true);
@@ -94,6 +106,7 @@ const AugmentingLayoutPlugin = () => ({
     Schemes: () => null,
     InfoContainer: () => null,
     ServersContainer: () => null,
+    OperationTag,
   },
 });
 
