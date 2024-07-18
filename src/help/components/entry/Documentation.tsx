@@ -1,11 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
 import { Card, Loader } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import InPageNav from '../../../shared/components/InPageNav';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -17,36 +19,28 @@ import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
 
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import { OpenAPIV3 } from 'openapi-types';
 
-// Create the layout component
-// const AugmentingLayout = (system) => {
-//   console.log(system);
-//   const BaseLayout = system.getComponent('BaseLayout', true);
-//   return (
-//     <div>
-//       <h1>Custom header above Swagger-UI!</h1>
-//       <BaseLayout />
-//     </div>
-//   );
-// };
+const AugmentingLayout = ({ getComponent }) => {
+  const BaseLayout = getComponent('BaseLayout', true);
 
-// // const InfoContainer = (system) => {
-// //   // const BaseInfoContainer = system.getComponent('InfoContainer');
-// //   return <h1>title</h1>;
-// // };
+  return (
+    <SidebarLayout sidebar={<Sidebar />}>
+      <HTMLHead title="UniProt website API documentation">
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
+      <Card className={styles.content}>
+        <ErrorBoundary>
+          <BaseLayout />
+        </ErrorBoundary>
+      </Card>
+    </SidebarLayout>
+  );
+};
 
-// // Create the plugin that provides our layout component
-// const AugmentingLayoutPlugin = () => ({
-//   components: {
-//     AugmentingLayout,
-//     // InfoContainer,
-//     // BaseLayout: () => <p>base layout</p>,
-//   },
-// });
-
-const HidePlugin = () => ({
+const AugmentingLayoutPlugin = () => ({
   components: {
+    AugmentingLayout,
     Schemes: () => null,
     InfoContainer: () => null,
     ServersContainer: () => null,
@@ -68,7 +62,12 @@ const Sidebar = () => {
       })
     );
   };
-
+  const sections = Array.from(document.querySelectorAll('.opblock')).map(
+    (el) => ({
+      id: el.id,
+      label: el.querySelector('.opblock-summary-path')?.textContent || el.id,
+    })
+  );
   return (
     <div className={styles.sidebar}>
       <fieldset>
@@ -88,6 +87,7 @@ const Sidebar = () => {
         </label>
       </fieldset>
       <hr />
+      {sections.length && <InPageNav sections={sections} />}
     </div>
   );
 };
@@ -108,7 +108,7 @@ const Documentation = () => {
     }
   }, [definition]);
 
-  const data = useDataApi(
+  const data = useDataApi<OpenAPIV3.Document>(
     definition && apiUrls.apiDocumnentationDefinition(definition)
   );
 
@@ -150,16 +150,13 @@ const Documentation = () => {
   // }, []);
 
   return (
-    <SidebarLayout sidebar={<Sidebar />}>
-      <HTMLHead title="UniProt website API documentation">
-        <meta name="robots" content="noindex" />
-      </HTMLHead>
-      <Card className={styles.content}>
-        <ErrorBoundary>
-          <SwaggerUI spec={data.data} plugins={[HidePlugin]} />
-        </ErrorBoundary>
-      </Card>
-    </SidebarLayout>
+    definition && (
+      <SwaggerUI
+        spec={data.data}
+        plugins={[AugmentingLayoutPlugin]}
+        layout="AugmentingLayout"
+      />
+    )
   );
 };
 
