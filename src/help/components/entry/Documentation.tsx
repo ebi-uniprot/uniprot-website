@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
+import { Location as HistoryLocation } from 'history';
 import { Card, Loader } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
+import { frame } from 'timing-functions';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -21,8 +23,30 @@ import styles from './styles/api-documentation.module.scss';
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
 import { OpenAPIV3 } from 'openapi-types';
 
-const AugmentingLayout = ({ getComponent }) => {
+const AugmentingLayout = ({ getComponent, dispatch }: any) => {
+  const history = useHistory();
   const BaseLayout = getComponent('BaseLayout', true);
+
+  const openOperationAtLocation = useCallback((location: HistoryLocation) => {
+    const operation = location.hash.replace('#', '').split('-')?.at(-1);
+    if (operation) {
+      dispatch({
+        type: 'layout_show',
+        payload: {
+          thing: ['operations', 'UniProtKB', operation],
+          shown: true,
+        },
+      });
+    }
+  }, []);
+
+  useEffect(() => openOperationAtLocation(history.location), []);
+  useEffect(() => {
+    const unlisten = history.listen((location) =>
+      frame().then(() => openOperationAtLocation(location))
+    );
+    return unlisten;
+  }, [history]);
 
   return (
     <SidebarLayout sidebar={<Sidebar />}>
