@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
 import { Location as HistoryLocation } from 'history';
 import { Card, Loader } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
 import { frame } from 'timing-functions';
+import { OpenAPIV3 } from 'openapi-types';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -21,24 +22,49 @@ import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
 
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
-import { OpenAPIV3 } from 'openapi-types';
 
-const AugmentingLayout = ({ getComponent, dispatch }: any) => {
+const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
+  new Map(
+    Object.entries(paths).flatMap(([path, methods]) =>
+      Object.values(methods).map((method) => {
+        const tag = method.tags?.[0];
+        const operationId = method.operationId;
+        return [
+          `operations-${tag.replaceAll(' ', '_')}-${operationId}`,
+          {
+            path,
+            tag,
+            operationId,
+          },
+        ];
+      })
+    )
+  );
+
+const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   const history = useHistory();
   const BaseLayout = getComponent('BaseLayout', true);
+  const spec = getSpec();
+  const idToOperation = useMemo(
+    () => getIdToOperation(spec.get('json').get('paths').toJSON()),
+    [spec]
+  );
 
-  const openOperationAtLocation = useCallback((location: HistoryLocation) => {
-    const operation = location.hash.replace('#', '').split('-')?.at(-1);
-    if (operation) {
-      dispatch({
-        type: 'layout_show',
-        payload: {
-          thing: ['operations', 'UniProtKB', operation],
-          shown: true,
-        },
-      });
-    }
-  }, []);
+  const openOperationAtLocation = useCallback(
+    (location: HistoryLocation) => {
+      const operation = idToOperation.get(location.hash.replace('#', ''));
+      if (operation?.tag && operation?.operationId) {
+        dispatch({
+          type: 'layout_show',
+          payload: {
+            thing: ['operations', operation.tag, operation.operationId],
+            shown: true,
+          },
+        });
+      }
+    },
+    [spec]
+  );
 
   useEffect(() => openOperationAtLocation(history.location), []);
   useEffect(() => {
@@ -86,6 +112,9 @@ const Sidebar = () => {
       })
     );
   };
+
+  // It is possible to get this from the spec file but the order is different
+  // from what is actually rendered by swagger-ui-react
   const sections = Array.from(document.querySelectorAll('.opblock')).map(
     (el) => ({
       id: el.id,
