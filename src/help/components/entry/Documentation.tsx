@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
 import { Location as HistoryLocation } from 'history';
 import { Card, Loader } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
 import { frame } from 'timing-functions';
+// Don't know why I need to do this as it's a type
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { OpenAPIV3 } from 'openapi-types';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -18,17 +20,17 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
 import apiUrls from '../../config/apiUrls';
 
+import { ApiDocsDefinition } from '../../types/apiDocumentation';
+
 import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
-
-import { ApiDocsDefinition } from '../../types/apiDocumentation';
 
 const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
   new Map(
     Object.entries(paths).flatMap(([path, methods]) =>
       Object.values(methods).map((method) => {
         const tag = method.tags?.[0];
-        const operationId = method.operationId;
+        const { operationId } = method;
         return [
           `operations-${tag.replaceAll(' ', '_')}-${operationId}`,
           {
@@ -40,75 +42,6 @@ const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
       })
     )
   );
-
-const OperationTag = ({ tagObj, children }: any) => {
-  const tagDetails = tagObj.get('tagDetails');
-  return (
-    <div className={styles['operation-tag']}>
-      <h1 className="medium">{tagDetails.get('name')}</h1>
-      <p>{tagDetails.get('description')}</p>
-      <hr />
-      {children}
-    </div>
-  );
-};
-
-const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
-  const history = useHistory();
-  const BaseLayout = getComponent('BaseLayout', true);
-  const spec = getSpec();
-  const idToOperation = useMemo(
-    () => getIdToOperation(spec.get('json').get('paths').toJSON()),
-    [spec]
-  );
-
-  const openOperationAtLocation = useCallback(
-    (location: HistoryLocation) => {
-      const operation = idToOperation.get(location.hash.replace('#', ''));
-      if (operation?.tag && operation?.operationId) {
-        dispatch({
-          type: 'layout_show',
-          payload: {
-            thing: ['operations', operation.tag, operation.operationId],
-            shown: true,
-          },
-        });
-      }
-    },
-    [spec]
-  );
-
-  useEffect(() => openOperationAtLocation(history.location), []);
-  useEffect(() => {
-    const unlisten = history.listen((location) =>
-      frame().then(() => openOperationAtLocation(location))
-    );
-    return unlisten;
-  }, [history]);
-
-  return (
-    <SidebarLayout sidebar={<Sidebar />}>
-      <HTMLHead title="UniProt website API documentation">
-        <meta name="robots" content="noindex" />
-      </HTMLHead>
-      <Card className={styles.content}>
-        <ErrorBoundary>
-          <BaseLayout />
-        </ErrorBoundary>
-      </Card>
-    </SidebarLayout>
-  );
-};
-
-const AugmentingLayoutPlugin = () => ({
-  components: {
-    AugmentingLayout,
-    Schemes: () => null,
-    InfoContainer: () => null,
-    ServersContainer: () => null,
-    OperationTag,
-  },
-});
 
 const Sidebar = () => {
   const history = useHistory();
@@ -158,6 +91,78 @@ const Sidebar = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const OperationTag = ({ tagObj, children }: any) => {
+  const tagDetails = tagObj.get('tagDetails');
+  return (
+    <div className={styles['operation-tag']}>
+      <h1 className="medium">{tagDetails.get('name')}</h1>
+      <p>{tagDetails.get('description')}</p>
+      <hr />
+      {children}
+    </div>
+  );
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
+  const history = useHistory();
+  const BaseLayout = getComponent('BaseLayout', true);
+  const spec = getSpec();
+  const idToOperation = useMemo(
+    () => getIdToOperation(spec.get('json').get('paths').toJSON()),
+    [spec]
+  );
+
+  const openOperationAtLocation = useCallback(
+    (location: HistoryLocation) => {
+      const operation = idToOperation.get(location.hash.replace('#', ''));
+      if (operation?.tag && operation?.operationId) {
+        dispatch({
+          type: 'layout_show',
+          payload: {
+            thing: ['operations', operation.tag, operation.operationId],
+            shown: true,
+          },
+        });
+      }
+    },
+    [dispatch, idToOperation]
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => openOperationAtLocation(history.location), []);
+  useEffect(() => {
+    const unlisten = history.listen((location) =>
+      frame().then(() => openOperationAtLocation(location))
+    );
+    return unlisten;
+  }, [history, openOperationAtLocation]);
+
+  return (
+    <SidebarLayout sidebar={<Sidebar />}>
+      <HTMLHead title="UniProt website API documentation">
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
+      <Card className={styles.content}>
+        <ErrorBoundary>
+          <BaseLayout />
+        </ErrorBoundary>
+      </Card>
+    </SidebarLayout>
+  );
+};
+
+const AugmentingLayoutPlugin = () => ({
+  components: {
+    AugmentingLayout,
+    Schemes: () => null,
+    InfoContainer: () => null,
+    ServersContainer: () => null,
+    OperationTag,
+  },
+});
+
 const Documentation = () => {
   const history = useHistory();
   const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
@@ -172,7 +177,7 @@ const Documentation = () => {
         }),
       });
     }
-  }, [definition]);
+  }, [definition, history]);
 
   const data = useDataApi<OpenAPIV3.Document>(
     definition && apiUrls.apiDocumnentationDefinition(definition)

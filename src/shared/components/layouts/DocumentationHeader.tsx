@@ -24,21 +24,19 @@ const HeaderContent = () => (
 //   },
 // };
 
-const DocumentationHeader = () => {
-  // useStructuredData(organizationSchema);
-  return (
-    <Header
-      // TODO: add search when API supports this
-      // search={<SearchContainer/>}
-      homepageLink={
-        // Linking to www.uniprot.org as the documentation URL will be different
-        <a href="https://www.uniprot.org">
-          <div className={styles.logo} aria-label="UniProt API Documentation" />
-        </a>
-      }
-    >
-      <HeaderContent />
-    </Header>
-  );
-};
+const DocumentationHeader = () => (
+  <Header
+    // TODO: add search when API supports this
+    // search={<SearchContainer/>}
+    homepageLink={
+      // Linking to www.uniprot.org as the documentation URL will be different
+      <a href="https://www.uniprot.org">
+        <div className={styles.logo} aria-label="UniProt API Documentation" />
+      </a>
+    }
+  >
+    <HeaderContent />
+  </Header>
+);
+
 export default DocumentationHeader;
