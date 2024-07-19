@@ -49,7 +49,7 @@ const Sidebar = ({ sections }: { sections: InPageNavSection[] }) => {
     <div className={styles.sidebar}>
       <fieldset>
         <label htmlFor="definition-select">
-          Select a definition
+          Select API category
           <select
             id="definition-select"
             onChange={handleChange}
