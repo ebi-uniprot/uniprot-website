@@ -6,7 +6,7 @@ export const apiDocsDefinitionToString = new Map([
   [ApiDocsDefinition.uniparc, 'UniParc'],
   [ApiDocsDefinition.proteome, 'Proteomes'],
   [ApiDocsDefinition.support_data, 'Supporting Data'],
-  [ApiDocsDefinition.aa, 'AA'],
+  [ApiDocsDefinition.aa, 'Automatic Annotation'],
   [ApiDocsDefinition.idmapping, 'ID Mapping'],
   [ApiDocsDefinition.async, 'Async Download'],
 ]);
