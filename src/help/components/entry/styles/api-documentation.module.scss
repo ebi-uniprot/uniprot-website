@@ -1,5 +1,6 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
 
 .wider {
   grid-template-columns: 3rem calc(1.33 * var(--sidebar-size) - 3rem) minmax(
@@ -40,7 +41,46 @@
     }
   }
 
-  :global(.scheme-container) {
-    display: none;
+  :global(.swagger-ui) {
+    :global(.scheme-container) {
+      display: none;
+    }
+
+    :global(.opblock) {
+      border-radius: 0px;
+    }
+
+    :global(.opblock.opblock-get) {
+      border: 0px;
+      :global(.arrow) {
+        fill: white;
+      }
+
+      :global(.opblock-summary) {
+        border: 0px;
+        background-color: $colour-sea-blue;
+      }
+      :global(.opblock-summary-method) {
+        background: lighten($colour-sea-blue, 10%);
+        // background-color: $colour-vivid-cerulean;
+        border-radius: 0px;
+      }
+
+      :global(.opblock-summary-path),
+      :global(.opblock-summary-description) {
+        color: white;
+      }
+    }
+    :global(.opblock.opblock-post) {
+      border: 0px;
+
+      :global(.opblock-summary) {
+        border: 0px;
+      }
+
+      :global(.opblock-summary-method) {
+        border-radius: 0px;
+      }
+    }
   }
 }
