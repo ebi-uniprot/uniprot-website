@@ -8,16 +8,10 @@
       1fr
     );
 }
+
 .sidebar {
-  background: none;
-  hr {
-    border: none;
-    height: 0.125rem;
-    background-color: $colour-platinum;
-    margin-bottom: 0.25rem;
-  }
   .section-path {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
   }
 }
 
