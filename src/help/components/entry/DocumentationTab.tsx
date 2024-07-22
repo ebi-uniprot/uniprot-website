@@ -94,6 +94,15 @@ const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
   );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getLayoutAction = (operation: any, shown: any) => ({
+  type: 'layout_show',
+  payload: {
+    thing: ['operations', operation.tag, operation.operationId],
+    shown,
+  },
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   const history = useHistory();
   const BaseLayout = getComponent('BaseLayout', true);
@@ -102,39 +111,46 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
     () => getIdToOperation(spec.get('paths').toJSON()),
     [spec]
   );
-  const sections = [];
-  for (const tag of spec.get('tags')) {
-    const tagName = tag.get('name');
-    sections.push({
-      id: tagNameToId(tagName),
-      label: tagName,
-    });
-    for (const [id, operation] of idToOperation) {
-      if (operation.tag === tagName) {
-        sections.push({
-          id,
-          label: (
-            <span className={styles['section-path']}>{operation.path}</span>
-          ),
-        });
+
+  const [tagIds, sections] = useMemo(() => {
+    const sections = [];
+    const tagIds = new Set<string>();
+    for (const tag of spec.get('tags')) {
+      const tagName = tag.get('name');
+      const tagId = tagNameToId(tagName);
+      tagIds.add(tagId);
+      sections.push({
+        id: tagId,
+        label: tagName,
+      });
+      for (const [id, operation] of idToOperation) {
+        if (operation.tag === tagName) {
+          sections.push({
+            id,
+            label: (
+              <span className={styles['section-path']}>{operation.path}</span>
+            ),
+          });
+        }
       }
     }
-  }
-
+    return [tagIds, sections];
+  }, [idToOperation, spec]);
   const openOperationAtLocation = useCallback(
     (location: HistoryLocation) => {
-      const operation = idToOperation.get(location.hash.replace('#', ''));
-      if (operation?.tag && operation?.operationId) {
-        dispatch({
-          type: 'layout_show',
-          payload: {
-            thing: ['operations', operation.tag, operation.operationId],
-            shown: true,
-          },
-        });
+      const id = location.hash.replace('#', '');
+      if (tagIds.has(id)) {
+        for (const operation of idToOperation.values()) {
+          dispatch(getLayoutAction(operation, false));
+        }
+      } else {
+        const operation = idToOperation.get(id);
+        if (operation?.tag && operation?.operationId) {
+          dispatch(getLayoutAction(operation, true));
+        }
       }
     },
-    [dispatch, idToOperation]
+    [dispatch, idToOperation, tagIds]
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -148,7 +164,6 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
 
   return (
     <SidebarLayout
-      className={styles.wider}
       sidebar={
         <div className={styles.sidebar}>
           <InPageNav sections={sections} />

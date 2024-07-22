@@ -45,6 +45,7 @@ const Documentation = () => {
             </Link>
           }
           id={id}
+          key={id}
         >
           <DocumentationTab />
         </Tab>
