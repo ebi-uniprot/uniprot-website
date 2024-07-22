@@ -3,7 +3,6 @@ import { Card, Loader, Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
 import HTMLHead from '../../../shared/components/HTMLHead';
 import FreeTextView, {
   RichText,
@@ -16,6 +15,7 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import KineticsTableView from './KineticsTableView';
 import ExternalLink from '../../../shared/components/ExternalLink';
+import GoCam from './GoCam';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -374,6 +374,11 @@ const FunctionSection = ({
             geneNamesData={data.geneNamesData}
             organismData={data.organismData}
           />
+        </Suspense>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Suspense fallback={<Loader />}>
+          <GoCam />
         </Suspense>
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
