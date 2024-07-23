@@ -1,6 +1,5 @@
 import { memo } from 'react';
-import { Card, Message } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Card } from 'franklin-sites';
 
 import EntrySection from '../../types/entrySection';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
@@ -15,24 +14,16 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import ComputationalyMappedSequences from './ComputationallyMappedSequences';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { getEntryPath } from '../../../app/config/urls';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation } from '../../types/entry';
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
 
 type Props = {
   data: SequenceUIModel;
   primaryAccession: string;
-  hasGenomicCoordinates: boolean | 'loading';
 };
 
-const SequenceSection = ({
-  data,
-  primaryAccession,
-  hasGenomicCoordinates,
-}: Props) => {
+const SequenceSection = ({ data, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
@@ -90,21 +81,6 @@ const SequenceSection = ({
       {data.keywordData && <KeywordView keywords={data.keywordData} />}
       {data.xrefData && (
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      )}
-      {hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates && (
-        <Message level="info">
-          Discover the new{' '}
-          <Link
-            to={getEntryPath(
-              Namespace.uniprotkb,
-              primaryAccession,
-              TabLocation.GenomicCoordinates
-            )}
-          >
-            Genomic coordinates
-          </Link>{' '}
-          tab which has more genomic information about this entry
-        </Message>
       )}
     </Card>
   );

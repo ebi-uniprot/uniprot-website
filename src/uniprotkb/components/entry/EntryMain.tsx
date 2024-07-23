@@ -14,7 +14,6 @@ import { Reference } from '../../../supporting-data/citations/adapters/citations
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
   importedVariants: number | 'loading';
-  hasGenomicCoordinates: boolean | 'loading';
   communityReferences: Reference[];
   isoforms?: string[];
 };
@@ -22,7 +21,6 @@ type EntryMainProps = {
 const EntryMain = ({
   transformedData,
   importedVariants,
-  hasGenomicCoordinates,
   communityReferences,
   isoforms,
 }: EntryMainProps) => (
@@ -33,8 +31,7 @@ const EntryMain = ({
           {sectionContent(
             transformedData,
             communityReferences,
-            importedVariants,
-            hasGenomicCoordinates
+            importedVariants
           )}
         </ErrorBoundary>
       </Suspense>

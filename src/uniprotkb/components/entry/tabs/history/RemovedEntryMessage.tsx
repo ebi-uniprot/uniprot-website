@@ -70,7 +70,6 @@ const RemovedEntryMessage = ({
   accession,
   uniparc,
   release,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   children,
 }: RemovedEntryMessageProps) => {
   let helpArticleLink = 'deleted_accessions';
@@ -82,7 +81,7 @@ const RemovedEntryMessage = ({
   return (
     <>
       <RemovedEntryHeading accession={accession} uniparc={uniparc} />
-      {/* {children ||
+      {children ||
         (reason?.deletedReason && (
           <div>
             Reason:{' '}
@@ -90,7 +89,7 @@ const RemovedEntryMessage = ({
               {reason.deletedReason}
             </strong>
           </div>
-        ))} */}
+        ))}
       {release && (
         <div>
           Since release: <strong>{release}</strong>
