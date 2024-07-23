@@ -188,7 +188,7 @@ const LandingPage = () => {
             variant="tertiary"
             onClick={() => setExpanded((expanded) => !expanded)}
           >
-            {expanded ? 'View less' : 'View more'} databases
+            {expanded ? 'View fewer' : 'View more'} databases
           </Button>
         </section>
 
@@ -226,7 +226,7 @@ const LandingPage = () => {
           <h2>Download</h2>
           <div className={styles.download}>
             <br />
-            <p>
+            <div>
               UniParc sequence archive
               <br />
               <ul>
@@ -246,7 +246,7 @@ const LandingPage = () => {
                   </ExternalLink>
                 </li>
               </ul>
-            </p>
+            </div>
             <p>
               <ExternalLink url={ftpUrls.uniparc}>
                 Explore more in FTP
