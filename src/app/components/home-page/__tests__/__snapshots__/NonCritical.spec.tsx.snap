@@ -944,17 +944,6 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
       <a
         class="external-link"
-        href="https://www.youtube.com/watch?v=1swnzBM7eZo&list=PLk96kjgxotiZrj6GWC2SFoOKfB1H3tyxt"
-        rel="noopener"
-        target="_blank"
-      >
-        <test-file-stub
-          width="1.5em"
-        />
-         Past webinars
-      </a>
-      <a
-        class="external-link"
         href="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
         rel="noopener"
         target="_blank"

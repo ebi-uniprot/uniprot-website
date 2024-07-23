@@ -245,12 +245,6 @@ const NeedHelp = () => {
           <CameraIcon width="1.5em" /> Tutorial &amp; videos
         </ExternalLink>
         <ExternalLink
-          url="https://www.youtube.com/watch?v=1swnzBM7eZo&list=PLk96kjgxotiZrj6GWC2SFoOKfB1H3tyxt"
-          noIcon
-        >
-          <CameraIcon width="1.5em" /> Past webinars
-        </ExternalLink>
-        <ExternalLink
           url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
           noIcon
         >
