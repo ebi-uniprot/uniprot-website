@@ -21,8 +21,7 @@ const UniProtKBEntryConfig: {
   sectionContent: (
     entryData: UniProtkbUIModel,
     communityReferences: Reference[],
-    importedVariants: number | 'loading',
-    hasGenomicCoordinates: boolean | 'loading'
+    importedVariants: number | 'loading'
   ) => JSX.Element;
 }[] = [
   {
@@ -129,11 +128,10 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.Sequence,
-    sectionContent: (data, _, __, hasGenomicCoordinates) => (
+    sectionContent: (data) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
-        hasGenomicCoordinates={hasGenomicCoordinates}
         key={EntrySection.Sequence}
       />
     ),
