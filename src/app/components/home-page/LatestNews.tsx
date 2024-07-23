@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Toxic waste. Since the 19th century, our species has had to find ways of scrapping industrial detritus which is frequently dangerous. So, we dig deep down into the earth and leave the nasty stuff there or we build thick crusts of cement around it...';
+  'Food poisoning is an ordeal. The body empties itself, with no respite, until nothing is left - neither vitality in you nor food in your system. It is less a single food item you have ingested which causes the unpleasant experience than the poison that was lurking in the smoked salmon, or the oyster, or the steak tartare you helped yourself to...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -401,21 +401,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/269/"
+            url="https://www.proteinspotlight.org/back_issues/270/"
             noIcon
           >
-            A motherly mesh
+            Nausea
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/269/"
+          url="https://www.proteinspotlight.org/back_issues/270/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt269.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt270.jpg"
             alt=""
             width="123"
             height="129"
