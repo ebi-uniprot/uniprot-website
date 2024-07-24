@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Location as HistoryLocation } from 'history';
 import { Card, Loader } from 'franklin-sites';
@@ -26,8 +26,14 @@ import styles from './styles/api-documentation.module.scss';
 
 const tagNameToId = (name: string) => name.replaceAll(' ', '_');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const OperationTag = ({ tagObj, children }: any) => {
+const OperationTag = ({
+  tagObj,
+  children,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tagObj: any;
+  children: ReactNode;
+}) => {
   const tagDetails = tagObj.get('tagDetails');
   return (
     <div className={styles['operation-tag']}>
@@ -54,7 +60,7 @@ const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
   );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getLayoutAction = (operation: any, shown: any) => ({
+const getLayoutAction = (operation: any, shown: boolean) => ({
   type: 'layout_show',
   payload: {
     thing: ['operations', operation.tag, operation.operationId],
@@ -113,12 +119,11 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
     [dispatch, idToOperation, tagIds]
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => openOperationAtLocation(history.location), []);
   useEffect(() => {
     const unlisten = history.listen((location) =>
       frame().then(() => openOperationAtLocation(location))
     );
+    openOperationAtLocation(history.location);
     return unlisten;
   }, [history, openOperationAtLocation]);
 
@@ -152,7 +157,7 @@ const AugmentingLayoutPlugin = () => ({
   },
 });
 
-const DocumentationTab = () => {
+const ApiDocumentationTab = () => {
   const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
     LocationToPath[Location.Documentation]
   );
@@ -199,4 +204,4 @@ const DocumentationTab = () => {
   );
 };
 
-export default DocumentationTab;
+export default ApiDocumentationTab;
