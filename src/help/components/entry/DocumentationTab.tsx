@@ -26,46 +26,6 @@ import styles from './styles/api-documentation.module.scss';
 
 const tagNameToId = (name: string) => name.replaceAll(' ', '_');
 
-// const Sidebar = ({ sections }: { sections: InPageNavSection[] }) => {
-//   const history = useHistory();
-//   const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
-//     LocationToPath[Location.Documentation]
-//   );
-//   const definition = match?.params.definition;
-
-//   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-//     const definition = e.target.value;
-//     history.push(
-//       generatePath(LocationToPath[Location.Documentation], {
-//         definition,
-//       })
-//     );
-//   };
-
-//   return (
-//     <div className={styles.sidebar}>
-//       <fieldset>
-//         <label htmlFor="definition-select">
-//           Select API category
-//           <select
-//             id="definition-select"
-//             onChange={handleChange}
-//             value={definition}
-//           >
-//             {Array.from(apiDocsDefinitionToString).map(([d, label]) => (
-//               <option key={d} value={d}>
-//                 {label}
-//               </option>
-//             ))}
-//           </select>
-//         </label>
-//       </fieldset>
-//       <hr />
-//       {sections.length && <InPageNav sections={sections} />}
-//     </div>
-//   );
-// };
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const OperationTag = ({ tagObj, children }: any) => {
   const tagDetails = tagObj.get('tagDetails');
@@ -210,34 +170,25 @@ const DocumentationTab = () => {
     return <ErrorHandler status={data.status} error={data.error} fullPage />;
   }
 
-  // useEffect(() => {
-  //   if (ref.current) {
-  //     SwaggerUI({
-  //       plugins: [AugmentingLayoutPlugin],
-  //       layout: 'AugmentingLayout',
-  //       requestSnippets: {
-  //         // generators: {
-  //         //   curl_bash: {
-  //         //     title: 'cURL (bash)',
-  //         //     syntax: 'bash',
-  //         //   },
-  //         //   curl_powershell: {
-  //         //     title: 'cURL (PowerShell)',
-  //         //     syntax: 'powershell',
-  //         //   },
-  //         //   curl_cmd: {
-  //         //     title: 'cURL (CMD)',
-  //         //     syntax: 'bash',
-  //         //   },
-  //         //   python_requests: {
-  //         //     title: 'Python (requests)',
-  //         //     syntax: 'python',
-  //         //   },
-  //         // },
-  //       },
-  //     });
-  //   }
-  // }, []);
+  // requestSnippets: {
+  // generators: {
+  //   curl_bash: {
+  //     title: 'cURL (bash)',
+  //     syntax: 'bash',
+  //   },
+  //   curl_powershell: {
+  //     title: 'cURL (PowerShell)',
+  //     syntax: 'powershell',
+  //   },
+  //   curl_cmd: {
+  //     title: 'cURL (CMD)',
+  //     syntax: 'bash',
+  //   },
+  //   python_requests: {
+  //     title: 'Python (requests)',
+  //     syntax: 'python',
+  //   },
+  // },
 
   return !definition ? null : (
     <SwaggerUI

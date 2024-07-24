@@ -44,7 +44,8 @@
       border-radius: 0px;
     }
 
-    :global(.opblock.opblock-get) {
+    :global(.opblock.opblock-get),
+    :global(.opblock.opblock-post) {
       border: 0px;
       :global(.arrow) {
         fill: white;
@@ -55,8 +56,6 @@
         background-color: $colour-sea-blue;
       }
       :global(.opblock-summary-method) {
-        background: lighten($colour-sea-blue, 10%);
-        // background-color: $colour-vivid-cerulean;
         border-radius: 0px;
       }
 
@@ -65,16 +64,13 @@
         color: white;
       }
     }
-    :global(.opblock.opblock-post) {
-      border: 0px;
 
-      :global(.opblock-summary) {
-        border: 0px;
-      }
-
-      :global(.opblock-summary-method) {
-        border-radius: 0px;
-      }
+    :global(.opblock.opblock-get) :global(.opblock-summary-method) {
+      background: lighten($colour-sea-blue, 10%);
     }
+
+    // :global(.opblock.opblock-post) :global(.opblock-summary-method) {
+    //   background: mediumseagreen;
+    // }
   }
 }
