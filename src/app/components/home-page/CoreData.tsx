@@ -12,6 +12,7 @@ import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { Location, LocationToPath } from '../../config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
+import { FacetsEnum } from '../../../uniprotkb/config/UniProtKBFacetConfiguration';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -31,7 +32,7 @@ const UniProtKBLinks = () => {
       namespace: Namespace.uniprotkb,
       query: '*',
       size: 0,
-      facets: ['reviewed'],
+      facets: [FacetsEnum.Reviewed],
     })
   );
 
@@ -162,7 +163,7 @@ const CoreData = () => (
       Clusters of protein sequences at 100%, 90% &amp; 50% identity
     </Tile>
     <Tile
-      title="Sequence Archive"
+      title="Sequence archive"
       className={cn(
         'uniprot-grid-cell--small-span-6',
         'uniprot-grid-cell--medium-span-3',
@@ -179,7 +180,7 @@ const CoreData = () => (
         />
       }
       backgroundColor={colors.uniparc}
-      link={<Link to={getNamespaceTo(Location.UniParcResults)} />}
+      link={<Link to={LocationToPath[Location.UniParcResults]} />}
       gradient
     >
       Non-redundant archive of publicly available protein sequences seen across
