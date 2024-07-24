@@ -87,7 +87,7 @@ const SubEntry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
-  const sidebar = (
+  const sidebar = match.params.subPage === TabLocation.Entry && (
     <InPageNav
       sections={Object.values(uniParcSubEntryConfig).map((section) => ({
         ...section,
