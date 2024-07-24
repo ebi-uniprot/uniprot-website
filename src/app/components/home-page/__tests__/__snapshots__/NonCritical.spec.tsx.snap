@@ -397,6 +397,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2024-07-24-release"
+              >
+                UniProt release 2024_04
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Oocyte waste disposal strategy: 'store to degrade later' | Removal of the cross-references to CLAE | Removal of the cross-references to COMPLUYEAST-2DPAGE
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2024-05-29-release"
               >
                 UniProt release 2024_03
@@ -442,96 +460,6 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Vitamin K beyond coagulation | Cross-references to EMDB | Cross-references to JaponicusDB | Changes to the controlled vocabulary...
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-11-08-release"
-              >
-                UniProt release 2023_05
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Hush, little ribosome | Cross-references to Pumba | Changes to the controlled vocabulary of human diseases
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-09-13-release"
-              >
-                UniProt release 2023_04
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Some like it hot | Change of the cross-references to TAIR | Change of the cross-references to TIGRFAMs: replaced by NCBIfam | Change of evidence code for the ProtNLM method
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-06-28-release"
-              >
-                UniProt release 2023_03
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              The fair price of an (ant) lunch | Changes to the controlled vocabulary of human diseases | Changes to the controlled vocabulary for PTMs
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-05-03-release"
-              >
-                UniProt release 2023_02
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Levering the DNA | Changes in prokaryotic taxonomy | Changes to the controlled vocabulary of human diseases
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-03-01-release"
-              >
-                UniProt release 2023_01
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Killing me softly | Cross-references to GlyCosmos | Change to the cross-references to Gene3D | Changes to the controlled...
             </p>
           </article>
         </li>
