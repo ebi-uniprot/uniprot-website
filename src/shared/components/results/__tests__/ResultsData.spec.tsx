@@ -30,7 +30,7 @@ describe('ResultsData component', () => {
         },
       }
     );
-    await screen.findByText('P11413');
+    await screen.findByText('P19926');
     expect(asFragment()).toMatchSnapshot();
   });
 

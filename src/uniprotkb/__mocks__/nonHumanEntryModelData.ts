@@ -1,16 +1,16 @@
 import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P0DTR4
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P0DTR4',
   uniProtkbId: 'ADAC_FLAPL',
   entryAudit: {
     firstPublicDate: '2019-11-13',
-    lastAnnotationUpdateDate: '2023-05-03',
+    lastAnnotationUpdateDate: '2024-07-24',
     lastSequenceUpdateDate: '2019-11-13',
-    entryVersion: 13,
+    entryVersion: 14,
     sequenceVersion: 1,
   },
   annotationScore: 5,
@@ -860,20 +860,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoTerm',
           value: 'F:metal ion binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:UniProtKB-KW',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0008152',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:metabolic process',
         },
         {
           key: 'GoEvidenceType',

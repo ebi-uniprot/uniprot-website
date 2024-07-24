@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -1310,13 +1310,13 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'sterol esterase activity',
+          name: 'sterol ester esterase activity',
           id: 'GO:0004771',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'triglyceride lipase activity',
+          name: 'triacylglycerol lipase activity',
           id: 'GO:0004806',
           aspect: 'molecular_function',
         },
@@ -1886,7 +1886,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'acylglycerol lipase activity',
+          name: 'monoacylglycerol lipase activity',
           id: 'GO:0047372',
           aspect: 'molecular_function',
         },
@@ -7082,7 +7082,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'respiratory chain complex II',
+          name: 'respiratory chain complex II (succinate dehydrogenase)',
           id: 'GO:0045273',
           aspect: 'cellular_component',
         },
@@ -13146,6 +13146,48 @@ const mock: { goSlimSets: SlimSet[] } = {
     },
     {
       associations: [
+        {
+          associations: null,
+          name: 'viral capsid',
+          id: 'GO:0019028',
+          aspect: 'cellular_component',
+        },
+        {
+          associations: null,
+          name: 'host cell plasma membrane',
+          id: 'GO:0020002',
+          aspect: 'cellular_component',
+        },
+        {
+          associations: null,
+          name: 'symbiont-containing vacuole',
+          id: 'GO:0020003',
+          aspect: 'cellular_component',
+        },
+        {
+          associations: null,
+          name: 'host cell nucleus',
+          id: 'GO:0042025',
+          aspect: 'cellular_component',
+        },
+        {
+          associations: null,
+          name: 'host cell cytoplasmic vesicle',
+          id: 'GO:0044161',
+          aspect: 'cellular_component',
+        },
+        {
+          associations: null,
+          name: 'host cell endoplasmic reticulum',
+          id: 'GO:0044165',
+          aspect: 'cellular_component',
+        },
+        {
+          associations: null,
+          name: 'host cell Golgi apparatus',
+          id: 'GO:0044177',
+          aspect: 'cellular_component',
+        },
         {
           associations: null,
           name: 'symbiont-mediated killing of host cell',

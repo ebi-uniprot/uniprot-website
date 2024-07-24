@@ -55,9 +55,9 @@ exports[`UniParcXRefsColumnConfiguration component should render column "gene": 
 exports[`UniParcXRefsColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2024-05-29T00:00:00.000Z"
+    datetime="2024-07-24T00:00:00.000Z"
   >
-    2024-05-29
+    2024-07-24
   </time>
 </DocumentFragment>
 `;
