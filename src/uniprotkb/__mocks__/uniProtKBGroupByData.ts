@@ -1,7 +1,7 @@
 import { GroupByAPIModel } from '../components/results/UniProtKBGroupBy';
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?query=%28%2A%29
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 export const taxonomyRoot: GroupByAPIModel = {
   ancestors: [],
   groups: [
@@ -35,7 +35,7 @@ export const taxonomyRoot: GroupByAPIModel = {
   },
 };
 // Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?parent=131567&query=%28%2A%29
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 export const taxonomyCellularOrgranisms = {
   ancestors: [],
   groups: [
@@ -65,7 +65,7 @@ export const taxonomyCellularOrgranisms = {
 };
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/ec?parent=3.-.-.-&query=%28shadab%29
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 export const ecNonRoot = {
   ancestors: [
     {
