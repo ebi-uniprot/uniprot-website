@@ -11,7 +11,7 @@ const EntryTitle: FC<
     entryType?: EntryType | string | Array<EntryType | string>;
   }>
 > = ({ mainTitle, optionalTitle, entryType }) => (
-  <span className="entry-title">
+  <span className="entry-title" translate="no">
     {entryType instanceof Array ? (
       entryType.map((entryTypeItem) => (
         <EntryTypeIcon entryType={entryTypeItem} key={entryTypeItem} />

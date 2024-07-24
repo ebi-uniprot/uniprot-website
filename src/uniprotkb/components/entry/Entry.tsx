@@ -513,7 +513,6 @@ const Entry = () => {
               <EntryMain
                 transformedData={transformedData}
                 importedVariants={importedVariants}
-                hasGenomicCoordinates={hasGenomicCoordinates}
                 communityReferences={communityReferences}
                 isoforms={listOfIsoformNames}
               />

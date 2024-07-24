@@ -102,6 +102,13 @@ const UniProtKBLandingPage = lazy(
       /* webpackChunkName: "uniprotkb-landing" */ '../../uniprotkb/components/landing-page/LandingPage'
     )
 );
+// Landing pages
+const UniParcLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-landing" */ '../../uniparc/components/landing-page/LandingPage'
+    )
+);
 // Main namespaces
 const UniProtKBStatisticsPage = lazy(
   () =>
@@ -355,6 +362,9 @@ const RedirectToStarSearch = (
   switch (namespace) {
     case Namespace.uniprotkb:
       LandingPage = UniProtKBLandingPage;
+      break;
+    case Namespace.uniparc:
+      LandingPage = UniParcLandingPage;
       break;
     // NOTE: add cases whenever we start implementing other landing pages
     default:

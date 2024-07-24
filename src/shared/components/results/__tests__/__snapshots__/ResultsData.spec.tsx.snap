@@ -37,6 +37,7 @@ exports[`ResultsData component should render the card view with the correct numb
               >
                 <span
                   class="entry-title"
+                  translate="no"
                 >
                   <span
                     class="entry-title__status icon--reviewed"
@@ -213,6 +214,7 @@ exports[`ResultsData component should render the card view with the correct numb
               >
                 <span
                   class="entry-title"
+                  translate="no"
                 >
                   <span
                     class="entry-title__status icon--reviewed"

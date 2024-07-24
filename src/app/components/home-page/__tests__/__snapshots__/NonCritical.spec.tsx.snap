@@ -175,7 +175,7 @@ exports[`non-critical HomePage component should render 1`] = `
     >
       <a
         aria-hidden="true"
-        href="/uniparc?query=*"
+        href="/uniparc"
         tabindex="-1"
       />
       <div
@@ -196,7 +196,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <h2
           class="tile__header big"
         >
-          Sequence Archive
+          Sequence archive
         </h2>
         <h3
           class="tile__subtitle small"
@@ -642,17 +642,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/269/"
+          href="https://www.proteinspotlight.org/back_issues/270/"
           rel="noopener"
           target="_blank"
         >
-          A motherly mesh
+          Nausea
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/269/"
+        href="https://www.proteinspotlight.org/back_issues/270/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -661,14 +661,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt269.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt270.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Toxic  waste.  Since  the  19th  century,  our  species  has  had  to  find  ways  of  scrapping  industrial  detritus  which  is  frequently  dangerous.  So,  we  dig  deep  down  into  the  earth  and  leave  the  nasty  stuff  there  or  we  build  thick  crusts  of  cement  around  it...
+          Food  poisoning  is  an  ordeal.  The  body  empties  itself,  with  no  respite,  until  nothing  is  left  -  neither  vitality  in  you  nor  food  in  your  system.  It  is  less  a  single  food  item  you  have  ingested  which  causes  the  unpleasant  experience  than  the  poison  that…
       </p>
     </article>
   </section>
@@ -944,17 +944,6 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
       <a
         class="external-link"
-        href="https://www.youtube.com/watch?v=1swnzBM7eZo&list=PLk96kjgxotiZrj6GWC2SFoOKfB1H3tyxt"
-        rel="noopener"
-        target="_blank"
-      >
-        <test-file-stub
-          width="1.5em"
-        />
-         Past webinars
-      </a>
-      <a
-        class="external-link"
         href="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
         rel="noopener"
         target="_blank"
@@ -993,7 +982,7 @@ exports[`non-critical HomePage component should render 1`] = `
     >
       <a
         aria-hidden="true"
-        href="https://ftp.uniprot.org/pub/databases/uniprot/"
+        href="https://ftp.ebi.ac.uk/pub/databases/uniprot/"
         tabindex="-1"
       />
       <div
