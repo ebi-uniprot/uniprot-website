@@ -139,6 +139,8 @@ const ApiDocumentationTab = () => {
     return <ErrorHandler status={data.status} error={data.error} fullPage />;
   }
 
+  // TODO: enable request snippets eg python. https://www.ebi.ac.uk/panda/jira/browse/TRM-31649
+  // Leaving this code here in case it is userful in the future:
   // requestSnippets: {
   // generators: {
   //   curl_bash: {
