@@ -33,6 +33,7 @@ exports[`UniProtKBCard component should render 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--reviewed"

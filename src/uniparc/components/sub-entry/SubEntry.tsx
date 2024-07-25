@@ -1,4 +1,3 @@
-// TODO: fix import order
 import { useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 import { ErrorBoundary } from '@sentry/react';
@@ -27,12 +26,12 @@ import { hasStructure } from './SubEntryStructureSection';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
-
 import {
   Location,
   LocationToPath,
   getEntryPath,
 } from '../../../app/config/urls';
+
 import {
   Namespace,
   searchableNamespaceLabels,
@@ -71,23 +70,26 @@ const SubEntry = () => {
   if (!uniparcData.data) {
     return <Loader progress={uniparcData.progress} />;
   }
-  if (!uniparcData.data.uniParcCrossReferences) {
-    // TODO: handle this
-    return <>TODO: handle this</>;
-  }
+
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
     subEntryId
   );
   if (!transformedData) {
-    // TODO: handle when no xrefsForId
-    return <>TODO: handle this</>;
+    return (
+      <Redirect
+        to={{
+          pathname: LocationToPath[Location.UniParcResults],
+          search: `query=(dbid:${subEntryId})`,
+        }}
+      />
+    );
   }
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
-  const sidebar = (
+  const sidebar = match.params.subPage === TabLocation.Entry && (
     <InPageNav
       sections={Object.values(uniParcSubEntryConfig).map((section) => ({
         ...section,

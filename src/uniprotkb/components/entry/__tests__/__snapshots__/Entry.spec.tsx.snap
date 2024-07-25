@@ -132,6 +132,7 @@ exports[`Entry basic should render main 1`] = `
       <h1>
         <span
           class="entry-title"
+          translate="no"
         >
           <span
             class="entry-title__status icon--reviewed"
