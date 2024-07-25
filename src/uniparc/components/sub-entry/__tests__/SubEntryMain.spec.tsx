@@ -1,3 +1,4 @@
+import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -22,7 +23,7 @@ jest.mock('../SubEntrySimilarProteinsSection', () => ({
 }));
 
 describe('SubEntryMain', () => {
-  it('should render', () => {
+  it('should render', async () => {
     const transformedData = uniParcSubEntryConverter(
       uniParcEntryModelData,
       'YP_232970'
@@ -30,6 +31,8 @@ describe('SubEntryMain', () => {
     const { asFragment } = customRender(
       <SubEntryMain transformedData={transformedData} />
     );
+    // Need to do this because we're lazy loading VisualFeaturesView and it raises an act warning
+    await screen.findByText('Showing features for other.');
     expect(asFragment()).toMatchSnapshot();
   });
 });
