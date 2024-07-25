@@ -289,91 +289,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="checkbox-cell"
                 >
                   <input
-                    data-id="P11413"
+                    data-id="P19926"
                     id="3"
                     type="checkbox"
                   />
                   <label
-                    aria-label="P11413"
-                    for="3"
-                    title="click to select, shift+click for multiple selection"
-                  />
-                </td>
-                <td>
-                  <span
-                    class="no-wrap accession-view"
-                  >
-                    <a
-                      class="accession"
-                      href="/uniprotkb/P11413/entry"
-                    >
-                      P11413
-                    </a>
-                  </span>
-                </td>
-                <td />
-                <td>
-                  <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
-                  >
-                    <test-file-stub />
-                  </span>
-                </td>
-                <td>
-                  G6PD_HUMAN
-                </td>
-                <td>
-                  <span
-                    translate="yes"
-                  >
-                    <span
-                      style="font-weight: bolder;"
-                    >
-                      Glucose-6-phosphate 1-dehydrogenase
-                    </span>
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </span>
-                </td>
-                <td>
-                  <span
-                    class="bolder"
-                  >
-                    G6PD
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/9606"
-                    title="Homo sapiens (Human), taxon ID 9606"
-                    translate="no"
-                  >
-                    Homo sapiens (Human)
-                  </a>
-                </td>
-                <td>
-                  515 AA
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="checkbox-cell"
-                >
-                  <input
-                    data-id="P19926"
-                    id="4"
-                    type="checkbox"
-                  />
-                  <label
                     aria-label="P19926"
-                    for="4"
+                    for="3"
                     title="click to select, shift+click for multiple selection"
                   />
                 </td>
@@ -439,6 +361,85 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </td>
                 <td>
                   413 AA
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="checkbox-cell"
+                >
+                  <input
+                    data-id="P13866"
+                    id="4"
+                    type="checkbox"
+                  />
+                  <label
+                    aria-label="P13866"
+                    for="4"
+                    title="click to select, shift+click for multiple selection"
+                  />
+                </td>
+                <td>
+                  <span
+                    class="no-wrap accession-view"
+                  >
+                    <a
+                      class="accession"
+                      href="/uniprotkb/P13866/entry"
+                    >
+                      P13866
+                    </a>
+                  </span>
+                </td>
+                <td />
+                <td>
+                  <span
+                    class="entry-title__status icon--reviewed"
+                    title="This marks a reviewed UniProtKB entry"
+                  >
+                    <test-file-stub />
+                  </span>
+                </td>
+                <td>
+                  SC5A1_HUMAN
+                </td>
+                <td>
+                  <span
+                    translate="yes"
+                  >
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Sodium/glucose cotransporter 1
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="bolder"
+                  >
+                    SLC5A1
+                  </span>
+                  , NAGT, SGLT1
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/9606"
+                    title="Homo sapiens (Human), taxon ID 9606"
+                    translate="no"
+                  >
+                    Homo sapiens (Human)
+                  </a>
+                </td>
+                <td>
+                  664 AA
                 </td>
               </tr>
             </tbody>
@@ -1255,91 +1256,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="checkbox-cell"
                 >
                   <input
-                    data-id="P11413"
+                    data-id="P19926"
                     id="5"
                     type="checkbox"
                   />
                   <label
-                    aria-label="P11413"
-                    for="5"
-                    title="click to select, shift+click for multiple selection"
-                  />
-                </td>
-                <td>
-                  <span
-                    class="no-wrap accession-view"
-                  >
-                    <a
-                      class="accession"
-                      href="/uniprotkb/P11413/entry"
-                    >
-                      P11413
-                    </a>
-                  </span>
-                </td>
-                <td />
-                <td>
-                  <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
-                  >
-                    <test-file-stub />
-                  </span>
-                </td>
-                <td>
-                  G6PD_HUMAN
-                </td>
-                <td>
-                  <span
-                    translate="yes"
-                  >
-                    <span
-                      style="font-weight: bolder;"
-                    >
-                      Glucose-6-phosphate 1-dehydrogenase
-                    </span>
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </span>
-                </td>
-                <td>
-                  <span
-                    class="bolder"
-                  >
-                    G6PD
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/9606"
-                    title="Homo sapiens (Human), taxon ID 9606"
-                    translate="no"
-                  >
-                    Homo sapiens (Human)
-                  </a>
-                </td>
-                <td>
-                  515 AA
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="checkbox-cell"
-                >
-                  <input
-                    data-id="P19926"
-                    id="6"
-                    type="checkbox"
-                  />
-                  <label
                     aria-label="P19926"
-                    for="6"
+                    for="5"
                     title="click to select, shift+click for multiple selection"
                   />
                 </td>
@@ -1405,6 +1328,85 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </td>
                 <td>
                   413 AA
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="checkbox-cell"
+                >
+                  <input
+                    data-id="P13866"
+                    id="6"
+                    type="checkbox"
+                  />
+                  <label
+                    aria-label="P13866"
+                    for="6"
+                    title="click to select, shift+click for multiple selection"
+                  />
+                </td>
+                <td>
+                  <span
+                    class="no-wrap accession-view"
+                  >
+                    <a
+                      class="accession"
+                      href="/uniprotkb/P13866/entry"
+                    >
+                      P13866
+                    </a>
+                  </span>
+                </td>
+                <td />
+                <td>
+                  <span
+                    class="entry-title__status icon--reviewed"
+                    title="This marks a reviewed UniProtKB entry"
+                  >
+                    <test-file-stub />
+                  </span>
+                </td>
+                <td>
+                  SC5A1_HUMAN
+                </td>
+                <td>
+                  <span
+                    translate="yes"
+                  >
+                    <span
+                      style="font-weight: bolder;"
+                    >
+                      Sodium/glucose cotransporter 1
+                    </span>
+                    <button
+                      aria-expanded="false"
+                      class="button tertiary ellipsis-reveal"
+                      title="Show more"
+                      type="button"
+                    >
+                      [...]
+                    </button>
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="bolder"
+                  >
+                    SLC5A1
+                  </span>
+                  , NAGT, SGLT1
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/9606"
+                    title="Homo sapiens (Human), taxon ID 9606"
+                    translate="no"
+                  >
+                    Homo sapiens (Human)
+                  </a>
+                </td>
+                <td>
+                  664 AA
                 </td>
               </tr>
             </tbody>

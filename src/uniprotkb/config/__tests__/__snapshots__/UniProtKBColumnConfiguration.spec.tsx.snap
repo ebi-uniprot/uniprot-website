@@ -2109,15 +2109,11 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_chemb
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_chitars": xref_chitars 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_clae": xref_clae 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_cleanex": xref_cleanex 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_collectf": xref_collectf 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_complexportal": xref_complexportal 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_compluyeast-2dpage": xref_compluyeast-2dpage 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_conoserver": xref_conoserver 1`] = `<DocumentFragment />`;
 
@@ -2182,8 +2178,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_dispr
 exports[`UniProtKBColumnConfiguration component should render column "xref_dmdm": xref_dmdm 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_dnasu": xref_dnasu 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_dosac-cobs-2dpage": xref_dosac-cobs-2dpage 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_drugbank": xref_drugbank 1`] = `<DocumentFragment />`;
 
@@ -2252,8 +2246,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_ensem
 exports[`UniProtKBColumnConfiguration component should render column "xref_ensemblplants": xref_ensemblplants 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ensemblprotists": xref_ensemblprotists 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_epd": xref_epd 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_esther": xref_esther 1`] = `<DocumentFragment />`;
 
@@ -2332,8 +2324,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_malac
 exports[`UniProtKBColumnConfiguration component should render column "xref_mane-select": xref_mane-select 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_massive": xref_massive 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_maxqb": xref_maxqb 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_merops": xref_merops 1`] = `<DocumentFragment />`;
 

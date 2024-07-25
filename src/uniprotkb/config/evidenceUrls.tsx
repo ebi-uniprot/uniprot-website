@@ -32,11 +32,9 @@ type ExternalSource =
   | 'EnsemblMetazoa'
   | 'EnsemblPlants'
   | 'EnsemblProtists'
-  | 'EPD'
   | 'EuropePMC'
   | 'FlyBase'
   | 'HGNC'
-  | 'MaxQB'
   | 'MGI'
   | 'MIM'
   | 'PDB'
@@ -87,7 +85,7 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
 
 const ensemblGenomeslUrl = 'https://www.ensemblgenomes.org/id/%value';
 const proteomicsMappingReadmeUrl =
-  'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README';
+  'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README';
 
 const evidenceUrls: Record<ExternalSource, string> = {
   Araport: 'https://apps.araport.org/thalemine/portal.do?externalids=%value',
@@ -101,11 +99,9 @@ const evidenceUrls: Record<ExternalSource, string> = {
   EnsemblMetazoa: ensemblGenomeslUrl,
   EnsemblPlants: ensemblGenomeslUrl,
   EnsemblProtists: ensemblGenomeslUrl,
-  EPD: proteomicsMappingReadmeUrl,
   EuropePMC: 'https://europepmc.org/abstract/MED/%value',
   FlyBase: 'http://flybase.org/reports/%value.html',
   HGNC: 'https://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=%value',
-  MaxQB: proteomicsMappingReadmeUrl,
   MGI: 'http://www.informatics.jax.org/marker/%value',
   MIM: 'http://www.omim.org/entry/%value',
   PDB: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/%value',

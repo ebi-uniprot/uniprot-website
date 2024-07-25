@@ -15,7 +15,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:37.4% D:62%) F:0% M:0.5%
+      C:99.5% (S:37.5% D:62%) F:0% M:0.5%
     </div>
   </div>
 </DocumentFragment>
@@ -30,16 +30,16 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 2
+      Chromosome 1
     </li>
     <li>
-      Chromosome 3
+      Chromosome 1
     </li>
     <li>
-      Chromosome 4
+      Chromosome 1
     </li>
     <li>
-      Chromosome 5
+      Chromosome 1
     </li>
     <li>
       <button
@@ -47,7 +47,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        21 more components
+        64 more components
       </button>
     </li>
   </ul>
@@ -63,16 +63,16 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 2
+      Chromosome 1
     </li>
     <li>
-      Chromosome 3
+      Chromosome 1
     </li>
     <li>
-      Chromosome 4
+      Chromosome 1
     </li>
     <li>
-      Chromosome 5
+      Chromosome 1
     </li>
     <li>
       <button
@@ -80,7 +80,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        21 more components
+        64 more components
       </button>
     </li>
   </ul>
@@ -335,7 +335,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    82,518
+    82,861
   </a>
 </DocumentFragment>
 `;

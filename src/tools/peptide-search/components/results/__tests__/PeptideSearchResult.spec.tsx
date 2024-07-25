@@ -37,7 +37,10 @@ mockRequests
   .onGet(
     new RegExp(`/peptidesearch.uniprot.org/asyncrest/jobs/${mockJob.remoteID}$`)
   )
-  .reply(200, 'P35575,O43826');
+  .reply(
+    200,
+    uniprotkbResults.results.map((result) => result.primaryAccession).join(',')
+  );
 
 mockRequests
   .onGet(

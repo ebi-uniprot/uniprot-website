@@ -19,190 +19,13 @@ exports[`ResultsData component should render the card view with the correct numb
               class="checkbox-cell"
             >
               <input
-                data-id="P11413"
+                data-id="P19926"
                 id="0"
                 type="checkbox"
               />
               <label
-                aria-label="P11413"
-                for="0"
-                title="click to select, shift+click for multiple selection"
-              />
-            </span>
-            <h2
-              class="small"
-            >
-              <a
-                href="/uniprotkb/P11413"
-              >
-                <span
-                  class="entry-title"
-                  translate="no"
-                >
-                  <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
-                  >
-                    <test-file-stub />
-                  </span>
-                  P11413 · G6PD_HUMAN
-                </span>
-              </a>
-            </h2>
-          </div>
-          <div
-            class="card__content"
-          >
-            <div>
-              Glucose-6-phosphate 1-dehydrogenase · 
-              <strong>
-                Gene:
-              </strong>
-               G6PD · 
-              <a
-                href="/taxonomy/9606"
-                title="Homo sapiens (Human), taxon ID 9606"
-                translate="no"
-              >
-                Homo sapiens (Human)
-              </a>
-               · EC:1.1.1.49 · 515 amino acids · Evidence at protein level · 
-              <strong>
-                Annotation score:
-              </strong>
-               
-              <span
-                class="doughnut-chart--small colour-platinum"
-              >
-                <span
-                  class="doughnut-chart--small__left-wrap"
-                >
-                  <span
-                    class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                    style="transform: rotate(180deg);"
-                  />
-                </span>
-                <span
-                  class="doughnut-chart--small__right-wrap"
-                >
-                  <span
-                    class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                    style="transform: rotate(180deg);"
-                  />
-                </span>
-                <span
-                  class="doughnut-chart--small__inner-circle"
-                >
-                  5/5
-                </span>
-              </span>
-            </div>
-            <small>
-              <div
-                class="keyword-view--inline"
-                translate="yes"
-              >
-                 
-                <a
-                  href="/keywords/KW-0560"
-                >
-                  #Oxidoreductase
-                </a>
-                 
-                <a
-                  href="/keywords/KW-0119"
-                >
-                  #Carbohydrate metabolism
-                </a>
-                 
-                <a
-                  href="/keywords/KW-0313"
-                >
-                  #Glucose metabolism
-                </a>
-                 
-                <a
-                  href="/keywords/KW-0225"
-                >
-                  #Disease variant
-                </a>
-                 
-                <a
-                  href="/keywords/KW-0360"
-                >
-                  #Hereditary hemolytic anemia
-                </a>
-              </div>
-            </small>
-          </div>
-        </div>
-        <div
-          class="card__actions"
-        >
-          <a
-            href="/uniprotkb/P11413#ptm_processing"
-          >
-            11 PTMs
-          </a>
-          <a
-            href="/uniprotkb/P11413#disease_variants"
-          >
-            72 reviewed variants
-          </a>
-          <a
-            href="/uniprotkb/P11413#function"
-          >
-            1 active site
-          </a>
-          <a
-            href="/uniprotkb/P11413#sequences"
-          >
-            3 isoforms
-          </a>
-          <a
-            href="/uniprotkb/P11413#interaction"
-          >
-            3 interactions
-          </a>
-          <a
-            href="/uniprotkb/P11413#disease_variants"
-          >
-            1 disease
-          </a>
-          <a
-            href="/uniprotkb/P11413#structure"
-          >
-            24 3D structures
-          </a>
-          <a
-            href="/uniprotkb/P11413/publications"
-          >
-            59 reviewed publications
-          </a>
-        </div>
-      </section>
-    </li>
-    <li>
-      <section
-        class="card"
-      >
-        <div
-          class="card__container"
-        >
-          <div
-            class="card__header"
-          >
-            <span
-              class="checkbox-cell"
-            >
-              <input
-                data-id="P19926"
-                id="1"
-                type="checkbox"
-              />
-              <label
                 aria-label="P19926"
-                for="1"
+                for="0"
                 title="click to select, shift+click for multiple selection"
               />
             </span>
@@ -310,6 +133,184 @@ exports[`ResultsData component should render the card view with the correct numb
         </div>
       </section>
     </li>
+    <li>
+      <section
+        class="card"
+      >
+        <div
+          class="card__container"
+        >
+          <div
+            class="card__header"
+          >
+            <span
+              class="checkbox-cell"
+            >
+              <input
+                data-id="P13866"
+                id="1"
+                type="checkbox"
+              />
+              <label
+                aria-label="P13866"
+                for="1"
+                title="click to select, shift+click for multiple selection"
+              />
+            </span>
+            <h2
+              class="small"
+            >
+              <a
+                href="/uniprotkb/P13866"
+              >
+                <span
+                  class="entry-title"
+                  translate="no"
+                >
+                  <span
+                    class="entry-title__status icon--reviewed"
+                    title="This marks a reviewed UniProtKB entry"
+                  >
+                    <test-file-stub />
+                  </span>
+                  P13866 · SC5A1_HUMAN
+                </span>
+              </a>
+            </h2>
+          </div>
+          <div
+            class="card__content"
+          >
+            <div>
+              Sodium/glucose cotransporter 1 · 
+              <strong>
+                Gene:
+              </strong>
+               SLC5A1 (NAGT, SGLT1) · 
+              <a
+                href="/taxonomy/9606"
+                title="Homo sapiens (Human), taxon ID 9606"
+                translate="no"
+              >
+                Homo sapiens (Human)
+              </a>
+               · 664 amino acids · Evidence at protein level · 
+              <strong>
+                Annotation score:
+              </strong>
+               
+              <span
+                class="doughnut-chart--small colour-platinum"
+              >
+                <span
+                  class="doughnut-chart--small__left-wrap"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                    style="transform: rotate(180deg);"
+                  />
+                </span>
+                <span
+                  class="doughnut-chart--small__right-wrap"
+                >
+                  <span
+                    class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                    style="transform: rotate(180deg);"
+                  />
+                </span>
+                <span
+                  class="doughnut-chart--small__inner-circle"
+                >
+                  5/5
+                </span>
+              </span>
+            </div>
+            <small>
+              <div
+                class="keyword-view--inline"
+                translate="yes"
+              >
+                 
+                <a
+                  href="/keywords/KW-0406"
+                >
+                  #Ion transport
+                </a>
+                 
+                <a
+                  href="/keywords/KW-0739"
+                >
+                  #Sodium transport
+                </a>
+                 
+                <a
+                  href="/keywords/KW-0762"
+                >
+                  #Sugar transport
+                </a>
+                 
+                <a
+                  href="/keywords/KW-0769"
+                >
+                  #Symport
+                </a>
+                 
+                <a
+                  href="/keywords/KW-0813"
+                >
+                  #Transport
+                </a>
+                 
+                <a
+                  href="/keywords/KW-0225"
+                >
+                  #Disease variant
+                </a>
+              </div>
+            </small>
+          </div>
+        </div>
+        <div
+          class="card__actions"
+        >
+          <a
+            href="/uniprotkb/P13866#ptm_processing"
+          >
+            1 PTM
+          </a>
+          <a
+            href="/uniprotkb/P13866#disease_variants"
+          >
+            25 reviewed variants
+          </a>
+          <a
+            href="/uniprotkb/P13866#sequences"
+          >
+            2 isoforms
+          </a>
+          <a
+            href="/uniprotkb/P13866#interaction"
+          >
+            1 interaction
+          </a>
+          <a
+            href="/uniprotkb/P13866#disease_variants"
+          >
+            1 disease
+          </a>
+          <a
+            href="/uniprotkb/P13866#structure"
+          >
+            4 3D structures
+          </a>
+          <a
+            href="/uniprotkb/P13866/publications"
+          >
+            17 reviewed publications
+          </a>
+        </div>
+      </section>
+    </li>
   </ul>
   <div
     class="data-loader__loading"
@@ -369,41 +370,13 @@ exports[`ResultsData component should render the table view 1`] = `
           class="checkbox-cell"
         >
           <input
-            data-id="P11413"
+            data-id="P19926"
             id="1"
             type="checkbox"
           />
           <label
-            aria-label="P11413"
-            for="1"
-            title="click to select, shift+click for multiple selection"
-          />
-        </td>
-        <td>
-          <span
-            class="no-wrap accession-view"
-          >
-            <a
-              class="accession"
-              href="/uniprotkb/P11413/entry"
-            >
-              P11413
-            </a>
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="checkbox-cell"
-        >
-          <input
-            data-id="P19926"
-            id="2"
-            type="checkbox"
-          />
-          <label
             aria-label="P19926"
-            for="2"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </td>
@@ -416,6 +389,34 @@ exports[`ResultsData component should render the table view 1`] = `
               href="/uniprotkb/P19926/entry"
             >
               P19926
+            </a>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="checkbox-cell"
+        >
+          <input
+            data-id="P13866"
+            id="2"
+            type="checkbox"
+          />
+          <label
+            aria-label="P13866"
+            for="2"
+            title="click to select, shift+click for multiple selection"
+          />
+        </td>
+        <td>
+          <span
+            class="no-wrap accession-view"
+          >
+            <a
+              class="accession"
+              href="/uniprotkb/P13866/entry"
+            >
+              P13866
             </a>
           </span>
         </td>

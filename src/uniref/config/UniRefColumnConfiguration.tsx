@@ -29,7 +29,7 @@ export enum UniRefColumn {
   types = 'types',
   members = 'members',
   count = 'count',
-  created = 'created',
+  date_modified = 'date_modified',
   from = 'from',
 }
 
@@ -227,8 +227,8 @@ UniRefColumnConfiguration.set(UniRefColumn.count, {
     ),
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.created, {
-  label: 'Last updated',
+UniRefColumnConfiguration.set(UniRefColumn.date_modified, {
+  label: 'Date of last modification',
   render: ({ updated }) =>
     updated && (
       <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>

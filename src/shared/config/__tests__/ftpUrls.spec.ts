@@ -55,7 +55,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.xml
       )?.[0]?.url
     ).toEqual(
-      'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz'
+      'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz'
     );
   });
   it('should generate FTP link to *', () => {
@@ -68,11 +68,11 @@ describe('getUniprotkbFtpUrl', () => {
     ).toEqual([
       {
         filename: 'uniprot_sprot.xml.gz',
-        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz',
+        url: 'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz',
       },
       {
         filename: 'uniprot_trembl.xml.gz',
-        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_trembl.xml.gz',
+        url: 'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_trembl.xml.gz',
       },
     ]);
   });
@@ -111,7 +111,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.embeddings
       )?.[0]?.url
     ).toEqual(
-      'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5'
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5'
     );
   });
   it('should generate FTP link to human proteome embeddings', () => {
@@ -122,7 +122,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.embeddings
       )?.[0]?.url
     ).toEqual(
-      'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/embeddings/UP000005640_9606/per-protein.h5'
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/UP000005640_9606/per-protein.h5'
     );
   });
   it('should generate FTP link to UniRef file', () => {
@@ -133,7 +133,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.fastaRepresentative
       )?.[0]?.url
     ).toEqual(
-      'https://ftp.ebi.ac.uk/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz'
+      'https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz'
     );
   });
   it('should generate FTP link to UniParc directory', () => {
@@ -144,7 +144,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.fasta
       )?.[0]?.url
     ).toEqual(
-      'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/fasta/active/'
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/fasta/active/'
     );
   });
 });
