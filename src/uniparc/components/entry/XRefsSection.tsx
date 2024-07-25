@@ -25,16 +25,8 @@ import './styles/XRefsSection.scss';
 export type DataDBModel = Array<{
   name: string;
   displayName: string;
-  category: string;
   uriLink: string; // template with the ID replaced by a "%id"
-  attributes: Array<{
-    name: string;
-    alive: boolean;
-    // actually, it's always present, but might be empty string, let's consider it optional
-    uriLink?: string;
-  }>;
-  implicit: boolean;
-  linkedReason?: string;
+  alive: boolean;
 }>;
 
 const PAGE_SIZE = 25;
