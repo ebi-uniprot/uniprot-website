@@ -1,4 +1,4 @@
-import { Fragment, memo, ReactNode } from 'react';
+import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { DoughnutChart, InfoList } from 'franklin-sites';
 
@@ -30,13 +30,8 @@ const ProteinOverview = ({ data, inCard }: Props) => {
     />
   );
 
-  let organismNameNode: ReactNode;
-  if (
-    data.organism &&
-    (data.organism.scientificName || data.organism.taxonId)
-  ) {
-    organismNameNode = <TaxonomyView data={data.organism} />;
-  }
+  const organismNameNode = (data.organism?.scientificName ||
+    data.organism?.taxonId) && <TaxonomyView data={data.organism} />;
 
   let geneNameListNode: string | undefined;
   if (data.genes) {
