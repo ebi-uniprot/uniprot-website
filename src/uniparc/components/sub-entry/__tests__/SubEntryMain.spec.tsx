@@ -7,17 +7,19 @@ import uniParcSubEntryConverter, {
   UniParcSubEntryUIModel,
 } from '../../../adapters/uniParcSubEntryConverter';
 
-import uniParcEntryModelData from '../../../__mocks__/uniParcEntryModelData';
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import { Namespace } from '../../../../shared/types/namespaces';
+
+import uniParcEntryModelData from '../../../__mocks__/uniParcEntryModelData';
 import allDatabases from './__mocks__/allDatabases';
 
 const mock = new MockAdapter(axios);
 
-mock
-  .onGet(apiUrls.configure.allDatabases(Namespace.uniparc))
-  .reply(200, allDatabases);
+mock.onGet(/\/configure\/uniparc\/allDatabases/).reply(200, allDatabases);
+
+jest.mock('../SubEntrySimilarProteinsSection', () => ({
+  __esModule: true,
+  default: () => '{{ SubEntrySimilarProteinsSection }}',
+}));
 
 describe('SubEntryMain', () => {
   it('should render', () => {
