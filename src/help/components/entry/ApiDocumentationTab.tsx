@@ -16,6 +16,13 @@ import InPageNav from '../../../shared/components/InPageNav';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
+import {
+  getIdToOperation,
+  getLayoutAction,
+  getTagIdsAndSections,
+  tagNameToId,
+} from '../../utils/apiDocumentation';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
@@ -23,8 +30,6 @@ import { ApiDocsDefinition } from '../../types/apiDocumentation';
 
 import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
-
-const tagNameToId = (name: string) => name.replaceAll(' ', '_');
 
 const OperationTag = ({
   tagObj,
@@ -47,61 +52,18 @@ const OperationTag = ({
   );
 };
 
-const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
-  new Map(
-    Object.entries(paths).flatMap(([path, methods]) =>
-      Object.values(methods).map((method) => {
-        const tag = method.tags?.[0];
-        const { operationId } = method;
-        const id = `operations-${tag.replaceAll(' ', '_')}-${operationId}`;
-        return [id, { path, tag, operationId }];
-      })
-    )
-  );
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getLayoutAction = (operation: any, shown: boolean) => ({
-  type: 'layout_show',
-  payload: {
-    thing: ['operations', operation.tag, operation.operationId],
-    shown,
-  },
-});
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   const history = useHistory();
   const BaseLayout = getComponent('BaseLayout', true);
-  const spec = getSpec().get('json');
-  const idToOperation = useMemo(
-    () => getIdToOperation(spec.get('paths').toJSON()),
-    [spec]
-  );
-
-  const [tagIds, sections] = useMemo(() => {
-    const sections = [];
-    const tagIds = new Set<string>();
-    for (const tag of spec.get('tags')) {
-      const tagName = tag.get('name');
-      const tagId = tagNameToId(tagName);
-      tagIds.add(tagId);
-      sections.push({
-        id: tagId,
-        label: tagName,
-      });
-      for (const [id, operation] of idToOperation) {
-        if (operation.tag === tagName) {
-          sections.push({
-            id,
-            label: (
-              <span className={styles['section-path']}>{operation.path}</span>
-            ),
-          });
-        }
-      }
-    }
-    return [tagIds, sections];
-  }, [idToOperation, spec]);
+  const [tagIds, sections, idToOperation] = useMemo(() => {
+    const spec = getSpec().get('json');
+    const idToOperation = getIdToOperation(spec.get('paths').toJSON());
+    return [
+      ...getTagIdsAndSections(spec, idToOperation, styles['section-path']),
+      idToOperation,
+    ];
+  }, [getSpec]);
   const openOperationAtLocation = useCallback(
     (location: HistoryLocation) => {
       const id = location.hash.replace('#', '');
@@ -129,6 +91,7 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
 
   return (
     <SidebarLayout
+      className={styles.wider}
       sidebar={
         <div className={styles.sidebar}>
           <InPageNav sections={sections} />
