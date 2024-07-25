@@ -4,15 +4,17 @@ import { ExternalLink, InfoList, Loader } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+
 import { getEntryPath } from '../../../app/config/urls';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { UniParcXRef } from '../../adapters/uniParcConverter';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { DataDBModel } from '../entry/XRefsSection';
+import EntrySection from '../../types/subEntry';
 
 type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
 
@@ -119,10 +121,13 @@ const SubEntryOverview = ({ data }: Props) => {
       ),
     },
     {
-      // TODO: add link to sequence section
       title: 'Amino acids',
       content: data.entry.sequence && (
-        <span>{data.entry.sequence?.length} </span>
+        <>
+          {`${data.entry.sequence?.length} `}
+          {/* eslint-disable-next-line uniprot-website/use-config-location */}
+          <Link to={`#${EntrySection.Sequence}`}>(go to sequence)</Link>
+        </>
       ),
     },
     {
