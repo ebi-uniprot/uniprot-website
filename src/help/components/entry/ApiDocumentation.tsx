@@ -7,7 +7,7 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 
-import DocumentationTab from './DocumentationTab';
+import DocumentationTab from './ApiDocumentationTab';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
@@ -16,7 +16,7 @@ import { ApiDocsDefinition } from '../../types/apiDocumentation';
 
 import 'swagger-ui-react/swagger-ui.css';
 
-const Documentation = () => {
+const ApiDocumentation = () => {
   const history = useHistory();
   const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
     LocationToPath[Location.Documentation]
@@ -54,4 +54,4 @@ const Documentation = () => {
   );
 };
 
-export default Documentation;
+export default ApiDocumentation;
