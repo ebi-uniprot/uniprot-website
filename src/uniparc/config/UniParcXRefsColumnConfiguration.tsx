@@ -136,7 +136,10 @@ const getAccessionColumn =
           id = id.replace(/_\d+$/, '');
         }
         cell = (
-          <ExternalLink url={template.replace('%id', id)}>
+          <ExternalLink
+            url={template.replace('%id', id)}
+            rel={xref.active ? undefined : 'nofollow'}
+          >
             {xref.id}
             {xref.chain && ` (chain ${xref.chain})`}
           </ExternalLink>
