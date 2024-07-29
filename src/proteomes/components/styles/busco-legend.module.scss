@@ -1,3 +1,5 @@
+@import 'busco-colors';
+
 .busco-legend-item {
   margin-right: 0.5rem;
   &__swatch {
@@ -8,7 +10,20 @@
     margin-right: 0.125rem;
     position: relative;
     top: 0.125rem;
+    &--s {
+      background-color: $s-color;
+    }
+    &--d {
+      background-color: $d-color;
+    }
+    &--f {
+      background-color: $f-color;
+    }
+    &--m {
+      background-color: $m-color;
+    }
   }
+
   &__label {
     font-size: 0.8rem;
   }
