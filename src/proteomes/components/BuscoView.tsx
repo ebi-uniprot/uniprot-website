@@ -1,6 +1,6 @@
-import { CSSProperties, useMemo } from 'react';
+import { CSSProperties } from 'react';
 
-import { formatPercentage } from '../../shared/utils/utils';
+import { formatPercentage as fp } from '../../shared/utils/utils';
 
 import { BuscoReport } from '../adapters/proteomesConverter';
 
@@ -16,29 +16,18 @@ const getPercentageOfTotal = (total: number) => (x: number) =>
   (100 * x) / total;
 
 const BuscoView = ({ report }: { report: BuscoReport }) => {
-  const [cssProperties, formattedPercentages] = useMemo(() => {
-    const getPercentage = getPercentageOfTotal(report.total);
-    const percentages = {
-      c: getPercentage(report.complete),
-      s: getPercentage(report.completeSingle),
-      d: getPercentage(report.completeDuplicated),
-      f: getPercentage(report.fragmented),
-      m: getPercentage(report.missing),
-    };
-    const cssProperties: Style = {
-      '--s': `${percentages.s}%`,
-      '--d': `${percentages.d}%`,
-      '--f': `${percentages.f}%`,
-    };
-    const formattedPercentages = {
-      c: formatPercentage(percentages.c),
-      s: formatPercentage(percentages.s),
-      d: formatPercentage(percentages.d),
-      f: formatPercentage(percentages.f),
-      m: formatPercentage(percentages.m),
-    };
-    return [cssProperties, formattedPercentages];
-  }, [report]);
+  const getPercentage = getPercentageOfTotal(report.total);
+  const c = getPercentage(report.complete);
+  const s = getPercentage(report.completeSingle);
+  const d = getPercentage(report.completeDuplicated);
+  const f = getPercentage(report.fragmented);
+  const m = getPercentage(report.missing);
+
+  const cssProperties: Style = {
+    '--s': `${s}%`,
+    '--d': `${d}%`,
+    '--f': `${f}%`,
+  };
 
   return (
     <div className={styles['busco-view']}>
@@ -47,7 +36,7 @@ const BuscoView = ({ report }: { report: BuscoReport }) => {
       <div
         className={styles['busco-view__report']}
       >{`n:${report.total} · ${report.lineageDb}`}</div>
-      <div>{`C:${formattedPercentages.c} (S:${formattedPercentages.s} D:${formattedPercentages.d}) F:${formattedPercentages.f} M:${formattedPercentages.m}`}</div>
+      <div>{`C:${fp(c)} (S:${fp(s)} D:${fp(d)}) F:${fp(f)} M:${fp(m)}`}</div>
     </div>
   );
 };
