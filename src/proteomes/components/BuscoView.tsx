@@ -4,7 +4,7 @@ import { formatPercentage as fp } from '../../shared/utils/utils';
 
 import { BuscoReport } from '../adapters/proteomesConverter';
 
-import styles from './styles/busco-view.module.scss';
+import styles from './styles/busco.module.scss';
 
 interface Style extends CSSProperties {
   '--s': string;

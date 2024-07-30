@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import styles from './styles/busco-legend.module.scss';
+import styles from './styles/busco.module.scss';
 
 const buscoPartitionToLabel = {
   s: 'Single',
