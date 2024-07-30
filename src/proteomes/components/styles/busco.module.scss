@@ -15,7 +15,7 @@
     // "missing" not needed as it will be the remainder of 100%
 
     --sd: calc(var(--s) + var(--d));
-    --sdf: calc(var(--s) + var(--d) + var(--f));
+    --sdf: calc(var(--sd) + var(--f));
 
     height: 15px;
     background: linear-gradient(
