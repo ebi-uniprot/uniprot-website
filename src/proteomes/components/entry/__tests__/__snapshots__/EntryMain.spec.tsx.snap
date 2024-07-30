@@ -56,7 +56,7 @@ exports[`EntryMain view should render 1`] = `
           </a>
         </div>
         <table
-          class="data-table data-table--compact data-table--fixed"
+          class="data-table data-table--compact"
         >
           <thead>
             <tr>
@@ -111,14 +111,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270706"
@@ -132,9 +128,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -157,14 +151,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000663"
@@ -178,9 +168,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -203,14 +191,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270707"
@@ -224,9 +208,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -249,14 +231,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270708"
@@ -270,9 +248,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -295,14 +271,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270709"
@@ -316,9 +288,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -341,14 +311,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270710"
@@ -362,9 +328,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -387,14 +351,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270711"
@@ -408,9 +368,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -433,14 +391,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270712"
@@ -454,9 +408,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -479,14 +431,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270713"
@@ -500,9 +448,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -525,14 +471,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 1
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270714"
@@ -546,9 +488,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
@@ -571,14 +511,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 2
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000664"
@@ -592,9 +528,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 2")"
                 >
@@ -617,14 +551,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 2
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270715"
@@ -638,9 +568,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 2")"
                 >
@@ -663,14 +591,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 2
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270716"
@@ -684,9 +608,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 2")"
                 >
@@ -709,14 +631,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 3
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000665"
@@ -730,9 +648,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 3")"
                 >
@@ -755,14 +671,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 3
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=GL000221"
@@ -776,9 +688,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 3")"
                 >
@@ -801,14 +711,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 4
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000666"
@@ -822,9 +728,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 4")"
                 >
@@ -847,14 +751,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 4
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=GL000008"
@@ -868,9 +768,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 4")"
                 >
@@ -893,14 +791,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 5
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000667"
@@ -914,9 +808,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 5")"
                 >
@@ -939,14 +831,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 5
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=GL000208"
@@ -960,9 +848,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 5")"
                 >
@@ -985,14 +871,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 6
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000668"
@@ -1006,9 +888,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 6")"
                 >
@@ -1031,14 +911,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 7
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000669"
@@ -1052,9 +928,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 7")"
                 >
@@ -1077,14 +951,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 8
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000670"
@@ -1098,9 +968,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 8")"
                 >
@@ -1123,14 +991,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 9
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000671"
@@ -1144,9 +1008,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
                 >
@@ -1169,14 +1031,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 9
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270717"
@@ -1190,9 +1048,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
                 >
@@ -1215,14 +1071,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 9
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270718"
@@ -1236,9 +1088,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
                 >
@@ -1261,14 +1111,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 9
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270719"
@@ -1282,9 +1128,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
                 >
@@ -1307,14 +1151,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 9
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270720"
@@ -1328,9 +1168,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
                 >
@@ -1353,14 +1191,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 10
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000672"
@@ -1374,9 +1208,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 10")"
                 >
@@ -1399,14 +1231,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 10
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270825"
@@ -1420,9 +1248,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 10")"
                 >
@@ -1445,14 +1271,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome X
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000685"
@@ -1466,9 +1288,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome X")"
                 >
@@ -1491,14 +1311,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 11
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000673"
@@ -1512,9 +1328,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 11")"
                 >
@@ -1537,14 +1351,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 11
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270721"
@@ -1558,9 +1368,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 11")"
                 >
@@ -1583,14 +1391,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 12
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000674"
@@ -1604,9 +1408,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 12")"
                 >
@@ -1629,14 +1431,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 13
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000675"
@@ -1650,9 +1448,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 13")"
                 >
@@ -1675,14 +1471,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000676"
@@ -1696,9 +1488,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -1721,14 +1511,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=GL000009"
@@ -1742,9 +1528,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -1767,14 +1551,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=GL000194"
@@ -1788,9 +1568,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -1813,14 +1591,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=GL000225"
@@ -1834,9 +1608,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -1859,14 +1631,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270722"
@@ -1880,9 +1648,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -1905,14 +1671,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270723"
@@ -1926,9 +1688,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -1951,14 +1711,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270724"
@@ -1972,9 +1728,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -1997,14 +1751,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270725"
@@ -2018,9 +1768,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -2043,14 +1791,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 14
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270726"
@@ -2064,9 +1808,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
@@ -2089,14 +1831,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 15
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000677"
@@ -2110,9 +1848,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 15")"
                 >
@@ -2135,14 +1871,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 15
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270727"
@@ -2156,9 +1888,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 15")"
                 >
@@ -2181,14 +1911,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 16
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000678"
@@ -2202,9 +1928,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 16")"
                 >
@@ -2227,14 +1951,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 16
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270728"
@@ -2248,9 +1968,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 16")"
                 >
@@ -2273,14 +1991,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 17
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000679"
@@ -2294,9 +2008,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 17")"
                 >
@@ -2319,14 +2031,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 17
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=GL000205"
@@ -2340,9 +2048,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 17")"
                 >
@@ -2365,14 +2071,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 17
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270729"
@@ -2386,9 +2088,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 17")"
                 >
@@ -2411,14 +2111,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 17
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270730"
@@ -2432,9 +2128,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 17")"
                 >
@@ -2457,14 +2151,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 18
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000680"
@@ -2478,9 +2168,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 18")"
                 >
@@ -2503,14 +2191,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 19
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000681"
@@ -2524,9 +2208,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 19")"
                 >
@@ -2549,14 +2231,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 20
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000682"
@@ -2570,9 +2248,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 20")"
                 >
@@ -2595,14 +2271,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 21
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000683"
@@ -2616,9 +2288,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 21")"
                 >
@@ -2641,14 +2311,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000684"
@@ -2662,9 +2328,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -2687,14 +2351,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270731"
@@ -2708,9 +2368,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -2733,14 +2391,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270732"
@@ -2754,9 +2408,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -2779,14 +2431,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270733"
@@ -2800,9 +2448,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -2825,14 +2471,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270734"
@@ -2846,9 +2488,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -2871,14 +2511,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270735"
@@ -2892,9 +2528,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -2917,14 +2551,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270736"
@@ -2938,9 +2568,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -2963,14 +2591,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270737"
@@ -2984,9 +2608,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -3009,14 +2631,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270738"
@@ -3030,9 +2648,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -3055,14 +2671,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome 22
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270739"
@@ -3076,9 +2688,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
@@ -3101,14 +2711,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome Y
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000686"
@@ -3122,9 +2728,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome Y")"
                 >
@@ -3147,14 +2751,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Chromosome Y
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270740"
@@ -3168,9 +2768,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome Y")"
                 >
@@ -3193,14 +2791,10 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Mitochondrion MT
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=J01415"
@@ -3214,9 +2808,7 @@ exports[`EntryMain view should render 1`] = `
                   />
                 </a>
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Mitochondrion MT")"
                 >
@@ -3239,17 +2831,11 @@ exports[`EntryMain view should render 1`] = `
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td>
                 Unplaced
               </td>
-              <td
-                class="data-table__cell--ellipsis"
-              />
-              <td
-                class="data-table__cell--ellipsis"
-              >
+              <td />
+              <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Unplaced")"
                 >

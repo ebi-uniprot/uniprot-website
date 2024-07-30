@@ -164,7 +164,6 @@ const Components = ({
         columns={columns}
         data={components}
         onSelectionChange={setSelectedItemFromEvent}
-        fixedLayout
       />
     </Card>
   );
