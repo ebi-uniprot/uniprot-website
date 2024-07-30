@@ -63,6 +63,7 @@ type RemovedEntryMessageProps = RemovedEntryHeadingProps & {
   reason?: InactiveEntryReason;
   release?: string;
   children?: ReactNode;
+  merged?: boolean;
 };
 
 const RemovedEntryMessage = ({
@@ -70,6 +71,7 @@ const RemovedEntryMessage = ({
   accession,
   uniparc,
   release,
+  merged,
   children,
 }: RemovedEntryMessageProps) => {
   let helpArticleLink = 'deleted_accessions';
@@ -80,7 +82,12 @@ const RemovedEntryMessage = ({
 
   return (
     <>
-      <RemovedEntryHeading accession={accession} uniparc={uniparc} />
+      <RemovedEntryHeading
+        accession={accession}
+        // In case of merging, we'll get the data of the new entry, so the
+        // UniParc of the new entry, so don't pass that to not get wrong link
+        uniparc={merged ? undefined : uniparc}
+      />
       {children ||
         (reason?.deletedReason && (
           <div>
@@ -149,7 +156,7 @@ export const MergedEntryMessage = ({
   mergedInto,
   ...props
 }: MergedEntryMessageProps) => (
-  <RemovedEntryMessage {...props}>
+  <RemovedEntryMessage {...props} merged>
     <div>
       This entry has now been <strong>merged</strong> into{' '}
       <Link
