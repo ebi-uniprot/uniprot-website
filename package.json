@@ -102,6 +102,7 @@
   "dependencies": {
     "@hello-pangea/dnd": "16.5.0",
     "@lit/react": "1.0.4",
+    "@nightingale-elements/nightingale-manager": "^5.0.0",
     "@nightingale-elements/nightingale-msa": "5.0.0",
     "@nightingale-elements/nightingale-navigation": "^5.0.0",
     "@nightingale-elements/nightingale-sequence": "^5.0.0",

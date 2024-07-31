@@ -1775,6 +1775,13 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.2.0"
 
+"@nightingale-elements/nightingale-manager@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-manager/-/nightingale-manager-5.0.0.tgz#a86faa46901999a44676a44cf78083e6025082b5"
+  integrity sha512-JS9boai2dXWvnhqSsiKQeqJz+dvJN++hLP9Wpoy/B/q6lOPtwJcUacAvtKmx+DeSh0mhKemABCH0AeQ2ymPdhg==
+  dependencies:
+    "@nightingale-elements/nightingale-new-core" "^5.0.0"
+
 "@nightingale-elements/nightingale-msa@5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-msa/-/nightingale-msa-5.0.0.tgz#56b6d122448694ec88fed5944ecf0d2ab7adb91b"
