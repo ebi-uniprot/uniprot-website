@@ -1,14 +1,17 @@
 import { useCallback, useState } from 'react';
 import { FullViewIcon } from 'franklin-sites';
 import { Link, useParams } from 'react-router-dom';
+import { Feature } from '@nightingale-elements/nightingale-track';
+import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
+import NightingaleSequenceComponent from '../../custom-elements/NightingaleSequence';
+import NightingalTrackComponent from '../../custom-elements/NightingaleTrack';
+import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
 
 import NightingaleZoomTool, {
   iconSize,
 } from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
 import EntryDownloadPanel from '../entry/EntryDownloadPanel';
 import EntryDownloadButton from '../entry/EntryDownloadButton';
-
-import useCustomElement from '../../hooks/useCustomElement';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
@@ -30,46 +33,21 @@ type Props<T> = {
 function VisualFeaturesView<T extends GenericFeature>({
   features,
   sequence,
-  trackHeight,
+  trackHeight = 40,
   noLinkToFullView,
 }: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const trackElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
-  );
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-  const sequenceElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
-    'protvista-sequence'
-  );
-
   const params = useParams<{ accession: string }>();
 
   const setTrackData = useCallback(
-    (node: { data: T[] }): void => {
-      if (node && trackElement.defined) {
+    (node: { data: Feature[] } | null): void => {
+      if (node) {
         // eslint-disable-next-line no-param-reassign
         node.data = features;
       }
     },
-    [trackElement.defined, features]
+    [features]
   );
-
-  const ceDefined =
-    trackElement.defined &&
-    navigationElement.defined &&
-    sequenceElement.defined;
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
@@ -78,8 +56,8 @@ function VisualFeaturesView<T extends GenericFeature>({
     new Set(features.flatMap((feature) => feature.type))
   );
 
-  return ceDefined ? (
-    <>
+  return (
+    <div>
       {displayDownloadPanel && (
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}
@@ -105,22 +83,25 @@ function VisualFeaturesView<T extends GenericFeature>({
           <FullViewIcon height={iconSize} />
         </Link>
       )}
-      <navigationElement.name length={sequence.length} />
-      <trackElement.name
-        ref={setTrackData}
-        length={sequence.length}
-        layout="non-overlapping"
-        height={trackHeight}
-        no-scroll
-      />
-      <sequenceElement.name
-        sequence={sequence}
-        length={sequence.length}
-        height="20"
-        no-scroll
-      />
-    </>
-  ) : null;
+      <NightingaleManagerComponent>
+        <NightingaleNavigationComponent length={sequence.length} height={40} />
+        <NightingalTrackComponent
+          ref={setTrackData}
+          length={sequence.length}
+          layout="non-overlapping"
+          height={trackHeight}
+          no-scroll
+        />
+        <NightingaleSequenceComponent
+          sequence={sequence}
+          length={sequence.length}
+          height={20}
+          no-scroll
+          numberOfTicks={0}
+        />
+      </NightingaleManagerComponent>
+    </div>
+  );
 }
 
 export default VisualFeaturesView;
