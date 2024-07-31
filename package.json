@@ -104,6 +104,7 @@
     "@lit/react": "1.0.4",
     "@nightingale-elements/nightingale-msa": "5.0.0",
     "@nightingale-elements/nightingale-navigation": "^5.0.0",
+    "@nightingale-elements/nightingale-sequence": "^5.0.0",
     "@nightingale-elements/nightingale-track": "^5.0.0",
     "@sentry/react": "7.27.0",
     "@sentry/tracing": "7.27.0",
