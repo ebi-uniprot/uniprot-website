@@ -127,8 +127,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(188, 232, 117);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--s"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -140,8 +139,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(11, 165, 166);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--d"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -153,8 +151,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(238, 203, 164);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--f"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -166,8 +163,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(49, 75, 180);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--m"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -180,9 +176,9 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <div
               class="busco-view"
             >
-              <protvista-track
-                height="10"
-                length="100"
+              <div
+                class="busco-view__track"
+                style="--s: 37.48185776487663%; --d: 62.00290275761974%; --f: 0.02902757619738752%;"
               />
               <div
                 class="busco-view__report"
