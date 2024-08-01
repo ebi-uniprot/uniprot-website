@@ -28,8 +28,8 @@ export const convertData = (
   data
     .flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
+        accession: feature.databaseId,
         type: 'Other' as const,
-        protvistaFeatureId: feature.databaseId,
         start: locationFeature.start,
         end: locationFeature.end,
         database: feature.database,
@@ -73,7 +73,7 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
 
           return (
             <tr
-              key={feature.protvistaFeatureId}
+              key={feature.accession}
               data-start={feature.start}
               data-end={feature.end}
             >

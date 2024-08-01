@@ -175,7 +175,7 @@ export const findSequenceFeature = (
   for (const sequence of alignment) {
     if (sequence?.features) {
       const foundFeature = sequence.features.find(
-        (feature) => feature.protvistaFeatureId === protvistaFeatureId
+        (feature) => feature.accession === protvistaFeatureId
       );
       if (foundFeature) {
         return foundFeature;
@@ -209,7 +209,7 @@ export const getMSAFeature = (
   return {
     residues: { from: gappedFeature.start, to: gappedFeature.end },
     sequences: { from: sequenceIndex, to: sequenceIndex },
-    id: feature.protvistaFeatureId,
+    id: feature.accession,
     borderColor,
     fillColor: 'transparent',
     mouseOverFillColor: 'transparent',

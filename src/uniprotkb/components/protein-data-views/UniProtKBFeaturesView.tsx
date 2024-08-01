@@ -123,8 +123,7 @@ export const processFeaturesData = (
     }
 
     return {
-      protvistaFeatureId: feature.featureId || v1(),
-      featureId: feature.featureId,
+      accession: feature.featureId || v1(),
       start: feature.location.start.value,
       end: feature.location.end.value,
       startModifier: feature.location.start.modifier,
@@ -204,9 +203,9 @@ const UniProtKBFeaturesView = ({
             description = <RichText>{feature.description}</RichText>;
           }
           return (
-            <Fragment key={feature.protvistaFeatureId}>
+            <Fragment key={feature.accession}>
               <tr
-                data-id={feature.protvistaFeatureId}
+                data-id={feature.accession}
                 data-start={feature.start}
                 data-end={feature.end}
               >
@@ -217,21 +216,21 @@ const UniProtKBFeaturesView = ({
                     {feature.type}
                   </td>
                 )}
-                <td id={feature.featureId}>
+                <td id={feature.accession}>
                   {feature.type === 'Natural variant' &&
                   position === positionStart &&
                   // Expasy links are only valid for SNPs (e.g. "R → G":)
                   feature.sequence?.length === 5 &&
-                  feature.featureId ? (
+                  feature.accession ? (
                     <ExternalLink
-                      url={externalUrls.UniProt(feature.featureId)}
+                      url={externalUrls.UniProt(feature.accession)}
                       title="View in Expasy"
                       noIcon
                     >
-                      {feature.featureId}
+                      {feature.accession}
                     </ExternalLink>
                   ) : (
-                    feature.featureId
+                    feature.accession
                   )}
                 </td>
                 <td>{position}</td>
@@ -242,7 +241,7 @@ const UniProtKBFeaturesView = ({
                 )}
                 <td
                   id={
-                    feature.featureId?.startsWith('PRO') &&
+                    feature.accession?.startsWith('PRO') &&
                     typeof feature.description === 'string'
                       ? stringToID(feature.description)
                       : `description${position}`
@@ -303,7 +302,7 @@ const UniProtKBFeaturesView = ({
               </tr>
               {feature.sequence && (
                 <tr
-                  data-group-for={feature.protvistaFeatureId}
+                  data-group-for={feature.accession}
                   data-start={feature.start}
                   data-end={feature.end}
                 >

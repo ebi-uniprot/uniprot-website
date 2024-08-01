@@ -50,8 +50,8 @@ export const prepareFeatureForTooltip = (
     }
   }
 
-  if (feature.featureId) {
-    tooltipFeature.ftId = feature.featureId;
+  if (feature.accession) {
+    tooltipFeature.ftId = feature.accession;
   }
 
   if (!feature.evidences) {

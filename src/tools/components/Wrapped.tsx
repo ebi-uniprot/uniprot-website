@@ -92,7 +92,7 @@ export const handleEvent =
     event.stopPropagation();
     if (event?.detail?.eventtype === 'click') {
       updateTooltip({
-        id: event.detail.feature.protvistaFeatureId,
+        id: event.detail.feature.accession,
         x: event.detail.coords[0],
         y: event.detail.coords[1],
       });

@@ -1,5 +1,6 @@
 import { Fragment, lazy, ReactNode, useMemo } from 'react';
-import TransformedVariant from 'protvista-variation-adapter';
+// import TransformedVariant from 'protvista-variation-adapter';
+import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
 import DatatableWrapper from './DatatableWrapper';
@@ -31,9 +32,38 @@ export type Fragment = {
 
 export type LocationModifier = 'EXACT' | 'OUTSIDE' | 'UNSURE' | 'UNKNOWN';
 
-export type ProcessedFeature = {
-  protvistaFeatureId: string;
-  featureId?: string;
+/*
+export type Feature = {
+  accession: string;
+  color?: string;
+  fill?: string;
+  shape?: Shapes;
+  tooltipContent?: string;
+  type?: string;
+  locations?: Array<FeatureLocation>;
+  feature?: Feature;
+  start?: number;
+  end?: number;
+  opacity?: number;
+
+  export type VariationDatum = {
+  accession: string;
+  variant: string;
+  start: number;
+  size?: number;
+  xrefNames: string[];
+  hasPredictions: boolean;
+  tooltipContent?: string;
+  alternativeSequence?: string;
+  internalId?: string;
+  wildType?: string;
+  color?: string;
+  consequenceType: string;
+};
+};
+
+*/
+export type ProcessedFeature = Feature & {
   start: number;
   end: number;
   startModifier?: LocationModifier;
@@ -42,7 +72,6 @@ export type ProcessedFeature = {
   description?: ReactNode;
   evidences?: Evidence[];
   sequence?: string;
-  locations?: { fragments: Fragment[] }[];
   source?: string;
   // PTM specific
   confidenceScore?: ConfidenceScore;
@@ -52,8 +81,13 @@ export type ProcessedFeature = {
   ligandDescription?: string;
 };
 
-type FeatureProps<T> = {
-  features: T[];
+export type GenericFeature =
+  | ProcessedFeature
+  // | TransformedVariant
+  | UniParcProcessedFeature;
+
+type FeatureProps = {
+  features: GenericFeature[];
   table: JSX.Element;
   trackHeight?: number;
   sequence?: string;
@@ -61,19 +95,14 @@ type FeatureProps<T> = {
   noLinkToFullView?: boolean;
 };
 
-export type GenericFeature =
-  | ProcessedFeature
-  | TransformedVariant
-  | UniParcProcessedFeature;
-
-const FeaturesView = <T extends GenericFeature>({
+const FeaturesView = ({
   sequence,
   features,
   table,
   trackHeight,
   withTitle = true,
   noLinkToFullView,
-}: FeatureProps<T>) => {
+}: FeatureProps) => {
   const isSmallScreen = useSmallScreen();
 
   const managerElement = useCustomElement(

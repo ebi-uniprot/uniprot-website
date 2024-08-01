@@ -19,23 +19,23 @@ import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents'
 import { TabLocation } from '../../../uniprotkb/types/entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
-import { GenericFeature } from './FeaturesView';
+// import { GenericFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
 
-type Props<T> = {
-  features: T[];
+type Props = {
+  features: Feature[];
   sequence: string;
   trackHeight?: number;
   noLinkToFullView?: boolean;
 };
 
-function VisualFeaturesView<T extends GenericFeature>({
+function VisualFeaturesView({
   features,
   sequence,
   trackHeight = 40,
   noLinkToFullView,
-}: Props<T>) {
+}: Props) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
 
@@ -53,7 +53,11 @@ function VisualFeaturesView<T extends GenericFeature>({
     setDisplayDownloadPanel(!displayDownloadPanel);
 
   const featureTypes: string[] = Array.from(
-    new Set(features.flatMap((feature) => feature.type))
+    new Set(
+      features
+        .flatMap((feature) => feature.type)
+        .filter((type) => typeof type !== 'undefined')
+    )
   );
 
   return (
