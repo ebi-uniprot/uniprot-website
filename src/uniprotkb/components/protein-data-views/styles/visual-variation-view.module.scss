@@ -3,8 +3,8 @@
   grid-template-columns: 12vw 1fr;
   gap: 0.2rem 0.7rem;
 
-  protvista-navigation,
-  protvista-sequence {
+  nightingale-navigation,
+  nightingale-sequence {
     grid-column-start: 2;
   }
 }
