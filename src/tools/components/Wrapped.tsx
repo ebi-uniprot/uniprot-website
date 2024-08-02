@@ -9,13 +9,13 @@ import {
   lazy,
 } from 'react';
 import { debounce } from 'lodash-es';
-import { Loader } from 'franklin-sites';
-
 import { Region } from '@nightingale-elements/nightingale-msa';
+
+import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
+
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
-import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
@@ -117,15 +117,9 @@ export const WrappedRow = ({
   onMSAFeatureClick,
   lastRow,
 }: WrappedRowProps) => {
-  const trackElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
-  );
-
   const setFeatureTrackData = useCallback(
     (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
-      if (node && trackElement.defined && activeAlignment?.sequence) {
+      if (node && activeAlignment?.sequence) {
         node.data = activeAnnotation
           .map((f) =>
             createGappedFeature(
@@ -141,7 +135,7 @@ export const WrappedRow = ({
     },
     // TODO: replace this with fragments to have one big grid
     // -> to keep the right column of the right size to fit all possible values
-    [activeAlignment, activeAnnotation, trackElement.defined]
+    [activeAlignment, activeAnnotation]
   );
 
   // Using just the sequences resulted in occassional off by one errors so do this only for
@@ -182,10 +176,6 @@ export const WrappedRow = ({
     },
     [length, selectedMSAFeatures, sequences, trackStart, width]
   );
-
-  if (!trackElement.defined) {
-    return <Loader />;
-  }
 
   return (
     <>
@@ -242,12 +232,13 @@ export const WrappedRow = ({
       </span>
       <div className="track annotation-track" style={{ width }}>
         {annotation && !delayRender && (
-          <trackElement.name
+          <NightingalTrackComponent
             ref={setFeatureTrackData}
-            displaystart={trackStart}
-            displayend={trackEnd}
+            display-start={trackStart}
+            display-end={trackEnd}
             length={length}
             layout="non-overlapping"
+            height={40}
           />
         )}
       </div>
