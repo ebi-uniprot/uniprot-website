@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Loader } from 'franklin-sites';
+import NightingaleNavigationComponent from '../../shared/custom-elements/NightingaleNavigation';
+import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
+import NightingaleManagerComponent from '../../shared/custom-elements/NightingaleManager';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
 
-import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
   getFullAlignmentSegments,
   getEndCoordinate,
@@ -136,31 +137,9 @@ const AlignOverview = ({
     };
   }, [updateTooltip]);
 
-  const trackElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
-  );
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
-  );
-  const ceDefined =
-    trackElement.defined && navigationElement.defined && managerElement.defined;
-
   const setFeatureTrackData = useCallback(
     (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
-      if (node && ceDefined && activeAnnotation && activeAlignment?.sequence) {
+      if (node && activeAnnotation && activeAlignment?.sequence) {
         node.data = activeAnnotation
           // The Overview feature track always starts from the start of the protein
           // hence the need to have `from` := 1
@@ -168,7 +147,7 @@ const AlignOverview = ({
           .filter(Boolean);
       }
     },
-    [activeAlignment?.sequence, activeAnnotation, ceDefined]
+    [activeAlignment?.sequence, activeAnnotation]
   );
 
   const overviewHeight = (
@@ -189,10 +168,6 @@ const AlignOverview = ({
       setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
     }
   }, [alignmentLength, alignment, displayPosition]);
-
-  if (!ceDefined) {
-    return <Loader />;
-  }
 
   return (
     <section
@@ -216,7 +191,7 @@ const AlignOverview = ({
       </span>
       <div className="track">
         {annotation && (
-          <trackElement.name
+          <NightingalTrackComponent
             ref={setFeatureTrackData}
             length={totalLength}
             layout="non-overlapping"
@@ -254,11 +229,11 @@ const AlignOverview = ({
             : 'undefined',
         }}
       >
-        <managerElement.name
+        <NightingaleManagerComponent
           ref={managerRef}
           attributes="displaystart displayend"
         >
-          <navigationElement.name
+          <NightingaleNavigationComponent
             ref={navigationRef}
             length={alignmentLength}
           />
@@ -276,7 +251,7 @@ const AlignOverview = ({
             display-end={displayPosition[1]}
             {...conservationOptions}
           />
-        </managerElement.name>
+        </NightingaleManagerComponent>
       </div>
       <div className="right-coord">
         {alignment.map((s) => (
