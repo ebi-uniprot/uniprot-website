@@ -55,7 +55,11 @@ exports[`FeaturesView component should render without crashing 1`] = `
               >
                 Signal
               </td>
-              <td />
+              <td
+                id="0"
+              >
+                0
+              </td>
               <td>
                 1-17
               </td>

@@ -169,13 +169,13 @@ export const createGappedFeature = (
 };
 
 export const findSequenceFeature = (
-  protvistaFeatureId: string,
+  accession: string,
   alignment: MSAInput[]
 ) => {
   for (const sequence of alignment) {
     if (sequence?.features) {
       const foundFeature = sequence.features.find(
-        (feature) => feature.accession === protvistaFeatureId
+        (feature) => feature.accession === accession
       );
       if (foundFeature) {
         return foundFeature;

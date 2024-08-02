@@ -30,7 +30,7 @@ const processData = (xrefs: Xref[]) =>
       resolution: !Resolution || Resolution === '-' ? null : Resolution,
       chain,
       positions,
-      protvistaFeatureId: id,
+      accession: id,
     };
   });
 
