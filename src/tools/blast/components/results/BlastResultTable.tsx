@@ -17,7 +17,6 @@ import colors from '../../../../../node_modules/franklin-sites/src/styles/colour
 import { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
-import useCustomElement from '../../../../shared/hooks/useCustomElement';
 import useColumns, {
   ColumnDescriptor,
 } from '../../../../shared/hooks/useColumns';
@@ -31,6 +30,8 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
+import NightingalTrackComponent from '../../../../shared/custom-elements/NightingaleTrack';
+import NightingaleNavigationComponent from '../../../../shared/custom-elements/NightingaleNavigation';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
@@ -75,15 +76,9 @@ const BlastSummaryTrack = ({
 }: BlastSummaryTrackProps) => {
   const { hsp_query_from, hsp_query_to } = hsp;
 
-  const trackElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
-  );
-
   const setTrackData = useCallback(
     (node: { data: TrackNodeData[] }): void => {
-      if (node && trackElement.defined) {
+      if (node) {
         /**
          * TODO - would be nice to add gaps
          * at some point
@@ -131,13 +126,13 @@ const BlastSummaryTrack = ({
         ];
       }
     },
-    [trackElement.defined, hsp, selectedScoring, hitLength, maxScorings]
+    [hsp, selectedScoring, hitLength, maxScorings]
   );
 
   return (
     <div className="data-table__blast-hsp__tracks">
       <section className="data-table__blast-hsp__blast-track">
-        <trackElement.name
+        <NightingalTrackComponent
           data-testid="blast-summary-track"
           length={queryLength}
           height={10}
@@ -284,32 +279,6 @@ const BlastResultTable = ({
       : undefined
   );
 
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-
-  // The "query" column header
-  const queryColumnHeaderRef = useCallback(
-    (node: { data: QueryNodeData[] }) => {
-      if (node && navigationElement.defined && data) {
-        const { query_len } = data;
-        // eslint-disable-next-line no-param-reassign
-        node.data = [
-          {
-            start: 1,
-            end: query_len,
-          },
-        ];
-      }
-    },
-    [data, navigationElement.defined]
-  );
-
   const maxScorings = useMemo<Partial<Record<keyof BlastHsp, number>>>(() => {
     if (!data?.hits) {
       return { hsp_identity: 100, hsp_score: 1, hsp_expect: 1 };
@@ -336,7 +305,6 @@ const BlastResultTable = ({
   }, [data]);
 
   const queryLen = data?.query_len;
-  const NavigationElementName = navigationElement.name;
 
   const [columns] = useColumns(namespace);
   // Disable sorting, as we want to keep the BLAST sorting (for now...);
@@ -346,10 +314,12 @@ const BlastResultTable = ({
   const trackColumn = {
     label: (
       <div className="query-sequence-wrapper">
-        <NavigationElementName
-          ref={queryColumnHeaderRef}
+        <NightingaleNavigationComponent
           length={queryLen}
           title="Query"
+          height={40}
+          margin-left={0}
+          margin-right={0}
         />
       </div>
     ),
