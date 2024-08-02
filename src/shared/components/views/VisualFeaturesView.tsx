@@ -56,7 +56,7 @@ function VisualFeaturesView({
     new Set(
       features
         .flatMap((feature) => feature.type)
-        .filter((type) => typeof type !== 'undefined')
+        .filter((type): type is string => typeof type === 'string')
     )
   );
 

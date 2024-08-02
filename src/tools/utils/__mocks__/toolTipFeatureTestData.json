@@ -2,7 +2,7 @@
   {
     "description": "Should return correctly formed feature with evidence",
     "feature": {
-      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "accession": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "start": 28,
       "end": 189,
       "startModifier": "EXACT",
@@ -37,7 +37,7 @@
   {
     "description": "Should return correctly formed feature without evidence",
     "feature": {
-      "protvistaFeatureId": "72f1d160-225f-11eb-b210-87bf075e497c",
+      "accession": "72f1d160-225f-11eb-b210-87bf075e497c",
       "start": 75,
       "end": 226,
       "startModifier": "EXACT",
@@ -55,7 +55,7 @@
   {
     "description": "Should return feature with featureId as ftId",
     "feature": {
-      "protvistaFeatureId": "PRO_0000381966",
+      "accession": "PRO_0000381966",
       "featureId": "PRO_0000381966",
       "start": 18,
       "end": 286,
@@ -75,7 +75,7 @@
   {
     "description": "Should return feature without description",
     "feature": {
-      "protvistaFeatureId": "PRO_0000381966",
+      "accession": "PRO_0000381966",
       "featureId": "PRO_0000381966",
       "start": 18,
       "end": 286,
@@ -93,7 +93,7 @@
   {
     "description": "Should return correctly formed feature with evidence but without id or source",
     "feature": {
-      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "accession": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "start": 28,
       "end": 189,
       "startModifier": "EXACT",
@@ -121,7 +121,7 @@
   {
     "description": "Should return correctly formed feature with evidence but with unknown source",
     "feature": {
-      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "accession": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "start": 28,
       "end": 189,
       "startModifier": "EXACT",
@@ -155,7 +155,7 @@
   {
     "description": "Should return correctly formed feature with evidence and with alternate url when source is PubMed",
     "feature": {
-      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "accession": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "start": 28,
       "end": 189,
       "startModifier": "EXACT",

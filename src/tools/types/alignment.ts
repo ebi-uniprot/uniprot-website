@@ -22,7 +22,7 @@ export type ConservationOptions = {
 
 export type NightingaleChangeEvent = {
   eventtype: string;
-  feature: { protvistaFeatureId: string };
+  feature: { accession: string };
   coords: number[];
 };
 
