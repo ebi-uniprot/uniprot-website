@@ -80,7 +80,7 @@ const FeatureViewer = ({
       if (displaystart < newEnd) {
         manager.setAttribute('displaystart', Math.max(1, newStart).toString());
         manager.setAttribute(
-          'displayend',
+          'display-end',
           Math.min(newEnd, sequence.length).toString()
         );
       }

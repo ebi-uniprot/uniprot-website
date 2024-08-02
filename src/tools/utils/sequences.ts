@@ -53,13 +53,6 @@ export const getFullAlignmentLength = (
   return prefix - 1 + alignmentLength + suffix;
 };
 
-export type SegmentTrackData = {
-  start: number;
-  end: number;
-  shape?: string;
-  color: string;
-};
-
 export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
   // franklin $colour-sapphire-blue
   const colour = '#014371';

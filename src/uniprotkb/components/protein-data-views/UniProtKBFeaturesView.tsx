@@ -59,16 +59,6 @@ export type FeatureDatum = {
   confidenceScore?: ConfidenceScore;
 };
 
-export type ProtvistaFeature = {
-  type: string;
-  description: ReactNode;
-  evidences: Evidence[];
-  start: number;
-  end: number;
-  startModifier: LocationModifier;
-  endModifier: LocationModifier;
-};
-
 type FeatureProps = {
   primaryAccession: string;
   sequence?: string;

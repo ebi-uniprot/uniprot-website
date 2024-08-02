@@ -1,18 +1,17 @@
+import { Feature } from '@nightingale-elements/nightingale-track';
 import { useCallback, memo } from 'react';
-
-import useCustomElement from '../../shared/hooks/useCustomElement';
-import { SegmentTrackData } from '../utils/sequences';
+import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
 
 type AlignmentOverviewProps = {
   height: string;
-  data: SegmentTrackData[][];
+  data: Feature[][];
   length: number;
   highlight: string;
 };
 
 type AlignmentOverviewTrackProps = {
   height: number;
-  data: SegmentTrackData[];
+  data: Feature[];
   length: number;
   highlight: string;
 };
@@ -23,24 +22,18 @@ const AlignmentOverviewTrack = ({
   length,
   height,
 }: AlignmentOverviewTrackProps) => {
-  const trackElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
-  );
-
   const setTrackData = useCallback(
-    (node: { data: SegmentTrackData[] }): void => {
-      if (node && trackElement.defined) {
+    (node: { data: Feature[] } | null): void => {
+      if (node) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
       }
     },
-    [data, trackElement.defined]
+    [data]
   );
 
   return (
-    <trackElement.name
+    <NightingalTrackComponent
       height={height}
       ref={setTrackData}
       length={length}

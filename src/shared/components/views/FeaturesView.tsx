@@ -1,5 +1,4 @@
 import { Fragment, lazy, ReactNode, useMemo } from 'react';
-// import TransformedVariant from 'protvista-variation-adapter';
 import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
@@ -83,7 +82,7 @@ export type ProcessedFeature = Feature & {
 
 export type GenericFeature =
   | ProcessedFeature
-  // | TransformedVariant
+  // | TransformedVariant // TODO: do we need this here?
   | UniParcProcessedFeature;
 
 type FeatureProps = {
