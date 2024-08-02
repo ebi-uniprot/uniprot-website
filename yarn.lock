@@ -1823,6 +1823,16 @@
     d3 "7.9.0"
     lodash-es "^4.17.15"
 
+"@nightingale-elements/nightingale-variation@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-variation/-/nightingale-variation-5.0.1.tgz#3a0ffef2f6fcac76f9232a7609387c61cdbe8276"
+  integrity sha512-lwQJ7aNYlxnJ/DyHVxSf3blszG7kEgGstDm5UvLHFQ5GXRZWUHeJ7KTwHCpwdBnEXDQJXDKspR6i8a1NuSUvgg==
+  dependencies:
+    "@nightingale-elements/nightingale-new-core" "^5.0.0"
+    "@nightingale-elements/nightingale-track" "^5.0.0"
+    d3 "7.8.5"
+    lodash-es "^4.17.15"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -4908,6 +4918,42 @@ d3@5.16.0:
     d3-transition "1"
     d3-voronoi "1"
     d3-zoom "1"
+
+d3@7.8.5:
+  version "7.8.5"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-7.8.5.tgz#fde4b760d4486cdb6f0cc8e2cbff318af844635c"
+  integrity sha512-JgoahDG51ncUfJu6wX/1vWQEqOflgXyl4MaHqlcSruTez7yhaRKR9i8VjjcQGeS2en/jnFivXuaIMnseMMt0XA==
+  dependencies:
+    d3-array "3"
+    d3-axis "3"
+    d3-brush "3"
+    d3-chord "3"
+    d3-color "3"
+    d3-contour "4"
+    d3-delaunay "6"
+    d3-dispatch "3"
+    d3-drag "3"
+    d3-dsv "3"
+    d3-ease "3"
+    d3-fetch "3"
+    d3-force "3"
+    d3-format "3"
+    d3-geo "3"
+    d3-hierarchy "3"
+    d3-interpolate "3"
+    d3-path "3"
+    d3-polygon "3"
+    d3-quadtree "3"
+    d3-random "3"
+    d3-scale "4"
+    d3-scale-chromatic "3"
+    d3-selection "3"
+    d3-shape "3"
+    d3-time "3"
+    d3-time-format "4"
+    d3-timer "3"
+    d3-transition "3"
+    d3-zoom "3"
 
 d3@7.9.0:
   version "7.9.0"
