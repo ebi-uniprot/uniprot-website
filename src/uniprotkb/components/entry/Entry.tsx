@@ -1,6 +1,6 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { InPageNav, Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
+import { Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
@@ -15,7 +15,7 @@ import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
 import EntryMain from './EntryMain';
 
-import BlastButton from '../../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
@@ -25,6 +25,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
+import InPageNav from '../../../shared/components/InPageNav';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -130,7 +131,9 @@ const ExternalLinksTab = lazy(
 
 const HistoryTab = lazy(
   () =>
-    import(/* webpackChunkName: "uniprotkb-entry-history" */ './tabs/History')
+    import(
+      /* webpackChunkName: "uniprotkb-entry-history" */ './tabs/history/History'
+    )
 );
 
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
@@ -186,7 +189,7 @@ const Entry = () => {
   );
 
   const communityReferences: Reference[] = useMemo(() => {
-    const filteredReferences = communityCurationPayload.data?.results.flatMap(
+    const filteredReferences = communityCurationPayload.data?.results?.flatMap(
       ({ references }) =>
         references?.filter((reference) => reference.source?.name === 'ORCID')
     );
@@ -330,7 +333,7 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
-  const isObsolete = Boolean(
+  let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
   );
@@ -404,6 +407,11 @@ const Entry = () => {
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
 
+  // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
+  // merged entry's history), the user is viewing content of an obsolete entry
+  isObsolete =
+    (redirectedTo && accession !== match.params.accession) || isObsolete;
+
   let sidebar = null;
   if (!isObsolete) {
     if (match.params.subPage === TabLocation.Publications) {
@@ -426,7 +434,7 @@ const Entry = () => {
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       {isObsolete ? (
-        <h3>{match.params.accession}</h3>
+        <h1>{match.params.accession}</h1>
       ) : (
         <ErrorBoundary>
           <HTMLHead
@@ -460,19 +468,26 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
-          {!isObsolete && (
+          {!isObsolete && data.sequence && (
             <>
               {displayDownloadPanel && (
                 <EntryDownloadPanel
                   handleToggle={handleToggleDownload}
                   isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                  sequence={data.sequence.value}
                 />
               )}
               <div className="button-group">
-                <BlastButton selectedEntries={[accession]} />
-                {listOfIsoformAccessions.length > 1 && (
-                  <AlignButton selectedEntries={listOfIsoformAccessions} />
-                )}
+                <ToolsDropdown
+                  selectedEntries={[accession]}
+                  blast
+                  align={
+                    listOfIsoformAccessions.length > 1 && (
+                      <AlignButton selectedEntries={listOfIsoformAccessions} />
+                    )
+                  }
+                  mapID
+                />
                 <EntryDownloadButton handleToggle={handleToggleDownload} />
                 <AddToBasketButton selectedEntries={accession} />
                 <CommunityAnnotationLink accession={accession} />
@@ -504,7 +519,6 @@ const Entry = () => {
               <EntryMain
                 transformedData={transformedData}
                 importedVariants={importedVariants}
-                hasGenomicCoordinates={hasGenomicCoordinates}
                 communityReferences={communityReferences}
                 isoforms={listOfIsoformNames}
               />
@@ -533,7 +547,8 @@ const Entry = () => {
               )}
             >
               Variant viewer
-              {!mediumScreen &&
+              {data.sequence &&
+                !mediumScreen &&
                 importedVariants !== 'loading' &&
                 importedVariants > 0 && (
                   <>
@@ -558,11 +573,13 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <VariationViewerTab
-                importedVariants={importedVariants}
-                primaryAccession={accession}
-                title="Variants"
-              />
+              {data.sequence && (
+                <VariationViewerTab
+                  importedVariants={importedVariants}
+                  primaryAccession={accession}
+                  title="Variants"
+                />
+              )}
             </ErrorBoundary>
           </Suspense>
         </Tab>
@@ -604,10 +621,13 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <FeatureViewerTab
-                  accession={accession}
-                  importedVariants={importedVariants}
-                />
+                {data.sequence && (
+                  <FeatureViewerTab
+                    accession={accession}
+                    importedVariants={importedVariants}
+                    sequence={data.sequence.value}
+                  />
+                )}
               </ErrorBoundary>
             </Suspense>
           )}
@@ -672,7 +692,11 @@ const Entry = () => {
                       )
                   )
                 }
-                title="Genomic coordinates"
+                title={
+                  <span data-article-id="genomic-coordinates">
+                    Genomic coordinates
+                  </span>
+                }
               />
             </ErrorBoundary>
           </Suspense>
@@ -775,7 +799,12 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniprotkb],
                 ]}
               />
-              <HistoryTab accession={accession} />
+              <HistoryTab
+                accession={isObsolete ? match.params.accession : accession}
+                lastVersion={data.entryAudit?.entryVersion}
+                uniparc={data.extraAttributes?.uniParcId}
+                reason={data.inactiveReason}
+              />
             </ErrorBoundary>
           </Suspense>
         </Tab>

@@ -158,30 +158,28 @@ const IDMappingResultTable = ({
           )}
         </HeroContainer>
       )}
-      {resultsDataObject.allResults.length ? (
-        <IDMappingFromContext.Provider
-          value={rawDBToNamespace(detailsData?.from)}
-        >
-          <ResultsData
-            resultsDataObject={resultsDataObject}
-            setSelectedItemFromEvent={
-              // No selection when not a UniProt target
-              namespaceOverride === Namespace.idmapping
-                ? undefined
-                : setSelectedItemFromEvent
-            }
-            setSelectedEntries={
-              // No selection when not a UniProt target
-              namespaceOverride === Namespace.idmapping
-                ? undefined
-                : setSelectedEntries
-            }
-            namespaceOverride={namespaceOverride}
-            displayIdMappingColumns
-            disableCardToggle
-          />
-        </IDMappingFromContext.Provider>
-      ) : null}
+      <IDMappingFromContext.Provider
+        value={rawDBToNamespace(detailsData?.from)}
+      >
+        <ResultsData
+          resultsDataObject={resultsDataObject}
+          setSelectedItemFromEvent={
+            // No selection when not a UniProt target
+            namespaceOverride === Namespace.idmapping
+              ? undefined
+              : setSelectedItemFromEvent
+          }
+          setSelectedEntries={
+            // No selection when not a UniProt target
+            namespaceOverride === Namespace.idmapping
+              ? undefined
+              : setSelectedEntries
+          }
+          namespaceOverride={namespaceOverride}
+          displayIdMappingColumns
+          disableCardToggle
+        />
+      </IDMappingFromContext.Provider>
     </>
   );
 };

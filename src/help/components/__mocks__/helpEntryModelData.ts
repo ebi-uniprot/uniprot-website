@@ -1,7 +1,7 @@
 import { HelpEntryResponse } from '../../types/apiModel';
 
-// Source: /help/canonical_and_isoforms
-// Retrieved: 2024-01-05
+// Source: help/canonical_and_isoforms
+// Retrieved: 2024-07-24
 const data: HelpEntryResponse = {
   id: 'canonical_and_isoforms',
   title:

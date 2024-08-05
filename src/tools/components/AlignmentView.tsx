@@ -24,6 +24,7 @@ import FeatureType from '../../uniprotkb/types/featureType';
 import {
   ConservationOptions,
   MSAInput,
+  OnMSAFeatureClick,
   UpdateTooltip,
 } from '../types/alignment';
 
@@ -218,7 +219,7 @@ const AlignmentView = ({
   }, []);
 
   const tooltipCloseCallback = useCallback(
-    (e) => {
+    (e: Event) => {
       // If click is inside of the tooltip, don't do anything
       if (tooltipRef.current.contains(e.target)) {
         return;
@@ -234,8 +235,7 @@ const AlignmentView = ({
   }
 
   const updateTooltip: UpdateTooltip = useCallback(
-    ({ id, x, y, event }) => {
-      event.stopPropagation();
+    ({ id, x, y }) => {
       const sequenceFeature = findSequenceFeature(id, alignment);
 
       if (!sequenceFeature) {
@@ -259,9 +259,14 @@ const AlignmentView = ({
     [alignment, containerSelector]
   );
 
-  const onMSAFeatureClick = useCallback(
-    ({ event, id }) => {
-      updateTooltip({ id, x: event.x, y: event.y, event });
+  const onMSAFeatureClick: OnMSAFeatureClick = useCallback(
+    (event) => {
+      event.stopPropagation();
+      updateTooltip({
+        id: event.detail.id,
+        x: event.detail.event.x,
+        y: event.detail.event.y,
+      });
     },
     [updateTooltip]
   );

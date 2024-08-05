@@ -60,6 +60,7 @@ export type Rank =
   | 'subkingdom'
   | 'kingdom'
   | 'superkingdom'
+  | 'clade'
   | 'no rank';
 
 export type TaxonomyAPIModel = SetRequired<

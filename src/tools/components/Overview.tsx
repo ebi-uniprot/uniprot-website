@@ -4,6 +4,7 @@ import { Loader } from 'franklin-sites';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
+import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
@@ -25,7 +26,8 @@ type EventDetail = {
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
 const sequenceHeight = 20;
-const heightStyle = { height: `${sequenceHeight}px` };
+const labelHeightStyle = { height: `${sequenceHeight}px` };
+const widthOfAA = 9;
 
 const AlignOverview = ({
   alignment,
@@ -46,11 +48,14 @@ const AlignOverview = ({
   updateTooltip,
 }: AlignmentComponentProps) => {
   const containerRef = useRef<HTMLElement>(null);
-  const [highlightPosition, setHighlighPosition] = useState('');
+  const navigationRef = useRef<HTMLElement>(null);
+  const [highlightPosition, setHighlightPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
-  const [displayEnd, setDisplayEnd] = useState<number>();
+  const [displayPosition, setDisplayPosition] = useState<
+    [number | undefined, number | undefined]
+  >([undefined, undefined]);
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlightPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
@@ -62,23 +67,55 @@ const AlignOverview = ({
       }
       const displayStart = parseInt(displaystart, 10);
       const displayEnd = parseInt(displayend, 10);
+
       const start = tracksOffset + displayStart;
       const end = tracksOffset + displayEnd;
-      setHighlighPosition(`${start}:${end}`);
-      setDisplayEnd(displayEnd);
+      setHighlightPosition(`${start}:${end}`);
+      setDisplayPosition([displayStart, displayEnd]);
     },
     [tracksOffset]
   );
 
+  const setMSAAttributes = useCallback(
+    (
+      node: {
+        data: { name: string; sequence: string }[];
+        'display-end'?: number;
+        width: number;
+      } | null
+    ) => {
+      if (!node) {
+        return;
+      }
+      requestAnimationFrame(() => {
+        node.data = alignment.map(({ name, sequence }) => ({
+          name: name || '',
+          sequence,
+        }));
+        node['display-end'] = initialDisplayEnd;
+        node.width = 550;
+      });
+    },
+    [alignment, initialDisplayEnd]
+  );
   const managerRef = useCallback(
-    (node): void => {
+    (node: {
+      addEventListener: (
+        name: 'change',
+        event: ({ detail }: { detail: EventDetail }) => void
+      ) => void;
+      setAttribute: (
+        attributre: 'displaystart' | 'displayend' | 'height',
+        value: number
+      ) => void;
+    }): void => {
       if (node && initialDisplayEnd) {
         node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
           findHighlightPositions(detail)
         );
         node.setAttribute('displaystart', 1);
         node.setAttribute('displayend', initialDisplayEnd);
-        setHighlighPosition(
+        setHighlightPosition(
           (highlight) =>
             highlight || `${tracksOffset}:${tracksOffset + initialDisplayEnd}`
         );
@@ -86,6 +123,9 @@ const AlignOverview = ({
     },
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
+
+  const navigationHeight =
+    navigationRef.current?.getClientRects()?.[0]?.height || 0;
 
   useEffect(() => {
     const handler = handleEvent(updateTooltip) as (e: Event) => void;
@@ -95,44 +135,6 @@ const AlignOverview = ({
       element?.removeEventListener('change', handler);
     };
   }, [updateTooltip]);
-
-  const msaElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
-    'protvista-msa'
-  );
-
-  const setMSAAttributes = useCallback(
-    (node): void => {
-      if (!(node && msaElement.defined)) {
-        return;
-      }
-
-      node.features = selectedMSAFeatures;
-      node.onFeatureClick = onMSAFeatureClick;
-
-      const singleBaseWidth =
-        'getSingleBaseWidth' in node ? node.getSingleBaseWidth() : 15;
-      const displayEndValue = alignmentLength / (15 / singleBaseWidth);
-
-      const maxSequenceLength = Math.max(
-        ...alignment.map((al) => al.sequence.length)
-      );
-      if (typeof displayEnd === 'undefined') {
-        setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
-      }
-
-      node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
-    },
-    [
-      msaElement.defined,
-      selectedMSAFeatures,
-      alignmentLength,
-      alignment,
-      displayEnd,
-      onMSAFeatureClick,
-    ]
-  );
 
   const trackElement = useCustomElement(
     /* istanbul ignore next */
@@ -154,13 +156,10 @@ const AlignOverview = ({
     'protvista-manager'
   );
   const ceDefined =
-    trackElement.defined &&
-    navigationElement.defined &&
-    msaElement.defined &&
-    managerElement.defined;
+    trackElement.defined && navigationElement.defined && managerElement.defined;
 
   const setFeatureTrackData = useCallback(
-    (node): void => {
+    (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
       if (node && ceDefined && activeAnnotation && activeAlignment?.sequence) {
         node.data = activeAnnotation
           // The Overview feature track always starts from the start of the protein
@@ -180,6 +179,16 @@ const AlignOverview = ({
     () => (alignment ? getFullAlignmentSegments(alignment) : []),
     [alignment]
   );
+
+  useEffect(() => {
+    const displayEndValue = Math.round(alignmentLength / widthOfAA);
+    const maxSequenceLength = Math.max(
+      ...alignment.map((al) => al.sequence.length)
+    );
+    if (typeof displayPosition[1] === 'undefined') {
+      setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
+    }
+  }, [alignmentLength, alignment, displayPosition]);
 
   if (!ceDefined) {
     return <Loader />;
@@ -223,7 +232,7 @@ const AlignOverview = ({
             info={s}
             loading={false}
             key={s.name}
-            style={heightStyle}
+            style={labelHeightStyle}
             checked={Boolean(
               s.accession && selectedEntries?.includes(s.accession)
             )}
@@ -235,36 +244,54 @@ const AlignOverview = ({
           </AlignLabel>
         ))}
       </div>
-      <div className="track">
+      <div
+        className="track"
+        // Need to set this explicitly as for some reason the MSA will come up a few
+        // pixels longer and will mess up the alignment with the left/right labels.
+        style={{
+          height: navigationHeight
+            ? navigationHeight + alignment.length * sequenceHeight
+            : 'undefined',
+        }}
+      >
         <managerElement.name
           ref={managerRef}
           attributes="displaystart displayend"
         >
-          <navigationElement.name length={alignmentLength} />
-          <msaElement.name
+          <navigationElement.name
+            ref={navigationRef}
+            length={alignmentLength}
+          />
+          <NightingaleMSA
             ref={setMSAAttributes}
             length={alignmentLength}
             height={alignment.length * sequenceHeight}
-            colorscheme={highlightProperty}
-            hidelabel
+            color-scheme={highlightProperty}
+            hide-label
+            tile-width={widthOfAA}
+            tile-height={sequenceHeight}
+            features={selectedMSAFeatures}
+            onFeatureClick={onMSAFeatureClick}
+            display-start={displayPosition[0]}
+            display-end={displayPosition[1]}
             {...conservationOptions}
           />
         </managerElement.name>
       </div>
-      <span className="right-coord">
+      <div className="right-coord">
         {alignment.map((s) => (
-          <div style={heightStyle} key={s.name}>
+          <div style={labelHeightStyle} key={s.name}>
             {Math.floor(
               omitInsertionsInCoords
                 ? getEndCoordinate(
                     s.sequence,
-                    displayEnd ?? initialDisplayEnd ?? 0
+                    displayPosition[1] ?? initialDisplayEnd ?? 0
                   )
-                : displayEnd ?? initialDisplayEnd ?? 0
+                : displayPosition[1] ?? initialDisplayEnd ?? 0
             )}
           </div>
         ))}
-      </span>
+      </div>
     </section>
   );
 };

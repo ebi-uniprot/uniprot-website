@@ -33,6 +33,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--uniparc"
@@ -96,9 +97,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="2024-03-27T00:00:00.000Z"
+              datetime="2024-07-24T00:00:00.000Z"
             >
-              2024-03-27
+              2024-07-24
             </time>
           </span>
           <span

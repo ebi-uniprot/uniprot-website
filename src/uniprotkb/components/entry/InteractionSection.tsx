@@ -1,7 +1,8 @@
-import { lazy, useMemo, memo } from 'react';
+import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from 'franklin-sites';
+import { Button, Card, Dropdown, Tab, Tabs } from 'franklin-sites';
 
+import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
@@ -12,9 +13,16 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { getIntActQueryUrl } from '../../../shared/config/externalUrls';
-import { getEntryPath } from '../../../app/config/urls';
+import externalUrls, {
+  getIntActQueryUrl,
+} from '../../../shared/config/externalUrls';
+import {
+  getEntryPath,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import { stringifyQuery } from '../../../shared/utils/url';
 
 import {
   FreeTextComment,
@@ -23,8 +31,18 @@ import {
 } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import { Xref } from '../../../shared/types/apiModel';
 
 import styles from './styles/interaction-section.module.scss';
+
+const clickOnDropdown = (element: HTMLElement) => {
+  (
+    element.closest('.dropdown')?.firstElementChild as
+      | HTMLElement
+      | null
+      | undefined
+  )?.click();
+};
 
 const interactionSorter = (a: Interaction, b: Interaction) => {
   // Normalise what we'll sort on
@@ -97,6 +115,14 @@ const InteractionViewer = lazy(
     import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
 );
 
+const ComplexViewer = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "complexviewer" */ '../protein-data-views/ComplexViewer'
+    )
+);
+
 const InteractionSection = ({ data, primaryAccession }: Props) => {
   const isSmallScreen = useSmallScreen();
   const tableData = useMemo(
@@ -110,6 +136,25 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ).sort(interactionSorter),
     [data]
   );
+  const complexPortalXrefs = useMemo(
+    () =>
+      new Map(
+        data.xrefData
+          .flatMap(({ databases }) =>
+            databases
+              .flatMap(({ xrefs }) => xrefs)
+              .filter(
+                (xref): xref is SetRequired<Xref, 'id'> =>
+                  xref.database === 'ComplexPortal' &&
+                  typeof xref.id !== 'undefined'
+              )
+          )
+          .map((xref) => [xref.id, xref])
+      ),
+    [data.xrefData]
+  );
+
+  const [viewerID, setViewerID] = useState<string | null>(null);
 
   if (!hasContent(data)) {
     return null;
@@ -119,6 +164,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
+  const displayVizTab = complexPortalXrefs.size > 0;
   const table = (
     <table>
       <thead>
@@ -203,6 +249,12 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       </tbody>
     </table>
   );
+
+  const complexId = viewerID || complexPortalXrefs.keys().next().value;
+  const complexName =
+    complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
+  const complexString = `${complexId} ${complexName}`;
+
   return (
     <Card
       header={
@@ -231,6 +283,57 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         </>
       ) : null}
 
+      {displayVizTab && !isSmallScreen && (
+        <Tabs className={styles['visualisation-tabs']}>
+          {complexPortalXrefs.size ? (
+            <Tab cache title="Complex viewer">
+              <div className={styles['viewer-ids-container']}>
+                <Dropdown
+                  visibleElement={
+                    <Button variant="primary">{complexString}</Button>
+                  }
+                >
+                  <ul className={styles['ids-list']}>
+                    {Array.from(complexPortalXrefs.values()).map(
+                      ({ id, properties }) => (
+                        <li key={id}>
+                          <Button
+                            variant="tertiary"
+                            key={id}
+                            id={id}
+                            onClick={(event: MouseEvent) => {
+                              setViewerID((event.target as HTMLElement).id);
+                              clickOnDropdown(event.target as HTMLElement);
+                            }}
+                          >
+                            {id} {properties?.EntryName || ''}
+                          </Button>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </Dropdown>
+                <LazyComponent>
+                  <ComplexViewer complexID={complexId} />
+                </LazyComponent>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: stringifyQuery({
+                      query: `(xref:complexportal-${complexId})`,
+                    }),
+                  }}
+                >
+                  View interactors in UniProtKB
+                </Link>
+              </div>
+              <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+                View {complexId} in Complex Portal
+              </ExternalLink>
+            </Tab>
+          ) : null}
+        </Tabs>
+      )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
   );

@@ -9,7 +9,7 @@ import EntryMain from './EntryMain';
 import UniParcFeaturesView from './UniParcFeaturesView';
 import XRefsFacets from './XRefsFacets';
 import BasketStatus from '../../../basket/BasketStatus';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -26,10 +26,7 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import {
-  defaultColumns,
-  UniParcXRefsColumn,
-} from '../../config/UniParcXRefsColumnConfiguration';
+import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
 import { Location, getEntryPath } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
 
@@ -76,20 +73,8 @@ const Entry = () => {
       ...Object.fromEntries(
         selectedFacets.map(({ name, value }) => [name, value])
       ),
-      fields: Array.from(
-        new Set([
-          ...columns,
-          // We always need all below to calculate the facets
-          UniParcXRefsColumn.active,
-          UniParcXRefsColumn.organism,
-          UniParcXRefsColumn.database,
-        ])
-      )
-        // Sort to have better cache hits
-        .sort()
-        .join(','),
     });
-  }, [baseURL, search, columns]);
+  }, [baseURL, search]);
   const dataObject = useDataApi<UniParcAPIModel>(
     // Hack to have the backend only return the base object without xref data
     `${baseURL}?taxonIds=0`
@@ -180,7 +165,11 @@ const Entry = () => {
             />
           )}
           <div className="button-group">
-            <BlastButton selectedEntries={[match.params.accession]} />
+            <ToolsDropdown
+              selectedEntries={[match.params.accession]}
+              blast
+              mapID
+            />
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>

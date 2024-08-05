@@ -9,16 +9,22 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import helper from '../../styles/helper.module.scss';
 
 type ToolsButtonProps = {
-  selectedEntries: string[];
+  selectedEntries?: string[];
   sequence?: string;
-  disabled: boolean;
+  from?: string;
+  to?: string;
+  peps?: string;
+  disabled?: boolean;
   title: string;
   location: Location;
 };
 
-const ToolsButton: FC<ToolsButtonProps> = ({
+const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
   selectedEntries,
   sequence,
+  from,
+  to,
+  peps,
   disabled,
   title,
   location,
@@ -35,8 +41,11 @@ const ToolsButton: FC<ToolsButtonProps> = ({
         : {
             pathname: LocationToPath[location],
             search: stringifyQuery({
-              ids: selectedEntries.join(','),
+              ids: selectedEntries?.join(','),
               sequence,
+              from,
+              to,
+              peps,
             }),
           }
     }

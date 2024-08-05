@@ -65,22 +65,19 @@ exports[`KeywordsCard tests should render the card component 1`] = `
       class="card__actions"
     >
       <a
-        class="card-action"
         href="/uniprotkb?query=%28keyword%3AKW-0021%29"
       >
-        148,950 UniProtKB entries
+        147,429 UniProtKB entries
       </a>
       <a
-        class="card-action"
         href="/uniprotkb?query=%28keyword%3AKW-0021%29+AND+%28reviewed%3Atrue%29"
       >
-        2,512 reviewed UniProtKB entries
+        2,513 reviewed UniProtKB entries
       </a>
       <a
-        class="card-action"
         href="/uniprotkb?query=%28keyword%3AKW-0021%29+AND+%28reviewed%3Afalse%29"
       >
-        146,438 unreviewed UniProtKB entries
+        144,916 unreviewed UniProtKB entries
       </a>
     </div>
   </section>

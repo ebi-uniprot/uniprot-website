@@ -135,14 +135,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
   label: 'Statistics',
   render: ({ keyword, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.keywords, keyword?.id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.keywords, keyword?.id, statistics)}
     </ExpandableList>
   ),
 });

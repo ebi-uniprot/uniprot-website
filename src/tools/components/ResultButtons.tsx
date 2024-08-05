@@ -1,5 +1,5 @@
 import { useState, Suspense } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import {
   Button,
@@ -8,9 +8,8 @@ import {
   SlidingPanel,
 } from 'franklin-sites';
 
-import BlastButton from '../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
 import AlignButton from '../../shared/components/action-buttons/Align';
-import MapIDButton from '../../shared/components/action-buttons/MapID';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import CustomiseButton from '../../shared/components/action-buttons/CustomiseButton';
@@ -132,6 +131,7 @@ const ResultButtons = ({
   nHits,
   isTableResultsFiltered,
 }: ResultButtonsProps<JobTypes>) => {
+  const { pathname } = useLocation();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   return (
@@ -141,6 +141,7 @@ const ResultButtons = ({
           <SlidingPanel
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <ResultDownload
@@ -158,12 +159,21 @@ const ResultButtons = ({
         </Suspense>
       )}
       <div className="button-group">
-        <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton
+        <ToolsDropdown
           selectedEntries={selectedEntries}
-          inputParamsData={inputParamsData}
+          blast
+          align={
+            <AlignButton
+              selectedEntries={selectedEntries}
+              extraSequence={
+                inputParamsData && 'sequence' in inputParamsData
+                  ? inputParamsData.sequence
+                  : undefined
+              }
+            />
+          }
+          mapID
         />
-        <MapIDButton selectedEntries={selectedEntries} namespace={namespace} />
         <Button
           variant="tertiary"
           onPointerOver={ResultDownload.preload}

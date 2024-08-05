@@ -1,7 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
-// Source: /api/configure/idmapping/fields
-// Retrieved: 2024-03-25
+// Source: configure/idmapping/fields
+// Retrieved: 2024-07-24
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -203,7 +203,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink: 'https://www.ebi.ac.uk/chembldb/target/inspect/%id',
+          uriLink: 'https://www.ebi.ac.uk/chembl/target_report_card/%id',
         },
         {
           displayName: 'DrugBank',
@@ -243,14 +243,6 @@ const data: IDMappingFormConfig = {
           ruleId: 7,
           uriLink:
             'http://www.allergome.org/script/dettaglio.php?id_molecule=%id',
-        },
-        {
-          displayName: 'CLAE',
-          name: 'CLAE',
-          from: true,
-          to: true,
-          ruleId: 7,
-          uriLink: 'https://clae.fungalgenomics.ca/enzyme/%id',
         },
         {
           displayName: 'ESTHER',
@@ -329,19 +321,6 @@ const data: IDMappingFormConfig = {
           ruleId: 7,
           uriLink:
             'https://bioinf.umbc.edu/dmdm/gene_prot_page.php?search_type=protein&id=%id',
-        },
-      ],
-    },
-    {
-      groupName: '2D gel databases',
-      items: [
-        {
-          displayName: 'World-2DPAGE',
-          name: 'World-2DPAGE',
-          from: true,
-          to: true,
-          ruleId: 7,
-          uriLink: 'https://world-2dpage.expasy.org/repository/%id',
         },
       ],
     },
@@ -936,14 +915,12 @@ const data: IDMappingFormConfig = {
         'Allergome',
         'ESTHER',
         'MEROPS',
-        'CLAE',
         'PeroxiBase',
         'REBASE',
         'TCDB',
         'GlyConnect',
         'BioMuta',
         'DMDM',
-        'World-2DPAGE',
         'CPTAC',
         'ProteomicsDB',
         'DNASU',

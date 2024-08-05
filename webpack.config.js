@@ -105,7 +105,7 @@ const getConfigFor = ({
         {
           test: /\.(js|jsx|tsx|ts)$/,
           exclude:
-            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
+            /node_modules\/((?!@nightingale-elements\/nightingale-msa|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -135,14 +135,6 @@ const getConfigFor = ({
             },
           },
         },
-        /**
-         * Worker required for msa-react-viewer. Gustavo looking at
-         * making dependency optional
-         * */
-        {
-          test: /\.worker\.js$/,
-          use: { loader: 'worker-loader' },
-        },
         // Stylesheets
         {
           test: /\.(css|sass|scss)$/,
@@ -156,6 +148,9 @@ const getConfigFor = ({
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
             ),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
+            fs.realpathSync(
+              `${__dirname}/node_modules/complexviewer/src/css/xinet.css`
+            ),
           ],
           use: [
             {
@@ -195,6 +190,7 @@ const getConfigFor = ({
           include: [
             path.resolve(__dirname, 'src'),
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+            fs.realpathSync(`${__dirname}/node_modules/complexviewer`),
           ],
           exclude: [/\.img\.svg$/],
           issuer: /\.(t|j)sx?$/,
@@ -229,11 +225,6 @@ const getConfigFor = ({
           exclude: /node_modules/,
           failOnError: true,
         }),
-      // Needed for 'react-msa-viewer' as of June 1st 2021
-      new ProvidePlugin({
-        assert: 'assert',
-        process: 'process/browser',
-      }),
       !isLiveReload &&
         isModern &&
         // Copy static (or near-static) files

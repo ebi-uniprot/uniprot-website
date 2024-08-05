@@ -7,12 +7,15 @@ import ExternalLink from '../../../../../shared/components/ExternalLink';
 import Table from '../../../../../shared/components/table/Table';
 import { getEnsemblLink } from './GenomicLoc';
 import AddToBasketButton from '../../../../../shared/components/action-buttons/AddToBasket';
+import ToolsDropdown from '../../../../../shared/components/action-buttons/ToolsDropdown';
 import AlignButton from '../../../../../shared/components/action-buttons/Align';
-import BlastButton from '../../../../../shared/components/action-buttons/Blast';
+import ToolsButton from '../../../../../shared/components/action-buttons/ToolsButton';
 
 import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
-import { getEntryPathFor } from '../../../../../app/config/urls';
+import { getEntryPathFor, Location } from '../../../../../app/config/urls';
 import { groupByGenomicCoordinates } from './utils';
+
+import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../../../shared/config/limits';
 
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { TabLocation } from '../../../../types/entry';
@@ -99,7 +102,20 @@ const ExonRow = ({
     </td>
     <td>
       <div className="button-group">
-        <BlastButton selectedEntries={[exon.accessionWithCoordinates]} />
+        <ToolsDropdown selectedEntries={[exon.accessionWithCoordinates]} blast>
+          <li>
+            <ToolsButton
+              peps={exon.proteinSequence}
+              disabled={
+                exon.proteinSequence.length < PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH
+              }
+              title="Search this peptide in UniProtKB"
+              location={Location.PeptideSearch}
+            >
+              Peptide Search
+            </ToolsButton>
+          </li>
+        </ToolsDropdown>
         <AddToBasketButton selectedEntries={exon.accessionWithCoordinates} />
       </div>
     </td>
@@ -248,11 +264,18 @@ const CoordinateExtraContent = ({
                 There are {uniqueSequences.size} unique protein sequences
                 resulting from these {exons.length} exons.{' '}
                 <div className="button-group">
-                  <AlignButton
+                  <ToolsDropdown
                     selectedEntries={exons.map(
                       (exon) => exon.accessionWithCoordinates
                     )}
-                    textSuffix={`${exons.length} peptides`}
+                    align={
+                      <AlignButton
+                        selectedEntries={exons.map(
+                          (exon) => exon.accessionWithCoordinates
+                        )}
+                        textSuffix={`${exons.length} peptides`}
+                      />
+                    }
                   />
                 </div>
               </>

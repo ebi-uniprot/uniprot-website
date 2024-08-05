@@ -8,7 +8,7 @@ import {
   ChangeEvent,
   useCallback,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import {
   DownloadIcon,
   // StatisticsIcon,
@@ -18,9 +18,6 @@ import {
 import cn from 'classnames';
 
 import ToolsDropdown from '../action-buttons/ToolsDropdown';
-import BlastButton from '../action-buttons/Blast';
-import AlignButton from '../action-buttons/Align';
-import MapIDButton from '../action-buttons/MapID';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 import ShareDropdown from '../action-buttons/ShareDropdown';
@@ -81,7 +78,9 @@ type ResultsButtonsProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
 };
 
-const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
+const ResultsButtons: FC<
+  React.PropsWithChildren<ResultsButtonsProps<JobTypes>>
+> = ({
   selectedEntries,
   setSelectedEntries,
   total,
@@ -110,6 +109,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
     useColumnNames({ namespaceOverride });
   const history = useHistory();
+  const { pathname } = useLocation();
   const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
@@ -200,6 +200,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
             // Meaning, in basket mini view, slide from the right
             position={inBasketMini ? 'right' : 'left'}
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -221,19 +222,12 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
         </Suspense>
       )}
       <div className={cn('button-group', styles['results-buttons'])}>
-        <ToolsDropdown selectedEntries={selectedEntries} />
-        {isMain && namespace !== Namespace.proteomes && (
-          <BlastButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <AlignButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <MapIDButton
-            selectedEntries={selectedEntries}
-            namespace={namespace}
-          />
-        )}
+        <ToolsDropdown
+          selectedEntries={selectedEntries}
+          blast={isMain && namespace !== Namespace.proteomes}
+          align={isMain && namespace !== Namespace.proteomes}
+          mapID={isMain && namespace !== Namespace.proteomes}
+        />
         <Button
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}

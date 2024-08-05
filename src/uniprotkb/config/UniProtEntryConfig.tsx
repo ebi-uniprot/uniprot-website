@@ -21,8 +21,7 @@ const UniProtKBEntryConfig: {
   sectionContent: (
     entryData: UniProtkbUIModel,
     communityReferences: Reference[],
-    importedVariants: number | 'loading',
-    hasGenomicCoordinates: boolean | 'loading'
+    importedVariants: number | 'loading'
   ) => JSX.Element;
 }[] = [
   {
@@ -31,7 +30,7 @@ const UniProtKBEntryConfig: {
       <FunctionSection
         data={data[EntrySection.Function] as FunctionUIModel}
         primaryAccession={data.primaryAccession}
-        sequence={data[EntrySection.Sequence].sequence.value}
+        sequence={data[EntrySection.Sequence].sequence?.value}
         communityReferences={communityReferences}
         key={EntrySection.Function}
       />
@@ -56,7 +55,7 @@ const UniProtKBEntryConfig: {
         data={
           data[EntrySection.SubCellularLocation] as SubcellularLocationUIModel
         }
-        sequence={data[EntrySection.Sequence].sequence.value}
+        sequence={data[EntrySection.Sequence].sequence?.value}
         key={EntrySection.SubCellularLocation}
       />
     ),
@@ -67,7 +66,7 @@ const UniProtKBEntryConfig: {
       <DiseaseAndDrugsSection
         data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
-        sequence={data[EntrySection.Sequence].sequence.value}
+        sequence={data[EntrySection.Sequence].sequence?.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
         importedVariants={importedVariants}
         key={EntrySection.DiseaseVariants}
@@ -79,7 +78,7 @@ const UniProtKBEntryConfig: {
     sectionContent: (data) => (
       <ProteinProcessingSection
         data={data[EntrySection.ProteinProcessing]}
-        sequence={data[EntrySection.Sequence].sequence.value}
+        sequence={data[EntrySection.Sequence].sequence?.value}
         primaryAccession={data.primaryAccession}
         key={EntrySection.ProteinProcessing}
       />
@@ -111,9 +110,8 @@ const UniProtKBEntryConfig: {
       <StructureSection
         data={data[EntrySection.Structure]}
         primaryAccession={data.primaryAccession}
-        sequence={data[EntrySection.Sequence].sequence.value}
         key={EntrySection.Structure}
-        crc64={data[EntrySection.Sequence].sequence.crc64}
+        crc64={data[EntrySection.Sequence].sequence?.crc64}
       />
     ),
   },
@@ -123,18 +121,17 @@ const UniProtKBEntryConfig: {
       <FamilyAndDomainsSection
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
-        sequence={data[EntrySection.Sequence].sequence.value}
+        sequence={data[EntrySection.Sequence].sequence?.value}
         key={EntrySection.Expression}
       />
     ),
   },
   {
     id: EntrySection.Sequence,
-    sectionContent: (data, _, __, hasGenomicCoordinates) => (
+    sectionContent: (data) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
-        hasGenomicCoordinates={hasGenomicCoordinates}
         key={EntrySection.Sequence}
       />
     ),

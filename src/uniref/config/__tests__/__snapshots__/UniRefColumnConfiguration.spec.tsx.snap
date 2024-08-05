@@ -30,12 +30,12 @@ exports[`UniRefColumnConfiguration component should render column "count": count
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "created": created 1`] = `
+exports[`UniRefColumnConfiguration component should render column "date_modified": date_modified 1`] = `
 <DocumentFragment>
   <time
-    datetime="2023-09-13T00:00:00.000Z"
+    datetime="2024-05-29T00:00:00.000Z"
   >
-    2023-09-13
+    2024-05-29
   </time>
 </DocumentFragment>
 `;
@@ -136,10 +136,10 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
     <li>
       <a
         href="/taxonomy/2030809"
-        title="Hydrogenedentes bacterium, taxon ID 2030809"
+        title="Hydrogenedentota bacterium, taxon ID 2030809"
         translate="no"
       >
-        Hydrogenedentes bacterium
+        Hydrogenedentota bacterium
       </a>
     </li>
     <li>
@@ -190,7 +190,7 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
     <li>
       <a
         href="/taxonomy/2030809"
-        title="Hydrogenedentes bacterium, taxon ID 2030809"
+        title="Hydrogenedentota bacterium, taxon ID 2030809"
         translate="no"
       >
         2030809

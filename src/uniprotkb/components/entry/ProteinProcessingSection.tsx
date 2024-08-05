@@ -21,7 +21,7 @@ import { UIModel } from '../../adapters/sectionConverter';
 type Props = {
   data: UIModel;
   primaryAccession: string;
-  sequence: string;
+  sequence?: string;
 };
 
 const ProteinProcessingSection = ({

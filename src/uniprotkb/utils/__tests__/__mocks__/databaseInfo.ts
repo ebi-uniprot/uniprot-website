@@ -5,8 +5,8 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 // and running again. Until then it will have no uriLink.
 
 // TODO: update when TRM-29539 is fixed and deployed
-// Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2024-03-25
+// Source: configure/uniprotkb/allDatabases
+// Retrieved: 2024-07-24
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -377,7 +377,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'ChEMBL',
     displayName: 'ChEMBL',
     category: 'CHEMISTRY',
-    uriLink: 'https://www.ebi.ac.uk/chembldb/target/inspect/%id',
+    uriLink: 'https://www.ebi.ac.uk/chembl/target_report_card/%id',
     attributes: [
       {
         name: 'Description',
@@ -501,18 +501,6 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'MoonProt',
     category: 'PFAM',
     uriLink: 'http://www.moonlightingproteins.org/proteins/?q=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'CLAE',
-    displayName: 'CLAE',
-    category: 'PFAM',
-    uriLink: 'https://clae.fungalgenomics.ca/enzyme/%id',
     attributes: [
       {
         name: 'Description',
@@ -755,18 +743,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'DOSAC-COBS-2DPAGE',
-    displayName: 'DOSAC-COBS-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://www.dosac.unipa.it/cgi-bin/2d/2d.cgi?ac=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OGP',
     displayName: 'OGP',
     category: '2DG',
@@ -791,70 +767,10 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'SWISS-2DPAGE',
-    displayName: 'SWISS-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/swiss-2dpage/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'UCD-2DPAGE',
-    displayName: 'UCD-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'World-2DPAGE',
-    displayName: 'World-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/repository/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'CPTAC',
     displayName: 'CPTAC',
     category: 'PROTEOMIC',
     uriLink: 'https://assays.cancer.gov/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'EPD',
-    displayName: 'EPD',
-    category: 'PROTEOMIC',
-    uriLink: 'https://www.peptracker.com/epd/analytics/?protein_id=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'MaxQB',
-    displayName: 'MaxQB',
-    category: 'PROTEOMIC',
-    uriLink: 'http://maxqb.biochem.mpg.de/mxdb/protein/show/%id',
     attributes: [
       {
         name: 'Description',
@@ -1803,18 +1719,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'KO',
-    displayName: 'KO',
-    category: 'PLG',
-    uriLink: 'https://www.genome.jp/dbget-bin/www_bget?ko:%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OMA',
     displayName: 'OMA',
     category: 'PLG',
@@ -2123,18 +2027,6 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ExpressionPatterns',
         xmlTag: 'expression patterns',
-      },
-    ],
-  },
-  {
-    name: 'Genevisible',
-    displayName: 'Genevisible',
-    category: 'GEP',
-    uriLink: 'https://genevisible.com/tissues/%OrganismId/UniProt/%id',
-    attributes: [
-      {
-        name: 'OrganismId',
-        xmlTag: 'organism ID',
       },
     ],
   },

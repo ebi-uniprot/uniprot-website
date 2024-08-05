@@ -1,38 +1,64 @@
+import { ComponentProps, ReactNode } from 'react';
 import { Dropdown, Button, ToolboxIcon } from 'franklin-sites';
 
 import MapIDButton from './MapID';
 
 import useNS from '../../hooks/useNS';
 
-import { mainNamespaces, Namespace } from '../../types/namespaces';
+import { Namespace } from '../../types/namespaces';
+import BlastButton from './Blast';
+import AlignButton from './Align';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface BaseProps {}
-
-interface PropsWithEntries extends BaseProps {
+type ToolsDropdownProps = {
   selectedEntries: string[];
-  selectedSequences?: never;
-}
+  blast?: boolean | ReactNode;
+  align?: boolean | ReactNode;
+  mapID?: boolean | ReactNode;
+  children?: ReactNode | ((closeDropdown: () => unknown) => ReactNode);
+} & Omit<ComponentProps<typeof Dropdown>, 'visibleElement' | 'children'>;
 
-interface PropsWithSequences extends BaseProps {
-  selectedEntries?: never;
-  selectedSequences: string[];
-}
-
-type Props = PropsWithEntries | PropsWithSequences;
-
-const ToolsDropdown = ({ selectedEntries, selectedSequences }: Props) => {
+const ToolsDropdown = ({
+  selectedEntries,
+  blast,
+  align,
+  mapID,
+  children,
+  ...props
+}: ToolsDropdownProps) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const isMain = mainNamespaces.has(namespace);
 
-  const hasBLAST = true;
-  const hasAlign = true;
-  const hasMapID =
-    isMain &&
-    namespace !== Namespace.proteomes &&
-    Array.isArray(selectedEntries);
-  const hasPeptideSearch = Array.isArray(selectedSequences);
-  const hasCopy = Array.isArray(selectedSequences);
+  let blastNode: ReactNode = null;
+  if (blast === true && Array.isArray(selectedEntries)) {
+    blastNode = (
+      <li>
+        <BlastButton selectedEntries={selectedEntries} />
+      </li>
+    );
+  } else if (typeof blast === 'object') {
+    blastNode = <li>{blast}</li>;
+  }
+
+  let alignNode: ReactNode = null;
+  if (align === true && Array.isArray(selectedEntries)) {
+    alignNode = (
+      <li>
+        <AlignButton selectedEntries={selectedEntries} />
+      </li>
+    );
+  } else if (typeof align === 'object') {
+    alignNode = <li>{align}</li>;
+  }
+
+  let mapIDNode: ReactNode = null;
+  if (mapID === true && Array.isArray(selectedEntries)) {
+    mapIDNode = (
+      <li>
+        <MapIDButton selectedEntries={selectedEntries} namespace={namespace} />
+      </li>
+    );
+  } else if (typeof mapID === 'object') {
+    mapIDNode = <li>{mapID}</li>;
+  }
 
   return (
     <Dropdown
@@ -42,23 +68,16 @@ const ToolsDropdown = ({ selectedEntries, selectedSequences }: Props) => {
           Tools
         </Button>
       }
+      {...props}
     >
-      <ul>
-        {hasBLAST && <li>BLAST</li>}
-        {hasAlign && <li>Align</li>}
-
-        {hasMapID && (
-          <li>
-            <MapIDButton
-              selectedEntries={selectedEntries}
-              namespace={namespace}
-            />
-          </li>
-        )}
-
-        {hasPeptideSearch && <li>Peptide Search</li>}
-        {hasCopy && <li>Copy</li>}
-      </ul>
+      {(closeDropdown) => (
+        <ul className="no-bullet">
+          {blastNode}
+          {alignNode}
+          {mapIDNode}
+          {typeof children === 'function' ? children(closeDropdown) : children}
+        </ul>
+      )}
     </Dropdown>
   );
 };

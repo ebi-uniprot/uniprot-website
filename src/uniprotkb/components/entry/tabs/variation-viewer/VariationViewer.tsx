@@ -214,7 +214,6 @@ const VariationViewer = ({
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
-
   if (!shouldRender) {
     return (
       <div className="wider-tab-content hotjar-margin">
@@ -379,7 +378,7 @@ const VariationViewer = ({
                 <td>{position}</td>
                 <td className={styles.change}>
                   {variantFeature.consequenceType !== '-' &&
-                  variantFeature.wildType.length === 1 &&
+                  variantFeature.wildType?.length === 1 &&
                   variantFeature.alternativeSequence?.length === 1 ? (
                     <ExternalLink
                       url={externalUrls.ProtVar(

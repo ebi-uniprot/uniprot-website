@@ -37,7 +37,10 @@ mockRequests
   .onGet(
     new RegExp(`/peptidesearch.uniprot.org/asyncrest/jobs/${mockJob.remoteID}$`)
   )
-  .reply(200, 'P35575,O43826');
+  .reply(
+    200,
+    uniprotkbResults.results.map((result) => result.primaryAccession).join(',')
+  );
 
 mockRequests
   .onGet(
@@ -66,7 +69,7 @@ describe('PeptideSearchResult', () => {
         'view-mode': 'table',
       },
     });
-    await screen.findByText('2 results');
+    await screen.findByText('2 results', undefined, { timeout: 10000 });
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -78,7 +81,7 @@ describe('PeptideSearchResult', () => {
       },
       toolsState: { [mockJob.internalID]: mockJob },
     });
-    await screen.findByText('2 results');
+    await screen.findByText('2 results', undefined, { timeout: 10000 });
     expect(asFragment()).toMatchSnapshot();
   });
 });

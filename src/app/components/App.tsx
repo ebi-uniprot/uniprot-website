@@ -102,6 +102,13 @@ const UniProtKBLandingPage = lazy(
       /* webpackChunkName: "uniprotkb-landing" */ '../../uniprotkb/components/landing-page/LandingPage'
     )
 );
+// Landing pages
+const UniParcLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-landing" */ '../../uniparc/components/landing-page/LandingPage'
+    )
+);
 // Main namespaces
 const UniProtKBStatisticsPage = lazy(
   () =>
@@ -309,8 +316,16 @@ const BackToTheTop = lazy(() =>
 // the presence of absence of a query
 const ResultsOrLanding =
   (
-    ResultsPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>,
-    LandingPage: FC<RouteChildrenProps<{ namespace: SearchableNamespace }>>
+    ResultsPage: FC<
+      React.PropsWithChildren<
+        RouteChildrenProps<{ namespace: SearchableNamespace }>
+      >
+    >,
+    LandingPage: FC<
+      React.PropsWithChildren<
+        RouteChildrenProps<{ namespace: SearchableNamespace }>
+      >
+    >
   ) =>
   (props: RouteChildrenProps<{ namespace: SearchableNamespace }>) => {
     if (props.location.search) {
@@ -341,6 +356,9 @@ const RedirectToStarSearch = (
   switch (namespace) {
     case Namespace.uniprotkb:
       LandingPage = UniProtKBLandingPage;
+      break;
+    case Namespace.uniparc:
+      LandingPage = UniParcLandingPage;
       break;
     // NOTE: add cases whenever we start implementing other landing pages
     default:

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-declare module 'protvista-msa';
+declare module 'complexviewer';
 
 declare namespace JSX {
   interface IntrinsicElements {
-    'protvista-msa': any;
+    complexviewer: any;
   }
 }

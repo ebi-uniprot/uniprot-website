@@ -33,6 +33,7 @@ exports[`UniProtKBCard component should render 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--reviewed"
@@ -98,25 +99,21 @@ exports[`UniProtKBCard component should render 1`] = `
       class="card__actions"
     >
       <a
-        class="card-action"
         href="/uniprotkb/P21802#sequences"
       >
         1 isoform
       </a>
       <a
-        class="card-action"
         href="/uniprotkb/P21802#interaction"
       >
         2 interactions
       </a>
       <a
-        class="card-action"
         href="/uniprotkb/P21802#disease_variants"
       >
         1 disease
       </a>
       <a
-        class="card-action"
         href="/uniprotkb/P21802/publications"
       >
         7 reviewed publications

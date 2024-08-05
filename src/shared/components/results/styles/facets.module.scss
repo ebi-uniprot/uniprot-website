@@ -1,0 +1,53 @@
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
+
+.facets {
+  .facet-name {
+    color: $colour-yankees-blue;
+    font-weight: 800;
+    margin-bottom: $global-margin * 0.25;
+
+    & + ul > li {
+      margin-bottom: 1px;
+    }
+  }
+
+  & > ul > li {
+    padding-bottom: $global-margin * 0.5;
+    margin-bottom: $global-margin * 0.5;
+    border-bottom: 1px solid $colour-platinum;
+    position: relative;
+
+    a {
+      color: initial;
+      font-weight: initial;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      line-height: $global-lineheight;
+      text-align: left;
+      padding: $global-padding * 0.3333333333;
+      padding-inline-end: 2ch; // Keep a bit more space for the "x"
+
+      &:hover {
+        background: $colour-hover;
+      }
+    }
+
+    a.facet-active {
+      font-weight: bold;
+      background: $colour-selected;
+
+      &:after {
+        position: absolute;
+        right: 1ch;
+        content: '✖';
+      }
+
+      &:hover,
+      &:focus {
+        background: $colour-hover;
+      }
+    }
+  }
+}

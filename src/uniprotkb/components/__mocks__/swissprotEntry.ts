@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
-// Source: /api/uniprotkb/P05067.json
-// Retrieved: 2024-03-25
+// Source: uniprotkb/P05067.json
+// Retrieved: 2024-07-24
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P05067',
@@ -33,9 +33,9 @@ const mock: UniProtkbAPIModel = {
   uniProtkbId: 'A4_HUMAN',
   entryAudit: {
     firstPublicDate: '1987-08-13',
-    lastAnnotationUpdateDate: '2024-03-27',
+    lastAnnotationUpdateDate: '2024-07-24',
     lastSequenceUpdateDate: '1991-11-01',
-    entryVersion: 310,
+    entryVersion: 312,
     sequenceVersion: 3,
   },
   annotationScore: 5,
@@ -1369,7 +1369,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtKBAccession: 'P62158',
+            uniProtKBAccession: 'P0DP25',
             geneName: 'CALM3',
             intActId: 'EBI-397435',
           },
@@ -2673,7 +2673,7 @@ const mock: UniProtkbAPIModel = {
             geneName: 'ITM2B',
             intActId: 'EBI-2866431',
           },
-          numberOfExperiments: 4,
+          numberOfExperiments: 6,
           organismDiffer: false,
         },
         {
@@ -3787,9 +3787,9 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtKBAccession: 'D3DTS7',
+            uniProtKBAccession: 'A0A6Q8PF08',
             geneName: 'PMP22',
-            intActId: 'EBI-25882629',
+            intActId: 'EBI-50433196',
           },
           numberOfExperiments: 3,
           organismDiffer: false,
@@ -7612,7 +7612,7 @@ const mock: UniProtkbAPIModel = {
             },
           ],
           value:
-            'Phosphorylation in the C-terminal on tyrosine, threonine and serine residues is neuron-specific (PubMed:10341243). Phosphorylation can affect APP processing, neuronal differentiation and interaction with other proteins (PubMed:10341243). Phosphorylated on Thr-743 in neuronal cells by Cdc5 kinase and Mapk10, in dividing cells by Cdc2 kinase in a cell-cycle dependent manner with maximal levels at the G2/M phase and, in vitro, by GSK-3-beta (PubMed:8131745, PubMed:11146006). The Thr-743 phosphorylated form causes a conformational change which reduces binding of Fe65 family members (PubMed:11517218). In dopaminergic (DA) neurons, phosphorylation on Thr-743 by LRKK2 promotes the production and the nuclear translocation of the APP intracellular domain (AICD) which induces DA neuron apoptosis (PubMed:28720718). Phosphorylation on Tyr-757 is required for SHC binding (PubMed:11877420). Phosphorylated in the extracellular domain by casein kinases on both soluble and membrane-bound APP. This phosphorylation is inhibited by heparin (PubMed:8999878)',
+            'Phosphorylation in the C-terminal on tyrosine, threonine and serine residues is neuron-specific (PubMed:10341243). Phosphorylation can affect APP processing, neuronal differentiation and interaction with other proteins (PubMed:10341243). Phosphorylated on Thr-743 in neuronal cells by Cdc5 kinase and Mapk10, in dividing cells by Cdc2 kinase in a cell-cycle dependent manner with maximal levels at the G2/M phase and, in vitro, by GSK-3-beta (PubMed:11146006, PubMed:8131745). The Thr-743 phosphorylated form causes a conformational change which reduces binding of Fe65 family members (PubMed:11517218). In dopaminergic (DA) neurons, phosphorylation on Thr-743 by LRKK2 promotes the production and the nuclear translocation of the APP intracellular domain (AICD) which induces DA neuron apoptosis (PubMed:28720718). Phosphorylation on Tyr-757 is required for SHC binding (PubMed:11877420). Phosphorylated in the extracellular domain by casein kinases on both soluble and membrane-bound APP. This phosphorylation is inhibited by heparin (PubMed:8999878)',
         },
       ],
       commentType: 'PTM',
@@ -25997,6 +25997,42 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDB',
+      id: '8H8Q',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '2.50 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A=686-700',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8I4O',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '3.10 A',
+        },
+        {
+          key: 'Chains',
+          value: 'B/D/F/H/J/L=681-700',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
       id: '8OL2',
       properties: [
         {
@@ -26154,6 +26190,114 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'Chains',
           value: 'A/B/C/D/E=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OTF',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8SEJ',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.17 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=680-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8SEK',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.50 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8SEL',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.80 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8T82',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '1.10 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A=706-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8T89',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '1.50 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A=687-692',
         },
       ],
     },
@@ -27979,6 +28123,26 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDBsum',
+      id: '8H8Q',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8I4O',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
       id: '8OL2',
       properties: [
         {
@@ -28060,6 +28224,66 @@ const mock: UniProtkbAPIModel = {
     {
       database: 'PDBsum',
       id: '8OLQ',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OTF',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8SEJ',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8SEK',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8SEL',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8T82',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8T89',
       properties: [
         {
           key: 'Description',
@@ -28159,6 +28383,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
+      id: 'EMD-16022',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
       id: 'EMD-16942',
       properties: [
         {
@@ -28249,6 +28483,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
+      id: 'EMD-18226',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
       id: 'EMD-20082',
       properties: [
         {
@@ -28279,6 +28523,36 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
+      id: 'EMD-29036',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-29037',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-29038',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
       id: 'EMD-32862',
       properties: [
         {
@@ -28290,16 +28564,6 @@ const mock: UniProtkbAPIModel = {
     {
       database: 'EMDB',
       id: 'EMD-3851',
-      properties: [
-        {
-          key: 'Description',
-          value: '-',
-        },
-      ],
-    },
-    {
-      database: 'EMDB',
-      id: 'EMD-8720',
       properties: [
         {
           key: 'Description',
@@ -28353,7 +28617,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '2321',
+          value: '2361',
         },
       ],
     },
@@ -28453,7 +28717,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '873',
+          value: '875',
         },
       ],
     },
@@ -28593,7 +28857,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'GenericName',
-          value: 'Florbetaben (18F)',
+          value: 'Florbetaben F-18',
         },
       ],
     },
@@ -28859,26 +29123,6 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      database: 'SWISS-2DPAGE',
-      id: 'P05067',
-      properties: [
-        {
-          key: 'Description',
-          value: '-',
-        },
-      ],
-    },
-    {
-      database: 'EPD',
-      id: 'P05067',
-      properties: [
-        {
-          key: 'Description',
-          value: '-',
-        },
-      ],
-    },
-    {
       database: 'jPOST',
       id: 'P05067',
       properties: [
@@ -28890,16 +29134,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'MassIVE',
-      id: 'P05067',
-      properties: [
-        {
-          key: 'Description',
-          value: '-',
-        },
-      ],
-    },
-    {
-      database: 'MaxQB',
       id: 'P05067',
       properties: [
         {
@@ -29064,7 +29298,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '73 sequenced antibodies',
+          value: '71 sequenced antibodies',
         },
       ],
     },
@@ -29074,7 +29308,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '4873 antibodies from 52 providers',
+          value: '4539 antibodies from 54 providers',
         },
       ],
     },
@@ -29702,6 +29936,17 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'Reactome',
+      id: 'R-HSA-9837999',
+      properties: [
+        {
+          key: 'PathwayName',
+          value: 'Mitochondrial protein degradation',
+        },
+      ],
+      isoformId: 'P05067-4',
+    },
+    {
       database: 'SABIO-RK',
       id: 'P05067',
       properties: [
@@ -29839,16 +30084,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'ExpressionPatterns',
           value: 'baseline and differential',
-        },
-      ],
-    },
-    {
-      database: 'Genevisible',
-      id: 'P05067',
-      properties: [
-        {
-          key: 'OrganismId',
-          value: 'HS',
         },
       ],
     },
@@ -29994,6 +30229,27 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'TAS:Reactome',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0030425',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:dendrite',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IDA:ARUK-UCL',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000314',
+          source: 'PubMed',
+          id: '24012003',
         },
       ],
     },
@@ -30286,6 +30542,20 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',
           id: '24499793',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0005743',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:mitochondrial inner membrane',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'TAS:Reactome',
         },
       ],
     },
@@ -30707,6 +30977,27 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0120283',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'F:protein serine/threonine kinase binding',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IPI:ARUK-UCL',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000353',
+          source: 'PubMed',
+          id: '24305806',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:0051425',
       properties: [
         {
@@ -30794,13 +31085,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IBA:GO_Central',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000318',
-          source: 'PubMed',
-          id: '21873635',
         },
       ],
     },
@@ -31011,13 +31295,6 @@ const mock: UniProtkbAPIModel = {
           value: 'IBA:GO_Central',
         },
       ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000318',
-          source: 'PubMed',
-          id: '21873635',
-        },
-      ],
     },
     {
       database: 'GO',
@@ -31067,7 +31344,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'GoTerm',
-          value: 'P:cytoplasmic polyadenylation',
+          value: 'P:cytosolic mRNA polyadenylation',
         },
         {
           key: 'GoEvidenceType',
@@ -31318,20 +31595,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0006378',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:mRNA polyadenylation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0008285',
       properties: [
         {
@@ -31527,6 +31790,27 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0098989',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:NMDA selective glutamate receptor signaling pathway',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'TAS:ARUK-UCL',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000304',
+          source: 'PubMed',
+          id: '17360908',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:0007219',
       properties: [
         {
@@ -31599,28 +31883,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
           id: '22406537',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051091',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of DNA-binding transcription factor activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000316',
-          source: 'PubMed',
-          id: '23921129',
         },
       ],
     },
@@ -31892,27 +32154,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0032092',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of protein binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000316',
-          source: 'PubMed',
-          id: '24052308',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0051247',
       properties: [
         {
@@ -32108,27 +32349,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:2000310',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of NMDA receptor activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'TAS:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000304',
-          source: 'PubMed',
-          id: '17360908',
         },
       ],
     },

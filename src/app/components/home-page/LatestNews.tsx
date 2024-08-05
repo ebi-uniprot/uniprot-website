@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Many years ago, I was sitting opposite a man whose body suddenly froze. His eyes seemed to be staring at something on the wall behind me while his left hand drew small circles in the air, repetitively. I had no idea what was happening to him until he came back to his senses and told me that he had just had an epileptic fit. Deeply embarrassed, he got up and left the room.';
+  'Food poisoning is an ordeal. The body empties itself, with no respite, until nothing is left - neither vitality in you nor food in your system. It is less a single food item you have ingested which causes the unpleasant experience than the poison that was lurking in the smoked salmon, or the oyster, or the steak tartare you helped yourself to...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -132,6 +132,52 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-07-24-release',
+                  })}
+                >
+                  UniProt release 2024_04
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Oocyte waste disposal strategy: &#39;store to degrade later&#39;
+                | Removal of the cross-references to CLAE | Removal of the
+                cross-references to COMPLUYEAST-2DPAGE
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-05-29-release',
+                  })}
+                >
+                  UniProt release 2024_03
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The culprit for extreme morning sickness identified | Removal of
+                the cross-references to Genevisible | Removal of the
+                cross-references to SWISS-2DPAGE
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2024-03-27-release',
                   })}
                 >
@@ -170,118 +216,6 @@ const LatestNews = () => {
                 Vitamin K beyond coagulation | Cross-references to EMDB |
                 Cross-references to JaponicusDB | Changes to the controlled
                 vocabulary...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2023-11-08-release',
-                  })}
-                >
-                  UniProt release 2023_05
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Hush, little ribosome | Cross-references to Pumba | Changes to
-                the controlled vocabulary of human diseases
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2023-09-13-release',
-                  })}
-                >
-                  UniProt release 2023_04
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Some like it hot | Change of the cross-references to TAIR |
-                Change of the cross-references to TIGRFAMs: replaced by NCBIfam
-                | Change of evidence code for the ProtNLM method
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2023-06-28-release',
-                  })}
-                >
-                  UniProt release 2023_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The fair price of an (ant) lunch | Changes to the controlled
-                vocabulary of human diseases | Changes to the controlled
-                vocabulary for PTMs
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2023-05-03-release',
-                  })}
-                >
-                  UniProt release 2023_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Levering the DNA | Changes in prokaryotic taxonomy | Changes to
-                the controlled vocabulary of human diseases
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2023-03-01-release',
-                  })}
-                >
-                  UniProt release 2023_01
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Killing me softly | Cross-references to GlyCosmos | Change to
-                the cross-references to Gene3D | Changes to the controlled...
               </p>
             </article>
           </li>
@@ -378,21 +312,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/267/"
+            url="https://www.proteinspotlight.org/back_issues/270/"
             noIcon
           >
-            Seizure
+            Nausea
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/267/"
+          url="https://www.proteinspotlight.org/back_issues/270/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt267.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt270.jpg"
             alt=""
             width="123"
             height="129"

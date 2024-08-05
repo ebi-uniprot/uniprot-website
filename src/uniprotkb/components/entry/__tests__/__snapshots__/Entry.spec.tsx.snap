@@ -132,6 +132,7 @@ exports[`Entry basic should render main 1`] = `
       <h1>
         <span
           class="entry-title"
+          translate="no"
         >
           <span
             class="entry-title__status icon--reviewed"
@@ -442,17 +443,21 @@ exports[`Entry basic should render main 1`] = `
           <div
             class="button-group"
           >
-            <a
-              class="button tertiary no-small"
-              href="/blast?ids=P21802"
-              title="Run a BLAST job against P21802"
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
             >
-              <span
-                translate="no"
+              <button
+                class="button tertiary"
+                type="button"
               >
-                BLAST
-              </span>
-            </a>
+                <test-file-stub
+                  width="1.4ch"
+                />
+                Tools
+              </button>
+            </div>
             <button
               class="button tertiary"
               type="button"

@@ -24,13 +24,13 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 
 import { LocationToPath, Location } from '../../config/urls';
-import { facebook, twitter } from '../../config/socialUrls';
+import { facebook, twitterX } from '../../config/socialUrls';
 
 import dataToSchema, { isCourseOnsite } from './training.structured';
 
 import styles from './styles/non-critical.module.scss';
 
-import TwitterLogo from '../../../images/twitter-logo.svg';
+import XLogo from '../../../images/x-logo.svg';
 import FacebookLogo from '../../../images/facebook-logo.svg';
 
 import traingImg from '../../../images/training.jpg';
@@ -163,8 +163,12 @@ const NeedHelp = () => {
           Contact us
         </ContactLink>
         <br />
-        <ExternalLink url={twitter} title="UniProt posts on Twitter" noIcon>
-          <TwitterLogo width="2em" />
+        <ExternalLink
+          url={twitterX}
+          title="UniProt posts on X (formerly Twitter)"
+          noIcon
+        >
+          <XLogo width="2em" />
         </ExternalLink>
         <ExternalLink url={facebook} title="UniProt posts on Facebook" noIcon>
           <FacebookLogo width="2em" />
@@ -239,12 +243,6 @@ const NeedHelp = () => {
           noIcon
         >
           <CameraIcon width="1.5em" /> Tutorial &amp; videos
-        </ExternalLink>
-        <ExternalLink
-          url="https://www.youtube.com/watch?v=1swnzBM7eZo&list=PLk96kjgxotiZrj6GWC2SFoOKfB1H3tyxt"
-          noIcon
-        >
-          <CameraIcon width="1.5em" /> Past webinars
         </ExternalLink>
         <ExternalLink
           url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="

@@ -291,21 +291,25 @@ export const MapToDropdown = ({
 export const mapToLinks = (
   namespace: Namespace,
   accession?: string,
-  statistics?: Statistics
-):
-  | Array<{ name: ReactNode; link: LinkProps['to']; key: string }>
-  | undefined => {
+  statistics?: Statistics,
+  // TODO: remove as this is only needed for the depracated reviewed column in taxonomy. See https://www.ebi.ac.uk/panda/jira/browse/TRM-30869
+  filter?: (x: EnrichedStatistics) => boolean
+) => {
   const fieldName = namespaceToUniProtKBFieldMap.get(namespace);
   if (!(accession && statistics && fieldName)) {
-    return;
+    return [];
   }
-  const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
-  // eslint-disable-next-line consistent-return
-  return enrichedStatistics
-    .filter((stat) => 'text' in stat)
-    .map((stat) => ({
-      name: stat.text,
-      link: stat.to,
-      key: stat.key,
-    }));
+  const enrichedStatistics = enrichStatistics(
+    statistics,
+    fieldName,
+    accession
+  ).filter((stat) => 'text' in stat);
+  return (filter ? enrichedStatistics.filter(filter) : enrichedStatistics).map(
+    (stat) => (
+      // eslint-disable-next-line uniprot-website/use-config-location
+      <Link to={stat.to} key={stat.key}>
+        {stat.text}
+      </Link>
+    )
+  );
 };

@@ -33,6 +33,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--uniparc"
