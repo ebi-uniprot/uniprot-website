@@ -78,7 +78,6 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
         </fieldset>
       </div>
       <div>
-        <protvista-tooltip />
         <div
           class="alignment-grid alignment-wrapped"
           data-testid="alignment-wrapped-view"
@@ -230,7 +229,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
         </fieldset>
       </div>
       <div>
-        <protvista-tooltip />
         <section
           class="alignment-grid"
           data-testid="alignment-view"

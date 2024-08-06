@@ -319,51 +319,4653 @@ exports[`ResultsData component should render the card view with the correct numb
       class="button secondary"
       data-testid="click-to-load-more"
       type="button"
+  <div>
+    <ul
+      class="data-list no-bullet hotjar-margin results-data"
     >
-      Load more data
-    </button>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11413"
+                  id="0"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11413"
+                  for="0"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P11413"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11413 · G6PD_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Glucose-6-phosphate 1-dehydrogenase · 
+                <strong>
+                  Gene:
+                </strong>
+                 G6PD · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · EC:1.1.1.49 · 515 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                    #Oxidoreductase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0360"
+                  >
+                    #Hereditary hemolytic anemia
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413#ptm_processing"
+            >
+              11 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413#disease_variants"
+            >
+              71 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413#sequences"
+            >
+              3 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413#interaction"
+            >
+              3 interactions
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413#disease_variants"
+            >
+              1 disease
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413#structure"
+            >
+              12 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11413/publications"
+            >
+              57 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P19926"
+                  id="1"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P19926"
+                  for="1"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P19926"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P19926 · AGP_ECOLI
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Glucose-1-phosphatase · 
+                <strong>
+                  Gene:
+                </strong>
+                 agp · 
+                <a
+                  href="/taxonomy/83333"
+                  title="Escherichia coli (strain K12), taxon ID 83333"
+                  translate="no"
+                >
+                  Escherichia coli (strain K12)
+                </a>
+                 · EC:3.1.3.10 · 413 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                    #Hydrolase
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P19926#function"
+            >
+              2 active sites
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P19926#structure"
+            >
+              2 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P19926/publications"
+            >
+              6 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11411"
+                  id="2"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11411"
+                  for="2"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P11411"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11411 · G6PD_LEUME
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Glucose-6-phosphate 1-dehydrogenase · 
+                <strong>
+                  Gene:
+                </strong>
+                 zwf · 
+                <a
+                  href="/taxonomy/1245"
+                  title="Leuconostoc mesenteroides, taxon ID 1245"
+                  translate="no"
+                >
+                  Leuconostoc mesenteroides
+                </a>
+                 · EC:1.1.1.363 · 486 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                    #Oxidoreductase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P11411#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11411#structure"
+            >
+              9 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11411/publications"
+            >
+              9 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P13866"
+                  id="3"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P13866"
+                  for="3"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P13866"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P13866 · SC5A1_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Sodium/glucose cotransporter 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC5A1 (NAGT, SGLT1) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 664 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                    #Ion transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                    #Sodium transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                    #Symport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P13866#ptm_processing"
+            >
+              1 PTM
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P13866#disease_variants"
+            >
+              25 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P13866#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P13866#interaction"
+            >
+              1 interaction
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P13866#disease_variants"
+            >
+              1 disease
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P13866/publications"
+            >
+              17 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q42525"
+                  id="4"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q42525"
+                  for="4"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q42525"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q42525 · HXK1_ARATH
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Hexokinase-1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 HXK1 (GIN2) · 
+                <a
+                  href="/taxonomy/3702"
+                  title="Arabidopsis thaliana (Mouse-ear cress), taxon ID 3702"
+                  translate="no"
+                >
+                  Arabidopsis thaliana (Mouse-ear cress)
+                </a>
+                 · EC:2.7.1.1 · 496 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                    #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                    #Transferase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0324"
+                  >
+                    #Glycolysis
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q42525#function"
+            >
+              1 domain
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q42525#interaction"
+            >
+              2 interactions
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q42525#structure"
+            >
+              3 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q42525/publications"
+            >
+              11 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9FK51"
+                  id="5"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9FK51"
+                  for="5"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q9FK51"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9FK51 · AGLUP_ARATH
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                ADP-glucose phosphorylase · 
+                <strong>
+                  Gene:
+                </strong>
+                 At5g18200 · 
+                <a
+                  href="/taxonomy/3702"
+                  title="Arabidopsis thaliana (Mouse-ear cress), taxon ID 3702"
+                  translate="no"
+                >
+                  Arabidopsis thaliana (Mouse-ear cress)
+                </a>
+                 · EC:2.7.7.- · 351 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0548"
+                  >
+                    #Nucleotidyltransferase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                    #Transferase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9FK51#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9FK51#structure"
+            >
+              5 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9FK51/publications"
+            >
+              7 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P36871"
+                  id="6"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P36871"
+                  for="6"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P36871"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P36871 · PGM1_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Phosphoglucomutase-1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM1 · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · EC:5.4.2.2 · 562 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0413"
+                  >
+                    #Isomerase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0900"
+                  >
+                    #Congenital disorder of glycosylation
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0322"
+                  >
+                    #Glycogen storage disease
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871#ptm_processing"
+            >
+              22 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871#disease_variants"
+            >
+              18 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871#sequences"
+            >
+              3 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871#interaction"
+            >
+              1 interaction
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871#disease_variants"
+            >
+              1 disease
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871#structure"
+            >
+              14 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P36871/publications"
+            >
+              26 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q96G03"
+                  id="7"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q96G03"
+                  for="7"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q96G03"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q96G03 · PGM2_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Phosphopentomutase · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM2 · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · EC:5.4.2.7 · 612 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0413"
+                  >
+                    #Isomerase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q96G03#ptm_processing"
+            >
+              2 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q96G03#disease_variants"
+            >
+              2 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q96G03#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q96G03#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q96G03#interaction"
+            >
+              2 interactions
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q96G03/publications"
+            >
+              18 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P31639"
+                  id="8"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P31639"
+                  for="8"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P31639"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P31639 · SC5A2_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Sodium/glucose cotransporter 2 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC5A2 (SGLT2) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 672 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                    #Ion transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                    #Sodium transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                    #Symport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P31639#disease_variants"
+            >
+              1 reviewed variant
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P31639#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P31639#disease_variants"
+            >
+              1 disease
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P31639#structure"
+            >
+              1 3D structure
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P31639/publications"
+            >
+              7 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="O95479"
+                  id="9"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="O95479"
+                  for="9"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/O95479"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    O95479 · G6PE_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                GDH/6PGL endoplasmic bifunctional protein · 
+                <strong>
+                  Gene:
+                </strong>
+                 H6PD (GDH) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 791 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                    #Hydrolase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0511"
+                  >
+                    #Multifunctional enzyme
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                    #Oxidoreductase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/O95479#ptm_processing"
+            >
+              2 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/O95479#disease_variants"
+            >
+              10 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/O95479#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/O95479#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/O95479#disease_variants"
+            >
+              1 disease
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/O95479/publications"
+            >
+              10 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="A0SVK0"
+                  id="10"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="A0SVK0"
+                  for="10"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/A0SVK0"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    A0SVK0 · DOG1_ARATH
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Protein DELAY OF GERMINATION 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 DOG1 (GSQ5) · 
+                <a
+                  href="/taxonomy/3702"
+                  title="Arabidopsis thaliana (Mouse-ear cress), taxon ID 3702"
+                  translate="no"
+                >
+                  Arabidopsis thaliana (Mouse-ear cress)
+                </a>
+                 · 291 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0010"
+                  >
+                    #Activator
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0309"
+                  >
+                    #Germination
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0804"
+                  >
+                    #Transcription
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0805"
+                  >
+                    #Transcription regulation
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/A0SVK0#function"
+            >
+              1 domain
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/A0SVK0#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/A0SVK0#interaction"
+            >
+              6 interactions
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/A0SVK0/publications"
+            >
+              16 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P38263"
+                  id="11"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P38263"
+                  for="11"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P38263"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P38263 · GID4_YEAST
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Vacuolar import and degradation protein 24 · 
+                <strong>
+                  Gene:
+                </strong>
+                 VID24 (GID4) · 
+                <a
+                  href="/taxonomy/559292"
+                  title="Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast), taxon ID 559292"
+                  translate="no"
+                >
+                  Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
+                </a>
+                 · 362 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0653"
+                  >
+                    #Protein transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0833"
+                  >
+                    #Ubl conjugation pathway
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P38263#ptm_processing"
+            >
+              1 PTM
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P38263#structure"
+            >
+              1 3D structure
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P38263/publications"
+            >
+              12 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11166"
+                  id="12"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11166"
+                  for="12"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P11166"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11166 · GTR1_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Solute carrier family 2, facilitated glucose transporter member 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A1 (GLUT1) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 492 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0898"
+                  >
+                    #Cataract
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-1023"
+                  >
+                    #Dystonia
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0887"
+                  >
+                    #Epilepsy
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0360"
+                  >
+                    #Hereditary hemolytic anemia
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0991"
+                  >
+                    #Intellectual disability
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P11166#ptm_processing"
+            >
+              5 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11166#disease_variants"
+            >
+              53 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11166#interaction"
+            >
+              2 interactions
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11166#disease_variants"
+            >
+              5 diseases
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11166#structure"
+            >
+              5 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11166/publications"
+            >
+              49 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P35575"
+                  id="13"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P35575"
+                  for="13"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P35575"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P35575 · G6PC1_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Glucose-6-phosphatase catalytic subunit 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 G6PC1 (G6PC, G6PT) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · EC:3.1.3.9 · 357 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                    #Hydrolase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                    #Gluconeogenesis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0322"
+                  >
+                    #Glycogen storage disease
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P35575#disease_variants"
+            >
+              56 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P35575#function"
+            >
+              2 active sites
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P35575#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P35575#interaction"
+            >
+              2 interactions
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P35575#disease_variants"
+            >
+              1 disease
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P35575/publications"
+            >
+              33 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q16851"
+                  id="14"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q16851"
+                  for="14"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q16851"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q16851 · UGPA_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                UTP--glucose-1-phosphate uridylyltransferase · 
+                <strong>
+                  Gene:
+                </strong>
+                 UGP2 (UGP1) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · EC:2.7.7.9 · 508 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0548"
+                  >
+                    #Nucleotidyltransferase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                    #Transferase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0887"
+                  >
+                    #Epilepsy
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851#ptm_processing"
+            >
+              8 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851#disease_variants"
+            >
+              2 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851#interaction"
+            >
+              6 interactions
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851#disease_variants"
+            >
+              1 disease
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851#structure"
+            >
+              3 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q16851/publications"
+            >
+              15 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9NY64"
+                  id="15"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9NY64"
+                  for="15"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q9NY64"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9NY64 · GTR8_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Solute carrier family 2, facilitated glucose transporter member 8 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A8 (GLUT8, GLUTX1) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 477 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9NY64#disease_variants"
+            >
+              1 reviewed variant
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9NY64/publications"
+            >
+              6 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9VUY9"
+                  id="16"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9VUY9"
+                  for="16"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q9VUY9"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9VUY9 · PGM_DROME
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Phosphoglucomutase · 
+                <strong>
+                  Gene:
+                </strong>
+                 Pgm1 · 
+                <a
+                  href="/taxonomy/7227"
+                  title="Drosophila melanogaster (Fruit fly), taxon ID 7227"
+                  translate="no"
+                >
+                  Drosophila melanogaster (Fruit fly)
+                </a>
+                 · EC:5.4.2.2 · 560 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0413"
+                  >
+                    #Isomerase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9VUY9#ptm_processing"
+            >
+              1 PTM
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9VUY9#phenotypes_variants"
+            >
+              22 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9VUY9#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9VUY9/publications"
+            >
+              9 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q6PCE3"
+                  id="17"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q6PCE3"
+                  for="17"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q6PCE3"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q6PCE3 · PGM2L_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Glucose 1,6-bisphosphate synthase · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM2L1 (BM32A) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · EC:2.7.1.106 · 622 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0413"
+                  >
+                    #Isomerase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                    #Transferase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q6PCE3#ptm_processing"
+            >
+              1 PTM
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q6PCE3#disease_variants"
+            >
+              3 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q6PCE3#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q6PCE3/publications"
+            >
+              13 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P37012"
+                  id="18"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P37012"
+                  for="18"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P37012"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P37012 · PGM2_YEAST
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Phosphoglucomutase 2 · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM2 (GA-5, GAL5) · 
+                <a
+                  href="/taxonomy/559292"
+                  title="Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast), taxon ID 559292"
+                  translate="no"
+                >
+                  Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
+                </a>
+                 · EC:5.4.2.2 · 569 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0413"
+                  >
+                    #Isomerase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                    #Carbohydrate metabolism
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                    #Glucose metabolism
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P37012#ptm_processing"
+            >
+              4 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P37012#function"
+            >
+              1 active site
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P37012/publications"
+            >
+              21 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q8TD20"
+                  id="19"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q8TD20"
+                  for="19"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q8TD20"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q8TD20 · GTR12_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Solute carrier family 2, facilitated glucose transporter member 12 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A12 (GLUT12) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 617 amino acids · Evidence at transcript level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q8TD20/publications"
+            >
+              5 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q6PXP3"
+                  id="20"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q6PXP3"
+                  for="20"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q6PXP3"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q6PXP3 · GTR7_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Solute carrier family 2, facilitated glucose transporter member 7 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A7 (GLUT7) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 512 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q6PXP3#disease_variants"
+            >
+              2 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q6PXP3/publications"
+            >
+              6 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9BUM1"
+                  id="21"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9BUM1"
+                  for="21"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q9BUM1"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9BUM1 · G6PC3_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Glucose-6-phosphatase 3 · 
+                <strong>
+                  Gene:
+                </strong>
+                 G6PC3 (UGRP) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · EC:3.1.3.9 · 346 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                    #Hydrolase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                    #Gluconeogenesis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                    #Disease variant
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9BUM1#disease_variants"
+            >
+              22 reviewed variants
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9BUM1#function"
+            >
+              2 active sites
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9BUM1#disease_variants"
+            >
+              2 diseases
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9BUM1/publications"
+            >
+              18 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q8TDB8"
+                  id="22"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q8TDB8"
+                  for="22"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q8TDB8"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q8TDB8 · GTR14_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Solute carrier family 2, facilitated glucose transporter member 14 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A14 (GLUT14) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 520 amino acids · Evidence at transcript level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0217"
+                  >
+                    #Developmental protein
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0221"
+                  >
+                    #Differentiation
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0744"
+                  >
+                    #Spermatogenesis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q8TDB8#disease_variants"
+            >
+              1 reviewed variant
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q8TDB8#sequences"
+            >
+              5 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q8TDB8/publications"
+            >
+              9 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11169"
+                  id="23"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11169"
+                  for="23"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P11169"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11169 · GTR3_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Solute carrier family 2, facilitated glucose transporter member 3 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A3 (GLUT3) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 496 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/P11169#ptm_processing"
+            >
+              4 PTMs
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11169#disease_variants"
+            >
+              1 reviewed variant
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11169#interaction"
+            >
+              1 interaction
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11169#structure"
+            >
+              5 3D structures
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/P11169/publications"
+            >
+              10 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9UGQ3"
+                  id="24"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9UGQ3"
+                  for="24"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/Q9UGQ3"
+                >
+                  <span
+                    class="entry-title"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9UGQ3 · GTR6_HUMAN
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Solute carrier family 2, facilitated glucose transporter member 6 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A6 (GLUT6) · 
+                <a
+                  href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
+                  translate="no"
+                >
+                  Homo sapiens (Human)
+                </a>
+                 · 507 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                    #Sugar transport
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                    #Transport
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9UGQ3#ptm_processing"
+            >
+              1 PTM
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9UGQ3#disease_variants"
+            >
+              1 reviewed variant
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9UGQ3#sequences"
+            >
+              2 isoforms
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9UGQ3#interaction"
+            >
+              1 interaction
+            </a>
+            <a
+              class="card-action"
+              href="/uniprotkb/Q9UGQ3/publications"
+            >
+              11 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+    </ul>
+    <div
+      class="data-loader__loading"
+    >
+      <button
+        class="button secondary"
+        data-testid="click-to-load-more"
+        type="button"
+      >
+        Load more data
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
 
 exports[`ResultsData component should render the table view 1`] = `
 <DocumentFragment>
-  <table
-    class="hotjar-margin results-data data-table"
-  >
-    <thead>
-      <tr>
-        <th
-          class="data-table__header-cell--checkbox"
-        >
-          <div
-            class="checkbox-cell"
+  <div>
+    <table
+      class="hotjar-margin results-data data-table"
+    >
+      <thead>
+        <tr>
+          <th
+            class="data-table__header-cell--checkbox"
           >
-            <input
-              id="0"
-              type="checkbox"
-            />
-            <label
-              aria-label="Selection control for all visible items"
-              for="0"
-            />
-          </div>
-        </th>
-        <th
-          class=""
-        >
-          <span
-            aria-expanded="false"
+            <div
+              class="checkbox-cell"
+            >
+              <input
+                id="0"
+                type="checkbox"
+              />
+              <label
+                aria-label="Selection control for all visible items"
+                for="0"
+              />
+            </div>
+          </th>
+          <th
+            class=""
+            data-column-name="accession"
           >
             <span>
               Entry
             </span>
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      translate="no"
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        translate="no"
+      >
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P11413"
+              id="1"
+              type="checkbox"
+            />
+            <label
+              aria-label="P11413"
+              for="1"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P11413/entry"
+              >
+                P11413
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P19926"
+              id="2"
+              type="checkbox"
+            />
+            <label
+              aria-label="P19926"
+              for="2"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P19926/entry"
+              >
+                P19926
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P11411"
+              id="3"
+              type="checkbox"
+            />
+            <label
+              aria-label="P11411"
+              for="3"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P11411/entry"
+              >
+                P11411
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P13866"
+              id="4"
+              type="checkbox"
+            />
+            <label
+              aria-label="P13866"
+              for="4"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P13866/entry"
+              >
+                P13866
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q42525"
+              id="5"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q42525"
+              for="5"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q42525/entry"
+              >
+                Q42525
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q9FK51"
+              id="6"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q9FK51"
+              for="6"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q9FK51/entry"
+              >
+                Q9FK51
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P36871"
+              id="7"
+              type="checkbox"
+            />
+            <label
+              aria-label="P36871"
+              for="7"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P36871/entry"
+              >
+                P36871
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q96G03"
+              id="8"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q96G03"
+              for="8"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q96G03/entry"
+              >
+                Q96G03
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P31639"
+              id="9"
+              type="checkbox"
+            />
+            <label
+              aria-label="P31639"
+              for="9"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P31639/entry"
+              >
+                P31639
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="O95479"
+              id="10"
+              type="checkbox"
+            />
+            <label
+              aria-label="O95479"
+              for="10"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/O95479/entry"
+              >
+                O95479
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="A0SVK0"
+              id="11"
+              type="checkbox"
+            />
+            <label
+              aria-label="A0SVK0"
+              for="11"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/A0SVK0/entry"
+              >
+                A0SVK0
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P38263"
+              id="12"
+              type="checkbox"
+            />
+            <label
+              aria-label="P38263"
+              for="12"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P38263/entry"
+              >
+                P38263
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P11166"
+              id="13"
+              type="checkbox"
+            />
+            <label
+              aria-label="P11166"
+              for="13"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P11166/entry"
+              >
+                P11166
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P35575"
+              id="14"
+              type="checkbox"
+            />
+            <label
+              aria-label="P35575"
+              for="14"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P35575/entry"
+              >
+                P35575
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q16851"
+              id="15"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q16851"
+              for="15"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q16851/entry"
+              >
+                Q16851
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q9NY64"
+              id="16"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q9NY64"
+              for="16"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q9NY64/entry"
+              >
+                Q9NY64
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q9VUY9"
+              id="17"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q9VUY9"
+              for="17"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q9VUY9/entry"
+              >
+                Q9VUY9
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q6PCE3"
+              id="18"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q6PCE3"
+              for="18"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q6PCE3/entry"
+              >
+                Q6PCE3
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P37012"
+              id="19"
+              type="checkbox"
+            />
+            <label
+              aria-label="P37012"
+              for="19"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P37012/entry"
+              >
+                P37012
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q8TD20"
+              id="20"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q8TD20"
+              for="20"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q8TD20/entry"
+              >
+                Q8TD20
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q6PXP3"
+              id="21"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q6PXP3"
+              for="21"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q6PXP3/entry"
+              >
+                Q6PXP3
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q9BUM1"
+              id="22"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q9BUM1"
+              for="22"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q9BUM1/entry"
+              >
+                Q9BUM1
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q8TDB8"
+              id="23"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q8TDB8"
+              for="23"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q8TDB8/entry"
+              >
+                Q8TDB8
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P11169"
+              id="24"
+              type="checkbox"
+            />
+            <label
+              aria-label="P11169"
+              for="24"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P11169/entry"
+              >
+                P11169
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="Q9UGQ3"
+              id="25"
+              type="checkbox"
+            />
+            <label
+              aria-label="Q9UGQ3"
+              for="25"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/Q9UGQ3/entry"
+              >
+                Q9UGQ3
+              </a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      class="data-loader__loading"
     >
       <tr>
         <td
@@ -433,6 +5035,14 @@ exports[`ResultsData component should render the table view 1`] = `
     >
       Load more data
     </button>
+      <button
+        class="button secondary"
+        data-testid="click-to-load-more"
+        type="button"
+      >
+        Load more data
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

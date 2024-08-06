@@ -4,6 +4,9 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  useRef,
+  useEffect,
+  MutableRefObject,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { BinIcon, Button } from 'franklin-sites';
@@ -20,6 +23,7 @@ import {
   getSortableColumnToSortColumn,
   getLocationObjForParams,
 } from '../../uniprotkb/utils/resultsUtils';
+import { showTooltip } from '../utils/tooltip';
 import * as logging from '../utils/logging';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
@@ -59,6 +63,7 @@ export type ColumnDescriptor<Datum = APIModel> = {
   render: (row: Datum) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
+  tooltip?: string;
 };
 
 const convertRow = (
@@ -163,7 +168,11 @@ const useColumns = (
   columnsOverride?: ColumnDescriptor[],
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>,
   displayPeptideSearchMatchColumns?: boolean
-): [ColumnDescriptor[] | undefined, ((columnName: string) => void) | null] => {
+): [
+  ColumnDescriptor[] | undefined,
+  ((columnName: string) => void) | null,
+  MutableRefObject<HTMLDivElement | null>
+] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
@@ -173,6 +182,7 @@ const useColumns = (
     displayPeptideSearchMatchColumns,
   });
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const tooltipOnHoverRef = useRef<HTMLDivElement>(null);
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
@@ -246,6 +256,27 @@ const useColumns = (
     setSelectedEntries,
   ]);
 
+  useEffect(() => {
+    // Detect mouseover events on column header and show tooltip
+    const onHover = (e: MouseEvent) => {
+      const eventTarget = e.target as HTMLElement;
+      const { columnName } = eventTarget.dataset;
+      if (columns && columnName) {
+        const info = columns.find(({ name }) => name === columnName);
+        if (info?.tooltip && eventTarget.firstChild) {
+          showTooltip(
+            info.tooltip,
+            eventTarget,
+            eventTarget.firstChild as Element
+          );
+        }
+      }
+    };
+    const wrapper = tooltipOnHoverRef.current;
+    wrapper?.addEventListener('mouseover', onHover);
+    return () => wrapper?.removeEventListener('mouseover', onHover);
+  });
+
   const updateColumnSort = useCallback(
     (columnName: string) => {
       if (
@@ -290,7 +321,7 @@ const useColumns = (
       sortableColumnToSortColumn,
     ]
   );
-  return [columns, updateColumnSort];
+  return [columns, updateColumnSort, tooltipOnHoverRef];
 };
 
 export default useColumns;

@@ -56,7 +56,6 @@ exports[`AlignmentView Align should render 1`] = `
       </fieldset>
     </div>
     <div>
-      <protvista-tooltip />
       <section
         class="alignment-grid"
         data-testid="alignment-view"
@@ -306,7 +305,6 @@ exports[`AlignmentView BLAST should render 1`] = `
       </fieldset>
     </div>
     <div>
-      <protvista-tooltip />
       <section
         class="alignment-grid"
         data-testid="alignment-view"

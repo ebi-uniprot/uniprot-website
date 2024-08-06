@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Loader, Message } from 'franklin-sites';
 
@@ -21,11 +21,14 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../types/entry';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
+import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
 
 interface ProtvistaManager extends HTMLElement {
   displaystart: number;
   displayend: number;
 }
+
+const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
 const FeatureViewer = ({
   accession,
@@ -38,6 +41,9 @@ const FeatureViewer = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const protvistaUniprotRef = useRef<HTMLElement>(null);
+  const hideTooltip = useRef<ReturnType<
+    typeof showTooltipAtCoordinates
+  > | null>(null);
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession)
@@ -86,6 +92,43 @@ const FeatureViewer = ({
       }
     },
     [protvistaElement.defined, sequence]
+  );
+
+  const onProtvistaUniprotChange = useCallback((e: Event) => {
+    const { detail } = e as CustomEvent;
+    if (hideTooltipEvents.has(detail?.eventtype)) {
+      hideTooltip.current?.();
+    }
+    if (
+      detail?.eventtype === 'click' &&
+      detail?.feature?.tooltipContent &&
+      e.target
+    ) {
+      const [x, y] = detail.coords;
+      const { feature } = detail;
+      const title =
+        feature.type && feature.begin && feature.end
+          ? `<h4>${feature.type} ${feature.begin}-${feature.end}</h4>`
+          : '';
+      const content = `${title}${detail.feature.tooltipContent}`;
+      hideTooltip.current = showTooltipAtCoordinates(x, y, content);
+    }
+  }, []);
+
+  useEffect(() => {
+    const ref = protvistaUniprotRef.current;
+    ref?.addEventListener('change', onProtvistaUniprotChange);
+  }, [onProtvistaUniprotChange, protvistaElement]);
+
+  useEffect(
+    () => () => {
+      hideTooltip.current?.();
+      protvistaUniprotRef.current?.removeEventListener(
+        'change',
+        onProtvistaUniprotChange
+      );
+    },
+    [onProtvistaUniprotChange]
   );
 
   const searchParams = new URLSearchParams(useLocation().search);
