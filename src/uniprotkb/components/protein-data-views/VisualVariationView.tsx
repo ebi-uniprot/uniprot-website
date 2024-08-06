@@ -3,13 +3,13 @@ import { useCallback } from 'react';
 // We have to import this specific file otherwise it gets everything in at the
 // same time (including molstar...). But this path causes issues with Jest
 // because it doesn't support es modules natively yet. So, not testable atm
-import filterConfig, {
-  colorConfig,
-} from 'protvista-uniprot/dist/es/filterConfig';
+import { colorConfig } from 'protvista-uniprot/dist/es/filterConfig';
+
+import NightingaleNavigationComponent from '../../../shared/custom-elements/NightingaleNavigation';
+import NightingaleSequenceComponent from '../../../shared/custom-elements/NightingaleSequence';
+import NightingaleVariationComponent from '../../../shared/custom-elements/NightingaleVariation';
 
 import NightingaleZoomTool from './NightingaleZoomTool';
-
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { TransformedVariant } from '../../types/variation';
 
@@ -21,38 +21,15 @@ type VariationViewProps = {
 };
 
 const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
-  const filterElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
-    'protvista-filter'
-  );
-
-  const protvistaFilterRef = useCallback(
-    (node: { filters: typeof filterConfig }) => {
-      if (node && filterElement.defined) {
-        // eslint-disable-next-line no-param-reassign
-        node.filters = filterConfig;
-      }
-    },
-    [filterElement.defined]
-  );
-
-  const variationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-variation" */ 'protvista-variation'
-      ),
-    'protvista-variation'
-  );
-
-  const protvistaVariationRef = useCallback(
-    (node: {
-      colorConfig: typeof colorConfig;
-      data: VariationViewProps;
-      length: number;
-    }) => {
-      if (node && variationElement.defined && variants) {
+  const nightingaleVariationRef = useCallback(
+    (
+      node: {
+        colorConfig: typeof colorConfig;
+        data: VariationViewProps;
+        length: number;
+      } | null
+    ) => {
+      if (node && variants) {
         // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;
         // eslint-disable-next-line no-param-reassign
@@ -61,56 +38,33 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
         node.length = sequence.length;
       }
     },
-    [variationElement.defined, sequence, variants]
+    [sequence, variants]
   );
-
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-  const sequenceElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
-    'protvista-sequence'
-  );
-
-  const ceDefined =
-    filterElement.defined &&
-    variationElement.defined &&
-    navigationElement.defined &&
-    sequenceElement.defined;
 
   return (
-    <>
-      {ceDefined && (
-        <div className={styles['variation-view']}>
-          <NightingaleZoomTool length={sequence.length} />
-          <navigationElement.name length={sequence.length} />
-          <sequenceElement.name
-            length={sequence.length}
-            sequence={sequence}
-            height="20"
-            filter-scroll
-            no-scroll
-          />
-          <filterElement.name
+    <div className={styles['variation-view']}>
+      <NightingaleZoomTool length={sequence.length} />
+      <NightingaleNavigationComponent length={sequence.length} />
+      <NightingaleSequenceComponent
+        length={sequence.length}
+        sequence={sequence}
+        height={20}
+        filter-scroll
+        no-scroll
+      />
+      {/*
+          TODO: replace with new
+           <filterElement.name
             for="variation-component"
             ref={protvistaFilterRef}
-          />
-          <variationElement.name
-            id="variation-component"
-            length={sequence.length}
-            ref={protvistaVariationRef}
-            no-scroll
-          />
-        </div>
-      )}
-    </>
+          /> */}
+      <NightingaleVariationComponent
+        id="variation-component"
+        length={sequence.length}
+        ref={nightingaleVariationRef}
+        no-scroll
+      />
+    </div>
   );
 };
 
