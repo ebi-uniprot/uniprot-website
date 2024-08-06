@@ -6,11 +6,12 @@ import { useCallback } from 'react';
 import filterConfig, {
   colorConfig,
 } from 'protvista-uniprot/dist/es/filterConfig';
-import { TransformedVariant } from 'protvista-variation-adapter';
 
 import NightingaleZoomTool from './NightingaleZoomTool';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+
+import { TransformedVariant } from '../../types/variation';
 
 import styles from './styles/visual-variation-view.module.scss';
 

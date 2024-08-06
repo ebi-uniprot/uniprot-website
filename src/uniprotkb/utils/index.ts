@@ -44,7 +44,7 @@ export const getPropertyValue = (
   return found ? found.value : null;
 };
 
-type Sortable = { start: number | string; end: number | string };
+type Sortable = { start: number | string; end?: number | string };
 export const sortByLocation = (a: Sortable, b: Sortable) => {
   const aStart = +a.start;
   const aEnd = a.end ? +a.end : -Infinity;

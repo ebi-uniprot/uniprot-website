@@ -13,9 +13,11 @@ import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
-
-import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
-import { transformData, TransformedVariant } from 'protvista-variation-adapter';
+import {
+  ProteinsAPIVariation,
+  transformData,
+} from '@nightingale-elements/nightingale-variation/dist/proteinAPI';
+import NightingaleManager from '@nightingale-elements/nightingale-manager';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
@@ -23,9 +25,9 @@ import DatatableWrapper from '../../../../../shared/components/views/DatatableWr
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
+import NightingaleManagerComponent from '../../../../../shared/custom-elements/NightingaleManager';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
-import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
@@ -37,6 +39,7 @@ import { Evidence } from '../../../../types/modelTypes';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { TabLocation } from '../../../../types/entry';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
+import { TransformedVariant } from '../../../../types/variation';
 
 import styles from './styles/variation-viewer.module.scss';
 import tabsStyles from '../styles/tabs-styles.module.scss';
@@ -151,7 +154,7 @@ const VariationViewer = ({
     );
 
   const [filters, setFilters] = useState([]);
-  const managerRef = useRef<HTMLElement>(null);
+  const managerRef = useRef<NightingaleManager>(null);
   useEffect(() => {
     const { current: element } = managerRef;
 
@@ -194,13 +197,6 @@ const VariationViewer = ({
   const filteredVariants = useMemo(
     () => sortedVariants && applyFilters(sortedVariants, filters),
     [sortedVariants, filters]
-  );
-
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
   );
 
   if (loading || importedVariants === 'loading') {
@@ -352,9 +348,9 @@ const VariationViewer = ({
           );
 
           return (
-            <Fragment key={variantFeature.protvistaFeatureId}>
+            <Fragment key={variantFeature.accession}>
               <tr
-                data-id={variantFeature.protvistaFeatureId}
+                data-id={variantFeature.accession}
                 data-start={variantFeature.start}
                 data-end={variantFeature.end}
               >
@@ -459,7 +455,7 @@ const VariationViewer = ({
                 </td>
               </tr>
               <tr
-                data-group-for={variantFeature.protvistaFeatureId}
+                data-group-for={variantFeature.accession}
                 data-start={variantFeature.start}
                 data-end={variantFeature.end}
               >
@@ -593,15 +589,15 @@ const VariationViewer = ({
         />
       )}
       <EntryDownloadButton handleToggle={handleToggleDownload} />
-      <managerElement.name
-        attributes="highlight displaystart displayend activefilters filters selectedid"
+      <NightingaleManagerComponent
+        reflected-attributes="highlight,displaystart,displayend,activefilters,filters,selectedid"
         ref={managerRef}
       >
         <Suspense fallback={null}>
           <VisualVariationView {...transformedData} />
         </Suspense>
         <DatatableWrapper alwaysExpanded>{table}</DatatableWrapper>
-      </managerElement.name>
+      </NightingaleManagerComponent>
     </section>
   );
 };

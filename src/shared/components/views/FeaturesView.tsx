@@ -3,8 +3,8 @@ import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
 import DatatableWrapper from './DatatableWrapper';
+import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
 
-import useCustomElement from '../../hooks/useCustomElement';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
@@ -104,13 +104,6 @@ const FeaturesView = ({
 }: FeatureProps) => {
   const isSmallScreen = useSmallScreen();
 
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
-  );
-
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
     [features]
@@ -143,24 +136,22 @@ const FeaturesView = ({
           </p>
         </>
       )}
-      {managerElement.defined ? (
-        <managerElement.name attributes="highlight displaystart displayend selectedid">
-          {sequence && (
-            <LazyComponent
-              render={isSmallScreen ? false : undefined}
-              fallback={null}
-            >
-              <VisualFeaturesView
-                features={features}
-                sequence={sequence}
-                trackHeight={trackHeight}
-                noLinkToFullView={noLinkToFullView}
-              />
-            </LazyComponent>
-          )}
-          <DatatableWrapper>{table}</DatatableWrapper>
-        </managerElement.name>
-      ) : null}
+      <NightingaleManagerComponent reflected-attributes="highlight,display-start,display-end,selectedid">
+        {sequence && (
+          <LazyComponent
+            render={isSmallScreen ? false : undefined}
+            fallback={null}
+          >
+            <VisualFeaturesView
+              features={features}
+              sequence={sequence}
+              trackHeight={trackHeight}
+              noLinkToFullView={noLinkToFullView}
+            />
+          </LazyComponent>
+        )}
+        <DatatableWrapper>{table}</DatatableWrapper>
+      </NightingaleManagerComponent>
     </>
   );
 };

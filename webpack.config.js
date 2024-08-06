@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const { DefinePlugin, ProvidePlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');

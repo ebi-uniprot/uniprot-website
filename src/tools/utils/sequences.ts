@@ -1,4 +1,4 @@
-import { getColorByType } from '@nightingale-elements/nightingale-track/dist/nightingale-track';
+import { getColorByType } from '@nightingale-elements/nightingale-track';
 import { MSAInput } from '../types/alignment';
 import { FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';

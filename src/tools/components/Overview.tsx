@@ -231,7 +231,7 @@ const AlignOverview = ({
       >
         <NightingaleManagerComponent
           ref={managerRef}
-          attributes="displaystart displayend"
+          reflected-attributes="displaystart,displayend"
         >
           <NightingaleNavigationComponent
             ref={navigationRef}
