@@ -16,7 +16,7 @@ import { PartialDeep, SetRequired } from 'type-fest';
 import {
   ProteinsAPIVariation,
   transformData,
-} from '@nightingale-elements/nightingale-variation/dist/proteinAPI';
+} from '@nightingale-elements/nightingale-variation';
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
