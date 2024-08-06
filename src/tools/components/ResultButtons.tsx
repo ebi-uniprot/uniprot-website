@@ -8,9 +8,8 @@ import {
   SlidingPanel,
 } from 'franklin-sites';
 
-import BlastButton from '../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
 import AlignButton from '../../shared/components/action-buttons/Align';
-import MapIDButton from '../../shared/components/action-buttons/MapID';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import CustomiseButton from '../../shared/components/action-buttons/CustomiseButton';
@@ -160,12 +159,21 @@ const ResultButtons = ({
         </Suspense>
       )}
       <div className="button-group">
-        <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton
+        <ToolsDropdown
           selectedEntries={selectedEntries}
-          inputParamsData={inputParamsData}
+          blast
+          align={
+            <AlignButton
+              selectedEntries={selectedEntries}
+              extraSequence={
+                inputParamsData && 'sequence' in inputParamsData
+                  ? inputParamsData.sequence
+                  : undefined
+              }
+            />
+          }
+          mapID
         />
-        <MapIDButton selectedEntries={selectedEntries} namespace={namespace} />
         <Button
           variant="tertiary"
           onPointerOver={ResultDownload.preload}

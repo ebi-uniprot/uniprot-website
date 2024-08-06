@@ -17,14 +17,12 @@ exports[`HomePage component should render 1`] = `
         <h1
           class="x-huge"
         >
-          <span>
-            Find your 
-            <span
-              class="letter-group"
-              translate="no"
-            >
-              protein
-            </span>
+          Find your 
+          <span
+            class="letter-group"
+            translate="no"
+          >
+            protein
           </span>
         </h1>
         <div

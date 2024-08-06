@@ -10,7 +10,7 @@ import EntryMain from './EntryMain';
 import MembersFacets from './MembersFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import { MapToDropdownBasic } from '../../../shared/components/MapTo';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -115,7 +115,7 @@ const Entry = () => {
           />
         )}
         <div className="button-group">
-          <BlastButton selectedEntries={[accession]} />
+          <ToolsDropdown selectedEntries={[accession]} blast mapID />
           <EntryDownloadButton handleToggle={handleToggleDownload} />
           <AddToBasketButton selectedEntries={accession} />
           <MapToDropdownBasic

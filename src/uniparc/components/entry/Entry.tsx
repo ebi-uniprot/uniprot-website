@@ -9,7 +9,7 @@ import EntryMain from './EntryMain';
 import UniParcFeaturesView from './UniParcFeaturesView';
 import XRefsFacets from './XRefsFacets';
 import BasketStatus from '../../../basket/BasketStatus';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -165,7 +165,11 @@ const Entry = () => {
             />
           )}
           <div className="button-group">
-            <BlastButton selectedEntries={[match.params.accession]} />
+            <ToolsDropdown
+              selectedEntries={[match.params.accession]}
+              blast
+              mapID
+            />
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>

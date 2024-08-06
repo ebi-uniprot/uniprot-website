@@ -34,16 +34,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Proteins
-        </h2>
-        <h3
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           UniProt Knowledgebase
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -111,16 +111,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Species
-        </h2>
-        <h3
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           Proteomes
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -152,16 +152,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Protein Clusters
-        </h2>
-        <h3
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           UniRef
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -193,16 +193,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Sequence archive
-        </h2>
-        <h3
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           UniParc
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -606,7 +606,14 @@ exports[`non-critical HomePage component should render 1`] = `
     <h2
       class="uniprot-grid-cell--span-12 hero-container__title big"
     >
-      Analysis Tools
+      <a
+        href="/tool-dashboard"
+      >
+        <test-file-stub
+          width="1.4ch"
+        />
+         Analysis Tools
+      </a>
     </h2>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
@@ -632,11 +639,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           BLAST
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -668,11 +675,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Align
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -704,11 +711,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Search with Lists Map IDs
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -740,11 +747,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Search Peptides
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -820,14 +827,14 @@ exports[`non-critical HomePage component should render 1`] = `
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-7 need-help__attend-training-bottom"
     >
-      <h2
+      <h3
         class="small"
       >
         <test-file-stub
           height="1em"
         />
          Attend training
-      </h2>
+      </h3>
       <a
         class="external-link"
         href="https://www.ebi.ac.uk/training/"
@@ -928,11 +935,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           FTP Download
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -964,11 +971,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Technical Documentation
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -1000,11 +1007,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Programmatic Access
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -1036,11 +1043,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Submit Data
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"

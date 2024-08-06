@@ -6118,10 +6118,10 @@ foundation-sites@6.8.1:
   resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.8.1.tgz#9b17e9371c18916a375985571b33bdbe4c347555"
   integrity sha512-9JAuLqVgzf7EIRUqVKeYN68dU/SGe0aNJPgnejdfJKSWnBFdQLF3Zvy9WEQ1gE/gnyvwG3Ia3LkkEd9774n0bQ==
 
-franklin-sites@0.0.231:
-  version "0.0.231"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.231.tgz#56458ee4eb439589f3c508455f9840241828eabe"
-  integrity sha512-AcCazRfH2kYVd8CC94kGSseRpE0Ey1qAQsiwtlzNGz+IOQ29X9iu5Uxkf3lRtigJKWBEqRIhO7JN7KZHTggQcA==
+franklin-sites@0.0.233:
+  version "0.0.233"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.233.tgz#33b3709577dcd87651d18414e4e05b61f80d66cc"
+  integrity sha512-zBXiWS5Z6TcqffMIROFxdmQqVOrW6uhJi5rpVeWa/8L3BDu8enMsP4h0Y3pjx76VxO74Z6TDZym7SAf8RvL6eg==
   dependencies:
     "@tippyjs/react" "4.2.6"
     classnames "2.5.1"
