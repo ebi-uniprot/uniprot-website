@@ -10,6 +10,7 @@ import AddToBasketButton from '../../../../../shared/components/action-buttons/A
 import ToolsDropdown from '../../../../../shared/components/action-buttons/ToolsDropdown';
 import AlignButton from '../../../../../shared/components/action-buttons/Align';
 import ToolsButton from '../../../../../shared/components/action-buttons/ToolsButton';
+import CopyButton from '../../../../../shared/components/action-buttons/Copy';
 
 import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
 import { getEntryPathFor, Location } from '../../../../../app/config/urls';
@@ -103,18 +104,31 @@ const ExonRow = ({
     <td>
       <div className="button-group">
         <ToolsDropdown selectedEntries={[exon.accessionWithCoordinates]} blast>
-          <li>
-            <ToolsButton
-              peps={exon.proteinSequence}
-              disabled={
-                exon.proteinSequence.length < PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH
-              }
-              title="Search this peptide in UniProtKB"
-              location={Location.PeptideSearch}
-            >
-              Peptide Search
-            </ToolsButton>
-          </li>
+          {(closeDropdown) => (
+            <>
+              <li>
+                <ToolsButton
+                  peps={exon.proteinSequence}
+                  disabled={
+                    exon.proteinSequence.length <
+                    PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH
+                  }
+                  title="Search this peptide in UniProtKB"
+                  location={Location.PeptideSearch}
+                >
+                  Peptide Search
+                </ToolsButton>
+              </li>
+              <li>
+                <CopyButton
+                  textToCopy={exon.proteinSequence}
+                  postCopy={closeDropdown}
+                >
+                  Copy sequence
+                </CopyButton>
+              </li>
+            </>
+          )}
         </ToolsDropdown>
         <AddToBasketButton selectedEntries={exon.accessionWithCoordinates} />
       </div>
