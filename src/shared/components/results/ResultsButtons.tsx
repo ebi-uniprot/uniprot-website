@@ -31,6 +31,7 @@ import useViewMode, { ViewMode } from '../../hooks/useViewMode';
 import useColumnNames from '../../hooks/useColumnNames';
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
+import { roundNumber } from '../../utils/roundNumber';
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
 import {
@@ -236,7 +237,9 @@ const ResultsButtons: FC<
           disabled={!hasResults}
         >
           <DownloadIcon />
-          Download
+          Download (
+          {roundNumber(selectedEntries.length ? selectedEntries.length : total)}
+          )
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
           <AddToBasketButton

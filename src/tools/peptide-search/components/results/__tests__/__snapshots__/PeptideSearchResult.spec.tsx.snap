@@ -101,7 +101,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
               type="button"
             >
               <test-file-stub />
-              Download
+              Download (2)
             </button>
             <button
               class="button tertiary disabled no-small"
@@ -1051,7 +1051,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
               type="button"
             >
               <test-file-stub />
-              Download
+              Download (2)
             </button>
             <button
               class="button tertiary disabled no-small"
