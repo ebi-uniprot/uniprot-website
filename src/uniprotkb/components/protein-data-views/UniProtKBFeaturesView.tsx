@@ -1,6 +1,6 @@
 import { useMemo, Fragment, ReactNode } from 'react';
 import { v1 } from 'uuid';
-import { Button, Chip } from 'franklin-sites';
+import { Button, Card, Chip } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import FeaturesView, {
@@ -69,6 +69,7 @@ type UniProtKBFeaturesViewProps = {
 };
 
 type FeatureRowProps = {
+  isOdd: boolean;
   feature: ProcessedFeature;
   primaryAccession: string;
   smallScreen: boolean;
@@ -140,6 +141,7 @@ export const processFeaturesData = (
   });
 
 const FeatureRow = ({
+  isOdd,
   feature,
   smallScreen,
   primaryAccession,
@@ -166,13 +168,14 @@ const FeatureRow = ({
     description = <RichText>{feature.description}</RichText>;
   }
   const extraContent = (
-    <td>
+    <Card>
       <strong>Sequence: </strong>
       {feature.sequence}
-    </td>
+    </Card>
   );
   return (
     <Table.Row
+      isOdd={isOdd}
       data-id={feature.accession}
       data-start={feature.start}
       data-end={feature.end}
@@ -289,23 +292,20 @@ const UniProtKBFeaturesView = ({
 
   const table = (
     <Table>
-      <Table.Head>
-        <Table.Row>
-          {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
-          <th>ID</th>
-          <th>Position(s)</th>
-          {showSourceColumn && <th data-filter="source">Source</th>}
-          <th>Description</th>
-          {smallScreen ? null : (
-            <th>
-              {/* Intentionally left blank, corresponds to tools/basket */}
-            </th>
-          )}
-        </Table.Row>
+      <Table.Head toggleAll>
+        {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
+        <th>ID</th>
+        <th>Position(s)</th>
+        {showSourceColumn && <th data-filter="source">Source</th>}
+        <th>Description</th>
+        {smallScreen ? null : (
+          <th>{/* Intentionally left blank, corresponds to tools/basket */}</th>
+        )}
       </Table.Head>
       <Table.Body>
-        {processedData.map((feature: ProcessedFeature) => (
+        {processedData.map((feature: ProcessedFeature, index) => (
           <FeatureRow
+            isOdd={!(index % 2)}
             primaryAccession={primaryAccession}
             feature={feature}
             smallScreen={smallScreen}
