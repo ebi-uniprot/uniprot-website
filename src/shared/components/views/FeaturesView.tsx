@@ -2,7 +2,6 @@ import { Fragment, lazy, ReactNode, useMemo } from 'react';
 import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
-import DatatableWrapper from './DatatableWrapper';
 import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
@@ -150,7 +149,7 @@ const FeaturesView = ({
             />
           </LazyComponent>
         )}
-        <DatatableWrapper>{table}</DatatableWrapper>
+        {table}
       </NightingaleManagerComponent>
     </>
   );

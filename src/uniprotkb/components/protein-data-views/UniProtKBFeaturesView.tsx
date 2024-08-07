@@ -14,6 +14,7 @@ import LigandDescriptionView, {
   LigandPart,
 } from './LigandDescriptionView';
 import ExternalLink from '../../../shared/components/ExternalLink';
+import Table from '../../../shared/components/table/Table';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -59,10 +60,18 @@ export type FeatureDatum = {
   confidenceScore?: ConfidenceScore;
 };
 
-type FeatureProps = {
+type UniProtKBFeaturesViewProps = {
   primaryAccession: string;
   sequence?: string;
   features: FeatureDatum[];
+  inResultsTable?: boolean;
+  showSourceColumn?: boolean;
+};
+
+type FeatureRowProps = {
+  feature: ProcessedFeature;
+  primaryAccession: string;
+  smallScreen: boolean;
   inResultsTable?: boolean;
   showSourceColumn?: boolean;
 };
@@ -130,13 +139,139 @@ export const processFeaturesData = (
     };
   });
 
+const FeatureRow = ({
+  feature,
+  smallScreen,
+  primaryAccession,
+  inResultsTable,
+  showSourceColumn,
+}: FeatureRowProps) => {
+  const start = feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
+  const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
+  const positionStart = `${
+    feature.startModifier === 'UNSURE' ? '?' : ''
+  }${start}`;
+  const positionEnd = `${feature.endModifier === 'UNSURE' ? '?' : ''}${end}`;
+  // feature of type Disulfide bonds and Cross-links describe links, not subsequences.
+  const isLink =
+    feature.type === 'Disulfide bond' || feature.type === 'Cross-link';
+
+  const position =
+    positionStart === positionEnd
+      ? positionStart
+      : `${positionStart}${isLink ? '↔' : '-'}${positionEnd}`;
+
+  let { description } = feature;
+  if (typeof feature.description === 'string') {
+    description = <RichText>{feature.description}</RichText>;
+  }
+  const extraContent = (
+    <td>
+      <strong>Sequence: </strong>
+      {feature.sequence}
+    </td>
+  );
+  return (
+    <Table.Row
+      data-id={feature.accession}
+      data-start={feature.start}
+      data-end={feature.end}
+      extraContent={extraContent}
+    >
+      {inResultsTable ? (
+        <td>{feature.type}</td>
+      ) : (
+        <td data-filter="type" data-filter-value={feature.type}>
+          {feature.type}
+        </td>
+      )}
+      <td id={feature.accession}>
+        {feature.type === 'Natural variant' &&
+        position === positionStart &&
+        // Expasy links are only valid for SNPs (e.g. "R → G":)
+        feature.sequence?.length === 5 &&
+        feature.accession ? (
+          <ExternalLink
+            url={externalUrls.UniProt(feature.accession)}
+            title="View in Expasy"
+            noIcon
+          >
+            {feature.accession}
+          </ExternalLink>
+        ) : (
+          feature.accession
+        )}
+      </td>
+      <td>{position}</td>
+      {showSourceColumn && (
+        <td data-filter="source" data-filter-value={feature.source}>
+          {feature.source}
+        </td>
+      )}
+      <td
+        id={
+          feature.accession?.startsWith('PRO') &&
+          typeof feature.description === 'string'
+            ? stringToID(feature.description)
+            : `description${position}`
+        }
+      >
+        {description}
+        {!!feature.confidenceScore && (
+          <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
+            <Chip
+              className={`secondary ${styles[feature.confidenceScore]}`}
+              compact
+            >
+              {feature.confidenceScore}
+            </Chip>
+          </span>
+        )}
+        {feature.source === 'PTMeXchange' ? (
+          <PtmExchangeEvidenceTag
+            evidences={feature.evidences}
+            confidenceScore={feature.confidenceScore}
+          />
+        ) : (
+          <UniProtKBEvidenceTag evidences={feature.evidences} />
+        )}
+      </td>
+      {smallScreen ? null : (
+        <td>
+          {feature.end - feature.start >= 2 &&
+            feature.type !== 'Disulfide bond' &&
+            feature.type !== 'Cross-link' && (
+              <div className="button-group">
+                <Button
+                  element="a"
+                  variant="tertiary"
+                  title="BLAST the sequence corresponding to this feature"
+                  href={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
+                    start: feature.start,
+                    end: feature.end,
+                  })}
+                  translate="no"
+                >
+                  BLAST
+                </Button>
+                <AddToBasketButton
+                  selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
+                />
+              </div>
+            )}
+        </td>
+      )}
+    </Table.Row>
+  );
+};
+
 const UniProtKBFeaturesView = ({
   primaryAccession,
   sequence,
   features,
   inResultsTable,
   showSourceColumn = false,
-}: FeatureProps) => {
+}: UniProtKBFeaturesViewProps) => {
   const processedData = useMemo(
     () => processFeaturesData(features, sequence, showSourceColumn),
     [features, sequence, showSourceColumn]
@@ -153,9 +288,9 @@ const UniProtKBFeaturesView = ({
   );
 
   const table = (
-    <table>
-      <thead>
-        <tr>
+    <Table>
+      <Table.Head>
+        <Table.Row>
           {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
           <th>ID</th>
           <th>Position(s)</th>
@@ -166,147 +301,19 @@ const UniProtKBFeaturesView = ({
               {/* Intentionally left blank, corresponds to tools/basket */}
             </th>
           )}
-        </tr>
-      </thead>
-      <tbody>
-        {processedData.map((feature: ProcessedFeature) => {
-          const start =
-            feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
-          const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
-          const positionStart = `${
-            feature.startModifier === 'UNSURE' ? '?' : ''
-          }${start}`;
-          const positionEnd = `${
-            feature.endModifier === 'UNSURE' ? '?' : ''
-          }${end}`;
-          // feature of type Disulfide bonds and Cross-links describe links, not subsequences.
-          const isLink =
-            feature.type === 'Disulfide bond' || feature.type === 'Cross-link';
-
-          const position =
-            positionStart === positionEnd
-              ? positionStart
-              : `${positionStart}${isLink ? '↔' : '-'}${positionEnd}`;
-
-          let { description } = feature;
-          if (typeof feature.description === 'string') {
-            description = <RichText>{feature.description}</RichText>;
-          }
-          return (
-            <Fragment key={feature.accession}>
-              <tr
-                data-id={feature.accession}
-                data-start={feature.start}
-                data-end={feature.end}
-              >
-                {inResultsTable ? (
-                  <td>{feature.type}</td>
-                ) : (
-                  <td data-filter="type" data-filter-value={feature.type}>
-                    {feature.type}
-                  </td>
-                )}
-                <td id={feature.accession}>
-                  {feature.type === 'Natural variant' &&
-                  position === positionStart &&
-                  // Expasy links are only valid for SNPs (e.g. "R → G":)
-                  feature.sequence?.length === 5 &&
-                  feature.accession ? (
-                    <ExternalLink
-                      url={externalUrls.UniProt(feature.accession)}
-                      title="View in Expasy"
-                      noIcon
-                    >
-                      {feature.accession}
-                    </ExternalLink>
-                  ) : (
-                    feature.accession
-                  )}
-                </td>
-                <td>{position}</td>
-                {showSourceColumn && (
-                  <td data-filter="source" data-filter-value={feature.source}>
-                    {feature.source}
-                  </td>
-                )}
-                <td
-                  id={
-                    feature.accession?.startsWith('PRO') &&
-                    typeof feature.description === 'string'
-                      ? stringToID(feature.description)
-                      : `description${position}`
-                  }
-                >
-                  {description}
-                  {!!feature.confidenceScore && (
-                    <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
-                      <Chip
-                        className={`secondary ${
-                          styles[feature.confidenceScore]
-                        }`}
-                        compact
-                      >
-                        {feature.confidenceScore}
-                      </Chip>
-                    </span>
-                  )}
-                  {feature.source === 'PTMeXchange' ? (
-                    <PtmExchangeEvidenceTag
-                      evidences={feature.evidences}
-                      confidenceScore={feature.confidenceScore}
-                    />
-                  ) : (
-                    <UniProtKBEvidenceTag evidences={feature.evidences} />
-                  )}
-                </td>
-                {smallScreen ? null : (
-                  <td>
-                    {/* Not using React Router link as this is copied into the table DOM */}
-                    {feature.end - feature.start >= 2 &&
-                      feature.type !== 'Disulfide bond' &&
-                      feature.type !== 'Cross-link' && (
-                        <div className="button-group">
-                          <Button
-                            element="a"
-                            variant="tertiary"
-                            title="BLAST the sequence corresponding to this feature"
-                            href={getURLToJobWithData(
-                              JobTypes.BLAST,
-                              primaryAccession,
-                              {
-                                start: feature.start,
-                                end: feature.end,
-                              }
-                            )}
-                            translate="no"
-                          >
-                            BLAST
-                          </Button>
-                          <AddToBasketButton
-                            selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
-                          />
-                        </div>
-                      )}
-                  </td>
-                )}
-              </tr>
-              {feature.sequence && (
-                <tr
-                  data-group-for={feature.accession}
-                  data-start={feature.start}
-                  data-end={feature.end}
-                >
-                  <td>
-                    <strong>Sequence: </strong>
-                    {feature.sequence}
-                  </td>
-                </tr>
-              )}
-            </Fragment>
-          );
-        })}
-      </tbody>
-    </table>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {processedData.map((feature: ProcessedFeature) => (
+          <FeatureRow
+            primaryAccession={primaryAccession}
+            feature={feature}
+            smallScreen={smallScreen}
+            inResultsTable={inResultsTable}
+          />
+        ))}
+      </Table.Body>
+    </Table>
   );
 
   return (
