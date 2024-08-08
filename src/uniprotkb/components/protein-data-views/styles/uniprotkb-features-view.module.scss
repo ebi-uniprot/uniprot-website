@@ -11,3 +11,9 @@
 .Bronze {
   --main-chip-color: #{$colour-bronze};
 }
+
+table.features {
+  td {
+    white-space: nowrap;
+  }
+}

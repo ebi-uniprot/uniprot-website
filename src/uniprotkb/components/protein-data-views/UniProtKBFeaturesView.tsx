@@ -1,4 +1,4 @@
-import { useMemo, Fragment, ReactNode } from 'react';
+import { useMemo, ReactNode } from 'react';
 import { v1 } from 'uuid';
 import { Button, Card, Chip } from 'franklin-sites';
 
@@ -163,15 +163,20 @@ const FeatureRow = ({
       ? positionStart
       : `${positionStart}${isLink ? '↔' : '-'}${positionEnd}`;
 
-  let { description } = feature;
-  if (typeof feature.description === 'string') {
-    description = <RichText>{feature.description}</RichText>;
-  }
+  const description =
+    typeof feature.description === 'string' ? (
+      <RichText>{feature.description}</RichText>
+    ) : (
+      feature.description
+    );
+
   const extraContent = (
-    <Card>
-      <strong>Sequence: </strong>
-      {feature.sequence}
-    </Card>
+    <td colSpan={5}>
+      <Card>
+        <strong>Sequence: </strong>
+        {feature.sequence}
+      </Card>
+    </td>
   );
   return (
     <Table.Row
@@ -291,7 +296,7 @@ const UniProtKBFeaturesView = ({
   );
 
   const table = (
-    <Table>
+    <Table className={styles.features}>
       <Table.Head toggleAll>
         {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
         <th>ID</th>
