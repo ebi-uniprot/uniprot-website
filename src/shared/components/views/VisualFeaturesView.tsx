@@ -87,7 +87,7 @@ function VisualFeaturesView({
           <FullViewIcon height={iconSize} />
         </Link>
       )}
-      <NightingaleManagerComponent>
+      <NightingaleManagerComponent reflected-attributes="highlight,display-start,display-end,selectedid">
         <NightingaleNavigationComponent length={sequence.length} height={40} />
         <NightingalTrackComponent
           ref={setTrackData}

@@ -135,22 +135,20 @@ const FeaturesView = ({
           </p>
         </>
       )}
-      <NightingaleManagerComponent reflected-attributes="highlight,display-start,display-end,selectedid">
-        {sequence && (
-          <LazyComponent
-            render={isSmallScreen ? false : undefined}
-            fallback={null}
-          >
-            <VisualFeaturesView
-              features={features}
-              sequence={sequence}
-              trackHeight={trackHeight}
-              noLinkToFullView={noLinkToFullView}
-            />
-          </LazyComponent>
-        )}
-        {table}
-      </NightingaleManagerComponent>
+      {sequence && (
+        <LazyComponent
+          render={isSmallScreen ? false : undefined}
+          fallback={null}
+        >
+          <VisualFeaturesView
+            features={features}
+            sequence={sequence}
+            trackHeight={trackHeight}
+            noLinkToFullView={noLinkToFullView}
+          />
+        </LazyComponent>
+      )}
+      {table}
     </>
   );
 };
