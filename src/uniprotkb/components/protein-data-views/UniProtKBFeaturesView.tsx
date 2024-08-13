@@ -8,6 +8,8 @@ import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { RichText } from './FreeTextView';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
+import CopyButton from '../../../shared/components/action-buttons/Copy';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import LigandDescriptionView, {
   Ligand,
@@ -27,8 +29,6 @@ import { Xref } from '../../../shared/types/apiModel';
 import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
 import styles from './styles/uniprotkb-features-view.module.scss';
-import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
-import CopyButton from '../../../shared/components/action-buttons/Copy';
 
 type FeatureLocation = {
   value: number;

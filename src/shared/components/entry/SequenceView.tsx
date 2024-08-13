@@ -507,15 +507,11 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
   return (
     <>
       <div className="button-group">
-        <AlignButton
+        <AlignButton selectedEntries={allIsoformIds} textSuffix="isoforms" />
+        <AddToBasketButton
           selectedEntries={allIsoformIds}
-          textSuffix={
-            allIsoformIds.length === 1
-              ? undefined
-              : `${allIsoformIds.length} isoforms`
-          }
+          textSuffix="isoforms"
         />
-        {/* Missing Add to basket */}
       </div>
       {infoListComponent}
       <IsoformView

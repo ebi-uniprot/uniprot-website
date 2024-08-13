@@ -42,7 +42,7 @@ import useStructuredData from '../../../shared/hooks/useStructuredData';
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import { getListOfIsoformAccessions } from '../../utils';
-import { hasContent } from '../../../shared/utils/utils';
+import { hasContent, pluralise } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -54,6 +54,7 @@ import uniProtKbConverter, {
   UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
@@ -86,7 +87,6 @@ import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
@@ -483,7 +483,10 @@ const Entry = () => {
                   blast
                   align={
                     listOfIsoformAccessions.length > 1 && (
-                      <AlignButton selectedEntries={listOfIsoformAccessions} />
+                      <AlignButton
+                        selectedEntries={listOfIsoformAccessions}
+                        textSuffix="isoforms"
+                      />
                     )
                   }
                   mapID

@@ -1,13 +1,10 @@
-import { useRouteMatch } from 'react-router-dom';
-
 import ToolsButton from './ToolsButton';
 
 import { fromCleanMapper } from '../../utils/getIdKey';
-import { pluralise } from '../../utils/utils';
 
 import { ALIGN_LIMIT } from '../../config/limits';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { Location } from '../../../app/config/urls';
 
 const isDisabled = (n: number) => n <= 1 || n > ALIGN_LIMIT;
 
@@ -32,44 +29,18 @@ const AlignButton = ({
   textSuffix,
   extraSequence,
 }: AlignButtonProps) => {
-  const blastMatch = useRouteMatch(LocationToPath[Location.BlastResult]);
   const cleanedSelectedEntries = Array.from(
     new Set(selectedEntries.map(fromCleanMapper))
   );
 
   const n = cleanedSelectedEntries.length;
 
-  if (blastMatch) {
-    return (
-      <>
-        <ToolsButton
-          selectedEntries={cleanedSelectedEntries}
-          disabled={isDisabled(n)}
-          title={getTitle(n)}
-          location={Location.Align}
-        >
-          Align selected results
-        </ToolsButton>
-        {/* Temporary, re-check after refactor to see where to put <li> */}
-        <br />
-        <ToolsButton
-          selectedEntries={cleanedSelectedEntries}
-          sequence={extraSequence}
-          disabled={isDisabled(n + 1)}
-          title={getTitle(n + 1)}
-          location={Location.Align}
-        >
-          Align selected {pluralise('result', n)} with query
-        </ToolsButton>
-      </>
-    );
-  }
-
   return (
     <ToolsButton
       selectedEntries={cleanedSelectedEntries}
-      disabled={isDisabled(n)}
-      title={getTitle(n)}
+      sequence={extraSequence}
+      disabled={isDisabled(n + (extraSequence ? 1 : 0))}
+      title={getTitle(n + (extraSequence ? 1 : 0))}
       location={Location.Align}
     >
       <span translate="no">Align</span>

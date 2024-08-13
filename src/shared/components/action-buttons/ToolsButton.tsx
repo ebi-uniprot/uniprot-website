@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'franklin-sites';
 
 import { stringifyQuery } from '../../utils/url';
+import { roundNumber } from '../../utils/roundNumber';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -52,6 +53,10 @@ const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
     className={helper['no-small']}
   >
     {children}
+    {/* Just show count when it wouldn't be 0 */}
+    {selectedEntries?.length
+      ? ` (${roundNumber(selectedEntries.length + (sequence ? 1 : 0))})`
+      : null}
   </Button>
 );
 

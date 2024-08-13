@@ -116,7 +116,7 @@ const ExonRow = ({
                   title="Search this peptide in UniProtKB"
                   location={Location.PeptideSearch}
                 >
-                  Peptide Search
+                  Peptide Search (1)
                 </ToolsButton>
               </li>
               <li>
@@ -287,7 +287,7 @@ const CoordinateExtraContent = ({
                         selectedEntries={exons.map(
                           (exon) => exon.accessionWithCoordinates
                         )}
-                        textSuffix={`${exons.length} peptides`}
+                        textSuffix="peptides"
                       />
                     }
                   />

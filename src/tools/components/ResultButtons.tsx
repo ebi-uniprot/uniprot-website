@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState, Suspense, ReactNode } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import {
@@ -21,6 +21,7 @@ import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
 import lazy from '../../shared/utils/lazy';
+import { pluralise } from '../../shared/utils/utils';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -134,6 +135,30 @@ const ResultButtons = ({
   const { pathname } = useLocation();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
+  let align: ReactNode | ReactNode[] = (
+    <AlignButton
+      selectedEntries={selectedEntries}
+      textSuffix={jobType === JobTypes.BLAST ? 'selected results' : undefined}
+    />
+  );
+  if (jobType === JobTypes.BLAST) {
+    align = [
+      align,
+      <AlignButton
+        selectedEntries={selectedEntries}
+        textSuffix={`selected ${pluralise(
+          'result',
+          selectedEntries.length
+        )} with query`}
+        extraSequence={
+          inputParamsData && 'sequence' in inputParamsData
+            ? inputParamsData.sequence
+            : undefined
+        }
+      />,
+    ];
+  }
+
   return (
     <>
       {displayDownloadPanel && (
@@ -162,16 +187,7 @@ const ResultButtons = ({
         <ToolsDropdown
           selectedEntries={selectedEntries}
           blast
-          align={
-            <AlignButton
-              selectedEntries={selectedEntries}
-              extraSequence={
-                inputParamsData && 'sequence' in inputParamsData
-                  ? inputParamsData.sequence
-                  : undefined
-              }
-            />
-          }
+          align={align}
           mapID
         />
         <Button
