@@ -1,4 +1,4 @@
-const UNITS = ['', 'k', 'M', 'G'];
+const UNITS = ['', 'k', 'M', 'B'];
 const UNIT_SCALE = 1_000; // Every 1000, jump in magnitude
 
 export const roundNumber = (value: number, scaleMargin = 1) => {

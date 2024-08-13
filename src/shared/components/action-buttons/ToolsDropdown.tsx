@@ -2,12 +2,12 @@ import { ComponentProps, ReactNode } from 'react';
 import { Dropdown, Button, ToolboxIcon } from 'franklin-sites';
 
 import MapIDButton from './MapID';
+import BlastButton from './Blast';
+import AlignButton from './Align';
 
 import useNS from '../../hooks/useNS';
 
 import { Namespace } from '../../types/namespaces';
-import BlastButton from './Blast';
-import AlignButton from './Align';
 
 type ToolsDropdownProps = {
   selectedEntries: string[];
