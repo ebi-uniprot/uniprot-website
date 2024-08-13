@@ -238,7 +238,7 @@ const ResultsButtons: FC<
         >
           <DownloadIcon />
           Download (
-          {roundNumber(selectedEntries.length ? selectedEntries.length : total)}
+          {roundNumber(selectedEntries.length || total)}
           )
         </Button>
         {isMain && namespace !== Namespace.proteomes && (

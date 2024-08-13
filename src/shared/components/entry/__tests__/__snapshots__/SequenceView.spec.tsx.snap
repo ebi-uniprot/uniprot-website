@@ -15,8 +15,16 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       >
         Align
       </span>
-       2 isoforms
+       isoforms (2)
     </a>
+    <button
+      class="button tertiary no-small"
+      title="Add 2 entries to the basket"
+      type="button"
+    >
+      <test-file-stub />
+      Add isoforms
+    </button>
   </div>
   <ul
     class="info-list info-list--columns"

@@ -42,7 +42,7 @@ import useStructuredData from '../../../shared/hooks/useStructuredData';
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import { getListOfIsoformAccessions } from '../../utils';
-import { hasContent, pluralise } from '../../../shared/utils/utils';
+import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';

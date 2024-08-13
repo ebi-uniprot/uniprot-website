@@ -3250,6 +3250,15 @@ exports[`Entry view should render 1`] = `
             >
               Align
             </span>
+             isoforms (1)
+          </button>
+          <button
+            class="button tertiary no-small"
+            title="Add 1 entry to the basket"
+            type="button"
+          >
+            <test-file-stub />
+            Add isoforms
           </button>
         </div>
         <ul
@@ -3628,7 +3637,7 @@ exports[`Entry view should render 1`] = `
     class="hero-container hero-container--side-padding"
   >
     <h2
-      class="medium"
+      class="hero-container__title big"
     >
       Disclaimer
     </h2>
@@ -7342,7 +7351,7 @@ exports[`Entry view should render for non-human entry 1`] = `
     class="hero-container hero-container--side-padding"
   >
     <h2
-      class="medium"
+      class="hero-container__title big"
     >
       Disclaimer
     </h2>
