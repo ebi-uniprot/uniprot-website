@@ -25,7 +25,7 @@ type UniProtKBFeatureColumn =
 // TODO: use getLabelAndTooltip?
 
 type RenderArgs = {
-  feature: any;
+  datum: any;
   input: any;
   primaryAccession: string;
   showSourceColumn: boolean;
@@ -36,7 +36,7 @@ type LabelArgs = {
 };
 
 type FilterArgs = {
-  feature: any;
+  datum: any;
   input: any;
 };
 
@@ -44,14 +44,14 @@ export type FeatureColumnConfiguration = Map<
   UniProtKBFeatureColumn,
   {
     label: string | (({ showSourceColumn }: LabelArgs) => ReactNode);
-    filter?: ({ feature, input }: FilterArgs) => boolean;
+    filter?: ({ datum, input }: FilterArgs) => boolean;
     render: ({
-      feature,
+      datum,
       input,
       primaryAccession,
       showSourceColumn,
     }: RenderArgs) => ReactNode;
-    userFilter?: boolean;
+    optionAccessor?: (datum: any) => any;
   }
 >;
 
@@ -61,30 +61,30 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration = new Map(
       'type',
       {
         label: 'Type',
-        filter: ({ feature, input }) => feature.type === input,
-        render: ({ feature }) => feature.type,
-        userFilter: true,
+        filter: ({ datum, input }) => datum.type === input,
+        render: ({ datum }) => datum.type,
+        optionAccessor: ({ datum }) => datum.type,
       },
     ],
     [
       'accession',
       {
         label: 'ID',
-        render: ({ feature, position, positionStart }) =>
-          feature.type === 'Natural variant' &&
+        render: ({ datum, position, positionStart }) =>
+          datum.type === 'Natural variant' &&
           position === positionStart &&
           // Expasy links are only valid for SNPs (e.g. "R → G":)
-          feature.sequence?.length === 5 &&
-          feature.accession ? (
+          datum.sequence?.length === 5 &&
+          datum.accession ? (
             <ExternalLink
-              url={externalUrls.UniProt(feature.accession)}
+              url={externalUrls.UniProt(datum.accession)}
               title="View in Expasy"
               noIcon
             >
-              {feature.accession}
+              {datum.accession}
             </ExternalLink>
           ) : (
-            feature.accession
+            datum.accession
           ),
       },
     ],
@@ -99,38 +99,38 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration = new Map(
       'source',
       {
         label: ({ showSourceColumn }) => showSourceColumn && 'Source',
-        render: ({ feature, showSourceColumn }) =>
-          showSourceColumn && feature.source,
+        render: ({ datum, showSourceColumn }) =>
+          showSourceColumn && datum.source,
       },
     ],
     [
       'description',
       {
         label: 'Description',
-        render: ({ feature }) => (
+        render: ({ datum }) => (
           <>
-            {typeof feature.description === 'string' ? (
-              <RichText>{feature.description}</RichText>
+            {typeof datum.description === 'string' ? (
+              <RichText>{datum.description}</RichText>
             ) : (
-              feature.description
+              datum.description
             )}
-            {!!feature.confidenceScore && (
+            {!!datum.confidenceScore && (
               <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
                 <Chip
-                  className={`secondary ${styles[feature.confidenceScore]}`}
+                  className={`secondary ${styles[datum.confidenceScore]}`}
                   compact
                 >
-                  {feature.confidenceScore}
+                  {datum.confidenceScore}
                 </Chip>
               </span>
             )}
-            {feature.source === 'PTMeXchange' ? (
+            {datum.source === 'PTMeXchange' ? (
               <PtmExchangeEvidenceTag
-                evidences={feature.evidences}
-                confidenceScore={feature.confidenceScore}
+                evidences={datum.evidences}
+                confidenceScore={datum.confidenceScore}
               />
             ) : (
-              <UniProtKBEvidenceTag evidences={feature.evidences} />
+              <UniProtKBEvidenceTag evidences={datum.evidences} />
             )}
           </>
         ),
@@ -141,25 +141,25 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration = new Map(
       {
         // Intentionally left blank, corresponds to tools/basket
         label: (smallScreen) => (smallScreen ? null : ''),
-        render: ({ feature, primaryAccession }) =>
-          feature.end - feature.start >= 2 &&
-          feature.type !== 'Disulfide bond' &&
-          feature.type !== 'Cross-link' && (
+        render: ({ datum, primaryAccession }) =>
+          datum.end - datum.start >= 2 &&
+          datum.type !== 'Disulfide bond' &&
+          datum.type !== 'Cross-link' && (
             <div className="button-group">
               <Button
                 element="a"
                 variant="tertiary"
                 title="BLAST the sequence corresponding to this feature"
                 href={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
-                  start: feature.start,
-                  end: feature.end,
+                  start: datum.start,
+                  end: datum.end,
                 })}
                 translate="no"
               >
                 BLAST
               </Button>
               <AddToBasketButton
-                selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
+                selectedEntries={`${primaryAccession}[${datum.start}-${datum.end}]`}
               />
             </div>
           ),

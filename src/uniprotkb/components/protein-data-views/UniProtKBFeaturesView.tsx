@@ -30,6 +30,7 @@ import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
 import styles from './styles/uniprotkb-features-view.module.scss';
+import uniProtKBFeatureColumnConfiguration from '../../config/UniProtKBFeatureColumnConfiguration';
 
 type FeatureLocation = {
   value: number;
@@ -273,6 +274,41 @@ const FeatureRow = ({
   );
 };
 
+const TableHeaderFromData = ({ data, column }) => {
+  // if (optionAccessor) { }
+  console.log(column);
+  return <th>{column.label}</th>;
+};
+
+const TableRowFromData = ({ datum, columns }) =>
+  columns.map((column) => <td>{column.render({ datum })}</td>);
+
+const filterDatum = (datum, columns) =>
+  columns.every((column) => column.filter(datum));
+
+const TableFromData = ({ data, columns }) => {
+  console.log(data, columns);
+
+  return (
+    <Table>
+      <Table.Head toggleAll>
+        {columns.map((column) => (
+          <TableHeaderFromData data={data} column={column} />
+        ))}
+      </Table.Head>
+      <Table.Body>
+        {data
+          // .filter((datum) => filterDatum(datum, columns))
+          .map((datum, index) => (
+            <Table.Row isOdd={index % 2}>
+              <TableRowFromData datum={datum} columns={columns} />
+            </Table.Row>
+          ))}
+      </Table.Body>
+    </Table>
+  );
+};
+
 const UniProtKBFeaturesView = ({
   primaryAccession,
   sequence,
@@ -295,30 +331,37 @@ const UniProtKBFeaturesView = ({
     a.start === b.start ? a.end - b.end : a.start - b.start
   );
 
+  // const table = (
+  //   <Table className={styles.features}>
+  //     <Table.Head toggleAll>
+  //       {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
+  //       <th>ID</th>
+  //       <th>Position(s)</th>
+  //       {showSourceColumn && <th data-filter="source">Source</th>}
+  //       <th>Description</th>
+  //       {smallScreen ? null : (
+  //         <th>{/* Intentionally left blank, corresponds to tools/basket */}</th>
+  //       )}
+  //     </Table.Head>
+  //     <Table.Body>
+  //       {processedData.map((feature: ProcessedFeature, index) => (
+  //         <FeatureRow
+  //           isOdd={!(index % 2)}
+  //           primaryAccession={primaryAccession}
+  //           feature={feature}
+  //           smallScreen={smallScreen}
+  //           inResultsTable={inResultsTable}
+  //         />
+  //       ))}
+  //     </Table.Body>
+  //   </Table>
+  // );
+
   const table = (
-    <Table className={styles.features}>
-      <Table.Head toggleAll>
-        {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
-        <th>ID</th>
-        <th>Position(s)</th>
-        {showSourceColumn && <th data-filter="source">Source</th>}
-        <th>Description</th>
-        {smallScreen ? null : (
-          <th>{/* Intentionally left blank, corresponds to tools/basket */}</th>
-        )}
-      </Table.Head>
-      <Table.Body>
-        {processedData.map((feature: ProcessedFeature, index) => (
-          <FeatureRow
-            isOdd={!(index % 2)}
-            primaryAccession={primaryAccession}
-            feature={feature}
-            smallScreen={smallScreen}
-            inResultsTable={inResultsTable}
-          />
-        ))}
-      </Table.Body>
-    </Table>
+    <TableFromData
+      data={processedData}
+      columns={Array.from(uniProtKBFeatureColumnConfiguration.values())}
+    />
   );
 
   return (
