@@ -4009,10 +4009,10 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
 
-complexviewer@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/complexviewer/-/complexviewer-2.2.1.tgz#dca30d39c428ab0553af271c5261eea45d0bf2c2"
-  integrity sha512-UWRbEvrNireqZnw/iEX7sWZkWLr3vuKSMYVIqVSV3mUmIF+0DWNgQlUcFh4bY67jyB8hUvxUtPbWTwHScoYu7g==
+complexviewer@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/complexviewer/-/complexviewer-2.2.2.tgz#1ea6316578272076bb17ee12707f89166f62c31a"
+  integrity sha512-PhhfBwotIkbeUkq5j9XR2NKB/SbO9xsrJywAR24WzCA1UXvREB5pMpvJEWw8fODePIoEOrjGUTjuMtJBiK0uAw==
   dependencies:
     colorbrewer "1.3.0"
     core-js "^3.15.2"
@@ -4022,7 +4022,7 @@ complexviewer@2.2.1:
     d3-interpolate "^3.0.1"
     d3-polygon "~3.0.1"
     d3-scale "~4.0.2"
-    d3-scale-chromatic "~1.5.0"
+    d3-scale-chromatic "^3.1.0"
     d3-selection "^3.0.0"
     intersectionjs "1.0.1"
     jquery "^3.6.0"
@@ -4666,7 +4666,7 @@ d3-random@3:
   resolved "https://registry.yarnpkg.com/d3-random/-/d3-random-3.0.1.tgz#d4926378d333d9c0bfd1e6fa0194d30aebaa20f4"
   integrity sha512-FXMe9GfxTxqd5D6jFsQ+DJ8BJS4E/fT5mqqdjovykEB2oFbTMDVdg1MGFxfQW+FBOGoB++k8swBrgwSHT1cUXQ==
 
-d3-scale-chromatic@1, d3-scale-chromatic@~1.5.0:
+d3-scale-chromatic@1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/d3-scale-chromatic/-/d3-scale-chromatic-1.5.0.tgz#54e333fc78212f439b14641fb55801dd81135a98"
   integrity sha512-ACcL46DYImpRFMBcpk9HhtIyC7bTBR4fNOPxwVSl0LfulDAwyiHyPOTqcDG1+t5d4P9W7t/2NAuWu59aKko/cg==
@@ -4674,7 +4674,7 @@ d3-scale-chromatic@1, d3-scale-chromatic@~1.5.0:
     d3-color "1"
     d3-interpolate "1"
 
-d3-scale-chromatic@3:
+d3-scale-chromatic@3, d3-scale-chromatic@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/d3-scale-chromatic/-/d3-scale-chromatic-3.1.0.tgz#34c39da298b23c20e02f1a4b239bd0f22e7f1314"
   integrity sha512-A3s5PWiZ9YCXFye1o246KoscMWqf8BsD9eRiJ3He7C9OBaxKhAd5TFCdEx/7VbKtxxTsu//1mMJFrEt572cEyQ==

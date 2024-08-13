@@ -101,6 +101,7 @@ export type SearchOptions = {
   sortDirection?: SortDirection;
   facets?: Facets[] | null;
   size?: number;
+  noSort?: boolean;
 };
 
 export const getSearchParams = ({
@@ -112,6 +113,7 @@ export const getSearchParams = ({
   sortDirection = SortDirection.ascend,
   facets,
   size,
+  noSort,
 }: SearchOptions = {}) => {
   let facetField = facets;
   // if null or empty list, don't set default, only for undefined
@@ -128,7 +130,7 @@ export const getSearchParams = ({
     facets: facetField?.join(','),
     sort:
       // 'score' is invalid, but it's a user input so it might still happen
-      sortColumn && (sortColumn as string) !== 'score'
+      sortColumn && (sortColumn as string) !== 'score' && !noSort
         ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
         : undefined,
   };

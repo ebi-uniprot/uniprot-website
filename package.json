@@ -110,7 +110,7 @@
     "@swissprot/swissbiopics-visualizer": "0.0.28",
     "axios": "1.6.7",
     "classnames": "2.5.1",
-    "complexviewer": "2.2.1",
+    "complexviewer": "2.2.2",
     "core-js": "3.26.0",
     "d3": "5.16.0",
     "deep-freeze": "0.0.1",

@@ -20,27 +20,32 @@ import {
 type RemovedEntryHeadingProps = {
   accession: string;
   uniparc?: string;
+  merged?: boolean;
 };
 
 const RemovedEntryHeading = ({
   accession,
   uniparc,
+  merged,
 }: RemovedEntryHeadingProps) => {
-  const uniParcLink = uniparc
-    ? {
-        pathname: generatePath(LocationToPath[Location.UniParcEntry], {
-          accession: uniparc,
-          subPage: UniParcTabLocation.Entry,
-        }),
-      }
-    : {
-        pathname: LocationToPath[Location.UniParcResults],
-        search: stringifyQuery({ query: accession, direct: true }),
-      };
+  const uniParcLink =
+    // In case of merging, we'll get the data of the new entry, so the
+    // UniParc of the new entry, so don't pass that to not get wrong link
+    uniparc && !merged
+      ? {
+          pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+            accession: uniparc,
+            subPage: UniParcTabLocation.Entry,
+          }),
+        }
+      : {
+          pathname: LocationToPath[Location.UniParcResults],
+          search: stringifyQuery({ query: accession, direct: true }),
+        };
   return (
     <h4 data-article-id="deleted_accessions">
-      This entry is no longer annotated in UniProtKB and can be found in{' '}
-      <Link to={uniParcLink}>UniParc</Link>.
+      This entry{!merged && ' is no longer annotated in UniProtKB and'} can be
+      found in <Link to={uniParcLink}>UniParc</Link>.
     </h4>
   );
 };
@@ -84,9 +89,8 @@ const RemovedEntryMessage = ({
     <>
       <RemovedEntryHeading
         accession={accession}
-        // In case of merging, we'll get the data of the new entry, so the
-        // UniParc of the new entry, so don't pass that to not get wrong link
-        uniparc={merged ? undefined : uniparc}
+        uniparc={uniparc}
+        merged={merged}
       />
       {children ||
         (reason?.deletedReason && (
