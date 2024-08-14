@@ -84,7 +84,8 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration = new Map(
               {datum.accession}
             </ExternalLink>
           ) : (
-            datum.accession
+            // datum.accession // TODO: fix this
+            ''
           ),
       },
     ],
@@ -92,7 +93,21 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration = new Map(
       'position',
       {
         label: 'Position(s)',
-        render: ({ position }) => position,
+        render: ({ datum }) => {
+          const positionStart = `${
+            datum.startModifier === 'UNSURE' ? '?' : ''
+          }${datum.startModifier === 'UNKNOWN' ? '?' : datum.start}`;
+          const positionEnd = `${datum.endModifier === 'UNSURE' ? '?' : ''}${
+            datum.endModifier === 'UNKNOWN' ? '?' : datum.end
+          }`;
+          return positionStart === positionEnd
+            ? positionStart
+            : `${positionStart}${
+                datum.type === 'Disulfide bond' || datum.type === 'Cross-link'
+                  ? '↔'
+                  : '-'
+              }${positionEnd}`;
+        },
       },
     ],
     [

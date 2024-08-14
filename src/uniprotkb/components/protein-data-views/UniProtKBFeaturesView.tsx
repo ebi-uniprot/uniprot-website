@@ -276,7 +276,6 @@ const FeatureRow = ({
 
 const TableHeaderFromData = ({ data, column }) => {
   // if (optionAccessor) { }
-  console.log(column);
   return <th>{column.label}</th>;
 };
 
@@ -287,8 +286,6 @@ const filterDatum = (datum, columns) =>
   columns.every((column) => column.filter(datum));
 
 const TableFromData = ({ data, columns }) => {
-  console.log(data, columns);
-
   return (
     <Table>
       <Table.Head toggleAll>
