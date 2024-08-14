@@ -350,8 +350,8 @@ const BlastResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[jobType]}
-        titlePostscript={
+        heading={namespaceAndToolsLabels[jobType]}
+        headingPostscript={
           !loading && (
             <small>found in {namespaceAndToolsLabels[namespace]}</small>
           )

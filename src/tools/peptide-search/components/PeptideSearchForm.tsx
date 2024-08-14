@@ -231,7 +231,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro title={title} />
+      <PageIntro heading={title} />
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}

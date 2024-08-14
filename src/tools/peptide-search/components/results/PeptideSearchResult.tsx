@@ -267,8 +267,8 @@ const PeptideSearchResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
-        titlePostscript={
+        heading={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
+        headingPostscript={
           total && (
             <small>
               found in {namespaceAndToolsLabels[Namespace.uniprotkb]}

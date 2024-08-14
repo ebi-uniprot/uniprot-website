@@ -61,7 +61,7 @@ const LatestNews = () => {
         styles['home-page-section'],
         styles['latest-news']
       )}
-      titleClassName="uniprot-grid-cell--span-12"
+      headingClassName="uniprot-grid-cell--span-12"
       noSidePadding
     >
       <div

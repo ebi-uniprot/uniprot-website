@@ -30,7 +30,7 @@ const AnalysisTools = () => (
       styles['home-page-section'],
       styles['no-small']
     )}
-    titleClassName="uniprot-grid-cell--span-9"
+    headingClassName="uniprot-grid-cell--span-9"
     noSidePadding
   >
     <Link

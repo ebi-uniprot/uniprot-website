@@ -44,7 +44,7 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
       <HTMLHead title="Tool results">
         <meta name="robots" content="noindex" />
       </HTMLHead>
-      <PageIntro title="Tool results" />
+      <PageIntro heading="Tool results" />
     </>
   );
 

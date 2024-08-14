@@ -1,4 +1,11 @@
-import { useRef, FormEvent, useMemo, useReducer, useEffect } from 'react';
+import {
+  useRef,
+  FormEvent,
+  useMemo,
+  useReducer,
+  useEffect,
+  CSSProperties,
+} from 'react';
 import { Link, generatePath, useHistory } from 'react-router-dom';
 import {
   PageIntro,
@@ -11,6 +18,9 @@ import {
 } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
+
+// eslint-disable-next-line import/no-relative-packages
+import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
@@ -43,6 +53,7 @@ import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
 import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
+import ftpUrls from '../../../shared/config/ftpUrls';
 
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -67,9 +78,12 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import ftpUrls from '../../../shared/config/ftpUrls';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
+
+interface Style extends CSSProperties {
+  '--main-color': string;
+}
 
 export type TreeDataNode = {
   label: string;
@@ -131,6 +145,15 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
     () => Array.from(new Set(splitAndTidyText(textIDs))),
     [textIDs]
   );
+
+  const geneWithoutTaxonWarning = Boolean(
+    parsedIDs.length &&
+      formValues['From Database'].selected === 'Gene_Name' &&
+      !formValues.Taxons.selected
+  );
+  const submitStyle: Style | undefined = geneWithoutTaxonWarning
+    ? { '--main-color': colors.warning }
+    : undefined;
 
   const submitIDMappingJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
@@ -195,14 +218,11 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   };
 
   const handleTaxonFormValue = (path: string, id?: string) => {
-    // Only proceed if a node is selected
-    if (!id) {
-      return;
-    }
-
     const label = truncateTaxonLabel(path);
 
-    dispatch(updateSelected(IDMappingFields.taxons, { id, label }));
+    dispatch(
+      updateSelected(IDMappingFields.taxons, id ? { id, label } : undefined)
+    );
   };
 
   useTextFileInput({
@@ -250,7 +270,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro title={title} />
+      <PageIntro heading={title} />
       <form
         onSubmit={submitIDMappingJob}
         onReset={handleReset}
@@ -367,10 +387,10 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
             {ruleInfo.taxonId && (
               <section className="tools-form-section__item tools-form-section__item--taxon-select">
                 <AutocompleteWrapper
-                  placeholder="Enter taxon name or ID"
-                  url={apiUrls.suggester.taxonomy}
+                  placeholder="Enter organism name or ID"
+                  url={apiUrls.suggester.organism}
                   onSelect={handleTaxonFormValue}
-                  title="Restrict by taxonomy"
+                  title="Restrict by organism"
                   value={
                     (
                       formValues[IDMappingFields.taxons]
@@ -413,6 +433,19 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               </label>
             </section>
           </section>
+          {geneWithoutTaxonWarning && (
+            <Message level="warning">
+              <small>
+                You are about to submit a list of gene names without taxonomy
+                restriction. Are you sure you do not want to specify a taxon or
+                organism?
+                <br />
+                Gene name mappings against all organisms can produce extremely
+                long lists of UniProtKB IDs and may even cause the mapping
+                service to fail.
+              </small>
+            </Message>
+          )}
           <section
             className={cn('tools-form-section', sticky['sticky-bottom-right'])}
           >
@@ -429,6 +462,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 type="submit"
                 disabled={submitDisabled}
                 onClick={submitIDMappingJob}
+                style={submitStyle}
               >
                 Map{' '}
                 {parsedIDs.length ? (

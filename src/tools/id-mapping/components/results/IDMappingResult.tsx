@@ -301,8 +301,8 @@ const IDMappingResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[Namespace.idmapping]}
-        titlePostscript={
+        heading={namespaceAndToolsLabels[Namespace.idmapping]}
+        headingPostscript={
           total ? (
             <small>
               found for {detailsData?.from} → {detailsData?.to}

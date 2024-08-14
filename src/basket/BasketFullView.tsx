@@ -132,8 +132,8 @@ const BasketFullView = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[namespace]}
-        titlePostscript={<small> in your basket</small>}
+        heading={namespaceAndToolsLabels[namespace]}
+        headingPostscript={<small> in your basket</small>}
         resultsCount={total}
       />
       <ResultsButtons

@@ -180,7 +180,7 @@ const HelpLandingPage = () => (
       )}
     >
       <HTMLHead title="Help" />
-      <PageIntro title="Help center" className="uniprot-grid-cell--span-12" />
+      <PageIntro heading="Help center" className="uniprot-grid-cell--span-12" />
       <div className="uniprot-grid-cell--span-9">
         <HelpQuickSearch />
         <div className={landing['help-landing__tiles']}>

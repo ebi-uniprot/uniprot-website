@@ -96,7 +96,7 @@ const ContactForm = () => {
           href={window.location.origin + window.location.pathname}
         />
       </HTMLHead>
-      <PageIntro title="Contact us" />
+      <PageIntro heading="Contact us" />
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />

@@ -170,8 +170,8 @@ const AlignResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[jobType]}
-        titlePostscript={<small> results</small>}
+        heading={namespaceAndToolsLabels[jobType]}
+        headingPostscript={<small> results</small>}
       />
       <Tabs active={match.params.subPage}>
         <Tab

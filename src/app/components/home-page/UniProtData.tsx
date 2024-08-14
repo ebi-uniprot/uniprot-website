@@ -24,7 +24,7 @@ const UniProtData = () => (
       'uniprot-grid--with-bleed',
       styles['home-page-section']
     )}
-    titleClassName="uniprot-grid-cell--span-12"
+    headingClassName="uniprot-grid-cell--span-12"
     noSidePadding
   >
     <Tile

@@ -242,7 +242,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   if (loading) {
     return (
       <>
-        <PageIntro title="Query builder" />
+        <PageIntro heading="Query builder" />
         <Loader />
       </>
     );
