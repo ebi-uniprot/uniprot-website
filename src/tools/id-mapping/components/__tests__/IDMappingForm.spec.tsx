@@ -84,7 +84,7 @@ describe('IDMappingForm test', () => {
     fireEvent.click(geneNameButton);
     let autocompleteInput =
       await screen.findByPlaceholderText<HTMLInputElement>(
-        'Enter taxon name or ID'
+        'Enter organism name or ID'
       );
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },
@@ -109,7 +109,7 @@ describe('IDMappingForm test', () => {
     geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
     fireEvent.click(geneNameButton);
     autocompleteInput = await screen.findByPlaceholderText<HTMLInputElement>(
-      'Enter taxon name or ID'
+      'Enter organism name or ID'
     );
     expect(autocompleteInput.value).toBeFalsy();
   });
@@ -123,7 +123,7 @@ describe('IDMappingForm test', () => {
     fireEvent.click(geneNameButton);
     const autocompleteInput =
       await screen.findByPlaceholderText<HTMLInputElement>(
-        'Enter taxon name or ID'
+        'Enter organism name or ID'
       );
     expect(autocompleteInput).toBeInTheDocument();
     fireEvent.change(autocompleteInput, {
