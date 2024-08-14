@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Button, Chip, ExternalLink } from 'franklin-sites';
+import { Button, Card, Chip, ExternalLink } from 'franklin-sites';
 
 import PtmExchangeEvidenceTag from '../components/protein-data-views/PtmExchangeEvidenceTag';
 import UniProtKBEvidenceTag from '../components/protein-data-views/UniProtKBEvidenceTag';
@@ -54,6 +54,15 @@ export type FeatureColumnConfiguration = Map<
     optionAccessor?: (datum: any) => any;
   }
 >;
+
+export const UniProtKBFeatureExtraContent = ({ datum }) => (
+  <td colSpan={5}>
+    <Card>
+      <strong>Sequence: </strong>
+      {datum.sequence}
+    </Card>
+  </td>
+);
 
 const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration = new Map(
   [

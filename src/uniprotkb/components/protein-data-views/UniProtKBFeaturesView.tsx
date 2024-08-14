@@ -30,7 +30,9 @@ import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
 import styles from './styles/uniprotkb-features-view.module.scss';
-import uniProtKBFeatureColumnConfiguration from '../../config/UniProtKBFeatureColumnConfiguration';
+import uniProtKBFeatureColumnConfiguration, {
+  UniProtKBFeatureExtraContent,
+} from '../../config/UniProtKBFeatureColumnConfiguration';
 
 type FeatureLocation = {
   value: number;
@@ -149,8 +151,6 @@ const FeatureRow = ({
   inResultsTable,
   showSourceColumn,
 }: FeatureRowProps) => {
-  const start = feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
-  const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
   const positionStart = `${
     feature.startModifier === 'UNSURE' ? '?' : ''
   }${start}`;
@@ -297,7 +297,10 @@ const TableFromData = ({ data, columns }) => {
         {data
           // .filter((datum) => filterDatum(datum, columns))
           .map((datum, index) => (
-            <Table.Row isOdd={index % 2}>
+            <Table.Row
+              isOdd={index % 2}
+              extraContent={<UniProtKBFeatureExtraContent datum={datum} />}
+            >
               <TableRowFromData datum={datum} columns={columns} />
             </Table.Row>
           ))}
