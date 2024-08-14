@@ -604,17 +604,21 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section no-small"
   >
     <h2
-      class="uniprot-grid-cell--span-12 hero-container__title big"
+      class="uniprot-grid-cell--span-9 hero-container__title big"
     >
-      <a
-        href="/tool-dashboard"
-      >
-        <test-file-stub
-          width="1.4ch"
-        />
-         Analysis Tools
-      </a>
+      <test-file-stub
+        width="1.4ch"
+      />
+       Analysis Tools
     </h2>
+    <a
+      class="uniprot-grid-cell--span-3 align-end"
+      href="/tool-dashboard"
+    >
+      <small>
+        View dashboard
+      </small>
+    </a>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
       style="--tile-background: #00A6D5;"

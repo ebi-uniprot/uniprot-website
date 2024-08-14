@@ -19,9 +19,9 @@ import styles from './styles/non-critical.module.scss';
 const AnalysisTools = () => (
   <HeroContainer
     headingContent={
-      <Link to={LocationToPath[Location.Dashboard]}>
+      <>
         <ToolboxIcon width="1.4ch" /> Analysis Tools
-      </Link>
+      </>
     }
     className={cn(
       'uniprot-grid',
@@ -30,9 +30,15 @@ const AnalysisTools = () => (
       styles['home-page-section'],
       styles['no-small']
     )}
-    titleClassName="uniprot-grid-cell--span-12"
+    titleClassName="uniprot-grid-cell--span-9"
     noSidePadding
   >
+    <Link
+      to={LocationToPath[Location.Dashboard]}
+      className={cn('uniprot-grid-cell--span-3', styles['align-end'])}
+    >
+      <small>View dashboard</small>
+    </Link>
     <Tile
       headingLevel="h3"
       title="BLAST"
