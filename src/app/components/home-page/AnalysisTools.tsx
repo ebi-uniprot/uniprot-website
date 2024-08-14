@@ -1,5 +1,5 @@
+import { Tile, HeroContainer, ToolboxIcon } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import { Tile, HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
 
 // eslint-disable-next-line import/no-relative-packages
@@ -10,7 +10,7 @@ import AlignIllustration from '../../../images/align_illustration.img.svg';
 import IDMappingIllustration from '../../../images/id-mapping_illustration.img.svg';
 import PeptideSearchIllustration from '../../../images/peptide_search_illustration.img.svg';
 
-import { jobTypeToPath } from '../../config/urls';
+import { jobTypeToPath, LocationToPath, Location } from '../../config/urls';
 
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
@@ -18,7 +18,11 @@ import styles from './styles/non-critical.module.scss';
 
 const AnalysisTools = () => (
   <HeroContainer
-    title="Analysis Tools"
+    headingContent={
+      <>
+        <ToolboxIcon width="1.4ch" /> Analysis Tools
+      </>
+    }
     className={cn(
       'uniprot-grid',
       'uniprot-grid--centered',
@@ -26,10 +30,17 @@ const AnalysisTools = () => (
       styles['home-page-section'],
       styles['no-small']
     )}
-    titleClassName="uniprot-grid-cell--span-12"
+    titleClassName="uniprot-grid-cell--span-9"
     noSidePadding
   >
+    <Link
+      to={LocationToPath[Location.Dashboard]}
+      className={cn('uniprot-grid-cell--span-3', styles['align-end'])}
+    >
+      <small>View dashboard</small>
+    </Link>
     <Tile
+      headingLevel="h3"
       title="BLAST"
       translate="no"
       className="uniprot-grid-cell--span-3"
@@ -50,6 +61,7 @@ const AnalysisTools = () => (
       alignment
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Align"
       translate="no"
       className="uniprot-grid-cell--span-3"
@@ -70,6 +82,7 @@ const AnalysisTools = () => (
       regions
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Search with Lists Map IDs"
       className="uniprot-grid-cell--span-3"
       backgroundImage={
@@ -89,6 +102,7 @@ const AnalysisTools = () => (
       IDs
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Search Peptides"
       className="uniprot-grid-cell--span-3"
       backgroundImage={

@@ -91,6 +91,7 @@ const CoreData = () => (
   >
     <h2 className="visually-hidden">UniProt core data</h2>
     <Tile
+      headingLevel="h3"
       title="Proteins"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -116,6 +117,7 @@ const CoreData = () => (
       </span>
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Species"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -140,6 +142,7 @@ const CoreData = () => (
       life
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Protein Clusters"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -163,6 +166,7 @@ const CoreData = () => (
       Clusters of protein sequences at 100%, 90% &amp; 50% identity
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Sequence archive"
       className={cn(
         'uniprot-grid-cell--small-span-6',

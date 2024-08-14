@@ -81,44 +81,27 @@ exports[`PeptideSearchResult should render with the correct number of results in
           <div
             class="button-group results-buttons"
           >
-            <button
-              class="button tertiary disabled no-small"
-              disabled=""
-              title="Select at least one entry to run a BLAST job"
-              type="button"
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
             >
-              <span
-                translate="no"
+              <button
+                class="button tertiary"
+                type="button"
               >
-                BLAST
-              </span>
-            </button>
-            <button
-              class="button tertiary disabled no-small"
-              disabled=""
-              title="Select at least 2 entries to run an Align job"
-              type="button"
-            >
-              <span
-                translate="no"
-              >
-                Align
-              </span>
-            </button>
-            <button
-              class="button tertiary disabled"
-              disabled=""
-              title="Select at least one entry to map"
-              type="button"
-            >
-              Map IDs
-            </button>
+                <test-file-stub
+                  width="1.4ch"
+                />
+                Tools
+              </button>
+            </div>
             <button
               class="button tertiary"
               type="button"
             >
               <test-file-stub />
-              Download
+              Download (2)
             </button>
             <button
               class="button tertiary disabled no-small"
@@ -1048,44 +1031,27 @@ exports[`PeptideSearchResult should render with the correct number of results in
           <div
             class="button-group results-buttons"
           >
-            <button
-              class="button tertiary disabled no-small"
-              disabled=""
-              title="Select at least one entry to run a BLAST job"
-              type="button"
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
             >
-              <span
-                translate="no"
+              <button
+                class="button tertiary"
+                type="button"
               >
-                BLAST
-              </span>
-            </button>
-            <button
-              class="button tertiary disabled no-small"
-              disabled=""
-              title="Select at least 2 entries to run an Align job"
-              type="button"
-            >
-              <span
-                translate="no"
-              >
-                Align
-              </span>
-            </button>
-            <button
-              class="button tertiary disabled"
-              disabled=""
-              title="Select at least one entry to map"
-              type="button"
-            >
-              Map IDs
-            </button>
+                <test-file-stub
+                  width="1.4ch"
+                />
+                Tools
+              </button>
+            </div>
             <button
               class="button tertiary"
               type="button"
             >
               <test-file-stub />
-              Download
+              Download (2)
             </button>
             <button
               class="button tertiary disabled no-small"

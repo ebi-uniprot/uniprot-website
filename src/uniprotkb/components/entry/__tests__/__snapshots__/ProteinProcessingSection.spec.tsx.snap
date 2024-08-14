@@ -238,14 +238,21 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       <div
                         class="button-group"
                       >
-                        <a
-                          class="button tertiary"
-                          href="/blast?ids=P21802[2-8]"
-                          title="BLAST the sequence corresponding to this feature"
-                          translate="no"
+                        <div
+                          aria-expanded="false"
+                          aria-haspopup="true"
+                          class="dropdown"
                         >
-                          BLAST
-                        </a>
+                          <button
+                            class="button tertiary"
+                            type="button"
+                          >
+                            <test-file-stub
+                              width="1.4ch"
+                            />
+                            Tools
+                          </button>
+                        </div>
                         <button
                           class="button tertiary no-small"
                           title="Add 1 entry to the basket"
@@ -522,14 +529,21 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                       <div
                         class="button-group"
                       >
-                        <a
-                          class="button tertiary"
-                          href="/blast?ids=P0DTR4[1-27]"
-                          title="BLAST the sequence corresponding to this feature"
-                          translate="no"
+                        <div
+                          aria-expanded="false"
+                          aria-haspopup="true"
+                          class="dropdown"
                         >
-                          BLAST
-                        </a>
+                          <button
+                            class="button tertiary"
+                            type="button"
+                          >
+                            <test-file-stub
+                              width="1.4ch"
+                            />
+                            Tools
+                          </button>
+                        </div>
                         <button
                           class="button tertiary no-small"
                           title="Add 1 entry to the basket"
@@ -581,14 +595,21 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                       <div
                         class="button-group"
                       >
-                        <a
-                          class="button tertiary"
-                          href="/blast?ids=P0DTR4[28-772]"
-                          title="BLAST the sequence corresponding to this feature"
-                          translate="no"
+                        <div
+                          aria-expanded="false"
+                          aria-haspopup="true"
+                          class="dropdown"
                         >
-                          BLAST
-                        </a>
+                          <button
+                            class="button tertiary"
+                            type="button"
+                          >
+                            <test-file-stub
+                              width="1.4ch"
+                            />
+                            Tools
+                          </button>
+                        </div>
                         <button
                           class="button tertiary no-small"
                           title="Add 1 entry to the basket"

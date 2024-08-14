@@ -17,9 +17,7 @@ import {
 } from 'franklin-sites';
 import cn from 'classnames';
 
-import BlastButton from '../action-buttons/Blast';
-import AlignButton from '../action-buttons/Align';
-import MapIDButton from '../action-buttons/MapID';
+import ToolsDropdown from '../action-buttons/ToolsDropdown';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 import ShareDropdown from '../action-buttons/ShareDropdown';
@@ -33,6 +31,7 @@ import useViewMode, { ViewMode } from '../../hooks/useViewMode';
 import useColumnNames from '../../hooks/useColumnNames';
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
+import { roundNumber } from '../../utils/roundNumber';
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
 import {
@@ -224,18 +223,12 @@ const ResultsButtons: FC<
         </Suspense>
       )}
       <div className={cn('button-group', styles['results-buttons'])}>
-        {isMain && namespace !== Namespace.proteomes && (
-          <BlastButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <AlignButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <MapIDButton
-            selectedEntries={selectedEntries}
-            namespace={namespace}
-          />
-        )}
+        <ToolsDropdown
+          selectedEntries={selectedEntries}
+          blast={isMain && namespace !== Namespace.proteomes}
+          align={isMain && namespace !== Namespace.proteomes}
+          mapID={isMain && namespace !== Namespace.proteomes}
+        />
         <Button
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
@@ -244,7 +237,9 @@ const ResultsButtons: FC<
           disabled={!hasResults}
         >
           <DownloadIcon />
-          Download
+          Download (
+          {roundNumber(selectedEntries.length || total)}
+          )
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
           <AddToBasketButton
