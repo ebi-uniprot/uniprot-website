@@ -2,137 +2,83 @@
 
 exports[`Entry basic should render main 1`] = `
 <DocumentFragment>
-  <div
-    class="sidebar-layout no-overflow entry-page sticky-tabs-container"
-  >
-    <aside
-      class="sidebar"
+  {{ SideBarLayout start }}
+  <h1>
+    <span
+      class="entry-title"
+      translate="no"
     >
-      <ul
-        class="in-page-nav"
+      <span
+        class="entry-title__status icon--reviewed"
+        title="This marks a reviewed UniProtKB entry"
+      >
+        <test-file-stub />
+      </span>
+      P21802 · uniprot_id
+    </span>
+  </h1>
+  <ul
+    class="info-list info-list--columns"
+  >
+    <li>
+      <div
+        class="decorated-list-item"
       >
         <div
-          class="marker"
-        />
-        <li
-          class=""
+          class="decorated-list-item__title tiny"
         >
-          <a
-            class="active"
-            href="/uniprotkb/P21802/entry#function"
+          <span
+            data-article-id="protein_names"
           >
-            Function
-          </a>
-        </li>
-        <li
-          class=""
+            Protein
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#names_and_taxonomy"
-          >
-            Names & Taxonomy
-          </a>
-        </li>
-        <li
-          class=""
+          <strong>
+            rec full Name
+          </strong>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
         >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#subcellular_location"
+          <span
+            data-article-id="gene_name"
           >
-            Subcellular Location
-          </a>
-        </li>
-        <li
-          class=""
+            Gene
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#disease_variants"
-          >
-            Disease & Variants
-          </a>
-        </li>
-        <li
-          class=""
+          <strong>
+            some Gene
+          </strong>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
         >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#ptm_processing"
+          <span
+            data-article-id="entry_status"
           >
-            PTM/Processing
-          </a>
-        </li>
-        <li
-          class="disabled"
-        >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#expression"
-          >
-            Expression
-          </a>
-        </li>
-        <li
-          class=""
-        >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#interaction"
-          >
-            Interaction
-          </a>
-        </li>
-        <li
-          class=""
-        >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#structure"
-          >
-            Structure
-          </a>
-        </li>
-        <li
-          class=""
-        >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#family_and_domains"
-          >
-            Family & Domains
-          </a>
-        </li>
-        <li
-          class=""
-        >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#sequences"
-          >
-            Sequence
-          </a>
-        </li>
-        <li
-          class=""
-        >
-          <a
-            class=""
-            href="/uniprotkb/P21802/entry#similar_proteins"
-          >
-            Similar Proteins
-          </a>
-        </li>
-      </ul>
-    </aside>
-    <main
-      class="content"
-    >
-      <h1>
-        <span
-          class="entry-title"
-          translate="no"
+            Status
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
           <span
             class="entry-title__status icon--reviewed"
@@ -140,359 +86,285 @@ exports[`Entry basic should render main 1`] = `
           >
             <test-file-stub />
           </span>
-          P21802 · uniprot_id
-        </span>
-      </h1>
-      <ul
-        class="info-list info-list--columns"
-      >
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              <span
-                data-article-id="protein_names"
-              >
-                Protein
-              </span>
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <strong>
-                rec full Name
-              </strong>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              <span
-                data-article-id="gene_name"
-              >
-                Gene
-              </span>
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <strong>
-                some Gene
-              </strong>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              <span
-                data-article-id="entry_status"
-              >
-                Status
-              </span>
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <span
-                class="entry-title__status icon--reviewed"
-                title="This marks a reviewed UniProtKB entry"
-              >
-                <test-file-stub />
-              </span>
-              UniProtKB reviewed (Swiss-Prot)
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              <span
-                data-article-id="organism-name"
-              >
-                Organism
-              </span>
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <a
-                href="/taxonomy/9606"
-                title="scientific name (common name) (synonyms 1), taxon ID 9606"
-                translate="no"
-              >
-                scientific name (common name) (synonyms 1)
-              </a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              Amino acids
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <span>
-                10 
-                <small>
-                  <a
-                    href="/uniprotkb/P21802/entry#sequences"
-                  >
-                    (go to sequence)
-                  </a>
-                </small>
-              </span>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              <span
-                data-article-id="protein_existence"
-              >
-                Protein existence
-              </span>
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              Evidence at protein level
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
-              <span
-                data-article-id="annotation_score"
-              >
-                Annotation score
-              </span>
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              <span
-                class="doughnut-chart--small colour-platinum"
-              >
-                <span
-                  class="doughnut-chart--small__left-wrap"
-                >
-                  <span
-                    class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                    style="transform: rotate(0deg);"
-                  />
-                </span>
-                <span
-                  class="doughnut-chart--small__right-wrap"
-                >
-                  <span
-                    class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                    style="transform: rotate(144deg);"
-                  />
-                </span>
-                <span
-                  class="doughnut-chart--small__inner-circle"
-                >
-                  2/5
-                </span>
-              </span>
-            </div>
-          </div>
-        </li>
-      </ul>
-      <div
-        class="tabs"
-      >
-        <div
-          class="tabs__header"
-          role="tablist"
-        >
-          <div
-            aria-controls="0"
-            class="tabs__header__item tabs__header__item--active"
-            data-target="entry"
-            data-testid="tab-title"
-            role="tab"
-          >
-            <a
-              href="/uniprotkb/P21802/entry"
-            >
-              Entry
-            </a>
-          </div>
-          <div
-            aria-controls="0"
-            class="tabs__header__item"
-            data-target="variant-viewer"
-            data-testid="tab-title"
-            role="tab"
-          >
-            <a
-              class="disabled"
-              href="/uniprotkb/P21802/entry"
-              tabindex="-1"
-            >
-              Variant viewer
-            </a>
-          </div>
-          <div
-            aria-controls="0"
-            class="tabs__header__item"
-            data-target="feature-viewer"
-            data-testid="tab-title"
-            role="tab"
-          >
-            <a
-              href="/uniprotkb/P21802/feature-viewer"
-            >
-              Feature viewer
-            </a>
-          </div>
-          <div
-            aria-controls="0"
-            class="tabs__header__item"
-            data-target="genomic-coordinates"
-            data-testid="tab-title"
-            role="tab"
-          >
-            <a
-              class="disabled"
-              href="/uniprotkb/P21802/entry"
-              tabindex="-1"
-            >
-              Genomic coordinates
-            </a>
-          </div>
-          <div
-            aria-controls="0"
-            class="tabs__header__item"
-            data-target="publications"
-            data-testid="tab-title"
-            role="tab"
-          >
-            <a
-              href="/uniprotkb/P21802/publications"
-            >
-              Publications
-            </a>
-          </div>
-          <div
-            aria-controls="0"
-            class="tabs__header__item"
-            data-target="external-links"
-            data-testid="tab-title"
-            role="tab"
-          >
-            <a
-              href="/uniprotkb/P21802/external-links"
-            >
-              External links
-            </a>
-          </div>
-          <div
-            aria-controls="0"
-            class="tabs__header__item"
-            data-target="history"
-            data-testid="tab-title"
-            role="tab"
-          >
-            <a
-              href="/uniprotkb/P21802/history"
-            >
-              History
-            </a>
-          </div>
-        </div>
-        <div
-          data-testid="tab-content"
-          id="0"
-          role="tabpanel"
-        >
-          <div
-            class="button-group"
-          >
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
-            >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                <test-file-stub
-                  width="1.4ch"
-                />
-                Tools
-              </button>
-            </div>
-            <button
-              class="button tertiary"
-              type="button"
-            >
-              <test-file-stub />
-              Download
-            </button>
-            <button
-              class="button tertiary no-small"
-              title="Add 1 entry to the basket"
-              type="button"
-            >
-              <test-file-stub />
-              Add
-            </button>
-            <a
-              class="button tertiary"
-              href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Add a publication
-            </a>
-            <a
-              class="button tertiary"
-              href="/update?entry=P21802&entryType=Reviewed+%28Swiss-Prot%29"
-            >
-              Entry feedback
-            </a>
-          </div>
-          {{ EntryMain }}
+          UniProtKB reviewed (Swiss-Prot)
         </div>
       </div>
-    </main>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          <span
+            data-article-id="organism-name"
+          >
+            Organism
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <a
+            href="/taxonomy/9606"
+            title="scientific name (common name) (synonyms 1), taxon ID 9606"
+            translate="no"
+          >
+            scientific name (common name) (synonyms 1)
+          </a>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Amino acids
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <span>
+            10 
+            <small>
+              <a
+                href="/uniprotkb/P21802/entry#sequences"
+              >
+                (go to sequence)
+              </a>
+            </small>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          <span
+            data-article-id="protein_existence"
+          >
+            Protein existence
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          Evidence at protein level
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          <span
+            data-article-id="annotation_score"
+          >
+            Annotation score
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <span
+            class="doughnut-chart--small colour-platinum"
+          >
+            <span
+              class="doughnut-chart--small__left-wrap"
+            >
+              <span
+                class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                style="transform: rotate(0deg);"
+              />
+            </span>
+            <span
+              class="doughnut-chart--small__right-wrap"
+            >
+              <span
+                class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                style="transform: rotate(144deg);"
+              />
+            </span>
+            <span
+              class="doughnut-chart--small__inner-circle"
+            >
+              2/5
+            </span>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div
+    class="tabs"
+  >
+    <div
+      class="tabs__header"
+      role="tablist"
+    >
+      <div
+        aria-controls="0"
+        class="tabs__header__item tabs__header__item--active"
+        data-target="entry"
+        data-testid="tab-title"
+        role="tab"
+      >
+        <a
+          href="/uniprotkb/P21802/entry"
+        >
+          Entry
+        </a>
+      </div>
+      <div
+        aria-controls="0"
+        class="tabs__header__item"
+        data-target="variant-viewer"
+        data-testid="tab-title"
+        role="tab"
+      >
+        <a
+          class="disabled"
+          href="/uniprotkb/P21802/entry"
+          tabindex="-1"
+        >
+          Variant viewer
+        </a>
+      </div>
+      <div
+        aria-controls="0"
+        class="tabs__header__item"
+        data-target="feature-viewer"
+        data-testid="tab-title"
+        role="tab"
+      >
+        <a
+          href="/uniprotkb/P21802/feature-viewer"
+        >
+          Feature viewer
+        </a>
+      </div>
+      <div
+        aria-controls="0"
+        class="tabs__header__item"
+        data-target="genomic-coordinates"
+        data-testid="tab-title"
+        role="tab"
+      >
+        <a
+          class="disabled"
+          href="/uniprotkb/P21802/entry"
+          tabindex="-1"
+        >
+          Genomic coordinates
+        </a>
+      </div>
+      <div
+        aria-controls="0"
+        class="tabs__header__item"
+        data-target="publications"
+        data-testid="tab-title"
+        role="tab"
+      >
+        <a
+          href="/uniprotkb/P21802/publications"
+        >
+          Publications
+        </a>
+      </div>
+      <div
+        aria-controls="0"
+        class="tabs__header__item"
+        data-target="external-links"
+        data-testid="tab-title"
+        role="tab"
+      >
+        <a
+          href="/uniprotkb/P21802/external-links"
+        >
+          External links
+        </a>
+      </div>
+      <div
+        aria-controls="0"
+        class="tabs__header__item"
+        data-target="history"
+        data-testid="tab-title"
+        role="tab"
+      >
+        <a
+          href="/uniprotkb/P21802/history"
+        >
+          History
+        </a>
+      </div>
+    </div>
+    <div
+      data-testid="tab-content"
+      id="0"
+      role="tabpanel"
+    >
+      <div
+        class="button-group"
+      >
+        <div
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="dropdown"
+        >
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            <test-file-stub
+              width="1.4ch"
+            />
+            Tools
+          </button>
+        </div>
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          <test-file-stub />
+          Download
+        </button>
+        <button
+          class="button tertiary no-small"
+          title="Add 1 entry to the basket"
+          type="button"
+        >
+          <test-file-stub />
+          Add
+        </button>
+        <a
+          class="button tertiary"
+          href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Add a publication
+        </a>
+        <a
+          class="button tertiary"
+          href="/update?entry=P21802&entryType=Reviewed+%28Swiss-Prot%29"
+        >
+          Entry feedback
+        </a>
+      </div>
+      {{ EntryMain }}
+    </div>
   </div>
-  {{ Footer }}
+  {{ SideBarLayout end }}
 </DocumentFragment>
 `;

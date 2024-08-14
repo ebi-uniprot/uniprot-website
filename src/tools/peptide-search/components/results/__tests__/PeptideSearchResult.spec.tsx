@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { screen } from '@testing-library/react';
@@ -11,6 +12,17 @@ import { JobTypes } from '../../../../types/toolsJobTypes';
 import { Status } from '../../../../types/toolsStatuses';
 
 import uniprotkbResults from '../../../../../uniprotkb/components/__mocks__/results';
+
+jest.mock('../../../../../shared/components/layouts/SideBarLayout', () => ({
+  __esModule: true,
+  SidebarLayout: ({ children }: { children: ReactNode }) => (
+    <>
+      {'{{ SideBarLayout start }}'}
+      {children}
+      {'{{ SideBarLayout end }}'}
+    </>
+  ),
+}));
 
 const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   internalID: 'local-id',
