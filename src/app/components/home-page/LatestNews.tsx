@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Food poisoning is an ordeal. The body empties itself, with no respite, until nothing is left - neither vitality in you nor food in your system. It is less a single food item you have ingested which causes the unpleasant experience than the poison that was lurking in the smoked salmon, or the oyster, or the steak tartare you helped yourself to...';
+  'When the opportunity to write a piece on urine arose, I thought "wonderful, here\'s something we can all relate to". I had no idea, however, where it was going to lead me: ...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -312,21 +312,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/270/"
+            url="https://www.proteinspotlight.org/back_issues/271/"
             noIcon
           >
-            Nausea
+            Liquid yellow
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/270/"
+          url="https://www.proteinspotlight.org/back_issues/271/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt270.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt271.jpg"
             alt=""
             width="123"
             height="129"
