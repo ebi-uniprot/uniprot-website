@@ -58,7 +58,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
           class="tools-form-section__item tools-form-section__item--taxon-select"
         >
           <label>
-            Restrict by taxonomy
+            Restrict by organism
             <div
               class="autocomplete-container"
               translate="no"
@@ -68,7 +68,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="Enter taxon names or IDs to include"
+                  placeholder="Enter organism names or IDs to include"
                   type="search"
                   value=""
                 />
