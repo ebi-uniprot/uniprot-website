@@ -13,11 +13,16 @@ const cleanTextOptions = {
   },
 };
 
+const markedOptions = { async: false } as const;
+
 const CleanHighlightMarkDown = ({ md }: { md: string }) => (
   <span
     // eslint-disable-next-line react/no-danger
     dangerouslySetInnerHTML={{
-      __html: cleanText(marked.parseInline(md), cleanTextOptions),
+      __html: cleanText(
+        marked.parseInline(md, markedOptions),
+        cleanTextOptions
+      ),
     }}
   />
 );
