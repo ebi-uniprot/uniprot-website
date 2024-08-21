@@ -16,6 +16,7 @@ import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
+import TableFromData from '../table/TableFromData';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -96,7 +97,8 @@ type FeatureProps = {
 const FeaturesView = ({
   sequence,
   features,
-  table,
+  rowExtraContent,
+  columns,
   trackHeight,
   withTitle = true,
   noLinkToFullView,
@@ -148,7 +150,11 @@ const FeaturesView = ({
           />
         </LazyComponent>
       )}
-      {table}
+      <TableFromData
+        data={features}
+        columns={columns}
+        rowExtraContent={rowExtraContent}
+      />
     </>
   );
 };
