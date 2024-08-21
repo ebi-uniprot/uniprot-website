@@ -51,7 +51,7 @@ jest.mock('react', () => ({
 }));
 
 /* "Fail on console error" util */
-// Uncomment to have jest stop when a warning is shown in order to fix it
+// Uncomment to have jest stop when a console error is shown in order to fix it
 // Recommended to use with Jest's "--bail" option
 // const { error } = console;
 // // eslint-disable-next-line no-console
