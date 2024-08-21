@@ -56,7 +56,7 @@ export type FeatureColumnConfiguration = Map<
 >;
 
 export const UniProtKBFeatureExtraContent = ({ datum }) => (
-  <td colSpan={5}>
+  <td colSpan={6}>
     <Card>
       <strong>Sequence: </strong>
       {datum.sequence}
@@ -122,7 +122,9 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration = new Map(
     [
       'source',
       {
-        label: ({ showSourceColumn }) => showSourceColumn && 'Source',
+        // TODO: fix
+        // label: ({ showSourceColumn }) => showSourceColumn && 'Source',
+        label: () => 'Source',
         render: ({ datum, showSourceColumn }) =>
           showSourceColumn && datum.source,
       },
