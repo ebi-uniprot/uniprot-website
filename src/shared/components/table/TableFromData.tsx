@@ -6,7 +6,7 @@ const TableHeaderFromData = ({ data, column }) => (
 );
 
 const TableRowFromData = ({ datum, columns }) =>
-  columns.map((column) => <td key={v1()}>{column.render({ datum })}</td>);
+  columns.map((column) => <td key={column.id}>{column.render({ datum })}</td>);
 
 const filterDatum = (datum, columns) =>
   columns.every((column) => column.filter(datum));
@@ -16,7 +16,7 @@ const TableFromData = ({ data, columns, rowExtraContent }) => {
     <Table>
       <Table.Head toggleAll>
         {columns.map((column) => (
-          <TableHeaderFromData data={data} column={column} key={v1()} />
+          <TableHeaderFromData data={data} column={column} key={column.id} />
         ))}
       </Table.Head>
       <Table.Body>

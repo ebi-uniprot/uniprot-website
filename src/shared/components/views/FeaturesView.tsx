@@ -72,6 +72,7 @@ export type ProcessedFeature = Feature & {
   evidences?: Evidence[];
   sequence?: string;
   source?: string;
+  primaryAccession?: string;
   // PTM specific
   confidenceScore?: ConfidenceScore;
   // Binding site

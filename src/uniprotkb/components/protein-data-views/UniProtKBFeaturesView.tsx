@@ -82,8 +82,8 @@ type FeatureRowProps = {
 
 export const processFeaturesData = (
   data: FeatureDatum[],
-  sequence?: string,
-  includeSource?: boolean
+  primaryAccession: string,
+  sequence?: string
 ): ProcessedFeature[] =>
   data.map((feature): ProcessedFeature => {
     let s: string | undefined;
@@ -127,6 +127,7 @@ export const processFeaturesData = (
 
     return {
       accession: feature.featureId || v1().toString(),
+      primaryAccession,
       start: feature.location.start.value,
       end: feature.location.end.value,
       startModifier: feature.location.start.modifier,
@@ -135,7 +136,7 @@ export const processFeaturesData = (
       description,
       evidences: feature.evidences,
       sequence: s,
-      source: includeSource ? feature.source || 'UniProt' : undefined,
+      source: feature.source || 'UniProt',
       confidenceScore: feature.confidenceScore,
       ligand: feature.ligand,
       ligandPart: feature.ligandPart,
@@ -151,11 +152,25 @@ const UniProtKBFeaturesView = ({
   showSourceColumn = false,
 }: UniProtKBFeaturesViewProps) => {
   const processedData = useMemo(
-    () => processFeaturesData(features, sequence, showSourceColumn),
-    [features, sequence, showSourceColumn]
+    () => processFeaturesData(features, primaryAccession, sequence),
+    [features, primaryAccession, sequence]
   );
 
   const smallScreen = useSmallScreen();
+
+  const columns = useMemo(
+    () =>
+      uniProtKBFeatureColumnConfiguration.filter((column) => {
+        if (column.id === 'source') {
+          return showSourceColumn;
+        }
+        if (column.id === 'tools') {
+          return !smallScreen;
+        }
+        return true;
+      }),
+    [showSourceColumn, smallScreen]
+  );
 
   if (processedData.length === 0) {
     return null;
@@ -169,7 +184,7 @@ const UniProtKBFeaturesView = ({
     <FeaturesView
       features={processedData}
       sequence={sequence}
-      columns={Array.from(uniProtKBFeatureColumnConfiguration.values())}
+      columns={columns}
       data={processedData}
       rowExtraContent={UniProtKBFeatureExtraContent}
       withTitle={!inResultsTable}
