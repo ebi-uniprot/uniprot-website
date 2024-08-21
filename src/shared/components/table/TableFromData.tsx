@@ -1,4 +1,3 @@
-import { v1 } from 'uuid'; // TODO: use
 import Table from './Table';
 
 const TableHeaderFromData = ({ data, column }) => (
@@ -6,7 +5,9 @@ const TableHeaderFromData = ({ data, column }) => (
 );
 
 const TableRowFromData = ({ datum, columns }) =>
-  columns.map((column) => <td key={column.id}>{column.render({ datum })}</td>);
+  columns.map((column) => (
+    <td key={column.id}>{column.render({ data: datum })}</td>
+  ));
 
 const filterDatum = (datum, columns) =>
   columns.every((column) => column.filter(datum));
@@ -25,7 +26,7 @@ const TableFromData = ({ data, columns, rowExtraContent }) => {
           .map((datum, index) => (
             <Table.Row
               isOdd={index % 2}
-              extraContent={rowExtraContent({ datum })}
+              extraContent={rowExtraContent({ data: datum })}
               key={index}
             >
               <TableRowFromData datum={datum} columns={columns} />

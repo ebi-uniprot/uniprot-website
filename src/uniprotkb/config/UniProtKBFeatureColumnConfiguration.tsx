@@ -25,7 +25,7 @@ import styles from '../components/protein-data-views/styles/uniprotkb-features-v
 // TODO: use getLabelAndTooltip?
 
 type RenderArgs = {
-  datum: any;
+  data: any;
   input: any;
   primaryAccession: string;
   showSourceColumn: boolean;
@@ -36,28 +36,28 @@ type LabelArgs = {
 };
 
 type FilterArgs = {
-  datum: any;
+  data: any;
   input: any;
 };
 
 export type FeatureColumnConfiguration = {
   id: string;
   label: string;
-  filter?: ({ datum, input }: FilterArgs) => boolean;
+  filter?: ({ data, input }: FilterArgs) => boolean;
   render: ({
-    datum,
+    data,
     input,
     primaryAccession,
     showSourceColumn,
   }: RenderArgs) => ReactNode;
-  optionAccessor?: (datum: any) => any;
+  optionAccessor?: (data: any) => any;
 };
 
-export const UniProtKBFeatureExtraContent = ({ datum }) => (
+export const UniProtKBFeatureExtraContent = ({ data }) => (
   <td colSpan={6}>
     <Card>
       <strong>Sequence: </strong>
-      {datum.sequence}
+      {data.sequence}
     </Card>
   </td>
 );
@@ -66,45 +66,46 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
   {
     id: 'type',
     label: 'Type',
-    filter: ({ datum, input }) => datum.type === input,
-    render: ({ datum }) => datum.type,
-    optionAccessor: ({ datum }) => datum.type,
+    filter: ({ data, input }) => data.type === input,
+    render: ({ data }) => data.type,
+    optionAccessor: ({ data }) => data.type,
   },
   {
     id: 'accession',
     label: 'ID',
-    render: ({ datum, position, positionStart }) =>
-      datum.type === 'Natural variant' &&
-      position === positionStart &&
+    render: ({ data }) =>
+      data.type === 'Natural variant' &&
+      data.startModifier !== 'UNSURE' &&
+      data.startModifier !== 'UNKNOWN' &&
       // Expasy links are only valid for SNPs (e.g. "R → G":)
-      datum.sequence?.length === 5 &&
-      datum.accession ? (
+      data.sequence?.length === 5 &&
+      data.accession ? (
         <ExternalLink
-          url={externalUrls.UniProt(datum.accession)}
+          url={externalUrls.UniProt(data.accession)}
           title="View in Expasy"
           noIcon
         >
-          {datum.accession}
+          {data.accession}
         </ExternalLink>
       ) : (
-        // datum.accession // TODO: fix this
+        // data.accession // TODO: fix this
         ''
       ),
   },
   {
     id: 'position',
     label: 'Position(s)',
-    render: ({ datum }) => {
-      const positionStart = `${datum.startModifier === 'UNSURE' ? '?' : ''}${
-        datum.startModifier === 'UNKNOWN' ? '?' : datum.start
+    render: ({ data }) => {
+      const positionStart = `${data.startModifier === 'UNSURE' ? '?' : ''}${
+        data.startModifier === 'UNKNOWN' ? '?' : data.start
       }`;
-      const positionEnd = `${datum.endModifier === 'UNSURE' ? '?' : ''}${
-        datum.endModifier === 'UNKNOWN' ? '?' : datum.end
+      const positionEnd = `${data.endModifier === 'UNSURE' ? '?' : ''}${
+        data.endModifier === 'UNKNOWN' ? '?' : data.end
       }`;
       return positionStart === positionEnd
         ? positionStart
         : `${positionStart}${
-            datum.type === 'Disulfide bond' || datum.type === 'Cross-link'
+            data.type === 'Disulfide bond' || data.type === 'Cross-link'
               ? '↔'
               : '-'
           }${positionEnd}`;
@@ -113,35 +114,35 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
   {
     id: 'source',
     label: 'Source',
-    render: ({ datum }) => datum.source,
+    render: ({ data }) => data.source,
   },
   {
     id: 'description',
     label: 'Description',
-    render: ({ datum }) => (
+    render: ({ data }) => (
       <>
-        {typeof datum.description === 'string' ? (
-          <RichText>{datum.description}</RichText>
+        {typeof data.description === 'string' ? (
+          <RichText>{data.description}</RichText>
         ) : (
-          datum.description
+          data.description
         )}
-        {!!datum.confidenceScore && (
+        {!!data.confidenceScore && (
           <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
             <Chip
-              className={`secondary ${styles[datum.confidenceScore]}`}
+              className={`secondary ${styles[data.confidenceScore]}`}
               compact
             >
-              {datum.confidenceScore}
+              {data.confidenceScore}
             </Chip>
           </span>
         )}
-        {datum.source === 'PTMeXchange' ? (
+        {data.source === 'PTMeXchange' ? (
           <PtmExchangeEvidenceTag
-            evidences={datum.evidences}
-            confidenceScore={datum.confidenceScore}
+            evidences={data.evidences}
+            confidenceScore={data.confidenceScore}
           />
         ) : (
-          <UniProtKBEvidenceTag evidences={datum.evidences} />
+          <UniProtKBEvidenceTag evidences={data.evidences} />
         )}
       </>
     ),
@@ -150,25 +151,25 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
     id: 'tools',
     // Intentionally left blank, corresponds to tools/basket
     label: '',
-    render: ({ datum }) =>
-      datum.end - datum.start >= 2 &&
-      datum.type !== 'Disulfide bond' &&
-      datum.type !== 'Cross-link' && (
+    render: ({ data }) =>
+      data.end - data.start >= 2 &&
+      data.type !== 'Disulfide bond' &&
+      data.type !== 'Cross-link' && (
         <div className="button-group">
           <Button
             element="a"
             variant="tertiary"
             title="BLAST the sequence corresponding to this feature"
-            href={getURLToJobWithData(JobTypes.BLAST, datum.primaryAccession, {
-              start: datum.start,
-              end: datum.end,
+            href={getURLToJobWithData(JobTypes.BLAST, data.primaryAccession, {
+              start: data.start,
+              end: data.end,
             })}
             translate="no"
           >
             BLAST
           </Button>
           <AddToBasketButton
-            selectedEntries={`${datum.primaryAccession}[${datum.start}-${datum.end}]`}
+            selectedEntries={`${data.primaryAccession}[${data.start}-${data.end}]`}
           />
         </div>
       ),
