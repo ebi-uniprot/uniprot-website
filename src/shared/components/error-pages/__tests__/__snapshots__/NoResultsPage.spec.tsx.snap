@@ -39,5 +39,6 @@ exports[`NoResultsPage component should render 1`] = `
       </div>
     </div>
   </div>
+  {{ ErrorBoundary }}
 </DocumentFragment>
 `;

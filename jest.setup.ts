@@ -49,3 +49,13 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useId: mockedUseId,
 }));
+
+/* "Fail on console error" util */
+// Uncomment to have jest stop when a warning is shown in order to fix it
+// Recommended to use with Jest's "--bail" option
+// const { error } = console;
+// // eslint-disable-next-line no-console
+// console.error = (message, ...rest) => {
+//   error.apply(console, [message, ...rest]); // keep default behaviour
+//   throw message instanceof Error ? message : new Error(message);
+// };
