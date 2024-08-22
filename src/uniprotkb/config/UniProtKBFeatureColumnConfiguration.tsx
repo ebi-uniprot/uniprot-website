@@ -68,7 +68,6 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
     label: 'Type',
     filter: ({ data, input }) => data.type === input,
     render: ({ data }) => data.type,
-    optionAccessor: ({ data }) => data.type,
   },
   {
     id: 'accession',
@@ -114,6 +113,7 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
   {
     id: 'source',
     label: 'Source',
+    filter: ({ data, input }) => data.source === input,
     render: ({ data }) => data.source,
   },
   {
