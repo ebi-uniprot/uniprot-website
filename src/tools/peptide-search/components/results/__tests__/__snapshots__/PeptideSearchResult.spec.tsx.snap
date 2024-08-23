@@ -26,7 +26,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
       role="tablist"
     >
       <div
-        aria-controls="2"
+        aria-controls="0"
         class="tabs__header__item tabs__header__item--active"
         data-target="overview"
         data-testid="tab-title"
@@ -39,7 +39,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         </a>
       </div>
       <div
-        aria-controls="2"
+        aria-controls="0"
         class="tabs__header__item"
         data-target="input-parameters"
         data-testid="tab-title"
@@ -52,7 +52,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         </a>
       </div>
       <div
-        aria-controls="2"
+        aria-controls="0"
         class="tabs__header__item"
         data-target="api-request"
         data-testid="tab-title"
@@ -67,7 +67,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
     </div>
     <div
       data-testid="tab-content"
-      id="2"
+      id="0"
       role="tabpanel"
     >
       <div
@@ -157,12 +157,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  id="7"
+                  id="2"
                   type="checkbox"
                 />
                 <label
                   aria-label="Selection control for all visible items"
-                  for="7"
+                  for="2"
                 />
               </div>
             </th>
@@ -265,12 +265,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
             >
               <input
                 data-id="P19926"
-                id="8"
+                id="3"
                 type="checkbox"
               />
               <label
                 aria-label="P19926"
-                for="8"
+                for="3"
                 title="click to select, shift+click for multiple selection"
               />
             </td>
@@ -344,12 +344,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
             >
               <input
                 data-id="P13866"
-                id="9"
+                id="4"
                 type="checkbox"
               />
               <label
                 aria-label="P13866"
-                for="9"
+                for="4"
                 title="click to select, shift+click for multiple selection"
               />
             </td>
@@ -454,7 +454,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
       role="tablist"
     >
       <div
-        aria-controls="4"
+        aria-controls="0"
         class="tabs__header__item tabs__header__item--active"
         data-target="overview"
         data-testid="tab-title"
@@ -467,7 +467,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         </a>
       </div>
       <div
-        aria-controls="4"
+        aria-controls="0"
         class="tabs__header__item"
         data-target="input-parameters"
         data-testid="tab-title"
@@ -480,7 +480,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         </a>
       </div>
       <div
-        aria-controls="4"
+        aria-controls="0"
         class="tabs__header__item"
         data-target="api-request"
         data-testid="tab-title"
@@ -495,7 +495,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
     </div>
     <div
       data-testid="tab-content"
-      id="4"
+      id="0"
       role="tabpanel"
     >
       <div
@@ -585,12 +585,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  id="5"
+                  id="1"
                   type="checkbox"
                 />
                 <label
                   aria-label="Selection control for all visible items"
-                  for="5"
+                  for="1"
                 />
               </div>
             </th>
@@ -693,12 +693,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
             >
               <input
                 data-id="P19926"
-                id="6"
+                id="5"
                 type="checkbox"
               />
               <label
                 aria-label="P19926"
-                for="6"
+                for="5"
                 title="click to select, shift+click for multiple selection"
               />
             </td>
@@ -772,12 +772,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
             >
               <input
                 data-id="P13866"
-                id="7"
+                id="6"
                 type="checkbox"
               />
               <label
                 aria-label="P13866"
-                for="7"
+                for="6"
                 title="click to select, shift+click for multiple selection"
               />
             </td>

@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, ProvidePlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -115,7 +115,7 @@ const getConfigFor = ({
                   '@babel/preset-env',
                   {
                     useBuiltIns: 'usage',
-                    corejs: { version: '3', proposals: true },
+                    corejs: { version: '3.25.1', proposals: true },
                     targets:
                       isModern && !isTest
                         ? {
@@ -131,6 +131,7 @@ const getConfigFor = ({
                 ['@babel/preset-react', { runtime: 'automatic' }],
                 '@babel/preset-typescript',
               ],
+              plugins: ['@babel/plugin-transform-runtime'],
             },
           },
         },

@@ -16,12 +16,12 @@ exports[`DatabaseCard tests should render the card component 1`] = `
         >
           <input
             data-id="DB-0022"
-            id="1"
+            id="0"
             type="checkbox"
           />
           <label
             aria-label="DB-0022"
-            for="1"
+            for="0"
             title="click to select, shift+click for multiple selection"
           />
         </span>

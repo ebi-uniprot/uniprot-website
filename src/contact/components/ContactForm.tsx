@@ -1,4 +1,5 @@
-import { useId, ChangeEvent } from 'react';
+import { useRef, ChangeEvent } from 'react';
+import { v1 } from 'uuid';
 import {
   generatePath,
   Link,
@@ -48,7 +49,7 @@ const validity = (
 );
 
 const ContactForm = () => {
-  const formId = useId();
+  const idRef = useRef(v1());
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const { state: locationState, search } = useLocation<ContactLocationState>();
 
@@ -84,6 +85,8 @@ const ContactForm = () => {
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
     : 'Send us general questions and suggestions using the form below';
+
+  const id = idRef.current;
 
   return (
     <>
@@ -135,7 +138,7 @@ const ContactForm = () => {
         )}
         <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
-          <label className={styles.label} htmlFor={`name-${formId}`}>
+          <label className={styles.label} htmlFor={`name-${id}`}>
             Name:
           </label>
           <span className={styles.input}>
@@ -143,7 +146,7 @@ const ContactForm = () => {
               type="text"
               name="name"
               placeholder=" "
-              id={`name-${formId}`}
+              id={`name-${id}`}
               maxLength={100}
               onChange={handleChange}
               defaultValue={locationState?.formValues?.name}
@@ -152,7 +155,7 @@ const ContactForm = () => {
             {validity}
           </span>
           {/* E-mail */}
-          <label className={styles.label} htmlFor={`email-${formId}`}>
+          <label className={styles.label} htmlFor={`email-${id}`}>
             E-mail:
           </label>
           <span className={styles.input}>
@@ -160,7 +163,7 @@ const ContactForm = () => {
               type="email"
               name="email"
               placeholder="myemail@example.com"
-              id={`email-${formId}`}
+              id={`email-${id}`}
               required
               minLength={4}
               maxLength={100}
@@ -171,7 +174,7 @@ const ContactForm = () => {
             {validity}
           </span>
           {/* Subject */}
-          <label className={styles.label} htmlFor={`subject-${formId}`}>
+          <label className={styles.label} htmlFor={`subject-${id}`}>
             Subject:
           </label>
           <span className={styles.input}>
@@ -180,7 +183,7 @@ const ContactForm = () => {
               type="text"
               name="subject"
               placeholder=" "
-              id={`subject-${formId}`}
+              id={`subject-${id}`}
               required
               minLength={1}
               maxLength={100}
@@ -193,14 +196,14 @@ const ContactForm = () => {
             {validity}
           </span>
           {/* Message */}
-          <label className={styles.label} htmlFor={`message-${formId}`}>
+          <label className={styles.label} htmlFor={`message-${id}`}>
             Message:
           </label>
           <span className={cn(styles.input, styles.input__message)}>
             <textarea
               name="message"
               placeholder="my message"
-              id={`message-${formId}`}
+              id={`message-${id}`}
               required
               minLength={1}
               onChange={handleChange}

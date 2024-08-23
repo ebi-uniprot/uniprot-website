@@ -20,12 +20,12 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <input
                 data-id="P19926"
-                id="1"
+                id="0"
                 type="checkbox"
               />
               <label
                 aria-label="P19926"
-                for="1"
+                for="0"
                 title="click to select, shift+click for multiple selection"
               />
             </span>
@@ -148,12 +148,12 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <input
                 data-id="P13866"
-                id="2"
+                id="1"
                 type="checkbox"
               />
               <label
                 aria-label="P13866"
-                for="2"
+                for="1"
                 title="click to select, shift+click for multiple selection"
               />
             </span>
@@ -340,12 +340,12 @@ exports[`ResultsData component should render the table view 1`] = `
             class="checkbox-cell"
           >
             <input
-              id="5"
+              id="0"
               type="checkbox"
             />
             <label
               aria-label="Selection control for all visible items"
-              for="5"
+              for="0"
             />
           </div>
         </th>
@@ -371,12 +371,12 @@ exports[`ResultsData component should render the table view 1`] = `
         >
           <input
             data-id="P19926"
-            id="6"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="P19926"
-            for="6"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </td>
@@ -399,12 +399,12 @@ exports[`ResultsData component should render the table view 1`] = `
         >
           <input
             data-id="P13866"
-            id="7"
+            id="2"
             type="checkbox"
           />
           <label
             aria-label="P13866"
-            for="7"
+            for="2"
             title="click to select, shift+click for multiple selection"
           />
         </td>

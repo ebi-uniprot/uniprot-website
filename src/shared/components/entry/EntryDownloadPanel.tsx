@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import { SlidingPanel } from 'franklin-sites';
+import { ErrorBoundary } from '@sentry/react';
 
 import EntryDownload, { Dataset } from './EntryDownload';
-import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import { Column } from '../../config/columns';
 

@@ -1,4 +1,4 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
@@ -10,28 +10,11 @@ jest.mock('../../../../shared/hooks/useMatchMedia');
 
 (useReducedMotion as jest.Mock).mockReturnValue(true);
 
-jest.mock('../NonCritical', () => ({
-  __esModule: true,
-  default: () => '{{ NonCritical }}',
-}));
-
-jest.mock('../../../../shared/components/layouts/UniProtFooter', () => ({
-  __esModule: true,
-  default: () => '{{ UniProtFooter }}',
-}));
-
 let rendered: ReturnType<typeof customRender>;
 
 describe('HomePage component', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     rendered = customRender(<HomePage />);
-
-    await waitFor(() => {
-      screen.getByText('{{ NonCritical }}');
-      screen.getByText('{{ UniProtFooter }}');
-      // Main search
-      screen.getByRole('searchbox');
-    });
   });
 
   it('should render', () => {
@@ -41,10 +24,10 @@ describe('HomePage component', () => {
 
   it('should change the text when selecting a different namespace', async () => {
     expect(
-      screen.getByRole('heading', { name: 'Find your protein' })
+      await screen.findByRole('heading', { name: 'Find your protein' })
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /UniProtKB/ }));
-    fireEvent.click(screen.getByRole('button', { name: /UniRef/ }));
+    fireEvent.click(await screen.findByRole('button', { name: /UniProtKB/ }));
+    fireEvent.click(await screen.findByRole('button', { name: /UniRef/ }));
     expect(
       await screen.findByRole('heading', {
         name: 'Find your protein cluster',

@@ -23,6 +23,44 @@ exports[`GeneNames should render gene_names 1`] = `
             >
               some Gene 
               <button
+                aria-controls="0"
+                aria-expanded="false"
+                class="svg-colour-unreviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="0"
+              />
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Synonyms
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              some Syn 
+              <button
                 aria-controls="1"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
@@ -54,44 +92,6 @@ exports[`GeneNames should render gene_names 1`] = `
             <div
               class="decorated-list-item__title tiny"
             >
-              Synonyms
-            </div>
-            <div
-              class="decorated-list-item__content"
-            >
-              some Syn 
-              <button
-                aria-controls="2"
-                aria-expanded="false"
-                class="svg-colour-unreviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="2"
-              />
-            </div>
-          </div>
-        </li>
-        <li>
-          <div
-            class="decorated-list-item"
-          >
-            <div
-              class="decorated-list-item__title tiny"
-            >
               ORF names
             </div>
             <div
@@ -99,7 +99,7 @@ exports[`GeneNames should render gene_names 1`] = `
             >
               some orf 
               <button
-                aria-controls="3"
+                aria-controls="2"
                 aria-expanded="false"
                 class="svg-colour-reviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -118,7 +118,7 @@ exports[`GeneNames should render gene_names 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="3"
+                id="2"
               />
             </div>
           </div>
@@ -137,7 +137,7 @@ exports[`GeneNames should render gene_names 1`] = `
             >
               some locus 
               <button
-                aria-controls="4"
+                aria-controls="3"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -156,7 +156,7 @@ exports[`GeneNames should render gene_names 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="4"
+                id="3"
               />
             </div>
           </div>

@@ -237,7 +237,9 @@ const ResultsButtons: FC<
           disabled={!hasResults}
         >
           <DownloadIcon />
-          Download ({roundNumber(selectedEntries.length || total)})
+          Download (
+          {roundNumber(selectedEntries.length || total)}
+          )
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
           <AddToBasketButton

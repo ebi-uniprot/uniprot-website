@@ -58,12 +58,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
                 class="checkbox-cell"
               >
                 <input
-                  id="7"
+                  id="0"
                   type="checkbox"
                 />
                 <label
                   aria-label="Selection control for all visible items"
-                  for="7"
+                  for="0"
                 />
               </div>
             </th>
@@ -101,12 +101,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <input
                 data-id="A0A0A0MRG2"
-                id="2"
+                id="1"
                 type="checkbox"
               />
               <label
                 aria-label="A0A0A0MRG2"
-                for="2"
+                for="1"
                 title="click to select, shift+click for multiple selection"
               />
             </td>
@@ -146,12 +146,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <input
                 data-id="H7C2L2"
-                id="3"
+                id="2"
                 type="checkbox"
               />
               <label
                 aria-label="H7C2L2"
-                for="3"
+                for="2"
                 title="click to select, shift+click for multiple selection"
               />
             </td>
@@ -191,12 +191,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <input
                 data-id="H7C0V9"
-                id="4"
+                id="3"
                 type="checkbox"
               />
               <label
                 aria-label="H7C0V9"
-                for="4"
+                for="3"
                 title="click to select, shift+click for multiple selection"
               />
             </td>
@@ -236,12 +236,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <input
                 data-id="E9PG40"
-                id="5"
+                id="4"
                 type="checkbox"
               />
               <label
                 aria-label="E9PG40"
-                for="5"
+                for="4"
                 title="click to select, shift+click for multiple selection"
               />
             </td>

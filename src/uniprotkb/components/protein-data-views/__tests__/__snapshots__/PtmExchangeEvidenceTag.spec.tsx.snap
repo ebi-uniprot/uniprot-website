@@ -3,7 +3,7 @@
 exports[`PtmExchangeEvidenceTag components should render 1`] = `
 <DocumentFragment>
   <button
-    aria-controls="2"
+    aria-controls="0"
     aria-expanded="true"
     class="svg-colour-unreviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -22,7 +22,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
   <div
     class="evidence-tag-content evidence-tag-content--visible"
     data-testid="evidence-tag-content"
-    id="2"
+    id="0"
   >
     <section
       class="evidence-tag-content"

@@ -82,7 +82,6 @@ describe('PeptideSearchResult', () => {
       },
     });
     await screen.findByText('2 results', undefined, { timeout: 10000 });
-    await screen.findByText(uniprotkbResults.results[0].primaryAccession);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -95,7 +94,6 @@ describe('PeptideSearchResult', () => {
       toolsState: { [mockJob.internalID]: mockJob },
     });
     await screen.findByText('2 results', undefined, { timeout: 10000 });
-    await screen.findByText(uniprotkbResults.results[0].primaryAccession);
     expect(asFragment()).toMatchSnapshot();
   });
 });

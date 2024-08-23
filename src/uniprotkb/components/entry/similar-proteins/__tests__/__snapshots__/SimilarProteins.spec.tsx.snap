@@ -10,7 +10,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
       role="tablist"
     >
       <div
-        aria-controls="1"
+        aria-controls="0"
         class="tabs__header__item tabs__header__item--active"
         data-target="UniRef100"
         data-testid="tab-title"
@@ -20,7 +20,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
         100% identity
       </div>
       <div
-        aria-controls="1"
+        aria-controls="0"
         class="tabs__header__item"
         data-target="UniRef90"
         data-testid="tab-title"
@@ -30,7 +30,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
         90% identity
       </div>
       <div
-        aria-controls="1"
+        aria-controls="0"
         class="tabs__header__item"
         data-target="UniRef50"
         data-testid="tab-title"
@@ -42,7 +42,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
     </div>
     <div
       data-testid="tab-content"
-      id="1"
+      id="0"
       role="tabpanel"
     >
       <section

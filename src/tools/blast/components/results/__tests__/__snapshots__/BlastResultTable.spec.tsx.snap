@@ -56,12 +56,12 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
             class="checkbox-cell"
           >
             <input
-              id="4"
+              id="0"
               type="checkbox"
             />
             <label
               aria-label="Selection control for all visible items"
-              for="4"
+              for="0"
             />
           </div>
         </th>
@@ -166,12 +166,12 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
         >
           <input
             data-id="U6MKN0"
-            id="5"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="U6MKN0"
-            for="5"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </td>

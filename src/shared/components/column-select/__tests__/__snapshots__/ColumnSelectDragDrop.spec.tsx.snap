@@ -4,14 +4,14 @@ exports[`ColumnSelectDragDrop component should render 1`] = `
 <DocumentFragment>
   <div
     class="column-select-drag-drop__list"
-    data-rfd-droppable-context-id="1"
+    data-rfd-droppable-context-id=":r0:"
     data-rfd-droppable-id="droppable"
   >
     <div
-      aria-describedby="rfd-hidden-text-1-hidden-text-2"
-      data-rfd-drag-handle-context-id="1"
+      aria-describedby="rfd-hidden-text-:r0:-hidden-text-:r1:"
+      data-rfd-drag-handle-context-id=":r0:"
       data-rfd-drag-handle-draggable-id="id"
-      data-rfd-draggable-context-id="1"
+      data-rfd-draggable-context-id=":r0:"
       data-rfd-draggable-id="id"
       draggable="false"
       role="button"
@@ -27,10 +27,10 @@ exports[`ColumnSelectDragDrop component should render 1`] = `
       </span>
     </div>
     <div
-      aria-describedby="rfd-hidden-text-1-hidden-text-2"
-      data-rfd-drag-handle-context-id="1"
+      aria-describedby="rfd-hidden-text-:r0:-hidden-text-:r1:"
+      data-rfd-drag-handle-context-id=":r0:"
       data-rfd-drag-handle-draggable-id="protein_name"
-      data-rfd-draggable-context-id="1"
+      data-rfd-draggable-context-id=":r0:"
       data-rfd-draggable-id="protein_name"
       draggable="false"
       role="button"
@@ -46,10 +46,10 @@ exports[`ColumnSelectDragDrop component should render 1`] = `
       </span>
     </div>
     <div
-      aria-describedby="rfd-hidden-text-1-hidden-text-2"
-      data-rfd-drag-handle-context-id="1"
+      aria-describedby="rfd-hidden-text-:r0:-hidden-text-:r1:"
+      data-rfd-drag-handle-context-id=":r0:"
       data-rfd-drag-handle-draggable-id="gene_names"
-      data-rfd-draggable-context-id="1"
+      data-rfd-draggable-context-id=":r0:"
       data-rfd-draggable-id="gene_names"
       draggable="false"
       role="button"

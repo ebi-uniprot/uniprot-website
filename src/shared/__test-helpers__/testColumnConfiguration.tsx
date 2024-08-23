@@ -1,10 +1,10 @@
-import { screen, act } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { ColumnConfiguration } from '../types/columnConfiguration';
 import customRender from './customRender';
 
 function testColumnConfiguration<
   Column extends string,
-  UIModel extends Record<string, unknown>,
+  UIModel extends Record<string, unknown>
 >(columnConfiguration: ColumnConfiguration<Column, UIModel>, data: UIModel) {
   test.each(Array.from(columnConfiguration.entries()))(
     `should render column "%s"`,
@@ -16,7 +16,7 @@ function testColumnConfiguration<
         screen.queryByTitle('Show more') ||
         screen.queryByTestId('expandable-message');
       if (hasMoreButton) {
-        act(() => hasMoreButton.click());
+        hasMoreButton.click();
         expect(asFragment()).toMatchSnapshot(`${key}-expanded`);
       }
     }

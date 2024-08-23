@@ -65,7 +65,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
     >
       <label
         class="label"
-        for="name-1"
+        for="name-0"
       >
         Name:
       </label>
@@ -74,7 +74,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="name-1"
+          id="name-0"
           maxlength="100"
           name="name"
           placeholder=" "
@@ -100,7 +100,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       </span>
       <label
         class="label"
-        for="email-1"
+        for="email-0"
       >
         E-mail:
       </label>
@@ -109,7 +109,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="email-1"
+          id="email-0"
           maxlength="100"
           minlength="4"
           name="email"
@@ -137,7 +137,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       </span>
       <label
         class="label"
-        for="subject-1"
+        for="subject-0"
       >
         Subject:
       </label>
@@ -146,7 +146,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="subject-1"
+          id="subject-0"
           maxlength="100"
           minlength="1"
           name="subject"
@@ -174,7 +174,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       </span>
       <label
         class="label"
-        for="message-1"
+        for="message-0"
       >
         Message:
       </label>
@@ -183,7 +183,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="message-1"
+          id="message-0"
           minlength="1"
           name="message"
           placeholder="my message"
@@ -312,7 +312,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
     >
       <label
         class="label"
-        for="name-1"
+        for="name-0"
       >
         Name:
       </label>
@@ -321,7 +321,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="name-1"
+          id="name-0"
           maxlength="100"
           name="name"
           placeholder=" "
@@ -347,7 +347,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       </span>
       <label
         class="label"
-        for="email-1"
+        for="email-0"
       >
         E-mail:
       </label>
@@ -356,7 +356,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="email-1"
+          id="email-0"
           maxlength="100"
           minlength="4"
           name="email"
@@ -384,7 +384,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       </span>
       <label
         class="label"
-        for="subject-1"
+        for="subject-0"
       >
         Subject:
       </label>
@@ -393,7 +393,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="subject-1"
+          id="subject-0"
           maxlength="100"
           minlength="1"
           name="subject"
@@ -421,7 +421,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       </span>
       <label
         class="label"
-        for="message-1"
+        for="message-0"
       >
         Message:
       </label>
@@ -430,7 +430,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="message-1"
+          id="message-0"
           minlength="1"
           name="message"
           placeholder="my message"
@@ -598,7 +598,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
     >
       <label
         class="label"
-        for="name-1"
+        for="name-0"
       >
         Name:
       </label>
@@ -607,7 +607,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="name-1"
+          id="name-0"
           maxlength="100"
           name="name"
           placeholder=" "
@@ -633,7 +633,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       </span>
       <label
         class="label"
-        for="email-1"
+        for="email-0"
       >
         E-mail:
       </label>
@@ -642,7 +642,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="email-1"
+          id="email-0"
           maxlength="100"
           minlength="4"
           name="email"
@@ -670,7 +670,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       </span>
       <label
         class="label"
-        for="subject-1"
+        for="subject-0"
       >
         Subject:
       </label>
@@ -679,7 +679,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="subject-1"
+          id="subject-0"
           maxlength="100"
           minlength="1"
           name="subject"
@@ -707,7 +707,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       </span>
       <label
         class="label"
-        for="message-1"
+        for="message-0"
       >
         Message:
       </label>
@@ -716,7 +716,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="message-1"
+          id="message-0"
           minlength="1"
           name="message"
           placeholder="my message"

@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react-hooks';
 import { JsonValue } from 'type-fest';
 
 import useLocalStorage, {
@@ -37,11 +37,11 @@ describe('useLocalStorage hook', () => {
     window.localStorage.setItem('gdpr', JSON.stringify('previous value'));
     window.localStorage.setItem('view-mode', JSON.stringify('previous view'));
     const { result, rerender } = renderHook<
+      { key: UserPreferenceKey },
       [
         state: JsonValue,
-        setState: React.Dispatch<React.SetStateAction<JsonValue>>,
-      ],
-      { key: UserPreferenceKey }
+        setState: React.Dispatch<React.SetStateAction<JsonValue>>
+      ]
     >((props) => useLocalStorage<JsonValue>(props.key, 'default value'), {
       initialProps: { key: 'gdpr' as const },
     });

@@ -1,1 +1,1 @@
-npm-run-all test:lint test:types "test:unit --silent --reporters='jest-silent-reporter' --bail"
+yarn npm-run-all test:lint test:types "test:unit --silent --reporters='jest-silent-reporter' --bail"

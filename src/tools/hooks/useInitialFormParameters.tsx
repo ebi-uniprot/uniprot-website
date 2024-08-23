@@ -38,7 +38,7 @@ const alignmentLocations = new Set([
 
 function useInitialFormParameters<
   Fields extends string,
-  FormParameters extends Record<Fields, unknown>,
+  FormParameters extends Record<Fields, unknown>
 >(
   defaultFormValues: Readonly<FormValues<Fields>>
 ): {
@@ -100,15 +100,14 @@ function useInitialFormParameters<
     // This will eventually be filled in
     const formValues: Partial<FormValues<Fields>> = {};
     for (const [key, field] of Object.entries<FormValue>(defaultFormValues)) {
+      const fieldName = field.fieldName as keyof FormParameters;
       formValues[key as Fields] = Object.freeze({
         ...field,
         selected:
           // url params
-          parametersFromHistorySearch?.[field.fieldName] ||
+          parametersFromHistorySearch?.[fieldName] ||
           // history state
-          parametersFromHistoryState?.[
-            field.fieldName as keyof FormParameters
-          ] ||
+          parametersFromHistoryState?.[fieldName] ||
           // default
           field.selected,
       } as FormValue);

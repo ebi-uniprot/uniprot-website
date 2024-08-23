@@ -30,7 +30,7 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
             role="tablist"
           >
             <div
-              aria-controls="1"
+              aria-controls="0"
               class="tabs__header__item tabs__header__item--active"
               data-target="0"
               data-testid="tab-title"
@@ -42,7 +42,7 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
           </div>
           <div
             data-testid="tab-content"
-            id="1"
+            id="0"
             role="tabpanel"
           >
             <div
