@@ -11,7 +11,7 @@ jest.mock(
 );
 
 describe('HelpLandingPage', () => {
-  it('should render', async () => {
+  it('should render', () => {
     const { asFragment } = customRender(<HelpLandingPage />);
     expect(asFragment()).toMatchSnapshot();
   });
