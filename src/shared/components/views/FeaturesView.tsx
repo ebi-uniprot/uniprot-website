@@ -87,6 +87,11 @@ export type ProcessedFeature = Feature & {
   ligandDescription?: string;
 };
 
+const getHighlightedCoordinates = (feature?: Feature) =>
+  feature?.start && feature?.end
+    ? `${feature.start}:${feature.end}`
+    : undefined;
+
 export type GenericFeature =
   | ProcessedFeature
   // | TransformedVariant // TODO: do we need this here?
@@ -118,14 +123,8 @@ const FeaturesView = ({
     [features]
   );
 
-  const handleRowClick = useCallback((datum) => {
-    console.log('Clicked feature:', datum);
-    setHighlightedFeature(datum.accession);
-  }, []);
-
   const handleFeatureClick = useCallback((feature) => {
-    console.log('Clicked feature:', feature);
-    setHighlightedFeature(feature.accession);
+    setHighlightedFeature(feature);
   }, []);
 
   return features.length === 0 ? null : (
@@ -162,6 +161,9 @@ const FeaturesView = ({
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
             onFeatureClick={handleFeatureClick}
+            highlightedCoordinates={getHighlightedCoordinates(
+              highlightedFeature
+            )}
           />
         </LazyComponent>
       )}
@@ -169,8 +171,8 @@ const FeaturesView = ({
         data={features}
         columns={columns}
         rowExtraContent={rowExtraContent}
-        onRowClick={handleRowClick}
-        highlightedFeature={highlightedFeature}
+        onRowClick={handleFeatureClick}
+        highlightedFeature={highlightedFeature?.accession}
       />
     </>
   );

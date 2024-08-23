@@ -39,6 +39,7 @@ function VisualFeaturesView({
   trackHeight = 40,
   noLinkToFullView,
   onFeatureClick,
+  highlightedCoordinates,
 }: Props) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
@@ -93,7 +94,10 @@ function VisualFeaturesView({
           <FullViewIcon height={iconSize} />
         </Link>
       )}
-      <NightingaleManagerComponent reflected-attributes="highlight,display-start,display-end,selectedid">
+      <NightingaleManagerComponent
+        reflected-attributes="highlight,display-start,display-end,selectedid"
+        highlight={highlightedCoordinates}
+      >
         <NightingaleNavigationComponent length={sequence.length} height={40} />
         <NightingalTrackComponent
           ref={trackRef}
