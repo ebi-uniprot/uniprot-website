@@ -47,12 +47,12 @@ exports[`Components view should render 1`] = `
                   class="checkbox-cell"
                 >
                   <input
-                    id="0"
+                    id="29"
                     type="checkbox"
                   />
                   <label
                     aria-label="Selection control for all visible items"
-                    for="0"
+                    for="29"
                   />
                 </div>
               </th>
@@ -82,12 +82,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 1"
-                  id="1"
+                  id="30"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 1"
-                  for="1"
+                  for="30"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -239,12 +239,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 2"
-                  id="2"
+                  id="31"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 2"
-                  for="2"
+                  for="31"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -305,12 +305,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 3"
-                  id="3"
+                  id="32"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 3"
-                  for="3"
+                  for="32"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -358,12 +358,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 4"
-                  id="4"
+                  id="33"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 4"
-                  for="4"
+                  for="33"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -411,12 +411,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 5"
-                  id="5"
+                  id="34"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 5"
-                  for="5"
+                  for="34"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -464,12 +464,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 6"
-                  id="6"
+                  id="35"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 6"
-                  for="6"
+                  for="35"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -504,12 +504,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 7"
-                  id="7"
+                  id="36"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 7"
-                  for="7"
+                  for="36"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -544,12 +544,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 8"
-                  id="8"
+                  id="37"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 8"
-                  for="8"
+                  for="37"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -584,12 +584,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 9"
-                  id="9"
+                  id="38"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 9"
-                  for="9"
+                  for="38"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -676,12 +676,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 10"
-                  id="10"
+                  id="39"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 10"
-                  for="10"
+                  for="39"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -729,12 +729,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome X"
-                  id="11"
+                  id="40"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome X"
-                  for="11"
+                  for="40"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -769,12 +769,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 11"
-                  id="12"
+                  id="41"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 11"
-                  for="12"
+                  for="41"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -822,12 +822,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 12"
-                  id="13"
+                  id="42"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 12"
-                  for="13"
+                  for="42"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -862,12 +862,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 13"
-                  id="14"
+                  id="43"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 13"
-                  for="14"
+                  for="43"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -902,12 +902,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 14"
-                  id="15"
+                  id="44"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 14"
-                  for="15"
+                  for="44"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1046,12 +1046,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 15"
-                  id="16"
+                  id="45"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 15"
-                  for="16"
+                  for="45"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1099,12 +1099,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 16"
-                  id="17"
+                  id="46"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 16"
-                  for="17"
+                  for="46"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1152,12 +1152,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 17"
-                  id="18"
+                  id="47"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 17"
-                  for="18"
+                  for="47"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1231,12 +1231,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 18"
-                  id="19"
+                  id="48"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 18"
-                  for="19"
+                  for="48"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1271,12 +1271,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 19"
-                  id="20"
+                  id="49"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 19"
-                  for="20"
+                  for="49"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1311,12 +1311,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 20"
-                  id="21"
+                  id="50"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 20"
-                  for="21"
+                  for="50"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1351,12 +1351,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 21"
-                  id="22"
+                  id="51"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 21"
-                  for="22"
+                  for="51"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1391,12 +1391,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 22"
-                  id="23"
+                  id="52"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 22"
-                  for="23"
+                  for="52"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1548,12 +1548,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Chromosome Y"
-                  id="24"
+                  id="53"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome Y"
-                  for="24"
+                  for="53"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1601,12 +1601,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Mitochondrion MT"
-                  id="25"
+                  id="54"
                   type="checkbox"
                 />
                 <label
                   aria-label="Mitochondrion MT"
-                  for="25"
+                  for="54"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1641,12 +1641,12 @@ exports[`Components view should render 1`] = `
               >
                 <input
                   data-id="Unplaced"
-                  id="26"
+                  id="55"
                   type="checkbox"
                 />
                 <label
                   aria-label="Unplaced"
-                  for="26"
+                  for="55"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>

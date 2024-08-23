@@ -470,5 +470,6 @@ exports[`HelpLandingPage should render 1`] = `
       </section>
     </div>
   </main>
+  {{ ErrorBoundary }}
 </DocumentFragment>
 `;
