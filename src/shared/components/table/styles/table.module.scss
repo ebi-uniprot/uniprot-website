@@ -39,6 +39,16 @@
 .row {
   background-color: var(--protvista-datatable__even, #fff);
 
+  &.highlighted {
+    &,
+    & + .extra-content {
+      background-color: var(
+        --protvista-datatable__active,
+        rgba(255, 235, 59, 0.3)
+      ) !important;
+    }
+  }
+
   &.odd {
     background-color: var(--protvista-datatable__odd, #e4e8eb);
   }

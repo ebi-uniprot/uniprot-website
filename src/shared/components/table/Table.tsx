@@ -138,6 +138,7 @@ const Row = ({
   className,
   extraContent,
   isOdd,
+  onClick,
   ...props
 }: HTMLAttributes<HTMLTableRowElement> & {
   extraContent?: ReactNode;
@@ -149,19 +150,17 @@ const Row = ({
 
   const idRef = useRef(v1());
 
-  const handleClick: MouseEventHandler<HTMLElement> | undefined =
-    hasExtraContent
-      ? (event) => {
-          if (
-            (event.target as HTMLElement).closest(
-              'a, button:not([aria-controls]), input'
-            )
-          ) {
-            return;
-          }
-          setExpanded((expanded) => !expanded);
-        }
-      : undefined;
+  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+    onClick?.(event);
+    if (
+      hasExtraContent &&
+      !(event.target as HTMLElement).closest(
+        'a, button:not([aria-controls]), input'
+      )
+    ) {
+      setExpanded((expanded) => !expanded);
+    }
+  };
 
   return (
     <Fragment>

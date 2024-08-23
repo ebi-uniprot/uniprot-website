@@ -1,8 +1,14 @@
-import { Fragment, lazy, ReactNode, useMemo } from 'react';
+import {
+  Fragment,
+  lazy,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
-import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 
@@ -105,17 +111,24 @@ const FeaturesView = ({
   noLinkToFullView,
 }: FeatureProps) => {
   const isSmallScreen = useSmallScreen();
+  const [highlightedFeature, setHighlightedFeature] = useState();
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
     [features]
   );
 
-  if (features.length === 0) {
-    return null;
-  }
+  const handleRowClick = useCallback((datum) => {
+    console.log('Clicked feature:', datum);
+    setHighlightedFeature(datum.accession);
+  }, []);
 
-  return (
+  const handleFeatureClick = useCallback((feature) => {
+    console.log('Clicked feature:', feature);
+    setHighlightedFeature(feature.accession);
+  }, []);
+
+  return features.length === 0 ? null : (
     <>
       {withTitle && (
         <>
@@ -148,6 +161,7 @@ const FeaturesView = ({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
+            onFeatureClick={handleFeatureClick}
           />
         </LazyComponent>
       )}
@@ -155,6 +169,8 @@ const FeaturesView = ({
         data={features}
         columns={columns}
         rowExtraContent={rowExtraContent}
+        onRowClick={handleRowClick}
+        highlightedFeature={highlightedFeature}
       />
     </>
   );

@@ -1,7 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FullViewIcon } from 'franklin-sites';
 import { Link, useParams } from 'react-router-dom';
-import { Feature } from '@nightingale-elements/nightingale-track';
+import NightingaleTrack, {
+  Feature,
+} from '@nightingale-elements/nightingale-track';
 import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../custom-elements/NightingaleSequence';
 import NightingalTrackComponent from '../../custom-elements/NightingaleTrack';
@@ -28,6 +30,7 @@ type Props = {
   sequence: string;
   trackHeight?: number;
   noLinkToFullView?: boolean;
+  onFeatureClick: (feature: Feature) => void;
 };
 
 function VisualFeaturesView({
@@ -35,19 +38,22 @@ function VisualFeaturesView({
   sequence,
   trackHeight = 40,
   noLinkToFullView,
+  onFeatureClick,
 }: Props) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
+  const trackRef = useRef<NightingaleTrack>(null);
 
-  const setTrackData = useCallback(
-    (node: { data: Feature[] } | null): void => {
-      if (node) {
-        // eslint-disable-next-line no-param-reassign
-        node.data = features;
-      }
-    },
-    [features]
-  );
+  useEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.data = features;
+      trackRef.current.addEventListener('change', (e) => {
+        if (e.detail.eventType === 'click') {
+          onFeatureClick(e.detail.feature);
+        }
+      });
+    }
+  }, [trackRef, features, onFeatureClick]);
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
@@ -90,7 +96,7 @@ function VisualFeaturesView({
       <NightingaleManagerComponent reflected-attributes="highlight,display-start,display-end,selectedid">
         <NightingaleNavigationComponent length={sequence.length} height={40} />
         <NightingalTrackComponent
-          ref={setTrackData}
+          ref={trackRef}
           length={sequence.length}
           layout="non-overlapping"
           height={trackHeight}

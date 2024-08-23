@@ -1,5 +1,8 @@
-import { useCallback, useMemo, useReducer, useState } from 'react';
+import cn from 'classnames';
+import { useCallback, useMemo, useReducer } from 'react';
 import Table from './Table';
+
+import styles from './styles/table.module.scss';
 
 const AllFilterOption = 'All' as const;
 
@@ -51,7 +54,13 @@ const reducer = (state, action) => {
   }
 };
 
-const TableFromData = ({ data, columns, rowExtraContent }) => {
+const TableFromData = ({
+  data,
+  columns,
+  rowExtraContent,
+  onRowClick,
+  highlightedFeature,
+}) => {
   const [state, dispatch] = useReducer(reducer, { filters: {} });
   const columnIdToFilterOptions = useMemo(() => {
     const columnIdToFilterOptions = {};
@@ -96,6 +105,10 @@ const TableFromData = ({ data, columns, rowExtraContent }) => {
             isOdd={index % 2}
             extraContent={rowExtraContent({ data: datum })}
             key={index}
+            onClick={() => onRowClick(datum)}
+            className={cn({
+              [styles.highlighted]: highlightedFeature === datum.accession,
+            })}
           >
             <TableRowFromData datum={datum} columns={columns} />
           </Table.Row>
