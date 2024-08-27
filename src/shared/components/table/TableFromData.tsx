@@ -1,11 +1,11 @@
-import { useCallback, useMemo, useReducer } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import cn from 'classnames';
 
 import Table from './Table';
 
 import styles from './styles/table.module.scss';
 
-const AllFilterOption = 'All' as const;
+const UNFILTERED_OPTION = 'All' as const;
 
 const TableHeaderFromData = ({ column, options, onFilterChange }) => (
   <th>
@@ -17,7 +17,7 @@ const TableHeaderFromData = ({ column, options, onFilterChange }) => (
           style={{ width: 'fit-content' }}
           onChange={(e) => onFilterChange(column.id, e.target.value)}
         >
-          {[AllFilterOption, ...options].map((option) => (
+          {[UNFILTERED_OPTION, ...options].map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
@@ -46,19 +46,6 @@ const withinWindow = (trackWindow, featureStart, featureEnd) =>
         featureEnd <= trackWindow['display-end'])
     : true;
 
-const reducer = (state, action) => {
-  if (action.type === 'FILTER_SELECT') {
-    return {
-      ...state,
-      filters: {
-        ...state.filters,
-        [action.columnId]:
-          action.value === AllFilterOption ? undefined : action.value,
-      },
-    };
-  }
-};
-
 const TableFromData = ({
   data,
   columns,
@@ -67,8 +54,7 @@ const TableFromData = ({
   highlightedFeature,
   coordinates,
 }) => {
-  // TODO: just useState instead
-  const [state, dispatch] = useReducer(reducer, { filters: {} });
+  const [filters, setFilters] = useState({});
   const columnIdToFilterOptions = useMemo(() => {
     const columnIdToFilterOptions = {};
     for (const column of columns) {
@@ -81,13 +67,19 @@ const TableFromData = ({
     return columnIdToFilterOptions;
   }, [columns, data]);
 
-  const handleFilterChange = useCallback((columnId, value) => {
-    dispatch({ type: 'FILTER_SELECT', columnId, value });
-  }, []);
+  const handleFilterChange = useCallback(
+    (columnId, value) => {
+      setFilters((f) => ({
+        ...f,
+        [columnId]: value === UNFILTERED_OPTION ? undefined : value,
+      }));
+    },
+    [setFilters]
+  );
 
   const filteredData = useMemo(
-    () => data.filter((datum) => filterDatum(datum, columns, state.filters)),
-    [columns, data, state.filters]
+    () => data.filter((datum) => filterDatum(datum, columns, filters)),
+    [columns, data, filters]
   );
 
   return (
@@ -109,6 +101,7 @@ const TableFromData = ({
             extraContent={rowExtraContent(datum)}
             key={index}
             onClick={() => onRowClick(datum)}
+            // TODO: generalize this to allow consumer to provide own function
             className={cn({
               [styles.highlighted]: highlightedFeature === datum.accession,
               [styles.window]: withinWindow(

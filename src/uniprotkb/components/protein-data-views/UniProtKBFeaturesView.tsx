@@ -1,20 +1,14 @@
 import { useMemo, ReactNode } from 'react';
 import { v1 } from 'uuid';
-import { Button, Card, Chip } from 'franklin-sites';
 
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-import { RichText } from './FreeTextView';
-import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import LigandDescriptionView, {
   Ligand,
   LigandPart,
 } from './LigandDescriptionView';
-import ExternalLink from '../../../shared/components/ExternalLink';
-import Table from '../../../shared/components/table/Table';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
