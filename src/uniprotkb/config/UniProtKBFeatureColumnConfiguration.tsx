@@ -32,17 +32,12 @@ type FilterArgs = {
 export type FeatureColumnConfiguration = {
   id: string;
   label: string;
-  filter?: ({ data, input }: FilterArgs) => boolean;
-  render: ({
-    data,
-    input,
-    primaryAccession,
-    showSourceColumn,
-  }: RenderArgs) => ReactNode;
+  filter?: (data, input) => boolean;
+  render: (data) => ReactNode;
   optionAccessor?: (data: any) => any;
 };
 
-export const UniProtKBFeatureExtraContent = ({ data }) => (
+export const UniProtKBFeatureExtraContent = (data) => (
   <td colSpan={6}>
     <Card className={styles.sequence}>
       <strong>Sequence: </strong>
@@ -55,13 +50,13 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
   {
     id: 'type',
     label: 'Type',
-    filter: ({ data, input }) => data.type === input,
-    render: ({ data }) => data.type,
+    filter: (data, input) => data.type === input,
+    render: (data) => data.type,
   },
   {
     id: 'id',
     label: 'ID',
-    render: ({ data }) =>
+    render: (data) =>
       data.type === 'Natural variant' &&
       data.startModifier !== 'UNSURE' &&
       data.startModifier !== 'UNKNOWN' &&
@@ -82,7 +77,7 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
   {
     id: 'position',
     label: 'Position(s)',
-    render: ({ data }) => {
+    render: (data) => {
       const positionStart = `${data.startModifier === 'UNSURE' ? '?' : ''}${
         data.startModifier === 'UNKNOWN' ? '?' : data.start
       }`;
@@ -107,13 +102,13 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
   {
     id: 'source',
     label: 'Source',
-    filter: ({ data, input }) => data.source === input,
-    render: ({ data }) => data.source,
+    filter: (data, input) => data.source === input,
+    render: (data) => data.source,
   },
   {
     id: 'description',
     label: 'Description',
-    render: ({ data }) => (
+    render: (data) => (
       <>
         {typeof data.description === 'string' ? (
           <RichText>{data.description}</RichText>
@@ -145,7 +140,7 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
     id: 'tools',
     // Intentionally left blank, corresponds to tools/basket
     label: '',
-    render: ({ data }) =>
+    render: (data) =>
       data.end - data.start >= 2 &&
       data.type !== 'Disulfide bond' &&
       data.type !== 'Cross-link' && (

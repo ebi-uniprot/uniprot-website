@@ -29,14 +29,12 @@ const TableHeaderFromData = ({ column, options, onFilterChange }) => (
 );
 
 const TableRowFromData = ({ datum, columns }) =>
-  columns.map((column) => (
-    <td key={column.id}>{column.render({ data: datum })}</td>
-  ));
+  columns.map((column) => <td key={column.id}>{column.render(datum)}</td>);
 
 const filterDatum = (datum, columns, filterValues) =>
   columns.every((column) =>
     filterValues[column.id]
-      ? column.filter({ data: datum, input: filterValues[column.id] })
+      ? column.filter(datum, filterValues[column.id])
       : true
   );
 
@@ -77,9 +75,7 @@ const TableFromData = ({
       if (column.filter) {
         columnIdToFilterOptions[column.id] = new Set(
           data.map(
-            (datum) =>
-              column.optionAccessor?.({ data: datum }) ||
-              column.render({ data: datum })
+            (datum) => column.optionAccessor?.(datum) || column.render(datum)
           )
         );
       }
@@ -112,7 +108,7 @@ const TableFromData = ({
         {filteredData.map((datum, index) => (
           <Table.Row
             isOdd={index % 2}
-            extraContent={rowExtraContent({ data: datum })}
+            extraContent={rowExtraContent(datum)}
             key={index}
             onClick={() => onRowClick(datum)}
             className={cn({
