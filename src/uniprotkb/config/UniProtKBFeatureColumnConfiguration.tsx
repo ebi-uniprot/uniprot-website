@@ -12,7 +12,8 @@ import externalUrls from '../../shared/config/externalUrls';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
-import styles from '../components/protein-data-views/styles/uniprotkb-features-view.module.scss';
+import featureViewStyles from '../components/protein-data-views/styles/uniprotkb-features-view.module.scss';
+import styles from './styles/uniprotkb-feature-column-configuration.module.scss';
 
 // TODO: use getLabelAndTooltip?
 
@@ -43,7 +44,7 @@ export type FeatureColumnConfiguration = {
 
 export const UniProtKBFeatureExtraContent = ({ data }) => (
   <td colSpan={6}>
-    <Card>
+    <Card className={styles.sequence}>
       <strong>Sequence: </strong>
       {data.sequence}
     </Card>
@@ -116,7 +117,7 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
         {!!data.confidenceScore && (
           <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
             <Chip
-              className={`secondary ${styles[data.confidenceScore]}`}
+              className={`secondary ${featureViewStyles[data.confidenceScore]}`}
               compact
             >
               {data.confidenceScore}

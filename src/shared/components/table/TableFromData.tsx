@@ -1,5 +1,6 @@
-import cn from 'classnames';
 import { useCallback, useMemo, useReducer } from 'react';
+import cn from 'classnames';
+
 import Table from './Table';
 
 import styles from './styles/table.module.scss';

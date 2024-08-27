@@ -43,7 +43,8 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
         .closest('table')
         ?.querySelectorAll<HTMLButtonElement>(
           // get only the direct children, not the ones within another inner table
-          `:scope > tbody > tr > td > button[aria-expanded="${!expand}"]`
+          // and use td:first-child to avoid selecting publication tags
+          `:scope > tbody > tr > td:first-child > button[aria-expanded="${!expand}"]`
         );
       for (const button of buttons || []) {
         button.click();
