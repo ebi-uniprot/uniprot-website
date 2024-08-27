@@ -69,6 +69,7 @@ export type Feature = {
 
 */
 export type ProcessedFeature = Feature & {
+  id?: string; // Used for the feature ID while "accession" is used as the UUID
   start: number;
   end: number;
   startModifier?: LocationModifier;

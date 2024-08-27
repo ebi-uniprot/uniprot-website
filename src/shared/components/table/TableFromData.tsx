@@ -47,8 +47,6 @@ const withinWindow = (trackWindow, featureStart, featureEnd) =>
         featureEnd <= trackWindow['display-end'])
     : true;
 
-type ActionType = 'FILTER_SELECT';
-
 const reducer = (state, action) => {
   if (action.type === 'FILTER_SELECT') {
     return {
@@ -70,6 +68,7 @@ const TableFromData = ({
   highlightedFeature,
   coordinates,
 }) => {
+  // TODO: just useState instead
   const [state, dispatch] = useReducer(reducer, { filters: {} });
   const columnIdToFilterOptions = useMemo(() => {
     const columnIdToFilterOptions = {};

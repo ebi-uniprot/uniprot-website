@@ -14,24 +14,12 @@ import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 import styles from '../components/protein-data-views/styles/uniprotkb-features-view.module.scss';
 
-// type UniProtKBFeatureColumn =
-//   | 'type'
-//   | 'accession'
-//   | 'position'
-//   | 'source'
-//   | 'description'
-//   | 'tools';
-
 // TODO: use getLabelAndTooltip?
 
 type RenderArgs = {
   data: any;
   input: any;
   primaryAccession: string;
-  showSourceColumn: boolean;
-};
-
-type LabelArgs = {
   showSourceColumn: boolean;
 };
 
@@ -70,7 +58,7 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
     render: ({ data }) => data.type,
   },
   {
-    id: 'accession',
+    id: 'id',
     label: 'ID',
     render: ({ data }) =>
       data.type === 'Natural variant' &&
@@ -78,17 +66,16 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
       data.startModifier !== 'UNKNOWN' &&
       // Expasy links are only valid for SNPs (e.g. "R → G":)
       data.sequence?.length === 5 &&
-      data.accession ? (
+      data.id ? (
         <ExternalLink
-          url={externalUrls.UniProt(data.accession)}
+          url={externalUrls.UniProt(data.id)}
           title="View in Expasy"
           noIcon
         >
-          {data.accession}
+          {data.id}
         </ExternalLink>
       ) : (
-        // data.accession // TODO: fix this
-        ''
+        data.id
       ),
   },
   {
@@ -105,7 +92,7 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
         ? positionStart
         : `${positionStart}${
             data.type === 'Disulfide bond' || data.type === 'Cross-link'
-              ? '↔'
+              ? '↔' // I guess this is convention?
               : '-'
           }${positionEnd}`;
     },

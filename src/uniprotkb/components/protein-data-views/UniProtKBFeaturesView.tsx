@@ -126,7 +126,8 @@ export const processFeaturesData = (
     }
 
     return {
-      accession: feature.featureId || v1().toString(),
+      accession: v1().toString(),
+      id: feature.featureId,
       primaryAccession,
       start: feature.location.start.value,
       end: feature.location.end.value,

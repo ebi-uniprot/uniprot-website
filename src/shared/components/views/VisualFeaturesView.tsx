@@ -4,11 +4,12 @@ import { Link, useParams } from 'react-router-dom';
 import NightingaleTrack, {
   Feature,
 } from '@nightingale-elements/nightingale-track';
+import NightingaleManager from '@nightingale-elements/nightingale-manager';
+
 import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../custom-elements/NightingaleSequence';
 import NightingalTrackComponent from '../../custom-elements/NightingaleTrack';
 import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
-
 import NightingaleZoomTool, {
   iconSize,
 } from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
@@ -24,7 +25,6 @@ import { Dataset } from '../entry/EntryDownload';
 // import { GenericFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
-import NightingaleManager from '@nightingale-elements/nightingale-manager';
 
 type Props = {
   features: Feature[];
