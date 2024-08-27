@@ -93,7 +93,13 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
         ? positionStart
         : `${positionStart}${
             data.type === 'Disulfide bond' || data.type === 'Cross-link'
-              ? '↔' // I guess this is convention?
+              ? // The reason for the ↔: This is for links or bounds, it's basically because the
+                // important parts for these are really the areas at the start and at the end,
+                // not the bit in between. For a domain the whole sequence is important, but here's
+                // that's not the case thinking in 3d, it would be for example a bit of the
+                // structure when the sequence folds on itself and touches/binds, start and end
+                // would be the coordinates of the 2 parts of the sequence that touch
+                '↔'
               : '-'
           }${positionEnd}`;
     },
