@@ -59,15 +59,6 @@ type UniProtKBFeaturesViewProps = {
   showSourceColumn?: boolean;
 };
 
-type FeatureRowProps = {
-  isOdd: boolean;
-  feature: ProcessedFeature;
-  primaryAccession: string;
-  smallScreen: boolean;
-  inResultsTable?: boolean;
-  showSourceColumn?: boolean;
-};
-
 export const processFeaturesData = (
   data: FeatureDatum[],
   primaryAccession: string,

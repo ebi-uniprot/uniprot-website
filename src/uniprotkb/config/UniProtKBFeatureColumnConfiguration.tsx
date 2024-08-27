@@ -11,6 +11,7 @@ import { getURLToJobWithData } from '../../app/config/urls';
 import externalUrls from '../../shared/config/externalUrls';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 
 import styles from './styles/uniprotkb-feature-column-configuration.module.scss';
 
@@ -19,9 +20,11 @@ import styles from './styles/uniprotkb-feature-column-configuration.module.scss'
 export type FeatureColumnConfiguration = {
   id: string;
   label: string;
-  filter?: (data, input) => boolean;
-  render: (data) => ReactNode;
-  optionAccessor?: (data: any) => any;
+  filter?: (data: ProcessedFeature, input: string) => boolean;
+  render: (data: ProcessedFeature) => ReactNode;
+  // Not currently used but if filtering on columns with a complex render fn needed
+  // then this will be handy to extract the value to filter on.
+  optionAccessor?: (data: ProcessedFeature) => string;
 };
 
 export const UniProtKBFeatureExtraContent = (data) => (
