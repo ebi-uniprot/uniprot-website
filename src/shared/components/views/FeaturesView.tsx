@@ -117,6 +117,7 @@ const FeaturesView = ({
 }: FeatureProps) => {
   const isSmallScreen = useSmallScreen();
   const [highlightedFeature, setHighlightedFeature] = useState();
+  const [nightingaleCoordinates, setNightingaleCoordinates] = useState();
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
@@ -125,6 +126,10 @@ const FeaturesView = ({
 
   const handleFeatureClick = useCallback((feature) => {
     setHighlightedFeature(feature);
+  }, []);
+
+  const handleNightingaleCoordinateChange = useCallback((coordinates) => {
+    setNightingaleCoordinates(coordinates);
   }, []);
 
   return features.length === 0 ? null : (
@@ -161,6 +166,7 @@ const FeaturesView = ({
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
             onFeatureClick={handleFeatureClick}
+            onCoordinateChange={handleNightingaleCoordinateChange}
             highlightedCoordinates={getHighlightedCoordinates(
               highlightedFeature
             )}
@@ -173,6 +179,7 @@ const FeaturesView = ({
         rowExtraContent={rowExtraContent}
         onRowClick={handleFeatureClick}
         highlightedFeature={highlightedFeature?.accession}
+        coordinates={nightingaleCoordinates}
       />
     </>
   );

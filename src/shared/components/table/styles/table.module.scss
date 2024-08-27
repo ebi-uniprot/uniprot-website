@@ -11,6 +11,7 @@
   margin: 1em 0;
   border-spacing: 0;
   border-block-end: 1px solid #c2c4c4;
+  border-collapse: collapse;
 
   & th {
     text-align: left;
@@ -46,6 +47,13 @@
         --protvista-datatable__active,
         rgba(255, 235, 59, 0.3)
       ) !important;
+    }
+  }
+
+  &.window {
+    &,
+    & + .extra-content {
+      border-left: 5px solid gray;
     }
   }
 

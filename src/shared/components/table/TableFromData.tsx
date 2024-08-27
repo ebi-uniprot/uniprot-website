@@ -39,6 +39,14 @@ const filterDatum = (datum, columns, filterValues) =>
       : true
   );
 
+const withinWindow = (trackWindow, featureStart, featureEnd) =>
+  trackWindow
+    ? (trackWindow['display-start'] <= featureStart &&
+        featureStart <= trackWindow['display-end']) ||
+      (trackWindow['display-start'] <= featureEnd &&
+        featureEnd <= trackWindow['display-end'])
+    : true;
+
 type ActionType = 'FILTER_SELECT';
 
 const reducer = (state, action) => {
@@ -60,6 +68,7 @@ const TableFromData = ({
   rowExtraContent,
   onRowClick,
   highlightedFeature,
+  coordinates,
 }) => {
   const [state, dispatch] = useReducer(reducer, { filters: {} });
   const columnIdToFilterOptions = useMemo(() => {
@@ -108,6 +117,11 @@ const TableFromData = ({
             onClick={() => onRowClick(datum)}
             className={cn({
               [styles.highlighted]: highlightedFeature === datum.accession,
+              [styles.window]: withinWindow(
+                coordinates,
+                datum.start,
+                datum.end
+              ),
             })}
           >
             <TableRowFromData datum={datum} columns={columns} />

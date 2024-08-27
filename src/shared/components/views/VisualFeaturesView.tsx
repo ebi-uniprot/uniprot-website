@@ -24,6 +24,7 @@ import { Dataset } from '../entry/EntryDownload';
 // import { GenericFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
+import NightingaleManager from '@nightingale-elements/nightingale-manager';
 
 type Props = {
   features: Feature[];
@@ -39,22 +40,42 @@ function VisualFeaturesView({
   trackHeight = 40,
   noLinkToFullView,
   onFeatureClick,
+  onCoordinateChange,
   highlightedCoordinates,
 }: Props) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
   const trackRef = useRef<NightingaleTrack>(null);
+  const managerRef = useRef<NightingaleManager>(null);
 
   useEffect(() => {
+    const eventHandler = (e: Event) => {
+      if (e.detail.eventType === 'click') {
+        onFeatureClick(e.detail.feature);
+      }
+    };
     if (trackRef.current) {
       trackRef.current.data = features;
-      trackRef.current.addEventListener('change', (e) => {
-        if (e.detail.eventType === 'click') {
-          onFeatureClick(e.detail.feature);
-        }
-      });
+      trackRef.current.addEventListener('change', eventHandler);
     }
+    return () => {
+      document.removeEventListener('change', eventHandler);
+    };
   }, [trackRef, features, onFeatureClick]);
+
+  useEffect(() => {
+    const eventHandler = (e: Event) => {
+      if (e.detail?.['display-start'] && e.detail?.['display-end']) {
+        onCoordinateChange(e.detail);
+      }
+    };
+    if (managerRef.current) {
+      managerRef.current.addEventListener('change', eventHandler);
+    }
+    return () => {
+      document.removeEventListener('change', eventHandler);
+    };
+  }, [managerRef, onCoordinateChange]);
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
@@ -95,6 +116,7 @@ function VisualFeaturesView({
         </Link>
       )}
       <NightingaleManagerComponent
+        ref={managerRef}
         reflected-attributes="highlight,display-start,display-end,selectedid"
         highlight={highlightedCoordinates}
       >
