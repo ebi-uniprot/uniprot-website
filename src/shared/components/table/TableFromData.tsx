@@ -74,9 +74,7 @@ const TableFromData = ({
     for (const column of columns) {
       if (column.filter) {
         columnIdToFilterOptions[column.id] = new Set(
-          data.map(
-            (datum) => column.optionAccessor?.(datum) || column.render(datum)
-          )
+          data.map((datum) => (column.optionAccessor || column.render)(datum))
         );
       }
     }

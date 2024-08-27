@@ -19,17 +19,11 @@ import Table from '../../../shared/components/table/Table';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
-import { getURLToJobWithData } from '../../../app/config/urls';
-import { stringToID } from '../../utils';
-import externalUrls from '../../../shared/config/externalUrls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
-import styles from './styles/uniprotkb-features-view.module.scss';
 import uniProtKBFeatureColumnConfiguration, {
   UniProtKBFeatureExtraContent,
 } from '../../config/UniProtKBFeatureColumnConfiguration';

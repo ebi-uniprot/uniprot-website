@@ -12,22 +12,9 @@ import externalUrls from '../../shared/config/externalUrls';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
-import featureViewStyles from '../components/protein-data-views/styles/uniprotkb-features-view.module.scss';
 import styles from './styles/uniprotkb-feature-column-configuration.module.scss';
 
 // TODO: use getLabelAndTooltip?
-
-type RenderArgs = {
-  data: any;
-  input: any;
-  primaryAccession: string;
-  showSourceColumn: boolean;
-};
-
-type FilterArgs = {
-  data: any;
-  input: any;
-};
 
 export type FeatureColumnConfiguration = {
   id: string;
@@ -118,7 +105,7 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration[] = [
         {!!data.confidenceScore && (
           <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
             <Chip
-              className={`secondary ${featureViewStyles[data.confidenceScore]}`}
+              className={`secondary ${styles[data.confidenceScore]}`}
               compact
             >
               {data.confidenceScore}
