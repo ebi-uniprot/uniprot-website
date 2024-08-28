@@ -12,7 +12,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </h2>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #00639a;"
+      style="--tile-background: var(--fr--color-uniprotkb);"
     >
       <a
         aria-hidden="true"
@@ -89,7 +89,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #e56358;"
+      style="--tile-background: var(--fr--color-proteomes);"
     >
       <a
         aria-hidden="true"
@@ -130,7 +130,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #f2994c;"
+      style="--tile-background: var(--fr--color-uniref);"
     >
       <a
         aria-hidden="true"
@@ -171,7 +171,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #88c19d;"
+      style="--tile-background: var(--fr--color-uniparc);"
     >
       <a
         aria-hidden="true"
@@ -621,7 +621,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </a>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #00A6D5;"
+      style="--tile-background: var(--fr--color-blast);"
     >
       <a
         aria-hidden="true"
@@ -657,7 +657,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #B8CE48;"
+      style="--tile-background: --fr--color-align;"
     >
       <a
         aria-hidden="true"
@@ -693,7 +693,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #357B92;"
+      style="--tile-background: var(--fr--color-id-mapping);"
     >
       <a
         aria-hidden="true"
@@ -729,7 +729,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #A748BD;"
+      style="--tile-background: var(--fr--color-peptide-search);"
     >
       <a
         aria-hidden="true"
@@ -917,7 +917,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </h2>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"
@@ -953,7 +953,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"
@@ -989,7 +989,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"
@@ -1025,7 +1025,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"

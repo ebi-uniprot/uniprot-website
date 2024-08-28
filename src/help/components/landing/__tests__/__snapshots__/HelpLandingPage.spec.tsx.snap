@@ -292,7 +292,7 @@ exports[`HelpLandingPage should render 1`] = `
             class="illustrated-list-tile__image"
           >
             <div
-              style="opacity: 0.8; color: rgb(40, 170, 80);"
+              style="opacity: 0.8;"
             >
               <test-file-stub />
             </div>

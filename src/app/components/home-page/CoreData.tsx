@@ -105,7 +105,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor="var(--fr--color-sea-blue)"
+      backgroundColor="var(--fr--color-uniprotkb)"
       link={<Link to={LocationToPath[Location.UniProtKBResults]} />}
       gradient
     >
