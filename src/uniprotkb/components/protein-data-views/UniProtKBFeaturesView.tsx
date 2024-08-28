@@ -165,7 +165,6 @@ const UniProtKBFeaturesView = ({
       features={processedData}
       sequence={sequence}
       columns={columns}
-      data={processedData}
       rowExtraContent={UniProtKBFeatureExtraContent}
       withTitle={!inResultsTable}
     />

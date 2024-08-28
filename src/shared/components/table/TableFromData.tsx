@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { Feature } from '@nightingale-elements/nightingale-track';
 import cn from 'classnames';
 
 import Table from './Table';
@@ -69,7 +70,7 @@ const withinWindow = (
         featureEnd <= nightingaleViewRange['display-end'])
     : true;
 
-type Column<T> = {
+export type Column<T> = {
   id: string;
   label: ReactNode;
   render: (datum: T) => ReactNode;
@@ -79,13 +80,7 @@ type Column<T> = {
 
 const OPTION_TYPES = new Set(['string', 'number']);
 
-type Datum = {
-  start: number;
-  end: number;
-  accession: string;
-};
-
-type Props<T extends Datum> = {
+type Props<T extends Feature> = {
   data: T[];
   columns: Column<T>[];
   rowExtraContent?: (datum: T) => React.ReactNode;
@@ -96,7 +91,7 @@ type Props<T extends Datum> = {
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
 
-function TableFromData<T extends Datum>({
+function TableFromData<T extends Feature>({
   data,
   columns,
   rowExtraContent,
@@ -163,11 +158,10 @@ function TableFromData<T extends Datum>({
             className={cn({
               [styles.highlighted]:
                 highlightedRow?.accession === datum.accession,
-              [styles.window]: withinWindow(
-                datum.start,
-                datum.end,
-                nightingaleViewRange
-              ),
+              [styles.window]:
+                datum.start &&
+                datum.end &&
+                withinWindow(datum.start, datum.end, nightingaleViewRange),
             })}
           >
             {columns.map((column) => (

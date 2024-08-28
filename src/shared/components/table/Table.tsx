@@ -153,7 +153,7 @@ const Row = ({
 
   const idRef = useRef(v1());
 
-  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+  const handleClick: MouseEventHandler<HTMLTableRowElement> = (event) => {
     onClick?.(event);
     if (
       hasExtraContent &&
