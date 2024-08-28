@@ -22,7 +22,7 @@ import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-import TableFromData from '../table/TableFromData';
+import TableFromData, { NightingaleViewRange } from '../table/TableFromData';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -69,7 +69,7 @@ export type Feature = {
 
 */
 export type ProcessedFeature = Feature & {
-  id?: string; // Used for the feature ID while "accession" is used as the UUID
+  id?: string; // Used for the feature ID eg PRO_0000381966 while Feature.accession used as the UUID
   start: number;
   end: number;
   startModifier?: LocationModifier;
@@ -88,21 +88,25 @@ export type ProcessedFeature = Feature & {
   ligandDescription?: string;
 };
 
-const getHighlightedCoordinates = (feature?: Feature) =>
-  feature?.start && feature?.end
-    ? `${feature.start}:${feature.end}`
-    : undefined;
+export type FeatureColumnConfiguration = {
+  id: string;
+  label: ReactNode;
+  filter?: (data: ProcessedFeature, input: string) => boolean;
+  render: (data: ProcessedFeature) => ReactNode;
+  optionAccessor?: (data: ProcessedFeature) => string | number; // Fallback if render fn doesn't return string or number
+};
 
 export type GenericFeature =
   | ProcessedFeature
   // | TransformedVariant // TODO: do we need this here?
   | UniParcProcessedFeature;
 
-type FeatureProps = {
-  features: GenericFeature[];
-  table: JSX.Element;
-  trackHeight?: number;
+type FeatureViewProps = {
   sequence?: string;
+  features: GenericFeature[];
+  rowExtraContent: (datum: ProcessedFeature) => ReactNode;
+  columns: FeatureColumnConfiguration[];
+  trackHeight?: number;
   withTitle?: boolean;
   noLinkToFullView?: boolean;
 };
@@ -115,10 +119,11 @@ const FeaturesView = ({
   trackHeight,
   withTitle = true,
   noLinkToFullView,
-}: FeatureProps) => {
+}: FeatureViewProps) => {
   const isSmallScreen = useSmallScreen();
   const [highlightedFeature, setHighlightedFeature] = useState();
-  const [nightingaleCoordinates, setNightingaleCoordinates] = useState();
+  const [nightingaleViewRange, setNightingaleViewRange] =
+    useState<NightingaleViewRange>();
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
@@ -129,9 +134,12 @@ const FeaturesView = ({
     setHighlightedFeature(feature);
   }, []);
 
-  const handleNightingaleCoordinateChange = useCallback((coordinates) => {
-    setNightingaleCoordinates(coordinates);
-  }, []);
+  const handleViewRangeChange = useCallback(
+    (coordinates: NightingaleViewRange) => {
+      setNightingaleViewRange(coordinates);
+    },
+    []
+  );
 
   return features.length === 0 ? null : (
     <>
@@ -167,10 +175,8 @@ const FeaturesView = ({
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
             onFeatureClick={handleFeatureClick}
-            onCoordinateChange={handleNightingaleCoordinateChange}
-            highlightedCoordinates={getHighlightedCoordinates(
-              highlightedFeature
-            )}
+            onViewRangeChange={handleViewRangeChange}
+            highlightedFeature={highlightedFeature}
           />
         </LazyComponent>
       )}
@@ -180,7 +186,7 @@ const FeaturesView = ({
         rowExtraContent={rowExtraContent}
         onRowClick={handleFeatureClick}
         highlightedRow={highlightedFeature}
-        windowRange={nightingaleCoordinates}
+        nightingaleViewRange={nightingaleViewRange}
       />
     </>
   );

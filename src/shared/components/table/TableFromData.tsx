@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 import cn from 'classnames';
 
 import Table from './Table';
@@ -52,27 +52,32 @@ function filterDatum<T>(
   });
 }
 
-type WindowRange = { 'display-start': number; 'display-end': number };
+export type NightingaleViewRange = {
+  'display-start': number;
+  'display-end': number;
+};
 
 const withinWindow = (
   featureStart: number,
   featureEnd: number,
-  windowRange?: WindowRange
+  nightingaleViewRange?: NightingaleViewRange
 ) =>
-  windowRange
-    ? (windowRange['display-start'] <= featureStart &&
-        featureStart <= windowRange['display-end']) ||
-      (windowRange['display-start'] <= featureEnd &&
-        featureEnd <= windowRange['display-end'])
+  nightingaleViewRange
+    ? (nightingaleViewRange['display-start'] <= featureStart &&
+        featureStart <= nightingaleViewRange['display-end']) ||
+      (nightingaleViewRange['display-start'] <= featureEnd &&
+        featureEnd <= nightingaleViewRange['display-end'])
     : true;
 
 type Column<T> = {
   id: string;
-  label: string;
-  render: (datum: T) => React.ReactNode;
+  label: ReactNode;
+  render: (datum: T) => ReactNode;
   filter?: (datum: T, filterValue: string) => boolean;
-  optionAccessor?: (datum: T) => string;
+  optionAccessor?: (datum: T) => string | number;
 };
+
+const OPTION_TYPES = new Set(['string', 'number']);
 
 type Datum = {
   start: number;
@@ -86,7 +91,7 @@ type Props<T extends Datum> = {
   rowExtraContent?: (datum: T) => React.ReactNode;
   onRowClick?: (datum: T) => void;
   highlightedRow?: T;
-  windowRange?: WindowRange;
+  nightingaleViewRange?: NightingaleViewRange;
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -97,7 +102,7 @@ function TableFromData<T extends Datum>({
   rowExtraContent,
   onRowClick,
   highlightedRow,
-  windowRange,
+  nightingaleViewRange,
 }: Props<T>) {
   const [columnsToSelectedOption, setColumnsToSelectedOption] =
     useState<ColumnsToSelectedFilter>({});
@@ -109,7 +114,7 @@ function TableFromData<T extends Datum>({
           data
             .map((datum) => {
               const r = (column.optionAccessor || column.render)(datum);
-              return typeof r === 'string' ? r : null;
+              return OPTION_TYPES.has(typeof r) ? r : null;
             })
             .filter((datum): datum is string => datum !== null)
         );
@@ -161,7 +166,7 @@ function TableFromData<T extends Datum>({
               [styles.window]: withinWindow(
                 datum.start,
                 datum.end,
-                windowRange
+                nightingaleViewRange
               ),
             })}
           >

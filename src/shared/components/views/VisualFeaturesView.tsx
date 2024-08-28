@@ -22,9 +22,14 @@ import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents'
 import { TabLocation } from '../../../uniprotkb/types/entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
-// import { GenericFeature } from './FeaturesView';
+import { NightingaleViewRange } from '../table/TableFromData';
 
 import styles from './styles/visual-features-view.module.scss';
+
+const getHighlightedCoordinates = (feature?: Feature) =>
+  feature?.start && feature?.end
+    ? `${feature.start}:${feature.end}`
+    : undefined;
 
 type Props = {
   features: Feature[];
@@ -32,6 +37,8 @@ type Props = {
   trackHeight?: number;
   noLinkToFullView?: boolean;
   onFeatureClick: (feature: Feature) => void;
+  onViewRangeChange: (range: NightingaleViewRange) => void;
+  highlightedFeature?: Feature;
 };
 
 function VisualFeaturesView({
@@ -40,8 +47,8 @@ function VisualFeaturesView({
   trackHeight = 40,
   noLinkToFullView,
   onFeatureClick,
-  onCoordinateChange,
-  highlightedCoordinates,
+  onViewRangeChange,
+  highlightedFeature,
 }: Props) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
@@ -68,7 +75,7 @@ function VisualFeaturesView({
       e: CustomEvent<{ 'display-start': number; 'display-end': number }>
     ) => {
       if (e.detail?.['display-start'] && e.detail?.['display-end']) {
-        onCoordinateChange(e.detail);
+        onViewRangeChange(e.detail);
       }
     };
     if (managerRef.current) {
@@ -77,7 +84,7 @@ function VisualFeaturesView({
     return () => {
       document.removeEventListener('change', eventHandler);
     };
-  }, [managerRef, onCoordinateChange]);
+  }, [managerRef, onViewRangeChange]);
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
@@ -120,7 +127,7 @@ function VisualFeaturesView({
       <NightingaleManagerComponent
         ref={managerRef}
         reflected-attributes="highlight,display-start,display-end,selectedid"
-        highlight={highlightedCoordinates} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
+        highlight={getHighlightedCoordinates(highlightedFeature)} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
       >
         <NightingaleNavigationComponent length={sequence.length} height={40} />
         <NightingalTrackComponent

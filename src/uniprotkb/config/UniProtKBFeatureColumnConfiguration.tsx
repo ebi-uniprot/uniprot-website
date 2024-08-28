@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Button, Card, Chip, ExternalLink } from 'franklin-sites';
 
 import PtmExchangeEvidenceTag from '../components/protein-data-views/PtmExchangeEvidenceTag';
@@ -11,23 +10,16 @@ import { getURLToJobWithData } from '../../app/config/urls';
 import externalUrls from '../../shared/config/externalUrls';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import {
+  FeatureColumnConfiguration,
+  ProcessedFeature,
+} from '../../shared/components/views/FeaturesView';
 
 import styles from './styles/uniprotkb-feature-column-configuration.module.scss';
 
 // TODO: use getLabelAndTooltip?
 
-export type FeatureColumnConfiguration = {
-  id: string;
-  label: ReactNode;
-  filter?: (data: ProcessedFeature, input: string) => boolean;
-  render: (data: ProcessedFeature) => ReactNode;
-  // Not currently used but if filtering on columns with a complex render fn needed
-  // then this will be handy to extract the value to filter on.
-  optionAccessor?: (data: ProcessedFeature) => string | number;
-};
-
-export const UniProtKBFeatureExtraContent = (data) => (
+export const UniProtKBFeatureExtraContent = (data: ProcessedFeature) => (
   <td colSpan={6}>
     <Card className={styles.sequence}>
       <strong>Sequence: </strong>
