@@ -64,7 +64,9 @@ function VisualFeaturesView({
   }, [trackRef, features, onFeatureClick]);
 
   useEffect(() => {
-    const eventHandler = (e: Event) => {
+    const eventHandler = (
+      e: CustomEvent<{ 'display-start': number; 'display-end': number }>
+    ) => {
       if (e.detail?.['display-start'] && e.detail?.['display-end']) {
         onCoordinateChange(e.detail);
       }
@@ -118,7 +120,7 @@ function VisualFeaturesView({
       <NightingaleManagerComponent
         ref={managerRef}
         reflected-attributes="highlight,display-start,display-end,selectedid"
-        highlight={highlightedCoordinates}
+        highlight={highlightedCoordinates} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
       >
         <NightingaleNavigationComponent length={sequence.length} height={40} />
         <NightingalTrackComponent

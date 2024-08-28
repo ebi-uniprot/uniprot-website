@@ -17,9 +17,11 @@ import styles from './styles/table.module.scss';
 const Table = ({
   children,
   className,
+  collapsible,
   ...props
-}: HTMLAttributes<HTMLTableElement>) => (
-  <div className={styles.container}>
+}: HTMLAttributes<HTMLTableElement> & { collapsible?: boolean }) => (
+  // TODO: add all of the logic for the expand table possibly in a custom hook. copy/paste from
+  <div className={cn(styles.container)}>
     <table className={cn(styles.table, className)} {...props}>
       {children}
     </table>

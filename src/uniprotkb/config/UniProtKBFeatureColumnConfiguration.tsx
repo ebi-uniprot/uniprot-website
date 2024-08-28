@@ -19,12 +19,12 @@ import styles from './styles/uniprotkb-feature-column-configuration.module.scss'
 
 export type FeatureColumnConfiguration = {
   id: string;
-  label: string;
+  label: ReactNode;
   filter?: (data: ProcessedFeature, input: string) => boolean;
   render: (data: ProcessedFeature) => ReactNode;
   // Not currently used but if filtering on columns with a complex render fn needed
   // then this will be handy to extract the value to filter on.
-  optionAccessor?: (data: ProcessedFeature) => string;
+  optionAccessor?: (data: ProcessedFeature) => string | number;
 };
 
 export const UniProtKBFeatureExtraContent = (data) => (

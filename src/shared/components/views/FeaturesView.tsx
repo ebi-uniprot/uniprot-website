@@ -179,8 +179,8 @@ const FeaturesView = ({
         columns={columns}
         rowExtraContent={rowExtraContent}
         onRowClick={handleFeatureClick}
-        highlightedFeature={highlightedFeature?.accession}
-        coordinates={nightingaleCoordinates}
+        highlightedRow={highlightedFeature}
+        windowRange={nightingaleCoordinates}
       />
     </>
   );

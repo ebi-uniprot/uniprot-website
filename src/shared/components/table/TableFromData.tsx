@@ -7,60 +7,111 @@ import styles from './styles/table.module.scss';
 
 const UNFILTERED_OPTION = 'All' as const;
 
-const TableHeaderFromData = ({ column, options, onFilterChange }) => (
-  <th>
-    {column.label}
-    {options && (
-      <>
-        <br />
-        <select
-          style={{ width: 'fit-content' }}
-          onChange={(e) => onFilterChange(column.id, e.target.value)}
-        >
-          {[UNFILTERED_OPTION, ...options].map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </>
-    )}
-  </th>
-);
-
-const TableRowFromData = ({ datum, columns }) =>
-  columns.map((column) => <td key={column.id}>{column.render(datum)}</td>);
-
-const filterDatum = (datum, columns, filterValues) =>
-  columns.every((column) =>
-    filterValues[column.id]
-      ? column.filter(datum, filterValues[column.id])
-      : true
+type TableHeaderFromDataProps<T> = {
+  column: Column<T>;
+  options?: Set<string>;
+  onFilterChange: (columnId: string, filterValue: string) => void;
+};
+function TableHeaderFromData<T>({
+  column,
+  options,
+  onFilterChange,
+}: TableHeaderFromDataProps<T>) {
+  return (
+    <th>
+      {column.label}
+      {options && (
+        <>
+          <br />
+          <select
+            style={{ width: 'fit-content' }}
+            onChange={(e) => onFilterChange(column.id, e.target.value)}
+          >
+            {[UNFILTERED_OPTION, ...options].map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
+    </th>
   );
+}
 
-const withinWindow = (trackWindow, featureStart, featureEnd) =>
-  trackWindow
-    ? (trackWindow['display-start'] <= featureStart &&
-        featureStart <= trackWindow['display-end']) ||
-      (trackWindow['display-start'] <= featureEnd &&
-        featureEnd <= trackWindow['display-end'])
+function filterDatum<T>(
+  datum: T,
+  columns: Column<T>[],
+  filterValues: ColumnsToSelectedFilter
+) {
+  return columns.every((column) => {
+    const filterValue = filterValues[column.id];
+    return typeof filterValue !== 'undefined' && column.filter
+      ? column.filter(datum, filterValue)
+      : true;
+  });
+}
+
+type WindowRange = { 'display-start': number; 'display-end': number };
+
+const withinWindow = (
+  featureStart: number,
+  featureEnd: number,
+  windowRange?: WindowRange
+) =>
+  windowRange
+    ? (windowRange['display-start'] <= featureStart &&
+        featureStart <= windowRange['display-end']) ||
+      (windowRange['display-start'] <= featureEnd &&
+        featureEnd <= windowRange['display-end'])
     : true;
 
-const TableFromData = ({
+type Column<T> = {
+  id: string;
+  label: string;
+  render: (datum: T) => React.ReactNode;
+  filter?: (datum: T, filterValue: string) => boolean;
+  optionAccessor?: (datum: T) => string;
+};
+
+type Datum = {
+  start: number;
+  end: number;
+  accession: string;
+};
+
+type Props<T extends Datum> = {
+  data: T[];
+  columns: Column<T>[];
+  rowExtraContent?: (datum: T) => React.ReactNode;
+  onRowClick?: (datum: T) => void;
+  highlightedRow?: T;
+  windowRange?: WindowRange;
+};
+
+type ColumnsToSelectedFilter = Record<string, string | undefined>;
+
+function TableFromData<T extends Datum>({
   data,
   columns,
   rowExtraContent,
   onRowClick,
-  highlightedFeature,
-  coordinates,
-}) => {
-  const [filters, setFilters] = useState({});
+  highlightedRow,
+  windowRange,
+}: Props<T>) {
+  const [columnsToSelectedOption, setColumnsToSelectedOption] =
+    useState<ColumnsToSelectedFilter>({});
   const columnIdToFilterOptions = useMemo(() => {
-    const columnIdToFilterOptions = {};
+    const columnIdToFilterOptions: Record<string, Set<string>> = {};
     for (const column of columns) {
       if (column.filter) {
         columnIdToFilterOptions[column.id] = new Set(
-          data.map((datum) => (column.optionAccessor || column.render)(datum))
+          data
+            .map((datum) => {
+              const r = (column.optionAccessor || column.render)(datum);
+              return typeof r === 'string' ? r : null;
+            })
+            .filter((datum): datum is string => datum !== null)
         );
       }
     }
@@ -68,18 +119,21 @@ const TableFromData = ({
   }, [columns, data]);
 
   const handleFilterChange = useCallback(
-    (columnId, value) => {
-      setFilters((f) => ({
+    (columnId: string, value: string) => {
+      setColumnsToSelectedOption((f) => ({
         ...f,
         [columnId]: value === UNFILTERED_OPTION ? undefined : value,
       }));
     },
-    [setFilters]
+    [setColumnsToSelectedOption]
   );
 
   const filteredData = useMemo(
-    () => data.filter((datum) => filterDatum(datum, columns, filters)),
-    [columns, data, filters]
+    () =>
+      data.filter((datum) =>
+        filterDatum(datum, columns, columnsToSelectedOption)
+      ),
+    [columns, data, columnsToSelectedOption]
   );
 
   return (
@@ -97,26 +151,28 @@ const TableFromData = ({
       <Table.Body>
         {filteredData.map((datum, index) => (
           <Table.Row
-            isOdd={index % 2}
-            extraContent={rowExtraContent(datum)}
-            key={index}
-            onClick={() => onRowClick(datum)}
-            // TODO: generalize this to allow consumer to provide own function
+            isOdd={Boolean(index % 2)}
+            extraContent={rowExtraContent?.(datum)}
+            key={datum.accession}
+            onClick={() => onRowClick?.(datum)}
             className={cn({
-              [styles.highlighted]: highlightedFeature === datum.accession,
+              [styles.highlighted]:
+                highlightedRow?.accession === datum.accession,
               [styles.window]: withinWindow(
-                coordinates,
                 datum.start,
-                datum.end
+                datum.end,
+                windowRange
               ),
             })}
           >
-            <TableRowFromData datum={datum} columns={columns} />
+            {columns.map((column) => (
+              <td key={column.id}>{column.render(datum)}</td>
+            ))}
           </Table.Row>
         ))}
       </Table.Body>
     </Table>
   );
-};
+}
 
 export default TableFromData;
