@@ -9,10 +9,7 @@ import {
 } from 'react';
 import { generatePath, useHistory, useLocation } from 'react-router-dom';
 import { frame } from 'timing-functions';
-import { PageIntro, Loader, Button, Message } from 'franklin-sites';
-
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
+import { Loader, Button, Message } from 'franklin-sites';
 
 import ClauseList from './ClauseList';
 
@@ -111,7 +108,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const style = useMemo<Style>(
     () => ({
       // change color of all buttons within this element to match the namespace
-      '--main-button-color': (colors as Record<string, string>)[searchspace],
+      '--main-button-color': `var(--fr--color-${searchspace}, var(--fr--color-sea-blue))`,
     }),
     [searchspace]
   );
@@ -240,12 +237,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   }, [fieldToAdd, clauses]);
 
   if (loading) {
-    return (
-      <>
-        <PageIntro heading="Query builder" />
-        <Loader />
-      </>
-    );
+    return <Loader />;
   }
 
   if ((namespace && !searchTermsData) || !searchspace) {

@@ -2,9 +2,6 @@ import { Tile, HeroContainer } from 'franklin-sites';
 import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import { LocationToPath, Location } from '../../config/urls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 
@@ -43,7 +40,7 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
+      backgroundColor="var(--fr--color-independence)"
       // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-has-content
       link={<a href={ftpUrls.uniprot} />}
       gradient
@@ -66,7 +63,7 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
+      backgroundColor="var(--fr--color-independence)"
       link={
         <Link
           to={generatePath(LocationToPath[Location.HelpEntry], {
@@ -94,7 +91,7 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
+      backgroundColor="var(--fr--color-independence)"
       link={
         <Link
           to={generatePath(LocationToPath[Location.HelpEntry], {
@@ -122,7 +119,7 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
+      backgroundColor="var(--fr--color-independence)"
       link={
         <Link
           to={generatePath(LocationToPath[Location.HelpEntry], {

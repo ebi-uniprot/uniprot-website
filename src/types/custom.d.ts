@@ -37,11 +37,11 @@ declare module '*.jpeg' {
 // NOTE: this will not catch keys/classnames that do not exist in the stylesheet
 declare module '*.module.scss' {
   const classes: { [key: string]: string };
-  export default classes;
+  export = classes;
 }
 declare module '*.module.css' {
   const classes: { [key: string]: string };
-  export default classes;
+  export = classes;
 }
 
 // Just for one test file

@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
 import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import HelpQuickSearch from './HelpQuickSearch';
 import Contact from '../../../shared/components/layouts/Contact';
 import IllustratedListTile, {
@@ -162,7 +159,7 @@ const tileData: IllustratedListTileProps[] = [
       <div
         style={{
           opacity: 0.8, // To match the rest of the SVGs
-          color: colors.helpGreen,
+          color: 'var(--fr--color-help-green)',
         }}
       >
         <CommunityAnnotationIcon />

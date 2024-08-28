@@ -5,9 +5,6 @@ import '@swissprot/swissbiopics-visualizer';
 import { groupBy } from 'lodash-es';
 import { RequireExactlyOne } from 'type-fest';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
 import 'tippy.js/dist/tippy.css';
@@ -295,7 +292,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
         ${lookedAt.join(',')} {
           stroke: black !important;
-          fill: ${colors.seaBlue} !important;
+          fill: var(--fr--color-sea-blue) !important;
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {

@@ -2,9 +2,6 @@ import { Tile, HeroContainer, ToolboxIcon } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import BlastIllustration from '../../../images/blast_illustration.img.svg';
 import AlignIllustration from '../../../images/align_illustration.img.svg';
 import IDMappingIllustration from '../../../images/id-mapping_illustration.img.svg';
@@ -53,7 +50,7 @@ const AnalysisTools = () => (
           alt=""
         />
       }
-      backgroundColor={colors.blast}
+      backgroundColor="var(--fr--color-blast)"
       link={<Link to={jobTypeToPath(JobTypes.BLAST)} />}
       gradient
     >
@@ -74,7 +71,7 @@ const AnalysisTools = () => (
           alt=""
         />
       }
-      backgroundColor={colors.align}
+      backgroundColor="--fr--color-align"
       link={<Link to={jobTypeToPath(JobTypes.ALIGN)} />}
       gradient
     >
@@ -94,7 +91,7 @@ const AnalysisTools = () => (
           alt=""
         />
       }
-      backgroundColor={colors.idMapping}
+      backgroundColor="var(--fr--color-id-mapping)"
       link={<Link to={jobTypeToPath(JobTypes.ID_MAPPING)} />}
       gradient
     >
@@ -114,7 +111,7 @@ const AnalysisTools = () => (
           alt=""
         />
       }
-      backgroundColor={colors.peptideSearch}
+      backgroundColor="var(--fr--color-peptide-search)"
       link={<Link to={jobTypeToPath(JobTypes.PEPTIDE_SEARCH)} />}
       gradient
     >
