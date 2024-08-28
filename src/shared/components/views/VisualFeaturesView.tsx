@@ -55,9 +55,14 @@ function VisualFeaturesView({
   const trackRef = useRef<NightingaleTrack>(null);
   const managerRef = useRef<NightingaleManager>(null);
 
+  // NightingaleTrack data loading and feature click event handler
   useEffect(() => {
-    const eventHandler = (e: Event) => {
-      if (e.detail.eventType === 'click') {
+    const eventHandler = (
+      e: CustomEvent<
+        NightingaleViewRange & { eventType: 'click'; feature: Feature }
+      >
+    ) => {
+      if (e.detail.eventType === 'click' && e.detail.feature) {
         onFeatureClick(e.detail.feature);
       }
     };
@@ -70,10 +75,9 @@ function VisualFeaturesView({
     };
   }, [trackRef, features, onFeatureClick]);
 
+  // NightingaleManager view range event handler
   useEffect(() => {
-    const eventHandler = (
-      e: CustomEvent<{ 'display-start': number; 'display-end': number }>
-    ) => {
+    const eventHandler = (e: CustomEvent<NightingaleViewRange>) => {
       if (e.detail?.['display-start'] && e.detail?.['display-end']) {
         onViewRangeChange(e.detail);
       }
