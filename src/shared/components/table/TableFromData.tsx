@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { Message } from 'franklin-sites';
 import { Feature } from '@nightingale-elements/nightingale-track';
 import cn from 'classnames';
 
@@ -148,27 +149,40 @@ function TableFromData<T extends Feature>({
           />
         ))}
       </Table.Head>
+
       <Table.Body>
-        {filteredData.map((datum, index) => (
-          <Table.Row
-            isOdd={Boolean(index % 2)}
-            extraContent={rowExtraContent?.(datum)}
-            key={datum.accession}
-            onClick={() => onRowClick?.(datum)}
-            className={cn({
-              [styles.highlighted]:
-                highlightedRow?.accession === datum.accession,
-              [styles.window]:
-                datum.start &&
-                datum.end &&
-                withinWindow(datum.start, datum.end, nightingaleViewRange),
-            })}
-          >
-            {columns.map((column) => (
-              <td key={column.id}>{column.render(datum)}</td>
-            ))}
-          </Table.Row>
-        ))}
+        {filteredData.length ? (
+          filteredData.map((datum, index) => (
+            <Table.Row
+              isOdd={Boolean(index % 2)}
+              extraContent={rowExtraContent?.(datum)}
+              key={datum.accession}
+              onClick={() => onRowClick?.(datum)}
+              className={cn({
+                [styles.highlighted]:
+                  highlightedRow?.accession === datum.accession,
+                [styles.window]:
+                  datum.start &&
+                  datum.end &&
+                  withinWindow(datum.start, datum.end, nightingaleViewRange),
+              })}
+            >
+              {columns.map((column) => (
+                <td key={column.id}>{column.render(datum)}</td>
+              ))}
+            </Table.Row>
+          ))
+        ) : (
+          <tr>
+            <td
+              colSpan={columns.length + +(typeof rowExtraContent !== undefined)}
+            >
+              <Message level="warning" className={styles['message--no-data']}>
+                No data matches selected filters
+              </Message>
+            </td>
+          </tr>
+        )}
       </Table.Body>
     </Table>
   );

@@ -113,3 +113,7 @@
 .row:has(+ .extra-content:hover) {
   background-color: var(--protvista-datatable__hover, #f1f1f1);
 }
+
+.message--no-data {
+  margin: 0.5rem;
+}
