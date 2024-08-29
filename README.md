@@ -12,10 +12,11 @@ Steps:
 3. `git pull origin ux`
 4. `git fetch`
 5. `git merge origin/main`
-6. `rm -rf node_modules; yarn; yarn build:ux-netlify`
+6. `rm -rf node_modules; yarn; yarn test; yarn build:ux-netlify`
 7. Make sure netlify.toml is in the build directory: `cat build/netlify.toml`
 8. Upload the `build` directory to netlify: drag and drop the folder to Deploys
 9. Double check to make sure you can see yourself by visiting the new netlify (eg https://uniprot-glossy.netlify.app/) within a browser without ad blocking and observe your activity in [google analytics real time for the ux branch](https://analytics.google.com/analytics/web/#/p377516108/realtime/overview)
+10. Optional step: to now update the ux git branch / wwwdev website with the newly merged main branch changes: `git push origin ux`
 
 ### Installing JavaScript Dependencies
 
