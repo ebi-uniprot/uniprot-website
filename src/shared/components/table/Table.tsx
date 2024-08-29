@@ -5,12 +5,17 @@ import {
   MouseEventHandler,
   ReactNode,
   useCallback,
+  useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
+import { useParams } from 'react-router-dom';
 import { Button, ControlledDropdown } from 'franklin-sites';
 import cn from 'classnames';
 import { v1 } from 'uuid';
+
+import { sendGtagEventFeatureDataTableViewClick } from '../../utils/gtagEvents';
 
 import styles from './styles/table.module.scss';
 
@@ -19,14 +24,81 @@ const Table = ({
   className,
   collapsible,
   ...props
-}: HTMLAttributes<HTMLTableElement> & { collapsible?: boolean }) => (
-  // TODO: add all of the logic for the expand table possibly in a custom hook. copy/paste from
-  <div className={cn(styles.container)}>
-    <table className={cn(styles.table, className)} {...props}>
-      {children}
-    </table>
-  </div>
-);
+}: HTMLAttributes<HTMLTableElement> & { collapsible?: boolean }) => {
+  const [showButton, setShowButton] = useState(collapsible);
+  const [expandTable, setExpandTable] = useState<boolean | null>(null);
+  const params = useParams<{ accession?: string }>();
+  const tableRef = useRef<HTMLTableElement>(null);
+  const firstRenderRef = useRef(true);
+  // On expand/collapse change
+  useEffect(() => {
+    // except on first render or when always expanded
+    if (collapsible && !firstRenderRef.current) {
+      // Scroll table back into view when collapsing
+      if (expandTable === false) {
+        tableRef.current?.parentElement?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }
+      sendGtagEventFeatureDataTableViewClick(
+        params.accession || '',
+        expandTable ? 'expanded' : 'collapsed'
+      );
+    }
+    // If first render was previous render, then it's not the first anymore...
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+    }
+  }, [collapsible, expandTable, params.accession]);
+
+  // eslint-disable-next-line consistent-return
+  useLayoutEffect(() => {
+    if (collapsible && tableRef.current) {
+      const mo = new MutationObserver(() => {
+        setShowButton(
+          tableRef.current?.shadowRoot?.firstElementChild?.scrollHeight !==
+            tableRef.current?.shadowRoot?.firstElementChild?.clientHeight
+        );
+      });
+      mo.observe(tableRef.current, {
+        childList: true,
+        // Allows to update when classes are applied to hide some rows
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true,
+      });
+      return () => mo.disconnect();
+    }
+  }, [collapsible]);
+
+  return (
+    <>
+      <div
+        className={cn(styles.container, {
+          [styles.collapsed]: collapsible && !expandTable,
+        })}
+      >
+        <table
+          className={cn(styles.table, className)}
+          {...props}
+          ref={tableRef}
+        >
+          {children}
+        </table>
+      </div>
+      {(showButton || expandTable) && (
+        <Button
+          variant="primary"
+          onClick={() => setExpandTable((current) => !current)}
+          className={styles['toggle-button']}
+        >
+          {expandTable ? 'Collapse' : 'Expand'} table
+        </Button>
+      )}
+    </>
+  );
+};
 
 type HeadProps = HTMLAttributes<HTMLTableSectionElement> & {
   toggleAll?: boolean;

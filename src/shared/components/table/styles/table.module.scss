@@ -1,8 +1,17 @@
+.toggle-button {
+  float: right;
+  margin-top: 0.5rem;
+}
+
 .container {
   overflow-y: auto;
   width: calc(100% + 2em);
   padding-inline: 1em;
   margin-inline-start: -1em;
+
+  &.collapsed {
+    height: 25rem;
+  }
 }
 
 .table {
