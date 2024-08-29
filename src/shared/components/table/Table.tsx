@@ -5,98 +5,53 @@ import {
   MouseEventHandler,
   ReactNode,
   useCallback,
-  useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
-import { useParams } from 'react-router-dom';
 import { Button, ControlledDropdown } from 'franklin-sites';
 import cn from 'classnames';
 import { v1 } from 'uuid';
 
-import { sendGtagEventFeatureDataTableViewClick } from '../../utils/gtagEvents';
+import useExpandTable from '../../hooks/useExpandTable';
 
 import styles from './styles/table.module.scss';
 
 const Table = ({
   children,
   className,
-  collapsible,
+  expandable,
   ...props
-}: HTMLAttributes<HTMLTableElement> & { collapsible?: boolean }) => {
-  const [showButton, setShowButton] = useState(collapsible);
-  const [expandTable, setExpandTable] = useState<boolean | null>(null);
-  const params = useParams<{ accession?: string }>();
-  const tableRef = useRef<HTMLTableElement>(null);
-  const firstRenderRef = useRef(true);
-  // On expand/collapse change
-  useEffect(() => {
-    // except on first render or when always expanded
-    if (collapsible && !firstRenderRef.current) {
-      // Scroll table back into view when collapsing
-      if (expandTable === false) {
-        tableRef.current?.parentElement?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }
-      sendGtagEventFeatureDataTableViewClick(
-        params.accession || '',
-        expandTable ? 'expanded' : 'collapsed'
-      );
-    }
-    // If first render was previous render, then it's not the first anymore...
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-    }
-  }, [collapsible, expandTable, params.accession]);
+}: HTMLAttributes<HTMLTableElement> & { expandable?: boolean }) => {
+  const [containerRef, expandTable, setExpandTable, showButton] =
+    useExpandTable(expandable);
 
-  // eslint-disable-next-line consistent-return
-  useLayoutEffect(() => {
-    if (collapsible && tableRef.current) {
-      const mo = new MutationObserver(() => {
-        setShowButton(
-          tableRef.current?.shadowRoot?.firstElementChild?.scrollHeight !==
-            tableRef.current?.shadowRoot?.firstElementChild?.clientHeight
-        );
-      });
-      mo.observe(tableRef.current, {
-        childList: true,
-        // Allows to update when classes are applied to hide some rows
-        attributes: true,
-        attributeFilter: ['class'],
-        subtree: true,
-      });
-      return () => mo.disconnect();
-    }
-  }, [collapsible]);
-
-  return (
-    <>
+  return expandable ? (
+    <div>
       <div
+        ref={containerRef}
         className={cn(styles.container, {
-          [styles.collapsed]: collapsible && !expandTable,
+          [styles.collapsed]: expandable && !expandTable,
         })}
       >
-        <table
-          className={cn(styles.table, className)}
-          {...props}
-          ref={tableRef}
-        >
+        <table className={cn(styles.table, className)} {...props}>
           {children}
         </table>
       </div>
       {(showButton || expandTable) && (
-        <Button
-          variant="primary"
-          onClick={() => setExpandTable((current) => !current)}
-          className={styles['toggle-button']}
-        >
-          {expandTable ? 'Collapse' : 'Expand'} table
-        </Button>
+        <div className={styles['expand-button-container']}>
+          <Button
+            variant="primary"
+            onClick={() => setExpandTable((current) => !current)}
+          >
+            {expandTable ? 'Collapse' : 'Expand'} table
+          </Button>
+        </div>
       )}
-    </>
+    </div>
+  ) : (
+    <table className={cn(styles.table, className)} {...props}>
+      {children}
+    </table>
   );
 };
 
@@ -116,8 +71,8 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
       const buttons = button
         .closest('table')
         ?.querySelectorAll<HTMLButtonElement>(
-          // get only the direct children, not the ones within another inner table
-          // and use td:first-child to avoid selecting publication tags
+          // get only the direct children, not the ones within another inner table and
+          // use td:first-child to avoid selecting publication tags if present in the row
           `:scope > tbody > tr > td:first-child > button[aria-expanded="${!expand}"]`
         );
       for (const button of buttons || []) {

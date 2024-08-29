@@ -137,7 +137,7 @@ function TableFromData<T extends Feature>({
   );
 
   return (
-    <Table collapsible>
+    <Table expandable>
       <Table.Head toggleAll>
         {columns.map((column) => (
           <TableHeaderFromData
