@@ -10,10 +10,8 @@ export const iconSize = 19;
 // TODO: use own zoom tool here
 
 const NightingaleZoomTool = ({
-  length,
   onZoom,
 }: {
-  length: number;
   onZoom?: (x: ZoomOperations) => void;
 }) => (
   <>

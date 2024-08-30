@@ -239,8 +239,6 @@ const BlastSummaryHsps = ({
   );
 };
 
-type QueryNodeData = { start: number; end: number };
-
 type BlastResultTableProps = {
   data: BlastResults | null;
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;

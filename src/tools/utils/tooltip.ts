@@ -1,32 +1,38 @@
+import { Variant } from '@nightingale-elements/nightingale-variation/dist/proteinAPI';
+
 import * as logging from '../../shared/utils/logging';
 
 import ecoMap from '../config/tooltipEvidences';
 
-const formatSource = (source) =>
+import { ProteomicsPtmFeature, PTM } from '../../uniprotkb/types/proteomicsPtm';
+import { Evidence, Source, TooltipFeature } from './feature';
+
+const formatSource = (source: Source) =>
   source.name?.toLowerCase() === 'PubMed'.toLowerCase()
     ? `${source.id}&nbsp;(<a href='${source.url}' style="color:#FFF" target='_blank'>${source.name}</a>&nbsp;<a href='${source.alternativeUrl}' style="color:#FFF" target='_blank'>EuropePMC</a>)`
     : `&nbsp;<a href='${source.url}' style="color:#FFF" target='_blank'>${
         source.id
       }</a>&nbsp;${source.name ? `(${source.name})` : ''}`;
 
-export const getEvidenceFromCodes = (evidenceList) => {
-  if (!evidenceList) return ``;
-  return `
+export const getEvidenceFromCodes = (evidenceList: Evidence[]) =>
+  evidenceList
+    ? `
         <ul>${evidenceList
           .map((ev) => {
             const ecoMatch = ecoMap.find((eco) => eco.name === ev.code);
-            if (!ecoMatch) return ``;
-            return `<li title='${
-              ecoMatch.description
-            }' style="padding: .25rem 0">${ecoMatch.shortDescription}:&nbsp;${
-              ev.source ? formatSource(ev.source) : ''
-            }</li>`;
+            return ecoMatch
+              ? `<li title='${
+                  ecoMatch.description
+                }' style="padding: .25rem 0">${
+                  ecoMatch.shortDescription
+                }:&nbsp;${ev.source ? formatSource(ev.source) : ''}</li>`
+              : '';
           })
           .join('')}</ul>
-      `;
-};
+      `
+    : '';
 
-export const formatXrefs = (xrefs) =>
+export const formatXrefs = (xrefs: Source[]) =>
   `<ul>${xrefs
     .map(
       (xref) =>
@@ -38,8 +44,10 @@ export const formatXrefs = (xrefs) =>
     )
     .join('')}</ul>`;
 
-const getPTMEvidence = (ptms) => {
-  if (!ptms) return ``;
+const getPTMEvidence = (ptms: PTM[]) => {
+  if (!ptms) {
+    return '';
+  }
   const ids = ptms.flatMap(({ dbReferences }) =>
     dbReferences.map((ref) => ref.id)
   );
@@ -61,8 +69,10 @@ const getPTMEvidence = (ptms) => {
   `;
 };
 
-const formatPTMPeptidoform = (peptide, ptms) => {
-  if (!ptms) return ``;
+const formatPTMPeptidoform = (peptide: string, ptms: PTM[]) => {
+  if (!ptms) {
+    return '';
+  }
   const modificationValues = ptms.map((ptm) => ({
     name: ptm.name,
     position: ptm.position,
@@ -82,18 +92,22 @@ const formatPTMPeptidoform = (peptide, ptms) => {
 };
 
 // At the moment, there is only phospho data. In future we may have more, the below AA sites have to be updated to accomodate more.
-const AAPhosphoSites = {
-  A: 'alanine',
-  S: 'serine',
-  T: 'threonine',
-  Y: 'tyrosine',
-};
+const aaPhosphoSites = new Map([
+  ['A', 'alanine'],
+  ['S', 'serine'],
+  ['T', 'threonine'],
+  ['Y', 'tyrosine'],
+]);
 
-const findModifiedResidueName = (feature, ptm) => {
+const findModifiedResidueName = (feature: ProteomicsPtmFeature, ptm: PTM) => {
   const { peptide, begin: peptideStart } = feature;
   const proteinLocation = Number(peptideStart) + ptm.position - 1;
   const modifiedResidue = peptide.charAt(ptm.position - 1); // CharAt index starts from 0
-  return `${proteinLocation} phospho${AAPhosphoSites[modifiedResidue]}`;
+  const site = aaPhosphoSites.get(modifiedResidue);
+  if (!site) {
+    logging.error(`${modifiedResidue} not in aaPhosphoSites Map`);
+  }
+  return `${proteinLocation} phospho${site}`;
 };
 
 export const formatTooltip = (feature) => {
@@ -129,17 +143,12 @@ export const formatTooltip = (feature) => {
 
   try {
     return `
-        ${description ? `<h5>Description</h5><p>${description}</p>` : ``}
-        ${
-          feature.matchScore
-            ? `<h5>Match score</h5><p>${feature.matchScore}%</p>`
-            : ``
-        }
-        ${feature.ftId ? `<h5>Feature ID</h5><p>${feature.ftId}</p>` : ``}
+        ${description ? `<h5>Description</h5><p>${description}</p>` : ''}
+        ${feature.ftId ? `<h5>Feature ID</h5><p>${feature.ftId}</p>` : ''}
         ${
           feature.alternativeSequence
             ? `<h5>Alternative sequence</h5><p>${feature.alternativeSequence}</p>`
-            : ``
+            : ''
         }
         ${
           ptms
@@ -155,19 +164,19 @@ export const formatTooltip = (feature) => {
                 feature.peptide,
                 feature.ptms
               )}</p>`
-            : ``
+            : ''
         }
         ${
           feature.peptide && feature.type !== 'PROTEOMICS_PTM'
             ? `<h5>Peptide</h5><p>${feature.peptide}</p>`
-            : ``
+            : ''
         } 
         ${
           feature.xrefs
             ? `<h5>Cross-references</h5>${formatXrefs(feature.xrefs)}`
-            : ``
+            : ''
         }
-        ${evidenceHTML ? `<h5>Evidence</h5>${evidenceHTML}` : ``}
+        ${evidenceHTML ? `<h5>Evidence</h5>${evidenceHTML}` : ''}
         ${
           feature.ptms && dataset && !dataset.includes('Glue project')
             ? `<hr /><h5 data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">PTM statistical attributes</h5><ul>${feature.ptms
@@ -208,7 +217,9 @@ export const formatTooltip = (feature) => {
         }
           `;
   } catch (error) {
-    logging.error(error);
+    if (error instanceof Error || typeof error === 'string') {
+      logging.error(error);
+    }
     return '';
   }
 };

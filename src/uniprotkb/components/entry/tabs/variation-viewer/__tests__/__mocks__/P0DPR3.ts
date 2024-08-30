@@ -1,4 +1,4 @@
-import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
+import { ProteinsAPIVariation } from '@nightingale-elements/nightingale-variation';
 
 // Source: https://www.ebi.ac.uk/proteins/api/variation/P0DPR3
 // Retrieved: 2024-07-24
