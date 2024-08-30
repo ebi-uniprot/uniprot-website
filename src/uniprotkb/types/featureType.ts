@@ -13,6 +13,7 @@ export type FunctionFeatures =
   | 'DNA binding'
   | 'Active site'
   | 'Binding site'
+  | 'BINDING'
   | 'Site';
 
 export type SubcellularLocationFeatures =

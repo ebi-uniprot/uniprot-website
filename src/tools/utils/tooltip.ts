@@ -14,7 +14,7 @@ const formatSource = (source: Source) =>
         source.id
       }</a>&nbsp;${source.name ? `(${source.name})` : ''}`;
 
-export const getEvidenceFromCodes = (evidenceList: Evidence[]) =>
+export const getEvidenceFromCodes = (evidenceList?: Evidence[]) =>
   evidenceList
     ? `
         <ul>${evidenceList
@@ -110,21 +110,28 @@ const findModifiedResidueName = (feature: ProteomicsPtmFeature, ptm: PTM) => {
   return `${proteinLocation} phospho${site}`;
 };
 
-export const formatTooltip = (feature) => {
-  const evidenceHTML =
-    feature.type === 'PROTEOMICS_PTM'
-      ? getPTMEvidence(feature.ptms)
-      : getEvidenceFromCodes(feature.evidences);
-  const ptms =
-    feature.type === 'PROTEOMICS_PTM' &&
-    feature.ptms.map((ptm) => findModifiedResidueName(feature, ptm));
+export const formatVariantTooltip = (feature: Variant) => {
+  const evidenceHTML = getEvidenceFromCodes(feature.evidences);
+  const description = feature.descriptions?.map((d) => d.value).join(', ');
 
-  const dataset =
-    feature.type === 'PROTEOMICS_PTM' &&
-    feature.ptms.flatMap(({ dbReferences }) =>
-      dbReferences.map((ref) => ref.id)
-    );
+  return `
+        ${description ? `<h5>Description</h5><p>${description}</p>` : ''}
+        ${feature.ftId ? `<h5>Feature ID</h5><p>${feature.ftId}</p>` : ''}
+        ${
+          feature.alternativeSequence
+            ? `<h5>Alternative sequence</h5><p>${feature.alternativeSequence}</p>`
+            : ''
+        }
+        ${
+          feature.xrefs
+            ? `<h5>Cross-references</h5>${formatXrefs(feature.xrefs)}`
+            : ''
+        }
+        ${evidenceHTML ? `<h5>Evidence</h5>${evidenceHTML}` : ''}`;
+};
 
+export const formatFeatureTooltip = (feature: TooltipFeature) => {
+  const evidenceHTML = getEvidenceFromCodes(feature.evidences);
   let { description } = feature;
 
   if (feature.type === 'BINDING' || feature.type === 'Binding site') {
@@ -141,17 +148,21 @@ export const formatTooltip = (feature) => {
     description = bindingDescription;
   }
 
-  try {
-    return `
+  return `
         ${description ? `<h5>Description</h5><p>${description}</p>` : ''}
         ${feature.ftId ? `<h5>Feature ID</h5><p>${feature.ftId}</p>` : ''}
+        ${evidenceHTML ? `<h5>Evidence</h5>${evidenceHTML}` : ''}`;
+};
+
+export const formatPtmTooltip = (feature: ProteomicsPtmFeature) => {
+  const evidenceHTML = getPTMEvidence(feature.ptms);
+  const ptms = feature.ptms.map((ptm) => findModifiedResidueName(feature, ptm));
+  const dataset = feature.ptms.flatMap(({ dbReferences }) =>
+    dbReferences.map((ref) => ref.id)
+  );
+  return `
         ${
-          feature.alternativeSequence
-            ? `<h5>Alternative sequence</h5><p>${feature.alternativeSequence}</p>`
-            : ''
-        }
-        ${
-          ptms
+          ptms.length
             ? `<h5 data-article-id="ptm_processing_section">PTMs</h5><ul>${ptms
                 .map((item) => `<li>${item}</li>`)
                 .join('')}</ul>
@@ -159,18 +170,14 @@ export const formatTooltip = (feature) => {
             : ''
         }
         ${
-          feature.peptide && feature.type === 'PROTEOMICS_PTM'
+          feature.peptide
             ? `<h5 data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">Peptidoform</h5><p>${formatPTMPeptidoform(
                 feature.peptide,
                 feature.ptms
-              )}</p>`
+              )}</p>
+              <h5>Peptide</h5><p>${feature.peptide}</p>`
             : ''
         }
-        ${
-          feature.peptide && feature.type !== 'PROTEOMICS_PTM'
-            ? `<h5>Peptide</h5><p>${feature.peptide}</p>`
-            : ''
-        } 
         ${
           feature.xrefs
             ? `<h5>Cross-references</h5>${formatXrefs(feature.xrefs)}`
@@ -178,7 +185,7 @@ export const formatTooltip = (feature) => {
         }
         ${evidenceHTML ? `<h5>Evidence</h5>${evidenceHTML}` : ''}
         ${
-          feature.ptms && dataset && !dataset.includes('Glue project')
+          dataset && !dataset.includes('Glue project')
             ? `<hr /><h5 data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">PTM statistical attributes</h5><ul>${feature.ptms
                 .map((ptm) =>
                   ptm.dbReferences
@@ -214,12 +221,41 @@ export const formatTooltip = (feature) => {
                 )
                 .join('')}</ul>`
             : ''
-        }
-          `;
+        }`;
+};
+
+type FeatureType = TooltipFeature | ProteomicsPtmFeature | Variant;
+
+const isProteomicsPtmFeature = (
+  feature: FeatureType
+): feature is ProteomicsPtmFeature => feature.type === 'PROTEOMICS_PTM';
+
+const isVariantFeature = (feature: FeatureType): feature is Variant =>
+  'wildType' in feature;
+
+const isTooltipFeature = (feature: FeatureType): feature is TooltipFeature =>
+  'description' in feature;
+
+export const formatTooltip = (feature: FeatureType) => {
+  try {
+    if (isProteomicsPtmFeature(feature)) {
+      return formatPtmTooltip(feature);
+    }
+    if (isVariantFeature(feature)) {
+      return formatVariantTooltip(feature);
+    }
+    if (isTooltipFeature(feature)) {
+      return formatFeatureTooltip(feature);
+    }
   } catch (error) {
     if (error instanceof Error || typeof error === 'string') {
       logging.error(error);
     }
     return '';
   }
+
+  logging.error(
+    `Unknown feature when attempting to format: ${JSON.stringify(feature)}`
+  );
+  return '';
 };
