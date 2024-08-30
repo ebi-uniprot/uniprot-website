@@ -304,9 +304,13 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                             variant="tertiary"
                             key={id}
                             id={id}
-                            onClick={(event: MouseEvent) => {
-                              setViewerID((event.target as HTMLElement).id);
-                              clickOnDropdown(event.target as HTMLElement);
+                            onClick={(event) => {
+                              setViewerID(
+                                (event.target as HTMLButtonElement).id
+                              );
+                              clickOnDropdown(
+                                event.target as HTMLButtonElement
+                              );
                             }}
                           >
                             {id} {properties?.EntryName || ''}
