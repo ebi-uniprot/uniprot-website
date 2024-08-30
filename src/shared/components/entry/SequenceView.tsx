@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, useState } from 'react';
-import { InfoList, Sequence, Button, LongNumber } from 'franklin-sites';
+import { InfoList, Sequence, LongNumber } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
 import ExternalLink from '../ExternalLink';
@@ -280,9 +280,8 @@ const IsoformInfo = ({
           </p>
           {/* TODO: this is hacky and temporary until we sort out
           external isoforms */}
-          <Button
-            element={Link}
-            variant="secondary"
+          <Link
+            className="button secondary"
             to={getEntryPath(
               Namespace.uniprotkb,
               isoformData.isoformIds[0].substring(
@@ -292,7 +291,7 @@ const IsoformInfo = ({
             )}
           >
             View isoform
-          </Button>
+          </Link>
         </section>
       )}
       <InfoList infoData={infoListData} columns isCompact />

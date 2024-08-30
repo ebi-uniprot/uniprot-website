@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'franklin-sites';
+import cn from 'classnames';
 
 import { stringifyQuery } from '../../utils/url';
 import { roundNumber } from '../../utils/roundNumber';
@@ -30,34 +31,48 @@ const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
   title,
   location,
   children,
-}) => (
-  <Button
-    element={disabled ? 'button' : Link}
-    variant="tertiary"
-    title={title}
-    disabled={disabled}
-    to={
-      disabled
-        ? undefined
-        : {
-            pathname: LocationToPath[location],
-            search: stringifyQuery({
-              ids: selectedEntries?.join(','),
-              sequence,
-              from,
-              to,
-              peps,
-            }),
-          }
-    }
-    className={helper['no-small']}
-  >
-    {children}
-    {/* Just show count when it wouldn't be 0 */}
-    {selectedEntries?.length
-      ? ` (${roundNumber(selectedEntries.length + (sequence ? 1 : 0))})`
-      : null}
-  </Button>
-);
+}) => {
+  const content = (
+    <>
+      {children}
+      {/* Just show count when it wouldn't be 0 */}
+      {selectedEntries?.length
+        ? ` (${roundNumber(selectedEntries.length + (sequence ? 1 : 0))})`
+        : null}
+    </>
+  );
+
+  if (disabled) {
+    return (
+      <Button
+        variant="tertiary"
+        title={title}
+        disabled={disabled}
+        className={helper['no-small']}
+      >
+        {content}
+      </Button>
+    );
+  }
+
+  return (
+    <Link
+      className={cn('button', 'tertiary', helper['no-small'])}
+      title={title}
+      to={{
+        pathname: LocationToPath[location],
+        search: stringifyQuery({
+          ids: selectedEntries?.join(','),
+          sequence,
+          from,
+          to,
+          peps,
+        }),
+      }}
+    >
+      {content}
+    </Link>
+  );
+};
 
 export default ToolsButton;
