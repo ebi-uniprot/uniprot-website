@@ -61,6 +61,13 @@ const CopyLinkWebsite = ({
   );
 };
 
+const visibleElement = (onClick: () => unknown) => (
+  <Button variant="tertiary" onClick={onClick}>
+    <ShareNodesIcon />
+    Share
+  </Button>
+);
+
 const ShareDropdown = ({
   setDisplayDownloadPanel,
   namespaceOverride,
@@ -77,15 +84,8 @@ const ShareDropdown = ({
   }
 
   return (
-    <Dropdown
-      visibleElement={
-        <Button variant="tertiary">
-          <ShareNodesIcon />
-          Share
-        </Button>
-      }
-    >
-      {(closeDropdown) => (
+    <Dropdown visibleElement={visibleElement}>
+      {(closeDropdown: () => unknown) => (
         <ul>
           <li>
             <CopyLinkWebsite

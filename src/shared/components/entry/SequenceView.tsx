@@ -120,7 +120,14 @@ const SequenceInfo = ({
               parameters: { sequence: dataToDisplay?.value },
             })
           }
-          addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
+          addToBasketButton={
+            <AddToBasketButton
+              selectedEntries={isoformId}
+              // Not sure why a key is needed, but otherwise gets the React key
+              // warnings messages and children are rendered as array...
+              key="add-to-basket"
+            />
+          }
           isCollapsible={!openByDefault}
           isLoading={loading}
           onCopy={() => sendGtagEventCopyFastaClick(isoformId)}

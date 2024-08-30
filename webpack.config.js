@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires, global-require, consistent-return */
+/* eslint-disable @typescript-eslint/no-require-imports, global-require, consistent-return */
 const path = require('path');
 const fs = require('fs');
 

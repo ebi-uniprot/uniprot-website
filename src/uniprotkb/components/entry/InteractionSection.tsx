@@ -289,9 +289,12 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
             <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>
                 <Dropdown
-                  visibleElement={
-                    <Button variant="primary">{complexString}</Button>
-                  }
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  visibleElement={(onClick: () => unknown) => (
+                    <Button variant="primary" onClick={onClick}>
+                      {complexString}
+                    </Button>
+                  )}
                 >
                   <ul className={styles['ids-list']}>
                     {Array.from(complexPortalXrefs.values()).map(
