@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import NightingaleVariation from '@nightingale-elements/nightingale-variation';
 
 // We have to import this specific file otherwise it gets everything in at the
 // same time (including molstar...). But this path causes issues with Jest
@@ -9,7 +10,7 @@ import NightingaleNavigationComponent from '../../../shared/custom-elements/Nigh
 import NightingaleSequenceComponent from '../../../shared/custom-elements/NightingaleSequence';
 import NightingaleVariationComponent from '../../../shared/custom-elements/NightingaleVariation';
 
-import NightingaleZoomTool from './NightingaleZoomTool';
+// import NightingaleZoomTool from './NightingaleZoomTool';
 
 import { TransformedVariant } from '../../types/variation';
 
@@ -21,21 +22,13 @@ type VariationViewProps = {
 };
 
 const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
-  const nightingaleVariationRef = useCallback(
-    (
-      node: {
-        colorConfig: typeof colorConfig;
-        data: VariationViewProps;
-        length: number;
-      } | null
-    ) => {
-      if (node && variants) {
+  const setNightingaleVariation = useCallback(
+    (node: NightingaleVariation) => {
+      if (node && sequence && variants) {
         // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;
         // eslint-disable-next-line no-param-reassign
         node.data = { sequence, variants };
-        // eslint-disable-next-line no-param-reassign
-        node.length = sequence.length;
       }
     },
     [sequence, variants]
@@ -43,8 +36,8 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
 
   return (
     <div className={styles['variation-view']}>
-      <NightingaleZoomTool length={sequence.length} />
-      <NightingaleNavigationComponent length={sequence.length} />
+      {/* <NightingaleZoomTool length={sequence.length} /> TODO: fix */}
+      <NightingaleNavigationComponent length={sequence.length} height={40} />
       <NightingaleSequenceComponent
         length={sequence.length}
         sequence={sequence}
@@ -58,10 +51,12 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
             for="variation-component"
             ref={protvistaFilterRef}
           /> */}
+      <div>filters</div>
       <NightingaleVariationComponent
         id="variation-component"
         length={sequence.length}
-        ref={nightingaleVariationRef}
+        height={430}
+        ref={setNightingaleVariation}
         no-scroll
       />
     </div>

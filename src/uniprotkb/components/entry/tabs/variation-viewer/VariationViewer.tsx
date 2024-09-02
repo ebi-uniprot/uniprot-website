@@ -362,7 +362,7 @@ const RowExtraContent = (data: TransformedVariant) => (
       <div>
         <strong>Locations: </strong>
         {data.locations?.map((location) => (
-          <div key={`${location.loc}-${location.seqId}`}>
+          <div key={`${location.loc}-${location.source}-${location.seqId}`}>
             {`- ${location.loc} (${location.source}:${location.seqId})`}
           </div>
         ))}
@@ -578,13 +578,13 @@ const VariationViewer = ({
         <Suspense fallback={null}>
           <VisualVariationView {...transformedData} />
         </Suspense>
-        <TableFromData
-          columns={getColumns(primaryAccession)}
-          data={filteredVariants}
-          getRowId={getRowId}
-          rowExtraContent={RowExtraContent}
-        />
       </NightingaleManagerComponent>
+      <TableFromData
+        columns={getColumns(primaryAccession)}
+        data={filteredVariants}
+        getRowId={getRowId}
+        rowExtraContent={RowExtraContent}
+      />
     </section>
   );
 };
