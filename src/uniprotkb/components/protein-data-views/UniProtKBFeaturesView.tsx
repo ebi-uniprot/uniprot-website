@@ -2,6 +2,7 @@ import { useMemo, ReactNode } from 'react';
 import { v1 } from 'uuid';
 
 import FeaturesView, {
+  FeatureColumnConfiguration,
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
@@ -142,7 +143,9 @@ const UniProtKBFeaturesView = ({
 
   const smallScreen = useSmallScreen();
 
-  const columns = useMemo(
+  const columns: FeatureColumnConfiguration[] = useMemo<
+    FeatureColumnConfiguration[]
+  >(
     () =>
       columnConfiguration.filter((column) => {
         if (column.id === 'source') {
@@ -173,7 +176,7 @@ const UniProtKBFeaturesView = ({
       getRowId={getRowId}
       markBackground={markBackground}
       markBorder={markBorder}
-      extraContent={UniProtKBFeatureExtraContent}
+      rowExtraContent={UniProtKBFeatureExtraContent}
     />
   );
 };

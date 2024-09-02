@@ -69,8 +69,8 @@ type Props<T> = {
   rowExtraContent?: (datum: T) => React.ReactNode;
   getRowId: (datum: T) => string;
   onRowClick?: (datum: T) => void;
-  markBackground: ((datum: T) => boolean) | null;
-  markBorder: (datum: T) => boolean;
+  markBackground?: (datum: T) => boolean;
+  markBorder?: (datum: T) => boolean;
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;

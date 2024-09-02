@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { FullViewIcon } from 'franklin-sites';
 import { Link, useParams } from 'react-router-dom';
-import NightingaleTrack, {
-  Feature,
-} from '@nightingale-elements/nightingale-track';
+import NightingaleTrack from '@nightingale-elements/nightingale-track';
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
 
 import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
@@ -22,23 +20,24 @@ import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents'
 import { TabLocation } from '../../../uniprotkb/types/entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
-import { NightingaleViewRange } from '../table/TableFromData';
+import { NightingaleViewRange } from '../../utils/nightingale';
 
 import styles from './styles/visual-features-view.module.scss';
+import { GenericFeature } from './FeaturesView';
 
-const getHighlightedCoordinates = (feature?: Feature) =>
+const getHighlightedCoordinates = (feature?: GenericFeature) =>
   feature?.start && feature?.end
     ? `${feature.start}:${feature.end}`
     : undefined;
 
 type Props = {
-  features: Feature[];
+  features: GenericFeature[];
   sequence: string;
   trackHeight?: number;
   noLinkToFullView?: boolean;
-  onFeatureClick: (feature: Feature) => void;
+  onFeatureClick: (feature: GenericFeature) => void;
   onViewRangeChange: (range: NightingaleViewRange) => void;
-  highlightedFeature?: Feature;
+  highlightedFeature?: GenericFeature;
 };
 
 function VisualFeaturesView({
@@ -59,7 +58,7 @@ function VisualFeaturesView({
   useEffect(() => {
     const eventHandler = (e: Event) => {
       const { detail } = e as CustomEvent<
-        NightingaleViewRange & { eventType: 'click'; feature: Feature }
+        NightingaleViewRange & { eventType: 'click'; feature: GenericFeature }
       >;
       if (detail?.eventType === 'click' && detail?.feature) {
         onFeatureClick(detail.feature);
@@ -121,7 +120,7 @@ function VisualFeaturesView({
             params.accession,
             TabLocation.FeatureViewer
           )}
-          title="View in the Feature Viewer"
+          title="View in the GenericFeature Viewer"
           onClick={() => {
             sendGtagEventFeatureViewerFullViewClick(params.accession);
           }}
