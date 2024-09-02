@@ -139,7 +139,7 @@ function TableFromData<T>({
         {filteredData.length ? (
           filteredData.map((datum, index) => (
             <Table.Row
-              isOdd={Boolean(index % 2)}
+              isOdd={index % 2 === 0}
               extraContent={
                 rowExtraContent && (
                   <td colSpan={columns.length}>{rowExtraContent(datum)}</td>

@@ -1,5 +1,6 @@
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
+
+import Table from '../../../shared/components/table/Table';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -74,22 +75,23 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
     PropertyKey.ProteinId
   )?.uriLink;
 
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th>Nucleotide Sequence</th>
-          <th>Protein Sequence</th>
-          <th>Molecule Type</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
+  return (
+    <Table expandable>
+      <Table.Head>
+        <th>Nucleotide Sequence</th>
+        <th>Protein Sequence</th>
+        <th>Molecule Type</th>
+        <th>Status</th>
+      </Table.Head>
+      <Table.Body translate="no">
         {data.map(
-          (d) =>
+          (d, i) =>
             d &&
             (d.proteinId || d.sequenceId) && (
-              <tr key={`${d.sequenceId}-${d.proteinId}-${d.moleculeType}`}>
+              <Table.Row
+                isOdd={i % 2 === 0}
+                key={`${d.sequenceId}-${d.proteinId}-${d.moleculeType}`}
+              >
                 <td>
                   {d.sequenceId ? (
                     <>
@@ -162,13 +164,12 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                     : '-'}
                 </td>
                 <td translate="yes">{d.status}</td>
-              </tr>
+              </Table.Row>
             )
         )}
-      </tbody>
-    </table>
+      </Table.Body>
+    </Table>
   );
-  return <DatatableWrapper>{table}</DatatableWrapper>;
 };
 
 export default EMBLView;

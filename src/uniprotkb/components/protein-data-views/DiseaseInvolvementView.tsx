@@ -7,6 +7,7 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { RichText } from './FreeTextView';
+import Table from '../../../shared/components/table/Table';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -19,7 +20,6 @@ import { FeatureDatum } from './UniProtKBFeaturesView';
 
 import styles from './styles/disease-involvement-view.module.scss';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
-import Table from '../../../shared/components/table/Table';
 
 const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
   const aStart = +a.location.start.value;
