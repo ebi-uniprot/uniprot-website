@@ -1,6 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { Message } from 'franklin-sites';
-import { Feature } from '@nightingale-elements/nightingale-track';
 import cn from 'classnames';
 
 import Table from './Table';
@@ -10,7 +9,7 @@ import styles from './styles/table.module.scss';
 const UNFILTERED_OPTION = 'All' as const;
 
 type TableHeaderFromDataProps<T> = {
-  column: Column<T>;
+  column: TableFromDataColumn<T>;
   options?: Set<string>;
   onFilterChange: (columnId: string, filterValue: string) => void;
 };
@@ -43,7 +42,7 @@ function TableHeaderFromData<T>({
 
 function filterDatum<T>(
   datum: T,
-  columns: Column<T>[],
+  columns: TableFromDataColumn<T>[],
   filterValues: ColumnsToSelectedFilter
 ) {
   return columns.every((column) => {
@@ -54,51 +53,36 @@ function filterDatum<T>(
   });
 }
 
-export type NightingaleViewRange = {
-  'display-start': number;
-  'display-end': number;
-};
-
-const withinWindow = (
-  featureStart: number,
-  featureEnd: number,
-  nightingaleViewRange?: NightingaleViewRange
-) =>
-  nightingaleViewRange
-    ? (nightingaleViewRange['display-start'] <= featureStart &&
-        featureStart <= nightingaleViewRange['display-end']) ||
-      (nightingaleViewRange['display-start'] <= featureEnd &&
-        featureEnd <= nightingaleViewRange['display-end'])
-    : true;
-
-export type Column<T> = {
+export type TableFromDataColumn<T> = {
   id: string;
   label: ReactNode;
   render: (datum: T) => ReactNode;
   filter?: (datum: T, filterValue: string) => boolean;
-  optionAccessor?: (datum: T) => string | number;
+  getOption?: (datum: T) => string | number;
 };
 
 const OPTION_TYPES = new Set(['string', 'number']);
 
-type Props<T extends Feature> = {
+type Props<T> = {
   data: T[];
-  columns: Column<T>[];
+  columns: TableFromDataColumn<T>[];
   rowExtraContent?: (datum: T) => React.ReactNode;
+  getRowId: (datum: T) => string;
   onRowClick?: (datum: T) => void;
-  highlightedRow?: T;
-  nightingaleViewRange?: NightingaleViewRange;
+  markBackground: ((datum: T) => boolean) | null;
+  markBorder: (datum: T) => boolean;
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
 
-function TableFromData<T extends Feature>({
+function TableFromData<T>({
   data,
   columns,
   rowExtraContent,
   onRowClick,
-  highlightedRow,
-  nightingaleViewRange,
+  getRowId,
+  markBackground,
+  markBorder,
 }: Props<T>) {
   const [columnsToSelectedOption, setColumnsToSelectedOption] =
     useState<ColumnsToSelectedFilter>({});
@@ -109,7 +93,7 @@ function TableFromData<T extends Feature>({
         columnIdToFilterOptions[column.id] = new Set(
           data
             .map((datum) => {
-              const r = (column.optionAccessor || column.render)(datum);
+              const r = (column.getOption || column.render)(datum);
               return OPTION_TYPES.has(typeof r) ? r : null;
             })
             .filter((datum): datum is string => datum !== null)
@@ -149,22 +133,17 @@ function TableFromData<T extends Feature>({
           />
         ))}
       </Table.Head>
-
       <Table.Body>
         {filteredData.length ? (
           filteredData.map((datum, index) => (
             <Table.Row
               isOdd={Boolean(index % 2)}
               extraContent={rowExtraContent?.(datum)}
-              key={datum.accession}
+              key={getRowId(datum)}
               onClick={() => onRowClick?.(datum)}
               className={cn({
-                [styles.highlighted]:
-                  highlightedRow?.accession === datum.accession,
-                [styles.window]:
-                  datum.start &&
-                  datum.end &&
-                  withinWindow(datum.start, datum.end, nightingaleViewRange),
+                [styles['mark-background']]: markBackground?.(datum),
+                [styles['mark-border']]: markBorder?.(datum),
               })}
             >
               {columns.map((column) => (

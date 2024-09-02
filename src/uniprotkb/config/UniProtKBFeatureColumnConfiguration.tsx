@@ -16,6 +16,10 @@ import {
 } from '../../shared/components/views/FeaturesView';
 
 import styles from './styles/uniprotkb-feature-column-configuration.module.scss';
+import {
+  NightingaleViewRange,
+  withinRange,
+} from '../../shared/utils/nightingale';
 
 // TODO: use getLabelAndTooltip?
 
@@ -28,7 +32,23 @@ export const UniProtKBFeatureExtraContent = (data: ProcessedFeature) => (
   </td>
 );
 
-const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration<ProcessedFeature>[] =
+export const getRowId = (data?: ProcessedFeature) => data?.accession;
+
+export const markBackground = (markedData: ProcessedFeature) => {
+  const markedId = getRowId(markedData);
+  return markedId === 'undefined'
+    ? null
+    : (data: ProcessedFeature) => {
+        const rowId = getRowId(data);
+        return Boolean(rowId && rowId === markedId);
+      };
+};
+
+export const markBorder =
+  (nightingaleViewRange: NightingaleViewRange) => (datum: ProcessedFeature) =>
+    withinRange(datum.start, datum.end, nightingaleViewRange);
+
+export const columnConfiguration: FeatureColumnConfiguration<ProcessedFeature>[] =
   [
     {
       id: 'type',
@@ -147,5 +167,3 @@ const uniProtKBFeatureColumnConfiguration: FeatureColumnConfiguration<ProcessedF
         ),
     },
   ];
-
-export default uniProtKBFeatureColumnConfiguration;

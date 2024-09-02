@@ -6,7 +6,6 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import useSafeState from '../../../shared/hooks/useSafeState';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
@@ -15,7 +14,11 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import externalUrls from '../../../shared/config/externalUrls';
 
-import { GOTermID, GroupedGoTerms } from '../../adapters/functionConverter';
+import {
+  GoTerm,
+  GOTermID,
+  GroupedGoTerms,
+} from '../../adapters/functionConverter';
 import {
   AGRRibbonGroup,
   AGRRibbonSubject,
@@ -28,6 +31,42 @@ import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxono
 import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/go-ribbon.module.scss';
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
+
+const useColumns = () => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
+  const columns: TableFromDataColumn<GoTerm>[] = [
+    {
+      id: 'aspect',
+      label: 'Aspect',
+      render: (data) => data.aspect,
+    },
+    {
+      id: 'term',
+      label: 'Term',
+      render: (data) => (
+        <>
+          <ExternalLink
+            url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', {
+              id: data.id,
+            })}
+          >
+            {data.termDescription || data.id}
+          </ExternalLink>
+          <GOTermEvidenceTag evidence={data.properties?.GoEvidenceType} />
+          <UniProtKBEvidenceTag evidences={data.evidences} goTermEvidence />
+        </>
+      ),
+    },
+  ];
+
+  return columns;
+};
+
+const getRowId = (data: GoTerm) => data.id;
 
 type CellClick = {
   detail: {
@@ -44,7 +83,7 @@ type GroupClick = {
   };
 };
 
-type GoRibbonType = {
+type GoRibbonProps = {
   primaryAccession: string;
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
@@ -56,9 +95,9 @@ const GoRibbon = ({
   goTerms,
   geneNamesData,
   organismData,
-}: GoRibbonType) => {
+}: GoRibbonProps) => {
   const isSmallScreen = useSmallScreen();
-  const databaseInfoMaps = useDatabaseInfoMaps();
+  const columns = useColumns();
 
   const nodeRef = useRef<HTMLElement>();
 
@@ -217,43 +256,6 @@ const GoRibbon = ({
     );
   }
 
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th>Aspect</th>
-          <th>Term</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredGoTerms.map(
-          (goTerm) =>
-            goTerm.id && (
-              <tr key={goTerm.id}>
-                <td>{goTerm.aspect}</td>
-                <td>
-                  <ExternalLink
-                    url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', {
-                      id: goTerm.id,
-                    })}
-                  >
-                    {goTerm.termDescription || goTerm.id}
-                  </ExternalLink>
-                  <GOTermEvidenceTag
-                    evidence={goTerm.properties?.GoEvidenceType}
-                  />
-                  <UniProtKBEvidenceTag
-                    evidences={goTerm.evidences}
-                    goTermEvidence
-                  />
-                </td>
-              </tr>
-            )
-        )}
-      </tbody>
-    </table>
-  );
-
   return (
     <div className="GoRibbon">
       <h3 data-article-id="gene_ontology">GO annotations</h3>
@@ -289,7 +291,13 @@ const GoRibbon = ({
         </label>
       )}
       {elementLoaded && ribbon}
-      {!!filteredGoTerms.length && <DatatableWrapper>{table}</DatatableWrapper>}
+      {!!filteredGoTerms.length && (
+        <TableFromData
+          columns={columns}
+          data={filteredGoTerms}
+          getRowId={getRowId}
+        />
+      )}
     </div>
   );
 };

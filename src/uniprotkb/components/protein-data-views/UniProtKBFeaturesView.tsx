@@ -18,8 +18,12 @@ import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 
-import uniProtKBFeatureColumnConfiguration, {
+import {
+  getRowId,
+  markBackground,
+  markBorder,
   UniProtKBFeatureExtraContent,
+  columnConfiguration,
 } from '../../config/UniProtKBFeatureColumnConfiguration';
 
 type FeatureLocation = {
@@ -140,7 +144,7 @@ const UniProtKBFeaturesView = ({
 
   const columns = useMemo(
     () =>
-      uniProtKBFeatureColumnConfiguration.filter((column) => {
+      columnConfiguration.filter((column) => {
         if (column.id === 'source') {
           return showSourceColumn;
         }
@@ -164,9 +168,12 @@ const UniProtKBFeaturesView = ({
     <FeaturesView
       features={processedData}
       sequence={sequence}
-      columns={columns}
-      rowExtraContent={UniProtKBFeatureExtraContent}
       withTitle={!inResultsTable}
+      columns={columns}
+      getRowId={getRowId}
+      markBackground={markBackground}
+      markBorder={markBorder}
+      extraContent={UniProtKBFeatureExtraContent}
     />
   );
 };

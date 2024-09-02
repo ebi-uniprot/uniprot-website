@@ -22,10 +22,8 @@ import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-import TableFromData, {
-  Column,
-  NightingaleViewRange,
-} from '../table/TableFromData';
+import TableFromData, { TableFromDataColumn } from '../table/TableFromData';
+import { NightingaleViewRange } from '../../utils/nightingale';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -96,32 +94,38 @@ export type GenericFeature =
   // | TransformedVariant // TODO: do we need this here?
   | UniParcProcessedFeature;
 
-export type FeatureColumnConfiguration<T extends Feature> = {
+export type FeatureColumnConfiguration<T> = {
   id: string;
   label: ReactNode;
   filter?: (data: T, input: string) => boolean;
   render: (data: T) => ReactNode;
-  optionAccessor?: (data: T) => string | number; // Fallback if render fn doesn't return string or number
+  getOption?: (data: T) => string | number; // Fallback if render fn doesn't return string or number
 };
 
-type FeatureViewProps<T extends Feature> = {
+type FeatureViewProps<T> = {
   sequence?: string;
   features: GenericFeature[];
   rowExtraContent: (datum: T) => ReactNode;
+  getRowId: (datum: T) => string;
   columns: FeatureColumnConfiguration<T>[];
   trackHeight?: number;
   withTitle?: boolean;
   noLinkToFullView?: boolean;
+  markBackground: (markedData: T) => ((data: T) => boolean) | null;
+  markBorder: (x: unknown) => (datum: T) => boolean;
 };
 
-function FeaturesView<T extends Feature>({
+function FeaturesView<T>({
   sequence,
   features,
-  rowExtraContent,
-  columns,
   trackHeight,
   withTitle = true,
   noLinkToFullView,
+  rowExtraContent,
+  getRowId,
+  markBackground,
+  markBorder,
+  columns,
 }: FeatureViewProps<T>) {
   const isSmallScreen = useSmallScreen();
   const [highlightedFeature, setHighlightedFeature] = useState<Feature>();
@@ -144,7 +148,7 @@ function FeaturesView<T extends Feature>({
     []
   );
 
-  return features.length === 0 ? null : (
+  return !features.length ? null : (
     <>
       {withTitle && (
         <>
@@ -185,8 +189,11 @@ function FeaturesView<T extends Feature>({
       )}
       <TableFromData
         data={features}
-        columns={columns as Column<Feature>[]}
-        rowExtraContent={rowExtraContent as (datum: Feature) => ReactNode}
+        columns={columns}
+        rowExtraContent={rowExtraContent}
+        getRowId={getRowId}
+        markBackground={markBackground(highlightedFeature)}
+        markBorder={markBorder(nightingaleViewRange)}
         onRowClick={handleFeatureClick}
         highlightedRow={highlightedFeature}
         nightingaleViewRange={nightingaleViewRange}

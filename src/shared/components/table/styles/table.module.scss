@@ -54,7 +54,7 @@
   border-style: solid;
   border-width: 0 0.5rem;
 
-  &.highlighted {
+  &.mark-background {
     &,
     & + .extra-content {
       background-color: var(
@@ -64,7 +64,7 @@
     }
   }
 
-  &.window {
+  &.mark-border {
     &,
     & + .extra-content {
       border-color: rgb(214, 214, 214);
