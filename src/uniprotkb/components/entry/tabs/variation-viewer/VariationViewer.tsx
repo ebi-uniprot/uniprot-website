@@ -21,7 +21,6 @@ import NightingaleManager from '@nightingale-elements/nightingale-manager';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
-import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
@@ -35,8 +34,13 @@ import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
+
 import { sortByLocation } from '../../../../utils';
 import { getEntryPath } from '../../../../../app/config/urls';
+import {
+  NightingaleViewRange,
+  withinRange,
+} from '../../../../../shared/utils/nightingale';
 
 import { Evidence } from '../../../../types/modelTypes';
 import { Namespace } from '../../../../../shared/types/namespaces';
@@ -208,20 +212,24 @@ const getColumns = (
         </>
       );
 
-      return data.consequenceType !== '-' &&
-        data.wildType?.length === 1 &&
-        data.alternativeSequence?.length === 1 ? (
-        <ExternalLink
-          url={externalUrls.ProtVar(
-            `${primaryAccession} ${data.wildType}${data.start}${data.alternativeSequence}`
+      return (
+        <span className={styles.change}>
+          {data.consequenceType !== '-' &&
+          data.wildType?.length === 1 &&
+          data.alternativeSequence?.length === 1 ? (
+            <ExternalLink
+              url={externalUrls.ProtVar(
+                `${primaryAccession} ${data.wildType}${data.start}${data.alternativeSequence}`
+              )}
+              title="View in ProtVar"
+              noIcon
+            >
+              {change}
+            </ExternalLink>
+          ) : (
+            change
           )}
-          title="View in ProtVar"
-          noIcon
-        >
-          {change}
-        </ExternalLink>
-      ) : (
-        change
+        </span>
       );
     },
   },
@@ -414,6 +422,8 @@ const VariationViewer = ({
   const isSmallScreen = useSmallScreen();
   const [highlightedVariant, setHighlightedVariant] =
     useState<TransformedVariant>();
+  const [nightingaleViewRange, setNightingaleViewRange] =
+    useState<NightingaleViewRange>();
 
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllVariants = searchParams.get('loadVariants');
@@ -430,10 +440,6 @@ const VariationViewer = ({
       shouldRender ? apiUrls.proteinsApi.variation(primaryAccession) : undefined
     );
 
-  // const handleRowClick = useCallback((feature: TransformedVariant) => {
-  //   setHighlightedVariant(feature);
-  // }, []);
-
   const [filters, setFilters] = useState([]);
   const managerRef = useRef<NightingaleManager>(null);
   useEffect(() => {
@@ -443,30 +449,14 @@ const VariationViewer = ({
       return;
     }
 
-    /*
-      const eventHandler = (e: Event) => {
-      const { detail } = e as CustomEvent<
-        NightingaleViewRange & { eventType: 'click'; feature: GenericFeature }
-      >;
-      if (detail?.eventType === 'click' && detail?.feature) {
-        onFeatureClick(detail.feature);
-      }
-    };
-    if (trackRef.current) {
-      trackRef.current.data = features;
-      trackRef.current.addEventListener('change', eventHandler);
-    }
-    return () => {
-      document.removeEventListener('change', eventHandler);
-    };
-    */
-
     const listener = (event: Event) => {
       const { detail } = event as CustomEvent;
       if (detail?.type === 'filters') {
         setFilters(detail.value);
       } else if (detail?.eventType === 'click' && detail?.feature) {
         setHighlightedVariant(detail.feature);
+      } else if (detail?.['display-start'] && detail?.['display-end']) {
+        setNightingaleViewRange(detail);
       }
     };
 
@@ -499,14 +489,6 @@ const VariationViewer = ({
     () => sortedVariants && applyFilters(sortedVariants, filters),
     [sortedVariants, filters]
   );
-
-  const markBackground = useMemo(() => {
-    if (!highlightedVariant) {
-      return undefined;
-    }
-    return (datum: TransformedVariant) =>
-      datum.accession === highlightedVariant.accession;
-  }, [highlightedVariant]);
 
   if (loading || importedVariants === 'loading') {
     return (
@@ -621,7 +603,14 @@ const VariationViewer = ({
         getRowId={getRowId}
         onRowClick={setHighlightedVariant}
         rowExtraContent={RowExtraContent}
-        markBackground={markBackground}
+        markBackground={(datum) =>
+          typeof highlightedVariant?.accession !== 'undefined' &&
+          datum.accession === highlightedVariant.accession
+        }
+        markBorder={(datum) =>
+          Boolean(nightingaleViewRange) &&
+          withinRange(+datum.begin, +datum.end, nightingaleViewRange)
+        }
       />
     </section>
   );
