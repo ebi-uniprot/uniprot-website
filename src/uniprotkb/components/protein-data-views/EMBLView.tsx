@@ -76,7 +76,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
   )?.uriLink;
 
   return (
-    <Table expandable>
+    <Table expandable={data.length > 10}>
       <Table.Head>
         <th>Nucleotide Sequence</th>
         <th>Protein Sequence</th>
@@ -89,7 +89,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
             d &&
             (d.proteinId || d.sequenceId) && (
               <Table.Row
-                isOdd={i % 2 === 0}
+                isOdd={i % 2 === 1}
                 key={`${d.sequenceId}-${d.proteinId}-${d.moleculeType}`}
               >
                 <td>

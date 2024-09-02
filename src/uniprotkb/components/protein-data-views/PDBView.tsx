@@ -54,7 +54,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   return (
-    <Table expandable>
+    <Table expandable={data.length > 10}>
       <Table.Head>
         <th>PDB Entry</th>
         <th>Method</th>
@@ -67,7 +67,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
         {data.map(
           (d, i) =>
             d && (
-              <Table.Row isOdd={i % 2 === 0} key={d.id}>
+              <Table.Row isOdd={i % 2 === 1} key={d.id}>
                 <td>{d.id}</td>
                 <td translate="yes">{d.method}</td>
                 <td>{d.resolution?.replace('A', 'Å')}</td>

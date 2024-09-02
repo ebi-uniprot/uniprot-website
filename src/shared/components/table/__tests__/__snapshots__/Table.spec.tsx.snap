@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table component should not render a toggle button if overriden 1`] = `
+<DocumentFragment>
+  <table
+    class="table"
+  >
+    <thead
+      class=""
+    >
+      <tr
+        class="row"
+      >
+        <th />
+        <th>
+          Name
+        </th>
+        <th>
+          Age
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class=""
+    >
+      <tr
+        class="row odd"
+      >
+        <td />
+        <td>
+          Alice
+        </td>
+        <td>
+          25
+        </td>
+      </tr>
+      <tr
+        class="row"
+      >
+        <td />
+        <td>
+          Mark
+        </td>
+        <td>
+          30
+        </td>
+      </tr>
+      <tr
+        class="row odd"
+      >
+        <td />
+        <td>
+          Paul
+        </td>
+        <td>
+          35
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`Table component should render with a working toggle button 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="container collapsed"
+    >
+      <table
+        class="table"
+      >
+        <thead
+          class=""
+        >
+          <tr
+            class="row"
+          >
+            <th />
+            <th>
+              Name
+            </th>
+            <th>
+              Age
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class=""
+        >
+          <tr
+            class="row odd"
+          >
+            <td />
+            <td>
+              Alice
+            </td>
+            <td>
+              25
+            </td>
+          </tr>
+          <tr
+            class="row"
+          >
+            <td />
+            <td>
+              Mark
+            </td>
+            <td>
+              30
+            </td>
+          </tr>
+          <tr
+            class="row odd"
+          >
+            <td />
+            <td>
+              Paul
+            </td>
+            <td>
+              35
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      class="expand-button-container"
+    >
+      <button
+        class="button primary"
+        type="button"
+      >
+        Expand table
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
