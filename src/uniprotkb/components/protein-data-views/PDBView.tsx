@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
+import Table from '../../../shared/components/table/Table';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -54,53 +54,49 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   return (
-    <DatatableWrapper>
-      <table>
-        <thead>
-          <tr>
-            <th>PDB Entry</th>
-            <th>Method</th>
-            <th>Resolution</th>
-            <th>Chain</th>
-            <th>Positions</th>
-            <th>Links</th>
-          </tr>
-        </thead>
-        <tbody translate="no">
-          {data.map(
-            (d) =>
-              d && (
-                <tr key={d.id}>
-                  <td>{d.id}</td>
-                  <td translate="yes">{d.method}</td>
-                  <td>{d.resolution?.replace('A', 'Å')}</td>
-                  <td>{d.chain}</td>
-                  <td>{d.positions}</td>
-                  <td>
-                    {databaseInfoMaps &&
-                      getPDBMirrorsInfo(
-                        databaseInfoMaps.databaseToDatabaseInfo
-                      ).map(({ displayName, uriLink }, index) => (
-                        <Fragment key={uriLink}>
-                          {index ? ' · ' : null}
-                          <ExternalLink
-                            url={
-                              d.id
-                                ? processUrlTemplate(uriLink, { id: d.id })
-                                : null
-                            }
-                          >
-                            {displayName}
-                          </ExternalLink>
-                        </Fragment>
-                      ))}
-                  </td>
-                </tr>
-              )
-          )}
-        </tbody>
-      </table>
-    </DatatableWrapper>
+    <Table expandable>
+      <Table.Head>
+        <th>PDB Entry</th>
+        <th>Method</th>
+        <th>Resolution</th>
+        <th>Chain</th>
+        <th>Positions</th>
+        <th>Links</th>
+      </Table.Head>
+      <Table.Body translate="no">
+        {data.map(
+          (d, i) =>
+            d && (
+              <Table.Row isOdd={i % 2 === 0} key={d.id}>
+                <td>{d.id}</td>
+                <td translate="yes">{d.method}</td>
+                <td>{d.resolution?.replace('A', 'Å')}</td>
+                <td>{d.chain}</td>
+                <td>{d.positions}</td>
+                <td>
+                  {databaseInfoMaps &&
+                    getPDBMirrorsInfo(
+                      databaseInfoMaps.databaseToDatabaseInfo
+                    ).map(({ displayName, uriLink }, index) => (
+                      <Fragment key={uriLink}>
+                        {index ? ' · ' : null}
+                        <ExternalLink
+                          url={
+                            d.id
+                              ? processUrlTemplate(uriLink, { id: d.id })
+                              : null
+                          }
+                        >
+                          {displayName}
+                        </ExternalLink>
+                      </Fragment>
+                    ))}
+                </td>
+              </Table.Row>
+            )
+        )}
+      </Table.Body>
+    </Table>
   );
 };
 
