@@ -8,7 +8,6 @@ import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -34,6 +33,9 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { Xref } from '../../../shared/types/apiModel';
 
 import styles from './styles/interaction-section.module.scss';
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
 
 const clickOnDropdown = (element: HTMLElement) => {
   (
@@ -104,6 +106,83 @@ const interactionSorter = (a: Interaction, b: Interaction) => {
   return 0;
 };
 
+const getRowId = (data: Interaction) =>
+  `${data.interactantOne.intActId}${data.interactantTwo.intActId}`;
+
+// TODO: fix <th translate="no">Intact</th> and <tbody translate="no">
+const columns: TableFromDataColumn<Interaction>[] = [
+  {
+    // data-filter="type"
+    // data-filter-value={interaction.organismDiffer ? 'XENO' : 'BINARY'}
+    id: 'type',
+    label: 'Type',
+    render: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'), // NOTE: Add 'SELF'
+  },
+  {
+    // data-filter-value={
+    // interaction.interactantOne.uniProtKBAccession || 'Other'
+    // }
+    id: 'entry-1',
+    label: 'Entry 1',
+    render: (data) =>
+      data.interactantOne.uniProtKBAccession ? (
+        <Link
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            data.interactantOne.uniProtKBAccession
+          )}
+        >
+          {data.interactantOne.geneName} {data.interactantOne.chainId}{' '}
+          {data.interactantOne.uniProtKBAccession}
+        </Link>
+      ) : (
+        <>
+          {data.interactantOne.geneName} {data.interactantOne.chainId}
+        </>
+      ),
+  },
+  {
+    id: 'entry-2',
+    label: 'Entry 2',
+    render: (data) =>
+      data.interactantTwo.uniProtKBAccession ? (
+        <Link
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            data.interactantTwo.uniProtKBAccession
+          )}
+        >
+          {data.interactantTwo.geneName} {data.interactantTwo.chainId}{' '}
+          {data.interactantTwo.uniProtKBAccession}
+        </Link>
+      ) : (
+        <>
+          {data.interactantTwo.geneName} {data.interactantTwo.chainId}
+        </>
+      ),
+  },
+  {
+    id: 'number-of-experiments',
+    label: 'Number of experiments',
+    render: (data) => data.numberOfExperiments,
+  },
+  {
+    id: 'intact',
+    label: 'IntAct',
+    render: (data) => (
+      <ExternalLink
+        url={getIntActQueryUrl(
+          data.interactantOne.intActId,
+          data.interactantTwo.intActId,
+          data.interactantOne.uniProtKBAccession
+        )}
+      >
+        {data.interactantOne.intActId}, {data.interactantTwo.intActId}
+      </ExternalLink>
+    ),
+  },
+];
+
 type Props = {
   data: UIModel;
   primaryAccession: string;
@@ -165,90 +244,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | undefined;
 
   const displayVizTab = complexPortalXrefs.size > 0;
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th data-filter="type">Type</th>
-          <th data-filter="entry_1">Entry 1</th>
-          <th>Entry 2</th>
-          <th>Number of experiments</th>
-          <th translate="no">Intact</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
-        {tableData.map((interaction) => (
-          <tr
-            key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
-          >
-            <td
-              data-filter="type"
-              data-filter-value={interaction.organismDiffer ? 'XENO' : 'BINARY'}
-            >
-              {/* NOTE: Add 'SELF' */}
-              {interaction.organismDiffer ? 'XENO' : 'BINARY'}
-            </td>
-            <td
-              data-filter="entry_1"
-              data-filter-value={
-                interaction.interactantOne.uniProtKBAccession || 'Other'
-              }
-            >
-              {interaction.interactantOne.uniProtKBAccession ? (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantOne.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantOne.geneName}{' '}
-                  {interaction.interactantOne.chainId}{' '}
-                  {interaction.interactantOne.uniProtKBAccession}
-                </Link>
-              ) : (
-                <>
-                  {interaction.interactantOne.geneName}{' '}
-                  {interaction.interactantOne.chainId}
-                </>
-              )}
-            </td>
-            <td>
-              {interaction.interactantTwo.uniProtKBAccession ? (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantTwo.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantTwo.geneName}{' '}
-                  {interaction.interactantTwo.chainId}{' '}
-                  {interaction.interactantTwo.uniProtKBAccession}
-                </Link>
-              ) : (
-                <>
-                  {interaction.interactantTwo.geneName}{' '}
-                  {interaction.interactantTwo.chainId}
-                </>
-              )}
-            </td>
-            <td>{interaction.numberOfExperiments}</td>
-            <td>
-              <ExternalLink
-                url={getIntActQueryUrl(
-                  interaction.interactantOne.intActId,
-                  interaction.interactantTwo.intActId,
-                  interaction.interactantOne.uniProtKBAccession
-                )}
-              >
-                {interaction.interactantOne.intActId},{' '}
-                {interaction.interactantTwo.intActId}
-              </ExternalLink>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
 
   const complexId = viewerID || complexPortalXrefs.keys().next().value;
   const complexName =
@@ -279,7 +274,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           <LazyComponent render={isSmallScreen ? false : undefined}>
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
-          <DatatableWrapper>{table}</DatatableWrapper>
+          <TableFromData
+            columns={columns}
+            data={tableData}
+            getRowId={getRowId}
+          />
         </>
       ) : null}
 
