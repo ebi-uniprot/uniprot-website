@@ -71,6 +71,7 @@ type Props<T> = {
   onRowClick?: (datum: T) => void;
   markBackground?: (datum: T) => boolean;
   markBorder?: (datum: T) => boolean;
+  noTranslateBody?: boolean;
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -83,6 +84,7 @@ function TableFromData<T>({
   getRowId,
   markBackground,
   markBorder,
+  noTranslateBody,
 }: Props<T>) {
   const [columnsToSelectedOption, setColumnsToSelectedOption] =
     useState<ColumnsToSelectedFilter>({});
@@ -133,7 +135,7 @@ function TableFromData<T>({
           />
         ))}
       </Table.Head>
-      <Table.Body>
+      <Table.Body translate={noTranslateBody ? 'no' : undefined}>
         {filteredData.length ? (
           filteredData.map((datum, index) => (
             <Table.Row

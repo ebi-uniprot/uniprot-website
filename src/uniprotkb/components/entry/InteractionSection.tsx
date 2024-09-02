@@ -109,7 +109,6 @@ const interactionSorter = (a: Interaction, b: Interaction) => {
 const getRowId = (data: Interaction) =>
   `${data.interactantOne.intActId}${data.interactantTwo.intActId}`;
 
-// TODO: fix <th translate="no">Intact</th> and <tbody translate="no">
 const columns: TableFromDataColumn<Interaction>[] = [
   {
     id: 'type',
@@ -168,7 +167,7 @@ const columns: TableFromDataColumn<Interaction>[] = [
   },
   {
     id: 'intact',
-    label: 'IntAct',
+    label: <span translate="no">IntAct</span>,
     render: (data) => (
       <ExternalLink
         url={getIntActQueryUrl(
@@ -278,6 +277,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
             columns={columns}
             data={tableData}
             getRowId={getRowId}
+            noTranslateBody
           />
         </>
       ) : null}
