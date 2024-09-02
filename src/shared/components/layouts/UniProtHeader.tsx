@@ -31,20 +31,20 @@ const SearchContainer = lazy(
 
 const toolsLinks = (
   <>
-    <li key="1">
+    <li>
       <Link to={LocationToPath[Location.Blast]} translate="no">
         BLAST
       </Link>
     </li>
-    <li key="2">
+    <li>
       <Link to={LocationToPath[Location.Align]} translate="no">
         Align
       </Link>
     </li>
-    <li key="3">
+    <li>
       <Link to={LocationToPath[Location.PeptideSearch]}>Peptide search</Link>
     </li>
-    <li key="4">
+    <li>
       <Link to={LocationToPath[Location.IDMapping]}>ID mapping</Link>
     </li>
   </>

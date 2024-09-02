@@ -1,7 +1,5 @@
-import { marked } from 'marked';
-import cleanText, {
-  cleanTextDefaultOptions,
-} from '../../../shared/utils/cleanText';
+import { cleanTextDefaultOptions } from '../../../shared/utils/cleanText';
+import { parseMarkdown } from '../../../shared/utils/markdown';
 
 import './styles/highlight.scss';
 
@@ -13,16 +11,11 @@ const cleanTextOptions = {
   },
 };
 
-const markedOptions = { async: false } as const;
-
 const CleanHighlightMarkDown = ({ md }: { md: string }) => (
   <span
     // eslint-disable-next-line react/no-danger
     dangerouslySetInnerHTML={{
-      __html: cleanText(
-        marked.parseInline(md, markedOptions),
-        cleanTextOptions
-      ),
+      __html: parseMarkdown(md, cleanTextOptions, true),
     }}
   />
 );
