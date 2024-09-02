@@ -198,8 +198,10 @@ function FeaturesView({
         columns={columns}
         rowExtraContent={rowExtraContent}
         getRowId={getRowId}
-        markBackground={markBackground(highlightedFeature)}
-        markBorder={markBorder(nightingaleViewRange)}
+        markBackground={
+          highlightedFeature && markBackground(highlightedFeature)
+        }
+        markBorder={nightingaleViewRange && markBorder(nightingaleViewRange)}
         onRowClick={handleFeatureClick}
       />
     </>
