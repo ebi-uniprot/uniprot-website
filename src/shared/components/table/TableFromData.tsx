@@ -141,7 +141,9 @@ function TableFromData<T>({
             <Table.Row
               isOdd={Boolean(index % 2)}
               extraContent={
-                <td colSpan={columns.length}>{rowExtraContent?.(datum)}</td>
+                rowExtraContent && (
+                  <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
+                )
               }
               key={getRowId(datum)}
               onClick={() => onRowClick?.(datum)}
