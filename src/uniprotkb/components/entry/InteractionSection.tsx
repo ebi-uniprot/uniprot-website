@@ -8,6 +8,9 @@ import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -33,9 +36,6 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { Xref } from '../../../shared/types/apiModel';
 
 import styles from './styles/interaction-section.module.scss';
-import TableFromData, {
-  TableFromDataColumn,
-} from '../../../shared/components/table/TableFromData';
 
 const clickOnDropdown = (element: HTMLElement) => {
   (

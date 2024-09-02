@@ -24,12 +24,10 @@ import styles from './styles/uniprotkb-feature-column-configuration.module.scss'
 // TODO: use getLabelAndTooltip?
 
 export const UniProtKBFeatureExtraContent = (data: ProcessedFeature) => (
-  <td colSpan={6}>
-    <Card className={styles.sequence}>
-      <strong>Sequence: </strong>
-      {data.sequence}
-    </Card>
-  </td>
+  <Card className={styles.sequence}>
+    <strong>Sequence: </strong>
+    {data.sequence}
+  </Card>
 );
 
 export const getRowId = (data: ProcessedFeature) => data.accession;

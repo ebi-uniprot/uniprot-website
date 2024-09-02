@@ -138,7 +138,9 @@ function TableFromData<T>({
           filteredData.map((datum, index) => (
             <Table.Row
               isOdd={Boolean(index % 2)}
-              extraContent={rowExtraContent?.(datum)}
+              extraContent={
+                <td colSpan={columns.length}>{rowExtraContent?.(datum)}</td>
+              }
               key={getRowId(datum)}
               onClick={() => onRowClick?.(datum)}
               className={cn({
@@ -154,7 +156,9 @@ function TableFromData<T>({
         ) : (
           <tr>
             <td
-              colSpan={columns.length + +(typeof rowExtraContent !== undefined)}
+              colSpan={
+                columns.length + +(typeof rowExtraContent !== 'undefined')
+              }
             >
               <Message level="warning" className={styles['message--no-data']}>
                 No data matches selected filters
