@@ -112,16 +112,13 @@ const getRowId = (data: Interaction) =>
 // TODO: fix <th translate="no">Intact</th> and <tbody translate="no">
 const columns: TableFromDataColumn<Interaction>[] = [
   {
-    // data-filter="type"
-    // data-filter-value={interaction.organismDiffer ? 'XENO' : 'BINARY'}
     id: 'type',
     label: 'Type',
     render: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'), // NOTE: Add 'SELF'
+    filter: (data, input) =>
+      (data.organismDiffer ? 'XENO' : 'BINARY') === input,
   },
   {
-    // data-filter-value={
-    // interaction.interactantOne.uniProtKBAccession || 'Other'
-    // }
     id: 'entry-1',
     label: 'Entry 1',
     render: (data) =>
@@ -140,6 +137,9 @@ const columns: TableFromDataColumn<Interaction>[] = [
           {data.interactantOne.geneName} {data.interactantOne.chainId}
         </>
       ),
+    getOption: (data) => data.interactantOne.uniProtKBAccession || 'Other',
+    filter: (data, input) =>
+      (data.interactantOne.uniProtKBAccession || 'Other') === input,
   },
   {
     id: 'entry-2',
