@@ -129,6 +129,11 @@ const applyFilters = (variants: TransformedVariant[], filters: Filter[]) => {
   return transformedData[0]?.variants;
 };
 
+const getHighlightedCoordinates = (feature?: TransformedVariant) =>
+  feature?.begin && feature?.end
+    ? `${feature.begin}:${feature.end}`
+    : undefined;
+
 const getRowId = (data: TransformedVariant) => data.accession;
 
 const getColumns = (
@@ -164,13 +169,8 @@ const getColumns = (
   {
     id: 'position',
     label: 'Position(s)',
-    render: (data) => {
-      let position = data.start;
-      if (data.start !== data.end) {
-        position += `-${data.end}`;
-      }
-      return position;
-    },
+    render: (data) =>
+      `${data.start}${+data.end === data.start ? '' : `-${data.end}`}`,
   },
   {
     id: 'change',
@@ -412,6 +412,9 @@ const VariationViewer = ({
   title,
 }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
+  const [highlightedVariant, setHighlightedVariant] =
+    useState<TransformedVariant>();
+
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllVariants = searchParams.get('loadVariants');
 
@@ -427,6 +430,10 @@ const VariationViewer = ({
       shouldRender ? apiUrls.proteinsApi.variation(primaryAccession) : undefined
     );
 
+  // const handleRowClick = useCallback((feature: TransformedVariant) => {
+  //   setHighlightedVariant(feature);
+  // }, []);
+
   const [filters, setFilters] = useState([]);
   const managerRef = useRef<NightingaleManager>(null);
   useEffect(() => {
@@ -436,10 +443,30 @@ const VariationViewer = ({
       return;
     }
 
+    /*
+      const eventHandler = (e: Event) => {
+      const { detail } = e as CustomEvent<
+        NightingaleViewRange & { eventType: 'click'; feature: GenericFeature }
+      >;
+      if (detail?.eventType === 'click' && detail?.feature) {
+        onFeatureClick(detail.feature);
+      }
+    };
+    if (trackRef.current) {
+      trackRef.current.data = features;
+      trackRef.current.addEventListener('change', eventHandler);
+    }
+    return () => {
+      document.removeEventListener('change', eventHandler);
+    };
+    */
+
     const listener = (event: Event) => {
       const { detail } = event as CustomEvent;
       if (detail?.type === 'filters') {
         setFilters(detail.value);
+      } else if (detail?.eventType === 'click' && detail?.feature) {
+        setHighlightedVariant(detail.feature);
       }
     };
 
@@ -472,6 +499,14 @@ const VariationViewer = ({
     () => sortedVariants && applyFilters(sortedVariants, filters),
     [sortedVariants, filters]
   );
+
+  const markBackground = useMemo(() => {
+    if (!highlightedVariant) {
+      return undefined;
+    }
+    return (datum: TransformedVariant) =>
+      datum.accession === highlightedVariant.accession;
+  }, [highlightedVariant]);
 
   if (loading || importedVariants === 'loading') {
     return (
@@ -574,6 +609,7 @@ const VariationViewer = ({
       <NightingaleManagerComponent
         reflected-attributes="highlight,displaystart,displayend,activefilters,filters,selectedid"
         ref={managerRef}
+        highlight={getHighlightedCoordinates(highlightedVariant)} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
       >
         <Suspense fallback={null}>
           <VisualVariationView {...transformedData} />
@@ -583,7 +619,9 @@ const VariationViewer = ({
         columns={getColumns(primaryAccession)}
         data={filteredVariants}
         getRowId={getRowId}
+        onRowClick={setHighlightedVariant}
         rowExtraContent={RowExtraContent}
+        markBackground={markBackground}
       />
     </section>
   );

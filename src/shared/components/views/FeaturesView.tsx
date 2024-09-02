@@ -143,10 +143,6 @@ function FeaturesView({
     [features]
   );
 
-  const handleFeatureClick = useCallback((feature: GenericFeature) => {
-    setHighlightedFeature(feature);
-  }, []);
-
   const handleViewRangeChange = useCallback(
     (coordinates: NightingaleViewRange) => {
       setNightingaleViewRange(coordinates);
@@ -187,7 +183,7 @@ function FeaturesView({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
-            onFeatureClick={handleFeatureClick}
+            onFeatureClick={setHighlightedFeature}
             onViewRangeChange={handleViewRangeChange}
             highlightedFeature={highlightedFeature}
           />
@@ -202,7 +198,7 @@ function FeaturesView({
           highlightedFeature && markBackground(highlightedFeature)
         }
         markBorder={nightingaleViewRange && markBorder(nightingaleViewRange)}
-        onRowClick={handleFeatureClick}
+        onRowClick={setHighlightedFeature}
       />
     </>
   );
