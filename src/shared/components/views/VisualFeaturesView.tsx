@@ -95,11 +95,7 @@ function VisualFeaturesView({
     setDisplayDownloadPanel(!displayDownloadPanel);
 
   const featureTypes: string[] = Array.from(
-    new Set(
-      features
-        .flatMap((feature) => feature.type)
-        .filter((type): type is string => typeof type === 'string')
-    )
+    new Set(features.flatMap((feature) => feature.type as string))
   );
 
   return (

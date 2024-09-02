@@ -123,7 +123,7 @@ function TableFromData<T>({
 
   return (
     <Table expandable>
-      <Table.Head toggleAll>
+      <Table.Head toggleAll={Boolean(rowExtraContent)}>
         {columns.map((column) => (
           <TableHeaderFromData
             column={column}
