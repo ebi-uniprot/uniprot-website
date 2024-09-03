@@ -7,6 +7,7 @@ import Table from './Table';
 import styles from './styles/table.module.scss';
 
 const UNFILTERED_OPTION = 'All' as const;
+const MIN_ROWS_TO_EXPAND = 10 as const;
 
 type TableHeaderFromDataProps<T> = {
   column: TableFromDataColumn<T>;
@@ -126,7 +127,7 @@ function TableFromData<T>({
   );
 
   return (
-    <Table expandable={expandable}>
+    <Table expandable={expandable && data.length > MIN_ROWS_TO_EXPAND}>
       <Table.Head toggleAll={Boolean(rowExtraContent)}>
         {columns.map((column) => (
           <TableHeaderFromData
