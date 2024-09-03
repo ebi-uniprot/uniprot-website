@@ -1,0 +1,15 @@
+@import 'franklin-sites/src/styles/colours';
+
+.nightingale-zoom-tool {
+  float: left;
+  margin-left: 0.1667rem;
+  margin-right: 0.75rem;
+  margin-top: 0.1667rem;
+
+  .nightingale-button-content {
+    background: none;
+    padding-left: 0.75rem;
+    font-size: 0.9rem;
+    color: #{$colour-sea-blue};
+  }
+}

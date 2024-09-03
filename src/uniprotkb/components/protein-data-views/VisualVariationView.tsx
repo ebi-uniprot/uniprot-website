@@ -1,5 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import NightingaleVariation from '@nightingale-elements/nightingale-variation';
+import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
 
 // We have to import this specific file otherwise it gets everything in at the
 // same time (including molstar...). But this path causes issues with Jest
@@ -9,8 +10,7 @@ import { colorConfig } from 'protvista-uniprot/dist/es/filterConfig';
 import NightingaleNavigationComponent from '../../../shared/custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../../shared/custom-elements/NightingaleSequence';
 import NightingaleVariationComponent from '../../../shared/custom-elements/NightingaleVariation';
-
-// import NightingaleZoomTool from './NightingaleZoomTool';
+import NightingaleZoomTool from './NightingaleZoomTool';
 
 import { TransformedVariant } from '../../types/variation';
 
@@ -22,6 +22,7 @@ type VariationViewProps = {
 };
 
 const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
+  const navigationRef = useRef<NightingaleNavigation>(null);
   const setNightingaleVariation = useCallback(
     (node: NightingaleVariation) => {
       if (node && sequence && variants) {
@@ -36,8 +37,15 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
 
   return (
     <div className={styles['variation-view']}>
-      {/* <NightingaleZoomTool length={sequence.length} /> TODO: fix */}
-      <NightingaleNavigationComponent length={sequence.length} height={40} />
+      <NightingaleZoomTool
+        length={sequence.length}
+        nightingaleNavigationRef={navigationRef}
+      />
+      <NightingaleNavigationComponent
+        ref={navigationRef}
+        length={sequence.length}
+        height={40}
+      />
       <NightingaleSequenceComponent
         length={sequence.length}
         sequence={sequence}

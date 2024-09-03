@@ -1,8 +1,8 @@
 import { RefObject, useCallback } from 'react';
 import { ZoomIn, ZoomOut, ZoomToSequence } from 'franklin-sites';
-
-import './styles/nightingale-zoom-tool.scss';
 import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+
+import styles from './styles/nightingale-zoom-tool.module.scss';
 
 export type ZoomOperations = 'zoom-in' | 'zoom-out' | 'zoom-in-seq';
 
@@ -60,29 +60,29 @@ const NightingaleZoomTool = ({ nightingaleNavigationRef, length }: Props) => {
     [nightingaleNavigationRef, length]
   );
   return (
-    <>
+    <div className={styles['nightingale-zoom-tool']}>
       <span
-        className="nightingale-button-content"
-        onClick={() => handleZoom?.('zoom-in')}
-        aria-hidden="true"
-      >
-        <ZoomIn height={iconSize} />
-      </span>
-      <span
-        className="nightingale-button-content"
+        className={styles['nightingale-button-content']}
         onClick={() => handleZoom?.('zoom-out')}
         aria-hidden="true"
       >
         <ZoomOut height={iconSize} />
       </span>
       <span
-        className="nightingale-button-content"
+        className={styles['nightingale-button-content']}
+        onClick={() => handleZoom?.('zoom-in')}
+        aria-hidden="true"
+      >
+        <ZoomIn height={iconSize} />
+      </span>
+      <span
+        className={styles['nightingale-button-content']}
         onClick={() => handleZoom?.('zoom-in-seq')}
         aria-hidden="true"
       >
         <ZoomToSequence height={iconSize} />
       </span>
-    </>
+    </div>
   );
 };
 
