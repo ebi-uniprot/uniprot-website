@@ -3,6 +3,7 @@ import { FullViewIcon } from 'franklin-sites';
 import { Link, useParams } from 'react-router-dom';
 import NightingaleTrack from '@nightingale-elements/nightingale-track';
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
+import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
 
 import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../custom-elements/NightingaleSequence';
@@ -53,6 +54,7 @@ function VisualFeaturesView({
   const params = useParams<{ accession: string }>();
   const trackRef = useRef<NightingaleTrack>(null);
   const managerRef = useRef<NightingaleManager>(null);
+  const navigationRef = useRef<NightingaleNavigation>(null);
 
   // NightingaleTrack data loading and feature click event handler
   useEffect(() => {
@@ -107,7 +109,10 @@ function VisualFeaturesView({
           featureTypes={featureTypes}
         />
       )}
-      <NightingaleZoomTool length={sequence.length} />
+      <NightingaleZoomTool
+        length={sequence.length}
+        nightingaleNavigationRef={navigationRef}
+      />
       <EntryDownloadButton handleToggle={handleToggleDownload} />
       {!noLinkToFullView && (
         <Link
@@ -130,7 +135,11 @@ function VisualFeaturesView({
         reflected-attributes="highlight,display-start,display-end,selectedid"
         highlight={getHighlightedCoordinates(highlightedFeature)} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
       >
-        <NightingaleNavigationComponent length={sequence.length} height={40} />
+        <NightingaleNavigationComponent
+          ref={navigationRef}
+          length={sequence.length}
+          height={40}
+        />
         <NightingalTrackComponent
           ref={trackRef}
           length={sequence.length}
