@@ -141,6 +141,7 @@ export const columnConfiguration: FeatureColumnConfiguration[] = [
     // Intentionally left blank, corresponds to tools/basket
     label: '',
     render: (data) =>
+      data.primaryAccession &&
       data.end - data.start >= 2 &&
       data.type !== 'Disulfide bond' &&
       data.type !== 'Cross-link' && (

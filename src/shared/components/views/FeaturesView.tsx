@@ -111,10 +111,10 @@ type FeatureViewProps = {
   trackHeight?: number;
   withTitle?: boolean;
   noLinkToFullView?: boolean;
-  markBackground: (
+  markBackground?: (
     markedData: GenericFeature
   ) => ((data: GenericFeature) => boolean) | undefined;
-  markBorder: (
+  markBorder?: (
     nightingaleViewRange: NightingaleViewRange
   ) => (datum: ProcessedFeature) => boolean;
   inResultsTable?: boolean;
@@ -197,9 +197,13 @@ function FeaturesView({
         rowExtraContent={rowExtraContent}
         getRowId={getRowId}
         markBackground={
-          highlightedFeature && markBackground(highlightedFeature)
+          markBackground &&
+          highlightedFeature &&
+          markBackground(highlightedFeature)
         }
-        markBorder={nightingaleViewRange && markBorder(nightingaleViewRange)}
+        markBorder={
+          markBorder && nightingaleViewRange && markBorder(nightingaleViewRange)
+        }
         onRowClick={setHighlightedFeature}
         expandable={!inResultsTable}
       />
