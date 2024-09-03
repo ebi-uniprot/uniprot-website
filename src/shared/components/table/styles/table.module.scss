@@ -27,8 +27,8 @@
   & th {
     text-align: left;
     vertical-align: middle;
-    background-color: var(--protvista-datable__header-background, #fff);
-    color: var(--protvista-datable__header-text, #393b42);
+    background-color: #fff;
+    color: #393b42;
     text-overflow: ellipsis;
     text-transform: uppercase;
   }
@@ -49,7 +49,7 @@
 }
 
 .row {
-  background-color: var(--protvista-datatable__even, #fff);
+  background-color: #fff;
   border-color: transparent;
   border-style: solid;
   border-width: 0 0.5rem;
@@ -57,10 +57,7 @@
   &.mark-background {
     &,
     & + .extra-content {
-      background-color: var(
-        --protvista-datatable__active,
-        rgba(255, 235, 59, 0.3)
-      ) !important;
+      background-color: rgba(255, 235, 59, 0.3) !important;
     }
   }
 
@@ -72,7 +69,7 @@
   }
 
   &.odd {
-    background-color: var(--protvista-datatable__odd, #e4e8eb);
+    background-color: #e4e8eb;
   }
 
   &:hover {
@@ -80,7 +77,7 @@
     /* => keep groups of rows highlighted in sync */
     &,
     & + .extra-content {
-      background-color: var(--protvista-datatable__hover, #f1f1f1);
+      background-color: #f1f1f1;
     }
   }
 
@@ -111,7 +108,7 @@
 /* Select a row that has a next .extra-content sibling that is hovered */
 /* => keep groups of rows highlighted in sync */
 .row:has(+ .extra-content:hover) {
-  background-color: var(--protvista-datatable__hover, #f1f1f1);
+  background-color: #f1f1f1;
 }
 
 .message--no-data {
