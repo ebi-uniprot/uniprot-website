@@ -1,5 +1,3 @@
-import useCustomElement from '../../../shared/hooks/useCustomElement';
-
 import { RichText, TextView } from '../protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
@@ -8,6 +6,7 @@ import { Evidence } from '../../types/modelTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/kinetics-table.module.scss';
+import Table from '../../../shared/components/table/Table';
 
 const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+-?(([0-9]*[.])?[0-9]+)?)/;
 const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
@@ -38,53 +37,41 @@ const KineticsTable = ({
   columns: string[];
   data: KinecticsTableRow[];
 }) => {
-  const protvistaDataTableElement = useCustomElement(
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
-
   const hasSubstrate = columns.includes('SUBSTRATE');
 
   if (data && data.length) {
     return (
-      <protvistaDataTableElement.name>
-        <table className={styles['kinetics-table']}>
-          <thead>
-            <tr>
-              {columns.map((name) => (
-                <th key={name} className={helper['no-text-transform']}>
-                  {` ${name} `}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((value) => (
-              <tr key={value.key}>
-                <td className={helper['no-wrap']}>
-                  <RichText>{value.constant}</RichText>
-                </td>
-                {hasSubstrate && (
-                  <td>
-                    <RichText>{value.substrate}</RichText>
-                  </td>
-                )}
-                <td>{value.ph}</td>
-                <td>{value.temp}</td>
+      <Table className={styles['kinetics-table']}>
+        <Table.Head>
+          {columns.map((name) => (
+            <th key={name} className={helper['no-text-transform']}>
+              {` ${name} `}
+            </th>
+          ))}
+        </Table.Head>
+        <Table.Body>
+          {data.map((value, i) => (
+            <Table.Row key={value.key} isOdd={i % 2 === 1}>
+              <td className={helper['no-wrap']}>
+                <RichText>{value.constant}</RichText>
+              </td>
+              {hasSubstrate && (
                 <td>
-                  <RichText>{value.notes}</RichText>
+                  <RichText>{value.substrate}</RichText>
                 </td>
-                <td>
-                  <UniProtKBEvidenceTag evidences={value.evidences} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </protvistaDataTableElement.name>
+              )}
+              <td>{value.ph}</td>
+              <td>{value.temp}</td>
+              <td>
+                <RichText>{value.notes}</RichText>
+              </td>
+              <td>
+                <UniProtKBEvidenceTag evidences={value.evidences} />
+              </td>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     );
   }
   return null;
