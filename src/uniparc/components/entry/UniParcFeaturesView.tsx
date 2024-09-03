@@ -42,7 +42,7 @@ export const convertData = (
     )
     .sort(sortByLocation);
 
-const getRowId = (data: UniParcProcessedFeature) => data.primaryAccession;
+const getRowId = (data: UniParcProcessedFeature) => data.accession;
 
 type UniParcFeaturesViewProps = {
   data: SequenceFeature[];
