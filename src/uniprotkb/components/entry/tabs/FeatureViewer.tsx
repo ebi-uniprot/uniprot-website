@@ -4,9 +4,7 @@ import { Loader, Message } from 'franklin-sites';
 
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-import NightingaleZoomTool, {
-  ZoomOperations,
-} from '../../protein-data-views/NightingaleZoomTool';
+// import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
@@ -22,11 +20,6 @@ import { TabLocation } from '../../../types/entry';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
 import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
-
-interface ProtvistaManager extends HTMLElement {
-  displaystart: number;
-  displayend: number;
-}
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
@@ -54,44 +47,6 @@ const FeatureViewer = ({
     () =>
       import(/* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'),
     'protvista-uniprot'
-  );
-
-  const handleZoom = useCallback(
-    (operation: ZoomOperations) => {
-      if (!protvistaElement.defined || !protvistaUniprotRef.current) {
-        return;
-      }
-      const manager: ProtvistaManager | null =
-        protvistaUniprotRef.current.querySelector('protvista-manager');
-      if (!manager) {
-        return;
-      }
-      // Following logic is lifted from ProtvistaZoomTool
-      const scaleFactor = sequence.length / 5;
-      const { displayend, displaystart } = manager;
-      let k = 0;
-      if (operation === 'zoom-in') {
-        k = scaleFactor;
-      } else if (operation === 'zoom-out') {
-        k = -scaleFactor;
-      } else if (operation === 'zoom-in-seq') {
-        k = displayend - displaystart - 29;
-      }
-      const newEnd = displayend - k;
-      let newStart = displaystart;
-      // if we've reached the end when zooming out, remove from start
-      if (newEnd > sequence.length) {
-        newStart -= newEnd - sequence.length;
-      }
-      if (displaystart < newEnd) {
-        manager.setAttribute('display-start', Math.max(1, newStart).toString());
-        manager.setAttribute(
-          'display-end',
-          Math.min(newEnd, sequence.length).toString()
-        );
-      }
-    },
-    [protvistaElement.defined, sequence]
   );
 
   const onProtvistaUniprotChange = useCallback((e: Event) => {
@@ -162,9 +117,12 @@ const FeatureViewer = ({
       )}
       {data?.features && (
         <>
-          {shouldRender && (
-            <NightingaleZoomTool length={sequence.length} onZoom={handleZoom} />
-          )}
+          {/* {shouldRender && (
+            <NightingaleZoomTool
+              length={sequence.length}
+              nightingaleNavigationRef={} // TODO: fill in once protvista-uniprot is updated
+            />
+          )} */}
           <EntryDownloadButton handleToggle={handleToggleDownload} />
         </>
       )}
