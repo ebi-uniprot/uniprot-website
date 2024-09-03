@@ -197,7 +197,6 @@ const getConfigFor = ({
         {
           test: /\.svg$/,
           include: [
-            fs.realpathSync(`${__dirname}/node_modules/protvista-datatable`),
             fs.realpathSync(`${__dirname}/node_modules/protvista-uniprot`),
           ],
           loader: 'svg-inline-loader',

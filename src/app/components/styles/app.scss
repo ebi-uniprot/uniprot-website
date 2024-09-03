@@ -47,18 +47,6 @@
   }
 }
 
-protvista-datatable:not(:defined) > table {
-  width: 100%;
-  overflow-x: auto;
-  table-layout: fixed;
-  border-collapse: collapse;
-
-  & td,
-  & th {
-    border: 1px solid grey;
-  }
-}
-
 protvista-manager {
   &:hover,
   &:focus-within {

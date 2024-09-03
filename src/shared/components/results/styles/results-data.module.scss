@@ -13,12 +13,6 @@
     top: $action-buttons-height !important;
   }
 
-  // Note: shouldn't use protvista-datatable in results
-  &:global(.data-table) protvista-datatable thead :global(.pd-group-trigger) {
-    // override when using it inside a results table
-    display: none;
-  }
-
   &:global(.data-table) table thead,
   &:global(.data-table) table th {
     background-color: $colour-independence;

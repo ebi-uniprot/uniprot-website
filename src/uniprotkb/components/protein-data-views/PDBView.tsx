@@ -47,7 +47,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
    * Note: this view is duplicated in protvista-uniprot-structure
    * This is because the AF data is not currently available as part of the entry
    * Eventually it might make sense to just use protvista-structure and
-   * protvista-datatable.
+   * a Table.
    */
   const data = processData(xrefs);
 
