@@ -21,7 +21,7 @@ function TableHeaderFromData<T>({
   return (
     <th>
       {column.label}
-      {options && (
+      {options && options.size > 1 && (
         <>
           <br />
           <select
@@ -72,6 +72,7 @@ type Props<T> = {
   markBackground?: (datum: T) => boolean;
   markBorder?: (datum: T) => boolean;
   noTranslateBody?: boolean;
+  expandable?: boolean;
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -85,6 +86,7 @@ function TableFromData<T>({
   markBackground,
   markBorder,
   noTranslateBody,
+  expandable = true,
 }: Props<T>) {
   const [columnsToSelectedOption, setColumnsToSelectedOption] =
     useState<ColumnsToSelectedFilter>({});
@@ -124,7 +126,7 @@ function TableFromData<T>({
   );
 
   return (
-    <Table expandable>
+    <Table expandable={expandable}>
       <Table.Head toggleAll={Boolean(rowExtraContent)}>
         {columns.map((column) => (
           <TableHeaderFromData

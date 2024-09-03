@@ -176,7 +176,10 @@ const UniProtKBFeaturesView = ({
       getRowId={getRowId}
       markBackground={markBackground}
       markBorder={markBorder}
-      rowExtraContent={UniProtKBFeatureExtraContent}
+      rowExtraContent={
+        inResultsTable ? undefined : UniProtKBFeatureExtraContent
+      }
+      inResultsTable={inResultsTable}
     />
   );
 };

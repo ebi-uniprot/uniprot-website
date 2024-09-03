@@ -105,7 +105,7 @@ export type FeatureColumnConfiguration = {
 type FeatureViewProps = {
   sequence?: string;
   features: GenericFeature[];
-  rowExtraContent: (datum: GenericFeature) => ReactNode;
+  rowExtraContent?: (datum: GenericFeature) => ReactNode;
   getRowId: (datum: GenericFeature) => string;
   columns: FeatureColumnConfiguration[];
   trackHeight?: number;
@@ -117,6 +117,7 @@ type FeatureViewProps = {
   markBorder: (
     nightingaleViewRange: NightingaleViewRange
   ) => (datum: ProcessedFeature) => boolean;
+  inResultsTable?: boolean;
 };
 
 function FeaturesView({
@@ -130,6 +131,7 @@ function FeaturesView({
   markBackground,
   markBorder,
   columns,
+  inResultsTable,
 }: FeatureViewProps) {
   const isSmallScreen = useSmallScreen();
   const [highlightedFeature, setHighlightedFeature] = useState<
@@ -199,6 +201,7 @@ function FeaturesView({
         }
         markBorder={nightingaleViewRange && markBorder(nightingaleViewRange)}
         onRowClick={setHighlightedFeature}
+        expandable={!inResultsTable}
       />
     </>
   );
