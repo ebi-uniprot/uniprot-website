@@ -30,16 +30,16 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 1
+      Chromosome 2
     </li>
     <li>
-      Chromosome 1
+      Chromosome 3
     </li>
     <li>
-      Chromosome 1
+      Chromosome 4
     </li>
     <li>
-      Chromosome 1
+      Chromosome 5
     </li>
     <li>
       <button
@@ -47,7 +47,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        64 more components
+        21 more components
       </button>
     </li>
   </ul>
@@ -63,16 +63,16 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 1
+      Chromosome 2
     </li>
     <li>
-      Chromosome 1
+      Chromosome 3
     </li>
     <li>
-      Chromosome 1
+      Chromosome 4
     </li>
     <li>
-      Chromosome 1
+      Chromosome 5
     </li>
     <li>
       <button
@@ -80,7 +80,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        64 more components
+        21 more components
       </button>
     </li>
   </ul>
