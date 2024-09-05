@@ -10,7 +10,7 @@ jest.mock('../../../../shared/components/views/FeaturesView', () => ({
   default: ({ table }: { table: ReactNode }) => table,
 }));
 
-describe('FeaturesView component', () => {
+describe('UniProtKBFeaturesView component', () => {
   it('should render without crashing', () => {
     const { asFragment } = customRender(
       <UniProtKBFeaturesView
