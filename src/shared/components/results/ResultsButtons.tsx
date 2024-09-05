@@ -223,12 +223,16 @@ const ResultsButtons: FC<
         </Suspense>
       )}
       <div className={cn('button-group', styles['results-buttons'])}>
-        <ToolsDropdown
-          selectedEntries={selectedEntries}
-          blast={isMain && namespace !== Namespace.proteomes}
-          align={isMain && namespace !== Namespace.proteomes}
-          mapID={isMain && namespace !== Namespace.proteomes}
-        />
+        {/* Whenever (if) we get proteomes in ID mapping, remove this and add
+        back this condition to blast and align props below */}
+        {namespace !== Namespace.proteomes && (
+          <ToolsDropdown
+            selectedEntries={selectedEntries}
+            blast={isMain}
+            align={isMain}
+            mapID={isMain}
+          />
+        )}
         <Button
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
@@ -237,9 +241,7 @@ const ResultsButtons: FC<
           disabled={!hasResults}
         >
           <DownloadIcon />
-          Download (
-          {roundNumber(selectedEntries.length || total)}
-          )
+          Download ({roundNumber(selectedEntries.length || total)})
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
           <AddToBasketButton
