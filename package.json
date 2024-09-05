@@ -21,6 +21,7 @@
     "test:lint": "eslint src --ext .ts,.tsx --cache --cache-location 'node_modules/.cache'",
     "test:types": "tsc",
     "test:unit": "jest --coverage",
+    "test:unit-bail-on-console-error": "jest --coverage --setupFilesAfterEnv \"<rootDir>/jest.setup.ts\" \"<rootDir>/jest.setup.consoleerrorfail.ts\" --bail --runInBand",
     "test:functional": "jest --config src/tests/jest.config.json src/tests/functional",
     "test:visual": "jest --config src/tests/jest.config.json src/tests/visual",
     "clear-test-cache": "jest --clearCache",
