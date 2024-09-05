@@ -171,7 +171,9 @@ const AlignResult = () => {
       </HTMLHead>
       <PageIntro
         heading={namespaceAndToolsLabels[jobType]}
-        headingPostscript={<small> results</small>}
+        /* Not sure why fragments and keys are needed, but otherwise gets
+        the React key warnings messages and children are rendered as array... */
+        headingPostscript={<small key="postscript"> results</small>}
       />
       <Tabs active={match.params.subPage}>
         <Tab

@@ -101,7 +101,7 @@ enum TabLocation {
 
 type Params = {
   id: string;
-  namespace?: typeof IDMappingNamespaces[number];
+  namespace?: (typeof IDMappingNamespaces)[number];
   subPage?: TabLocation;
 };
 
@@ -304,7 +304,9 @@ const IDMappingResult = () => {
         heading={namespaceAndToolsLabels[Namespace.idmapping]}
         headingPostscript={
           total ? (
-            <small>
+            /* Not sure why fragments and keys are needed, but otherwise gets
+            the React key warnings messages and children are rendered as array */
+            <small key="postscript">
               found for {detailsData?.from} → {detailsData?.to}
             </small>
           ) : null
