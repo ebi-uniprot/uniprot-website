@@ -30,16 +30,16 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 1
+      Chromosome 2
     </li>
     <li>
-      Chromosome 1
+      Chromosome 3
     </li>
     <li>
-      Chromosome 1
+      Chromosome 4
     </li>
     <li>
-      Chromosome 1
+      Chromosome 5
     </li>
     <li>
       <button
@@ -47,7 +47,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        64 more components
+        21 more components
       </button>
     </li>
   </ul>
@@ -63,55 +63,13 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 1
-    </li>
-    <li>
-      Chromosome 2
-    </li>
-    <li>
-      Chromosome 2
-    </li>
-    <li>
       Chromosome 2
     </li>
     <li>
       Chromosome 3
     </li>
     <li>
-      Chromosome 3
-    </li>
-    <li>
       Chromosome 4
-    </li>
-    <li>
-      Chromosome 4
-    </li>
-    <li>
-      Chromosome 5
     </li>
     <li>
       Chromosome 5
@@ -129,28 +87,10 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 9
     </li>
     <li>
-      Chromosome 9
-    </li>
-    <li>
-      Chromosome 9
-    </li>
-    <li>
-      Chromosome 9
-    </li>
-    <li>
-      Chromosome 9
-    </li>
-    <li>
-      Chromosome 10
-    </li>
-    <li>
       Chromosome 10
     </li>
     <li>
       Chromosome X
-    </li>
-    <li>
-      Chromosome 11
     </li>
     <li>
       Chromosome 11
@@ -165,49 +105,10 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 14
     </li>
     <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 14
-    </li>
-    <li>
-      Chromosome 15
-    </li>
-    <li>
       Chromosome 15
     </li>
     <li>
       Chromosome 16
-    </li>
-    <li>
-      Chromosome 16
-    </li>
-    <li>
-      Chromosome 17
-    </li>
-    <li>
-      Chromosome 17
-    </li>
-    <li>
-      Chromosome 17
     </li>
     <li>
       Chromosome 17
@@ -226,36 +127,6 @@ exports[`ProteomesColumnConfiguration component should render column "components
     </li>
     <li>
       Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome 22
-    </li>
-    <li>
-      Chromosome Y
     </li>
     <li>
       Chromosome Y
