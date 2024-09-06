@@ -2,9 +2,6 @@ import { Tile, SwissProtIcon, TremblIcon, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -108,7 +105,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.seaBlue}
+      backgroundColor="var(--fr--color-uniprotkb)"
       link={<Link to={LocationToPath[Location.UniProtKBResults]} />}
       gradient
     >
@@ -134,7 +131,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.proteomes}
+      backgroundColor="var(--fr--color-proteomes)"
       link={<Link to={getNamespaceTo(Location.ProteomesResults)} />}
       gradient
     >
@@ -159,7 +156,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.uniref}
+      backgroundColor="var(--fr--color-uniref)"
       link={<Link to={getNamespaceTo(Location.UniRefResults)} />}
       gradient
     >
@@ -183,7 +180,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.uniparc}
+      backgroundColor="var(--fr--color-uniparc)"
       link={<Link to={LocationToPath[Location.UniParcResults]} />}
       gradient
     >

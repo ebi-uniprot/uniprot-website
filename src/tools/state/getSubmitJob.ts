@@ -80,7 +80,7 @@ const getSubmitJob =
         let message;
         try {
           message = getServerErrorDescription(await response.text());
-        } catch (e) {
+        } catch {
           /**/
         }
         throw new Error(

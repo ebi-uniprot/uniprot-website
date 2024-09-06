@@ -9,6 +9,12 @@ import useNS from '../../hooks/useNS';
 
 import { Namespace } from '../../types/namespaces';
 
+const visibleElement = (onClick: () => unknown) => (
+  <Button variant="tertiary" onClick={onClick}>
+    <ToolboxIcon width="1.4ch" />
+    Tools
+  </Button>
+);
 type ToolsDropdownProps = {
   selectedEntries: string[];
   blast?: boolean | ReactNode;
@@ -66,16 +72,8 @@ const ToolsDropdown = ({
   }
 
   return (
-    <Dropdown
-      visibleElement={
-        <Button variant="tertiary">
-          <ToolboxIcon width="1.4ch" />
-          Tools
-        </Button>
-      }
-      {...props}
-    >
-      {(closeDropdown) => (
+    <Dropdown visibleElement={visibleElement} {...props}>
+      {(closeDropdown: () => unknown) => (
         <ul className="no-bullet">
           {blastNode}
           {alignNode}

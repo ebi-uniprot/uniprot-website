@@ -19,9 +19,6 @@ import {
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
@@ -128,7 +125,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
 
   const [dbNameToDbInfo, ruleIdToRuleInfo]: [
     DbNameToDbInfo | undefined | null,
-    RuleIdToRuleInfo | undefined | null
+    RuleIdToRuleInfo | undefined | null,
   ] = useMemo(() => {
     const dbNameToDbInfo = Object.fromEntries(
       formConfigData.groups.flatMap(({ items }) =>
@@ -152,7 +149,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
       !formValues.Taxons.selected
   );
   const submitStyle: Style | undefined = geneWithoutTaxonWarning
-    ? { '--main-color': colors.warning }
+    ? { '--main-color': 'var(--fr--color-warning)' }
     : undefined;
 
   const submitIDMappingJob = (event: FormEvent | MouseEvent) => {

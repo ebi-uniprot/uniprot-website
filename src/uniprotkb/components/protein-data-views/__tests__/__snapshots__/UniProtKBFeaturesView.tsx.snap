@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniProtKBFeaturesView component should render without crashing 1`] = `
+<DocumentFragment>
+  <table>
+    <thead>
+      <tr>
+        <th
+          data-filter="type"
+        >
+          Type
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+          Position(s)
+        </th>
+        <th>
+          Description
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        data-end="17"
+        data-id="0"
+        data-start="1"
+      >
+        <td
+          data-filter="type"
+          data-filter-value="Signal"
+        >
+          Signal
+        </td>
+        <td />
+        <td>
+          1-17
+        </td>
+        <td
+          id="description1-17"
+        />
+        <td>
+          <div
+            class="button-group"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
+            >
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                <test-file-stub
+                  width="1.4ch"
+                />
+                Tools
+              </button>
+            </div>
+            <button
+              class="button tertiary no-small"
+              title="Add 1 entry to the basket"
+              type="button"
+            >
+              <test-file-stub />
+              Add
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr
+        data-end="17"
+        data-group-for="0"
+        data-start="1"
+      >
+        <td>
+          <strong>
+            Sequence: 
+          </strong>
+          ASDASDASASDASDASD
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;

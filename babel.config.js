@@ -10,12 +10,11 @@ module.exports = function (api) {
         '@babel/preset-env',
         {
           useBuiltIns: 'usage',
-          corejs: { version: '3.25.1', proposals: true },
+          corejs: { version: '3', proposals: true },
         },
       ],
       ['@babel/preset-react', { runtime: 'automatic' }],
       '@babel/preset-typescript',
     ],
-    plugins: ['@babel/plugin-transform-runtime'],
   };
 };

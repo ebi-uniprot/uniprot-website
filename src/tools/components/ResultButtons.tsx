@@ -83,7 +83,7 @@ export const ResubmitButton = ({
       try {
         // wait up to 2 seconds to get the information
         await Promise.race([Promise.all(taxonRequests), sleep(2000)]);
-      } catch (_) {
+      } catch {
         /* */
       }
     }

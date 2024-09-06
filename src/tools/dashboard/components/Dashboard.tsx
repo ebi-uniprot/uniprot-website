@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
-  Button,
   PageIntro,
   ClockIcon,
   ReSubmitIcon,
@@ -103,15 +102,14 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
       {!fullPageContent && (
         // both classnames from Franklin
         <div className="button-group sliding-panel__button-row">
-          <Button
-            element={Link}
-            variant="secondary"
+          <Link
+            className="button secondary"
             to={LocationToPath[Location.Dashboard]}
             onClick={onFullView}
           >
             <FullViewIcon height="1em" width="1em" />
             Full view
-          </Button>
+          </Link>
         </div>
       )}
     </>
