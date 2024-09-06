@@ -26,12 +26,14 @@ describe('HomePage component', () => {
   beforeEach(async () => {
     rendered = customRender(<HomePage />);
 
+    // wait for the unrelated async components to load
     await waitFor(() => {
       screen.getByText('{{ NonCritical }}');
       screen.getByText('{{ UniProtFooter }}');
-      // Main search
-      screen.getByRole('searchbox');
     });
+
+    // Main search
+    expect(await screen.findByRole('searchbox')).toBeInTheDocument();
   });
 
   it('should render', () => {
