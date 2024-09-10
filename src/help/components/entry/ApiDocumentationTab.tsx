@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Location as HistoryLocation } from 'history';
 import { Card, Loader } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
@@ -21,7 +21,6 @@ import {
   tagNameToId,
 } from '../../utils/apiDocumentation';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
@@ -119,14 +118,13 @@ const AugmentingLayoutPlugin = () => ({
   },
 });
 
-const ApiDocumentationTab = () => {
-  const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
-    LocationToPath[Location.Documentation]
-  );
-  const definition = match?.params.definition;
+type Props = {
+  id: ApiDocsDefinition;
+};
 
+const ApiDocumentationTab = ({ id }: Props) => {
   const data = useDataApi<OpenAPIV3.Document>(
-    definition && apiUrls.apiDocumnentationDefinition(definition)
+    apiUrls.apiDocumentationDefinition(id)
   );
 
   if (data.loading) {
@@ -159,7 +157,7 @@ const ApiDocumentationTab = () => {
   //   },
   // },
 
-  return !definition ? null : (
+  return (
     <SwaggerUI
       spec={data.data}
       plugins={[AugmentingLayoutPlugin]}

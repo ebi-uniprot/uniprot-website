@@ -2,6 +2,7 @@
 @import 'franklin-sites/src/styles/settings';
 @import 'franklin-sites/src/styles/mixins';
 
+// Override Franklin style to cater for the length of long endpoints
 .wider {
   grid-template-columns: 3rem calc(1.3 * var(--sidebar-size) - 3rem) minmax(
       min-content,

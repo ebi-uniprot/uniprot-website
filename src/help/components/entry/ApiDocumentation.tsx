@@ -22,16 +22,20 @@ const ApiDocumentation = () => {
     LocationToPath[Location.Documentation]
   );
   const definition = match?.params.definition;
+  const validDefinition =
+    definition && apiDocsDefinitionToString.has(definition);
+
   useEffect(() => {
-    if (!definition) {
+    if (!validDefinition) {
       history.replace({
         pathname: generatePath(LocationToPath[Location.Documentation], {
           definition: ApiDocsDefinition.uniprotkb,
         }),
       });
     }
-  }, [definition, history]);
-  return (
+  }, [definition, history, validDefinition]);
+
+  return !validDefinition ? null : (
     <Tabs active={definition}>
       {Array.from(apiDocsDefinitionToString).map(([id, label]) => (
         <Tab
@@ -47,7 +51,7 @@ const ApiDocumentation = () => {
           id={id}
           key={id}
         >
-          <DocumentationTab />
+          <DocumentationTab id={id} />
         </Tab>
       ))}
     </Tabs>

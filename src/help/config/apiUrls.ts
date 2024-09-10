@@ -41,7 +41,7 @@ const search = ({
     size,
   });
 
-const apiDocumnentationDefinition = (d: ApiDocsDefinition) =>
+const apiDocumentationDefinition = (d: ApiDocsDefinition) =>
   `https://rest.uniprot.org/${d}/api/docs`;
 
-export default { entry, search, apiDocumnentationDefinition };
+export default { entry, search, apiDocumentationDefinition };
