@@ -136,7 +136,10 @@ const getAccessionColumn =
           id = id.replace(/_\d+$/, '');
         }
         cell = (
-          <ExternalLink url={template.replace('%id', id)}>
+          <ExternalLink
+            url={template.replace('%id', id)}
+            rel={xref.active ? undefined : 'nofollow'}
+          >
             {xref.id}
             {xref.chain && ` (chain ${xref.chain})`}
           </ExternalLink>
@@ -257,17 +260,16 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.lastSeen, {
 });
 
 const getTimelineColumn =
-  (firstSeen?: string, lastSeen?: string) => (xref: UniParcXRef) =>
-    (
-      <div className={xref.active ? undefined : 'xref-inactive'}>
-        <Timeline
-          first={firstSeen}
-          last={lastSeen}
-          start={xref.created}
-          end={xref.lastUpdated}
-        />
-      </div>
-    );
+  (firstSeen?: string, lastSeen?: string) => (xref: UniParcXRef) => (
+    <div className={xref.active ? undefined : 'xref-inactive'}>
+      <Timeline
+        first={firstSeen}
+        last={lastSeen}
+        start={xref.created}
+        end={xref.lastUpdated}
+      />
+    </div>
+  );
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.timeline, {
   label: 'Timeline',

@@ -16,12 +16,12 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         >
           <input
             data-id="UPI0000000001"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="UPI0000000001"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>
@@ -33,6 +33,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--uniparc"
@@ -96,9 +97,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="2024-05-29T00:00:00.000Z"
+              datetime="2024-07-24T00:00:00.000Z"
             >
-              2024-05-29
+              2024-07-24
             </time>
           </span>
           <span

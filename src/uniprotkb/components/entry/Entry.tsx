@@ -15,7 +15,7 @@ import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
 import EntryMain from './EntryMain';
 
-import BlastButton from '../../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
@@ -54,6 +54,7 @@ import uniProtKbConverter, {
   UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
@@ -86,7 +87,6 @@ import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
@@ -478,10 +478,19 @@ const Entry = () => {
                 />
               )}
               <div className="button-group">
-                <BlastButton selectedEntries={[accession]} />
-                {listOfIsoformAccessions.length > 1 && (
-                  <AlignButton selectedEntries={listOfIsoformAccessions} />
-                )}
+                <ToolsDropdown
+                  selectedEntries={[accession]}
+                  blast
+                  align={
+                    listOfIsoformAccessions.length > 1 && (
+                      <AlignButton
+                        selectedEntries={listOfIsoformAccessions}
+                        textSuffix="isoforms"
+                      />
+                    )
+                  }
+                  mapID
+                />
                 <EntryDownloadButton handleToggle={handleToggleDownload} />
                 <AddToBasketButton selectedEntries={accession} />
                 <CommunityAnnotationLink accession={accession} />
@@ -513,7 +522,6 @@ const Entry = () => {
               <EntryMain
                 transformedData={transformedData}
                 importedVariants={importedVariants}
-                hasGenomicCoordinates={hasGenomicCoordinates}
                 communityReferences={communityReferences}
                 isoforms={listOfIsoformNames}
               />

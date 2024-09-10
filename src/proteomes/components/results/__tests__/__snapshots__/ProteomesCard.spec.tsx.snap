@@ -16,12 +16,12 @@ exports[`ProteomesCard tests should render the card component 1`] = `
         >
           <input
             data-id="UP000005640"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="UP000005640"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>
@@ -33,6 +33,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--reference-proteome"
@@ -82,7 +83,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <a
               href="/uniprotkb?query=proteome:UP000005640"
             >
-              82,518
+              82,861
             </a>
           </span>
           <span
@@ -126,8 +127,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(188, 232, 117);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--s"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -139,8 +139,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(11, 165, 166);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--d"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -152,8 +151,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(238, 203, 164);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--f"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -165,8 +163,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   class="busco-legend-item"
                 >
                   <span
-                    class="busco-legend-item__swatch"
-                    style="background-color: rgb(49, 75, 180);"
+                    class="busco-legend-item__swatch busco-legend-item__swatch--m"
                   />
                   <span
                     class="busco-legend-item__label"
@@ -179,9 +176,9 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <div
               class="busco-view"
             >
-              <protvista-track
-                height="10"
-                length="100"
+              <div
+                class="busco-view__track"
+                style="--s: 37.48185776487663%; --d: 62.00290275761974%; --f: 0.02902757619738752%;"
               />
               <div
                 class="busco-view__report"
@@ -189,7 +186,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                 n:13780 · primates_odb10
               </div>
               <div>
-                C:99.5% (S:37.4% D:62%) F:0% M:0.5%
+                C:99.5% (S:37.5% D:62%) F:0% M:0.5%
               </div>
             </div>
           </span>

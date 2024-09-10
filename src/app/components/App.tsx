@@ -12,10 +12,8 @@ import { sleep } from 'timing-functions';
 import {
   init as SentryInit,
   setTag as sentrySetTag,
-  reactRouterV5Instrumentation,
-  Replay,
+  reactRouterV5BrowserTracingIntegration,
 } from '@sentry/react';
-import { Integrations as SentryIntegrations } from '@sentry/tracing';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
@@ -50,12 +48,7 @@ if (process.env.NODE_ENV !== 'development') {
     // Release name in order to track which version is causing which report
     release: `${pkg.name}@${pkg.version}#${GIT_COMMIT_HASH}`,
     //
-    integrations: [
-      new SentryIntegrations.BrowserTracing({
-        routingInstrumentation: reactRouterV5Instrumentation(history),
-      }),
-      new Replay(),
-    ],
+    integrations: [reactRouterV5BrowserTracingIntegration({ history })],
     maxBreadcrumbs: 50,
     // Proportion of sessions being used to track performance
     // Adjust to a low value when we start getting enough data
@@ -79,8 +72,6 @@ if (process.env.NODE_ENV !== 'development') {
     //   }
     //   return event;
     // },
-    replaysSessionSampleRate: 0.00001,
-    replaysOnErrorSampleRate: 0.001,
   });
   sentrySetTag('bundle', MODERN_BUNDLE ? 'modern' : 'legacy');
 }
@@ -100,6 +91,13 @@ const UniProtKBLandingPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-landing" */ '../../uniprotkb/components/landing-page/LandingPage'
+    )
+);
+// Landing pages
+const UniParcLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-landing" */ '../../uniparc/components/landing-page/LandingPage'
     )
 );
 // Main namespaces
@@ -355,6 +353,9 @@ const RedirectToStarSearch = (
   switch (namespace) {
     case Namespace.uniprotkb:
       LandingPage = UniProtKBLandingPage;
+      break;
+    case Namespace.uniparc:
+      LandingPage = UniParcLandingPage;
       break;
     // NOTE: add cases whenever we start implementing other landing pages
     default:

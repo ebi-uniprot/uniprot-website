@@ -50,7 +50,9 @@
   & > * {
     position: relative;
 
-    text-shadow: -1px -1px 0 white, 1px 1px 0 white;
+    text-shadow:
+      -1px -1px 0 white,
+      1px 1px 0 white;
   }
 
   & img {
@@ -226,6 +228,9 @@ $latest-news-height: 18rem;
   }
 }
 
+.align-end {
+  text-align: end;
+}
 .need-help {
   // Because of Z-pattern:
   // Mess up with the order of cells in order to have the title in the last

@@ -16,12 +16,14 @@ type AddToBasketButtonProps = {
   selectedEntries: string | string[];
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
   remove?: boolean;
+  textSuffix?: string;
 };
 
 const AddToBasketButton = ({
   selectedEntries,
   setSelectedEntries,
   remove,
+  textSuffix,
 }: AddToBasketButtonProps) => {
   const [basket, setBasket] = useBasket();
 
@@ -118,6 +120,7 @@ const AddToBasketButton = ({
     >
       <BasketIcon />
       {finalRemove ? 'Remove' : 'Add'}
+      {textSuffix && ` ${textSuffix}`}
     </Button>
   );
 };

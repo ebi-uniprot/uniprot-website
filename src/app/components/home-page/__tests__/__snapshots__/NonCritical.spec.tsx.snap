@@ -12,7 +12,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </h2>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #00639a;"
+      style="--tile-background: var(--fr--color-uniprotkb);"
     >
       <a
         aria-hidden="true"
@@ -34,16 +34,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Proteins
-        </h2>
-        <h3
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           UniProt Knowledgebase
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -89,7 +89,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #e56358;"
+      style="--tile-background: var(--fr--color-proteomes);"
     >
       <a
         aria-hidden="true"
@@ -111,16 +111,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Species
-        </h2>
-        <h3
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           Proteomes
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -130,7 +130,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #f2994c;"
+      style="--tile-background: var(--fr--color-uniref);"
     >
       <a
         aria-hidden="true"
@@ -152,16 +152,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Protein Clusters
-        </h2>
-        <h3
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           UniRef
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -171,11 +171,11 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient tile--has-link"
-      style="--tile-background: #88c19d;"
+      style="--tile-background: var(--fr--color-uniparc);"
     >
       <a
         aria-hidden="true"
-        href="/uniparc?query=*"
+        href="/uniparc"
         tabindex="-1"
       />
       <div
@@ -193,16 +193,16 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
-          Sequence Archive
-        </h2>
-        <h3
+          Sequence archive
+        </h3>
+        <h4
           class="tile__subtitle small"
         >
           UniParc
-        </h3>
+        </h4>
       </div>
       <small
         class="tile__description"
@@ -397,6 +397,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2024-07-24-release"
+              >
+                UniProt release 2024_04
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Oocyte waste disposal strategy: 'store to degrade later' | Removal of the cross-references to CLAE | Removal of the cross-references to COMPLUYEAST-2DPAGE
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2024-05-29-release"
               >
                 UniProt release 2024_03
@@ -442,96 +460,6 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Vitamin K beyond coagulation | Cross-references to EMDB | Cross-references to JaponicusDB | Changes to the controlled vocabulary...
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-11-08-release"
-              >
-                UniProt release 2023_05
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Hush, little ribosome | Cross-references to Pumba | Changes to the controlled vocabulary of human diseases
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-09-13-release"
-              >
-                UniProt release 2023_04
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Some like it hot | Change of the cross-references to TAIR | Change of the cross-references to TIGRFAMs: replaced by NCBIfam | Change of evidence code for the ProtNLM method
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-06-28-release"
-              >
-                UniProt release 2023_03
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              The fair price of an (ant) lunch | Changes to the controlled vocabulary of human diseases | Changes to the controlled vocabulary for PTMs
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-05-03-release"
-              >
-                UniProt release 2023_02
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Levering the DNA | Changes in prokaryotic taxonomy | Changes to the controlled vocabulary of human diseases
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2023-03-01-release"
-              >
-                UniProt release 2023_01
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Killing me softly | Cross-references to GlyCosmos | Change to the cross-references to Gene3D | Changes to the controlled...
             </p>
           </article>
         </li>
@@ -642,17 +570,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/269/"
+          href="https://www.proteinspotlight.org/back_issues/271/"
           rel="noopener"
           target="_blank"
         >
-          A motherly mesh
+          Liquid yellow
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/269/"
+        href="https://www.proteinspotlight.org/back_issues/271/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -661,14 +589,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt269.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt271.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Toxic  waste.  Since  the  19th  century,  our  species  has  had  to  find  ways  of  scrapping  industrial  detritus  which  is  frequently  dangerous.  So,  we  dig  deep  down  into  the  earth  and  leave  the  nasty  stuff  there  or  we  build  thick  crusts  of  cement  around  it...
+          When  the  opportunity  to  write  a  piece  on  urine  arose,  I  thought  "wonderful,  here's  something  we  can  all  relate  to".  I  had  no  idea,  however,  where  it  was  going  to  lead  me:  ...
       </p>
     </article>
   </section>
@@ -676,13 +604,24 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section no-small"
   >
     <h2
-      class="uniprot-grid-cell--span-12 hero-container__title big"
+      class="uniprot-grid-cell--span-9 hero-container__title big"
     >
-      Analysis Tools
+      <test-file-stub
+        width="1.4ch"
+      />
+       Analysis Tools
     </h2>
+    <a
+      class="uniprot-grid-cell--span-3 align-end"
+      href="/tool-dashboard"
+    >
+      <small>
+        View dashboard
+      </small>
+    </a>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #00A6D5;"
+      style="--tile-background: var(--fr--color-blast);"
     >
       <a
         aria-hidden="true"
@@ -704,11 +643,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           BLAST
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -718,7 +657,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #B8CE48;"
+      style="--tile-background: --fr--color-align;"
     >
       <a
         aria-hidden="true"
@@ -740,11 +679,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Align
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -754,7 +693,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #357B92;"
+      style="--tile-background: var(--fr--color-id-mapping);"
     >
       <a
         aria-hidden="true"
@@ -776,11 +715,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Search with Lists Map IDs
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -790,7 +729,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #A748BD;"
+      style="--tile-background: var(--fr--color-peptide-search);"
     >
       <a
         aria-hidden="true"
@@ -812,11 +751,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Search Peptides
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -892,14 +831,14 @@ exports[`non-critical HomePage component should render 1`] = `
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-7 need-help__attend-training-bottom"
     >
-      <h2
+      <h3
         class="small"
       >
         <test-file-stub
           height="1em"
         />
          Attend training
-      </h2>
+      </h3>
       <a
         class="external-link"
         href="https://www.ebi.ac.uk/training/"
@@ -944,17 +883,6 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
       <a
         class="external-link"
-        href="https://www.youtube.com/watch?v=1swnzBM7eZo&list=PLk96kjgxotiZrj6GWC2SFoOKfB1H3tyxt"
-        rel="noopener"
-        target="_blank"
-      >
-        <test-file-stub
-          width="1.5em"
-        />
-         Past webinars
-      </a>
-      <a
-        class="external-link"
         href="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
         rel="noopener"
         target="_blank"
@@ -989,7 +917,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </h2>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"
@@ -1011,11 +939,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           FTP Download
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -1025,7 +953,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"
@@ -1047,11 +975,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Technical Documentation
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -1061,7 +989,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"
@@ -1083,11 +1011,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Programmatic Access
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"
@@ -1097,7 +1025,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient tile--has-link"
-      style="--tile-background: #4e5a71;"
+      style="--tile-background: var(--fr--color-independence);"
     >
       <a
         aria-hidden="true"
@@ -1119,11 +1047,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="tile__main-content"
       >
-        <h2
+        <h3
           class="tile__header big"
         >
           Submit Data
-        </h2>
+        </h3>
       </div>
       <small
         class="tile__description"

@@ -5,9 +5,9 @@ exports[`BuscoView should render 1`] = `
   <div
     class="busco-view"
   >
-    <protvista-track
-      height="10"
-      length="100"
+    <div
+      class="busco-view__track"
+      style="--s: 37.48185776487663%; --d: 62.00290275761974%; --f: 0.02902757619738752%;"
     />
     <div
       class="busco-view__report"
@@ -15,7 +15,7 @@ exports[`BuscoView should render 1`] = `
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:37.4% D:62%) F:0% M:0.5%
+      C:99.5% (S:37.5% D:62%) F:0% M:0.5%
     </div>
   </div>
 </DocumentFragment>

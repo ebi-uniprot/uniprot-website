@@ -1,7 +1,7 @@
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 
 // Source: https://www.ebi.ac.uk/proteins/api/variation/P0DPR3
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const data = {
   accession: 'P0DPR3',
   entryName: 'TRDD1_HUMAN',

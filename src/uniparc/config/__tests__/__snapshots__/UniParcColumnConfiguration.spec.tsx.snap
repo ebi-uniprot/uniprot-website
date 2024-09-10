@@ -217,12 +217,64 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
       </a>
     </li>
     <li>
+      <a
+        href="/uniprotkb/Q0GNZ6/entry"
+      >
+        <span
+          class="entry-title__status icon--unreviewed"
+          title="This marks an unreviewed UniProtKB entry"
+        >
+          <test-file-stub />
+        </span>
+        Q0GNZ6
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A2I2MDI1/entry"
+      >
+        <span
+          class="entry-title__status icon--unreviewed"
+          title="This marks an unreviewed UniProtKB entry"
+        >
+          <test-file-stub />
+        </span>
+        A0A2I2MDI1
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/Q76ZT7/history"
+      >
+        <span
+          class="entry-title__status icon--unreviewed"
+          title="This marks an unreviewed UniProtKB entry"
+        >
+          <test-file-stub />
+        </span>
+        Q76ZT7.1 (obsolete)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A7I8V511/history"
+      >
+        <span
+          class="entry-title__status icon--unreviewed"
+          title="This marks an unreviewed UniProtKB entry"
+        >
+          <test-file-stub />
+        </span>
+        A0A7I8V511.1 (obsolete)
+      </a>
+    </li>
+    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        4 more entries
+        Fewer entries
       </button>
     </li>
   </ul>
@@ -301,12 +353,63 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
       HSPV_VK05_RKI-089
     </li>
     <li>
+      VACV VK01 RKI-115 CDS
+    </li>
+    <li>
+      OPG095
+    </li>
+    <li>
+      OCZ32_gp108
+    </li>
+    <li>
+      VACWR088
+    </li>
+    <li>
+      CPXV_FIN2000_MAN_093
+    </li>
+    <li>
+      VACV_TT8_108
+    </li>
+    <li>
+      VACV_TT12_108
+    </li>
+    <li>
+      VAC_TKT3_078
+    </li>
+    <li>
+      VAC_TKT4_078
+    </li>
+    <li>
+      VACV_IOC_B141_114
+    </li>
+    <li>
+      VACV_IOC_B388_114
+    </li>
+    <li>
+      LIVPclone14_096
+    </li>
+    <li>
+      VACV_VK01_RKI-115
+    </li>
+    <li>
+      VACV_VK02_RKI-092
+    </li>
+    <li>
+      VACV_VK08_RKI-108
+    </li>
+    <li>
+      VACV_VK12_RKI-121
+    </li>
+    <li>
+      VACV_MFDV-1902_109
+    </li>
+    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        17 more gene names
+        Fewer gene names
       </button>
     </li>
   </ul>
@@ -316,9 +419,9 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
 exports[`UniParcColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2024-05-29T00:00:00.000Z"
+    datetime="2024-07-24T00:00:00.000Z"
   >
-    2024-05-29
+    2024-07-24
   </time>
 </DocumentFragment>
 `;
@@ -443,12 +546,30 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
       </a>
     </li>
     <li>
+      <a
+        href="/taxonomy/9606"
+        title="Homo sapiens (Human), taxon ID 9606"
+        translate="no"
+      >
+        Homo sapiens (Human)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/32630"
+        title="synthetic construct, taxon ID 32630"
+        translate="no"
+      >
+        synthetic construct
+      </a>
+    </li>
+    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        2 more organisms
+        Fewer organisms
       </button>
     </li>
   </ul>
@@ -569,12 +690,30 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
       </a>
     </li>
     <li>
+      <a
+        href="/taxonomy/9606"
+        title="Homo sapiens (Human), taxon ID 9606"
+        translate="no"
+      >
+        9606
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/32630"
+        title="synthetic construct, taxon ID 32630"
+        translate="no"
+      >
+        32630
+      </a>
+    </li>
+    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        2 more organisms
+        Fewer organisms
       </button>
     </li>
   </ul>
@@ -637,12 +776,42 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
       HSPV089
     </li>
     <li>
+      Polyprotein
+    </li>
+    <li>
+      IMV membrane protein L1R
+    </li>
+    <li>
+      N1R protein
+    </li>
+    <li>
+      Myristylated MP IMV
+    </li>
+    <li>
+      Neutralizing antibody IMV membrane protein target
+    </li>
+    <li>
+      Neutralizing antibody MV membrane protein
+    </li>
+    <li>
+      F2 polypeptide
+    </li>
+    <li>
+      Protein L1
+    </li>
+    <li>
+      Uncharacterized protein
+    </li>
+    <li>
+      Hypothetical protein
+    </li>
+    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        10 more protein names
+        Fewer protein names
       </button>
     </li>
   </ul>
@@ -753,12 +922,148 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
        (Genome)
     </li>
     <li>
+      <a
+        href="/proteomes/UP000181229"
+      >
+        UP000181229
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000181062"
+      >
+        UP000181062
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000181110"
+      >
+        UP000181110
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000153808"
+      >
+        UP000153808
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000097422"
+      >
+        UP000097422
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000181484"
+      >
+        UP000181484
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000831909"
+      >
+        UP000831909
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000831853"
+      >
+        UP000831853
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000274976"
+      >
+        UP000274976
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000315999"
+      >
+        UP000315999
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000501395"
+      >
+        UP000501395
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000830577"
+      >
+        UP000830577
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000830584"
+      >
+        UP000830584
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000830110"
+      >
+        UP000830110
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000830598"
+      >
+        UP000830598
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000830701"
+      >
+        UP000830701
+      </a>
+       (Genome)
+    </li>
+    <li>
+      <a
+        href="/proteomes/UP000829986"
+      >
+        UP000829986
+      </a>
+       (Genome)
+    </li>
+    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        17 more proteomes
+        Fewer proteomes
       </button>
     </li>
   </ul>

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { fireEvent, waitFor, screen, act } from '@testing-library/react';
@@ -21,9 +22,15 @@ jest.mock('../EntryMain', () => ({
   default: () => '{{ EntryMain }}',
 }));
 
-jest.mock('../../../../shared/components/layouts/UniProtFooter', () => ({
+jest.mock('../../../../shared/components/layouts/SideBarLayout', () => ({
   __esModule: true,
-  default: () => '{{ Footer }}',
+  SidebarLayout: ({ children }: { children: ReactNode }) => (
+    <>
+      {'{{ SideBarLayout start }}'}
+      {children}
+      {'{{ SideBarLayout end }}'}
+    </>
+  ),
 }));
 
 const filteredUrl = uniprotkbApiUrls.publications.entryPublications({

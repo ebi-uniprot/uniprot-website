@@ -16,12 +16,12 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         >
           <input
             data-id="UniRef50_A0A3E1E969"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="UniRef50_A0A3E1E969"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>
@@ -33,16 +33,17 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
+                class="entry-title__status icon--uniparc"
+                title="This marks a UniParc entry"
               >
                 <test-file-stub />
               </span>
               <span
-                class="entry-title__status icon--uniparc"
-                title="This marks a UniParc entry"
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
                 <test-file-stub />
               </span>

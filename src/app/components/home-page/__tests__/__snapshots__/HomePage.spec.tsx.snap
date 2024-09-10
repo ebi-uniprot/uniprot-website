@@ -17,19 +17,125 @@ exports[`HomePage component should render 1`] = `
         <h1
           class="x-huge"
         >
-          <span>
-            Find your 
-            <span
-              class="letter-group"
-              translate="no"
-            >
-              protein
-            </span>
+          Find your 
+          <span
+            class="letter-group"
+            translate="no"
+          >
+            protein
           </span>
         </h1>
         <div
           class="uniprot-grid uniprot-grid--centered"
-        />
+        >
+          <section
+            class="uniprot-grid-cell--span-12"
+            role="search"
+          >
+            <form
+              aria-label="Main search"
+              class="main-search"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="dropdown"
+              >
+                <button
+                  class="button primary"
+                  style="--main-button-color: var(--fr--color-uniprotkb, var(--fr--color-sea-blue));"
+                  type="button"
+                >
+                  UniProtKB
+                </button>
+              </div>
+              <div
+                class="main-search__input-container"
+              >
+                <input
+                  aria-label="Text query in uniprotkb"
+                  style="--input-padding: 12ch;"
+                  type="search"
+                  value=""
+                />
+                <div
+                  class="main-search__secondary-container"
+                >
+                  <button
+                    class="main-search--secondary"
+                    type="button"
+                  >
+                    <small>
+                      Advanced
+                    </small>
+                  </button>
+                  <small>
+                     | 
+                  </small>
+                  <button
+                    class="main-search--secondary"
+                    type="button"
+                  >
+                    <small>
+                      List
+                    </small>
+                  </button>
+                </div>
+              </div>
+              <button
+                class="button primary"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+            <div
+              class="search-container-footer"
+            >
+              <div>
+                Examples: 
+                <span
+                  translate="no"
+                >
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  >
+                    Insulin
+                  </button>
+                  , 
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  >
+                    APP
+                  </button>
+                  , 
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  >
+                    Human
+                  </button>
+                  , 
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  >
+                    P05067
+                  </button>
+                  , 
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  >
+                    organism_id:9606
+                  </button>
+                </span>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
       <div
         class="hero-header__footer"
@@ -58,15 +164,8 @@ exports[`HomePage component should render 1`] = `
         </a>
       </div>
     </div>
-    <div
-      class="loader-container"
-    >
-      <test-file-stub
-        classname="loader"
-        height="100"
-        width="100"
-      />
-    </div>
+    {{ NonCritical }}
   </main>
+  {{ UniProtFooter }}
 </DocumentFragment>
 `;

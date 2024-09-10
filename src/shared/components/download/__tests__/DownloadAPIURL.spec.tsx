@@ -50,7 +50,7 @@ describe('DownloadAPIURL', () => {
     await waitFor(() =>
       expect(messagesDispatch).toHaveBeenCalledWith({
         payload: {
-          content: 'Link copied to clipboard',
+          content: 'Copied to clipboard',
           displayTime: 5000,
           format: 'POP_UP',
           level: 'success',

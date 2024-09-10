@@ -1,0 +1,68 @@
+.busco-view,
+.busco-legend-item {
+  --s-color: #bce875; // completeSingle
+  --d-color: #0ba5a6; // completeDuplicated
+  --f-color: #eecba4; // fragmented
+  --m-color: #314bb4; // missing
+}
+
+.busco-view {
+  &__track {
+    // Percentages that will be dynamically set by JS
+    --s: 25%; // completeSingle
+    --d: 25%; // completeDuplicated
+    --f: 25%; // fragmented
+    // "missing" not needed as it will be the remainder of 100%
+
+    --sd: calc(var(--s) + var(--d));
+    --sdf: calc(var(--sd) + var(--f));
+
+    height: 15px;
+    background: linear-gradient(
+      to right,
+      var(--s-color),
+      var(--s-color) var(--s),
+      var(--d-color) var(--s),
+      var(--d-color) var(--sd),
+      var(--f-color) var(--sd),
+      var(--f-color) var(--sdf),
+      var(--m-color) var(--sdf),
+      var(--m-color)
+    );
+
+    &__report {
+      margin-top: 0.4rem;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.busco-legend-item {
+  margin-right: 0.5rem;
+  &__swatch {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid white;
+    display: inline-block;
+    margin-right: 0.125rem;
+    position: relative;
+    top: 0.125rem;
+    &--s {
+      background-color: var(--s-color);
+    }
+    &--d {
+      background-color: var(--d-color);
+    }
+    &--f {
+      background-color: var(--f-color);
+    }
+    &--m {
+      background-color: var(--m-color);
+    }
+  }
+
+  &__label {
+    font-size: 0.8rem;
+  }
+}

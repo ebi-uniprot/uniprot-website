@@ -16,12 +16,12 @@ exports[`UniProtKBCard component should render 1`] = `
         >
           <input
             data-id="P21802"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="P21802"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>
@@ -33,6 +33,7 @@ exports[`UniProtKBCard component should render 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--reviewed"

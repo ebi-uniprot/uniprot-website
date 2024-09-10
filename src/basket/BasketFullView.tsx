@@ -31,7 +31,7 @@ const BasketFullView = () => {
   // Basket specific data
   const [basket, setBasket] = useBasket();
   const fullViewMatch = useRouteMatch<{
-    namespace: typeof basketNamespaces[number];
+    namespace: (typeof basketNamespaces)[number];
   }>(LocationToPath[Location.Basket]);
 
   const namespace = fullViewMatch?.params.namespace || Namespace.uniprotkb;
@@ -132,8 +132,10 @@ const BasketFullView = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[namespace]}
-        titlePostscript={<small> in your basket</small>}
+        heading={namespaceAndToolsLabels[namespace]}
+        /* Not sure why fragments and keys are needed, but otherwise gets
+        the React key warnings messages and children are rendered as array... */
+        headingPostscript={<small key="postscript"> in your basket</small>}
         resultsCount={total}
       />
       <ResultsButtons

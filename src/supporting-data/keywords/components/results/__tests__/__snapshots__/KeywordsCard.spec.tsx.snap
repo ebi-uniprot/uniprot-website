@@ -16,12 +16,12 @@ exports[`KeywordsCard tests should render the card component 1`] = `
         >
           <input
             data-id="KW-0021"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="KW-0021"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>
@@ -67,7 +67,7 @@ exports[`KeywordsCard tests should render the card component 1`] = `
       <a
         href="/uniprotkb?query=%28keyword%3AKW-0021%29"
       >
-        145,573 UniProtKB entries
+        147,429 UniProtKB entries
       </a>
       <a
         href="/uniprotkb?query=%28keyword%3AKW-0021%29+AND+%28reviewed%3Atrue%29"
@@ -77,7 +77,7 @@ exports[`KeywordsCard tests should render the card component 1`] = `
       <a
         href="/uniprotkb?query=%28keyword%3AKW-0021%29+AND+%28reviewed%3Afalse%29"
       >
-        143,060 unreviewed UniProtKB entries
+        144,916 unreviewed UniProtKB entries
       </a>
     </div>
   </section>
