@@ -70,10 +70,6 @@
       background: lighten($colour-sea-blue, 10%);
     }
 
-    // :global(.opblock.opblock-post) :global(.opblock-summary-method) {
-    //   background: mediumseagreen;
-    // }
-
     :global(table.model tr.property-row td) {
       vertical-align: bottom;
     }

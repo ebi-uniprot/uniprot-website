@@ -1,6 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { OpenAPIV3 } from 'openapi-types';
+
 import { InPageNavSection } from '../../shared/components/InPageNav';
+
+import { SCHEMAS_ID } from '../components/entry/ApiDocumentationTab';
 
 export const tagNameToId = (name: string) => name.replaceAll(' ', '_');
 
@@ -29,7 +32,7 @@ export const getTagIdsAndSections = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   spec: any,
   idToOperation: ReturnType<typeof getIdToOperation>,
-  labelClassname: string
+  operationLabelClassname: string
 ): [Set<string>, InPageNavSection[]] => {
   const sections = [];
   const tagIds = new Set<string>();
@@ -37,18 +40,31 @@ export const getTagIdsAndSections = (
     const tagName = tag.get('name');
     const tagId = tagNameToId(tagName);
     tagIds.add(tagId);
+    // Group section with about
     sections.push({
       id: tagId,
       label: tagName,
     });
+    // Operations
     for (const [id, operation] of idToOperation) {
       if (operation.tag === tagName) {
         sections.push({
           id,
-          label: <span className={labelClassname}>{operation.path}</span>,
+          label: (
+            <span className={operationLabelClassname}>{operation.path}</span>
+          ),
         });
       }
     }
   }
+
+  // Schemas at the bottom of every page
+  if (spec.get('components')?.get('schemas')) {
+    sections.push({
+      id: SCHEMAS_ID,
+      label: 'Schemas',
+    });
+  }
+
   return [tagIds, sections];
 };
