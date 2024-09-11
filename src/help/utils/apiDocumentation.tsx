@@ -3,7 +3,7 @@ import { OpenAPIV3 } from 'openapi-types';
 
 import { InPageNavSection } from '../../shared/components/InPageNav';
 
-import { SCHEMAS_ID } from '../components/entry/ApiDocumentationTab';
+export const SCHEMAS_ID = 'schemas' as const;
 
 export const tagNameToId = (name: string) => name.replaceAll(' ', '_');
 

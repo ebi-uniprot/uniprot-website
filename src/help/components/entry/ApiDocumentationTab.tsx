@@ -18,6 +18,7 @@ import {
   getIdToOperation,
   getLayoutAction,
   getTagIdsAndSections,
+  SCHEMAS_ID,
   tagNameToId,
 } from '../../utils/apiDocumentation';
 
@@ -27,8 +28,6 @@ import { ApiDocsDefinition } from '../../types/apiDocumentation';
 
 import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
-
-export const SCHEMAS_ID = 'schemas' as const;
 
 const OperationTag = ({
   tagObj,
