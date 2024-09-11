@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import 'interaction-viewer';
-
+import 'swagger-ui-react';
 import { resetUuidV1 } from './__mocks__/uuid';
 
 global.gtag = () => {
@@ -21,6 +21,8 @@ jest.mock('/shared/hooks/useCustomElement', () => ({
 jest.mock('interaction-viewer', () => null);
 
 jest.mock('/shared/custom-elements/NightingaleMSA', () => jest.fn());
+
+jest.mock('swagger-ui-react', () => null);
 
 global.beforeEach(() => {
   resetUuidV1();
@@ -49,13 +51,3 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useId: mockedUseId,
 }));
-
-/* "Fail on console error" util */
-// Uncomment to have jest stop when a console error is shown in order to fix it
-// Recommended to use with Jest's "--bail" option
-// const { error } = console;
-// // eslint-disable-next-line no-console
-// console.error = (message, ...rest) => {
-//   error.apply(console, [message, ...rest]); // keep default behaviour
-//   throw message instanceof Error ? message : new Error(message);
-// };

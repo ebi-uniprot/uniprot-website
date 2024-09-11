@@ -1,5 +1,5 @@
 /* "Fail on console error" util */
-// Uncomment to have jest stop when a console error is shown in order to fix it
+// Jest stops when a console error is shown in order to fix it
 const { error } = console;
 // eslint-disable-next-line no-console
 console.error = (message, ...rest) => {
