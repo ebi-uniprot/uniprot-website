@@ -3415,12 +3415,14 @@ exports[`Entry view should render 1`] = `
             </div>
           </li>
         </ul>
-        <button
-          class="button secondary"
-          type="button"
-        >
-          Show sequence 
-        </button>
+        <div>
+          <button
+            class="button secondary"
+            type="button"
+          >
+            Show sequence 
+          </button>
+        </div>
         <h3
           data-article-id="sequence_caution"
         >

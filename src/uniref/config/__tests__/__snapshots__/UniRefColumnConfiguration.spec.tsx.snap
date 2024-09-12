@@ -229,12 +229,14 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
 
 exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
-  <button
-    class="button secondary"
-    type="button"
-  >
-    Show sequence 
-  </button>
+  <div>
+    <button
+      class="button secondary"
+      type="button"
+    >
+      Show sequence 
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
