@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "GET, no params" 1`] = `
+"// requirement: NodeJS >= 14.8.0, or Firefox, Chrome, or Edge >= 89
+
+const url = \`https://rest.uniprot.org/api\`;
+
+const response = await fetch(url, {
+  headers: {
+    "accept": "application/json"
+  },
+});
+if (!response.ok) {
+  throw new Error(\`\${response.status}: \${response.statusText}\`);
+}
+
+const data = await response.json();
+
+console.log(data);
+"
+`;
+
+exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
+"// requirement: NodeJS >= 14.8.0, or Firefox, Chrome, or Edge >= 89
+
+const url = \`https://rest.uniprot.org/api\`;
+
+const response = await fetch(url, {
+  headers: {
+    "accept": "application/xml"
+  },
+});
+if (!response.ok) {
+  throw new Error(\`\${response.status}: \${response.statusText}\`);
+}
+
+const data = await response.text();
+
+console.log(data);
+"
+`;
+
+exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "GET, params" 1`] = `
+"// requirement: NodeJS >= 14.8.0, or Firefox, Chrome, or Edge >= 89
+
+const searchParams = new URLSearchParams({
+  "query": "search",
+  "fields": [
+    "a",
+    "b",
+    "c"
+  ]
+});
+const url = \`https://rest.uniprot.org/api?\${searchParams}\`;
+
+const response = await fetch(url, {
+  headers: {
+    "accept": "application/json"
+  },
+});
+if (!response.ok) {
+  throw new Error(\`\${response.status}: \${response.statusText}\`);
+}
+
+const data = await response.json();
+
+console.log(data);
+"
+`;
+
+exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "POST, no params, body" 1`] = `"// No automatic snippet, work in progress"`;
+
+exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "POST, params, no body" 1`] = `"// No automatic snippet, work in progress"`;
+
+exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, no params" 1`] = `
+"# Perl not recommended, limited support
+use strict;
+use warnings;
+use HTTP::Tiny;
+use JSON;
+
+my $http = HTTP::Tiny->new();
+
+my $url = 'https://rest.uniprot.org/api';
+my $response = $http->get($url, {
+    headers => {
+        'accept' = 'application/json'
+    }
+});
+
+if (!$response->{success}) {
+    die "Error " . $response->{status} . ": " . $response->{reason};
+}
+
+my $content = decode_json($response->{content});
+use Data::Dumper;
+print Dumper($content);
+"
+`;
+
+exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
+"# Perl not recommended, limited support
+use strict;
+use warnings;
+use HTTP::Tiny;
+
+my $http = HTTP::Tiny->new();
+
+my $url = 'https://rest.uniprot.org/api';
+my $response = $http->get($url, {
+    headers => {
+        'accept' = 'application/xml'
+    }
+});
+
+if (!$response->{success}) {
+    die "Error " . $response->{status} . ": " . $response->{reason};
+}
+
+my $content = $response->{content};
+print $content;
+"
+`;
+
+exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, params" 1`] = `
+"# Perl not recommended, limited support
+use strict;
+use warnings;
+use HTTP::Tiny;
+use JSON;
+
+my $http = HTTP::Tiny->new();
+
+my $url = 'https://rest.uniprot.org/api?query=search&fields=a,b,c';
+my $response = $http->get($url, {
+    headers => {
+        'accept' = 'application/json'
+    }
+});
+
+if (!$response->{success}) {
+    die "Error " . $response->{status} . ": " . $response->{reason};
+}
+
+my $content = decode_json($response->{content});
+use Data::Dumper;
+print Dumper($content);
+"
+`;
+
+exports[`snippetPlugins for "perl" should generate the correct snippet for "POST, no params, body" 1`] = `"# No automatic snippet, work in progress"`;
+
+exports[`snippetPlugins for "perl" should generate the correct snippet for "POST, params, no body" 1`] = `"# No automatic snippet, work in progress"`;
+
+exports[`snippetPlugins for "python_requests" should generate the correct snippet for "GET, no params" 1`] = `
+"import requests, sys, json
+
+headers = {
+  "accept": "application/json"
+}
+base_url = "https://rest.uniprot.org/api"
+
+response = requests.get(base_url, headers=headers, params=params)
+if not r.ok:
+  r.raise_for_status()
+  sys.exit()
+
+data = response.json()
+
+print(json.dumps(data, indent=2))
+"
+`;
+
+exports[`snippetPlugins for "python_requests" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
+"import requests, sys
+
+headers = {
+  "accept": "application/xml"
+}
+base_url = "https://rest.uniprot.org/api"
+
+response = requests.get(base_url, headers=headers, params=params)
+if not r.ok:
+  r.raise_for_status()
+  sys.exit()
+
+data = response.text
+
+print(data)
+"
+`;
+
+exports[`snippetPlugins for "python_requests" should generate the correct snippet for "GET, params" 1`] = `
+"import requests, sys, json
+
+params = {
+  "query": "search",
+  "fields": [
+    "a",
+    "b",
+    "c"
+  ]
+}
+headers = {
+  "accept": "application/json"
+}
+base_url = "https://rest.uniprot.org/api"
+
+response = requests.get(base_url, headers=headers, params=params)
+if not r.ok:
+  r.raise_for_status()
+  sys.exit()
+
+data = response.json()
+
+print(json.dumps(data, indent=2))
+"
+`;
+
+exports[`snippetPlugins for "python_requests" should generate the correct snippet for "POST, no params, body" 1`] = `"# No automatic snippet, work in progress"`;
+
+exports[`snippetPlugins for "python_requests" should generate the correct snippet for "POST, params, no body" 1`] = `"# No automatic snippet, work in progress"`;
+
+exports[`snippetPlugins for "r" should generate the correct snippet for "GET, no params" 1`] = `
+"# R not recommended, limited support
+# Install the required package if not already installed
+# install.packages("httr")
+# install.packages("jsonlite")
+
+library(httr)
+library(jsonlite)
+
+base_url <- "https://rest.uniprot.org/api"
+
+response <- GET(
+  base_url,
+  add_headers(
+    accept = "application/json"
+  )
+)
+
+if (http_status(response)$category != "Success") {
+  stop(sprintf("Error %d: %s", status_code(response), http_status(response)$message))
+}
+
+data <- fromJSON(content(response, "text"))
+print(data)
+"
+`;
+
+exports[`snippetPlugins for "r" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
+"# R not recommended, limited support
+# Install the required package if not already installed
+# install.packages("httr")
+
+library(httr)
+
+base_url <- "https://rest.uniprot.org/api"
+
+response <- GET(
+  base_url,
+  add_headers(
+    accept = "application/xml"
+  )
+)
+
+if (http_status(response)$category != "Success") {
+  stop(sprintf("Error %d: %s", status_code(response), http_status(response)$message))
+}
+
+data <- content(response, "text")
+cat(data)
+"
+`;
+
+exports[`snippetPlugins for "r" should generate the correct snippet for "GET, params" 1`] = `
+"# R not recommended, limited support
+# Install the required package if not already installed
+# install.packages("httr")
+# install.packages("jsonlite")
+
+library(httr)
+library(jsonlite)
+
+base_url <- "https://rest.uniprot.org/api"
+params <- list(
+  query = "search",
+  fields = "a,b,c"
+)
+
+response <- GET(
+  base_url,
+  query = params,
+  add_headers(
+    accept = "application/json"
+  )
+)
+
+if (http_status(response)$category != "Success") {
+  stop(sprintf("Error %d: %s", status_code(response), http_status(response)$message))
+}
+
+data <- fromJSON(content(response, "text"))
+print(data)
+"
+`;
+
+exports[`snippetPlugins for "r" should generate the correct snippet for "POST, no params, body" 1`] = `"# No automatic snippet, work in progress"`;
+
+exports[`snippetPlugins for "r" should generate the correct snippet for "POST, params, no body" 1`] = `"# No automatic snippet, work in progress"`;

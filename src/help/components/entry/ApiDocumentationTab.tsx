@@ -21,6 +21,7 @@ import {
   SCHEMAS_ID,
   tagNameToId,
 } from '../../utils/apiDocumentation';
+import { requestSnippets, snippetPlugins } from '../../utils/apiSnippets';
 
 import apiUrls from '../../config/apiUrls';
 
@@ -146,34 +147,14 @@ const ApiDocumentationTab = ({ id }: Props) => {
     return <ErrorHandler status={data.status} error={data.error} fullPage />;
   }
 
-  // TODO: enable request snippets eg python. https://www.ebi.ac.uk/panda/jira/browse/TRM-31649
-  // Leaving this config here in case it is useful in the future:
-  // requestSnippets: {
-  // generators: {
-  //   curl_bash: {
-  //     title: 'cURL (bash)',
-  //     syntax: 'bash',
-  //   },
-  //   curl_powershell: {
-  //     title: 'cURL (PowerShell)',
-  //     syntax: 'powershell',
-  //   },
-  //   curl_cmd: {
-  //     title: 'cURL (CMD)',
-  //     syntax: 'bash',
-  //   },
-  //   python_requests: {
-  //     title: 'Python (requests)',
-  //     syntax: 'python',
-  //   },
-  // },
-
   return (
     <div ref={containerRef}>
       <SwaggerUI
         spec={data.data}
-        plugins={[AugmentingLayoutPlugin]}
+        plugins={[AugmentingLayoutPlugin, ...snippetPlugins]}
         layout="AugmentingLayout"
+        requestSnippetsEnabled
+        requestSnippets={requestSnippets}
       />
     </div>
   );
