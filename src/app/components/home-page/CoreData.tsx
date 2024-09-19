@@ -132,7 +132,7 @@ const CoreData = () => (
         />
       }
       backgroundColor="var(--fr--color-proteomes)"
-      link={<Link to={getNamespaceTo(Location.ProteomesResults)} />}
+      link={<Link to={LocationToPath[Location.ProteomesResults]} />}
       gradient
     >
       Protein sets for species with sequenced genomes from across the tree of
