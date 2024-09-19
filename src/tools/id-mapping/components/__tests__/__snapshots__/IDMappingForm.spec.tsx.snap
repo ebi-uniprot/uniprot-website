@@ -39,7 +39,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
           . Alternatively, the 
           <a
             class="external-link"
-            href="https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/"
+            href="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/idmapping/"
             rel="noopener"
             target="_blank"
           >
