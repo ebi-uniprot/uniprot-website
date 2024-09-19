@@ -117,6 +117,15 @@ const AugmentingLayoutPlugin = () => ({
     ServersContainer: () => null,
     OperationTag,
   },
+  wrapComponents: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    Models: (Original) => (props) => (
+      <div id={SCHEMAS_ID}>
+        <Original {...props} />
+      </div>
+    ),
+  },
 });
 
 type Props = {
@@ -128,30 +137,6 @@ const ApiDocumentationTab = ({ id }: Props) => {
   const data = useDataApi<OpenAPIV3.Document>(
     apiUrls.apiDocumentationDefinition(id)
   );
-
-  // Set id to SCHEMAS_ID for the .models schema section so that InPageNav can find it
-  useEffect(() => {
-    if (!containerRef.current || !data.data) {
-      return undefined;
-    }
-    const mo: MutationCallback = (mutationsList, observer) => {
-      for (const mutation of mutationsList) {
-        if (mutation.type === 'childList') {
-          const models = document.querySelector('section.models');
-          if (models) {
-            models.id = SCHEMAS_ID;
-            observer.disconnect();
-          }
-        }
-      }
-    };
-    const observer = new MutationObserver(mo);
-    observer.observe(containerRef.current, {
-      childList: true,
-      subtree: true,
-    });
-    return () => observer.disconnect();
-  }, [containerRef, data]);
 
   if (data.loading) {
     return <Loader progress={data.progress} />;
