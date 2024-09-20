@@ -121,8 +121,8 @@ headers = ${JSON.stringify(Object.fromEntries(headers.entries()), null, 2)}
 base_url = "${url.origin + url.pathname}"
 
 response = requests.get(base_url, headers=headers, params=params)
-if not r.ok:
-  r.raise_for_status()
+if not response.ok:
+  response.raise_for_status()
   sys.exit()
 
 data = response.${isJSON ? 'json()' : 'text'}
@@ -212,14 +212,16 @@ my $response = $http->get($url, {
 ${Array.from(headers.entries())
   .map(
     ([key, value], index) =>
-      `${index === 0 ? '' : ',\n'}        '${key}' = '${value}'`
+      `${index === 0 ? '' : ',\n'}        '${key}' => '${value}'`
   )
   .join('')}
     }
 });
 
 if (!$response->{success}) {
-    die "Error " . $response->{status} . ": " . $response->{reason};
+    print "Error " . $response->{status} . ": " . $response->{reason} . "\n";
+    print "Response content: " . $response->{content} . "\n";
+    die;
 }
 
 ${
