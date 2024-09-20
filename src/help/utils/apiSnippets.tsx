@@ -145,7 +145,8 @@ const SnippetGeneratorNodeJsPlugin: SnippetGeneratorPlugin = {
         return '// No automatic snippet, work in progress';
       }
 
-      return `// requirement: NodeJS >= 14.8.0, or Firefox, Chrome, or Edge >= 89
+      return `// Browser requirement: Firefox, Chrome, or Edge >= 89;
+// or, Node requirement: NodeJS >= 14.8.0, used in ES modules mode
 ${
   searchParams
     ? `
@@ -200,6 +201,8 @@ const SnippetGeneratorPerlPlugin: SnippetGeneratorPlugin = {
       }
 
       return `# Perl not recommended, limited support
+# Make sure to have installed the below libraries
+# cpanm Type::Tiny IO::Socket::SSL ${isJSON ? ' JSON' : ''}
 use strict;
 use warnings;
 use HTTP::Tiny;${isJSON ? '\nuse JSON;' : ''}

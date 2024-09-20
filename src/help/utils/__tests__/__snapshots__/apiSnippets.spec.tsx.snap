@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "GET, no params" 1`] = `
-"// requirement: NodeJS >= 14.8.0, or Firefox, Chrome, or Edge >= 89
+"// Browser requirement: Firefox, Chrome, or Edge >= 89;
+// or, Node requirement: NodeJS >= 14.8.0, used in ES modules mode
 
 const url = \`https://rest.uniprot.org/api\`;
 
@@ -21,7 +22,8 @@ console.log(data);
 `;
 
 exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
-"// requirement: NodeJS >= 14.8.0, or Firefox, Chrome, or Edge >= 89
+"// Browser requirement: Firefox, Chrome, or Edge >= 89;
+// or, Node requirement: NodeJS >= 14.8.0, used in ES modules mode
 
 const url = \`https://rest.uniprot.org/api\`;
 
@@ -41,7 +43,8 @@ console.log(data);
 `;
 
 exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "GET, params" 1`] = `
-"// requirement: NodeJS >= 14.8.0, or Firefox, Chrome, or Edge >= 89
+"// Browser requirement: Firefox, Chrome, or Edge >= 89;
+// or, Node requirement: NodeJS >= 14.8.0, used in ES modules mode
 
 const searchParams = new URLSearchParams({
   "query": "search",
@@ -74,6 +77,8 @@ exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "
 
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, no params" 1`] = `
 "# Perl not recommended, limited support
+# Make sure to have installed the below libraries
+# cpanm Type::Tiny IO::Socket::SSL  JSON
 use strict;
 use warnings;
 use HTTP::Tiny;
@@ -100,6 +105,8 @@ print Dumper($content);
 
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
 "# Perl not recommended, limited support
+# Make sure to have installed the below libraries
+# cpanm Type::Tiny IO::Socket::SSL 
 use strict;
 use warnings;
 use HTTP::Tiny;
@@ -124,6 +131,8 @@ print $content;
 
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, params" 1`] = `
 "# Perl not recommended, limited support
+# Make sure to have installed the below libraries
+# cpanm Type::Tiny IO::Socket::SSL  JSON
 use strict;
 use warnings;
 use HTTP::Tiny;
