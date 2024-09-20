@@ -9516,10 +9516,18 @@ protvista-track@3.8.13, protvista-track@^3.8.13:
     lodash-es "^4.17.11"
     protvista-zoomable "^3.8.13"
 
-protvista-uniprot@2.12.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.12.1.tgz#52f17d28f0d821119321a0f4b3dfe60460131359"
-  integrity sha512-tU4BX8zKxLGbtNFfSozm3b9l5IdHhiCCxtZ/Bb/IN+i5cnD8Yo222F3GGmL1qZ/fTmjy2Fv2xip/4D5ZCUacJA==
+protvista-track@3.8.16:
+  version "3.8.16"
+  resolved "https://registry.yarnpkg.com/protvista-track/-/protvista-track-3.8.16.tgz#f97d08078f727565a83e4b8094d9ebae5322f12e"
+  integrity sha512-ymd8NGaJr5wf3gStf2T/GTnOh46oLPu0aIlP6UVQfAiXVuzORcIld32532G64g40+U4K5JCTHUUvYQh8LsvwkA==
+  dependencies:
+    lodash-es "^4.17.11"
+    protvista-zoomable "^3.8.13"
+
+protvista-uniprot@2.12.2:
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.12.2.tgz#f6d7b941a84aeeea461f2fc3cadb417574cebc95"
+  integrity sha512-5CSZJ/+T+Yf8cvKpjIdivo7CkoRP9qsU1WkZYbCwDS1gQI2JsMeahXZj0emB6ZzQjAx7PIo9mjdznpcLkKg2+A==
   dependencies:
     core-js "^3.13.0"
     data-loader "^2.9.1"
@@ -9538,7 +9546,7 @@ protvista-uniprot@2.12.1:
     protvista-structure "3.8.4"
     protvista-structure-adapter "3.8.13"
     protvista-tooltip "3.8.4"
-    protvista-track "3.8.13"
+    protvista-track "3.8.16"
     protvista-variation "3.8.13"
     protvista-variation-adapter "3.8.13"
     protvista-variation-graph "3.8.13"
@@ -10742,7 +10750,7 @@ stringify-object@^3.3.0:
     is-obj "^1.0.1"
     is-regexp "^1.0.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -10762,13 +10770,6 @@ strip-ansi@^5.2.0:
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
-
-strip-ansi@^6.0.0, strip-ansi@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
 
 strip-ansi@^7.0.1, strip-ansi@^7.1.0:
   version "7.1.0"
@@ -11901,16 +11902,7 @@ worker-loader@3.0.8:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
-  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
-  dependencies:
-    ansi-styles "^4.0.0"
-    string-width "^4.1.0"
-    strip-ansi "^6.0.0"
-
-wrap-ansi@7.0.0, wrap-ansi@^2.0.0, wrap-ansi@^7.0.0, wrap-ansi@^8.1.0, wrap-ansi@^9.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@7.0.0, wrap-ansi@^2.0.0, wrap-ansi@^7.0.0, wrap-ansi@^8.1.0, wrap-ansi@^9.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
