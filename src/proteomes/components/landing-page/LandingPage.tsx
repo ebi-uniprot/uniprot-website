@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import {
   ExternalLink,
@@ -8,83 +8,89 @@ import {
 } from 'franklin-sites';
 import cn from 'classnames';
 
-// import StatisticsChart from './StatisticsChart';
+import StatisticsChart from './StatisticsChart';
 import HTMLHead from '../../../shared/components/HTMLHead';
-import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
+// import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPath,
-} from '../../../app/config/urls';
+import { LocationToPath, Location } from '../../../app/config/urls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import { stringifyQuery } from '../../../shared/utils/url';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
-// import { FacetsEnum } from '../../config/UniProtKBFacetConfiguration';
+import { FacetsEnum } from '../../config/ProteomesFacetConfiguration';
 
 import styles from './styles/landing-page.module.scss';
 
 import SpeciesIllustration from '../../../images/species_illustration.img.svg';
 
-const availableFTPFormats = {
-  fasta: 'fasta',
-  text: 'dat',
-  xml: 'xml',
-};
-
-const tutorialsInfo = [
+const documentationLinks = [
   {
-    id: 'yp1O1gDK8oA',
-    title: 'How to search UniProtKB',
-    date: new Date('2021-10-26'),
+    label: 'Proteome',
+    id: 'roteome',
   },
   {
-    id: 'BHu88Sv--mc',
-    title: 'How to explore a UniProt entry',
-    date: new Date('2022-02-17'),
+    label: 'Proteome ID',
+    id: 'proteome_id',
   },
   {
-    id: 'p4_gGkM-Rfs',
-    title: 'How to download embeddings in UniProt',
-    date: new Date('2023-06-25'),
+    label: 'Pan proteomes',
+    id: 'pan_proteomes',
+  },
+  {
+    label: 'Reference Proteome',
+    id: 'reference_proteome',
   },
 ];
+
+// const tutorialsInfo = [
+//   {
+//     id: 'yp1O1gDK8oA',
+//     title: 'How to search UniProtKB',
+//     date: new Date('2021-10-26'),
+//   },
+//   {
+//     id: 'BHu88Sv--mc',
+//     title: 'How to explore a UniProt entry',
+//     date: new Date('2022-02-17'),
+//   },
+//   {
+//     id: 'p4_gGkM-Rfs',
+//     title: 'How to download embeddings in UniProt',
+//     date: new Date('2023-06-25'),
+//   },
+// ];
 
 const metaDescription =
   'Protein sets for species with sequenced genomes from across the tree of life.';
 
 const LandingPage = () => {
-  const release = useUniProtDataVersion();
-
   const { data } = useDataApi<SearchResults<never>>(
     apiUrls.search.search({
-      namespace: Namespace.uniprotkb,
+      namespace: Namespace.proteomes,
       query: '*',
       size: 0,
-      //   facets: [FacetsEnum.Reviewed],
+      facets: [FacetsEnum.ProteomeType],
     })
   );
 
-  let numberReviewed: undefined | number;
-  let numberUnreviewed: undefined | number;
+  let refProtCount: undefined | number;
+  let nonRefProtCount: undefined | number;
 
   if (data?.facets?.[0].values?.length) {
-    numberReviewed = data?.facets?.[0].values.find(
-      (value) => value.value === 'true'
+    refProtCount = data?.facets?.[0].values.find(
+      (value) => value.value === '1'
     )?.count;
-    numberUnreviewed = data?.facets?.[0].values.find(
-      (value) => value.value === 'false'
-    )?.count;
+    nonRefProtCount = data?.facets?.[0].values
+      .filter((value) => value.value !== '1')
+      ?.reduce((sum, value) => sum + value.count, 0);
   }
 
-  //   const [reviewedHovered, setReviewedHovered] = useState(false);
-  //   const [unreviewedHovered, setUnreviewedHovered] = useState(false);
+  const [refProtHovered, setRefProtHovered] = useState(false);
+  const [nonRefProtHovered, setNonRefProtHovered] = useState(false);
 
   return (
     <div className={styles['landing-page']}>
@@ -175,95 +181,101 @@ const LandingPage = () => {
         </div>
 
         {/* Statistics */}
-        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-5">
+        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
           <h2>Statistics</h2>
           <div className={styles.statistics}>
             <div className={styles.chart}>
-              <h3 className="tiny">
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: stringifyQuery({ groupBy: 'taxonomy', query: '*' }),
-                  }}
-                >
-                  Taxonomic origin
-                </Link>
-              </h3>
-
-              {/* <StatisticsChart
-                releaseNumber={release?.releaseNumber}
-                reviewed={!unreviewedHovered}
-                unreviewed={!reviewedHovered}
-              /> */}
+              <h3 className="tiny">Taxonomic origin</h3>
+              <StatisticsChart
+                refProt={refProtHovered}
+                nonRefProt={nonRefProtHovered}
+              />
             </div>
-          </div>
-        </section>
-
-        {/* Proteome Status */}
-        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
-          <h2>Proteome Status</h2>
-          <h3 className="tiny">Number of Entries</h3>
-          <br />
-          <p
-          // onPointerEnter={() => setReviewedHovered(true)}
-          // onFocus={() => setReviewedHovered(true)}
-          // onPointerLeave={() => setReviewedHovered(false)}
-          // onBlur={() => setReviewedHovered(false)}
-          >
-            <ReferenceProteomeIcon
-              width="2em"
-              className={styles['ref-prot-icon']}
-            />
-            <span>
-              Reference proteomes
+            <section className={styles['entries-count']}>
+              <h2>Proteome Status</h2>
+              <h3 className="tiny">Number of Entries</h3>
               <br />
-              {numberReviewed && (
+              <p
+                className={styles['stats-count']}
+                onPointerEnter={() => setRefProtHovered(true)}
+                onFocus={() => setRefProtHovered(true)}
+                onPointerLeave={() => setRefProtHovered(false)}
+                onBlur={() => setRefProtHovered(false)}
+              >
+                <ReferenceProteomeIcon
+                  width="2em"
+                  className={styles['ref-prot-icon']}
+                />
+                <span>
+                  Reference proteomes
+                  <br />
+                  {refProtCount && (
+                    <Link
+                      to={{
+                        pathname: LocationToPath[Location.ProteomesResults],
+                        search: stringifyQuery({
+                          query: `proteome_type:1`,
+                        }),
+                      }}
+                    >
+                      <LongNumber>{refProtCount}</LongNumber> entries
+                    </Link>
+                  )}
+                </span>
+              </p>
+              <p
+                className={styles['stats-count']}
+                onPointerEnter={() => setNonRefProtHovered(true)}
+                onFocus={() => setNonRefProtHovered(true)}
+                onPointerLeave={() => setNonRefProtHovered(false)}
+                onBlur={() => setNonRefProtHovered(false)}
+              >
+                <TremblIcon width="2em" className={styles['unreviewed-icon']} />
+                <span>
+                  Non-reference proteomes
+                  <br />
+                  {nonRefProtCount && (
+                    <Link
+                      to={{
+                        pathname: LocationToPath[Location.ProteomesResults],
+                        search: stringifyQuery({
+                          query: `proteome_type:2 OR proteome_type:3 OR proteome_type:4`,
+                        }),
+                      }}
+                    >
+                      <LongNumber>{nonRefProtCount}</LongNumber> entries
+                    </Link>
+                  )}
+                </span>
+              </p>
+              <p>
+                Search{' '}
                 <Link
                   to={{
                     pathname: LocationToPath[Location.ProteomesResults],
                     search: stringifyQuery({
-                      query: `* AND (proteome_type:1)`,
+                      query: `proteome_type:3`,
                     }),
                   }}
                 >
-                  <LongNumber>{numberReviewed}</LongNumber> entries
-                </Link>
-              )}
-            </span>
-          </p>
-          <p
-          // onPointerEnter={() => setUnreviewedHovered(true)}
-          // onFocus={() => setUnreviewedHovered(true)}
-          // onPointerLeave={() => setUnreviewedHovered(false)}
-          // onBlur={() => setUnreviewedHovered(false)}
-          >
-            <TremblIcon width="2em" className={styles['unreviewed-icon']} />
-            <span>
-              Non-reference proteomes
-              <br />
-              {numberUnreviewed && (
+                  redundant
+                </Link>{' '}
+                and{' '}
                 <Link
                   to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `facets=reviewed:false&query=*`,
+                    pathname: LocationToPath[Location.ProteomesResults],
+                    search: stringifyQuery({
+                      query: `proteome_type:4`,
+                    }),
                   }}
                 >
-                  <LongNumber>{numberUnreviewed}</LongNumber> entries
-                </Link>
-              )}
-            </span>
-          </p>
-          <p>
-            Search
-            <Link to={LocationToPath[Location.UniProtKBStatistics]}>
-              redundant
-            </Link>
-            and
-            <Link to={LocationToPath[Location.UniProtKBStatistics]}>
-              excluded
-            </Link>
-            proteomes
-          </p>
+                  {' '}
+                  excluded
+                </Link>{' '}
+                proteomes
+              </p>
+            </section>
+          </div>
         </section>
 
         {/* Downloads */}
@@ -273,28 +285,22 @@ const LandingPage = () => {
             <br />
             <br />
             <p>
-              Reviewed (Swiss-Prot)
+              Reference proteomes
               <br />
-              {Object.entries(availableFTPFormats).map(([key, value]) => (
-                <ExternalLink
-                  url={`${ftpUrls.uniprotkbReviewed}.${value}.gz`}
-                  key={key}
-                >
-                  {key}
-                </ExternalLink>
-              ))}
+              <ExternalLink url={ftpUrls.referenceProteomes()}>
+                ftp
+              </ExternalLink>
+              <ExternalLink url={`${ftpUrls.referenceProteomes()}README`}>
+                readme
+              </ExternalLink>
             </p>
             <p>
-              Unreviewed (TrEMBL)
+              Pan proteomes
               <br />
-              {Object.entries(availableFTPFormats).map(([key, value]) => (
-                <ExternalLink
-                  url={`${ftpUrls.uniprotkbUnreviewed}.${value}.gz`}
-                  key={key}
-                >
-                  {key}
-                </ExternalLink>
-              ))}
+              <ExternalLink url={ftpUrls.panProteomes()}>ftp</ExternalLink>
+              <ExternalLink url={`${ftpUrls.panProteomes()}README`}>
+                readme
+              </ExternalLink>
             </p>
             <p>
               <ExternalLink url={ftpUrls.uniprotkb}>
@@ -304,8 +310,29 @@ const LandingPage = () => {
           </div>
         </section>
 
+        {/* Help links */}
+        <h2 className="uniprot-grid-cell--span-12">Documentation</h2>
+        <ul
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-6'
+          )}
+        >
+          {documentationLinks.map((item) => (
+            <li key={item.id}>
+              <Link
+                to={generatePath(LocationToPath[Location.HelpEntry], {
+                  accession: item.id,
+                })}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
         {/* Tutorials */}
-        <h2 className="uniprot-grid-cell--span-12">Resources & Webinars</h2>
+        {/* <h2 className="uniprot-grid-cell--span-12">Resources & Webinars</h2>
         {tutorialsInfo.map((item) => (
           <Fragment key={item.id}>
             <div
@@ -332,7 +359,7 @@ const LandingPage = () => {
               </time>
             </div>
           </Fragment>
-        ))}
+        ))} */}
       </section>
     </div>
   );

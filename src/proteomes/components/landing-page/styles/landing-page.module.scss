@@ -16,12 +16,6 @@ $reviewed-tweak: 0.3em;
   place-items: center;
 }
 
-.main-video {
-  position: sticky;
-  /* same as grid gap */
-  top: $global-margin;
-}
-
 .statistics {
   display: flex;
   flex-wrap: wrap;
@@ -37,14 +31,14 @@ $reviewed-tweak: 0.3em;
   justify-content: flex-start;
   flex-direction: column;
 
-  p {
+  p.stats-count {
     display: flex;
     gap: $global-margin;
   }
 }
 
-.reviewed-icon {
-  color: $colour-reviewed;
+.ref-prot-icon {
+  color: $colour-reference-proteome;
   /* Manual tweak for visual alignment of the 2 icons */
   margin-inline: -$reviewed-tweak $reviewed-tweak;
 }
