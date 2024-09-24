@@ -93,7 +93,7 @@ exports[`non-critical HomePage component should render 1`] = `
     >
       <a
         aria-hidden="true"
-        href="/proteomes?query=*"
+        href="/proteomes"
         tabindex="-1"
       />
       <div
