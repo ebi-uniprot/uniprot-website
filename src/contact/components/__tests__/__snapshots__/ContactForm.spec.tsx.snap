@@ -207,6 +207,26 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         />
       </span>
       <label
+        class="label label-wide"
+        for="prefilled-1"
+      >
+        Additional information (sent with your message to help our helpdesk help you):
+      </label>
+      <span
+        class="input input__message"
+      >
+        <textarea
+          data-hj-allow="true"
+          id="context-1"
+          name="context"
+          readonly=""
+        >
+          Referred from: http://localhost
+User browser: Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3
+Website version: #git_commit_id
+        </textarea>
+      </span>
+      <label
         class="privacy"
       >
         <input
@@ -233,12 +253,6 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         name="requiredForRobots"
         tabindex="-1"
         type="text"
-      />
-      <input
-        hidden=""
-        name="referrer"
-        readonly=""
-        value=""
       />
       <button
         class="button primary disabled"
@@ -454,6 +468,26 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         />
       </span>
       <label
+        class="label label-wide"
+        for="prefilled-1"
+      >
+        Additional information (sent with your message to help our helpdesk help you):
+      </label>
+      <span
+        class="input input__message"
+      >
+        <textarea
+          data-hj-allow="true"
+          id="context-1"
+          name="context"
+          readonly=""
+        >
+          Referred from: http://localhost
+User browser: Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3
+Website version: #git_commit_id
+        </textarea>
+      </span>
+      <label
         class="privacy"
       >
         <input
@@ -480,12 +514,6 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         name="requiredForRobots"
         tabindex="-1"
         type="text"
-      />
-      <input
-        hidden=""
-        name="referrer"
-        readonly=""
-        value=""
       />
       <button
         class="button primary"
@@ -740,6 +768,26 @@ exports[`ContactForm should render for generic contact form 1`] = `
         />
       </span>
       <label
+        class="label label-wide"
+        for="prefilled-1"
+      >
+        Additional information (sent with your message to help our helpdesk help you):
+      </label>
+      <span
+        class="input input__message"
+      >
+        <textarea
+          data-hj-allow="true"
+          id="context-1"
+          name="context"
+          readonly=""
+        >
+          Referred from: http://localhost
+User browser: Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3
+Website version: #git_commit_id
+        </textarea>
+      </span>
+      <label
         class="privacy"
       >
         <input
@@ -766,12 +814,6 @@ exports[`ContactForm should render for generic contact form 1`] = `
         name="requiredForRobots"
         tabindex="-1"
         type="text"
-      />
-      <input
-        hidden=""
-        name="referrer"
-        readonly=""
-        value=""
       />
       <button
         class="button primary"
