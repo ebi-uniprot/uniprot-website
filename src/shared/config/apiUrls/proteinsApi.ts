@@ -62,3 +62,17 @@ export const antigen = (accession: string, format?: FileFormat) => {
     format: format ? fileFormatToUrlParameter[format] : undefined,
   });
 };
+
+export const hpp = (accession: string, format?: FileFormat) => {
+  const url = joinUrl(proteinsApiPrefix, 'hpp', accession);
+  return stringifyUrl(url, {
+    format: format ? fileFormatToUrlParameter[format] : undefined,
+  });
+};
+
+export const epitope = (accession: string, format?: FileFormat) => {
+  const url = joinUrl(proteinsApiPrefix, 'epitope', accession);
+  return stringifyUrl(url, {
+    format: format ? fileFormatToUrlParameter[format] : undefined,
+  });
+};

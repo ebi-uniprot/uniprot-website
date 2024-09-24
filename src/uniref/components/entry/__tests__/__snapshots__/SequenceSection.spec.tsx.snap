@@ -19,12 +19,14 @@ exports[`SequenceSection component should render the SequenceSection properly an
       <div
         class="card__content"
       >
-        <button
-          class="button secondary"
-          type="button"
-        >
-          Show sequence 
-        </button>
+        <div>
+          <button
+            class="button secondary"
+            type="button"
+          >
+            Show sequence 
+          </button>
+        </div>
       </div>
     </div>
   </section>

@@ -96,6 +96,8 @@ export enum Dataset {
   coordinates = 'Genomic Coordinates',
   proteomics = 'Proteomics',
   proteomicsPtm = 'Proteomics-PTM',
+  hpp = 'Human Proteome Project',
+  epitope = 'Epitope',
   antigen = 'Antigen',
   interProRepresentativeDomains = 'InterPro Representative Domains',
   alphaFoldConfidence = 'AlphaFold Confidence',
@@ -111,6 +113,8 @@ const uniprotKBEntryDatasets = {
     Dataset.coordinates,
     Dataset.proteomics,
     Dataset.proteomicsPtm,
+    Dataset.hpp,
+    Dataset.epitope,
     Dataset.antigen,
     Dataset.interProRepresentativeDomains,
     Dataset.alphaFoldConfidence,
@@ -230,6 +234,10 @@ const getEntryDownloadUrl = (
       return apiUrls.proteinsApi.mutagenesis(accession, fileFormat);
     case Dataset.antigen:
       return apiUrls.proteinsApi.antigen(accession, fileFormat);
+    case Dataset.hpp:
+      return apiUrls.proteinsApi.hpp(accession, fileFormat);
+    case Dataset.epitope:
+      return apiUrls.proteinsApi.epitope(accession, fileFormat);
     case Dataset.interProRepresentativeDomains:
       return fileFormat === FileFormat.tsv || fileFormat === FileFormat.json
         ? externalUrls.InterProRepresentativeDomains(accession, fileFormat)
@@ -408,6 +416,20 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
+  const proteinsApiHpp = useDataApi(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.proteinsApi.hpp(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiEpitope = useDataApi(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.proteinsApi.epitope(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
   const proteinsApiCoordinates = useDataApi(
     namespace === Namespace.uniprotkb && accession
       ? apiUrls.proteinsApi.coordinates(accession)
@@ -473,6 +495,12 @@ const EntryDownload = ({
   if (!proteinsApiAntigen.loading && proteinsApiAntigen.status === 200) {
     availableDatasets.push(Dataset.antigen);
   }
+  if (!proteinsApiHpp.loading && proteinsApiHpp.status === 200) {
+    availableDatasets.push(Dataset.hpp);
+  }
+  if (!proteinsApiEpitope.loading && proteinsApiEpitope.status === 200) {
+    availableDatasets.push(Dataset.epitope);
+  }
   if (
     !proteinsApiCoordinates.loading &&
     proteinsApiCoordinates.status === 200
@@ -512,6 +540,8 @@ const EntryDownload = ({
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
       case Dataset.antigen:
+      case Dataset.hpp:
+      case Dataset.epitope:
       case Dataset.mutagenesis:
         setFileFormats(proteinsAPICommonFormats);
         break;
