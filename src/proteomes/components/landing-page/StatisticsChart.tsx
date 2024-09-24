@@ -20,6 +20,16 @@ type PieChartDatum = {
   entryCount: number;
 };
 
+const sortByTaxonName = (a: PieChartDatum, b: PieChartDatum) => {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+};
+
 const StatisticsChart = ({ refProt, nonRefProt }: StatisticsChartProps) => {
   const refProtStats = useDataApi<SearchResults<never>>(
     apiUrls.search.search({
@@ -49,14 +59,16 @@ const StatisticsChart = ({ refProt, nonRefProt }: StatisticsChartProps) => {
       ?.values?.map((item): { name: string; entryCount: number } => ({
         name: item.value,
         entryCount: item.count,
-      }));
+      }))
+      .sort(sortByTaxonName);
 
     const nonRefProtTaxonCounts = nonRefProtStats.data?.facets
       ?.find((facet) => facet.name === FacetsEnum.Superkingdom)
       ?.values?.map((item): { name: string; entryCount: number } => ({
         name: item.value,
         entryCount: item.count,
-      }));
+      }))
+      .sort(sortByTaxonName);
 
     if (refProt) {
       return refProtTaxonCounts;
@@ -68,10 +80,21 @@ const StatisticsChart = ({ refProt, nonRefProt }: StatisticsChartProps) => {
     const taxonSummed = Object.values(
       (refProtTaxonCounts as PieChartDatum[])
         .concat(nonRefProtTaxonCounts as PieChartDatum[])
-        .reduce((acc, { name, entryCount }) => {
-          (acc[name] ??= { name, entryCount: 0 }).entryCount += entryCount;
-          return acc;
-        }, {})
+        .sort(sortByTaxonName)
+        .reduce(
+          (acc, { name, entryCount }) => {
+            if (acc[name]) {
+              acc[name].entryCount += entryCount;
+            } else {
+              acc[name] = {
+                name,
+                entryCount,
+              };
+            }
+            return acc;
+          },
+          {} as Record<string, PieChartDatum>
+        )
     );
 
     return taxonSummed;

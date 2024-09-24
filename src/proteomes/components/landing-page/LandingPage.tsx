@@ -311,25 +311,22 @@ const LandingPage = () => {
         </section>
 
         {/* Help links */}
-        <h2 className="uniprot-grid-cell--span-12">Documentation</h2>
-        <ul
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-6'
-          )}
-        >
-          {documentationLinks.map((item) => (
-            <li key={item.id}>
-              <Link
-                to={generatePath(LocationToPath[Location.HelpEntry], {
-                  accession: item.id,
-                })}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
+          <h2>Documentation</h2>
+          <ul>
+            {documentationLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: item.id,
+                  })}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         {/* Tutorials */}
         {/* <h2 className="uniprot-grid-cell--span-12">Resources & Webinars</h2>
