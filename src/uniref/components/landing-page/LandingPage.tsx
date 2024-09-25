@@ -1,10 +1,5 @@
 import { generatePath, Link } from 'react-router-dom';
-import {
-  ExternalLink,
-  LongNumber,
-  ReferenceProteomeIcon,
-  TremblIcon,
-} from 'franklin-sites';
+import { ExternalLink, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -23,6 +18,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 import styles from './styles/landing-page.module.scss';
 
 import SpeciesIllustration from '../../../images/cluster_illustration.img.svg';
+import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
 
 const documentationLinks = [
   {
@@ -67,22 +63,26 @@ const metaDescription =
 const LandingPage = () => {
   const { data } = useDataApi<SearchResults<never>>(
     apiUrls.search.search({
-      namespace: Namespace.proteomes,
+      namespace: Namespace.uniref,
       query: '*',
       size: 0,
-      //   facets: [FacetsEnum.ProteomeType],
+      facets: [FacetsEnum.Identity],
     })
   );
 
-  let refProtCount: undefined | number;
-  let nonRefProtCount: undefined | number;
+  let identity100Count: undefined | number;
+  let identity90Count: undefined | number;
+  let identity50Count: undefined | number;
 
   if (data?.facets?.[0].values?.length) {
-    refProtCount = data?.facets?.[0].values.find(
-      (value) => value.value === '1'
+    identity100Count = data?.facets?.[0].values.find(
+      (value) => value.value === '1.0'
     )?.count;
-    nonRefProtCount = data?.facets?.[0].values
-      .filter((value) => value.value !== '1')
+    identity90Count = data?.facets?.[0].values
+      .filter((value) => value.value === '0.9')
+      ?.reduce((sum, value) => sum + value.count, 0);
+    identity50Count = data?.facets?.[0].values
+      .filter((value) => value.value === '0.5')
       ?.reduce((sum, value) => sum + value.count, 0);
   }
 
@@ -100,7 +100,7 @@ const LandingPage = () => {
             styles['image-container']
           )}
         >
-          <img src={SpeciesIllustration} width={250} height={250} alt="" />
+          <img src={SpeciesIllustration} width={300} height={250} alt="" />
         </div>
         <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
           <p>
@@ -164,85 +164,61 @@ const LandingPage = () => {
 
         {/* Statistics */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
-          <h2>Statistics</h2>
+          <h2>Percent Identity Clusters</h2>
           <div className={styles.statistics}>
-            <div className={styles.chart}>
-              <h3 className="tiny">Taxonomic origin</h3>
-              {/* <StatisticsChart
-                refProt={refProtHovered}
-                nonRefProt={nonRefProtHovered}
-              /> */}
-            </div>
+            {/* Find an image that best describes UniRef clustering */}
             <section className={styles['entries-count']}>
-              <h2>Proteome Status</h2>
-              <h3 className="tiny">Number of Entries</h3>
               <br />
               <p className={styles['stats-count']}>
-                <ReferenceProteomeIcon
-                  width="2em"
-                  className={styles['ref-prot-icon']}
-                />
+                <b>100%</b>
                 <span>
-                  Reference proteomes
-                  <br />
-                  {refProtCount && (
+                  {identity100Count && (
                     <Link
                       to={{
-                        pathname: LocationToPath[Location.ProteomesResults],
+                        pathname: LocationToPath[Location.UniRefResults],
                         search: stringifyQuery({
-                          query: `proteome_type:1`,
+                          query: 'identity:1.0',
                         }),
                       }}
                     >
-                      <LongNumber>{refProtCount}</LongNumber> entries
+                      <LongNumber>{identity100Count}</LongNumber> entries
                     </Link>
                   )}
                 </span>
               </p>
               <p className={styles['stats-count']}>
-                <TremblIcon width="2em" className={styles['unreviewed-icon']} />
+                <b>90%</b>
                 <span>
-                  Non-reference proteomes
-                  <br />
-                  {nonRefProtCount && (
+                  {identity90Count && (
                     <Link
                       to={{
-                        pathname: LocationToPath[Location.ProteomesResults],
+                        pathname: LocationToPath[Location.UniRefResults],
                         search: stringifyQuery({
-                          query: `proteome_type:2 OR proteome_type:3 OR proteome_type:4`,
+                          query: 'identity:0.9',
                         }),
                       }}
                     >
-                      <LongNumber>{nonRefProtCount}</LongNumber> entries
+                      <LongNumber>{identity90Count}</LongNumber> entries
                     </Link>
                   )}
                 </span>
               </p>
-              <p>
-                Search{' '}
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.ProteomesResults],
-                    search: stringifyQuery({
-                      query: `proteome_type:3`,
-                    }),
-                  }}
-                >
-                  redundant
-                </Link>{' '}
-                and{' '}
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.ProteomesResults],
-                    search: stringifyQuery({
-                      query: `proteome_type:4`,
-                    }),
-                  }}
-                >
-                  {' '}
-                  excluded
-                </Link>{' '}
-                proteomes
+              <p className={styles['stats-count']}>
+                <b>50%</b>
+                <span>
+                  {identity50Count && (
+                    <Link
+                      to={{
+                        pathname: LocationToPath[Location.UniRefResults],
+                        search: stringifyQuery({
+                          query: 'identity:0.5',
+                        }),
+                      }}
+                    >
+                      <LongNumber>{identity50Count}</LongNumber> entries
+                    </Link>
+                  )}
+                </span>
               </p>
             </section>
           </div>
@@ -255,7 +231,7 @@ const LandingPage = () => {
             <br />
             <br />
             <p>
-              Reference proteomes
+              UniRef100
               <br />
               {/* <ExternalLink url={ftpUrls.referenceProteomes()}>
                 ftp
