@@ -1,5 +1,4 @@
 @import 'franklin-sites/src/styles/settings';
-@import 'franklin-sites/src/styles/colours';
 
 .landing-page {
   margin-block: 2 * $global-margin;
@@ -36,11 +35,11 @@
 }
 
 .ref-prot-icon {
-  color: $colour-reference-proteome;
+  color: var(--fr--color-reference-proteome);
 }
 
 .unreviewed-icon {
-  color: $colour-unreviewed;
+  color: var(--fr--color-unreviewed);
 }
 
 .download {
