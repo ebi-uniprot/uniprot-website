@@ -1,8 +1,6 @@
 @import 'franklin-sites/src/styles/settings';
 @import 'franklin-sites/src/styles/colours';
 
-$reviewed-tweak: 0.3em;
-
 .landing-page {
   margin-block: 2 * $global-margin;
 
@@ -39,8 +37,6 @@ $reviewed-tweak: 0.3em;
 
 .ref-prot-icon {
   color: $colour-reference-proteome;
-  /* Manual tweak for visual alignment of the 2 icons */
-  margin-inline: -$reviewed-tweak $reviewed-tweak;
 }
 
 .unreviewed-icon {

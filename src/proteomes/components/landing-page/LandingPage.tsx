@@ -30,7 +30,7 @@ import SpeciesIllustration from '../../../images/species_illustration.img.svg';
 const documentationLinks = [
   {
     label: 'Proteome',
-    id: 'roteome',
+    id: 'proteome',
   },
   {
     label: 'Proteome ID',
@@ -106,7 +106,7 @@ const LandingPage = () => {
             styles['image-container']
           )}
         >
-          <img src={SpeciesIllustration} width={250} height={250} alt="" />
+          <img src={SpeciesIllustration} width={260} height={260} alt="" />
         </div>
         <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
           <p>
@@ -182,15 +182,18 @@ const LandingPage = () => {
 
         {/* Statistics */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
-          <h2>Statistics</h2>
           <div className={styles.statistics}>
-            <div className={styles.chart}>
-              <h3 className="tiny">Taxonomic origin</h3>
-              <StatisticsChart
-                refProt={refProtHovered}
-                nonRefProt={nonRefProtHovered}
-              />
+            <div>
+              <h2>Statistics</h2>
+              <div className={styles.chart}>
+                <h3 className="tiny">Taxonomic origin</h3>
+                <StatisticsChart
+                  refProt={refProtHovered}
+                  nonRefProt={nonRefProtHovered}
+                />
+              </div>
             </div>
+
             <section className={styles['entries-count']}>
               <h2>Proteome Status</h2>
               <h3 className="tiny">Number of Entries</h3>
@@ -203,7 +206,7 @@ const LandingPage = () => {
                 onBlur={() => setRefProtHovered(false)}
               >
                 <ReferenceProteomeIcon
-                  width="2em"
+                  width="3ch"
                   className={styles['ref-prot-icon']}
                 />
                 <span>
@@ -230,7 +233,7 @@ const LandingPage = () => {
                 onPointerLeave={() => setNonRefProtHovered(false)}
                 onBlur={() => setNonRefProtHovered(false)}
               >
-                <TremblIcon width="2em" className={styles['unreviewed-icon']} />
+                <TremblIcon width="4ch" className={styles['unreviewed-icon']} />
                 <span>
                   Non-reference proteomes
                   <br />
