@@ -157,7 +157,7 @@ const CoreData = () => (
         />
       }
       backgroundColor="var(--fr--color-uniref)"
-      link={<Link to={getNamespaceTo(Location.UniRefResults)} />}
+      link={<Link to={LocationToPath[Location.UniRefResults]} />}
       gradient
     >
       Clusters of protein sequences at 100%, 90% &amp; 50% identity

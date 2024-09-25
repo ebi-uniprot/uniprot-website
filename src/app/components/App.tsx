@@ -107,6 +107,12 @@ const ProteomesLandingPage = lazy(
       /* webpackChunkName: "uniprotkb-landing" */ '../../proteomes/components/landing-page/LandingPage'
     )
 );
+const UniRefLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-landing" */ '../../uniref/components/landing-page/LandingPage'
+    )
+);
 // Statistics pages
 const UniProtKBStatisticsPage = lazy(
   () =>
@@ -361,7 +367,9 @@ const RedirectToStarSearch = (
     case Namespace.proteomes:
       LandingPage = ProteomesLandingPage;
       break;
-    // NOTE: add cases whenever we start implementing other landing pages
+    case Namespace.uniref:
+      LandingPage = UniRefLandingPage;
+      break;
     default:
       return (
         <Redirect
