@@ -1,0 +1,73 @@
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
+
+$reviewed-tweak: 0.3em;
+
+.landing-page {
+  margin-block: 2 * $global-margin;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.main-video {
+  position: sticky;
+  /* same as grid gap */
+  top: $global-margin;
+}
+
+.statistics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.chart {
+  text-align: center;
+}
+
+.entries-count {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  p {
+    display: flex;
+    gap: $global-margin;
+  }
+}
+
+.reviewed-icon {
+  color: $colour-reviewed;
+  /* Manual tweak for visual alignment of the 2 icons */
+  margin-inline: -$reviewed-tweak $reviewed-tweak;
+}
+
+.unreviewed-icon {
+  color: $colour-unreviewed;
+}
+
+.download {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  a {
+    margin-inline-end: 0.5 * $global-margin;
+  }
+}
+
+.tutorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__title {
+    // Show maximum 2 lines of the title
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}
