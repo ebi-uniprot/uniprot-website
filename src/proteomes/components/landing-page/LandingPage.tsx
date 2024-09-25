@@ -7,6 +7,7 @@ import {
   TremblIcon,
 } from 'franklin-sites';
 import cn from 'classnames';
+import joinUrl from 'url-join';
 
 import StatisticsChart from './StatisticsChart';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -217,7 +218,7 @@ const LandingPage = () => {
                       to={{
                         pathname: LocationToPath[Location.ProteomesResults],
                         search: stringifyQuery({
-                          query: `proteome_type:1`,
+                          query: 'proteome_type:1',
                         }),
                       }}
                     >
@@ -242,7 +243,8 @@ const LandingPage = () => {
                       to={{
                         pathname: LocationToPath[Location.ProteomesResults],
                         search: stringifyQuery({
-                          query: `proteome_type:2 OR proteome_type:3 OR proteome_type:4`,
+                          query:
+                            'proteome_type:2 OR proteome_type:3 OR proteome_type:4',
                         }),
                       }}
                     >
@@ -257,7 +259,7 @@ const LandingPage = () => {
                   to={{
                     pathname: LocationToPath[Location.ProteomesResults],
                     search: stringifyQuery({
-                      query: `proteome_type:3`,
+                      query: 'proteome_type:3',
                     }),
                   }}
                 >
@@ -268,7 +270,7 @@ const LandingPage = () => {
                   to={{
                     pathname: LocationToPath[Location.ProteomesResults],
                     search: stringifyQuery({
-                      query: `proteome_type:4`,
+                      query: 'proteome_type:4',
                     }),
                   }}
                 >
@@ -306,7 +308,7 @@ const LandingPage = () => {
               </ExternalLink>
             </p>
             <p>
-              <ExternalLink url={ftpUrls.uniprotkb}>
+              <ExternalLink url={joinUrl(ftpUrls.uniprot, 'knowledgebase/')}>
                 Explore more in FTP
               </ExternalLink>
             </p>
