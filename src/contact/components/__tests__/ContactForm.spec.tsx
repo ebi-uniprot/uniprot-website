@@ -16,7 +16,13 @@ const handleSubmit = jest.fn();
 const handleChange = jest.fn();
 
 describe('ContactForm', () => {
-  beforeEach(async () => {
+  beforeAll(() => {
+    jest
+      .spyOn(window.navigator, 'userAgent', 'get')
+      .mockReturnValue('mocked user agent');
+  });
+
+  beforeEach(() => {
     handleSubmit.mockClear();
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: false,

@@ -222,7 +222,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           readonly=""
         >
           Referred from: http://localhost
-User browser: Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3
+User browser: mocked user agent
 Website version: #git_commit_id
         </textarea>
       </span>
@@ -483,7 +483,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           readonly=""
         >
           Referred from: http://localhost
-User browser: Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3
+User browser: mocked user agent
 Website version: #git_commit_id
         </textarea>
       </span>
@@ -783,7 +783,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           readonly=""
         >
           Referred from: http://localhost
-User browser: Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3
+User browser: mocked user agent
 Website version: #git_commit_id
         </textarea>
       </span>
