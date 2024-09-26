@@ -20,24 +20,43 @@ import styles from './styles/landing-page.module.scss';
 import SpeciesIllustration from '../../../images/cluster_illustration.img.svg';
 import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
 
+const datasets = ['UniRef100', 'UniRef90', 'UniRef50'];
+
 const documentationLinks = [
   {
-    label: 'Proteome',
-    id: 'roteome',
+    label: 'UniRef',
+    id: 'uniref',
   },
   {
-    label: 'Proteome ID',
-    id: 'proteome_id',
+    label: 'UniRef Cluster',
+    id: 'uniref_cluster',
   },
   {
-    label: 'Pan proteomes',
-    id: 'pan_proteomes',
+    label: 'UniRef Seed',
+    id: 'uniref_seed',
   },
   {
-    label: 'Reference Proteome',
-    id: 'reference_proteome',
+    label: 'Linking to UniProt',
+    id: 'linking_to_uniprot',
   },
 ];
+
+const getFTPLinks = (resource: string) => {
+  const availableFTPFormats = ['xml', 'fasta'];
+
+  return (
+    <>
+      {availableFTPFormats.map((value) => (
+        <ExternalLink
+          url={`${ftpUrls.uniref}/${resource}/${resource}.${value}.gz`}
+          key={`${resource}.${value}`}
+        >
+          {value}
+        </ExternalLink>
+      ))}
+    </>
+  );
+};
 
 // const tutorialsInfo = [
 //   {
@@ -229,27 +248,14 @@ const LandingPage = () => {
           <h2>Downloads</h2>
           <div className={styles.download}>
             <br />
-            <br />
+            {datasets.map((dataset) => (
+              <p className={styles['ftp-link']}>
+                {dataset}&nbsp;&nbsp;
+                {getFTPLinks(dataset.toLowerCase())}
+              </p>
+            ))}
             <p>
-              UniRef100
-              <br />
-              {/* <ExternalLink url={ftpUrls.referenceProteomes()}>
-                ftp
-              </ExternalLink>
-              <ExternalLink url={`${ftpUrls.referenceProteomes()}README`}>
-                readme
-              </ExternalLink> */}
-            </p>
-            <p>
-              Pan proteomes
-              <br />
-              {/* <ExternalLink url={ftpUrls.panProteomes()}>ftp</ExternalLink>
-              <ExternalLink url={`${ftpUrls.panProteomes()}README`}>
-                readme
-              </ExternalLink> */}
-            </p>
-            <p>
-              <ExternalLink url={ftpUrls.uniprotkb}>
+              <ExternalLink url={ftpUrls.uniref}>
                 Explore more in FTP
               </ExternalLink>
             </p>

@@ -18,11 +18,6 @@ import SpeciesIllustration from '../../../images/species_illustration.img.svg';
 import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
 import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 
-const getNamespaceTo = (location: Location) => ({
-  pathname: LocationToPath[location],
-  search: 'query=*',
-});
-
 const UniProtKBLinks = () => {
   const { data } = useDataApi<SearchResults<never>>(
     apiUrls.search.search({
