@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { schemeReds } from 'd3';
 
 import PieChart from '../../../uniprotkb/components/graphs/PieChart';
 
@@ -107,7 +108,14 @@ const StatisticsChart = ({ refProt, nonRefProt }: StatisticsChartProps) => {
     nonRefProt,
   ]);
 
-  return <PieChart data={data} type="taxonomy" />;
+  return (
+    <PieChart
+      data={data}
+      type="taxonomy"
+      stableSlices
+      colorScheme={schemeReds as string[][]}
+    />
+  );
 };
 
 export default StatisticsChart;
