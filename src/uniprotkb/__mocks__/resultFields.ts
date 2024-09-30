@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -863,11 +863,6 @@ const mock = [
         id: 'protein_family/group/cazy',
       },
       {
-        label: 'CLAE',
-        name: 'xref_clae',
-        id: 'protein_family/group/clae',
-      },
-      {
         label: 'ESTHER',
         name: 'xref_esther',
         isMultiValueCrossReference: true,
@@ -1017,11 +1012,6 @@ const mock = [
         id: '2d_gel/compluyeast-2dpage',
       },
       {
-        label: 'DOSAC-COBS-2DPAGE',
-        name: 'xref_dosac-cobs-2dpage',
-        id: '2d_gel/dosac-cobs-2dpage',
-      },
-      {
         label: 'OGP',
         name: 'xref_ogp',
         id: '2d_gel/ogp',
@@ -1044,19 +1034,9 @@ const mock = [
         id: 'proteomic/cptac',
       },
       {
-        label: 'EPD',
-        name: 'xref_epd',
-        id: 'proteomic/epd',
-      },
-      {
         label: 'MassIVE',
         name: 'xref_massive',
         id: 'proteomic/massive',
-      },
-      {
-        label: 'MaxQB',
-        name: 'xref_maxqb',
-        id: 'proteomic/maxqb',
       },
       {
         label: 'PRIDE',

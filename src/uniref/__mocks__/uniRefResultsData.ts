@@ -7,7 +7,7 @@ type Payload = {
 };
 
 // Source: uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const mock: Payload = {
   facets: [
     {
@@ -18,17 +18,17 @@ const mock: Payload = {
         {
           label: '100%',
           value: '1.0',
-          count: 1176714,
+          count: 1194826,
         },
         {
           label: '90%',
           value: '0.9',
-          count: 450756,
+          count: 459509,
         },
         {
           label: '50%',
           value: '0.5',
-          count: 68208,
+          count: 68850,
         },
       ],
     },
@@ -68,11 +68,11 @@ const mock: Payload = {
         },
       },
       seedId: 'A0A3E1E969',
-      memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)', 'UniParc'],
+      memberIdTypes: ['UniParc', 'UniProtKB Unreviewed (TrEMBL)'],
       members: [
         'A0A3E1E969',
-        'B4CTX8',
         'A0A7Y5C7M4',
+        'B4CTX8',
         'A0A3C1H8I3',
         'UPI00104BEFB8',
       ],
@@ -82,12 +82,12 @@ const mock: Payload = {
           taxonId: 2026799,
         },
         {
-          scientificName: 'Chthoniobacter flavus Ellin428',
-          taxonId: 497964,
-        },
-        {
           scientificName: 'Hydrogenedentota bacterium',
           taxonId: 2030809,
+        },
+        {
+          scientificName: 'Chthoniobacter flavus Ellin428',
+          taxonId: 497964,
         },
         {
           scientificName: 'Verrucomicrobiales bacterium',

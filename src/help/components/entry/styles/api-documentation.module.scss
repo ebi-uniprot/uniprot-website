@@ -2,6 +2,7 @@
 @import 'franklin-sites/src/styles/settings';
 @import 'franklin-sites/src/styles/mixins';
 
+// Override Franklin style to cater for the length of long endpoints
 .wider {
   grid-template-columns: 3rem calc(1.3 * var(--sidebar-size) - 3rem) minmax(
       min-content,
@@ -69,8 +70,8 @@
       background: lighten($colour-sea-blue, 10%);
     }
 
-    // :global(.opblock.opblock-post) :global(.opblock-summary-method) {
-    //   background: mediumseagreen;
-    // }
+    :global(table.model tr.property-row td) {
+      vertical-align: bottom;
+    }
   }
 }

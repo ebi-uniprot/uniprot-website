@@ -1,31 +1,25 @@
-import {
-  BuscoPartition,
-  buscoPartitions,
-  buscoPartitionToColor,
-} from './BuscoView';
+import cn from 'classnames';
 
-import './styles/busco-legend.scss';
+import styles from './styles/busco.module.scss';
 
-const buscoPartitionToLabel: Record<BuscoPartition, string> = {
-  completeSingle: 'Single',
-  completeDuplicated: 'Duplicated',
-  fragmented: 'Fragmented',
-  missing: 'Missing',
+const buscoPartitionToLabel = {
+  s: 'Single',
+  d: 'Duplicated',
+  f: 'Fragmented',
+  m: 'Missing',
 };
 
 const BuscoLegend = () => (
   <>
-    {buscoPartitions.map((partition) => (
-      <span key={partition} className="busco-legend-item">
+    {Object.entries(buscoPartitionToLabel).map(([partition, label]) => (
+      <span key={partition} className={styles['busco-legend-item']}>
         <span
-          className="busco-legend-item__swatch"
-          style={{
-            backgroundColor: buscoPartitionToColor[partition],
-          }}
+          className={cn(
+            styles['busco-legend-item__swatch'],
+            styles[`busco-legend-item__swatch--${partition}`]
+          )}
         />
-        <span className="busco-legend-item__label">
-          {buscoPartitionToLabel[partition]}
-        </span>
+        <span className={styles['busco-legend-item__label']}>{label}</span>
       </span>
     ))}
   </>

@@ -81,7 +81,7 @@ exports[`HomePage component should render 1`] = `
           class="release-info no-wrap blur-loading__item"
         >
           <span
-            class="release-info__release_number"
+            class=""
           >
             <a
               href="/help/downloads"

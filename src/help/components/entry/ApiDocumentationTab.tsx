@@ -1,12 +1,10 @@
-import { ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Location as HistoryLocation } from 'history';
 import { Card, Loader } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
 import { frame } from 'timing-functions';
-// Don't know why I need to do this as it's a type
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from 'openapi-types';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -20,10 +18,11 @@ import {
   getIdToOperation,
   getLayoutAction,
   getTagIdsAndSections,
+  SCHEMAS_ID,
   tagNameToId,
 } from '../../utils/apiDocumentation';
+import { requestSnippets, snippetPlugins } from '../../utils/apiSnippets';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
@@ -119,16 +118,81 @@ const AugmentingLayoutPlugin = () => ({
     ServersContainer: () => null,
     OperationTag,
   },
+  wrapComponents: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    Models: (Original) => (props) => (
+      <div id={SCHEMAS_ID}>
+        <Original {...props} />
+      </div>
+    ),
+  },
 });
 
-const ApiDocumentationTab = () => {
-  const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
-    LocationToPath[Location.Documentation]
-  );
-  const definition = match?.params.definition;
+const MAX_ITEMS_FOR_STREAM = 25;
 
+/**
+ * Loading from 'stream' directly in the browser can be a problem
+ * First: check from HEAD on 'search' how many items will be returned,
+ * If <= 25 (default search page size): let the query go through
+ * Else: Display message instead, but show return headers and status code
+ */
+const HandleTryItOutStreamPlugin = () => ({
+  afterLoad() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const originalFetch = this.fn.fetch;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const wrappedFetch = async (request: any, ...rest: unknown[]) => {
+      const { url } = request;
+      if (new URL(url).pathname.includes('stream')) {
+        // Do a pre-check before to see if the browser can handle it
+        // Copy the initial request, but change the method
+        const headRequest = {
+          ...request,
+          url: url.replace('/stream', '/search'),
+          method: 'HEAD',
+        };
+        const headResponse = await originalFetch(headRequest, ...rest);
+        if (headResponse.ok) {
+          // Check how many items it will contain
+          const totalHeader = headResponse.headers['x-total-results'];
+          if (totalHeader && +totalHeader > MAX_ITEMS_FOR_STREAM) {
+            // If too many, modify for Swagger to display message
+            headResponse.text = `This request is valid but was not made because it returns too many entries to display in this page (${totalHeader}).`;
+            // Headers will be displayed, so remove headers that are in the
+            // search endpoint but that would not be in the stream endpoint
+            delete headResponse.headers['x-total-results'];
+            delete headResponse.headers.link;
+            delete headResponse.headers['content-length'];
+            return headResponse;
+          }
+        }
+      }
+      // Otherwise, just execute and return the original fetch
+      const response = await originalFetch(request, ...rest);
+      return response;
+    };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    this.fn.fetch = wrappedFetch;
+  },
+});
+
+const plugins = [
+  AugmentingLayoutPlugin,
+  HandleTryItOutStreamPlugin,
+  ...snippetPlugins,
+];
+
+type Props = {
+  id: ApiDocsDefinition;
+};
+
+const ApiDocumentationTab = ({ id }: Props) => {
+  const containerRef = useRef(null);
   const data = useDataApi<OpenAPIV3.Document>(
-    definition && apiUrls.apiDocumnentationDefinition(definition)
+    apiUrls.apiDocumentationDefinition(id)
   );
 
   if (data.loading) {
@@ -139,32 +203,16 @@ const ApiDocumentationTab = () => {
     return <ErrorHandler status={data.status} error={data.error} fullPage />;
   }
 
-  // requestSnippets: {
-  // generators: {
-  //   curl_bash: {
-  //     title: 'cURL (bash)',
-  //     syntax: 'bash',
-  //   },
-  //   curl_powershell: {
-  //     title: 'cURL (PowerShell)',
-  //     syntax: 'powershell',
-  //   },
-  //   curl_cmd: {
-  //     title: 'cURL (CMD)',
-  //     syntax: 'bash',
-  //   },
-  //   python_requests: {
-  //     title: 'Python (requests)',
-  //     syntax: 'python',
-  //   },
-  // },
-
-  return !definition ? null : (
-    <SwaggerUI
-      spec={data.data}
-      plugins={[AugmentingLayoutPlugin]}
-      layout="AugmentingLayout"
-    />
+  return (
+    <div ref={containerRef}>
+      <SwaggerUI
+        spec={data.data}
+        plugins={plugins}
+        layout="AugmentingLayout"
+        requestSnippetsEnabled
+        requestSnippets={requestSnippets}
+      />
+    </div>
   );
 };
 

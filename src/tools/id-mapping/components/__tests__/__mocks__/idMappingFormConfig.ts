@@ -1,7 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: configure/idmapping/fields
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -243,14 +243,6 @@ const data: IDMappingFormConfig = {
           ruleId: 7,
           uriLink:
             'http://www.allergome.org/script/dettaglio.php?id_molecule=%id',
-        },
-        {
-          displayName: 'CLAE',
-          name: 'CLAE',
-          from: true,
-          to: true,
-          ruleId: 7,
-          uriLink: 'https://clae.fungalgenomics.ca/enzyme/%id',
         },
         {
           displayName: 'ESTHER',
@@ -923,7 +915,6 @@ const data: IDMappingFormConfig = {
         'Allergome',
         'ESTHER',
         'MEROPS',
-        'CLAE',
         'PeroxiBase',
         'REBASE',
         'TCDB',

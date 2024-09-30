@@ -14,7 +14,7 @@ describe('tagNameToId', () => {
 });
 
 describe('getTagIdsAndSections', () => {
-  it('should', () => {
+  it('should extract all sections from the openapi file', () => {
     expect(
       getTagIdsAndSections(
         new Map([

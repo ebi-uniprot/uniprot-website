@@ -12,3 +12,11 @@
     display: none !important; // Do not show the tooltip container. For some reason, class is not respected.
   }
 }
+
+.warning-message {
+  margin: 1rem;
+
+  & button {
+    margin: 0.5rem;
+  }
+}

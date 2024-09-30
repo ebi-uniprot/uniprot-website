@@ -2,7 +2,6 @@ import { useState, ChangeEvent, useCallback, useMemo, useEffect } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
 import { Chip, CodeBlock } from 'franklin-sites';
 import fm from 'front-matter';
-import { marked } from 'marked';
 
 import HelpEntry, { getCleanTextOptions } from './Entry';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -10,7 +9,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import helpURL from '../../config/apiUrls';
-import cleanText from '../../../shared/utils/cleanText';
+import { parseMarkdown } from '../../../shared/utils/markdown';
 import { pluralise } from '../../../shared/utils/utils';
 
 import { HelpEntryResponse } from '../../types/apiModel';
@@ -85,7 +84,7 @@ const EntryPreview = ({
       categories?: string;
       [key: string]: string | Date | undefined;
     }>(data.trim());
-    const content = cleanText(marked(body), getCleanTextOptions('h1'));
+    const content = parseMarkdown(body, getCleanTextOptions('h1'));
     const parsedData: HelpEntryResponse = {
       id: '_preview',
       title: title || '',

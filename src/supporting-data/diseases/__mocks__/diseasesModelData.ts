@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 
 // Source: diseases/search?query=cancer&size=2
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const mock: SearchResults<DiseasesAPIModel> = {
   results: [
     {

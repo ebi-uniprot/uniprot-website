@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -2653,15 +2653,6 @@ const configureSearchTerms = [
             valuePrefix: 'moonprot-',
           },
           {
-            id: 'xref_clae',
-            label: 'CLAE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'clae-',
-          },
-          {
             id: 'xref_peroxibase',
             label: 'PeroxiBase',
             itemType: 'single',
@@ -2845,15 +2836,6 @@ const configureSearchTerms = [
             valuePrefix: 'compluyeast-2dpage-',
           },
           {
-            id: 'xref_dosac-cobs-2dpage',
-            label: 'DOSAC-COBS-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'dosac-cobs-2dpage-',
-          },
-          {
             id: 'xref_ogp',
             label: 'OGP',
             itemType: 'single',
@@ -2886,24 +2868,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cptac-',
-          },
-          {
-            id: 'xref_epd',
-            label: 'EPD',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'epd-',
-          },
-          {
-            id: 'xref_maxqb',
-            label: 'MaxQB',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'maxqb-',
           },
           {
             id: 'xref_paxdb',

@@ -214,7 +214,7 @@ const SequenceSearchLoader = forwardRef<
               valid: true,
               name: nameFromEntry(data),
             });
-          } catch (_) {
+          } catch {
             errors.push(acc);
           }
         }

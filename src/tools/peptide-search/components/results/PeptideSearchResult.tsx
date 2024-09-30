@@ -267,10 +267,12 @@ const PeptideSearchResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
-        titlePostscript={
+        heading={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
+        headingPostscript={
           total && (
-            <small>
+            /* Not sure why fragments and keys are needed, but otherwise gets
+            the React key warnings messages and children are rendered as array */
+            <small key="postscript">
               found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
             </small>
           )

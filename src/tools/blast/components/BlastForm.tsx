@@ -306,7 +306,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro translate="no" title={title} />
+      <PageIntro translate="no" heading={title} />
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}

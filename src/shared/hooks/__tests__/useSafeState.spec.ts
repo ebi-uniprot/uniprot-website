@@ -1,7 +1,4 @@
-/**
- * @jest-environment node
- */
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react';
 
 import useSafeState from '../useSafeState';
 

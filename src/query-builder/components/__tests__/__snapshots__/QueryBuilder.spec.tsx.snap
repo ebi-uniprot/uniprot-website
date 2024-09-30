@@ -6,6 +6,7 @@ exports[`QueryBuilder should render 1`] = `
     aria-label="Query builder form"
     class="query-builder"
     data-testid="query-builder-form"
+    style="--main-button-color: var(--fr--color-uniprotkb, var(--fr--color-sea-blue));"
   >
     <fieldset>
       <label
@@ -410,15 +411,6 @@ exports[`QueryBuilder should render 1`] = `
 
 exports[`QueryBuilder should render loading 1`] = `
 <DocumentFragment>
-  <div
-    class="page-intro"
-  >
-    <h1
-      class=""
-    >
-      Query builder
-    </h1>
-  </div>
   <div
     class="loader-container"
   >

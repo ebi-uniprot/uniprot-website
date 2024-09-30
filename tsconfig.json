@@ -25,10 +25,7 @@
       // TypeScript language service plugin for CSS Modules.
       // NOTE: this will only be useful for an IDE, but won't be enforced
       {
-        "name": "typescript-plugin-css-modules",
-        "options": {
-          "customRenderer": "./sass-renderer.typescript.js"
-        }
+        "name": "typescript-plugin-css-modules"
       }
     ]
   },

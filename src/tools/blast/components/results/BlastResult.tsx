@@ -107,7 +107,7 @@ enum TabLocation {
 
 type Params = {
   id: string;
-  namespace?: typeof blastNamespaces[number];
+  namespace?: (typeof blastNamespaces)[number];
   subPage?: TabLocation;
 };
 
@@ -350,10 +350,14 @@ const BlastResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[jobType]}
-        titlePostscript={
+        heading={namespaceAndToolsLabels[jobType]}
+        headingPostscript={
           !loading && (
-            <small>found in {namespaceAndToolsLabels[namespace]}</small>
+            /* Not sure why fragments and keys are needed, but otherwise gets
+            the React key warnings messages and children are rendered as array */
+            <small key="postscript">
+              found in {namespaceAndToolsLabels[namespace]}
+            </small>
           )
         }
         resultsCount={loading ? undefined : hitsFiltered.length}

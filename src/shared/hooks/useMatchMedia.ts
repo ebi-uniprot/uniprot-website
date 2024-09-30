@@ -18,19 +18,11 @@ const useMatchMedia = (query: string, defaultMatch = false) => {
       setMatch(event.matches);
     };
 
-    if ('addEventListener' in mediaQueryList) {
-      mediaQueryList.addEventListener('change', listener);
-    } else {
-      mediaQueryList.addListener(listener);
-    }
+    mediaQueryList.addEventListener('change', listener);
 
     // eslint-disable-next-line consistent-return
     return () => {
-      if ('removeEventListener' in mediaQueryList) {
-        mediaQueryList.removeEventListener('change', listener);
-      } else {
-        mediaQueryList.removeListener(listener);
-      }
+      mediaQueryList.removeEventListener('change', listener);
     };
   }, [query]);
 

@@ -3,8 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Card, DataTableWithLoader, Loader, LongNumber } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
-import AlignButton from '../../../shared/components/action-buttons/Align';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import BasketStatus from '../../../basket/BasketStatus';
 import MemberLink from './MemberLink';
@@ -326,8 +325,14 @@ const MembersSection = ({ id, identity, representativeMember }: Props) => {
         <RelatedClusters identity={identity} id={id} />
       </div>
       <div className="button-group">
-        <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton selectedEntries={selectedEntries} />
+        <ToolsDropdown
+          selectedEntries={selectedEntries}
+          blast
+          // Only if more than 1 member
+          align={total > 1}
+          // No! We might have mixed namespaces in members
+          mapID={false}
+        />
         <AddToBasket selectedEntries={selectedEntries} />
       </div>
       <div className={helper['overflow-y-container']}>

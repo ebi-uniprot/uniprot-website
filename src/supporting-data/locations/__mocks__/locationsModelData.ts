@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { LocationsAPIModel } from '../adapters/locationsConverter';
 
 // Source: locations/search?query=membrane&size=2
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const mock: SearchResults<LocationsAPIModel> = {
   results: [
     {
@@ -16,8 +16,8 @@ const mock: SearchResults<LocationsAPIModel> = {
         id: 'KW-0997',
       },
       statistics: {
-        reviewedProteinCount: 27439,
-        unreviewedProteinCount: 2275218,
+        reviewedProteinCount: 27448,
+        unreviewedProteinCount: 2266044,
       },
       category: 'Cellular component',
       geneOntologies: [
@@ -77,8 +77,8 @@ const mock: SearchResults<LocationsAPIModel> = {
               category: 'Cellular component',
               geneOntologies: [
                 {
-                  goId: 'GO:0031975',
-                  name: 'envelope',
+                  goId: 'GO:0030313',
+                  name: 'cell envelope',
                 },
               ],
               synonyms: ['Envelope'],
@@ -137,8 +137,8 @@ const mock: SearchResults<LocationsAPIModel> = {
         id: 'KW-0472',
       },
       statistics: {
-        reviewedProteinCount: 117449,
-        unreviewedProteinCount: 29100681,
+        reviewedProteinCount: 117565,
+        unreviewedProteinCount: 29411837,
       },
       category: 'Cellular component',
       geneOntologies: [

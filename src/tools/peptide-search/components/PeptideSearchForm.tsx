@@ -231,7 +231,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro title={title} />
+      <PageIntro heading={title} />
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}
@@ -277,10 +277,10 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           <section className="tools-form-section">
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
-                placeholder="Enter taxon names or IDs to include"
+                placeholder="Enter organism names or IDs to include"
                 url={apiUrls.suggester.organism}
                 onSelect={updateTaxonFormValue}
-                title="Restrict by taxonomy"
+                title="Restrict by organism"
                 clearOnSelect
               />
             </section>

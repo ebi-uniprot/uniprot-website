@@ -1,6 +1,6 @@
 import { useMemo, Fragment, ReactNode } from 'react';
 import { v1 } from 'uuid';
-import { Button, Chip } from 'franklin-sites';
+import { Chip } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import FeaturesView, {
@@ -8,6 +8,8 @@ import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { RichText } from './FreeTextView';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
+import CopyButton from '../../../shared/components/action-buttons/Copy';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import LigandDescriptionView, {
   Ligand,
@@ -18,14 +20,12 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
-import { getURLToJobWithData } from '../../../app/config/urls';
 import { stringToID } from '../../utils';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
 import styles from './styles/uniprotkb-features-view.module.scss';
@@ -277,22 +277,23 @@ const UniProtKBFeaturesView = ({
                       feature.type !== 'Disulfide bond' &&
                       feature.type !== 'Cross-link' && (
                         <div className="button-group">
-                          <Button
-                            element="a"
-                            variant="tertiary"
-                            title="BLAST the sequence corresponding to this feature"
-                            href={getURLToJobWithData(
-                              JobTypes.BLAST,
-                              primaryAccession,
-                              {
-                                start: feature.start,
-                                end: feature.end,
-                              }
-                            )}
-                            translate="no"
+                          <ToolsDropdown
+                            selectedEntries={[
+                              `${primaryAccession}[${feature.start}-${feature.end}]`,
+                            ]}
+                            blast
                           >
-                            BLAST
-                          </Button>
+                            {(closeDropdown: () => unknown) => (
+                              <li>
+                                <CopyButton
+                                  textToCopy={feature.sequence}
+                                  postCopy={closeDropdown}
+                                >
+                                  Copy sequence
+                                </CopyButton>
+                              </li>
+                            )}
+                          </ToolsDropdown>
                           <AddToBasketButton
                             selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
                           />

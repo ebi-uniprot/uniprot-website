@@ -15,7 +15,7 @@ export const addMessage = (message: SetOptional<MessageType, 'id'>) =>
 
 export const copySuccessMessage = () =>
   addMessage({
-    content: 'Link copied to clipboard',
+    content: 'Copied to clipboard',
     format: MessageFormat.POP_UP,
     level: MessageLevel.SUCCESS,
     displayTime: 5_000,

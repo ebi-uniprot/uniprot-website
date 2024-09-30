@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, MouseEvent } from 'react';
 import { Button } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -15,7 +15,7 @@ type CustomiseTableProps = {
   columns: Column[];
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   onReset: (e: FormEvent<HTMLFormElement>) => void;
-  onCancel: (e: FormEvent<HTMLFormElement>) => void;
+  onCancel: (e: MouseEvent<HTMLButtonElement>) => void;
   onChange: (columns: Column[]) => void;
 };
 

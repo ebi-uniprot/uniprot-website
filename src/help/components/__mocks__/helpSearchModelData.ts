@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2024-06-10
+// Retrieved: 2024-07-24
 const helpModelData: HelpSearchResponse = {
   facets: [
     {

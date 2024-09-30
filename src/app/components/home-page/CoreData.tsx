@@ -2,9 +2,6 @@ import { Tile, SwissProtIcon, TremblIcon, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -91,6 +88,7 @@ const CoreData = () => (
   >
     <h2 className="visually-hidden">UniProt core data</h2>
     <Tile
+      headingLevel="h3"
       title="Proteins"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -107,7 +105,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.seaBlue}
+      backgroundColor="var(--fr--color-uniprotkb)"
       link={<Link to={LocationToPath[Location.UniProtKBResults]} />}
       gradient
     >
@@ -116,6 +114,7 @@ const CoreData = () => (
       </span>
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Species"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -132,7 +131,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.proteomes}
+      backgroundColor="var(--fr--color-proteomes)"
       link={<Link to={getNamespaceTo(Location.ProteomesResults)} />}
       gradient
     >
@@ -140,6 +139,7 @@ const CoreData = () => (
       life
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Protein Clusters"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -156,13 +156,14 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.uniref}
+      backgroundColor="var(--fr--color-uniref)"
       link={<Link to={getNamespaceTo(Location.UniRefResults)} />}
       gradient
     >
       Clusters of protein sequences at 100%, 90% &amp; 50% identity
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Sequence archive"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -179,7 +180,7 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.uniparc}
+      backgroundColor="var(--fr--color-uniparc)"
       link={<Link to={LocationToPath[Location.UniParcResults]} />}
       gradient
     >

@@ -44,6 +44,7 @@ const Results = () => {
     size: 0,
     withFacets: true,
     withColumns: false,
+    noSort: true,
   });
   const facetApiObject =
     useDataApiWithStale<SearchResults<APIModel>>(initialApiFacetUrl);
