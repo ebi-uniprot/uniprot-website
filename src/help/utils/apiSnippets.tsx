@@ -42,7 +42,7 @@ export const requestSnippets = {
   // Make sure to not display the other curls, even if they're not
   // in the "generators" field
   languages: ['curl_bash', 'python_requests', 'js_fetch', 'perl', 'r'],
-  // Note that there's no apparent way to force an specific order
+  // Note that there's no apparent way to force a specific order
 };
 
 // Not really, but only this will be useful
@@ -200,7 +200,7 @@ const SnippetGeneratorPerlPlugin: SnippetGeneratorPlugin = {
         return '# No automatic snippet, work in progress';
       }
 
-      return `# Perl not recommended, limited support
+      return `# Note that there is limited UniProt helpdesk support for Perl-related questions
 # Make sure to have installed the below libraries
 # cpanm Type::Tiny IO::Socket::SSL ${isJSON ? 'JSON' : ''}
 use strict;
@@ -252,7 +252,7 @@ const SnippetGeneratorRPlugin: SnippetGeneratorPlugin = {
         return '# No automatic snippet, work in progress';
       }
 
-      return `# R not recommended, limited support
+      return `# Note that there is limited UniProt helpdesk support for R-related questions
 # Install the required package if not already installed
 # install.packages("httr2")${isJSON ? '\n# install.packages("jsonlite")' : ''}
 library(httr2)${isJSON ? '\nlibrary(jsonlite)' : ''}

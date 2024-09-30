@@ -76,7 +76,7 @@ exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "
 exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "POST, params, no body" 1`] = `"// No automatic snippet, work in progress"`;
 
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, no params" 1`] = `
-"# Perl not recommended, limited support
+"# Note that there is limited UniProt helpdesk support for Perl-related questions
 # Make sure to have installed the below libraries
 # cpanm Type::Tiny IO::Socket::SSL JSON
 use strict;
@@ -108,7 +108,7 @@ print Dumper($content);
 `;
 
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
-"# Perl not recommended, limited support
+"# Note that there is limited UniProt helpdesk support for Perl-related questions
 # Make sure to have installed the below libraries
 # cpanm Type::Tiny IO::Socket::SSL 
 use strict;
@@ -138,7 +138,7 @@ print $content;
 `;
 
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, params" 1`] = `
-"# Perl not recommended, limited support
+"# Note that there is limited UniProt helpdesk support for Perl-related questions
 # Make sure to have installed the below libraries
 # cpanm Type::Tiny IO::Socket::SSL JSON
 use strict;
@@ -243,7 +243,7 @@ exports[`snippetPlugins for "python_requests" should generate the correct snippe
 exports[`snippetPlugins for "python_requests" should generate the correct snippet for "POST, params, no body" 1`] = `"# No automatic snippet, work in progress"`;
 
 exports[`snippetPlugins for "r" should generate the correct snippet for "GET, no params" 1`] = `
-"# R not recommended, limited support
+"# Note that there is limited UniProt helpdesk support for R-related questions
 # Install the required package if not already installed
 # install.packages("httr2")
 # install.packages("jsonlite")
@@ -268,7 +268,7 @@ print(data)"
 `;
 
 exports[`snippetPlugins for "r" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
-"# R not recommended, limited support
+"# Note that there is limited UniProt helpdesk support for R-related questions
 # Install the required package if not already installed
 # install.packages("httr2")
 library(httr2)
@@ -291,7 +291,7 @@ print(data)"
 `;
 
 exports[`snippetPlugins for "r" should generate the correct snippet for "GET, params" 1`] = `
-"# R not recommended, limited support
+"# Note that there is limited UniProt helpdesk support for R-related questions
 # Install the required package if not already installed
 # install.packages("httr2")
 # install.packages("jsonlite")
