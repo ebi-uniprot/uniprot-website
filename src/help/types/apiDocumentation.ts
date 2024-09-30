@@ -6,5 +6,6 @@ export enum ApiDocsDefinition {
   support_data = 'support-data',
   aa = 'aa',
   idmapping = 'idmapping',
-  async_download = 'async-download',
+  // Disable until backend is more confident about it
+  // async_download = 'async-download',
 }

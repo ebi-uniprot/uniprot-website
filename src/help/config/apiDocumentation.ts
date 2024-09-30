@@ -8,5 +8,5 @@ export const apiDocsDefinitionToString = new Map([
   [ApiDocsDefinition.support_data, 'Supporting Data'],
   [ApiDocsDefinition.aa, 'Automatic Annotation'],
   [ApiDocsDefinition.idmapping, 'ID Mapping'],
-  [ApiDocsDefinition.async_download, 'Async Download'],
+  // [ApiDocsDefinition.async_download, 'Async Download'],
 ]);
