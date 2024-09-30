@@ -202,7 +202,7 @@ const SnippetGeneratorPerlPlugin: SnippetGeneratorPlugin = {
 
       return `# Perl not recommended, limited support
 # Make sure to have installed the below libraries
-# cpanm Type::Tiny IO::Socket::SSL ${isJSON ? ' JSON' : ''}
+# cpanm Type::Tiny IO::Socket::SSL ${isJSON ? 'JSON' : ''}
 use strict;
 use warnings;
 use HTTP::Tiny;${isJSON ? '\nuse JSON;' : ''}
