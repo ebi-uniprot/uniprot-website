@@ -35,7 +35,7 @@ export const requestSnippets = {
       syntax: 'perl',
     },
     r: {
-      title: 'httr (R)',
+      title: 'httr2 (R)',
       syntax: 'R',
     },
   },
@@ -254,9 +254,8 @@ const SnippetGeneratorRPlugin: SnippetGeneratorPlugin = {
 
       return `# R not recommended, limited support
 # Install the required package if not already installed
-# install.packages("httr")${isJSON ? '\n# install.packages("jsonlite")' : ''}
-
-library(httr)${isJSON ? '\nlibrary(jsonlite)' : ''}
+# install.packages("httr2")${isJSON ? '\n# install.packages("jsonlite")' : ''}
+library(httr2)${isJSON ? '\nlibrary(jsonlite)' : ''}
 
 base_url <- "${url.origin + url.pathname}"${
         searchParams
@@ -271,35 +270,24 @@ ${Array.from(searchParams.entries())
           : ''
       }
 
-response <- GET(
-  base_url,${
-    searchParams
-      ? `
-  query = params,`
-      : ''
-  }
-  add_headers(
+req <- request(base_url)
+req |> req_headers(
 ${Array.from(headers.entries())
   .map(
     ([key, value], index) =>
-      `${index === 0 ? '' : ',\n'}    ${key.includes('-') ? `\`${key}\`` : key} = "${value}"`
+      `${index === 0 ? '' : ',\n'}  ${key.includes('-') ? `\`${key}\`` : key} = "${value}"`
   )
   .join('')}
-  )
 )
+req |> req_url_query(!!!params)
+resp <- req_perform(req)
 
-if (http_status(response)$category != "Success") {
-  stop(sprintf("Error %d: %s", status_code(response), http_status(response)$message))
+if (resp_status(resp) != 200) {
+  stop(sprintf("Error %d: %s", resp_status(resp), resp_body_string(resp)))
 }
 
-${
-  isJSON
-    ? `data <- fromJSON(content(response, "text"))
-print(data)`
-    : `data <- content(response, "text")
-cat(data)`
-}
-`;
+data <- resp_body${isJSON ? '_json' : ''}(resp)
+print(data)`;
     },
   },
 };

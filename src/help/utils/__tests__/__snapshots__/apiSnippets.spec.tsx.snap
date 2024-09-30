@@ -245,62 +245,57 @@ exports[`snippetPlugins for "python_requests" should generate the correct snippe
 exports[`snippetPlugins for "r" should generate the correct snippet for "GET, no params" 1`] = `
 "# R not recommended, limited support
 # Install the required package if not already installed
-# install.packages("httr")
+# install.packages("httr2")
 # install.packages("jsonlite")
-
-library(httr)
+library(httr2)
 library(jsonlite)
 
 base_url <- "https://rest.uniprot.org/api"
 
-response <- GET(
-  base_url,
-  add_headers(
-    accept = "application/json"
-  )
+req <- request(base_url)
+req |> req_headers(
+  accept = "application/json"
 )
+req |> req_url_query(!!!params)
+resp <- req_perform(req)
 
-if (http_status(response)$category != "Success") {
-  stop(sprintf("Error %d: %s", status_code(response), http_status(response)$message))
+if (resp_status(resp) != 200) {
+  stop(sprintf("Error %d: %s", resp_status(resp), resp_body_string(resp)))
 }
 
-data <- fromJSON(content(response, "text"))
-print(data)
-"
+data <- resp_body_json(resp)
+print(data)"
 `;
 
 exports[`snippetPlugins for "r" should generate the correct snippet for "GET, no params, non-JSON output" 1`] = `
 "# R not recommended, limited support
 # Install the required package if not already installed
-# install.packages("httr")
-
-library(httr)
+# install.packages("httr2")
+library(httr2)
 
 base_url <- "https://rest.uniprot.org/api"
 
-response <- GET(
-  base_url,
-  add_headers(
-    accept = "application/xml"
-  )
+req <- request(base_url)
+req |> req_headers(
+  accept = "application/xml"
 )
+req |> req_url_query(!!!params)
+resp <- req_perform(req)
 
-if (http_status(response)$category != "Success") {
-  stop(sprintf("Error %d: %s", status_code(response), http_status(response)$message))
+if (resp_status(resp) != 200) {
+  stop(sprintf("Error %d: %s", resp_status(resp), resp_body_string(resp)))
 }
 
-data <- content(response, "text")
-cat(data)
-"
+data <- resp_body(resp)
+print(data)"
 `;
 
 exports[`snippetPlugins for "r" should generate the correct snippet for "GET, params" 1`] = `
 "# R not recommended, limited support
 # Install the required package if not already installed
-# install.packages("httr")
+# install.packages("httr2")
 # install.packages("jsonlite")
-
-library(httr)
+library(httr2)
 library(jsonlite)
 
 base_url <- "https://rest.uniprot.org/api"
@@ -309,21 +304,19 @@ params <- list(
   fields = "a,b,c"
 )
 
-response <- GET(
-  base_url,
-  query = params,
-  add_headers(
-    accept = "application/json"
-  )
+req <- request(base_url)
+req |> req_headers(
+  accept = "application/json"
 )
+req |> req_url_query(!!!params)
+resp <- req_perform(req)
 
-if (http_status(response)$category != "Success") {
-  stop(sprintf("Error %d: %s", status_code(response), http_status(response)$message))
+if (resp_status(resp) != 200) {
+  stop(sprintf("Error %d: %s", resp_status(resp), resp_body_string(resp)))
 }
 
-data <- fromJSON(content(response, "text"))
-print(data)
-"
+data <- resp_body_json(resp)
+print(data)"
 `;
 
 exports[`snippetPlugins for "r" should generate the correct snippet for "POST, no params, body" 1`] = `"# No automatic snippet, work in progress"`;
