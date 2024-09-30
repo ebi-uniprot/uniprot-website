@@ -78,7 +78,7 @@ exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, no params" 1`] = `
 "# Perl not recommended, limited support
 # Make sure to have installed the below libraries
-# cpanm Type::Tiny IO::Socket::SSL  JSON
+# cpanm Type::Tiny IO::Socket::SSL JSON
 use strict;
 use warnings;
 use HTTP::Tiny;
@@ -140,7 +140,7 @@ print $content;
 exports[`snippetPlugins for "perl" should generate the correct snippet for "GET, params" 1`] = `
 "# Perl not recommended, limited support
 # Make sure to have installed the below libraries
-# cpanm Type::Tiny IO::Socket::SSL  JSON
+# cpanm Type::Tiny IO::Socket::SSL JSON
 use strict;
 use warnings;
 use HTTP::Tiny;
