@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 
 import useSafeState from '../../../shared/hooks/useSafeState';
@@ -123,8 +123,8 @@ const SimilarProteinsTabContent = ({ clusterType, clusters }: Props) => {
           <hr />
         </section>
       )}
-      <Button
-        element={Link}
+      <Link
+        className="button primary"
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
           search: `query=${clusters
@@ -139,7 +139,7 @@ const SimilarProteinsTabContent = ({ clusterType, clusters }: Props) => {
         }}
       >
         View all
-      </Button>
+      </Link>
     </>
   );
 };
