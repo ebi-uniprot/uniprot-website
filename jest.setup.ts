@@ -31,3 +31,31 @@ jest
   .mockReturnValue('99/99/9999, 00:00:00');
 
 jest.setTimeout(30000);
+
+/**
+ * React useId mock, to make sure ids are reset between each test and not
+ * dependent on order of tests and IDs are stable even when more tests are added
+ */
+let id = 0;
+
+beforeEach(() => {
+  id = 0;
+});
+
+// eslint-disable-next-line no-plusplus
+const mockedUseId = () => ++id;
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useId: mockedUseId,
+}));
+
+/* "Fail on console error" util */
+// Uncomment to have jest stop when a console error is shown in order to fix it
+// Recommended to use with Jest's "--bail" option
+// const { error } = console;
+// // eslint-disable-next-line no-console
+// console.error = (message, ...rest) => {
+//   error.apply(console, [message, ...rest]); // keep default behaviour
+//   throw message instanceof Error ? message : new Error(message);
+// };

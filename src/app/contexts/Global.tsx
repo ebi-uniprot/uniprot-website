@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 // library context providers
 import { HelmetProvider } from 'react-helmet-async';
-import { FranklinSite } from 'franklin-sites';
 import { Router } from 'react-router-dom';
 
 // app own context providers
@@ -20,16 +19,14 @@ const GlobalContext: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
     {/* If anything bad happen at the top level, try to display something */}
     <ErrorBoundary>
       <HelmetProvider>
-        <FranklinSite>
-          <MessagesProvider>
-            {/* Order is important, tools needs to be within messages */}
-            <ToolsProvider>
-              <UniProtDataProvider>
-                <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
-              </UniProtDataProvider>
-            </ToolsProvider>
-          </MessagesProvider>
-        </FranklinSite>
+        <MessagesProvider>
+          {/* Order is important, tools needs to be within messages */}
+          <ToolsProvider>
+            <UniProtDataProvider>
+              <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
+            </UniProtDataProvider>
+          </ToolsProvider>
+        </MessagesProvider>
       </HelmetProvider>
     </ErrorBoundary>
   </Router>

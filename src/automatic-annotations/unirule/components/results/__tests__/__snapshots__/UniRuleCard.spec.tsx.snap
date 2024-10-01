@@ -16,12 +16,12 @@ exports[`UniRuleCard tests should render the card component 1`] = `
         >
           <input
             data-id="UR000048432"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="UR000048432"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>

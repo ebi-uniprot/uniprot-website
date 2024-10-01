@@ -21,7 +21,7 @@ const useResultsToEntryRedirect = (
       let idKey;
       try {
         idKey = getIdKey(uniqueItem);
-      } catch (error) {
+      } catch {
         // TODO: this happens when the namespace and data don't match up. Fix in a future refactor.
       }
       if (

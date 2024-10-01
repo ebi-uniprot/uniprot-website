@@ -16,12 +16,12 @@ exports[`Taxonomy Card tests should render 1`] = `
         >
           <input
             data-id="37299"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="37299"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>

@@ -1485,93 +1485,100 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
   render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
-const getXrefColumn = (databaseName: string) => {
-  const Label = () => {
-    const databaseInfoMaps = useDatabaseInfoMaps();
-    if (!databaseInfoMaps) {
-      return null;
-    }
-    const { databaseToDatabaseInfo } = databaseInfoMaps;
-    const databaseInfoKey = Object.keys(databaseToDatabaseInfo).find(
-      (database) => database.toLowerCase() === databaseName
-    );
-    if (!databaseInfoKey) {
-      logging.error(`No database found for ${databaseName}`);
-      return null;
-    }
-    const { displayName } = databaseToDatabaseInfo[databaseInfoKey];
-    return <>{`${displayName} cross-reference`}</>;
-  };
+const XrefRenderer = ({
+  data,
+  databaseName,
+}: {
+  data: UniProtkbUIModel;
+  databaseName: string;
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
 
-  const Renderer = ({ data }: { data: UniProtkbUIModel }) => {
-    const databaseInfoMaps = useDatabaseInfoMaps();
-
-    if (databaseName === 'dbsnp') {
-      const features = data?.features;
-      return (
-        <>
-          {features?.map((feature) => {
-            const { featureId, featureCrossReferences } = feature;
-            const dbSNPRef = featureCrossReferences?.[0];
-            return (
-              <div key={featureId}>
-                {dbSNPRef?.id && (
-                  <>
-                    {protvarVariantLink(feature, data.primaryAccession)}
-                    <span className={helper['no-wrap']}>
-                      {` ${dbSNPRef.id}`}
-                      {' ( '}
-                      <ExternalLink
-                        url={getUrlFromDatabaseInfo(databaseInfoMaps, 'dbSNP', {
-                          id: dbSNPRef.id,
-                        })}
-                      >
-                        dbSNP
-                      </ExternalLink>
-                      {'| '}
-                      <ExternalLink
-                        url={externalUrls.EnsemblVariation(dbSNPRef.id)}
-                      >
-                        Ensembl
-                      </ExternalLink>
-                      {' ) '}
-                    </span>
-                    <br />
-                  </>
-                )}
-              </div>
-            );
-          })}
-        </>
-      );
-    }
-    const xrefs = data?.uniProtKBCrossReferences?.filter(
-      ({ database }) => database?.toLowerCase() === databaseName
-    );
-    const database = xrefs?.[0]?.database;
-    if (
-      !database || // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
-      !databaseInfoMaps
-    ) {
-      return null;
-    }
-    const xrefsGoupedByDatabase = {
-      database,
-      xrefs,
-    };
+  if (databaseName === 'dbsnp') {
+    const features = data?.features;
     return (
-      <DatabaseList
-        xrefsGoupedByDatabase={xrefsGoupedByDatabase}
-        primaryAccession={data.primaryAccession}
-        databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
-      />
+      <>
+        {features?.map((feature) => {
+          const { featureId, featureCrossReferences } = feature;
+          const dbSNPRef = featureCrossReferences?.[0];
+          return (
+            <div key={featureId}>
+              {dbSNPRef?.id && (
+                <>
+                  {protvarVariantLink(feature, data.primaryAccession)}
+                  <span className={helper['no-wrap']}>
+                    {` ${dbSNPRef.id}`}
+                    {' ( '}
+                    <ExternalLink
+                      url={getUrlFromDatabaseInfo(databaseInfoMaps, 'dbSNP', {
+                        id: dbSNPRef.id,
+                      })}
+                    >
+                      dbSNP
+                    </ExternalLink>
+                    {'| '}
+                    <ExternalLink
+                      url={externalUrls.EnsemblVariation(dbSNPRef.id)}
+                    >
+                      Ensembl
+                    </ExternalLink>
+                    {' ) '}
+                  </span>
+                  <br />
+                </>
+              )}
+            </div>
+          );
+        })}
+      </>
     );
+  }
+  const xrefs = data?.uniProtKBCrossReferences?.filter(
+    ({ database }) => database?.toLowerCase() === databaseName
+  );
+  const database = xrefs?.[0]?.database;
+  if (
+    !database || // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+    !databaseInfoMaps
+  ) {
+    return null;
+  }
+  const xrefsGoupedByDatabase = {
+    database,
+    xrefs,
   };
-  return {
-    label: <Label />,
-    render: (data: UniProtkbUIModel) => <Renderer data={data} />,
-  };
+  return (
+    <DatabaseList
+      xrefsGoupedByDatabase={xrefsGoupedByDatabase}
+      primaryAccession={data.primaryAccession}
+      databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
+    />
+  );
 };
+
+const XrefLabel = ({ databaseName }: { databaseName: string }) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!databaseInfoMaps) {
+    return null;
+  }
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
+  const databaseInfoKey = Object.keys(databaseToDatabaseInfo).find(
+    (database) => database.toLowerCase() === databaseName
+  );
+  if (!databaseInfoKey) {
+    logging.error(`No database found for ${databaseName}`);
+    return null;
+  }
+  const { displayName } = databaseToDatabaseInfo[databaseInfoKey];
+  return <>{`${displayName} cross-reference`}</>;
+};
+
+const getXrefColumn = (databaseName: string) => ({
+  label: <XrefLabel databaseName={databaseName} />,
+  render: (data: UniProtkbUIModel) => (
+    <XrefRenderer data={data} databaseName={databaseName} />
+  ),
+});
 
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)

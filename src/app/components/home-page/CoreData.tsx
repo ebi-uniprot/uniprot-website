@@ -2,9 +2,6 @@ import { Tile, SwissProtIcon, TremblIcon, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -51,6 +48,7 @@ const UniProtKBLinks = () => {
   return (
     <>
       <Link
+        title="UniProt Knowledgebase, SwissProt or reviewed protein database"
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
           search: 'query=reviewed:true',
@@ -65,6 +63,7 @@ const UniProtKBLinks = () => {
         <div>{numberReviewed && <LongNumber>{numberReviewed}</LongNumber>}</div>
       </Link>
       <Link
+        title="UniProt Knowledgebase, TrEMBL or unreviewed protein database"
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
           search: 'query=reviewed:false',
@@ -91,6 +90,7 @@ const CoreData = () => (
   >
     <h2 className="visually-hidden">UniProt core data</h2>
     <Tile
+      headingLevel="h3"
       title="Proteins"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -107,8 +107,13 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.seaBlue}
-      link={<Link to={LocationToPath[Location.UniProtKBResults]} />}
+      backgroundColor="var(--fr--color-uniprotkb)"
+      link={
+        <Link
+          title="UniProt Knowledgebase, protein database"
+          to={LocationToPath[Location.UniProtKBResults]}
+        />
+      }
       gradient
     >
       <span className={styles['core-data']}>
@@ -116,6 +121,7 @@ const CoreData = () => (
       </span>
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Species"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -132,14 +138,20 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.proteomes}
-      link={<Link to={getNamespaceTo(Location.ProteomesResults)} />}
+      backgroundColor="var(--fr--color-proteomes)"
+      link={
+        <Link
+          title="UniProt Proteomes, database of protein sets from genomes"
+          to={getNamespaceTo(Location.ProteomesResults)}
+        />
+      }
       gradient
     >
       Protein sets for species with sequenced genomes from across the tree of
       life
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Protein Clusters"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -156,13 +168,19 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.uniref}
-      link={<Link to={getNamespaceTo(Location.UniRefResults)} />}
+      backgroundColor="var(--fr--color-uniref)"
+      link={
+        <Link
+          title="UniRef, database of protein clustered by identity"
+          to={getNamespaceTo(Location.UniRefResults)}
+        />
+      }
       gradient
     >
       Clusters of protein sequences at 100%, 90% &amp; 50% identity
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Sequence archive"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -179,8 +197,13 @@ const CoreData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.uniparc}
-      link={<Link to={LocationToPath[Location.UniParcResults]} />}
+      backgroundColor="var(--fr--color-uniparc)"
+      link={
+        <Link
+          title="UniParc, database of protein sequences"
+          to={LocationToPath[Location.UniParcResults]}
+        />
+      }
       gradient
     >
       Non-redundant archive of publicly available protein sequences seen across

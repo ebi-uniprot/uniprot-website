@@ -16,12 +16,12 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         >
           <input
             data-id="UPI0000000001"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="UPI0000000001"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>

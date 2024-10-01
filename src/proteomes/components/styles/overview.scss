@@ -2,9 +2,7 @@
 
 .busco {
   padding-top: 0.3rem;
-  &__legend {
-    margin-left: 0.2rem;
-  }
+  width: calc(100% - #{$global-margin});
 }
 
 .description {

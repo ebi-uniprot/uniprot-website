@@ -10,6 +10,7 @@ import {
   Message,
   SlidingPanel,
 } from 'franklin-sites';
+import cn from 'classnames';
 
 import ErrorBoundary from '../../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
@@ -433,10 +434,8 @@ const EntryHistoryList = ({
         </Message>
       )}
       <div className="button-group">
-        <Button
-          variant="tertiary"
-          element={Link}
-          disabled={compareDisabled}
+        <Link
+          className={cn('button', 'tertiary', { disabled: compareDisabled })}
           to={{
             pathname,
             search: stringifyQuery({
@@ -450,7 +449,7 @@ const EntryHistoryList = ({
           }
         >
           Compare
-        </Button>
+        </Link>
         <Button
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
@@ -521,9 +520,8 @@ const EntryHistory = ({
         className="wider-tab-content"
       >
         <div className="button-group">
-          <Button
-            variant="tertiary"
-            element={Link}
+          <Link
+            className="button tertiary"
             to={getEntryPath(
               Namespace.uniprotkb,
               accession,
@@ -531,10 +529,9 @@ const EntryHistory = ({
             )}
           >
             Back to overview
-          </Button>
-          <Button
-            variant="tertiary"
-            element={Link}
+          </Link>
+          <Link
+            className="button tertiary"
             to={{
               pathname: getEntryPath(
                 Namespace.uniprotkb,
@@ -549,7 +546,7 @@ const EntryHistory = ({
             replace
           >
             Display in {view === 'unified' ? 'split' : 'unified'} view
-          </Button>
+          </Link>
           {otherDiffs.length && (
             <span className={styles['other-diffs']}>
               <span>Jump to</span>

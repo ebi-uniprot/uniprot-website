@@ -226,7 +226,14 @@ export const MapToDropdownBasic = ({
   children,
   config,
 }: MapToDropdownBasic) => (
-  <Dropdown visibleElement={<Button variant="tertiary">{children}</Button>}>
+  <Dropdown
+    // eslint-disable-next-line react/no-unstable-nested-components
+    visibleElement={(onClick: () => unknown) => (
+      <Button variant="tertiary" onClick={onClick}>
+        {children}
+      </Button>
+    )}
+  >
     <ul>
       {config.map(({ key, count, label, to }) =>
         count ? (

@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-var-requires, global-require, consistent-return */
+/* eslint-disable @typescript-eslint/no-require-imports, global-require, consistent-return */
 const path = require('path');
 const fs = require('fs');
 
-const { DefinePlugin, ProvidePlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const jsonImporter = require('node-sass-json-importer');
 const childProcess = require('child_process');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 // custom plugins
@@ -67,10 +66,6 @@ const getConfigFor = ({
         classnames: path.resolve('./node_modules/classnames'),
         // go package uses a slightly earlier version of axios, link it to ours
         axios: path.resolve('./node_modules/axios'),
-        // point directly to the ES6 module entry point, to be processed by us
-        'franklin-sites': fs.realpathSync(
-          `${__dirname}/node_modules/franklin-sites/src/components/index.ts`
-        ),
         // replace all usage of specific lodash submodules (from dependencies)
         // with their corresponding ES modules from lodash-es (less duplication)
         // (just looked at node_modules to see what packages were used, but
@@ -105,7 +100,7 @@ const getConfigFor = ({
         {
           test: /\.(js|jsx|tsx|ts)$/,
           exclude:
-            /node_modules\/((?!@nightingale-elements\/nightingale-msa|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
+            /node_modules\/((?!@nightingale-elements\/nightingale-msa|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -115,7 +110,7 @@ const getConfigFor = ({
                   '@babel/preset-env',
                   {
                     useBuiltIns: 'usage',
-                    corejs: { version: '3.25.1', proposals: true },
+                    corejs: { version: '3', proposals: true },
                     targets:
                       isModern && !isTest
                         ? {
@@ -131,7 +126,6 @@ const getConfigFor = ({
                 ['@babel/preset-react', { runtime: 'automatic' }],
                 '@babel/preset-typescript',
               ],
-              plugins: ['@babel/plugin-transform-runtime'],
             },
           },
         },
@@ -162,8 +156,11 @@ const getConfigFor = ({
               // translates CSS into something importable into the code
               loader: 'css-loader',
               options: {
+                esModule: true,
                 modules: {
                   auto: true, // only for files containing ".module." in name
+                  namedExport: false,
+                  exportLocalsConvention: 'asIs',
                   // class name to hash, but also keep name for debug in dev
                   localIdentName: `${
                     isDev ? '[local]🐛' : ''
@@ -178,7 +175,6 @@ const getConfigFor = ({
                   // This should be the default, but putting it here avoids
                   // issues when importing from linked packages
                   includePaths: ['node_modules'],
-                  importer: jsonImporter({ convertCase: true }),
                 },
               },
             },
@@ -204,6 +200,14 @@ const getConfigFor = ({
             fs.realpathSync(`${__dirname}/node_modules/protvista-uniprot`),
           ],
           loader: 'svg-inline-loader',
+        },
+        // SVGs from franklin for use in "url()"
+        {
+          test: /\.svg$/,
+          include: [
+            fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+          ],
+          type: 'asset/resource',
         },
         // All kinds of images, including SVGs without styling needs
         {
