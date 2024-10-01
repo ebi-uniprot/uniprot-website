@@ -1,7 +1,7 @@
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 // Source: proteomes/UP000005640
-// Retrieved: 2024-07-24
+// Retrieved: 2024-10-01
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
   description:
@@ -12,29 +12,14 @@ const mock: ProteomesAPIModel = {
     taxonId: 9606,
     mnemonic: 'HUMAN',
   },
-  modified: '2024-05-17',
+  modified: '2024-06-20',
   proteomeType: 'Reference and representative proteome',
   components: [
     {
       name: 'Chromosome 1',
       description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270706',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
         'Homo sapiens chromosome 1, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
+      proteinCount: 6950,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -46,130 +31,10 @@ const mock: ProteomesAPIModel = {
       ],
     },
     {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270707',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270708',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270709',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270710',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270711',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270712',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270713',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 6833,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270714',
-        },
-      ],
-    },
-    {
       name: 'Chromosome 2',
       description:
         'Homo sapiens chromosome 2, GRCh38 reference primary assembly.',
-      proteinCount: 5434,
+      proteinCount: 5468,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -178,32 +43,10 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000664',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 2',
-      description:
-        'Homo sapiens chromosome 2 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 5434,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270715',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 2',
-      description:
-        'Homo sapiens chromosome 2 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 5434,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270716',
@@ -214,7 +57,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 3',
       description:
         'Homo sapiens chromosome 3, GRCh38 reference primary assembly.',
-      proteinCount: 4889,
+      proteinCount: 4921,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -223,17 +66,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000665',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 3',
-      description:
-        'Homo sapiens chromosome 3 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 4889,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'GL000221',
@@ -244,7 +76,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 4',
       description:
         'Homo sapiens chromosome 4, GRCh38 reference primary assembly.',
-      proteinCount: 3080,
+      proteinCount: 3087,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -253,17 +85,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000666',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 4',
-      description:
-        'Homo sapiens chromosome 4 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3080,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'GL000008',
@@ -274,7 +95,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 5',
       description:
         'Homo sapiens chromosome 5, GRCh38 reference primary assembly.',
-      proteinCount: 3431,
+      proteinCount: 3456,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -283,17 +104,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000667',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 5',
-      description:
-        'Homo sapiens chromosome 5 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3431,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'GL000208',
@@ -304,7 +114,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 6',
       description:
         'Homo sapiens chromosome 6, GRCh38 reference primary assembly.',
-      proteinCount: 3503,
+      proteinCount: 3552,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -319,7 +129,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 7',
       description:
         'Homo sapiens chromosome 7, GRCh38 reference primary assembly.',
-      proteinCount: 3603,
+      proteinCount: 3622,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -334,7 +144,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 8',
       description:
         'Homo sapiens chromosome 8, GRCh38 reference primary assembly.',
-      proteinCount: 2978,
+      proteinCount: 2982,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -349,7 +159,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 9',
       description:
         'Homo sapiens chromosome 9, GRCh38 reference primary assembly.',
-      proteinCount: 2604,
+      proteinCount: 2647,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -361,70 +171,10 @@ const mock: ProteomesAPIModel = {
       ],
     },
     {
-      name: 'Chromosome 9',
-      description:
-        'Homo sapiens chromosome 9 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 2604,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270717',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 9',
-      description:
-        'Homo sapiens chromosome 9 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 2604,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270718',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 9',
-      description:
-        'Homo sapiens chromosome 9 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 2604,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270719',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 9',
-      description:
-        'Homo sapiens chromosome 9 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 2604,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270720',
-        },
-      ],
-    },
-    {
       name: 'Chromosome 10',
       description:
         'Homo sapiens chromosome 10, GRCh38 reference primary assembly.',
-      proteinCount: 2779,
+      proteinCount: 2794,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -433,17 +183,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000672',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 10',
-      description:
-        'UNVERIFIED_ORG: Homo sapiens chromosome 10 genomic contig, GRCh38 reference assembly alternate locus group',
-      proteinCount: 2779,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270825',
@@ -454,7 +193,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome X',
       description:
         'Homo sapiens chromosome X, GRCh38 reference primary assembly.',
-      proteinCount: 2622,
+      proteinCount: 2624,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -469,7 +208,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 11',
       description:
         'Homo sapiens chromosome 11, GRCh38 reference primary assembly.',
-      proteinCount: 5219,
+      proteinCount: 5252,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -478,17 +217,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000673',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 11',
-      description:
-        'Homo sapiens chromosome 11 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 5219,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270721',
@@ -499,7 +227,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 12',
       description:
         'Homo sapiens chromosome 12, GRCh38 reference primary assembly.',
-      proteinCount: 4757,
+      proteinCount: 4773,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -514,7 +242,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 13',
       description:
         'Homo sapiens chromosome 13, GRCh38 reference primary assembly.',
-      proteinCount: 1071,
+      proteinCount: 1094,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -529,7 +257,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 14',
       description:
         'Homo sapiens chromosome 14, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
+      proteinCount: 3117,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -538,47 +266,14 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000676',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'GL000009',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'GL000194',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'GL000225',
@@ -586,85 +281,10 @@ const mock: ProteomesAPIModel = {
       ],
     },
     {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270722',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270723',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270724',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270725',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 3114,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270726',
-        },
-      ],
-    },
-    {
       name: 'Chromosome 15',
       description:
         'Homo sapiens chromosome 15, GRCh38 reference primary assembly.',
-      proteinCount: 2724,
+      proteinCount: 2743,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -673,17 +293,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000677',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 15',
-      description:
-        'Homo sapiens chromosome 15 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 2724,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270727',
@@ -694,7 +303,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 16',
       description:
         'Homo sapiens chromosome 16, GRCh38 reference primary assembly.',
-      proteinCount: 4132,
+      proteinCount: 4153,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -703,17 +312,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000678',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 16',
-      description:
-        'Homo sapiens chromosome 16 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 4132,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270728',
@@ -724,7 +322,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 17',
       description:
         'Homo sapiens chromosome 17, GRCh38 reference primary assembly.',
-      proteinCount: 5462,
+      proteinCount: 5489,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -733,47 +331,14 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000679',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 17',
-      description:
-        'Homo sapiens chromosome 17 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 5462,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'GL000205',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 17',
-      description:
-        'Homo sapiens chromosome 17 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 5462,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270729',
         },
-      ],
-    },
-    {
-      name: 'Chromosome 17',
-      description:
-        'Homo sapiens chromosome 17 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 5462,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270730',
@@ -784,7 +349,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 18',
       description:
         'Homo sapiens chromosome 18, GRCh38 reference primary assembly.',
-      proteinCount: 1318,
+      proteinCount: 1366,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -799,7 +364,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 19',
       description:
         'Homo sapiens chromosome 19, GRCh38 reference primary assembly.',
-      proteinCount: 5882,
+      proteinCount: 5909,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -814,7 +379,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 20',
       description:
         'Homo sapiens chromosome 20, GRCh38 reference primary assembly.',
-      proteinCount: 1783,
+      proteinCount: 1792,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -829,7 +394,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 21',
       description:
         'Homo sapiens chromosome 21, GRCh38 reference primary assembly.',
-      proteinCount: 678,
+      proteinCount: 677,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -844,7 +409,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 22',
       description:
         'Homo sapiens chromosome 22, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
+      proteinCount: 1752,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -852,141 +417,6 @@ const mock: ProteomesAPIModel = {
         {
           database: 'GenomeAccession',
           id: 'CM000684',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270731',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270732',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270733',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270734',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270735',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270736',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270737',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270738',
-        },
-      ],
-    },
-    {
-      name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22 unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
-        {
-          database: 'GenomeAccession',
-          id: 'KI270739',
         },
       ],
     },
@@ -1003,17 +433,6 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAccession',
           id: 'CM000686',
         },
-      ],
-    },
-    {
-      name: 'Chromosome Y',
-      description:
-        'Homo sapiens chromosome Y unlocalized genomic contig, GRCh38 reference primary assembly.',
-      proteinCount: 107,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
-      proteomeCrossReferences: [
         {
           database: 'GenomeAccession',
           id: 'KI270740',
@@ -1023,7 +442,7 @@ const mock: ProteomesAPIModel = {
     {
       name: 'Mitochondrion MT',
       description: 'Homo sapiens mitochondrion, complete genome.',
-      proteinCount: 16,
+      proteinCount: 2135,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -1033,14 +452,6 @@ const mock: ProteomesAPIModel = {
           id: 'J01415',
         },
       ],
-    },
-    {
-      name: 'Unplaced',
-      description: 'HUMAN_Unplaced',
-      proteinCount: 3108,
-      genomeAnnotation: {
-        source: 'Ensembl',
-      },
     },
   ],
   citations: [
@@ -4544,17 +3955,17 @@ const mock: ProteomesAPIModel = {
   superkingdom: 'eukaryota',
   proteomeCompletenessReport: {
     buscoReport: {
-      complete: 13709,
-      completeSingle: 5165,
-      completeDuplicated: 8544,
+      complete: 13716,
+      completeSingle: 5146,
+      completeDuplicated: 8570,
       fragmented: 4,
-      missing: 67,
+      missing: 60,
       total: 13780,
       lineageDb: 'primates_odb10',
       score: 99,
     },
     cpdReport: {
-      proteomeCount: 197,
+      proteomeCount: 186,
       stdCdss: 0,
       averageCdss: 0,
       confidence: 0,
@@ -4567,8 +3978,8 @@ const mock: ProteomesAPIModel = {
     level: 'full',
     source: 'Ensembl',
   },
-  geneCount: 20654,
-  proteinCount: 82861,
+  geneCount: 20656,
+  proteinCount: 83413,
   genomeAnnotation: {
     source: 'Ensembl',
     url: 'http://www.ensembl.org/Homo_sapiens/Info/Annotation',
@@ -4768,9 +4179,9 @@ const mock: ProteomesAPIModel = {
     },
   ],
   proteomeStatistics: {
-    reviewedProteinCount: 20420,
-    unreviewedProteinCount: 62441,
-    isoformProteinCount: 22088,
+    reviewedProteinCount: 20412,
+    unreviewedProteinCount: 63001,
+    isoformProteinCount: 22092,
   },
 };
 
