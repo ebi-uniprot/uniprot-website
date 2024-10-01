@@ -71,6 +71,21 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
             position += `-${feature.end}`;
           }
 
+          // TODO: FUNFAM database info will be available in 2024_06.
+          // URL has to be taken from the fetched data and dealt with 'superfamily' and 'family' expected in the URL.
+          // Watch out when adding the cross reference in UniProtKB as the database ID is '3.30.160.60:FF:000118'
+          // while for UniParc, there is an extra prefix 'G3DSA:3.40.50.300:FF:001498'
+          let funFamURL = '';
+          if (database === 'FUNFAM') {
+            const funfamIDRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+):FF:(\d+)/;
+            const match = databaseId.match(funfamIDRegEx);
+
+            if (match) {
+              const [, superFamily, family] = match;
+              funFamURL = `https://www.cathdb.info/version/latest/superfamily/${superFamily}/funfam/${family}`;
+            }
+          }
+
           return (
             <tr
               key={feature.protvistaFeatureId}
@@ -98,6 +113,10 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
                   >
                     {databaseId}
                   </ExternalLink>
+                )}
+                {/* Need to be removed when FUNFAM is added in 2024_06 */}
+                {database === 'FUNFAM' && funFamURL && (
+                  <ExternalLink url={funFamURL}>{databaseId}</ExternalLink>
                 )}
               </td>
               <td>{feature.database}</td>
