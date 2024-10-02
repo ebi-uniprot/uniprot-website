@@ -7,7 +7,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
   >
     <div
       class="busco-view__track"
-      style="--s: 37.48185776487663%; --d: 62.00290275761974%; --f: 0.02902757619738752%;"
+      style="--s: 37.34397677793904%; --d: 62.191582002902756%; --f: 0.02902757619738752%;"
     />
     <div
       class="busco-view__report"
@@ -15,7 +15,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:37.5% D:62%) F:0% M:0.5%
+      C:99.5% (S:37.3% D:62.2%) F:0% M:0.4%
     </div>
   </div>
 </DocumentFragment>
@@ -47,7 +47,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        21 more components
+        20 more components
       </button>
     </li>
   </ul>
@@ -133,9 +133,6 @@ exports[`ProteomesColumnConfiguration component should render column "components
     </li>
     <li>
       Mitochondrion MT
-    </li>
-    <li>
-      Unplaced
     </li>
     <li>
       <button
@@ -398,7 +395,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    82,861
+    83,413
   </a>
 </DocumentFragment>
 `;

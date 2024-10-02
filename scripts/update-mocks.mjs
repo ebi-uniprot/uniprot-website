@@ -167,7 +167,7 @@ const processFile = async (file, baseAPI, dry) => {
   // replace some ugly whitespaces between properties within objects
   output = output.replaceAll(/,\n\s*\n/gm, ',\n');
   // more formatting
-  output = prettier.format(output, {
+  output = await prettier.format(output, {
     ...prettierConfig,
     parser: 'typescript',
   });
