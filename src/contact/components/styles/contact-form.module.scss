@@ -19,9 +19,11 @@
     grid-template-areas:
       'label-name    input-name'
       'label-email   input-email'
-      'label-subject input-'
+      'label-subject input-subject'
       'label-message .'
       'input-message input-message'
+      'label-context label-context'
+      'context       context'
       'privacy       privacy'
       'submit        submit';
 
@@ -33,6 +35,8 @@
         'label-subject input-subject aside'
         'label-message .             aside'
         'input-message input-message input-message'
+        'label-context label-context label-context'
+        'context       context       context'
         'privacy       privacy       privacy'
         'submit        submit        .';
     }
@@ -45,6 +49,8 @@
         'label-subject input-subject illustration  aside'
         'label-message .             illustration  aside'
         'input-message input-message input-message input-message'
+        'label-context label-context label-context label-context'
+        'input-context input-context input-context input-context'
         'privacy       privacy       privacy       privacy'
         'submit        submit        .             .';
     }
@@ -80,6 +86,10 @@
 .label {
   grid-column: label-start / label-end;
   font-weight: bold;
+
+  &-wide {
+    grid-column-end: -1;
+  }
 }
 
 .input {
