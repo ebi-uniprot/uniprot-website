@@ -76,6 +76,7 @@ export interface CommunityAnnotation {
   function?: string;
   comment?: string;
   disease?: string;
+  submissionDate?: string;
 }
 
 export type CitationsAPIModel = {
