@@ -292,20 +292,20 @@ const LandingPage = () => {
             <p>
               Reference proteomes
               <br />
-              <ExternalLink url={ftpUrls.referenceProteomes()}>
-                ftp
-              </ExternalLink>
               <ExternalLink url={`${ftpUrls.referenceProteomes()}README`}>
-                readme
+                README
+              </ExternalLink>
+              <ExternalLink url={ftpUrls.referenceProteomes()}>
+                FTP
               </ExternalLink>
             </p>
             <p>
               Pan proteomes
               <br />
-              <ExternalLink url={ftpUrls.panProteomes()}>ftp</ExternalLink>
               <ExternalLink url={`${ftpUrls.panProteomes()}README`}>
-                readme
+                README
               </ExternalLink>
+              <ExternalLink url={ftpUrls.panProteomes()}>FTP</ExternalLink>
             </p>
             <p>
               <ExternalLink url={joinUrl(ftpUrls.uniprot, 'knowledgebase/')}>
