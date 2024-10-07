@@ -16,7 +16,7 @@ exports[`Search component on home page should render 1`] = `
       >
         <button
           class="button primary"
-          style="--main-button-color: #00639a;"
+          style="--main-button-color: var(--fr--color-uniprotkb, var(--fr--color-sea-blue));"
           type="button"
         >
           UniProtKB

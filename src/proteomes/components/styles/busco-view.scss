@@ -1,9 +1,0 @@
-.busco-view {
-  min-width: 200px; // TODO: this is a temporary hack that seems to help prevent the protvista-track growing in some situations
-  max-width: 1000px; // TODO: this is a temporary hack to prevent infinite growth if the bug is attacking
-  font-size: 0.8rem;
-  &__report {
-    margin-top: 0.4rem;
-    font-weight: bold;
-  }
-}

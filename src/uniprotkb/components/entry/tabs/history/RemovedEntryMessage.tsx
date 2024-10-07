@@ -20,27 +20,32 @@ import {
 type RemovedEntryHeadingProps = {
   accession: string;
   uniparc?: string;
+  merged?: boolean;
 };
 
 const RemovedEntryHeading = ({
   accession,
   uniparc,
+  merged,
 }: RemovedEntryHeadingProps) => {
-  const uniParcLink = uniparc
-    ? {
-        pathname: generatePath(LocationToPath[Location.UniParcEntry], {
-          accession: uniparc,
-          subPage: UniParcTabLocation.Entry,
-        }),
-      }
-    : {
-        pathname: LocationToPath[Location.UniParcResults],
-        search: stringifyQuery({ query: accession, direct: true }),
-      };
+  const uniParcLink =
+    // In case of merging, we'll get the data of the new entry, so the
+    // UniParc of the new entry, so don't pass that to not get wrong link
+    uniparc && !merged
+      ? {
+          pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+            accession: uniparc,
+            subPage: UniParcTabLocation.Entry,
+          }),
+        }
+      : {
+          pathname: LocationToPath[Location.UniParcResults],
+          search: stringifyQuery({ query: accession, direct: true }),
+        };
   return (
     <h4 data-article-id="deleted_accessions">
-      This entry is no longer annotated in UniProtKB and can be found in{' '}
-      <Link to={uniParcLink}>UniParc</Link>.
+      This entry{!merged && ' is no longer annotated in UniProtKB and'} can be
+      found in <Link to={uniParcLink}>UniParc</Link>.
     </h4>
   );
 };
@@ -63,6 +68,7 @@ type RemovedEntryMessageProps = RemovedEntryHeadingProps & {
   reason?: InactiveEntryReason;
   release?: string;
   children?: ReactNode;
+  merged?: boolean;
 };
 
 const RemovedEntryMessage = ({
@@ -70,7 +76,7 @@ const RemovedEntryMessage = ({
   accession,
   uniparc,
   release,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  merged,
   children,
 }: RemovedEntryMessageProps) => {
   let helpArticleLink = 'deleted_accessions';
@@ -81,8 +87,12 @@ const RemovedEntryMessage = ({
 
   return (
     <>
-      <RemovedEntryHeading accession={accession} uniparc={uniparc} />
-      {/* {children ||
+      <RemovedEntryHeading
+        accession={accession}
+        uniparc={uniparc}
+        merged={merged}
+      />
+      {children ||
         (reason?.deletedReason && (
           <div>
             Reason:{' '}
@@ -90,7 +100,7 @@ const RemovedEntryMessage = ({
               {reason.deletedReason}
             </strong>
           </div>
-        ))} */}
+        ))}
       {release && (
         <div>
           Since release: <strong>{release}</strong>
@@ -150,7 +160,7 @@ export const MergedEntryMessage = ({
   mergedInto,
   ...props
 }: MergedEntryMessageProps) => (
-  <RemovedEntryMessage {...props}>
+  <RemovedEntryMessage {...props} merged>
     <div>
       This entry has now been <strong>merged</strong> into{' '}
       <Link

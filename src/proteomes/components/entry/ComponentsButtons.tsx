@@ -139,8 +139,8 @@ const ComponentsButtons = ({
           <DownloadIcon />
           Download
         </Button>
-        <Button
-          element={Link}
+        <Link
+          className="button tertiary"
           to={{
             pathname:
               LocationToPath[
@@ -150,10 +150,9 @@ const ComponentsButtons = ({
               ],
             search: `query=${selectedQuery}`,
           }}
-          variant="tertiary"
         >
           View proteins
-        </Button>
+        </Link>
       </div>
     </>
   );

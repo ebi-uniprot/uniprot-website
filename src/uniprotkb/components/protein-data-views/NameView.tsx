@@ -4,8 +4,7 @@ type NameViewProps = {
   alternativeNames?: string[];
 };
 
-const NameView = (props: NameViewProps) => {
-  const { name, shortName, alternativeNames } = props;
+const NameView = ({ name, shortName, alternativeNames }: NameViewProps) => {
   let altNames;
   if (alternativeNames && alternativeNames.length > 0) {
     altNames = alternativeNames.join(', ');
@@ -16,12 +15,6 @@ const NameView = (props: NameViewProps) => {
       {altNames && <div>{altNames}</div>}
     </span>
   );
-};
-
-NameView.defaultProps = {
-  name: undefined,
-  shortName: undefined,
-  alternativeNames: undefined,
 };
 
 export default NameView;

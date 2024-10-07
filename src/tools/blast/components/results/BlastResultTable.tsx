@@ -11,9 +11,6 @@ import { DataTable, Chip, Loader, Button } from 'franklin-sites';
 import cn from 'classnames';
 import { Except } from 'type-fest';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
@@ -39,9 +36,9 @@ const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
 };
 
 const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
-  hsp_identity: colors.sapphireBlue,
-  hsp_score: colors.coyoteBrown,
-  hsp_expect: colors.outerSpace,
+  hsp_identity: 'var(--fr--color-sapphire-blue)',
+  hsp_score: 'var(--fr--color-coyote-brown)',
+  hsp_expect: 'var(--fr--color-outer-space)',
 };
 
 type TrackNodeData = {

@@ -35,7 +35,6 @@ describe('Entry view', () => {
       <EntryMain
         transformedData={uniProtKbConverter(mockData, databaseInfoMaps)}
         importedVariants={0}
-        hasGenomicCoordinates={false}
         communityReferences={[]}
       />,
       { route: `/uniprotkb/P05067/entry` }
@@ -53,7 +52,6 @@ describe('Entry view', () => {
           databaseInfoMaps
         )}
         importedVariants={0}
-        hasGenomicCoordinates={false}
         communityReferences={[]}
       />,
       { route: `/uniprotkb/P05067/entry` }

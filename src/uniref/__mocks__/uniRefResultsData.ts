@@ -7,7 +7,7 @@ type Payload = {
 };
 
 // Source: uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2024-06-10
+// Retrieved: 2024-10-01
 const mock: Payload = {
   facets: [
     {
@@ -18,17 +18,17 @@ const mock: Payload = {
         {
           label: '100%',
           value: '1.0',
-          count: 1176714,
+          count: 1214754,
         },
         {
           label: '90%',
           value: '0.9',
-          count: 450756,
+          count: 458434,
         },
         {
           label: '50%',
           value: '0.5',
-          count: 68208,
+          count: 68574,
         },
       ],
     },
@@ -37,14 +37,14 @@ const mock: Payload = {
     {
       id: 'UniRef50_A0A3E1E969',
       name: 'Cluster: Glucose dehydrogenase/Glucose dehydrogenase/Glucose dehydrogenase',
-      updated: '2024-05-29',
+      updated: '2024-10-02',
       entryType: 'UniRef50',
       commonTaxon: {
         scientificName: 'Bacteria',
         taxonId: 2,
       },
-      memberCount: 5,
-      organismCount: 5,
+      memberCount: 6,
+      organismCount: 6,
       representativeMember: {
         memberIdType: 'UniProtKB ID',
         memberId: 'A0A3E1E969_UNCVE',
@@ -71,9 +71,10 @@ const mock: Payload = {
       memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)', 'UniParc'],
       members: [
         'A0A3E1E969',
-        'B4CTX8',
         'A0A7Y5C7M4',
+        'B4CTX8',
         'A0A3C1H8I3',
+        'UPI0032A75626',
         'UPI00104BEFB8',
       ],
       organisms: [
@@ -82,16 +83,20 @@ const mock: Payload = {
           taxonId: 2026799,
         },
         {
-          scientificName: 'Chthoniobacter flavus Ellin428',
-          taxonId: 497964,
-        },
-        {
           scientificName: 'Hydrogenedentota bacterium',
           taxonId: 2030809,
         },
         {
+          scientificName: 'Chthoniobacter flavus Ellin428',
+          taxonId: 497964,
+        },
+        {
           scientificName: 'Verrucomicrobiales bacterium',
           taxonId: 2026801,
+        },
+        {
+          scientificName: 'Chthoniobacter sp.',
+          taxonId: 2510640,
         },
         {
           scientificName: 'Chthoniobacter flavus',

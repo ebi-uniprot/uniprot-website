@@ -76,11 +76,10 @@ export type UniRefAPIModel = {
   members?: UniRefMember[];
 };
 
-const identityLevels = [50, 90, 100] as const;
-export type Identity = typeof identityLevels[number];
+export type Identity = 50 | 90 | 100;
 
 export type UniRefUIModel<
-  T extends UniRefAPIModel | UniRefLiteAPIModel = UniRefLiteAPIModel
+  T extends UniRefAPIModel | UniRefLiteAPIModel = UniRefLiteAPIModel,
 > = T & {
   identity: Identity;
   // use SequenceUIModel?

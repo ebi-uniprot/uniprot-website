@@ -69,7 +69,7 @@ const FirstTimeSelection = ({
             variant="primary"
             type="submit"
             disabled={!previewViewMode}
-            onClick={(e: MouseEvent) => {
+            onClick={(e) => {
               e.preventDefault();
               if (previewViewMode) {
                 sendGtagEventViewMode('mode_popup_click', previewViewMode);

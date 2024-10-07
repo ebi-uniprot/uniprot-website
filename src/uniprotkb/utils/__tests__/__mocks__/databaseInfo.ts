@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2024-06-10
+// Retrieved: 2024-10-01
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -509,18 +509,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'CLAE',
-    displayName: 'CLAE',
-    category: 'PFAM',
-    uriLink: 'https://clae.fungalgenomics.ca/enzyme/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'PeroxiBase',
     displayName: 'PeroxiBase',
     category: 'PFAM',
@@ -743,30 +731,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'COMPLUYEAST-2DPAGE',
-    displayName: 'COMPLUYEAST-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://compluyeast2dpage.dacya.ucm.es/cgi-bin/2d/2d.cgi?ac=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'DOSAC-COBS-2DPAGE',
-    displayName: 'DOSAC-COBS-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://www.dosac.unipa.it/cgi-bin/2d/2d.cgi?ac=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OGP',
     displayName: 'OGP',
     category: '2DG',
@@ -795,30 +759,6 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'CPTAC',
     category: 'PROTEOMIC',
     uriLink: 'https://assays.cancer.gov/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'EPD',
-    displayName: 'EPD',
-    category: 'PROTEOMIC',
-    uriLink: 'https://www.peptracker.com/epd/analytics/?protein_id=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'MaxQB',
-    displayName: 'MaxQB',
-    category: 'PROTEOMIC',
-    uriLink: 'http://maxqb.biochem.mpg.de/mxdb/protein/show/%id',
     attributes: [
       {
         name: 'Description',

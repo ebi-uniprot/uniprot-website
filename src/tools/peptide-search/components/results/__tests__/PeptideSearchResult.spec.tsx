@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { screen } from '@testing-library/react';
@@ -11,6 +12,17 @@ import { JobTypes } from '../../../../types/toolsJobTypes';
 import { Status } from '../../../../types/toolsStatuses';
 
 import uniprotkbResults from '../../../../../uniprotkb/components/__mocks__/results';
+
+jest.mock('../../../../../shared/components/layouts/SideBarLayout', () => ({
+  __esModule: true,
+  SidebarLayout: ({ children }: { children: ReactNode }) => (
+    <>
+      {'{{ SideBarLayout start }}'}
+      {children}
+      {'{{ SideBarLayout end }}'}
+    </>
+  ),
+}));
 
 const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   internalID: 'local-id',
@@ -37,7 +49,10 @@ mockRequests
   .onGet(
     new RegExp(`/peptidesearch.uniprot.org/asyncrest/jobs/${mockJob.remoteID}$`)
   )
-  .reply(200, 'P35575,O43826');
+  .reply(
+    200,
+    uniprotkbResults.results.map((result) => result.primaryAccession).join(',')
+  );
 
 mockRequests
   .onGet(
@@ -67,6 +82,7 @@ describe('PeptideSearchResult', () => {
       },
     });
     await screen.findByText('2 results', undefined, { timeout: 10000 });
+    await screen.findByText(uniprotkbResults.results[0].primaryAccession);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -79,6 +95,7 @@ describe('PeptideSearchResult', () => {
       toolsState: { [mockJob.internalID]: mockJob },
     });
     await screen.findByText('2 results', undefined, { timeout: 10000 });
+    await screen.findByText(uniprotkbResults.results[0].primaryAccession);
     expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -214,7 +214,7 @@ const SequenceSearchLoader = forwardRef<
               valid: true,
               name: nameFromEntry(data),
             });
-          } catch (_) {
+          } catch {
             errors.push(acc);
           }
         }
@@ -225,7 +225,9 @@ const SequenceSearchLoader = forwardRef<
             addMessage({
               content: (
                 <div style={{ wordBreak: 'break-all' }}>
-                  There was an issue retrieving sequence data for:{' '}
+                  There was an issue retrieving sequence data. Are you sure this
+                  is a valid accession ID?
+                  <br />
                   {error.length > ERROR_MESSAGE_THRESHOLD ? (
                     <>
                       {error.substring(0, ERROR_MESSAGE_THRESHOLD)}

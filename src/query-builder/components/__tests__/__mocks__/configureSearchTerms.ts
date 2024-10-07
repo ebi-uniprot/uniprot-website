@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2024-06-10
+// Retrieved: 2024-10-01
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -665,7 +665,7 @@ const configureSearchTerms = [
             term: 'ft_transmem',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'helical',
           },
           {
             id: 'ft_transmem_exp',
@@ -673,7 +673,7 @@ const configureSearchTerms = [
             term: 'ft_transmem_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'helical',
           },
         ],
       },
@@ -688,7 +688,7 @@ const configureSearchTerms = [
             term: 'ft_topo_dom',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'cytoplasmic',
           },
           {
             id: 'ft_topo_dom_exp',
@@ -696,7 +696,7 @@ const configureSearchTerms = [
             term: 'ft_topo_dom_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'cytoplasmic',
           },
         ],
       },
@@ -711,7 +711,7 @@ const configureSearchTerms = [
             term: 'ft_intramem',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'helical',
           },
           {
             id: 'ft_intramem_exp',
@@ -719,7 +719,7 @@ const configureSearchTerms = [
             term: 'ft_intramem_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'helical',
           },
         ],
       },
@@ -2653,15 +2653,6 @@ const configureSearchTerms = [
             valuePrefix: 'moonprot-',
           },
           {
-            id: 'xref_clae',
-            label: 'CLAE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'clae-',
-          },
-          {
             id: 'xref_peroxibase',
             label: 'PeroxiBase',
             itemType: 'single',
@@ -2836,24 +2827,6 @@ const configureSearchTerms = [
         itemType: 'group',
         items: [
           {
-            id: 'xref_compluyeast-2dpage',
-            label: 'COMPLUYEAST-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'compluyeast-2dpage-',
-          },
-          {
-            id: 'xref_dosac-cobs-2dpage',
-            label: 'DOSAC-COBS-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'dosac-cobs-2dpage-',
-          },
-          {
             id: 'xref_ogp',
             label: 'OGP',
             itemType: 'single',
@@ -2886,24 +2859,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cptac-',
-          },
-          {
-            id: 'xref_epd',
-            label: 'EPD',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'epd-',
-          },
-          {
-            id: 'xref_maxqb',
-            label: 'MaxQB',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'maxqb-',
           },
           {
             id: 'xref_paxdb',

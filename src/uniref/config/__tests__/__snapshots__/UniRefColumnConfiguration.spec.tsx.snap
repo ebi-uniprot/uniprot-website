@@ -26,16 +26,16 @@ exports[`UniRefColumnConfiguration component should render column "common_taxoni
 
 exports[`UniRefColumnConfiguration component should render column "count": count 1`] = `
 <DocumentFragment>
-  5 members
+  6 members
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "created": created 1`] = `
+exports[`UniRefColumnConfiguration component should render column "date_modified": date_modified 1`] = `
 <DocumentFragment>
   <time
-    datetime="2024-05-29T00:00:00.000Z"
+    datetime="2024-10-02T00:00:00.000Z"
   >
-    2024-05-29
+    2024-10-02
   </time>
 </DocumentFragment>
 `;
@@ -83,16 +83,16 @@ exports[`UniRefColumnConfiguration component should render column "members": mem
     </li>
     <li>
       <a
-        href="/uniprotkb/B4CTX8"
+        href="/uniprotkb/A0A7Y5C7M4"
       >
-        B4CTX8
+        A0A7Y5C7M4
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/A0A7Y5C7M4"
+        href="/uniprotkb/B4CTX8"
       >
-        A0A7Y5C7M4
+        B4CTX8
       </a>
     </li>
     <li>
@@ -104,11 +104,17 @@ exports[`UniRefColumnConfiguration component should render column "members": mem
     </li>
     <li>
       <a
-        href="/uniparc/UPI00104BEFB8"
+        href="/uniparc/UPI0032A75626"
       >
-        UPI00104BEFB8
+        UPI0032A75626
       </a>
     </li>
+    <a
+      class="button tertiary"
+      href="/uniref/UniRef50_A0A3E1E969"
+    >
+      1 more member
+    </a>
   </ul>
 </DocumentFragment>
 `;
@@ -135,20 +141,20 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
     </li>
     <li>
       <a
-        href="/taxonomy/497964"
-        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
-        translate="no"
-      >
-        Chthoniobacter flavus Ellin428
-      </a>
-    </li>
-    <li>
-      <a
         href="/taxonomy/2030809"
         title="Hydrogenedentota bacterium, taxon ID 2030809"
         translate="no"
       >
         Hydrogenedentota bacterium
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/497964"
+        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
+        translate="no"
+      >
+        Chthoniobacter flavus Ellin428
       </a>
     </li>
     <li>
@@ -162,13 +168,19 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
     </li>
     <li>
       <a
-        href="/taxonomy/191863"
-        title="Chthoniobacter flavus, taxon ID 191863"
+        href="/taxonomy/2510640"
+        title="Chthoniobacter sp., taxon ID 2510640"
         translate="no"
       >
-        Chthoniobacter flavus
+        Chthoniobacter sp.
       </a>
     </li>
+    <a
+      class="button tertiary"
+      href="/uniref/UniRef50_A0A3E1E969"
+    >
+      More organisms
+    </a>
   </ul>
 </DocumentFragment>
 `;
@@ -189,20 +201,20 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
     </li>
     <li>
       <a
-        href="/taxonomy/497964"
-        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
-        translate="no"
-      >
-        497964
-      </a>
-    </li>
-    <li>
-      <a
         href="/taxonomy/2030809"
         title="Hydrogenedentota bacterium, taxon ID 2030809"
         translate="no"
       >
         2030809
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/497964"
+        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
+        translate="no"
+      >
+        497964
       </a>
     </li>
     <li>
@@ -216,25 +228,33 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
     </li>
     <li>
       <a
-        href="/taxonomy/191863"
-        title="Chthoniobacter flavus, taxon ID 191863"
+        href="/taxonomy/2510640"
+        title="Chthoniobacter sp., taxon ID 2510640"
         translate="no"
       >
-        191863
+        2510640
       </a>
     </li>
+    <a
+      class="button tertiary"
+      href="/uniref/UniRef50_A0A3E1E969"
+    >
+      More organism IDs
+    </a>
   </ul>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
-  <button
-    class="button secondary"
-    type="button"
-  >
-    Show sequence 
-  </button>
+  <div>
+    <button
+      class="button secondary"
+      type="button"
+    >
+      Show sequence 
+    </button>
+  </div>
 </DocumentFragment>
 `;
 

@@ -1,5 +1,4 @@
-import { useRef, ChangeEvent } from 'react';
-import { v1 } from 'uuid';
+import { useId, useMemo, ChangeEvent } from 'react';
 import {
   generatePath,
   Link,
@@ -49,11 +48,11 @@ const validity = (
 );
 
 const ContactForm = () => {
-  const idRef = useRef(v1());
+  const formId = useId();
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const { state: locationState, search } = useLocation<ContactLocationState>();
 
-  let referrerValue: undefined | string;
+  let referrerValue = '';
   if (locationState?.referrer) {
     referrerValue =
       typeof locationState.referrer === 'string'
@@ -75,18 +74,34 @@ const ContactForm = () => {
     }
   }
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const context = useMemo(
+    () =>
+      `${locationState?.formValues?.context || ''}
+Referred from: ${globalThis.location.origin}${referrerValue}
+User browser: ${navigator.userAgent}
+Website version: ${GIT_COMMIT_HASH}`.trim(),
+    [locationState?.formValues?.context, referrerValue]
+  );
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
       e.target.checked ? '' : 'Please tick the box to agree.'
     );
+  };
+
+  const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.setCustomValidity(
+      e.target.value.trim().length >= 3
+        ? ''
+        : 'Please enter a message for our helpdesk.'
+    );
+  };
 
   const { handleSubmit, handleChange, sending } = useFormLogic(referrerValue);
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
     : 'Send us general questions and suggestions using the form below';
-
-  const id = idRef.current;
 
   return (
     <>
@@ -96,7 +111,7 @@ const ContactForm = () => {
           href={window.location.origin + window.location.pathname}
         />
       </HTMLHead>
-      <PageIntro title="Contact us" />
+      <PageIntro heading="Contact us" />
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />
@@ -138,7 +153,7 @@ const ContactForm = () => {
         )}
         <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
-          <label className={styles.label} htmlFor={`name-${id}`}>
+          <label className={styles.label} htmlFor={`name-${formId}`}>
             Name:
           </label>
           <span className={styles.input}>
@@ -146,7 +161,7 @@ const ContactForm = () => {
               type="text"
               name="name"
               placeholder=" "
-              id={`name-${id}`}
+              id={`name-${formId}`}
               maxLength={100}
               onChange={handleChange}
               defaultValue={locationState?.formValues?.name}
@@ -155,7 +170,7 @@ const ContactForm = () => {
             {validity}
           </span>
           {/* E-mail */}
-          <label className={styles.label} htmlFor={`email-${id}`}>
+          <label className={styles.label} htmlFor={`email-${formId}`}>
             E-mail:
           </label>
           <span className={styles.input}>
@@ -163,7 +178,7 @@ const ContactForm = () => {
               type="email"
               name="email"
               placeholder="myemail@example.com"
-              id={`email-${id}`}
+              id={`email-${formId}`}
               required
               minLength={4}
               maxLength={100}
@@ -174,7 +189,7 @@ const ContactForm = () => {
             {validity}
           </span>
           {/* Subject */}
-          <label className={styles.label} htmlFor={`subject-${id}`}>
+          <label className={styles.label} htmlFor={`subject-${formId}`}>
             Subject:
           </label>
           <span className={styles.input}>
@@ -183,7 +198,7 @@ const ContactForm = () => {
               type="text"
               name="subject"
               placeholder=" "
-              id={`subject-${id}`}
+              id={`subject-${formId}`}
               required
               minLength={1}
               maxLength={100}
@@ -196,21 +211,40 @@ const ContactForm = () => {
             {validity}
           </span>
           {/* Message */}
-          <label className={styles.label} htmlFor={`message-${id}`}>
+          <label className={styles.label} htmlFor={`message-${formId}`}>
             Message:
           </label>
           <span className={cn(styles.input, styles.input__message)}>
             <textarea
               name="message"
               placeholder="my message"
-              id={`message-${id}`}
+              id={`message-${formId}`}
               required
               minLength={1}
-              onChange={handleChange}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                handleTextareaChange(event);
+                handleChange(event);
+              }}
               defaultValue={locationState?.formValues?.message}
               data-hj-allow
             />
             {validity}
+          </span>
+          <label
+            className={cn(styles.label, styles['label-wide'])}
+            htmlFor={`prefilled-${formId}`}
+          >
+            Additional information (sent with your message to help our helpdesk
+            help you):
+          </label>
+          <span className={cn(styles.input, styles.input__message)}>
+            <textarea
+              name="context"
+              id={`context-${formId}`}
+              value={context}
+              readOnly
+              data-hj-allow
+            />
           </span>
           {/* Privacy */}
           <label className={styles.privacy}>
@@ -243,7 +277,6 @@ const ContactForm = () => {
             tabIndex={-1}
             aria-hidden="true"
           />
-          <input hidden name="referrer" value={referrerValue} readOnly />
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>

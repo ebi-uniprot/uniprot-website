@@ -2,7 +2,7 @@ import { AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2024-06-10
+// Retrieved: 2024-10-01
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -44,7 +44,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'Enables the directed movement of substances (such as macromolecules, small molecules, ions) into, out of or within a cell, or between cells.',
+            'Enables the directed movement of substances (such as macromolecules, small molecules, ions) into, out of or within a cell, accross or in between cells.',
           id: 'GO:0005215',
           label: 'transporter activity',
           type: 'Term',
@@ -441,7 +441,7 @@ const goRibbonData: AGRRibbonData = {
         'GO:0003674': {
           ALL: {
             nb_classes: 3,
-            nb_annotations: 9,
+            nb_annotations: 69,
           },
           IDA: {
             nb_classes: 1,
@@ -453,7 +453,7 @@ const goRibbonData: AGRRibbonData = {
           },
           IPI: {
             nb_classes: 1,
-            nb_annotations: 3,
+            nb_annotations: 63,
           },
         },
         'GO:0003824': {
@@ -474,12 +474,12 @@ const goRibbonData: AGRRibbonData = {
           ALL: {
             terms: ['GO:0005515'],
             nb_classes: 1,
-            nb_annotations: 3,
+            nb_annotations: 63,
           },
           IPI: {
             terms: ['GO:0005515'],
             nb_classes: 1,
-            nb_annotations: 3,
+            nb_annotations: 63,
           },
         },
         'GO:0008150': {
@@ -524,7 +524,7 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0046598', 'GO:0019081'],
+            terms: ['GO:0019081', 'GO:0046598'],
             nb_classes: 2,
             nb_annotations: 4,
           },
@@ -542,7 +542,7 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005575': {
           ALL: {
             nb_classes: 4,
-            nb_annotations: 12,
+            nb_annotations: 16,
           },
           TAS: {
             nb_classes: 2,
@@ -550,7 +550,7 @@ const goRibbonData: AGRRibbonData = {
           },
           IDA: {
             nb_classes: 2,
-            nb_annotations: 3,
+            nb_annotations: 7,
           },
           HDA: {
             nb_classes: 1,
@@ -574,11 +574,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005886': {
           ALL: {
             nb_classes: 1,
-            nb_annotations: 7,
+            nb_annotations: 9,
           },
           IDA: {
             nb_classes: 1,
-            nb_annotations: 2,
+            nb_annotations: 4,
           },
           TAS: {
             nb_classes: 1,
@@ -588,11 +588,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005634': {
           ALL: {
             nb_classes: 1,
-            nb_annotations: 1,
+            nb_annotations: 3,
           },
           IDA: {
             nb_classes: 1,
-            nb_annotations: 1,
+            nb_annotations: 3,
           },
         },
         'GO:0005575-other': {
@@ -604,7 +604,7 @@ const goRibbonData: AGRRibbonData = {
         },
       },
       nb_classes: 11,
-      nb_annotations: 29,
+      nb_annotations: 93,
       label: 'TMPRSS2',
       taxon_id: 'NCBITaxon:9606',
       taxon_label: 'Homo sapiens',

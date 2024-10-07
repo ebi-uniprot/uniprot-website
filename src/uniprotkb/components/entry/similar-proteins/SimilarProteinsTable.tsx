@@ -88,7 +88,14 @@ const SimilarProteinsTable = ({
           search: `query=${uniprotkbQuery}`,
         }}
       >
-        Show all (<LongNumber>{total}</LongNumber>) UniProtKB entries
+        {'View '}
+        {(total === 1 && 'this entry') || (
+          <>
+            {`${total === uniprotkbResults.length ? 'these' : 'all'} `}
+            <LongNumber>{total}</LongNumber> entries
+          </>
+        )}
+        {' in UniProtKB'}
       </Link>
     </>
   );

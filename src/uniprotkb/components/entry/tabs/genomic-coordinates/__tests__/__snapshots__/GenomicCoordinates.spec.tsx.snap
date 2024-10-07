@@ -304,7 +304,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="0"
+                      aria-controls="1"
                       aria-expanded="false"
                       type="button"
                     >
@@ -347,7 +347,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content odd"
                   hidden=""
-                  id="0"
+                  id="1"
                 >
                   <td />
                 </tr>
@@ -356,7 +356,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="1"
+                      aria-controls="2"
                       aria-expanded="false"
                       type="button"
                     >
@@ -399,7 +399,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content"
                   hidden=""
-                  id="1"
+                  id="2"
                 >
                   <td />
                 </tr>
@@ -408,7 +408,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="2"
+                      aria-controls="3"
                       aria-expanded="false"
                       type="button"
                     >
@@ -451,7 +451,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content odd"
                   hidden=""
-                  id="2"
+                  id="3"
                 >
                   <td />
                 </tr>
@@ -460,7 +460,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="3"
+                      aria-controls="4"
                       aria-expanded="false"
                       type="button"
                     >
@@ -503,7 +503,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content"
                   hidden=""
-                  id="3"
+                  id="4"
                 >
                   <td />
                 </tr>
@@ -512,7 +512,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="4"
+                      aria-controls="5"
                       aria-expanded="false"
                       type="button"
                     >
@@ -555,7 +555,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content odd"
                   hidden=""
-                  id="4"
+                  id="5"
                 >
                   <td />
                 </tr>
@@ -564,7 +564,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="5"
+                      aria-controls="6"
                       aria-expanded="false"
                       type="button"
                     >
@@ -607,7 +607,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content"
                   hidden=""
-                  id="5"
+                  id="6"
                 >
                   <td />
                 </tr>
@@ -616,7 +616,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="6"
+                      aria-controls="7"
                       aria-expanded="false"
                       type="button"
                     >
@@ -659,7 +659,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content odd"
                   hidden=""
-                  id="6"
+                  id="7"
                 >
                   <td />
                 </tr>
@@ -668,7 +668,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 >
                   <td>
                     <button
-                      aria-controls="7"
+                      aria-controls="8"
                       aria-expanded="false"
                       type="button"
                     >
@@ -711,7 +711,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
                 <tr
                   class="row extra-content"
                   hidden=""
-                  id="7"
+                  id="8"
                 >
                   <td />
                 </tr>
