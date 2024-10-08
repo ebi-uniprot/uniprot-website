@@ -41,22 +41,14 @@ const documentationLinks = [
   },
 ];
 
-const getFTPLinks = (resource: string) => {
-  const availableFTPFormats = ['xml', 'fasta'];
-
-  return (
-    <>
-      {availableFTPFormats.map((value) => (
-        <ExternalLink
-          url={`${ftpUrls.uniref}/${resource}/${resource}.${value}.gz`}
-          key={`${resource}.${value}`}
-        >
-          {value}
-        </ExternalLink>
-      ))}
-    </>
-  );
-};
+const getFTPLinks = (resource: string) => (
+  <>
+    <ExternalLink url={`${ftpUrls.uniref}/${resource}/README`}>
+      README
+    </ExternalLink>
+    <ExternalLink url={`${ftpUrls.uniref}/${resource}`}>FTP</ExternalLink>
+  </>
+);
 
 // const tutorialsInfo = [
 //   {
@@ -250,7 +242,8 @@ const LandingPage = () => {
             <br />
             {datasets.map((dataset) => (
               <p className={styles['ftp-link']}>
-                {dataset}&nbsp;&nbsp;
+                {dataset}
+                <br />
                 {getFTPLinks(dataset.toLowerCase())}
               </p>
             ))}
