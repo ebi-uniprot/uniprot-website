@@ -139,7 +139,12 @@ const CoreData = () => (
         />
       }
       backgroundColor="var(--fr--color-proteomes)"
-      link={<Link to={LocationToPath[Location.ProteomesResults]} />}
+      link={
+        <Link
+          title="UniProt Proteomes, database of protein sets from genomes"
+          to={LocationToPath[Location.ProteomesResults]}
+        />
+      }
       gradient
     >
       Protein sets for species with sequenced genomes from across the tree of
