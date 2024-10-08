@@ -2,7 +2,7 @@ import { SearchResults } from '../../../../../shared/types/results';
 import { CitationsAPIModel } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 
 // Source: uniprotkb/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
-// Retrieved: 2024-07-24
+// Retrieved: 2024-10-01
 const mock: SearchResults<Partial<CitationsAPIModel>> = {
   facets: [
     {
@@ -357,7 +357,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 10293,
+        reviewedProteinCount: 10291,
         unreviewedProteinCount: 2613,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -428,7 +428,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 2473,
+        reviewedProteinCount: 2472,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -640,7 +640,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 1873,
-        unreviewedProteinCount: 4831,
+        unreviewedProteinCount: 4965,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -704,7 +704,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 537,
-        unreviewedProteinCount: 2459,
+        unreviewedProteinCount: 2460,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -777,7 +777,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 32625,
-        unreviewedProteinCount: 17770,
+        unreviewedProteinCount: 17764,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1220,7 +1220,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 3421,
-        unreviewedProteinCount: 5055,
+        unreviewedProteinCount: 5046,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1426,7 +1426,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 4960,
-        unreviewedProteinCount: 12616,
+        unreviewedProteinCount: 12605,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1486,7 +1486,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 2149,
-        unreviewedProteinCount: 3239,
+        unreviewedProteinCount: 3238,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1550,7 +1550,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 2292,
-        unreviewedProteinCount: 3063,
+        unreviewedProteinCount: 3058,
         computationallyMappedProteinCount: 4,
         communityMappedProteinCount: 0,
       },
@@ -1611,7 +1611,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 4864,
-        unreviewedProteinCount: 8123,
+        unreviewedProteinCount: 8113,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1683,6 +1683,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
             proteinOrGene: 'IRBIT',
             function:
               'Regulates apoptosis through an interaction with the anti-apoptotic protein BCL2L10 and by acting on ER-mitochondria contact sites.',
+            submissionDate: '2019-10-21',
           },
         },
       ],

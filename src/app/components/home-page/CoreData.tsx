@@ -43,6 +43,7 @@ const UniProtKBLinks = () => {
   return (
     <>
       <Link
+        title="UniProt Knowledgebase, SwissProt or reviewed protein database"
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
           search: 'query=reviewed:true',
@@ -57,6 +58,7 @@ const UniProtKBLinks = () => {
         <div>{numberReviewed && <LongNumber>{numberReviewed}</LongNumber>}</div>
       </Link>
       <Link
+        title="UniProt Knowledgebase, TrEMBL or unreviewed protein database"
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
           search: 'query=reviewed:false',
@@ -101,7 +103,12 @@ const CoreData = () => (
         />
       }
       backgroundColor="var(--fr--color-uniprotkb)"
-      link={<Link to={LocationToPath[Location.UniProtKBResults]} />}
+      link={
+        <Link
+          title="UniProt Knowledgebase, protein database"
+          to={LocationToPath[Location.UniProtKBResults]}
+        />
+      }
       gradient
     >
       <span className={styles['core-data']}>
@@ -127,7 +134,12 @@ const CoreData = () => (
         />
       }
       backgroundColor="var(--fr--color-proteomes)"
-      link={<Link to={LocationToPath[Location.ProteomesResults]} />}
+      link={
+        <Link
+          title="UniProt Proteomes, database of protein sets from genomes"
+          to={LocationToPath[Location.ProteomesResults]}
+        />
+      }
       gradient
     >
       Protein sets for species with sequenced genomes from across the tree of
@@ -152,7 +164,12 @@ const CoreData = () => (
         />
       }
       backgroundColor="var(--fr--color-uniref)"
-      link={<Link to={LocationToPath[Location.UniRefResults]} />}
+      link={
+        <Link
+          title="UniRef, database of protein clustered by identity"
+          to={LocationToPath[Location.UniRefResults]}
+        />
+      }
       gradient
     >
       Clusters of protein sequences at 100%, 90% &amp; 50% identity
@@ -176,7 +193,12 @@ const CoreData = () => (
         />
       }
       backgroundColor="var(--fr--color-uniparc)"
-      link={<Link to={LocationToPath[Location.UniParcResults]} />}
+      link={
+        <Link
+          title="UniParc, database of protein sequences"
+          to={LocationToPath[Location.UniParcResults]}
+        />
+      }
       gradient
     >
       Non-redundant archive of publicly available protein sequences seen across

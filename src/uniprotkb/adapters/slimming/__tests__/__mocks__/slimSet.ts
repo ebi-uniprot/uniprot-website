@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2024-07-24
+// Retrieved: 2024-10-01
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -1976,19 +1976,19 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'L-leucine transaminase activity',
+          name: 'L-leucine-2-oxoglutarate transaminase activity',
           id: 'GO:0052654',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'L-valine transaminase activity',
+          name: 'L-valine-2-oxoglutarate transaminase activity',
           id: 'GO:0052655',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'L-isoleucine transaminase activity',
+          name: 'L-isoleucine-2-oxoglutarate transaminase activity',
           id: 'GO:0052656',
           aspect: 'molecular_function',
         },
@@ -3056,7 +3056,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'small molecule sensor activity',
+          name: 'molecular sensor activity',
           id: 'GO:0140299',
           aspect: 'molecular_function',
         },
@@ -3194,7 +3194,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular modified amino acid metabolic process',
+          name: 'modified amino acid metabolic process',
           id: 'GO:0006575',
           aspect: 'biological_process',
         },
@@ -3884,7 +3884,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'small molecule sensor activity',
+          name: 'molecular sensor activity',
           id: 'GO:0140299',
           aspect: 'molecular_function',
         },
@@ -4718,7 +4718,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'small molecule sensor activity',
+          name: 'molecular sensor activity',
           id: 'GO:0140299',
           aspect: 'molecular_function',
         },
@@ -4856,7 +4856,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular modified amino acid metabolic process',
+          name: 'modified amino acid metabolic process',
           id: 'GO:0006575',
           aspect: 'biological_process',
         },
@@ -7148,7 +7148,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular anatomical entity',
+          name: 'cellular anatomical structure',
           id: 'GO:0110165',
           aspect: 'cellular_component',
         },
@@ -7640,7 +7640,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular aldehyde metabolic process',
+          name: 'aldehyde metabolic process',
           id: 'GO:0006081',
           aspect: 'biological_process',
         },
@@ -8336,7 +8336,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular ketone metabolic process',
+          name: 'ketone metabolic process',
           id: 'GO:0042180',
           aspect: 'biological_process',
         },
@@ -8432,19 +8432,19 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular alkane metabolic process',
+          name: 'alkane metabolic process',
           id: 'GO:0043446',
           aspect: 'biological_process',
         },
         {
           associations: null,
-          name: 'cellular alkene metabolic process',
+          name: 'alkene metabolic process',
           id: 'GO:0043449',
           aspect: 'biological_process',
         },
         {
           associations: null,
-          name: 'cellular alkyne metabolic process',
+          name: 'alkyne metabolic process',
           id: 'GO:0043452',
           aspect: 'biological_process',
         },
@@ -9578,7 +9578,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'small molecule sensor activity',
+          name: 'molecular sensor activity',
           id: 'GO:0140299',
           aspect: 'molecular_function',
         },
@@ -10382,7 +10382,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'small molecule sensor activity',
+          name: 'molecular sensor activity',
           id: 'GO:0140299',
           aspect: 'molecular_function',
         },
@@ -10472,7 +10472,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular modified amino acid metabolic process',
+          name: 'modified amino acid metabolic process',
           id: 'GO:0006575',
           aspect: 'biological_process',
         },
@@ -10874,7 +10874,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'small molecule sensor activity',
+          name: 'molecular sensor activity',
           id: 'GO:0140299',
           aspect: 'molecular_function',
         },
@@ -13262,7 +13262,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'modulation by symbiont of host process',
+          name: 'symbiont-mediated perturbation of host process',
           id: 'GO:0044003',
           aspect: 'biological_process',
         },
@@ -13274,7 +13274,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'symbiont-mediated disruption of host cellular anatomical entity',
+          name: 'symbiont-mediated disruption of host cellular anatomical structure',
           id: 'GO:0052008',
           aspect: 'biological_process',
         },

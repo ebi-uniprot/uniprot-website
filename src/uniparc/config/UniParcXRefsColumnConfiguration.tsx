@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { ExternalLink } from 'franklin-sites';
 
-import ExternalLink from '../../shared/components/ExternalLink';
 import Timeline from '../components/entry/Timeline';
 import EntryTypeIcon, {
   EntryType,
@@ -260,17 +260,16 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.lastSeen, {
 });
 
 const getTimelineColumn =
-  (firstSeen?: string, lastSeen?: string) => (xref: UniParcXRef) =>
-    (
-      <div className={xref.active ? undefined : 'xref-inactive'}>
-        <Timeline
-          first={firstSeen}
-          last={lastSeen}
-          start={xref.created}
-          end={xref.lastUpdated}
-        />
-      </div>
-    );
+  (firstSeen?: string, lastSeen?: string) => (xref: UniParcXRef) => (
+    <div className={xref.active ? undefined : 'xref-inactive'}>
+      <Timeline
+        first={firstSeen}
+        last={lastSeen}
+        start={xref.created}
+        end={xref.lastUpdated}
+      />
+    </div>
+  );
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.timeline, {
   label: 'Timeline',
