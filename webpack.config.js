@@ -195,7 +195,7 @@ const getConfigFor = ({
         },
         // SVGs from nightingale and protvista packages
         {
-          test: /\.svg$/,
+          test: /\.svg$/i,
           include: [
             fs.realpathSync(`${__dirname}/node_modules/protvista-uniprot`),
           ],
