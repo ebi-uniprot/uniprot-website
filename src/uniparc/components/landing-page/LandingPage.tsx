@@ -106,6 +106,16 @@ const LandingPage = () => {
     }
   }
 
+  const databaseMapping = (label: string) => {
+    if (label === 'UniProtKB') {
+      return 'uniprot';
+    }
+    if (label === 'UniProtKB/Swiss-Prot isoforms') {
+      return 'isoforms';
+    }
+    return label.replace(' ', '-');
+  };
+
   return (
     <div className={styles['landing-page']}>
       <HTMLHead title="UniProt sequence archive (UniParc)">
@@ -181,8 +191,7 @@ const LandingPage = () => {
                           to={{
                             pathname: LocationToPath[Location.UniParcResults],
                             search: stringifyQuery({
-                              query: '*',
-                              facets: `${FacetsEnum.Database}:${value}`,
+                              query: `database:${databaseMapping(label as string)}`,
                             }),
                           }}
                         >
