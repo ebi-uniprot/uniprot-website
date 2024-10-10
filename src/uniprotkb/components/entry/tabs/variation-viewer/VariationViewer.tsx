@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
-import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
 import {
@@ -18,6 +17,7 @@ import {
   transformData,
 } from '@nightingale-elements/nightingale-variation';
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
+import filterConfig from 'protvista-uniprot/dist/es/filterConfig';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
@@ -84,52 +84,44 @@ const isUniProt = (string: string) => string === 'UniProt';
 const sortProvenanceByUniProtFirst = (a: string, b: string) =>
   +isUniProt(b) - +isUniProt(a);
 
-type ObjWithVariants = { variants: TransformedVariant[] };
+const groupByCategory = (filters: FilterConfig, category: string) =>
+  filters.filter((f) => f.type.name === category);
 
-type Filter = {
-  category: string;
-  filterFn: (obj: ObjWithVariants[]) => ObjWithVariants[];
-};
+type FilterConfig = typeof filterConfig;
+type FilterConfigItem = FilterConfig[0];
 
-// copied/adapted logic from protvista-variation
-const deepArrayOperation = (
-  arrays: ObjWithVariants[][],
-  operation: typeof union | typeof intersection
-) => {
-  if (!arrays || arrays.length <= 0) {
-    return null;
-  }
-  const firstArray = arrays[0];
-  // Iterate over positions
-  firstArray.forEach((position, i) => {
-    const filteredVariants = arrays.map((array) => array[i].variants);
-    /* eslint-disable no-param-reassign */
-    position.variants = operation(...filteredVariants);
-  });
-  return firstArray;
-};
+const getFilter = (haystack: FilterConfig, needle: FilterConfigItem) =>
+  haystack?.find((f) => f.name === needle.name);
 
-// copied/adapted logic from protvista-variation
-const applyFilters = (variants: TransformedVariant[], filters: Filter[]) => {
+// copied/adapted logic from protvista-uniprot
+const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
   if (!filters.length) {
     return variants;
   }
 
-  const originalData: ObjWithVariants[] = [{ variants }];
+  const activeFilters = filterConfig.filter((f) => filters.includes(f.name));
+  const consequenceFilters = groupByCategory(activeFilters, 'consequence');
+  const provenanceFilters = groupByCategory(activeFilters, 'provenance');
 
-  const groupedFilters = groupBy(filters, 'category');
-  const filteredGroups = Object.values(groupedFilters).map((filterGroup) => {
-    const filteredData = filterGroup.map((filterItem) =>
-      filterItem.filterFn(originalData)
+  const selectedConsequenceFilters = activeFilters
+    .map((f) => getFilter(consequenceFilters, f))
+    .filter(Boolean);
+  const selectedProvenanceFilters = activeFilters
+    .map((f) => getFilter(provenanceFilters, f))
+    .filter(Boolean);
+
+  const filteredVariants = variants
+    ?.filter((variant) =>
+      selectedConsequenceFilters.some((filter) =>
+        filter?.filterPredicate(variant)
+      )
+    )
+    .filter((variant) =>
+      selectedProvenanceFilters.some((filter) =>
+        filter?.filterPredicate(variant)
+      )
     );
-    // Basically, *within* groups, logical OR...
-    return deepArrayOperation(filteredData, union) || [];
-  });
-
-  const transformedData =
-    // ... and, *across* groups, logical AND
-    deepArrayOperation(filteredGroups, intersection) || [];
-  return transformedData[0]?.variants;
+  return filteredVariants;
 };
 
 const getHighlightedCoordinates = (feature?: TransformedVariant) =>
@@ -387,7 +379,7 @@ const RowExtraContent = (data: TransformedVariant) => (
       </div>
     ) : null}
     <div>
-      <strong>Source type: </strong> {data.sourceType.replace(/_/g, ' ')}
+      <strong>Source type: </strong> {data.sourceType?.replace(/_/g, ' ')}
     </div>
     {/* note that the type needs to be updated, xrefs is optional on association object */}
     {/* Also, some xrefs don't have URLs... type should be optional */}
@@ -439,7 +431,7 @@ const VariationViewer = ({
       shouldRender ? apiUrls.proteinsApi.variation(primaryAccession) : undefined
     );
 
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState<string[]>([]);
   const managerRef = useRef<NightingaleManager>(null);
   useEffect(() => {
     const { current: element } = managerRef;
@@ -593,7 +585,10 @@ const VariationViewer = ({
         highlight={getHighlightedCoordinates(highlightedVariant)} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
       >
         <Suspense fallback={null}>
-          <VisualVariationView {...transformedData} />
+          <VisualVariationView
+            sequence={transformedData.sequence}
+            variants={filteredVariants}
+          />
         </Suspense>
       </NightingaleManagerComponent>
       <TableFromData
