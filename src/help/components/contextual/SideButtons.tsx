@@ -17,7 +17,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
   const [displayFeedback, setDisplayFeedback] = useState(false);
 
   useEffect(() => {
-    // Checking if there is a scroll bar
+    // // Checking if there is a scroll bar
     const mainContent = document?.querySelector<HTMLElement>(
       `.${baseStyles['main-content']}`
     );
@@ -34,19 +34,21 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
 
     sleep(3000).then(() => {
       // If there's already Hotjar's feedback, don't do anything
-      if (document.querySelector('#survey_999231')) {
-        // if (scrollBarWidth) {
-        //   const hjButton = document.querySelector<HTMLElement>(
-        //     '#survey_999231 button'
-        //   );
+      if (document.querySelector('#survey_1067707')) {
+        if (scrollBarWidth) {
+          const hjButton = document.querySelector<HTMLElement>(
+            '#survey_1067707 > div > div > div'
+          );
 
-        //   if (hjButton) {
-        //     // hjButton.style.right = `${scrollBarWidth.toString()}px`;
-        //     hjButton.style.transform = `rotate(-90deg) translateY(${(
-        //       -19 - scrollBarWidth
-        //     ).toString()}px)`;
-        //   }
-        // }
+          if (hjButton) {
+            const classes = Array.from(hjButton.classList)
+              .map((el) => `.${el}`)
+              .join('');
+            const style = document.createElement('style');
+            style.innerHTML = `${classes} {right: ${scrollBarWidth.toString()}px !important;}`;
+            document.head.appendChild(style);
+          }
+        }
 
         return;
       }
