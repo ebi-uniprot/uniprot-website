@@ -1,5 +1,4 @@
-import { waitFor } from '@testing-library/react';
-import { act } from '@testing-library/react-hooks';
+import { waitFor, act } from '@testing-library/react';
 
 import getCustomRenderHook from '../../__test-helpers__/customRenderHook';
 
@@ -26,7 +25,7 @@ describe('useItemSelect', () => {
         target: checkbox,
       });
     });
-    await act(() => waitFor(() => expect(result.current[0]).toEqual(['id1'])));
+    await waitFor(() => expect(result.current[0]).toEqual(['id1']));
     checkbox.checked = false;
     act(() => {
       result.current[1]({
@@ -34,6 +33,6 @@ describe('useItemSelect', () => {
         target: checkbox,
       });
     });
-    await act(() => waitFor(() => expect(result.current[0]).toEqual([])));
+    await waitFor(() => expect(result.current[0]).toEqual([]));
   });
 });

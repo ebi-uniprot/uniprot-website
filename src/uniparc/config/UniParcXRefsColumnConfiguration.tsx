@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { ExternalLink } from 'franklin-sites';
 
-import ExternalLink from '../../shared/components/ExternalLink';
 import Timeline from '../components/entry/Timeline';
 import EntryTypeIcon, {
   EntryType,
@@ -136,7 +136,10 @@ const getAccessionColumn =
           id = id.replace(/_\d+$/, '');
         }
         cell = (
-          <ExternalLink url={template.replace('%id', id)}>
+          <ExternalLink
+            url={template.replace('%id', id)}
+            rel={xref.active ? undefined : 'nofollow'}
+          >
             {xref.id}
             {xref.chain && ` (chain ${xref.chain})`}
           </ExternalLink>

@@ -7,7 +7,7 @@ import {
   Suspense,
   memo,
 } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link, useLocation } from 'react-router-dom';
 import { schedule } from 'timing-functions';
 import { sumBy } from 'lodash-es';
 import {
@@ -75,6 +75,7 @@ const statusesToNotify = new Set([
 
 const ToolsDashboard = () => {
   const tools = useToolsState();
+  const { pathname } = useLocation();
 
   const count = useMemo(() => {
     const now = new Date();
@@ -154,6 +155,7 @@ const ToolsDashboard = () => {
           size="medium"
           onClose={close}
           arrowX={buttonX}
+          pathname={pathname}
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -168,6 +170,7 @@ const ToolsDashboard = () => {
 
 const Basket = () => {
   const [basket] = useBasket();
+  const { pathname } = useLocation();
 
   const [display, setDisplay] = useState(false);
   const close = useCallback((reason: PanelCloseReason) => {
@@ -248,6 +251,7 @@ const Basket = () => {
           onClose={close}
           arrowX={buttonX}
           className={styles['basket-panel']}
+          pathname={pathname}
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>

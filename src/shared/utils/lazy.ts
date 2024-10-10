@@ -1,12 +1,13 @@
 import { lazy as reactLazy, ComponentType, LazyExoticComponent } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type LazyComponent<T extends ComponentType<any>> = LazyExoticComponent<T> & {
-  preload: () => void;
-};
+type LazyComponent<T extends ComponentType<React.PropsWithChildren<any>>> =
+  LazyExoticComponent<T> & {
+    preload: () => void;
+  };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const lazy = <T extends ComponentType<any>>(
+const lazy = <T extends ComponentType<React.PropsWithChildren<any>>>(
   factory: () => Promise<{ default: T }>
 ) => {
   // variable to keep the result of the factory

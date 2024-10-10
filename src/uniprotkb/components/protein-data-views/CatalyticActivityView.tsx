@@ -73,6 +73,8 @@ export const ZoomModalContent = ({ chebi, imgURL }: ChebiImageData) => {
   );
 };
 
+type ZoomClickedEvent = { detail: ChebiImageData };
+
 type RheaReactionVisualizerProps = {
   rheaId: number;
   show: boolean;
@@ -96,7 +98,12 @@ export const RheaReactionVisualizer = ({
     Window
   );
   const callback = useCallback(
-    (node): void => {
+    (node: {
+      addEventListener: (
+        name: string,
+        event: ({ detail }: ZoomClickedEvent) => void
+      ) => void;
+    }): void => {
       if (node) {
         node.addEventListener(
           'zoomClicked',

@@ -15,6 +15,6 @@ describe('Taxonomy Card tests', () => {
   it('should allow card navigation', () => {
     const { history } = customRender(<TaxonomyCard data={mockData[0]} />);
     fireEvent.click(within(screen.getByRole('heading')).getByRole('link'));
-    expect(history.location.pathname).toMatch('/taxonomy/11652');
+    expect(history.location.pathname).toMatch('/taxonomy/37299');
   });
 });

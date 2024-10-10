@@ -21,7 +21,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
-import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
+import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
@@ -212,7 +212,9 @@ const PeptideSearchResult = () => {
   }
 
   if (jobResultError || !match) {
-    return <ErrorHandler status={jobResultStatus} />;
+    return (
+      <ErrorHandler status={jobResultStatus} error={jobResultError} fullPage />
+    );
   }
 
   if (
@@ -265,10 +267,12 @@ const PeptideSearchResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
-        titlePostscript={
+        heading={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
+        headingPostscript={
           total && (
-            <small>
+            /* Not sure why fragments and keys are needed, but otherwise gets
+            the React key warnings messages and children are rendered as array */
+            <small key="postscript">
               found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
             </small>
           )

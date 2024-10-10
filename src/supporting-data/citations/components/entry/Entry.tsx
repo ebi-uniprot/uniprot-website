@@ -33,7 +33,7 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   >(apiUrls.entry.entry(accession, Namespace.citations));
 
   if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (!data) {

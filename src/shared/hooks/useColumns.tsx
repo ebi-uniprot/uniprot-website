@@ -124,7 +124,7 @@ export const getColumnsToDisplay = (
             return columnConfig.render(
               convertRow(row, namespace, databaseInfoMaps)
             );
-          } catch (error) {
+          } catch {
             if (!('inactiveReason' in row)) {
               logging.warn(
                 `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyForData(

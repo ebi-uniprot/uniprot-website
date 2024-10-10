@@ -30,7 +30,7 @@ type ColumnSelectProps = {
   isDownload?: boolean;
 };
 
-const ColumnSelect: FC<ColumnSelectProps> = ({
+const ColumnSelect: FC<React.PropsWithChildren<ColumnSelectProps>> = ({
   selectedColumns,
   onChange,
   namespace,

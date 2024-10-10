@@ -12,7 +12,7 @@ type CSVViewProps = {
   supplementaryText?: string;
 };
 
-const CSVView: FC<CSVViewProps> = ({
+const CSVView: FC<React.PropsWithChildren<CSVViewProps>> = ({
   data,
   bolderFirst = false,
   keyPredicate = 'value',

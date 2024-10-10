@@ -14,10 +14,9 @@ type SingleColumnLayoutProps = {
   className?: string;
 };
 
-export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
-  children,
-  className,
-}) => (
+export const SingleColumnLayout: FC<
+  React.PropsWithChildren<SingleColumnLayoutProps>
+> = ({ children, className }) => (
   <>
     <div className={cn(styles['single-column-layout'], className)}>
       <main>

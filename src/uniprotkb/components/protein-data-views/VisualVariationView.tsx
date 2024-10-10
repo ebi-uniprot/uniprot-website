@@ -27,7 +27,7 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
   );
 
   const protvistaFilterRef = useCallback(
-    (node) => {
+    (node: { filters: typeof filterConfig }) => {
       if (node && filterElement.defined) {
         // eslint-disable-next-line no-param-reassign
         node.filters = filterConfig;
@@ -46,7 +46,11 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
   );
 
   const protvistaVariationRef = useCallback(
-    (node) => {
+    (node: {
+      colorConfig: typeof colorConfig;
+      data: VariationViewProps;
+      length: number;
+    }) => {
       if (node && variationElement.defined && variants) {
         // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;

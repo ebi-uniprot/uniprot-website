@@ -416,7 +416,12 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
   }
 
   if (groupByResponse.error || !groupByResponse.data) {
-    return <ErrorHandler status={groupByResponse.status} />;
+    return (
+      <ErrorHandler
+        status={groupByResponse.status}
+        error={groupByResponse.error}
+      />
+    );
   }
 
   const parentTotal = groupByResponse.data?.parent?.count;
@@ -548,7 +553,7 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
   const { parent, groupBy } = params;
 
   const handleAutocompleteFormValue = useCallback(
-    (_, id?: string) => {
+    (_: unknown, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
         history.push({

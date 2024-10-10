@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
-// Source: /configure/uniprotkb/result-fields
-// Retrieved: 2024-01-24
+// Source: configure/uniprotkb/result-fields
+// Retrieved: 2024-10-01
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -863,11 +863,6 @@ const mock = [
         id: 'protein_family/group/cazy',
       },
       {
-        label: 'CLAE',
-        name: 'xref_clae',
-        id: 'protein_family/group/clae',
-      },
-      {
         label: 'ESTHER',
         name: 'xref_esther',
         isMultiValueCrossReference: true,
@@ -1012,16 +1007,6 @@ const mock = [
     id: '2d_gel',
     fields: [
       {
-        label: 'COMPLUYEAST-2DPAGE',
-        name: 'xref_compluyeast-2dpage',
-        id: '2d_gel/compluyeast-2dpage',
-      },
-      {
-        label: 'DOSAC-COBS-2DPAGE',
-        name: 'xref_dosac-cobs-2dpage',
-        id: '2d_gel/dosac-cobs-2dpage',
-      },
-      {
         label: 'OGP',
         name: 'xref_ogp',
         id: '2d_gel/ogp',
@@ -1030,21 +1015,6 @@ const mock = [
         label: 'REPRODUCTION-2DPAGE',
         name: 'xref_reproduction-2dpage',
         id: '2d_gel/reproduction-2dpage',
-      },
-      {
-        label: 'SWISS-2DPAGE',
-        name: 'xref_swiss-2dpage',
-        id: '2d_gel/swiss-2dpage',
-      },
-      {
-        label: 'UCD-2DPAGE',
-        name: 'xref_ucd-2dpage',
-        id: '2d_gel/ucd-2dpage',
-      },
-      {
-        label: 'World-2DPAGE',
-        name: 'xref_world-2dpage',
-        id: '2d_gel/world-2dpage',
       },
     ],
   },
@@ -1059,19 +1029,9 @@ const mock = [
         id: 'proteomic/cptac',
       },
       {
-        label: 'EPD',
-        name: 'xref_epd',
-        id: 'proteomic/epd',
-      },
-      {
         label: 'MassIVE',
         name: 'xref_massive',
         id: 'proteomic/massive',
-      },
-      {
-        label: 'MaxQB',
-        name: 'xref_maxqb',
-        id: 'proteomic/maxqb',
       },
       {
         label: 'PRIDE',
@@ -1476,11 +1436,6 @@ const mock = [
         id: 'phylogenomic/inparanoid',
       },
       {
-        label: 'KO',
-        name: 'xref_ko',
-        id: 'phylogenomic/ko',
-      },
-      {
         label: 'OMA',
         name: 'xref_oma',
         isMultiValueCrossReference: true,
@@ -1668,12 +1623,6 @@ const mock = [
         isMultiValueCrossReference: true,
         id: 'gene_expression/expressionatlas',
       },
-      {
-        label: 'Genevisible',
-        name: 'xref_genevisible',
-        isMultiValueCrossReference: true,
-        id: 'gene_expression/genevisible',
-      },
     ],
   },
   {
@@ -1771,6 +1720,6 @@ const mock = [
       },
     ],
   },
-] as ReceivedFieldData;
+];
 
-export default mock;
+export default mock as ReceivedFieldData;

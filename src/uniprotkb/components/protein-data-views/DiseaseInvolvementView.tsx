@@ -1,5 +1,5 @@
 import { Fragment, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
 
@@ -11,7 +11,7 @@ import { RichText } from './FreeTextView';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
-import { getEntryPath } from '../../../app/config/urls';
+import { allEntryPages, getEntryPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { DiseaseComment } from '../../types/commentTypes';
@@ -157,7 +157,8 @@ const DiseaseInvolvementEntry = ({
   accession,
 }: DiseaseInvolvementEntryProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const { disease, note } = comment;
+  const entryPageMatch = useRouteMatch(allEntryPages);
+  const { disease, molecule, note } = comment;
 
   if (!disease && !note) {
     return null;
@@ -254,6 +255,15 @@ const DiseaseInvolvementEntry = ({
           title
         )}
       </h4>
+      {molecule && (
+        <h5 className="tiny">
+          {!entryPageMatch ? (
+            `${molecule}`
+          ) : (
+            <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
+          )}
+        </h5>
+      )}
       <span className="text-block">
         <UniProtKBEvidenceTag evidences={disease?.evidences} />
       </span>

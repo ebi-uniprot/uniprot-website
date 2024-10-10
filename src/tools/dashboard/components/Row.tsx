@@ -200,10 +200,7 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
                       referrer: location,
                       formValues: {
                         subject: `Failed ${job.type} job`,
-                        message: `
---------------- prefilled job details ---------------
-
-*** Error ***
+                        context: `*** Job error ***
 ${job.errorDescription}
 
 ${
@@ -211,7 +208,12 @@ ${
     ? `*** Job ID *** 
 ${job.remoteID}`
     : `*** Input *** 
-${Object.entries(job.parameters).map(([key, value]) => `${key}: ${value}`)}`
+${Object.entries(job.parameters)
+  .map(
+    ([key, value]) =>
+      `${key}: ${typeof value === 'object' ? JSON.stringify(value) : value}`
+  )
+  .join(',\n')}`
 }
 `,
                       },
@@ -572,6 +574,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       if (jobLink) {
         jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
       }
+    }
+  } else if (!hasExpired) {
+    if (job.status === Status.CREATED) {
+      jobIdNode = <em>The server has not accepted this job yet</em>;
+    } else {
+      jobIdNode = <em>The server had an issue accepting this job</em>;
     }
   }
 

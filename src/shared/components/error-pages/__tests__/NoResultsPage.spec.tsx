@@ -2,7 +2,12 @@ import { screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import NoResultsPage from '../NoResultsPage';
+import NoResultsPage from '../full-pages/NoResultsPage';
+
+jest.mock('../../error-component/ErrorBoundary', () => ({
+  __esModule: true,
+  default: () => '{{ ErrorBoundary }}',
+}));
 
 describe('NoResultsPage component', () => {
   it('should render', () => {

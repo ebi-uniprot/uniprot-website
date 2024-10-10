@@ -6,7 +6,7 @@ import {
   ReactElement,
   useMemo,
 } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { debounce } from 'lodash-es';
 
 const DRAG_OUT_DELAY = 250;
@@ -32,6 +32,10 @@ const useDragNDropFile = ({
   onDropRef.current = onDrop;
 
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const root = useMemo(
+    () => overlayRef.current && createRoot(overlayRef.current),
+    []
+  );
 
   const handleDraggingOut = useMemo(
     () =>
@@ -152,10 +156,10 @@ const useDragNDropFile = ({
   }, [dndTarget, handleDraggingIn, handleDraggingOut, handleDrop]);
 
   useEffect(() => {
-    if (overlayRef.current) {
-      render(overlay, overlayRef.current);
+    if (overlayRef.current && root) {
+      root.render(overlay);
     }
-  }, [overlay]);
+  }, [overlay, root]);
 };
 
 export default useDragNDropFile;

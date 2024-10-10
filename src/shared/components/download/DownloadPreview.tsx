@@ -14,21 +14,30 @@ import styles from './styles/download-preview.module.scss';
 type Props = {
   previewUrl?: string;
   previewFileFormat?: FileFormat;
+  acceptHeaderOverride?: string;
 };
 
-const DownloadPreview = ({ previewUrl, previewFileFormat }: Props) => {
+const DownloadPreview = ({
+  previewUrl,
+  previewFileFormat,
+  acceptHeaderOverride,
+}: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const options = useMemo(() => {
     if (!previewFileFormat) {
       return undefined;
     }
     const headers: Record<string, string> = {};
-    const accept = fileFormatToContentType[previewFileFormat];
-    if (accept) {
-      headers.Accept = accept;
+    if (acceptHeaderOverride) {
+      headers.Accept = acceptHeaderOverride;
+    } else {
+      const accept = fileFormatToContentType[previewFileFormat];
+      if (accept) {
+        headers.Accept = accept;
+      }
     }
     return { headers };
-  }, [previewFileFormat]);
+  }, [acceptHeaderOverride, previewFileFormat]);
 
   const { data, loading } = useDataApi<JsonObject | string>(
     previewUrl,

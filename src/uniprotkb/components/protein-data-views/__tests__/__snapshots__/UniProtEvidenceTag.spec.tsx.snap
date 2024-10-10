@@ -3,7 +3,7 @@
 exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 <DocumentFragment>
   <button
-    aria-controls="0"
+    aria-controls="1"
     aria-expanded="false"
     class="svg-colour-unreviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -22,7 +22,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="0"
+    id="1"
   />
 </DocumentFragment>
 `;
@@ -30,7 +30,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
 <DocumentFragment>
   <button
-    aria-controls="0"
+    aria-controls="2"
     aria-expanded="true"
     class="svg-colour-unreviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -49,7 +49,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
   <div
     class="evidence-tag-content evidence-tag-content--visible"
     data-testid="evidence-tag-content"
-    id="0"
+    id="2"
   >
     <div>
       <h5
@@ -72,7 +72,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
 exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] = `
 <DocumentFragment>
   <button
-    aria-controls="0"
+    aria-controls="1"
     aria-expanded="false"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -91,7 +91,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="0"
+    id="1"
   />
 </DocumentFragment>
 `;
@@ -99,7 +99,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
 exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] = `
 <DocumentFragment>
   <button
-    aria-controls="0"
+    aria-controls="2"
     aria-expanded="true"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -118,7 +118,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
   <div
     class="evidence-tag-content evidence-tag-content--visible"
     data-testid="evidence-tag-content"
-    id="0"
+    id="2"
   >
     <div>
       <h5
@@ -154,7 +154,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
 exports[`UniProtKBEvidenceTag components should render publications count 1`] = `
 <DocumentFragment>
   <button
-    aria-controls="0"
+    aria-controls="1"
     aria-expanded="false"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -173,7 +173,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 1`] = 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="0"
+    id="1"
   />
 </DocumentFragment>
 `;
@@ -181,7 +181,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 1`] = 
 exports[`UniProtKBEvidenceTag components should render publications count 2`] = `
 <DocumentFragment>
   <button
-    aria-controls="0"
+    aria-controls="2"
     aria-expanded="true"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -200,7 +200,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 2`] = 
   <div
     class="evidence-tag-content evidence-tag-content--visible"
     data-testid="evidence-tag-content"
-    id="0"
+    id="2"
   >
     <div>
       <h5

@@ -25,7 +25,7 @@ describe('PeptideSearchForm test', () => {
 
   it('Adds and removes a taxon', async () => {
     const autocompleteInput = screen.getByRole('searchbox', {
-      name: 'Restrict by taxonomy',
+      name: 'Restrict by organism',
     });
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },

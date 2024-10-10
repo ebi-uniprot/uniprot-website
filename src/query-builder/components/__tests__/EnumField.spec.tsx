@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import EnumField from '../EnumField';
+import EnumOrBooleanField from '../EnumOrBooleanField';
 
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
@@ -16,12 +16,12 @@ describe('Enum field', () => {
   });
 
   it('should render an enum field', () => {
-    const { asFragment } = render(<EnumField {...props} />);
+    const { asFragment } = render(<EnumOrBooleanField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should select value and generate query bit', () => {
-    render(<EnumField {...props} />);
+    render(<EnumOrBooleanField {...props} />);
     const select = screen.getByRole<HTMLSelectElement>('combobox');
     expect(select.value).toBe('1');
     fireEvent.change(select, { target: { value: '2' } });

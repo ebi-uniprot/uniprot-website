@@ -4,8 +4,8 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 
 import { SearchTermType } from '../../../types/searchTypes';
 
-// Source: /configure/uniprotkb/search-fields
-// Retrieved: 2024-01-24
+// Source: configure/uniprotkb/search-fields
+// Retrieved: 2024-10-01
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -86,6 +86,7 @@ const configureSearchTerms = [
     dataType: 'enum',
     fieldType: 'general',
     example: '1',
+    regex: '[1-5]',
     values: [
       {
         name: 'Evidence at protein level',
@@ -664,7 +665,7 @@ const configureSearchTerms = [
             term: 'ft_transmem',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'helical',
           },
           {
             id: 'ft_transmem_exp',
@@ -672,7 +673,7 @@ const configureSearchTerms = [
             term: 'ft_transmem_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'helical',
           },
         ],
       },
@@ -687,7 +688,7 @@ const configureSearchTerms = [
             term: 'ft_topo_dom',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'cytoplasmic',
           },
           {
             id: 'ft_topo_dom_exp',
@@ -695,7 +696,7 @@ const configureSearchTerms = [
             term: 'ft_topo_dom_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'cytoplasmic',
           },
         ],
       },
@@ -710,7 +711,7 @@ const configureSearchTerms = [
             term: 'ft_intramem',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'helical',
           },
           {
             id: 'ft_intramem_exp',
@@ -718,7 +719,7 @@ const configureSearchTerms = [
             term: 'ft_intramem_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'helical',
           },
         ],
       },
@@ -1334,16 +1335,6 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         regex: '^true|false$',
-        values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
-        ],
       },
       {
         id: 'secondary_structure',
@@ -1981,16 +1972,6 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         regex: '^true|false$',
-        values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
-        ],
       },
       {
         id: 'organelle',
@@ -2052,16 +2033,6 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         regex: '^true|false$',
-        values: [
-          {
-            name: 'Yes',
-            value: 'true',
-          },
-          {
-            name: 'No',
-            value: 'false',
-          },
-        ],
       },
       {
         id: 'sequence_from_rc',
@@ -2682,15 +2653,6 @@ const configureSearchTerms = [
             valuePrefix: 'moonprot-',
           },
           {
-            id: 'xref_clae',
-            label: 'CLAE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'clae-',
-          },
-          {
             id: 'xref_peroxibase',
             label: 'PeroxiBase',
             itemType: 'single',
@@ -2865,24 +2827,6 @@ const configureSearchTerms = [
         itemType: 'group',
         items: [
           {
-            id: 'xref_compluyeast-2dpage',
-            label: 'COMPLUYEAST-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'compluyeast-2dpage-',
-          },
-          {
-            id: 'xref_dosac-cobs-2dpage',
-            label: 'DOSAC-COBS-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'dosac-cobs-2dpage-',
-          },
-          {
             id: 'xref_ogp',
             label: 'OGP',
             itemType: 'single',
@@ -2900,33 +2844,6 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'reproduction-2dpage-',
           },
-          {
-            id: 'xref_swiss-2dpage',
-            label: 'SWISS-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'swiss-2dpage-',
-          },
-          {
-            id: 'xref_ucd-2dpage',
-            label: 'UCD-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'ucd-2dpage-',
-          },
-          {
-            id: 'xref_world-2dpage',
-            label: 'World-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'world-2dpage-',
-          },
         ],
       },
       {
@@ -2942,24 +2859,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cptac-',
-          },
-          {
-            id: 'xref_epd',
-            label: 'EPD',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'epd-',
-          },
-          {
-            id: 'xref_maxqb',
-            label: 'MaxQB',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'maxqb-',
           },
           {
             id: 'xref_paxdb',
@@ -3611,15 +3510,6 @@ const configureSearchTerms = [
             valuePrefix: 'inparanoid-',
           },
           {
-            id: 'xref_ko',
-            label: 'KO',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'ko-',
-          },
-          {
             id: 'xref_oma',
             label: 'OMA',
             itemType: 'single',
@@ -3873,15 +3763,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'expressionatlas-',
-          },
-          {
-            id: 'xref_genevisible',
-            label: 'Genevisible',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'genevisible-',
           },
         ],
       },
@@ -4409,16 +4290,6 @@ const configureSearchTerms = [
     fieldType: 'general',
     example: 'true',
     regex: '^true|false$',
-    values: [
-      {
-        name: 'Yes',
-        value: 'true',
-      },
-      {
-        name: 'No',
-        value: 'false',
-      },
-    ],
   },
   {
     id: 'active',
@@ -4429,16 +4300,6 @@ const configureSearchTerms = [
     fieldType: 'general',
     example: 'true',
     regex: '^true|false$',
-    values: [
-      {
-        name: 'Yes',
-        value: 'true',
-      },
-      {
-        name: 'No',
-        value: 'false',
-      },
-    ],
   },
   {
     id: 'uniref_group',
@@ -4453,7 +4314,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef50_P05067',
-        regex: '^UniRef50_[w|-]+$',
+        regex: '^UniRef50_[\\w|-]+$',
       },
       {
         id: 'uniref_cluster_90',
@@ -4463,7 +4324,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef90_P05067',
-        regex: '^UniRef90_[w|-]+$',
+        regex: '^UniRef90_[\\w|-]+$',
       },
       {
         id: 'uniref_cluster_100',
@@ -4473,7 +4334,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: 'UniRef100_P05067',
-        regex: '^UniRef100_[w|-]+$',
+        regex: '^UniRef100_[\\w|-]+$',
       },
     ],
   },
@@ -4485,13 +4346,14 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'UPI000002DB1C',
-    regex: 'UPI[w]{10}',
+    regex: 'UPI[\\w]{10}',
   },
-] as SearchTermType[];
-// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
+];
 
 const idToSearchTerm = keyBy(
-  flatten(configureSearchTerms).filter(({ itemType }) => itemType !== 'group'),
+  flatten(configureSearchTerms as SearchTermType[]).filter(
+    ({ itemType }) => itemType !== 'group'
+  ),
   ({ id }) => id
 );
 
@@ -4502,4 +4364,5 @@ export const getSearchTerm = (id: string) => {
   throw new Error(`${id} not in search term mock data`);
 };
 
-export default configureSearchTerms;
+// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
+export default configureSearchTerms as SearchTermType[];

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Message } from 'franklin-sites';
 
-import ErrorPage from '../../../shared/components/error-pages/ErrorPage';
+import ErrorComponent from '../../../shared/components/error-pages/ErrorComponent';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -30,9 +30,11 @@ const ErrorMessage = () => (
 );
 
 const EmptyDashboard = () => (
-  <ErrorPage artwork={<img src={ArtWork} width="400" height="400" alt="" />}>
+  <ErrorComponent
+    artwork={<img src={ArtWork} width="400" height="400" alt="" />}
+  >
     <ErrorMessage />
-  </ErrorPage>
+  </ErrorComponent>
 );
 
 export default EmptyDashboard;

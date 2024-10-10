@@ -17,6 +17,6 @@ describe('CitationCard tests', () => {
   it('should allow card navigation', () => {
     const { history } = customRender(<LocationsCard data={locationsData[0]} />);
     fireEvent.click(within(screen.getByRole('heading')).getByRole('link'));
-    expect(history.location.pathname).toMatch('/locations/SL-0099');
+    expect(history.location.pathname).toMatch('/locations/SL-0037');
   });
 });

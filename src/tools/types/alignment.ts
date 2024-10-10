@@ -3,6 +3,7 @@ import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import FeatureType from '../../uniprotkb/types/featureType';
 import { MsaColorScheme } from '../config/msaColorSchemes';
 import { MSAFeature } from '../utils/sequences';
+import { OnFeatureClick } from '../../shared/custom-elements/NightingaleMSA';
 
 export type MSAInput = {
   name?: string;
@@ -25,12 +26,9 @@ export type NightingaleChangeEvent = {
   coords: number[];
 };
 
-export type UpdateTooltip = (arg: {
-  id: string;
-  x: number;
-  y: number;
-  event: CustomEvent<NightingaleChangeEvent>;
-}) => void;
+export type UpdateTooltip = (arg: { id: string; x: number; y: number }) => void;
+
+export type OnMSAFeatureClick = (event: OnFeatureClick) => void;
 
 export type AlignmentComponentProps = {
   alignment: MSAInput[];
@@ -47,6 +45,6 @@ export type AlignmentComponentProps = {
   selectedMSAFeatures?: MSAFeature[];
   activeAnnotation: ProcessedFeature[];
   activeAlignment?: MSAInput;
-  onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
+  onMSAFeatureClick: OnMSAFeatureClick;
   updateTooltip: UpdateTooltip;
 };

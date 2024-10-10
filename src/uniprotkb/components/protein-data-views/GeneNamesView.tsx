@@ -23,11 +23,13 @@ const geneAlternativeNamesView = (
   </>
 );
 
-const GeneNamesView: FC<{
-  geneNamesData: GeneNamesData;
-  isCompact?: boolean;
-  noTitles?: boolean;
-}> = ({ geneNamesData, isCompact = false, noTitles = false }) => (
+const GeneNamesView: FC<
+  React.PropsWithChildren<{
+    geneNamesData: GeneNamesData;
+    isCompact?: boolean;
+    noTitles?: boolean;
+  }>
+> = ({ geneNamesData, isCompact = false, noTitles = false }) => (
   <ExpandableList descriptionString="gene names">
     {geneNamesData.map((geneNames, index) => {
       const infoData = [

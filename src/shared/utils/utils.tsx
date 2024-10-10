@@ -50,20 +50,25 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
     return typeof val !== 'undefined';
   });
 
-export function* deepFindAllByKey<T = string>(
+export function* deepFindAllByKey(
   input: unknown,
-  predicateKey: string
-): Generator<T, void, never> {
+  predicateKey: string,
+  groupLabel?: string
+): Generator<string, void, never> {
   if (Array.isArray(input)) {
     for (const item of input) {
-      yield* deepFindAllByKey<T>(item, predicateKey);
+      yield* deepFindAllByKey(item, predicateKey, groupLabel);
     }
   } else if (input && typeof input === 'object') {
     for (const [key, value] of Object.entries(input)) {
       if (key === predicateKey) {
-        yield value;
+        if (groupLabel === 'ecNumbers') {
+          yield `EC:${value}`;
+        } else {
+          yield value;
+        }
       } else {
-        yield* deepFindAllByKey(value, predicateKey);
+        yield* deepFindAllByKey(value, predicateKey, key);
       }
     }
   }

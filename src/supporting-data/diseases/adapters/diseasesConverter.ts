@@ -8,7 +8,7 @@ type XRef = {
 };
 
 export type DiseasesAPIModel = {
-  keywords: KeywordNameID[];
+  keywords?: KeywordNameID[];
   alternativeNames?: string[];
   acronym: string;
   crossReferences: XRef[];

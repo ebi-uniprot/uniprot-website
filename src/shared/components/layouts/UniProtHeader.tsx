@@ -12,7 +12,7 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useMatchMedia from '../../hooks/useMatchMedia';
 import useStructuredData from '../../hooks/useStructuredData';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import description from '../../../app/config/description';
 import * as socialUrls from '../../../app/config/socialUrls';
 
@@ -69,6 +69,12 @@ const mediumPlusMediaQuery = 'only screen and (min-width: 840px)';
 // just a bit more than the "large" breakpoint in Franklin (1024px)
 const largePlusMediaQuery = 'only screen and (min-width: 1100px)';
 
+const visibleElement = (onClick: () => unknown) => (
+  <Button variant="tertiary" onClick={onClick}>
+    Tools
+  </Button>
+);
+
 const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
   const wideScreen = useMatchMedia(largePlusMediaQuery);
   const mediumPlusScreen = useMatchMedia(mediumPlusMediaQuery);
@@ -84,7 +90,7 @@ const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
         // otherwise display all tools links in a dropdown
         <li className={styles['no-small']}>
           <Dropdown
-            visibleElement={<Button variant="tertiary">Tools</Button>}
+            visibleElement={visibleElement}
             propChangeToClose={location}
           >
             <ul className="no-bullet">{toolsLinks}</ul>
@@ -149,13 +155,15 @@ const UniProtHeader = () => {
     <Header
       isNegative={isHomePage}
       search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
-      logo={
-        <div
-          className={cn(styles.logo, {
-            [styles.home]: isHomePage,
-          })}
-          aria-label="UniProt home page"
-        />
+      homepageLink={
+        <Link to={LocationToPath[Location.Home]}>
+          <div
+            className={cn(styles.logo, {
+              [styles.home]: isHomePage,
+            })}
+            aria-label="UniProt home page"
+          />
+        </Link>
       }
       secondaryItems={<SecondaryItems />}
     >

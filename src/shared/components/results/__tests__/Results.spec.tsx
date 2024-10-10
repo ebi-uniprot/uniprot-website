@@ -18,6 +18,11 @@ jest.mock('../DidYouMean', () => ({
   default: () => '{{ DidYouMean }}',
 }));
 
+jest.mock('../ResultsFacets', () => ({
+  __esModule: true,
+  default: () => '{{ ResultsFacets }}',
+}));
+
 describe('Results component', () => {
   // Testing the button, and testing the 2 views, this is probably enough
   it('should toggle card view to table', async () => {

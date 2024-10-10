@@ -43,7 +43,7 @@ export type EntryAudit = {
 export type IsoformNotes = { [key: string]: FreeTextComment[] };
 
 export type SequenceUIModel = {
-  sequence: SequenceData;
+  sequence?: SequenceData; // Obsolete ones do not have sequence
   flag?: Flag;
   status?: string;
   processing?: string;
@@ -100,13 +100,13 @@ export const convertSequence = (
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const sequenceData: SequenceUIModel = {
-    sequence: data.sequence,
     keywordData: [],
     featuresData: [],
     xrefData: [],
   };
 
   if (data.sequence) {
+    sequenceData.sequence = data.sequence;
     sequenceData.molWeight = data.sequence.molWeight;
   }
 

@@ -126,14 +126,7 @@ DatabaseColumnConfiguration.set(DatabaseColumn.statistics, {
   label: 'Statistics',
   render: ({ id, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.database, id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.database, id, statistics)}
     </ExpandableList>
   ),
 });

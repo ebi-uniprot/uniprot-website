@@ -26,6 +26,7 @@ import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
+import { FacetsEnum } from '../../config/UniProtKBFacetConfiguration';
 
 import styles from './styles/landing-page.module.scss';
 
@@ -64,7 +65,7 @@ const LandingPage = () => {
       namespace: Namespace.uniprotkb,
       query: '*',
       size: 0,
-      facets: ['reviewed'],
+      facets: [FacetsEnum.Reviewed],
     })
   );
 
@@ -215,7 +216,7 @@ const LandingPage = () => {
 
         {/* Downloads */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-3">
-          <h2>Download</h2>
+          <h2>Downloads</h2>
           <div className={styles.download}>
             <br />
             <br />
@@ -250,8 +251,9 @@ const LandingPage = () => {
             </p>
           </div>
         </section>
+
         {/* Tutorials */}
-        <h2 className="uniprot-grid-cell--span-12">How to use UniProtKB</h2>
+        <h2 className="uniprot-grid-cell--span-12">Resources & Webinars</h2>
         {tutorialsInfo.map((item) => (
           <Fragment key={item.id}>
             <div

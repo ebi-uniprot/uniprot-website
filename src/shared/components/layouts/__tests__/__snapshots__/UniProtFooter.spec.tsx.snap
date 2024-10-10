@@ -81,7 +81,7 @@ exports[`HomePage component should render 1`] = `
           class="release-info no-wrap blur-loading__item"
         >
           <span
-            class="release-info__release_number"
+            class=""
           >
             <a
               href="/help/downloads"
@@ -360,7 +360,7 @@ exports[`HomePage component should render 1`] = `
               href="https://twitter.com/uniprot"
               rel="noopener"
               target="_blank"
-              title="UniProt posts on Twitter"
+              title="UniProt posts on X (formerly Twitter)"
             >
               <test-file-stub
                 width="3ch"

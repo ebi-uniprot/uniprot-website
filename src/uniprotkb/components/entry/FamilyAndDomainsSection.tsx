@@ -15,7 +15,7 @@ import { UIModel } from '../../adapters/sectionConverter';
 
 type Props = {
   data: UIModel;
-  sequence: string;
+  sequence?: string;
   primaryAccession: string;
 };
 

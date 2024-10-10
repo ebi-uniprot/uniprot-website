@@ -25,7 +25,7 @@ type AlignLabelProps = {
   active?: boolean;
 };
 
-const AlignLabel: FC<AlignLabelProps> = ({
+const AlignLabel: FC<React.PropsWithChildren<AlignLabelProps>> = ({
   accession,
   info,
   loading,

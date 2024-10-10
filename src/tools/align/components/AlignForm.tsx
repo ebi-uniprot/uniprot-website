@@ -41,6 +41,8 @@ import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -58,16 +60,19 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { ALIGN_LIMIT } from '../../../shared/config/limits';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
-const FormSelect: FC<{
-  formValue: AlignFormValue;
-  updateFormValue: (selected: AlignFormValue['selected']) => void;
-}> = ({ formValue, updateFormValue }) => {
+const FormSelect: FC<
+  React.PropsWithChildren<{
+    formValue: AlignFormValue;
+    updateFormValue: (selected: AlignFormValue['selected']) => void;
+  }>
+> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
   }
@@ -174,6 +179,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
           formValues[AlignFields.name].selected as string
         )
       );
+      sendGtagEventJobSubmit(JobTypes.ALIGN);
     });
   };
 
@@ -206,7 +212,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro title={title} translate="no" />
+      <PageIntro heading={title} translate="no" />
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}
@@ -235,8 +241,8 @@ const AlignForm = ({ initialFormValues }: Props) => {
         <fieldset>
           <section className="text-block">
             <legend>
-              Enter multiple protein or nucleotide sequences, separated by a
-              FASTA header. You may also
+              Enter multiple protein or nucleotide sequences ({ALIGN_LIMIT}{' '}
+              max), separated by a FASTA header. You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />

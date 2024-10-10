@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Facets, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
+
+import { Facets } from '../../../shared/components/results/Facets';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 

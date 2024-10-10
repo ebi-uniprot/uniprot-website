@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
-// Source: /help/search?facets=category&query=canonical&size=500
-// Retrieved: 2024-01-05
+// Source: help/search?facets=category&query=canonical&size=500
+// Retrieved: 2024-10-01
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -115,7 +115,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2022-12-23',
+      lastModified: '2024-09-24',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -171,7 +171,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2022-12-23',
+      lastModified: '2024-09-24',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
@@ -214,7 +214,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequences',
       title: 'Sequences',
-      lastModified: '2022-04-28',
+      lastModified: '2024-09-20',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -318,7 +318,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2023-01-16',
+      lastModified: '2024-09-24',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -375,7 +375,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2022-10-14',
+      lastModified: '2024-09-24',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -399,7 +399,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'manual_curation',
       title: 'How do we manually annotate a UniProtKB entry?',
-      lastModified: '2022-04-28',
+      lastModified: '2024-04-09',
       type: 'help',
       categories: ['UniProtKB', 'Biocuration', 'About UniProt', 'faq'],
       matches: {
@@ -430,12 +430,12 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2023-11-03',
+      lastModified: '2024-09-24',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {
         content: [
-          ' ------------------------------------------ | | accession | accession:P62988 | This will list all primary / <span class="match-highlight">canonical</span> isoform accessions P62988.',
+          ' -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | | accession | accession:P62988 | This will list all primary / <span class="match-highlight">canonical</span> isoform accessions P62988.',
         ],
       },
     },

@@ -107,17 +107,41 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   }, [dispatch, mainData.redirectedTo]);
 
   if (mainData.error || !accession || (!mainData.loading && !mainData.data)) {
-    return <ErrorHandler status={mainData.status} />;
+    return (
+      <ErrorHandler status={mainData.status} error={mainData.error} fullPage />
+    );
   }
 
   if (childrenData.error || (!childrenData.loading && !childrenData.data)) {
-    return <ErrorHandler status={childrenData.status} />;
+    return (
+      <ErrorHandler
+        status={childrenData.status}
+        error={childrenData.error}
+        fullPage
+      />
+    );
   }
 
   const { data } = mainData;
 
   if (!(data && childrenData.data)) {
     return <Loader progress={mainData.progress || childrenData.progress} />;
+  }
+
+  if (data.inactiveReason) {
+    return (
+      <SingleColumnLayout>
+        <HTMLHead
+          title={[data.taxonId, searchableNamespaceLabels[Namespace.taxonomy]]}
+        >
+          <meta name="robots" content="noindex" />
+        </HTMLHead>
+        <h1>
+          {searchableNamespaceLabels[Namespace.taxonomy]} - {data.taxonId}{' '}
+          (obsolete)
+        </h1>
+      </SingleColumnLayout>
+    );
   }
 
   const proteinStatistics = pick<Partial<Statistics>>(data.statistics, [

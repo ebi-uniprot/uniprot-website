@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+import { waitFor } from '@testing-library/react';
 import getCustomRenderHook from '../../../shared/__test-helpers__/customRenderHook';
 
 import useInitialFormParameters from '../useInitialFormParameters';
@@ -11,7 +12,6 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import defaultAlignFormValues from '../../align/config/AlignFormData';
 import defaultPeptideSearchFormValues from '../../peptide-search/config/PeptideSearchFormData';
-import accessionsData from '../../../uniprotkb/components/entry/__tests__/__mocks__/accessionsData.json';
 
 describe('useInitialFormParameters: Align', () => {
   const customRenderHook = getCustomRenderHook(() =>
@@ -39,8 +39,10 @@ describe('useInitialFormParameters: Align', () => {
   it('should load the sequence corresponding to the ID passed in URL parameters and ignore history state parameter', async () => {
     const sequence = 'ABCDEF';
     const axiosMock = new MockAdapter(axios);
-    axiosMock.onGet(/\/uniprotkb\/accessions/).reply(200, accessionsData);
-    const { result, waitForNextUpdate } = customRenderHook(
+    axiosMock
+      .onGet(/\/uniprotkb\/accessions/)
+      .reply(200, '>sp|P05067|1-10\nMLPGLALLLL');
+    const { result } = customRenderHook(
       stringifyUrl(LocationToPath[Location.Blast], {
         ids: 'P05067[1-10]',
       }),
@@ -48,12 +50,17 @@ describe('useInitialFormParameters: Align', () => {
         parameters: { sequence },
       }
     );
-    await waitForNextUpdate();
-    expect(result.current.initialFormValues).toEqual({
-      ...defaultAlignFormValues,
-      Sequence: { fieldName: 'sequence', selected: '>\nMLPGLALLLL' },
+    waitFor(() => {
+      expect(result.current.initialFormValues).toEqual({
+        ...defaultAlignFormValues,
+        Name: { fieldName: 'name', selected: 'sp|P05067|1-10' },
+        Sequence: {
+          fieldName: 'sequence',
+          selected: '>sp|P05067|1-10\nMLPGLALLLL',
+        },
+      });
+      expect(result.current.loading).toBe(false);
     });
-    expect(result.current.loading).toBe(false);
   });
 });
 

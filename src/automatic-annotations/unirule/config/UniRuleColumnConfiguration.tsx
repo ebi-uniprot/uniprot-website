@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
@@ -107,12 +106,7 @@ UniRuleColumnConfiguration.set(UniRuleColumn.statistics, {
         Namespace.unirule,
         information?.oldRuleNum || uniRuleId,
         statistics
-      )?.map(({ key, link, name }) => (
-        // eslint-disable-next-line uniprot-website/use-config-location
-        <Link key={key} to={link}>
-          {name}
-        </Link>
-      ))}
+      )}
     </ExpandableList>
   ),
 });

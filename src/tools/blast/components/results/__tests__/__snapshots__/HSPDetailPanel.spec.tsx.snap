@@ -103,17 +103,15 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
               >
                 U6MKN0
               </a>
-              
             </button>
           </div>
           <div
             class="track"
           >
-            <protvista-msa
+            <nightingale-msa
               calculate-conservation="true"
-              colorscheme="conservation"
+              color-scheme="conservation"
               height="40"
-              hidelabel="true"
               length="45"
               overlay-conservation="true"
             />
@@ -248,13 +246,13 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             <div>
               <protvista-track
                 height="15"
-                highlight="418:446"
+                highlight="418:421"
                 layout="non-overlapping"
                 length="486"
               />
               <protvista-track
                 height="15"
-                highlight="418:446"
+                highlight="418:421"
                 layout="non-overlapping"
                 length="486"
               />
@@ -270,7 +268,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             class="track"
           >
             <protvista-track
-              highlight="418:446"
+              highlight="418:421"
               layout="non-overlapping"
               length="486"
             />
@@ -295,7 +293,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               >
                 U6MKN0
               </a>
-              
             </button>
           </div>
           <div
@@ -303,36 +300,28 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           >
             <protvista-manager
               attributes="displaystart displayend"
-              displayend="28"
+              displayend="3"
               displaystart="1"
             >
               <protvista-navigation
                 length="28"
               />
-              <protvista-msa
-                calculate-conservation="true"
-                colorscheme="conservation"
-                height="40"
-                hidelabel="true"
-                length="28"
-                overlay-conservation="true"
-              />
             </protvista-manager>
           </div>
-          <span
+          <div
             class="right-coord"
           >
             <div
               style="height: 20px;"
             >
-              28
+              3
             </div>
             <div
               style="height: 20px;"
             >
-              28
+              3
             </div>
-          </span>
+          </div>
         </section>
       </div>
     </div>

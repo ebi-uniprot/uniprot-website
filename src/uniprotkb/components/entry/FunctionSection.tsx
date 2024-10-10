@@ -236,7 +236,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
 
 type Props = {
   data: FunctionUIModel;
-  sequence: string;
+  sequence?: string;
   primaryAccession: string;
   communityReferences: Reference[];
 };

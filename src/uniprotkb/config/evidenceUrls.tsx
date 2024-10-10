@@ -32,11 +32,9 @@ type ExternalSource =
   | 'EnsemblMetazoa'
   | 'EnsemblPlants'
   | 'EnsemblProtists'
-  | 'EPD'
   | 'EuropePMC'
   | 'FlyBase'
   | 'HGNC'
-  | 'MaxQB'
   | 'MGI'
   | 'MIM'
   | 'PDB'
@@ -48,6 +46,7 @@ type ExternalSource =
   | 'PROSITE'
   | 'PROSITE-ProRule'
   | 'ProteomicsDB'
+  | 'PTMeXchange'
   | 'Reference'
   | 'RefSeq'
   | 'RGD'
@@ -85,6 +84,12 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
     UniRule: (value) => getEntryPath(Namespace.unirule, value),
   };
 
+const ensemblGenomeslUrl = 'https://www.ensemblgenomes.org/id/%value';
+const proteomicsMappingReadmeUrl =
+  'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README';
+const proteomeXchangeUrl =
+  'https://proteomecentral.proteomexchange.org/dataset/%value';
+
 const evidenceUrls: Record<ExternalSource, string> = {
   Araport: 'https://apps.araport.org/thalemine/portal.do?externalids=%value',
   CGD: 'http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%value',
@@ -92,30 +97,26 @@ const evidenceUrls: Record<ExternalSource, string> = {
   EcoGene: 'http://www.ecogene.org/geneInfo.php?eg_id=%value',
   EMBL: 'https://www.ebi.ac.uk/ena/data/view/%value',
   Ensembl: 'https://www.ensembl.org/id/%value',
-  EnsemblBacteria: 'http://www.ensemblgenomes.org/id/%value',
-  EnsemblFungi: 'http://www.ensemblgenomes.org/id/%value',
-  EnsemblMetazoa: 'http://www.ensemblgenomes.org/id/%value',
-  EnsemblPlants: 'http://www.ensemblgenomes.org/id/%value',
-  EnsemblProtists: 'http://www.ensemblgenomes.org/id/%value',
-  EPD: 'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  EnsemblBacteria: ensemblGenomeslUrl,
+  EnsemblFungi: ensemblGenomeslUrl,
+  EnsemblMetazoa: ensemblGenomeslUrl,
+  EnsemblPlants: ensemblGenomeslUrl,
+  EnsemblProtists: ensemblGenomeslUrl,
   EuropePMC: 'https://europepmc.org/abstract/MED/%value',
   FlyBase: 'http://flybase.org/reports/%value.html',
   HGNC: 'https://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=%value',
-  MaxQB:
-    'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
   MGI: 'http://www.informatics.jax.org/marker/%value',
   MIM: 'http://www.omim.org/entry/%value',
   PDB: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/%value',
-  PeptideAtlas:
-    'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  PeptideAtlas: proteomicsMappingReadmeUrl,
   Pfam: 'http://pfam.xfam.org/family/%value',
   PIR: 'http://pir.georgetown.edu/cgi-bin/nbrfget?uid=%value',
   PomBase: 'https://www.pombase.org/spombe/result/%value',
-  PRIDE: 'https://www.ebi.ac.uk/pride/archive/projects/%value',
+  PRIDE: proteomeXchangeUrl, // PTM specific, use ProteomeXchange consortium site
+  PTMeXchange: proteomeXchangeUrl, // PTM specific, use ProteomeXchange consortium site
   PROSITE: 'https://prosite.expasy.org/doc/%value',
   'PROSITE-ProRule': 'https://prosite.expasy.org/unirule/%value',
-  ProteomicsDB:
-    'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  ProteomicsDB: proteomicsMappingReadmeUrl,
   Reference: '',
   RefSeq: 'https://www.ncbi.nlm.nih.gov/protein/%value',
   RGD: 'http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%value',
@@ -152,7 +153,7 @@ export const formatEvidenceContent = (id: string, source?: string) => {
   }
   // regexp generated from https://www.ebi.ac.uk/pride/markdownpage/submitdatapage "PXDxxxxxx"
   if (id.match(/^PXD\d{6}/)) {
-    return `PRIDE: ${id}`;
+    return `ProteomeXchange: ${id}`;
   }
   return `${source}: ${id}`;
 };

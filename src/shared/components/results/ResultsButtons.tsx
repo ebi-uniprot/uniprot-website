@@ -8,7 +8,7 @@ import {
   ChangeEvent,
   useCallback,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import {
   DownloadIcon,
   // StatisticsIcon,
@@ -17,9 +17,7 @@ import {
 } from 'franklin-sites';
 import cn from 'classnames';
 
-import BlastButton from '../action-buttons/Blast';
-import AlignButton from '../action-buttons/Align';
-import MapIDButton from '../action-buttons/MapID';
+import ToolsDropdown from '../action-buttons/ToolsDropdown';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 import ShareDropdown from '../action-buttons/ShareDropdown';
@@ -33,6 +31,7 @@ import useViewMode, { ViewMode } from '../../hooks/useViewMode';
 import useColumnNames from '../../hooks/useColumnNames';
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
+import { roundNumber } from '../../utils/roundNumber';
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
 import {
@@ -80,7 +79,9 @@ type ResultsButtonsProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
 };
 
-const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
+const ResultsButtons: FC<
+  React.PropsWithChildren<ResultsButtonsProps<JobTypes>>
+> = ({
   selectedEntries,
   setSelectedEntries,
   total,
@@ -109,6 +110,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
     useColumnNames({ namespaceOverride });
   const history = useHistory();
+  const { pathname } = useLocation();
   const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
@@ -190,11 +192,6 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
 
   const isMain = mainNamespaces.has(namespace);
 
-  // Download expect accessions without modifications (applicable in Basket views)
-  const selectedAccWithoutSubset = subsetsMap
-    ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
-    : selectedEntries;
-
   return (
     <>
       {displayDownloadPanel && (
@@ -202,17 +199,15 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
           <SlidingPanel
             title="Download"
             // Meaning, in basket mini view, slide from the right
-            position={notCustomisable && inBasket ? 'right' : 'left'}
+            position={inBasketMini ? 'right' : 'left'}
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <DownloadComponent
-                selectedEntries={selectedAccWithoutSubset}
-                accessions={
-                  subsetsMap
-                    ? Array.from(new Set(subsetsMap?.values()))
-                    : accessions
-                } // Passing all accessions without modifications to Download
+                selectedEntries={selectedEntries}
+                accessions={accessions}
+                accessionSubSequenceMap={subsetsMap}
                 totalNumberResults={total}
                 onClose={handleToggleDownload}
                 namespace={namespace}
@@ -228,16 +223,14 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
         </Suspense>
       )}
       <div className={cn('button-group', styles['results-buttons'])}>
-        {isMain && namespace !== Namespace.proteomes && (
-          <BlastButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <AlignButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <MapIDButton
+        {/* Whenever (if) we get proteomes in ID mapping, remove this and add
+        back this condition to blast and align props below */}
+        {namespace !== Namespace.proteomes && (
+          <ToolsDropdown
             selectedEntries={selectedEntries}
-            namespace={namespace}
+            blast={isMain}
+            align={isMain}
+            mapID={isMain}
           />
         )}
         <Button
@@ -248,7 +241,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
           disabled={!hasResults}
         >
           <DownloadIcon />
-          Download
+          Download ({roundNumber(selectedEntries.length || total)})
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
           <AddToBasketButton

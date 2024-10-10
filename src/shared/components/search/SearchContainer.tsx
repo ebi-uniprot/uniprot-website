@@ -340,6 +340,7 @@ const SearchContainer = ({
             title="Advanced Search"
             position="left"
             onClose={handleToggleQueryBuilder}
+            pathname={location.pathname}
           >
             <ErrorBoundary>
               <QueryBuilder

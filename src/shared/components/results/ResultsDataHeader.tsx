@@ -10,21 +10,23 @@ import { toolsResultsLocationToLabel } from '../../../app/config/urls';
 
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 
-const ResultsDataHeader: FC<{
-  total?: number;
-  loadedTotal: number;
-  selectedEntries: string[];
-  namespaceOverride?: Namespace;
-  titlePostscript?: ReactNode;
-  accessions?: string[];
-  base?: string;
-  disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
-}> = ({
+const ResultsDataHeader: FC<
+  React.PropsWithChildren<{
+    total?: number;
+    loadedTotal: number;
+    selectedEntries: string[];
+    namespaceOverride?: Namespace;
+    headingPostscript?: ReactNode;
+    accessions?: string[];
+    base?: string;
+    disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
+  }>
+> = ({
   total = 0,
   loadedTotal,
   selectedEntries,
   namespaceOverride,
-  titlePostscript,
+  headingPostscript,
   accessions,
   base,
   disableCardToggle = false,
@@ -35,12 +37,12 @@ const ResultsDataHeader: FC<{
   return (
     <>
       <PageIntro
-        title={
+        heading={
           jobResultsLocation
             ? toolsResultsLocationToLabel?.[jobResultsLocation]
             : namespaceAndToolsLabels[namespace]
         }
-        titlePostscript={titlePostscript}
+        headingPostscript={headingPostscript}
         resultsCount={total}
       >
         {children}

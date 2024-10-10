@@ -2,14 +2,14 @@ import { screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import ErrorPage from '../ErrorPage';
+import ErrorComponent from '../ErrorComponent';
 
 describe('ErrorPage component', () => {
   it('should render', () => {
     const { asFragment } = customRender(
-      <ErrorPage artwork={<img alt="" />} data-testid="test-id">
+      <ErrorComponent artwork={<img alt="" />} data-testid="test-id">
         test message
-      </ErrorPage>
+      </ErrorComponent>
     );
     expect(screen.getByText('test message')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();

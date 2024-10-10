@@ -20,7 +20,7 @@ const Publications = ({
 }: {
   citations: ProteomesAPIModel['citations'];
 }) => {
-  const data = useMemo<CitationsAPIModel[]>(
+  const data = useMemo<CitationsAPIModel[] | undefined>(
     // Transform basic citation object to full citations as returned by the
     // citations endpoint (containing a "citation" field)
     () => citations?.map((citation) => ({ citation })),

@@ -7,9 +7,9 @@ exports[`TaxonomyColumnConfiguration component should render column "hosts": hos
 exports[`TaxonomyColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/11652"
+    href="/taxonomy/37299"
   >
-    11652
+    37299
   </a>
 </DocumentFragment>
 `;
@@ -33,59 +33,59 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   </a>
    &gt; 
   <a
-    href="/taxonomy/2732397"
-    title="Pararnavirae, taxon ID 2732397"
+    href="/taxonomy/2732396"
+    title="Orthornavirae, taxon ID 2732396"
     translate="no"
   >
-    Pararnavirae
+    Orthornavirae
   </a>
    &gt; 
   <a
-    href="/taxonomy/2732409"
-    title="Artverviricota, taxon ID 2732409"
+    href="/taxonomy/2732408"
+    title="Pisuviricota, taxon ID 2732408"
     translate="no"
   >
-    Artverviricota
+    Pisuviricota
   </a>
    &gt; 
   <a
-    href="/taxonomy/2732514"
-    title="Revtraviricetes, taxon ID 2732514"
+    href="/taxonomy/2732506"
+    title="Pisoniviricetes, taxon ID 2732506"
     translate="no"
   >
-    Revtraviricetes
+    Pisoniviricetes
   </a>
    &gt; 
   <a
-    href="/taxonomy/2169561"
-    title="Ortervirales, taxon ID 2169561"
+    href="/taxonomy/464095"
+    title="Picornavirales, taxon ID 464095"
     translate="no"
   >
-    Ortervirales
+    Picornavirales
   </a>
    &gt; 
   <a
-    href="/taxonomy/11632"
-    title="Retroviridae, taxon ID 11632"
+    href="/taxonomy/11974"
+    title="Caliciviridae, taxon ID 11974"
     translate="no"
   >
-    Retroviridae
+    Caliciviridae
   </a>
    &gt; 
   <a
-    href="/taxonomy/327045"
-    title="Orthoretrovirinae, taxon ID 327045"
+    href="/taxonomy/95337"
+    title="Vesivirus, taxon ID 95337"
     translate="no"
   >
-    Orthoretrovirinae
+    Vesivirus
   </a>
    &gt; 
   <a
-    href="/taxonomy/11646"
-    title="Lentivirus, taxon ID 11646"
+    href="/taxonomy/35612"
+    title="Vesicular exanthema of swine virus (VESV), taxon ID 35612"
     translate="no"
   >
-    Lentivirus
+    Vesicular exanthema of swine virus (VESV)
   </a>
 </DocumentFragment>
 `;
@@ -98,7 +98,7 @@ exports[`TaxonomyColumnConfiguration component should render column "links": lin
     <li>
       <a
         class="external-link"
-        href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&amp;id=11652"
+        href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&amp;id=37299"
         rel="noopener"
         target="_blank"
       >
@@ -115,28 +115,18 @@ exports[`TaxonomyColumnConfiguration component should render column "links": lin
 
 exports[`TaxonomyColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
 <DocumentFragment>
-  9PLVG
+  VESV
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "other_names": other_names 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      Primate immunodeficiency viruses
-    </li>
-  </ul>
-</DocumentFragment>
-`;
+exports[`TaxonomyColumnConfiguration component should render column "other_names": other_names 1`] = `<DocumentFragment />`;
 
 exports[`TaxonomyColumnConfiguration component should render column "parent": parent 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/11646"
+    href="/taxonomy/35612"
   >
-    Lentivirus
+    VESV
   </a>
 </DocumentFragment>
 `;
@@ -151,7 +141,7 @@ exports[`TaxonomyColumnConfiguration component should render column "reviewed": 
 
 exports[`TaxonomyColumnConfiguration component should render column "scientific_name": scientific_name 1`] = `
 <DocumentFragment>
-  Primate lentivirus group
+  Primate calicivirus
 </DocumentFragment>
 `;
 
@@ -162,16 +152,16 @@ exports[`TaxonomyColumnConfiguration component should render column "statistics"
   >
     <li>
       <a
-        href="/uniprotkb?query=%28taxonomy_id%3A11652%29"
+        href="/uniprotkb?query=%28taxonomy_id%3A37299%29"
       >
-        35,809 UniProtKB entries
+        3 UniProtKB entries
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb?query=%28taxonomy_id%3A11652%29+AND+%28reviewed%3Afalse%29"
+        href="/uniprotkb?query=%28taxonomy_id%3A37299%29+AND+%28reviewed%3Afalse%29"
       >
-        35,809 unreviewed UniProtKB entries
+        3 unreviewed UniProtKB entries
       </a>
     </li>
   </ul>

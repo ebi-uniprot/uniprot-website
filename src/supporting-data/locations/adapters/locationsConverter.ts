@@ -25,13 +25,13 @@ export type LocationsLite = {
   geneOntologies: GO[];
   note?: string;
   synonyms?: string[];
+  isA?: LocationsLite[];
+  partOf?: LocationsLite[];
+  links?: string[];
 };
 
 export type LocationsAPIModel = LocationsLite & {
-  isA?: LocationsLite[];
-  partOf?: LocationsLite[];
   statistics?: Statistics;
-  links?: string[];
   references?: string[];
 };
 

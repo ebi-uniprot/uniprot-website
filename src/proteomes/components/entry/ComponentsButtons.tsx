@@ -1,5 +1,5 @@
 import { useState, Suspense, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -48,6 +48,7 @@ const ComponentsButtons = ({
   proteomeStatistics,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const { pathname } = useLocation();
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
@@ -111,6 +112,7 @@ const ComponentsButtons = ({
             title="Download"
             position="left"
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <ComponentsDownloadComponent
@@ -137,8 +139,8 @@ const ComponentsButtons = ({
           <DownloadIcon />
           Download
         </Button>
-        <Button
-          element={Link}
+        <Link
+          className="button tertiary"
           to={{
             pathname:
               LocationToPath[
@@ -148,10 +150,9 @@ const ComponentsButtons = ({
               ],
             search: `query=${selectedQuery}`,
           }}
-          variant="tertiary"
         >
           View proteins
-        </Button>
+        </Link>
       </div>
     </>
   );

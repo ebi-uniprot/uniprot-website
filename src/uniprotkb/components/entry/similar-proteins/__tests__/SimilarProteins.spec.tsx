@@ -49,9 +49,7 @@ describe('SimilarProteins tests', () => {
     expect(
       screen.getByRole('link', { name: 'UniRef100_P05067' })
     ).toBeInTheDocument();
-    expect(
-      screen.getAllByRole('tab', { name: /identity/, exact: false })
-    ).toHaveLength(3);
+    expect(screen.getAllByRole('tab', { name: /identity/ })).toHaveLength(3);
   });
 
   it('should navigate to correct search page when clicking "View all"', async () => {

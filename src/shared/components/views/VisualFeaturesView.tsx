@@ -57,7 +57,7 @@ function VisualFeaturesView<T extends GenericFeature>({
   const params = useParams<{ accession: string }>();
 
   const setTrackData = useCallback(
-    (node): void => {
+    (node: { data: T[] }): void => {
       if (node && trackElement.defined) {
         // eslint-disable-next-line no-param-reassign
         node.data = features;

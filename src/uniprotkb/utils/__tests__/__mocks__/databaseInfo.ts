@@ -5,8 +5,8 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 // and running again. Until then it will have no uriLink.
 
 // TODO: update when TRM-29539 is fixed and deployed
-// Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2024-01-23
+// Source: configure/uniprotkb/allDatabases
+// Retrieved: 2024-10-01
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -377,7 +377,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'ChEMBL',
     displayName: 'ChEMBL',
     category: 'CHEMISTRY',
-    uriLink: 'https://www.ebi.ac.uk/chembldb/target/inspect/%id',
+    uriLink: 'https://www.ebi.ac.uk/chembl/target_report_card/%id',
     attributes: [
       {
         name: 'Description',
@@ -501,18 +501,6 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'MoonProt',
     category: 'PFAM',
     uriLink: 'http://www.moonlightingproteins.org/proteins/?q=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'CLAE',
-    displayName: 'CLAE',
-    category: 'PFAM',
-    uriLink: 'https://clae.fungalgenomics.ca/enzyme/%id',
     attributes: [
       {
         name: 'Description',
@@ -743,30 +731,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'COMPLUYEAST-2DPAGE',
-    displayName: 'COMPLUYEAST-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://compluyeast2dpage.dacya.ucm.es/cgi-bin/2d/2d.cgi?ac=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'DOSAC-COBS-2DPAGE',
-    displayName: 'DOSAC-COBS-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://www.dosac.unipa.it/cgi-bin/2d/2d.cgi?ac=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OGP',
     displayName: 'OGP',
     category: '2DG',
@@ -791,70 +755,10 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'SWISS-2DPAGE',
-    displayName: 'SWISS-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/swiss-2dpage/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'UCD-2DPAGE',
-    displayName: 'UCD-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'World-2DPAGE',
-    displayName: 'World-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/repository/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'CPTAC',
     displayName: 'CPTAC',
     category: 'PROTEOMIC',
     uriLink: 'https://assays.cancer.gov/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'EPD',
-    displayName: 'EPD',
-    category: 'PROTEOMIC',
-    uriLink: 'https://www.peptracker.com/epd/analytics/?protein_id=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'MaxQB',
-    displayName: 'MaxQB',
-    category: 'PROTEOMIC',
-    uriLink: 'http://maxqb.biochem.mpg.de/mxdb/protein/show/%id',
     attributes: [
       {
         name: 'Description',
@@ -1533,8 +1437,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'NIAGADS',
     displayName: 'NIAGADS',
     category: 'ORG',
-    uriLink:
-      'https://www.niagads.org/genomics/showRecord.do?name=GeneRecordClasses.GeneRecordClass&source_id=%id',
+    uriLink: 'https://www.niagads.org/genomics/app/record/gene/%id',
     attributes: [
       {
         name: 'Description',
@@ -1796,18 +1699,6 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'InParanoid',
     category: 'PLG',
     uriLink: 'https://inparanoidb.sbc.su.se/orthologs/%id&1/',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'KO',
-    displayName: 'KO',
-    category: 'PLG',
-    uriLink: 'https://www.genome.jp/dbget-bin/www_bget?ko:%id',
     attributes: [
       {
         name: 'Description',
@@ -2082,7 +1973,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'Bgee',
     displayName: 'Bgee',
     category: 'GEP',
-    uriLink: 'https://bgee.org/gene/%id',
+    uriLink: 'https://www.bgee.org/gene/%id',
     attributes: [
       {
         name: 'ExpressionPatterns',
@@ -2124,18 +2015,6 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ExpressionPatterns',
         xmlTag: 'expression patterns',
-      },
-    ],
-  },
-  {
-    name: 'Genevisible',
-    displayName: 'Genevisible',
-    category: 'GEP',
-    uriLink: 'https://genevisible.com/tissues/%OrganismId/UniProt/%id',
-    attributes: [
-      {
-        name: 'OrganismId',
-        xmlTag: 'organism ID',
       },
     ],
   },
@@ -2486,7 +2365,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'RNAct',
     displayName: 'RNAct',
     category: 'MISC',
-    uriLink: 'https://rnact.crg.eu/protein?query=%id',
+    uriLink: ' https://rnact.tartaglialab.com/protein?query=%id',
     attributes: [
       {
         name: 'moleculeType',

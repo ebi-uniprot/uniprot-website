@@ -8,7 +8,7 @@ import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayo
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import JobErrorPage from '../../../../shared/components/error-pages/JobErrorPage';
+import JobErrorPage from '../../../../shared/components/error-pages/full-pages/JobErrorPage';
 
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -101,7 +101,7 @@ enum TabLocation {
 
 type Params = {
   id: string;
-  namespace?: typeof IDMappingNamespaces[number];
+  namespace?: (typeof IDMappingNamespaces)[number];
   subPage?: TabLocation;
 };
 
@@ -226,7 +226,9 @@ const IDMappingResult = () => {
   }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
 
   if (!match || detailsError) {
-    return <ErrorHandler status={detailsStatus} />;
+    return (
+      <ErrorHandler status={detailsStatus} error={detailsError} fullPage />
+    );
   }
 
   if (
@@ -242,7 +244,7 @@ const IDMappingResult = () => {
   }
 
   if (!detailsData) {
-    return <ErrorHandler />;
+    return <ErrorHandler fullPage />;
   }
 
   if (errors.length) {
@@ -299,10 +301,12 @@ const IDMappingResult = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro
-        title={namespaceAndToolsLabels[Namespace.idmapping]}
-        titlePostscript={
+        heading={namespaceAndToolsLabels[Namespace.idmapping]}
+        headingPostscript={
           total ? (
-            <small>
+            /* Not sure why fragments and keys are needed, but otherwise gets
+            the React key warnings messages and children are rendered as array */
+            <small key="postscript">
               found for {detailsData?.from} → {detailsData?.to}
             </small>
           ) : null

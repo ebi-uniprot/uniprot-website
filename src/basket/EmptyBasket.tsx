@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Message } from 'franklin-sites';
 
-import ErrorPage from '../shared/components/error-pages/ErrorPage';
+import ErrorComponent from '../shared/components/error-pages/ErrorComponent';
 
 import { LocationToPath, Location } from '../app/config/urls';
 
@@ -48,9 +48,11 @@ const ErrorMessage = () => (
 );
 
 const EmptyBasket = () => (
-  <ErrorPage artwork={<img src={ArtWork} width="295" height="190" alt="" />}>
+  <ErrorComponent
+    artwork={<img src={ArtWork} width="295" height="190" alt="" />}
+  >
     <ErrorMessage />
-  </ErrorPage>
+  </ErrorComponent>
 );
 
 export default EmptyBasket;

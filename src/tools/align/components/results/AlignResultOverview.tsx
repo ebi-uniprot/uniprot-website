@@ -74,12 +74,9 @@ const enrichParsed = (
   return { ...parsed, sequences } as ParsedAndEnriched;
 };
 
-const AlignResultOverview: FC<AlignResultOverviewProps> = ({
-  data,
-  sequenceInfo,
-  selectedEntries,
-  handleEntrySelection,
-}) => {
+const AlignResultOverview: FC<
+  React.PropsWithChildren<AlignResultOverviewProps>
+> = ({ data, sequenceInfo, selectedEntries, handleEntrySelection }) => {
   const clustalParsed = useMemo(() => alnClustalNum(data), [data]);
 
   const parsedAndEnriched = useMemo(

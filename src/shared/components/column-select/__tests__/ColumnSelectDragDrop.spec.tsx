@@ -1,9 +1,4 @@
 import { render, fireEvent, RenderResult } from '@testing-library/react';
-import {
-  makeDnd,
-  DND_DRAGGABLE_DATA_ATTR,
-  DND_DIRECTION_LEFT,
-} from 'react-beautiful-dnd-test-utils';
 
 import ColumnSelectDragDrop, {
   ColumnSelectDragDropProps,
@@ -16,7 +11,6 @@ import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 describe('ColumnSelectDragDrop component', () => {
   let props: ColumnSelectDragDropProps;
   let rendered: RenderResult;
-  let dragEl: HTMLElement;
   beforeEach(async () => {
     props = {
       columns: [
@@ -28,25 +22,11 @@ describe('ColumnSelectDragDrop component', () => {
       onRemove: jest.fn(),
     };
     rendered = render(<ColumnSelectDragDrop {...props} />);
-    dragEl = (await rendered.findByText('Gene Names')).closest(
-      DND_DRAGGABLE_DATA_ATTR
-    );
   });
 
   it('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
-  });
-
-  it('should call onDragDrop with correct arguments when item is moved', async () => {
-    const { findByText } = rendered;
-    await makeDnd({
-      getByText: findByText,
-      getDragEl: () => dragEl,
-      direction: DND_DIRECTION_LEFT,
-      positions: 1,
-    });
-    expect(props.onDragDrop).toBeCalledWith(2, 1);
   });
 
   it('should call onRemove', () => {

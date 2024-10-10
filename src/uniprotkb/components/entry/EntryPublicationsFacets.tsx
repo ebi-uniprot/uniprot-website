@@ -11,7 +11,9 @@ import apiUrls from '../../config/apiUrls/apiUrls';
 import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 import { FacetObject } from '../../../shared/types/results';
 
-const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
+const EntryPublicationsFacets: FC<
+  React.PropsWithChildren<{ accession: string }>
+> = ({ accession }) => {
   const { search } = useLocation();
 
   const [{ selectedFacets }] = getParamsFromURL(search);
@@ -29,7 +31,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { status, error } = dataObject;
 
   if (error) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} noReload />;
   }
 
   return <ResultsFacets dataApiObject={dataObject} />;

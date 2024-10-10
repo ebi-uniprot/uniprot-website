@@ -2,11 +2,11 @@ import { screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import ResourceNotFoundPage, { redirectFromTo } from '../ResourceNotFoundPage';
+import ResourceNotFound, { redirectFromTo } from '../ResourceNotFound';
 
 describe('ResourceNotFoundPage component', () => {
   it('should render', () => {
-    const { asFragment, history } = customRender(<ResourceNotFoundPage />, {
+    const { asFragment, history } = customRender(<ResourceNotFound />, {
       route: '/uniprotkb',
     });
     expect(history.location.pathname).toBe('/uniprotkb');
@@ -15,7 +15,7 @@ describe('ResourceNotFoundPage component', () => {
   });
 
   it('should redirect to correct page', () => {
-    const { history } = customRender(<ResourceNotFoundPage />, {
+    const { history } = customRender(<ResourceNotFound />, {
       route: '/unipark/UPI01',
     });
     expect(history.location.pathname).toBe('/uniparc/UPI01');

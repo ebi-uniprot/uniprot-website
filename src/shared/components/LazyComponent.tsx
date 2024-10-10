@@ -25,7 +25,7 @@ type Props = {
 
 const ioSupported = globalThis && 'IntersectionObserver' in globalThis;
 
-const LazyComponent: FC<Props> = ({
+const LazyComponent: FC<React.PropsWithChildren<Props>> = ({
   fallback = defaultFallback,
   rootMargin = '300px 0px',
   children,

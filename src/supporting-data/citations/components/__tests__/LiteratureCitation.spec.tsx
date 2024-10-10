@@ -24,7 +24,7 @@ describe('Publication component', () => {
 
   it('should expand authors', async () => {
     expect(screen.queryByText('Ohara O.')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Show more' }));
+    fireEvent.click(screen.getByRole('button', { name: '[...]' }));
     expect(screen.getByText('Ohara O.')).toBeInTheDocument();
   });
 

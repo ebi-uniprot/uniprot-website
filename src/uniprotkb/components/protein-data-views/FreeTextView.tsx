@@ -69,8 +69,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
             return (
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={index}>
-                PubMed:
-                <Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
+                PubMed:<Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
               </Fragment>
             );
           }
@@ -199,7 +198,7 @@ type FreeTextProps = {
   showMolecule?: boolean;
 };
 
-const FreeTextView: FC<FreeTextProps> = ({
+const FreeTextView: FC<React.PropsWithChildren<FreeTextProps>> = ({
   comments,
   title,
   articleId,

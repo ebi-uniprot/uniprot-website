@@ -107,7 +107,10 @@ type APIRequestProps = {
   jobType: JobTypes;
 };
 
-const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
+const APIRequest: FC<React.PropsWithChildren<APIRequestProps>> = ({
+  inputParamsData,
+  jobType,
+}) => {
   if (
     inputParamsData &&
     // This is for TS to typeguard, after that we're sure it's not a local job
@@ -115,7 +118,12 @@ const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
     // We now have a data payload for sure, check for errors normally
     (inputParamsData.error || !inputParamsData.data)
   ) {
-    return <ErrorHandler status={inputParamsData.status} />;
+    return (
+      <ErrorHandler
+        status={inputParamsData.status}
+        error={inputParamsData.error}
+      />
+    );
   }
 
   const documentationURL = documentation.get(jobType);

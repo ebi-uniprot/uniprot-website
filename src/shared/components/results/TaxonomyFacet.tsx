@@ -16,6 +16,8 @@ import { stringifyQuery } from '../../utils/url';
 
 import { SearchableNamespace } from '../../types/namespaces';
 
+import facetsStyles from './styles/facets.module.scss';
+
 const QueryBuilder = lazy(
   () =>
     import(
@@ -25,10 +27,10 @@ const QueryBuilder = lazy(
 
 const interestingTerms = /taxonomy|organism/;
 
-const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
-  namespace,
-}) => {
-  const { search } = useLocation();
+const TaxonomyFacet: FC<
+  React.PropsWithChildren<{ namespace: SearchableNamespace }>
+> = ({ namespace }) => {
+  const { pathname, search } = useLocation();
   const { jobId } = useJobFromUrl();
 
   const parsedSearch = new URLSearchParams(search);
@@ -42,14 +44,14 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
 
   return (
     <div>
-      <span className="facet-name">Taxonomy</span>
+      <span className={facetsStyles['facet-name']}>Taxonomy</span>
       <ul className="expandable-list no-bullet">
         {interestingClauses.map((clause) => {
           const textSearch = clause.searchTerm.term.includes('name');
           return (
             <li key={clause.id}>
               <Link
-                className="facet-active"
+                className={facetsStyles['facet-active']}
                 // eslint-disable-next-line uniprot-website/use-config-location
                 to={(location) => ({
                   ...location,
@@ -87,6 +89,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
             title="Advanced Search"
             position="left"
             onClose={handleClose}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <QueryBuilder

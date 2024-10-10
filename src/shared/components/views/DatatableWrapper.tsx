@@ -26,7 +26,7 @@ const DatatableWrapper = ({
   ...props
 }: Props) => {
   const [showButton, setShowButton] = useState(!alwaysExpanded);
-  const [expandTable, setExpandTable] = useState(false);
+  const [expandTable, setExpandTable] = useState<boolean | null>(null);
 
   const tableRef = useRef<HTMLElement>(null);
   const firstRenderRef = useRef(true);
@@ -47,7 +47,7 @@ const DatatableWrapper = ({
     // except on first render or when always expanded
     if (!alwaysExpanded && !firstRenderRef.current) {
       // Scroll table back into view when collapsing
-      if (!expandTable) {
+      if (expandTable === false) {
         tableRef.current?.parentElement?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',

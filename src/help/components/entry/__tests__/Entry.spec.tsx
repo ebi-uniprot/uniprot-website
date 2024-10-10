@@ -15,9 +15,11 @@ const mock = new MockAdapter(axios);
 
 mock.onGet(/api\/help\/canonical_and_isoforms/).reply(200, mockData);
 
+const footerMock = '{{ Footer }}';
+
 jest.mock('../../../../shared/components/layouts/UniProtFooter', () => ({
   __esModule: true,
-  default: () => '{{ Footer }}',
+  default: () => footerMock,
 }));
 
 describe('Help entry tests', () => {
@@ -29,6 +31,7 @@ describe('Help entry tests', () => {
       }
     );
     await screen.findByText(mockData.title);
+    await screen.findByText(footerMock);
     expect(asFragment()).toMatchSnapshot();
   });
 });

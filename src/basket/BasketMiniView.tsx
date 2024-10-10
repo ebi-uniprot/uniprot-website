@@ -160,7 +160,6 @@ const BasketMiniViewTab = ({
         subsetsMap={subsetsMap}
         inBasket
         inBasketMini
-        notCustomisable
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
@@ -196,15 +195,14 @@ const BasketMiniViewTab = ({
             ? `Remove (${selectedEntries.length})`
             : `Clear all (${accessions.length})`}
         </Button>
-        <Button
-          element={Link}
-          variant="secondary"
+        <Link
+          className="button secondary"
           to={generatePath(LocationToPath[Location.Basket], { namespace })}
           onClick={onFullView}
         >
           <FullViewIcon height="1em" width="1em" />
           Full view
-        </Button>
+        </Link>
       </div>
     </>
   );

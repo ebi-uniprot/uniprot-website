@@ -1,5 +1,5 @@
-import { useState, Suspense } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState, Suspense, ReactNode } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import {
   Button,
@@ -8,9 +8,8 @@ import {
   SlidingPanel,
 } from 'franklin-sites';
 
-import BlastButton from '../../shared/components/action-buttons/Blast';
+import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
 import AlignButton from '../../shared/components/action-buttons/Align';
-import MapIDButton from '../../shared/components/action-buttons/MapID';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import CustomiseButton from '../../shared/components/action-buttons/CustomiseButton';
@@ -22,6 +21,7 @@ import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
 import lazy from '../../shared/utils/lazy';
+import { pluralise } from '../../shared/utils/utils';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -83,7 +83,7 @@ export const ResubmitButton = ({
       try {
         // wait up to 2 seconds to get the information
         await Promise.race([Promise.all(taxonRequests), sleep(2000)]);
-      } catch (_) {
+      } catch {
         /* */
       }
     }
@@ -132,7 +132,32 @@ const ResultButtons = ({
   nHits,
   isTableResultsFiltered,
 }: ResultButtonsProps<JobTypes>) => {
+  const { pathname } = useLocation();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
+  let align: ReactNode | ReactNode[] = (
+    <AlignButton
+      selectedEntries={selectedEntries}
+      textSuffix={jobType === JobTypes.BLAST ? 'selected results' : undefined}
+    />
+  );
+  if (jobType === JobTypes.BLAST) {
+    align = [
+      align,
+      <AlignButton
+        selectedEntries={selectedEntries}
+        textSuffix={`selected ${pluralise(
+          'result',
+          selectedEntries.length
+        )} with query`}
+        extraSequence={
+          inputParamsData && 'sequence' in inputParamsData
+            ? inputParamsData.sequence
+            : undefined
+        }
+      />,
+    ];
+  }
 
   return (
     <>
@@ -141,6 +166,7 @@ const ResultButtons = ({
           <SlidingPanel
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <ResultDownload
@@ -158,12 +184,12 @@ const ResultButtons = ({
         </Suspense>
       )}
       <div className="button-group">
-        <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton
+        <ToolsDropdown
           selectedEntries={selectedEntries}
-          inputParamsData={inputParamsData}
+          blast
+          align={align}
+          mapID
         />
-        <MapIDButton selectedEntries={selectedEntries} namespace={namespace} />
         <Button
           variant="tertiary"
           onPointerOver={ResultDownload.preload}

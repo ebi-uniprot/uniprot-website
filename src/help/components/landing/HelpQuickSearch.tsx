@@ -71,7 +71,7 @@ const HelpQuickSearch = () => {
       ) : (
         ' '
       ),
-      to,
+      link: <Link to={to} />,
     };
   });
 

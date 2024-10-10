@@ -3,7 +3,7 @@ import { Loader } from 'franklin-sites';
 import cn from 'classnames';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
+import NoResultsPage from '../../../shared/components/error-pages/full-pages/NoResultsPage';
 import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
@@ -21,7 +21,7 @@ const Results = ({
   progress,
 }: UseDataAPIWithStaleState<HelpSearchResponse>) => {
   if (error || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} noReload />;
   }
 
   if (!data) {

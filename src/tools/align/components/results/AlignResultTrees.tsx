@@ -22,7 +22,7 @@ type AlignResultTreesProps = {
   handleEntrySelection: (rowId: string) => void;
 };
 
-const AlignResultTrees: FC<AlignResultTreesProps> = ({
+const AlignResultTrees: FC<React.PropsWithChildren<AlignResultTreesProps>> = ({
   id,
   sequenceInfo,
   selectedEntries,
@@ -38,7 +38,7 @@ const AlignResultTrees: FC<AlignResultTreesProps> = ({
   );
 
   if (error || !(loading || data)) {
-    return <ErrorHandler status={status} />;
+    return <ErrorHandler status={status} error={error} />;
   }
 
   return (

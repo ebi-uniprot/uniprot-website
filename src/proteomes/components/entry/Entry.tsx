@@ -48,7 +48,13 @@ const Entry = () => {
   }
 
   if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
-    return <ErrorHandler status={mainData.status || panProteomeData.status} />;
+    return (
+      <ErrorHandler
+        status={mainData.status || panProteomeData.status}
+        error={mainData.error}
+        fullPage
+      />
+    );
   }
 
   const transformedData = proteomesConverter(

@@ -11,9 +11,6 @@ import { DataTable, Chip, Loader, Button } from 'franklin-sites';
 import cn from 'classnames';
 import { Except } from 'type-fest';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
-
 import { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
@@ -30,7 +27,7 @@ import './styles/BlastResultTable.scss';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
+import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
@@ -39,9 +36,17 @@ const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
 };
 
 const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
-  hsp_identity: colors.sapphireBlue,
-  hsp_score: colors.coyoteBrown,
-  hsp_expect: colors.outerSpace,
+  hsp_identity: 'var(--fr--color-sapphire-blue)',
+  hsp_score: 'var(--fr--color-coyote-brown)',
+  hsp_expect: 'var(--fr--color-outer-space)',
+};
+
+type TrackNodeData = {
+  start: number;
+  end: number;
+  color: string | undefined;
+  shape?: string;
+  opacity?: number;
 };
 
 type BlastSummaryTrackProps = {
@@ -74,7 +79,7 @@ const BlastSummaryTrack = ({
   );
 
   const setTrackData = useCallback(
-    (node): void => {
+    (node: { data: TrackNodeData[] }): void => {
       if (node && trackElement.defined) {
         /**
          * TODO - would be nice to add gaps
@@ -236,6 +241,8 @@ const BlastSummaryHsps = ({
   );
 };
 
+type QueryNodeData = { start: number; end: number };
+
 type BlastResultTableProps = {
   data: BlastResults | null;
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
@@ -285,7 +292,7 @@ const BlastResultTable = ({
 
   // The "query" column header
   const queryColumnHeaderRef = useCallback(
-    (node) => {
+    (node: { data: QueryNodeData[] }) => {
       if (node && navigationElement.defined && data) {
         const { query_len } = data;
         // eslint-disable-next-line no-param-reassign
