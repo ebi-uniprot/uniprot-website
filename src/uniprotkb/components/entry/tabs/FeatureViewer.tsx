@@ -9,17 +9,18 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Dataset } from '../../../../shared/components/entry/EntryDownload';
-import { VARIANT_COUNT_LIMIT } from './variation-viewer/VariationViewer';
 import { getEntryPath } from '../../../../app/config/urls';
+import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
+
+import { VARIANT_COUNT_LIMIT } from '../../../../shared/config/limits';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../types/entry';
+import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
-import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
@@ -51,11 +52,11 @@ const FeatureViewer = ({
 
   const onProtvistaUniprotChange = useCallback((e: Event) => {
     const { detail } = e as CustomEvent;
-    if (hideTooltipEvents.has(detail?.eventtype)) {
+    if (hideTooltipEvents.has(detail?.eventType)) {
       hideTooltip.current?.();
     }
     if (
-      detail?.eventtype === 'click' &&
+      detail?.eventType === 'click' &&
       detail?.feature?.tooltipContent &&
       e.target
     ) {

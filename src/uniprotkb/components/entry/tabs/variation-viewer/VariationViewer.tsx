@@ -42,6 +42,8 @@ import {
   withinRange,
 } from '../../../../../shared/utils/nightingale';
 
+import { VARIANT_COUNT_LIMIT } from '../../../../../shared/config/limits';
+
 import { Evidence } from '../../../../types/modelTypes';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { TabLocation } from '../../../../types/entry';
@@ -58,9 +60,6 @@ const VisualVariationView = lazy(
       /* webpackChunkName: "visual-variation-view" */ '../../../protein-data-views/VisualVariationView'
     )
 );
-
-// hardcoded threshold
-export const VARIANT_COUNT_LIMIT = 2_000;
 
 type ProteinsAPIEvidence = SetRequired<
   PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
