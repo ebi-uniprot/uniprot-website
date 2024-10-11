@@ -34,16 +34,20 @@ const documentationLinks = [
     id: 'proteome',
   },
   {
-    label: 'Proteome ID',
-    id: 'proteome_id',
+    label: 'Reference Proteome',
+    id: 'reference_proteome',
+  },
+  {
+    label: 'Gene-centric isoform mapping',
+    id: 'gene_centric_isoform_mapping',
+  },
+  {
+    label: 'Proteome redundancy',
+    id: 'proteome_redundancy',
   },
   {
     label: 'Pan proteomes',
     id: 'pan_proteomes',
-  },
-  {
-    label: 'Reference Proteome',
-    id: 'reference_proteome',
   },
 ];
 
@@ -111,18 +115,17 @@ const LandingPage = () => {
         </div>
         <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
           <p>
-            A proteome is the set of proteins thought to be expressed by an
+            A proteome is the set of proteins believed to be expressed by an
             organism. The majority of the UniProt proteomes are based on the
             translation of a genome assembly, and will normally include
             sequences that derive from extra-chromosomal elements such as
-            plasmids or organellar genomes in organisms where these are present.
-            Some proteomes may also include protein sequences based on high
-            quality cDNAs that cannot be mapped to the current genome assembly
-            due to sequencing errors or gaps. These are only included in the
-            proteome following manual review of the supporting evidence,
-            including careful analysis of homologous sequences from closely
-            related organisms. As more and more genomes of the same organism are
-            being sequenced, we introduced{' '}
+            plasmids, or organellar genomes in organisms where these are
+            present. Some proteomes may also include reviewed
+            (UniProtKB/Swiss-Prot) protein sequences that cannot be mapped to
+            the current genome assembly because the protein was either not
+            predicted by a genome annotation pipeline, or the reviewed sequence
+            differs in some positions from the predicted sequence. Each proteome
+            is assigned a{' '}
             <Link
               to={generatePath(LocationToPath[Location.HelpEntry], {
                 accession: 'proteome_id',
@@ -130,7 +133,7 @@ const LandingPage = () => {
             >
               unique proteome identifiers
             </Link>{' '}
-            to distinguish individual proteomes from the same{' '}
+            to distinguish multiple proteomes from the same{' '}
             <Link
               to={generatePath(LocationToPath[Location.HelpEntry], {
                 accession: 'taxonomic_identifier',
