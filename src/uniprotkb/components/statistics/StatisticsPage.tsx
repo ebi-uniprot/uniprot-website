@@ -372,7 +372,9 @@ const TaxonomicDistributionTable = ({
     })
   );
 
-  const [selected, setSelected] = useState<typeof options[number]>(options[0]);
+  const [selected, setSelected] = useState<(typeof options)[number]>(
+    options[0]
+  );
 
   const graphData: StatisticsGraphItem[] = list.map((entry) => {
     let { query } = entry;
@@ -476,7 +478,7 @@ const TaxonomicDistributionTable = ({
               <select
                 value={selected}
                 onChange={(e) =>
-                  setSelected(e.target.value as typeof options[number])
+                  setSelected(e.target.value as (typeof options)[number])
                 }
               >
                 {options.map((option) => (
@@ -511,6 +513,9 @@ export type CategoryToStatistics = Record<CategoryName, StatisticsCategory>;
 const StatisticsPage = () => {
   const release = useUniProtDataVersion();
 
+  const uniprotkbStats = useDataApi<StatisticsPayload>(
+    release && apiUrls.statistics.statistics(release.releaseNumber)
+  );
   const reviewedStats = useDataApi<StatisticsPayload>(
     release && apiUrls.statistics.statistics(release.releaseNumber, 'reviewed')
   );
@@ -519,8 +524,23 @@ const StatisticsPage = () => {
       apiUrls.statistics.statistics(release.releaseNumber, 'unreviewed')
   );
 
-  if (!release || reviewedStats.loading || unreviewedStats.loading) {
+  if (
+    !release ||
+    uniprotkbStats.loading ||
+    reviewedStats.loading ||
+    unreviewedStats.loading
+  ) {
     return <Loader />;
+  }
+
+  if (uniprotkbStats.error || !uniprotkbStats.data) {
+    return (
+      <ErrorHandler
+        status={uniprotkbStats.status}
+        error={uniprotkbStats.error}
+        fullPage
+      />
+    );
   }
 
   if (reviewedStats.error || !reviewedStats.data) {
@@ -543,6 +563,9 @@ const StatisticsPage = () => {
     );
   }
 
+  const uniprotkbData = Object.fromEntries(
+    uniprotkbStats.data.results.map((stat) => [stat.categoryName, stat])
+  ) as CategoryToStatistics;
   const reviewedData = Object.fromEntries(
     reviewedStats.data.results.map((stat) => [stat.categoryName, stat])
   ) as CategoryToStatistics;
