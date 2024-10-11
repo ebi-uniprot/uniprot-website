@@ -14,15 +14,17 @@ import LigandDescriptionView, {
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
+import {
+  getRowId,
+  markBackground,
+  markBorder,
+} from '../../../shared/utils/nightingale';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 
 import {
-  getRowId,
-  markBackground,
-  markBorder,
   UniProtKBFeatureExtraContent,
   columnConfiguration,
 } from '../../config/UniProtKBFeatureColumnConfiguration';
