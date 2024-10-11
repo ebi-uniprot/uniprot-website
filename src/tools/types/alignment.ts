@@ -21,7 +21,7 @@ export type ConservationOptions = {
 };
 
 export type NightingaleChangeEvent = {
-  eventtype: string;
+  eventType: string;
   feature: { accession: string };
   coords: number[];
 };

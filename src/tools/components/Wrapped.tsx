@@ -90,7 +90,7 @@ export const handleEvent =
   (updateTooltip: UpdateTooltip) =>
   (event: CustomEvent<NightingaleChangeEvent>) => {
     event.stopPropagation();
-    if (event?.detail?.eventtype === 'click') {
+    if (event?.detail?.eventType === 'click') {
       updateTooltip({
         id: event.detail.feature.accession,
         x: event.detail.coords[0],
