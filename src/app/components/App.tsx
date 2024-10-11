@@ -39,6 +39,8 @@ import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
+// eslint-disable-next-line import/no-unresolved
+import 'franklin-sites/franklin.css';
 import './styles/app.scss';
 
 if (process.env.NODE_ENV !== 'development') {
@@ -120,6 +122,12 @@ const UniRefEntryPage = lazy(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
     )
 );
+// const UniParcSubEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/sub-entry/SubEntry'
+//     )
+// );
 const UniParcEntryPage = lazy(
   () =>
     import(
@@ -411,6 +419,10 @@ const App = () => {
               path={LocationToPath[Location.UniRefEntry]}
               component={UniRefEntryPage}
             />
+            {/* <Route
+              path={LocationToPath[Location.UniParcSubEntry]}
+              component={UniParcSubEntryPage}
+            /> */}
             <Route
               path={LocationToPath[Location.UniParcEntry]}
               component={UniParcEntryPage}

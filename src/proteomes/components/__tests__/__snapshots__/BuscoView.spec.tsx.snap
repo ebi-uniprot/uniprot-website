@@ -7,7 +7,7 @@ exports[`BuscoView should render 1`] = `
   >
     <div
       class="busco-view__track"
-      style="--s: 37.48185776487663%; --d: 62.00290275761974%; --f: 0.02902757619738752%;"
+      style="--s: 37.34397677793904%; --d: 62.191582002902756%; --f: 0.02902757619738752%;"
     />
     <div
       class="busco-view__report"
@@ -15,7 +15,7 @@ exports[`BuscoView should render 1`] = `
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:37.5% D:62%) F:0% M:0.5%
+      C:99.5% (S:37.3% D:62.2%) F:0% M:0.4%
     </div>
   </div>
 </DocumentFragment>

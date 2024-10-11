@@ -1,4 +1,4 @@
-import { useId, ChangeEvent } from 'react';
+import { useId, useMemo, ChangeEvent } from 'react';
 import {
   generatePath,
   Link,
@@ -52,7 +52,7 @@ const ContactForm = () => {
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const { state: locationState, search } = useLocation<ContactLocationState>();
 
-  let referrerValue: undefined | string;
+  let referrerValue = '';
   if (locationState?.referrer) {
     referrerValue =
       typeof locationState.referrer === 'string'
@@ -74,10 +74,28 @@ const ContactForm = () => {
     }
   }
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const context = useMemo(
+    () =>
+      `${locationState?.formValues?.context || ''}
+Referred from: ${globalThis.location.origin}${referrerValue}
+User browser: ${navigator.userAgent}
+Website version: ${GIT_COMMIT_HASH}`.trim(),
+    [locationState?.formValues?.context, referrerValue]
+  );
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
       e.target.checked ? '' : 'Please tick the box to agree.'
     );
+  };
+
+  const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.setCustomValidity(
+      e.target.value.trim().length >= 3
+        ? ''
+        : 'Please enter a message for our helpdesk.'
+    );
+  };
 
   const { handleSubmit, handleChange, sending } = useFormLogic(referrerValue);
 
@@ -203,11 +221,30 @@ const ContactForm = () => {
               id={`message-${formId}`}
               required
               minLength={1}
-              onChange={handleChange}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                handleTextareaChange(event);
+                handleChange(event);
+              }}
               defaultValue={locationState?.formValues?.message}
               data-hj-allow
             />
             {validity}
+          </span>
+          <label
+            className={cn(styles.label, styles['label-wide'])}
+            htmlFor={`prefilled-${formId}`}
+          >
+            Additional information (sent with your message to help our helpdesk
+            help you):
+          </label>
+          <span className={cn(styles.input, styles.input__message)}>
+            <textarea
+              name="context"
+              id={`context-${formId}`}
+              value={context}
+              readOnly
+              data-hj-allow
+            />
           </span>
           {/* Privacy */}
           <label className={styles.privacy}>
@@ -240,7 +277,6 @@ const ContactForm = () => {
             tabIndex={-1}
             aria-hidden="true"
           />
-          <input hidden name="referrer" value={referrerValue} readOnly />
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>

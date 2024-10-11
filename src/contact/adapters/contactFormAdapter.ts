@@ -41,15 +41,13 @@ export const modifyFormData = (formData: FormData, token: string) => {
     }`
   );
   output.set('requiredForRobots', formData.get('requiredForRobots') || '');
-  output.set(
-    'message',
-    `${formData.get('message')}\r\n\r\nName: ${formData.get(
-      'name'
-    )}\r\nReferred from: ${globalThis.location.origin}${formData.get(
-      'referrer'
-    )}\r\nBrowser: ${navigator.userAgent}\r\nGit commit: ${GIT_COMMIT_HASH}` ||
-      ''
-  );
+  const message = `${formData.get('message') || ''}
+--------------- prefilled context details ---------------
+
+${formData.get('context') || ''}
+
+Name: ${formData.get('name')}`;
+  output.set('message', message);
   return output;
 };
 
