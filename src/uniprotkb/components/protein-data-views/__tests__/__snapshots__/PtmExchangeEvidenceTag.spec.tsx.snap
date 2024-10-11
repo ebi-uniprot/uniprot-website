@@ -63,11 +63,11 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
               <span>
                 <a
                   class="external-link"
-                  href="https://www.ebi.ac.uk/pride/archive/projects/PXD004939"
+                  href="https://proteomecentral.proteomexchange.org/dataset/PXD004939"
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE: PXD004939
+                  ProteomeXchange: PXD004939
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"
@@ -79,11 +79,11 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
               <span>
                 <a
                   class="external-link"
-                  href="https://www.ebi.ac.uk/pride/archive/projects/PXD005241"
+                  href="https://proteomecentral.proteomexchange.org/dataset/PXD005241"
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE: PXD005241
+                  ProteomeXchange: PXD005241
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"
@@ -95,11 +95,11 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
               <span>
                 <a
                   class="external-link"
-                  href="https://www.ebi.ac.uk/pride/archive/projects/PXD004705"
+                  href="https://proteomecentral.proteomexchange.org/dataset/PXD004705"
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE: PXD004705
+                  ProteomeXchange: PXD004705
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"

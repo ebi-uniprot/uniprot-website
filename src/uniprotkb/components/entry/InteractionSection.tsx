@@ -250,7 +250,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     </table>
   );
 
-  const complexId = viewerID || complexPortalXrefs.keys().next().value;
+  const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
   const complexName =
     complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
   const complexString = `${complexId} ${complexName}`;

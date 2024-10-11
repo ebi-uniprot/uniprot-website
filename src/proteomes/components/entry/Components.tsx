@@ -1,7 +1,6 @@
 import { Fragment, ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, DataTable, LongNumber } from 'franklin-sites';
-import { groupBy } from 'lodash-es';
 
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
@@ -51,16 +50,6 @@ const Components = ({
 }: ComponentsProps) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const databaseInfoMaps = useDatabaseInfoMaps();
-
-  // Temporary fix for issue in 2024_04 proteomes data
-  const processedComponents: typeof components = Object.values(
-    groupBy(components, 'name')
-  ).map((components) => ({
-    ...components[0],
-    proteomeCrossReferences: components
-      .flatMap((component) => component.proteomeCrossReferences)
-      .filter((xref: Xref | undefined): xref is Xref => Boolean(xref)),
-  }));
 
   const columns = useMemo<
     Array<{
@@ -155,14 +144,14 @@ const Components = ({
     [databaseInfoMaps, id, proteomeType, taxonomy.taxonId]
   );
 
-  if (!processedComponents?.length) {
+  if (!components?.length) {
     return null;
   }
 
   return (
     <Card header={<h2>Components</h2>}>
       <ComponentsButtons
-        components={processedComponents}
+        components={components}
         selectedEntries={selectedEntries}
         id={id}
         proteinCount={proteinCount}
@@ -173,7 +162,7 @@ const Components = ({
         getIdKey={getIdKey}
         density="compact"
         columns={columns}
-        data={processedComponents}
+        data={components}
         onSelectionChange={setSelectedItemFromEvent}
       />
     </Card>

@@ -50,7 +50,7 @@ const SubEntry = () => {
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const { accession, subEntryId } = match?.params || {};
+  const { accession, subEntryId, subPage } = match?.params || {};
   const baseURL = apiUrls.entry.entry(
     subEntryId && accession,
     Namespace.uniparc
@@ -89,7 +89,7 @@ const SubEntry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
-  const sidebar = match.params.subPage === TabLocation.Entry && (
+  const sidebar = subPage === TabLocation.Entry && (
     <InPageNav
       sections={Object.values(uniParcSubEntryConfig).map((section) => ({
         ...section,
@@ -130,7 +130,7 @@ const SubEntry = () => {
         </h1>
         <SubEntryOverview data={transformedData} />
       </ErrorBoundary>
-      <Tabs active={match.params.subPage}>
+      <Tabs active={subPage}>
         <Tab
           title={
             <Link
@@ -173,11 +173,7 @@ const SubEntry = () => {
         >
           {smallScreen ? (
             <Redirect
-              to={getSubEntryPath(
-                Namespace.uniparc,
-                match.params.accession,
-                TabLocation.Entry
-              )}
+              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
             />
           ) : (
             <>

@@ -17,7 +17,13 @@ type Props = {
   data: UniParcSubEntryUIModel['subEntry'];
 };
 
-// TODO: this only works for uniprotkb entries but I'm not showing these here
+/*
+Comment from Aurel's PR:
+Not sure if this logic is valid always. Some UniProtKB entries don't have structures,
+and we'll still want to show the structures for the UniProtKB entries that will be removed
+soon and also for external IDs as eventually it should be based on the sequence. The 
+issue is that we can't query the 3D Beacons API like this yet, so I guess it'll do for now
+*/
 export const hasStructure = (data: UniParcSubEntryUIModel['subEntry']) =>
   data.isUniprotkbEntry && data.active && data.id;
 

@@ -4,7 +4,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
 {
   "databaseCategoryToNames": {
     "2DG": [
-      "COMPLUYEAST-2DPAGE",
       "OGP",
       "REPRODUCTION-2DPAGE",
     ],
@@ -253,7 +252,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "CCDS": "SEQ",
     "CDD": "FMD",
     "CGD": "ORG",
-    "COMPLUYEAST-2DPAGE": "2DG",
     "CORUM": "PPI",
     "CPTAC": "PROTEOMIC",
     "CPTC": "PAM",
@@ -668,18 +666,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "CGD",
       "name": "CGD",
       "uriLink": "http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%id",
-    },
-    "COMPLUYEAST-2DPAGE": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "2DG",
-      "displayName": "COMPLUYEAST-2DPAGE",
-      "name": "COMPLUYEAST-2DPAGE",
-      "uriLink": "http://compluyeast2dpage.dacya.ucm.es/cgi-bin/2d/2d.cgi?ac=%id",
     },
     "CORUM": {
       "attributes": [
@@ -3160,7 +3146,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "TopDownProteomics",
       "jPOST",
       "MassIVE",
-      "COMPLUYEAST-2DPAGE",
       "OGP",
       "REPRODUCTION-2DPAGE",
       "CarbonylDB",

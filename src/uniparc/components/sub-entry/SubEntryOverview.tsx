@@ -49,20 +49,27 @@ const SubEntryOverview = ({ data }: Props) => {
   const dataDB = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
-  const [proteomeId, component] =
-    (data.subEntry.isSource &&
-      data.subEntry.proteomeId &&
-      data.subEntry.component && [
-        data.subEntry.proteomeId,
-        data.subEntry.component,
-      ]) ||
-    (data.subEntry.source &&
-      data.subEntry.source.proteomeId &&
-      data.subEntry.source.component && [
-        data.subEntry.source.proteomeId,
-        data.subEntry.source.component,
-      ]) ||
-    [];
+  let [proteomeId, component]: (string | null)[] = [null, null];
+  if (
+    data.subEntry.isSource &&
+    data.subEntry.proteomeId &&
+    data.subEntry.component
+  ) {
+    [proteomeId, component] = [
+      data.subEntry.proteomeId,
+      data.subEntry.component,
+    ];
+  }
+  if (
+    data.subEntry.source &&
+    data.subEntry.source.proteomeId &&
+    data.subEntry.source.component
+  ) {
+    [proteomeId, component] = [
+      data.subEntry.source.proteomeId,
+      data.subEntry.source.component,
+    ];
+  }
 
   if (dataDB.loading || !dataDB.data) {
     return <Loader />;

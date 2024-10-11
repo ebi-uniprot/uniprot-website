@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ExpandableList, LongNumber } from 'franklin-sites';
-import { capitalize, groupBy } from 'lodash-es';
+import { capitalize } from 'lodash-es';
 
 import ExternalLink from '../../shared/components/ExternalLink';
 import BuscoView from '../components/BuscoView';
@@ -20,7 +20,6 @@ import {
   ProteomesUIModel,
 } from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { Xref } from '../../shared/types/apiModel';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -87,22 +86,11 @@ ProteomesColumnConfiguration.set(ProteomesColumn.components, {
     'proteome_component'
   ),
 
-  render: ({ components }) => {
-    // Temporary fix for issue in 2024_04 proteomes data
-    const processedComponents: typeof components = Object.values(
-      groupBy(components, 'name')
-    ).map((components) => ({
-      ...components[0],
-      proteomeCrossReferences: components
-        .flatMap((component) => component.proteomeCrossReferences)
-        .filter((xref: Xref | undefined): xref is Xref => Boolean(xref)),
-    }));
-    return (
-      <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
-        {processedComponents?.map(({ name }) => name)}
-      </ExpandableList>
-    );
-  },
+  render: ({ components }) => (
+    <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
+      {components?.map(({ name }) => name)}
+    </ExpandableList>
+  ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {

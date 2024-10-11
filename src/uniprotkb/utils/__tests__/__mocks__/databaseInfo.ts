@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2024-07-24
+// Retrieved: 2024-10-01
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -723,18 +723,6 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'dbSNP',
     category: 'GVD',
     uriLink: 'https://www.ncbi.nlm.nih.gov/snp/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'COMPLUYEAST-2DPAGE',
-    displayName: 'COMPLUYEAST-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://compluyeast2dpage.dacya.ucm.es/cgi-bin/2d/2d.cgi?ac=%id',
     attributes: [
       {
         name: 'Description',

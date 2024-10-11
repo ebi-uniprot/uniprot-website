@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { generatePath, Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { ExternalLink } from 'franklin-sites';
 
 import Timeline from '../components/entry/Timeline';
 import EntryTypeIcon, {
@@ -9,7 +10,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import BasketStatus from '../../basket/BasketStatus';
 import EvidenceLink from '../../uniprotkb/components/protein-data-views/EvidenceLink';
 
-import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
+import { getEntryPath } from '../../app/config/urls';
 
 import parseDate from '../../shared/utils/parseDate';
 import * as logging from '../../shared/utils/logging';
@@ -98,62 +99,50 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
 const getAccessionColumn =
   (templateMap: Map<string, string> = new Map()) =>
   (xref: UniParcXRef) => {
-    const match = useRouteMatch<{
-      accession: string;
-    }>(LocationToPath[Location.UniParcEntry]);
-
-    if (!xref.id || !match?.params.accession) {
+    if (!xref.id) {
       return null;
     }
     let cell: ReactNode = xref.id;
     if (
-      (xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
-        xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
-        xref.database === 'UniProtKB/Swiss-Prot protein isoforms') &&
-      !xref.database.includes('isoforms') &&
-      xref.active
+      xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
+      xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
+      xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
     ) {
-      // internal link
-      cell = (
-        <>
-          <Link
-            to={getEntryPath(
-              Namespace.uniprotkb,
-              xref.id,
-              xref.active ? TabLocation.Entry : TabLocation.History
-            )}
-          >
-            {xref.id}
-          </Link>
-          {xref.active && <BasketStatus id={xref.id} />}
-        </>
-      );
+      if (xref.database.includes('isoforms') && !xref.active) {
+        cell = xref.id;
+      } else {
+        // internal link
+        cell = (
+          <>
+            <Link
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                xref.id,
+                xref.active ? TabLocation.Entry : TabLocation.History
+              )}
+            >
+              {xref.id}
+            </Link>
+            {xref.active && <BasketStatus id={xref.id} />}
+          </>
+        );
+      }
     } else {
       const template = xref.database && templateMap.get(xref.database);
       if (template) {
-        // TODO: do we want to link all others to a sub entry page? Should we have 2 links?
-        // let { id } = xref;
+        let { id } = xref;
         // NOTE: exception for FusionGDB we need to remove the underscore number
-        // if (xref.database === 'FusionGDB') {
-        //   id = id.replace(/_\d+$/, '');
-        // }
-        // cell = (
-        //   <ExternalLink url={template.replace('%id', id)}>
-        //     {xref.id}
-        //     {xref.chain && ` (chain ${xref.chain})`}
-        //   </ExternalLink>
-        // );
+        if (xref.database === 'FusionGDB') {
+          id = id.replace(/_\d+$/, '');
+        }
         cell = (
-          <Link
-            to={generatePath(LocationToPath[Location.UniParcSubEntry], {
-              accession: match.params.accession,
-              subPage: 'entry',
-              subEntryId: xref.id,
-            })}
+          <ExternalLink
+            url={template.replace('%id', id)}
+            rel={xref.active ? undefined : 'nofollow'}
           >
             {xref.id}
             {xref.chain && ` (chain ${xref.chain})`}
-          </Link>
+          </ExternalLink>
         );
       }
     }

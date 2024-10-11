@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2024-07-24
+// Retrieved: 2024-10-01
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -1006,11 +1006,6 @@ const mock = [
     isDatabaseGroup: true,
     id: '2d_gel',
     fields: [
-      {
-        label: 'COMPLUYEAST-2DPAGE',
-        name: 'xref_compluyeast-2dpage',
-        id: '2d_gel/compluyeast-2dpage',
-      },
       {
         label: 'OGP',
         name: 'xref_ogp',

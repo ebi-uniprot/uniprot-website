@@ -60,6 +60,7 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { ALIGN_LIMIT } from '../../../shared/config/limits';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
@@ -240,8 +241,8 @@ const AlignForm = ({ initialFormValues }: Props) => {
         <fieldset>
           <section className="text-block">
             <legend>
-              Enter multiple protein or nucleotide sequences, separated by a
-              FASTA header. You may also
+              Enter multiple protein or nucleotide sequences ({ALIGN_LIMIT}{' '}
+              max), separated by a FASTA header. You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />
