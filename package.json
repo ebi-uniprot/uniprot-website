@@ -131,6 +131,7 @@
     "lodash-es": "4.17.21",
     "marked": "4.2.1",
     "p-map": "5.5.0",
+    "protvista-feature-adapter": "^3.8.22",
     "protvista-uniprot": "file:.yalc/protvista-uniprot",
     "react": "18.2.0",
     "react-diff-viewer-continued": "3.4.0",

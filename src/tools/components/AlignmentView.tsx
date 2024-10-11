@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { TreeSelect } from 'franklin-sites';
+import { formatTooltip } from 'protvista-feature-adapter';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
@@ -18,7 +19,6 @@ import {
 } from '../utils/sequences';
 import { prepareFeatureForTooltip } from '../utils/feature';
 import { showTooltipAtCoordinates } from '../../shared/utils/tooltip';
-import { formatTooltip } from '../utils/tooltip';
 
 import FeatureType from '../../uniprotkb/types/featureType';
 import {
