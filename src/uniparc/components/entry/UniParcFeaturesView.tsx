@@ -11,6 +11,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
+import { markBorder, markBackground } from '../../../shared/utils/nightingale';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
 import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
@@ -117,6 +118,8 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
       getRowId={getRowId}
       sequence={sequence}
       noLinkToFullView
+      markBorder={markBorder}
+      markBackground={markBackground}
     />
   );
 };
