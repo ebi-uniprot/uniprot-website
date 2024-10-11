@@ -131,7 +131,7 @@ const LandingPage = () => {
                 accession: 'proteome_id',
               })}
             >
-              unique proteome identifiers
+              unique proteome identifier
             </Link>{' '}
             to distinguish multiple proteomes from the same{' '}
             <Link
