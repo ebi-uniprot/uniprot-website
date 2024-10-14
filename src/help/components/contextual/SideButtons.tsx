@@ -17,12 +17,14 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
   const [displayFeedback, setDisplayFeedback] = useState(false);
 
   useEffect(() => {
-    // // Checking if there is a scroll bar
+    // Checking if there is a scroll bar
     const mainContent = document?.querySelector<HTMLElement>(
       `.${baseStyles['main-content']}`
     );
     const scrollBarWidth =
       mainContent && mainContent.offsetWidth - mainContent.clientWidth;
+
+    const surveyId = '#survey_106777';
 
     if (scrollBarWidth) {
       // Set the scroll bar width as a Custom Property for the CSS to use
@@ -34,10 +36,10 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
 
     sleep(3000).then(() => {
       // If there's already Hotjar's feedback, don't do anything
-      if (document.querySelector('#survey_1067707')) {
+      if (document.querySelector(surveyId)) {
         if (scrollBarWidth) {
           const hjButton = document.querySelector<HTMLElement>(
-            '#survey_1067707 > div > div > div'
+            `${surveyId} > div > div > div`
           );
 
           if (hjButton) {
