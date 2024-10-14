@@ -53,8 +53,7 @@ const AbstractSectionTable = ({
                       search: stringifyQuery({ query }),
                     }}
                   >
-                    {(data.reviewed?.[accessor] || 0) +
-                      (data.unreviewed?.[accessor] || 0)}
+                    {data.uniprotkb?.[accessor] || 0}
                   </CountLinkOrNothing>
                 </td>
               )

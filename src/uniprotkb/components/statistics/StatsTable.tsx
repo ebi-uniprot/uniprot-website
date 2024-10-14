@@ -66,7 +66,7 @@ type StatsTableProps = {
   countLabel?: string;
   caption?: string;
   numberReleaseEntries: number;
-  dataset: 'reviewed' | 'unreviewed';
+  dataset: 'uniprotkb' | 'reviewed' | 'unreviewed';
 };
 
 const StatsTable = ({

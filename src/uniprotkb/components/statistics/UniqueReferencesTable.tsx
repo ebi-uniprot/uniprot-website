@@ -6,10 +6,12 @@ import { mergeToMap } from './utils';
 import { TableProps } from './StatisticsPage';
 
 const UniqueReferencesTable = ({
+  uniprotkbData,
   reviewedData,
   unreviewedData,
 }: TableProps) => {
   const map = mergeToMap(
+    uniprotkbData.items.filter(({ name }) => name === 'UNIQUE_CITATION_ID'),
     reviewedData.items.filter(({ name }) => name === 'UNIQUE_CITATION_ID'),
     unreviewedData.items.filter(({ name }) => name === 'UNIQUE_CITATION_ID')
   );
@@ -23,7 +25,6 @@ const UniqueReferencesTable = ({
           accessor: 'count',
         },
       ]}
-      excludeUniProtKB
     />
   );
 };
