@@ -24,7 +24,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
     const scrollBarWidth =
       mainContent && mainContent.offsetWidth - mainContent.clientWidth;
 
-    const surveyId = '#survey_106777';
+    const surveyId = '#survey_1067707';
 
     if (scrollBarWidth) {
       // Set the scroll bar width as a Custom Property for the CSS to use
