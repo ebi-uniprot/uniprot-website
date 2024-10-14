@@ -192,6 +192,7 @@ const PieChart = ({
     }
   }, [renderPieChart, data, colorScheme, stableSlices]);
 
+  const total = data?.reduce((acc, d) => acc + d.entryCount, 0) || 0;
   return (
     <svg ref={svgRef} className={styles.piechart} width={width} height={height}>
       <g transform={`translate(${width / 2},${height / 2})`}>
@@ -199,6 +200,7 @@ const PieChart = ({
           <g className={styles.slice} key={datum.name} data-key={datum.name}>
             <path />
             <polyline />
+            <text />
             <foreignObject>
               {datum.to ? (
                 <Link
@@ -209,7 +211,11 @@ const PieChart = ({
                   {datum.name}
                 </Link>
               ) : (
-                <span>{datum.name}</span>
+                <span>
+                  {datum.name}
+                  <br />
+                  {Math.round((datum.entryCount / total) * 100)}%
+                </span>
               )}
             </foreignObject>
           </g>
