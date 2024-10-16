@@ -128,9 +128,6 @@ const AlignOverview = ({
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
 
-  const navigationHeight =
-    navigationRef.current?.getClientRects()?.[0]?.height || 0;
-
   useEffect(() => {
     const handler = handleEvent(updateTooltip) as (e: Event) => void;
     const element = containerRef?.current;
@@ -224,16 +221,7 @@ const AlignOverview = ({
           </AlignLabel>
         ))}
       </div>
-      <div
-        className="track"
-        // Need to set this explicitly as for some reason the MSA will come up a few
-        // pixels longer and will mess up the alignment with the left/right labels.
-        style={{
-          height: navigationHeight
-            ? navigationHeight + alignment.length * sequenceHeight
-            : 'undefined',
-        }}
-      >
+      <div className="track">
         <NightingaleManagerComponent
           ref={managerRef}
           reflected-attributes="display-start,display-end"
@@ -241,6 +229,7 @@ const AlignOverview = ({
           <NightingaleNavigationComponent
             ref={navigationRef}
             length={alignmentLength}
+            height={40}
           />
           <NightingaleMSA
             ref={setMSAAttributes}
