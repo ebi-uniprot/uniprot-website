@@ -21,8 +21,8 @@ import './styles/alignment-view.scss';
 
 // Do we have this defined somewhere else?
 type EventDetail = {
-  displaystart: string;
-  displayend: string;
+  'display-start': string;
+  'display-end': string;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -59,7 +59,10 @@ const AlignOverview = ({
   >([undefined, undefined]);
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlightPositions = useCallback(
-    ({ displaystart, displayend }: EventDetail) => {
+    ({
+      'display-start': displaystart,
+      'display-end': displayend,
+    }: EventDetail) => {
       if (
         typeof displaystart === 'undefined' ||
         typeof displayend === 'undefined'
@@ -106,7 +109,7 @@ const AlignOverview = ({
         event: ({ detail }: { detail: EventDetail }) => void
       ) => void;
       setAttribute: (
-        attributre: 'displaystart' | 'displayend' | 'height',
+        attributre: 'display-start' | 'display-end' | 'height',
         value: number
       ) => void;
     }): void => {
@@ -114,8 +117,8 @@ const AlignOverview = ({
         node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
           findHighlightPositions(detail)
         );
-        node.setAttribute('displaystart', 1);
-        node.setAttribute('displayend', initialDisplayEnd);
+        node.setAttribute('display-start', 1);
+        node.setAttribute('display-end', initialDisplayEnd);
         setHighlightPosition(
           (highlight) =>
             highlight || `${tracksOffset}:${tracksOffset + initialDisplayEnd}`
@@ -150,14 +153,14 @@ const AlignOverview = ({
     [activeAlignment?.sequence, activeAnnotation]
   );
 
-  const overviewHeight = (
-    alignment && alignment.length > 10 ? alignment.length * 3 : 30
-  ).toString();
-
   const alignmentOverviewData = useMemo(
     () => (alignment ? getFullAlignmentSegments(alignment) : []),
     [alignment]
   );
+
+  const overviewHeight =
+    alignment && alignment.length > 10 ? alignment.length * 3 : 30;
+  const trackHeight = Math.floor(overviewHeight / alignmentOverviewData.length);
 
   useEffect(() => {
     const displayEndValue = Math.round(alignmentLength / widthOfAA);
@@ -179,7 +182,7 @@ const AlignOverview = ({
       <span className="track-label">Overview</span>
       <div className="track">
         <AlignmentOverview
-          height={overviewHeight}
+          trackHeight={trackHeight}
           length={totalLength}
           highlight={highlightPosition}
           data={alignmentOverviewData}
@@ -194,8 +197,10 @@ const AlignOverview = ({
           <NightingalTrackComponent
             ref={setFeatureTrackData}
             length={totalLength}
-            layout="non-overlapping"
             highlight={highlightPosition}
+            display-start={1}
+            display-end={totalLength}
+            height={trackHeight}
           />
         )}
       </div>
@@ -231,7 +236,7 @@ const AlignOverview = ({
       >
         <NightingaleManagerComponent
           ref={managerRef}
-          reflected-attributes="displaystart,displayend"
+          reflected-attributes="display-start,display-end"
         >
           <NightingaleNavigationComponent
             ref={navigationRef}
