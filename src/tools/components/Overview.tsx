@@ -49,7 +49,6 @@ const AlignOverview = ({
   updateTooltip,
 }: AlignmentComponentProps) => {
   const containerRef = useRef<HTMLElement>(null);
-  const navigationRef = useRef<HTMLElement>(null);
   const [highlightPosition, setHighlightPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
@@ -102,6 +101,15 @@ const AlignOverview = ({
     },
     [alignment, initialDisplayEnd]
   );
+  const navigationRef = useCallback(
+    (node) => {
+      if (node && initialDisplayEnd) {
+        node['display-start'] = 1;
+        node['display-end'] = initialDisplayEnd;
+      }
+    },
+    [initialDisplayEnd]
+  );
   const managerRef = useCallback(
     (node: {
       addEventListener: (
@@ -117,8 +125,6 @@ const AlignOverview = ({
         node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
           findHighlightPositions(detail)
         );
-        node.setAttribute('display-start', 1);
-        node.setAttribute('display-end', initialDisplayEnd);
         setHighlightPosition(
           (highlight) =>
             highlight || `${tracksOffset}:${tracksOffset + initialDisplayEnd}`
@@ -224,7 +230,7 @@ const AlignOverview = ({
       <div className="track">
         <NightingaleManagerComponent
           ref={managerRef}
-          reflected-attributes="display-start,display-end"
+          reflected-attributes="highlight,display-start,display-end"
         >
           <NightingaleNavigationComponent
             ref={navigationRef}
@@ -241,8 +247,6 @@ const AlignOverview = ({
             tile-height={sequenceHeight}
             features={selectedMSAFeatures}
             onFeatureClick={onMSAFeatureClick}
-            display-start={displayPosition[0]}
-            display-end={displayPosition[1]}
             {...conservationOptions}
           />
         </NightingaleManagerComponent>
