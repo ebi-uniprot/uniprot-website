@@ -30,11 +30,11 @@ import SpeciesIllustration from '../../../images/species_illustration.img.svg';
 
 const documentationLinks = [
   {
-    label: 'Proteome',
+    label: 'What is a proteome?',
     id: 'proteome',
   },
   {
-    label: 'Reference Proteome',
+    label: 'Reference proteome',
     id: 'reference_proteome',
   },
   {
@@ -46,7 +46,7 @@ const documentationLinks = [
     id: 'proteome_redundancy',
   },
   {
-    label: 'Pan proteomes',
+    label: 'Pan proteome',
     id: 'pan_proteomes',
   },
 ];
@@ -144,7 +144,7 @@ const LandingPage = () => {
             .
           </p>
           <p>
-            UniProt proteomes may include both manually reviewed
+            UniProt proteomes may include both expertly reviewed
             (UniProtKB/Swiss-Prot) and unreviewed (UniProtKB/TrEMBL) entries.
             The proportion of reviewed entries varies between proteomes, and is
             greater for the proteomes of intensively curated model organisms.
@@ -186,24 +186,19 @@ const LandingPage = () => {
 
         {/* Statistics */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
+          <h2>Statistics</h2>
           <div className={styles.statistics}>
-            <div>
-              <h2>Statistics</h2>
-              <div className={styles.chart}>
-                <h3 className="tiny">Taxonomic origin</h3>
-                <StatisticsChart
-                  refProt={refProtHovered}
-                  nonRefProt={nonRefProtHovered}
-                />
-              </div>
+            <div className={styles.chart}>
+              <h3 className="tiny">Taxonomic origin</h3>
+              <StatisticsChart
+                refProt={refProtHovered}
+                nonRefProt={nonRefProtHovered}
+              />
             </div>
-
             <section className={styles['entries-count']}>
-              <h2>Proteome Status</h2>
               <h3 className="tiny">Number of Entries</h3>
               <br />
               <p
-                className={styles['stats-count']}
                 onPointerEnter={() => setRefProtHovered(true)}
                 onFocus={() => setRefProtHovered(true)}
                 onPointerLeave={() => setRefProtHovered(false)}
@@ -231,7 +226,6 @@ const LandingPage = () => {
                 </span>
               </p>
               <p
-                className={styles['stats-count']}
                 onPointerEnter={() => setNonRefProtHovered(true)}
                 onFocus={() => setNonRefProtHovered(true)}
                 onPointerLeave={() => setNonRefProtHovered(false)}
@@ -255,32 +249,6 @@ const LandingPage = () => {
                     </Link>
                   )}
                 </span>
-              </p>
-              <p>
-                Search{' '}
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.ProteomesResults],
-                    search: stringifyQuery({
-                      query: 'proteome_type:3',
-                    }),
-                  }}
-                >
-                  redundant
-                </Link>{' '}
-                and{' '}
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.ProteomesResults],
-                    search: stringifyQuery({
-                      query: 'proteome_type:4',
-                    }),
-                  }}
-                >
-                  {' '}
-                  excluded
-                </Link>{' '}
-                proteomes
               </p>
             </section>
           </div>
