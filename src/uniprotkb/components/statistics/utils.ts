@@ -55,20 +55,12 @@ export const mergeToMap = (
     accumulator.set(item.name, { uniprotkb: item });
   }
   for (const item of reviewed) {
-    const stats = accumulator.get(item.name);
-    if (stats) {
-      stats.reviewed = item;
-    } else {
-      accumulator.set(item.name, { reviewed: item });
-    }
+    const stats = accumulator.get(item.name) || {};
+    accumulator.set(item.name, { ...stats, reviewed: item });
   }
   for (const item of unreviewed) {
-    const stats = accumulator.get(item.name);
-    if (stats) {
-      stats.unreviewed = item;
-    } else {
-      accumulator.set(item.name, { unreviewed: item });
-    }
+    const stats = accumulator.get(item.name) || {};
+    accumulator.set(item.name, { ...stats, unreviewed: item });
   }
   return accumulator;
 };
