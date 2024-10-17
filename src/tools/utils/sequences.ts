@@ -1,4 +1,9 @@
-import { getColorByType } from '@nightingale-elements/nightingale-track';
+import {
+  Feature,
+  getColorByType,
+} from '@nightingale-elements/nightingale-track';
+import { v1 } from 'uuid';
+
 import { MSAInput } from '../types/alignment';
 import { FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
@@ -52,7 +57,9 @@ export const getFullAlignmentLength = (
   return prefix - 1 + alignmentLength + suffix;
 };
 
-export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
+export const getFullAlignmentSegments = (
+  alignment: MSAInput[]
+): Feature[][] => {
   // franklin $colour-sapphire-blue
   const colour = '#014371';
 
@@ -67,17 +74,20 @@ export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
     const offset = maxFrom - al.from > 0 ? maxFrom - al.from : 0;
     return [
       {
+        accession: v1(),
         start: offset,
         end: offset + al.from - 1,
         shape: 'line',
         color: colour,
       },
       ...findSequenceSegments(al.sequence).map(([start, end]) => ({
+        accession: v1(),
         start: offset + (al.from - 1) + start,
         end: offset + (al.from - 1) + end,
         color: colour,
       })),
       {
+        accession: v1(),
         start: offset + al.to + countGaps(al.sequence) + 1,
         end: offset + al.length + countGaps(al.sequence),
         shape: 'line',
@@ -109,7 +119,7 @@ export const createGappedFeature = (
   feature: ProcessedFeature,
   sequence: string,
   from: number
-) => {
+): Feature | null => {
   /*
   input: feature and sequence are both 1-based
   */
@@ -144,7 +154,7 @@ export const createGappedFeature = (
   }
   if (!fragments.length) {
     // At this point the feature start & end must be before the BLAST match's from.
-    return;
+    return null;
   }
 
   const gappedFeature = {
@@ -194,10 +204,16 @@ export const getMSAFeature = (
   from: number
 ): MSAFeature | null => {
   const gappedFeature = createGappedFeature(feature, sequence, from);
-  if (!gappedFeature) {
+  if (
+    !gappedFeature ||
+    typeof gappedFeature.start === 'undefined' ||
+    typeof gappedFeature.end === 'undefined'
+  ) {
     return null;
   }
-  const borderColor = getColorByType(gappedFeature.type);
+  const borderColor = gappedFeature.type
+    ? getColorByType(gappedFeature.type)
+    : 'black';
   return {
     residues: { from: gappedFeature.start, to: gappedFeature.end },
     sequences: { from: sequenceIndex, to: sequenceIndex },
