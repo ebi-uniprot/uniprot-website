@@ -69,6 +69,12 @@ const mediumPlusMediaQuery = 'only screen and (min-width: 840px)';
 // just a bit more than the "large" breakpoint in Franklin (1024px)
 const largePlusMediaQuery = 'only screen and (min-width: 1100px)';
 
+const visibleElement = (onClick: () => unknown) => (
+  <Button variant="tertiary" onClick={onClick}>
+    Tools
+  </Button>
+);
+
 const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
   const wideScreen = useMatchMedia(largePlusMediaQuery);
   const mediumPlusScreen = useMatchMedia(mediumPlusMediaQuery);
@@ -84,7 +90,7 @@ const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
         // otherwise display all tools links in a dropdown
         <li className={styles['no-small']}>
           <Dropdown
-            visibleElement={<Button variant="tertiary">Tools</Button>}
+            visibleElement={visibleElement}
             propChangeToClose={location}
           >
             <ul className="no-bullet">{toolsLinks}</ul>

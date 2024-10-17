@@ -1,7 +1,11 @@
 import { useState, useRef, useCallback } from 'react';
 import { LongNumber, Button } from 'franklin-sites';
 
-import { CategoryName, StatisticsCategory } from './StatisticsPage';
+import {
+  nameToThreeLetterAACode,
+  CategoryName,
+  StatisticsCategory,
+} from './StatisticsPage';
 
 import styles from './styles/statistics-page.module.scss';
 
@@ -63,20 +67,24 @@ type StatsTableProps = {
   category: StatisticsCategory;
   alwaysExpand?: boolean;
   nameLabel?: string;
+  abbreviationLabel?: string;
   countLabel?: string;
   caption?: string;
   numberReleaseEntries: number;
-  dataset: 'reviewed' | 'unreviewed';
+  dataset: 'UniProtKB' | 'reviewed' | 'unreviewed';
+  nameToAbbreviation?: Map<string, string>;
 };
 
 const StatsTable = ({
   category,
   alwaysExpand,
   nameLabel,
+  abbreviationLabel,
   countLabel,
   caption,
   numberReleaseEntries,
   dataset,
+  nameToAbbreviation,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
@@ -113,6 +121,9 @@ const StatsTable = ({
         <thead>
           <tr>
             <th>{nameLabel || 'Name'}</th>
+            {abbreviationLabel && nameToAbbreviation && (
+              <th>{abbreviationLabel}</th>
+            )}
             {!hasOnlyEntryCounts && <th>{countLabel || 'Count'}</th>}
             {hasPercent && !hasOnlyEntryCounts && <th>Percent</th>}
             {hasEntryCount && (
@@ -137,6 +148,13 @@ const StatsTable = ({
             const percent =
               hasPercent &&
               ((row.count / category.totalCount) * 100).toFixed(2);
+            const abbreviation =
+              abbreviationLabel &&
+              nameToAbbreviation &&
+              nameToAbbreviation.get(
+                (row.label || nameToThreeLetterAACode.get(row.name)) as string
+              );
+            const label = row.label || row.name;
             return (
               <tr key={row.name}>
                 {/* Name */}
@@ -150,8 +168,11 @@ const StatsTable = ({
                     undefined
                   }
                 >
-                  {row.label || row.name}
+                  {abbreviation
+                    ? row.label || nameToThreeLetterAACode.get(row.name)
+                    : label}
                 </td>
+                {abbreviation && <td>{abbreviation}</td>}
                 {/* Count */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>

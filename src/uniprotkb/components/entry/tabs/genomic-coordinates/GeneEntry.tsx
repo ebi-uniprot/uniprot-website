@@ -99,7 +99,7 @@ const GeneEntry = ({
           {representativeEntry.gnCoordinate.ensemblGeneId
             ? // TODO: better gene name whenever the endpoint provides it
               `Gene ${representativeEntry.gnCoordinate.ensemblGeneId}`
-            : `Genomic location ${index}`}
+            : `Genomic location ${index + 1}`}
         </h3>
       }
     >

@@ -7,7 +7,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
   >
     <div
       class="busco-view__track"
-      style="--s: 37.48185776487663%; --d: 62.00290275761974%; --f: 0.02902757619738752%;"
+      style="--s: 37.34397677793904%; --d: 62.191582002902756%; --f: 0.02902757619738752%;"
     />
     <div
       class="busco-view__report"
@@ -15,7 +15,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:37.5% D:62%) F:0% M:0.5%
+      C:99.5% (S:37.3% D:62.2%) F:0% M:0.4%
     </div>
   </div>
 </DocumentFragment>
@@ -30,16 +30,16 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 1
+      Chromosome 2
     </li>
     <li>
-      Chromosome 1
+      Chromosome 3
     </li>
     <li>
-      Chromosome 1
+      Chromosome 4
     </li>
     <li>
-      Chromosome 1
+      Chromosome 5
     </li>
     <li>
       <button
@@ -47,7 +47,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        64 more components
+        20 more components
       </button>
     </li>
   </ul>
@@ -63,16 +63,76 @@ exports[`ProteomesColumnConfiguration component should render column "components
       Chromosome 1
     </li>
     <li>
-      Chromosome 1
+      Chromosome 2
     </li>
     <li>
-      Chromosome 1
+      Chromosome 3
     </li>
     <li>
-      Chromosome 1
+      Chromosome 4
     </li>
     <li>
-      Chromosome 1
+      Chromosome 5
+    </li>
+    <li>
+      Chromosome 6
+    </li>
+    <li>
+      Chromosome 7
+    </li>
+    <li>
+      Chromosome 8
+    </li>
+    <li>
+      Chromosome 9
+    </li>
+    <li>
+      Chromosome 10
+    </li>
+    <li>
+      Chromosome X
+    </li>
+    <li>
+      Chromosome 11
+    </li>
+    <li>
+      Chromosome 12
+    </li>
+    <li>
+      Chromosome 13
+    </li>
+    <li>
+      Chromosome 14
+    </li>
+    <li>
+      Chromosome 15
+    </li>
+    <li>
+      Chromosome 16
+    </li>
+    <li>
+      Chromosome 17
+    </li>
+    <li>
+      Chromosome 18
+    </li>
+    <li>
+      Chromosome 19
+    </li>
+    <li>
+      Chromosome 20
+    </li>
+    <li>
+      Chromosome 21
+    </li>
+    <li>
+      Chromosome 22
+    </li>
+    <li>
+      Chromosome Y
+    </li>
+    <li>
+      Mitochondrion MT
     </li>
     <li>
       <button
@@ -80,7 +140,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
         data-testid="expandable-message"
         type="button"
       >
-        64 more components
+        Fewer components
       </button>
     </li>
   </ul>
@@ -335,7 +395,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    82,861
+    83,413
   </a>
 </DocumentFragment>
 `;

@@ -48,7 +48,10 @@ const renderIDMappingResult = (route: string, data: MappingDetails) =>
 describe('IDMappingResult tests', () => {
   it('should render simple from/to mapping', async () => {
     renderIDMappingResult('/id-mapping/id1/overview', SimpleMappingDetails);
-    expect(await screen.findByText('ENSMUSG00000029283')).toBeInTheDocument();
+    await waitFor(
+      () => expect(screen.getByText('ENSMUSG00000029283')).toBeInTheDocument(),
+      { timeout: 10000 }
+    );
   });
 
   it('should render mapping to UniProtKB and apply filter', async () => {

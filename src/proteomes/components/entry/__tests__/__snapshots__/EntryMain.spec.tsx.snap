@@ -67,12 +67,12 @@ exports[`EntryMain view should render 1`] = `
                   class="checkbox-cell"
                 >
                   <input
-                    id="0"
+                    id="28"
                     type="checkbox"
                   />
                   <label
                     aria-label="Selection control for all visible items"
-                    for="0"
+                    for="28"
                   />
                 </div>
               </th>
@@ -105,12 +105,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 1"
-                  id="1"
+                  id="2"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 1"
-                  for="1"
+                  for="2"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -118,19 +118,6 @@ exports[`EntryMain view should render 1`] = `
                 Chromosome 1
               </td>
               <td>
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270706"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270706
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
                 <a
                   class="external-link"
                   href="https://www.ensembl.org/9606/Location/Chromosome?r=CM000663"
@@ -143,116 +130,12 @@ exports[`EntryMain view should render 1`] = `
                     width="12.5"
                   />
                 </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270707"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270707
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270708"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270708
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270709"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270709
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270710"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270710
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270711"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270711
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270712"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270712
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270713"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270713
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270714"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270714
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
               </td>
               <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
                 >
-                  6,833
+                  6,950
                 </a>
               </td>
             </tr>
@@ -262,12 +145,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 2"
-                  id="2"
+                  id="3"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 2"
-                  for="2"
+                  for="3"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -318,7 +201,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 2")"
                 >
-                  5,434
+                  5,468
                 </a>
               </td>
             </tr>
@@ -328,12 +211,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 3"
-                  id="3"
+                  id="4"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 3"
-                  for="3"
+                  for="4"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -371,7 +254,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 3")"
                 >
-                  4,889
+                  4,921
                 </a>
               </td>
             </tr>
@@ -381,12 +264,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 4"
-                  id="4"
+                  id="5"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 4"
-                  for="4"
+                  for="5"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -424,7 +307,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 4")"
                 >
-                  3,080
+                  3,087
                 </a>
               </td>
             </tr>
@@ -434,12 +317,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 5"
-                  id="5"
+                  id="6"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 5"
-                  for="5"
+                  for="6"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -477,7 +360,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 5")"
                 >
-                  3,431
+                  3,456
                 </a>
               </td>
             </tr>
@@ -487,12 +370,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 6"
-                  id="6"
+                  id="7"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 6"
-                  for="6"
+                  for="7"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -517,7 +400,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 6")"
                 >
-                  3,503
+                  3,552
                 </a>
               </td>
             </tr>
@@ -527,12 +410,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 7"
-                  id="7"
+                  id="8"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 7"
-                  for="7"
+                  for="8"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -557,7 +440,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 7")"
                 >
-                  3,603
+                  3,622
                 </a>
               </td>
             </tr>
@@ -567,12 +450,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 8"
-                  id="8"
+                  id="9"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 8"
-                  for="8"
+                  for="9"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -597,7 +480,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 8")"
                 >
-                  2,978
+                  2,982
                 </a>
               </td>
             </tr>
@@ -607,12 +490,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 9"
-                  id="9"
+                  id="10"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 9"
-                  for="9"
+                  for="10"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -632,64 +515,12 @@ exports[`EntryMain view should render 1`] = `
                     width="12.5"
                   />
                 </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270717"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270717
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270718"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270718
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270719"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270719
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270720"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270720
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
               </td>
               <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
                 >
-                  2,604
+                  2,647
                 </a>
               </td>
             </tr>
@@ -699,12 +530,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 10"
-                  id="10"
+                  id="11"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 10"
-                  for="10"
+                  for="11"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -742,7 +573,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 10")"
                 >
-                  2,779
+                  2,794
                 </a>
               </td>
             </tr>
@@ -752,12 +583,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome X"
-                  id="11"
+                  id="12"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome X"
-                  for="11"
+                  for="12"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -782,7 +613,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome X")"
                 >
-                  2,622
+                  2,624
                 </a>
               </td>
             </tr>
@@ -792,12 +623,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 11"
-                  id="12"
+                  id="13"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 11"
-                  for="12"
+                  for="13"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -835,7 +666,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 11")"
                 >
-                  5,219
+                  5,252
                 </a>
               </td>
             </tr>
@@ -845,12 +676,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 12"
-                  id="13"
+                  id="14"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 12"
-                  for="13"
+                  for="14"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -875,7 +706,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 12")"
                 >
-                  4,757
+                  4,773
                 </a>
               </td>
             </tr>
@@ -885,12 +716,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 13"
-                  id="14"
+                  id="15"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 13"
-                  for="14"
+                  for="15"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -915,7 +746,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 13")"
                 >
-                  1,071
+                  1,094
                 </a>
               </td>
             </tr>
@@ -925,12 +756,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 14"
-                  id="15"
+                  id="16"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 14"
-                  for="15"
+                  for="16"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -989,77 +820,12 @@ exports[`EntryMain view should render 1`] = `
                     width="12.5"
                   />
                 </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270722"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270722
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270723"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270723
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270724"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270724
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270725"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270725
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270726"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270726
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
               </td>
               <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
                 >
-                  3,114
+                  3,117
                 </a>
               </td>
             </tr>
@@ -1069,12 +835,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 15"
-                  id="16"
+                  id="17"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 15"
-                  for="16"
+                  for="17"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1112,7 +878,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 15")"
                 >
-                  2,724
+                  2,743
                 </a>
               </td>
             </tr>
@@ -1122,12 +888,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 16"
-                  id="17"
+                  id="18"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 16"
-                  for="17"
+                  for="18"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1165,7 +931,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 16")"
                 >
-                  4,132
+                  4,153
                 </a>
               </td>
             </tr>
@@ -1175,12 +941,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 17"
-                  id="18"
+                  id="19"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 17"
-                  for="18"
+                  for="19"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1244,7 +1010,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 17")"
                 >
-                  5,462
+                  5,489
                 </a>
               </td>
             </tr>
@@ -1254,12 +1020,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 18"
-                  id="19"
+                  id="20"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 18"
-                  for="19"
+                  for="20"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1284,7 +1050,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 18")"
                 >
-                  1,318
+                  1,366
                 </a>
               </td>
             </tr>
@@ -1294,12 +1060,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 19"
-                  id="20"
+                  id="21"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 19"
-                  for="20"
+                  for="21"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1324,7 +1090,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 19")"
                 >
-                  5,882
+                  5,909
                 </a>
               </td>
             </tr>
@@ -1334,12 +1100,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 20"
-                  id="21"
+                  id="22"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 20"
-                  for="21"
+                  for="22"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1364,7 +1130,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 20")"
                 >
-                  1,783
+                  1,792
                 </a>
               </td>
             </tr>
@@ -1374,12 +1140,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 21"
-                  id="22"
+                  id="23"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 21"
-                  for="22"
+                  for="23"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1404,7 +1170,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 21")"
                 >
-                  678
+                  677
                 </a>
               </td>
             </tr>
@@ -1414,12 +1180,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome 22"
-                  id="23"
+                  id="24"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome 22"
-                  for="23"
+                  for="24"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1439,129 +1205,12 @@ exports[`EntryMain view should render 1`] = `
                     width="12.5"
                   />
                 </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270731"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270731
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270732"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270732
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270733"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270733
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270734"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270734
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270735"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270735
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270736"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270736
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270737"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270737
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270738"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270738
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                , 
-                <a
-                  class="external-link"
-                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270739"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  KI270739
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
               </td>
               <td>
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
                 >
-                  1,755
+                  1,752
                 </a>
               </td>
             </tr>
@@ -1571,12 +1220,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Chromosome Y"
-                  id="24"
+                  id="25"
                   type="checkbox"
                 />
                 <label
                   aria-label="Chromosome Y"
-                  for="24"
+                  for="25"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1624,12 +1273,12 @@ exports[`EntryMain view should render 1`] = `
               >
                 <input
                   data-id="Mitochondrion MT"
-                  id="25"
+                  id="26"
                   type="checkbox"
                 />
                 <label
                   aria-label="Mitochondrion MT"
-                  for="25"
+                  for="26"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -1654,34 +1303,7 @@ exports[`EntryMain view should render 1`] = `
                 <a
                   href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Mitochondrion MT")"
                 >
-                  16
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="Unplaced"
-                  id="26"
-                  type="checkbox"
-                />
-                <label
-                  aria-label="Unplaced"
-                  for="26"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td>
-                Unplaced
-              </td>
-              <td />
-              <td>
-                <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Unplaced")"
-                >
-                  3,108
+                  2,135
                 </a>
               </td>
             </tr>

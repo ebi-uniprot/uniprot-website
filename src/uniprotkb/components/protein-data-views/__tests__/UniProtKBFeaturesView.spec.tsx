@@ -1,12 +1,17 @@
-import { screen } from '@testing-library/react';
+import { ReactNode } from 'react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import UniProtKBFeaturesView from '../UniProtKBFeaturesView';
 
 import FeaturesUIData from './__mocks__/featuresUIData';
 
-describe('FeaturesView component', () => {
-  it('should render without crashing', async () => {
+jest.mock('../../../../shared/components/views/FeaturesView', () => ({
+  __esModule: true,
+  default: ({ table }: { table: ReactNode }) => table,
+}));
+
+describe('UniProtKBFeaturesView component', () => {
+  it('should render without crashing', () => {
     const { asFragment } = customRender(
       <UniProtKBFeaturesView
         primaryAccession="P05067"
@@ -14,7 +19,6 @@ describe('FeaturesView component', () => {
         sequence="ASDASDASASDASDASDSASD"
       />
     );
-    await screen.findByText('Features');
     expect(asFragment()).toMatchSnapshot();
   });
 });

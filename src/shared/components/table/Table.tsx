@@ -5,12 +5,11 @@ import {
   MouseEventHandler,
   ReactNode,
   useCallback,
-  useRef,
+  useId,
   useState,
 } from 'react';
 import { Button, ControlledDropdown } from 'franklin-sites';
 import cn from 'classnames';
-import { v1 } from 'uuid';
 
 import useExpandTable from '../../hooks/useExpandTable';
 
@@ -178,7 +177,7 @@ const Row = ({
 
   const [expanded, setExpanded] = useState(false);
 
-  const idRef = useRef(v1());
+  const buttonId = useId();
 
   const handleClick: MouseEventHandler<HTMLTableRowElement> = (event) => {
     onClick?.(event);
@@ -211,7 +210,7 @@ const Row = ({
             <button
               type="button"
               aria-expanded={expanded ? 'true' : 'false'}
-              aria-controls={idRef.current}
+              aria-controls={buttonId}
             >
               {expanded ? '-' : '+'}
             </button>
@@ -224,7 +223,7 @@ const Row = ({
           className={cn(styles.row, styles['extra-content'], {
             [styles.odd]: isOdd,
           })}
-          id={idRef.current}
+          id={buttonId}
           hidden={!expanded}
         >
           {/* Placeholder cell for the expand toggle column */}

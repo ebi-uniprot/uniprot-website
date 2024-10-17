@@ -6,7 +6,6 @@ import {
   useHistory,
 } from 'react-router-dom';
 import { Card, Loader } from 'franklin-sites';
-import { marked } from 'marked';
 import {
   Attributes,
   defaults,
@@ -25,7 +24,8 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import helpApiUrls from '../../config/apiUrls';
-import cleanText, {
+import { parseMarkdown } from '../../../shared/utils/markdown';
+import {
   cleanTextDefaultOptions,
   getTransformTags,
   HeadingLevels,
@@ -136,8 +136,8 @@ const HelpEntryContent = ({
 
   const html = useMemo(() => {
     if (data?.content) {
-      return cleanText(
-        marked(data.content),
+      return parseMarkdown(
+        data.content,
         getCleanTextOptions(upperHeadingLevel)
       );
     }

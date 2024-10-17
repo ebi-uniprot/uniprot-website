@@ -16,7 +16,7 @@ const ResultsDataHeader: FC<
     loadedTotal: number;
     selectedEntries: string[];
     namespaceOverride?: Namespace;
-    titlePostscript?: ReactNode;
+    headingPostscript?: ReactNode;
     accessions?: string[];
     base?: string;
     disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
@@ -26,7 +26,7 @@ const ResultsDataHeader: FC<
   loadedTotal,
   selectedEntries,
   namespaceOverride,
-  titlePostscript,
+  headingPostscript,
   accessions,
   base,
   disableCardToggle = false,
@@ -37,12 +37,12 @@ const ResultsDataHeader: FC<
   return (
     <>
       <PageIntro
-        title={
+        heading={
           jobResultsLocation
             ? toolsResultsLocationToLabel?.[jobResultsLocation]
             : namespaceAndToolsLabels[namespace]
         }
-        titlePostscript={titlePostscript}
+        headingPostscript={headingPostscript}
         resultsCount={total}
       >
         {children}

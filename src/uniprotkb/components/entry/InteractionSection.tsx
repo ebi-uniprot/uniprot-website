@@ -244,7 +244,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
 
   const displayVizTab = complexPortalXrefs.size > 0;
 
-  const complexId = viewerID || complexPortalXrefs.keys().next().value;
+  const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
   const complexName =
     complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
   const complexString = `${complexId} ${complexName}`;
@@ -288,9 +288,12 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
             <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>
                 <Dropdown
-                  visibleElement={
-                    <Button variant="primary">{complexString}</Button>
-                  }
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  visibleElement={(onClick: () => unknown) => (
+                    <Button variant="primary" onClick={onClick}>
+                      {complexString}
+                    </Button>
+                  )}
                 >
                   <ul className={styles['ids-list']}>
                     {Array.from(complexPortalXrefs.values()).map(
@@ -300,9 +303,13 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                             variant="tertiary"
                             key={id}
                             id={id}
-                            onClick={(event: MouseEvent) => {
-                              setViewerID((event.target as HTMLElement).id);
-                              clickOnDropdown(event.target as HTMLElement);
+                            onClick={(event) => {
+                              setViewerID(
+                                (event.target as HTMLButtonElement).id
+                              );
+                              clickOnDropdown(
+                                event.target as HTMLButtonElement
+                              );
                             }}
                           >
                             {id} {properties?.EntryName || ''}

@@ -1,15 +1,14 @@
-import { Button, Card, Chip, ExternalLink } from 'franklin-sites';
+import { Card, Chip, ExternalLink } from 'franklin-sites';
 
 import PtmExchangeEvidenceTag from '../components/protein-data-views/PtmExchangeEvidenceTag';
 import UniProtKBEvidenceTag from '../components/protein-data-views/UniProtKBEvidenceTag';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import { RichText } from '../components/protein-data-views/FreeTextView';
-
-import { getURLToJobWithData } from '../../app/config/urls';
+import CopyButton from '../../shared/components/action-buttons/Copy';
+import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
 
 import externalUrls from '../../shared/config/externalUrls';
 
-import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
   FeatureColumnConfiguration,
   ProcessedFeature,
@@ -127,18 +126,24 @@ export const columnConfiguration: FeatureColumnConfiguration<ProcessedFeature>[]
         data.type !== 'Disulfide bond' &&
         data.type !== 'Cross-link' && (
           <div className="button-group">
-            <Button
-              element="a"
-              variant="tertiary"
-              title="BLAST the sequence corresponding to this feature"
-              href={getURLToJobWithData(JobTypes.BLAST, data.primaryAccession, {
-                start: data.start,
-                end: data.end,
-              })}
-              translate="no"
+            <ToolsDropdown
+              selectedEntries={[
+                `${data.primaryAccession}[${data.start}-${data.end}]`,
+              ]}
+              blast
             >
-              BLAST
-            </Button>
+              {(closeDropdown: () => unknown) => (
+                <li>
+                  <CopyButton
+                    textToCopy={data.sequence}
+                    postCopy={closeDropdown}
+                  >
+                    Copy sequence
+                  </CopyButton>
+                </li>
+              )}
+            </ToolsDropdown>
+
             <AddToBasketButton
               selectedEntries={`${data.primaryAccession}[${data.start}-${data.end}]`}
             />

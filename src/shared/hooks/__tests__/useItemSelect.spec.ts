@@ -1,5 +1,4 @@
-import { waitFor } from '@testing-library/react';
-import { act } from '@testing-library/react-hooks';
+import { waitFor, act } from '@testing-library/react';
 
 import getCustomRenderHook from '../../__test-helpers__/customRenderHook';
 

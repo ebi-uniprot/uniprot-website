@@ -129,7 +129,7 @@ export const getColumnsToDisplay = (
             return columnConfig.render(
               convertRow(row, namespace, databaseInfoMaps)
             );
-          } catch (error) {
+          } catch {
             if (!('inactiveReason' in row)) {
               logging.warn(
                 `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyForData(
@@ -171,7 +171,7 @@ const useColumns = (
 ): [
   ColumnDescriptor[] | undefined,
   ((columnName: string) => void) | null,
-  MutableRefObject<HTMLDivElement | null>
+  MutableRefObject<HTMLDivElement | null>,
 ] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;

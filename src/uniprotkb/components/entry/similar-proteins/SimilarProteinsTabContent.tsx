@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 
 import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
@@ -153,8 +153,8 @@ const SimilarProteinsTabContent = ({
           <hr />
         </section>
       )}
-      <Button
-        element={Link}
+      <Link
+        className="button primary"
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
           search: `query=${isoformsAndClusters
@@ -169,7 +169,7 @@ const SimilarProteinsTabContent = ({
         }}
       >
         View all
-      </Button>
+      </Link>
     </>
   );
 };

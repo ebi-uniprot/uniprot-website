@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button, LongNumber, Sequence } from 'franklin-sites';
+import { LongNumber, Sequence } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
@@ -100,13 +100,12 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
           </li>
         ))}
         {organisms.length > CUT_OFF && (
-          <Button
-            element={Link}
-            variant="tertiary"
+          <Link
+            className="button tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
             More organism IDs
-          </Button>
+          </Link>
         )}
       </ul>
     ),
@@ -128,13 +127,12 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
           </li>
         ))}
         {organisms.length > CUT_OFF && (
-          <Button
-            element={Link}
-            variant="tertiary"
+          <Link
+            className="button tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
             More organisms
-          </Button>
+          </Link>
         )}
       </ul>
     ),
@@ -204,14 +202,13 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
           </li>
         ))}
         {members.length > CUT_OFF && (
-          <Button
-            element={Link}
-            variant="tertiary"
+          <Link
+            className="button tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
             {memberCount - CUT_OFF} more{' '}
             {pluralise('member', memberCount - CUT_OFF)}
-          </Button>
+          </Link>
         )}
       </ul>
     ),

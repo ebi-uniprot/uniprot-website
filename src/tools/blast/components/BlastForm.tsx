@@ -306,7 +306,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro translate="no" title={title} />
+      <PageIntro translate="no" heading={title} />
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}
@@ -315,8 +315,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein sequence to run BLAST sequence similarity search by
-              UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+              Find a protein sequence to run{' '}
+              <abbr title="Basic Local Alignment Search Tool">BLAST</abbr>{' '}
+              sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN
+              or UPI0000000001).
             </legend>
             <div className="import-sequence-section">
               <SequenceSearchLoader

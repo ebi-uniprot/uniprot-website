@@ -1,12 +1,8 @@
 /* eslint-disable react/no-this-in-sfc */
 import { FC, memo, useEffect, useRef } from 'react';
-import { v1 } from 'uuid';
 import '@swissprot/swissbiopics-visualizer';
 import { groupBy } from 'lodash-es';
 import { RequireExactlyOne } from 'type-fest';
-
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
@@ -151,12 +147,14 @@ type Props = RequireExactlyOne<
   'uniProtLocations' | 'goLocations'
 >;
 
+let instanceId = 0;
+
 const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
   ({ uniProtLocations, goLocations, taxonId, children }) => {
     const instanceName = useRef(
       `${canonicalName}-${
         uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
-      }-${v1()}`
+      }-${++instanceId}` // eslint-disable-line no-plusplus
     );
 
     const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');
@@ -246,8 +244,9 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         uniProtLocations,
         ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
       );
-      const goLocationsByReviewedStatus = groupBy(goLocations, ({ reviewed }) =>
-        reviewed ? 'reviewed' : 'unreviewed'
+      const goLocationsByReviewedStatus = groupBy(
+        goLocations,
+        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
       );
 
       const unreviewed = [
@@ -295,7 +294,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
         ${lookedAt.join(',')} {
           stroke: black !important;
-          fill: ${colors.seaBlue} !important;
+          fill: var(--fr--color-sea-blue) !important;
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
