@@ -15,7 +15,6 @@ import { useSmallScreen } from '../../hooks/useMatchMedia';
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 import FeatureType from '../../../uniprotkb/types/featureType';
-import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import {
@@ -89,38 +88,31 @@ export type ProcessedFeature = Feature & {
   ligandDescription?: string;
 };
 
-export type GenericFeature =
-  | ProcessedFeature
-  // | TransformedVariant // TODO: do we need this here?
-  | UniParcProcessedFeature;
-
-export type FeatureColumnConfiguration = {
+export type FeatureColumnConfiguration<T> = {
   id: string;
   label: ReactNode;
-  filter?: (data: GenericFeature, input: string) => boolean;
-  render: (data: GenericFeature) => ReactNode;
-  getOption?: (data: GenericFeature) => string | number; // Fallback if render fn doesn't return string or number
+  filter?: (data: T, input: string) => boolean;
+  render: (data: T) => ReactNode;
+  getOption?: (data: T) => string | number; // Fallback if render fn doesn't return string or number
 };
 
-type FeatureViewProps = {
+type FeatureViewProps<T extends ProcessedFeature> = {
   sequence?: string;
-  features: GenericFeature[];
-  rowExtraContent?: (datum: GenericFeature) => ReactNode;
-  getRowId: (datum: GenericFeature) => string;
-  columns: FeatureColumnConfiguration[];
+  features: T[];
+  rowExtraContent?: (datum: T) => ReactNode;
+  getRowId: (datum: T) => string;
+  columns: FeatureColumnConfiguration<T>[];
   trackHeight?: number;
   withTitle?: boolean;
   noLinkToFullView?: boolean;
-  markBackground?: (
-    markedData: GenericFeature
-  ) => ((data: GenericFeature) => boolean) | undefined;
+  markBackground?: (markedData: T) => ((data: T) => boolean) | undefined;
   markBorder?: (
     nightingaleViewRange: NightingaleViewRange
-  ) => (datum: ProcessedFeature) => boolean;
+  ) => (datum: T) => boolean;
   inResultsTable?: boolean;
 };
 
-function FeaturesView({
+function FeaturesView<T extends ProcessedFeature>({
   sequence,
   features,
   trackHeight,
@@ -132,11 +124,9 @@ function FeaturesView({
   markBorder,
   columns,
   inResultsTable,
-}: FeatureViewProps) {
+}: FeatureViewProps<T>) {
   const isSmallScreen = useSmallScreen();
-  const [highlightedFeature, setHighlightedFeature] = useState<
-    GenericFeature | undefined
-  >();
+  const [highlightedFeature, setHighlightedFeature] = useState<T | undefined>();
   const [nightingaleViewRange, setNightingaleViewRange] =
     useState<NightingaleViewRange>();
 
@@ -185,7 +175,7 @@ function FeaturesView({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
-            onFeatureClick={setHighlightedFeature}
+            onFeatureClick={(feature) => setHighlightedFeature(feature as T)}
             onViewRangeChange={handleViewRangeChange}
             highlightedFeature={highlightedFeature}
           />

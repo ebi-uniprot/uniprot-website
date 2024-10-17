@@ -24,24 +24,25 @@ import { Dataset } from '../entry/EntryDownload';
 import { NightingaleViewRange } from '../../utils/nightingale';
 
 import styles from './styles/visual-features-view.module.scss';
-import { GenericFeature } from './FeaturesView';
+import { ProcessedFeature } from './FeaturesView';
 
-const getHighlightedCoordinates = (feature?: GenericFeature) =>
-  feature?.start && feature?.end
+function getHighlightedCoordinates<T extends ProcessedFeature>(feature?: T) {
+  return feature?.start && feature?.end
     ? `${feature.start}:${feature.end}`
     : undefined;
+}
 
-type Props = {
-  features: GenericFeature[];
+type Props<T> = {
+  features: T[];
   sequence: string;
   trackHeight?: number;
   noLinkToFullView?: boolean;
-  onFeatureClick: (feature: GenericFeature) => void;
+  onFeatureClick: (feature: T) => void;
   onViewRangeChange: (range: NightingaleViewRange) => void;
-  highlightedFeature?: GenericFeature;
+  highlightedFeature?: T;
 };
 
-function VisualFeaturesView({
+function VisualFeaturesView<T extends ProcessedFeature>({
   features,
   sequence,
   trackHeight = 40,
@@ -49,7 +50,7 @@ function VisualFeaturesView({
   onFeatureClick,
   onViewRangeChange,
   highlightedFeature,
-}: Props) {
+}: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
   const trackRef = useRef<NightingaleTrack>(null);
@@ -60,10 +61,10 @@ function VisualFeaturesView({
   useEffect(() => {
     const eventHandler = (e: Event) => {
       const { detail } = e as CustomEvent<
-        NightingaleViewRange & { eventType: 'click'; feature: GenericFeature }
+        NightingaleViewRange & { eventType: 'click'; feature: T }
       >;
       if (detail?.eventType === 'click' && detail?.feature) {
-        onFeatureClick(detail.feature);
+        onFeatureClick(detail.feature as T);
       }
     };
     if (trackRef.current) {
@@ -121,7 +122,7 @@ function VisualFeaturesView({
             params.accession,
             TabLocation.FeatureViewer
           )}
-          title="View in the GenericFeature Viewer"
+          title="View in the Feature Viewer"
           onClick={() => {
             sendGtagEventFeatureViewerFullViewClick(params.accession);
           }}

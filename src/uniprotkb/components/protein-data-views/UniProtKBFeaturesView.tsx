@@ -145,8 +145,8 @@ const UniProtKBFeaturesView = ({
 
   const smallScreen = useSmallScreen();
 
-  const columns: FeatureColumnConfiguration[] = useMemo<
-    FeatureColumnConfiguration[]
+  const columns: FeatureColumnConfiguration<ProcessedFeature>[] = useMemo<
+    FeatureColumnConfiguration<ProcessedFeature>[]
   >(
     () =>
       columnConfiguration.filter((column) => {

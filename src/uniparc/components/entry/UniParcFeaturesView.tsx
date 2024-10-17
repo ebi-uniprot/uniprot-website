@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import FeaturesView, {
-  GenericFeature,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 
@@ -44,7 +43,7 @@ export const convertData = (
     )
     .sort(sortByLocation);
 
-const getRowId = (data: GenericFeature) => data.accession;
+const getRowId = (data: UniParcProcessedFeature) => data.accession;
 
 type UniParcFeaturesViewProps = {
   data: SequenceFeature[];
