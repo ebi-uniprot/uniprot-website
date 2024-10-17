@@ -1,10 +1,11 @@
-import ReviewedUnreviewedTabs from './ReviewedUnreviewedTabs';
+import UniProtKBStatsTabs from './UniProtKBStatsTabs';
 import StatsTable from './StatsTable';
 
 import { CategoryName, CategoryToStatistics } from './StatisticsPage';
 
 type Props = {
   categoryName: CategoryName;
+  uniprotkbData: CategoryToStatistics;
   reviewedData: CategoryToStatistics;
   unreviewedData: CategoryToStatistics;
   reviewedCaption?: string;
@@ -12,12 +13,14 @@ type Props = {
   title?: string;
   countLabel?: string;
   nameLabel?: string;
+  uniprotkbNumberReleaseEntries: number;
   reviewedNumberReleaseEntries: number;
   unreviewedNumberReleaseEntries: number;
 };
 
-const ReviewedUnreviewedStatsTable = ({
+const UniProtKBStatsTable = ({
   categoryName,
+  uniprotkbData,
   reviewedData,
   unreviewedData,
   title,
@@ -25,10 +28,20 @@ const ReviewedUnreviewedStatsTable = ({
   nameLabel,
   reviewedCaption,
   unreviewedCaption,
+  uniprotkbNumberReleaseEntries,
   reviewedNumberReleaseEntries,
   unreviewedNumberReleaseEntries,
 }: Props) => (
-  <ReviewedUnreviewedTabs title={title || reviewedData[categoryName].label}>
+  <UniProtKBStatsTabs title={title || reviewedData[categoryName].label}>
+    <StatsTable
+      key="uniprotkb"
+      dataset="uniprotkb"
+      category={uniprotkbData[categoryName]}
+      countLabel={countLabel}
+      nameLabel={nameLabel}
+      caption={reviewedCaption}
+      numberReleaseEntries={uniprotkbNumberReleaseEntries}
+    />
     <StatsTable
       key="reviewed"
       dataset="reviewed"
@@ -47,7 +60,7 @@ const ReviewedUnreviewedStatsTable = ({
       caption={unreviewedCaption}
       numberReleaseEntries={unreviewedNumberReleaseEntries}
     />
-  </ReviewedUnreviewedTabs>
+  </UniProtKBStatsTabs>
 );
 
-export default ReviewedUnreviewedStatsTable;
+export default UniProtKBStatsTable;
