@@ -9,7 +9,9 @@ import {
 } from 'react';
 import { DataTable, Chip, Loader, Button } from 'franklin-sites';
 import cn from 'classnames';
+import { v1 } from 'uuid';
 import { Except } from 'type-fest';
+import NightingaleTrack from '@nightingale-elements/nightingale-track';
 
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
@@ -45,14 +47,6 @@ const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_expect: colors.outerSpace,
 };
 
-type TrackNodeData = {
-  start: number;
-  end: number;
-  color: string | undefined;
-  shape?: string;
-  opacity?: number;
-};
-
 type BlastSummaryTrackProps = {
   hsp: BlastHsp;
   queryLength: number;
@@ -77,7 +71,7 @@ const BlastSummaryTrack = ({
   const { hsp_query_from, hsp_query_to } = hsp;
 
   const setTrackData = useCallback(
-    (node: { data: TrackNodeData[] }): void => {
+    (node: NightingaleTrack | null): void => {
       if (node) {
         /**
          * TODO - would be nice to add gaps
@@ -106,18 +100,21 @@ const BlastSummaryTrack = ({
         // eslint-disable-next-line no-param-reassign
         node.data = [
           {
+            accession: v1().toString(),
             start: 1,
             end: hsp.hsp_query_from,
             shape: 'line',
             color,
           },
           {
+            accession: v1().toString(),
             start: hsp.hsp_query_from,
             end: hsp.hsp_query_to,
             color,
             opacity,
           },
           {
+            accession: v1().toString(),
             start: hsp.hsp_query_to,
             end: hitLength > hsp.hsp_query_to ? hitLength : hsp.hsp_query_to,
             shape: 'line',

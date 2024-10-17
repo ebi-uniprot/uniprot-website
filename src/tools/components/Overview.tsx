@@ -1,5 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import NightingaleTrack, {
+  Feature,
+} from '@nightingale-elements/nightingale-track';
+import NightingaleManager from '@nightingale-elements/nightingale-manager';
+
 import NightingaleNavigationComponent from '../../shared/custom-elements/NightingaleNavigation';
 import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
 import NightingaleManagerComponent from '../../shared/custom-elements/NightingaleManager';
@@ -102,7 +108,7 @@ const AlignOverview = ({
     [alignment, initialDisplayEnd]
   );
   const navigationRef = useCallback(
-    (node) => {
+    (node: NightingaleNavigation) => {
       if (node && initialDisplayEnd) {
         node['display-start'] = 1;
         node['display-end'] = initialDisplayEnd;
@@ -111,19 +117,10 @@ const AlignOverview = ({
     [initialDisplayEnd]
   );
   const managerRef = useCallback(
-    (node: {
-      addEventListener: (
-        name: 'change',
-        event: ({ detail }: { detail: EventDetail }) => void
-      ) => void;
-      setAttribute: (
-        attributre: 'display-start' | 'display-end' | 'height',
-        value: number
-      ) => void;
-    }): void => {
+    (node: NightingaleManager | null): void => {
       if (node && initialDisplayEnd) {
-        node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
-          findHighlightPositions(detail)
+        node.addEventListener('change', (event) =>
+          findHighlightPositions((event as CustomEvent).detail)
         );
         setHighlightPosition(
           (highlight) =>
@@ -144,13 +141,13 @@ const AlignOverview = ({
   }, [updateTooltip]);
 
   const setFeatureTrackData = useCallback(
-    (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
+    (node: NightingaleTrack | null): void => {
       if (node && activeAnnotation && activeAlignment?.sequence) {
         node.data = activeAnnotation
           // The Overview feature track always starts from the start of the protein
           // hence the need to have `from` := 1
           .map((f) => createGappedFeature(f, activeAlignment?.sequence, 1))
-          .filter(Boolean);
+          .filter((f): f is Feature => Boolean(f));
       }
     },
     [activeAlignment?.sequence, activeAnnotation]

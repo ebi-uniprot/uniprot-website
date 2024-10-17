@@ -7,7 +7,6 @@ import {
   useState,
 } from 'react';
 import { Feature } from '@nightingale-elements/nightingale-track';
-import TransformedVariant from 'protvista-variation-adapter';
 
 import LazyComponent from '../LazyComponent';
 
@@ -92,7 +91,7 @@ export type ProcessedFeature = Feature & {
 
 export type GenericFeature =
   | ProcessedFeature
-  | TransformedVariant // TODO: do we need this here?
+  // | TransformedVariant // TODO: do we need this here?
   | UniParcProcessedFeature;
 
 export type FeatureColumnConfiguration = {

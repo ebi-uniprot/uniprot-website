@@ -10,6 +10,9 @@ import {
 } from 'react';
 import { debounce } from 'lodash-es';
 import { Region } from '@nightingale-elements/nightingale-msa';
+import NightingaleTrack, {
+  Feature,
+} from '@nightingale-elements/nightingale-track';
 
 import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
 
@@ -118,7 +121,7 @@ export const WrappedRow = ({
   lastRow,
 }: WrappedRowProps) => {
   const setFeatureTrackData = useCallback(
-    (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
+    (node: NightingaleTrack | null): void => {
       if (node && activeAlignment?.sequence) {
         node.data = activeAnnotation
           .map((f) =>
@@ -130,7 +133,7 @@ export const WrappedRow = ({
               activeAlignment?.from
             )
           )
-          .filter(Boolean);
+          .filter((f): f is Feature => Boolean(f));
       }
     },
     // TODO: replace this with fragments to have one big grid
