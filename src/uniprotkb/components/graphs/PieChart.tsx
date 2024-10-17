@@ -42,6 +42,7 @@ export const distributeByEntryCount = (data: StatisticsGraphItem[]) => {
   a[n - 1] = sorted[middle];
   return a;
 };
+
 // Create the pie layout and arc generators
 const pie = d3pie<StatisticsGraphItem>()
   .sort(null) // use null to keep order in original data
@@ -78,7 +79,7 @@ const getRenderPieChart =
   ): void => {
     // Create the color scale.
     const color = scaleOrdinal<number, string>()
-      .domain([0, data.length])
+      .domain([0, data.length - 1])
       .range(colorScheme[data.length]);
 
     // Get the SVG container.
@@ -168,22 +169,30 @@ type StatisticsChartProps = {
   data?: StatisticsGraphItem[];
   type: string;
   colorScheme?: string[][];
+  // Keep the order of data stable to not have the slices re-order
+  stableSlices?: boolean;
 };
 
 const PieChart = ({
   data,
   type,
   colorScheme = schemeBlues as string[][],
+  stableSlices,
 }: StatisticsChartProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const renderPieChart = useMemo(() => getRenderPieChart(), []);
   useEffect(() => {
     if (svgRef.current && data) {
-      renderPieChart(svgRef.current, distributeByEntryCount(data), colorScheme);
+      renderPieChart(
+        svgRef.current,
+        stableSlices ? data : distributeByEntryCount(data),
+        colorScheme
+      );
     }
-  }, [renderPieChart, data, colorScheme]);
+  }, [renderPieChart, data, colorScheme, stableSlices]);
 
+  const total = data?.reduce((acc, d) => acc + d.entryCount, 0) || 0;
   return (
     <svg ref={svgRef} className={styles.piechart} width={width} height={height}>
       <g transform={`translate(${width / 2},${height / 2})`}>
@@ -191,6 +200,7 @@ const PieChart = ({
           <g className={styles.slice} key={datum.name} data-key={datum.name}>
             <path />
             <polyline />
+            <text />
             <foreignObject>
               {datum.to ? (
                 <Link
@@ -201,7 +211,11 @@ const PieChart = ({
                   {datum.name}
                 </Link>
               ) : (
-                <span>{datum.name}</span>
+                <span>
+                  {datum.name}
+                  <br />
+                  {Math.round((datum.entryCount / total) * 100)}%
+                </span>
               )}
             </foreignObject>
           </g>

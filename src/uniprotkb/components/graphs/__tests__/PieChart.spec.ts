@@ -1,7 +1,7 @@
 import { StatisticsGraphItem, distributeByEntryCount } from '../PieChart';
 
 const toStatisticsGraphItem = (numbers: number[]) =>
-  numbers.map((number) => ({ entryCount: number } as StatisticsGraphItem));
+  numbers.map((number) => ({ entryCount: number }) as StatisticsGraphItem);
 
 const fromStatisticsGraphItem = (items: StatisticsGraphItem[]) =>
   items.map(({ entryCount }) => entryCount);

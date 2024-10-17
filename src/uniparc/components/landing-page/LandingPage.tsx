@@ -7,6 +7,10 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import {
+  useMediumScreen,
+  useSmallScreen,
+} from '../../../shared/hooks/useMatchMedia';
 
 import {
   LocationToPath,
@@ -24,10 +28,6 @@ import { FacetsEnum } from '../../config/UniParcFacetConfiguration';
 import styles from './styles/landing-page.module.scss';
 
 import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
-import {
-  useMediumScreen,
-  useSmallScreen,
-} from '../../../shared/hooks/useMatchMedia';
 
 // TODO: when we do have videos for UniParc, update list and expose
 // const tutorialsInfo = [
