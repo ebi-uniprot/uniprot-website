@@ -6,10 +6,6 @@ import AddToBasketButton from '../../shared/components/action-buttons/AddToBaske
 import { RichText } from '../components/protein-data-views/FreeTextView';
 
 import { getURLToJobWithData } from '../../app/config/urls';
-import {
-  NightingaleViewRange,
-  withinRange,
-} from '../../shared/utils/nightingale';
 
 import externalUrls from '../../shared/config/externalUrls';
 
