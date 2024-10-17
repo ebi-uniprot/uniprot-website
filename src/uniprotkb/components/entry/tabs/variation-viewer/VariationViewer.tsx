@@ -477,7 +477,9 @@ const VariationViewer = ({
 
   // Filter data on every filter interaction out of the memoised sorted data
   const filteredVariants = useMemo(
-    () => sortedVariants && applyFilters(sortedVariants, filters),
+    () =>
+      sortedVariants &&
+      applyFilters(sortedVariants as TransformedVariant[], filters),
     [sortedVariants, filters]
   );
 
