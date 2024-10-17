@@ -25,6 +25,7 @@ const UniqueReferencesTable = ({
           accessor: 'count',
         },
       ]}
+      excludeUniProtKB
     />
   );
 };
