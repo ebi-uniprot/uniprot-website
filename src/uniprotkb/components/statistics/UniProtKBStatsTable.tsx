@@ -35,7 +35,7 @@ const UniProtKBStatsTable = ({
   <UniProtKBStatsTabs title={title || reviewedData[categoryName].label}>
     <StatsTable
       key="uniprotkb"
-      dataset="uniprotkb"
+      dataset="UniProtKB"
       category={uniprotkbData[categoryName]}
       countLabel={countLabel}
       nameLabel={nameLabel}

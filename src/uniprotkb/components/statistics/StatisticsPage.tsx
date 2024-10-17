@@ -94,6 +94,42 @@ export type TableProps = {
   unreviewedData: StatisticsCategory;
 };
 
+export const nameToThreeLetterAACode = new Map([
+  ['AMINO_ACID_X', 'Xaa'],
+  ['AMINO_ACID_U', 'Sec'],
+  ['AMINO_ACID_B', 'Asx'],
+  ['AMINO_ACID_Z', 'Glx'],
+  ['AMINO_ACID_O', 'Pyl'],
+]);
+
+const threeToOneLetterAACode = new Map([
+  ['Ala', 'A'],
+  ['Arg', 'R'],
+  ['Asn', 'N'],
+  ['Asp', 'D'],
+  ['Cys', 'C'],
+  ['Gln', 'Q'],
+  ['Glu', 'E'],
+  ['Gly', 'G'],
+  ['His', 'H'],
+  ['Ile', 'I'],
+  ['Leu', 'L'],
+  ['Lys', 'K'],
+  ['Met', 'M'],
+  ['Phe', 'F'],
+  ['Pro', 'P'],
+  ['Ser', 'S'],
+  ['Thr', 'T'],
+  ['Trp', 'W'],
+  ['Tyr', 'Y'],
+  ['Val', 'V'],
+  ['Xaa', 'X'],
+  ['Sec', 'U'],
+  ['Asx', 'B'],
+  ['Glx', 'Z'],
+  ['Pyl', 'O'],
+]);
+
 const IntroductionEntriesTable = ({
   uniprotkbData,
   reviewedData,
@@ -847,13 +883,15 @@ const StatisticsPage = () => {
             </div>
             <StatsTable
               key="uniprotkb"
-              dataset="uniprotkb"
+              dataset="UniProtKB"
               category={setAminoAcidsTotalCount(
                 uniprotkbData.SEQUENCE_AMINO_ACID
               )}
               nameLabel="Amino acid"
               alwaysExpand
               numberReleaseEntries={uniprotkbNumberReleaseEntries}
+              abbreviationLabel="1-letter code"
+              nameToAbbreviation={threeToOneLetterAACode}
             />
           </div>
           <div className={styles['side-by-side']}>
@@ -907,7 +945,7 @@ const StatisticsPage = () => {
         <UniProtKBStatsTable
           title="Encoded Locations"
           categoryName="MISCELLANEOUS"
-          uniprotkbData={uniprotkbData}
+          uniprotkbData={getEncodedLocations(uniprotkbData)}
           reviewedData={getEncodedLocations(reviewedData)}
           unreviewedData={getEncodedLocations(unreviewedData)}
           nameLabel="Encoded location"
