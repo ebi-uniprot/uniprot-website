@@ -150,7 +150,7 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
             class="query-sequence-wrapper"
           >
             <nightingale-navigation
-              style="width: 100%; height: 100%;"
+              style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
               title="Query"
             />
           </div>
@@ -212,7 +212,7 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
                 >
                   <nightingale-track
                     data-testid="blast-summary-track"
-                    style="width: 100%; height: 100%;"
+                    style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
                     title="Start: 3
 End: 30
 Hit length: 486"

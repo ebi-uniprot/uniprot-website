@@ -58,6 +58,7 @@ describe('VariationViewer component', () => {
     );
     expect(asFragment()).toMatchSnapshot();
 
-    expect(screen.getAllByRole('row')).toHaveLength(P0DPR3.features.length);
+    // Add 1 for thead row
+    expect(screen.getAllByRole('row')).toHaveLength(P0DPR3.features.length + 1);
   });
 });

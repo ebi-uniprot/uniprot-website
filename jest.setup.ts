@@ -50,6 +50,25 @@ jest.mock('react', () => ({
   useId: mockedUseId,
 }));
 
+beforeAll(() => {
+  global.ResizeObserver = class ResizeObserver {
+    // eslint-disable-next-line class-methods-use-this
+    observe() {
+      // do nothing
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    unobserve() {
+      // do nothing
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    disconnect() {
+      // do nothing
+    }
+  };
+});
+
 /* "Fail on console error" util */
 // Uncomment to have jest stop when a console error is shown in order to fix it
 // Recommended to use with Jest's "--bail" option
