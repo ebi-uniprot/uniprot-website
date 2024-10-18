@@ -69,23 +69,19 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                 <tr>
                   <th
                     class=""
-                    data-column-name="reviewed"
                   />
                   <th
                     class=""
-                    data-column-name="protein_name"
                   >
                     Protein name
                   </th>
                   <th
                     class=""
-                    data-column-name="organism"
                   >
                     Organism
                   </th>
                   <th
                     class=""
-                    data-column-name="length"
                   >
                     Length
                   </th>
@@ -187,23 +183,19 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
                 <tr>
                   <th
                     class=""
-                    data-column-name="reviewed"
                   />
                   <th
                     class=""
-                    data-column-name="protein_name"
                   >
                     Protein name
                   </th>
                   <th
                     class=""
-                    data-column-name="organism"
                   >
                     Organism
                   </th>
                   <th
                     class=""
-                    data-column-name="length"
                   >
                     Length
                   </th>

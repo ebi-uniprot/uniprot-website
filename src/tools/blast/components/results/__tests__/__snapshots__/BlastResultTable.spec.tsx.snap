@@ -67,74 +67,90 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
         </th>
         <th
           class=""
-          data-column-name="accession"
         >
-          <span>
-            Entry
+          <span
+            aria-expanded="false"
+          >
+            <span>
+              Entry
+            </span>
           </span>
         </th>
         <th
           class=""
-          data-column-name="reviewed"
         />
         <th
           class=""
-          data-column-name="id"
         >
           <span
-            data-article-id="entry_name"
+            aria-expanded="false"
           >
-            Entry Name
+            <span
+              data-article-id="entry_name"
+            >
+              Entry Name
+            </span>
           </span>
         </th>
         <th
           class=""
-          data-column-name="protein_name"
         >
           <span
-            data-article-id="protein_names"
+            aria-expanded="false"
           >
-            Protein Names
+            <span
+              data-article-id="protein_names"
+            >
+              Protein Names
+            </span>
           </span>
         </th>
         <th
           class=""
-          data-column-name="gene_names"
         >
           <span
-            data-article-id="gene_name"
+            aria-expanded="false"
           >
-            Gene Names
+            <span
+              data-article-id="gene_name"
+            >
+              Gene Names
+            </span>
           </span>
         </th>
         <th
           class=""
-          data-column-name="organism_name"
         >
           <span
-            data-article-id="organism-name"
+            aria-expanded="false"
           >
-            Organism
+            <span
+              data-article-id="organism-name"
+            >
+              Organism
+            </span>
           </span>
         </th>
         <th
           class=""
-          data-column-name="length"
         >
-          <span>
-            Length
+          <span
+            aria-expanded="false"
+          >
+            <span>
+              Length
+            </span>
           </span>
         </th>
         <th
           class=""
-          data-column-name="alignment"
           style="width: 40vw;"
         >
           <div
             class="query-sequence-wrapper"
           >
-            <protvista-navigation
-              length="30"
+            <nightingale-navigation
+              style="width: 100%; height: 100%;"
               title="Query"
             />
           </div>
@@ -194,10 +210,9 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
                 <section
                   class="data-table__blast-hsp__blast-track"
                 >
-                  <protvista-track
+                  <nightingale-track
                     data-testid="blast-summary-track"
-                    height="10"
-                    length="30"
+                    style="width: 100%; height: 100%;"
                     title="Start: 3
 End: 30
 Hit length: 486"
