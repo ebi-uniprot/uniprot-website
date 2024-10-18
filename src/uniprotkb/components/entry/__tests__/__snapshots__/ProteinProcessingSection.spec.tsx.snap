@@ -94,126 +94,18 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               length="10"
             />
             <nightingale-track
-              display-end="-1"
-              display-start="1"
               height="40"
-              highlight-color="#FFEB3B66"
+              layout="non-overlapping"
               length="10"
-              min-height="10"
-              min-width="10"
               no-scroll="true"
-              style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
-            >
-              <!---->
-              <svg
-                class="container"
-                height="40"
-              >
-                <g
-                  class="sequence-features"
-                >
-                  <g
-                    class="feature-group"
-                    id="g_0"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L-7,0L-7,13L0,13Z"
-                          stroke="#CC9933"
-                          style="fill: #CC9933; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(9,14.5)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(9,14.5)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_1"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L-1,0L-1,13L0,13Z"
-                          stroke="black"
-                          style="fill: black; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(-204,14.5)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(-204,14.5)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
+            />
             <nightingale-sequence
-              display-end="-1"
-              display-start="1"
               height="20"
-              highlight-color="#FFEB3B66"
               length="10"
-              min-height="10"
-              min-width="10"
               no-scroll="true"
               numberofticks="0"
-              style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
-            >
-              <!---->
-              <svg
-                class="container"
-                height="20"
-                id=""
-                width="10"
-              >
-                <g
-                  class="background"
-                />
-                <g
-                  class="x axis"
-                />
-                <g
-                  class="sequence"
-                  transform="translate(0,15)"
-                />
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-sequence>
+              sequence="SAPSQDFMRF"
+            />
             <!---->
           </nightingale-manager>
         </div>
@@ -597,126 +489,18 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               length="772"
             />
             <nightingale-track
-              display-end="-1"
-              display-start="1"
               height="40"
-              highlight-color="#FFEB3B66"
+              layout="non-overlapping"
               length="772"
-              min-height="10"
-              min-width="10"
               no-scroll="true"
-              style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
-            >
-              <!---->
-              <svg
-                class="container"
-                height="40"
-              >
-                <g
-                  class="sequence-features"
-                >
-                  <g
-                    class="feature-group"
-                    id="g_0"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L-0.34974093264248707,0L-0.34974093264248707,13L0,13Z"
-                          stroke="#CC0033"
-                          style="fill: #CC0033; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,14.5)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,14.5)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_1"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L-9.650259067357513,0L-9.650259067357513,13L0,13Z"
-                          stroke="#CC9933"
-                          style="fill: #CC9933; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(9.650259067357513,14.5)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(9.650259067357513,14.5)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
+            />
             <nightingale-sequence
-              display-end="-1"
-              display-start="1"
               height="20"
-              highlight-color="#FFEB3B66"
               length="772"
-              min-height="10"
-              min-width="10"
               no-scroll="true"
               numberofticks="0"
-              style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
-            >
-              <!---->
-              <svg
-                class="container"
-                height="20"
-                id=""
-                width="10"
-              >
-                <g
-                  class="background"
-                />
-                <g
-                  class="x axis"
-                />
-                <g
-                  class="sequence"
-                  transform="translate(0,15)"
-                />
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-sequence>
+              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+            />
             <!---->
           </nightingale-manager>
         </div>
