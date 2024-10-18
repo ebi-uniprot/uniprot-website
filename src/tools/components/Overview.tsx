@@ -257,7 +257,7 @@ const AlignOverview = ({
                     s.sequence,
                     displayPosition[1] ?? initialDisplayEnd ?? 0
                   )
-                : displayPosition[1] ?? initialDisplayEnd ?? 0
+                : (displayPosition[1] ?? initialDisplayEnd ?? 0)
             )}
           </div>
         ))}
