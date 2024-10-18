@@ -150,7 +150,10 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
             class="query-sequence-wrapper"
           >
             <nightingale-navigation
-              style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
+              height="40"
+              length="30"
+              margin-left="0"
+              margin-right="0"
               title="Query"
             />
           </div>

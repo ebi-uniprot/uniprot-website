@@ -22,6 +22,8 @@ jest.mock('interaction-viewer', () => null);
 
 jest.mock('/shared/custom-elements/NightingaleMSA', () => jest.fn());
 
+jest.mock('@nightingale-elements/nightingale-navigation', () => jest.fn());
+
 global.beforeEach(() => {
   resetUuidV1();
 });
