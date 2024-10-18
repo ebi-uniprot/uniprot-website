@@ -1,11 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { LongNumber, Button } from 'franklin-sites';
 
-import {
-  nameToThreeLetterAACode,
-  CategoryName,
-  StatisticsCategory,
-} from './StatisticsPage';
+import { CategoryName, StatisticsCategory } from './StatisticsPage';
 
 import styles from './styles/statistics-page.module.scss';
 
@@ -151,10 +147,8 @@ const StatsTable = ({
             const abbreviation =
               abbreviationLabel &&
               nameToAbbreviation &&
-              nameToAbbreviation.get(
-                (row.label || nameToThreeLetterAACode.get(row.name)) as string
-              );
-            const label = row.label || row.name;
+              nameToAbbreviation.get(row.label as string);
+
             return (
               <tr key={row.name}>
                 {/* Name */}
@@ -168,9 +162,7 @@ const StatsTable = ({
                     undefined
                   }
                 >
-                  {abbreviation
-                    ? row.label || nameToThreeLetterAACode.get(row.name)
-                    : label}
+                  {row.label || row.name}
                 </td>
                 {abbreviation && <td>{abbreviation}</td>}
                 {/* Count */}

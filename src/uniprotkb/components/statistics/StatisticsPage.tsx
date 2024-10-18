@@ -17,9 +17,9 @@ import CountLinkOrNothing from './CountLinkOrNothing';
 import UniProtKBStatsTable from './UniProtKBStatsTable';
 import ReviewedSequenceCorrections from './ReviewedSequenceCorrections';
 import SequenceLengthLinePlot from './SequenceLengthLinePlot';
-import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
+import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 import InPageNav from '../../../shared/components/InPageNav';
 
@@ -31,7 +31,6 @@ import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import {
   MergedStatisticsItem,
-  setAminoAcidsTotalCount,
   getEncodedLocations,
   getSequenceSizeLocation,
   getUniqueAuthorString,
@@ -93,42 +92,6 @@ export type TableProps = {
   reviewedData: StatisticsCategory;
   unreviewedData: StatisticsCategory;
 };
-
-export const nameToThreeLetterAACode = new Map([
-  ['AMINO_ACID_X', 'Xaa'],
-  ['AMINO_ACID_U', 'Sec'],
-  ['AMINO_ACID_B', 'Asx'],
-  ['AMINO_ACID_Z', 'Glx'],
-  ['AMINO_ACID_O', 'Pyl'],
-]);
-
-const threeToOneLetterAACode = new Map([
-  ['Ala', 'A'],
-  ['Arg', 'R'],
-  ['Asn', 'N'],
-  ['Asp', 'D'],
-  ['Cys', 'C'],
-  ['Gln', 'Q'],
-  ['Glu', 'E'],
-  ['Gly', 'G'],
-  ['His', 'H'],
-  ['Ile', 'I'],
-  ['Leu', 'L'],
-  ['Lys', 'K'],
-  ['Met', 'M'],
-  ['Phe', 'F'],
-  ['Pro', 'P'],
-  ['Ser', 'S'],
-  ['Thr', 'T'],
-  ['Trp', 'W'],
-  ['Tyr', 'Y'],
-  ['Val', 'V'],
-  ['Xaa', 'X'],
-  ['Sec', 'U'],
-  ['Asx', 'B'],
-  ['Glx', 'Z'],
-  ['Pyl', 'O'],
-]);
 
 const IntroductionEntriesTable = ({
   uniprotkbData,
@@ -881,17 +844,10 @@ const StatisticsPage = () => {
                 />
               </LazyComponent>
             </div>
-            <StatsTable
-              key="uniprotkb"
+            <AminoAcidCompositionTable
               dataset="UniProtKB"
-              category={setAminoAcidsTotalCount(
-                uniprotkbData.SEQUENCE_AMINO_ACID
-              )}
-              nameLabel="Amino acid"
-              alwaysExpand
+              data={uniprotkbData.SEQUENCE_AMINO_ACID}
               numberReleaseEntries={uniprotkbNumberReleaseEntries}
-              abbreviationLabel="1-letter code"
-              nameToAbbreviation={threeToOneLetterAACode}
             />
           </div>
           <div className={styles['side-by-side']}>
@@ -904,14 +860,9 @@ const StatisticsPage = () => {
                 <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
               </LazyComponent>
             </div>
-            <StatsTable
-              key="reviewed"
+            <AminoAcidCompositionTable
               dataset="reviewed"
-              category={setAminoAcidsTotalCount(
-                reviewedData.SEQUENCE_AMINO_ACID
-              )}
-              nameLabel="Amino acid"
-              alwaysExpand
+              data={reviewedData.SEQUENCE_AMINO_ACID}
               numberReleaseEntries={reviewedNumberReleaseEntries}
             />
           </div>
@@ -927,14 +878,9 @@ const StatisticsPage = () => {
                 />
               </LazyComponent>
             </div>
-            <StatsTable
-              key="unreviewed"
+            <AminoAcidCompositionTable
               dataset="unreviewed"
-              category={setAminoAcidsTotalCount(
-                unreviewedData.SEQUENCE_AMINO_ACID
-              )}
-              nameLabel="Amino acid"
-              alwaysExpand
+              data={unreviewedData.SEQUENCE_AMINO_ACID}
               numberReleaseEntries={unreviewedNumberReleaseEntries}
             />
           </div>
