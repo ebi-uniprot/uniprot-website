@@ -14,11 +14,11 @@ import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
 import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
+import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
 
 import styles from './styles/landing-page.module.scss';
 
 import SpeciesIllustration from '../../../images/cluster_illustration.img.svg';
-import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
 
 const datasets = ['UniRef100', 'UniRef90', 'UniRef50'];
 
@@ -28,11 +28,11 @@ const documentationLinks = [
     id: 'uniref',
   },
   {
-    label: 'UniRef Cluster',
+    label: 'UniRef cluster',
     id: 'uniref_cluster',
   },
   {
-    label: 'UniRef Seed',
+    label: 'UniRef seed',
     id: 'uniref_seed',
   },
   {
@@ -198,7 +198,7 @@ const LandingPage = () => {
                         }),
                       }}
                     >
-                      <LongNumber>{identity100Count}</LongNumber> entries
+                      <LongNumber>{identity100Count}</LongNumber> clusters
                     </Link>
                   )}
                 </span>
@@ -215,7 +215,7 @@ const LandingPage = () => {
                         }),
                       }}
                     >
-                      <LongNumber>{identity90Count}</LongNumber> entries
+                      <LongNumber>{identity90Count}</LongNumber> clusters
                     </Link>
                   )}
                 </span>
@@ -232,7 +232,7 @@ const LandingPage = () => {
                         }),
                       }}
                     >
-                      <LongNumber>{identity50Count}</LongNumber> entries
+                      <LongNumber>{identity50Count}</LongNumber> clusters
                     </Link>
                   )}
                 </span>
