@@ -37,37 +37,6 @@ export type Fragment = {
 
 export type LocationModifier = 'EXACT' | 'OUTSIDE' | 'UNSURE' | 'UNKNOWN';
 
-/*
-export type Feature = {
-  accession: string;
-  color?: string;
-  fill?: string;
-  shape?: Shapes;
-  tooltipContent?: string;
-  type?: string;
-  locations?: Array<FeatureLocation>;
-  feature?: Feature;
-  start?: number;
-  end?: number;
-  opacity?: number;
-
-  export type VariationDatum = {
-  accession: string;
-  variant: string;
-  start: number;
-  size?: number;
-  xrefNames: string[];
-  hasPredictions: boolean;
-  tooltipContent?: string;
-  alternativeSequence?: string;
-  internalId?: string;
-  wildType?: string;
-  color?: string;
-  consequenceType: string;
-};
-};
-
-*/
 export type ProcessedFeature = Feature & {
   id?: string; // Used for the feature ID eg PRO_0000381966 while Feature.accession used as the UUID
   start: number;

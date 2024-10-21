@@ -1,5 +1,6 @@
 import { Feature } from '@nightingale-elements/nightingale-track';
 import { useCallback, memo } from 'react';
+
 import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
 
 type AlignmentOverviewProps = {

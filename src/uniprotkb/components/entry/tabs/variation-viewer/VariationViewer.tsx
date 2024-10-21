@@ -235,7 +235,7 @@ const getColumns = (
             id: evidence?.source?.id,
             source: evidence?.source?.name,
             url: evidence?.source?.url,
-          } as Evidence)
+          }) as Evidence
       );
 
       return data.descriptions?.length ? (
@@ -584,7 +584,7 @@ const VariationViewer = ({
       <NightingaleManagerComponent
         reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
         ref={managerRef}
-        highlight={getHighlightedCoordinates(highlightedVariant)} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
+        highlight={getHighlightedCoordinates(highlightedVariant)}
       >
         <Suspense fallback={null}>
           <VisualVariationView

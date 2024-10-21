@@ -22,9 +22,9 @@ import { TabLocation } from '../../../uniprotkb/types/entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
 import { NightingaleViewRange } from '../../utils/nightingale';
+import { ProcessedFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
-import { ProcessedFeature } from './FeaturesView';
 
 function getHighlightedCoordinates<T extends ProcessedFeature>(feature?: T) {
   return feature?.start && feature?.end
@@ -134,7 +134,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
       <NightingaleManagerComponent
         ref={managerRef}
         reflected-attributes="highlight,display-start,display-end,selectedid"
-        highlight={getHighlightedCoordinates(highlightedFeature)} // TODO: check in the nightingale code base to see if it is wired up to view the changes. Make sure the property setting logic is correct.
+        highlight={getHighlightedCoordinates(highlightedFeature)}
       >
         <NightingaleNavigationComponent
           ref={navigationRef}
