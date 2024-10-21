@@ -9,7 +9,7 @@ const HeaderContent = () => (
   </h1>
 );
 
-// TODO: do we want this for the documentation?
+// TODO: do we want this for the API documentation?
 // const organizationSchema: WithContext<Organization> = {
 //   '@context': 'https://schema.org',
 //   '@type': 'Organization',
@@ -24,7 +24,7 @@ const HeaderContent = () => (
 //   },
 // };
 
-const DocumentationHeader = () => (
+const ApiDocumentationHeader = () => (
   <Header
     // TODO: add search when API supports this
     // search={<SearchContainer/>}
@@ -39,4 +39,4 @@ const DocumentationHeader = () => (
   </Header>
 );
 
-export default DocumentationHeader;
+export default ApiDocumentationHeader;

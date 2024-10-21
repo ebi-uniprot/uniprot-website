@@ -134,7 +134,7 @@ export const LocationToPath: Record<Location, string> = {
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
-  [Location.Documentation]: '/documentation/:definition?',
+  [Location.Documentation]: '/api-documentation/:definition?',
   // News
   [Location.ReleaseNotesEntry]: '/release-notes/:accession+',
   [Location.ReleaseNotesResults]: '/release-notes',

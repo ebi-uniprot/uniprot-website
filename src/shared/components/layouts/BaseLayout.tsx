@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import UniProtHeader from './UniProtHeader';
-import DocumentationHeader from './DocumentationHeader';
+import ApiDocumentationHeader from './ApiDocumentationHeader';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import MessageManagerContainer from '../../../messages/components/MessageManagerContainer';
 
@@ -17,7 +17,7 @@ const BaseLayout = ({ children }: { children: ReactNode }) => (
         <Switch>
           <Route
             path={LocationToPath[Location.Documentation]}
-            component={DocumentationHeader}
+            component={ApiDocumentationHeader}
           />
           <Route path="*" component={UniProtHeader} />
         </Switch>
