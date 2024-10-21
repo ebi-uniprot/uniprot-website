@@ -1,0 +1,70 @@
+@import 'franklin-sites/src/styles/settings';
+
+.landing-page {
+  margin-block: 2 * $global-margin;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.image-container {
+  display: grid;
+  place-items: center;
+}
+
+.statistics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.chart {
+  text-align: center;
+}
+
+.entries-count {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  p {
+    display: flex;
+    gap: $global-margin;
+  }
+}
+
+.ref-prot-icon {
+  color: var(--fr--color-reference-proteome);
+}
+
+.unreviewed-icon {
+  color: var(--fr--color-unreviewed);
+  /* Extra width was given to align the sizes of the icon, so compensate with
+  margin to have the text after it aligned */
+  margin-inline-end: -1ch;
+}
+
+.download {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  a {
+    margin-inline-end: 0.5 * $global-margin;
+  }
+}
+
+.tutorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__title {
+    // Show maximum 2 lines of the title
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}

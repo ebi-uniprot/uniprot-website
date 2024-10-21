@@ -142,7 +142,7 @@ const CoreData = () => (
       link={
         <Link
           title="UniProt Proteomes, database of protein sets from genomes"
-          to={getNamespaceTo(Location.ProteomesResults)}
+          to={LocationToPath[Location.ProteomesResults]}
         />
       }
       gradient
