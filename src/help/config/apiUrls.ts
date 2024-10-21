@@ -42,6 +42,6 @@ const search = ({
   });
 
 const apiDocumentationDefinition = (d: ApiDocsDefinition) =>
-  `https://rest.uniprot.org/${d}/api/docs`;
+  joinUrl(apiPrefix, d, 'api/docs');
 
 export default { entry, search, apiDocumentationDefinition };
