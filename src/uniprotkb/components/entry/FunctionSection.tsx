@@ -1,5 +1,5 @@
 import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message } from 'franklin-sites';
+import { Card, Loader, Message, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -378,7 +378,7 @@ const FunctionSection = ({
       </ErrorBoundary>
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>
-          <GoCam />
+          <GoCam primaryAccession={primaryAccession} />
         </Suspense>
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
