@@ -362,7 +362,7 @@ const AlignmentView = ({
               checked={activeView === View.overview}
               onChange={() => setActiveView(View.overview)}
             />
-            Overview
+            Continuous
           </label>
           <label>
             <input
