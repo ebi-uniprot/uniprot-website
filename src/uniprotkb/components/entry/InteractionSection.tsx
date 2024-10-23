@@ -12,7 +12,10 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
-import { hasContent } from '../../../shared/utils/utils';
+import {
+  clickOnFranklinDropdown,
+  hasContent,
+} from '../../../shared/utils/utils';
 import externalUrls, {
   getIntActQueryUrl,
 } from '../../../shared/config/externalUrls';
@@ -34,15 +37,6 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { Xref } from '../../../shared/types/apiModel';
 
 import styles from './styles/interaction-section.module.scss';
-
-const clickOnDropdown = (element: HTMLElement) => {
-  (
-    element.closest('.dropdown')?.firstElementChild as
-      | HTMLElement
-      | null
-      | undefined
-  )?.click();
-};
 
 const interactionSorter = (a: Interaction, b: Interaction) => {
   // Normalise what we'll sort on
@@ -308,7 +302,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                               setViewerID(
                                 (event.target as HTMLButtonElement).id
                               );
-                              clickOnDropdown(
+                              clickOnFranklinDropdown(
                                 event.target as HTMLButtonElement
                               );
                             }}

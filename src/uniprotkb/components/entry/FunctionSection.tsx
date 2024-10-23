@@ -377,9 +377,11 @@ const FunctionSection = ({
         </Suspense>
       </ErrorBoundary>
       <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <GoCam primaryAccession={primaryAccession} />
-        </Suspense>
+        <Tabs>
+          <Suspense fallback={<Loader />}>
+            <GoCam primaryAccession={primaryAccession} />
+          </Suspense>
+        </Tabs>
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
