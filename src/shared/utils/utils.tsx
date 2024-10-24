@@ -108,12 +108,3 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
     Object.entries(o).map(([k, v]) => [k.toLowerCase(), v])
   );
 }
-
-export const clickOnFranklinDropdown = (element: HTMLElement) => {
-  (
-    element.closest('.dropdown')?.firstElementChild as
-      | HTMLElement
-      | null
-      | undefined
-  )?.click();
-};
