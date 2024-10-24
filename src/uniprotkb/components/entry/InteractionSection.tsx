@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Dropdown, Tab, Tabs } from 'franklin-sites';
+import { Button, Card, Dropdown, Tab, Tabs, TreeSelect } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -282,38 +282,19 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           {complexPortalXrefs.size ? (
             <Tab cache title="Complex viewer">
               <div className={styles['viewer-ids-container']}>
-                <Dropdown
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  visibleElement={(onClick: () => unknown) => (
-                    <Button variant="primary" onClick={onClick}>
-                      {complexString}
-                    </Button>
+                <TreeSelect
+                  label={complexString}
+                  onSelect={(item) => {
+                    setViewerID(item.id);
+                  }}
+                  defaultActiveNodes={[complexId]}
+                  data={Array.from(complexPortalXrefs.values()).map(
+                    ({ id, properties }) => ({
+                      id,
+                      label: `${id} ${properties?.EntryName || ''}`,
+                    })
                   )}
-                >
-                  <ul className={styles['ids-list']}>
-                    {Array.from(complexPortalXrefs.values()).map(
-                      ({ id, properties }) => (
-                        <li key={id}>
-                          <Button
-                            variant="tertiary"
-                            key={id}
-                            id={id}
-                            onClick={(event) => {
-                              setViewerID(
-                                (event.target as HTMLButtonElement).id
-                              );
-                              clickOnFranklinDropdown(
-                                event.target as HTMLButtonElement
-                              );
-                            }}
-                          >
-                            {id} {properties?.EntryName || ''}
-                          </Button>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </Dropdown>
+                />
                 <LazyComponent>
                   <ComplexViewer complexID={complexId} />
                 </LazyComponent>
