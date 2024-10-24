@@ -1,13 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import cn from 'classnames';
-import {
-  Button,
-  Dropdown,
-  ExternalLink,
-  Loader,
-  Tab,
-  Tabs,
-} from 'franklin-sites';
+import { ExternalLink, Loader, Tab, Tabs, TreeSelect } from 'franklin-sites';
 
 import GoCamViz from '../protein-data-views/GoCamViz';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -15,8 +7,6 @@ import LazyComponent from '../../../shared/components/LazyComponent';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { clickOnFranklinDropdown } from '../../../shared/utils/utils';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -30,15 +20,20 @@ const extractGoCamId = (url: string) => {
 
 const getGoCamStructures = (
   data: GoCamModel[] = []
-): [Map<string, string>, string[]] => {
-  const goCamIdToTitle: Map<string, string> = new Map();
+): [string[], { id: string; label: string }[]] => {
+  const ids = [];
+  const items = [];
   for (const d of data) {
     const goCamId = extractGoCamId(d.gocam);
     if (goCamId) {
-      goCamIdToTitle.set(goCamId, d.title);
+      ids.push(goCamId);
+      items.push({
+        id: goCamId,
+        label: d.title,
+      });
     }
   }
-  return [goCamIdToTitle, Array.from(goCamIdToTitle.keys())];
+  return [ids, items];
 };
 
 export type GoCamModel = {
@@ -57,7 +52,7 @@ const GoCam = ({ primaryAccession }: Props) => {
     isSmallScreen ? null : externalUrls.GeneOntologyModels(primaryAccession)
   );
 
-  const [goCamIdToTitle, goCamIds] = useMemo(
+  const [goCamIds, goCamItems] = useMemo(
     () => getGoCamStructures(data),
     [data]
   );
@@ -84,37 +79,14 @@ const GoCam = ({ primaryAccession }: Props) => {
     <Tabs>
       <Tab title="GO-CAM">
         <div className={styles['go-cam-container']}>
-          <Dropdown
-            // eslint-disable-next-line react/no-unstable-nested-components
-            visibleElement={(onClick: () => unknown) => (
-              <Button variant="primary" onClick={onClick}>
-                Select GO-CAM model
-              </Button>
-            )}
-          >
-            <ul className={styles['ids-list']}>
-              {goCamIds.map((goCamId) => (
-                <li key={goCamId}>
-                  <Button
-                    variant="tertiary"
-                    key={goCamId}
-                    id={goCamId}
-                    onClick={(event) => {
-                      setSelectedId((event.target as HTMLButtonElement).id);
-                      clickOnFranklinDropdown(
-                        event.target as HTMLButtonElement
-                      );
-                    }}
-                    className={cn(styles.item, {
-                      [styles.selected]: goCamId === selectedId,
-                    })}
-                  >
-                    {goCamIdToTitle.get(goCamId)}
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          </Dropdown>
+          <TreeSelect
+            data={goCamItems}
+            label="Select GO-CAM model"
+            onSelect={(item) => {
+              setSelectedId(item.id);
+            }}
+            defaultActiveNodes={[selectedId]}
+          />
           <LazyComponent>
             <GoCamViz id={selectedId} />
           </LazyComponent>
