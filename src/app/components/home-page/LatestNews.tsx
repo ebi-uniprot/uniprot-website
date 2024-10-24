@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'When the opportunity to write a piece on urine arose, I thought "wonderful, here\'s something we can all relate to". I had no idea, however, where it was going to lead me: ...';
+  'Things may appear different to you depending on how you look at them - or at which angle you approach them. What you will make of them will also depend on what you already know about them...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -335,21 +335,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/271/"
+            url="https://www.proteinspotlight.org/back_issues/272/"
             noIcon
           >
-            Liquid yellow
+            Cutting edges
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/271/"
+          url="https://www.proteinspotlight.org/back_issues/272/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt271.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt272.jpg"
             alt=""
             width="123"
             height="129"

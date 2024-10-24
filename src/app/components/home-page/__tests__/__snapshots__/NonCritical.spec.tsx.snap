@@ -594,17 +594,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/271/"
+          href="https://www.proteinspotlight.org/back_issues/272/"
           rel="noopener"
           target="_blank"
         >
-          Liquid yellow
+          Cutting edges
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/271/"
+        href="https://www.proteinspotlight.org/back_issues/272/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -613,14 +613,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt271.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt272.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          When  the  opportunity  to  write  a  piece  on  urine  arose,  I  thought  "wonderful,  here's  something  we  can  all  relate  to".  I  had  no  idea,  however,  where  it  was  going  to  lead  me:  ...
+          Things  may  appear  different  to  you  depending  on  how  you  look  at  them  -  or  at  which  angle  you  approach  them.  What  you  will  make  of  them  will  also  depend  on  what  you  already  know  about  them...
       </p>
     </article>
   </section>
