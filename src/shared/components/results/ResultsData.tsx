@@ -68,7 +68,7 @@ const ResultsData = ({
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
   const [{ query, direct, groupBy }] = getParamsFromURL(useLocation().search);
-  const [columns, updateColumnSort] = useColumns(
+  const [columns, updateColumnSort, tooltipOnHoverRef] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
     basketSetter,
@@ -186,7 +186,7 @@ const ResultsData = ({
   }
 
   return (
-    <>
+    <div ref={tooltipOnHoverRef}>
       {/* Display warning for wildcard searches. It is not related to any warning from ID mapping */}
       {warnings && !displayIdMappingColumns && (
         <Message level="warning">
@@ -212,7 +212,7 @@ const ResultsData = ({
         </Message>
       )}
       {content}
-    </>
+    </div>
   );
 };
 

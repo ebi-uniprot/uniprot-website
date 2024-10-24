@@ -56,7 +56,7 @@
       "jsx"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!franklin-sites|p-map|aggregate-error|clean-stack|@nightingale|@lit/react|url-join).+\\.js"
+      "<rootDir>/node_modules/(?!franklin-sites|p-map|aggregate-error|clean-stack|protvista-uniprot|@nightingale|@lit/react|url-join).+\\.js"
     ],
     "testPathIgnorePatterns": [
       "/__mocks__/",
@@ -98,10 +98,19 @@
     "string-width": "4.1.0"
   },
   "dependencies": {
+    "@floating-ui/dom": "1.6.5",
     "@hello-pangea/dnd": "17.0.0",
     "@lit/react": "1.0.5",
-    "@nightingale-elements/nightingale-msa": "5.0.0",
+    "@nightingale-elements/nightingale-filter": "5.2.0",
+    "@nightingale-elements/nightingale-manager": "5.2.0",
+    "@nightingale-elements/nightingale-msa": "5.2.0",
+    "@nightingale-elements/nightingale-navigation": "5.2.0",
+    "@nightingale-elements/nightingale-new-core": "5.2.0",
+    "@nightingale-elements/nightingale-sequence": "5.2.0",
+    "@nightingale-elements/nightingale-track": "5.2.0",
+    "@nightingale-elements/nightingale-variation": "5.2.0",
     "@sentry/react": "8.31.0",
+    "@sentry/tracing": "7.27.0",
     "@sentry/types": "8.31.0",
     "@swissprot/rhea-reaction-visualizer": "0.0.21",
     "@swissprot/swissbiopics-visualizer": "0.0.28",
@@ -122,14 +131,14 @@
     "marked-gfm-heading-id": "4.1.0",
     "p-map": "7.0.2",
     "protvista-datatable": "3.8.10",
-    "protvista-feature-adapter": "3.8.15",
+    "protvista-feature-adapter": "3.8.22",
     "protvista-filter": "3.8.4",
     "protvista-manager": "3.8.4",
     "protvista-navigation": "3.8.10",
     "protvista-sequence": "3.8.13",
     "protvista-tooltip": "3.8.4",
     "protvista-track": "3.8.13",
-    "protvista-uniprot": "2.12.3",
+    "protvista-uniprot": "2.13.2",
     "protvista-variation": "3.8.13",
     "protvista-variation-adapter": "3.8.13",
     "protvista-zoom-tool": "3.8.4",

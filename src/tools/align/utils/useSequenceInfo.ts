@@ -116,7 +116,9 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
       const sequencedAndFeatures = {
         sequence: sequence.value,
         features: processUniProtKBFeaturesData(
-          removeFeaturesWithUnknownModifier(features)
+          removeFeaturesWithUnknownModifier(features),
+          primaryAccession,
+          sequence.value
         ),
       };
       idToSequenceAndFeatures.set(primaryAccession, sequencedAndFeatures);

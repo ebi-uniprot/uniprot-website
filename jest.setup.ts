@@ -22,6 +22,8 @@ jest.mock('interaction-viewer', () => null);
 
 jest.mock('/shared/custom-elements/NightingaleMSA', () => jest.fn());
 
+jest.mock('@nightingale-elements/nightingale-navigation', () => jest.fn());
+
 global.beforeEach(() => {
   resetUuidV1();
 });
@@ -49,6 +51,25 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useId: mockedUseId,
 }));
+
+beforeAll(() => {
+  global.ResizeObserver = class ResizeObserver {
+    // eslint-disable-next-line class-methods-use-this
+    observe() {
+      // do nothing
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    unobserve() {
+      // do nothing
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    disconnect() {
+      // do nothing
+    }
+  };
+});
 
 /* "Fail on console error" util */
 // Uncomment to have jest stop when a console error is shown in order to fix it

@@ -25,6 +25,11 @@ axiosMock
   .reply(404);
 
 describe('ProteinProcessingSection', () => {
+  beforeAll(() => {
+    jest.mock('@nightingale-elements/nightingale-sequence', () => jest.fn());
+    jest.mock('@nightingale-elements/nightingale-track', () => jest.fn());
+  });
+
   it('should render when PTMeXchange is available', async () => {
     const transformedData = uniProtKbConverter(mockHumanData, databaseInfoMaps);
     const { asFragment } = customRender(

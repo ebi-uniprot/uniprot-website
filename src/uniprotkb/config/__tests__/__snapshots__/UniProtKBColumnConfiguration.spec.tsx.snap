@@ -1266,154 +1266,128 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_carbohy
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `
 <DocumentFragment>
-  <protvista-manager
-    attributes="highlight displaystart displayend selectedid"
+  <table
+    class="table"
   >
-    <div
-      class="datatable-wrapper"
+    <thead
+      class=""
     >
-      <protvista-datatable
-        filter-scroll="true"
+      <tr
+        class="row"
       >
-        <table>
-          <thead>
-            <tr>
-              <th>
-                Type
-              </th>
-              <th>
-                ID
-              </th>
-              <th>
-                Position(s)
-              </th>
-              <th>
-                Description
-              </th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              data-end="8"
-              data-id="id value CHAIN"
-              data-start="2"
-            >
-              <td>
-                Chain
-              </td>
-              <td
-                id="id value CHAIN"
-              >
-                id value CHAIN
-              </td>
-              <td>
-                2-8
-              </td>
-              <td
-                id="description2-8"
-              >
-                Cu
-                <sup>
-                  2+
-                </sup>
-                 A2 (
-                <a
-                  href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
-                >
-                  UniProtKB
-                </a>
-                 | 
-                <a
-                  class="external-link"
-                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  ChEBI
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                ); Some note of Ca
-                <sup>
-                  2+
-                </sup>
-                 A1 (
-                <a
-                  href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
-                >
-                  UniProtKB
-                </a>
-                 | 
-                <a
-                  class="external-link"
-                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  ChEBI
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                ); Some note; In isoform sequence 1; description value 123
-              </td>
-              <td>
-                <div
-                  class="button-group"
-                >
-                  <div
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                    class="dropdown"
-                  >
-                    <button
-                      class="button tertiary"
-                      type="button"
-                    >
-                      <test-file-stub
-                        width="1.4ch"
-                      />
-                      Tools
-                    </button>
-                  </div>
-                  <button
-                    class="button tertiary no-small"
-                    title="Add 1 entry to the basket"
-                    type="button"
-                  >
-                    <test-file-stub />
-                    Add
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr
-              data-end="8"
-              data-group-for="id value CHAIN"
-              data-start="2"
-            >
-              <td>
-                <strong>
-                  Sequence: 
-                </strong>
-                original value → alternative value
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </protvista-datatable>
-      <button
-        class="button primary toggle-button"
-        type="button"
+        <th />
+        <th>
+          Type
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+          Position(s)
+        </th>
+        <th>
+          Description
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody
+      class=""
+    >
+      <tr
+        class="row"
       >
-        Expand table
-      </button>
-    </div>
-  </protvista-manager>
+        <td />
+        <td>
+          Chain
+        </td>
+        <td>
+          id value CHAIN
+        </td>
+        <td>
+          2-8
+        </td>
+        <td>
+          Cu
+          <sup>
+            2+
+          </sup>
+           A2 (
+          <a
+            href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
+          >
+            UniProtKB
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+            rel="noopener"
+            target="_blank"
+          >
+            ChEBI
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          ); Some note of Ca
+          <sup>
+            2+
+          </sup>
+           A1 (
+          <a
+            href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
+          >
+            UniProtKB
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
+            rel="noopener"
+            target="_blank"
+          >
+            ChEBI
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          ); Some note; In isoform sequence 1; description value 123
+        </td>
+        <td>
+          <div
+            class="button-group"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
+            >
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                <test-file-stub
+                  width="1.4ch"
+                />
+                Tools
+              </button>
+            </div>
+            <button
+              class="button tertiary no-small"
+              title="Add 1 entry to the basket"
+              type="button"
+            >
+              <test-file-stub />
+              Add
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </DocumentFragment>
 `;
 

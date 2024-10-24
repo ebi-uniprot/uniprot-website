@@ -28,85 +28,74 @@ exports[`SubEntryMain should render 1`] = `
         <p>
           Showing features for other.
         </p>
-        <protvista-manager
-          attributes="highlight displaystart displayend selectedid"
+        <table
+          class="table"
         >
-          <div
-            class="datatable-wrapper"
+          <thead
+            class=""
           >
-            <protvista-datatable
-              filter-scroll="true"
+            <tr
+              class="row"
             >
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      InterPro Group
-                    </th>
-                    <th>
-                      Position(s)
-                    </th>
-                    <th>
-                      Database identifier
-                    </th>
-                    <th>
-                      Database
-                    </th>
-                  </tr>
-                </thead>
-                <tbody
-                  translate="no"
+              <th />
+              <th>
+                InterPro Group
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Database identifier
+              </th>
+              <th>
+                Database
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row"
+            >
+              <td />
+              <td>
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR003472/"
+                  rel="noopener"
+                  target="_blank"
                 >
-                  <tr
-                    data-end="200"
-                    data-start="1"
-                  >
-                    <td>
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR003472/"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        Virion membrane protein, poxvirus L1-related
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                    </td>
-                    <td>
-                      1-200
-                    </td>
-                    <td>
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/interpro/entry/pfam/PF02442"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        PF02442
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                    </td>
-                    <td>
-                      Pfam
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
-            >
-              Expand table
-            </button>
-          </div>
-        </protvista-manager>
+                  Virion membrane protein, poxvirus L1-related
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
+              <td>
+                1-200
+              </td>
+              <td>
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/interpro/entry/pfam/PF02442"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  PF02442
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
+              <td>
+                Pfam
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>

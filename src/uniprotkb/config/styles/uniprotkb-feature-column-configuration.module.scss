@@ -11,3 +11,8 @@
 .Bronze {
   --main-chip-color: #{$colour-bronze};
 }
+
+.sequence {
+  max-width: 60vw;
+  overflow-wrap: break-word;
+}

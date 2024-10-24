@@ -15,7 +15,7 @@
       "end": 4,
       "features": [
         {
-          "protvistaFeatureId": "a1bdae00-235f-11eb-9899-4330e39f65ae",
+          "accession": "a1bdae00-235f-11eb-9899-4330e39f65ae",
           "start": 75,
           "end": 226,
           "startModifier": "EXACT",
@@ -24,7 +24,7 @@
           "description": "Photolyase/cryptochrome alpha/beta"
         },
         {
-          "protvistaFeatureId": "a1bdae01-235f-11eb-9899-4330e39f65ae",
+          "accession": "a1bdae01-235f-11eb-9899-4330e39f65ae",
           "start": 338,
           "end": 342,
           "startModifier": "EXACT",
@@ -48,7 +48,7 @@
       "end": 46,
       "features": [
         {
-          "protvistaFeatureId": "a1bdae15-235f-11eb-9899-4330e39f65ae",
+          "accession": "a1bdae15-235f-11eb-9899-4330e39f65ae",
           "start": 1,
           "end": 17,
           "startModifier": "EXACT",
@@ -74,7 +74,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "PRO_0000000088",
+          "accession": "PRO_0000000088",
           "featureId": "PRO_0000000088",
           "start": 18,
           "end": 770,
@@ -94,7 +94,7 @@
       "end": 0,
       "features": [
         {
-          "protvistaFeatureId": "a1bdd55a-235f-11eb-9899-4330e39f65ae",
+          "accession": "a1bdd55a-235f-11eb-9899-4330e39f65ae",
           "start": 1,
           "end": 1,
           "startModifier": "EXACT",
@@ -115,7 +115,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "PRO_0000216940",
+          "accession": "PRO_0000216940",
           "featureId": "PRO_0000216940",
           "start": 2,
           "end": 364,
@@ -135,7 +135,7 @@
       "end": 0,
       "features": [
         {
-          "protvistaFeatureId": "a1be716a-235f-11eb-9899-4330e39f65ae",
+          "accession": "a1be716a-235f-11eb-9899-4330e39f65ae",
           "start": 1,
           "end": 1,
           "startModifier": "EXACT",
@@ -151,7 +151,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "PRO_0000216937",
+          "accession": "PRO_0000216937",
           "featureId": "PRO_0000216937",
           "start": 2,
           "end": 364,
@@ -171,7 +171,7 @@
   "delayRender": false,
   "activeAnnotation": [
     {
-      "protvistaFeatureId": "a1bdae00-235f-11eb-9899-4330e39f65ae",
+      "accession": "a1bdae00-235f-11eb-9899-4330e39f65ae",
       "start": 75,
       "end": 226,
       "startModifier": "EXACT",
@@ -191,7 +191,7 @@
     "accession": "P05066",
     "features": [
       {
-        "protvistaFeatureId": "a1bdae00-235f-11eb-9899-4330e39f65ae",
+        "accession": "a1bdae00-235f-11eb-9899-4330e39f65ae",
         "start": 75,
         "end": 226,
         "startModifier": "EXACT",
@@ -200,7 +200,7 @@
         "description": "Photolyase/cryptochrome alpha/beta"
       },
       {
-        "protvistaFeatureId": "a1bdae01-235f-11eb-9899-4330e39f65ae",
+        "accession": "a1bdae01-235f-11eb-9899-4330e39f65ae",
         "start": 338,
         "end": 342,
         "startModifier": "EXACT",
