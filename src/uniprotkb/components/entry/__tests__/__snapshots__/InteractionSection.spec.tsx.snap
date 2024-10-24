@@ -52,16 +52,17 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
                 class="viewer-ids-container"
               >
                 <div
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="dropdown"
+                  class="dropdown-container"
                 >
                   <button
-                    class="button primary"
+                    class="button primary dropdown"
                     type="button"
                   >
                     CPX-1062 Amyloid-beta protein 40/42 complex
                   </button>
+                  <div
+                    class="dropdown-menu"
+                  />
                 </div>
                 <div
                   class="loader-container"

@@ -17,9 +17,7 @@ describe('InteractionSection', () => {
       'CPX-1062 Amyloid-beta protein 40/42 complex'
     );
     fireEvent.click(dropdownButton);
-    const selectButton = screen.getByText(/CPX-1069/, {
-      selector: '.button.tertiary',
-    });
+    const selectButton = screen.getByRole('button', { name: /CPX-1069/ });
     fireEvent.click(selectButton, { target: { innerText: 'CPX-1069' } });
     expect(dropdownButton).toHaveTextContent(
       'CPX-1069 Amyloid-beta protein 40 complex'

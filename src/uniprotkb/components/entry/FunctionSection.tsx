@@ -1,9 +1,8 @@
 import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message } from 'franklin-sites';
+import { Card, Loader, Message, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
 import HTMLHead from '../../../shared/components/HTMLHead';
 import FreeTextView, {
   RichText,
@@ -16,6 +15,7 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import KineticsTableView from './KineticsTableView';
 import ExternalLink from '../../../shared/components/ExternalLink';
+import GoCam from './GoCam';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -375,6 +375,13 @@ const FunctionSection = ({
             organismData={data.organismData}
           />
         </Suspense>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Tabs>
+          <Suspense fallback={<Loader />}>
+            <GoCam primaryAccession={primaryAccession} />
+          </Suspense>
+        </Tabs>
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
