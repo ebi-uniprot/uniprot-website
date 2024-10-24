@@ -345,6 +345,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               placeholder="Protein or nucleotide sequence(s) in FASTA format."
               onChange={(s) => dispatch(updateParsedSequences(s))}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+              maximumSequences={BLAST_LIMIT}
             />
           </section>
           <section className="tools-form-section">

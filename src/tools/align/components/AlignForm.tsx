@@ -253,6 +253,8 @@ const AlignForm = ({ initialFormValues }: Props) => {
               placeholder="Protein or nucleotide sequences in FASTA format."
               onChange={(s) => dispatch(updateParsedSequences(s))}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+              minimumSequences={2}
+              maximumSequences={ALIGN_LIMIT}
             />
           </section>
           <section className="tools-form-section">
