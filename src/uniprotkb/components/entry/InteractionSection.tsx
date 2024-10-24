@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Dropdown, Tab, Tabs, TreeSelect } from 'franklin-sites';
+import { Card, Tab, Tabs, TreeSelect } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -12,10 +12,7 @@ import DatatableWrapper from '../../../shared/components/views/DatatableWrapper'
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
-import {
-  clickOnFranklinDropdown,
-  hasContent,
-} from '../../../shared/utils/utils';
+import { hasContent } from '../../../shared/utils/utils';
 import externalUrls, {
   getIntActQueryUrl,
 } from '../../../shared/config/externalUrls';

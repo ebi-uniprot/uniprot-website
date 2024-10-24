@@ -656,47 +656,20 @@ exports[`Entry view should render 1`] = `
           <div
             class="tabs__header"
             role="tablist"
-          >
-            <div
-              aria-controls="13"
-              class="tabs__header__item tabs__header__item--active"
-              data-target="0"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              GO-CAM
-            </div>
-          </div>
+          />
           <div
             data-testid="tab-content"
             id="13"
             role="tabpanel"
           >
             <div
-              class="go-cam-viz-container"
+              class="loader-container"
             >
-              <div
-                class="loader-container"
-              >
-                <test-file-stub
-                  classname="loader"
-                  height="100"
-                  width="100"
-                />
-              </div>
-              <a
-                class="external-link"
-                href="http://noctua.geneontology.org/workbench/noctua-alliance-pathway-preview/?model_id=gomodel:56170d5200000012"
-                rel="noopener"
-                target="_blank"
-              >
-                View in Noctua Alliance Pathway Preview
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
+              <test-file-stub
+                classname="loader"
+                height="100"
+                width="100"
+              />
             </div>
           </div>
         </div>
@@ -4752,47 +4725,20 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="tabs__header"
             role="tablist"
-          >
-            <div
-              aria-controls="21"
-              class="tabs__header__item tabs__header__item--active"
-              data-target="0"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              GO-CAM
-            </div>
-          </div>
+          />
           <div
             data-testid="tab-content"
             id="21"
             role="tabpanel"
           >
             <div
-              class="go-cam-viz-container"
+              class="loader-container"
             >
-              <div
-                class="loader-container"
-              >
-                <test-file-stub
-                  classname="loader"
-                  height="100"
-                  width="100"
-                />
-              </div>
-              <a
-                class="external-link"
-                href="http://noctua.geneontology.org/workbench/noctua-alliance-pathway-preview/?model_id=gomodel:56170d5200000012"
-                rel="noopener"
-                target="_blank"
-              >
-                View in Noctua Alliance Pathway Preview
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
+              <test-file-stub
+                classname="loader"
+                height="100"
+                width="100"
+              />
             </div>
           </div>
         </div>
