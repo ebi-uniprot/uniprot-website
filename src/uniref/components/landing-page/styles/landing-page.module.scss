@@ -9,6 +9,40 @@ $reviewed-tweak: 0.3em;
   p:last-of-type {
     margin-bottom: 0;
   }
+
+  table {
+    margin-bottom: $global-margin;
+    border-spacing: 0;
+    overflow: auto;
+
+    caption {
+      inline-size: max-content;
+    }
+  }
+
+  thead {
+    color: $colour-sky-white;
+    background: $colour-sea-blue;
+
+    th {
+      width: 30%;
+    }
+
+    a {
+      color: $colour-sky-white;
+    }
+  }
+
+  tbody {
+    border: 1px solid $colour-sea-blue;
+  }
+
+  th,
+  td {
+    padding: $global-padding * 0.25 $global-padding * 0.5;
+    border: 1px solid $colour-sea-blue;
+    border-collapse: collapse;
+  }
 }
 
 .statistics {

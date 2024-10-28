@@ -20,7 +20,11 @@ import styles from './styles/landing-page.module.scss';
 
 import SpeciesIllustration from '../../../images/cluster_illustration.img.svg';
 
-const datasets = ['UniRef100', 'UniRef90', 'UniRef50'];
+const clusterLabelMap = new Map([
+  ['1.0', 'uniref100'],
+  ['0.9', 'uniref90'],
+  ['0.5', 'uniref50'],
+]);
 
 const documentationLinks = [
   {
@@ -41,14 +45,18 @@ const documentationLinks = [
   },
 ];
 
-const getFTPLinks = (resource: string) => (
-  <>
-    <ExternalLink url={`${ftpUrls.uniref}/${resource}/README`}>
-      README
-    </ExternalLink>
-    <ExternalLink url={`${ftpUrls.uniref}/${resource}`}>FTP</ExternalLink>
-  </>
-);
+const getFTPLinks = (resource: string) => {
+  const cluster = clusterLabelMap.get(resource);
+  return (
+    <>
+      <ExternalLink url={`${ftpUrls.uniref}/${cluster}/README`}>
+        README
+      </ExternalLink>
+      &nbsp;
+      <ExternalLink url={`${ftpUrls.uniref}/${cluster}`}>FTP</ExternalLink>
+    </>
+  );
+};
 
 // const tutorialsInfo = [
 //   {
@@ -81,21 +89,7 @@ const LandingPage = () => {
     })
   );
 
-  let identity100Count: undefined | number;
-  let identity90Count: undefined | number;
-  let identity50Count: undefined | number;
-
-  if (data?.facets?.[0].values?.length) {
-    identity100Count = data?.facets?.[0].values.find(
-      (value) => value.value === '1.0'
-    )?.count;
-    identity90Count = data?.facets?.[0].values
-      .filter((value) => value.value === '0.9')
-      ?.reduce((sum, value) => sum + value.count, 0);
-    identity50Count = data?.facets?.[0].values
-      .filter((value) => value.value === '0.5')
-      ?.reduce((sum, value) => sum + value.count, 0);
-  }
+  const clusterData = data?.facets?.find((facet) => facet.name === 'identity');
 
   return (
     <div className={styles['landing-page']}>
@@ -180,85 +174,44 @@ const LandingPage = () => {
         </div>
 
         {/* Statistics */}
-        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
+        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
           <h2>Percent Identity Clusters</h2>
-          <div className={styles.statistics}>
-            {/* Find an image that best describes UniRef clustering */}
-            <section className={styles['entries-count']}>
-              <br />
-              <p className={styles['stats-count']}>
-                <b>100%</b>
-                <span>
-                  {identity100Count && (
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Identity <br />
+                  percentage
+                </th>
+                <th>
+                  Number of
+                  <br />
+                  UniRef clusters
+                </th>
+                <th>Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              {clusterData?.values?.map((cluster) => (
+                <tr>
+                  <td>{cluster.label}</td>
+                  <td>
                     <Link
                       to={{
                         pathname: LocationToPath[Location.UniRefResults],
                         search: stringifyQuery({
-                          query: 'identity:1.0',
+                          query: `identity:${cluster.value}`,
                         }),
                       }}
                     >
-                      <LongNumber>{identity100Count}</LongNumber> clusters
+                      <LongNumber>{cluster.count}</LongNumber> clusters
                     </Link>
-                  )}
-                </span>
-              </p>
-              <p className={styles['stats-count']}>
-                <b>90%</b>
-                <span>
-                  {identity90Count && (
-                    <Link
-                      to={{
-                        pathname: LocationToPath[Location.UniRefResults],
-                        search: stringifyQuery({
-                          query: 'identity:0.9',
-                        }),
-                      }}
-                    >
-                      <LongNumber>{identity90Count}</LongNumber> clusters
-                    </Link>
-                  )}
-                </span>
-              </p>
-              <p className={styles['stats-count']}>
-                <b>50%</b>
-                <span>
-                  {identity50Count && (
-                    <Link
-                      to={{
-                        pathname: LocationToPath[Location.UniRefResults],
-                        search: stringifyQuery({
-                          query: 'identity:0.5',
-                        }),
-                      }}
-                    >
-                      <LongNumber>{identity50Count}</LongNumber> clusters
-                    </Link>
-                  )}
-                </span>
-              </p>
-            </section>
-          </div>
-        </section>
-
-        {/* Downloads */}
-        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-3">
-          <h2>Downloads</h2>
-          <div className={styles.download}>
-            <br />
-            {datasets.map((dataset) => (
-              <p className={styles['ftp-link']}>
-                {dataset}
-                <br />
-                {getFTPLinks(dataset.toLowerCase())}
-              </p>
-            ))}
-            <p>
-              <ExternalLink url={ftpUrls.uniref}>
-                Explore more in FTP
-              </ExternalLink>
-            </p>
-          </div>
+                  </td>
+                  <td>{getFTPLinks(cluster.value)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </section>
 
         {/* Help links */}
