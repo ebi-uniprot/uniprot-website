@@ -138,7 +138,7 @@ exports[`non-critical HomePage component should render 1`] = `
     >
       <a
         aria-hidden="true"
-        href="/uniref?query=*"
+        href="/uniref"
         tabindex="-1"
         title="UniRef, database of protein clustered by identity"
       />

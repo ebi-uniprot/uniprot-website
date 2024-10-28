@@ -215,7 +215,13 @@ const LandingPage = () => {
         </section>
 
         {/* Help links */}
-        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
+        <section
+          className={cn(
+            'uniprot-grid-cell--small-span-12',
+            'uniprot-grid-cell--medium-span-4',
+            styles.documentation
+          )}
+        >
           <h2>Documentation</h2>
           <ul>
             {documentationLinks.map((item) => (
