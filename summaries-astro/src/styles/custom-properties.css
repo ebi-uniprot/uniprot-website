@@ -1,0 +1,37 @@
+:root {
+  /* colors */
+  --sapphire-blue: #014371;
+  --sea-blue: #00639a;
+  --vivid-cerulean: #00a6d5;
+  --medium-turquoise: #46d6fa;
+  --gainsborough: #d2dce3;
+  --yankees-blue: #161d39;
+  --independence: #4e5a71;
+  --weldon-blue: #8194a1;
+  --pastel-blue: #abc7d6;
+  --platinum: #e4e8eb;
+  --sky-white: #fbfeff;
+  --bronze: #a65708;
+  --reviewed: #c39b00;
+  --unreviewed: #c0c0c0;
+  --uniref: #f2994c;
+  --uniparc: #88c19d;
+  --proteomes: #e56358;
+  --reference-proteome: #9d4a4d;
+  --peptide-search: #a748bd;
+  --id-mapping: #357b92;
+  --blast: #00a6d5;
+  --align: #b8ce48;
+  --warning: #ffcc33;
+  --failure: #f36968;
+  --success: #108f3b;
+  --info: #79cbf8;
+  --help-green: #28aa50;
+  --coyote-brown: #966336;
+  --outer-space: #374343;
+  --tool-results: #622e81;
+
+  /* spacing */
+  --space-small: 0.5rem;
+  --space-medium: 1rem;
+}

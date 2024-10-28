@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useLocation, useMatch } from 'react-router-dom';
 
 import {
   getJobResultsLocation,
@@ -17,18 +17,18 @@ export type JobFromUrl = {
 };
 
 const useJobFromUrl = (): JobFromUrl => {
-  const history = useHistory();
+  const location = useLocation();
   const jobResultsLocation = useMemo(
-    () => getJobResultsLocation(history.location.pathname),
-    [history.location.pathname]
+    () => getJobResultsLocation(location.pathname),
+    [location.pathname]
   );
-  const match = useRouteMatch<{
+  const match = useMatch<{
     id: string;
     namespace?: string;
   }>(
     jobResultsLocation && jobResultsLocation in LocationToPath
       ? LocationToPath[jobResultsLocation]
-      : []
+      : ''
   );
   const jobId = match?.params.id;
   let jobResultsNamespace: SearchableNamespace | undefined;

@@ -1,0 +1,42 @@
+---
+import uniProtLogo from '../../assets/uniprot-logo.svg';
+
+const releaseP = await fetch('https://rest.uniprot.org/uniprotkb/search?query=*&size=0').then(
+  (response) => new Promise(
+    (resolve, reject) => setTimeout(
+      () => {
+        // Astro.response.headers.set('Server-Timing', `db;dur=${10_000}`);
+        // reject(new Error('no release'));
+        resolve(response.headers.get('x-uniprot-release'));
+      }
+    , 10_000)
+  )
+);
+
+---
+<style>
+  header {
+    background: var(--sky-white);
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-medium);
+  }
+
+  img {
+    height: 2.5em;
+    width: min-content;
+    margin-block-start: calc(-1 * var(--space-small));
+  }
+</style>
+
+<header>
+  <a href="/" aria-label="UniProt home page">
+    <img
+      src={uniProtLogo.src}
+      width={uniProtLogo.width / 10}
+      height={uniProtLogo.height / 10}
+      alt=""
+    />
+  </a>
+  <span>Release {releaseP}</span>
+</header>

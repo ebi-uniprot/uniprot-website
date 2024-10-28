@@ -1,0 +1,38 @@
+---
+import Head from './components/Head.astro';
+import Header from './components/Header.astro';
+import Footer from './components/Footer.astro';
+
+import '../styles/index.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+<style>
+	body {
+		/* useful for themed overscroll */
+		background: var(--sea-blue);
+		display: grid;
+		grid-template-rows: min-content 1fr min-content;
+	}
+
+	main {
+		background-color: var(--sky-white);
+	}
+</style>
+
+<!doctype html>
+<html lang="en">
+	<Head title={title} description={description} />
+	<body>
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

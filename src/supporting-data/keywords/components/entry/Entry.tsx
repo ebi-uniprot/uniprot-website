@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Loader, Card, InfoList } from 'franklin-sites';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { LocationDescriptor } from 'history';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -40,16 +40,13 @@ const columns = [
 
 const reNumber = /^\d+$/;
 
-const KeywordsEntry = ({
-  match,
-}: RouteChildrenProps<{ accession: string }>) => {
+const KeywordsEntry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = match?.params.accession;
 
   let redirectTo: LocationDescriptor | null = null;
   // If the accession is a number not prefixed with "KW-"
-  if (accession && reNumber.test(accession)) {
+  if (reNumber.test(accession)) {
     redirectTo = {
       pathname: getEntryPathFor(Namespace.keywords)(
         `KW-${accession.padStart(4, '0')}`
@@ -68,7 +65,7 @@ const KeywordsEntry = ({
     return <Redirect to={redirectTo} />;
   }
 
-  if (error || !accession || (!loading && !data)) {
+  if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

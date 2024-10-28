@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -37,17 +37,16 @@ const columns = [
   DatabaseColumn.pubmedId,
 ];
 
-const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const DatabaseEntry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<DatabaseAPIModel>(
       apiUrls.entry.entry(accession, Namespace.database)
     );
 
-  if (error || !accession || (!loading && !data)) {
+  if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

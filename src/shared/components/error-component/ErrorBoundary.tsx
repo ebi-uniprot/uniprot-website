@@ -1,18 +1,21 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Location } from 'history';
 
 import ErrorComponent from './ErrorComponent';
 
 import * as logging from '../../utils/logging';
 
-type ErrorBoundaryProps = RouteComponentProps & {
+type ErrorBoundaryProps = {
   children: ReactNode;
   fallback?: ReactNode;
 };
-type ErrorBoundaryState = {
+type ErrorBoundaryClassComponentProps = ErrorBoundaryProps & {
+  location: Location;
+};
+type ErrorBoundaryClassComponentState = {
   error?: Error;
-  location?: Location;
+  location: Location;
   willReload: boolean;
 };
 
@@ -27,8 +30,11 @@ type ErrorBoundaryState = {
 
 // Known errors that might happen when the app has be updated
 const updateError = /(chunk)/i;
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
+class ErrorBoundaryClassComponent extends Component<
+  ErrorBoundaryClassComponentProps,
+  ErrorBoundaryClassComponentState
+> {
+  constructor(props: ErrorBoundaryClassComponentProps) {
     super(props);
 
     this.state = { location: props.location, willReload: false };
@@ -57,8 +63,8 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   static getDerivedStateFromProps(
-    nextProps: ErrorBoundaryProps,
-    prevState: ErrorBoundaryState
+    nextProps: ErrorBoundaryClassComponentProps,
+    prevState: ErrorBoundaryClassComponentState
   ) {
     if (
       nextProps.location.pathname === prevState.location?.pathname &&
@@ -98,4 +104,14 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-export default withRouter(ErrorBoundary);
+const ErrorBoundary = ({ fallback, children }: ErrorBoundaryProps) => {
+  const location = useLocation();
+
+  return (
+    <ErrorBoundaryClassComponent location={location} fallback={fallback}>
+      {children}
+    </ErrorBoundaryClassComponent>
+  );
+};
+
+export default ErrorBoundary;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Loader, Card, InfoList } from 'franklin-sites';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import cn from 'classnames';
 import { LocationDescriptor } from 'history';
 
@@ -45,14 +45,13 @@ const columns = [
 
 const reNumber = /^\d+$/;
 
-const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const LocationsEntry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   let redirectTo: LocationDescriptor | null = null;
   // If the accession is a number not prefixed with "SL-"
-  if (accession && reNumber.test(accession)) {
+  if (reNumber.test(accession)) {
     redirectTo = {
       pathname: getEntryPathFor(Namespace.locations)(
         `SL-${accession.padStart(4, '0')}`
@@ -71,7 +70,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Redirect to={redirectTo} />;
   }
 
-  if (error || !accession || (!loading && !data)) {
+  if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

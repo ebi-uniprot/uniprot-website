@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Loader, Card } from 'franklin-sites';
-import { RouteChildrenProps } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { SetOptional } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -23,16 +23,15 @@ import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
-const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const CitationsEntry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } = useDataApiWithStale<
     SetOptional<CitationsAPIModel, 'statistics'>
   >(apiUrls.entry.entry(accession, Namespace.citations));
 
-  if (error || !accession || (!loading && !data)) {
+  if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

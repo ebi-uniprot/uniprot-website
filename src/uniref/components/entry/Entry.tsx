@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
@@ -44,19 +44,15 @@ import {
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 const Entry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const dispatch = useMessagesDispatch();
-  const match = useRouteMatch<{ accession: string }>(
-    LocationToPath[Location.UniRefEntry]
-  );
-
-  const accession = match?.params.accession;
 
   const baseURL = `${apiUrls.entry.entry(accession, Namespace.uniref)}/light`;
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniRefLiteAPIModel>(baseURL);
 
-  if (error || !accession) {
+  if (error) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

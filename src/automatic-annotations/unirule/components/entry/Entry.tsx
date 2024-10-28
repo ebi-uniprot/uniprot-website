@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -25,10 +25,9 @@ import {
 } from '../../../../shared/types/namespaces';
 import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 
-const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const UniRuleEntry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } =
     useDataApi<UniRuleAPIModel>(
@@ -39,7 +38,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Loader progress={progress} />;
   }
 
-  if (error || !accession || !data) {
+  if (error || !data) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

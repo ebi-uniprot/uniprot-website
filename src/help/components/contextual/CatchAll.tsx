@@ -1,13 +1,14 @@
 import { History } from 'history';
-import { Redirect, RouteChildrenProps, Router } from 'react-router-dom';
+import { Redirect, Route, Router, useLocation } from 'react-router-dom';
 import {
   misspeltHelpTuple,
   redirectFromTo,
 } from '../../../shared/components/error-pages/ResourceNotFound';
 
-type Props = RouteChildrenProps & { globalHistory: History };
+type Props = { globalHistory: History };
 
-const CatchAll = ({ location, globalHistory }: Props) => {
+const CatchAll = ({ globalHistory }: Props) => {
+  const location = useLocation();
   const newPathname = redirectFromTo(location.pathname, [misspeltHelpTuple]);
 
   if (newPathname) {
@@ -18,7 +19,7 @@ const CatchAll = ({ location, globalHistory }: Props) => {
   // Reinject the global history context to redirect in the navigator
   return (
     <Router history={globalHistory}>
-      <Redirect to={location} />
+      <Route render={() => <Redirect to={location} />} />
     </Router>
   );
 };

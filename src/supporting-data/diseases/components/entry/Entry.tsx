@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -37,12 +37,12 @@ const columns = [
   DiseasesColumn.crossReferences,
 ];
 
-const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const DiseasesEntry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const accession = props.match?.params.accession;
 
   let redirectTo = '';
-  if (accession && Number.isFinite(+accession)) {
+  if (Number.isFinite(+accession)) {
     redirectTo = `DI-${accession.padStart(5, '0')}`;
   }
 
@@ -55,7 +55,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Redirect to={getEntryPath(Namespace.diseases, redirectTo)} />;
   }
 
-  if (error || !accession || (!loading && !data)) {
+  if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

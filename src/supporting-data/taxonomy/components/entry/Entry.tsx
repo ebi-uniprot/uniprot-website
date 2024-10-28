@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RouteChildrenProps, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import { frame } from 'timing-functions';
@@ -58,12 +58,11 @@ const lastColumns = [
   TaxonomyColumn.links,
 ];
 
-const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const TaxonomyEntry = () => {
+  const { accession } = useParams<{ accession: string }>();
   const dispatch = useMessagesDispatch();
   const history = useHistory();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   const mainData = useDataApi<TaxonomyAPIModel>(
     apiUrls.entry.entry(accession, Namespace.taxonomy)
@@ -106,7 +105,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, mainData.redirectedTo]);
 
-  if (mainData.error || !accession || (!mainData.loading && !mainData.data)) {
+  if (mainData.error || (!mainData.loading && !mainData.data)) {
     return (
       <ErrorHandler status={mainData.status} error={mainData.error} fullPage />
     );
