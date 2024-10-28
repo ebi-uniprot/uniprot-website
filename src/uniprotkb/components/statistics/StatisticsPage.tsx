@@ -22,7 +22,7 @@ import UniqueReferencesTable from './UniqueReferencesTable';
 import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 import InPageNav from '../../../shared/components/InPageNav';
-import HistoricalReleasesEntriesLinePlot from './HistoricalReleasesEntriesLinePlot';
+import HistoricalReleaseEntryCounts from './HistoricalReleasesEntries';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -655,7 +655,7 @@ const StatisticsPage = () => {
           unreviewedData={unreviewedData.AUDIT}
           releaseDate={release.releaseDate}
         />
-        <HistoricalReleasesEntriesLinePlot />
+        <HistoricalReleaseEntryCounts />
         <IntroductionSequenceTable
           uniprotkbData={uniprotkbData.SEQUENCE_STATS}
           reviewedData={reviewedData.SEQUENCE_STATS}
