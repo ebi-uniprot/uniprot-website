@@ -1,7 +1,4 @@
 @import 'franklin-sites/src/styles/settings';
-@import 'franklin-sites/src/styles/colours';
-
-$reviewed-tweak: 0.3em;
 
 .landing-page {
   margin-block: 2 * $global-margin;
@@ -21,26 +18,26 @@ $reviewed-tweak: 0.3em;
   }
 
   thead {
-    color: $colour-sky-white;
-    background: $colour-sea-blue;
+    color: var(--fr--color-sky-white);
+    background: var(--fr--color-sea-blue);
 
     th {
       width: 30%;
     }
 
     a {
-      color: $colour-sky-white;
+      color: var(--fr--color-sky-white);
     }
   }
 
   tbody {
-    border: 1px solid $colour-sea-blue;
+    border: 1px solid var(--fr--color-sea-blue);
   }
 
   th,
   td {
     padding: $global-padding * 0.25 $global-padding * 0.5;
-    border: 1px solid $colour-sea-blue;
+    border: 1px solid var(--fr--color-sea-blue);
     border-collapse: collapse;
   }
 }
