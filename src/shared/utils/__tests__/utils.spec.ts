@@ -8,6 +8,7 @@ import {
   deepFindAllByKey,
   addBlastLinksToFreeText,
   keysToLowerCase,
+  DefaultDict,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -117,5 +118,22 @@ describe('keysToLowerCase', () => {
   });
   it('should return empty object with nothing provided', () => {
     expect(keysToLowerCase(undefined)).toEqual({});
+  });
+});
+
+describe('DefaultDict', () => {
+  it('should return default value if not present', () => {
+    const dd = DefaultDict(0);
+    expect(dd.foo).toEqual(0);
+  });
+  it('should increment value correctly', () => {
+    const dd = DefaultDict(0);
+    dd.foo += 1;
+    expect(dd.foo).toEqual(1);
+  });
+  it('should return current value if not present', () => {
+    const dd = DefaultDict(0);
+    dd.foo = 100;
+    expect(dd.foo).toEqual(100);
   });
 });

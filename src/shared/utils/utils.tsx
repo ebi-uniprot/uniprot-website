@@ -109,12 +109,12 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
   );
 }
 
-export function DefaultDict<T>(defaultVal: T) {
+export function DefaultDict<T>(defaultValue: T) {
   return new Proxy<Record<string | symbol, T>>(
     {},
     {
-      get: (target, name: string | symbol) =>
-        name in target ? target[name] : defaultVal,
+      get: (dict, key: string | symbol) =>
+        key in dict ? dict[key] : defaultValue,
     }
   );
 }
