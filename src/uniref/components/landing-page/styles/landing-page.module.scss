@@ -11,20 +11,10 @@ $reviewed-tweak: 0.3em;
   }
 }
 
-.main-video {
-  position: sticky;
-  /* same as grid gap */
-  top: $global-margin;
-}
-
 .statistics {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
-
-.chart {
-  text-align: center;
 }
 
 .entries-count {
@@ -38,16 +28,6 @@ $reviewed-tweak: 0.3em;
   }
 }
 
-.reviewed-icon {
-  color: $colour-reviewed;
-  /* Manual tweak for visual alignment of the 2 icons */
-  margin-inline: -$reviewed-tweak $reviewed-tweak;
-}
-
-.unreviewed-icon {
-  color: $colour-unreviewed;
-}
-
 .download {
   display: flex;
   justify-content: flex-start;
@@ -58,16 +38,16 @@ $reviewed-tweak: 0.3em;
   }
 }
 
-.tutorial {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+// .tutorial {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
 
-  &__title {
-    // Show maximum 2 lines of the title
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
-}
+//   &__title {
+//     // Show maximum 2 lines of the title
+//     display: -webkit-box;
+//     -webkit-box-orient: vertical;
+//     -webkit-line-clamp: 2;
+//     overflow: hidden;
+//   }
+// }
