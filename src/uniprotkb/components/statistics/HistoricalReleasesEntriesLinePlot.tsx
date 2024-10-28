@@ -18,6 +18,7 @@ const height = 400;
 const margin = { top: 20, right: 60, bottom: 45, left: 80 };
 
 export type DateCount = [Date, number];
+
 export type Bounds = {
   date: [Date, Date];
   count: [number, number];
