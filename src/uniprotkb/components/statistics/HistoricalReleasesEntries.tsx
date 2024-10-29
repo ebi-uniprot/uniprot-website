@@ -1,16 +1,18 @@
 import { Card, Loader } from 'franklin-sites';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import apiUrls from '../../config/apiUrls/apiUrls';
-import UniProtKBStatsTabs from './UniProtKBStatsTabs';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import UniProtKBStatsTabs from './UniProtKBStatsTabs';
 import HistoricalReleasesEntriesLinePlot, {
   Bounds,
   DateCount,
 } from './HistoricalReleasesEntriesLinePlot';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+
 import { DefaultDict } from '../../../shared/utils/utils';
+
+import apiUrls from '../../config/apiUrls/apiUrls';
 
 import styles from './styles/statistics-page.module.scss';
 
@@ -89,7 +91,7 @@ const HistoricalReleaseEntryCounts = () => {
 
   return (
     <Card id="amino-acid-composition">
-      <h2>Entries per release</h2>
+      <h2>Total number of entries per release over time</h2>
       <UniProtKBStatsTabs>
         <div className={styles['side-by-side']}>
           <div className={styles.viz}>

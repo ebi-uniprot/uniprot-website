@@ -18,7 +18,6 @@ const height = 400;
 const margin = { top: 20, right: 60, bottom: 45, left: 80 };
 
 export type DateCount = [Date, number];
-
 export type Bounds = {
   date: [Date, Date];
   count: [number, number];
@@ -32,56 +31,53 @@ type Props = {
 const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const renderHistogram = useCallback(
-    (dateCounts: DateCount[], bounds: Bounds) => {
-      const chart = select(svgRef.current).select('g');
+  const renderPlot = useCallback((dateCounts: DateCount[], bounds: Bounds) => {
+    const chart = select(svgRef.current).select('g');
 
-      // x-axis
-      const xScale = scaleTime()
-        .domain(bounds.date) // units: Date
-        .range([0, width]); // units: pixels
-      chart
-        .select<SVGGElement>('.x-axis')
-        .transition()
-        .duration(1_000)
-        .call(
-          axisBottom(xScale).tickFormat((d: Date | { valueOf(): number }) =>
-            timeFormat('%Y')(new Date(d.valueOf()))
-          )
-        );
+    // x-axis
+    const xScale = scaleTime()
+      .domain(bounds.date) // units: Date
+      .range([0, width]); // units: pixels
+    chart
+      .select<SVGGElement>('.x-axis')
+      .transition()
+      .duration(1_000)
+      .call(
+        axisBottom(xScale).tickFormat((d: Date | { valueOf(): number }) =>
+          timeFormat('%Y')(new Date(d.valueOf()))
+        )
+      );
 
-      // y-axis
-      const yScale = scaleLinear()
-        .domain(bounds.count) // units: count
-        .range([height, 0]); // units: pixels
+    // y-axis
+    const yScale = scaleLinear()
+      .domain(bounds.count) // units: count
+      .range([height, 0]); // units: pixels
 
-      chart
-        .select<SVGGElement>('.y-axis')
-        .transition()
-        .duration(1_000)
-        .call(axisLeft(yScale).tickFormat(format('.2s')));
+    chart
+      .select<SVGGElement>('.y-axis')
+      .transition()
+      .duration(1_000)
+      .call(axisLeft(yScale).tickFormat(format('.2s')));
 
-      chart
-        .select(`.${styles.line}`)
-        .datum(dateCounts)
-        .transition()
-        .duration(1_000)
-        .attr('opacity', 1)
-        .attr(
-          'd',
-          line<DateCount>()
-            .x((d) => xScale(d[0]) || 0)
-            .y((d) => yScale(d[1]) || 0)
-        );
-    },
-    []
-  );
+    chart
+      .select(`.${styles.line}`)
+      .datum(dateCounts)
+      .transition()
+      .duration(1_000)
+      .attr('opacity', 1)
+      .attr(
+        'd',
+        line<DateCount>()
+          .x((d) => xScale(d[0]) || 0)
+          .y((d) => yScale(d[1]) || 0)
+      );
+  }, []);
 
   useEffect(() => {
     if (svgRef.current && dateCounts && bounds) {
-      renderHistogram(dateCounts, bounds);
+      renderPlot(dateCounts, bounds);
     }
-  }, [bounds, dateCounts, renderHistogram]);
+  }, [bounds, dateCounts, renderPlot]);
 
   return (
     <svg
