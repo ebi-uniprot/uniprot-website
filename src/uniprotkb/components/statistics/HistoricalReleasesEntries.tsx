@@ -10,7 +10,7 @@ import HistoricalReleasesEntriesLinePlot, {
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { DefaultDict } from '../../../shared/utils/utils';
+import { defaultdict } from '../../../shared/utils/utils';
 
 import apiUrls from '../../config/apiUrls/apiUrls';
 
@@ -34,9 +34,9 @@ const sortByDate = (dateToCount: DateToCount) =>
 
 const processResults = (results: Results): StatisticsTypeToDateCount => {
   const processed: Proccessed = {
-    UNIPROTKB: DefaultDict(0),
-    REVIEWED: DefaultDict(0),
-    UNREVIEWED: DefaultDict(0),
+    UNIPROTKB: defaultdict(0),
+    REVIEWED: defaultdict(0),
+    UNREVIEWED: defaultdict(0),
   };
   for (const { entryCount, releaseDate, statisticsType } of results) {
     processed[statisticsType][releaseDate] += entryCount;
