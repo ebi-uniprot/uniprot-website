@@ -131,7 +131,7 @@ describe('DefaultDict', () => {
     dd.foo += 1;
     expect(dd.foo).toEqual(1);
   });
-  it('should return current value if not present', () => {
+  it('should return current value when assigned', () => {
     const dd = DefaultDict(0);
     dd.foo = 100;
     expect(dd.foo).toEqual(100);
