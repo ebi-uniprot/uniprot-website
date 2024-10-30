@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Things may appear different to you depending on how you look at them - or at which angle you approach them. What you will make of them will also depend on what you already know about them...';
+  'When humans migrated from Africa to other parts of the globe, they carried with them a certain set of genes. Over the many thousands of years that have passed since, a good deal of these genes have been subjected to minor or perhaps major changes as our ancestors adapted...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -335,21 +335,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/272/"
+            url="https://www.proteinspotlight.org/back_issues/273/"
             noIcon
           >
-            Cutting edges
+            Shift
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/272/"
+          url="https://www.proteinspotlight.org/back_issues/273/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt272.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt273.jpg"
             alt=""
             width="123"
             height="129"
