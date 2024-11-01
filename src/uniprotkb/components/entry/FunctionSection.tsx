@@ -45,10 +45,6 @@ const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
 
-const GoCam = lazy(
-  () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
-);
-
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
     <section className="text-block">
