@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ExternalLink, Loader, Tab, Tabs, TreeSelect } from 'franklin-sites';
+import { ExternalLink, Loader, Tab, Tabs } from 'franklin-sites';
 
 import GoCamViz from '../protein-data-views/GoCamViz';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -79,14 +79,20 @@ const GoCam = ({ primaryAccession }: Props) => {
     <Tabs>
       <Tab title="GO-CAM">
         <div className={styles['go-cam-container']}>
-          <TreeSelect
-            data={goCamItems}
-            label="Select GO-CAM model"
-            onSelect={(item) => {
-              setSelectedId(item.id);
-            }}
-            defaultActiveNodes={[selectedId]}
-          />
+          <label>
+            Select GO-CAM model
+            <select
+              value={selectedId}
+              onChange={(e) => setSelectedId(e.target.value)}
+              className={styles['id-select']}
+            >
+              {goCamItems.map((item) => (
+                <option value={item.id} key={item.id}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </label>
           <LazyComponent>
             <GoCamViz id={selectedId} />
           </LazyComponent>

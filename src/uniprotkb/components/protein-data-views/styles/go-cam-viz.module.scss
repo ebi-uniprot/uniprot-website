@@ -7,25 +7,21 @@
     font-size: 1rem;
 
     &::part(activities-panel) {
-      padding-left: 2rem;
+      border-left: 1px solid black;
+      padding-left: 1.5rem;
       width: 28%;
     }
 
     &::part(gocam-title) {
-      font-size: larger;
+      visibility: hidden;
     }
 
     &::part(gocam-panel) {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-
-    &::part(activities-panel) {
-      border-left: 1px solid black;
+      padding-right: 1.5rem;
     }
 
     &::part(legend-header) {
-      padding-top: 2rem;
+      padding-top: 0.5rem;
       border-bottom: 1px solid black;
     }
 
@@ -55,5 +51,6 @@
     --button-color: #{$white};
     --button-border-radius: 0;
     --process-label-border-color: black;
+    --panel-header-padding: 0 0 1rem 0;
   }
 }
