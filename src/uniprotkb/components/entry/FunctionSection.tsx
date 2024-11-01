@@ -45,6 +45,10 @@ const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
 
+const GoCam = lazy(
+  () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
+);
+
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
     <section className="text-block">
@@ -378,9 +382,7 @@ const FunctionSection = ({
       </ErrorBoundary>
       <ErrorBoundary>
         <Tabs>
-          <Suspense fallback={<Loader />}>
-            <GoCam primaryAccession={primaryAccession} />
-          </Suspense>
+          <GoCam primaryAccession={primaryAccession} />
         </Tabs>
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
