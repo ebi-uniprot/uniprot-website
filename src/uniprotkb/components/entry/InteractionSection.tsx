@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Tab, Tabs, TreeSelect } from 'franklin-sites';
+import { Card, Tab, Tabs } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -242,9 +242,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
   );
 
   const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
-  const complexName =
-    complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
-  const complexString = `${complexId} ${complexName}`;
 
   return (
     <Card
