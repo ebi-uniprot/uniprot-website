@@ -48,22 +48,24 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
             <div
               style="display: block;"
             >
-              <div
-                class="viewer-ids-container"
-              >
-                <div
-                  class="dropdown-container"
-                >
-                  <button
-                    class="button primary dropdown"
-                    type="button"
+              <div>
+                <label>
+                  Select complex
+                  <select
+                    class="id-select"
                   >
-                    CPX-1062 Amyloid-beta protein 40/42 complex
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                  />
-                </div>
+                    <option
+                      value="CPX-1062"
+                    >
+                      CPX-1062 Amyloid-beta protein 40/42 complex
+                    </option>
+                    <option
+                      value="CPX-1069"
+                    >
+                      CPX-1069 Amyloid-beta protein 40 complex
+                    </option>
+                  </select>
+                </label>
                 <div
                   class="loader-container"
                 >

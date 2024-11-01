@@ -368,17 +368,17 @@ const FunctionSection = ({
         sequence={sequence}
       />
       <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <GoRibbon
-            primaryAccession={primaryAccession}
-            goTerms={data.goTerms}
-            geneNamesData={data.geneNamesData}
-            organismData={data.organismData}
-          />
-        </Suspense>
-      </ErrorBoundary>
-      <ErrorBoundary>
         <Tabs>
+          <Tab title="GO annotations">
+            <Suspense fallback={<Loader />}>
+              <GoRibbon
+                primaryAccession={primaryAccession}
+                goTerms={data.goTerms}
+                geneNamesData={data.geneNamesData}
+                organismData={data.organismData}
+              />
+            </Suspense>
+          </Tab>
           <Tab title="GO-CAM">
             <Suspense fallback={<Loader />}>
               <GoCam primaryAccession={primaryAccession} />

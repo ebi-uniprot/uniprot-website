@@ -642,21 +642,33 @@ exports[`Entry view should render 1`] = `
           />
         </div>
         <div
-          class="loader-container"
-        >
-          <test-file-stub
-            classname="loader"
-            height="100"
-            width="100"
-          />
-        </div>
-        <div
           class="tabs"
         >
           <div
             class="tabs__header"
             role="tablist"
-          />
+          >
+            <div
+              aria-controls="13"
+              class="tabs__header__item tabs__header__item--active"
+              data-target="0"
+              data-testid="tab-title"
+              role="tab"
+              tabindex="0"
+            >
+              GO annotations
+            </div>
+            <div
+              aria-controls="13"
+              class="tabs__header__item"
+              data-target="1"
+              data-testid="tab-title"
+              role="tab"
+              tabindex="0"
+            >
+              GO-CAM
+            </div>
+          </div>
           <div
             data-testid="tab-content"
             id="13"
@@ -4585,160 +4597,168 @@ exports[`Entry view should render for non-human entry 1`] = `
           </div>
         </protvista-manager>
         <div
-          class="GoRibbon"
-        >
-          <h3
-            data-article-id="gene_ontology"
-          >
-            GO annotations
-          </h3>
-          <div
-            class="quickgo-link"
-          >
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
-              rel="noopener"
-              target="_blank"
-            >
-              Access the complete set of GO annotations on QuickGO 
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-          </div>
-          <div
-            class="datatable-wrapper"
-          >
-            <protvista-datatable
-              filter-scroll="true"
-            >
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      Aspect
-                    </th>
-                    <th>
-                      Term
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Molecular Function
-                    </td>
-                    <td>
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        hydrolase activity, acting on glycosyl bonds
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      <button
-                        aria-controls="36"
-                        aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Source:UniProtKB-KW
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="36"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Molecular Function
-                    </td>
-                    <td>
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        metal ion binding
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      <button
-                        aria-controls="37"
-                        aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Source:UniProtKB-KW
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="37"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
-            >
-              Expand table
-            </button>
-          </div>
-        </div>
-        <div
           class="tabs"
         >
           <div
             class="tabs__header"
             role="tablist"
-          />
+          >
+            <div
+              aria-controls="19"
+              class="tabs__header__item tabs__header__item--active"
+              data-target="0"
+              data-testid="tab-title"
+              role="tab"
+              tabindex="0"
+            >
+              GO annotations
+            </div>
+            <div
+              aria-controls="19"
+              class="tabs__header__item"
+              data-target="1"
+              data-testid="tab-title"
+              role="tab"
+              tabindex="0"
+            >
+              GO-CAM
+            </div>
+          </div>
           <div
             data-testid="tab-content"
-            id="21"
+            id="19"
             role="tabpanel"
           >
             <div
-              class="loader-container"
+              class="GoRibbon"
+              data-article-id="gene_ontology"
             >
-              <test-file-stub
-                classname="loader"
-                height="100"
-                width="100"
-              />
+              <div
+                class="quickgo-link"
+              >
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Access the complete set of GO annotations on QuickGO 
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </div>
+              <div
+                class="datatable-wrapper"
+              >
+                <protvista-datatable
+                  filter-scroll="true"
+                >
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
+                          Aspect
+                        </th>
+                        <th>
+                          Term
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          Molecular Function
+                        </td>
+                        <td>
+                          <a
+                            class="external-link"
+                            href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            hydrolase activity, acting on glycosyl bonds
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                          <button
+                            aria-controls="36"
+                            aria-expanded="false"
+                            class="svg-colour-unreviewed evidence-tag"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                            >
+                              Source:UniProtKB-KW
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="36"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Molecular Function
+                        </td>
+                        <td>
+                          <a
+                            class="external-link"
+                            href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            metal ion binding
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                          <button
+                            aria-controls="37"
+                            aria-expanded="false"
+                            class="svg-colour-unreviewed evidence-tag"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                            >
+                              Source:UniProtKB-KW
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="37"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </protvista-datatable>
+                <button
+                  class="button primary toggle-button"
+                  type="button"
+                >
+                  Expand table
+                </button>
+              </div>
             </div>
           </div>
         </div>
