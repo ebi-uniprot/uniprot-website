@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import GoCamViz from '../protein-data-views/GoCamViz';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -9,7 +10,6 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import styles from './styles/go-cam.module.scss';
-import GoCamViz from '../protein-data-views/GoCamViz';
 
 const extractGoCamId = (url: string) => {
   const reGoCamId = /https?:\/\/model\.geneontology\.org\/(?<goCamId>.*)/;
