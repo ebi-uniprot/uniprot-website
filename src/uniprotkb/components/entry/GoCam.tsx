@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { ExternalLink, Loader, Tab } from 'franklin-sites';
+import { useEffect, useMemo, useState } from 'react';
+import { ExternalLink, Loader } from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -9,13 +9,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import styles from './styles/go-cam.module.scss';
-
-const GoCamViz = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "go-cam-viz" */ '../protein-data-views/GoCamViz'
-    )
-);
+import GoCamViz from '../protein-data-views/GoCamViz';
 
 const extractGoCamId = (url: string) => {
   const reGoCamId = /https?:\/\/model\.geneontology\.org\/(?<goCamId>.*)/;
@@ -81,32 +75,26 @@ const GoCam = ({ primaryAccession }: Props) => {
   }
 
   return (
-    <Tab title="GO-CAM">
-      <div className={styles['go-cam-container']}>
-        <label>
-          Select GO-CAM model
-          <select
-            value={selectedId}
-            onChange={(e) => setSelectedId(e.target.value)}
-            className={styles['id-select']}
-          >
-            {goCamItems.map((item) => (
-              <option value={item.id} key={item.id}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <Suspense fallback={<Loader />}>
-          <GoCamViz id={selectedId} />
-        </Suspense>
-        <ExternalLink
-          url={externalUrls.NoctuaAlliancePathwayPreview(selectedId)}
+    <div className={styles['go-cam-container']}>
+      <label>
+        Select GO-CAM model
+        <select
+          value={selectedId}
+          onChange={(e) => setSelectedId(e.target.value)}
+          className={styles['id-select']}
         >
-          View in Noctua Alliance Pathway Preview
-        </ExternalLink>
-      </div>
-    </Tab>
+          {goCamItems.map((item) => (
+            <option value={item.id} key={item.id}>
+              {item.label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <GoCamViz id={selectedId} />
+      <ExternalLink url={externalUrls.NoctuaAlliancePathwayPreview(selectedId)}>
+        View in Noctua Alliance Pathway Preview
+      </ExternalLink>
+    </div>
   );
 };
 

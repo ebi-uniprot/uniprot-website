@@ -1,5 +1,5 @@
 import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message, Tabs } from 'franklin-sites';
+import { Card, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -15,7 +15,6 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import KineticsTableView from './KineticsTableView';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import GoCam from './GoCam';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -44,6 +43,8 @@ import CommunityCuration from './CommunityCuration';
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
+
+const GoCam = lazy(() => import(/* webpackChunkName: "go-cam" */ './GoCam'));
 
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
@@ -378,7 +379,11 @@ const FunctionSection = ({
       </ErrorBoundary>
       <ErrorBoundary>
         <Tabs>
-          <GoCam primaryAccession={primaryAccession} />
+          <Tab title="GO-CAM">
+            <Suspense fallback={<Loader />}>
+              <GoCam primaryAccession={primaryAccession} />
+            </Suspense>
+          </Tab>
         </Tabs>
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
