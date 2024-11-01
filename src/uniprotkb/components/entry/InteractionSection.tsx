@@ -278,20 +278,24 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         <Tabs className={styles['visualisation-tabs']}>
           {complexPortalXrefs.size ? (
             <Tab cache title="Complex viewer">
-              <div className={styles['viewer-ids-container']}>
-                <TreeSelect
-                  label={complexString}
-                  onSelect={(item) => {
-                    setViewerID(item.id);
-                  }}
-                  defaultActiveNodes={[complexId]}
-                  data={Array.from(complexPortalXrefs.values()).map(
-                    ({ id, properties }) => ({
-                      id,
-                      label: `${id} ${properties?.EntryName || ''}`,
-                    })
-                  )}
-                />
+              <div>
+                <label>
+                  Select complex
+                  <select
+                    value={complexId}
+                    onChange={(e) => setViewerID(e.target.value)}
+                    className={styles['id-select']}
+                  >
+                    {Array.from(complexPortalXrefs.values()).map(
+                      ({ id, properties }) => (
+                        <option value={id} key={id}>
+                          {`${id} ${properties?.EntryName || ''}`}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </label>
+
                 <LazyComponent>
                   <ComplexViewer complexID={complexId} />
                 </LazyComponent>
