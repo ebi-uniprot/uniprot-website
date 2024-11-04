@@ -231,7 +231,7 @@ const LandingPage = () => {
                           accession: 'reference_proteome',
                         })}
                       >
-                        What is a reference proteomes?
+                        What is a reference proteome?
                       </Link>
                     </em>
                   </small>
