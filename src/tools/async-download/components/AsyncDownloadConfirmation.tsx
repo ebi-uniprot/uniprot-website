@@ -20,6 +20,7 @@ import { FormParameters } from '../types/asyncDownloadFormParameters';
 import { APIModel } from '../../../shared/types/apiModel';
 import { FacetObject, SearchResults } from '../../../shared/types/results';
 import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 
 import styles from './styles/async-download-confirmation.module.scss';
 import '../../styles/ToolsForm.scss';
@@ -112,9 +113,10 @@ const AsyncDownloadConfirmation = ({
     >
       {jobParameters.query === '*' ? (
         <Message className={styles['warning-message']} level="warning">
-          This job will take longer to finish, as your search is against all of
-          UniProt, making it a highly resource-intensive process. We kindly
-          request you to download the file once it becomes available.
+          This job will take longer to finish, as your search is against the
+          whole of {namespaceAndToolsLabels[jobParameters.namespace]}, making it
+          a highly resource-intensive process. We kindly request that you
+          download the file once it becomes available.
         </Message>
       ) : null}
       {jobParameters.query !== '*' &&
