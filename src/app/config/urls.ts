@@ -340,5 +340,5 @@ export const getJobResultsLocation = (
   pathname: string
 ): ToolsResultsLocations | undefined =>
   toolsResultsLocations.find((location) =>
-    matchPath(pathname, { path: LocationToPath[location] })
+    matchPath({ path: LocationToPath[location] }, pathname)
   );

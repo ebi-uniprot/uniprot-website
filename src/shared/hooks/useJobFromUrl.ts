@@ -22,18 +22,15 @@ const useJobFromUrl = (): JobFromUrl => {
     () => getJobResultsLocation(location.pathname),
     [location.pathname]
   );
-  const match = useMatch<{
-    id: string;
-    namespace?: string;
-  }>(
+  const match = useMatch<'id' | 'namespace', string>(
     jobResultsLocation && jobResultsLocation in LocationToPath
       ? LocationToPath[jobResultsLocation]
       : ''
   );
-  const jobId = match?.params.id;
+  const jobId = match?.params?.id;
   let jobResultsNamespace: SearchableNamespace | undefined;
-  if (match?.params.namespace) {
-    jobResultsNamespace = match?.params.namespace as SearchableNamespace;
+  if (match?.params?.namespace) {
+    jobResultsNamespace = match.params.namespace as SearchableNamespace;
   } else if (jobResultsLocation === Location.PeptideSearchResult) {
     jobResultsNamespace = Namespace.uniprotkb;
   }

@@ -8,7 +8,7 @@ import {
   SyntheticEvent,
   useMemo,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import { SearchAction, WebSite, WithContext } from 'schema-dts';
 
@@ -153,7 +153,7 @@ const SearchContainer = ({
   onSearchspaceChange,
   ...props
 }: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
   // local state to hold the search value without modifying URL
@@ -206,7 +206,7 @@ const SearchContainer = ({
     });
 
     // push a new location to the history containing the modified search term
-    history.push({
+    navigate({
       // If there was a job ID in the search bar, keep the same URL (job result)
       pathname:
         searchspace === toolResults
@@ -261,7 +261,7 @@ const SearchContainer = ({
           : {
               label: 'List',
               action: () => {
-                history.push({
+                navigate({
                   pathname: LocationToPath[Location.IDMapping],
                 });
               },
@@ -270,7 +270,7 @@ const SearchContainer = ({
         (x: MainSearchSecondaryButton | null): x is MainSearchSecondaryButton =>
           Boolean(x)
       ),
-    [handleToggleQueryBuilder, history, smallScreen]
+    [handleToggleQueryBuilder, navigate, smallScreen]
   );
 
   // reset the text content when there is a navigation to reflect what is in the
@@ -280,17 +280,13 @@ const SearchContainer = ({
     const query = sp.get('query');
     // Using history here because history won't change, while location will
     if (
-      history.location.pathname.includes(
-        LocationToPath[Location.HelpResults]
-      ) ||
-      history.location.pathname.includes(
-        LocationToPath[Location.ReleaseNotesResults]
-      )
+      location.pathname.includes(LocationToPath[Location.HelpResults]) ||
+      location.pathname.includes(LocationToPath[Location.ReleaseNotesResults])
     ) {
       return;
     }
     setSearchTerm(query || '');
-  }, [history, location.search]);
+  }, [location.pathname]);
 
   const searchspaces = jobId ? searchspaceLabels : searchableNamespaceLabels;
 

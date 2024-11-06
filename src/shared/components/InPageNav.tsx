@@ -1,6 +1,12 @@
-import { useEffect, useRef, useState, HTMLAttributes } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { sleep, schedule, frame } from 'timing-functions';
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  HTMLAttributes,
+} from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { sleep, schedule } from 'timing-functions';
 import cn from 'classnames';
 
 import styles from './styles/in-page-nav.module.scss';
@@ -21,14 +27,14 @@ const InPageNav = ({
   rootElement,
   ...props
 }: Props & HTMLAttributes<HTMLUListElement>) => {
-  const history = useHistory();
+  const location = useLocation();
 
+  const [hasDoneInitialScroll, setHasDoneInitialScroll] = useState(false);
   const [active, setActive] = useState(sections[0].id);
 
   const marker = useRef<HTMLDivElement>(null);
   const firstMarkerRender = useRef(true);
 
-  // effect to connect user changes in scroll to browser history
   useEffect(() => {
     // get elements to watch from configured sections
     let elements: HTMLElement[] = [];
@@ -96,43 +102,42 @@ const InPageNav = ({
 
     // eslint-disable-next-line consistent-return
     return () => elements.forEach((element) => io.unobserve(element));
-  }, [sections, history]);
+  }, [sections]);
 
   // listen for changes in location hash to move corresponding element into view
-  useEffect(() => {
-    const unlisten = history.listen((location) =>
-      frame().then(() => {
-        const id = location.hash.replace('#', '');
-        if (id) {
-          document.getElementById(id)?.scrollIntoView();
-        } else if (rootElement) {
-          const element =
-            typeof rootElement === 'string'
-              ? document.querySelector(rootElement)
-              : rootElement;
-          element?.scrollTo({ top: 0 });
-        }
-      })
-    );
-    return unlisten;
-  }, [history, rootElement]);
+  useLayoutEffect(() => {
+    const id = location.hash.replace('#', '');
+    if (id) {
+      document.getElementById(id)?.scrollIntoView();
+    } else if (rootElement) {
+      const element =
+        typeof rootElement === 'string'
+          ? document.querySelector(rootElement)
+          : rootElement;
+      element?.scrollTo({ top: 0 });
+    }
+  }, [location, rootElement]);
 
   // move element into view on mount
   useEffect(() => {
+    if (hasDoneInitialScroll) {
+      return;
+    }
     // sleep, to give the rest of the page a chance to start loading
     // schedule, to trigger only when the page has finished doing work
     // hopefully by then all the components are loaded and in their right space
     sleep(500)
       .then(() => schedule(1000))
       .then(() => {
-        const id = history.location.hash.replace('#', '');
+        setHasDoneInitialScroll(true);
+        const id = location.hash.replace('#', '');
         if (!id) {
           // no id to navigate to
           return;
         }
         document.getElementById(id)?.scrollIntoView();
       });
-  }, [history]); // history won't change, unlike location
+  }, [location, hasDoneInitialScroll]);
 
   // move active marker
   useEffect(() => {

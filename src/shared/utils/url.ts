@@ -18,7 +18,7 @@ import { Facets } from '../types/facets';
 
 export const getLocationForPathname = (pathname: string) => {
   const found = Object.entries(LocationToPath).find(([, path]) =>
-    matchPath(pathname, { path, exact: path === '/' })
+    matchPath({ path }, pathname)
   );
   return found?.[0] as Location | undefined;
 };

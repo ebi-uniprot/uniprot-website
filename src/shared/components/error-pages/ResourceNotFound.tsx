@@ -1,5 +1,5 @@
 import { HTMLAttributes, useEffect } from 'react';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { createPath } from 'history';
 import { Message } from 'franklin-sites';
 
@@ -110,7 +110,7 @@ const ResourceNotFound = ({ error, ...props }: ResourceNotFoundProps) => {
         <HTMLHead>
           <meta httpEquiv="refresh" content={`0; URL=${newURL}`} />
         </HTMLHead>
-        <Redirect to={newLocation} />
+        <Navigate to={newLocation} />
       </>
     );
   }

@@ -1,7 +1,10 @@
 import { lazy } from 'react';
-import { Outlet } from 'react-router-dom';
+import { type RouteObject } from 'react-router-dom';
 
-import BaseLayout from '../../shared/components/layouts/BaseLayout';
+import App from '../components/App';
+import GlobalContext from '../contexts/Global';
+
+import ErrorComponent from '../../shared/components/error-component/ErrorComponent';
 
 import { Location, LocationToPath } from '../config/urls';
 
@@ -11,24 +14,37 @@ const HomePage = lazy(
       /* webpackChunkName: "home-page" */ '../components/home-page/HomePage'
     )
 );
+// Statistics pages
+const UniProtKBStatisticsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-statistics" */ '../../uniprotkb/components/statistics/StatisticsPage'
+    )
+);
 
-export const routes = [
+export const routes: RouteObject[] = [
   {
-    path: LocationToPath[Location.Home],
     element: (
-      <BaseLayout>
-        <HomePage />
-        <Outlet />
-      </BaseLayout>
+      <GlobalContext>
+        <App />
+      </GlobalContext>
     ),
-  },
-  {
-    path: '/test',
-    element: (
-      <div>
-        test page
-        <Outlet />
-      </div>
-    ),
+    errorElement: <ErrorComponent />,
+    children: [
+      {
+        index: true,
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: 'uniprotkb',
+        children: [
+          {
+            path: 'statistics',
+            element: <UniProtKBStatisticsPage />,
+          },
+        ],
+      },
+    ],
   },
 ];

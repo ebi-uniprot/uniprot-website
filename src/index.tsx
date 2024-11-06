@@ -1,8 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import App from './app/components/App';
 import GlobalContext from './app/contexts/Global';
+
+import { routes } from './app/routes/routes';
 
 // eslint-disable-next-line no-console
 console.info(
@@ -13,13 +16,13 @@ console.info(
   } on ${GIT_BRANCH} branch`
 );
 
+const router = createBrowserRouter(routes);
+
 const container = document.getElementById('root') as Element;
 const root = createRoot(container);
 root.render(
   <StrictMode>
-    <GlobalContext>
-      <App />
-    </GlobalContext>
+    <RouterProvider router={router} />
   </StrictMode>
 );
 

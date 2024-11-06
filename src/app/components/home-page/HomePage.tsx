@@ -24,12 +24,12 @@ import {
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/home-page.scss';
 
-// const SearchContainer = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "search-container" */ '../../../shared/components/search/SearchContainer'
-//     )
-// );
+const SearchContainer = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "search-container" */ '../../../shared/components/search/SearchContainer'
+    )
+);
 
 const HomePageNonCritical = lazy(
   () => import(/* webpackChunkName: "home-page-non-critical" */ './NonCritical')
@@ -148,7 +148,7 @@ const HomePageHeader = memo(() => {
     >
       <div className="uniprot-grid uniprot-grid--centered">
         <Suspense fallback={null}>
-          {/* <SearchContainer
+          <SearchContainer
             searchspace={selectedNamespace}
             onSearchspaceChange={useCallback((namespace) => {
               setSelectedNamespace(namespace as SearchableNamespace);
@@ -159,7 +159,7 @@ const HomePageHeader = memo(() => {
             }, [])}
             className="uniprot-grid-cell--span-12"
             isOnHomePage
-          /> */}
+          />
         </Suspense>
       </div>
     </HeroHeader>
@@ -170,7 +170,7 @@ const HomePage = () => (
   <>
     <main>
       {/* Activate the HTML head logic, but no title, so uses default */}
-      {/* <HTMLHead /> */}
+      <HTMLHead />
       <h1 className="visually-hidden">UniProt website home page</h1>
       <ErrorBoundary>
         <HomePageHeader />

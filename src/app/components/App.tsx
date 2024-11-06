@@ -382,11 +382,10 @@ const BackToTheTop = lazy(() =>
 //   );
 // };
 
+// eslint-disable-next-line arrow-body-style
 const App = () => {
   // useScrollToTop(history);
   // useReloadApp(history);
-
-  console.log(history);
 
   return (
     <>

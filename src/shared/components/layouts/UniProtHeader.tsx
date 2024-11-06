@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { Link, useMatch, useLocation } from 'react-router-dom';
 import { Header, Dropdown, Button } from 'franklin-sites';
 import cn from 'classnames';
 import { WithContext, Organization } from 'schema-dts';
@@ -145,9 +145,9 @@ const organizationSchema: WithContext<Organization> = {
 };
 
 const UniProtHeader = () => {
-  const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
+  const homeMatch = useMatch(LocationToPath[Location.Home]);
 
-  const isHomePage = Boolean(homeMatch?.isExact);
+  const isHomePage = Boolean(homeMatch);
 
   useStructuredData(organizationSchema);
 
