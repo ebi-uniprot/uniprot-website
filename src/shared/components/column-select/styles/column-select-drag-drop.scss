@@ -1,23 +1,20 @@
-@import 'franklin-sites/src/styles/colours';
-
 .column-select-drag-drop {
   &__list {
-    background: $colour-platinum;
-    display: flex;
+    background: var(--fr--color-platinum);
     padding: 0.5rem;
     overflow: auto;
     white-space: nowrap;
     margin: 1rem 0;
 
     .chip {
-      --main-chip-color: #{$colour-sea-blue};
+      --main-chip-color: #{var(--fr--color-sea-blue)};
 
       &:hover {
-        --main-chip-color: #{$colour-vivid-cerulean};
+        --main-chip-color: #{var(--fr--color-vivid-cerulean)};
       }
 
       &--dragging {
-        --main-chip-color: #{$colour-vivid-cerulean};
+        --main-chip-color: #{var(--fr--color-vivid-cerulean)};
       }
     }
   }
