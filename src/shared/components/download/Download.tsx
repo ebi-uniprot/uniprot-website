@@ -359,7 +359,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
       {showColumnSelect(state, props, job) && (
         <>
-          <legend>Customize columns</legend>
+          <legend data-article-id="customize">Customize columns</legend>
           <ColumnSelect
             onChange={(columns) =>
               dispatch(updateSelectedColumns(columns, fieldData))

@@ -83,7 +83,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
       {displayCustomisePanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Customize columns"
+            title={<span data-article-id="customize">Customize columns</span>}
             position="left"
             onClose={handleClose}
             className={styles['customise-table-panel']}
