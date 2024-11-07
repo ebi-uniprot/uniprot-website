@@ -52,8 +52,8 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
         length={sequence.length}
         sequence={sequence}
         height={20}
+        use-ctrl-to-zoom
         filter-scroll
-        no-scroll
       />
 
       <NightingaleFilterComponent
@@ -65,7 +65,7 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
         length={sequence.length}
         height={430}
         ref={setNightingaleVariation}
-        no-scroll
+        use-ctrl-to-zoom
       />
     </div>
   );

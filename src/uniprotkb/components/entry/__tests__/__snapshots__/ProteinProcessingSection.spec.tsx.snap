@@ -97,14 +97,14 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               height="40"
               layout="non-overlapping"
               length="10"
-              no-scroll="true"
+              use-ctrl-to-zoom="true"
             />
             <nightingale-sequence
               height="20"
               length="10"
-              no-scroll="true"
               numberofticks="0"
               sequence="SAPSQDFMRF"
+              use-ctrl-to-zoom="true"
             />
             <!---->
           </nightingale-manager>
@@ -492,14 +492,14 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               height="40"
               layout="non-overlapping"
               length="772"
-              no-scroll="true"
+              use-ctrl-to-zoom="true"
             />
             <nightingale-sequence
               height="20"
               length="772"
-              no-scroll="true"
               numberofticks="0"
               sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+              use-ctrl-to-zoom="true"
             />
             <!---->
           </nightingale-manager>

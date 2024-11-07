@@ -146,13 +146,13 @@ function VisualFeaturesView<T extends ProcessedFeature>({
           length={sequence.length}
           layout="non-overlapping"
           height={trackHeight}
-          no-scroll
+          use-ctrl-to-zoom
         />
         <NightingaleSequenceComponent
           sequence={sequence}
           length={sequence.length}
           height={20}
-          no-scroll
+          use-ctrl-to-zoom
           numberOfTicks={0}
         />
       </NightingaleManagerComponent>
