@@ -8,6 +8,7 @@
   width: calc(100% + 2em);
   padding-inline: 1em;
   margin-inline-start: -1em;
+  overflow: scroll;
 
   &.collapsed {
     height: 25rem;
@@ -20,7 +21,13 @@
   margin: 1em 0;
   border-spacing: 0;
   border-block-end: 1px solid #c2c4c4;
-  border-collapse: collapse;
+  border-collapse: separate;
+
+  & thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
 
   & th {
     text-align: left;
