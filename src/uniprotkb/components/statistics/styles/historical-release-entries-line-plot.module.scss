@@ -1,9 +1,7 @@
-@import 'franklin-sites/src/styles/colours';
-
 .line-plot {
   path.line {
     fill: none;
-    stroke: $colour-weldon-blue;
+    stroke: var(--fr--color-weldon-blue);
     stroke-width: 4;
   }
 }
