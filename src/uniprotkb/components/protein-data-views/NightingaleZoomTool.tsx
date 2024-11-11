@@ -10,20 +10,27 @@ export type ZoomOperations = 'zoom-in' | 'zoom-out' | 'zoom-in-seq';
 export const iconSize = 19;
 
 type Props = {
-  nightingaleNavigationRef: RefObject<NightingaleNavigation> | null;
   length: number;
+  nightingaleNavigationRef?: RefObject<NightingaleNavigation> | null;
+  nightingaleNavigationGetter?: () => NightingaleNavigation | null;
 };
 
-const NightingaleZoomTool = ({ nightingaleNavigationRef, length }: Props) => {
+const NightingaleZoomTool = ({
+  length,
+  nightingaleNavigationRef,
+  nightingaleNavigationGetter,
+}: Props) => {
   const handleZoom = useCallback(
     (operation: ZoomOperations) => {
-      if (!nightingaleNavigationRef?.current) {
+      const nightingaleNavigation =
+        nightingaleNavigationRef?.current || nightingaleNavigationGetter?.();
+      if (!nightingaleNavigation) {
         return;
       }
       // Following logic is lifted from ProtvistaZoomTool
       const scaleFactor = length / 5;
       const { 'display-end': displayEnd, 'display-start': displayStart } =
-        nightingaleNavigationRef.current;
+        nightingaleNavigation;
       if (
         typeof displayEnd === 'undefined' ||
         typeof displayStart === 'undefined'
@@ -45,7 +52,7 @@ const NightingaleZoomTool = ({ nightingaleNavigationRef, length }: Props) => {
         newStart -= newEnd - length;
       }
       if (displayStart < newEnd) {
-        nightingaleNavigationRef.current.dispatchEvent(
+        nightingaleNavigation.dispatchEvent(
           new CustomEvent('change', {
             detail: {
               'display-start': Math.max(1, newStart).toString(),
@@ -57,7 +64,7 @@ const NightingaleZoomTool = ({ nightingaleNavigationRef, length }: Props) => {
         );
       }
     },
-    [nightingaleNavigationRef, length]
+    [length, nightingaleNavigationGetter, nightingaleNavigationRef]
   );
   return (
     <div className={styles['nightingale-zoom-tool']}>

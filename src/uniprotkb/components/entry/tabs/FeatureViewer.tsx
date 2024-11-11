@@ -4,7 +4,7 @@ import { Loader, Message } from 'franklin-sites';
 
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-// import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
+import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
@@ -43,7 +43,7 @@ const FeatureViewer = ({
     apiUrls.proteinsApi.proteins(accession)
   );
 
-  const protvistaElement = useCustomElement(
+  const protvistaUniprotElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'),
@@ -74,7 +74,7 @@ const FeatureViewer = ({
   useEffect(() => {
     const ref = protvistaUniprotRef.current;
     ref?.addEventListener('change', onProtvistaUniprotChange);
-  }, [onProtvistaUniprotChange, protvistaElement]);
+  }, [onProtvistaUniprotChange, protvistaUniprotElement]);
 
   useEffect(
     () => () => {
@@ -118,17 +118,21 @@ const FeatureViewer = ({
       )}
       {data?.features && (
         <>
-          {/* {shouldRender && (
+          {shouldRender && (
             <NightingaleZoomTool
               length={sequence.length}
-              nightingaleNavigationRef={} // TODO: fill in once protvista-uniprot is updated
+              nightingaleNavigationGetter={() =>
+                protvistaUniprotRef.current?.querySelector(
+                  'nightingale-navigation'
+                ) || null
+              }
             />
-          )} */}
+          )}
           <EntryDownloadButton handleToggle={handleToggleDownload} />
         </>
       )}
       {shouldRender ? (
-        <protvistaElement.name
+        <protvistaUniprotElement.name
           accession={accession}
           ref={protvistaUniprotRef}
         />
