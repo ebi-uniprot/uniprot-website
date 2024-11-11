@@ -32,6 +32,7 @@ import { stringifyUrl } from '../../../shared/utils/url';
 
 import uniParcConverter, {
   UniParcAPIModel,
+  UniParcLiteAPIModel,
 } from '../../adapters/uniParcConverter';
 import {
   Namespace,
@@ -40,6 +41,7 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
+import Overview from './Overview';
 
 export enum TabLocation {
   Entry = 'entry',
@@ -75,10 +77,7 @@ const Entry = () => {
       ),
     });
   }, [baseURL, search]);
-  const dataObject = useDataApi<UniParcAPIModel>(
-    // Hack to have the backend only return the base object without xref data
-    `${baseURL}?taxonIds=0`
-  );
+  const dataObject = useDataApi<UniParcLiteAPIModel>(`${baseURL}/light`);
   const wholeXrefsDataObject = useDataApi<UniParcAPIModel>(baseURL);
   const partialXrefsDataObject = useDataApiWithStale<UniParcAPIModel>(
     baseURL === xRefsURL ? null : xRefsURL
@@ -139,6 +138,7 @@ const Entry = () => {
           />
           <BasketStatus id={transformedData.uniParcId} className="small" />
         </h1>
+        <Overview data={transformedData} />
       </ErrorBoundary>
       {/* Put overview here if we ever have data to display there */}
       <Tabs active={match.params.subPage}>
