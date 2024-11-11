@@ -28,7 +28,6 @@ import {
 import {
   searchableNamespaceLabels,
   SearchableNamespace,
-  Namespace,
 } from '../../types/namespaces';
 import { SearchResults, Suggestion } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
@@ -59,7 +58,7 @@ const Results = () => {
   // Query for results data
   const initialApiUrl = useNSQuery({
     withFacets: false,
-    size: ns === Namespace.uniparc ? 10 : undefined,
+    size: undefined,
   });
   const resultsDataObject = usePagination(initialApiUrl);
   const {
