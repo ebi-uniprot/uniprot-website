@@ -76,6 +76,12 @@ const GoCam = ({ primaryAccession }: Props) => {
 
   return (
     <div className={styles['go-cam-container']}>
+      {/* TODO: update data-article-id with new GO-CAM article */}
+      <div className={styles.preamble} data-article-id="gene_ontology">
+        Gene Ontology Causal Activity Models (GO-CAM) associated with this
+        entry.
+      </div>
+
       <label>
         Select GO-CAM model
         <select
