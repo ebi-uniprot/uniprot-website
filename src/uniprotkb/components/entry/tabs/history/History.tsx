@@ -410,7 +410,7 @@ const EntryHistoryList = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Download"
+            title={<span data-article-id="downloads">Download</span>}
             // Meaning, in basket mini view, slide from the right
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}

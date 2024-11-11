@@ -208,7 +208,7 @@ const LandingPage = () => {
                   width="3ch"
                   className={styles['ref-prot-icon']}
                 />
-                <span>
+                <div>
                   Reference proteomes
                   <br />
                   {refProtCount && (
@@ -223,7 +223,19 @@ const LandingPage = () => {
                       <LongNumber>{refProtCount}</LongNumber> entries
                     </Link>
                   )}
-                </span>
+                  <br />
+                  <small>
+                    <em>
+                      <Link
+                        to={generatePath(LocationToPath[Location.HelpEntry], {
+                          accession: 'reference_proteome',
+                        })}
+                      >
+                        What is a reference proteome?
+                      </Link>
+                    </em>
+                  </small>
+                </div>
               </p>
               <p
                 onPointerEnter={() => setNonRefProtHovered(true)}

@@ -4,6 +4,7 @@ import {
   useRef,
   ChangeEvent,
   ClipboardEvent,
+  KeyboardEvent,
   forwardRef,
   useImperativeHandle,
   useCallback,
@@ -176,9 +177,12 @@ const SequenceSearchLoader = forwardRef<
       const pastedContent = event.clipboardData.getData('text/plain');
       // use a Set to remove duplicate
       const potentialAccessions = new Set(
-        pastedContent.split(/[\s,;]+/).map((text) => text.toUpperCase())
+        pastedContent
+          .split(/[\s,;]+/)
+          .map((text) => text.toUpperCase().replace('UNIREF', 'UniRef'))
       );
-      if (!potentialAccessions.size) {
+      // Only load it in batch if it's multiple accessions
+      if (potentialAccessions.size <= 1) {
         return;
       }
 
@@ -263,6 +267,11 @@ const SequenceSearchLoader = forwardRef<
       onChange={(event: ChangeEvent<HTMLInputElement>) =>
         setAccessionOrID(event.target.value)
       }
+      onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      }}
       onPaste={handlePaste}
       placeholder={pasteLoading ? 'loading from pasted text' : 'UniProt IDs'}
       value={accessionOrID}

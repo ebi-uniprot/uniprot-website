@@ -817,7 +817,7 @@ const EntryDownload = ({
         selectedDataset !== Dataset.interProRepresentativeDomains &&
         downloadColumns && (
           <>
-            <legend>Customize columns</legend>
+            <legend data-article-id="customize">Customize columns</legend>
             <ColumnSelect
               onChange={(columns) => setDownloadColumns(columns)}
               selectedColumns={downloadColumns}
