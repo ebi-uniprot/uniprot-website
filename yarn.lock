@@ -1315,10 +1315,10 @@
     axios "^0.21.1"
     js-yaml "^4.0.0"
 
-"@geneontology/wc-gocam-viz@1.0.1-beta.2":
-  version "1.0.1-beta.2"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-gocam-viz/-/wc-gocam-viz-1.0.1-beta.2.tgz#f8257c405198e38c624b42b8e1f454fd02cf0e9d"
-  integrity sha512-1g06FHDk3TaAJdyVc+nU3lgL2QZbWu6m5THdQ8IPe5QASxeWSUEsB7nobBhDM9tumgP7V8vOSHbGneoCW8Diaw==
+"@geneontology/wc-gocam-viz@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@geneontology/wc-gocam-viz/-/wc-gocam-viz-1.0.1.tgz#62af9cd6ff4e3e5e6ab5bccdc9a8ee0d2ec633de"
+  integrity sha512-J2znuLcqIZoX7phSLPmJ8P2Ak1UhNxvNEOksskX41sOw47X0IrcBsIoMhSp9asmqLYNgyF4plOX9ehmHW9mFZQ==
   dependencies:
     "@geneontology/dbxrefs" "^1.0.16"
     "@stencil/core" "^4.1.0"
