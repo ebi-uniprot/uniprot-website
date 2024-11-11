@@ -33,6 +33,7 @@ export enum UniParcColumn {
   protein = 'protein',
   proteome = 'proteome',
   commonTaxons = 'common_taxons',
+  // commonTaxonID = 'common_taxon_id', Add when backend includes ID for common taxons
   // Sequences
   checksum = 'checksum',
   length = 'length',
@@ -233,6 +234,7 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
       displayNumberOfHiddenItems
     >
       {commonTaxons?.map((taxon) => (
+        // Replace with link to taxon id after it's inclusion in common taxons
         <div key={taxon.commonTaxon}>
           {taxon.commonTaxon} ({taxon.topLevel})
         </div>
@@ -240,6 +242,25 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
     </ExpandableList>
   ),
 });
+
+// Include it when taxonId becomes available
+// UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
+//   ...getLabelAndTooltip(
+//     'Common Taxon IDs',
+//     'Common taxonomy identifiers shared by the sequence',
+//     'taxonomic_identifier'
+//   ),
+//   render: ({ commonTaxons }) => (
+//     <ExpandableList
+//       descriptionString="common taxons"
+//       displayNumberOfHiddenItems
+//     >
+//       {commonTaxons?.map((taxon) => (
+//         <Link key={taxon.taxonId} to={getEntryPath(Namespace.taxonomy, taxon.taxonId)}>{taxon.taxonId}</Link>
+//       ))}
+//     </ExpandableList>
+//   ),
+// });
 
 UniParcColumnConfiguration.set(UniParcColumn.checksum, {
   ...getLabelAndTooltip('Checksum', 'Cyclic redundancy check value (CRC64)'),
