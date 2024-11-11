@@ -17,7 +17,7 @@ import {
   transformData,
 } from '@nightingale-elements/nightingale-variation';
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
-import filterConfig from 'protvista-uniprot/dist/es/filterConfig';
+import { filterConfig } from 'protvista-uniprot';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
