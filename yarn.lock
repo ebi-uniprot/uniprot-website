@@ -4617,13 +4617,6 @@ d3-array@1, d3-array@^1.1.1, d3-array@^1.2.0:
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.2.4.tgz#635ce4d5eea759f6f605863dbcfc30edc737f71f"
   integrity sha512-KHW6M86R+FUPYGb3R5XiYjXPq7VzwxZ22buHhAEVG5ztoEcZZMLov530mmccaqA1GghZArjQV46fuc8kUqhhHw==
 
-d3-array@2, d3-array@^2.3.0:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-2.12.1.tgz#e20b41aafcdffdf5d50928004ececf815a465e81"
-  integrity sha512-B0ErZK/66mHtEsR1TkPEEkwdy+WDesimkM5gpZr5Dsg54BiTA5RXtYW5qTLIAcekaS9xfZrzBLF/OAkB3Qn1YQ==
-  dependencies:
-    internmap "^1.0.0"
-
 "d3-array@2 - 3", "d3-array@2.10.0 - 3", "d3-array@2.5.0 - 3", d3-array@3, d3-array@^3.2.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-3.2.4.tgz#15fec33b237f97ac5d7c986dc77da273a8ed0bb5"
@@ -4687,11 +4680,6 @@ d3-color@1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.4.1.tgz#c52002bf8846ada4424d55d97982fef26eb3bc8a"
   integrity sha512-p2sTHSLCJI2QKunbGb7ocOh7DgTAn8IrLx21QRc/BSnodXM4sv6aLQlnfpvehFMLZEfBc6g9pH9SWQccFYfJ9Q==
-
-"d3-color@1 - 2":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-2.0.0.tgz#8d625cab42ed9b8f601a1760a389f7ea9189d62e"
-  integrity sha512-SPXi0TSKPD4g9tw0NMZFnR95XVgUZiBH+uUTqQuDu1OsE2zomHU7ho0FISciaPvosimixwHFl3WHLGabv6dDgQ==
 
 "d3-color@1 - 3", d3-color@3:
   version "3.1.0"
@@ -4818,11 +4806,6 @@ d3-format@1:
   resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.4.5.tgz#374f2ba1320e3717eb74a9356c67daee17a7edb4"
   integrity sha512-J0piedu6Z8iB6TbIGfZgDzfXxUFN3qQRMofy2oPdXzQibYGqPB/9iMcxr/TGalU+2RsyDO+U4f33id8tbnSRMQ==
 
-"d3-format@1 - 2":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-2.0.0.tgz#a10bcc0f986c372b729ba447382413aabf5b0767"
-  integrity sha512-Ab3S6XuE/Q+flY96HXT0jOXcM4EAClYFnRGY5zsjRGNy6qCYrQsMffs7cV5Q9xejb35zxW5hf/guKw34kvIKsA==
-
 "d3-format@1 - 3", d3-format@3:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-3.1.0.tgz#9260e23a28ea5cb109e93b21a06e24e2ebd55641"
@@ -4865,13 +4848,6 @@ d3-interpolate@1:
   integrity sha512-3bYs1rOD33uo8aqJfKP3JWPAibgw8Zm2+L9vBKEHJ2Rg+viTR7o5Mmv5mZcieN+FRYaAOWX5SJATX6k1PWz72g==
   dependencies:
     d3-color "1 - 3"
-
-"d3-interpolate@1.2.0 - 2":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-2.0.1.tgz#98be499cfb8a3b94d4ff616900501a64abc91163"
-  integrity sha512-c5UhwwTs/yybcmTpAVqwSFl6vrQ8JZJoT5F7xNFK9pymv5C0Ymcc9/LIJHtYIggg/yS9YHw8i8O8tgb9pupjeQ==
-  dependencies:
-    d3-color "1 - 2"
 
 d3-path@1:
   version "1.0.9"
@@ -4952,17 +4928,6 @@ d3-scale@4, d3-scale@~4.0.2:
     d3-time "2.1.1 - 3"
     d3-time-format "2 - 4"
 
-d3-scale@^3.2.3:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-3.3.0.tgz#28c600b29f47e5b9cd2df9749c206727966203f3"
-  integrity sha512-1JGp44NQCt5d1g+Yy+GeOnZP7xHo0ii8zsQp6PGzd+C1/dl0KGsp9A7Mxwp+1D1o4unbTTxVdU/ZOIEBoeZPbQ==
-  dependencies:
-    d3-array "^2.3.0"
-    d3-format "1 - 2"
-    d3-interpolate "1.2.0 - 2"
-    d3-time "^2.1.1"
-    d3-time-format "2 - 3"
-
 d3-selection@1, d3-selection@^1.1.0:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.4.2.tgz#dcaa49522c0dbf32d6c1858afc26b6094555bc5c"
@@ -4994,13 +4959,6 @@ d3-time-format@2:
   dependencies:
     d3-time "1"
 
-"d3-time-format@2 - 3":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-3.0.0.tgz#df8056c83659e01f20ac5da5fdeae7c08d5f1bb6"
-  integrity sha512-UXJh6EKsHBTjopVqZBhFysQcoXSv/5yLONZvkQ5Kk3qbwiUYkdX17Xa1PT6U1ZWXGGfB1ey5L8dKMlFq2DO0Ag==
-  dependencies:
-    d3-time "1 - 2"
-
 "d3-time-format@2 - 4", d3-time-format@4:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-4.1.0.tgz#7ab5257a5041d11ecb4fe70a5c7d16a195bb408a"
@@ -5012,13 +4970,6 @@ d3-time@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
   integrity sha512-Xh0isrZ5rPYYdqhAVk8VLnMEidhz5aP7htAADH6MfzgmmicPkTo8LhkLxci61/lCB7n7UmE3bN0leRt+qvkLxA==
-
-"d3-time@1 - 2", d3-time@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-2.1.1.tgz#e9d8a8a88691f4548e68ca085e5ff956724a6682"
-  integrity sha512-/eIQe/eR4kCQwq7yxi7z4c6qEXf2IYGcjoWB5OOQy4Tq9Uv39/947qlDcN2TLkiTzQWzvnsuYPB9TrWaNfipKQ==
-  dependencies:
-    d3-array "2"
 
 "d3-time@1 - 3", "d3-time@2.1.1 - 3", d3-time@3:
   version "3.1.0"
@@ -7266,11 +7217,6 @@ internal-slot@^1.0.7:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/internmap/-/internmap-2.0.3.tgz#6685f23755e43c524e251d29cbc97248e3061009"
   integrity sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==
-
-internmap@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/internmap/-/internmap-1.0.1.tgz#0017cc8a3b99605f0302f2b198d272e015e5df95"
-  integrity sha512-lDB5YccMydFBtasVtxnZ3MRBHuaoE8GKsppq+EchKL2U4nK/DmEpPHNH8MZe5HkMtpSiTSOZwfN0tzYjO/lJEw==
 
 interpret@^3.1.1:
   version "3.1.1"
@@ -10253,17 +10199,6 @@ property-information@^6.0.0:
   resolved "https://registry.yarnpkg.com/property-information/-/property-information-6.5.0.tgz#6212fbb52ba757e92ef4fb9d657563b933b7ffec"
   integrity sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==
 
-protvista-datatable@3.8.10:
-  version "3.8.10"
-  resolved "https://registry.yarnpkg.com/protvista-datatable/-/protvista-datatable-3.8.10.tgz#6f3f2885f55c8cb8e6609728dd4a000a1105916f"
-  integrity sha512-Rv30oxnhu029zkLXUTa23Mp2PLgIsocSYVz8ySMJPldAahd5F64pMBpFxp/JPHijxDZT1Nspfh5FrfykAxaR6g==
-  dependencies:
-    lit-element "^2.4.0"
-    lit-html "^1.3.0"
-    protvista-utils "^3.8.10"
-    type-fest "^1.2.1"
-    uuid "^8.3.1"
-
 protvista-datatable@3.8.22:
   version "3.8.22"
   resolved "https://registry.yarnpkg.com/protvista-datatable/-/protvista-datatable-3.8.22.tgz#791091a4eecee87aca8d7b8440dd267abd6e9e8d"
@@ -10275,53 +10210,6 @@ protvista-datatable@3.8.22:
     type-fest "^1.2.1"
     uuid "^8.3.1"
 
-protvista-feature-adapter@3.8.22, protvista-feature-adapter@^3.8.13:
-  version "3.8.22"
-  resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.8.22.tgz#41e516730bc5bcea54a4af43402d474a5985a040"
-  integrity sha512-5fRVpy/h5ez/3ODAo2F0crjYR3NSoWr9PvzGwdLKPAZyA4FY9B4DmWs23XKiqgbgUxVKeAxcY+xagj0TCrXB+g==
-  dependencies:
-    protvista-track "^3.8.22"
-    uuid "^8.3.1"
-
-protvista-filter@3.8.4:
-  version "3.8.4"
-  resolved "https://registry.yarnpkg.com/protvista-filter/-/protvista-filter-3.8.4.tgz#a6db7596133f50a39f26d9594eac14823cf555e6"
-  integrity sha512-A1iBZN3Gbt+D3Ou7KmPrOHT+H2TFmBJWPAjfjibXYGC50HArIuk/hEpAk+e2CwE9nv13jjcURpaONc/go7KP/g==
-  dependencies:
-    lit-element "^2.4.0"
-    lodash-es "^4.17.11"
-
-protvista-manager@3.8.4:
-  version "3.8.4"
-  resolved "https://registry.yarnpkg.com/protvista-manager/-/protvista-manager-3.8.4.tgz#d19f068dc272d29a8b8a282772fbb51c76a40da7"
-  integrity sha512-wecGTGCRiIpWS43/dOwBgajOBfFlcmUCtWomOKvU3tl0Y4pIF3qEpLWvshjh117Dmq55XjlGaKx1lGeU3VNSfg==
-  dependencies:
-    lodash-es "^4.17.11"
-
-protvista-navigation@3.8.10:
-  version "3.8.10"
-  resolved "https://registry.yarnpkg.com/protvista-navigation/-/protvista-navigation-3.8.10.tgz#8125dbb9ca17611437e0094c0e9c99af8fc79989"
-  integrity sha512-LhL2x/AMVkRyhOU805INqwBGKiy+bn8q2JGQ2P8b1EdQLEpPQ+NXUDUufMCdoxU+oxKHhn23dMdhV1lyX7ycwg==
-  dependencies:
-    lodash-es "^4.17.11"
-    protvista-utils "^3.8.10"
-
-protvista-sequence@3.8.13:
-  version "3.8.13"
-  resolved "https://registry.yarnpkg.com/protvista-sequence/-/protvista-sequence-3.8.13.tgz#6ffe7bc7a2a01744d57a3c5e632697e3659c2d52"
-  integrity sha512-0FUEj2acoF7322V5F+dIKdT8HLbihOMVovmXfFvbzB8QIrCy+R14HJJOgk6LFnBsofTzbgPqcT77SuzF/TD+KA==
-  dependencies:
-    lodash-es "^4.17.11"
-    protvista-zoomable "^3.8.13"
-
-protvista-tooltip@3.8.4:
-  version "3.8.4"
-  resolved "https://registry.yarnpkg.com/protvista-tooltip/-/protvista-tooltip-3.8.4.tgz#56d6c41208c8066f1fa9b8e5b1514f94e7ea2120"
-  integrity sha512-yFWFbVjZ8gp44x9bsDd3/iBSvTCLKUorFb0+yJ4nAspFJNfTjU5WUBnUzqajJbf2x0I7qeL8W6R3rO3NuK+rpQ==
-  dependencies:
-    lit-element "^2.4.0"
-    lodash-es "^4.17.11"
-
 protvista-tooltip@^3.8.4:
   version "3.8.22"
   resolved "https://registry.yarnpkg.com/protvista-tooltip/-/protvista-tooltip-3.8.22.tgz#8ddd5f1997fd2128d6ef9d9a4d61090816ebbe8a"
@@ -10329,22 +10217,6 @@ protvista-tooltip@^3.8.4:
   dependencies:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
-
-protvista-track@3.8.13:
-  version "3.8.13"
-  resolved "https://registry.yarnpkg.com/protvista-track/-/protvista-track-3.8.13.tgz#ea6770b3b6f8c2359f83527450a9c4efccbd5ead"
-  integrity sha512-EJtWecb7g+ZWItWT40pa9zBW03vVlVwda3d+j6qV3+OMENOfFxB3tinqAtMV9AD3mcfIR2IpETv5Kj6mcmwgag==
-  dependencies:
-    lodash-es "^4.17.11"
-    protvista-zoomable "^3.8.13"
-
-protvista-track@^3.8.13, protvista-track@^3.8.22:
-  version "3.8.22"
-  resolved "https://registry.yarnpkg.com/protvista-track/-/protvista-track-3.8.22.tgz#24eaaab0f8cfa545a053f394cf9fda6b28ee4223"
-  integrity sha512-4w3OHxu9AxjH1FbLnoqsRXK/ofIIOZnobXUdGooxulvVKil/2zwWzApUgypM3NSnv9HjGrZGJHePCs/7UPJT9w==
-  dependencies:
-    lodash-es "^4.17.11"
-    protvista-zoomable "^3.8.22"
 
 protvista-uniprot@3.0.1:
   version "3.0.1"
@@ -10369,54 +10241,10 @@ protvista-uniprot@3.0.1:
     timing-functions "2.0.1"
     url-join "4.0.1"
 
-protvista-utils@^3.8.10, protvista-utils@^3.8.22:
+protvista-utils@^3.8.22:
   version "3.8.22"
   resolved "https://registry.yarnpkg.com/protvista-utils/-/protvista-utils-3.8.22.tgz#0d97ad6958a5aa889b43ce2d48d8565b3c9ec2e3"
   integrity sha512-u2AJGsS6n+uBNgqpIYyvKbeMWEO7IHdziTw3QA2uMfa2KUshpnFZ8h2g0FJUwEyxIC+JQqiNFGQd/ASBj9rqTQ==
-
-protvista-variation-adapter@3.8.13:
-  version "3.8.13"
-  resolved "https://registry.yarnpkg.com/protvista-variation-adapter/-/protvista-variation-adapter-3.8.13.tgz#c1cad3f44cfd0b2df46c3e95728c404daf12ab3a"
-  integrity sha512-P4kRmL/nLCisqyzXDVhKO243B3HAPKINGER6DguNwPW7A7XQgdbsSZ+mtGVOoW5tpgN4OZl59u/UT4z6CQWE4Q==
-  dependencies:
-    d3-scale "^3.2.3"
-    data-loader "^3.8.4"
-    lodash-es "^4.17.11"
-    protvista-feature-adapter "^3.8.13"
-    protvista-variation "^3.8.13"
-    uuid "^8.3.1"
-
-protvista-variation@3.8.13:
-  version "3.8.13"
-  resolved "https://registry.yarnpkg.com/protvista-variation/-/protvista-variation-3.8.13.tgz#2be575fdcae374d93d1ca8672c9072624179e492"
-  integrity sha512-reHmFtUl3V26V3Z7P3HASLTa4mzFcyk5WiIYL8maU2cSAvhqIs5Dk3xLexe8AgdgmbaRt4zJNDB/nowfQoa5Iw==
-  dependencies:
-    lodash-es "^4.17.11"
-    protvista-track "^3.8.13"
-
-protvista-variation@^3.8.13:
-  version "3.8.22"
-  resolved "https://registry.yarnpkg.com/protvista-variation/-/protvista-variation-3.8.22.tgz#279c95a305d58182db0b058e10791c46d3947490"
-  integrity sha512-2NjbvjDUfAqhwT/2O+TXyWPY1IyCkItQ3uENN4cB23hCMXmWuJRAp//48KZXF7iNCR+A8pRtIxAt/kRmHOzVAw==
-  dependencies:
-    lodash-es "^4.17.11"
-    protvista-track "^3.8.22"
-
-protvista-zoom-tool@3.8.4:
-  version "3.8.4"
-  resolved "https://registry.yarnpkg.com/protvista-zoom-tool/-/protvista-zoom-tool-3.8.4.tgz#414f15f8bee13eed5cea5540dcb7e2e3f8dd7366"
-  integrity sha512-r1cMmRs66ZdcK3WapgGwjVTnG9Xnu9zsLVW0mtKyol6aqbl/Hx+Wel+TLLObnUBOATWwCbh98xmIgmK9NFYGnw==
-  dependencies:
-    lit-html "^1.3.0"
-
-protvista-zoomable@^3.8.13, protvista-zoomable@^3.8.22:
-  version "3.8.22"
-  resolved "https://registry.yarnpkg.com/protvista-zoomable/-/protvista-zoomable-3.8.22.tgz#7d36a44503261fb2e459412974f28c59ba30d582"
-  integrity sha512-wWeFEiRn1RVWin9RgmREAg2FOvx9zbZk8zWJHghzLRYpzAz+TMMR2v+vtSgYNijePEkhD6WHP0AlV1PVjC/Q5A==
-  dependencies:
-    lodash-es "^4.17.11"
-    protvista-utils "^3.8.22"
-    resize-observer-polyfill "^1.5.0"
 
 proxy-addr@~2.0.7:
   version "2.0.7"
@@ -10857,11 +10685,6 @@ reserved-words@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/reserved-words/-/reserved-words-0.1.2.tgz#00a0940f98cd501aeaaac316411d9adc52b31ab1"
   integrity sha512-0S5SrIUJ9LfpbVl4Yzij6VipUdafHrOTzvmfazSw/jeZrZtQK303OPZW+obtkaw7jQlTQppy0UvZWm9872PbRw==
-
-resize-observer-polyfill@^1.5.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"

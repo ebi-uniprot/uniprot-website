@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { TreeSelect } from 'franklin-sites';
-import { formatTooltip } from 'protvista-feature-adapter';
+import { getFeatureTooltip } from 'protvista-uniprot';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
@@ -238,7 +238,7 @@ const AlignmentView = ({
       hideTooltip.current = showTooltipAtCoordinates(
         x,
         y - yOffset,
-        `${title}${formatTooltip(preparedFeature)}`
+        `${title}${getFeatureTooltip(preparedFeature)}`
       );
     },
     [alignment, containerSelector]
