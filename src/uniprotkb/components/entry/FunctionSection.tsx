@@ -1,5 +1,5 @@
 import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -379,7 +379,13 @@ const FunctionSection = ({
               />
             </Suspense>
           </Tab>
-          <Tab title="GO-CAM">
+          <Tab
+            title={
+              <>
+                GO-CAM <Chip compact>New</Chip>
+              </>
+            }
+          >
             <Suspense fallback={<Loader />}>
               <GoCam primaryAccession={primaryAccession} />
             </Suspense>
