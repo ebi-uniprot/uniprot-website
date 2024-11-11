@@ -1,12 +1,17 @@
-import { PageIntro } from 'franklin-sites';
+import { Message, PageIntro } from 'franklin-sites';
 import { FC, memo, ReactNode } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 
 import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 
-import { toolsResultsLocationToLabel } from '../../../app/config/urls';
+import {
+  Location,
+  LocationToPath,
+  toolsResultsLocationToLabel,
+} from '../../../app/config/urls';
 
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 
@@ -47,6 +52,21 @@ const ResultsDataHeader: FC<
       >
         {children}
       </PageIntro>
+      {/* Keep the message until 2025_02 data release */}
+      {namespace === Namespace.uniparc ? (
+        <Message level="info">
+          There has been few changes in UniProt website REST API for UniParc.
+          Please refer{' '}
+          <Link
+            to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+              accession: '2024-11-27-release',
+            })}
+          >
+            release notes 2024 06
+          </Link>{' '}
+          for more information.
+        </Message>
+      ) : null}
       <ResultsButtons
         total={total}
         loadedTotal={loadedTotal}
