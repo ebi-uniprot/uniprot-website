@@ -666,7 +666,13 @@ exports[`Entry view should render 1`] = `
               role="tab"
               tabindex="0"
             >
-              GO-CAM
+              GO-CAM 
+              <button
+                class="chip chip--compact"
+                type="button"
+              >
+                New
+              </button>
             </div>
           </div>
           <div
@@ -4621,7 +4627,13 @@ exports[`Entry view should render for non-human entry 1`] = `
               role="tab"
               tabindex="0"
             >
-              GO-CAM
+              GO-CAM 
+              <button
+                class="chip chip--compact"
+                type="button"
+              >
+                New
+              </button>
             </div>
           </div>
           <div
@@ -4631,8 +4643,13 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             <div
               class="GoRibbon"
-              data-article-id="gene_ontology"
             >
+              <div
+                class="preamble"
+                data-article-id="gene_ontology"
+              >
+                Gene Ontology (GO) annotations organized by slimming set.
+              </div>
               <div
                 class="quickgo-link"
               >
