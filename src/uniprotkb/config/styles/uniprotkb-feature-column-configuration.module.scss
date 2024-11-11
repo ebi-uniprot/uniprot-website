@@ -1,15 +1,15 @@
 @import 'franklin-sites/src/styles/colours';
 
 .Gold {
-  --main-chip-color: #{$colour-reviewed};
+  --main-chip-color: #{var(--fr--color-reviewed)};
 }
 
 .Silver {
-  --main-chip-color: #{$colour-weldon-blue};
+  --main-chip-color: #{var(--fr--color-weldon-blue)};
 }
 
 .Bronze {
-  --main-chip-color: #{$colour-bronze};
+  --main-chip-color: #{var(--fr--color-bronze)};
 }
 
 .sequence {

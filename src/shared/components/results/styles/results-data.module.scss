@@ -15,7 +15,7 @@
 
   &:global(.data-table) table thead,
   &:global(.data-table) table th {
-    background-color: $colour-independence;
+    background-color: var(--fr--color-independence);
     z-index: inherit;
   }
 
