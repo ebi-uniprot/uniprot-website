@@ -287,6 +287,8 @@ exports[`UniParcColumnConfiguration component should render column "checksum": c
 </DocumentFragment>
 `;
 
+exports[`UniParcColumnConfiguration component should render column "common_taxons": common_taxons 1`] = `<DocumentFragment />`;
+
 exports[`UniParcColumnConfiguration component should render column "first_seen": first_seen 1`] = `
 <DocumentFragment>
   <time
