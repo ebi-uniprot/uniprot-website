@@ -1,13 +1,13 @@
 /* eslint-disable react/no-this-in-sfc */
 import { FC, memo, useEffect, useRef } from 'react';
-import tippy from 'tippy.js';
 import '@swissprot/swissbiopics-visualizer';
 import { groupBy } from 'lodash-es';
 import { RequireExactlyOne } from 'type-fest';
 
 import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
-import 'tippy.js/dist/tippy.css';
+import { addTooltip } from '../../../shared/utils/tooltip';
+
 import './styles/sub-cell-viz.scss';
 
 /*
@@ -95,7 +95,7 @@ const attachTooltips = (
   partOfShown: boolean
 ) => {
   if (!triggerTargetSvgs?.length) {
-    return;
+    return null;
   }
   const name = locationGroup.querySelector('.subcell_name')?.textContent;
   let description = locationGroup.querySelector(
@@ -116,7 +116,7 @@ const attachTooltips = (
   const locationTextQueryResult =
     instance?.querySelectorAll(locationTextSelector);
   if (!locationTextQueryResult) {
-    return;
+    return null;
   }
   const locationTextElements = Array.from(locationTextQueryResult);
 
@@ -130,11 +130,12 @@ const attachTooltips = (
     ...locationTextElements,
     ...triggerTargetSvgs,
   ].filter(Boolean);
-  tippy(tooltipTarget, {
-    allowHTML: true,
-    content: `${name}<br/>${description}`,
-    triggerTarget: tooltipTriggerTargets,
-  });
+
+  return addTooltip(
+    tooltipTarget,
+    `${name}<br/>${description}`,
+    tooltipTriggerTargets
+  );
 };
 
 type Props = RequireExactlyOne<
@@ -277,6 +278,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         instanceName.current
       );
       const shadowRoot = instance?.shadowRoot;
+      const cleanupTooltips: ReturnType<typeof attachTooltips>[] = [];
 
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
@@ -377,11 +379,13 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
                     scopedShapesSelector
                   );
               }
-              attachTooltips(
-                subcellularPresentSVG,
-                instance,
-                triggerTargetSvgs,
-                false
+              cleanupTooltips.push(
+                attachTooltips(
+                  subcellularPresentSVG,
+                  instance,
+                  triggerTargetSvgs,
+                  false
+                )
               );
             }
           }
@@ -389,6 +393,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       };
       shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
       return () => {
+        cleanupTooltips.forEach((cleanup) => cleanup?.());
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
     }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);

@@ -8,19 +8,19 @@ import {
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
 import FeatureType from '../../uniprotkb/types/featureType';
 
-type Source = {
+export type Source = {
   id: string;
   name: string;
   url?: string;
   alternativeUrl?: string;
 };
 
-type Evidence = {
+export type Evidence = {
   code: string;
   source?: Source;
 };
 
-type TooltipFeature = {
+export type TooltipFeature = {
   type: FeatureType;
   start: number;
   end: number;
@@ -50,8 +50,8 @@ export const prepareFeatureForTooltip = (
     }
   }
 
-  if (feature.featureId) {
-    tooltipFeature.ftId = feature.featureId;
+  if (feature.accession) {
+    tooltipFeature.ftId = feature.accession;
   }
 
   if (!feature.evidences) {

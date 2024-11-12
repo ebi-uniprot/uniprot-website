@@ -1,5 +1,3 @@
-@import 'franklin-sites/src/styles/colours';
-
 .groupby-container {
   .autocomplete {
     width: 50ch;
@@ -11,15 +9,13 @@
   }
 
   ul.groupby {
-    border-left: 1px solid $colour-gainsborough;
-    margin-left: 1rem;
+    border-left: 1px solid var(--fr--color-gainsborough);
     margin-bottom: 0;
 
     &__header {
       border-left: 0;
       margin-left: 0;
-      border-bottom: 1px solid $colour-gainsborough;
-      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--fr--color-gainsborough);
 
       li.header {
         h3 {
@@ -57,7 +53,7 @@
 
     .warning {
       margin-left: 0.75rem;
-      color: $colour-warning;
+      color: var(--fr--color-warning);
     }
 
     .spinner {
@@ -79,7 +75,7 @@
           left: -0.75ch;
           right: -0.75ch;
           opacity: 0.4;
-          background-color: $colour-warning;
+          background-color: var(--fr--color-warning);
         }
       }
 
@@ -96,7 +92,7 @@
           margin-left: 0.725rem;
           transition: transform 0.25s ease-out;
           background-color: transparent;
-          color: $colour-sea-blue;
+          color: var(--fr--color-sea-blue);
 
           &[aria-expanded='true'] {
             transform: rotateZ(90deg);
@@ -117,7 +113,7 @@
 
       .bar {
         display: inline-block;
-        background-color: $colour-sea-blue;
+        background-color: var(--fr--color-sea-blue);
         top: 2px;
         height: 1.5ch;
         position: relative;

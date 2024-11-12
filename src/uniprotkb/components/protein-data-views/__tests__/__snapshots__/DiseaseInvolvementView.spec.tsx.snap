@@ -97,15 +97,20 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
   <h5>
     Natural variants in AD
   </h5>
-  <div
-    class="datatable-wrapper"
-  >
-    <protvista-datatable
-      filter-scroll="true"
+  <div>
+    <div
+      class="container collapsed"
     >
-      <table>
-        <thead>
-          <tr>
+      <table
+        class="table"
+      >
+        <thead
+          class=""
+        >
+          <tr
+            class="row"
+          >
+            <th />
             <th>
               Variant ID
             </th>
@@ -121,9 +126,13 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           </tr>
         </thead>
         <tbody
+          class=""
           translate="no"
         >
-          <tr>
+          <tr
+            class="row"
+          >
+            <td />
             <td>
               <a
                 class="external-link"
@@ -169,7 +178,10 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
               </a>
             </td>
           </tr>
-          <tr>
+          <tr
+            class="row odd"
+          >
+            <td />
             <td>
               <a
                 class="external-link"
@@ -205,13 +217,17 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           </tr>
         </tbody>
       </table>
-    </protvista-datatable>
-    <button
-      class="button primary toggle-button"
-      type="button"
+    </div>
+    <div
+      class="expand-button-container"
     >
-      Expand table
-    </button>
+      <button
+        class="button primary"
+        type="button"
+      >
+        Expand table
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

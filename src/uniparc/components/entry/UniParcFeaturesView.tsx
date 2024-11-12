@@ -11,8 +11,10 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
+import { markBorder, markBackground } from '../../../shared/utils/nightingale';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
+import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 
 export type UniParcProcessedFeature = ProcessedFeature & {
   database: string;
@@ -28,8 +30,8 @@ export const convertData = (
   data
     .flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
+        accession: feature.databaseId,
         type: 'Other' as const,
-        protvistaFeatureId: feature.databaseId,
         start: locationFeature.start,
         end: locationFeature.end,
         database: feature.database,
@@ -41,6 +43,8 @@ export const convertData = (
     )
     .sort(sortByLocation);
 
+const getRowId = (data: UniParcProcessedFeature) => data.accession;
+
 type UniParcFeaturesViewProps = {
   data: SequenceFeature[];
   sequence: string;
@@ -50,27 +54,40 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
   const processedData = useMemo(() => convertData(data), [data]);
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  // Define table contents
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th>InterPro Group</th>
-          <th>Position(s)</th>
-          <th>Database identifier</th>
-          <th>Database</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
-        {processedData.map((feature) => {
-          const { database, databaseId } = feature;
-          const databaseInfo =
-            databaseInfoMaps?.databaseToDatabaseInfo[database];
+  const columns: TableFromDataColumn<UniParcProcessedFeature>[] = useMemo(
+    () => [
+      {
+        label: 'InterPro Group',
+        id: 'interpro-group',
+        render: (feature) =>
+          feature.interproGroupId ? (
+            <ExternalLink
+              url={externalUrls.InterProEntry(feature.interproGroupId)}
+            >
+              {feature.interproGroupName}
+            </ExternalLink>
+          ) : (
+            'N/A'
+          ),
+      },
+      {
+        label: 'Position(s)',
+        id: 'position',
+        render: (feature) => {
           let position = `${feature.start}`;
           if (feature.start !== feature.end) {
             position += `-${feature.end}`;
           }
-
+          return position;
+        },
+      },
+      {
+        label: 'Database identifier',
+        id: 'database-identifier',
+        render: (feature) => {
+          const { database, databaseId } = feature;
+          const databaseInfo =
+            databaseInfoMaps?.databaseToDatabaseInfo[database];
           // TODO: FUNFAM database info will be available in 2024_06.
           // URL has to be taken from the fetched data and dealt with 'superfamily' and 'family' expected in the URL.
           // Watch out when adding the cross reference in UniProtKB as the database ID is '3.30.160.60:FF:000118'
@@ -87,52 +104,42 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
           }
 
           return (
-            <tr
-              key={`${feature.protvistaFeatureId}-${feature.start}-${feature.end}`}
-              data-start={feature.start}
-              data-end={feature.end}
-            >
-              <td>
-                {feature.interproGroupId ? (
-                  <ExternalLink
-                    url={externalUrls.InterProEntry(feature.interproGroupId)}
-                  >
-                    {feature.interproGroupName}
-                  </ExternalLink>
-                ) : (
-                  'N/A'
-                )}
-              </td>
-              <td>{position}</td>
-              <td>
-                {databaseInfo?.uriLink && databaseId && (
-                  <ExternalLink
-                    url={processUrlTemplate(databaseInfo.uriLink, {
-                      id: databaseId,
-                    })}
-                  >
-                    {databaseId}
-                  </ExternalLink>
-                )}
-                {/* Need to be removed when FUNFAM is added in 2024_06 */}
-                {database === 'FUNFAM' && funFamURL && (
-                  <ExternalLink url={funFamURL}>{databaseId}</ExternalLink>
-                )}
-              </td>
-              <td>{feature.database}</td>
-            </tr>
+            <>
+              {databaseInfo?.uriLink && databaseId && (
+                <ExternalLink
+                  url={processUrlTemplate(databaseInfo.uriLink, {
+                    id: databaseId,
+                  })}
+                >
+                  {databaseId}
+                </ExternalLink>
+              )}
+              {/* Need to be removed when FUNFAM is added in 2024_06 */}
+              {database === 'FUNFAM' && funFamURL && (
+                <ExternalLink url={funFamURL}>{databaseId}</ExternalLink>
+              )}
+            </>
           );
-        })}
-      </tbody>
-    </table>
+        },
+      },
+      {
+        label: 'Database',
+        id: 'database',
+        render: (feature) => feature.database,
+      },
+    ],
+    [databaseInfoMaps?.databaseToDatabaseInfo]
   );
 
   return (
     <FeaturesView
       features={processedData}
-      table={table}
+      columns={columns}
+      getRowId={getRowId}
       sequence={sequence}
       noLinkToFullView
+      markBorder={markBorder}
+      markBackground={markBackground}
     />
   );
 };
