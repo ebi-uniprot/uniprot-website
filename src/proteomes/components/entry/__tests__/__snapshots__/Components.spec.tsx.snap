@@ -58,16 +58,19 @@ exports[`Components view should render 1`] = `
               </th>
               <th
                 class=""
+                data-column-name="component_name"
               >
                 Component name
               </th>
               <th
                 class=""
+                data-column-name="genome_accession"
               >
                 Genome accession(s)
               </th>
               <th
                 class=""
+                data-column-name="proteins"
               >
                 Protein count
               </th>

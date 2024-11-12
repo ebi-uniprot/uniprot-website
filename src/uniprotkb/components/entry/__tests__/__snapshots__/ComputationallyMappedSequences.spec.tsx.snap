@@ -69,24 +69,29 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             </th>
             <th
               class=""
+              data-column-name="accession"
             >
               Entry
             </th>
             <th
               class=""
+              data-column-name="reviewed"
             />
             <th
               class=""
+              data-column-name="uniProtkbId"
             >
               Entry name
             </th>
             <th
               class=""
+              data-column-name="gene_name"
             >
               Gene name
             </th>
             <th
               class=""
+              data-column-name="length"
             >
               Length
             </th>
