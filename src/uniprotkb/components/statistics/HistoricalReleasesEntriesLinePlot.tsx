@@ -47,9 +47,11 @@ const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
       .transition()
       .duration(1_000)
       .call(
-        axisBottom(xScale).tickFormat((d: Date | { valueOf(): number }) =>
-          timeFormat('%Y')(new Date(d.valueOf()))
-        )
+        axisBottom(xScale)
+          .ticks(timeYear)
+          .tickFormat((d: Date | { valueOf(): number }) =>
+            timeFormat('%Y')(new Date(d.valueOf()))
+          )
       );
 
     // y-axis
