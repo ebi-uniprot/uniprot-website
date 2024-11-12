@@ -10,10 +10,6 @@
     cursor: inherit;
     opacity: 1;
   }
-
-  [data-tippy-root] &::after {
-    display: initial;
-  }
 }
 
 $help-height: 35em;
@@ -30,11 +26,11 @@ $help-height: 35em;
   z-index: 2147483642;
 
   :global(.sliding-panel__header) {
-    background-color: $colour-help-green;
+    background-color: var(--fr--color-help-green);
   }
 
   :global(.sliding-panel__content) {
-    @include scroll-shadow($colour-sky-white);
+    @include scroll-shadow(var(--fr--color-sky-white));
     overscroll-behavior: contain;
   }
 

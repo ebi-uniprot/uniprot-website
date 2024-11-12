@@ -12,292 +12,350 @@ exports[`VariationViewer component renders on data 1`] = `
       <test-file-stub />
       Download
     </button>
-    <protvista-manager
-      attributes="highlight displaystart displayend activefilters filters selectedid"
+    <nightingale-manager
+      reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
+      style="display: block; line-height: 0;"
+    />
+    <table
+      class="table"
     >
-      <div
-        class="datatable-wrapper"
+      <thead
+        class=""
       >
-        <protvista-datatable
-          expandtable=""
-          filter-scroll="true"
+        <tr
+          class="row"
         >
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  Variant
-                  <br />
-                  ID(s)
-                </th>
-                <th>
-                  Position(s)
-                </th>
-                <th>
-                  Change
-                </th>
-                <th>
-                  Description
-                </th>
-                <th>
-                  Clinical
-                  <br />
-                  significance
-                </th>
-                <th>
-                  Provenance
-                </th>
-              </tr>
-            </thead>
-            <tbody
-              translate="no"
+          <th>
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
             >
-              <tr
-                data-end="10"
-                data-id="featureB"
-                data-start="8"
+              <button
+                class="button tertiary"
+                type="button"
               >
-                <td />
-                <td>
-                  8-10
-                </td>
-                <td
-                  class="change"
-                >
-                  B&gt;
-                  <em>
-                    missing
-                  </em>
-                </td>
-                <td
-                  translate="yes"
-                >
-                  <div
-                    class=""
-                  >
-                    a description (uniprot)
-                  </div>
-                </td>
-                <td
-                  translate="yes"
-                />
-                <td />
-              </tr>
-              <tr
-                data-end="10"
-                data-group-for="featureB"
-                data-start="8"
+                ±
+              </button>
+            </div>
+          </th>
+          <th>
+            Variant
+            <br />
+            ID(s)
+          </th>
+          <th>
+            Position(s)
+          </th>
+          <th>
+            Change
+          </th>
+          <th>
+            Description
+          </th>
+          <th>
+            Clinical
+            <br />
+            significance
+          </th>
+          <th>
+            Provenance
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class=""
+      >
+        <tr
+          class="row has-extra-content"
+        >
+          <td>
+            <button
+              aria-controls="1"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td>
+            <span
+              class=""
+            >
+              rs1309716217
+            </span>
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 E1*"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
               >
-                <td>
-                  <div>
-                    <strong>
-                      Consequence: 
-                    </strong>
-                  </div>
-                  <div>
-                    <strong>
-                      Somatic: 
-                    </strong>
-                     Yes
-                  </div>
-                  <div>
-                    <strong>
-                      Accession: 
-                    </strong>
-                     NC_000021.9:g.26170608A&gt;C
-                  </div>
-                  <div>
-                    <strong>
-                      Consequence type: 
-                    </strong>
-                     
-                  </div>
-                  <div>
-                    <strong>
-                      Cytogenetic band: 
-                    </strong>
-                     
-                  </div>
-                  <div>
-                    <strong>
-                      Genomic location: 
-                    </strong>
-                     
-                  </div>
-                  <div>
-                    <strong>
-                      Source type: 
-                    </strong>
-                     large scale study
-                  </div>
-                </td>
-              </tr>
-              <tr
-                data-end="10"
-                data-id="featureA"
-                data-start="10"
+                E&gt;*
+              </a>
+            </span>
+          </td>
+          <td />
+          <td />
+          <td>
+            <span
+              class=""
+            >
+              gnomAD
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content"
+          hidden=""
+          id="1"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row odd has-extra-content"
+        >
+          <td>
+            <button
+              aria-controls="2"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td>
+            <span
+              class=""
+            >
+              rs1225901762
+            </span>
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 E1A"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
               >
-                <td>
-                  <span
-                    class=""
-                  >
-                    rs1446208112
-                  </span>
-                </td>
-                <td>
-                  10
-                </td>
-                <td
-                  class="change"
-                >
-                  <a
-                    class="external-link"
-                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 L10A"
-                    rel="noopener"
-                    target="_blank"
-                    title="View in ProtVar"
-                  >
-                    L&gt;A
-                  </a>
-                </td>
-                <td
-                  translate="yes"
-                />
-                <td
-                  translate="yes"
-                />
-                <td>
-                  <span
-                    class=""
-                  >
-                    TOPMed
-                  </span>
-                  <br />
-                  <span
-                    class=""
-                  >
-                    gnomAD
-                  </span>
-                </td>
-              </tr>
-              <tr
-                data-end="10"
-                data-group-for="featureA"
-                data-start="10"
+                E&gt;A
+              </a>
+            </span>
+          </td>
+          <td />
+          <td />
+          <td>
+            <span
+              class=""
+            >
+              gnomAD
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content odd"
+          hidden=""
+          id="2"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row has-extra-content"
+        >
+          <td>
+            <button
+              aria-controls="3"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td>
+            <span
+              class=""
+            >
+              rs765605248
+            </span>
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 E1D"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
               >
-                <td>
-                  <div>
-                    <strong>
-                      Consequence: 
-                    </strong>
-                    missense
-                  </div>
-                  <div>
-                    <strong>
-                      Predictions: 
-                    </strong>
-                    <div>
-                      - PolyPhen: benign (0.001)
-                    </div>
-                    <div>
-                      - SIFT: tolerated (0.26)
-                    </div>
-                  </div>
-                  <div>
-                    <strong>
-                      Somatic: 
-                    </strong>
-                     No
-                  </div>
-                  <div>
-                    <strong>
-                      Accession: 
-                    </strong>
-                     NC_000021.9:g.26170608A&gt;C
-                  </div>
-                  <div>
-                    <strong>
-                      Codon: 
-                    </strong>
-                     TTG/GTG
-                  </div>
-                  <div>
-                    <strong>
-                      Consequence type: 
-                    </strong>
-                     missense
-                  </div>
-                  <div>
-                    <strong>
-                      Cytogenetic band: 
-                    </strong>
-                     21q21.3
-                  </div>
-                  <div>
-                    <strong>
-                      Genomic location: 
-                    </strong>
-                     NC_000021.9:g.26170608A&gt;C
-                  </div>
-                  <div>
-                    <strong>
-                      Locations: 
-                    </strong>
-                    <div>
-                      - p.Leu5Val (Ensembl:ENST00000346798)
-                    </div>
-                    <div>
-                      - c.13T&gt;G (Ensembl:ENST00000346798)
-                    </div>
-                  </div>
-                  <div>
-                    <strong>
-                      Source type: 
-                    </strong>
-                     large scale study
-                  </div>
-                  <div>
-                    <strong>
-                      Cross-references: 
-                    </strong>
-                    <div>
-                      - 
-                      <a
-                        class="external-link"
-                        href=" https://www.ncbi.nlm.nih.gov/snp/rs1446208112#frequency_tab"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        TOPMed: rs1446208112
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                    </div>
-                    <div>
-                      - 
-                      <a
-                        class="external-link"
-                        href=" http://gnomad.broadinstitute.org/awesome?query=rs1446208112"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        gnomAD: rs1446208112
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </protvista-datatable>
-      </div>
-    </protvista-manager>
+                E&gt;D
+              </a>
+            </span>
+          </td>
+          <td />
+          <td />
+          <td>
+            <span
+              class=""
+            >
+              ExAC
+            </span>
+            <br />
+            <span
+              class=""
+            >
+              gnomAD
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content"
+          hidden=""
+          id="3"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row odd has-extra-content"
+        >
+          <td>
+            <button
+              aria-controls="4"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td>
+            <span
+              class=""
+            >
+              rs1428147916
+            </span>
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 I2T"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                I&gt;T
+              </a>
+            </span>
+          </td>
+          <td />
+          <td />
+          <td>
+            <span
+              class=""
+            >
+              TOPMed
+            </span>
+            <br />
+            <span
+              class=""
+            >
+              gnomAD
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content odd"
+          hidden=""
+          id="4"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row has-extra-content"
+        >
+          <td>
+            <button
+              aria-controls="5"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td>
+            <span
+              class=""
+            >
+              rs750994808
+            </span>
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 I2V"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                I&gt;V
+              </a>
+            </span>
+          </td>
+          <td />
+          <td />
+          <td>
+            <span
+              class=""
+            >
+              ExAC
+            </span>
+            <br />
+            <span
+              class=""
+            >
+              gnomAD
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content"
+          hidden=""
+          id="5"
+        >
+          <td />
+        </tr>
+      </tbody>
+    </table>
   </section>
 </DocumentFragment>
 `;

@@ -1,5 +1,4 @@
 @import 'franklin-sites/src/styles/mixins';
-@import 'franklin-sites/src/styles/colours';
 
 .main-content {
   margin: 0;
@@ -25,14 +24,14 @@
 }
 
 .logo {
-  background: $colour-sky-white;
+  background: var(--fr--color-sky-white);
   -webkit-mask: url('../../../../images/uniprot-logo.img.svg') no-repeat 0 0;
   mask: url('../../../../images/uniprot-logo.img.svg') no-repeat 0 0;
   width: 80px;
   height: 40px;
 
   &.home {
-    background: $colour-sea-blue;
+    background: var(--fr--color-sea-blue);
   }
 
   @include fs-breakpoints('large') {
