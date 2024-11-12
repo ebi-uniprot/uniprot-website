@@ -354,13 +354,10 @@ exports[`ResultsData component should render the table view 1`] = `
           </th>
           <th
             class=""
+            data-column-name="accession"
           >
-            <span
-              aria-expanded="false"
-            >
-              <span>
-                Entry
-              </span>
+            <span>
+              Entry
             </span>
           </th>
         </tr>

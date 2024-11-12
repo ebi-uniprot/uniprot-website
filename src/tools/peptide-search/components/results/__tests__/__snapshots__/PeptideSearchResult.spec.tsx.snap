@@ -169,90 +169,70 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </th>
               <th
                 class=""
+                data-column-name="accession"
               >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Entry
-                  </span>
+                <span>
+                  Entry
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="match"
               >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Match
-                  </span>
+                <span>
+                  Match
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="reviewed"
               />
               <th
                 class=""
+                data-column-name="id"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="entry_name"
                 >
-                  <span
-                    data-article-id="entry_name"
-                  >
-                    Entry Name
-                  </span>
+                  Entry Name
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="protein_name"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="protein_names"
                 >
-                  <span
-                    data-article-id="protein_names"
-                  >
-                    Protein Names
-                  </span>
+                  Protein Names
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="gene_names"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="gene_name"
                 >
-                  <span
-                    data-article-id="gene_name"
-                  >
-                    Gene Names
-                  </span>
+                  Gene Names
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="organism_name"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="organism-name"
                 >
-                  <span
-                    data-article-id="organism-name"
-                  >
-                    Organism
-                  </span>
+                  Organism
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="length"
               >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Length
-                  </span>
+                <span>
+                  Length
                 </span>
               </th>
             </tr>
@@ -599,90 +579,70 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </th>
               <th
                 class=""
+                data-column-name="accession"
               >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Entry
-                  </span>
+                <span>
+                  Entry
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="match"
               >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Match
-                  </span>
+                <span>
+                  Match
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="reviewed"
               />
               <th
                 class=""
+                data-column-name="id"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="entry_name"
                 >
-                  <span
-                    data-article-id="entry_name"
-                  >
-                    Entry Name
-                  </span>
+                  Entry Name
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="protein_name"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="protein_names"
                 >
-                  <span
-                    data-article-id="protein_names"
-                  >
-                    Protein Names
-                  </span>
+                  Protein Names
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="gene_names"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="gene_name"
                 >
-                  <span
-                    data-article-id="gene_name"
-                  >
-                    Gene Names
-                  </span>
+                  Gene Names
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="organism_name"
               >
                 <span
-                  aria-expanded="false"
+                  data-article-id="organism-name"
                 >
-                  <span
-                    data-article-id="organism-name"
-                  >
-                    Organism
-                  </span>
+                  Organism
                 </span>
               </th>
               <th
                 class=""
+                data-column-name="length"
               >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Length
-                  </span>
+                <span>
+                  Length
                 </span>
               </th>
             </tr>

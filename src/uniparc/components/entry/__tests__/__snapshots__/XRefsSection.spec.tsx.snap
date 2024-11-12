@@ -39,36 +39,43 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <tr>
                 <th
                   class=""
+                  data-column-name="database"
                 >
                   Database
                 </th>
                 <th
                   class=""
+                  data-column-name="accession"
                 >
                   Identifier
                 </th>
                 <th
                   class=""
+                  data-column-name="version"
                 >
                   Version
                 </th>
                 <th
                   class=""
+                  data-column-name="organism"
                 >
                   Organism
                 </th>
                 <th
                   class=""
+                  data-column-name="first_seen"
                 >
                   First seen
                 </th>
                 <th
                   class=""
+                  data-column-name="last_seen"
                 >
                   Last seen
                 </th>
                 <th
                   class=""
+                  data-column-name="active"
                 >
                   Active
                 </th>
