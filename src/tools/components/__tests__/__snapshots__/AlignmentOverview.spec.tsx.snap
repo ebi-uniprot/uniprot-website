@@ -12,7 +12,7 @@ exports[`AlignmentOverview BLAST should render 1`] = `
       length="751"
       min-height="10"
       min-width="10"
-      style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
+      style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
     >
       <!---->
       <svg
@@ -124,7 +124,7 @@ exports[`AlignmentOverview BLAST should render 1`] = `
       length="751"
       min-height="10"
       min-width="10"
-      style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
+      style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
     >
       <!---->
       <svg

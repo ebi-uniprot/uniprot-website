@@ -215,7 +215,7 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
                 >
                   <nightingale-track
                     data-testid="blast-summary-track"
-                    style="width: 100%; height: 100%; display: inline-block; line-height: 0;"
+                    style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
                     title="Start: 3
 End: 30
 Hit length: 486"
