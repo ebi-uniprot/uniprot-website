@@ -8,6 +8,7 @@ import {
   scaleTime,
   format,
   timeFormat,
+  timeYear,
 } from 'd3';
 
 import styles from './styles/historical-release-entries-line-plot.module.scss';
