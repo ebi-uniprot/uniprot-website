@@ -1,10 +1,8 @@
 import { useCallback, useRef } from 'react';
 import NightingaleVariation from '@nightingale-elements/nightingale-variation';
 import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import { Filter } from '@nightingale-elements/nightingale-filter';
 
-// We have to import this specific file otherwise it gets everything in at the
-// same time (including molstar...). But this path causes issues with Jest
-// because it doesn't support es modules natively yet. So, not testable atm
 import { filterConfig, colorConfig } from 'protvista-uniprot';
 import NightingaleNavigationComponent from '../../../shared/custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../../shared/custom-elements/NightingaleSequence';
@@ -55,7 +53,7 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
 
       <NightingaleFilterComponent
         for="variation-component"
-        filters={filterConfig}
+        filters={filterConfig as Filter[]}
       />
       <NightingaleVariationComponent
         id="variation-component"

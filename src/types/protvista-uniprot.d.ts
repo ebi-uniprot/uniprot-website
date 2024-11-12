@@ -1,9 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-declare module 'protvista-uniprot';
+type ProtvistaUniprotElement = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement>,
+  HTMLElement
+> & {
+  accession?: string;
+};
 
 declare namespace JSX {
   interface IntrinsicElements {
-    'protvista-uniprot': any;
-    'protvista-uniprot-structure': any;
+    'protvista-uniprot': ProtvistaUniprotElement;
+    'protvista-uniprot-structure': ProtvistaUniprotElement;
   }
 }
