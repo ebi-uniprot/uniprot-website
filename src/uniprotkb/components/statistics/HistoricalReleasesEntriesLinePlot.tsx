@@ -57,7 +57,8 @@ const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
     // y-axis
     const yScale = scaleLinear()
       .domain(bounds.count) // units: count
-      .range([height, 0]); // units: pixels
+      .range([height, 0]) // units: pixels
+      .nice();
 
     chart
       .select<SVGGElement>('.y-axis')
