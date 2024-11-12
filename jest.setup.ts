@@ -52,24 +52,30 @@ jest.mock('react', () => ({
   useId: mockedUseId,
 }));
 
-beforeAll(() => {
-  global.ResizeObserver = class ResizeObserver {
-    // eslint-disable-next-line class-methods-use-this
-    observe() {
-      // do nothing
-    }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).ResizeObserver = class ResizeObserver {
+  constructor(callback: ResizeObserverCallback) {
+    this.callback = callback;
+  }
 
-    // eslint-disable-next-line class-methods-use-this
-    unobserve() {
-      // do nothing
-    }
+  observe(target: Element) {
+    this.callback([{ target } as ResizeObserverEntry], this);
+  }
 
-    // eslint-disable-next-line class-methods-use-this
-    disconnect() {
-      // do nothing
-    }
-  };
-});
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  unobserve(target: Element) {
+    // Mock implementation
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  disconnect() {
+    // Mock implementation
+  }
+
+  private callback: ResizeObserverCallback;
+};
+
+global.ResizeObserver = ResizeObserver;
 
 /* "Fail on console error" util */
 // Uncomment to have jest stop when a console error is shown in order to fix it
