@@ -34,6 +34,9 @@ const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
 
   const renderPlot = useCallback((dateCounts: DateCount[], bounds: Bounds) => {
     const chart = select(svgRef.current).select('g');
+    
+    const startYear = new Date(bounds.date[0].getFullYear(), 0, 1);
+    const endYear = new Date(bounds.date[1].getFullYear() + 1, 0, 1);
 
     // x-axis
     const xScale = scaleTime()
