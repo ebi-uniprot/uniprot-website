@@ -1,9 +1,8 @@
 import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message } from 'franklin-sites';
+import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
 import HTMLHead from '../../../shared/components/HTMLHead';
 import FreeTextView, {
   RichText,
@@ -44,6 +43,8 @@ import CommunityCuration from './CommunityCuration';
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
+
+const GoCam = lazy(() => import(/* webpackChunkName: "go-cam" */ './GoCam'));
 
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
@@ -367,14 +368,29 @@ const FunctionSection = ({
         sequence={sequence}
       />
       <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <GoRibbon
-            primaryAccession={primaryAccession}
-            goTerms={data.goTerms}
-            geneNamesData={data.geneNamesData}
-            organismData={data.organismData}
-          />
-        </Suspense>
+        <Tabs>
+          <Tab title="GO annotations">
+            <Suspense fallback={<Loader />}>
+              <GoRibbon
+                primaryAccession={primaryAccession}
+                goTerms={data.goTerms}
+                geneNamesData={data.geneNamesData}
+                organismData={data.organismData}
+              />
+            </Suspense>
+          </Tab>
+          <Tab
+            title={
+              <>
+                GO-CAM <Chip compact>New</Chip>
+              </>
+            }
+          >
+            <Suspense fallback={<Loader />}>
+              <GoCam primaryAccession={primaryAccession} />
+            </Suspense>
+          </Tab>
+        </Tabs>
       </ErrorBoundary>
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

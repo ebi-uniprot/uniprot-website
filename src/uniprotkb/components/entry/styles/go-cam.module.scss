@@ -1,0 +1,22 @@
+@import 'franklin-sites/src/styles/colours';
+
+.go-cam-container {
+  margin-bottom: 1.5rem;
+
+  .preamble {
+    margin-bottom: 1rem;
+  }
+
+  select.id-select {
+    width: fit-content;
+    display: block;
+  }
+
+  .ids-list {
+    max-height: 15rem;
+
+    .selected {
+      font-weight: bold;
+    }
+  }
+}
