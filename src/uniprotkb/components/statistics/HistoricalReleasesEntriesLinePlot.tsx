@@ -37,7 +37,7 @@ const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
 
     // x-axis
     const xScale = scaleTime()
-      .domain(bounds.date) // units: Date
+      .domain([startYear, endYear]) // units: Date
       .range([0, width]); // units: pixels
     chart
       .select<SVGGElement>('.x-axis')
