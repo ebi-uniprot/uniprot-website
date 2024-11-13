@@ -29,18 +29,19 @@ type Props = {
   bounds?: Bounds;
 };
 
+const START_DATE = new Date(1995, 8, 1);
+
 const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const renderPlot = useCallback((dateCounts: DateCount[], bounds: Bounds) => {
     const chart = select(svgRef.current).select('g');
-    
-    const startYear = new Date(bounds.date[0].getFullYear(), 0, 1);
-    const endYear = new Date(bounds.date[1].getFullYear() + 1, 0, 1);
+
+    const endYear = new Date(bounds.date[1].getFullYear() + 2, 1, 1);
 
     // x-axis
     const xScale = scaleTime()
-      .domain([startYear, endYear]) // units: Date
+      .domain([START_DATE, endYear]) // units: Date
       .range([0, width]); // units: pixels
     chart
       .select<SVGGElement>('.x-axis')
@@ -48,7 +49,7 @@ const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
       .duration(1_000)
       .call(
         axisBottom(xScale)
-          .ticks(timeYear)
+          .ticks(timeYear.every(4))
           .tickFormat((d: Date | { valueOf(): number }) =>
             timeFormat('%Y')(new Date(d.valueOf()))
           )
