@@ -382,7 +382,7 @@ const FunctionSection = ({
           <Tab
             title={
               <>
-                GO-CAM <Chip compact>New</Chip>
+                GO-Causal Activity Models<Chip compact>New</Chip>
               </>
             }
           >
