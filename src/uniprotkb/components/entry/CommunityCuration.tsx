@@ -13,12 +13,53 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import externalUrls from '../../../shared/config/externalUrls';
 
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import {
+  CommunityAnnotation,
+  Reference,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
 import EntrySection from '../../types/entrySection';
 
 import styles from './styles/community-curation.module.scss';
 
 import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
+import { defaultdict } from '../../../shared/utils/utils';
+
+const annotationGetter = (section: EntrySection) => {
+  switch (section) {
+    case EntrySection.Function:
+      return (communityAnnotation?: CommunityAnnotation) =>
+        communityAnnotation?.function;
+    case EntrySection.DiseaseVariants:
+    case EntrySection.PhenotypesVariants:
+      return (communityAnnotation?: CommunityAnnotation) =>
+        communityAnnotation?.disease;
+    case EntrySection.NamesAndTaxonomy:
+      return (communityAnnotation?: CommunityAnnotation) =>
+        communityAnnotation?.proteinOrGene;
+    default:
+      return null;
+  }
+};
+
+const groupByCommunityAnnotation = (
+  section: EntrySection,
+  communityReferences: Reference[]
+) => {
+  const getAnnotation = annotationGetter(section);
+  if (!getAnnotation) {
+    return null;
+  }
+  const annotationToCommunityReferences = new Map<string, Reference[]>();
+  for (const communityReference of communityReferences) {
+    const annotation = getAnnotation(communityReference.communityAnnotation);
+    if (annotation) {
+      const annotations = annotationToCommunityReferences.get(annotation) || [];
+      annotations.push(communityReference);
+      annotationToCommunityReferences.set(annotations);
+    }
+  }
+  return annotationToCommunityReferences;
+};
 
 const CommunityCuration = ({
   accession,
@@ -30,8 +71,11 @@ const CommunityCuration = ({
   communityReferences: Reference[];
 }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-
-  if (communityReferences.length) {
+  const groupedCommunityReferences = groupByCommunityAnnotation(
+    section,
+    communityReferences
+  );
+  if (groupedCommunityReferences?.size) {
     return (
       <details className={styles['community-annotation-details']}>
         <summary className={styles.header}>
