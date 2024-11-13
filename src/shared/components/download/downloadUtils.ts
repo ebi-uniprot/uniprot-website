@@ -77,6 +77,10 @@ export const getFileFormatsOptions = (
     ) {
       return [FileFormat.fastaSubsequence, ...fileFormatsOptions];
     }
+    // TODO: remove filter once the API supports embeddings id mapping downloads
+    if (job.jobResultsNamespace === Namespace.uniprotkb) {
+      return fileFormatsOptions.filter((ff) => ff !== FileFormat.embeddings);
+    }
   }
   return fileFormatsOptions;
 };
