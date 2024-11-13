@@ -64,6 +64,12 @@ const CommunityCuration = ({
                       </ExternalLink>
                     </span>
                   )}
+                  {communityAnnotation?.submissionDate && (
+                    <span>
+                      Submission date:&nbsp;&nbsp;
+                      {communityAnnotation?.submissionDate}
+                    </span>
+                  )}
                   {source && (
                     <span>
                       Contributor:&nbsp;&nbsp;
