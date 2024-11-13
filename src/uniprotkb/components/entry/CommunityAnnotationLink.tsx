@@ -1,10 +1,14 @@
 import { FC } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import externalUrls from '../../../shared/config/externalUrls';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { TabLocation } from '../../types/entry';
 
 const fetchOptions: { method: Method } = {
   method: 'HEAD',
@@ -24,9 +28,18 @@ const CommunityAnnotationLink: FC<
     return null;
   }
   return (
-    <a href={url} className="button tertiary" target="_blank" rel="noreferrer">
+    <Link
+      to={{
+        pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+          accession,
+          subPage: TabLocation.Publications,
+        }),
+        search: '?facets=types:0',
+      }}
+      className="button tertiary"
+    >
       <CommunityAnnotationIcon /> {`Community curation (${nSubmissions})`}
-    </a>
+    </Link>
   );
 };
 
