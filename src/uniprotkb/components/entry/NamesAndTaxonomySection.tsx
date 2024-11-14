@@ -12,6 +12,7 @@ import CommunityCuration from './CommunityCuration';
 
 import {
   deepFindAllByKey,
+  excludeKeys,
   hasContent,
   pluralise,
 } from '../../../shared/utils/utils';
@@ -91,13 +92,18 @@ const NamesAndTaxonomySection = ({
   );
 
   const uniqueAnnotatedNames = new Set(
-    deepFindAllByKey(
-      {
-        proteinNames: data.proteinNamesData,
-        geneNames: data.geneNamesData,
-      },
-      'value'
-    )
+    !data.proteinNamesData
+      ? []
+      : deepFindAllByKey(
+          {
+            proteinNames: excludeKeys(data.proteinNamesData, [
+              'includes',
+              'contains',
+            ]),
+            geneNames: data.geneNamesData,
+          },
+          'value'
+        )
   );
 
   const nameRelatedReferences = communityReferences.filter(
