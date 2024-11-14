@@ -113,40 +113,58 @@ const GroupedCommunityReference = ({
         </tr>
       </thead>
       <tbody>
-        {references.map(({ citationId, communityAnnotation, source }) => (
-          <tr key={citationId}>
-            <td>
-              {citationId && (
-                <ExternalLink url={externalUrls.PubMed(citationId)}>
-                  PubMed:{citationId}
-                </ExternalLink>
-              )}
-            </td>
-            <td>
-              <SubmissionDate
-                accession={accession}
-                citationId={citationId}
-                submissionDate={communityAnnotation?.submissionDate}
-              />
-            </td>
-            <td>
-              {source?.id && source.id !== 'Anonymous' ? (
-                <ExternalLink
-                  url={processUrlTemplate(
-                    databaseInfoMaps?.databaseToDatabaseInfo[source.name]
-                      ?.uriLink,
-                    { id: source.id }
-                  )}
-                >
-                  <img src={ORCIDiDLogo} alt="" width="15" height="15" />
-                  {source.id}
-                </ExternalLink>
-              ) : (
-                source?.id || ''
-              )}
-            </td>
-          </tr>
-        ))}
+        {references
+          .sort((a, b) => {
+            if (
+              !a.communityAnnotation?.submissionDate &&
+              !b.communityAnnotation?.submissionDate
+            ) {
+              return 0;
+            }
+            if (
+              !a.communityAnnotation?.submissionDate ||
+              !b.communityAnnotation?.submissionDate
+            ) {
+              return 1;
+            }
+            return a.communityAnnotation.submissionDate.localeCompare(
+              b.communityAnnotation.submissionDate
+            );
+          })
+          .map(({ citationId, communityAnnotation, source }) => (
+            <tr key={citationId}>
+              <td>
+                {citationId && (
+                  <ExternalLink url={externalUrls.PubMed(citationId)}>
+                    PubMed:{citationId}
+                  </ExternalLink>
+                )}
+              </td>
+              <td>
+                <SubmissionDate
+                  accession={accession}
+                  citationId={citationId}
+                  submissionDate={communityAnnotation?.submissionDate}
+                />
+              </td>
+              <td>
+                {source?.id && source.id !== 'Anonymous' ? (
+                  <ExternalLink
+                    url={processUrlTemplate(
+                      databaseInfoMaps?.databaseToDatabaseInfo[source.name]
+                        ?.uriLink,
+                      { id: source.id }
+                    )}
+                  >
+                    <img src={ORCIDiDLogo} alt="" width="15" height="15" />
+                    {source.id}
+                  </ExternalLink>
+                ) : (
+                  source?.id || ''
+                )}
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   </Card>
