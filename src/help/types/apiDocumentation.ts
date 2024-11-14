@@ -1,7 +1,8 @@
 export enum ApiDocsDefinition {
   uniprotkb = 'uniprotkb',
   uniref = 'uniref',
-  uniparc = 'uniparc',
+  // Disable until backend is more confident about it
+  // uniparc = 'uniparc',
   proteomes = 'proteomes',
   support_data = 'support-data',
   aa = 'aa',
