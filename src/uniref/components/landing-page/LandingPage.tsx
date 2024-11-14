@@ -18,7 +18,9 @@ import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
 
 import styles from './styles/landing-page.module.scss';
 
-import SpeciesIllustration from '../../../images/cluster_illustration.img.svg';
+import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
+
+import ClusterAnimationSVG from '../../../images/cluster_animation_illustration.svg';
 
 const clusterLabelMap = new Map([
   ['1.0', 'uniref100'],
@@ -105,7 +107,7 @@ const LandingPage = () => {
             styles['image-container']
           )}
         >
-          <img src={SpeciesIllustration} width={300} height={250} alt="" />
+          <img src={ClusterIllustration} width={300} height={250} alt="" />
         </div>
         <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
           <p>
@@ -174,54 +176,58 @@ const LandingPage = () => {
         </div>
 
         {/* Statistics */}
-        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
-          <h2>Percent Identity Clusters</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  Identity <br />
-                  percentage
-                </th>
-                <th>
-                  Number of
-                  <br />
-                  UniRef clusters
-                </th>
-                <th>Download</th>
-              </tr>
-            </thead>
-            <tbody>
-              {clusterData?.values?.map((cluster) => (
-                <tr>
-                  <td>{cluster.label}</td>
-                  <td>
-                    <Link
-                      to={{
-                        pathname: LocationToPath[Location.UniRefResults],
-                        search: stringifyQuery({
-                          query: `identity:${cluster.value}`,
-                        }),
-                      }}
-                    >
-                      <LongNumber>{cluster.count}</LongNumber> clusters
-                    </Link>
-                  </td>
-                  <td>{getFTPLinks(cluster.value)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-
-        {/* Help links */}
-        <section
+        <h2 className="uniprot-grid-cell--span-12">
+          Percent Identity Clusters
+        </h2>
+        <div
           className={cn(
             'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-4',
-            styles.documentation
+            'uniprot-grid-cell--medium-span-6',
+            'uniprot-grid-cell--large-span-4',
+            styles['image-container']
           )}
         >
+          <ClusterAnimationSVG className={styles.animation} />
+        </div>
+        <table className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 uniprot-grid-cell--large-span-8">
+          <thead>
+            <tr>
+              <th>
+                Identity <br />
+                percentage
+              </th>
+              <th>
+                Number of
+                <br />
+                UniRef clusters
+              </th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clusterData?.values?.map((cluster) => (
+              <tr key={cluster.value}>
+                <td>{cluster.label}</td>
+                <td>
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.UniRefResults],
+                      search: stringifyQuery({
+                        query: `identity:${cluster.value}`,
+                      }),
+                    }}
+                  >
+                    <LongNumber>{cluster.count}</LongNumber> clusters
+                  </Link>
+                </td>
+                <td>{getFTPLinks(cluster.value)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Help links */}
+        <section className="uniprot-grid-cell--span-4">
           <h2>Documentation</h2>
           <ul>
             {documentationLinks.map((item) => (
