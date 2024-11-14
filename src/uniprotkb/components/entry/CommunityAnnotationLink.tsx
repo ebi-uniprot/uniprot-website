@@ -21,7 +21,7 @@ type CommunityAnnotationLinkProps = {
 const CommunityAnnotationLink: FC<
   React.PropsWithChildren<CommunityAnnotationLinkProps>
 > = ({ accession }) => {
-  const url = externalUrls.CommunityCurationGet(accession);
+  const url = externalUrls.CommunityCurationGetByAccession(accession);
   const { headers } = useDataApi(url, fetchOptions);
   const nSubmissions = +(headers?.['x-total-results'] || 0);
   if (!nSubmissions) {

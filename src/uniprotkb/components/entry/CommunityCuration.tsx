@@ -16,6 +16,7 @@ import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import {
+  Citation,
   CommunityAnnotation,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
@@ -61,13 +62,38 @@ const groupByCommunityAnnotation = (
   return annotationToCommunityReferences;
 };
 
+const SubmissionDate = ({
+  accession,
+  citationId,
+  submissionDate,
+}: {
+  accession: string;
+  citationId?: Citation['id'];
+  submissionDate?: string;
+}) => (
+  <ExternalLink
+    url={
+      citationId && citationId.match(/\d+/)
+        ? externalUrls.CommunityCurationGetByAccessionAndPmid(
+            accession,
+            citationId
+          )
+        : externalUrls.CommunityCurationGetByAccession(accession)
+    }
+  >
+    <time dateTime={submissionDate}>{submissionDate}</time>
+  </ExternalLink>
+);
+
 const GroupedCommunityReference = ({
   annotation,
+  accession,
   references,
   section,
   databaseInfoMaps,
 }: {
   annotation: string;
+  accession: string;
   references: Reference[];
   section: EntrySection;
   databaseInfoMaps: DatabaseInfoMaps | null;
@@ -96,9 +122,11 @@ const GroupedCommunityReference = ({
               )}
             </td>
             <td>
-              <time dateTime={communityAnnotation?.submissionDate}>
-                {communityAnnotation?.submissionDate}
-              </time>
+              <SubmissionDate
+                accession={accession}
+                citationId={citationId}
+                submissionDate={communityAnnotation?.submissionDate}
+              />
             </td>
             <td>
               {source?.id && source.id !== 'Anonymous' ? (
@@ -156,6 +184,7 @@ const CommunityCuration = ({
             ([annotation, references]) => (
               <GroupedCommunityReference
                 section={section}
+                accession={accession}
                 annotation={annotation}
                 references={references}
                 databaseInfoMaps={databaseInfoMaps}
