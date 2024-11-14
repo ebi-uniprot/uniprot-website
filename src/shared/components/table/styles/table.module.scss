@@ -47,7 +47,7 @@ $table_extra-content-background: #f1f1f1;
 }
 
 .row {
-  background-color: var(--table__even, #table__even);
+  background-color: var(--table__even, $table__even);
 
   &.odd {
     background-color: var(--table__odd, $table__odd);

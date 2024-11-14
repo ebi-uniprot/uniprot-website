@@ -51,33 +51,6 @@
       & th {
         padding: 0.2rem 3ch;
       }
-
-      & thead :global(.dropdown) > button {
-        font-family: monospace;
-        font-weight: bold;
-        font-size: 1em;
-        width: 2ch;
-        margin: 0;
-      }
     }
-  }
-
-  .contributor-details {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-
-    & span {
-      margin-right: 2rem;
-
-      img {
-        margin: 2px;
-      }
-    }
-  }
-
-  .names-section {
-    justify-content: flex-start;
-    margin-top: 0.5rem;
   }
 }
