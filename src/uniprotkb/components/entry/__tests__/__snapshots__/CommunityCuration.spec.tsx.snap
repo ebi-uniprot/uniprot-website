@@ -36,78 +36,76 @@ exports[`Community annotatation should render the community annotation content 1
           <div
             class="card__content"
           >
-            <ul
-              class="info-list"
-            >
-              <li>
-                <div
-                  class="decorated-list-item"
-                >
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    Community suggested names
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    Epicuticlin
-                    <div
-                      class="contributor-details names-section"
+            <h4>
+              Community suggested name: Epicuticlin
+            </h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Source
+                  </th>
+                  <th>
+                    Submission date
+                  </th>
+                  <th>
+                    Contributor
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/36301857"
+                      rel="noopener"
+                      target="_blank"
                     >
-                      <span>
-                        Source:  
-                        <a
-                          class="external-link"
-                          href="https://pubmed.ncbi.nlm.nih.gov/36301857"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          PMID - 36301857
-                          <test-file-stub
-                            data-testid="external-link-icon"
-                            width="12.5"
-                          />
-                        </a>
-                      </span>
-                      <span>
-                        Contributor:  
-                        <a
-                          class="external-link"
-                          href="https://orcid.org/0000-0001-6057-9374"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          <img
-                            alt=""
-                            height="15"
-                            src="test-file-stub"
-                            width="15"
-                          />
-                          0000-0001-6057-9374
-                          <test-file-stub
-                            data-testid="external-link-icon"
-                            width="12.5"
-                          />
-                        </a>
-                      </span>
-                      <a
-                        class="external-link"
-                        href="https://community.uniprot.org/cgi-bin/bbsub_query?accession=Q95PB5"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        View submission
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
+                      PubMed:36301857
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=36301857"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time />
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0000-0001-6057-9374"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0000-0001-6057-9374
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

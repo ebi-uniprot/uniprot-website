@@ -39,7 +39,7 @@ describe('Community annotatation', () => {
         communityReferences={mock}
       />
     );
-    expect(await screen.findByText('Epicuticlin')).toBeInTheDocument();
+    expect(await screen.findByText(/Epicuticlin/)).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });
