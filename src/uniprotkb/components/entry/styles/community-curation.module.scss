@@ -1,3 +1,5 @@
+@import '../../../../shared/components/table/styles/table.module.scss';
+
 .community-annotation-details {
   .chevron-icon {
     transform: scale(1);
@@ -32,6 +34,32 @@
 
   .reference-card {
     background-color: #abc7d64d;
+
+    table {
+      padding: 0;
+      margin: 1em 0;
+      border-spacing: 0;
+
+      & th {
+        text-align: left;
+        vertical-align: middle;
+        color: $table__header-text;
+        text-transform: uppercase;
+      }
+
+      & td,
+      & th {
+        padding: 0.2rem 3ch;
+      }
+
+      & thead :global(.dropdown) > button {
+        font-family: monospace;
+        font-weight: bold;
+        font-size: 1em;
+        width: 2ch;
+        margin: 0;
+      }
+    }
   }
 
   .contributor-details {

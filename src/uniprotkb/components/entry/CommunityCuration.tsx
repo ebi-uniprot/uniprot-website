@@ -9,7 +9,6 @@ import cn from 'classnames';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
-import Table from '../../../shared/components/table/Table';
 import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
 
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
@@ -98,22 +97,24 @@ const GroupedCommunityReference = ({
   section: EntrySection;
   databaseInfoMaps: DatabaseInfoMaps | null;
 }) => (
-  <Card className={styles['reference-card']} key={annotation}>
+  <Card className={styles['reference-card']}>
     <h4>
       {section === EntrySection.NamesAndTaxonomy
         ? 'Community suggested name: '
         : ''}
       {annotation}
     </h4>
-    <Table>
-      <Table.Head>
-        <th>Source</th>
-        <th>Submission date</th>
-        <th>Contributor</th>
-      </Table.Head>
-      <Table.Body>
+    <table>
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Submission date</th>
+          <th>Contributor</th>
+        </tr>
+      </thead>
+      <tbody>
         {references.map(({ citationId, communityAnnotation, source }) => (
-          <Table.Row key={citationId} isOdd={false}>
+          <tr key={citationId}>
             <td>
               {citationId && (
                 <ExternalLink url={externalUrls.PubMed(citationId)}>
@@ -144,10 +145,10 @@ const GroupedCommunityReference = ({
                 source?.id || ''
               )}
             </td>
-          </Table.Row>
+          </tr>
         ))}
-      </Table.Body>
-    </Table>
+      </tbody>
+    </table>
   </Card>
 );
 
@@ -183,6 +184,7 @@ const CommunityCuration = ({
           {Array.from(groupedCommunityReferences).map(
             ([annotation, references]) => (
               <GroupedCommunityReference
+                key={annotation}
                 section={section}
                 accession={accession}
                 annotation={annotation}
