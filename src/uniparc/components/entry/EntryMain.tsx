@@ -5,29 +5,19 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import UniParcEntryConfig from '../../config/UniParcEntryConfig';
 
-import {
-  UniParcAPIModel,
-  UniParcUIModel,
-} from '../../adapters/uniParcConverter';
-import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { UniParcUIModel, UniParcXRef } from '../../adapters/uniParcConverter';
+import { PaginatedResults } from '../../../shared/hooks/usePagination';
 
 type EntryMainProps = {
   transformedData: UniParcUIModel;
-  xrefs: UseDataAPIWithStaleState<UniParcAPIModel>;
-  totalNResults?: number;
+  xrefs: PaginatedResults<UniParcXRef>;
 };
 
-const EntryMain = ({
-  transformedData,
-  xrefs,
-  totalNResults,
-}: EntryMainProps) => (
+const EntryMain = ({ transformedData, xrefs }: EntryMainProps) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
-        <ErrorBoundary>
-          {sectionContent(transformedData, xrefs, totalNResults)}
-        </ErrorBoundary>
+        <ErrorBoundary>{sectionContent(transformedData, xrefs)}</ErrorBoundary>
       </Suspense>
     ))}
   </>

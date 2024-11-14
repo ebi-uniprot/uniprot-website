@@ -17,16 +17,21 @@ export const databaseToEntryType = new Map<
   ['UniProtKB/TrEMBL', EntryType.UNREVIEWED],
 ]);
 
+type Property = {
+  key: string;
+  value: string;
+};
 // made completely partial as it depends a lot on the fields requested to API
 export type UniParcXRef = Partial<{
   active: boolean;
-  created: string;
+  created: string | string[];
   database: XRefsInternalDatabases | string; // should replace with union of possibilities?
   geneName: string;
   id: string;
-  lastUpdated: string;
+  lastUpdated: string | string[];
   ncbiGi: string;
   organism: TaxonomyDatum;
+  properties: Property[];
   proteinName: string;
   proteomeId: string;
   component: string;
@@ -73,8 +78,6 @@ export type UniParcLiteAPIModel = {
   organisms?: TaxonomyDatum[];
   proteinNames?: string[];
   proteomes?: Proteome[];
-  // To be removed
-  uniParcCrossReferences?: UniParcXRef[];
 };
 
 export type UniParcAPIModel = {
