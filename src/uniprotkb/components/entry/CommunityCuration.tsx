@@ -4,11 +4,13 @@ import {
   CommunityAnnotationIcon,
   ChevronDownIcon,
   Card,
-  InfoList,
 } from 'franklin-sites';
 import cn from 'classnames';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
+import Table from '../../../shared/components/table/Table';
+import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
 
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -18,11 +20,9 @@ import {
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import EntrySection from '../../types/entrySection';
+import { DatabaseInfoMaps } from '../../utils/database';
 
 import styles from './styles/community-curation.module.scss';
-
-import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
-import { defaultdict } from '../../../shared/utils/utils';
 
 const annotationGetter = (section: EntrySection) => {
   switch (section) {
@@ -53,13 +53,75 @@ const groupByCommunityAnnotation = (
   for (const communityReference of communityReferences) {
     const annotation = getAnnotation(communityReference.communityAnnotation);
     if (annotation) {
-      const annotations = annotationToCommunityReferences.get(annotation) || [];
-      annotations.push(communityReference);
-      annotationToCommunityReferences.set(annotations);
+      const r = annotationToCommunityReferences.get(annotation) || [];
+      r.push(communityReference);
+      annotationToCommunityReferences.set(annotation, r);
     }
   }
   return annotationToCommunityReferences;
 };
+
+const GroupedCommunityReference = ({
+  annotation,
+  references,
+  section,
+  databaseInfoMaps,
+}: {
+  annotation: string;
+  references: Reference[];
+  section: EntrySection;
+  databaseInfoMaps: DatabaseInfoMaps | null;
+}) => (
+  <Card className={styles['reference-card']} key={annotation}>
+    <h4>
+      {section === EntrySection.NamesAndTaxonomy
+        ? 'Community suggested name: '
+        : ''}
+      {annotation}
+    </h4>
+    <Table>
+      <Table.Head>
+        <th>Source</th>
+        <th>Submission date</th>
+        <th>Contributor</th>
+      </Table.Head>
+      <Table.Body>
+        {references.map(({ citationId, communityAnnotation, source }) => (
+          <Table.Row key={citationId} isOdd={false}>
+            <td>
+              {citationId && (
+                <ExternalLink url={externalUrls.PubMed(citationId)}>
+                  PubMed:{citationId}
+                </ExternalLink>
+              )}
+            </td>
+            <td>
+              <time dateTime={communityAnnotation?.submissionDate}>
+                {communityAnnotation?.submissionDate}
+              </time>
+            </td>
+            <td>
+              {source?.id && source.id !== 'Anonymous' ? (
+                <ExternalLink
+                  url={processUrlTemplate(
+                    databaseInfoMaps?.databaseToDatabaseInfo[source.name]
+                      ?.uriLink,
+                    { id: source.id }
+                  )}
+                >
+                  <img src={ORCIDiDLogo} alt="" width="15" height="15" />
+                  {source.id}
+                </ExternalLink>
+              ) : (
+                source?.id || ''
+              )}
+            </td>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  </Card>
+);
 
 const CommunityCuration = ({
   accession,
@@ -75,6 +137,7 @@ const CommunityCuration = ({
     section,
     communityReferences
   );
+
   if (groupedCommunityReferences?.size) {
     return (
       <details className={styles['community-annotation-details']}>
@@ -89,98 +152,15 @@ const CommunityCuration = ({
           <hr className={styles.separator} />
         </summary>
         <HeroContainer className={styles.content}>
-          {communityReferences.map(
-            ({ source, communityAnnotation, citationId }) => {
-              const contributorElement = (
-                <div
-                  className={cn(
-                    styles['contributor-details'],
-                    section === EntrySection.NamesAndTaxonomy
-                      ? styles['names-section']
-                      : ''
-                  )}
-                >
-                  {citationId && (
-                    <span>
-                      Source:&nbsp;&nbsp;
-                      <ExternalLink url={externalUrls.PubMed(citationId)}>
-                        PMID - {citationId}
-                      </ExternalLink>
-                    </span>
-                  )}
-                  {communityAnnotation?.submissionDate && (
-                    <span>
-                      Submission date:&nbsp;&nbsp;
-                      {communityAnnotation?.submissionDate}
-                    </span>
-                  )}
-                  {source && (
-                    <span>
-                      Contributor:&nbsp;&nbsp;
-                      {source.id && source.id !== 'Anonymous' ? (
-                        <ExternalLink
-                          url={processUrlTemplate(
-                            databaseInfoMaps?.databaseToDatabaseInfo[
-                              source.name
-                            ]?.uriLink,
-                            { id: source.id }
-                          )}
-                        >
-                          <img
-                            src={ORCIDiDLogo}
-                            alt=""
-                            width="15"
-                            height="15"
-                          />
-                          {source.id}
-                        </ExternalLink>
-                      ) : (
-                        source.id
-                      )}
-                    </span>
-                  )}
-                  <ExternalLink
-                    url={externalUrls.CommunityCurationGet(accession)}
-                  >
-                    View submission
-                  </ExternalLink>
-                </div>
-              );
-
-              return (
-                <Card key={citationId} className={styles['reference-card']}>
-                  {(section === EntrySection.Function ||
-                    section === EntrySection.PhenotypesVariants ||
-                    section === EntrySection.DiseaseVariants) && (
-                    <>
-                      <p>
-                        {section === EntrySection.Function &&
-                          communityAnnotation?.function}
-                        {(section === EntrySection.DiseaseVariants ||
-                          section === EntrySection.PhenotypesVariants) &&
-                          communityAnnotation?.disease}
-                      </p>
-                      {contributorElement}
-                    </>
-                  )}
-                  {section === EntrySection.NamesAndTaxonomy && (
-                    <InfoList
-                      infoData={[
-                        {
-                          title: 'Community suggested names',
-                          content: (
-                            <>
-                              {communityAnnotation?.proteinOrGene}
-                              {contributorElement}
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
-                  )}
-                </Card>
-              );
-            }
+          {Array.from(groupedCommunityReferences).map(
+            ([annotation, references]) => (
+              <GroupedCommunityReference
+                section={section}
+                annotation={annotation}
+                references={references}
+                databaseInfoMaps={databaseInfoMaps}
+              />
+            )
           )}
         </HeroContainer>
       </details>
