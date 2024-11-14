@@ -13,7 +13,10 @@ import CommunityCuration from './CommunityCuration';
 import { hasContent, pluralise } from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
+import {
+  GeneNamesData,
+  NamesAndTaxonomyUIModel,
+} from '../../adapters/namesAndTaxonomyConverter';
 
 import EntrySection from '../../types/entrySection';
 import UniProtKBEvidenceTag, {
@@ -27,6 +30,25 @@ import {
   ReferenceComment,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Evidence } from '../../types/modelTypes';
+
+const getUniqueNames = (geneNames?: GeneNamesData) => {
+  const names = new Set();
+  for (const geneName of geneNames || []) {
+    if (geneName.geneName?.value) {
+      names.add(geneName.geneName.value);
+    }
+    for (const array of [
+      geneName.synonyms,
+      geneName.orfNames,
+      geneName.orderedLocusNames,
+    ]) {
+      for (const item of array || []) {
+        names.add(item.value);
+      }
+    }
+  }
+  return names;
+};
 
 type Props = {
   data: NamesAndTaxonomyUIModel;
@@ -85,6 +107,9 @@ const NamesAndTaxonomySection = ({
       }),
     [references]
   );
+
+  const uniqueAnnotatedNames = getUniqueNames(data.geneNamesData);
+  console.log(uniqueAnnotatedNames);
 
   const nameRelatedReferences = communityReferences.filter(
     (reference) => reference.communityAnnotation?.proteinOrGene
