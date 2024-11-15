@@ -4,6 +4,7 @@ import { stringifyUrl } from '../../shared/utils/url';
 
 import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
 import { defaultFacets as helpDefaultFacets } from './HelpFacetConfiguration';
+import { ApiDocsDefinition } from '../types/apiDocumentation';
 
 const entry = (id?: string) => id && joinUrl(apiPrefix, 'help', id);
 
@@ -40,4 +41,7 @@ const search = ({
     size,
   });
 
-export default { entry, search };
+const apiDocumentationDefinition = (d: ApiDocsDefinition) =>
+  joinUrl(apiPrefix, d, 'api/docs');
+
+export default { entry, search, apiDocumentationDefinition };
