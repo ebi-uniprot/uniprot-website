@@ -108,3 +108,13 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
     Object.entries(o).map(([k, v]) => [k.toLowerCase(), v])
   );
 }
+
+export function defaultdict<T>(defaultValue: T) {
+  return new Proxy<Record<string | symbol, T>>(
+    {},
+    {
+      get: (dict, key: string | symbol) =>
+        key in dict ? dict[key] : defaultValue,
+    }
+  );
+}

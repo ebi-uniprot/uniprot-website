@@ -9,3 +9,5 @@ export const statistics = (
   type
     ? joinUrl(apiPrefix, 'statistics', 'releases', releaseNumber, type)
     : joinUrl(apiPrefix, 'statistics', 'releases', releaseNumber);
+
+export const history = joinUrl(apiPrefix, 'statistics', 'history', 'entry');
