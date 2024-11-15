@@ -22,7 +22,9 @@ export type UserPreferenceKey =
   // column selection for the xrefs table views for UniParc entries
   | `table columns for ${Namespace} entry page`
   // basket content
-  | 'basket';
+  | 'basket'
+  // temporary flag to reset uniparc-columns on the initial load
+  | 'reset';
 
 const wrappedGet: typeof window.localStorage.getItem = (key) => {
   try {

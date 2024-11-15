@@ -44,6 +44,13 @@ const useColumnNames = ({
     nsToDefaultColumns(ns)
   );
 
+  // This logic is for release 2024_06; remove it for 2025_01
+  const clearUniParcColumns = localStorage.getItem('reset');
+  if (ns === Namespace.uniparc && clearUniParcColumns === null) {
+    setColumnNames(nsToDefaultColumns(ns));
+    localStorage.setItem('reset', 'yes');
+  }
+
   let columnNames: Column[] = columnNamesFromStorage;
   let invalidUrlColumnNames: InvalidParamValue | undefined;
   let fromUrl = false;
