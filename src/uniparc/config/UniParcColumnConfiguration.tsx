@@ -234,7 +234,13 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
       displayNumberOfHiddenItems
     >
       {commonTaxons?.map((taxon) => (
-        // Replace with link to taxon id after it's inclusion in common taxons
+        // 2024_06
+        // <Fragment key={taxon.commonTaxon-taxon.commonTaxonId}>
+        //   <Link  to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
+        //     {taxon.commonTaxon}
+        //   </Link>{' '}
+        //   ({taxon.topLevel})
+        // </Fragment>
         <div key={taxon.commonTaxon}>
           {taxon.commonTaxon} ({taxon.topLevel})
         </div>
@@ -243,7 +249,7 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
   ),
 });
 
-// Include it when taxonId becomes available
+// 2024_06
 // UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
 //   ...getLabelAndTooltip(
 //     'Common Taxon IDs',
@@ -256,7 +262,7 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
 //       displayNumberOfHiddenItems
 //     >
 //       {commonTaxons?.map((taxon) => (
-//         <Link key={taxon.taxonId} to={getEntryPath(Namespace.taxonomy, taxon.taxonId)}>{taxon.taxonId}</Link>
+//         <Link key={taxon.commonTaxonId} to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>{taxon.commonTaxonId}</Link>
 //       ))}
 //     </ExpandableList>
 //   ),
@@ -286,11 +292,18 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
   ),
   render: ({ uniProtKBAccessions }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
-      {uniProtKBAccessions?.map((accession) => (
-        <Link key={accession} to={getEntryPath(Namespace.uniprotkb, accession)}>
-          {accession}
-        </Link>
-      ))}
+      {uniProtKBAccessions?.map((accession) =>
+        accession.includes('.') ? (
+          <span key={accession}>{accession} (obsolete)</span>
+        ) : (
+          <Link
+            key={accession}
+            to={getEntryPath(Namespace.uniprotkb, accession)}
+          >
+            {accession}
+          </Link>
+        )
+      )}
     </ExpandableList>
   ),
 });

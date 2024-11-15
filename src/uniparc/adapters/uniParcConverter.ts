@@ -58,6 +58,7 @@ export type SequenceFeature = {
 type CommonTaxon = {
   topLevel: string;
   commonTaxon: string;
+  commonTaxonId?: number; // 2024_06 temporarily optional until data is ready in dev
 };
 
 type Proteome = {
