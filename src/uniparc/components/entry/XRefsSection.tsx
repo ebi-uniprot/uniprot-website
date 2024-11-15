@@ -13,7 +13,11 @@ import {
 } from '../../config/UniParcXRefsColumnConfiguration';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import { UniParcAPIModel, UniParcXRef } from '../../adapters/uniParcConverter';
+import {
+  UniParcAPIModel,
+  UniParcUIModel,
+  UniParcXRef,
+} from '../../adapters/uniParcConverter';
 import EntrySection from '../../types/entrySection';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -38,10 +42,11 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 type Props = {
+  entryData: UniParcUIModel;
   xrefData: UseDataAPIWithStaleState<UniParcAPIModel>;
 };
 
-const XRefsSection = ({ xrefData: xrefDataObject }: Props) => {
+const XRefsSection = ({ entryData, xrefData: xrefDataObject }: Props) => {
   const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
@@ -52,17 +57,18 @@ const XRefsSection = ({ xrefData: xrefDataObject }: Props) => {
 
   const {
     loading,
-    data,
     initialLoading,
     progress,
     total,
     allResults,
     hasMoreData,
+    handleLoadMoreRows,
     isStale,
   } = xrefDataObject;
 
-  const firstSeen = data?.oldestCrossRefCreated;
-  const lastSeen = data?.mostRecentCrossRefUpdated;
+  const firstSeen = entryData?.oldestCrossRefCreated;
+  const lastSeen = entryData?.mostRecentCrossRefUpdated;
+
   const columnDescriptors = useMemo(
     () =>
       getUniParcXRefsColumns(
@@ -93,7 +99,7 @@ const XRefsSection = ({ xrefData: xrefDataObject }: Props) => {
             columns={columnDescriptors}
             data={allResults}
             loading={loading}
-            onLoadMoreItems={xrefDataObject.handleLoadMoreRows}
+            onLoadMoreItems={handleLoadMoreRows}
             hasMoreData={hasMoreData}
             density="compact"
           />

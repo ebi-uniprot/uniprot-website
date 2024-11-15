@@ -24,11 +24,11 @@ type Property = {
 // made completely partial as it depends a lot on the fields requested to API
 export type UniParcXRef = Partial<{
   active: boolean;
-  created: string | string[];
+  created: string;
   database: XRefsInternalDatabases | string; // should replace with union of possibilities?
   geneName: string;
   id: string;
-  lastUpdated: string | string[];
+  lastUpdated: string;
   ncbiGi: string;
   organism: TaxonomyDatum;
   properties: Property[];
