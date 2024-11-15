@@ -1,0 +1,77 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
+
+// Override Franklin style to cater for the length of long endpoints
+.wider {
+  grid-template-columns: 3rem calc(1.3 * var(--sidebar-size) - 3rem) minmax(
+      min-content,
+      1fr
+    );
+}
+
+.sidebar {
+  .section-path {
+    margin-left: 0.75rem;
+  }
+}
+
+.content {
+  .operation-tag {
+    &:not(:first-child) {
+      margin-top: 3rem;
+    }
+    h1 {
+      margin: 1rem 0;
+    }
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    hr {
+      border: none;
+      height: 0.125rem;
+      background-color: $colour-platinum;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  :global(.swagger-ui) {
+    :global(.scheme-container) {
+      display: none;
+    }
+
+    :global(.opblock) {
+      border-radius: 0px;
+    }
+
+    :global(.opblock.opblock-get),
+    :global(.opblock.opblock-post) {
+      border: 0px;
+      :global(.arrow) {
+        fill: white;
+      }
+
+      :global(.opblock-summary) {
+        border: 0px;
+        background-color: $colour-sea-blue;
+      }
+      :global(.opblock-summary-method) {
+        border-radius: 0px;
+      }
+
+      :global(.opblock-summary-path),
+      :global(.opblock-summary-description) {
+        color: white;
+      }
+    }
+
+    :global(.opblock.opblock-get) :global(.opblock-summary-method) {
+      background: lighten($colour-sea-blue, 10%);
+    }
+
+    :global(table.model tr.property-row td) {
+      vertical-align: bottom;
+    }
+  }
+}
