@@ -4,7 +4,7 @@ $table__even: #fff;
 $table__odd: #e4e8eb;
 $table__header-text: #393b42;
 $table_border: #c2c4c4;
-$table_extra-content-background: #f1f1f1;
+$table_hover: #f1f1f1;
 
 .container {
   width: calc(100% + 2em);
@@ -58,7 +58,7 @@ $table_extra-content-background: #f1f1f1;
     /* => keep groups of rows highlighted in sync */
     &,
     & + .extra-content {
-      background-color: var(--table__hover, $table_extra-content-background);
+      background-color: var(--table__hover, $table_hover);
     }
   }
 
@@ -89,5 +89,5 @@ $table_extra-content-background: #f1f1f1;
 /* Select a row that has a next .extra-content sibling that is hovered */
 /* => keep groups of rows highlighted in sync */
 .row:has(+ .extra-content:hover) {
-  background-color: var(--table__hover, $table_extra-content-background);
+  background-color: var(--table__hover, $table_hover);
 }
