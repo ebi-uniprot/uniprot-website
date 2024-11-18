@@ -44,6 +44,7 @@ export type UniParcXRef = Partial<{
 export type SequenceFeatureLocation = {
   start: number;
   end: number;
+  alignment?: string;
 };
 
 export type SequenceFeature = {

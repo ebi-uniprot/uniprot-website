@@ -10,7 +10,7 @@ import uniParcSubEntryConverter, {
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import uniParcEntryModelData from '../../../__mocks__/uniParcEntryModelData';
+import uniParcEntryModelData from '../../../__mocks__/uniParcLightEntryModelData';
 import allDatabases from './__mocks__/allDatabases';
 
 const mock = new MockAdapter(axios);

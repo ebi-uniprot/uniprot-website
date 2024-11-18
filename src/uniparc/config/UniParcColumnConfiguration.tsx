@@ -149,7 +149,7 @@ UniParcColumnConfiguration.set(UniParcColumn.gene, {
   ),
   render: ({ geneNames }) => (
     <ExpandableList descriptionString="gene names" displayNumberOfHiddenItems>
-      {geneNames?.map((gene) => <div key={gene}>{gene}</div>)}
+      {geneNames?.map((gene) => <span key={gene}>{gene}</span>)}
     </ExpandableList>
   ),
 });
@@ -197,7 +197,7 @@ UniParcColumnConfiguration.set(UniParcColumn.protein, {
       translate="yes"
     >
       {proteinNames?.map((proteinName) => (
-        <div key={proteinName}>{proteinName}</div>
+        <span key={proteinName}>{proteinName}</span>
       ))}
     </ExpandableList>
   ),
