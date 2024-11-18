@@ -1,11 +1,3 @@
-$table__header-text: #393b42;
-$table__header-background: #fff;
-$table__even: #fff;
-$table__odd: #e4e8eb;
-$table__header-text: #393b42;
-$table_border: #c2c4c4;
-$table_hover: #f1f1f1;
-
 .container {
   width: calc(100% + 2em);
   padding-inline: 1em;
@@ -17,16 +9,13 @@ $table_hover: #f1f1f1;
   padding: 0;
   margin: 1em 0;
   border-spacing: 0;
-  border-block-end: 1px solid $table_border;
+  border-block-end: 1px solid var(--table_border);
 
   & th {
     text-align: left;
     vertical-align: middle;
-    background-color: var(
-      --table__header-background,
-      $table__header-background
-    );
-    color: var(--table__header-text, $table__header-text);
+    background-color: var(--table__header-background,);
+    color: var(--table__header-text);
     text-overflow: ellipsis;
     text-transform: uppercase;
   }
@@ -34,7 +23,7 @@ $table_hover: #f1f1f1;
   & td,
   & th {
     padding: 0.2rem 1ch;
-    border-block-start: 1px solid $table_border;
+    border-block-start: 1px solid var(--table_border);
   }
 
   & thead :global(.dropdown) > button {
@@ -47,10 +36,10 @@ $table_hover: #f1f1f1;
 }
 
 .row {
-  background-color: var(--table__even, $table__even);
+  background-color: var(--table__even);
 
   &.odd {
-    background-color: var(--table__odd, $table__odd);
+    background-color: var(--table__odd);
   }
 
   &:hover {
@@ -58,7 +47,7 @@ $table_hover: #f1f1f1;
     /* => keep groups of rows highlighted in sync */
     &,
     & + .extra-content {
-      background-color: var(--table__hover, $table_hover);
+      background-color: var(--table__hover);
     }
   }
 
@@ -80,7 +69,7 @@ $table_hover: #f1f1f1;
   }
 
   &.extra-content td {
-    border-color: $table_border;
+    border-color: var(--table_border);
   }
 }
 
@@ -89,5 +78,5 @@ $table_hover: #f1f1f1;
 /* Select a row that has a next .extra-content sibling that is hovered */
 /* => keep groups of rows highlighted in sync */
 .row:has(+ .extra-content:hover) {
-  background-color: var(--table__hover, $table_hover);
+  background-color: var(--table__hover);
 }

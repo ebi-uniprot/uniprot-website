@@ -43,7 +43,7 @@
       & th {
         text-align: left;
         vertical-align: middle;
-        color: $table__header-text;
+        color: var(--table__header-text);
         text-transform: uppercase;
       }
 
