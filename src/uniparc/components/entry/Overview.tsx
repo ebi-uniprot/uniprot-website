@@ -1,34 +1,33 @@
+import { Fragment } from 'react';
 import { InfoList } from 'franklin-sites';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import parseDate from '../../../shared/utils/parseDate';
-// import { getEntryPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
 
 import { UniParcUIModel } from '../../adapters/uniParcConverter';
-// import { Namespace } from '../../../shared/types/namespaces';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type Props = {
   data: UniParcUIModel;
 };
 
 const Overview = ({ data }: Props) => {
-  let commonTaxonsNode: string | undefined;
-
-  if (data.commonTaxons) {
-    commonTaxonsNode = data.commonTaxons
-      // 2024_06
-      // .map((taxon) => (
-      //   <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
-      //     {taxon.commonTaxon}
-      //   </Link>
-      // ))
-      .map((taxon) => taxon.commonTaxon)
-      .join('; ');
-  }
   const infoData = [
     {
       title: <span>Common Taxons</span>,
-      content: commonTaxonsNode && <span>{commonTaxonsNode}</span>,
+      content: data.commonTaxons && (
+        <div>
+          {data.commonTaxons.map((taxon) => (
+            <Fragment key={taxon.commonTaxon}>
+              <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
+                {taxon.commonTaxon}
+              </Link>
+              {'; '}
+            </Fragment>
+          ))}
+        </div>
+      ),
     },
     {
       title: <span>Sequence length</span>,

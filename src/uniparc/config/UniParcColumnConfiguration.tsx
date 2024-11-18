@@ -33,7 +33,7 @@ export enum UniParcColumn {
   protein = 'protein',
   proteome = 'proteome',
   commonTaxons = 'common_taxons',
-  // commonTaxonID = 'common_taxon_id', Add when backend includes ID for common taxons
+  commonTaxonID = 'common_taxon_ids',
   // Sequences
   checksum = 'checksum',
   length = 'length',
@@ -234,39 +234,39 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
       displayNumberOfHiddenItems
     >
       {commonTaxons?.map((taxon) => (
-        // 2024_06
-        // <Fragment key={taxon.commonTaxon-taxon.commonTaxonId}>
-        //   <Link  to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
-        //     {taxon.commonTaxon}
-        //   </Link>{' '}
-        //   ({taxon.topLevel})
-        // </Fragment>
-        <div key={taxon.commonTaxon}>
-          {taxon.commonTaxon} ({taxon.topLevel})
-        </div>
+        <Fragment key={`${taxon.commonTaxon}-${taxon.commonTaxonId}`}>
+          <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
+            {taxon.commonTaxon}
+          </Link>{' '}
+          ({taxon.topLevel})
+        </Fragment>
       ))}
     </ExpandableList>
   ),
 });
 
-// 2024_06
-// UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
-//   ...getLabelAndTooltip(
-//     'Common Taxon IDs',
-//     'Common taxonomy identifiers shared by the sequence',
-//     'taxonomic_identifier'
-//   ),
-//   render: ({ commonTaxons }) => (
-//     <ExpandableList
-//       descriptionString="common taxons"
-//       displayNumberOfHiddenItems
-//     >
-//       {commonTaxons?.map((taxon) => (
-//         <Link key={taxon.commonTaxonId} to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>{taxon.commonTaxonId}</Link>
-//       ))}
-//     </ExpandableList>
-//   ),
-// });
+UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
+  ...getLabelAndTooltip(
+    'Common Taxon IDs',
+    'Common taxonomy identifiers shared by the sequence',
+    'taxonomic_identifier'
+  ),
+  render: ({ commonTaxons }) => (
+    <ExpandableList
+      descriptionString="common taxons"
+      displayNumberOfHiddenItems
+    >
+      {commonTaxons?.map((taxon) => (
+        <Link
+          key={taxon.commonTaxonId}
+          to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}
+        >
+          {taxon.commonTaxonId}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
+});
 
 UniParcColumnConfiguration.set(UniParcColumn.checksum, {
   ...getLabelAndTooltip('Checksum', 'Cyclic redundancy check value (CRC64)'),
