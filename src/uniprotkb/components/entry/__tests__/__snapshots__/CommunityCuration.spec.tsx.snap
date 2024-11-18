@@ -14,7 +14,7 @@ exports[`Community annotatation should render the community annotation content 1
         <test-file-stub
           width="1ch"
         />
-        Community curation (1) 
+        Community curation (8) 
         <test-file-stub
           classname="chevron-icon"
           width="1ch"
@@ -37,7 +37,7 @@ exports[`Community annotatation should render the community annotation content 1
             class="card__content"
           >
             <h4>
-              Community suggested name: Epicuticlin
+              Community suggested name: Spike glycoprotein; S.
             </h4>
             <table>
               <thead>
@@ -58,11 +58,11 @@ exports[`Community annotatation should render the community annotation content 1
                   <td>
                     <a
                       class="external-link"
-                      href="https://pubmed.ncbi.nlm.nih.gov/36301857"
+                      href="https://pubmed.ncbi.nlm.nih.gov/35660160"
                       rel="noopener"
                       target="_blank"
                     >
-                      PubMed:36301857
+                      PubMed:35660160
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -72,7 +72,363 @@ exports[`Community annotatation should render the community annotation content 1
                   <td>
                     <a
                       class="external-link"
-                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=36301857"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=35660160"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time
+                        datetime="2023-06-28"
+                      >
+                        2023-06-28
+                      </time>
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0009-0006-0769-8175"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0009-0006-0769-8175
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section
+        class="reference-card card"
+      >
+        <div
+          class="card__container"
+        >
+          <div
+            class="card__content"
+          >
+            <h4>
+              Community suggested name: S
+            </h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Source
+                  </th>
+                  <th>
+                    Submission date
+                  </th>
+                  <th>
+                    Contributor
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/36483199"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PubMed:36483199
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=36483199"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time
+                        datetime="2023-05-28"
+                      >
+                        2023-05-28
+                      </time>
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0009-0006-0769-8175"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0009-0006-0769-8175
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/35300999"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PubMed:35300999
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=35300999"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time
+                        datetime="2023-05-28"
+                      >
+                        2023-05-28
+                      </time>
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0009-0006-0769-8175"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0009-0006-0769-8175
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/35039785"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PubMed:35039785
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=35039785"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time
+                        datetime="2023-05-28"
+                      >
+                        2023-05-28
+                      </time>
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0009-0006-0769-8175"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0009-0006-0769-8175
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/37000302"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PubMed:37000302
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=37000302"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time
+                        datetime="2022-01-28"
+                      >
+                        2022-01-28
+                      </time>
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0009-0006-0769-8175"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0009-0006-0769-8175
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/35215888"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PubMed:35215888
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=35215888"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time
+                        datetime="2021-12-28"
+                      >
+                        2021-12-28
+                      </time>
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0009-0006-0769-8175"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0009-0006-0769-8175
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/36052466"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PubMed:36052466
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=36052466"
                       rel="noopener"
                       target="_blank"
                     >
@@ -86,7 +442,7 @@ exports[`Community annotatation should render the community annotation content 1
                   <td>
                     <a
                       class="external-link"
-                      href="https://orcid.org/0000-0001-6057-9374"
+                      href="https://orcid.org/0009-0006-0769-8175"
                       rel="noopener"
                       target="_blank"
                     >
@@ -96,7 +452,93 @@ exports[`Community annotatation should render the community annotation content 1
                         src="test-file-stub"
                         width="15"
                       />
-                      0000-0001-6057-9374
+                      0009-0006-0769-8175
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section
+        class="reference-card card"
+      >
+        <div
+          class="card__container"
+        >
+          <div
+            class="card__content"
+          >
+            <h4>
+              Community suggested name: Spike S.
+            </h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Source
+                  </th>
+                  <th>
+                    Submission date
+                  </th>
+                  <th>
+                    Contributor
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://pubmed.ncbi.nlm.nih.gov/34930824"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PubMed:34930824
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=Q95PB5&pmid=34930824"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <time
+                        datetime="2022-01-05"
+                      >
+                        2022-01-05
+                      </time>
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="https://orcid.org/0000-0003-0651-4769"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <img
+                        alt=""
+                        height="15"
+                        src="test-file-stub"
+                        width="15"
+                      />
+                      0000-0003-0651-4769
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
