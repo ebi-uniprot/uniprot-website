@@ -41,7 +41,42 @@ const annotationGetter = (section: EntrySection) => {
   }
 };
 
-const groupByCommunityAnnotation = (
+const compare = (a?: string, b?: string) => {
+  if (!a && !b) {
+    return 0;
+  }
+  if (a && !b) {
+    return -1;
+  }
+  if (!a && b) {
+    return 1;
+  }
+  // a and b will exist here
+  return b!.localeCompare(a!);
+};
+
+export const sortReferences = (references: Reference[]) =>
+  references.toSorted((a, b) =>
+    // Latest submissions first
+    compare(
+      a.communityAnnotation?.submissionDate,
+      b.communityAnnotation?.submissionDate
+    )
+  );
+
+export const sortGroupAnnotations = (grouped: Map<string, Reference[]>) =>
+  new Map(
+    [...grouped.entries()].sort(([, a], [, b]) =>
+      // Annotations with latest submissions first. Note that the first reference
+      // will be the latest because sortReferences will have already been called.
+      compare(
+        a[0].communityAnnotation?.submissionDate,
+        b[0].communityAnnotation?.submissionDate
+      )
+    )
+  );
+
+export const groupByCommunityAnnotation = (
   section: EntrySection,
   communityReferences: Reference[]
 ) => {
@@ -58,7 +93,21 @@ const groupByCommunityAnnotation = (
       annotationToCommunityReferences.set(annotation, r);
     }
   }
-  return annotationToCommunityReferences;
+
+  // Sort the values (community references) by date
+  const annotationToSortedCommunityReferences = new Map<string, Reference[]>();
+  for (const [
+    annotation,
+    communityReferences,
+  ] of annotationToCommunityReferences) {
+    annotationToSortedCommunityReferences.set(
+      annotation,
+      sortReferences(communityReferences)
+    );
+  }
+
+  // Sort the keys by latest community references
+  return sortGroupAnnotations(annotationToSortedCommunityReferences);
 };
 
 const SubmissionDate = ({
@@ -115,25 +164,8 @@ const GroupedCommunityReference = ({
         </tr>
       </thead>
       <tbody>
-        {references
-          .sort((a, b) => {
-            if (
-              !a.communityAnnotation?.submissionDate &&
-              !b.communityAnnotation?.submissionDate
-            ) {
-              return 0;
-            }
-            if (
-              !a.communityAnnotation?.submissionDate ||
-              !b.communityAnnotation?.submissionDate
-            ) {
-              return 1;
-            }
-            return a.communityAnnotation.submissionDate.localeCompare(
-              b.communityAnnotation.submissionDate
-            );
-          })
-          .map(({ citationId, communityAnnotation, source }) => (
+        {sortReferences(references).map(
+          ({ citationId, communityAnnotation, source }) => (
             <tr key={citationId}>
               <td>
                 {citationId && (
@@ -166,7 +198,8 @@ const GroupedCommunityReference = ({
                 )}
               </td>
             </tr>
-          ))}
+          )
+        )}
       </tbody>
     </table>
   </Card>
