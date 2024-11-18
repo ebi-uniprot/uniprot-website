@@ -15,7 +15,7 @@ describe('SequenceSection component', () => {
       data: [],
     });
     const { asFragment } = customRender(
-      <XRefsSection xrefData={{ data: uniParcData, loading: false }} />
+      <XRefsSection xRefData={{ data: uniParcData, loading: false }} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -23,7 +23,7 @@ describe('SequenceSection component', () => {
   test("should return null when there are no cross-references (shouldn't happen)", () => {
     const { container } = customRender(
       <XRefsSection
-        xrefData={{
+        xRefData={{
           data: { ...uniParcData, uniParcCrossReferences: [] },
           loading: false,
         }}

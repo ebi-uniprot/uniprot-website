@@ -13,14 +13,10 @@ import {
 } from '../../config/UniParcXRefsColumnConfiguration';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import {
-  UniParcAPIModel,
-  UniParcUIModel,
-  UniParcXRef,
-} from '../../adapters/uniParcConverter';
+import { UniParcUIModel, UniParcXRef } from '../../adapters/uniParcConverter';
 import EntrySection from '../../types/entrySection';
-import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 import { Namespace } from '../../../shared/types/namespaces';
+import { PaginatedResults } from '../../../shared/hooks/usePagination';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/XRefsSection.scss';
@@ -43,10 +39,10 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
 
 type Props = {
   entryData: UniParcUIModel;
-  xrefData: UseDataAPIWithStaleState<UniParcAPIModel>;
+  xRefData: PaginatedResults<UniParcXRef>;
 };
 
-const XRefsSection = ({ entryData, xrefData: xrefDataObject }: Props) => {
+const XRefsSection = ({ entryData, xRefData: xRefDataObject }: Props) => {
   const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
@@ -56,15 +52,13 @@ const XRefsSection = ({ entryData, xrefData: xrefDataObject }: Props) => {
   );
 
   const {
-    loading,
     initialLoading,
     progress,
     total,
     allResults,
     hasMoreData,
     handleLoadMoreRows,
-    isStale,
-  } = xrefDataObject;
+  } = xRefDataObject;
 
   const firstSeen = entryData?.oldestCrossRefCreated;
   const lastSeen = entryData?.mostRecentCrossRefUpdated;
@@ -85,10 +79,7 @@ const XRefsSection = ({ entryData, xrefData: xrefDataObject }: Props) => {
   }
 
   return (
-    <Card
-      header={<h2>{getEntrySectionNameAndId(EntrySection.XRefs).name}</h2>}
-      className={isStale ? helper.stale : undefined}
-    >
+    <Card header={<h2>{getEntrySectionNameAndId(EntrySection.XRefs).name}</h2>}>
       <div className="button-group">
         <CustomiseButton namespace={Namespace.uniparc} />
       </div>
@@ -98,7 +89,6 @@ const XRefsSection = ({ entryData, xrefData: xrefDataObject }: Props) => {
             getIdKey={getIdKey}
             columns={columnDescriptors}
             data={allResults}
-            loading={loading}
             onLoadMoreItems={handleLoadMoreRows}
             hasMoreData={hasMoreData}
             density="compact"

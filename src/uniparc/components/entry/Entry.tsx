@@ -50,7 +50,7 @@ export enum TabLocation {
   FeatureViewer = 'feature-viewer',
 }
 
-export enum XrefFacetEnum {
+enum XRefFacetEnum {
   Status = 'status',
   Organisms = 'organisms',
   Databases = 'databases',
@@ -74,33 +74,32 @@ const Entry = () => {
     match?.params.accession,
     Namespace.uniparc
   );
-  const xrefsURL = `${baseURL}/databases`;
-  const xrefsFacetURL = `${xrefsURL}?facets=${XrefFacetEnum.Status}, ${XrefFacetEnum.Organisms}, ${XrefFacetEnum.Databases}&size=0`;
-  const xrefsDataURL = useMemo(() => {
+  const xRefsURL = `${baseURL}/databases`;
+  const xRefsFacetURL = `${xRefsURL}?facets=${XRefFacetEnum.Status}, ${XRefFacetEnum.Organisms}, ${XRefFacetEnum.Databases}&size=0`;
+  const xRefsDataURL = useMemo(() => {
     const [{ selectedFacets }] = getParamsFromURL(search);
     if (!selectedFacets.length) {
-      return xrefsURL;
+      return xRefsURL;
     }
-    return stringifyUrl(xrefsURL || '', {
+    return stringifyUrl(xRefsURL || '', {
       ...Object.fromEntries(
         selectedFacets.map(({ name, value }) => [name, value])
       ),
     });
-  }, [xrefsURL, search]);
+  }, [xRefsURL, search]);
 
   const lightObject = useDataApi<UniParcLiteAPIModel>(`${baseURL}/light`);
-  const xrefsFacetApiObject =
-    useDataApiWithStale<SearchResults<UniParcXRef>>(xrefsFacetURL);
-  const xrefsDataObject = usePagination(xrefsDataURL);
+  const xRefsFacetApiObject =
+    useDataApiWithStale<SearchResults<UniParcXRef>>(xRefsFacetURL);
+  const xRefsDataObject = usePagination<UniParcXRef, UniParcXRef>(xRefsDataURL);
 
   const {
     loading: facetLoading,
     data: facetData,
     isStale: facetHasStaleData,
-  } = xrefsFacetApiObject;
+  } = xRefsFacetApiObject;
 
-  const { initialLoading: xrefsDataInitialLoading, total: xrefsDataTotal } =
-    xrefsDataObject;
+  const { total: xRefsDataTotal } = xRefsDataObject;
 
   if (lightObject.error || !match?.params.accession || !match) {
     return (
@@ -123,7 +122,7 @@ const Entry = () => {
     !facetLoading && !facetHasStaleData && facetData ? (
       <Facets data={facetData.facets} />
     ) : (
-      <Loader progress={xrefsFacetApiObject.progress} />
+      <Loader progress={xRefsFacetApiObject.progress} />
     );
 
   let sidebar;
@@ -182,7 +181,7 @@ const Entry = () => {
           {displayDownloadPanel && (
             <EntryDownloadPanel
               handleToggle={handleToggleDownload}
-              nResults={xrefsDataTotal}
+              nResults={xRefsDataTotal}
               columns={columns}
             />
           )}
@@ -197,7 +196,7 @@ const Entry = () => {
           </div>
           <EntryMain
             transformedData={transformedData}
-            xrefs={xrefsDataObject}
+            xrefs={xRefsDataObject}
           />
         </Tab>
         <Tab

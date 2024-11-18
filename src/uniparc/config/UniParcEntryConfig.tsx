@@ -1,16 +1,15 @@
 import SequenceSection from '../components/entry/SequenceSection';
 import XRefsSection from '../components/entry/XRefsSection';
 
+import { PaginatedResults } from '../../shared/hooks/usePagination';
 import EntrySection from '../types/entrySection';
-
-import { UniParcAPIModel, UniParcUIModel } from '../adapters/uniParcConverter';
-import { UseDataAPIWithStaleState } from '../../shared/hooks/useDataApiWithStale';
+import { UniParcUIModel, UniParcXRef } from '../adapters/uniParcConverter';
 
 const UniParcEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniParcUIModel,
-    xrefs: UseDataAPIWithStaleState<UniParcAPIModel>
+    xrefs: PaginatedResults<UniParcXRef>
   ) => JSX.Element;
 }[] = [
   {
@@ -27,7 +26,7 @@ const UniParcEntryConfig: {
     sectionContent: (data, xrefs) => (
       <XRefsSection
         entryData={data}
-        xrefData={xrefs}
+        xRefData={xrefs}
         key={EntrySection.XRefs}
       />
     ),

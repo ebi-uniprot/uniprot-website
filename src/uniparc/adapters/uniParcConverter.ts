@@ -21,6 +21,7 @@ type Property = {
   key: string;
   value: string;
 };
+
 // made completely partial as it depends a lot on the fields requested to API
 export type UniParcXRef = Partial<{
   active: boolean;
