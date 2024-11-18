@@ -294,6 +294,7 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
       {uniProtKBAccessions?.map((accession) =>
         accession.includes('.') ? (
+          // Light object returns only a list of IDs. We can identify obsolete ones only if there is version attached to it
           <span key={accession}>{accession} (obsolete)</span>
         ) : (
           <Link
