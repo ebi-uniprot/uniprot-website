@@ -98,12 +98,14 @@ const GroupedCommunityReference = ({
   databaseInfoMaps: DatabaseInfoMaps | null;
 }) => (
   <Card className={styles['reference-card']}>
-    <h4>
-      {section === EntrySection.NamesAndTaxonomy
-        ? 'Community suggested name: '
-        : ''}
-      {annotation}
-    </h4>
+    {section === EntrySection.NamesAndTaxonomy ? (
+      <h4>Community suggested name: {annotation}</h4>
+    ) : (
+      <>
+        <h4>Community annotation</h4>
+        <p>{annotation}</p>
+      </>
+    )}
     <table>
       <thead>
         <tr>

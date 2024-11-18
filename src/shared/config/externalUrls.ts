@@ -4,7 +4,6 @@ import { stringifyUrl } from '../utils/url';
 import { FileFormat } from '../types/resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
-const CommunityAnnotation = 'https://community.uniprot.org/bbsub';
 const externalUrls = {
   AlphaFoldPrediction: (id: string) =>
     `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
@@ -64,14 +63,13 @@ const externalUrls = {
   PubMed: (id: string | number) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
   EuropePMC: (id: string | number) => `//europepmc.org/article/MED/${id}`,
   CommunityCurationGetByAccession: (id: string) =>
-    joinUrl(CommunityAnnotation, `bbsubinfo.html?accession=${id}`),
+    `https://community.uniprot.org/cgi-bin/bbsub_query?accession=${id}`,
   CommunityCurationGetByAccessionAndPmid: (accession: string, pmid: string) =>
     joinUrl(
-      CommunityAnnotation,
-      `bbsubinfo.html?accession=${accession}&pmid=${pmid}`
+      `https://community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}&pmid=${pmid}`
     ),
   CommunityCurationAdd: (id: string | number) =>
-    joinUrl(CommunityAnnotation, `bbsub.html?accession=${id}`),
+    `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
   RheaSearch: (id: string | number) =>
     `https://www.rhea-db.org/rhea?query=${id}`,
   RheaEntry: (id: string | number) => `https://www.rhea-db.org/rhea/${id}`,
