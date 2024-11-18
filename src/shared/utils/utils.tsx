@@ -111,13 +111,13 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
   );
 }
 
-export const excludeKeys = (
-  o?: Record<Key, unknown>,
+export function excludeKeys<T>(
+  o?: Record<Key, T>,
   keys?: Key[]
-): Record<Key, unknown> | undefined => {
+): Record<Key, T> | undefined {
   if (typeof o === 'undefined' || typeof keys === 'undefined' || !keys.length) {
     return o;
   }
   const setKeys = new Set(keys);
   return Object.fromEntries(Object.entries(o).filter(([k]) => !setKeys.has(k)));
-};
+}
