@@ -115,7 +115,10 @@ export function excludeKeys<T>(
   o?: Record<Key, T>,
   keys?: Key[]
 ): Record<Key, T> | undefined {
-  if (typeof o === 'undefined' || typeof keys === 'undefined' || !keys.length) {
+  if (typeof o === 'undefined') {
+    return {};
+  }
+  if (typeof keys === 'undefined' || !keys.length) {
     return o;
   }
   const setKeys = new Set(keys);
