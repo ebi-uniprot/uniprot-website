@@ -56,7 +56,7 @@ const compare = (a?: string, b?: string) => {
 };
 
 export const sortReferences = (references: Reference[]) =>
-  references.toSorted((a, b) =>
+  Array.from(references).sort((a, b) =>
     // Latest submissions first
     compare(
       a.communityAnnotation?.submissionDate,
