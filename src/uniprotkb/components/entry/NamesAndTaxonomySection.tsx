@@ -10,7 +10,12 @@ import AccessionsView from '../protein-data-views/AccessionsView';
 import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
 import CommunityCuration from './CommunityCuration';
 
-import { hasContent, pluralise } from '../../../shared/utils/utils';
+import {
+  deepFindAllByKey,
+  excludeKeys,
+  hasContent,
+  pluralise,
+} from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
@@ -86,8 +91,25 @@ const NamesAndTaxonomySection = ({
     [references]
   );
 
+  const uniqueAnnotatedNames = new Set(
+    !data.proteinNamesData
+      ? []
+      : deepFindAllByKey(
+          {
+            proteinNames: excludeKeys(data.proteinNamesData, [
+              'includes',
+              'contains',
+            ]),
+            geneNames: data.geneNamesData,
+          },
+          'value'
+        )
+  );
+
   const nameRelatedReferences = communityReferences.filter(
-    (reference) => reference.communityAnnotation?.proteinOrGene
+    (reference) =>
+      reference.communityAnnotation?.proteinOrGene &&
+      !uniqueAnnotatedNames.has(reference.communityAnnotation.proteinOrGene)
   );
 
   if (!hasContent(data) && !nameRelatedReferences.length) {

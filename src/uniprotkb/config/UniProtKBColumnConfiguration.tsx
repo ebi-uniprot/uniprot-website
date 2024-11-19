@@ -9,7 +9,6 @@ import {
   Sequence,
   SequenceTools,
 } from 'franklin-sites';
-import { omit } from 'lodash-es';
 
 import ExternalLink from '../../shared/components/ExternalLink';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
@@ -91,7 +90,7 @@ import { PeptideSearchMatches } from '../../tools/peptide-search/components/Pept
 
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
-import { deepFindAllByKey } from '../../shared/utils/utils';
+import { deepFindAllByKey, excludeKeys } from '../../shared/utils/utils';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
@@ -214,7 +213,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
     return (
       <span translate="yes">
         <CSVView
-          data={omit(proteinNamesData, 'contains')}
+          data={excludeKeys(proteinNamesData, ['contains'])}
           bolderFirst={Boolean(proteinNamesData?.recommendedName)}
           contextKey={UniProtKBColumn.proteinName}
           supplementaryData={proteinNamesData?.contains}

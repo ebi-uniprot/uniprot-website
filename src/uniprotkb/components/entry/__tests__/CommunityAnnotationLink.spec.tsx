@@ -1,8 +1,10 @@
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import CommunityAnnotationLink from '../CommunityAnnotationLink';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 
@@ -12,7 +14,7 @@ describe('CommunityAnnotationLink', () => {
       loading: false,
       headers: { 'x-total-results': 3 },
     });
-    const { asFragment } = render(
+    const { asFragment } = customRender(
       <CommunityAnnotationLink accession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -23,7 +25,7 @@ describe('CommunityAnnotationLink', () => {
       loading: false,
       headers: { 'x-total-results': 0 },
     });
-    render(<CommunityAnnotationLink accession="P05067" />);
+    customRender(<CommunityAnnotationLink accession="P05067" />);
     expect(screen.queryByText('Community curation')).not.toBeInTheDocument();
   });
 });
