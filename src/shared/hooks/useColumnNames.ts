@@ -15,6 +15,7 @@ import { Namespace } from '../types/namespaces';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
+import { defaultColumns } from '../../uniparc/config/UniParcColumnConfiguration';
 
 type UseColumnNameArgs = {
   namespaceOverride?: Namespace | undefined;
@@ -39,17 +40,20 @@ const useColumnNames = ({
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
   const sp = new URLSearchParams(useLocation().search);
   const columnNamesFromUrl = sp.get('fields');
+
+  // This logic is for release 2024_06; remove it for 2025_01
+  if (window.localStorage.getItem('reset-2024_06') === null) {
+    window.localStorage.setItem(
+      `table columns for ${Namespace.uniparc}`,
+      JSON.stringify(defaultColumns)
+    );
+    window.localStorage.setItem('reset', 'yes');
+  }
+
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
     `table columns for ${ns}` as const,
     nsToDefaultColumns(ns)
   );
-
-  // This logic is for release 2024_06; remove it for 2025_01
-  const clearUniParcColumns = localStorage.getItem('reset');
-  if (ns === Namespace.uniparc && clearUniParcColumns === null) {
-    setColumnNames(nsToDefaultColumns(ns));
-    localStorage.setItem('reset', 'yes');
-  }
 
   let columnNames: Column[] = columnNamesFromStorage;
   let invalidUrlColumnNames: InvalidParamValue | undefined;

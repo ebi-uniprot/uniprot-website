@@ -24,7 +24,7 @@ export type UserPreferenceKey =
   // basket content
   | 'basket'
   // temporary flag to reset uniparc-columns on the initial load
-  | 'reset';
+  | 'reset-2024_06';
 
 const wrappedGet: typeof window.localStorage.getItem = (key) => {
   try {
