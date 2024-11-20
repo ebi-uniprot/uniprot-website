@@ -189,10 +189,8 @@ const getEntryDownloadUrl = (
   switch (dataset) {
     case Dataset.uniprotData: {
       if (isUniparcTsv(namespace, fileFormat)) {
-        return uniparcApiUrls.databases(accession, {
+        return uniparcApiUrls.databases(accession, true, {
           format: fileFormat as FileFormat.tsv,
-          // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
-          size: 500,
           fields: columns?.join(','),
         });
       }
@@ -609,7 +607,7 @@ const EntryDownload = ({
   if (nResults && nResults > maxPaginationDownload) {
     if (
       namespace === Namespace.uniparc &&
-      (selectedFormat === FileFormat.tsv || selectedFormat === FileFormat.excel)
+      selectedFormat === FileFormat.excel
     ) {
       additionalInformation = (
         <div>
@@ -630,6 +628,19 @@ const EntryDownload = ({
               <LongNumber>{nResults as number}</LongNumber> of the
               cross-references in the <pre>uniParcCrossReferences</pre>{' '}
               attribute
+            </li>
+            <li>
+              Download the{' '}
+              <DownloadAnchor
+                accession={accession as string}
+                fileFormat={FileFormat.tsv}
+                namespace={namespace}
+                dataset={selectedDataset}
+                columns={downloadColumns}
+              />{' '}
+              file format to download all{' '}
+              <LongNumber>{nResults as number}</LongNumber> of the
+              cross-references.
             </li>
             <li>
               Continue to download the{' '}

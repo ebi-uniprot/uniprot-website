@@ -8,16 +8,21 @@ import { FileFormat } from '../../shared/types/resultsDownload';
 
 const databases = (
   upid: string,
+  stream?: boolean,
   options: {
     format?: FileFormat.tsv | FileFormat.json;
     size?: number;
     fields?: string;
   } = {}
-) =>
-  stringifyUrl(joinUrl(apiPrefix, 'uniparc', upid, 'databases'), {
+) => {
+  const url = stream
+    ? joinUrl(apiPrefix, 'uniparc', upid, 'databases', 'stream')
+    : joinUrl(apiPrefix, 'uniparc', upid, 'databases');
+  return stringifyUrl(url, {
     format: fileFormatToUrlParameter[options.format || FileFormat.json],
     size: options.size,
     fields: options.fields,
   });
+};
 
 export default { databases };
