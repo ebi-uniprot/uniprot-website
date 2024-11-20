@@ -49,6 +49,7 @@ import {
   showColumnSelect,
   filterFullXrefColumns,
   getCountForCustomisableSet,
+  getIsUniParcLightResponse,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -153,6 +154,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
+  // This is added for release 2024_06. Remove it for the next release
+  const isUniParcLightResponse = getIsUniParcLightResponse(state, props);
 
   let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
@@ -332,6 +335,23 @@ const Download = (props: DownloadProps<JobTypes>) => {
           </label>
         </fieldset>
       )}
+
+      {isUniParcLightResponse && (
+        <Message level="info">
+          There has been few changes in UniProt website REST API for UniParc.
+          The response may not contain all the fields for the{' '}
+          {state.selectedFileFormat} format. Please refer{' '}
+          <Link
+            to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+              accession: '2024-11-27-release',
+            })}
+          >
+            release notes 2024 06
+          </Link>{' '}
+          for more information.
+        </Message>
+      )}
+
       {/* Peptide search download for matches exceeding the threshold */}
       {redirectToIDMapping && (
         <Message level="warning">
