@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ExternalLink, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
@@ -20,6 +21,7 @@ import styles from './styles/landing-page.module.scss';
 
 import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
 
+/* classnames within automatically based on the name of the file, if it changes update CSS */
 import ClusterAnimationSVG from '../../../images/cluster_animation_illustration.svg';
 
 const clusterLabelMap = new Map([
@@ -81,6 +83,8 @@ const getFTPLinks = (resource: string) => {
 const metaDescription =
   'Protein sets for species with sequenced genomes from across the tree of life.';
 
+const identities = [50, 90, 100] as const;
+
 const LandingPage = () => {
   const { data } = useDataApi<SearchResults<never>>(
     apiUrls.search.search({
@@ -90,6 +94,22 @@ const LandingPage = () => {
       facets: [FacetsEnum.Identity],
     })
   );
+
+  // looping automatically
+  const [visibleIndex, setVisibleIndex] = useState(0);
+  // on user interaction
+  const [overrideVisibleIndex, setOverrideVisibleIndex] = useState<
+    undefined | number
+  >(undefined);
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % 3;
+      setVisibleIndex(index);
+    }, 6_000);
+    return () => clearInterval(interval);
+  }, []);
 
   const clusterData = data?.facets?.find((facet) => facet.name === 'identity');
 
@@ -187,7 +207,10 @@ const LandingPage = () => {
             styles['image-container']
           )}
         >
-          <ClusterAnimationSVG className={styles.animation} />
+          <ClusterAnimationSVG
+            className={styles.animation}
+            data-identity={identities[overrideVisibleIndex ?? visibleIndex]}
+          />
         </div>
         <table className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 uniprot-grid-cell--large-span-8">
           <thead>
@@ -205,8 +228,14 @@ const LandingPage = () => {
             </tr>
           </thead>
           <tbody>
-            {clusterData?.values?.map((cluster) => (
-              <tr key={cluster.value}>
+            {clusterData?.values?.map((cluster, index) => (
+              <tr
+                key={cluster.value}
+                onPointerEnter={() => setOverrideVisibleIndex(index)}
+                onFocus={() => setOverrideVisibleIndex(index)}
+                onPointerLeave={() => setOverrideVisibleIndex(undefined)}
+                onBlur={() => setOverrideVisibleIndex(undefined)}
+              >
                 <td>{cluster.label}</td>
                 <td>
                   <Link

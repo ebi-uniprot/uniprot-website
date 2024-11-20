@@ -41,28 +41,19 @@
   .animation {
     border: 1px solid var(--fr--color-uniref);
 
-    :global(.cluster_animation_illustration_svg__identity-100),
-    :global(.cluster_animation_illustration_svg__identity-90),
-    :global(.cluster_animation_illustration_svg__identity-50) {
-      animation-name: cluster-animation;
-      animation-duration: 6s;
-      animation-direction: alternate;
-      animation-iteration-count: infinite;
-      animation-timing-function: cubic-bezier(0.61, -0.08, 0, 1.63);
+    /* classnames automatically based on the name of the file */
+    circle[class^='cluster_animation_illustration_svg__identity'] {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
 
-    :global(.cluster_animation_illustration_svg__identity-100) {
+    &[data-identity='100']
+      :global(.cluster_animation_illustration_svg__identity-100),
+    &[data-identity='90']
+      :global(.cluster_animation_illustration_svg__identity-90),
+    &[data-identity='50']
+      :global(.cluster_animation_illustration_svg__identity-50) {
       opacity: 1;
-    }
-
-    :global(.cluster_animation_illustration_svg__identity-90) {
-      opacity: 0;
-      animation-delay: -2s;
-    }
-
-    :global(.cluster_animation_illustration_svg__identity-50) {
-      opacity: 0;
-      animation-delay: -4s;
     }
   }
 
