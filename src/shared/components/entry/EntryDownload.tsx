@@ -611,12 +611,25 @@ const EntryDownload = ({
     ) {
       additionalInformation = (
         <div>
-          There is a current limitation where UniParc cross-reference{' '}
-          {selectedFormat} downloads are limited to {maxPaginationDownload}{' '}
-          entries. Until this is fixed, there are several options:
+          UniParc cross-reference {selectedFormat} downloads are limited to{' '}
+          {maxPaginationDownload} entries (meaning{' '}
+          <LongNumber>{(nResults as number) - 500}</LongNumber> members will not
+          be downloaded). There are alternative options available:
           <ul>
             <li>
-              Download the{' '}
+              For use in Excel, please use{' '}
+              <DownloadAnchor
+                accession={accession as string}
+                fileFormat={FileFormat.tsv}
+                namespace={namespace}
+                dataset={selectedDataset}
+                columns={downloadColumns}
+              />
+              , the non-proprietary format for tabularized data and it includes
+              all the cross references.
+            </li>
+            <li>
+              Or, Download the{' '}
               <DownloadAnchor
                 accession={accession as string}
                 fileFormat={FileFormat.json}
@@ -627,33 +640,7 @@ const EntryDownload = ({
               file format instead which includes all{' '}
               <LongNumber>{nResults as number}</LongNumber> of the
               cross-references in the <pre>uniParcCrossReferences</pre>{' '}
-              attribute
-            </li>
-            <li>
-              Download the{' '}
-              <DownloadAnchor
-                accession={accession as string}
-                fileFormat={FileFormat.tsv}
-                namespace={namespace}
-                dataset={selectedDataset}
-                columns={downloadColumns}
-              />{' '}
-              file format to download all{' '}
-              <LongNumber>{nResults as number}</LongNumber> of the
-              cross-references.
-            </li>
-            <li>
-              Continue to download the{' '}
-              <DownloadAnchor
-                accession={accession as string}
-                fileFormat={selectedFormat}
-                namespace={namespace}
-                dataset={selectedDataset}
-                columns={downloadColumns}
-              />{' '}
-              file format which has only {maxPaginationDownload} entries
-              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
-              cross-references will not be downloaded)
+              attribute.
             </li>
           </ul>
         </div>
