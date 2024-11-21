@@ -12,6 +12,45 @@ exports[`BlastForm test Renders the form 1`] = `
       BLAST
     </h1>
   </div>
+  <div
+    class="message message--warning"
+    role="status"
+  >
+    <div
+      class="message__side-border"
+    />
+    <test-file-stub
+      classname="message--icon-align-top"
+      height="1.125em"
+      width="1.125em"
+    />
+    <div
+      class="message__title"
+    >
+      Scheduled maintenance will cause BLAST to be unavailable at the following time:
+      <div
+        class="time"
+      >
+        99/99/9999, 00:00:00
+        <span
+          class="spaced"
+        >
+          to
+        </span>
+        99/99/9999, 00:00:00
+        <span
+          class="spaced"
+        >
+          (UTC time zone)
+        </span>
+      </div>
+      Please submit jobs before or after this period. In addition, running jobs might be interrupted and so might need to be resubmitted  
+      <test-file-stub
+        width="1em"
+      />
+      .
+    </div>
+  </div>
   <form
     aria-label="BLAST job submission form"
   >
@@ -20,13 +59,17 @@ exports[`BlastForm test Renders the form 1`] = `
         class="tools-form-section__item"
       >
         <legend>
-          Find a protein sequence to run 
+          <span>
+            Find a protein sequence to run 
+          </span>
           <abbr
             title="Basic Local Alignment Search Tool"
           >
             BLAST
           </abbr>
-           sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+          <span>
+             sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+          </span>
         </legend>
         <div
           class="import-sequence-section"

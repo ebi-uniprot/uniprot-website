@@ -20,6 +20,8 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Job } from '../../types/toolsJob';
 
+import DowntimeWarning from '../../components/DowntimeWarning';
+
 import './styles/Dashboard.scss';
 
 const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
@@ -61,6 +63,7 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   return (
     <>
       {fullPageContent}
+      <DowntimeWarning>BLAST &amp; Align</DowntimeWarning>
       <p>
         Your tool analysis results from the last{' '}
         <ClockIcon height="1em" width="3ch" /> 7 days are listed below. If you

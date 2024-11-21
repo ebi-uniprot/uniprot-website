@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
-import { Message } from 'franklin-sites';
+import { Message, ReSubmitIcon } from 'franklin-sites';
 
 import styles from './styles/downtime-warning.module.scss';
 
-const from = new Date('2024-05-07T08:00:00');
-const to = new Date('2024-05-08T08:00:00');
+const from = new Date('2024-11-27T10:30:00');
+const to = new Date('2024-11-27T11:00:00');
 
 const TZ = () => {
   try {
@@ -30,7 +30,8 @@ export const DowntimeWarning = ({ children }: Props) => (
       <TZ />
     </div>
     Please submit jobs before or after this period. In addition, running jobs
-    will be interrupted and so will need to be resubmitted.
+    might be interrupted and so might need to be resubmitted&nbsp;&nbsp;
+    <ReSubmitIcon width="1em" />.
   </Message>
 );
 
