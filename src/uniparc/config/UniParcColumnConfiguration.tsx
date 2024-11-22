@@ -13,7 +13,6 @@ import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
-import parseDate from '../../shared/utils/parseDate';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
 
@@ -224,13 +223,13 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
 
 UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
   ...getLabelAndTooltip(
-    'Common Taxons',
+    'Common taxonomies',
     'Common taxonomy identifiers shared by the sequence',
     'taxonomic_identifier'
   ),
   render: ({ commonTaxons }) => (
     <ExpandableList
-      descriptionString="common taxons"
+      descriptionString="common taxonomies"
       displayNumberOfHiddenItems
     >
       {commonTaxons?.map((taxon) => (
@@ -247,13 +246,13 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
 
 UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
   ...getLabelAndTooltip(
-    'Common Taxon IDs',
+    'Common Taxononmy IDs',
     'Common taxonomy identifiers shared by the sequence',
     'taxonomic_identifier'
   ),
   render: ({ commonTaxons }) => (
     <ExpandableList
-      descriptionString="common taxons"
+      descriptionString="common taxonomy IDs"
       displayNumberOfHiddenItems
     >
       {commonTaxons?.map((taxon) => (
@@ -315,9 +314,7 @@ UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
     'Date when source database entry was associated with this sequence for the first time'
   ),
   render: ({ oldestCrossRefCreated }) => (
-    <time dateTime={parseDate(oldestCrossRefCreated)?.toISOString()}>
-      {oldestCrossRefCreated}
-    </time>
+    <time dateTime={oldestCrossRefCreated}>{oldestCrossRefCreated}</time>
   ),
 });
 
@@ -327,7 +324,7 @@ UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
     'Date when source database entry was last confirmed to be associated with this sequence'
   ),
   render: ({ mostRecentCrossRefUpdated }) => (
-    <time dateTime={parseDate(mostRecentCrossRefUpdated)?.toISOString()}>
+    <time dateTime={mostRecentCrossRefUpdated}>
       {mostRecentCrossRefUpdated}
     </time>
   ),

@@ -256,7 +256,7 @@ exports[`UniParcColumnConfiguration component should render column "common_taxon
 exports[`UniParcColumnConfiguration component should render column "first_seen": first_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2004-06-11T00:00:00.000Z"
+    datetime="2004-06-11"
   >
     2004-06-11
   </time>
@@ -439,7 +439,7 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
 exports[`UniParcColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2024-11-27T00:00:00.000Z"
+    datetime="2024-11-27"
   >
     2024-11-27
   </time>

@@ -1,3 +1,5 @@
+import { screen, act } from '@testing-library/react';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import XRefsSection from '../XRefsSection';
@@ -10,7 +12,7 @@ import uniparcXrefsData from '../../../__mocks__/uniparcXrefsModelData';
 jest.mock('../../../../shared/hooks/useDataApi');
 
 describe('XrefSection component', () => {
-  it('should render the xref table properly and match snapshot', () => {
+  it('should render the xref table properly and match snapshot', async () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
       data: [],
@@ -31,21 +33,26 @@ describe('XrefSection component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("should return null when there are no cross-references (shouldn't happen)", () => {
-    const { container } = customRender(
-      <XRefsSection
-        entryData={uniParcData}
-        xRefData={{
-          allResults: [],
-          initialLoading: false,
-          progress: 1,
-          hasMoreData: false,
-          handleLoadMoreRows: jest.fn(),
-          total: 0,
-        }}
-      />
-    );
-    const table = container.querySelector('.overflow-y-container');
-    expect(table).toBeEmptyDOMElement();
+  it('should show error when there are no cross-references', async () => {
+    await act(async () => {
+      customRender(
+        <XRefsSection
+          entryData={uniParcData}
+          xRefData={{
+            allResults: [],
+            initialLoading: false,
+            progress: 1,
+            hasMoreData: false,
+            handleLoadMoreRows: jest.fn(),
+            total: 0,
+            status: 503,
+          }}
+        />
+      );
+    });
+
+    expect(
+      screen.getByText('This service is currently unavailable!')
+    ).toBeInTheDocument();
   });
 });

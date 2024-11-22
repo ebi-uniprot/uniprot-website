@@ -338,15 +338,15 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
       {isUniParcLightResponse && (
         <Message level="info">
-          There has been few changes in UniProt website REST API for UniParc.
-          The response may not contain all the fields for the{' '}
-          {state.selectedFileFormat} format. Please refer{' '}
+          A few changes have recently been made to UniParc. The response may not
+          contain all the fields for the {state.selectedFileFormat} format.
+          Please refer to{' '}
           <Link
             to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
               accession: '2024-11-27-release',
             })}
           >
-            release notes 2024 06
+            release 2024_06 notes
           </Link>{' '}
           for more information.
         </Message>

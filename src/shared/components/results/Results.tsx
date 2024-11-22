@@ -58,7 +58,6 @@ const Results = () => {
   // Query for results data
   const initialApiUrl = useNSQuery({
     withFacets: false,
-    size: undefined,
   });
   const resultsDataObject = usePagination(initialApiUrl);
   const {

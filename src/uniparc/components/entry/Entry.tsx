@@ -101,7 +101,12 @@ const Entry = () => {
 
   const { total: xRefsDataTotal } = xRefsDataObject;
 
-  if (lightObject.error || !match?.params.accession || !match) {
+  if (
+    !match?.params.accession ||
+    !match ||
+    lightObject.error ||
+    xRefsDataObject.error
+  ) {
     return (
       <ErrorHandler
         status={lightObject.status}
@@ -114,9 +119,7 @@ const Entry = () => {
     return <Loader progress={lightObject.progress} />;
   }
 
-  const transformedData = uniParcConverter(
-    lightObject.data as UniParcLiteAPIModel
-  );
+  const transformedData = uniParcConverter(lightObject.data);
 
   const entrySidebar =
     !facetLoading && !facetHasStaleData && facetData ? (

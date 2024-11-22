@@ -415,10 +415,10 @@ export const getIsUniParcLightResponse = (
   state: DownloadState,
   props: DownloadProps<JobTypes>
 ) =>
+  props.namespace === Namespace.uniparc &&
   (state.selectedFileFormat === FileFormat.json ||
     state.selectedFileFormat === FileFormat.xml ||
-    state.selectedFileFormat === FileFormat.rdfXml) &&
-  props.namespace === Namespace.uniparc;
+    state.selectedFileFormat === FileFormat.rdfXml);
 
 export const getRedirectToIDMapping = (
   state: DownloadState,

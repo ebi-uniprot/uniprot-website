@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -80,21 +81,29 @@ const XRefsSection = ({ entryData, xRefData: xRefDataObject }: Props) => {
 
   return (
     <Card header={<h2>{getEntrySectionNameAndId(EntrySection.XRefs).name}</h2>}>
-      <div className="button-group">
-        <CustomiseButton namespace={Namespace.uniparc} />
-      </div>
-      <div className={helper['overflow-y-container']}>
-        {total && allResults.length ? (
-          <DataTableWithLoader
-            getIdKey={getIdKey}
-            columns={columnDescriptors}
-            data={allResults}
-            onLoadMoreItems={handleLoadMoreRows}
-            hasMoreData={hasMoreData}
-            density="compact"
-          />
-        ) : null}
-      </div>
+      {total && allResults.length ? (
+        <>
+          <div className="button-group">
+            <CustomiseButton namespace={Namespace.uniparc} />
+          </div>
+          <div className={helper['overflow-y-container']}>
+            <DataTableWithLoader
+              getIdKey={getIdKey}
+              columns={columnDescriptors}
+              data={allResults}
+              onLoadMoreItems={handleLoadMoreRows}
+              hasMoreData={hasMoreData}
+              density="compact"
+            />
+          </div>
+        </>
+      ) : (
+        <ErrorHandler
+          status={xRefDataObject.status}
+          error={xRefDataObject.error}
+          fullPage
+        />
+      )}
     </Card>
   );
 };

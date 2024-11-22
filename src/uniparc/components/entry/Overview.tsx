@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import { InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import parseDate from '../../../shared/utils/parseDate';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { UniParcUIModel } from '../../adapters/uniParcConverter';
@@ -15,44 +14,42 @@ type Props = {
 const Overview = ({ data }: Props) => {
   const infoData = [
     {
-      title: <span>Common Taxons</span>,
+      title: 'Common Taxonomies',
       content: data.commonTaxons && (
         <div>
-          {data.commonTaxons.map((taxon) => (
+          {data.commonTaxons.map((taxon, index, commonTaxons) => (
             <Fragment key={taxon.commonTaxon}>
               <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
                 {taxon.commonTaxon}
               </Link>
-              {'; '}
+              {index !== commonTaxons.length - 1 ? '; ' : null}
             </Fragment>
           ))}
         </div>
       ),
     },
     {
-      title: <span>Sequence length</span>,
+      title: 'Sequence length',
       content: data.sequence && <span>{data.sequence.length}</span>,
     },
     {
-      title: <span>Cross references</span>,
+      title: 'Cross references',
       content: data.crossReferenceCount && (
         <span>{data.crossReferenceCount}</span>
       ),
     },
     {
-      title: <span>First seen</span>,
+      title: 'First seen',
       content: data.oldestCrossRefCreated && (
-        <time dateTime={parseDate(data.oldestCrossRefCreated)?.toISOString()}>
+        <time dateTime={data.oldestCrossRefCreated}>
           {data.oldestCrossRefCreated}
         </time>
       ),
     },
     {
-      title: <span>Last seen</span>,
+      title: 'Last seen',
       content: data.mostRecentCrossRefUpdated && (
-        <time
-          dateTime={parseDate(data.mostRecentCrossRefUpdated)?.toISOString()}
-        >
+        <time dateTime={data.mostRecentCrossRefUpdated}>
           {data.mostRecentCrossRefUpdated}
         </time>
       ),
