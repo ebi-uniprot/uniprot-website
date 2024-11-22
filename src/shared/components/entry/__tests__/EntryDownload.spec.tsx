@@ -13,7 +13,7 @@ describe('EntryDownload', () => {
     onCloseMock = jest.fn();
   });
 
-  it('should link to uniparc TSV download endpoint', () => {
+  it('should link to uniparc TSV download streaming endpoint', () => {
     customRender(<EntryDownload nResults={1000} onClose={onCloseMock} />, {
       route: '/uniparc/UPI0000000001/entry',
     });
@@ -21,7 +21,9 @@ describe('EntryDownload', () => {
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     const downloadLink = screen.getByTitle<HTMLAnchorElement>('Download file');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining('/uniparc/UPI0000000001/databases?format=tsv')
+      expect.stringContaining(
+        '/uniparc/UPI0000000001/databases/stream?format=tsv'
+      )
     );
   });
 

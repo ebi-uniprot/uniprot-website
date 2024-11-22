@@ -37,7 +37,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import SubEntrySection, { TabLocation } from '../../types/subEntry';
-import { UniParcAPIModel } from '../../adapters/uniParcConverter';
+import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
 
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -55,7 +55,7 @@ const SubEntry = () => {
     subEntryId && accession,
     Namespace.uniparc
   );
-  const uniparcData = useDataApi<UniParcAPIModel>(baseURL);
+  const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
 
   if (uniparcData.error || !match || !accession || !subEntryId) {
     return (
@@ -145,7 +145,7 @@ const SubEntry = () => {
           {displayDownloadPanel && (
             <EntryDownloadPanel
               handleToggle={handleToggleDownload}
-              nResults={uniparcData.data?.uniParcCrossReferences?.length}
+              nResults={uniparcData.data?.crossReferenceCount}
             />
           )}
           <div className="button-group">
