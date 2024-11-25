@@ -23,7 +23,6 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import usePagination from '../../../shared/hooks/usePagination';
 import useXref from './hooks/useXref';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -76,14 +75,6 @@ const Entry = () => {
   const xRefsFacetApiObject =
     useDataApiWithStale<SearchResults<UniParcXRef>>(initialApiFacetUrl);
 
-  const initialApiUrl = useXref({
-    accession: match?.params.accession,
-    withFacets: false,
-  });
-  const xRefsDataObject = usePagination<UniParcXRef, UniParcXRef>(
-    initialApiUrl
-  );
-
   const lightObject = useDataApi<UniParcLiteAPIModel>(`${baseURL}/light`);
 
   const {
@@ -92,14 +83,7 @@ const Entry = () => {
     isStale: facetHasStaleData,
   } = xRefsFacetApiObject;
 
-  const { total: xRefsDataTotal } = xRefsDataObject;
-
-  if (
-    !match?.params.accession ||
-    !match ||
-    lightObject.error ||
-    xRefsDataObject.error
-  ) {
+  if (!match?.params.accession || !match || lightObject.error) {
     return (
       <ErrorHandler
         status={lightObject.status}
@@ -177,7 +161,7 @@ const Entry = () => {
           {displayDownloadPanel && (
             <EntryDownloadPanel
               handleToggle={handleToggleDownload}
-              nResults={xRefsDataTotal}
+              nResults={transformedData.crossReferenceCount}
               columns={columns}
             />
           )}
@@ -190,10 +174,7 @@ const Entry = () => {
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
-          <EntryMain
-            transformedData={transformedData}
-            xrefs={xRefsDataObject}
-          />
+          <EntryMain transformedData={transformedData} />
         </Tab>
         <Tab
           title={
