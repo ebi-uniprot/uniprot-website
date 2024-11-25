@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useLocation, Link, Redirect } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -24,12 +24,11 @@ import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import usePagination from '../../../shared/hooks/usePagination';
+import useXref from './hooks/useXref';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
 import { Location, getEntryPath } from '../../../app/config/urls';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
-import { stringifyUrl } from '../../../shared/utils/url';
 
 import uniParcConverter, {
   UniParcLiteAPIModel,
@@ -50,19 +49,12 @@ export enum TabLocation {
   FeatureViewer = 'feature-viewer',
 }
 
-enum XRefFacetEnum {
-  Status = 'status',
-  Organisms = 'organisms',
-  Databases = 'databases',
-}
-
 const Entry = () => {
   const match = useMatchWithRedirect<{
     accession: string;
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const { search } = useLocation();
   const smallScreen = useSmallScreen();
 
   const [columns] = useLocalStorage(
@@ -74,24 +66,25 @@ const Entry = () => {
     match?.params.accession,
     Namespace.uniparc
   );
-  const xRefsURL = `${baseURL}/databases`;
-  const xRefsFacetURL = `${xRefsURL}?facets=${XRefFacetEnum.Status}, ${XRefFacetEnum.Organisms}, ${XRefFacetEnum.Databases}&size=0`;
-  const xRefsDataURL = useMemo(() => {
-    const [{ selectedFacets }] = getParamsFromURL(search);
-    if (!selectedFacets.length) {
-      return xRefsURL;
-    }
-    return stringifyUrl(xRefsURL || '', {
-      ...Object.fromEntries(
-        selectedFacets.map(({ name, value }) => [name, value])
-      ),
-    });
-  }, [xRefsURL, search]);
+
+  // Query for xref facets
+  const initialApiFacetUrl = useXref({
+    accession: match?.params.accession,
+    size: 0,
+    withFacets: true,
+  });
+  const xRefsFacetApiObject =
+    useDataApiWithStale<SearchResults<UniParcXRef>>(initialApiFacetUrl);
+
+  const initialApiUrl = useXref({
+    accession: match?.params.accession,
+    withFacets: false,
+  });
+  const xRefsDataObject = usePagination<UniParcXRef, UniParcXRef>(
+    initialApiUrl
+  );
 
   const lightObject = useDataApi<UniParcLiteAPIModel>(`${baseURL}/light`);
-  const xRefsFacetApiObject =
-    useDataApiWithStale<SearchResults<UniParcXRef>>(xRefsFacetURL);
-  const xRefsDataObject = usePagination<UniParcXRef, UniParcXRef>(xRefsDataURL);
 
   const {
     loading: facetLoading,
