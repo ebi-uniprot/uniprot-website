@@ -1,5 +1,3 @@
-import { screen, act } from '@testing-library/react';
-
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import XRefsSection from '../XRefsSection';
@@ -33,7 +31,7 @@ describe('XrefSection component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should show no results message when there are no cross-references', async () => {
+  test("should return null when there are no cross-references (shouldn't happen)", () => {
     (usePagination as jest.Mock).mockReturnValue({
       allResults: [],
       initialLoading: false,
@@ -41,14 +39,11 @@ describe('XrefSection component', () => {
       hasMoreData: false,
       handleLoadMoreRows: jest.fn(),
       total: 0,
-      status: 503,
     });
-    await act(async () => {
-      customRender(<XRefsSection entryData={uniParcData} />);
-    });
-
-    expect(
-      screen.getByText('Sorry, no results were found!')
-    ).toBeInTheDocument();
+    const { container } = customRender(
+      <XRefsSection entryData={uniParcData} />
+    );
+    const table = container.querySelector('.overflow-y-container');
+    expect(table).toBeEmptyDOMElement();
   });
 });

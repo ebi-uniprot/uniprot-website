@@ -11,7 +11,7 @@ const UniProtFooter = lazy(
   () => import(/* webpackChunkName: "footer" */ '../../layouts/UniProtFooter')
 );
 
-export const NoResultsErrorMessage = () => (
+const ErrorMessage = () => (
   <Message level="info">
     <small>
       <h1 className="small">Sorry, no results were found!</h1>
@@ -24,7 +24,7 @@ type Props = {
   children?: ReactElement;
 };
 
-const NoResultsPage = ({ children = <NoResultsErrorMessage /> }: Props) => (
+const NoResultsPage = ({ children = <ErrorMessage /> }: Props) => (
   <>
     <HTMLHead>
       {/* Don't index error pages */}
