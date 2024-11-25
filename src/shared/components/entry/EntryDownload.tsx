@@ -611,10 +611,10 @@ const EntryDownload = ({
     ) {
       additionalInformation = (
         <div>
-          UniParc cross-reference {selectedFormat} downloads are limited to{' '}
+          UniParc cross reference {selectedFormat} downloads are limited to{' '}
           {maxPaginationDownload} entries (meaning{' '}
-          <LongNumber>{(nResults as number) - 500}</LongNumber> members will not
-          be downloaded). There are alternative options available:
+          <LongNumber>{(nResults as number) - 500}</LongNumber> cross references
+          will not be downloaded). There are alternative options available:
           <ul>
             <li>
               For use in Excel, please use{' '}
@@ -625,8 +625,8 @@ const EntryDownload = ({
                 dataset={selectedDataset}
                 columns={downloadColumns}
               />
-              , the non-proprietary format for tabularized data and it includes
-              all the cross references.
+              , a non-proprietary format for tabularized data that includes all
+              the cross references.
             </li>
             <li>
               Or, Download the{' '}
