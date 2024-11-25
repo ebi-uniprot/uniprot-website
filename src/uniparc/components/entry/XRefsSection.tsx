@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import { NoResultsErrorMessage } from '../../../shared/components/error-pages/full-pages/NoResultsPage';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -98,11 +98,7 @@ const XRefsSection = ({ entryData, xRefData: xRefDataObject }: Props) => {
           </div>
         </>
       ) : (
-        <ErrorHandler
-          status={xRefDataObject.status}
-          error={xRefDataObject.error}
-          fullPage
-        />
+        <NoResultsErrorMessage />
       )}
     </Card>
   );

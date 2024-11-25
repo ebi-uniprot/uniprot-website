@@ -33,7 +33,7 @@ describe('XrefSection component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should show error when there are no cross-references', async () => {
+  it('should show no results message when there are no cross-references', async () => {
     await act(async () => {
       customRender(
         <XRefsSection
@@ -52,7 +52,7 @@ describe('XrefSection component', () => {
     });
 
     expect(
-      screen.getByText('This service is currently unavailable!')
+      screen.getByText('Sorry, no results were found!')
     ).toBeInTheDocument();
   });
 });
