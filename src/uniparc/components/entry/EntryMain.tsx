@@ -5,19 +5,17 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import UniParcEntryConfig from '../../config/UniParcEntryConfig';
 
-import { UniParcUIModel, UniParcXRef } from '../../adapters/uniParcConverter';
-import { PaginatedResults } from '../../../shared/hooks/usePagination';
+import { UniParcUIModel } from '../../adapters/uniParcConverter';
 
 type EntryMainProps = {
   transformedData: UniParcUIModel;
-  xrefs: PaginatedResults<UniParcXRef>;
 };
 
-const EntryMain = ({ transformedData, xrefs }: EntryMainProps) => (
+const EntryMain = ({ transformedData }: EntryMainProps) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
-        <ErrorBoundary>{sectionContent(transformedData, xrefs)}</ErrorBoundary>
+        <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
       </Suspense>
     ))}
   </>

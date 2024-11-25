@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
+import useXref from './hooks/useXref';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import {
@@ -17,7 +17,7 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import { UniParcUIModel, UniParcXRef } from '../../adapters/uniParcConverter';
 import EntrySection from '../../types/entrySection';
 import { Namespace } from '../../../shared/types/namespaces';
-import { PaginatedResults } from '../../../shared/hooks/usePagination';
+import usePagination from '../../../shared/hooks/usePagination';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/XRefsSection.scss';
@@ -40,10 +40,16 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
 
 type Props = {
   entryData: UniParcUIModel;
-  xRefData: PaginatedResults<UniParcXRef>;
 };
 
-const XRefsSection = ({ entryData, xRefData: xRefDataObject }: Props) => {
+const XRefsSection = ({ entryData }: Props) => {
+  const initialApiUrl = useXref({
+    accession: entryData.uniParcId,
+    withFacets: false,
+  });
+
+  const xRefDataObject = usePagination<UniParcXRef, UniParcXRef>(initialApiUrl);
+
   const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
@@ -81,29 +87,21 @@ const XRefsSection = ({ entryData, xRefData: xRefDataObject }: Props) => {
 
   return (
     <Card header={<h2>{getEntrySectionNameAndId(EntrySection.XRefs).name}</h2>}>
-      {total && allResults.length ? (
-        <>
-          <div className="button-group">
-            <CustomiseButton namespace={Namespace.uniparc} />
-          </div>
-          <div className={helper['overflow-y-container']}>
-            <DataTableWithLoader
-              getIdKey={getIdKey}
-              columns={columnDescriptors}
-              data={allResults}
-              onLoadMoreItems={handleLoadMoreRows}
-              hasMoreData={hasMoreData}
-              density="compact"
-            />
-          </div>
-        </>
-      ) : (
-        <ErrorHandler
-          status={xRefDataObject.status}
-          error={xRefDataObject.error}
-          fullPage
-        />
-      )}
+      <div className="button-group">
+        <CustomiseButton namespace={Namespace.uniparc} />
+      </div>
+      <div className={helper['overflow-y-container']}>
+        {total && allResults.length ? (
+          <DataTableWithLoader
+            getIdKey={getIdKey}
+            columns={columnDescriptors}
+            data={allResults}
+            onLoadMoreItems={handleLoadMoreRows}
+            hasMoreData={hasMoreData}
+            density="compact"
+          />
+        ) : null}
+      </div>
     </Card>
   );
 };

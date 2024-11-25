@@ -47,7 +47,7 @@ const useColumnNames = ({
       `table columns for ${Namespace.uniparc}`,
       JSON.stringify(defaultColumns)
     );
-    window.localStorage.setItem('reset-2024_06', 'yes');
+    window.localStorage.setItem('reset-2024_06', 'true');
   }
 
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(

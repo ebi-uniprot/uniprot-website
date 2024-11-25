@@ -55,14 +55,13 @@ const ResultsDataHeader: FC<
       {/* Keep the message until 2025_02 data release */}
       {namespace === Namespace.uniparc ? (
         <Message level="info">
-          There has been few changes in UniProt website REST API for UniParc.
-          Please refer{' '}
+          A few changes have recently been made to UniParc. Please refer to{' '}
           <Link
             to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
               accession: '2024-11-27-release',
             })}
           >
-            release notes 2024 06
+            release 2024_06 notes
           </Link>{' '}
           for more information.
         </Message>

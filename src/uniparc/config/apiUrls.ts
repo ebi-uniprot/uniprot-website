@@ -13,6 +13,7 @@ const databases = (
     format?: FileFormat.tsv | FileFormat.json;
     size?: number;
     fields?: string;
+    facets?: string;
   } = {}
 ) => {
   const url = stream
@@ -22,6 +23,7 @@ const databases = (
     format: fileFormatToUrlParameter[options.format || FileFormat.json],
     size: options.size,
     fields: options.fields,
+    facets: options.facets,
   });
 };
 
