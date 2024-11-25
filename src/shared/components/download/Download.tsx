@@ -338,17 +338,15 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
       {isUniParcLightResponse && (
         <Message level="info">
-          A few changes have recently been made to UniParc. The response may not
-          contain all the fields for the {state.selectedFileFormat} format.
-          Please refer to{' '}
+          {state.selectedFileFormat} files contain fewer fields since{' '}
           <Link
             to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
               accession: '2024-11-27-release',
             })}
           >
-            release 2024_06 notes
-          </Link>{' '}
-          for more information.
+            release 2024_06
+          </Link>
+          . Please see the release notes for more details.
         </Message>
       )}
 

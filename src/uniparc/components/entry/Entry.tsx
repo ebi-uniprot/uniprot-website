@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
+import joinUrl from 'url-join';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -61,10 +62,8 @@ const Entry = () => {
     defaultColumns
   );
 
-  const baseURL = apiUrls.entry.entry(
-    match?.params.accession,
-    Namespace.uniparc
-  );
+  const baseURL =
+    apiUrls.entry.entry(match?.params.accession, Namespace.uniparc) || '';
 
   // Query for xref facets
   const initialApiFacetUrl = useXref({
@@ -75,7 +74,9 @@ const Entry = () => {
   const xRefsFacetApiObject =
     useDataApiWithStale<SearchResults<UniParcXRef>>(initialApiFacetUrl);
 
-  const lightObject = useDataApi<UniParcLiteAPIModel>(`${baseURL}/light`);
+  const lightObject = useDataApi<UniParcLiteAPIModel>(
+    joinUrl(baseURL, 'light')
+  );
 
   const {
     loading: facetLoading,
