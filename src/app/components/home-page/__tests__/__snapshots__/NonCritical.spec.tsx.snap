@@ -403,6 +403,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2024-11-27-release"
+              >
+                UniProt release 2024_06
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              What happens when ribosomes crash | Cross-references to FunFam | Cross-references to AntiFam
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2024-10-02-release"
               >
                 UniProt release 2024_05
