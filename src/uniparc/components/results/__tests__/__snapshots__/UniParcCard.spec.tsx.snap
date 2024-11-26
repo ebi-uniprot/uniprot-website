@@ -56,17 +56,17 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Organisms: 
+              Common taxons: 
             </strong>
-            7
+            3
           </span>
           <span
             class="result-card__info-bit"
           >
             <strong>
-              UniprotKB entries: 
+              UniProtKB entries: 
             </strong>
-            2 reviewed and 7 unreviewed
+            10
           </span>
         </div>
         <div
@@ -82,9 +82,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="1988-11-01T00:00:00.000Z"
+              datetime="2004-06-11"
             >
-              1988-11-01
+              2004-06-11
             </time>
           </span>
           <span
@@ -97,9 +97,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="2024-10-02T00:00:00.000Z"
+              datetime="2024-11-27"
             >
-              2024-10-02
+              2024-11-27
             </time>
           </span>
           <span

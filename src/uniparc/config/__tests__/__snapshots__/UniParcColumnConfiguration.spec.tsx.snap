@@ -69,68 +69,32 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
     class="expandable-list no-bullet"
   >
     <li>
+      <span>
+        Q71TT2.1 (obsolete)
+      </span>
+    </li>
+    <li>
       <a
-        href="/uniprotkb/P07612/entry"
+        href="/uniprotkb/P07612"
       >
-        <span
-          class="entry-title__status icon--reviewed"
-          title="This marks a reviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
         P07612
       </a>
     </li>
     <li>
-      <a
-        href="/uniprotkb/P07612/history"
-      >
-        <span
-          class="entry-title__status icon--reviewed"
-          title="This marks a reviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        P07612.1 (obsolete)
-      </a>
+      <span>
+        Q0GNZ6.1 (obsolete)
+      </span>
+    </li>
+    <li>
+      <span>
+        G0XTE8.1 (obsolete)
+      </span>
     </li>
     <li>
       <a
-        href="/uniprotkb/Q6RZL4/entry"
+        href="/uniprotkb/Q76ZT7"
       >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q6RZL4
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/Q76QK2/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q76QK2
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/Q71TT2/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q71TT2
+        Q76ZT7
       </a>
     </li>
     <li>
@@ -139,7 +103,7 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
         data-testid="expandable-message"
         type="button"
       >
-        4 more entries
+        5 more entries
       </button>
     </li>
   </ul>
@@ -152,120 +116,59 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
     class="expandable-list no-bullet"
   >
     <li>
+      <span>
+        Q71TT2.1 (obsolete)
+      </span>
+    </li>
+    <li>
       <a
-        href="/uniprotkb/P07612/entry"
+        href="/uniprotkb/P07612"
       >
-        <span
-          class="entry-title__status icon--reviewed"
-          title="This marks a reviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
         P07612
       </a>
     </li>
     <li>
-      <a
-        href="/uniprotkb/P07612/history"
-      >
-        <span
-          class="entry-title__status icon--reviewed"
-          title="This marks a reviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        P07612.1 (obsolete)
-      </a>
+      <span>
+        Q0GNZ6.1 (obsolete)
+      </span>
+    </li>
+    <li>
+      <span>
+        G0XTE8.1 (obsolete)
+      </span>
     </li>
     <li>
       <a
-        href="/uniprotkb/Q6RZL4/entry"
+        href="/uniprotkb/Q76ZT7"
       >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q6RZL4
+        Q76ZT7
       </a>
     </li>
     <li>
-      <a
-        href="/uniprotkb/Q76QK2/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q76QK2
-      </a>
+      <span>
+        P07612.3 (obsolete)
+      </span>
+    </li>
+    <li>
+      <span>
+        Q76QK2.1 (obsolete)
+      </span>
+    </li>
+    <li>
+      <span>
+        A0A2I2MDI1.1 (obsolete)
+      </span>
+    </li>
+    <li>
+      <span>
+        Q6RZL4.1 (obsolete)
+      </span>
     </li>
     <li>
       <a
-        href="/uniprotkb/Q71TT2/entry"
+        href="/uniprotkb/A0A7I8V511"
       >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q71TT2
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/Q0GNZ6/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q0GNZ6
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A2I2MDI1/entry"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        A0A2I2MDI1
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/Q76ZT7/history"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q76ZT7.1 (obsolete)
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A7I8V511/history"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        A0A7I8V511.1 (obsolete)
+        A0A7I8V511
       </a>
     </li>
     <li>
@@ -287,12 +190,75 @@ exports[`UniParcColumnConfiguration component should render column "checksum": c
 </DocumentFragment>
 `;
 
+exports[`UniParcColumnConfiguration component should render column "common_taxon_ids": common_taxon_ids 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/taxonomy/32630"
+      >
+        32630
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/9606"
+      >
+        9606
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10242"
+      >
+        10242
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "common_taxons": common_taxons 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/taxonomy/32630"
+      >
+        synthetic construct
+      </a>
+       (other entries)
+    </li>
+    <li>
+      <a
+        href="/taxonomy/9606"
+      >
+        Homo sapiens
+      </a>
+       (cellular organisms)
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10242"
+      >
+        Orthopoxvirus
+      </a>
+       (Viruses)
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniParcColumnConfiguration component should render column "first_seen": first_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="1988-11-01T00:00:00.000Z"
+    datetime="2004-06-11"
   >
-    1988-11-01
+    2004-06-11
   </time>
 </DocumentFragment>
 `;
@@ -305,19 +271,29 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene 
     class="expandable-list no-bullet"
   >
     <li>
-      OPG099
+      <span>
+        OPG099
+      </span>
     </li>
     <li>
-      RPXV077
+      <span>
+        RPXV077
+      </span>
     </li>
     <li>
-      N1R
+      <span>
+        N1R
+      </span>
     </li>
     <li>
-      L1R
+      <span>
+        L1R
+      </span>
     </li>
     <li>
-      HSPV_VK05_RKI-089
+      <span>
+        HSPV_VK05_RKI-089
+      </span>
     </li>
     <li>
       <button
@@ -338,70 +314,114 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
     class="expandable-list no-bullet"
   >
     <li>
-      OPG099
+      <span>
+        OPG099
+      </span>
     </li>
     <li>
-      RPXV077
+      <span>
+        RPXV077
+      </span>
     </li>
     <li>
-      N1R
+      <span>
+        N1R
+      </span>
     </li>
     <li>
-      L1R
+      <span>
+        L1R
+      </span>
     </li>
     <li>
-      HSPV_VK05_RKI-089
+      <span>
+        HSPV_VK05_RKI-089
+      </span>
     </li>
     <li>
-      VACV VK01 RKI-115 CDS
+      <span>
+        VACV VK01 RKI-115 CDS
+      </span>
     </li>
     <li>
-      OPG095
+      <span>
+        OPG095
+      </span>
     </li>
     <li>
-      OCZ32_gp108
+      <span>
+        OCZ32_gp108
+      </span>
     </li>
     <li>
-      VACWR088
+      <span>
+        VACWR088
+      </span>
     </li>
     <li>
-      CPXV_FIN2000_MAN_093
+      <span>
+        CPXV_FIN2000_MAN_093
+      </span>
     </li>
     <li>
-      VACV_TT8_108
+      <span>
+        VACV_TT8_108
+      </span>
     </li>
     <li>
-      VACV_TT12_108
+      <span>
+        VACV_TT12_108
+      </span>
     </li>
     <li>
-      VAC_TKT3_078
+      <span>
+        VAC_TKT3_078
+      </span>
     </li>
     <li>
-      VAC_TKT4_078
+      <span>
+        VAC_TKT4_078
+      </span>
     </li>
     <li>
-      VACV_IOC_B141_114
+      <span>
+        VACV_IOC_B141_114
+      </span>
     </li>
     <li>
-      VACV_IOC_B388_114
+      <span>
+        VACV_IOC_B388_114
+      </span>
     </li>
     <li>
-      LIVPclone14_096
+      <span>
+        LIVPclone14_096
+      </span>
     </li>
     <li>
-      VACV_VK01_RKI-115
+      <span>
+        VACV_VK01_RKI-115
+      </span>
     </li>
     <li>
-      VACV_VK02_RKI-092
+      <span>
+        VACV_VK02_RKI-092
+      </span>
     </li>
     <li>
-      VACV_VK08_RKI-108
+      <span>
+        VACV_VK08_RKI-108
+      </span>
     </li>
     <li>
-      VACV_VK12_RKI-121
+      <span>
+        VACV_VK12_RKI-121
+      </span>
     </li>
     <li>
-      VACV_MFDV-1902_109
+      <span>
+        VACV_MFDV-1902_109
+      </span>
     </li>
     <li>
       <button
@@ -419,9 +439,9 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
 exports[`UniParcColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2024-10-02T00:00:00.000Z"
+    datetime="2024-11-27"
   >
-    2024-10-02
+    2024-11-27
   </time>
 </DocumentFragment>
 `;
@@ -727,19 +747,29 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
     translate="yes"
   >
     <li>
-      Entry-fusion complex associated protein OPG095
+      <span>
+        Entry-fusion complex associated protein OPG095
+      </span>
     </li>
     <li>
-      RPXV077
+      <span>
+        RPXV077
+      </span>
     </li>
     <li>
-      IMV membrane protein
+      <span>
+        IMV membrane protein
+      </span>
     </li>
     <li>
-      L1R
+      <span>
+        L1R
+      </span>
     </li>
     <li>
-      HSPV089
+      <span>
+        HSPV089
+      </span>
     </li>
     <li>
       <button
@@ -761,49 +791,79 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
     translate="yes"
   >
     <li>
-      Entry-fusion complex associated protein OPG095
+      <span>
+        Entry-fusion complex associated protein OPG095
+      </span>
     </li>
     <li>
-      RPXV077
+      <span>
+        RPXV077
+      </span>
     </li>
     <li>
-      IMV membrane protein
+      <span>
+        IMV membrane protein
+      </span>
     </li>
     <li>
-      L1R
+      <span>
+        L1R
+      </span>
     </li>
     <li>
-      HSPV089
+      <span>
+        HSPV089
+      </span>
     </li>
     <li>
-      Polyprotein
+      <span>
+        Polyprotein
+      </span>
     </li>
     <li>
-      IMV membrane protein L1R
+      <span>
+        IMV membrane protein L1R
+      </span>
     </li>
     <li>
-      N1R protein
+      <span>
+        N1R protein
+      </span>
     </li>
     <li>
-      Myristylated MP IMV
+      <span>
+        Myristylated MP IMV
+      </span>
     </li>
     <li>
-      Neutralizing antibody IMV membrane protein target
+      <span>
+        Neutralizing antibody IMV membrane protein target
+      </span>
     </li>
     <li>
-      Neutralizing antibody MV membrane protein
+      <span>
+        Neutralizing antibody MV membrane protein
+      </span>
     </li>
     <li>
-      F2 polypeptide
+      <span>
+        F2 polypeptide
+      </span>
     </li>
     <li>
-      Protein L1
+      <span>
+        Protein L1
+      </span>
     </li>
     <li>
-      Uncharacterized protein
+      <span>
+        Uncharacterized protein
+      </span>
     </li>
     <li>
-      Hypothetical protein
+      <span>
+        Hypothetical protein
+      </span>
     </li>
     <li>
       <button

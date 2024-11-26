@@ -189,10 +189,8 @@ const getEntryDownloadUrl = (
   switch (dataset) {
     case Dataset.uniprotData: {
       if (isUniparcTsv(namespace, fileFormat)) {
-        return uniparcApiUrls.databases(accession, {
+        return uniparcApiUrls.databases(accession, true, {
           format: fileFormat as FileFormat.tsv,
-          // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
-          size: 500,
           fields: columns?.join(','),
         });
       }
@@ -609,16 +607,29 @@ const EntryDownload = ({
   if (nResults && nResults > maxPaginationDownload) {
     if (
       namespace === Namespace.uniparc &&
-      (selectedFormat === FileFormat.tsv || selectedFormat === FileFormat.excel)
+      selectedFormat === FileFormat.excel
     ) {
       additionalInformation = (
         <div>
-          There is a current limitation where UniParc cross-reference{' '}
-          {selectedFormat} downloads are limited to {maxPaginationDownload}{' '}
-          entries. Until this is fixed, there are several options:
+          UniParc cross reference {selectedFormat} downloads are limited to{' '}
+          {maxPaginationDownload} entries (meaning{' '}
+          <LongNumber>{(nResults as number) - 500}</LongNumber> cross references
+          will not be downloaded). There are alternative options available:
           <ul>
             <li>
-              Download the{' '}
+              For use in Excel, please use{' '}
+              <DownloadAnchor
+                accession={accession as string}
+                fileFormat={FileFormat.tsv}
+                namespace={namespace}
+                dataset={selectedDataset}
+                columns={downloadColumns}
+              />
+              , a non-proprietary format for tabularized data that includes all
+              the cross references.
+            </li>
+            <li>
+              Or, Download the{' '}
               <DownloadAnchor
                 accession={accession as string}
                 fileFormat={FileFormat.json}
@@ -629,20 +640,7 @@ const EntryDownload = ({
               file format instead which includes all{' '}
               <LongNumber>{nResults as number}</LongNumber> of the
               cross-references in the <pre>uniParcCrossReferences</pre>{' '}
-              attribute
-            </li>
-            <li>
-              Continue to download the{' '}
-              <DownloadAnchor
-                accession={accession as string}
-                fileFormat={selectedFormat}
-                namespace={namespace}
-                dataset={selectedDataset}
-                columns={downloadColumns}
-              />{' '}
-              file format which has only {maxPaginationDownload} entries
-              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
-              cross-references will not be downloaded)
+              attribute.
             </li>
           </ul>
         </div>
