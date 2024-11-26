@@ -212,7 +212,7 @@ const NamesAndTaxonomySection = ({
         hosts={data.organismHosts}
         strains={strains}
       />
-      <h3>Accessions</h3>
+      <h3 data-article-id="accession_numbers">Accessions</h3>
       <AccessionsView data={data} />
       {!!data.proteomesData?.length && (
         <>

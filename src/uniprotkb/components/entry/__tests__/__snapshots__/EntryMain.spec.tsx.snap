@@ -2360,7 +2360,9 @@ exports[`Entry view should render 1`] = `
             </div>
           </li>
         </ul>
-        <h3>
+        <h3
+          data-article-id="accession_numbers"
+        >
           Accessions
         </h3>
         <ul
@@ -5121,7 +5123,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
           </li>
         </ul>
-        <h3>
+        <h3
+          data-article-id="accession_numbers"
+        >
           Accessions
         </h3>
         <ul
