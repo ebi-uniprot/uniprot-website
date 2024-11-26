@@ -265,7 +265,7 @@ const LandingPage = () => {
                   </ExternalLink>
                 </li>
                 <li>
-                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/READMEE">
+                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/README">
                     README
                   </ExternalLink>
                 </li>
