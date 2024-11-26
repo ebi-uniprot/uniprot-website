@@ -57,9 +57,15 @@ const ResultsDataHeader: FC<
         <Message level="info">
           A few changes have recently been made to UniParc. Please refer to{' '}
           <Link
-            to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-              accession: '2024-11-27-release',
-            })}
+            to={{
+              pathname: generatePath(
+                LocationToPath[Location.ReleaseNotesEntry],
+                {
+                  accession: '2024-11-27-release',
+                }
+              ),
+              hash: 'changes-in-uniprot-website-rest-api-for-uniparc',
+            }}
           >
             release 2024_06 notes
           </Link>{' '}
