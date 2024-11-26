@@ -162,12 +162,26 @@ export const XRef = ({
     }
   }
 
+  // databaseInfo.uriLink for FunFam doesn't take into account the split superfamily and family IDs
+  let revisedUriLink;
+  if (database === 'FunFam') {
+    const funfamIDRegEx = /(\d+\.\d+\.\d+\.\d+):FF:(\d+)/;
+    const match = id?.match(funfamIDRegEx);
+
+    if (match) {
+      const [, superFamily, family] = match;
+      revisedUriLink = `https://www.cathdb.info/version/latest/superfamily/%superFamily/funfam/%family`;
+      params.superFamily = superFamily;
+      params.family = family;
+    }
+  }
+
   // Remove links from the xref which are the same (ie same url and text).
   // An example of where duplicate links would be displayed is P0A879
   const linkAttributes = uniqWith(
     [
       // Main link attributes
-      { url: processUrlTemplate(uriLink, params), text },
+      { url: processUrlTemplate(revisedUriLink || uriLink, params), text },
       // Property links
       ...propertyLinkAttributes,
     ],
