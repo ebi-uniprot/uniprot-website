@@ -1983,7 +1983,9 @@ exports[`UniProtKBColumnConfiguration component should render column "organelle"
     class="expandable-list no-bullet"
   >
     <li>
-      Cyanelle
+      <span>
+        Cyanelle geneLocation value
+      </span>
     </li>
   </ul>
 </DocumentFragment>

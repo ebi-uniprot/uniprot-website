@@ -361,9 +361,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
     'encoded_on'
   ),
   render: (data) => (
-    <ExpandableList displayNumberOfHiddenItems descriptionString="comments">
+    <ExpandableList displayNumberOfHiddenItems descriptionString="locations">
       {data[EntrySection.NamesAndTaxonomy].geneLocations?.map(
-        ({ geneEncodingType }) => geneEncodingType
+        ({ geneEncodingType, value }) => (
+          <span>
+            {geneEncodingType} {value}
+          </span>
+        )
       )}
     </ExpandableList>
   ),
