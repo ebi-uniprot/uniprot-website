@@ -77,8 +77,6 @@ import {
 } from '../../../messages/types/messagesTypes';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
-import DowntimeWarning from '../../components/DowntimeWarning';
-
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
@@ -309,7 +307,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro translate="no" heading={title} />
-      <DowntimeWarning>BLAST</DowntimeWarning>
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}

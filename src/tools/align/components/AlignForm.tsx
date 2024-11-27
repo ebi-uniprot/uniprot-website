@@ -62,8 +62,6 @@ import {
 } from '../../../messages/types/messagesTypes';
 import { ALIGN_LIMIT } from '../../../shared/config/limits';
 
-import DowntimeWarning from '../../components/DowntimeWarning';
-
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
@@ -215,7 +213,6 @@ const AlignForm = ({ initialFormValues }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro heading={title} translate="no" />
-      <DowntimeWarning>Align</DowntimeWarning>
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}
