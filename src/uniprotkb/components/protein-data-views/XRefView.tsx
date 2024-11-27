@@ -162,18 +162,10 @@ export const XRef = ({
     }
   }
 
-  // databaseInfo.uriLink for FunFam doesn't take into account the split superfamily and family IDs
+  // Remove the below logic once configure endpoint returns the correct URL for FunFam - http://www.cathdb.info/version/latest/funfam/%id
   let revisedUriLink;
   if (database === 'FunFam') {
-    const funfamIDRegEx = /(\d+\.\d+\.\d+\.\d+):FF:(\d+)/;
-    const match = id?.match(funfamIDRegEx);
-
-    if (match) {
-      const [, superFamily, family] = match;
-      revisedUriLink = `https://www.cathdb.info/version/latest/superfamily/%superFamily/funfam/%family`;
-      params.superFamily = superFamily;
-      params.family = family;
-    }
+    revisedUriLink = 'http://www.cathdb.info/version/latest/funfam/%id';
   }
 
   // Remove links from the xref which are the same (ie same url and text).

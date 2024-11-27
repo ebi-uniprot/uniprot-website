@@ -76,12 +76,13 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
           let revisedDatabaseId;
           let funFamURL = '';
           if (database === 'FUNFAM') {
-            const funfamIDRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+):FF:(\d+)/;
+            const funfamIDRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+:FF:\d+)/;
             const match = databaseId.match(funfamIDRegEx);
 
             if (match) {
-              const [, superFamily, family] = match;
-              funFamURL = `https://www.cathdb.info/version/latest/superfamily/${superFamily}/funfam/${family}`;
+              const [, id] = match;
+              // Set only the ID like Gene3D once configure endpoint returns the correct URL for FunFam - http://www.cathdb.info/version/latest/funfam/%id
+              funFamURL = `http://www.cathdb.info/version/latest/funfam/${id}`;
             }
           }
           if (database === 'Gene3D') {
