@@ -98,9 +98,7 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
         </div>
       }
     >
-      <HTMLHead title="UniProt website API documentation">
-        <meta name="robots" content="noindex" />
-      </HTMLHead>
+      <HTMLHead title="UniProt website API documentation" />
       <Card className={styles.content}>
         <ErrorBoundary>
           <BaseLayout />
