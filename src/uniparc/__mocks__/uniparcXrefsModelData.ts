@@ -1,21 +1,15 @@
 // Source: uniparc/UPI0000000001/databases
-// Retrieved: 2024-11-18
+// Retrieved: 2024-11-26
 const mock = {
   results: [
     {
       database: 'UniProtKB/Swiss-Prot',
       id: 'P07612',
-      properties: [
-        {
-          key: 'sources',
-          value: 'AAO89367:UP000000344:Genome',
-        },
-      ],
       versionI: 3,
       version: 3,
       active: true,
       created: '2007-01-23',
-      lastUpdated: '2024-07-24',
+      lastUpdated: '2024-11-27',
       geneName: 'OPG099',
       proteinName: 'Entry-fusion complex associated protein OPG095',
       organism: {
@@ -28,12 +22,6 @@ const mock = {
     {
       database: 'UniProtKB/Swiss-Prot',
       id: 'P07612',
-      properties: [
-        {
-          key: 'sources',
-          value: 'AAO89367:UP000000344:Genome',
-        },
-      ],
       versionI: 1,
       version: 1,
       active: false,
@@ -48,61 +36,43 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q6RZL4',
-      properties: [
-        {
-          key: 'sources',
-          value: 'AAS49790:UP000166173:Genome',
-        },
-      ],
       versionI: 1,
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2024-07-24',
+      lastUpdated: '2024-11-27',
       geneName: 'RPXV077',
       proteinName: 'RPXV077',
       organism: {
-        scientificName: 'Rabbitpox virus',
-        taxonId: 32606,
+        scientificName: 'Rabbitpox virus (strain Utrecht)',
+        commonName: 'RPV',
+        taxonId: 45417,
       },
     },
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q76QK2',
-      properties: [
-        {
-          key: 'sources',
-          value: 'CAD90637:UP000137384:Genome,ADZ29210:UP000113999:Genome',
-        },
-      ],
       versionI: 1,
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2024-07-24',
+      lastUpdated: '2024-11-27',
       geneName: 'N1R',
-      proteinName: 'IMV membrane protein',
+      proteinName: 'N1R protein',
       organism: {
-        scientificName: 'Cowpox virus',
+        scientificName: 'Cowpox virus (strain GRI-90 / Grishak)',
         commonName: 'CPV',
-        taxonId: 10243,
+        taxonId: 265871,
       },
     },
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q71TT2',
-      properties: [
-        {
-          key: 'sources',
-          value:
-            'ALF05335:UP000181484:Genome,AIX99412:UP000153808:Genome,QKE61229:UP000501395:Genome,ALF05084:UP000097422:Genome,AGJ91256:UP000181229:Genome,AIX99207:UP000181110:Genome,AGJ92346:UP000181062:Genome',
-        },
-      ],
       versionI: 1,
       version: 1,
       active: true,
       created: '2006-04-18',
-      lastUpdated: '2024-07-24',
+      lastUpdated: '2024-11-27',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
@@ -113,17 +83,11 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q0GNZ6',
-      properties: [
-        {
-          key: 'sources',
-          value: 'AUD55251:UP000315999:Genome,ABH08195:UP000111173:Genome',
-        },
-      ],
       versionI: 1,
       version: 1,
       active: true,
       created: '2006-10-03',
-      lastUpdated: '2024-07-24',
+      lastUpdated: '2024-11-27',
       geneName: 'HSPV_VK05_RKI-089',
       proteinName: 'HSPV089',
       organism: {
@@ -135,23 +99,33 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'A0A2I2MDI1',
-      properties: [
-        {
-          key: 'sources',
-          value: 'SOU90100:UP000274976:Genome',
-        },
-      ],
       versionI: 1,
       version: 1,
       active: true,
       created: '2018-02-28',
-      lastUpdated: '2024-07-24',
+      lastUpdated: '2024-11-27',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
         scientificName: 'Vaccinia virus (strain Western Reserve)',
         commonName: 'VACV',
         taxonId: 10254,
+      },
+    },
+    {
+      database: 'UniProtKB/TrEMBL',
+      id: 'G0XTE8',
+      versionI: 1,
+      version: 1,
+      active: true,
+      created: '2024-11-27',
+      lastUpdated: '2024-11-27',
+      geneName: 'CPXV_FIN2000_MAN_093',
+      proteinName: 'IMV membrane protein',
+      organism: {
+        scientificName: 'Cowpox virus',
+        commonName: 'CPV',
+        taxonId: 10243,
       },
     },
     {
@@ -186,7 +160,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2005-10-06',
-      lastUpdated: '2024-05-06',
+      lastUpdated: '2024-09-09',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -202,7 +176,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2022-10-19',
-      lastUpdated: '2024-05-06',
+      lastUpdated: '2024-09-09',
       geneName: 'OPG095',
       proteinName: 'IMV membrane protein L1R',
       organism: {
@@ -259,7 +233,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2003-06-16',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'VACWR088',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -278,7 +252,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2003-06-16',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'N1R',
       proteinName: 'N1R protein',
       organism: {
@@ -288,7 +262,7 @@ const mock = {
       },
       ncbiGi: '30519462',
       proteomeId: 'UP000137384',
-      component: 'Genome',
+      component: 'Segment',
     },
     {
       database: 'EMBL',
@@ -297,7 +271,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2004-03-31',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'RPXV077',
       proteinName: 'RPXV077',
       organism: {
@@ -306,7 +280,7 @@ const mock = {
       },
       ncbiGi: '44971440',
       proteomeId: 'UP000166173',
-      component: 'Genome',
+      component: 'Segment',
     },
     {
       database: 'EMBL',
@@ -315,7 +289,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',
@@ -333,7 +307,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2011-08-10',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'CPXV_FIN2000_MAN_093',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -352,7 +326,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2013-04-24',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'VACV_TT8_108',
       proteinName: 'Myristylated MP IMV',
       organism: {
@@ -370,7 +344,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2013-04-24',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'VACV_TT12_108',
       proteinName: 'Myristylated MP IMV',
       organism: {
@@ -388,7 +362,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2014-12-15',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'VAC_TKT3_078',
       proteinName: 'Neutralizing antibody IMV membrane protein target',
       organism: {
@@ -406,7 +380,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2014-12-15',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'VAC_TKT4_078',
       proteinName: 'Neutralizing antibody IMV membrane protein target',
       organism: {
@@ -424,7 +398,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2015-10-11',
-      lastUpdated: '2024-04-06',
+      lastUpdated: '2024-07-17',
       geneName: 'VACV_IOC_B141_114',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
@@ -433,24 +407,6 @@ const mock = {
       },
       ncbiGi: '929050100',
       proteomeId: 'UP000097422',
-      component: 'Genome',
-    },
-    {
-      database: 'EMBL',
-      id: 'ALF05335',
-      versionI: 1,
-      version: 1,
-      active: true,
-      created: '2015-10-11',
-      lastUpdated: '2024-04-06',
-      geneName: 'VACV_IOC_B388_114',
-      proteinName: 'Neutralizing antibody MV membrane protein',
-      organism: {
-        scientificName: 'Vaccinia virus',
-        taxonId: 10245,
-      },
-      ncbiGi: '929050352',
-      proteomeId: 'UP000181484',
       component: 'Genome',
     },
   ],

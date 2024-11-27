@@ -1,7 +1,8 @@
 import { UniParcLiteAPIModel } from '../adapters/uniParcConverter';
 
-// Source: uniparc/UPI0000083D01/light?fields=gene,organism,protein,proteome,common_taxons,checksum,length,sequence,accession,cdd,Gene3D,HAMAP,PANTHER,pfam,PIRSF,PRINTS,PROSITE,SFLD,SMART,SUPFAM,NCBIfam
-// Retrieved: 2024-11-18
+// Manually update it. As some fields like molWeight, md5 are not available as return fields
+// uniparc/UPI0000000001/light?fields=gene,organism,protein,proteome,common_taxons,checksum,length,sequence,accession,cdd,Gene3D,HAMAP,PANTHER,pfam,PIRSF,PRINTS,PROSITE,SFLD,SMART,SUPFAM,NCBIfam
+// Retrieved: 2024-11-26
 const mock: UniParcLiteAPIModel = {
   uniParcId: 'UPI0000000001',
   crossReferenceCount: 55,
@@ -23,16 +24,16 @@ const mock: UniParcLiteAPIModel = {
     },
   ],
   uniProtKBAccessions: [
-    'Q71TT2.1',
+    'P07612.1',
+    'Q71TT2',
     'P07612',
-    'Q0GNZ6.1',
-    'G0XTE8.1',
-    'Q76ZT7',
-    'P07612.3',
-    'Q76QK2.1',
-    'A0A2I2MDI1.1',
-    'Q6RZL4.1',
-    'A0A7I8V511',
+    'Q76QK2',
+    'Q76ZT7.1',
+    'Q0GNZ6',
+    'A0A2I2MDI1',
+    'Q6RZL4',
+    'G0XTE8',
+    'A0A7I8V511.1',
   ],
   sequence: {
     value:
@@ -58,7 +59,7 @@ const mock: UniParcLiteAPIModel = {
       ],
     },
   ],
-  oldestCrossRefCreated: '2004-06-11',
+  oldestCrossRefCreated: '1988-11-01',
   mostRecentCrossRefUpdated: '2024-11-27',
   organisms: [
     {
@@ -67,13 +68,14 @@ const mock: UniParcLiteAPIModel = {
       taxonId: 10254,
     },
     {
-      scientificName: 'Rabbitpox virus',
-      taxonId: 32606,
+      scientificName: 'Rabbitpox virus (strain Utrecht)',
+      commonName: 'RPV',
+      taxonId: 45417,
     },
     {
-      scientificName: 'Cowpox virus',
+      scientificName: 'Cowpox virus (strain GRI-90 / Grishak)',
       commonName: 'CPV',
-      taxonId: 10243,
+      taxonId: 265871,
     },
     {
       scientificName: 'Vaccinia virus',
@@ -85,9 +87,18 @@ const mock: UniParcLiteAPIModel = {
       taxonId: 397342,
     },
     {
+      scientificName: 'Cowpox virus',
+      commonName: 'CPV',
+      taxonId: 10243,
+    },
+    {
       scientificName: 'Homo sapiens',
       commonName: 'Human',
       taxonId: 9606,
+    },
+    {
+      scientificName: 'Rabbitpox virus',
+      taxonId: 32606,
     },
     {
       scientificName: 'synthetic construct',
@@ -97,12 +108,12 @@ const mock: UniParcLiteAPIModel = {
   proteinNames: [
     'Entry-fusion complex associated protein OPG095',
     'RPXV077',
-    'IMV membrane protein',
+    'N1R protein',
     'L1R',
     'HSPV089',
+    'IMV membrane protein',
     'Polyprotein',
     'IMV membrane protein L1R',
-    'N1R protein',
     'Myristylated MP IMV',
     'Neutralizing antibody IMV membrane protein target',
     'Neutralizing antibody MV membrane protein',
@@ -117,11 +128,11 @@ const mock: UniParcLiteAPIModel = {
     'N1R',
     'L1R',
     'HSPV_VK05_RKI-089',
+    'CPXV_FIN2000_MAN_093',
     'VACV VK01 RKI-115 CDS',
     'OPG095',
     'OCZ32_gp108',
     'VACWR088',
-    'CPXV_FIN2000_MAN_093',
     'VACV_TT8_108',
     'VACV_TT12_108',
     'VAC_TKT3_078',
@@ -142,11 +153,11 @@ const mock: UniParcLiteAPIModel = {
     },
     {
       id: 'UP000137384',
-      component: 'Genome',
+      component: 'Segment',
     },
     {
       id: 'UP000166173',
-      component: 'Genome',
+      component: 'Segment',
     },
     {
       id: 'UP000111173',

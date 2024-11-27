@@ -225,39 +225,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                 >
                   <a
                     aria-hidden="true"
-                    href="/help/proteome"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    <a
-                      href="/help/proteome"
-                    >
-                      What are proteomes?
-                    </a>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                       each reference proteome, protein FASTA files (composed of 
-                      <span
-                        class="match-highlight"
-                      >
-                        canonical
-                      </span>
-                       and additional sequences), gene
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
                     href="/help/sequence_caution"
                     tabindex="-1"
                   />
@@ -281,6 +248,39 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                         canonical
                       </span>
                        sequence, displayed by default in the entry, and the sequence reported in the indicated reference
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    href="/help/proteome"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/proteome"
+                    >
+                      What are proteomes?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and database
                     </span>
                   </div>
                 </div>

@@ -70,8 +70,15 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
   >
     <li>
       <span>
-        Q71TT2.1 (obsolete)
+        P07612.1 (obsolete)
       </span>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/Q71TT2"
+      >
+        Q71TT2
+      </a>
     </li>
     <li>
       <a
@@ -81,21 +88,16 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
       </a>
     </li>
     <li>
-      <span>
-        Q0GNZ6.1 (obsolete)
-      </span>
-    </li>
-    <li>
-      <span>
-        G0XTE8.1 (obsolete)
-      </span>
-    </li>
-    <li>
       <a
-        href="/uniprotkb/Q76ZT7"
+        href="/uniprotkb/Q76QK2"
       >
-        Q76ZT7
+        Q76QK2
       </a>
+    </li>
+    <li>
+      <span>
+        Q76ZT7.1 (obsolete)
+      </span>
     </li>
     <li>
       <button
@@ -117,8 +119,15 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
   >
     <li>
       <span>
-        Q71TT2.1 (obsolete)
+        P07612.1 (obsolete)
       </span>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/Q71TT2"
+      >
+        Q71TT2
+      </a>
     </li>
     <li>
       <a
@@ -128,48 +137,49 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
       </a>
     </li>
     <li>
-      <span>
-        Q0GNZ6.1 (obsolete)
-      </span>
-    </li>
-    <li>
-      <span>
-        G0XTE8.1 (obsolete)
-      </span>
-    </li>
-    <li>
       <a
-        href="/uniprotkb/Q76ZT7"
+        href="/uniprotkb/Q76QK2"
       >
-        Q76ZT7
+        Q76QK2
       </a>
     </li>
     <li>
       <span>
-        P07612.3 (obsolete)
-      </span>
-    </li>
-    <li>
-      <span>
-        Q76QK2.1 (obsolete)
-      </span>
-    </li>
-    <li>
-      <span>
-        A0A2I2MDI1.1 (obsolete)
-      </span>
-    </li>
-    <li>
-      <span>
-        Q6RZL4.1 (obsolete)
+        Q76ZT7.1 (obsolete)
       </span>
     </li>
     <li>
       <a
-        href="/uniprotkb/A0A7I8V511"
+        href="/uniprotkb/Q0GNZ6"
       >
-        A0A7I8V511
+        Q0GNZ6
       </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A2I2MDI1"
+      >
+        A0A2I2MDI1
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/Q6RZL4"
+      >
+        Q6RZL4
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/G0XTE8"
+      >
+        G0XTE8
+      </a>
+    </li>
+    <li>
+      <span>
+        A0A7I8V511.1 (obsolete)
+      </span>
     </li>
     <li>
       <button
@@ -256,9 +266,9 @@ exports[`UniParcColumnConfiguration component should render column "common_taxon
 exports[`UniParcColumnConfiguration component should render column "first_seen": first_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2004-06-11"
+    datetime="1988-11-01"
   >
-    2004-06-11
+    1988-11-01
   </time>
 </DocumentFragment>
 `;
@@ -340,6 +350,11 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
     </li>
     <li>
       <span>
+        CPXV_FIN2000_MAN_093
+      </span>
+    </li>
+    <li>
+      <span>
         VACV VK01 RKI-115 CDS
       </span>
     </li>
@@ -356,11 +371,6 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
     <li>
       <span>
         VACWR088
-      </span>
-    </li>
-    <li>
-      <span>
-        CPXV_FIN2000_MAN_093
       </span>
     </li>
     <li>
@@ -468,20 +478,20 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
     </li>
     <li>
       <a
-        href="/taxonomy/32606"
-        title="Rabbitpox virus, taxon ID 32606"
+        href="/taxonomy/45417"
+        title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
         translate="no"
       >
-        Rabbitpox virus
+        Rabbitpox virus (strain Utrecht) (RPV)
       </a>
     </li>
     <li>
       <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
+        href="/taxonomy/265871"
+        title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
         translate="no"
       >
-        Cowpox virus (CPV)
+        Cowpox virus (strain GRI-90 / Grishak) (CPV)
       </a>
     </li>
     <li>
@@ -508,7 +518,7 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
         data-testid="expandable-message"
         type="button"
       >
-        2 more organisms
+        4 more organisms
       </button>
     </li>
   </ul>
@@ -531,20 +541,20 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
     </li>
     <li>
       <a
-        href="/taxonomy/32606"
-        title="Rabbitpox virus, taxon ID 32606"
+        href="/taxonomy/45417"
+        title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
         translate="no"
       >
-        Rabbitpox virus
+        Rabbitpox virus (strain Utrecht) (RPV)
       </a>
     </li>
     <li>
       <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
+        href="/taxonomy/265871"
+        title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
         translate="no"
       >
-        Cowpox virus (CPV)
+        Cowpox virus (strain GRI-90 / Grishak) (CPV)
       </a>
     </li>
     <li>
@@ -567,11 +577,29 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
     </li>
     <li>
       <a
+        href="/taxonomy/10243"
+        title="Cowpox virus (CPV), taxon ID 10243"
+        translate="no"
+      >
+        Cowpox virus (CPV)
+      </a>
+    </li>
+    <li>
+      <a
         href="/taxonomy/9606"
         title="Homo sapiens (Human), taxon ID 9606"
         translate="no"
       >
         Homo sapiens (Human)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/32606"
+        title="Rabbitpox virus, taxon ID 32606"
+        translate="no"
+      >
+        Rabbitpox virus
       </a>
     </li>
     <li>
@@ -612,20 +640,20 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
     </li>
     <li>
       <a
-        href="/taxonomy/32606"
-        title="Rabbitpox virus, taxon ID 32606"
+        href="/taxonomy/45417"
+        title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
         translate="no"
       >
-        32606
+        45417
       </a>
     </li>
     <li>
       <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
+        href="/taxonomy/265871"
+        title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
         translate="no"
       >
-        10243
+        265871
       </a>
     </li>
     <li>
@@ -652,7 +680,7 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
         data-testid="expandable-message"
         type="button"
       >
-        2 more organisms
+        4 more organisms
       </button>
     </li>
   </ul>
@@ -675,20 +703,20 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
     </li>
     <li>
       <a
-        href="/taxonomy/32606"
-        title="Rabbitpox virus, taxon ID 32606"
+        href="/taxonomy/45417"
+        title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
         translate="no"
       >
-        32606
+        45417
       </a>
     </li>
     <li>
       <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
+        href="/taxonomy/265871"
+        title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
         translate="no"
       >
-        10243
+        265871
       </a>
     </li>
     <li>
@@ -711,11 +739,29 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
     </li>
     <li>
       <a
+        href="/taxonomy/10243"
+        title="Cowpox virus (CPV), taxon ID 10243"
+        translate="no"
+      >
+        10243
+      </a>
+    </li>
+    <li>
+      <a
         href="/taxonomy/9606"
         title="Homo sapiens (Human), taxon ID 9606"
         translate="no"
       >
         9606
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/32606"
+        title="Rabbitpox virus, taxon ID 32606"
+        translate="no"
+      >
+        32606
       </a>
     </li>
     <li>
@@ -758,7 +804,7 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
     </li>
     <li>
       <span>
-        IMV membrane protein
+        N1R protein
       </span>
     </li>
     <li>
@@ -802,7 +848,7 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
     </li>
     <li>
       <span>
-        IMV membrane protein
+        N1R protein
       </span>
     </li>
     <li>
@@ -817,17 +863,17 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
     </li>
     <li>
       <span>
+        IMV membrane protein
+      </span>
+    </li>
+    <li>
+      <span>
         Polyprotein
       </span>
     </li>
     <li>
       <span>
         IMV membrane protein L1R
-      </span>
-    </li>
-    <li>
-      <span>
-        N1R protein
       </span>
     </li>
     <li>
@@ -897,7 +943,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000137384
       </a>
-       (Genome)
+       (Segment)
     </li>
     <li>
       <a
@@ -905,7 +951,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000166173
       </a>
-       (Genome)
+       (Segment)
     </li>
     <li>
       <a
@@ -955,7 +1001,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000137384
       </a>
-       (Genome)
+       (Segment)
     </li>
     <li>
       <a
@@ -963,7 +1009,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000166173
       </a>
-       (Genome)
+       (Segment)
     </li>
     <li>
       <a

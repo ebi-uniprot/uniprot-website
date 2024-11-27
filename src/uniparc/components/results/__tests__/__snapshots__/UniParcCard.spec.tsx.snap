@@ -82,9 +82,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="2004-06-11"
+              datetime="1988-11-01"
             >
-              2004-06-11
+              1988-11-01
             </time>
           </span>
           <span
