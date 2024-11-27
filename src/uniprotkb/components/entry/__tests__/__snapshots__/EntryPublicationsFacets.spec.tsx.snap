@@ -130,7 +130,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 class=""
                 href="/?facets=categories%3AInteraction"
               >
-                Interaction (26)
+                Interaction (27)
               </a>
             </li>
             <li>

@@ -5,29 +5,17 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import UniParcEntryConfig from '../../config/UniParcEntryConfig';
 
-import {
-  UniParcAPIModel,
-  UniParcUIModel,
-} from '../../adapters/uniParcConverter';
-import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { UniParcUIModel } from '../../adapters/uniParcConverter';
 
 type EntryMainProps = {
   transformedData: UniParcUIModel;
-  xrefs: UseDataAPIWithStaleState<UniParcAPIModel>;
-  totalNResults?: number;
 };
 
-const EntryMain = ({
-  transformedData,
-  xrefs,
-  totalNResults,
-}: EntryMainProps) => (
+const EntryMain = ({ transformedData }: EntryMainProps) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
-        <ErrorBoundary>
-          {sectionContent(transformedData, xrefs, totalNResults)}
-        </ErrorBoundary>
+        <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
       </Suspense>
     ))}
   </>

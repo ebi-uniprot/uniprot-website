@@ -2230,6 +2230,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_alzfo
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_antibodypedia": xref_antibodypedia 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_antifam": xref_antifam 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_arachnoserver": xref_arachnoserver 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_araport": xref_araport 1`] = `<DocumentFragment />`;
@@ -2411,6 +2413,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_evolu
 exports[`UniProtKBColumnConfiguration component should render column "xref_expressionatlas": xref_expressionatlas 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_flybase": xref_flybase 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_funfam": xref_funfam 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_gene3d": xref_gene3d 1`] = `<DocumentFragment />`;
 

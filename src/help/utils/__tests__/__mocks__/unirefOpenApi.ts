@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2024-07-24
+// Retrieved: 2024-11-26
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -10,8 +10,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
   },
   servers: [
     {
-      url: 'http://rest.uniprot.org',
-      description: 'Generated server url',
+      url: 'https://wwwdev.ebi.ac.uk/uniprot/api/',
+      description: 'UniProt REST API Server',
     },
   ],
   tags: [
@@ -26,6 +26,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
       get: {
         tags: ['UniRef'],
         summary: 'Get UniRef cluster entry by a single cluster id.',
+        description:
+          'Search UniRef entry by id to return all data associated with that entry. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you',
         operationId: 'getById',
         parameters: [
           {
@@ -43,7 +45,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             name: 'fields',
             in: 'query',
             description:
-              "List of fields to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniprotkb/result-fields'>List of valid fields</a>",
+              "List of entry sections (fields) to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniref/result-fields' target='_blank' rel='noopener noreferrer'>List of valid fields</a>",
             required: false,
             schema: {
               type: 'string',
@@ -82,6 +84,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
       get: {
         tags: ['UniRef'],
         summary: 'Retrieve UniRef cluster members by a single cluster id.',
+        description:
+          'Search UniRef entry by member id to return all data associated with that entry. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you',
         operationId: 'search',
         parameters: [
           {
@@ -108,7 +112,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
           {
             name: 'size',
             in: 'query',
-            description: 'Pagination size. Defaults to 25. (Max. size of 500)',
+            description:
+              'Specify the number of entries per page of results (Pagination size). Default is 25, max is 500',
             required: false,
             schema: {
               maximum: 500,
@@ -116,6 +121,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
               type: 'integer',
               format: 'int32',
             },
+            example: 50,
           },
         ],
         responses: {
@@ -140,6 +146,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
       get: {
         tags: ['UniRef'],
         summary: 'Get a light UniRef cluster entry by a single cluster id.',
+        description:
+          'Search light UniRef entry by id to return all data associated with that entry. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you',
         operationId: 'getById_1',
         parameters: [
           {
@@ -157,7 +165,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             name: 'fields',
             in: 'query',
             description:
-              "List of fields to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniprotkb/result-fields'>List of valid fields</a>",
+              "List of entry sections (fields) to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniref/result-fields' target='_blank' rel='noopener noreferrer'>List of valid fields</a>",
             required: false,
             schema: {
               type: 'string',
@@ -196,14 +204,14 @@ const unirefApiDocs: OpenAPIV3.Document = {
         summary:
           'Download light UniRef cluster entries retrieved by a search query. (Max. 10 million entries)',
         description:
-          "The stream endpoint has a maximum limit of 10 million entries. For larger requests, please use the 'UniRef asynchronous download job' requests described below. The 'UniRef asynchronous download job' requests can be used for any size -- the asynchronous download jobs can be paused and resumed at your convenience, unlike the stream endpoint.",
+          "The stream endpoint uses a request query to return all entries associated with the search term in a single download. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you The stream endpoint has a maximum limit of 10 million entries. For larger requests, please use the 'UniRef asynchronous download job' requests described below. The 'UniRef asynchronous download job' requests can be used for any size -- the asynchronous download jobs can be paused and resumed at your convenience, unlike the stream endpoint.",
         operationId: 'stream',
         parameters: [
           {
             name: 'query',
             in: 'query',
             description:
-              "Criteria to search UniRef. Advanced queries can be built with parentheses and conditionals such as AND, OR and NOT. <a href='https://rest.uniprot.org/configure/uniparc/search-fields'>List of valid search fields</a>",
+              "Criteria to search UniRef. Advanced queries can be built with parentheses and conditionals such as AND, OR and NOT. <a href='https://rest.uniprot.org/configure/uniref/search-fields' target='_blank' rel='noopener noreferrer'>List of valid search fields</a>",
             required: true,
             schema: {
               type: 'string',
@@ -214,7 +222,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             name: 'sort',
             in: 'query',
             description:
-              "Name of the field to be sorted on. <a href='https://rest.uniprot.org/configure/uniprotkb/sort'>List of valid sort fields</a>",
+              "Specify field by which to sort results. <a href='https://rest.uniprot.org/configure/uniref/result-fields' target='_blank' rel='noopener noreferrer'>List of valid sort fields</a>",
             required: false,
             schema: {
               type: 'string',
@@ -224,7 +232,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             name: 'fields',
             in: 'query',
             description:
-              "List of fields to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniprotkb/result-fields'>List of valid fields</a>",
+              "List of entry sections (fields) to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniref/result-fields' target='_blank' rel='noopener noreferrer'>List of valid fields</a>",
             required: false,
             schema: {
               type: 'string',
@@ -246,7 +254,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             name: 'download',
             in: 'query',
             description:
-              'Default: <tt>false</tt>. Use <tt>true</tt> to download as a file.',
+              'Specify <tt>true</tt> to download as file, default is <tt>false</tt>.',
             required: false,
             schema: {
               pattern: '^true$|^false$',
@@ -260,10 +268,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/UniRefEntry',
-                  },
+                  $ref: '#/components/schemas/StreamResult',
                 },
               },
               'application/xml': {
@@ -288,13 +293,15 @@ const unirefApiDocs: OpenAPIV3.Document = {
       get: {
         tags: ['UniRef'],
         summary: 'Retrieve light UniRef cluster entries by a search query.',
+        description:
+          'The search endpoint uses a request query to return all entries associated with the search term in a paginated list of entries. Use ‘size’ to specify the number of entries per page of results. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you',
         operationId: 'search_1',
         parameters: [
           {
             name: 'query',
             in: 'query',
             description:
-              "Criteria to search UniRef. Advanced queries can be built with parentheses and conditionals such as AND, OR and NOT. <a href='https://rest.uniprot.org/configure/uniparc/search-fields'>List of valid search fields</a>",
+              "Criteria to search UniRef. Advanced queries can be built with parentheses and conditionals such as AND, OR and NOT. <a href='https://rest.uniprot.org/configure/uniref/search-fields' target='_blank' rel='noopener noreferrer'>List of valid search fields</a>",
             required: true,
             schema: {
               type: 'string',
@@ -305,7 +312,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             name: 'sort',
             in: 'query',
             description:
-              "Name of the field to be sorted on. <a href='https://rest.uniprot.org/configure/uniprotkb/sort'>List of valid sort fields</a>",
+              "Specify field by which to sort results. <a href='https://rest.uniprot.org/configure/uniref/result-fields' target='_blank' rel='noopener noreferrer'>List of valid sort fields</a>",
             required: false,
             schema: {
               type: 'string',
@@ -315,7 +322,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
             name: 'fields',
             in: 'query',
             description:
-              "List of fields to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniprotkb/result-fields'>List of valid fields</a>",
+              "List of entry sections (fields) to be returned, separated by commas.  <a href='https://rest.uniprot.org/configure/uniref/result-fields' target='_blank' rel='noopener noreferrer'>List of valid fields</a>",
             required: false,
             schema: {
               type: 'string',
@@ -336,7 +343,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
           {
             name: 'size',
             in: 'query',
-            description: 'Pagination size. Defaults to 25. (Max. size of 500)',
+            description:
+              'Specify the number of entries per page of results (Pagination size). Default is 25, max is 500',
             required: false,
             schema: {
               maximum: 500,
@@ -344,18 +352,16 @@ const unirefApiDocs: OpenAPIV3.Document = {
               type: 'integer',
               format: 'int32',
             },
+            example: 50,
           },
         ],
         responses: {
           default: {
-            description: 'default response',
+            description: 'UniRefEntry',
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/UniRefEntry',
-                  },
+                  $ref: '#/components/schemas/SearchResult',
                 },
               },
               'application/xml': {
@@ -416,11 +422,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           name: {
             type: 'string',
           },
-          reference: {
-            type: 'boolean',
-          },
           evidenceDatabaseDetail: {
             $ref: '#/components/schemas/EvidenceDatabaseDetail',
+          },
+          reference: {
+            type: 'boolean',
           },
         },
       },
@@ -531,6 +537,38 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
+          memberId: {
+            type: 'string',
+          },
+          uniRef100Id: {
+            type: 'string',
+          },
+          uniParcId: {
+            type: 'string',
+          },
+          organismName: {
+            type: 'string',
+          },
+          organismTaxId: {
+            type: 'integer',
+            format: 'int64',
+          },
+          sequenceLength: {
+            type: 'integer',
+            format: 'int32',
+          },
+          proteinName: {
+            type: 'string',
+          },
+          uniRef50Id: {
+            type: 'string',
+          },
+          uniRef90Id: {
+            type: 'string',
+          },
+          overlapRegion: {
+            $ref: '#/components/schemas/OverlapRegion',
+          },
           uniProtAccessions: {
             type: 'array',
             items: {
@@ -548,38 +586,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           seed: {
             type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
-          },
-          organismTaxId: {
-            type: 'integer',
-            format: 'int64',
-          },
-          organismName: {
-            type: 'string',
-          },
-          sequenceLength: {
-            type: 'integer',
-            format: 'int32',
-          },
-          proteinName: {
-            type: 'string',
-          },
-          uniRef50Id: {
-            type: 'string',
-          },
-          uniRef90Id: {
-            type: 'string',
-          },
-          uniRef100Id: {
-            type: 'string',
-          },
-          uniParcId: {
-            type: 'string',
-          },
-          overlapRegion: {
-            $ref: '#/components/schemas/OverlapRegion',
           },
         },
       },
@@ -619,6 +625,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/UniRefMember',
             },
           },
+          seedId: {
+            type: 'string',
+          },
           representativeMember: {
             $ref: '#/components/schemas/RepresentativeMember',
           },
@@ -643,14 +652,43 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/GeneOntologyEntry',
             },
           },
-          seedId: {
-            type: 'string',
-          },
         },
       },
       UniRefMember: {
         type: 'object',
         properties: {
+          memberId: {
+            type: 'string',
+          },
+          uniRef100Id: {
+            type: 'string',
+          },
+          uniParcId: {
+            type: 'string',
+          },
+          organismName: {
+            type: 'string',
+          },
+          organismTaxId: {
+            type: 'integer',
+            format: 'int64',
+          },
+          sequenceLength: {
+            type: 'integer',
+            format: 'int32',
+          },
+          proteinName: {
+            type: 'string',
+          },
+          uniRef50Id: {
+            type: 'string',
+          },
+          uniRef90Id: {
+            type: 'string',
+          },
+          overlapRegion: {
+            $ref: '#/components/schemas/OverlapRegion',
+          },
           uniProtAccessions: {
             type: 'array',
             items: {
@@ -668,38 +706,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           seed: {
             type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
-          },
-          organismTaxId: {
-            type: 'integer',
-            format: 'int64',
-          },
-          organismName: {
-            type: 'string',
-          },
-          sequenceLength: {
-            type: 'integer',
-            format: 'int32',
-          },
-          proteinName: {
-            type: 'string',
-          },
-          uniRef50Id: {
-            type: 'string',
-          },
-          uniRef90Id: {
-            type: 'string',
-          },
-          uniRef100Id: {
-            type: 'string',
-          },
-          uniParcId: {
-            type: 'string',
-          },
-          overlapRegion: {
-            $ref: '#/components/schemas/OverlapRegion',
           },
         },
       },
@@ -793,6 +799,126 @@ const unirefApiDocs: OpenAPIV3.Document = {
             xml: {
               attribute: true,
             },
+          },
+        },
+      },
+      StreamResult: {
+        type: 'object',
+        properties: {
+          results: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/UniRefEntry',
+            },
+          },
+          error: {
+            type: 'string',
+          },
+        },
+      },
+      Facet: {
+        type: 'object',
+        properties: {
+          label: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+          allowMultipleSelection: {
+            type: 'boolean',
+          },
+          values: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/FacetItem',
+            },
+          },
+        },
+      },
+      FacetItem: {
+        type: 'object',
+        properties: {
+          label: {
+            type: 'string',
+          },
+          value: {
+            type: 'string',
+          },
+          count: {
+            type: 'integer',
+            format: 'int64',
+          },
+        },
+      },
+      ProblemPair: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'integer',
+            format: 'int32',
+          },
+          message: {
+            type: 'string',
+          },
+        },
+      },
+      SearchResult: {
+        type: 'object',
+        properties: {
+          results: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/UniRefEntry',
+            },
+          },
+          facets: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/Facet',
+            },
+          },
+          matchedFields: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/TermInfo',
+            },
+          },
+          suggestions: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/Suggestion',
+            },
+          },
+          warnings: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/ProblemPair',
+            },
+          },
+        },
+      },
+      Suggestion: {
+        type: 'object',
+        properties: {
+          query: {
+            type: 'string',
+          },
+          hits: {
+            type: 'integer',
+            format: 'int64',
+          },
+        },
+      },
+      TermInfo: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+          },
+          hits: {
+            type: 'integer',
+            format: 'int64',
           },
         },
       },
