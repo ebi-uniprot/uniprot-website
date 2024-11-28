@@ -22,76 +22,53 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
       <div
         class="card__content"
       >
+        <h3
+          data-article-id="complex_viewer"
+        >
+          Complex viewer
+        </h3>
         <div
-          class="tabs visualisation-tabs"
+          class="viewer-ids-container"
         >
           <div
-            class="tabs__header"
-            role="tablist"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="dropdown"
           >
-            <div
-              aria-controls="1"
-              class="tabs__header__item tabs__header__item--active"
-              data-target="0"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
+            <button
+              class="button primary"
+              type="button"
             >
-              Complex viewer
-            </div>
+              CPX-1062 Amyloid-beta protein 40/42 complex
+            </button>
           </div>
           <div
-            data-testid="tab-content"
-            id="1"
-            role="tabpanel"
+            class="loader-container"
           >
-            <div
-              style="display: block;"
-            >
-              <div
-                class="viewer-ids-container"
-              >
-                <div
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="dropdown"
-                >
-                  <button
-                    class="button primary"
-                    type="button"
-                  >
-                    CPX-1062 Amyloid-beta protein 40/42 complex
-                  </button>
-                </div>
-                <div
-                  class="loader-container"
-                >
-                  <test-file-stub
-                    classname="loader"
-                    height="100"
-                    width="100"
-                  />
-                </div>
-                <a
-                  href="/uniprotkb?query=%28xref%3Acomplexportal-CPX-1062%29"
-                >
-                  View interactors in UniProtKB
-                </a>
-              </div>
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/complexportal/complex/CPX-1062"
-                rel="noopener"
-                target="_blank"
-              >
-                View CPX-1062 in Complex Portal
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </div>
+            <test-file-stub
+              classname="loader"
+              height="100"
+              width="100"
+            />
           </div>
+          <a
+            href="/uniprotkb?query=%28xref%3Acomplexportal-CPX-1062%29"
+          >
+            View interactors in UniProtKB
+          </a>
+          <br />
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/complexportal/complex/CPX-1062"
+            rel="noopener"
+            target="_blank"
+          >
+            View CPX-1062 in Complex Portal
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
         </div>
         <h3>
           Protein-protein interaction databases
