@@ -79,6 +79,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
@@ -350,6 +351,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
               maximumSequences={BLAST_LIMIT}
             />
+            <ChecksumSuggester parsedSequence={parsedSequences?.[0]} />
           </section>
           <section className="tools-form-section">
             <FormSelect
