@@ -1,9 +1,9 @@
-import { HTMLAttributes, useContext } from 'react';
+import { useContext } from 'react';
 import { Message } from 'franklin-sites';
 
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 
-export const AFDBOutOfSync = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
+export const AFDBOutOfSync = () => {
   const isAFDBOutOfSync = useContext(AFDBOutOfSyncContext);
 
   if (!isAFDBOutOfSync) {
@@ -11,7 +11,7 @@ export const AFDBOutOfSync = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
   }
 
   return (
-    <Message level="warning" {...props}>
+    <Message level="warning">
       Caution: This AlphaFold model was generated using a prior version of the
       UniProt sequence that differs from that now shown
     </Message>
