@@ -42,11 +42,12 @@ export const modifyFormData = (formData: FormData, token: string) => {
   );
   output.set('requiredForRobots', formData.get('requiredForRobots') || '');
   const message = `${formData.get('message') || ''}
+
+Name: ${formData.get('name')}
+
 --------------- prefilled context details ---------------
 
-${formData.get('context') || ''}
-
-Name: ${formData.get('name')}`;
+${formData.get('context') || ''}`;
   output.set('message', message);
   return output;
 };

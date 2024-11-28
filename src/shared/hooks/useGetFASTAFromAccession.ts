@@ -69,7 +69,7 @@ const useGetFASTAFromAccesion = (
           {
             facets: null,
             namespace: Namespace.uniparc,
-            columns: ['upi', 'active', 'sequence'],
+            columns: ['upi', 'sequence'],
           }
         )
       : null;

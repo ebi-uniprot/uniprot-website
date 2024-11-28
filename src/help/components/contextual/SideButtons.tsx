@@ -21,36 +21,34 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
     const mainContent = document?.querySelector<HTMLElement>(
       `.${baseStyles['main-content']}`
     );
-    let scrollBarWidth =
+    const scrollBarWidth =
       mainContent && mainContent.offsetWidth - mainContent.clientWidth;
 
-    if (scrollBarWidth) {
-      scrollBarWidth += 2;
-      const sideButton = document?.querySelector<HTMLElement>(
-        `.${sideButtonStyles['side-button']}`
-      );
-      const sideButtonHelp = document?.querySelector<HTMLElement>(
-        `.${sideButtonStyles.help}`
-      );
+    const surveyId = '#survey_1067707';
 
-      if (sideButton) {
-        sideButton.style.right = `${scrollBarWidth.toString()}px`;
-      }
-      if (sideButtonHelp) {
-        sideButtonHelp.style.right = `${scrollBarWidth.toString()}px`;
-      }
+    if (scrollBarWidth) {
+      // Set the scroll bar width as a Custom Property for the CSS to use
+      window.document.body.style.setProperty(
+        '--scroll-bar-width',
+        `${scrollBarWidth.toString()}px`
+      );
     }
 
     sleep(3000).then(() => {
       // If there's already Hotjar's feedback, don't do anything
-      if (document.querySelector('._hj_feedback_container')) {
+      if (document.querySelector(surveyId)) {
         if (scrollBarWidth) {
           const hjButton = document.querySelector<HTMLElement>(
-            '#_hj_feedback_container div button'
+            `${surveyId} > div > div > div`
           );
 
           if (hjButton) {
-            hjButton.style.right = `${scrollBarWidth.toString()}px`;
+            const classes = Array.from(hjButton.classList)
+              .map((el) => `.${el}`)
+              .join('');
+            const style = document.createElement('style');
+            style.innerHTML = `${classes} {right: ${scrollBarWidth.toString()}px !important;}`;
+            document.head.appendChild(style);
           }
         }
 

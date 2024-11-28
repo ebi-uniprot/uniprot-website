@@ -38,40 +38,46 @@ export type MergedStatisticsItem = {
 
 export type MergedStatistics = RequireAtLeastOne<
   {
+    uniprotkb?: StatisticsItem;
     reviewed?: StatisticsItem;
     unreviewed?: StatisticsItem;
   },
-  'reviewed' | 'unreviewed'
+  'uniprotkb' | 'reviewed' | 'unreviewed'
 >;
 
 export const mergeToMap = (
+  uniprotkb: StatisticsItem[],
   reviewed: StatisticsItem[],
   unreviewed: StatisticsItem[]
 ) => {
   const accumulator = new Map<string, MergedStatistics>();
+  for (const item of uniprotkb) {
+    accumulator.set(item.name, { uniprotkb: item });
+  }
   for (const item of reviewed) {
-    accumulator.set(item.name, { reviewed: item });
+    const stats = accumulator.get(item.name) || {};
+    accumulator.set(item.name, { ...stats, reviewed: item });
   }
   for (const item of unreviewed) {
-    const stats = accumulator.get(item.name);
-    if (stats) {
-      stats.unreviewed = item;
-    } else {
-      accumulator.set(item.name, { unreviewed: item });
-    }
+    const stats = accumulator.get(item.name) || {};
+    accumulator.set(item.name, { ...stats, unreviewed: item });
   }
   return accumulator;
 };
 
 export const merge = (
+  uniprotkb: StatisticsItem[],
   reviewed: StatisticsItem[],
   unreviewed: StatisticsItem[]
 ): MergedStatisticsItem[] =>
-  Array.from(mergeToMap(reviewed, unreviewed), ([name, statistics]) => ({
-    name,
-    label: statistics.reviewed?.label || statistics.unreviewed?.label,
-    statistics,
-  }));
+  Array.from(
+    mergeToMap(uniprotkb, reviewed, unreviewed),
+    ([name, statistics]) => ({
+      name,
+      label: statistics.reviewed?.label || statistics.unreviewed?.label,
+      statistics,
+    })
+  );
 
 export const frequencySort = (
   a: MergedStatisticsItem,

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SequenceSection component should render the SequenceSection properly and match snapshot 1`] = `
+exports[`XrefSection component should render the xref table properly and match snapshot 1`] = `
 <DocumentFragment>
   <section
     class="card"
@@ -121,9 +121,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-10-02T00:00:00.000Z"
+                    datetime="2024-11-27T00:00:00.000Z"
                   >
-                    2024-10-02
+                    2024-11-27
                   </time>
                 </td>
                 <td>
@@ -226,11 +226,11 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <a
-                    href="/taxonomy/32606"
-                    title="Rabbitpox virus, taxon ID 32606"
+                    href="/taxonomy/45417"
+                    title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
                     translate="no"
                   >
-                    Rabbitpox virus
+                    Rabbitpox virus (strain Utrecht) (RPV)
                   </a>
                 </td>
                 <td>
@@ -242,9 +242,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-10-02T00:00:00.000Z"
+                    datetime="2024-11-27T00:00:00.000Z"
                   >
-                    2024-10-02
+                    2024-11-27
                   </time>
                 </td>
                 <td>
@@ -281,11 +281,11 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <a
-                    href="/taxonomy/10243"
-                    title="Cowpox virus (CPV), taxon ID 10243"
+                    href="/taxonomy/265871"
+                    title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
                     translate="no"
                   >
-                    Cowpox virus (CPV)
+                    Cowpox virus (strain GRI-90 / Grishak) (CPV)
                   </a>
                 </td>
                 <td>
@@ -297,9 +297,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-10-02T00:00:00.000Z"
+                    datetime="2024-11-27T00:00:00.000Z"
                   >
-                    2024-10-02
+                    2024-11-27
                   </time>
                 </td>
                 <td>
@@ -352,9 +352,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-10-02T00:00:00.000Z"
+                    datetime="2024-11-27T00:00:00.000Z"
                   >
-                    2024-10-02
+                    2024-11-27
                   </time>
                 </td>
                 <td>
@@ -407,9 +407,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-10-02T00:00:00.000Z"
+                    datetime="2024-11-27T00:00:00.000Z"
                   >
-                    2024-10-02
+                    2024-11-27
                   </time>
                 </td>
                 <td>
@@ -462,9 +462,64 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-10-02T00:00:00.000Z"
+                    datetime="2024-11-27T00:00:00.000Z"
                   >
-                    2024-10-02
+                    2024-11-27
+                  </time>
+                </td>
+                <td>
+                  <span>
+                    Yes
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    <a
+                      href="/uniprotkb/G0XTE8/entry"
+                    >
+                      G0XTE8
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    href="/taxonomy/10243"
+                    title="Cowpox virus (CPV), taxon ID 10243"
+                    translate="no"
+                  >
+                    Cowpox virus (CPV)
+                  </a>
+                </td>
+                <td>
+                  <time
+                    datetime="2024-11-27T00:00:00.000Z"
+                  >
+                    2024-11-27
+                  </time>
+                </td>
+                <td>
+                  <time
+                    datetime="2024-11-27T00:00:00.000Z"
+                  >
+                    2024-11-27
                   </time>
                 </td>
                 <td>
@@ -630,9 +685,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-07-08T00:00:00.000Z"
+                    datetime="2024-09-09T00:00:00.000Z"
                   >
-                    2024-07-08
+                    2024-09-09
                   </time>
                 </td>
                 <td>
@@ -675,9 +730,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-07-08T00:00:00.000Z"
+                    datetime="2024-09-09T00:00:00.000Z"
                   >
-                    2024-07-08
+                    2024-09-09
                   </time>
                 </td>
                 <td>
@@ -879,9 +934,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -924,9 +979,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -969,9 +1024,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -1014,9 +1069,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -1059,9 +1114,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -1104,9 +1159,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -1149,9 +1204,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -1194,9 +1249,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -1239,9 +1294,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>
@@ -1284,54 +1339,9 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </td>
                 <td>
                   <time
-                    datetime="2024-06-29T00:00:00.000Z"
+                    datetime="2024-07-17T00:00:00.000Z"
                   >
-                    2024-06-29
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    EMBL
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    ALF05335
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/10245"
-                    title="Vaccinia virus, taxon ID 10245"
-                    translate="no"
-                  >
-                    Vaccinia virus
-                  </a>
-                </td>
-                <td>
-                  <time
-                    datetime="2015-10-11T00:00:00.000Z"
-                  >
-                    2015-10-11
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2024-06-29T00:00:00.000Z"
-                  >
-                    2024-06-29
+                    2024-07-17
                   </time>
                 </td>
                 <td>

@@ -315,10 +315,13 @@ const BlastForm = ({ initialFormValues }: Props) => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein sequence to run{' '}
-              <abbr title="Basic Local Alignment Search Tool">BLAST</abbr>{' '}
-              sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN
-              or UPI0000000001).
+              <span>Find a protein sequence to run </span>
+              <abbr title="Basic Local Alignment Search Tool">BLAST</abbr>
+              <span>
+                {' '}
+                sequence similarity search by UniProt ID (e.g. P05067 or
+                A4_HUMAN or UPI0000000001).
+              </span>
             </legend>
             <div className="import-sequence-section">
               <SequenceSearchLoader
@@ -345,6 +348,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               placeholder="Protein or nucleotide sequence(s) in FASTA format."
               onChange={(s) => dispatch(updateParsedSequences(s))}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+              maximumSequences={BLAST_LIMIT}
             />
           </section>
           <section className="tools-form-section">

@@ -11,15 +11,15 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
 import AminoAcidBarPlot from './AminoAcidBarPlot';
-import ReviewedUnreviewedTabs from './ReviewedUnreviewedTabs';
+import UniProtKBStatsTabs from './UniProtKBStatsTabs';
 import FrequencyTable from './FrequencyTable';
 import CountLinkOrNothing from './CountLinkOrNothing';
-import ReviewedUnreviewedStatsTable from './ReviewedUnreviewedStatsTable';
+import UniProtKBStatsTable from './UniProtKBStatsTable';
 import ReviewedSequenceCorrections from './ReviewedSequenceCorrections';
 import SequenceLengthLinePlot from './SequenceLengthLinePlot';
-import StatsTable from './StatsTable';
 import AbstractSectionTable from './AbstractSectionTable';
 import UniqueReferencesTable from './UniqueReferencesTable';
+import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 import InPageNav from '../../../shared/components/InPageNav';
 
@@ -31,7 +31,6 @@ import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import {
   MergedStatisticsItem,
-  setAminoAcidsTotalCount,
   getEncodedLocations,
   getSequenceSizeLocation,
   getUniqueAuthorString,
@@ -89,18 +88,24 @@ export type StatisticsPayload = {
 };
 
 export type TableProps = {
+  uniprotkbData: StatisticsCategory;
   reviewedData: StatisticsCategory;
   unreviewedData: StatisticsCategory;
 };
 
 const IntroductionEntriesTable = ({
+  uniprotkbData,
   reviewedData,
   unreviewedData,
   releaseDate,
 }: TableProps & {
   releaseDate: Date;
 }) => {
-  const map = mergeToMap(reviewedData.items, unreviewedData.items);
+  const map = mergeToMap(
+    uniprotkbData.items,
+    reviewedData.items,
+    unreviewedData.items
+  );
   return (
     <>
       <AbstractSectionTable
@@ -179,10 +184,15 @@ const IntroductionEntriesTable = ({
 // ☑️ FRAGMENT
 
 const IntroductionSequenceTable = ({
+  uniprotkbData,
   reviewedData,
   unreviewedData,
 }: TableProps) => {
-  const map = mergeToMap(reviewedData.items, unreviewedData.items);
+  const map = mergeToMap(
+    uniprotkbData.items,
+    reviewedData.items,
+    unreviewedData.items
+  );
 
   return (
     <>
@@ -238,10 +248,15 @@ const sortByPE = (a: MergedStatisticsItem, b: MergedStatisticsItem) =>
   (proteinExistenceToNumber.get(b.name) || 0);
 
 const ProteinExistenceTable = ({
+  uniprotkbData,
   reviewedData,
   unreviewedData,
 }: TableProps) => {
-  const list = merge(reviewedData.items, unreviewedData.items)
+  const list = merge(
+    uniprotkbData.items,
+    reviewedData.items,
+    unreviewedData.items
+  )
     .sort(sortByPE)
     .map(
       ({ name, label, statistics }): MergedStatisticsItem => ({
@@ -282,8 +297,7 @@ const ProteinExistenceTable = ({
                   }}
                 >
                   <LongNumber>
-                    {(statistics.reviewed?.entryCount || 0) +
-                      (statistics.unreviewed?.entryCount || 0)}
+                    {statistics.uniprotkb?.entryCount || 0}
                   </LongNumber>
                 </Link>
               </td>
@@ -319,7 +333,11 @@ const ProteinExistenceTable = ({
   );
 };
 
-const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
+const TotalOrganismTable = ({
+  uniprotkbData,
+  reviewedData,
+  unreviewedData,
+}: TableProps) => (
   <>
     <h3>Total number of species represented in this release of UniProtKB</h3>
     <table>
@@ -330,6 +348,12 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>UniProtKB</td>
+          <td className={styles.end}>
+            <LongNumber>{uniprotkbData.totalCount}</LongNumber>
+          </td>
+        </tr>
         <tr>
           <td>
             <ReviewedLabel />
@@ -354,6 +378,7 @@ const TotalOrganismTable = ({ reviewedData, unreviewedData }: TableProps) => (
 const options = ['UniProtKB', 'reviewed', 'unreviewed'] as const;
 
 const TaxonomicDistributionTable = ({
+  uniprotkbData,
   reviewedData,
   unreviewedData,
   colorScheme,
@@ -364,7 +389,11 @@ const TaxonomicDistributionTable = ({
   distributionLabel: string;
   nameToQuery: Map<string, string | undefined>;
 }) => {
-  const list = merge(reviewedData.items, unreviewedData.items).map(
+  const list = merge(
+    uniprotkbData.items,
+    reviewedData.items,
+    unreviewedData.items
+  ).map(
     ({ name, statistics }): MergedStatisticsItem => ({
       name,
       statistics,
@@ -372,7 +401,9 @@ const TaxonomicDistributionTable = ({
     })
   );
 
-  const [selected, setSelected] = useState<typeof options[number]>(options[0]);
+  const [selected, setSelected] = useState<(typeof options)[number]>(
+    options[0]
+  );
 
   const graphData: StatisticsGraphItem[] = list.map((entry) => {
     let { query } = entry;
@@ -424,8 +455,7 @@ const TaxonomicDistributionTable = ({
                       search: stringifyQuery({ query }),
                     }}
                   >
-                    {(statistics.reviewed?.entryCount || 0) +
-                      (statistics.unreviewed?.entryCount || 0)}
+                    {statistics.uniprotkb?.entryCount || 0}
                   </CountLinkOrNothing>
                 </td>
                 <td className={styles.end}>
@@ -476,7 +506,7 @@ const TaxonomicDistributionTable = ({
               <select
                 value={selected}
                 onChange={(e) =>
-                  setSelected(e.target.value as typeof options[number])
+                  setSelected(e.target.value as (typeof options)[number])
                 }
               >
                 {options.map((option) => (
@@ -511,6 +541,9 @@ export type CategoryToStatistics = Record<CategoryName, StatisticsCategory>;
 const StatisticsPage = () => {
   const release = useUniProtDataVersion();
 
+  const uniprotkbStats = useDataApi<StatisticsPayload>(
+    release && apiUrls.statistics.statistics(release.releaseNumber)
+  );
   const reviewedStats = useDataApi<StatisticsPayload>(
     release && apiUrls.statistics.statistics(release.releaseNumber, 'reviewed')
   );
@@ -519,8 +552,23 @@ const StatisticsPage = () => {
       apiUrls.statistics.statistics(release.releaseNumber, 'unreviewed')
   );
 
-  if (!release || reviewedStats.loading || unreviewedStats.loading) {
+  if (
+    !release ||
+    uniprotkbStats.loading ||
+    reviewedStats.loading ||
+    unreviewedStats.loading
+  ) {
     return <Loader />;
+  }
+
+  if (uniprotkbStats.error || !uniprotkbStats.data) {
+    return (
+      <ErrorHandler
+        status={uniprotkbStats.status}
+        error={uniprotkbStats.error}
+        fullPage
+      />
+    );
   }
 
   if (reviewedStats.error || !reviewedStats.data) {
@@ -543,6 +591,9 @@ const StatisticsPage = () => {
     );
   }
 
+  const uniprotkbData = Object.fromEntries(
+    uniprotkbStats.data.results.map((stat) => [stat.categoryName, stat])
+  ) as CategoryToStatistics;
   const reviewedData = Object.fromEntries(
     reviewedStats.data.results.map((stat) => [stat.categoryName, stat])
   ) as CategoryToStatistics;
@@ -550,6 +601,7 @@ const StatisticsPage = () => {
     unreviewedStats.data.results.map((stat) => [stat.categoryName, stat])
   ) as CategoryToStatistics;
 
+  const uniprotkbNumberReleaseEntries = getNumberReleaseEntries(uniprotkbData);
   const reviewedNumberReleaseEntries = getNumberReleaseEntries(reviewedData);
   const unreviewedNumberReleaseEntries =
     getNumberReleaseEntries(unreviewedData);
@@ -596,19 +648,23 @@ const StatisticsPage = () => {
           of the statistic, no query link is possible.
         </p>
         <IntroductionEntriesTable
+          uniprotkbData={uniprotkbData.AUDIT}
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
           releaseDate={release.releaseDate}
         />
         <IntroductionSequenceTable
+          uniprotkbData={uniprotkbData.SEQUENCE_STATS}
           reviewedData={reviewedData.SEQUENCE_STATS}
           unreviewedData={unreviewedData.SEQUENCE_STATS}
         />
         <UniqueReferencesTable
+          uniprotkbData={uniprotkbData.MISCELLANEOUS}
           reviewedData={reviewedData.MISCELLANEOUS}
           unreviewedData={unreviewedData.MISCELLANEOUS}
         />
         <ProteinExistenceTable
+          uniprotkbData={uniprotkbData.PROTEIN_EXISTENCE}
           reviewedData={reviewedData.PROTEIN_EXISTENCE}
           unreviewedData={unreviewedData.PROTEIN_EXISTENCE}
         />
@@ -616,32 +672,38 @@ const StatisticsPage = () => {
       <Card id="taxonomic-origin">
         <h2>Taxonomic origin</h2>
         <TotalOrganismTable
+          uniprotkbData={uniprotkbData.TOTAL_ORGANISM}
           reviewedData={reviewedData.TOTAL_ORGANISM}
           unreviewedData={unreviewedData.TOTAL_ORGANISM}
         />
         <TaxonomicDistributionTable
+          uniprotkbData={uniprotkbData.SUPERKINGDOM}
           reviewedData={reviewedData.SUPERKINGDOM}
           unreviewedData={unreviewedData.SUPERKINGDOM}
           distributionLabel="across kingdoms"
           nameToQuery={nameToQueryKingdoms}
         />
         <TaxonomicDistributionTable
+          uniprotkbData={uniprotkbData.EUKARYOTA}
           reviewedData={reviewedData.EUKARYOTA}
           unreviewedData={unreviewedData.EUKARYOTA}
           colorScheme={schemeReds as string[][]}
           distributionLabel="within eukaryota"
           nameToQuery={nameToQueryEukaryota}
         />
-        <ReviewedUnreviewedStatsTable
+        <UniProtKBStatsTable
           categoryName="TOP_ORGANISM"
+          uniprotkbData={uniprotkbData}
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           title="Most represented species"
           nameLabel="Species"
+          uniprotkbNumberReleaseEntries={uniprotkbNumberReleaseEntries}
           reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
           unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
         <FrequencyTable
+          uniprotkbData={uniprotkbData.ORGANISM_FREQUENCY}
           reviewedData={reviewedData.ORGANISM_FREQUENCY}
           unreviewedData={unreviewedData.ORGANISM_FREQUENCY}
           header="Species represented"
@@ -650,7 +712,16 @@ const StatisticsPage = () => {
       </Card>
       <Card id="sequence-size">
         <h2>Sequence size</h2>
-        <ReviewedUnreviewedTabs>
+        <UniProtKBStatsTabs>
+          <LazyComponent
+            // Keep the space with an empty visualisation
+            fallback={<SequenceLengthLinePlot />}
+            rootMargin="0px 0px"
+          >
+            <SequenceLengthLinePlot
+              counts={uniprotkbData.SEQUENCE_COUNT.items}
+            />
+          </LazyComponent>
           <LazyComponent
             // Keep the space with an empty visualisation
             fallback={<SequenceLengthLinePlot />}
@@ -669,9 +740,10 @@ const StatisticsPage = () => {
               counts={unreviewedData.SEQUENCE_COUNT.items}
             />
           </LazyComponent>
-        </ReviewedUnreviewedTabs>
+        </UniProtKBStatsTabs>
 
         <FrequencyTable
+          uniprotkbData={uniprotkbData.SEQUENCE_RANGE}
           reviewedData={reviewedData.SEQUENCE_RANGE}
           unreviewedData={unreviewedData.SEQUENCE_RANGE}
           header="sequence sizes, from-to"
@@ -686,17 +758,20 @@ const StatisticsPage = () => {
           journal citations.
         </p>
         <FrequencyTable
+          uniprotkbData={uniprotkbData.JOURNAL_FREQUENCY}
           reviewedData={reviewedData.JOURNAL_FREQUENCY}
           unreviewedData={unreviewedData.JOURNAL_FREQUENCY}
           header="Journals cited"
           title="Frequency of journal citations"
         />
-        <ReviewedUnreviewedStatsTable
+        <UniProtKBStatsTable
           categoryName="TOP_JOURNAL"
+          uniprotkbData={uniprotkbData}
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           countLabel="Citations"
           nameLabel="Journal"
+          uniprotkbNumberReleaseEntries={uniprotkbNumberReleaseEntries}
           reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
           unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
@@ -708,47 +783,73 @@ const StatisticsPage = () => {
           lines, as well as the number of entries with at least one such line,
           and the frequency of the lines.
         </p>
-        <ReviewedUnreviewedStatsTable
+        <UniProtKBStatsTable
           categoryName="PUBLICATION"
+          uniprotkbData={uniprotkbData}
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           reviewedCaption={getUniqueAuthorString(reviewedData)}
           unreviewedCaption={getUniqueAuthorString(unreviewedData)}
           nameLabel="Publication type"
+          uniprotkbNumberReleaseEntries={uniprotkbNumberReleaseEntries}
           reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
           unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
-        <ReviewedUnreviewedStatsTable
+        <UniProtKBStatsTable
           categoryName="FEATURES"
           title="Sequence annotations (features)"
+          uniprotkbData={uniprotkbData}
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Feature"
+          uniprotkbNumberReleaseEntries={uniprotkbNumberReleaseEntries}
           reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
           unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
-        <ReviewedUnreviewedStatsTable
+        <UniProtKBStatsTable
           categoryName="COMMENTS"
           title="General annotation (comments)"
+          uniprotkbData={uniprotkbData}
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Comment"
+          uniprotkbNumberReleaseEntries={uniprotkbNumberReleaseEntries}
           reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
           unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
-        <ReviewedUnreviewedStatsTable
+        <UniProtKBStatsTable
           categoryName="CROSS_REFERENCE"
           title="Cross-references"
+          uniprotkbData={uniprotkbData}
           reviewedData={reviewedData}
           unreviewedData={unreviewedData}
           nameLabel="Cross reference"
+          uniprotkbNumberReleaseEntries={uniprotkbNumberReleaseEntries}
           reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
           unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />
       </Card>
       <Card id="amino-acid-composition">
         <h2>Amino acid composition</h2>
-        <ReviewedUnreviewedTabs>
+        <UniProtKBStatsTabs>
+          <div className={styles['side-by-side']}>
+            <div className={styles.viz}>
+              <LazyComponent
+                // Keep the space with an empty visualisation
+                fallback={<AminoAcidBarPlot />}
+                rootMargin="0px 0px"
+              >
+                <AminoAcidBarPlot
+                  category={uniprotkbData.SEQUENCE_AMINO_ACID}
+                />
+              </LazyComponent>
+            </div>
+            <AminoAcidCompositionTable
+              dataset="UniProtKB"
+              data={uniprotkbData.SEQUENCE_AMINO_ACID}
+              numberReleaseEntries={uniprotkbNumberReleaseEntries}
+            />
+          </div>
           <div className={styles['side-by-side']}>
             <div className={styles.viz}>
               <LazyComponent
@@ -759,14 +860,9 @@ const StatisticsPage = () => {
                 <AminoAcidBarPlot category={reviewedData.SEQUENCE_AMINO_ACID} />
               </LazyComponent>
             </div>
-            <StatsTable
-              key="reviewed"
+            <AminoAcidCompositionTable
               dataset="reviewed"
-              category={setAminoAcidsTotalCount(
-                reviewedData.SEQUENCE_AMINO_ACID
-              )}
-              nameLabel="Amino acid"
-              alwaysExpand
+              data={reviewedData.SEQUENCE_AMINO_ACID}
               numberReleaseEntries={reviewedNumberReleaseEntries}
             />
           </div>
@@ -782,27 +878,24 @@ const StatisticsPage = () => {
                 />
               </LazyComponent>
             </div>
-            <StatsTable
-              key="unreviewed"
+            <AminoAcidCompositionTable
               dataset="unreviewed"
-              category={setAminoAcidsTotalCount(
-                unreviewedData.SEQUENCE_AMINO_ACID
-              )}
-              nameLabel="Amino acid"
-              alwaysExpand
+              data={unreviewedData.SEQUENCE_AMINO_ACID}
               numberReleaseEntries={unreviewedNumberReleaseEntries}
             />
           </div>
-        </ReviewedUnreviewedTabs>
+        </UniProtKBStatsTabs>
       </Card>
       <Card id="miscellaneous-statistics">
         <h2>Miscellaneous statistics</h2>
-        <ReviewedUnreviewedStatsTable
+        <UniProtKBStatsTable
           title="Encoded Locations"
           categoryName="MISCELLANEOUS"
+          uniprotkbData={getEncodedLocations(uniprotkbData)}
           reviewedData={getEncodedLocations(reviewedData)}
           unreviewedData={getEncodedLocations(unreviewedData)}
           nameLabel="Encoded location"
+          uniprotkbNumberReleaseEntries={uniprotkbNumberReleaseEntries}
           reviewedNumberReleaseEntries={reviewedNumberReleaseEntries}
           unreviewedNumberReleaseEntries={unreviewedNumberReleaseEntries}
         />

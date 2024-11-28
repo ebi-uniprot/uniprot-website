@@ -32,7 +32,9 @@ const extractAccession = (
     if (group) {
       return {
         namespace,
-        accession: toUpperCase ? group.toUpperCase() : group,
+        accession: toUpperCase
+          ? group.toUpperCase().replace('UNIREF', 'UniRef')
+          : group,
       };
     }
   }

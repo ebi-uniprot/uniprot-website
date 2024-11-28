@@ -5,7 +5,7 @@ import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
 
-import { hasContent } from '../../../shared/utils/utils';
+import { hasContent, Key } from '../../../shared/utils/utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
 import EntrySection from '../../types/entrySection';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export const subcellularLocationSectionHasContent = <
-  T extends Record<string | number | symbol, unknown>
+  T extends Record<Key, unknown>,
 >(
   data?: T
 ) => {

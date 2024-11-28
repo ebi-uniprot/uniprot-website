@@ -286,7 +286,7 @@ describe('Download Utils', () => {
     expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual([
       {
         filename: 'uniprot_sprot.fasta.gz',
-        url: 'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz',
+        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz',
       },
     ]);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
@@ -322,9 +322,9 @@ describe('Download Utils', () => {
       state: undefined,
     };
     const job: JobFromUrl = {
-      jobId: undefined,
-      jobResultsLocation: undefined,
-      jobResultsNamespace: undefined,
+      jobId: '5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
+      jobResultsLocation: Location.IDMappingResult,
+      jobResultsNamespace: Namespace.uniprotkb,
     };
     const state = getDownloadInitialState({
       props,
@@ -334,7 +334,10 @@ describe('Download Utils', () => {
 
     expect(state).toEqual({
       selectedColumns: defaultColumns,
-      fileFormatOptions: uniProtKBFileFormatsResultsDownload,
+      // TODO: remove filter once the API supports embeddings id mapping downloads
+      fileFormatOptions: uniProtKBFileFormatsResultsDownload.filter(
+        (ff) => ff !== FileFormat.embeddings
+      ),
       selectedFileFormat: FileFormat.fastaCanonical,
       downloadSelect: 'all',
       compressed: true,
@@ -350,7 +353,7 @@ describe('Download Utils', () => {
     expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
-      base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
+      base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/stream/5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
       compressed: true,
       fileFormat: FileFormat.fastaCanonical,
       namespace: Namespace.uniprotkb,
@@ -713,7 +716,7 @@ describe('Download Utils', () => {
     expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual([
       {
         filename: 'uniprot_sprot/per-protein.h5',
-        url: 'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5',
+        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/embeddings/uniprot_sprot/per-protein.h5',
       },
     ]);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);

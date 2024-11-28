@@ -109,7 +109,7 @@ const ComponentsButtons = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Download"
+            title={<span data-article-id="downloads">Download</span>}
             position="left"
             onClose={handleToggleDownload}
             pathname={pathname}

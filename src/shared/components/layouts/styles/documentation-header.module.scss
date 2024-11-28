@@ -1,0 +1,26 @@
+@import 'franklin-sites/src/styles/mixins';
+@import 'franklin-sites/src/styles/colours';
+
+.main-content {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 0.25rem;
+  color: $colour-sky-white;
+}
+
+.logo {
+  background: $colour-sky-white;
+  -webkit-mask: url('../../../../images/uniprot-logo.img.svg') no-repeat 0 0;
+  mask: url('../../../../images/uniprot-logo.img.svg') no-repeat 0 0;
+  width: 80px;
+  height: 40px;
+
+  &.home {
+    background: $colour-sea-blue;
+  }
+
+  @include fs-breakpoints('large') {
+    width: 100px;
+    height: 54px;
+  }
+}

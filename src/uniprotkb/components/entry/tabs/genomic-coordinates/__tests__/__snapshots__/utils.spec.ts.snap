@@ -885,6 +885,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA1_DROME",
         "protein": {
@@ -1776,6 +1777,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA1_DROME",
         "protein": {
@@ -1906,6 +1908,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA2_DROME",
         "protein": {
@@ -2334,6 +2337,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA2_DROME",
         "protein": {
@@ -2510,6 +2514,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA2_DROME",
         "protein": {
@@ -3316,6 +3321,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA3_DROME",
         "protein": {
@@ -4120,6 +4126,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA3_DROME",
         "protein": {
@@ -4359,6 +4366,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA3_DROME",
         "protein": {
@@ -4512,6 +4520,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA3_DROME",
         "protein": {
@@ -4663,6 +4672,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA3_DROME",
         "protein": {
@@ -4816,6 +4826,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA3_DROME",
         "protein": {
@@ -5500,6 +5511,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA4_DROME",
         "protein": {
@@ -6182,6 +6194,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA4_DROME",
         "protein": {
@@ -6358,6 +6371,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA4_DROME",
         "protein": {
@@ -6511,6 +6525,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA4_DROME",
         "protein": {
@@ -6664,6 +6679,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA4_DROME",
         "protein": {
@@ -6815,6 +6831,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA4_DROME",
         "protein": {
@@ -6968,6 +6985,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA6_DROME",
         "protein": {
@@ -7121,6 +7139,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA6_DROME",
         "protein": {
@@ -7304,6 +7323,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA6_DROME",
         "protein": {
@@ -7487,6 +7507,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA6_DROME",
         "protein": {
@@ -8339,6 +8360,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA5_DROME",
         "protein": {
@@ -8492,6 +8514,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA5_DROME",
         "protein": {
@@ -8726,6 +8749,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA5_DROME",
         "protein": {
@@ -8965,6 +8989,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             "reverseStrand": true,
             "start": 10533749,
           },
+          "nucleotideId": "AE013599.5",
         },
         "name": "LOLA5_DROME",
         "protein": {
