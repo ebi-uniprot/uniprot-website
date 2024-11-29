@@ -10,5 +10,6 @@
   .container:has(protvista-structure[structureid^='AF']) :global(.message) {
     /* Display and revert to the default style of the message */
     display: grid;
+    margin-block-start: 0.5em;
   }
 }
