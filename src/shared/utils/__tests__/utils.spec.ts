@@ -8,6 +8,7 @@ import {
   deepFindAllByKey,
   addBlastLinksToFreeText,
   keysToLowerCase,
+  counter,
   defaultdict,
 } from '../utils';
 
@@ -121,19 +122,36 @@ describe('keysToLowerCase', () => {
   });
 });
 
-describe('defaultdict', () => {
+describe('counter', () => {
   it('should return default value if not present', () => {
-    const dd = defaultdict(0);
+    const dd = counter();
     expect(dd.foo).toEqual(0);
   });
   it('should increment value correctly', () => {
-    const dd = defaultdict(0);
+    const dd = counter();
     dd.foo += 1;
     expect(dd.foo).toEqual(1);
   });
   it('should return current value when assigned', () => {
-    const dd = defaultdict(0);
+    const dd = counter();
     dd.foo = 100;
     expect(dd.foo).toEqual(100);
+  });
+  it('should use initial count value', () => {
+    const dd = counter(100);
+    dd.foo += 1;
+    dd.bar += 2;
+    expect(dd).toMatchObject({ foo: 101, bar: 102 });
+  });
+});
+
+describe('defaultdict', () => {
+  it('should handle arrays', () => {
+    const dd = defaultdict<number[]>(() => []);
+    dd.foo.push(100);
+    dd.bar.push(200);
+    dd.foo.push(300);
+    dd.baz.push(500);
+    expect(dd).toMatchObject({ foo: [100, 300], bar: [200], baz: [500] });
   });
 });
