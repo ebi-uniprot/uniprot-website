@@ -1,6 +1,10 @@
 import { Loader } from 'franklin-sites';
 
+import { AFDBOutOfSync } from './AFDBOutOfSync';
+
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+
+import styles from './styles/structure-view.module.css';
 
 const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
   const structureElement = useCustomElement(
@@ -15,7 +19,12 @@ const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
   if (!structureElement.defined && !structureElement.errored) {
     return <Loader />;
   }
-  return <protvista-uniprot-structure accession={primaryAccession} />;
+  return (
+    <div className={styles.container}>
+      <AFDBOutOfSync />
+      <protvista-uniprot-structure accession={primaryAccession} />
+    </div>
+  );
 };
 
 export default StructureView;
