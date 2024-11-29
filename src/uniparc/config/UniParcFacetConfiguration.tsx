@@ -1,5 +1,4 @@
 export enum FacetsEnum {
-  OrganismName = 'organism_name',
   Database = 'database_facet',
 }
 
