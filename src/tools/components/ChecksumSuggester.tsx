@@ -5,7 +5,9 @@ import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequenc
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import md5 from '../../shared/utils/md5';
-import { getEntryPath } from '../../app/config/urls';
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+import { pluralise } from '../../shared/utils/utils';
+import { stringifyUrl } from '../../shared/utils/url';
 
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
@@ -13,6 +15,8 @@ import { Namespace } from '../../shared/types/namespaces';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { SearchResults } from '../../shared/types/results';
+
+import styles from '../../shared/components/results/styles/did-you-mean.module.scss';
 
 type Props = {
   parsedSequence?: SequenceObject;
@@ -22,22 +26,40 @@ const ChecksumSuggester = ({ parsedSequence }: Props) => {
   const options = checksum && {
     namespace: Namespace.uniparc,
     query: `checksum:${checksum}`,
-    columns: [UniParcColumn.accession, UniParcColumn.commonTaxons],
+    columns: [UniParcColumn.accession],
     size: 1,
+    facets: null,
   };
   const url = options && apiUrls.search.search(options);
   const { data } = useDataApi<SearchResults<UniParcAPIModel>>(url);
-  // Exactly one result or else we silently walk backwards out of the room without making a peep
+  // Expect exactly one result otherwise don't show anything
   if (data?.results.length !== 1) {
     return null;
   }
-  const result = data.results[0];
+  const { uniProtKBAccessions, uniParcId } = data.results[0];
+  const activeUniprotkbCount = uniProtKBAccessions.filter(
+    (accession) => !(accession.includes('-') || accession.includes('.'))
+  ).length;
   return (
     <Message level="info">
-      This exact sequence is available at UniParc:{' '}
-      <Link to={getEntryPath(Namespace.uniparc, result.uniParcId)}>
-        {result.uniParcId}
-      </Link>
+      This exact sequence has been found:
+      <ul className={styles['suggestions-list']}>
+        <li>
+          UniProtKB:{' '}
+          <Link
+            to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
+              query: `(uniparc:${uniParcId})`,
+            })}
+          >
+            {activeUniprotkbCount}{' '}
+            {pluralise('entry', activeUniprotkbCount, 'entries')}
+          </Link>
+        </li>
+        <li>
+          UniParc:{' '}
+          <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>1 entry</Link>
+        </li>
+      </ul>
     </Message>
   );
 };
