@@ -36,7 +36,21 @@ const ChecksumSuggester = ({ parsedSequence }: Props) => {
   if (data?.results.length !== 1) {
     return null;
   }
+
   const { uniProtKBAccessions, uniParcId } = data.results[0];
+
+  // If the sequence header name includes any of the retrieved
+  // uniprotkb or uniparc ids then don't show anything to the user
+  // as it's assumed they know what they're doing
+  if (
+    parsedSequence?.name &&
+    [uniParcId, ...uniProtKBAccessions].some((id) =>
+      parsedSequence.name.includes(id)
+    )
+  ) {
+    return null;
+  }
+
   const activeUniprotkbCount = uniProtKBAccessions.filter(
     (accession) => !(accession.includes('-') || accession.includes('.'))
   ).length;
