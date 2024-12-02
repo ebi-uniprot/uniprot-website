@@ -14,8 +14,6 @@ import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
 
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
 
-import 'swagger-ui-react/swagger-ui.css';
-
 const ApiDocumentation = () => {
   const history = useHistory();
   const match = useRouteMatch<{ definition: ApiDocsDefinition }>(
