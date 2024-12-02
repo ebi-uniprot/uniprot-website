@@ -3,12 +3,20 @@
 .landing-page {
   margin-block: 2 * $global-margin;
 
-  .image-container {
+  .container {
     display: grid;
+    gap: 1em;
+    grid-template-columns: max-content 1fr;
     place-items: center;
   }
 
-  p:last-of-type {
+  @media only screen and (max-width: 640px) {
+    .container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  p {
     margin-bottom: 0;
   }
 
@@ -38,23 +46,9 @@
     border: 1px solid var(--fr--color-sea-blue);
     border-collapse: collapse;
   }
-  .animation {
+
+  img {
     border: 1px solid var(--fr--color-uniref);
-
-    /* classnames automatically based on the name of the file */
-    circle[class^='cluster_animation_illustration_svg__identity'] {
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    &[data-identity='100']
-      :global(.cluster_animation_illustration_svg__identity-100),
-    &[data-identity='90']
-      :global(.cluster_animation_illustration_svg__identity-90),
-    &[data-identity='50']
-      :global(.cluster_animation_illustration_svg__identity-50) {
-      opacity: 1;
-    }
   }
 }
 
