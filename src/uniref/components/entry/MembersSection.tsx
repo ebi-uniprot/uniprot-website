@@ -96,9 +96,15 @@ const columns: ColumDescriptor[] = [
   {
     name: 'organisms',
     label: 'Organisms',
-    render: ({ organismName, organismTaxId }) => (
-      <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismName}</Link>
-    ),
+    render: ({ organismName, organismTaxId, memberIdType }) => {
+      const link = (
+        <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismName}</Link>
+      );
+      if (memberIdType === 'UniParc') {
+        return <>{link}, …</>;
+      }
+      return link;
+    },
   },
   {
     name: 'organismIDs',
