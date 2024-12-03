@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Message } from 'franklin-sites';
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
@@ -19,12 +18,18 @@ import { SearchResults } from '../../shared/types/results';
 
 import styles from '../../shared/components/results/styles/did-you-mean.module.scss';
 
+type SequenceAndName = {
+  sequence?: string;
+  name?: string;
+};
+
 type Props = {
-  parsedSequence?: SequenceObject | null;
+  sequenceAndName?: SequenceAndName | null;
 };
 const ChecksumSuggester = memo(
-  ({ parsedSequence }: Props) => {
-    const checksum = parsedSequence && md5(parsedSequence.sequence);
+  ({ sequenceAndName }: Props) => {
+    const { sequence, name } = sequenceAndName || {};
+    const checksum = sequence && md5(sequence);
     const options = checksum && {
       namespace: Namespace.uniparc,
       query: `checksum:${checksum}`,
@@ -44,10 +49,8 @@ const ChecksumSuggester = memo(
     // uniprotkb or uniparc ids then don't show anything to the user
     // as it's assumed they know what they're doing
     if (
-      parsedSequence?.name &&
-      [uniParcId, ...uniProtKBAccessions].some((id) =>
-        parsedSequence.name.includes(id)
-      )
+      name &&
+      [uniParcId, ...uniProtKBAccessions].some((id) => name.includes(id))
     ) {
       return null;
     }
@@ -78,7 +81,8 @@ const ChecksumSuggester = memo(
       </Message>
     );
   },
-  (a, b) => a.parsedSequence?.raw.trim() === b.parsedSequence?.raw.trim()
+  (a, b) =>
+    a.sequenceAndName?.sequence?.trim() === b.sequenceAndName?.sequence?.trim()
 );
 
 export default ChecksumSuggester;

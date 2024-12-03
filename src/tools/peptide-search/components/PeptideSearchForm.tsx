@@ -14,6 +14,7 @@ import cn from 'classnames';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
@@ -272,6 +273,13 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
                 dispatch(updatePeptideSequences(event.target.value))
               }
               data-hj-allow
+            />
+          </section>
+          <section>
+            <ChecksumSuggester
+              sequenceAndName={{
+                sequence: parsedSequences[0],
+              }}
             />
           </section>
           <section className="tools-form-section">

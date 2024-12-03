@@ -23,6 +23,7 @@ import SequenceSearchLoader, {
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
@@ -79,7 +80,6 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
@@ -360,7 +360,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               maximumSequences={BLAST_LIMIT}
             />
             <ChecksumSuggester
-              parsedSequence={
+              sequenceAndName={
                 fromSequenceSearchLoader ? null : parsedSequences?.[0]
               }
             />
