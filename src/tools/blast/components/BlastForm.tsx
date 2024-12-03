@@ -132,12 +132,20 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
-    useReducer(
-      getBlastFormDataReducer(defaultFormValues),
-      initialFormValues,
-      getBlastFormInitialState
-    );
+  const [
+    {
+      parsedSequences,
+      formValues,
+      sending,
+      submitDisabled,
+      fromSequenceSearchLoader,
+    },
+    dispatch,
+  ] = useReducer(
+    getBlastFormDataReducer(defaultFormValues),
+    initialFormValues,
+    getBlastFormInitialState
+  );
 
   useEffect(() => {
     dispatch(resetFormState(initialFormValues));
@@ -327,7 +335,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             <div className="import-sequence-section">
               <SequenceSearchLoader
                 ref={sslRef}
-                onLoad={(s) => dispatch(updateParsedSequences(s))}
+                onLoad={(s) => dispatch(updateParsedSequences(s, true))}
               />
             </div>
           </section>
@@ -351,7 +359,11 @@ const BlastForm = ({ initialFormValues }: Props) => {
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
               maximumSequences={BLAST_LIMIT}
             />
-            <ChecksumSuggester parsedSequence={parsedSequences?.[0]} />
+            <ChecksumSuggester
+              parsedSequence={
+                fromSequenceSearchLoader ? null : parsedSequences?.[0]
+              }
+            />
           </section>
           <section className="tools-form-section">
             <FormSelect

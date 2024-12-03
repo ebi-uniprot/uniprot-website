@@ -15,6 +15,7 @@ export type BlastFormState = {
   parsedSequences: SequenceObject[];
   submitDisabled: boolean;
   sending: boolean;
+  fromSequenceSearchLoader: boolean;
 };
 
 export type BlastFormAction = ActionType<typeof blastFormActions>;
@@ -46,12 +47,13 @@ export const getBlastFormInitialState = (
   ),
   // used when the form is about to be submitted to the server
   sending: false,
+  fromSequenceSearchLoader: false,
 });
 
 const blastFormParsedSequencesReducer = (
   state: BlastFormState,
   {
-    payload: parsedSequences,
+    payload: { parsedSequences, fromSequenceSearchLoader },
   }: ActionType<typeof blastFormActions.updateParsedSequences>
 ) => {
   const { formValues } = state;
@@ -120,6 +122,7 @@ const blastFormParsedSequencesReducer = (
   return {
     ...state,
     parsedSequences,
+    fromSequenceSearchLoader,
     submitDisabled,
     formValues: {
       ...formValues,
