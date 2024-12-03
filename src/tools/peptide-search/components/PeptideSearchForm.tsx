@@ -275,13 +275,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               data-hj-allow
             />
           </section>
-          <section>
-            <ChecksumSuggester
-              sequenceAndName={{
-                sequence: parsedSequences[0],
-              }}
-            />
-          </section>
+          <ChecksumSuggester sequence={parsedSequences?.[0]} />
           <section className="tools-form-section">
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper

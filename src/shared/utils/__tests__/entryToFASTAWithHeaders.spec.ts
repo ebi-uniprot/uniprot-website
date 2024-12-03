@@ -3,6 +3,8 @@ import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 import uniProtKBEntryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import uniParcModelData from '../../../uniparc/__mocks__/uniParcLightEntryModelData';
 
+import { UniParcLiteAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+
 describe('entryToFASTAWithHeaders', () => {
   describe('UniProtKB entry', () => {
     it('should handle reviewed entries', () => {
@@ -22,7 +24,9 @@ describe('entryToFASTAWithHeaders', () => {
   });
 
   it('should handle UniParc entries', () => {
-    expect(entryToFASTAWithHeaders(uniParcModelData)).toMatchSnapshot();
+    expect(
+      entryToFASTAWithHeaders(uniParcModelData as UniParcLiteAPIModel)
+    ).toMatchSnapshot();
   });
 
   describe('fallback gracefully when lacking metadata', () => {

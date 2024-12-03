@@ -90,7 +90,7 @@ export type UniParcAPIModel = {
   oldestCrossRefCreated?: string;
   sequenceFeatures?: SequenceFeature[];
   sequence: Sequence;
-  uniProtKBAccessions: string[];
+  uniProtKBAccessions?: string[];
   from?: string; // ID Mapping results
 };
 

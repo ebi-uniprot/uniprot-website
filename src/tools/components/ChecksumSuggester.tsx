@@ -18,17 +18,13 @@ import { SearchResults } from '../../shared/types/results';
 
 import styles from '../../shared/components/results/styles/did-you-mean.module.scss';
 
-type SequenceAndName = {
+type Props = {
   sequence?: string;
   name?: string;
 };
 
-type Props = {
-  sequenceAndName?: SequenceAndName | null;
-};
 const ChecksumSuggester = memo(
-  ({ sequenceAndName }: Props) => {
-    const { sequence, name } = sequenceAndName || {};
+  ({ sequence, name }: Props) => {
     const checksum = sequence && md5(sequence);
     const options = checksum && {
       namespace: Namespace.uniparc,
@@ -40,7 +36,7 @@ const ChecksumSuggester = memo(
     const url = options && apiUrls.search.search(options);
     const { data } = useDataApi<SearchResults<UniParcAPIModel>>(url);
     // Expect exactly one result otherwise don't show anything
-    if (data?.results.length !== 1) {
+    if (data?.results?.length !== 1) {
       return null;
     }
     const { uniProtKBAccessions, uniParcId } = data.results[0];
@@ -50,29 +46,34 @@ const ChecksumSuggester = memo(
     // as it's assumed they know what they're doing
     if (
       name &&
-      [uniParcId, ...uniProtKBAccessions].some((id) => name.includes(id))
+      [uniParcId, ...(uniProtKBAccessions || [])].some((id) =>
+        name.includes(id)
+      )
     ) {
       return null;
     }
 
-    const activeUniprotkbCount = uniProtKBAccessions.filter(
+    const activeUniprotkbCount = uniProtKBAccessions?.filter(
       (accession) => !(accession.includes('-') || accession.includes('.'))
     ).length;
+
     return (
       <Message level="info">
         This exact sequence has been found:
         <ul className={styles['suggestions-list']}>
-          <li>
-            UniProtKB:{' '}
-            <Link
-              to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
-                query: `(uniparc:${uniParcId})`,
-              })}
-            >
-              {activeUniprotkbCount}{' '}
-              {pluralise('entry', activeUniprotkbCount, 'entries')}
-            </Link>
-          </li>
+          {activeUniprotkbCount && (
+            <li>
+              UniProtKB:{' '}
+              <Link
+                to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
+                  query: `(uniparc:${uniParcId})`,
+                })}
+              >
+                {activeUniprotkbCount}{' '}
+                {pluralise('entry', activeUniprotkbCount, 'entries')}
+              </Link>
+            </li>
+          )}
           <li>
             UniParc:{' '}
             <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>1 entry</Link>
@@ -81,8 +82,7 @@ const ChecksumSuggester = memo(
       </Message>
     );
   },
-  (a, b) =>
-    a.sequenceAndName?.sequence?.trim() === b.sequenceAndName?.sequence?.trim()
+  (a, b) => a.sequence?.trim() === b.sequence?.trim()
 );
 
 export default ChecksumSuggester;
