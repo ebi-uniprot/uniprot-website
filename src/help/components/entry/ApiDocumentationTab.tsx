@@ -1,7 +1,7 @@
-import { ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Location as HistoryLocation } from 'history';
-import { Card, Loader } from 'franklin-sites';
+import { Card, Loader, Chip } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
 import { frame } from 'timing-functions';
 import type { OpenAPIV3 } from 'openapi-types';
@@ -11,6 +11,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import InPageNav from '../../../shared/components/InPageNav';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -119,11 +120,23 @@ const AugmentingLayoutPlugin = () => ({
   wrapComponents: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    Models: (Original) => (props) => (
-      <div id={SCHEMAS_ID}>
-        <Original {...props} />
-      </div>
-    ),
+    Models: (Original) => (props) => {
+      const { spec } = props.getConfigs();
+      return (
+        <div id={SCHEMAS_ID}>
+          <Original {...props} />
+          {spec && (
+            <p>
+              Link to the{' '}
+              <ExternalLink url={spec.url} noIcon>
+                OpenAPI <Chip compact>{spec.openapi}</Chip> specifications{' '}
+              </ExternalLink>{' '}
+              in JSON
+            </p>
+          )}
+        </div>
+      );
+    },
   },
 });
 
@@ -188,10 +201,9 @@ type Props = {
 };
 
 const ApiDocumentationTab = ({ id }: Props) => {
-  const containerRef = useRef(null);
-  const data = useDataApi<OpenAPIV3.Document>(
-    apiUrls.apiDocumentationDefinition(id)
-  );
+  const url = apiUrls.apiDocumentationDefinition(id);
+
+  const data = useDataApi<OpenAPIV3.Document>(url);
 
   if (data.loading) {
     return <Loader progress={data.progress} />;
@@ -201,16 +213,16 @@ const ApiDocumentationTab = ({ id }: Props) => {
     return <ErrorHandler status={data.status} error={data.error} fullPage />;
   }
 
+  const spec = { ...data.data, url };
+
   return (
-    <div ref={containerRef}>
-      <SwaggerUI
-        spec={data.data}
-        plugins={plugins}
-        layout="AugmentingLayout"
-        requestSnippetsEnabled
-        requestSnippets={requestSnippets}
-      />
-    </div>
+    <SwaggerUI
+      spec={spec}
+      plugins={plugins}
+      layout="AugmentingLayout"
+      requestSnippetsEnabled
+      requestSnippets={requestSnippets}
+    />
   );
 };
 
