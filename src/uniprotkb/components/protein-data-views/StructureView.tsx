@@ -4,7 +4,7 @@ import { AFDBOutOfSync } from './AFDBOutOfSync';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
-import styles from './styles/structure-view.module.css';
+import styles from './styles/structure-view.module.scss';
 
 const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
   const structureElement = useCustomElement(
@@ -21,7 +21,7 @@ const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
   }
   return (
     <div className={styles.container}>
-      <AFDBOutOfSync />
+      <AFDBOutOfSync modal />
       <protvista-uniprot-structure accession={primaryAccession} />
     </div>
   );
