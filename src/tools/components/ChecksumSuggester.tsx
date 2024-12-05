@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Message } from 'franklin-sites';
 
@@ -53,30 +53,54 @@ const ChecksumSuggester = memo(
       return null;
     }
 
-    const activeUniprotkbCount = uniProtKBAccessions?.filter(
+    const activeCanonicalUniprotkb = uniProtKBAccessions?.filter(
       (accession) => !(accession.includes('-') || accession.includes('.'))
-    ).length;
-
+    );
+    const N_IDS_SHOWN = 5;
     return (
       <Message level="info">
-        This exact sequence has been found:
+        Are you looking for these entries which exactly match your sequence?
         <ul className={styles['suggestions-list']}>
-          {activeUniprotkbCount && (
-            <li>
-              UniProtKB:{' '}
-              <Link
-                to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
-                  query: `(uniparc:${uniParcId})`,
-                })}
-              >
-                {activeUniprotkbCount}{' '}
-                {pluralise('entry', activeUniprotkbCount, 'entries')}
-              </Link>
+          {activeCanonicalUniprotkb?.length && (
+            <li key="uniprotkb">
+              UniProtKB: {activeCanonicalUniprotkb.length}{' '}
+              {pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}
+              <div>
+                {activeCanonicalUniprotkb
+                  ?.slice(0, N_IDS_SHOWN)
+                  .map((accession, i, array) => (
+                    <Fragment key={accession}>
+                      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                        {accession}
+                      </Link>
+                      {i < array.length - 1 && ', '}
+                    </Fragment>
+                  ))}
+                {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
+                  (activeCanonicalUniprotkb.length > 1 && '-')}
+                {activeCanonicalUniprotkb.length > 1 && (
+                  <Link
+                    key="view all"
+                    to={stringifyUrl(
+                      LocationToPath[Location.UniProtKBResults],
+                      {
+                        query: `(uniparc:${uniParcId})`,
+                      }
+                    )}
+                  >
+                    {' view all'}
+                  </Link>
+                )}
+              </div>
             </li>
           )}
-          <li>
-            UniParc:{' '}
-            <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>1 entry</Link>
+          <li key="uniparc">
+            UniParc: 1 entry
+            <div>
+              <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>
+                {uniParcId}
+              </Link>
+            </div>
           </li>
         </ul>
       </Message>

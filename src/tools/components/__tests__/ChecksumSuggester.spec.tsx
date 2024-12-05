@@ -30,17 +30,19 @@ describe('ChecksumSuggester', () => {
   it('should show message', async () => {
     customRender(<ChecksumSuggester sequence={sequence} />);
     expect(
-      await screen.findByRole('link', { name: '2 entries' })
+      await screen.findByRole('link', { name: 'view all' })
     ).toHaveAttribute('href', '/uniprotkb?query=%28uniparc%3AUPI000002DB1C%29');
     expect(
-      await screen.findByRole('link', { name: '1 entry' })
+      await screen.findByRole('link', { name: 'UPI000002DB1C' })
     ).toHaveAttribute('href', '/uniparc/UPI000002DB1C');
   });
   it('should not show message because sequence md5 does not match', async () => {
     customRender(<ChecksumSuggester sequence="FOO" />);
     await waitFor(() => {
       expect(
-        screen.queryByText('This exact sequence has been found')
+        screen.queryByText(
+          'Are you looking for these entries which exactly match your sequence?'
+        )
       ).not.toBeInTheDocument();
     });
   });
@@ -48,7 +50,9 @@ describe('ChecksumSuggester', () => {
     customRender(<ChecksumSuggester sequence={sequence} name="P05067" />);
     await waitFor(() => {
       expect(
-        screen.queryByText('This exact sequence has been found')
+        screen.queryByText(
+          'Are you looking for these entries which exactly match your sequence?'
+        )
       ).not.toBeInTheDocument();
     });
   });
