@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { screen, waitFor } from '@testing-library/react';
 
-import ChecksumSuggester from '../ChecksumSuggester';
+import ChecksumSuggestionMessage from '../ChecksumSuggester';
 import customRender from '../../../shared/__test-helpers__/customRender';
 
 const mock = new MockAdapter(axios);
@@ -28,7 +28,7 @@ const sequence =
 
 describe('ChecksumSuggester', () => {
   it('should show message', async () => {
-    customRender(<ChecksumSuggester sequence={sequence} />);
+    customRender(<ChecksumSuggestionMessage sequence={sequence} />);
     expect(
       await screen.findByRole('link', { name: 'view all' })
     ).toHaveAttribute('href', '/uniprotkb?query=%28uniparc%3AUPI000002DB1C%29');
@@ -37,7 +37,7 @@ describe('ChecksumSuggester', () => {
     ).toHaveAttribute('href', '/uniparc/UPI000002DB1C');
   });
   it('should not show message because sequence md5 does not match', async () => {
-    customRender(<ChecksumSuggester sequence="FOO" />);
+    customRender(<ChecksumSuggestionMessage sequence="FOO" />);
     await waitFor(() => {
       expect(
         screen.queryByText(
@@ -47,7 +47,9 @@ describe('ChecksumSuggester', () => {
     });
   });
   it('should not show message because name is provided and matches the returned uniProtKBAccessions', async () => {
-    customRender(<ChecksumSuggester sequence={sequence} name="P05067" />);
+    customRender(
+      <ChecksumSuggestionMessage sequence={sequence} name="P05067" />
+    );
     await waitFor(() => {
       expect(
         screen.queryByText(
