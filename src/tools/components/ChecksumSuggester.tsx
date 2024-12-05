@@ -23,6 +23,8 @@ type Props = {
   name?: string;
 };
 
+const N_IDS_SHOWN = 5;
+
 const ChecksumSuggester = memo(
   ({ sequence, name }: Props) => {
     const checksum = sequence && md5(sequence.toUpperCase());
@@ -53,16 +55,20 @@ const ChecksumSuggester = memo(
       return null;
     }
 
-    const activeCanonicalUniprotkb = uniProtKBAccessions?.filter(
-      (accession) => !(accession.includes('-') || accession.includes('.'))
-    );
-    const N_IDS_SHOWN = 5;
+    const activeCanonicalUniprotkb =
+      uniProtKBAccessions?.filter(
+        (accession) => !(accession.includes('-') || accession.includes('.'))
+      ) || [];
+
+    const onlyUniParc = !activeCanonicalUniprotkb.length;
+
     return (
       <Message level="info">
-        Are you looking for these entries which exactly match your sequence?
+        Are you looking for {onlyUniParc ? 'this entry ' : 'these entries '}
+        which exactly {onlyUniParc ? 'matches' : 'match'} your sequence?
         <ul className={styles['suggestions-list']}>
-          {activeCanonicalUniprotkb?.length && (
-            <li key="uniprotkb">
+          {!onlyUniParc ? (
+            <li>
               <div data-article-id="uniprotkb">UniProtKB</div>
               {`${activeCanonicalUniprotkb.length} ${pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}: `}
               {activeCanonicalUniprotkb
@@ -76,10 +82,9 @@ const ChecksumSuggester = memo(
                   </Fragment>
                 ))}
               {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
-                (activeCanonicalUniprotkb.length > 1 && '-')}
+                (activeCanonicalUniprotkb.length > 1 && ' –')}
               {activeCanonicalUniprotkb.length > 1 && (
                 <Link
-                  key="view all"
                   to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
                     query: `(uniparc:${uniParcId})`,
                   })}
@@ -88,8 +93,8 @@ const ChecksumSuggester = memo(
                 </Link>
               )}
             </li>
-          )}
-          <li key="uniparc">
+          ) : null}
+          <li>
             <div data-article-id="uniparc">UniParc</div>
             {'1 entry: '}
             <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>
