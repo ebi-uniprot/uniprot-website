@@ -23,6 +23,7 @@ import SequenceSearchLoader, {
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
@@ -131,12 +132,20 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
-    useReducer(
-      getBlastFormDataReducer(defaultFormValues),
-      initialFormValues,
-      getBlastFormInitialState
-    );
+  const [
+    {
+      parsedSequences,
+      formValues,
+      sending,
+      submitDisabled,
+      fromSequenceSearchLoader,
+    },
+    dispatch,
+  ] = useReducer(
+    getBlastFormDataReducer(defaultFormValues),
+    initialFormValues,
+    getBlastFormInitialState
+  );
 
   useEffect(() => {
     dispatch(resetFormState(initialFormValues));
@@ -326,7 +335,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             <div className="import-sequence-section">
               <SequenceSearchLoader
                 ref={sslRef}
-                onLoad={(s) => dispatch(updateParsedSequences(s))}
+                onLoad={(s) => dispatch(updateParsedSequences(s, true))}
               />
             </div>
           </section>
@@ -350,6 +359,12 @@ const BlastForm = ({ initialFormValues }: Props) => {
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
               maximumSequences={BLAST_LIMIT}
             />
+            {fromSequenceSearchLoader || !parsedSequences?.[0] ? null : (
+              <ChecksumSuggester
+                sequence={parsedSequences[0].sequence}
+                name={parsedSequences[0].name}
+              />
+            )}
           </section>
           <section className="tools-form-section">
             <FormSelect

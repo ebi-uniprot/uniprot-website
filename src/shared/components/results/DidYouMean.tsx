@@ -38,6 +38,13 @@ const reCleanUp = /^\( ([^: ]+) \)$/;
 // eg: P05067.1, P05066.1-1, xref-id.1
 const reIdWithVersion = /(?<id>\S+)\.\d+/;
 
+const nsToHelpPage = new Map([
+  [Namespace.uniprotkb, 'uniprotkb'],
+  [Namespace.uniref, 'uniref'],
+  [Namespace.uniparc, 'uniparc'],
+  [Namespace.proteomes, 'proteome'],
+]);
+
 type QuerySuggestionListItemProps = {
   suggestions: Suggestion[];
   namespace: SearchableNamespace;
@@ -48,7 +55,10 @@ const QuerySuggestionListItem = ({
   namespace,
 }: QuerySuggestionListItemProps) => (
   <div>
-    {`In ${searchableNamespaceLabels[namespace]}`}
+    In{' '}
+    <span data-article-id={nsToHelpPage.get(namespace)}>
+      {searchableNamespaceLabels[namespace]}
+    </span>
     <ul className={styles['suggestions-list']}>
       {suggestions.map(({ query }) => {
         const cleanedQuery = query.replace(reCleanUp, '$1');

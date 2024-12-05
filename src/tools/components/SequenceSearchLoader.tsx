@@ -9,7 +9,7 @@ import {
   useImperativeHandle,
   useCallback,
 } from 'react';
-import { EllipsisReveal, SearchInput } from 'franklin-sites';
+import { EllipsisReveal, SearchInput, sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
@@ -155,12 +155,12 @@ const SequenceSearchLoader = forwardRef<
     // set ref to the value of the sequence we are about to set
     sequenceRef.current = sequence;
 
+    const processedSequence = sequenceProcessor(sequence)?.[0];
     onLoad([
       {
         raw: sequence,
-        // no need to fill the rest, it will be parsed again later
-        header: '',
-        sequence: '',
+        header: processedSequence.header || '',
+        sequence: processedSequence.sequence || '',
         valid: true,
         name: nameFromEntry(entry),
       },
