@@ -63,44 +63,38 @@ const ChecksumSuggester = memo(
         <ul className={styles['suggestions-list']}>
           {activeCanonicalUniprotkb?.length && (
             <li key="uniprotkb">
-              UniProtKB: {activeCanonicalUniprotkb.length}{' '}
-              {pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}
-              <div>
-                {activeCanonicalUniprotkb
-                  ?.slice(0, N_IDS_SHOWN)
-                  .map((accession, i, array) => (
-                    <Fragment key={accession}>
-                      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-                        {accession}
-                      </Link>
-                      {i < array.length - 1 && ', '}
-                    </Fragment>
-                  ))}
-                {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
-                  (activeCanonicalUniprotkb.length > 1 && '-')}
-                {activeCanonicalUniprotkb.length > 1 && (
-                  <Link
-                    key="view all"
-                    to={stringifyUrl(
-                      LocationToPath[Location.UniProtKBResults],
-                      {
-                        query: `(uniparc:${uniParcId})`,
-                      }
-                    )}
-                  >
-                    {' view all'}
-                  </Link>
-                )}
-              </div>
+              <div data-article-id="uniprotkb">UniProtKB</div>
+              {`${activeCanonicalUniprotkb.length} ${pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}: `}
+              {activeCanonicalUniprotkb
+                ?.slice(0, N_IDS_SHOWN)
+                .map((accession, i, array) => (
+                  <Fragment key={accession}>
+                    <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                      {accession}
+                    </Link>
+                    {i < array.length - 1 && ', '}
+                  </Fragment>
+                ))}
+              {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
+                (activeCanonicalUniprotkb.length > 1 && '-')}
+              {activeCanonicalUniprotkb.length > 1 && (
+                <Link
+                  key="view all"
+                  to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
+                    query: `(uniparc:${uniParcId})`,
+                  })}
+                >
+                  {' view all'}
+                </Link>
+              )}
             </li>
           )}
           <li key="uniparc">
-            UniParc: 1 entry
-            <div>
-              <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>
-                {uniParcId}
-              </Link>
-            </div>
+            <div data-article-id="uniparc">UniParc</div>
+            {'1 entry: '}
+            <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>
+              {uniParcId}
+            </Link>
           </li>
         </ul>
       </Message>
