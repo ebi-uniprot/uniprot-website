@@ -23,7 +23,7 @@ import SequenceSearchLoader, {
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import { ChecksumSuggester } from '../../components/ChecksumSuggester';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {

@@ -27,7 +27,7 @@ type Props = {
 
 const N_IDS_SHOWN = 5;
 
-export const ChecksumSuggester = memo(
+const ChecksumSuggester = memo(
   ({
     sequence,
     name,
