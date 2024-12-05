@@ -232,6 +232,7 @@ const DidYouMean = ({
     <ChecksumSuggester
       sequence={potentialPeptide}
       sequenceDescription={truncate(potentialPeptide, truncateOptions)}
+      asMessage={false}
     />
   );
 

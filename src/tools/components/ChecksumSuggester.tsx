@@ -1,5 +1,6 @@
 import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
+import { Message } from 'franklin-sites';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
@@ -21,12 +22,18 @@ type Props = {
   sequence?: string;
   name?: string;
   sequenceDescription?: string;
+  asMessage?: boolean;
 };
 
 const N_IDS_SHOWN = 5;
 
 export const ChecksumSuggester = memo(
-  ({ sequence, name, sequenceDescription = 'your sequence' }: Props) => {
+  ({
+    sequence,
+    name,
+    sequenceDescription = 'your sequence',
+    asMessage = true,
+  }: Props) => {
     const checksum = sequence && md5(sequence.toUpperCase());
     const options = checksum && {
       namespace: Namespace.uniparc,
@@ -62,7 +69,7 @@ export const ChecksumSuggester = memo(
 
     const onlyUniParc = !activeCanonicalUniprotkb.length;
 
-    return (
+    const content = (
       <>
         Are you looking for {onlyUniParc ? 'this entry ' : 'these entries '}
         which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
@@ -109,6 +116,7 @@ export const ChecksumSuggester = memo(
         </div>
       </>
     );
+    return asMessage ? <Message level="info">{content}</Message> : content;
   },
   (a, b) => a.sequence?.trim() === b.sequence?.trim()
 );

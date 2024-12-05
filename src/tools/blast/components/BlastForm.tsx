@@ -12,7 +12,6 @@ import {
   PageIntro,
   SpinnerIcon,
   sequenceProcessor,
-  Message,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -361,12 +360,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
               maximumSequences={BLAST_LIMIT}
             />
             {fromSequenceSearchLoader || !parsedSequences?.[0] ? null : (
-              <Message level="info">
-                <ChecksumSuggester
-                  sequence={parsedSequences[0].sequence}
-                  name={parsedSequences[0].name}
-                />
-              </Message>
+              <ChecksumSuggester
+                sequence={parsedSequences[0].sequence}
+                name={parsedSequences[0].name}
+              />
             )}
           </section>
           <section className="tools-form-section">

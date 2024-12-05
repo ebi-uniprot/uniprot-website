@@ -7,13 +7,7 @@ import {
   useEffect,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Chip,
-  ExternalLink,
-  Message,
-  PageIntro,
-  SpinnerIcon,
-} from 'franklin-sites';
+import { Chip, ExternalLink, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
@@ -281,9 +275,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               data-hj-allow
             />
           </section>
-          <Message level="info">
-            <ChecksumSuggester sequence={parsedSequences?.[0]} />
-          </Message>
+          <ChecksumSuggester sequence={parsedSequences?.[0]} />
           <section className="tools-form-section">
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
