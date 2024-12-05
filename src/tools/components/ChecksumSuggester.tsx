@@ -25,7 +25,7 @@ type Props = {
 
 const ChecksumSuggester = memo(
   ({ sequence, name }: Props) => {
-    const checksum = sequence && md5(sequence);
+    const checksum = sequence && md5(sequence.toUpperCase());
     const options = checksum && {
       namespace: Namespace.uniparc,
       query: `checksum:${checksum}`,
