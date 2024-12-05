@@ -226,11 +226,11 @@ const DidYouMean = ({
   );
 
   const searchableSequence =
-    potentialPeptide && processed.valid && processed.likelyType === 'aa';
+    processed.valid && processed.likelyType === 'aa' && potentialPeptide;
 
   const checksumSuggestionsNode = searchableSequence && (
     <ChecksumSuggester
-      sequence={potentialPeptide}
+      sequence={searchableSequence}
       sequenceDescription={truncate(potentialPeptide, truncateOptions)}
       asMessage={false}
     />
@@ -238,7 +238,7 @@ const DidYouMean = ({
 
   const peptideSearchSuggestion = searchableSequence && (
     <PeptideSearchSuggestion
-      potentialPeptide={potentialPeptide}
+      potentialPeptide={searchableSequence}
       key="peptide search"
     />
   );
