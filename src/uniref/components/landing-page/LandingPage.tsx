@@ -188,15 +188,6 @@ const LandingPage = () => {
       </HTMLHead>
       <section className="uniprot-grid">
         <h1 className="uniprot-grid-cell--span-12">UniRef</h1>
-        {/* <div
-          className={cn(
-            'uniprot-grid-cell--small-span-12',
-            'uniprot-grid-cell--medium-span-4',
-            styles['image-container']
-          )}
-        >
-          <img src={ClusterIllustration} width={300} height={250} alt="" />
-        </div> */}
         <p className="uniprot-grid-cell--span-12">
           The UniProt Reference Clusters (UniRef) provide clustered sets of
           sequences from the{' '}
