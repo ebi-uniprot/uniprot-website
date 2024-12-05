@@ -27,6 +27,8 @@ type Props = {
 
 const N_IDS_SHOWN = 5;
 
+const clean = (string: string): string => string.trim().toUpperCase();
+
 const ChecksumSuggester = memo(
   ({
     sequence,
@@ -34,7 +36,7 @@ const ChecksumSuggester = memo(
     sequenceDescription = 'your sequence',
     asMessage = true,
   }: Props) => {
-    const checksum = sequence && md5(sequence.toUpperCase());
+    const checksum = sequence && md5(clean(sequence));
     const options = checksum && {
       namespace: Namespace.uniparc,
       query: `checksum:${checksum}`,
@@ -118,7 +120,8 @@ const ChecksumSuggester = memo(
     );
     return asMessage ? <Message level="info">{content}</Message> : content;
   },
-  (a, b) => a.sequence?.trim() === b.sequence?.trim()
+  (a, b) =>
+    (a.sequence && clean(a.sequence)) === (b.sequence && clean(b.sequence))
 );
 
 export default ChecksumSuggester;
