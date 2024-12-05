@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ExternalLink, LongNumber, Loader } from 'franklin-sites';
 import { fromPairs } from 'lodash-es';
+import joinUrl from 'url-join';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
@@ -45,15 +46,16 @@ const documentationLinks = [
 const identities = [100, 90, 50] as const;
 type Identity = (typeof identities)[number];
 
-const getFTPLinks = (identity: Identity) => {
-  const cluster = `uniref${identity}`;
+const getFTPLinks = (identity: '100%' | '90%' | '50%') => {
+  // Omit the % sign
+  const cluster = `uniref${identity.slice(0, -1)}`;
   return (
     <>
-      <ExternalLink url={`${ftpUrls.uniref}/${cluster}/README`}>
+      <ExternalLink url={joinUrl(ftpUrls.uniref, cluster, 'README')}>
         README
       </ExternalLink>
       &nbsp;
-      <ExternalLink url={`${ftpUrls.uniref}/${cluster}`}>FTP</ExternalLink>
+      <ExternalLink url={joinUrl(ftpUrls.uniref, cluster)}>FTP</ExternalLink>
     </>
   );
 };
