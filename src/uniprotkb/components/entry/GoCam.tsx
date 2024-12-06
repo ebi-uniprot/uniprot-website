@@ -7,7 +7,11 @@ import GoCamViz from '../protein-data-views/GoCamViz';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
+import fetchData from '../../../shared/utils/fetchData';
+
 import externalUrls from '../../../shared/config/externalUrls';
+
+import { GoCamModelInfo, GoCamModels } from '../../types/goCamTypes';
 
 import styles from './styles/go-cam.module.scss';
 
@@ -17,28 +21,25 @@ const extractGoCamId = (url: string) => {
   return m?.groups?.goCamId;
 };
 
-const getGoCamStructures = (
-  data: GoCamModel[] = []
-): [string[], { id: string; label: string }[]] => {
-  const ids = [];
-  const items = [];
+const getGoCamStructures = (data: GoCamModels[] = []) => {
+  const idToItem = new Map<string, { id: string; label: string }>();
   for (const d of data) {
-    const goCamId = extractGoCamId(d.gocam);
-    if (goCamId) {
-      ids.push(goCamId);
-      items.push({
-        id: goCamId,
+    const id = extractGoCamId(d.gocam);
+    if (id) {
+      idToItem.set(id, {
+        id,
         label: d.title,
       });
     }
   }
-  return [ids, items];
+  return idToItem;
 };
 
-export type GoCamModel = {
-  gocam: string;
-  title: string;
-};
+const isUniprotCurated = (goCamModel: GoCamModelInfo) =>
+  goCamModel?.annotations?.some(
+    ({ key, value }) =>
+      key === 'providedBy' && value === 'https://www.uniprot.org'
+  );
 
 type Props = {
   primaryAccession: string;
@@ -47,20 +48,34 @@ type Props = {
 const GoCam = ({ primaryAccession }: Props) => {
   const isSmallScreen = useSmallScreen();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const { data, loading, error, status } = useDataApi<GoCamModel[]>(
+  const { data, loading, error, status } = useDataApi<GoCamModels[]>(
     isSmallScreen ? null : externalUrls.GeneOntologyModels(primaryAccession)
   );
+  const [uniprotGoCamIds, setUniprotGoCamIds] = useState<string[]>([]);
 
-  const [goCamIds, goCamItems] = useMemo(
-    () => getGoCamStructures(data),
-    [data]
-  );
+  const goCamIdToItem = useMemo(() => getGoCamStructures(data), [data]);
 
   useEffect(() => {
-    if (goCamIds?.[0]) {
-      setSelectedId(goCamIds[0]);
+    const promises = Array.from(goCamIdToItem.keys()).map((id) =>
+      fetchData<GoCamModelInfo>(externalUrls.GeneOntologyModelInfo(id)).then(
+        (response) => ({
+          id,
+          data: response.data,
+        })
+      )
+    );
+    Promise.all(promises).then((results) => {
+      setUniprotGoCamIds(
+        results.filter(({ data }) => isUniprotCurated(data)).map(({ id }) => id)
+      );
+    });
+  }, [goCamIdToItem]);
+
+  useEffect(() => {
+    if (uniprotGoCamIds?.[0]) {
+      setSelectedId(uniprotGoCamIds[0]);
     }
-  }, [goCamIds]);
+  }, [uniprotGoCamIds]);
 
   if (loading) {
     return <Loader />;
@@ -70,7 +85,7 @@ const GoCam = ({ primaryAccession }: Props) => {
     return <ErrorHandler status={status} error={error} noReload />;
   }
 
-  if (isSmallScreen || !goCamIds.length || !selectedId) {
+  if (isSmallScreen || !goCamIdToItem.size || !selectedId) {
     return null;
   }
 
@@ -89,9 +104,9 @@ const GoCam = ({ primaryAccession }: Props) => {
           onChange={(e) => setSelectedId(e.target.value)}
           className={styles['id-select']}
         >
-          {goCamItems.map((item) => (
-            <option value={item.id} key={item.id}>
-              {item.label}
+          {uniprotGoCamIds.map((id) => (
+            <option value={id} key={id}>
+              {goCamIdToItem.get(id)?.label}
             </option>
           ))}
         </select>
