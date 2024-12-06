@@ -21,13 +21,22 @@ import styles from '../../shared/components/results/styles/did-you-mean.module.s
 type Props = {
   sequence?: string;
   name?: string;
+  sequenceDescription?: string;
+  asMessage?: boolean;
 };
 
 const N_IDS_SHOWN = 5;
 
+const clean = (string: string): string => string.trim().toUpperCase();
+
 const ChecksumSuggester = memo(
-  ({ sequence, name }: Props) => {
-    const checksum = sequence && md5(sequence.toUpperCase());
+  ({
+    sequence,
+    name,
+    sequenceDescription = 'your sequence',
+    asMessage = true,
+  }: Props) => {
+    const checksum = sequence && md5(clean(sequence));
     const options = checksum && {
       namespace: Namespace.uniparc,
       query: `checksum:${checksum}`,
@@ -62,50 +71,57 @@ const ChecksumSuggester = memo(
 
     const onlyUniParc = !activeCanonicalUniprotkb.length;
 
-    return (
-      <Message level="info">
+    const content = (
+      <>
         Are you looking for {onlyUniParc ? 'this entry ' : 'these entries '}
-        which exactly {onlyUniParc ? 'matches' : 'match'} your sequence?
-        <ul className={styles['suggestions-list']}>
-          {!onlyUniParc ? (
+        which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
+        <div>
+          <ul className={styles['suggestions-list']}>
+            {!onlyUniParc ? (
+              <li>
+                <div data-article-id="uniprotkb">UniProtKB</div>
+                {`${activeCanonicalUniprotkb.length} ${pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}: `}
+                {activeCanonicalUniprotkb
+                  ?.slice(0, N_IDS_SHOWN)
+                  .map((accession, i, array) => (
+                    <Fragment key={accession}>
+                      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                        {accession}
+                      </Link>
+                      {i < array.length - 1 && ', '}
+                    </Fragment>
+                  ))}
+                {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
+                  (activeCanonicalUniprotkb.length > 1 && ' –')}
+                {activeCanonicalUniprotkb.length > 1 && (
+                  <Link
+                    to={stringifyUrl(
+                      LocationToPath[Location.UniProtKBResults],
+                      {
+                        query: `(uniparc:${uniParcId})`,
+                      }
+                    )}
+                  >
+                    {' view all'}
+                  </Link>
+                )}
+              </li>
+            ) : null}
             <li>
-              <div data-article-id="uniprotkb">UniProtKB</div>
-              {`${activeCanonicalUniprotkb.length} ${pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}: `}
-              {activeCanonicalUniprotkb
-                ?.slice(0, N_IDS_SHOWN)
-                .map((accession, i, array) => (
-                  <Fragment key={accession}>
-                    <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-                      {accession}
-                    </Link>
-                    {i < array.length - 1 && ', '}
-                  </Fragment>
-                ))}
-              {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
-                (activeCanonicalUniprotkb.length > 1 && ' –')}
-              {activeCanonicalUniprotkb.length > 1 && (
-                <Link
-                  to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
-                    query: `(uniparc:${uniParcId})`,
-                  })}
-                >
-                  {' view all'}
-                </Link>
-              )}
+              <div data-article-id="uniparc">UniParc</div>
+              {'1 entry: '}
+              <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>
+                {uniParcId}
+              </Link>
             </li>
-          ) : null}
-          <li>
-            <div data-article-id="uniparc">UniParc</div>
-            {'1 entry: '}
-            <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>
-              {uniParcId}
-            </Link>
-          </li>
-        </ul>
-      </Message>
+          </ul>
+        </div>
+      </>
     );
+    return asMessage ? <Message level="info">{content}</Message> : content;
   },
-  (a, b) => a.sequence?.trim() === b.sequence?.trim()
+  (a, b) =>
+    (a.sequence && clean(a.sequence)) === (b.sequence && clean(b.sequence))
 );
 
 export default ChecksumSuggester;
