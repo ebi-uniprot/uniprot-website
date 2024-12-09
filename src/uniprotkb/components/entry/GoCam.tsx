@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -48,12 +48,15 @@ type Props = {
 const GoCam = ({ primaryAccession }: Props) => {
   const isSmallScreen = useSmallScreen();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const { data, loading, error, status } = useDataApi<GoCamModels[]>(
+  const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
     isSmallScreen ? null : externalUrls.GeneOntologyModels(primaryAccession)
   );
-  const [uniprotGoCamIds, setUniprotGoCamIds] = useState<string[]>([]);
+  const [uniprotGoCamIds, setUniprotGoCamIds] = useState<string[] | null>(null);
 
-  const goCamIdToItem = useMemo(() => getGoCamStructures(data), [data]);
+  const goCamIdToItem = useMemo(
+    () => getGoCamStructures(allGoCamIdsResponse.data),
+    [allGoCamIdsResponse.data]
+  );
 
   useEffect(() => {
     const promises = Array.from(goCamIdToItem.keys()).map((id) =>
@@ -77,46 +80,74 @@ const GoCam = ({ primaryAccession }: Props) => {
     }
   }, [uniprotGoCamIds]);
 
-  if (loading) {
-    return <Loader />;
+  const loadingUniprotGoCamIds = uniprotGoCamIds === null;
+
+  let content: ReactNode;
+  if (allGoCamIdsResponse.loading || loadingUniprotGoCamIds) {
+    content = (
+      <>
+        Searching Gene Ontology knowledgebase for GO-CAM models.
+        <Loader />
+      </>
+    );
+  } else if (allGoCamIdsResponse.error) {
+    content = (
+      <ErrorHandler
+        status={allGoCamIdsResponse.status}
+        error={allGoCamIdsResponse.error}
+        noReload
+      />
+    );
+  } else if (
+    !goCamIdToItem.size ||
+    (Array.isArray(uniprotGoCamIds) && uniprotGoCamIds.length === 0)
+  ) {
+    content = (
+      <>
+        UniProt curated GO-CAM models have not been found for this entry within
+        the Gene Ontology knowledgebase.{' '}
+        <ExternalLink url={externalUrls.GeneOntologyUniprotCuratedModels}>
+          Browse all available UniProt curated GO-CAM models.
+        </ExternalLink>
+      </>
+    );
   }
+  // {/* TODO: update data-article-id with new GO-CAM article */}
+  else if (!isSmallScreen && selectedId) {
+    content = (
+      <>
+        <div className={styles.preamble} data-article-id="gene_ontology">
+          Gene Ontology Causal Activity Models (GO-CAM) associated with this
+          entry.
+        </div>
 
-  if (error) {
-    return <ErrorHandler status={status} error={error} noReload />;
-  }
-
-  if (isSmallScreen || !goCamIdToItem.size || !selectedId) {
-    return null;
-  }
-
-  return (
-    <div className={styles['go-cam-container']}>
-      {/* TODO: update data-article-id with new GO-CAM article */}
-      <div className={styles.preamble} data-article-id="gene_ontology">
-        Gene Ontology Causal Activity Models (GO-CAM) associated with this
-        entry.
-      </div>
-
-      <label>
-        Select GO-CAM model
-        <select
-          value={selectedId}
-          onChange={(e) => setSelectedId(e.target.value)}
-          className={styles['id-select']}
+        <label>
+          Select GO-CAM model
+          <select
+            value={selectedId}
+            onChange={(e) => setSelectedId(e.target.value)}
+            className={styles['id-select']}
+          >
+            {uniprotGoCamIds.map((id) => (
+              <option value={id} key={id}>
+                {goCamIdToItem.get(id)?.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <GoCamViz id={selectedId} />
+        <ExternalLink
+          url={externalUrls.NoctuaAlliancePathwayPreview(selectedId)}
         >
-          {uniprotGoCamIds.map((id) => (
-            <option value={id} key={id}>
-              {goCamIdToItem.get(id)?.label}
-            </option>
-          ))}
-        </select>
-      </label>
-      <GoCamViz id={selectedId} />
-      <ExternalLink url={externalUrls.NoctuaAlliancePathwayPreview(selectedId)}>
-        View in Noctua Alliance Pathway Preview
-      </ExternalLink>
-    </div>
-  );
+          View in Noctua Alliance Pathway Preview
+        </ExternalLink>
+      </>
+    );
+  }
+
+  return content ? (
+    <div className={styles['go-cam-container']}>{content}</div>
+  ) : null;
 };
 
 export default GoCam;

@@ -369,7 +369,7 @@ const FunctionSection = ({
       />
       <ErrorBoundary>
         <Tabs>
-          <Tab title="GO annotations">
+          <Tab cache title="GO annotations">
             <Suspense fallback={<Loader />}>
               <GoRibbon
                 primaryAccession={primaryAccession}
@@ -380,6 +380,7 @@ const FunctionSection = ({
             </Suspense>
           </Tab>
           <Tab
+            cache
             title={
               <>
                 GO-Causal Activity Models<Chip compact>New</Chip>
