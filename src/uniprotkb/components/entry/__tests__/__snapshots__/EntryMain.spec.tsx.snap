@@ -682,7 +682,7 @@ exports[`Entry view should render 1`] = `
               role="tab"
               tabindex="0"
             >
-              GO-CAM 
+              GO-CAM Models
               <button
                 class="chip chip--compact"
                 type="button"
@@ -4642,7 +4642,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               role="tab"
               tabindex="0"
             >
-              GO-CAM 
+              GO-CAM Models
               <button
                 class="chip chip--compact"
                 type="button"
