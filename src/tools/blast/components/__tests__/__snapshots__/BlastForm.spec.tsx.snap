@@ -20,13 +20,17 @@ exports[`BlastForm test Renders the form 1`] = `
         class="tools-form-section__item"
       >
         <legend>
-          Find a protein sequence to run 
+          <span>
+            Find a protein sequence to run 
+          </span>
           <abbr
             title="Basic Local Alignment Search Tool"
           >
             BLAST
           </abbr>
-           sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+          <span>
+             sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+          </span>
         </legend>
         <div
           class="import-sequence-section"

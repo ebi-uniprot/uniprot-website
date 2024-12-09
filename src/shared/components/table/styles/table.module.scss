@@ -9,13 +9,13 @@
   padding: 0;
   margin: 1em 0;
   border-spacing: 0;
-  border-block-end: 1px solid #c2c4c4;
+  border-block-end: 1px solid var(--table_border);
 
   & th {
     text-align: left;
     vertical-align: middle;
-    background-color: var(--protvista-datable__header-background, #fff);
-    color: var(--protvista-datable__header-text, #393b42);
+    background-color: var(--table__header-background,);
+    color: var(--table__header-text);
     text-overflow: ellipsis;
     text-transform: uppercase;
   }
@@ -23,7 +23,7 @@
   & td,
   & th {
     padding: 0.2rem 1ch;
-    border-block-start: 1px solid #c2c4c4;
+    border-block-start: 1px solid var(--table_border);
   }
 
   & thead :global(.dropdown) > button {
@@ -36,10 +36,10 @@
 }
 
 .row {
-  background-color: var(--protvista-datatable__even, #fff);
+  background-color: var(--table__even);
 
   &.odd {
-    background-color: var(--protvista-datatable__odd, #e4e8eb);
+    background-color: var(--table__odd);
   }
 
   &:hover {
@@ -47,7 +47,7 @@
     /* => keep groups of rows highlighted in sync */
     &,
     & + .extra-content {
-      background-color: var(--protvista-datatable__hover, #f1f1f1);
+      background-color: var(--table__hover);
     }
   }
 
@@ -69,7 +69,7 @@
   }
 
   &.extra-content td {
-    border-color: #c2c4c455;
+    border-color: var(--table_border);
   }
 }
 
@@ -78,5 +78,5 @@
 /* Select a row that has a next .extra-content sibling that is hovered */
 /* => keep groups of rows highlighted in sync */
 .row:has(+ .extra-content:hover) {
-  background-color: var(--protvista-datatable__hover, #f1f1f1);
+  background-color: var(--table__hover);
 }

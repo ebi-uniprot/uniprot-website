@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2024-10-01
+// Retrieved: 2024-11-26
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -1200,7 +1200,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'DisGeNET',
     category: 'ORG',
     uriLink:
-      'https://www.disgenetplus.com/examples?view=GENES&idents=%id&source=ALL&tab=GDA&newSearch=false',
+      'https://www.disgenet.com/search?view=GENES&idents=%id&source=ALL&tab=GDA',
     attributes: [
       {
         name: 'Description',
@@ -2019,10 +2019,38 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
+    name: 'AntiFam',
+    displayName: 'AntiFam',
+    category: 'FMD',
+    uriLink: 'https://www.ebi.ac.uk/interpro/entry/antifam/%id',
+    attributes: [
+      {
+        name: 'EntryName',
+        xmlTag: 'entry name',
+      },
+    ],
+  },
+  {
     name: 'CDD',
     displayName: 'CDD',
     category: 'FMD',
     uriLink: 'https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=%id',
+    attributes: [
+      {
+        name: 'EntryName',
+        xmlTag: 'entry name',
+      },
+      {
+        name: 'MatchStatus',
+        xmlTag: 'match status',
+      },
+    ],
+  },
+  {
+    name: 'FunFam',
+    displayName: 'FunFam',
+    category: 'FMD',
+    uriLink: 'https://www.cathdb.info/version/latest/superfamily/%id',
     attributes: [
       {
         name: 'EntryName',
@@ -2452,7 +2480,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'IC4R',
     displayName: 'IC4R',
     category: 'ORG',
-    uriLink: 'http://ic4r.org/osGene/%id',
+    uriLink: 'https://ngdc.cncb.ac.cn/ic4r/osGene/%id',
     attributes: [
       {
         name: 'Description',

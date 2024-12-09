@@ -2,7 +2,7 @@ import { SearchResults } from '../../../../../shared/types/results';
 import { CitationsAPIModel } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 
 // Source: uniprotkb/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
-// Retrieved: 2024-10-01
+// Retrieved: 2024-11-26
 const mock: SearchResults<Partial<CitationsAPIModel>> = {
   facets: [
     {
@@ -34,7 +34,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       values: [
         {
           value: 'Interaction',
-          count: 26,
+          count: 27,
         },
         {
           value: 'Function',
@@ -62,14 +62,14 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
         {
           value: 'Family & Domains',
-          count: 2,
-        },
-        {
-          value: 'Unclassified',
-          count: 2,
+          count: 3,
         },
         {
           value: 'Structure',
+          count: 1,
+        },
+        {
+          value: 'Unclassified',
           count: 1,
         },
       ],
@@ -357,7 +357,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 10291,
+        reviewedProteinCount: 10290,
         unreviewedProteinCount: 2613,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -640,7 +640,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 1873,
-        unreviewedProteinCount: 4965,
+        unreviewedProteinCount: 4961,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -776,8 +776,8 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 32625,
-        unreviewedProteinCount: 17764,
+        reviewedProteinCount: 32624,
+        unreviewedProteinCount: 17761,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },

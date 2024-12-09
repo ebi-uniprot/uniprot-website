@@ -1,6 +1,5 @@
 import { Sequence } from '../../shared/types/sequence';
 import { EntryType } from '../../shared/components/entry/EntryTypeIcon';
-import EntrySection from '../types/entrySection';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export enum XRefsInternalDatabasesEnum {
@@ -18,6 +17,11 @@ export const databaseToEntryType = new Map<
   ['UniProtKB/TrEMBL', EntryType.UNREVIEWED],
 ]);
 
+type Property = {
+  key: string;
+  value: string;
+};
+
 // made completely partial as it depends a lot on the fields requested to API
 export type UniParcXRef = Partial<{
   active: boolean;
@@ -28,6 +32,7 @@ export type UniParcXRef = Partial<{
   lastUpdated: string;
   ncbiGi: string;
   organism: TaxonomyDatum;
+  properties: Property[];
   proteinName: string;
   proteomeId: string;
   component: string;
@@ -39,6 +44,7 @@ export type UniParcXRef = Partial<{
 export type SequenceFeatureLocation = {
   start: number;
   end: number;
+  alignment?: string;
 };
 
 export type SequenceFeature = {
@@ -51,6 +57,32 @@ export type SequenceFeature = {
   locations: SequenceFeatureLocation[];
 };
 
+type CommonTaxon = {
+  topLevel: string;
+  commonTaxon: string;
+  commonTaxonId: number;
+};
+
+type Proteome = {
+  id: string;
+  component: string;
+};
+
+export type UniParcLiteAPIModel = {
+  uniParcId: string;
+  crossReferenceCount: number;
+  commonTaxons?: CommonTaxon[];
+  uniProtKBAccessions?: string[];
+  sequence: Sequence;
+  sequenceFeatures?: SequenceFeature[];
+  oldestCrossRefCreated?: string;
+  mostRecentCrossRefUpdated?: string;
+  geneNames?: string[];
+  organisms?: TaxonomyDatum[];
+  proteinNames?: string[];
+  proteomes?: Proteome[];
+};
+
 export type UniParcAPIModel = {
   uniParcId: string;
   uniParcCrossReferences?: UniParcXRef[];
@@ -58,17 +90,18 @@ export type UniParcAPIModel = {
   oldestCrossRefCreated?: string;
   sequenceFeatures?: SequenceFeature[];
   sequence: Sequence;
+  uniProtKBAccessions?: string[];
   from?: string; // ID Mapping results
 };
 
-export type UniParcUIModel = UniParcAPIModel & {
-  // any addition/change by the converter
-  [EntrySection.XRefs]: UniParcXRef[];
-};
+export type UniParcUIModel<
+  T extends UniParcAPIModel | UniParcLiteAPIModel = UniParcLiteAPIModel,
+> = T;
 
-const uniParcConverter = (data: UniParcAPIModel): UniParcUIModel => ({
+const uniParcConverter = <T extends UniParcAPIModel | UniParcLiteAPIModel>(
+  data: T
+): UniParcUIModel<T> => ({
   ...data,
-  [EntrySection.XRefs]: data.uniParcCrossReferences || [],
 });
 
 export default uniParcConverter;

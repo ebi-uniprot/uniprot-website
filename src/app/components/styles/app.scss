@@ -108,3 +108,21 @@ protvista-manager {
 //     }
 //   }
 // }
+
+:root {
+  --table__even: #fff;
+  --table__header-background: #fff;
+  --table__header-text: #393b42;
+  --table__odd: #e4e8eb;
+  --table_border: #c2c4c4;
+  --table_hover: #f1f1f1;
+}
+
+/* Make sure to not animate views if user has prefers-reduced-motion on */
+@media (prefers-reduced-motion) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

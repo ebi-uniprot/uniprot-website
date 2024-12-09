@@ -18,6 +18,16 @@ const ntSequence = 'ATCGAGCGATAGCGAGGGAC';
 
 let rendered: ReturnType<typeof customRender>;
 
+const setTextArea = async (textArea: HTMLElement, value: string) => {
+  fireEvent.change(textArea, { target: { value } });
+  // Don't wait for ChecksumSuggester to show anything as we're not testing that here
+  await waitFor(() => {
+    expect(
+      screen.queryByText('This exact sequence has been found')
+    ).not.toBeInTheDocument();
+  });
+};
+
 describe('BlastForm test', () => {
   beforeEach(() => {
     rendered = customRender(<BlastForm />);
@@ -37,20 +47,21 @@ describe('BlastForm test', () => {
     const sequenceTypeSelect = screen.getByRole<HTMLSelectElement>('combobox', {
       name: 'Sequence type',
     });
-    fireEvent.change(textArea, { target: { value: aaSequence } });
+
+    setTextArea(textArea, aaSequence);
     expect(sequenceTypeSelect.value).toBe('protein');
-    fireEvent.change(textArea, { target: { value: ntSequence } });
+    setTextArea(textArea, ntSequence);
     expect(sequenceTypeSelect.value).toBe('dna');
   });
 
-  it('Sets the program type based on the sequence', () => {
+  it('Sets the program type based on the sequence', async () => {
     const textArea = screen.getByTestId('sequence-submission-input');
     const programSelect = screen.getByRole<HTMLSelectElement>('combobox', {
       name: 'Program',
     });
-    fireEvent.change(textArea, { target: { value: aaSequence } });
+    setTextArea(textArea, aaSequence);
     expect(programSelect.value).toBe('blastp');
-    fireEvent.change(textArea, { target: { value: ntSequence } });
+    setTextArea(textArea, ntSequence);
     expect(programSelect.value).toBe('blastx');
   });
 
@@ -60,9 +71,7 @@ describe('BlastForm test', () => {
       name: 'Name your BLAST job',
     });
     expect(jobNameField.value).toBe('');
-    fireEvent.change(textArea, {
-      target: { value: `>some_FASTA_header extra info\n${aaSequence}` },
-    });
+    setTextArea(textArea, `>some_FASTA_header extra info\n${aaSequence}`);
     expect(jobNameField.value).toBe('some_FASTA_header');
   });
 
@@ -75,9 +84,7 @@ describe('BlastForm test', () => {
       target: { value: 'My job name' },
     });
     expect(jobNameField.value).toBe('My job name');
-    fireEvent.change(textArea, {
-      target: { value: `>some_FASTA_header extra info\n${aaSequence}` },
-    });
+    setTextArea(textArea, `>some_FASTA_header extra info\n${aaSequence}`);
     expect(jobNameField.value).toBe('My job name');
   });
 
@@ -90,9 +97,7 @@ describe('BlastForm test', () => {
       target: { value: 'blastx' },
     });
     expect(programSelect.value).toBe('blastx');
-    fireEvent.change(textArea, {
-      target: { value: `>some_FASTA_header extra info\n${aaSequence}` },
-    });
+    setTextArea(textArea, `>some_FASTA_header extra info\n${aaSequence}`);
     expect(programSelect.value).toBe('blastx');
   });
 
@@ -102,33 +107,28 @@ describe('BlastForm test', () => {
       name: 'Sequence type',
     });
     fireEvent.change(sequenceTypeSelect, { target: { value: 'dna' } });
-    fireEvent.change(textArea, { target: { value: aaSequence } });
+    setTextArea(textArea, aaSequence);
     expect(sequenceTypeSelect.value).toBe('dna');
   });
 
-  it('Informs the user about the automatic matrix based on the sequence', () => {
+  it('Informs the user about the automatic matrix based on the sequence', async () => {
     const textArea = screen.getByTestId('sequence-submission-input');
-    fireEvent.change(textArea, { target: { value: aaSequence } });
+    setTextArea(textArea, aaSequence);
     const matrix = screen.getByRole<HTMLOptionElement>('option', {
       name: /Auto/,
     });
     expect(matrix.text).toEqual('Auto - PAM30');
     expect(matrix.value).toEqual('auto');
-    fireEvent.change(textArea, {
-      target: { value: `${aaSequence}${aaSequence}` },
-    });
+    await setTextArea(textArea, `${aaSequence}${aaSequence}`);
     expect(matrix.text).toEqual('Auto - PAM70');
     expect(matrix.value).toEqual('auto');
-    fireEvent.change(textArea, {
-      target: { value: `${aaSequence}${aaSequence}${aaSequence}` },
-    });
+    await setTextArea(textArea, `${aaSequence}${aaSequence}${aaSequence}`);
     expect(matrix.text).toEqual('Auto - BLOSUM80');
     expect(matrix.value).toEqual('auto');
-    fireEvent.change(textArea, {
-      target: {
-        value: `${aaSequence}${aaSequence}${aaSequence}${aaSequence}${aaSequence}`,
-      },
-    });
+    await setTextArea(
+      textArea,
+      `${aaSequence}${aaSequence}${aaSequence}${aaSequence}${aaSequence}`
+    );
     expect(matrix.text).toEqual('Auto - BLOSUM62');
     expect(matrix.value).toEqual('auto');
   });
@@ -155,7 +155,7 @@ describe('BlastForm test', () => {
     const textArea = screen.getByTestId<HTMLTextAreaElement>(
       'sequence-submission-input'
     );
-    fireEvent.change(textArea, { target: { value: aaSequence } });
+    setTextArea(textArea, aaSequence);
 
     fireEvent.click(resetButton);
 
@@ -166,16 +166,12 @@ describe('BlastForm test', () => {
     jest.useFakeTimers();
     const { history } = rendered;
     const submitButton = screen.getByRole('button', { name: 'Run BLAST' });
-
     const textArea = screen.getByTestId<HTMLTextAreaElement>(
       'sequence-submission-input'
     );
-    fireEvent.change(textArea, { target: { value: aaSequence } });
-
+    setTextArea(textArea, aaSequence);
     fireEvent.submit(submitButton);
-
     expect(submitButton).toBeDisabled();
-
     jest.runAllTimers();
     await waitFor(() =>
       expect(history.location.pathname).toContain(

@@ -47,12 +47,12 @@ exports[`Components view should render 1`] = `
                   class="checkbox-cell"
                 >
                   <input
-                    id="28"
+                    id="29"
                     type="checkbox"
                   />
                   <label
                     aria-label="Selection control for all visible items"
-                    for="28"
+                    for="29"
                   />
                 </div>
               </th>
@@ -107,10 +107,127 @@ exports[`Components view should render 1`] = `
                     width="12.5"
                   />
                 </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270706"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270706
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270707"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270707
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270708"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270708
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270709"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270709
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270710"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270710
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270711"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270711
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270712"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270712
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270713"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270713
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270714"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270714
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 1")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+1%22%29"
                 >
                   6,950
                 </a>
@@ -176,9 +293,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 2")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+2%22%29"
                 >
-                  5,468
+                  5,467
                 </a>
               </td>
             </tr>
@@ -229,7 +346,7 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 3")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+3%22%29"
                 >
                   4,921
                 </a>
@@ -282,9 +399,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 4")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+4%22%29"
                 >
-                  3,087
+                  3,086
                 </a>
               </td>
             </tr>
@@ -335,9 +452,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 5")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+5%22%29"
                 >
-                  3,456
+                  3,455
                 </a>
               </td>
             </tr>
@@ -375,9 +492,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 6")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+6%22%29"
                 >
-                  3,552
+                  3,550
                 </a>
               </td>
             </tr>
@@ -415,9 +532,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 7")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+7%22%29"
                 >
-                  3,622
+                  3,623
                 </a>
               </td>
             </tr>
@@ -455,9 +572,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 8")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+8%22%29"
                 >
-                  2,982
+                  2,980
                 </a>
               </td>
             </tr>
@@ -492,12 +609,64 @@ exports[`Components view should render 1`] = `
                     width="12.5"
                   />
                 </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270717"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270717
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270718"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270718
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270719"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270719
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270720"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270720
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 9")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+9%22%29"
                 >
-                  2,647
+                  2,646
                 </a>
               </td>
             </tr>
@@ -548,9 +717,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 10")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+10%22%29"
                 >
-                  2,794
+                  2,793
                 </a>
               </td>
             </tr>
@@ -588,7 +757,7 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome X")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+X%22%29"
                 >
                   2,624
                 </a>
@@ -641,9 +810,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 11")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+11%22%29"
                 >
-                  5,252
+                  5,256
                 </a>
               </td>
             </tr>
@@ -681,9 +850,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 12")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+12%22%29"
                 >
-                  4,773
+                  4,771
                 </a>
               </td>
             </tr>
@@ -721,7 +890,7 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 13")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+13%22%29"
                 >
                   1,094
                 </a>
@@ -797,12 +966,77 @@ exports[`Components view should render 1`] = `
                     width="12.5"
                   />
                 </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270722"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270722
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270723"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270723
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270724"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270724
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270725"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270725
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270726"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270726
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 14")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+14%22%29"
                 >
-                  3,117
+                  3,121
                 </a>
               </td>
             </tr>
@@ -853,9 +1087,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 15")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+15%22%29"
                 >
-                  2,743
+                  2,744
                 </a>
               </td>
             </tr>
@@ -906,9 +1140,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 16")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+16%22%29"
                 >
-                  4,153
+                  4,157
                 </a>
               </td>
             </tr>
@@ -985,9 +1219,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 17")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+17%22%29"
                 >
-                  5,489
+                  5,491
                 </a>
               </td>
             </tr>
@@ -1025,7 +1259,7 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 18")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+18%22%29"
                 >
                   1,366
                 </a>
@@ -1065,9 +1299,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 19")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+19%22%29"
                 >
-                  5,909
+                  5,907
                 </a>
               </td>
             </tr>
@@ -1105,7 +1339,7 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 20")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+20%22%29"
                 >
                   1,792
                 </a>
@@ -1145,9 +1379,9 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 21")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+21%22%29"
                 >
-                  677
+                  675
                 </a>
               </td>
             </tr>
@@ -1182,12 +1416,129 @@ exports[`Components view should render 1`] = `
                     width="12.5"
                   />
                 </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270731"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270731
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270732"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270732
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270733"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270733
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270734"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270734
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270735"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270735
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270736"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270736
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270737"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270737
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270738"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270738
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=KI270739"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  KI270739
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome 22")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+22%22%29"
                 >
-                  1,752
+                  1,756
                 </a>
               </td>
             </tr>
@@ -1238,7 +1589,7 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Chromosome Y")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+Y%22%29"
                 >
                   107
                 </a>
@@ -1278,9 +1629,49 @@ exports[`Components view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:"Mitochondrion MT")"
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Mitochondrion+MT%22%29"
                 >
-                  2,135
+                  16
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Unplaced"
+                  id="27"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Unplaced"
+                  for="27"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </td>
+              <td>
+                Unplaced
+              </td>
+              <td>
+                <a
+                  class="external-link"
+                  href="https://www.ensembl.org/9606/Location/Chromosome?r=HUMAN_Unplc_25"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  HUMAN_Unplc_25
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
+              <td>
+                <a
+                  href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Unplaced%22%29"
+                >
+                  3,074
                 </a>
               </td>
             </tr>

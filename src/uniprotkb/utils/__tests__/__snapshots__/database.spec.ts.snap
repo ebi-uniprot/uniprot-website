@@ -43,7 +43,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PathwayCommons",
     ],
     "FMD": [
+      "AntiFam",
       "CDD",
+      "FunFam",
       "Gene3D",
       "HAMAP",
       "IDEAL",
@@ -237,6 +239,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
     "Alzforum": "GVD",
+    "AntiFam": "FMD",
     "Antibodypedia": "PAM",
     "ArachnoServer": "ORG",
     "Araport": "ORG",
@@ -288,6 +291,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "EvolutionaryTrace": "MISC",
     "ExpressionAtlas": "GEP",
     "FlyBase": "ORG",
+    "FunFam": "FMD",
     "GO": "OTG",
     "GPCRDB": "PFAM",
     "GenAtlas": "ORG",
@@ -482,6 +486,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "Alzforum",
       "name": "Alzforum",
       "uriLink": "https://www.alzforum.org/node/%id",
+    },
+    "AntiFam": {
+      "attributes": [
+        {
+          "name": "EntryName",
+          "xmlTag": "entry name",
+        },
+      ],
+      "category": "FMD",
+      "displayName": "AntiFam",
+      "name": "AntiFam",
+      "uriLink": "https://www.ebi.ac.uk/interpro/entry/antifam/%id",
     },
     "Antibodypedia": {
       "attributes": [
@@ -894,7 +910,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "DisGeNET",
       "name": "DisGeNET",
-      "uriLink": "https://www.disgenetplus.com/examples?view=GENES&idents=%id&source=ALL&tab=GDA&newSearch=false",
+      "uriLink": "https://www.disgenet.com/search?view=GENES&idents=%id&source=ALL&tab=GDA",
     },
     "DisProt": {
       "attributes": [
@@ -1158,6 +1174,22 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "FlyBase",
       "name": "FlyBase",
       "uriLink": "https://flybase.org/reports/%id.html",
+    },
+    "FunFam": {
+      "attributes": [
+        {
+          "name": "EntryName",
+          "xmlTag": "entry name",
+        },
+        {
+          "name": "MatchStatus",
+          "xmlTag": "match status",
+        },
+      ],
+      "category": "FMD",
+      "displayName": "FunFam",
+      "name": "FunFam",
+      "uriLink": "https://www.cathdb.info/version/latest/superfamily/%id",
     },
     "GO": {
       "attributes": [
@@ -1486,7 +1518,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "IC4R",
       "name": "IC4R",
-      "uriLink": "http://ic4r.org/osGene/%id",
+      "uriLink": "https://ngdc.cncb.ac.cn/ic4r/osGene/%id",
     },
     "IDEAL": {
       "attributes": [
@@ -3049,7 +3081,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OrthoDB",
       "PhylomeDB",
       "TreeFam",
+      "AntiFam",
       "CDD",
+      "FunFam",
       "Gene3D",
       "HAMAP",
       "IDEAL",

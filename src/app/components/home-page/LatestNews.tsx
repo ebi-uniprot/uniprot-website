@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'When humans migrated from Africa to other parts of the globe, they carried with them a certain set of genes. Over the many thousands of years that have passed since, a good deal of these genes have been subjected to minor or perhaps major changes as our ancestors adapted...';
+  'Drosophila flies are born with four pairs of chromosomes in each of their cells. It is the genetic heritage they receive from their genitors...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -124,6 +124,28 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2024-11-27-release',
+                  })}
+                >
+                  UniProt release 2024_06
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                What happens when ribosomes crash | Cross-references to FunFam |
+                Cross-references to AntiFam
               </p>
             </article>
           </li>
@@ -335,21 +357,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/273/"
+            url="https://www.proteinspotlight.org/back_issues/274/"
             noIcon
           >
-            Shift
+            On dosing and compensating
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/273/"
+          url="https://www.proteinspotlight.org/back_issues/274/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt273.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt274.jpg"
             alt=""
             width="123"
             height="129"

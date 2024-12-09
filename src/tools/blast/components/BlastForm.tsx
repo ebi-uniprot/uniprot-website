@@ -23,6 +23,7 @@ import SequenceSearchLoader, {
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
@@ -131,12 +132,20 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
-    useReducer(
-      getBlastFormDataReducer(defaultFormValues),
-      initialFormValues,
-      getBlastFormInitialState
-    );
+  const [
+    {
+      parsedSequences,
+      formValues,
+      sending,
+      submitDisabled,
+      fromSequenceSearchLoader,
+    },
+    dispatch,
+  ] = useReducer(
+    getBlastFormDataReducer(defaultFormValues),
+    initialFormValues,
+    getBlastFormInitialState
+  );
 
   useEffect(() => {
     dispatch(resetFormState(initialFormValues));
@@ -315,15 +324,18 @@ const BlastForm = ({ initialFormValues }: Props) => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein sequence to run{' '}
-              <abbr title="Basic Local Alignment Search Tool">BLAST</abbr>{' '}
-              sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN
-              or UPI0000000001).
+              <span>Find a protein sequence to run </span>
+              <abbr title="Basic Local Alignment Search Tool">BLAST</abbr>
+              <span>
+                {' '}
+                sequence similarity search by UniProt ID (e.g. P05067 or
+                A4_HUMAN or UPI0000000001).
+              </span>
             </legend>
             <div className="import-sequence-section">
               <SequenceSearchLoader
                 ref={sslRef}
-                onLoad={(s) => dispatch(updateParsedSequences(s))}
+                onLoad={(s) => dispatch(updateParsedSequences(s, true))}
               />
             </div>
           </section>
@@ -347,6 +359,12 @@ const BlastForm = ({ initialFormValues }: Props) => {
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
               maximumSequences={BLAST_LIMIT}
             />
+            {fromSequenceSearchLoader || parsedSequences.length !== 1 ? null : (
+              <ChecksumSuggester
+                sequence={parsedSequences[0].sequence}
+                name={parsedSequences[0].name}
+              />
+            )}
           </section>
           <section className="tools-form-section">
             <FormSelect

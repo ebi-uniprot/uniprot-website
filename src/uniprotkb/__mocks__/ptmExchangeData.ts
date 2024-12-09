@@ -1,7 +1,7 @@
 import { ProteomicsPtm } from '../types/proteomicsPtm';
 
 // Source: https://www.ebi.ac.uk/proteins/api/proteomics-ptm/Q653S1
-// Retrieved: 2024-10-01
+// Retrieved: 2024-11-26
 // TODO: replace this with a human entry when it is released
 const data: ProteomicsPtm = {
   accession: 'Q653S1',
@@ -27,7 +27,7 @@ const data: ProteomicsPtm = {
           code: 'ECO:0007829',
           source: {
             id: 'AAESDVNVSSPR',
-            url: 'https://www.ebi.ac.uk/pride/peptidome/peptidedetails?keyword=AAESDVNVSSPR&proteinAccession=Q653S1',
+            url: 'https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=539&action=QUERY&searchWithinThis=Peptide+Sequence&searchForThis=AAESDVNVSSPR',
           },
         },
       ],
@@ -75,7 +75,7 @@ const data: ProteomicsPtm = {
           code: 'ECO:0007829',
           source: {
             id: 'AAESDVNVSSPR',
-            url: 'https://www.ebi.ac.uk/pride/peptidome/peptidedetails?keyword=AAESDVNVSSPR&proteinAccession=Q653S1',
+            url: 'https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=539&action=QUERY&searchWithinThis=Peptide+Sequence&searchForThis=AAESDVNVSSPR',
           },
         },
       ],

@@ -1,16 +1,16 @@
 import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P0DTR4
-// Retrieved: 2024-10-01
+// Retrieved: 2024-11-26
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P0DTR4',
   uniProtkbId: 'ADAC_FLAPL',
   entryAudit: {
     firstPublicDate: '2019-11-13',
-    lastAnnotationUpdateDate: '2024-07-24',
+    lastAnnotationUpdateDate: '2024-11-27',
     lastSequenceUpdateDate: '2019-11-13',
-    entryVersion: 14,
+    entryVersion: 15,
     sequenceVersion: 1,
   },
   annotationScore: 5,
@@ -106,7 +106,7 @@ const mock: UniProtkbAPIModel = {
     {
       commentType: 'CATALYTIC ACTIVITY',
       reaction: {
-        name: 'an N-acetyl-alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative',
+        name: 'an N-acetyl-alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative + H2O = an alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative + acetate',
         reactionCrossReferences: [
           {
             database: 'Rhea',

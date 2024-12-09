@@ -358,7 +358,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
             href="/uniprotkb?query=(*) AND (taxonomy_id:131567)"
             title="UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query:(*)"
           >
-            237,728,512
+            240,721,337
           </a>
         </span>
         <span
@@ -373,11 +373,11 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 237,728,512 which is 96.70% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 240,721,337 which is 96.74% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 290.0948363332847px;"
+            style="width: 290.2134870101714px;"
           />
           <span
             class="percentage"
@@ -473,11 +473,11 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query (*) is 2,426,677 which is 0.99% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query (*) is 2,426,677 which is 0.98% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 2.961220180222835px;"
+            style="width: 2.9256002097453524px;"
           />
           <span
             class="percentage"
@@ -508,7 +508,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
             href="/uniprotkb?query=(*) AND (taxonomy_id:10239)"
             title="UniProtKB search results with Taxonomy: Viruses (ID:10239) and query:(*)"
           >
-            5,689,299
+            5,689,711
           </a>
         </span>
         <span
@@ -523,11 +523,11 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: Viruses (ID:10239) and query (*) is 5,689,299 which is 2.31% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: Viruses (ID:10239) and query (*) is 5,689,711 which is 2.29% of all sibling results."
         >
           <span
             class="bar"
-            style="width: 6.942525523636476px;"
+            style="width: 6.859511873640554px;"
           />
           <span
             class="percentage"

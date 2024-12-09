@@ -231,7 +231,7 @@ const LandingPage = () => {
                           accession: 'reference_proteome',
                         })}
                       >
-                        What is a reference proteomes?
+                        What is a reference proteome?
                       </Link>
                     </em>
                   </small>
@@ -275,7 +275,9 @@ const LandingPage = () => {
             <p>
               Reference proteomes
               <br />
-              <ExternalLink url={`${ftpUrls.referenceProteomes()}README`}>
+              <ExternalLink
+                url={joinUrl(ftpUrls.referenceProteomes(), 'README')}
+              >
                 README
               </ExternalLink>
               <ExternalLink url={ftpUrls.referenceProteomes()}>
@@ -285,7 +287,7 @@ const LandingPage = () => {
             <p>
               Pan proteomes
               <br />
-              <ExternalLink url={`${ftpUrls.panProteomes()}README`}>
+              <ExternalLink url={joinUrl(ftpUrls.panProteomes(), 'README')}>
                 README
               </ExternalLink>
               <ExternalLink url={ftpUrls.panProteomes()}>FTP</ExternalLink>

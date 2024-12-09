@@ -1,6 +1,6 @@
 import { getSource, getXRefsForId, isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
-  UniParcAPIModel,
+  UniParcLiteAPIModel,
   UniParcUIModel,
   UniParcXRef,
   databaseToEntryType,
@@ -16,15 +16,12 @@ export type UniParcSubEntryUIModel = {
 };
 
 const uniParcSubEntryConverter = (
-  entryData: UniParcAPIModel,
+  entryData: UniParcLiteAPIModel,
   subEntryId: string
 ): UniParcSubEntryUIModel | null => {
   const transformedEntryData = uniParcConverter(entryData);
 
-  const subEntryData = getXRefsForId(
-    subEntryId,
-    transformedEntryData.uniParcCrossReferences
-  );
+  const subEntryData = getXRefsForId(subEntryId);
 
   if (!subEntryData) {
     return null;
@@ -34,9 +31,7 @@ const uniParcSubEntryConverter = (
   );
 
   const isSource = isSourceDatabase(subEntryData.database);
-  const source = isSource
-    ? undefined
-    : getSource(subEntryData.organism, transformedEntryData.cross_references);
+  const source = isSource ? undefined : getSource(subEntryData.organism);
 
   return {
     entry: transformedEntryData,
