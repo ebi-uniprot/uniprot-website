@@ -369,7 +369,7 @@ const FunctionSection = ({
       />
       <ErrorBoundary>
         <Tabs>
-          <Tab cache title="GO annotations">
+          <Tab title="GO annotations">
             <Suspense fallback={<Loader />}>
               <GoRibbon
                 primaryAccession={primaryAccession}
@@ -380,7 +380,6 @@ const FunctionSection = ({
             </Suspense>
           </Tab>
           <Tab
-            cache
             title={
               <>
                 GO-CAM Models<Chip compact>New</Chip>

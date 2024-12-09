@@ -681,30 +681,13 @@ exports[`Entry view should render 1`] = `
             role="tabpanel"
           >
             <div
-              style="display: block;"
+              class="loader-container"
             >
-              <div
-                class="loader-container"
-              >
-                <test-file-stub
-                  classname="loader"
-                  height="100"
-                  width="100"
-                />
-              </div>
-            </div>
-            <div
-              style="display: none;"
-            >
-              <div
-                class="loader-container"
-              >
-                <test-file-stub
-                  classname="loader"
-                  height="100"
-                  width="100"
-                />
-              </div>
+              <test-file-stub
+                classname="loader"
+                height="100"
+                width="100"
+              />
             </div>
           </div>
         </div>
@@ -4659,161 +4642,139 @@ exports[`Entry view should render for non-human entry 1`] = `
             role="tabpanel"
           >
             <div
-              style="display: block;"
+              class="GoRibbon"
             >
               <div
-                class="GoRibbon"
+                class="preamble"
+                data-article-id="gene_ontology"
               >
-                <div
-                  class="preamble"
-                  data-article-id="gene_ontology"
-                >
-                  Gene Ontology (GO) annotations organized by slimming set.
-                </div>
-                <div
-                  class="quickgo-link"
-                >
-                  <a
-                    class="external-link"
-                    href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    Access the complete set of GO annotations on QuickGO 
-                    <test-file-stub
-                      data-testid="external-link-icon"
-                      width="12.5"
-                    />
-                  </a>
-                </div>
-                <div
-                  class="datatable-wrapper"
-                >
-                  <protvista-datatable
-                    filter-scroll="true"
-                  >
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>
-                            Aspect
-                          </th>
-                          <th>
-                            Term
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            Molecular Function
-                          </td>
-                          <td>
-                            <a
-                              class="external-link"
-                              href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
-                              rel="noopener"
-                              target="_blank"
-                            >
-                              hydrolase activity, acting on glycosyl bonds
-                              <test-file-stub
-                                data-testid="external-link-icon"
-                                width="12.5"
-                              />
-                            </a>
-                            <button
-                              aria-controls="36"
-                              aria-expanded="false"
-                              class="svg-colour-unreviewed evidence-tag"
-                              data-testid="evidence-tag-trigger"
-                              type="button"
-                            >
-                              <test-file-stub
-                                height="12"
-                                width="12"
-                              />
-                              <span
-                                class="evidence-tag__label"
-                              >
-                                Source:UniProtKB-KW
-                              </span>
-                            </button>
-                            <div
-                              class="evidence-tag-content "
-                              data-testid="evidence-tag-content"
-                              id="36"
-                            />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Molecular Function
-                          </td>
-                          <td>
-                            <a
-                              class="external-link"
-                              href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
-                              rel="noopener"
-                              target="_blank"
-                            >
-                              metal ion binding
-                              <test-file-stub
-                                data-testid="external-link-icon"
-                                width="12.5"
-                              />
-                            </a>
-                            <button
-                              aria-controls="37"
-                              aria-expanded="false"
-                              class="svg-colour-unreviewed evidence-tag"
-                              data-testid="evidence-tag-trigger"
-                              type="button"
-                            >
-                              <test-file-stub
-                                height="12"
-                                width="12"
-                              />
-                              <span
-                                class="evidence-tag__label"
-                              >
-                                Source:UniProtKB-KW
-                              </span>
-                            </button>
-                            <div
-                              class="evidence-tag-content "
-                              data-testid="evidence-tag-content"
-                              id="37"
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </protvista-datatable>
-                  <button
-                    class="button primary toggle-button"
-                    type="button"
-                  >
-                    Expand table
-                  </button>
-                </div>
+                Gene Ontology (GO) annotations organized by slimming set.
               </div>
-            </div>
-            <div
-              style="display: none;"
-            >
               <div
-                class="go-cam-container"
+                class="quickgo-link"
               >
-                Searching Gene Ontology knowledgebase for GO-CAM models.
-                <div
-                  class="loader-container"
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/QuickGO/annotations?geneProductId=P0DTR4"
+                  rel="noopener"
+                  target="_blank"
                 >
+                  Access the complete set of GO annotations on QuickGO 
                   <test-file-stub
-                    classname="loader"
-                    height="100"
-                    width="100"
+                    data-testid="external-link-icon"
+                    width="12.5"
                   />
-                </div>
+                </a>
+              </div>
+              <div
+                class="datatable-wrapper"
+              >
+                <protvista-datatable
+                  filter-scroll="true"
+                >
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
+                          Aspect
+                        </th>
+                        <th>
+                          Term
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          Molecular Function
+                        </td>
+                        <td>
+                          <a
+                            class="external-link"
+                            href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            hydrolase activity, acting on glycosyl bonds
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                          <button
+                            aria-controls="36"
+                            aria-expanded="false"
+                            class="svg-colour-unreviewed evidence-tag"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                            >
+                              Source:UniProtKB-KW
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="36"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Molecular Function
+                        </td>
+                        <td>
+                          <a
+                            class="external-link"
+                            href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            metal ion binding
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                          <button
+                            aria-controls="37"
+                            aria-expanded="false"
+                            class="svg-colour-unreviewed evidence-tag"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                            >
+                              Source:UniProtKB-KW
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="37"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </protvista-datatable>
+                <button
+                  class="button primary toggle-button"
+                  type="button"
+                >
+                  Expand table
+                </button>
               </div>
             </div>
           </div>
