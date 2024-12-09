@@ -59,19 +59,23 @@ const GoCam = ({ primaryAccession }: Props) => {
   );
 
   useEffect(() => {
-    const promises = Array.from(goCamIdToItem.keys()).map((id) =>
-      fetchData<GoCamModelInfo>(externalUrls.GeneOntologyModelInfo(id)).then(
-        (response) => ({
-          id,
-          data: response.data,
-        })
-      )
-    );
-    Promise.all(promises).then((results) => {
-      setUniprotGoCamIds(
-        results.filter(({ data }) => isUniprotCurated(data)).map(({ id }) => id)
+    if (goCamIdToItem.size) {
+      const promises = Array.from(goCamIdToItem.keys()).map((id) =>
+        fetchData<GoCamModelInfo>(externalUrls.GeneOntologyModelInfo(id)).then(
+          (response) => ({
+            id,
+            data: response.data,
+          })
+        )
       );
-    });
+      Promise.all(promises).then((results) => {
+        setUniprotGoCamIds(
+          results
+            .filter(({ data }) => isUniprotCurated(data))
+            .map(({ id }) => id)
+        );
+      });
+    }
   }, [goCamIdToItem]);
 
   useEffect(() => {
