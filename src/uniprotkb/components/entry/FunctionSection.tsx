@@ -383,7 +383,7 @@ const FunctionSection = ({
             cache
             title={
               <>
-                GO-Causal Activity Models<Chip compact>New</Chip>
+                GO-CAM Models<Chip compact>New</Chip>
               </>
             }
           >
