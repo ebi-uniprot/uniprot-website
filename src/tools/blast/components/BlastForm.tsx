@@ -359,7 +359,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
               maximumSequences={BLAST_LIMIT}
             />
-            {fromSequenceSearchLoader || !parsedSequences?.[0] ? null : (
+            {fromSequenceSearchLoader || parsedSequences.length !== 1 ? null : (
               <ChecksumSuggester
                 sequence={parsedSequences[0].sequence}
                 name={parsedSequences[0].name}
