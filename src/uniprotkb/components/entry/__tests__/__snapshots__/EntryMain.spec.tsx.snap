@@ -6210,7 +6210,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://www.cathdb.info/superfamily/2.60.40.1080"
+                      href="https://www.cathdb.info/superfamily/2.60.40.1080"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6225,7 +6225,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://www.cathdb.info/superfamily/2.60.120.260"
+                      href="https://www.cathdb.info/superfamily/2.60.120.260"
                       rel="noopener"
                       target="_blank"
                     >
@@ -6506,7 +6506,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://smart.embl.de/smart/do_annotation.pl?DOMAIN=SM00635"
+                      href="https://smart.embl.de/smart/do_annotation.pl?DOMAIN=SM00635"
                       rel="noopener"
                       target="_blank"
                     >
