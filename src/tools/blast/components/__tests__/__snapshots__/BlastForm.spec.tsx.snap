@@ -9,7 +9,11 @@ exports[`BlastForm test Renders the form 1`] = `
     <h1
       class=""
     >
-      BLAST
+      <span
+        data-article-id="blast-submission"
+      >
+        BLAST
+      </span>
     </h1>
   </div>
   <form

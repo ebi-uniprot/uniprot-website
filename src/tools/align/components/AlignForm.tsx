@@ -212,7 +212,9 @@ const AlignForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro heading={title} translate="no" />
+      <PageIntro
+        heading={<span data-article-id="sequence-alignments">{title}</span>}
+      />
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}
