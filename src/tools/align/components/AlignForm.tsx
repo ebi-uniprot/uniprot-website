@@ -212,7 +212,9 @@ const AlignForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro heading={title} translate="no" />
+      <PageIntro
+        heading={<span data-article-id="sequence-alignments">{title}</span>}
+      />
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}
@@ -253,6 +255,8 @@ const AlignForm = ({ initialFormValues }: Props) => {
               placeholder="Protein or nucleotide sequences in FASTA format."
               onChange={(s) => dispatch(updateParsedSequences(s))}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+              minimumSequences={2}
+              maximumSequences={ALIGN_LIMIT}
             />
           </section>
           <section className="tools-form-section">

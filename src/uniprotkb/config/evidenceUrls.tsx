@@ -104,7 +104,7 @@ const evidenceUrls: Record<ExternalSource, string> = {
   EnsemblProtists: ensemblGenomeslUrl,
   EuropePMC: 'https://europepmc.org/abstract/MED/%value',
   FlyBase: 'http://flybase.org/reports/%value.html',
-  HGNC: 'https://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=%value',
+  HGNC: 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/%value',
   MGI: 'http://www.informatics.jax.org/marker/%value',
   MIM: 'http://www.omim.org/entry/%value',
   PDB: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/%value',

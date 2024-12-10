@@ -218,7 +218,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               name="view"
               type="radio"
             />
-            Overview
+            Continuous
           </label>
           <label>
             <input

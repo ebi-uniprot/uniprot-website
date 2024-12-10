@@ -71,8 +71,12 @@ const externalUrls = {
   DOI: (id: string | number) => `https://dx.doi.org/${id}`,
   PubMed: (id: string | number) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
   EuropePMC: (id: string | number) => `//europepmc.org/article/MED/${id}`,
-  CommunityCurationGet: (id: string | number) =>
+  CommunityCurationGetByAccession: (id: string) =>
     `https://community.uniprot.org/cgi-bin/bbsub_query?accession=${id}`,
+  CommunityCurationGetByAccessionAndPmid: (accession: string, pmid: string) =>
+    joinUrl(
+      `https://community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}&pmid=${pmid}`
+    ),
   CommunityCurationAdd: (id: string | number) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
   RheaSearch: (id: string | number) =>

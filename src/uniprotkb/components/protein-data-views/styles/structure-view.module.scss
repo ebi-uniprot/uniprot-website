@@ -1,0 +1,31 @@
+/* By default don't display the message */
+.container :global(.message) {
+  display: none;
+}
+
+/* If no support for has, we won't show the message, it's fine */
+@supports selector(:has(*)) {
+  /* Target the message only if there's a protvista-structure with the
+  "structureid" attribute set to something that looks like an AFDB ID */
+  .container:has(protvista-structure[structureid^='AF']) {
+    & :global(.message) {
+      /* Display and revert to the default style of the message */
+      display: grid;
+      margin-block-start: 0.5em;
+
+      view-transition-name: --af-modal;
+
+      &:global(.af-modal) {
+        position: absolute;
+        inline-size: 80%;
+        margin-inline-start: 10%;
+        transform: translateY(100px);
+        z-index: 9;
+      }
+    }
+
+    &:has(:global(.af-modal)) :global(.protvista-uniprot-structure__structure) {
+      filter: blur(10px);
+    }
+  }
+}

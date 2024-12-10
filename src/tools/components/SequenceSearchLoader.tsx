@@ -4,11 +4,12 @@ import {
   useRef,
   ChangeEvent,
   ClipboardEvent,
+  KeyboardEvent,
   forwardRef,
   useImperativeHandle,
   useCallback,
 } from 'react';
-import { EllipsisReveal, SearchInput } from 'franklin-sites';
+import { EllipsisReveal, SearchInput, sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
@@ -154,12 +155,12 @@ const SequenceSearchLoader = forwardRef<
     // set ref to the value of the sequence we are about to set
     sequenceRef.current = sequence;
 
+    const processedSequence = sequenceProcessor(sequence)?.[0];
     onLoad([
       {
         raw: sequence,
-        // no need to fill the rest, it will be parsed again later
-        header: '',
-        sequence: '',
+        header: processedSequence.header || '',
+        sequence: processedSequence.sequence || '',
         valid: true,
         name: nameFromEntry(entry),
       },
@@ -176,9 +177,12 @@ const SequenceSearchLoader = forwardRef<
       const pastedContent = event.clipboardData.getData('text/plain');
       // use a Set to remove duplicate
       const potentialAccessions = new Set(
-        pastedContent.split(/[\s,;]+/).map((text) => text.toUpperCase())
+        pastedContent
+          .split(/[\s,;]+/)
+          .map((text) => text.toUpperCase().replace('UNIREF', 'UniRef'))
       );
-      if (!potentialAccessions.size) {
+      // Only load it in batch if it's multiple accessions
+      if (potentialAccessions.size <= 1) {
         return;
       }
 
@@ -263,6 +267,11 @@ const SequenceSearchLoader = forwardRef<
       onChange={(event: ChangeEvent<HTMLInputElement>) =>
         setAccessionOrID(event.target.value)
       }
+      onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      }}
       onPaste={handlePaste}
       placeholder={pasteLoading ? 'loading from pasted text' : 'UniProt IDs'}
       value={accessionOrID}

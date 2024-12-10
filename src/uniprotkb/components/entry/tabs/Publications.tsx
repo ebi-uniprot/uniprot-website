@@ -15,7 +15,10 @@ import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 
-import { addBlastLinksToFreeText } from '../../../../shared/utils/utils';
+import {
+  addBlastLinksToFreeText,
+  pluralise,
+} from '../../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
@@ -126,7 +129,11 @@ const PublicationReference = ({
         content: communityAnnotation?.disease,
       },
       {
-        title: 'Categories',
+        title: pluralise(
+          'Category',
+          sourceCategories?.length ?? 0,
+          'Categories'
+        ),
         content: sourceCategories?.join(', '),
       },
       {
@@ -219,17 +226,16 @@ const cardRendererFor =
       Except<CitationsAPIModel, 'references'> &
         Required<Pick<CitationsAPIModel, 'references'>>
     >
-  ) =>
-    (
-      <Card>
-        <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
-          <PublicationReference
-            references={data.references}
-            accession={accession}
-          />
-        </LiteratureCitation>
-      </Card>
-    );
+  ) => (
+    <Card>
+      <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
+        <PublicationReference
+          references={data.references}
+          accession={accession}
+        />
+      </LiteratureCitation>
+    </Card>
+  );
 
 const hasReference = (
   data: CitationsAPIModel

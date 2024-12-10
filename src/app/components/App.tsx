@@ -95,14 +95,25 @@ const UniProtKBLandingPage = lazy(
       /* webpackChunkName: "uniprotkb-landing" */ '../../uniprotkb/components/landing-page/LandingPage'
     )
 );
-// Landing pages
 const UniParcLandingPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniparc-landing" */ '../../uniparc/components/landing-page/LandingPage'
     )
 );
-// Main namespaces
+const ProteomesLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-landing" */ '../../proteomes/components/landing-page/LandingPage'
+    )
+);
+const UniRefLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-landing" */ '../../uniref/components/landing-page/LandingPage'
+    )
+);
+// Statistics pages
 const UniProtKBStatisticsPage = lazy(
   () =>
     import(
@@ -277,6 +288,12 @@ const HelpResults = lazy(
       /* webpackChunkName: "help-results" */ '../../help/components/results/Results'
     )
 );
+const ApiDocumentationPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "documentation" */ '../../help/components/entry/ApiDocumentation'
+    )
+);
 
 // Contact
 const ContactForm = lazy(
@@ -359,7 +376,12 @@ const RedirectToStarSearch = (
     case Namespace.uniparc:
       LandingPage = UniParcLandingPage;
       break;
-    // NOTE: add cases whenever we start implementing other landing pages
+    case Namespace.proteomes:
+      LandingPage = ProteomesLandingPage;
+      break;
+    case Namespace.uniref:
+      LandingPage = UniRefLandingPage;
+      break;
     default:
       return (
         <Redirect
@@ -558,6 +580,10 @@ const App = () => {
             <Route
               path={LocationToPath[Location.ReleaseNotesResults]}
               component={HelpResults}
+            />
+            <Route
+              path={LocationToPath[Location.Documentation]}
+              component={ApiDocumentationPage}
             />
             {/* Contact */}
             <Route

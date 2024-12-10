@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { Button, ExternalLink, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -7,6 +7,10 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import {
+  useMediumScreen,
+  useSmallScreen,
+} from '../../../shared/hooks/useMatchMedia';
 
 import {
   LocationToPath,
@@ -24,10 +28,6 @@ import { FacetsEnum } from '../../config/UniParcFacetConfiguration';
 import styles from './styles/landing-page.module.scss';
 
 import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
-import {
-  useMediumScreen,
-  useSmallScreen,
-} from '../../../shared/hooks/useMatchMedia';
 
 // TODO: when we do have videos for UniParc, update list and expose
 // const tutorialsInfo = [
@@ -47,6 +47,25 @@ import {
 //     date: new Date('2023-06-25'),
 //   },
 // ];
+
+const documentationLinks = [
+  {
+    label: 'UniParc',
+    id: 'uniparc',
+  },
+  {
+    label: 'Explore the sequence archive',
+    id: 'explore_sequence_archive',
+  },
+  {
+    label: 'UniParc data resources',
+    id: 'uniparc_data_resources',
+  },
+  {
+    label: 'Linking to UniProt',
+    id: 'linking_to_uniprot',
+  },
+];
 
 const metaDescription =
   'The UniProt sequence archive (UniParc) is a comprehensive and non-redundant database that contains most of the publicly available protein sequences in the world';
@@ -87,6 +106,16 @@ const LandingPage = () => {
     }
   }
 
+  const databaseMapping = (label: string) => {
+    if (label === 'UniProtKB') {
+      return 'uniprot';
+    }
+    if (label === 'UniProtKB/Swiss-Prot isoforms') {
+      return 'isoforms';
+    }
+    return label.replace(' ', '-');
+  };
+
   return (
     <div className={styles['landing-page']}>
       <HTMLHead title="UniProt sequence archive (UniParc)">
@@ -109,20 +138,16 @@ const LandingPage = () => {
             <Link to={getLocationEntryPath(Location.HelpEntry, 'uniparc')}>
               UniProt Archive (UniParc)
             </Link>{' '}
-            is a comprehensive and non-redundant database that contains most of
-            the publicly available protein sequences in the world. Proteins may
-            exist in different source databases and in multiple copies in the
-            same database. UniParc removes such redundancy by storing each
-            unique sequence only once and giving it a stable and unique
-            identifier (UPI) making it possible to identify the same protein
-            from different source databases. A UPI is never removed, changed or
-            reassigned. UniParc contains only protein sequences and
-            cross-references. All other information about the protein must be
-            retrieved from the source databases using the database
-            cross-references. UniParc tracks sequence changes in the source
-            databases and archives the history of all changes. UniParc has
-            combined many databases into one at the sequence level and searching
-            UniParc is equivalent to searching many databases simultaneously.
+            is a comprehensive and non-redundant database of protein sequences.
+            These sequences are sourced from public sequence databases, and each
+            unique sequence is stored in a UniParc entry with a stable unique
+            identifier (UPI). A UPI is never removed, changed or reassigned to a
+            different sequence. In addition to the protein sequence, a UniParc
+            entry contains cross-references to all source database entries in
+            which the sequence exists or existed, with a date range that shows
+            when the sequence was first and last seen in each source entry. In
+            this way UniParc tracks sequence changes in the source databases and
+            archives the history of all changes.
           </p>
           <p>
             <Link
@@ -166,8 +191,7 @@ const LandingPage = () => {
                           to={{
                             pathname: LocationToPath[Location.UniParcResults],
                             search: stringifyQuery({
-                              query: '*',
-                              facets: `${FacetsEnum.Database}:${value}`,
+                              query: `database:${databaseMapping(label as string)}`,
                             }),
                           }}
                         >
@@ -242,7 +266,7 @@ const LandingPage = () => {
                 </li>
                 <li>
                   <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/README">
-                    readme
+                    README
                   </ExternalLink>
                 </li>
               </ul>
@@ -253,6 +277,24 @@ const LandingPage = () => {
               </ExternalLink>
             </p>
           </div>
+        </section>
+
+        {/* Help links */}
+        <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
+          <h2>Documentation</h2>
+          <ul>
+            {documentationLinks.map((item) => (
+              <li key={item.id}>
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: item.id,
+                  })}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Tutorials */}

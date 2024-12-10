@@ -6,16 +6,21 @@ import {
   InfoList,
   Loader,
   LongNumber,
+  Message,
 } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { generatePath, Link } from 'react-router-dom';
 
 import useNSQuery from '../../../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { FormParameters } from '../types/asyncDownloadFormParameters';
 import { APIModel } from '../../../shared/types/apiModel';
 import { FacetObject, SearchResults } from '../../../shared/types/results';
 import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 
 import styles from './styles/async-download-confirmation.module.scss';
 import '../../styles/ToolsForm.scss';
@@ -100,11 +105,36 @@ const AsyncDownloadConfirmation = ({
       content: jobParameters.columns.join(', ') || '',
     },
   ];
+
   return (
     <Card
       header={<h4>Review your file generation request</h4>}
       className={styles['confirm-async-download']}
     >
+      {jobParameters.query === '*' ? (
+        <Message className={styles['warning-message']} level="warning">
+          This job will take longer to finish, as your search is against the
+          whole of {namespaceAndToolsLabels[jobParameters.namespace]}, making it
+          a highly resource-intensive process. We kindly request that you
+          download the file once it becomes available.
+        </Message>
+      ) : null}
+      {jobParameters.query !== '*' &&
+      jobParameters.query?.split(' ').length === 1 &&
+      !jobParameters.query?.includes(':') ? (
+        <Message className={styles['warning-message']} level="warning">
+          Your query is a free-text search, which may yield more results than
+          anticipated. We recommend using the{' '}
+          <Link
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'advanced_search',
+            })}
+          >
+            Advanced Search
+          </Link>{' '}
+          feature to refine and narrow down your results.
+        </Message>
+      ) : null}
       <InfoList
         infoData={infoData
           .filter((d): d is InfoListItem => !!d)

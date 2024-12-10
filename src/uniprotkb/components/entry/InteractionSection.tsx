@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Tab, Tabs } from 'franklin-sites';
+import { Card } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -155,7 +155,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  const displayVizTab = complexPortalXrefs.size > 0;
   const table = (
     <table>
       <thead>
@@ -271,48 +270,45 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         </>
       ) : null}
 
-      {displayVizTab && !isSmallScreen && (
-        <Tabs className={styles['visualisation-tabs']}>
-          {complexPortalXrefs.size ? (
-            <Tab cache title="Complex viewer">
-              <div>
-                <label>
-                  Select complex
-                  <select
-                    value={complexId}
-                    onChange={(e) => setViewerID(e.target.value)}
-                    className={styles['id-select']}
-                  >
-                    {Array.from(complexPortalXrefs.values()).map(
-                      ({ id, properties }) => (
-                        <option value={id} key={id}>
-                          {`${id} ${properties?.EntryName || ''}`}
-                        </option>
-                      )
-                    )}
-                  </select>
-                </label>
+      {complexPortalXrefs.size > 0 && !isSmallScreen && (
+        <>
+          <h3 data-article-id="complex_viewer">Complex viewer</h3>
+          <div>
+            <label>
+              Select complex
+              <select
+                value={complexId}
+                onChange={(e) => setViewerID(e.target.value)}
+                className={styles['id-select']}
+              >
+                {Array.from(complexPortalXrefs.values()).map(
+                  ({ id, properties }) => (
+                    <option value={id} key={id}>
+                      {`${id} ${properties?.EntryName || ''}`}
+                    </option>
+                  )
+                )}
+              </select>
+            </label>
 
-                <LazyComponent>
-                  <ComplexViewer complexID={complexId} />
-                </LazyComponent>
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: stringifyQuery({
-                      query: `(xref:complexportal-${complexId})`,
-                    }),
-                  }}
-                >
-                  View interactors in UniProtKB
-                </Link>
-              </div>
-              <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
-                View {complexId} in Complex Portal
-              </ExternalLink>
-            </Tab>
-          ) : null}
-        </Tabs>
+            <LazyComponent>
+              <ComplexViewer complexID={complexId} />
+            </LazyComponent>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: stringifyQuery({
+                  query: `(xref:complexportal-${complexId})`,
+                }),
+              }}
+            >
+              View interactors in UniProtKB
+            </Link>
+          </div>
+          <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+            View {complexId} in Complex Portal
+          </ExternalLink>
+        </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>

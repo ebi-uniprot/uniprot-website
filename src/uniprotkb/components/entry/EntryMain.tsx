@@ -39,5 +39,4 @@ const EntryMain = ({
     <MedicalDisclaimer />
   </IsoformsContext.Provider>
 );
-
 export default EntryMain;

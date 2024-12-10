@@ -63,20 +63,24 @@ type StatsTableProps = {
   category: StatisticsCategory;
   alwaysExpand?: boolean;
   nameLabel?: string;
+  abbreviationLabel?: string;
   countLabel?: string;
   caption?: string;
   numberReleaseEntries: number;
-  dataset: 'reviewed' | 'unreviewed';
+  dataset: 'UniProtKB' | 'reviewed' | 'unreviewed';
+  nameToAbbreviation?: Map<string, string>;
 };
 
 const StatsTable = ({
   category,
   alwaysExpand,
   nameLabel,
+  abbreviationLabel,
   countLabel,
   caption,
   numberReleaseEntries,
   dataset,
+  nameToAbbreviation,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
@@ -113,6 +117,9 @@ const StatsTable = ({
         <thead>
           <tr>
             <th>{nameLabel || 'Name'}</th>
+            {abbreviationLabel && nameToAbbreviation && (
+              <th>{abbreviationLabel}</th>
+            )}
             {!hasOnlyEntryCounts && <th>{countLabel || 'Count'}</th>}
             {hasPercent && !hasOnlyEntryCounts && <th>Percent</th>}
             {hasEntryCount && (
@@ -137,6 +144,11 @@ const StatsTable = ({
             const percent =
               hasPercent &&
               ((row.count / category.totalCount) * 100).toFixed(2);
+            const abbreviation =
+              abbreviationLabel &&
+              nameToAbbreviation &&
+              nameToAbbreviation.get(row.label as string);
+
             return (
               <tr key={row.name}>
                 {/* Name */}
@@ -152,6 +164,7 @@ const StatsTable = ({
                 >
                   {row.label || row.name}
                 </td>
+                {abbreviation && <td>{abbreviation}</td>}
                 {/* Count */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>

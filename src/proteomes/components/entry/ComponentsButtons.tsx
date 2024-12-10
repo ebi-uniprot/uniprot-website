@@ -66,10 +66,9 @@ const ComponentsButtons = ({
   const isUniparcSearch =
     proteomeType === 'Redundant proteome' || proteomeType === 'Excluded';
 
-  const allQuery = `(${isUniparcSearch ? 'upid' : 'proteome'}:${id})`;
   const selectedQuery = useMemo(
     () =>
-      `${allQuery}${
+      `(proteome:${id})${
         selectedEntries.length !== 0 &&
         selectedEntries.length !== components?.length
           ? ` AND (${createSelectedQueryString(
@@ -78,7 +77,7 @@ const ComponentsButtons = ({
             )})`
           : ''
       }`,
-    [allQuery, components?.length, selectedEntries]
+    [id, components?.length, selectedEntries]
   );
 
   const { headers: selectedHeaders } = useDataApi(
@@ -109,14 +108,14 @@ const ComponentsButtons = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Download"
+            title={<span data-article-id="downloads">Download</span>}
             position="left"
             onClose={handleToggleDownload}
             pathname={pathname}
           >
             <ErrorBoundary>
               <ComponentsDownloadComponent
-                query={allQuery}
+                query={`(proteome:${id})`}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
                 totalNumberResults={proteinCount}

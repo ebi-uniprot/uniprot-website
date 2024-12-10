@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { getURLToJobWithData } from '../../app/config/urls';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
+export type Key = string | number | symbol;
+
 export const formatPercentage = (n: number, maximumFractionDigits = 1) =>
   `${n.toLocaleString('en-US', {
     maximumFractionDigits,
@@ -33,7 +35,7 @@ export function removeItemFromList<T>(list: T[], index: number) {
   return [...list.slice(0, index), ...list.slice(index + 1)];
 }
 
-export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
+export const hasContent = (obj: Record<Key, unknown>) =>
   Object.values(obj).some((val) => {
     if (Array.isArray(val)) {
       const valArray = val as unknown[];
@@ -107,4 +109,18 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
   return Object.fromEntries(
     Object.entries(o).map(([k, v]) => [k.toLowerCase(), v])
   );
+}
+
+export function excludeKeys<T>(
+  o?: Record<Key, T>,
+  keys?: Key[]
+): Record<Key, T> | undefined {
+  if (typeof o === 'undefined') {
+    return {};
+  }
+  if (typeof keys === 'undefined' || !keys.length) {
+    return o;
+  }
+  const setKeys = new Set(keys);
+  return Object.fromEntries(Object.entries(o).filter(([k]) => !setKeys.has(k)));
 }
