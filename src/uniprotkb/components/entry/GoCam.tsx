@@ -84,13 +84,14 @@ const GoCam = ({ primaryAccession }: Props) => {
     }
   }, [uniprotGoCamIds]);
 
-  const loadingUniprotGoCamIds = uniprotGoCamIds === null;
-
   let content: ReactNode;
+  const loadingUniprotGoCamIds = goCamIdToItem.size && uniprotGoCamIds === null;
   if (allGoCamIdsResponse.loading || loadingUniprotGoCamIds) {
     content = (
       <>
-        Searching Gene Ontology knowledgebase for GO-CAM models.
+        <div className={styles.preamble} data-article-id="gene-ontology">
+          Searching Gene Ontology knowledgebase for GO-CAM models.
+        </div>
         <Loader />
       </>
     );
@@ -104,27 +105,26 @@ const GoCam = ({ primaryAccession }: Props) => {
     );
   } else if (
     !goCamIdToItem.size ||
-    (Array.isArray(uniprotGoCamIds) && uniprotGoCamIds.length === 0)
+    (Array.isArray(uniprotGoCamIds) && !uniprotGoCamIds.length)
   ) {
     content = (
       <>
-        UniProt curated GO-CAM models have not been found for this entry within
-        the Gene Ontology knowledgebase.{' '}
+        <div className={styles.preamble} data-article-id="gene-ontology">
+          UniProt curated GO-CAM models have not been found for this entry
+          within the Gene Ontology knowledgebase.
+        </div>
         <ExternalLink url={externalUrls.GeneOntologyUniprotCuratedModels}>
           Browse all available UniProt curated GO-CAM models.
         </ExternalLink>
       </>
     );
-  }
-  // {/* TODO: update data-article-id with new GO-CAM article */}
-  else if (!isSmallScreen && selectedId) {
+  } else if (!isSmallScreen && selectedId && !!uniprotGoCamIds?.length) {
     content = (
       <>
-        <div className={styles.preamble} data-article-id="gene_ontology">
+        <div className={styles.preamble} data-article-id="gene-ontology">
           Gene Ontology Causal Activity Models (GO-CAM) associated with this
           entry.
         </div>
-
         <label>
           Select GO-CAM model
           <select
