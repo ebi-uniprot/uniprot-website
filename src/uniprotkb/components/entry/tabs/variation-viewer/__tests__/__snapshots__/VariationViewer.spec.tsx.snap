@@ -152,7 +152,7 @@ exports[`VariationViewer component renders on data 1`] = `
                 >
                   <a
                     class="external-link"
-                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 L10A"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 L10A"
                     rel="noopener"
                     target="_blank"
                     title="View in ProtVar"
@@ -373,7 +373,7 @@ exports[`VariationViewer component renders on no data 1`] = `
     <div
       class="no-data"
     >
-      No variation information available for P05067
+      No variation information available for P0DPR0
     </div>
   </section>
 </DocumentFragment>
