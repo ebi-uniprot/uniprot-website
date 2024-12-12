@@ -3,6 +3,7 @@ import {
   lazy,
   ReactNode,
   useCallback,
+  useId,
   useMemo,
   useState,
 } from 'react';
@@ -98,6 +99,7 @@ function FeaturesView<T extends ProcessedFeature>({
   const [highlightedFeature, setHighlightedFeature] = useState<T | undefined>();
   const [nightingaleViewRange, setNightingaleViewRange] =
     useState<NightingaleViewRange>();
+  const tableId = useId();
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
@@ -109,6 +111,45 @@ function FeaturesView<T extends ProcessedFeature>({
       setNightingaleViewRange(coordinates);
     },
     []
+  );
+
+  const handleFeatureClick = useCallback(
+    (feature: T) => {
+      setHighlightedFeature(feature as T);
+
+      const row = document.querySelector<HTMLElement>(
+        `tr[data-id="${getRowId(feature)}"]`
+      );
+      const table = document.querySelector<HTMLElement>(
+        `table[id="${tableId}"]`
+      );
+      const thead = table?.firstElementChild;
+      const container = table?.parentElement;
+      const expandButton = container?.parentElement?.querySelector(
+        `button[id="${tableId}-expand-button"]`
+      );
+      if (row) {
+        if (
+          expandButton?.textContent?.includes('Expand') &&
+          table &&
+          thead &&
+          container
+        ) {
+          const viewTop =
+            container.scrollTop + (thead as HTMLElement).offsetHeight;
+          const viewBottom = container.scrollTop + container.offsetHeight;
+          const rowInView =
+            viewTop <= row.offsetTop &&
+            row.offsetTop + row.offsetHeight <= viewBottom;
+          if (!rowInView) {
+            row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        } else {
+          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    },
+    [getRowId, tableId]
   );
 
   return !features.length ? null : (
@@ -144,13 +185,14 @@ function FeaturesView<T extends ProcessedFeature>({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
-            onFeatureClick={(feature) => setHighlightedFeature(feature as T)}
+            onFeatureClick={(feature) => handleFeatureClick(feature as T)}
             onViewRangeChange={handleViewRangeChange}
             highlightedFeature={highlightedFeature}
           />
         </LazyComponent>
       )}
       <TableFromData
+        id={tableId}
         data={features}
         columns={columns}
         rowExtraContent={rowExtraContent}

@@ -19,8 +19,12 @@ const Table = ({
   children,
   className,
   expandable,
+  id,
   ...props
-}: HTMLAttributes<HTMLTableElement> & { expandable?: boolean }) => {
+}: HTMLAttributes<HTMLTableElement> & {
+  expandable?: boolean;
+  id?: string;
+}) => {
   const [containerRef, expandTable, setExpandTable, showButton] =
     useExpandTable(expandable);
 
@@ -32,7 +36,7 @@ const Table = ({
           [styles.collapsed]: expandable && !expandTable,
         })}
       >
-        <table className={cn(styles.table, className)} {...props}>
+        <table className={cn(styles.table, className)} id={id} {...props}>
           {children}
         </table>
       </div>
@@ -41,6 +45,7 @@ const Table = ({
           <Button
             variant="primary"
             onClick={() => setExpandTable((current) => !current)}
+            id={id && `${id}-expand-button`}
           >
             {expandTable ? 'Collapse' : 'Expand'} table
           </Button>
