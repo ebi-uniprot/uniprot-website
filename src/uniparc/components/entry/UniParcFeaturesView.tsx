@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { v1 } from 'uuid';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import FeaturesView, {
@@ -30,7 +31,7 @@ export const convertData = (
   data
     .flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
-        accession: feature.databaseId,
+        accession: v1(), // Can't rely on feature.databaseId being unique
         type: 'Other' as const,
         start: locationFeature.start,
         end: locationFeature.end,
