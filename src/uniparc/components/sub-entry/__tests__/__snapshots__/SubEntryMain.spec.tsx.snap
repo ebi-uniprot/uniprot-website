@@ -57,6 +57,7 @@ exports[`SubEntryMain should render 1`] = `
           >
             <tr
               class="row"
+              data-id="0"
             >
               <td />
               <td>
