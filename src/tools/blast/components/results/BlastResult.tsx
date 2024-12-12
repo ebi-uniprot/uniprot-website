@@ -255,7 +255,6 @@ const BlastResult = () => {
             columns: columns.filter((x: string | boolean): x is string =>
               Boolean(x)
             ),
-            size: 500,
           }),
         [
           accessionsFilteredByLocalFacets,
