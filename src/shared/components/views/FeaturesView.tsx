@@ -10,8 +10,10 @@ import {
 import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
+import TableFromData from '../table/TableFromData';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
@@ -22,9 +24,7 @@ import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-import TableFromData from '../table/TableFromData';
 import { NightingaleViewRange } from '../../utils/nightingale';
-import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 
 const VisualFeaturesView = lazy(
   () =>
