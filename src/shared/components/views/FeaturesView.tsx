@@ -115,38 +115,51 @@ function FeaturesView<T extends ProcessedFeature>({
 
   const handleFeatureClick = useCallback(
     (feature: T) => {
-      setHighlightedFeature(feature as T);
+      setHighlightedFeature(feature);
 
-      const row = document.querySelector<HTMLElement>(
-        `tr[data-id="${getRowId(feature)}"]`
-      );
-      const table = document.querySelector<HTMLElement>(
-        `table[id="${tableId}"]`
-      );
-      const thead = table?.firstElementChild;
-      const container = table?.parentElement;
-      const expandButton = container?.parentElement?.querySelector(
-        `button[id="${tableId}-expand-button"]`
-      );
-      if (row) {
-        if (
-          expandButton?.textContent?.includes('Expand') &&
-          table &&
-          thead &&
-          container
-        ) {
-          const viewTop =
-            container.scrollTop + (thead as HTMLElement).offsetHeight;
-          const viewBottom = container.scrollTop + container.offsetHeight;
-          const rowInView =
-            viewTop <= row.offsetTop &&
-            row.offsetTop + row.offsetHeight <= viewBottom;
-          if (!rowInView) {
-            row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        } else {
-          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      // Select elements based on the feature and tableId
+      const rowSelector = `tr[data-id="${getRowId(feature)}"]`;
+      const tableSelector = `table[id="${tableId}"]`;
+      const row = document.querySelector<HTMLElement>(rowSelector);
+      const table = document.querySelector<HTMLElement>(tableSelector);
+
+      if (!row || !table) {
+        return; // If we don't have a target row or table, bail early
+      }
+
+      // Identify table parts and related elements
+      const thead = table.firstElementChild as HTMLElement | null;
+      const container = table.parentElement;
+      const expandButton =
+        container?.parentElement?.querySelector<HTMLButtonElement>(
+          `button[id="${tableId}-expand-button"]`
+        );
+
+      // Determine scroll positioning behavior
+      let block: ScrollLogicalPosition = 'center';
+      if (container && thead) {
+        // Adjust container to account for sticky header height
+        container.style.scrollPaddingTop = `${thead.offsetHeight}px`;
+        block = 'nearest';
+      }
+
+      // If we have an "Expand" button and container parts, only scroll if the row is not currently visible.
+      const shouldCheckRowInView =
+        expandButton?.textContent?.includes('Expand') && thead && container;
+
+      if (shouldCheckRowInView) {
+        const viewTop = container.scrollTop + thead.offsetHeight;
+        const viewBottom = container.scrollTop + container.offsetHeight;
+        const rowInView =
+          viewTop <= row.offsetTop &&
+          row.offsetTop + row.offsetHeight <= viewBottom;
+
+        if (!rowInView) {
+          row.scrollIntoView({ behavior: 'smooth', block });
         }
+      } else {
+        // Otherwise, always scroll the row into view
+        row.scrollIntoView({ behavior: 'smooth', block });
       }
     },
     [getRowId, tableId]
