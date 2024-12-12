@@ -19,12 +19,9 @@ function useNightingaleFeatureTableScroll<T>(
       // Identify table parts and related elements
       const thead = table.firstElementChild as HTMLElement | null;
       const container = table.parentElement;
-      const expandButton =
-        container?.parentElement?.querySelector<HTMLButtonElement>(
-          `button[id="${tableId}-expand-button"]`
-        );
 
-      // Determine scroll positioning behavior
+      // Determine scroll positioning behavior: use nearest if we can offset
+      // for the sticky header height, otherwise fallback to center
       let block: ScrollLogicalPosition = 'center';
       if (container && thead) {
         // Adjust container to account for the sticky header height
@@ -32,24 +29,7 @@ function useNightingaleFeatureTableScroll<T>(
         block = 'nearest';
       }
 
-      // Check if we need to verify row visibility before scrolling
-      const shouldCheckRowInView =
-        expandButton?.textContent?.includes('Expand') && thead && container;
-
-      if (shouldCheckRowInView) {
-        const viewTop = container.scrollTop + thead.offsetHeight;
-        const viewBottom = container.scrollTop + container.offsetHeight;
-        const rowInView =
-          viewTop <= row.offsetTop &&
-          row.offsetTop + row.offsetHeight <= viewBottom;
-
-        if (!rowInView) {
-          row.scrollIntoView({ behavior: 'smooth', block });
-        }
-      } else {
-        // If no conditions apply, just scroll the row into view
-        row.scrollIntoView({ behavior: 'smooth', block });
-      }
+      row.scrollIntoView({ behavior: 'smooth', block });
     },
     [getRowId, tableId]
   );
