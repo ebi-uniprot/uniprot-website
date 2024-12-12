@@ -74,6 +74,7 @@ type Props<T> = {
   markBorder?: (datum: T) => boolean;
   noTranslateBody?: boolean;
   expandable?: boolean;
+  id?: string;
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -88,6 +89,7 @@ function TableFromData<T>({
   markBorder,
   noTranslateBody,
   expandable = true,
+  ...props
 }: Props<T>) {
   const [columnsToSelectedOption, setColumnsToSelectedOption] =
     useState<ColumnsToSelectedFilter>({});
@@ -127,7 +129,10 @@ function TableFromData<T>({
   );
 
   return (
-    <Table expandable={expandable && data.length > MIN_ROWS_TO_EXPAND}>
+    <Table
+      expandable={expandable && data.length > MIN_ROWS_TO_EXPAND}
+      {...props}
+    >
       <Table.Head toggleAll={Boolean(rowExtraContent)}>
         {columns.map((column) => (
           <TableHeaderFromData
@@ -154,6 +159,7 @@ function TableFromData<T>({
                 [styles['mark-background']]: markBackground?.(datum),
                 [styles['mark-border']]: markBorder?.(datum),
               })}
+              data-id={getRowId(datum)}
             >
               {columns.map((column) => (
                 <td key={column.id}>{column.render(datum)}</td>

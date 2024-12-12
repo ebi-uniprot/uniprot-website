@@ -68,10 +68,11 @@ exports[`VariationViewer component renders on data 1`] = `
       >
         <tr
           class="row has-extra-content"
+          data-id="NC_000014.9:g.22438547G>T"
         >
           <td>
             <button
-              aria-controls="1"
+              aria-controls="2"
               aria-expanded="false"
               type="button"
             >
@@ -116,16 +117,17 @@ exports[`VariationViewer component renders on data 1`] = `
         <tr
           class="row extra-content"
           hidden=""
-          id="1"
+          id="2"
         >
           <td />
         </tr>
         <tr
           class="row odd has-extra-content"
+          data-id="NC_000014.9:g.22438548A>C"
         >
           <td>
             <button
-              aria-controls="2"
+              aria-controls="3"
               aria-expanded="false"
               type="button"
             >
@@ -170,16 +172,17 @@ exports[`VariationViewer component renders on data 1`] = `
         <tr
           class="row extra-content odd"
           hidden=""
-          id="2"
+          id="3"
         >
           <td />
         </tr>
         <tr
           class="row has-extra-content"
+          data-id="NC_000014.9:g.22438549A>C"
         >
           <td>
             <button
-              aria-controls="3"
+              aria-controls="4"
               aria-expanded="false"
               type="button"
             >
@@ -230,16 +233,17 @@ exports[`VariationViewer component renders on data 1`] = `
         <tr
           class="row extra-content"
           hidden=""
-          id="3"
+          id="4"
         >
           <td />
         </tr>
         <tr
           class="row odd has-extra-content"
+          data-id="NC_000014.9:g.22438551T>C"
         >
           <td>
             <button
-              aria-controls="4"
+              aria-controls="5"
               aria-expanded="false"
               type="button"
             >
@@ -290,16 +294,17 @@ exports[`VariationViewer component renders on data 1`] = `
         <tr
           class="row extra-content odd"
           hidden=""
-          id="4"
+          id="5"
         >
           <td />
         </tr>
         <tr
           class="row has-extra-content"
+          data-id="NC_000014.9:g.22438550A>G"
         >
           <td>
             <button
-              aria-controls="5"
+              aria-controls="6"
               aria-expanded="false"
               type="button"
             >
@@ -350,7 +355,7 @@ exports[`VariationViewer component renders on data 1`] = `
         <tr
           class="row extra-content"
           hidden=""
-          id="5"
+          id="6"
         >
           <td />
         </tr>

@@ -1296,6 +1296,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
     >
       <tr
         class="row"
+        data-id="0"
       >
         <td />
         <td>

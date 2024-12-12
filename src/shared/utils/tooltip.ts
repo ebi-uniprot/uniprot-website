@@ -15,7 +15,10 @@ const getTooltip = (content: string) => {
   const tooltip = document.createElement('div');
   tooltip.setAttribute('role', 'tooltip');
   tooltip.className = styles.tooltip;
-  tooltip.innerHTML = content;
+  const tooltipContent = document.createElement('div');
+  tooltipContent.className = styles['tooltip-content'];
+  tooltipContent.innerHTML = content;
+  tooltip.appendChild(tooltipContent);
   const arrowElement = document.createElement('div');
   arrowElement.className = styles.arrow;
   tooltip.appendChild(arrowElement);
@@ -163,18 +166,22 @@ export const showTooltipAtCoordinates = (
   document.body.addEventListener('scroll', hideTooltip, true);
   document.body.addEventListener('wheel', hideTooltip, true);
 
-  function hideTooltip() {
-    tooltip?.remove();
-    cleanup?.();
-    document.body.removeEventListener('click', onClick, true);
-    document.body.removeEventListener('scroll', hideTooltip, true);
-    document.body.removeEventListener('wheel', hideTooltip, true);
+  function hideTooltip(e?: Event) {
+    const target = e?.target as Node;
+    // f scroll/wheel is within the tooltip element, do not remove the tooltip
+    if (target && !tooltip.contains(target)) {
+      tooltip?.remove();
+      cleanup?.();
+      document.body.removeEventListener('click', onClick, true);
+      document.body.removeEventListener('scroll', hideTooltip, true);
+      document.body.removeEventListener('wheel', hideTooltip, true);
+    }
   }
 
   function onClick(e: Event) {
     const target = e.target as Node;
     if (target && !tooltip.contains(target)) {
-      hideTooltip();
+      hideTooltip(e);
     }
   }
 

@@ -27,6 +27,15 @@
     position: sticky;
     top: 0;
     z-index: 1;
+    box-shadow:
+      -1em 0 #fff,
+      1em 0 #fff,
+      0 -1px #fff,
+      0 1px #fff,
+      inset -1em 0 #fff,
+      inset 1em 0 #fff,
+      inset 0 -1px #fff,
+      inset 0 1px #fff;
   }
 
   & th {

@@ -64,7 +64,7 @@ const FeatureViewer = ({
       const { feature } = detail;
       const title =
         feature.type && feature.start && feature.end
-          ? `<h4>${feature.type} ${feature.start}-${feature.end}</h4>`
+          ? `<h4>${feature.type} ${feature.start}-${feature.end}</h4><hr />`
           : '';
       const content = `${title}${detail.feature.tooltipContent}`;
       hideTooltip.current = showTooltipAtCoordinates(x, y, content);

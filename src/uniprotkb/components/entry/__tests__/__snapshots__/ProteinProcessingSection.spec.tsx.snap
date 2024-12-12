@@ -191,10 +191,11 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
           >
             <tr
               class="row has-extra-content"
+              data-id="0"
             >
               <td>
                 <button
-                  aria-controls="1"
+                  aria-controls="2"
                   aria-expanded="false"
                   type="button"
                 >
@@ -262,7 +263,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                 </a>
                 ); Some note; In isoform sequence 1; description value 123
                 <button
-                  aria-controls="2"
+                  aria-controls="3"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -281,7 +282,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="2"
+                  id="3"
                 />
               </td>
               <td>
@@ -317,16 +318,17 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <tr
               class="row extra-content"
               hidden=""
-              id="1"
+              id="2"
             >
               <td />
             </tr>
             <tr
               class="row odd has-extra-content"
+              data-id="1"
             >
               <td>
                 <button
-                  aria-controls="3"
+                  aria-controls="4"
                   aria-expanded="false"
                   type="button"
                 >
@@ -356,7 +358,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   </button>
                 </span>
                 <button
-                  aria-controls="4"
+                  aria-controls="5"
                   aria-expanded="false"
                   class="svg-colour-unreviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -375,7 +377,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="4"
+                  id="5"
                 />
               </td>
               <td />
@@ -383,7 +385,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <tr
               class="row extra-content odd"
               hidden=""
-              id="3"
+              id="4"
             >
               <td />
             </tr>
@@ -565,10 +567,11 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
           >
             <tr
               class="row has-extra-content"
+              data-id="0"
             >
               <td>
                 <button
-                  aria-controls="1"
+                  aria-controls="2"
                   aria-expanded="false"
                   type="button"
                 >
@@ -584,7 +587,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               </td>
               <td>
                 <button
-                  aria-controls="2"
+                  aria-controls="3"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -603,7 +606,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="2"
+                  id="3"
                 />
               </td>
               <td>
@@ -639,16 +642,17 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <tr
               class="row extra-content"
               hidden=""
-              id="1"
+              id="2"
             >
               <td />
             </tr>
             <tr
               class="row odd has-extra-content"
+              data-id="1"
             >
               <td>
                 <button
-                  aria-controls="3"
+                  aria-controls="4"
                   aria-expanded="false"
                   type="button"
                 >
@@ -700,7 +704,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <tr
               class="row extra-content odd"
               hidden=""
-              id="3"
+              id="4"
             >
               <td />
             </tr>

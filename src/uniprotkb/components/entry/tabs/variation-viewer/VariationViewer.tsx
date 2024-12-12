@@ -7,6 +7,7 @@ import {
   lazy,
   ReactNode,
   Suspense,
+  useId,
 } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
@@ -31,6 +32,7 @@ import TableFromData, {
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNightingaleFeatureTableScroll';
 
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
@@ -415,6 +417,8 @@ const VariationViewer = ({
     useState<TransformedVariant>();
   const [nightingaleViewRange, setNightingaleViewRange] =
     useState<NightingaleViewRange>();
+  const tableId = useId();
+  const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
 
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllVariants = searchParams.get('loadVariants');
@@ -446,6 +450,7 @@ const VariationViewer = ({
         setFilters(detail.value);
       } else if (detail?.eventType === 'click' && detail?.feature) {
         setHighlightedVariant(detail.feature);
+        tableScroll(detail.feature);
       } else if (detail?.['display-start'] && detail?.['display-end']) {
         setNightingaleViewRange(detail);
       }
@@ -454,7 +459,7 @@ const VariationViewer = ({
     element.addEventListener('change', listener);
     // eslint-disable-next-line consistent-return
     return () => element.removeEventListener('change', listener);
-  }, [data]);
+  }, [data, tableScroll]);
   // 'data' is not directly used in the effect, but we know it's when we're
   // ready to attach the event listener and avoid re-calling this on each render
 
@@ -594,6 +599,7 @@ const VariationViewer = ({
         </Suspense>
       </NightingaleManagerComponent>
       <TableFromData
+        id={tableId}
         columns={getColumns(primaryAccession)}
         data={filteredVariants}
         getRowId={getRowId}

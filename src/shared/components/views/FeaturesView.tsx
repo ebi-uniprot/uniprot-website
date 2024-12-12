@@ -3,14 +3,17 @@ import {
   lazy,
   ReactNode,
   useCallback,
+  useId,
   useMemo,
   useState,
 } from 'react';
 import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
+import TableFromData from '../table/TableFromData';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
@@ -21,7 +24,6 @@ import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-import TableFromData from '../table/TableFromData';
 import { NightingaleViewRange } from '../../utils/nightingale';
 
 const VisualFeaturesView = lazy(
@@ -98,6 +100,8 @@ function FeaturesView<T extends ProcessedFeature>({
   const [highlightedFeature, setHighlightedFeature] = useState<T | undefined>();
   const [nightingaleViewRange, setNightingaleViewRange] =
     useState<NightingaleViewRange>();
+  const tableId = useId();
+  const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
@@ -109,6 +113,14 @@ function FeaturesView<T extends ProcessedFeature>({
       setNightingaleViewRange(coordinates);
     },
     []
+  );
+
+  const handleFeatureClick = useCallback(
+    (feature: T) => {
+      setHighlightedFeature(feature);
+      tableScroll(feature);
+    },
+    [tableScroll]
   );
 
   return !features.length ? null : (
@@ -144,13 +156,14 @@ function FeaturesView<T extends ProcessedFeature>({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
-            onFeatureClick={(feature) => setHighlightedFeature(feature as T)}
+            onFeatureClick={(feature) => handleFeatureClick(feature as T)}
             onViewRangeChange={handleViewRangeChange}
             highlightedFeature={highlightedFeature}
           />
         </LazyComponent>
       )}
       <TableFromData
+        id={tableId}
         data={features}
         columns={columns}
         rowExtraContent={rowExtraContent}
