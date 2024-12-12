@@ -8,12 +8,17 @@
   color: #fff;
   border-radius: 4px;
   font-size: 14px;
-  padding: 5px 9px;
-  line-height: 1.4;
-  white-space: normal;
   top: 0;
   left: 0;
   z-index: $z-index-high;
+
+  .tooltip-content {
+    max-height: 400px;
+    padding: 5px 9px;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-y: auto;
+  }
 
   * {
     color: #fff !important;
