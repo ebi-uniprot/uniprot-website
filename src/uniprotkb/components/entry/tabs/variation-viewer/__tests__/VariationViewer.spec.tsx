@@ -16,6 +16,19 @@ jest.mock('../../../../protein-data-views/VisualVariationView', () => ({
 }));
 
 describe('VariationViewer component', () => {
+  beforeEach(() => {
+    let counter = 0;
+    const step = 0.01;
+    jest.spyOn(global.Math, 'random').mockImplementation(() => {
+      counter += 1;
+      return counter * step;
+    });
+  });
+
+  afterEach(() => {
+    jest.spyOn(global.Math, 'random').mockRestore();
+  });
+
   it('renders on loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
     const { asFragment } = customRender(

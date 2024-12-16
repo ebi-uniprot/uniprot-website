@@ -68,7 +68,7 @@ exports[`VariationViewer component renders on data 1`] = `
       >
         <tr
           class="row has-extra-content"
-          data-id="0.27822625619718466"
+          data-id="0.02"
         >
           <td>
             <button
@@ -123,7 +123,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row odd has-extra-content"
-          data-id="0.678535162879601"
+          data-id="0.03"
         >
           <td>
             <button
@@ -187,7 +187,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row has-extra-content"
-          data-id="0.3121909673325627"
+          data-id="0.04"
         >
           <td>
             <button
@@ -242,7 +242,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row odd has-extra-content"
-          data-id="0.6228335486624732"
+          data-id="0.05"
         >
           <td>
             <button
@@ -289,7 +289,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row has-extra-content"
-          data-id="0.6754255874282302"
+          data-id="0.06"
         >
           <td>
             <button
@@ -344,7 +344,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row odd has-extra-content"
-          data-id="0.9913645751380249"
+          data-id="0.07"
         >
           <td>
             <button
@@ -399,7 +399,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row has-extra-content"
-          data-id="0.3084052949292295"
+          data-id="0.08"
         >
           <td>
             <button
@@ -454,7 +454,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row odd has-extra-content"
-          data-id="0.5358468564603267"
+          data-id="0.09"
         >
           <td>
             <button
@@ -509,7 +509,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row has-extra-content"
-          data-id="0.14630590503436913"
+          data-id="0.1"
         >
           <td>
             <button
@@ -564,7 +564,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row odd has-extra-content"
-          data-id="0.14922827967264496"
+          data-id="0.11"
         >
           <td>
             <button
