@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Dropdown, Tab, Tabs } from 'franklin-sites';
+import { Button, Card, Dropdown } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -242,8 +242,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  const displayVizTab = complexPortalXrefs.size > 0;
-
   const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
   const complexName =
     complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
@@ -282,63 +280,57 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         </>
       ) : null}
 
-      {displayVizTab && !isSmallScreen && (
-        <Tabs className={styles['visualisation-tabs']}>
-          {complexPortalXrefs.size ? (
-            <Tab cache title="Complex viewer">
-              <div className={styles['viewer-ids-container']}>
-                <Dropdown
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  visibleElement={(onClick: () => unknown) => (
-                    <Button variant="primary" onClick={onClick}>
-                      {complexString}
-                    </Button>
-                  )}
-                >
-                  <ul className={styles['ids-list']}>
-                    {Array.from(complexPortalXrefs.values()).map(
-                      ({ id, properties }) => (
-                        <li key={id}>
-                          <Button
-                            variant="tertiary"
-                            key={id}
-                            id={id}
-                            onClick={(event) => {
-                              setViewerID(
-                                (event.target as HTMLButtonElement).id
-                              );
-                              clickOnDropdown(
-                                event.target as HTMLButtonElement
-                              );
-                            }}
-                          >
-                            {id} {properties?.EntryName || ''}
-                          </Button>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </Dropdown>
-                <LazyComponent>
-                  <ComplexViewer complexID={complexId} />
-                </LazyComponent>
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: stringifyQuery({
-                      query: `(xref:complexportal-${complexId})`,
-                    }),
-                  }}
-                >
-                  View interactors in UniProtKB
-                </Link>
-              </div>
-              <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
-                View {complexId} in Complex Portal
-              </ExternalLink>
-            </Tab>
-          ) : null}
-        </Tabs>
+      {complexPortalXrefs.size > 0 && !isSmallScreen && (
+        <>
+          <h3 data-article-id="complex_viewer">Complex viewer</h3>
+          <div className={styles['viewer-ids-container']}>
+            <Dropdown
+              // eslint-disable-next-line react/no-unstable-nested-components
+              visibleElement={(onClick: () => unknown) => (
+                <Button variant="primary" onClick={onClick}>
+                  {complexString}
+                </Button>
+              )}
+            >
+              <ul className={styles['ids-list']}>
+                {Array.from(complexPortalXrefs.values()).map(
+                  ({ id, properties }) => (
+                    <li key={id}>
+                      <Button
+                        variant="tertiary"
+                        key={id}
+                        id={id}
+                        onClick={(event) => {
+                          setViewerID((event.target as HTMLButtonElement).id);
+                          clickOnDropdown(event.target as HTMLButtonElement);
+                        }}
+                      >
+                        {id} {properties?.EntryName || ''}
+                      </Button>
+                    </li>
+                  )
+                )}
+              </ul>
+            </Dropdown>
+            <LazyComponent>
+              <ComplexViewer complexID={complexId} />
+            </LazyComponent>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: stringifyQuery({
+                  query: `(xref:complexportal-${complexId})`,
+                }),
+              }}
+            >
+              View interactors in UniProtKB
+            </Link>
+            <br />
+            <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+              View {complexId} in Complex Portal
+            </ExternalLink>
+          </div>
+        </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>

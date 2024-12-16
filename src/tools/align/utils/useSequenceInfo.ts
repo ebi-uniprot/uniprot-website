@@ -48,36 +48,30 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     [rawSequences]
   );
 
-  const [
-    uniprotkbAccessions,
-    uniparcAccessions,
-    representativeUniprotkbToUniref,
-  ] = useMemo(() => {
-    const uniprotkbAccessions = new Set<string>();
-    const uniparcAccessions = new Set<string>();
-    const representativeUniprotkbToUniref = new Map<string, string>();
-    for (const { namespace, accession } of processedArray) {
-      if (namespace === Namespace.uniprotkb) {
-        uniprotkbAccessions.add(accession);
-      } else if (namespace === Namespace.uniparc) {
-        uniparcAccessions.add(accession);
-      } else if (namespace === Namespace.uniref) {
-        const representativeUniprotkbAccession = accession.split('_')?.[1];
-        if (representativeUniprotkbAccession) {
-          uniprotkbAccessions.add(representativeUniprotkbAccession);
-          representativeUniprotkbToUniref.set(
-            representativeUniprotkbAccession,
-            accession
-          );
+  const [uniprotkbAccessions, uniparcAccessions, representativeToUniref] =
+    useMemo(() => {
+      const uniprotkbAccessions = new Set<string>();
+      const uniparcAccessions = new Set<string>();
+      const representativeToUniref = new Map<string, string>();
+      for (const { namespace, accession } of processedArray) {
+        if (namespace === Namespace.uniprotkb) {
+          uniprotkbAccessions.add(accession);
+        } else if (namespace === Namespace.uniparc) {
+          uniparcAccessions.add(accession);
+        } else if (namespace === Namespace.uniref) {
+          const representativeAccession = accession.split('_')?.[1];
+          if (representativeAccession) {
+            if (representativeAccession.startsWith('UPI')) {
+              uniparcAccessions.add(representativeAccession);
+            } else {
+              uniprotkbAccessions.add(representativeAccession);
+            }
+            representativeToUniref.set(representativeAccession, accession);
+          }
         }
       }
-    }
-    return [
-      uniprotkbAccessions,
-      uniparcAccessions,
-      representativeUniprotkbToUniref,
-    ];
-  }, [processedArray]);
+      return [uniprotkbAccessions, uniparcAccessions, representativeToUniref];
+    }, [processedArray]);
 
   const uniprotkbEndpoint = apiUrls.search.accessions(
     Array.from(uniprotkbAccessions),
@@ -122,17 +116,22 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
         ),
       };
       idToSequenceAndFeatures.set(primaryAccession, sequencedAndFeatures);
-      const uniref = representativeUniprotkbToUniref.get(primaryAccession);
+      const uniref = representativeToUniref.get(primaryAccession);
       if (uniref) {
         idToSequenceAndFeatures.set(uniref, sequencedAndFeatures);
       }
     }
     for (const { uniParcId, sequence, sequenceFeatures = [] } of uniparcResults
       ?.data?.results || []) {
-      idToSequenceAndFeatures.set(uniParcId, {
+      const sequencedAndFeatures = {
         sequence: sequence.value,
         features: processUniParcFeaturesData(sequenceFeatures),
-      });
+      };
+      idToSequenceAndFeatures.set(uniParcId, sequencedAndFeatures);
+      const uniref = representativeToUniref.get(uniParcId);
+      if (uniref) {
+        idToSequenceAndFeatures.set(uniref, sequencedAndFeatures);
+      }
     }
     const pa = processedArray
       // ensures the sequences are identical between submitted and UniProt's DB
@@ -149,7 +148,7 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     return new Map(pa.map((processed) => [processed.accession, processed]));
   }, [
     processedArray,
-    representativeUniprotkbToUniref,
+    representativeToUniref,
     uniprotkbResults?.data?.results,
     uniparcResults?.data?.results,
   ]);

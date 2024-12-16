@@ -163,7 +163,7 @@ exports[`query parser and validator with autocomplete field 1`] = `
       "autoComplete": "/suggester?dict=taxonomy&query=?",
       "autoCompleteQueryTerm": "taxonomy_id",
       "dataType": "string",
-      "example": "human",
+      "example": "mammalia",
       "fieldType": "general",
       "id": "taxonomy_name",
       "itemType": "single",
@@ -205,7 +205,7 @@ exports[`query parser and validator with valid and invalid fields 1`] = `
     },
     "searchTerm": {
       "dataType": "string",
-      "example": "ydj1",
+      "example": "YDJ1",
       "fieldType": "general",
       "id": "gene_field",
       "itemType": "single",

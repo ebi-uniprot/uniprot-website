@@ -32,7 +32,7 @@ export const defaultQueryFor = (namespace: Namespace) => {
     case Namespace.uniref:
       return '(name:) AND (taxonomy_name:) AND (identity:) AND (uniprot_id:) AND ';
     case Namespace.uniparc:
-      return '(upid:) AND (uniprotkb:) AND (dbid:) AND (checksum:) AND ';
+      return '(proteome:) AND (uniprotkb:) AND (dbid:) AND (checksum:) AND ';
     // case Namespace.proteomes:
     //   return ''; // TODO
     // case Namespace.citations:

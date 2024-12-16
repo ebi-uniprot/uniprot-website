@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import 'interaction-viewer';
-
+import 'swagger-ui-react';
 import { resetUuidV1 } from './__mocks__/uuid';
 
 global.gtag = () => {
@@ -23,6 +23,8 @@ jest.mock('interaction-viewer', () => null);
 jest.mock('/shared/custom-elements/NightingaleMSA', () => jest.fn());
 
 jest.mock('@nightingale-elements/nightingale-navigation', () => jest.fn());
+
+jest.mock('swagger-ui-react', () => null);
 
 global.beforeEach(() => {
   resetUuidV1();

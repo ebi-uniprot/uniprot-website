@@ -68,7 +68,7 @@ exports[`XRefView should render section 1`] = `
           · 
           <a
             class="external-link"
-            href="http://getentry.ddbj.nig.ac.jp/getentry/na/1234"
+            href="https://getentry.ddbj.nig.ac.jp/getentry/na/1234"
             rel="noopener"
             target="_blank"
           >

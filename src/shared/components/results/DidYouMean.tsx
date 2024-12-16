@@ -1,10 +1,11 @@
 import { ReactNode, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { orderBy } from 'lodash-es';
+import { orderBy, truncate } from 'lodash-es';
 import { Loader, Message, sequenceProcessor } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
 import ContactLink from '../../../contact/components/ContactLink';
+import ChecksumSuggester from '../../../tools/components/ChecksumSuggester';
 
 import useNS from '../../hooks/useNS';
 import useSafeState from '../../hooks/useSafeState';
@@ -38,6 +39,14 @@ const reCleanUp = /^\( ([^: ]+) \)$/;
 // eg: P05067.1, P05066.1-1, xref-id.1
 const reIdWithVersion = /(?<id>\S+)\.\d+/;
 
+const nsToHelpPage = new Map([
+  [Namespace.uniprotkb, 'uniprotkb'],
+  [Namespace.uniref, 'uniref'],
+  [Namespace.uniparc, 'uniparc'],
+  [Namespace.proteomes, 'proteome'],
+]);
+const truncateOptions = { length: 10 };
+
 type QuerySuggestionListItemProps = {
   suggestions: Suggestion[];
   namespace: SearchableNamespace;
@@ -48,7 +57,10 @@ const QuerySuggestionListItem = ({
   namespace,
 }: QuerySuggestionListItemProps) => (
   <div>
-    {`In ${searchableNamespaceLabels[namespace]}`}
+    In{' '}
+    <span data-article-id={nsToHelpPage.get(namespace)}>
+      {searchableNamespaceLabels[namespace]}
+    </span>
     <ul className={styles['suggestions-list']}>
       {suggestions.map(({ query }) => {
         const cleanedQuery = query.replace(reCleanUp, '$1');
@@ -76,19 +88,17 @@ const PeptideSearchSuggestion = ({
 }: {
   potentialPeptide: string;
 }) => (
-  <ul className={styles['suggestions-list']}>
-    <li>
-      <Link
-        to={{
-          pathname: LocationToPath[Location.PeptideSearch],
-          search: `peps=${potentialPeptide}`,
-        }}
-      >
-        {potentialPeptide}
-      </Link>{' '}
-      as a peptide search
-    </li>
-  </ul>
+  <p>
+    Are you searching for protein sequences containing the peptide{' '}
+    <Link
+      to={{
+        pathname: LocationToPath[Location.PeptideSearch],
+        search: `peps=${potentialPeptide}`,
+      }}
+    >
+      {truncate(potentialPeptide, truncateOptions)}?
+    </Link>
+  </p>
 );
 
 const didYouMeanNamespaces: SearchableNamespace[] = [
@@ -180,10 +190,10 @@ const DidYouMean = ({
     }
   }
 
-  const suggestionNodes: ReactNode[] = [];
+  const namespaceSuggestionNodes: ReactNode[] = [];
   // Main suggestion
   if (suggestionsSortedByHits.length && currentNamespace) {
-    suggestionNodes.push(
+    namespaceSuggestionNodes.push(
       <QuerySuggestionListItem
         suggestions={suggestionsSortedByHits}
         namespace={currentNamespace as SearchableNamespace}
@@ -195,7 +205,7 @@ const DidYouMean = ({
   for (const [namespace, suggestions] of Array.from(
     otherNamespaceSuggestions.current.entries()
   )) {
-    suggestionNodes.push(
+    namespaceSuggestionNodes.push(
       <QuerySuggestionListItem
         suggestions={suggestions}
         namespace={namespace}
@@ -215,25 +225,38 @@ const DidYouMean = ({
     true
   );
 
-  if (potentialPeptide && processed.valid && processed.likelyType === 'aa') {
-    suggestionNodes.push(
-      <PeptideSearchSuggestion
-        potentialPeptide={potentialPeptide}
-        key="peptide search"
-      />
-    );
-  }
+  const searchableSequence =
+    processed.valid && processed.likelyType === 'aa' && potentialPeptide;
+
+  const checksumSuggestionsNode = searchableSequence && (
+    <ChecksumSuggester
+      sequence={searchableSequence}
+      sequenceDescription={truncate(potentialPeptide, truncateOptions)}
+      asMessage={false}
+    />
+  );
+
+  const peptideSearchSuggestion = searchableSequence && (
+    <PeptideSearchSuggestion
+      potentialPeptide={searchableSequence}
+      key="peptide search"
+    />
+  );
 
   let content: ReactNode = null;
   if (renderContent) {
-    if (suggestionNodes.length) {
-      content = (
-        <div className={styles.suggestions}>
-          Did you mean to search for:
-          {suggestionNodes}
-        </div>
-      );
-    }
+    content = (
+      <div className={styles.suggestions}>
+        {!!namespaceSuggestionNodes.length && (
+          <>
+            Did you mean to search for:
+            {namespaceSuggestionNodes}
+          </>
+        )}
+        {checksumSuggestionsNode}
+        {peptideSearchSuggestion}
+      </div>
+    );
   } else {
     content = <Loader />;
   }

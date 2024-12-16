@@ -245,92 +245,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  data-id="P19926"
+                  data-id="P13866"
                   id="8"
                   type="checkbox"
                 />
                 <label
-                  aria-label="P19926"
-                  for="8"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td>
-                <span
-                  class="no-wrap accession-view"
-                >
-                  <a
-                    class="accession"
-                    href="/uniprotkb/P19926/entry"
-                  >
-                    P19926
-                  </a>
-                </span>
-              </td>
-              <td />
-              <td>
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-              </td>
-              <td>
-                AGP_ECOLI
-              </td>
-              <td>
-                <span
-                  translate="yes"
-                >
-                  <span
-                    style="font-weight: bolder;"
-                  >
-                    Glucose-1-phosphatase
-                  </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
-                </span>
-              </td>
-              <td>
-                <span
-                  class="bolder"
-                >
-                  agp
-                </span>
-                , b1002, JW0987
-              </td>
-              <td>
-                <a
-                  href="/taxonomy/83333"
-                  title="Escherichia coli (strain K12), taxon ID 83333"
-                  translate="no"
-                >
-                  Escherichia coli (strain K12)
-                </a>
-              </td>
-              <td>
-                413 AA
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="P13866"
-                  id="9"
-                  type="checkbox"
-                />
-                <label
                   aria-label="P13866"
-                  for="9"
+                  for="8"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -396,6 +317,85 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </td>
               <td>
                 664 AA
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P19926"
+                  id="9"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P19926"
+                  for="9"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </td>
+              <td>
+                <span
+                  class="no-wrap accession-view"
+                >
+                  <a
+                    class="accession"
+                    href="/uniprotkb/P19926/entry"
+                  >
+                    P19926
+                  </a>
+                </span>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="entry-title__status icon--reviewed"
+                  title="This marks a reviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
+              </td>
+              <td>
+                AGP_ECOLI
+              </td>
+              <td>
+                <span
+                  translate="yes"
+                >
+                  <span
+                    style="font-weight: bolder;"
+                  >
+                    Glucose-1-phosphatase
+                  </span>
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                </span>
+              </td>
+              <td>
+                <span
+                  class="bolder"
+                >
+                  agp
+                </span>
+                , b1002, JW0987
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/83333"
+                  title="Escherichia coli (strain K12), taxon ID 83333"
+                  translate="no"
+                >
+                  Escherichia coli (strain K12)
+                </a>
+              </td>
+              <td>
+                413 AA
               </td>
             </tr>
           </tbody>
@@ -655,92 +655,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  data-id="P19926"
+                  data-id="P13866"
                   id="6"
                   type="checkbox"
                 />
                 <label
-                  aria-label="P19926"
-                  for="6"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td>
-                <span
-                  class="no-wrap accession-view"
-                >
-                  <a
-                    class="accession"
-                    href="/uniprotkb/P19926/entry"
-                  >
-                    P19926
-                  </a>
-                </span>
-              </td>
-              <td />
-              <td>
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-              </td>
-              <td>
-                AGP_ECOLI
-              </td>
-              <td>
-                <span
-                  translate="yes"
-                >
-                  <span
-                    style="font-weight: bolder;"
-                  >
-                    Glucose-1-phosphatase
-                  </span>
-                  <button
-                    aria-expanded="false"
-                    class="button tertiary ellipsis-reveal"
-                    title="Show more"
-                    type="button"
-                  >
-                    [...]
-                  </button>
-                </span>
-              </td>
-              <td>
-                <span
-                  class="bolder"
-                >
-                  agp
-                </span>
-                , b1002, JW0987
-              </td>
-              <td>
-                <a
-                  href="/taxonomy/83333"
-                  title="Escherichia coli (strain K12), taxon ID 83333"
-                  translate="no"
-                >
-                  Escherichia coli (strain K12)
-                </a>
-              </td>
-              <td>
-                413 AA
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="P13866"
-                  id="7"
-                  type="checkbox"
-                />
-                <label
                   aria-label="P13866"
-                  for="7"
+                  for="6"
                   title="click to select, shift+click for multiple selection"
                 />
               </td>
@@ -806,6 +727,85 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </td>
               <td>
                 664 AA
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P19926"
+                  id="7"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P19926"
+                  for="7"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </td>
+              <td>
+                <span
+                  class="no-wrap accession-view"
+                >
+                  <a
+                    class="accession"
+                    href="/uniprotkb/P19926/entry"
+                  >
+                    P19926
+                  </a>
+                </span>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="entry-title__status icon--reviewed"
+                  title="This marks a reviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
+              </td>
+              <td>
+                AGP_ECOLI
+              </td>
+              <td>
+                <span
+                  translate="yes"
+                >
+                  <span
+                    style="font-weight: bolder;"
+                  >
+                    Glucose-1-phosphatase
+                  </span>
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                </span>
+              </td>
+              <td>
+                <span
+                  class="bolder"
+                >
+                  agp
+                </span>
+                , b1002, JW0987
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/83333"
+                  title="Escherichia coli (strain K12), taxon ID 83333"
+                  translate="no"
+                >
+                  Escherichia coli (strain K12)
+                </a>
+              </td>
+              <td>
+                413 AA
               </td>
             </tr>
           </tbody>

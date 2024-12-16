@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2024-10-01
+// Retrieved: 2024-12-10
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -5930,7 +5930,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'non-membrane-bounded organelle',
+          name: 'membraneless organelle',
           id: 'GO:0043228',
           aspect: 'cellular_component',
         },
@@ -6992,7 +6992,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'intracellular non-membrane-bounded organelle',
+          name: 'intracellular membraneless organelle',
           id: 'GO:0043232',
           aspect: 'cellular_component',
         },
@@ -7690,12 +7690,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'DNA replication',
           id: 'GO:0006260',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'DNA ligation',
-          id: 'GO:0006266',
           aspect: 'biological_process',
         },
         {
@@ -8480,12 +8474,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'cellular lipid metabolic process',
-          id: 'GO:0044255',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'biological process involved in interspecies interaction between organisms',
           id: 'GO:0044419',
           aspect: 'biological_process',
@@ -8542,12 +8530,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'secretion',
           id: 'GO:0046903',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'cellular ketone body metabolic process',
-          id: 'GO:0046950',
           aspect: 'biological_process',
         },
         {
@@ -13202,18 +13184,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'modulation by virus of host process',
-          id: 'GO:0019048',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'virus-mediated perturbation of host defense response',
-          id: 'GO:0019049',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'viral life cycle',
           id: 'GO:0019058',
           aspect: 'biological_process',
@@ -13276,12 +13246,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'symbiont-mediated disruption of host cellular anatomical structure',
           id: 'GO:0052008',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'perturbation by virus of host immune response',
-          id: 'GO:0075528',
           aspect: 'biological_process',
         },
       ],

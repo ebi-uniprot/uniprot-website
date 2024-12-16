@@ -22,27 +22,28 @@
   border-spacing: 0;
   border-block-end: 1px solid #c2c4c4;
   border-collapse: collapse;
+  border-block-end: 1px solid var(--table_border);
 
   & thead {
     position: sticky;
     top: 0;
     z-index: 1;
     box-shadow:
-      -1em 0 #fff,
-      1em 0 #fff,
-      0 -1px #fff,
-      0 1px #fff,
-      inset -1em 0 #fff,
-      inset 1em 0 #fff,
-      inset 0 -1px #fff,
-      inset 0 1px #fff;
+      -1em 0 var(--table__header-background),
+      1em 0 var(--table__header-background),
+      0 -1px var(--table__header-background),
+      0 1px var(--table__header-background),
+      inset -1em 0 var(--table__header-background),
+      inset 1em 0 var(--table__header-background),
+      inset 0 -1px var(--table__header-background),
+      inset 0 1px var(--table__header-background);
   }
 
   & th {
     text-align: left;
     vertical-align: middle;
-    background-color: #fff;
-    color: #393b42;
+    background-color: var(--table__header-background);
+    color: var(--table__header-text);
     text-overflow: ellipsis;
     text-transform: uppercase;
   }
@@ -50,7 +51,7 @@
   & td,
   & th {
     padding: 0.2rem 1ch;
-    border-block-start: 1px solid #c2c4c4;
+    border-block-start: 1px solid var(--table_border);
   }
 
   & thead :global(.dropdown) > button {
@@ -63,7 +64,7 @@
 }
 
 .row {
-  background-color: #fff;
+  background-color: var(--table__even);
   border-color: transparent;
   border-style: solid;
   border-width: 0 0.5rem;
@@ -83,7 +84,7 @@
   }
 
   &.odd {
-    background-color: #e4e8eb;
+    background-color: var(--table__odd);
   }
 
   &:hover {
@@ -91,7 +92,7 @@
     /* => keep groups of rows highlighted in sync */
     &,
     & + .extra-content {
-      background-color: #f1f1f1;
+      background-color: var(--table__hover);
     }
   }
 
@@ -113,7 +114,7 @@
   }
 
   &.extra-content td {
-    border-color: #c2c4c455;
+    border-color: var(--table_border);
   }
 }
 
@@ -122,7 +123,7 @@
 /* Select a row that has a next .extra-content sibling that is hovered */
 /* => keep groups of rows highlighted in sync */
 .row:has(+ .extra-content:hover) {
-  background-color: #f1f1f1;
+  background-color: var(--table__hover);
 }
 
 .message--no-data {

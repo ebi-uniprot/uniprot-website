@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2024-10-01
+// Retrieved: 2024-12-10
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -115,7 +115,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2024-09-24',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -171,12 +171,12 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2024-09-24',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
         content: [
-          ' each reference proteome, protein FASTA files (composed of <span class="match-highlight">canonical</span> and additional sequences), gene',
+          ' <span class="match-highlight">canonical</span> and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and database',
         ],
       },
     },
@@ -318,7 +318,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2024-09-24',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -375,7 +375,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2024-09-24',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -430,7 +430,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2024-09-24',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {

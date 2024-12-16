@@ -139,6 +139,7 @@ const getConfigFor = ({
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
+            fs.realpathSync(`${__dirname}/node_modules/swagger-ui-react`),
             fs.realpathSync(
               `${__dirname}/node_modules/complexviewer/src/css/xinet.css`
             ),

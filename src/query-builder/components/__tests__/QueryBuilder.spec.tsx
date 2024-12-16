@@ -92,7 +92,7 @@ describe('QueryBuilder', () => {
   });
 
   it('should submit a simple query', async () => {
-    const input = screen.getByPlaceholderText(/ydj1/);
+    const input = screen.getByPlaceholderText(/YDJ1/);
     fireEvent.change(input, { target: { value: 'zen' } });
     const all = screen.getByPlaceholderText(/a4_human/);
     fireEvent.change(all, { target: { value: 'eve' } });

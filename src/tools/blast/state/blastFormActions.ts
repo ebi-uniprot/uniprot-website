@@ -16,8 +16,14 @@ export const updateSelected = (
   selected: BlastFormValue['selected']
 ) => action(UPDATE_SELECTED, { id, selected });
 
-export const updateParsedSequences = (parsedSequences: SequenceObject[]) =>
-  action(UPDATE_PARSED_SEQUENCES, parsedSequences);
+export const updateParsedSequences = (
+  parsedSequences: SequenceObject[],
+  fromSequenceSearchLoader = false
+) =>
+  action(UPDATE_PARSED_SEQUENCES, {
+    parsedSequences,
+    fromSequenceSearchLoader,
+  });
 
 export const updateSending = () => action(UPDATE_SENDING);
 

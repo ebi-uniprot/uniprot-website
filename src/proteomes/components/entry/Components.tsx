@@ -10,6 +10,7 @@ import ComponentsButtons from './ComponentsButtons';
 
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 
+import { stringifyQuery } from '../../../shared/utils/url';
 import externalUrls from '../../../shared/config/externalUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -130,9 +131,9 @@ const Components = ({
                       ? Location.UniParcResults
                       : Location.UniProtKBResults
                   ],
-                search: `query=(${
-                  shouldPointToUniParc ? 'upid' : 'proteome'
-                }:${id}) AND (proteomecomponent:"${name}")`,
+                search: stringifyQuery({
+                  query: `(proteome:${id}) AND (proteomecomponent:"${name}")`,
+                }),
               }}
             >
               <LongNumber>{proteinCount}</LongNumber>

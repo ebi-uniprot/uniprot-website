@@ -20,141 +20,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 class="checkbox-cell"
               >
                 <input
-                  data-id="P19926"
+                  data-id="P13866"
                   id="1"
                   type="checkbox"
                 />
                 <label
-                  aria-label="P19926"
-                  for="1"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </span>
-              <h2
-                class="small"
-              >
-                <a
-                  href="/uniprotkb/P19926"
-                >
-                  <span
-                    class="entry-title"
-                    translate="no"
-                  >
-                    <span
-                      class="entry-title__status icon--reviewed"
-                      title="This marks a reviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    P19926 · AGP_ECOLI
-                  </span>
-                </a>
-              </h2>
-            </div>
-            <div
-              class="card__content"
-            >
-              <div>
-                Glucose-1-phosphatase · 
-                <strong>
-                  Gene:
-                </strong>
-                 agp · 
-                <a
-                  href="/taxonomy/83333"
-                  title="Escherichia coli (strain K12), taxon ID 83333"
-                  translate="no"
-                >
-                  Escherichia coli (strain K12)
-                </a>
-                 · EC:3.1.3.10 · 413 amino acids · Evidence at protein level · 
-                <strong>
-                  Annotation score:
-                </strong>
-                 
-                <span
-                  class="doughnut-chart--small colour-platinum"
-                >
-                  <span
-                    class="doughnut-chart--small__left-wrap"
-                  >
-                    <span
-                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                      style="transform: rotate(180deg);"
-                    />
-                  </span>
-                  <span
-                    class="doughnut-chart--small__right-wrap"
-                  >
-                    <span
-                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                      style="transform: rotate(180deg);"
-                    />
-                  </span>
-                  <span
-                    class="doughnut-chart--small__inner-circle"
-                  >
-                    5/5
-                  </span>
-                </span>
-              </div>
-              <small>
-                <div
-                  class="keyword-view--inline"
-                  translate="yes"
-                >
-                   
-                  <a
-                    href="/keywords/KW-0378"
-                  >
-                    #Hydrolase
-                  </a>
-                </div>
-              </small>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              href="/uniprotkb/P19926#function"
-            >
-              2 active sites
-            </a>
-            <a
-              href="/uniprotkb/P19926#structure"
-            >
-              2 3D structures
-            </a>
-            <a
-              href="/uniprotkb/P19926/publications"
-            >
-              6 reviewed publications
-            </a>
-          </div>
-        </section>
-      </li>
-      <li>
-        <section
-          class="card"
-        >
-          <div
-            class="card__container"
-          >
-            <div
-              class="card__header"
-            >
-              <span
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="P13866"
-                  id="2"
-                  type="checkbox"
-                />
-                <label
                   aria-label="P13866"
-                  for="2"
+                  for="1"
                   title="click to select, shift+click for multiple selection"
                 />
               </span>
@@ -307,7 +179,135 @@ exports[`ResultsData component should render the card view with the correct numb
             <a
               href="/uniprotkb/P13866/publications"
             >
-              17 reviewed publications
+              18 reviewed publications
+            </a>
+          </div>
+        </section>
+      </li>
+      <li>
+        <section
+          class="card"
+        >
+          <div
+            class="card__container"
+          >
+            <div
+              class="card__header"
+            >
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P19926"
+                  id="2"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P19926"
+                  for="2"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
+              <h2
+                class="small"
+              >
+                <a
+                  href="/uniprotkb/P19926"
+                >
+                  <span
+                    class="entry-title"
+                    translate="no"
+                  >
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P19926 · AGP_ECOLI
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div
+              class="card__content"
+            >
+              <div>
+                Glucose-1-phosphatase · 
+                <strong>
+                  Gene:
+                </strong>
+                 agp · 
+                <a
+                  href="/taxonomy/83333"
+                  title="Escherichia coli (strain K12), taxon ID 83333"
+                  translate="no"
+                >
+                  Escherichia coli (strain K12)
+                </a>
+                 · EC:3.1.3.10 · 413 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
+                  </span>
+                </span>
+              </div>
+              <small>
+                <div
+                  class="keyword-view--inline"
+                  translate="yes"
+                >
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                    #Hydrolase
+                  </a>
+                </div>
+              </small>
+            </div>
+          </div>
+          <div
+            class="card__actions"
+          >
+            <a
+              href="/uniprotkb/P19926#function"
+            >
+              2 active sites
+            </a>
+            <a
+              href="/uniprotkb/P19926#structure"
+            >
+              2 3D structures
+            </a>
+            <a
+              href="/uniprotkb/P19926/publications"
+            >
+              6 reviewed publications
             </a>
           </div>
         </section>
@@ -370,41 +370,13 @@ exports[`ResultsData component should render the table view 1`] = `
             class="checkbox-cell"
           >
             <input
-              data-id="P19926"
+              data-id="P13866"
               id="6"
               type="checkbox"
             />
             <label
-              aria-label="P19926"
-              for="6"
-              title="click to select, shift+click for multiple selection"
-            />
-          </td>
-          <td>
-            <span
-              class="no-wrap accession-view"
-            >
-              <a
-                class="accession"
-                href="/uniprotkb/P19926/entry"
-              >
-                P19926
-              </a>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td
-            class="checkbox-cell"
-          >
-            <input
-              data-id="P13866"
-              id="7"
-              type="checkbox"
-            />
-            <label
               aria-label="P13866"
-              for="7"
+              for="6"
               title="click to select, shift+click for multiple selection"
             />
           </td>
@@ -417,6 +389,34 @@ exports[`ResultsData component should render the table view 1`] = `
                 href="/uniprotkb/P13866/entry"
               >
                 P13866
+              </a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="checkbox-cell"
+          >
+            <input
+              data-id="P19926"
+              id="7"
+              type="checkbox"
+            />
+            <label
+              aria-label="P19926"
+              for="7"
+              title="click to select, shift+click for multiple selection"
+            />
+          </td>
+          <td>
+            <span
+              class="no-wrap accession-view"
+            >
+              <a
+                class="accession"
+                href="/uniprotkb/P19926/entry"
+              >
+                P19926
               </a>
             </span>
           </td>

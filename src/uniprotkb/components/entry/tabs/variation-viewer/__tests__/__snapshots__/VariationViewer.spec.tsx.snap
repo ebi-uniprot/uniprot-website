@@ -68,7 +68,7 @@ exports[`VariationViewer component renders on data 1`] = `
       >
         <tr
           class="row has-extra-content"
-          data-id="NC_000014.9:g.22438547G>T"
+          data-id="0.27822625619718466"
         >
           <td>
             <button
@@ -79,15 +79,9 @@ exports[`VariationViewer component renders on data 1`] = `
               +
             </button>
           </td>
+          <td />
           <td>
-            <span
-              class=""
-            >
-              rs1309716217
-            </span>
-          </td>
-          <td>
-            1
+            22
           </td>
           <td>
             <span
@@ -95,22 +89,28 @@ exports[`VariationViewer component renders on data 1`] = `
             >
               <a
                 class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 E1*"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N22S"
                 rel="noopener"
                 target="_blank"
                 title="View in ProtVar"
               >
-                E&gt;*
+                N&gt;S
               </a>
             </span>
           </td>
-          <td />
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
           <td />
           <td>
             <span
-              class=""
+              class="bold"
             >
-              gnomAD
+              UniProt
             </span>
           </td>
         </tr>
@@ -123,7 +123,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row odd has-extra-content"
-          data-id="NC_000014.9:g.22438548A>C"
+          data-id="0.678535162879601"
         >
           <td>
             <button
@@ -134,38 +134,47 @@ exports[`VariationViewer component renders on data 1`] = `
               +
             </button>
           </td>
+          <td />
           <td>
-            <span
-              class=""
-            >
-              rs1225901762
-            </span>
-          </td>
-          <td>
-            1
+            39-44
           </td>
           <td>
             <span
               class="change"
             >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 E1A"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
+              NK
+              <button
+                aria-expanded="false"
+                class="button tertiary ellipsis-reveal"
+                title="Show more"
+                type="button"
               >
-                E&gt;A
-              </a>
+                [...]
+              </button>
+              &gt;SK
+              <button
+                aria-expanded="false"
+                class="button tertiary ellipsis-reveal"
+                title="Show more"
+                type="button"
+              >
+                [...]
+              </button>
             </span>
           </td>
-          <td />
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
           <td />
           <td>
             <span
-              class=""
+              class="bold"
             >
-              gnomAD
+              UniProt
             </span>
           </td>
         </tr>
@@ -178,7 +187,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row has-extra-content"
-          data-id="NC_000014.9:g.22438549A>C"
+          data-id="0.3121909673325627"
         >
           <td>
             <button
@@ -189,15 +198,9 @@ exports[`VariationViewer component renders on data 1`] = `
               +
             </button>
           </td>
+          <td />
           <td>
-            <span
-              class=""
-            >
-              rs765605248
-            </span>
-          </td>
-          <td>
-            1
+            74
           </td>
           <td>
             <span
@@ -205,28 +208,28 @@ exports[`VariationViewer component renders on data 1`] = `
             >
               <a
                 class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 E1D"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N74D"
                 rel="noopener"
                 target="_blank"
                 title="View in ProtVar"
               >
-                E&gt;D
+                N&gt;D
               </a>
             </span>
           </td>
-          <td />
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
           <td />
           <td>
             <span
-              class=""
+              class="bold"
             >
-              ExAC
-            </span>
-            <br />
-            <span
-              class=""
-            >
-              gnomAD
+              UniProt
             </span>
           </td>
         </tr>
@@ -239,7 +242,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row odd has-extra-content"
-          data-id="NC_000014.9:g.22438551T>C"
+          data-id="0.6228335486624732"
         >
           <td>
             <button
@@ -250,44 +253,30 @@ exports[`VariationViewer component renders on data 1`] = `
               +
             </button>
           </td>
+          <td />
           <td>
-            <span
-              class=""
-            >
-              rs1428147916
-            </span>
-          </td>
-          <td>
-            2
+            88-89
           </td>
           <td>
             <span
               class="change"
             >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 I2T"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                I&gt;T
-              </a>
+              GD&gt;TN
             </span>
           </td>
-          <td />
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
           <td />
           <td>
             <span
-              class=""
+              class="bold"
             >
-              TOPMed
-            </span>
-            <br />
-            <span
-              class=""
-            >
-              gnomAD
+              UniProt
             </span>
           </td>
         </tr>
@@ -300,7 +289,7 @@ exports[`VariationViewer component renders on data 1`] = `
         </tr>
         <tr
           class="row has-extra-content"
-          data-id="NC_000014.9:g.22438550A>G"
+          data-id="0.6754255874282302"
         >
           <td>
             <button
@@ -311,15 +300,9 @@ exports[`VariationViewer component renders on data 1`] = `
               +
             </button>
           </td>
+          <td />
           <td>
-            <span
-              class=""
-            >
-              rs750994808
-            </span>
-          </td>
-          <td>
-            2
+            98
           </td>
           <td>
             <span
@@ -327,28 +310,28 @@ exports[`VariationViewer component renders on data 1`] = `
             >
               <a
                 class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR3 I2V"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N98D"
                 rel="noopener"
                 target="_blank"
                 title="View in ProtVar"
               >
-                I&gt;V
+                N&gt;D
               </a>
             </span>
           </td>
-          <td />
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
           <td />
           <td>
             <span
-              class=""
+              class="bold"
             >
-              ExAC
-            </span>
-            <br />
-            <span
-              class=""
-            >
-              gnomAD
+              UniProt
             </span>
           </td>
         </tr>
@@ -356,6 +339,281 @@ exports[`VariationViewer component renders on data 1`] = `
           class="row extra-content"
           hidden=""
           id="6"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row odd has-extra-content"
+          data-id="0.9913645751380249"
+        >
+          <td>
+            <button
+              aria-controls="7"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td />
+          <td>
+            106
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 I106L"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                I&gt;L
+              </a>
+            </span>
+          </td>
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
+          <td />
+          <td>
+            <span
+              class="bold"
+            >
+              UniProt
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content odd"
+          hidden=""
+          id="7"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row has-extra-content"
+          data-id="0.3084052949292295"
+        >
+          <td>
+            <button
+              aria-controls="8"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td />
+          <td>
+            120
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 I120T"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                I&gt;T
+              </a>
+            </span>
+          </td>
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
+          <td />
+          <td>
+            <span
+              class="bold"
+            >
+              UniProt
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content"
+          hidden=""
+          id="8"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row odd has-extra-content"
+          data-id="0.5358468564603267"
+        >
+          <td>
+            <button
+              aria-controls="9"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td />
+          <td>
+            125
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 M125I"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                M&gt;I
+              </a>
+            </span>
+          </td>
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
+          <td />
+          <td>
+            <span
+              class="bold"
+            >
+              UniProt
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content odd"
+          hidden=""
+          id="9"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row has-extra-content"
+          data-id="0.14630590503436913"
+        >
+          <td>
+            <button
+              aria-controls="10"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td />
+          <td>
+            133
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 S133N"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                S&gt;N
+              </a>
+            </span>
+          </td>
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
+          <td />
+          <td>
+            <span
+              class="bold"
+            >
+              UniProt
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content"
+          hidden=""
+          id="10"
+        >
+          <td />
+        </tr>
+        <tr
+          class="row odd has-extra-content"
+          data-id="0.14922827967264496"
+        >
+          <td>
+            <button
+              aria-controls="11"
+              aria-expanded="false"
+              type="button"
+            >
+              +
+            </button>
+          </td>
+          <td />
+          <td>
+            267
+          </td>
+          <td>
+            <span
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 H267N"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                H&gt;N
+              </a>
+            </span>
+          </td>
+          <td>
+            <div
+              class="bold"
+            >
+              strain: Type C / C-6814 (UniProt)
+            </div>
+          </td>
+          <td />
+          <td>
+            <span
+              class="bold"
+            >
+              UniProt
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="row extra-content odd"
+          hidden=""
+          id="11"
         >
           <td />
         </tr>
@@ -436,7 +694,7 @@ exports[`VariationViewer component renders on no data 1`] = `
     <div
       class="no-data"
     >
-      No variation information available for P05067
+      No variation information available for P0DPR0
     </div>
   </section>
 </DocumentFragment>

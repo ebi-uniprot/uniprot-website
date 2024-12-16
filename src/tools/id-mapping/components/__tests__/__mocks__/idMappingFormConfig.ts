@@ -1,7 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: configure/idmapping/fields
-// Retrieved: 2024-10-01
+// Retrieved: 2024-12-10
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -242,7 +242,7 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
           uriLink:
-            'http://www.allergome.org/script/dettaglio.php?id_molecule=%id',
+            'https://www.allergome.org/script/dettaglio.php?id_molecule=%id',
         },
         {
           displayName: 'ESTHER',
@@ -268,7 +268,7 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
           uriLink:
-            'http://peroxibase.toulouse.inra.fr/display_perox/view_perox/%id',
+            'https://peroxibase.toulouse.inra.fr/display_perox/view_perox/%id',
         },
         {
           displayName: 'REBASE',
@@ -276,7 +276,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink: 'http://rebase.neb.com/rebase/enz/%id.html',
+          uriLink: 'https://rebase.neb.com/rebase/enz/%id.html',
         },
         {
           displayName: 'TCDB',
@@ -284,7 +284,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink: 'http://www.tcdb.org/search/result.php?tc=%id',
+          uriLink: 'https://www.tcdb.org/search/result.php?tc=%id',
         },
       ],
     },
@@ -496,7 +496,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink: 'http://www.conoserver.org/?page=card&table=protein&id=%id',
+          uriLink: 'https://www.conoserver.org/?page=card&table=protein&id=%id',
         },
         {
           displayName: 'dictyBase',
@@ -588,7 +588,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink: 'http://www.informatics.jax.org/marker/%id',
+          uriLink: 'https://www.informatics.jax.org/marker/%id',
         },
         {
           displayName: 'MIM',

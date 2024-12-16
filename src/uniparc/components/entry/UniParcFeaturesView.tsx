@@ -89,19 +89,24 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
           const { database, databaseId } = feature;
           const databaseInfo =
             databaseInfoMaps?.databaseToDatabaseInfo[database];
-          // TODO: FUNFAM database info will be available in 2024_06.
-          // URL has to be taken from the fetched data and dealt with 'superfamily' and 'family' expected in the URL.
-          // Watch out when adding the cross reference in UniProtKB as the database ID is '3.30.160.60:FF:000118'
-          // while for UniParc, there is an extra prefix 'G3DSA:3.40.50.300:FF:001498'
+          // Additional prefix 'G3DSA:' in UniParc will be removed in https://www.ebi.ac.uk/panda/jira/browse/TRM-32164.
+          // Adjust the below logic accordingly
+          let revisedDatabaseId;
           let funFamURL = '';
           if (database === 'FUNFAM') {
-            const funfamIDRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+):FF:(\d+)/;
+            const funfamIDRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+:FF:\d+)/;
             const match = databaseId.match(funfamIDRegEx);
 
             if (match) {
-              const [, superFamily, family] = match;
-              funFamURL = `https://www.cathdb.info/version/latest/superfamily/${superFamily}/funfam/${family}`;
+              const [, id] = match;
+              // Set only the ID like Gene3D once configure endpoint returns the correct URL for FunFam - http://www.cathdb.info/version/latest/funfam/%id
+              funFamURL = `http://www.cathdb.info/version/latest/funfam/${id}`;
             }
+          }
+          if (database === 'Gene3D') {
+            const gene3dRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+)/;
+            const match = databaseId.match(gene3dRegEx);
+            revisedDatabaseId = match?.[1];
           }
 
           return (
@@ -109,7 +114,7 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
               {databaseInfo?.uriLink && databaseId && (
                 <ExternalLink
                   url={processUrlTemplate(databaseInfo.uriLink, {
-                    id: databaseId,
+                    id: revisedDatabaseId || databaseId,
                   })}
                 >
                   {databaseId}

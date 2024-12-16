@@ -18,7 +18,7 @@ import ARBACard from '../../automatic-annotations/arba/components/results/ARBACa
 
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { UniParcLiteAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
 
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -47,7 +47,9 @@ const cardRenderer = (
       return (cardData) => <UniRefCard data={cardData as UniRefLiteAPIModel} />;
     }
     case Namespace.uniparc: {
-      return (cardData) => <UniParcCard data={cardData as UniParcAPIModel} />;
+      return (cardData) => (
+        <UniParcCard data={cardData as UniParcLiteAPIModel} />
+      );
     }
     case Namespace.proteomes: {
       return (cardData) => (

@@ -8,6 +8,7 @@ import {
   deepFindAllByKey,
   addBlastLinksToFreeText,
   keysToLowerCase,
+  excludeKeys,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -117,5 +118,18 @@ describe('keysToLowerCase', () => {
   });
   it('should return empty object with nothing provided', () => {
     expect(keysToLowerCase(undefined)).toEqual({});
+  });
+});
+
+describe('excludeKeys', () => {
+  it('should exclude specified keys', () => {
+    expect(excludeKeys({ a: 1, b: 2, c: 3 }, ['a', 'b'])).toEqual({ c: 3 });
+  });
+  it('should return object if keys do not exits', () => {
+    expect(excludeKeys({ a: 1, b: 2, c: 3 }, ['y', 'z'])).toEqual({
+      a: 1,
+      b: 2,
+      c: 3,
+    });
   });
 });

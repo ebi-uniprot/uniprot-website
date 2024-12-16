@@ -86,7 +86,9 @@ const TaxonomyFacet: FC<
       {displayQueryBuilder && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Advanced Search"
+            title={
+              <span data-article-id="advanced_search">Advanced Search</span>
+            }
             position="left"
             onClose={handleClose}
             pathname={pathname}

@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=glucose&size=2
-// Retrieved: 2024-10-01
+// Retrieved: 2024-12-10
 const mock: SearchResults<UniProtkbAPIModel> = {
   facets: [
     {
@@ -13,12 +13,12 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Reviewed (Swiss-Prot)',
           value: 'true',
-          count: 14253,
+          count: 14376,
         },
         {
           label: 'Unreviewed (TrEMBL)',
           value: 'false',
-          count: 2918040,
+          count: 3002781,
         },
       ],
     },
@@ -30,27 +30,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Rat',
           value: '10116',
-          count: 1949,
+          count: 1984,
         },
         {
           label: 'Human',
           value: '9606',
-          count: 1811,
+          count: 1840,
         },
         {
           label: 'A. thaliana',
           value: '3702',
-          count: 1644,
+          count: 1674,
         },
         {
           label: 'Mouse',
           value: '10090',
-          count: 1469,
+          count: 1423,
         },
         {
           label: 'Rice',
           value: '39947',
-          count: 908,
+          count: 961,
         },
       ],
     },
@@ -62,17 +62,17 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: '3D structure',
           value: '1',
-          count: 2493,
+          count: 2516,
         },
         {
           label: 'Active site',
           value: '2',
-          count: 572201,
+          count: 579544,
         },
         {
           label: 'Activity regulation',
           value: '3',
-          count: 38599,
+          count: 38872,
         },
         {
           label: 'Allergen',
@@ -82,132 +82,132 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Alternative products (isoforms)',
           value: '5',
-          count: 1195,
+          count: 1182,
         },
         {
           label: 'Alternative splicing',
           value: '6',
-          count: 1123,
+          count: 1110,
         },
         {
           label: 'Beta strand',
           value: '7',
-          count: 1655,
+          count: 1670,
         },
         {
           label: 'Binary interaction',
           value: '8',
-          count: 1462,
+          count: 1419,
         },
         {
           label: 'Binding site',
           value: '9',
-          count: 577418,
+          count: 587064,
         },
         {
           label: 'Biophysicochemical properties',
           value: '10',
-          count: 1377,
+          count: 1397,
         },
         {
           label: 'Biotechnological use',
           value: '11',
-          count: 133,
+          count: 140,
         },
         {
           label: 'Catalytic activity',
           value: '13',
-          count: 1208171,
+          count: 1249588,
         },
         {
           label: 'Chain',
           value: '14',
-          count: 238476,
+          count: 246381,
         },
         {
           label: 'Cofactors',
           value: '15',
-          count: 721451,
+          count: 740190,
         },
         {
           label: 'Coiled-coil',
           value: '16',
-          count: 60331,
+          count: 63768,
         },
         {
           label: 'Compositional bias',
           value: '17',
-          count: 200783,
+          count: 219434,
         },
         {
           label: 'Cross-link',
           value: '18',
-          count: 591,
+          count: 588,
         },
         {
           label: 'Developmental stage',
           value: '19',
-          count: 697,
+          count: 692,
         },
         {
           label: 'Disease',
           value: '20',
-          count: 435,
+          count: 440,
         },
         {
           label: 'Disruption phenotype',
           value: '21',
-          count: 1381,
+          count: 1400,
         },
         {
           label: 'Disulfide bond',
           value: '22',
-          count: 11078,
+          count: 11178,
         },
         {
           label: 'DNA binding',
           value: '23',
-          count: 1031,
+          count: 1034,
         },
         {
           label: 'Domain',
           value: '24',
-          count: 2145857,
+          count: 2201784,
         },
         {
           label: 'Function',
           value: '25',
-          count: 656009,
+          count: 698371,
         },
         {
           label: 'Glycosylation',
           value: '26',
-          count: 2065,
+          count: 2076,
         },
         {
           label: 'Helix',
           value: '27',
-          count: 1743,
+          count: 1759,
         },
         {
           label: 'Induction',
           value: '28',
-          count: 1932,
+          count: 1957,
         },
         {
           label: 'Initiator methionine',
           value: '29',
-          count: 827,
+          count: 836,
         },
         {
           label: 'Intramembrane',
           value: '30',
-          count: 70,
+          count: 64,
         },
         {
           label: 'Lipidation',
           value: '31',
-          count: 309,
+          count: 303,
         },
         {
           label: 'Mass spectrometry',
@@ -217,37 +217,37 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Modified residue',
           value: '34',
-          count: 109316,
+          count: 109301,
         },
         {
           label: 'Motif',
           value: '35',
-          count: 10131,
+          count: 10113,
         },
         {
           label: 'Mutagenesis',
           value: '36',
-          count: 1464,
+          count: 1473,
         },
         {
           label: 'Natural variant',
           value: '37',
-          count: 899,
+          count: 901,
         },
         {
           label: 'Non-standard residue',
           value: '38',
-          count: 32,
+          count: 31,
         },
         {
           label: 'Pathway',
           value: '40',
-          count: 721247,
+          count: 736326,
         },
         {
           label: 'Peptide',
           value: '41',
-          count: 299,
+          count: 301,
         },
         {
           label: 'Pharmaceutical use',
@@ -257,27 +257,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Polymorphism',
           value: '43',
-          count: 83,
+          count: 82,
         },
         {
           label: 'Propeptide',
           value: '44',
-          count: 495,
+          count: 499,
         },
         {
           label: 'PTM comments',
           value: '45',
-          count: 34710,
+          count: 34743,
         },
         {
           label: 'Region',
           value: '46',
-          count: 413415,
+          count: 440257,
         },
         {
           label: 'Repeat',
           value: '47',
-          count: 8565,
+          count: 10207,
         },
         {
           label: 'RNA editing',
@@ -287,52 +287,52 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Signal peptide',
           value: '49',
-          count: 226442,
+          count: 234245,
         },
         {
           label: 'Subcellular location',
           value: '50',
-          count: 818315,
+          count: 925927,
         },
         {
           label: 'Subunit structure',
           value: '51',
-          count: 341284,
+          count: 357991,
         },
         {
           label: 'Tissue specificity',
           value: '52',
-          count: 2475,
+          count: 2462,
         },
         {
           label: 'Topological domain',
           value: '53',
-          count: 1250,
+          count: 1248,
         },
         {
           label: 'Toxic dose',
           value: '54',
-          count: 11,
+          count: 12,
         },
         {
           label: 'Transit peptide',
           value: '55',
-          count: 373,
+          count: 370,
         },
         {
           label: 'Transmembrane',
           value: '56',
-          count: 647031,
+          count: 669015,
         },
         {
           label: 'Turn',
           value: '57',
-          count: 1525,
+          count: 1545,
         },
         {
           label: 'Zinc finger',
           value: '58',
-          count: 345,
+          count: 350,
         },
       ],
     },
@@ -344,22 +344,22 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Homology',
           value: '3',
-          count: 2077519,
+          count: 2148750,
         },
         {
           label: 'Predicted',
           value: '4',
-          count: 826368,
+          count: 838745,
         },
         {
           label: 'Transcript level',
           value: '2',
-          count: 18673,
+          count: 19715,
         },
         {
           label: 'Protein level',
           value: '1',
-          count: 9712,
+          count: 9926,
         },
         {
           label: 'Uncertain',
@@ -375,23 +375,23 @@ const mock: SearchResults<UniProtkbAPIModel> = {
       values: [
         {
           value: '5',
-          count: 8957,
+          count: 9949,
         },
         {
           value: '4',
-          count: 35481,
+          count: 61724,
         },
         {
           value: '3',
-          count: 309881,
+          count: 340814,
         },
         {
           value: '2',
-          count: 1041018,
+          count: 1104175,
         },
         {
           value: '1',
-          count: 1536956,
+          count: 1500495,
         },
       ],
     },
@@ -403,27 +403,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: '1 - 200',
           value: '[1 TO 200]',
-          count: 284778,
+          count: 288465,
         },
         {
           label: '201 - 400',
           value: '[201 TO 400]',
-          count: 1086859,
+          count: 1120678,
         },
         {
           label: '401 - 600',
           value: '[401 TO 600]',
-          count: 1094035,
+          count: 1121423,
         },
         {
           label: '601 - 800',
           value: '[601 TO 800]',
-          count: 281255,
+          count: 289307,
         },
         {
           label: '>= 801',
           value: '[801 TO *]',
-          count: 185366,
+          count: 197284,
         },
       ],
     },
@@ -431,1996 +431,14 @@ const mock: SearchResults<UniProtkbAPIModel> = {
   results: [
     {
       entryType: 'UniProtKB reviewed (Swiss-Prot)',
-      primaryAccession: 'P19926',
-      uniProtkbId: 'AGP_ECOLI',
-      entryAudit: {
-        firstPublicDate: '1991-02-01',
-        lastAnnotationUpdateDate: '2024-07-24',
-        lastSequenceUpdateDate: '1991-02-01',
-        entryVersion: 175,
-        sequenceVersion: 1,
-      },
-      annotationScore: 5,
-      organism: {
-        scientificName: 'Escherichia coli (strain K12)',
-        taxonId: 83333,
-        lineage: [
-          'Bacteria',
-          'Pseudomonadota',
-          'Gammaproteobacteria',
-          'Enterobacterales',
-          'Enterobacteriaceae',
-          'Escherichia',
-        ],
-      },
-      proteinExistence: '1: Evidence at protein level',
-      proteinDescription: {
-        recommendedName: {
-          fullName: {
-            value: 'Glucose-1-phosphatase',
-          },
-          shortNames: [
-            {
-              value: 'G1Pase',
-            },
-          ],
-          ecNumbers: [
-            {
-              value: '3.1.3.10',
-            },
-          ],
-        },
-        flag: 'Precursor',
-      },
-      genes: [
-        {
-          geneName: {
-            value: 'agp',
-          },
-          orderedLocusNames: [
-            {
-              value: 'b1002',
-            },
-            {
-              value: 'JW0987',
-            },
-          ],
-        },
-      ],
-      comments: [
-        {
-          texts: [
-            {
-              value:
-                'Absolutely required for the growth of E.coli in a high-phosphate medium containing G-1-P as the sole carbon source',
-            },
-          ],
-          commentType: 'FUNCTION',
-        },
-        {
-          commentType: 'CATALYTIC ACTIVITY',
-          reaction: {
-            name: 'alpha-D-glucose 1-phosphate + H2O = D-glucose + phosphate',
-            reactionCrossReferences: [
-              {
-                database: 'Rhea',
-                id: 'RHEA:19933',
-              },
-              {
-                database: 'ChEBI',
-                id: 'CHEBI:4167',
-              },
-              {
-                database: 'ChEBI',
-                id: 'CHEBI:15377',
-              },
-              {
-                database: 'ChEBI',
-                id: 'CHEBI:43474',
-              },
-              {
-                database: 'ChEBI',
-                id: 'CHEBI:58601',
-              },
-            ],
-            ecNumber: '3.1.3.10',
-          },
-        },
-        {
-          texts: [
-            {
-              value:
-                'Independent from inorganic phosphate availability, and apparently submitted to catabolite repression, it is positively controlled by cAMP and the cAMP receptor protein',
-            },
-          ],
-          commentType: 'ACTIVITY REGULATION',
-        },
-        {
-          commentType: 'BIOPHYSICOCHEMICAL PROPERTIES',
-          phDependence: {
-            texts: [
-              {
-                value: 'Optimum pH is about 4.',
-              },
-            ],
-          },
-        },
-        {
-          texts: [
-            {
-              evidences: [
-                {
-                  evidenceCode: 'ECO:0000269',
-                  source: 'PubMed',
-                  id: '12782623',
-                },
-              ],
-              value: 'Homodimer',
-            },
-          ],
-          commentType: 'SUBUNIT',
-        },
-        {
-          commentType: 'SUBCELLULAR LOCATION',
-          subcellularLocations: [
-            {
-              location: {
-                value: 'Periplasm',
-                id: 'SL-0200',
-              },
-            },
-          ],
-        },
-        {
-          texts: [
-            {
-              evidences: [
-                {
-                  evidenceCode: 'ECO:0000305',
-                },
-              ],
-              value: 'Belongs to the histidine acid phosphatase family',
-            },
-          ],
-          commentType: 'SIMILARITY',
-        },
-      ],
-      features: [
-        {
-          type: 'Signal',
-          location: {
-            start: {
-              value: 1,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 22,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000269',
-              source: 'PubMed',
-              id: '2153660',
-            },
-            {
-              evidenceCode: 'ECO:0000269',
-              source: 'PubMed',
-              id: '9298646',
-            },
-          ],
-        },
-        {
-          type: 'Chain',
-          location: {
-            start: {
-              value: 23,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 413,
-              modifier: 'EXACT',
-            },
-          },
-          description: 'Glucose-1-phosphatase',
-          featureId: 'PRO_0000023948',
-        },
-        {
-          type: 'Active site',
-          location: {
-            start: {
-              value: 40,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 40,
-              modifier: 'EXACT',
-            },
-          },
-          description: 'Nucleophile',
-        },
-        {
-          type: 'Active site',
-          location: {
-            start: {
-              value: 312,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 312,
-              modifier: 'EXACT',
-            },
-          },
-          description: 'Proton donor',
-        },
-        {
-          type: 'Binding site',
-          location: {
-            start: {
-              value: 39,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 39,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          ligand: {
-            name: 'substrate',
-          },
-        },
-        {
-          type: 'Binding site',
-          location: {
-            start: {
-              value: 43,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 43,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          ligand: {
-            name: 'substrate',
-          },
-        },
-        {
-          type: 'Binding site',
-          location: {
-            start: {
-              value: 116,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 116,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          ligand: {
-            name: 'substrate',
-          },
-        },
-        {
-          type: 'Binding site',
-          location: {
-            start: {
-              value: 218,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 218,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          ligand: {
-            name: 'substrate',
-          },
-        },
-        {
-          type: 'Binding site',
-          location: {
-            start: {
-              value: 311,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 313,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          ligand: {
-            name: 'substrate',
-          },
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 29,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 38,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 47,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 49,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 50,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 55,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 73,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 92,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 98,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 100,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 106,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 111,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 115,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 128,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Turn',
-          location: {
-            start: {
-              value: 147,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 149,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 159,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 174,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 178,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 188,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 190,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 192,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Turn',
-          location: {
-            start: {
-              value: 194,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 199,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Turn',
-          location: {
-            start: {
-              value: 204,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 206,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 210,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 212,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 220,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 223,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 224,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 240,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Turn',
-          location: {
-            start: {
-              value: 245,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 247,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 248,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 251,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 258,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 274,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 277,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 283,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 285,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 294,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Turn',
-          location: {
-            start: {
-              value: 295,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 301,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 304,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 309,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 312,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 321,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 333,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 336,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 341,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 349,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Turn',
-          location: {
-            start: {
-              value: 350,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 353,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 354,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 363,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 366,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 371,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 377,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 379,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Beta strand',
-          location: {
-            start: {
-              value: 382,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 385,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-        {
-          type: 'Helix',
-          location: {
-            start: {
-              value: 401,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 411,
-              modifier: 'EXACT',
-            },
-          },
-          description: '',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0007829',
-              source: 'PDB',
-              id: '1NT4',
-            },
-          ],
-        },
-      ],
-      keywords: [
-        {
-          id: 'KW-0002',
-          category: 'Technical term',
-          name: '3D-structure',
-        },
-        {
-          id: 'KW-0903',
-          category: 'Technical term',
-          name: 'Direct protein sequencing',
-        },
-        {
-          id: 'KW-0378',
-          category: 'Molecular function',
-          name: 'Hydrolase',
-        },
-        {
-          id: 'KW-0574',
-          category: 'Cellular component',
-          name: 'Periplasm',
-        },
-        {
-          id: 'KW-1185',
-          category: 'Technical term',
-          name: 'Reference proteome',
-        },
-        {
-          id: 'KW-0732',
-          category: 'Domain',
-          name: 'Signal',
-        },
-      ],
-      references: [
-        {
-          referenceNumber: 1,
-          citation: {
-            id: '2153660',
-            citationType: 'journal article',
-            authors: ['Pradel E.', 'Marck C.', 'Boquet P.L.'],
-            citationCrossReferences: [
-              {
-                database: 'PubMed',
-                id: '2153660',
-              },
-              {
-                database: 'DOI',
-                id: '10.1128/jb.172.2.802-807.1990',
-              },
-            ],
-            title:
-              'Nucleotide sequence and transcriptional analysis of the Escherichia coli agp gene encoding periplasmic acid glucose-1-phosphatase.',
-            publicationDate: '1990',
-            journal: 'J. Bacteriol.',
-            firstPage: '802',
-            lastPage: '807',
-            volume: '172',
-          },
-          referencePositions: [
-            'NUCLEOTIDE SEQUENCE [GENOMIC DNA]',
-            'PROTEIN SEQUENCE OF 23-31',
-          ],
-          referenceComments: [
-            {
-              value: 'K12',
-              type: 'STRAIN',
-            },
-          ],
-        },
-        {
-          referenceNumber: 2,
-          citation: {
-            id: '8905232',
-            citationType: 'journal article',
-            authors: [
-              'Oshima T.',
-              'Aiba H.',
-              'Baba T.',
-              'Fujita K.',
-              'Hayashi K.',
-              'Honjo A.',
-              'Ikemoto K.',
-              'Inada T.',
-              'Itoh T.',
-              'Kajihara M.',
-              'Kanai K.',
-              'Kashimoto K.',
-              'Kimura S.',
-              'Kitagawa M.',
-              'Makino K.',
-              'Masuda S.',
-              'Miki T.',
-              'Mizobuchi K.',
-              'Mori H.',
-              'Motomura K.',
-              'Nakamura Y.',
-              'Nashimoto H.',
-              'Nishio Y.',
-              'Saito N.',
-              'Sampei G.',
-              'Seki Y.',
-              'Tagami H.',
-              'Takemoto K.',
-              'Wada C.',
-              'Yamamoto Y.',
-              'Yano M.',
-              'Horiuchi T.',
-            ],
-            citationCrossReferences: [
-              {
-                database: 'PubMed',
-                id: '8905232',
-              },
-              {
-                database: 'DOI',
-                id: '10.1093/dnares/3.3.137',
-              },
-            ],
-            title:
-              'A 718-kb DNA sequence of the Escherichia coli K-12 genome corresponding to the 12.7-28.0 min region on the linkage map.',
-            publicationDate: '1996',
-            journal: 'DNA Res.',
-            firstPage: '137',
-            lastPage: '155',
-            volume: '3',
-          },
-          referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
-          referenceComments: [
-            {
-              value: 'K12 / W3110 / ATCC 27325 / DSM 5911',
-              type: 'STRAIN',
-            },
-          ],
-        },
-        {
-          referenceNumber: 3,
-          citation: {
-            id: '9278503',
-            citationType: 'journal article',
-            authors: [
-              'Blattner F.R.',
-              'Plunkett G. III',
-              'Bloch C.A.',
-              'Perna N.T.',
-              'Burland V.',
-              'Riley M.',
-              'Collado-Vides J.',
-              'Glasner J.D.',
-              'Rode C.K.',
-              'Mayhew G.F.',
-              'Gregor J.',
-              'Davis N.W.',
-              'Kirkpatrick H.A.',
-              'Goeden M.A.',
-              'Rose D.J.',
-              'Mau B.',
-              'Shao Y.',
-            ],
-            citationCrossReferences: [
-              {
-                database: 'PubMed',
-                id: '9278503',
-              },
-              {
-                database: 'DOI',
-                id: '10.1126/science.277.5331.1453',
-              },
-            ],
-            title: 'The complete genome sequence of Escherichia coli K-12.',
-            publicationDate: '1997',
-            journal: 'Science',
-            firstPage: '1453',
-            lastPage: '1462',
-            volume: '277',
-          },
-          referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
-          referenceComments: [
-            {
-              value: 'K12 / MG1655 / ATCC 47076',
-              type: 'STRAIN',
-            },
-          ],
-        },
-        {
-          referenceNumber: 4,
-          citation: {
-            id: '16738553',
-            citationType: 'journal article',
-            authors: [
-              'Hayashi K.',
-              'Morooka N.',
-              'Yamamoto Y.',
-              'Fujita K.',
-              'Isono K.',
-              'Choi S.',
-              'Ohtsubo E.',
-              'Baba T.',
-              'Wanner B.L.',
-              'Mori H.',
-              'Horiuchi T.',
-            ],
-            citationCrossReferences: [
-              {
-                database: 'PubMed',
-                id: '16738553',
-              },
-              {
-                database: 'DOI',
-                id: '10.1038/msb4100049',
-              },
-            ],
-            title:
-              'Highly accurate genome sequences of Escherichia coli K-12 strains MG1655 and W3110.',
-            publicationDate: '2006',
-            journal: 'Mol. Syst. Biol.',
-            firstPage: 'E1',
-            lastPage: 'E5',
-            volume: '2',
-          },
-          referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
-          referenceComments: [
-            {
-              value: 'K12 / W3110 / ATCC 27325 / DSM 5911',
-              type: 'STRAIN',
-            },
-          ],
-        },
-        {
-          referenceNumber: 5,
-          citation: {
-            id: '9298646',
-            citationType: 'journal article',
-            authors: ['Link A.J.', 'Robison K.', 'Church G.M.'],
-            citationCrossReferences: [
-              {
-                database: 'PubMed',
-                id: '9298646',
-              },
-              {
-                database: 'DOI',
-                id: '10.1002/elps.1150180807',
-              },
-            ],
-            title:
-              'Comparing the predicted and observed properties of proteins encoded in the genome of Escherichia coli K-12.',
-            publicationDate: '1997',
-            journal: 'Electrophoresis',
-            firstPage: '1259',
-            lastPage: '1313',
-            volume: '18',
-          },
-          referencePositions: ['PROTEIN SEQUENCE OF 23-34'],
-          referenceComments: [
-            {
-              value: 'K12 / EMG2',
-              type: 'STRAIN',
-            },
-          ],
-        },
-        {
-          referenceNumber: 6,
-          citation: {
-            id: '12782623',
-            citationType: 'journal article',
-            authors: ['Lee D.C.', 'Cottrill M.A.', 'Forsberg C.W.', 'Jia Z.'],
-            citationCrossReferences: [
-              {
-                database: 'PubMed',
-                id: '12782623',
-              },
-              {
-                database: 'DOI',
-                id: '10.1074/jbc.m213154200',
-              },
-            ],
-            title:
-              'Functional insights revealed by the crystal structures of Escherichia coli glucose-1-phosphatase.',
-            publicationDate: '2003',
-            journal: 'J. Biol. Chem.',
-            firstPage: '31412',
-            lastPage: '31418',
-            volume: '278',
-          },
-          referencePositions: [
-            'X-RAY CRYSTALLOGRAPHY (2.4 ANGSTROMS) OF 23-413 IN COMPLEX WITH GLUCOSE 1-PHOSPHATE',
-          ],
-        },
-      ],
-      uniProtKBCrossReferences: [
-        {
-          database: 'EMBL',
-          id: 'M33807',
-          properties: [
-            {
-              key: 'ProteinId',
-              value: 'AAA23426.1',
-            },
-            {
-              key: 'Status',
-              value: '-',
-            },
-            {
-              key: 'MoleculeType',
-              value: 'Genomic_DNA',
-            },
-          ],
-        },
-        {
-          database: 'EMBL',
-          id: 'U00096',
-          properties: [
-            {
-              key: 'ProteinId',
-              value: 'AAC74087.1',
-            },
-            {
-              key: 'Status',
-              value: '-',
-            },
-            {
-              key: 'MoleculeType',
-              value: 'Genomic_DNA',
-            },
-          ],
-        },
-        {
-          database: 'EMBL',
-          id: 'AP009048',
-          properties: [
-            {
-              key: 'ProteinId',
-              value: 'BAA35769.1',
-            },
-            {
-              key: 'Status',
-              value: '-',
-            },
-            {
-              key: 'MoleculeType',
-              value: 'Genomic_DNA',
-            },
-          ],
-        },
-        {
-          database: 'PIR',
-          id: 'JV0087',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'JV0087',
-            },
-          ],
-        },
-        {
-          database: 'RefSeq',
-          id: 'NP_415522.1',
-          properties: [
-            {
-              key: 'NucleotideSequenceId',
-              value: 'NC_000913.3',
-            },
-          ],
-        },
-        {
-          database: 'RefSeq',
-          id: 'WP_001044279.1',
-          properties: [
-            {
-              key: 'NucleotideSequenceId',
-              value: 'NZ_SSZK01000002.1',
-            },
-          ],
-        },
-        {
-          database: 'PDB',
-          id: '1NT4',
-          properties: [
-            {
-              key: 'Method',
-              value: 'X-ray',
-            },
-            {
-              key: 'Resolution',
-              value: '2.40 A',
-            },
-            {
-              key: 'Chains',
-              value: 'A/B=23-413',
-            },
-          ],
-        },
-        {
-          database: 'PDB',
-          id: '6RMR',
-          properties: [
-            {
-              key: 'Method',
-              value: 'X-ray',
-            },
-            {
-              key: 'Resolution',
-              value: '2.50 A',
-            },
-            {
-              key: 'Chains',
-              value: 'A/B=23-413',
-            },
-          ],
-        },
-        {
-          database: 'PDBsum',
-          id: '1NT4',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'PDBsum',
-          id: '6RMR',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'AlphaFoldDB',
-          id: 'P19926',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'SMR',
-          id: 'P19926',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'BioGRID',
-          id: '4259551',
-          properties: [
-            {
-              key: 'Interactions',
-              value: '16',
-            },
-          ],
-        },
-        {
-          database: 'DIP',
-          id: 'DIP-2905N',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'IntAct',
-          id: 'P19926',
-          properties: [
-            {
-              key: 'Interactions',
-              value: '3',
-            },
-          ],
-        },
-        {
-          database: 'STRING',
-          id: '511145.b1002',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'DrugBank',
-          id: 'DB02843',
-          properties: [
-            {
-              key: 'GenericName',
-              value: 'alpha-D-glucose-1-phosphate',
-            },
-          ],
-        },
-        {
-          database: 'jPOST',
-          id: 'P19926',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'PaxDb',
-          id: '511145-b1002',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'EnsemblBacteria',
-          id: 'AAC74087',
-          properties: [
-            {
-              key: 'ProteinId',
-              value: 'AAC74087',
-            },
-            {
-              key: 'GeneId',
-              value: 'b1002',
-            },
-          ],
-        },
-        {
-          database: 'GeneID',
-          id: '945773',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'KEGG',
-          id: 'ecj:JW0987',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'KEGG',
-          id: 'eco:b1002',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'PATRIC',
-          id: 'fig|1411691.4.peg.1269',
-          properties: [
-            {
-              key: 'GeneDesignation',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'EchoBASE',
-          id: 'EB0032',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'eggNOG',
-          id: 'ENOG502Z7K9',
-          properties: [
-            {
-              key: 'ToxonomicScope',
-              value: 'Bacteria',
-            },
-          ],
-        },
-        {
-          database: 'HOGENOM',
-          id: 'CLU_030561_2_1_6',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'InParanoid',
-          id: 'P19926',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'OMA',
-          id: 'IKTDQQW',
-          properties: [
-            {
-              key: 'Fingerprint',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'OrthoDB',
-          id: '395886at2',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'PhylomeDB',
-          id: 'P19926',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'BioCyc',
-          id: 'EcoCyc:GLUCOSE-1-PHOSPHAT-MONOMER',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'BioCyc',
-          id: 'MetaCyc:GLUCOSE-1-PHOSPHAT-MONOMER',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'EvolutionaryTrace',
-          id: 'P19926',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'PRO',
-          id: 'PR:P19926',
-          properties: [
-            {
-              key: 'Description',
-              value: '-',
-            },
-          ],
-        },
-        {
-          database: 'Proteomes',
-          id: 'UP000000318',
-          properties: [
-            {
-              key: 'Component',
-              value: 'Chromosome',
-            },
-          ],
-        },
-        {
-          database: 'Proteomes',
-          id: 'UP000000625',
-          properties: [
-            {
-              key: 'Component',
-              value: 'Chromosome',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0030288',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'C:outer membrane-bounded periplasmic space',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'IDA:EcoCyc',
-            },
-          ],
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '15911532',
-            },
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '24140104',
-            },
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '2844729',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0016158',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'F:3-phytase activity',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'IDA:EcoCyc',
-            },
-          ],
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '12455612',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0008877',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'F:glucose-1-phosphatase activity',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'IDA:EcoCyc',
-            },
-          ],
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '12455612',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0050308',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'F:sugar-phosphatase activity',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'IBA:GO_Central',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0006007',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'P:glucose catabolic process',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'IMP:EcoCyc',
-            },
-          ],
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000315',
-              source: 'PubMed',
-              id: '1648777',
-            },
-            {
-              evidenceCode: 'ECO:0000315',
-              source: 'PubMed',
-              id: '2542226',
-            },
-          ],
-        },
-        {
-          database: 'CDD',
-          id: 'cd07061',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'HP_HAP_like',
-            },
-            {
-              key: 'MatchStatus',
-              value: '1',
-            },
-          ],
-        },
-        {
-          database: 'Gene3D',
-          id: '3.40.50.1240',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'Phosphoglycerate mutase-like',
-            },
-            {
-              key: 'MatchStatus',
-              value: '2',
-            },
-          ],
-        },
-        {
-          database: 'InterPro',
-          id: 'IPR033379',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'Acid_Pase_AS',
-            },
-          ],
-        },
-        {
-          database: 'InterPro',
-          id: 'IPR000560',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'His_Pase_clade-2',
-            },
-          ],
-        },
-        {
-          database: 'InterPro',
-          id: 'IPR029033',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'His_PPase_superfam',
-            },
-          ],
-        },
-        {
-          database: 'InterPro',
-          id: 'IPR050645',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'Histidine_acid_phosphatase',
-            },
-          ],
-        },
-        {
-          database: 'PANTHER',
-          id: 'PTHR11567',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'ACID PHOSPHATASE-RELATED',
-            },
-            {
-              key: 'MatchStatus',
-              value: '1',
-            },
-          ],
-        },
-        {
-          database: 'PANTHER',
-          id: 'PTHR11567:SF135',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'GLUCOSE-1-PHOSPHATASE',
-            },
-            {
-              key: 'MatchStatus',
-              value: '1',
-            },
-          ],
-        },
-        {
-          database: 'Pfam',
-          id: 'PF00328',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'His_Phos_2',
-            },
-            {
-              key: 'MatchStatus',
-              value: '1',
-            },
-          ],
-        },
-        {
-          database: 'SUPFAM',
-          id: 'SSF53254',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'Phosphoglycerate mutase-like',
-            },
-            {
-              key: 'MatchStatus',
-              value: '1',
-            },
-          ],
-        },
-        {
-          database: 'PROSITE',
-          id: 'PS00616',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'HIS_ACID_PHOSPHAT_1',
-            },
-            {
-              key: 'MatchStatus',
-              value: '1',
-            },
-          ],
-        },
-        {
-          database: 'PROSITE',
-          id: 'PS00778',
-          properties: [
-            {
-              key: 'EntryName',
-              value: 'HIS_ACID_PHOSPHAT_2',
-            },
-            {
-              key: 'MatchStatus',
-              value: '1',
-            },
-          ],
-        },
-      ],
-      sequence: {
-        value:
-          'MNKTLIAAAVAGIVLLASNAQAQTVPEGYQLQQVLMMSRHNLRAPLANNGSVLEQSTPNKWPEWDVPGGQLTTKGGVLEVYMGHYMREWLAEQGMVKSGECPPPYTVYAYANSLQRTVATAQFFITGAFPGCDIPVHHQEKMGTMDPTFNPVITDDSAAFSEQAVAAMEKELSKLQLTDSYQLLEKIVNYKDSPACKEKQQCSLVDGKNTFSAKYQQEPGVSGPLKVGNSLVDAFTLQYYEGFPMDQVAWGEIKSDQQWKVLSKLKNGYQDSLFTSPEVARNVAKPLVSYIDKALVTDRTSAPKITVLVGHDSNIASLLTALDFKPYQLHDQNERTPIGGKIVFQRWHDSKANRDLMKIEYVYQSAEQLRNADALTLQAPAQRVTLELSGCPIDADGFCPMDKFDSVLNEAVK',
-        length: 413,
-        molWeight: 45683,
-        crc64: 'ADADAD3639D0D6AB',
-        md5: '59C6E65346097099D739383B53092172',
-      },
-      extraAttributes: {
-        countByCommentType: {
-          FUNCTION: 1,
-          'CATALYTIC ACTIVITY': 1,
-          'ACTIVITY REGULATION': 1,
-          'BIOPHYSICOCHEMICAL PROPERTIES': 1,
-          SUBUNIT: 1,
-          'SUBCELLULAR LOCATION': 1,
-          SIMILARITY: 1,
-        },
-        countByFeatureType: {
-          Signal: 1,
-          Chain: 1,
-          'Active site': 2,
-          'Binding site': 5,
-          'Beta strand': 11,
-          Helix: 15,
-          Turn: 6,
-        },
-        uniParcId: 'UPI00001256FB',
-      },
-    },
-    {
-      entryType: 'UniProtKB reviewed (Swiss-Prot)',
       primaryAccession: 'P13866',
       secondaryAccessions: ['B2R7E2', 'B7Z4Q9', 'B7ZA69'],
       uniProtkbId: 'SC5A1_HUMAN',
       entryAudit: {
         firstPublicDate: '1990-01-01',
-        lastAnnotationUpdateDate: '2024-10-02',
+        lastAnnotationUpdateDate: '2024-11-27',
         lastSequenceUpdateDate: '1990-01-01',
-        entryVersion: 221,
+        entryVersion: 222,
         sequenceVersion: 1,
       },
       annotationScore: 5,
@@ -2449,6 +467,13 @@ const mock: SearchResults<UniProtkbAPIModel> = {
       proteinDescription: {
         recommendedName: {
           fullName: {
+            evidences: [
+              {
+                evidenceCode: 'ECO:0000303',
+                source: 'PubMed',
+                id: '37217492',
+              },
+            ],
             value: 'Sodium/glucose cotransporter 1',
           },
           shortNames: [
@@ -2503,6 +528,11 @@ const mock: SearchResults<UniProtkbAPIModel> = {
                 {
                   evidenceCode: 'ECO:0000303',
                   source: 'PubMed',
+                  id: '37217492',
+                },
+                {
+                  evidenceCode: 'ECO:0000303',
+                  source: 'PubMed',
                   id: '8563765',
                 },
               ],
@@ -2554,11 +584,16 @@ const mock: SearchResults<UniProtkbAPIModel> = {
                 {
                   evidenceCode: 'ECO:0000269',
                   source: 'PubMed',
+                  id: '37217492',
+                },
+                {
+                  evidenceCode: 'ECO:0000269',
+                  source: 'PubMed',
                   id: '8563765',
                 },
               ],
               value:
-                'Electrogenic Na(+)-coupled sugar symporter that actively transports D-glucose or D-galactose at the plasma membrane, with a Na(+) to sugar coupling ratio of 2:1. Transporter activity is driven by a transmembrane Na(+) electrochemical gradient set by the Na(+)/K(+) pump (PubMed:20980548, PubMed:34880492, PubMed:35077764, PubMed:8563765). Has a primary role in the transport of dietary monosaccharides from enterocytes to blood. Responsible for the absorption of D-glucose or D-galactose across the apical brush-border membrane of enterocytes, whereas basolateral exit is provided by GLUT2. Additionally, functions as a D-glucose sensor in enteroendocrine cells, triggering the secretion of the incretins GCG and GIP that control food intake and energy homeostasis (By similarity) (PubMed:8563765). Together with SGLT2, functions in reabsorption of D-glucose from glomerular filtrate, playing a nonredundant role in the S3 segment of the proximal tubules (By similarity). Transports D-glucose into endometrial epithelial cells, controlling glycogen synthesis and nutritional support for the embryo as well as the decidual transformation of endometrium prior to conception (PubMed:28974690). Acts as a water channel enabling passive water transport across the plasma membrane in response to the osmotic gradient created upon sugar and Na(+) uptake. Has high water conductivity, comparable to aquaporins, and therefore is expected to play an important role in transepithelial water permeability, especially in the small intestine',
+                'Electrogenic Na(+)-coupled sugar symporter that actively transports D-glucose or D-galactose at the plasma membrane, with a Na(+) to sugar coupling ratio of 2:1. Transporter activity is driven by a transmembrane Na(+) electrochemical gradient set by the Na(+)/K(+) pump (PubMed:20980548, PubMed:34880492, PubMed:35077764, PubMed:8563765, PubMed:37217492). Has a primary role in the transport of dietary monosaccharides from enterocytes to blood. Responsible for the absorption of D-glucose or D-galactose across the apical brush-border membrane of enterocytes, whereas basolateral exit is provided by GLUT2. Additionally, functions as a D-glucose sensor in enteroendocrine cells, triggering the secretion of the incretins GCG and GIP that control food intake and energy homeostasis (By similarity) (PubMed:8563765). Together with SGLT2, functions in reabsorption of D-glucose from glomerular filtrate, playing a nonredundant role in the S3 segment of the proximal tubules (By similarity). Transports D-glucose into endometrial epithelial cells, controlling glycogen synthesis and nutritional support for the embryo as well as the decidual transformation of endometrium prior to conception (PubMed:28974690). Acts as a water channel enabling passive water transport across the plasma membrane in response to the osmotic gradient created upon sugar and Na(+) uptake. Has high water conductivity, comparable to aquaporins, and therefore is expected to play an important role in transepithelial water permeability, especially in the small intestine',
             },
           ],
           commentType: 'FUNCTION',
@@ -2587,6 +622,11 @@ const mock: SearchResults<UniProtkbAPIModel> = {
                 source: 'PubMed',
                 id: '35077764',
               },
+              {
+                evidenceCode: 'ECO:0000269',
+                source: 'PubMed',
+                id: '37217492',
+              },
             ],
           },
           physiologicalReactions: [
@@ -2611,6 +651,11 @@ const mock: SearchResults<UniProtkbAPIModel> = {
                   evidenceCode: 'ECO:0000305',
                   source: 'PubMed',
                   id: '35077764',
+                },
+                {
+                  evidenceCode: 'ECO:0000305',
+                  source: 'PubMed',
+                  id: '37217492',
                 },
                 {
                   evidenceCode: 'ECO:0000305',
@@ -2693,9 +738,14 @@ const mock: SearchResults<UniProtkbAPIModel> = {
                   source: 'PubMed',
                   id: '34880492',
                 },
+                {
+                  evidenceCode: 'ECO:0000269',
+                  source: 'PubMed',
+                  id: '37217492',
+                },
               ],
               value:
-                'Inhibited by phlorizin (PubMed:20980548, PubMed:34880492). Possibly modulated by cholesterol binding (PubMed:34880492)',
+                'Enhanced by the interaction with PDZK1IP1/MAP17; but unlike SLC5A2/SGLT2, PDZK1IP1 is not essential for SLC5A1 transporter activity (PubMed:37217492). Inhibited by phlorizin (PubMed:20980548, PubMed:34880492). Possibly modulated by cholesterol binding (PubMed:34880492)',
             },
           ],
           commentType: 'ACTIVITY REGULATION',
@@ -2767,7 +817,14 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               topology: {
                 evidences: [
                   {
-                    evidenceCode: 'ECO:0000255',
+                    evidenceCode: 'ECO:0000269',
+                    source: 'PubMed',
+                    id: '34880492',
+                  },
+                  {
+                    evidenceCode: 'ECO:0000269',
+                    source: 'PubMed',
+                    id: '37217492',
                   },
                 ],
                 value: 'Multi-pass membrane protein',
@@ -2954,14 +1011,36 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               modifier: 'EXACT',
             },
             end: {
-              value: 28,
+              value: 24,
               modifier: 'EXACT',
             },
           },
           description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -2969,18 +1048,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 29,
+              value: 25,
               modifier: 'EXACT',
             },
             end: {
-              value: 49,
+              value: 47,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM0',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -2988,18 +1089,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 50,
+              value: 48,
               modifier: 'EXACT',
             },
             end: {
-              value: 64,
+              value: 66,
               modifier: 'EXACT',
             },
           },
           description: 'Cytoplasmic',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3007,18 +1130,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 65,
+              value: 67,
               modifier: 'EXACT',
             },
             end: {
-              value: 85,
+              value: 90,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM1',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3026,18 +1171,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 86,
+              value: 91,
               modifier: 'EXACT',
             },
             end: {
-              value: 105,
+              value: 95,
               modifier: 'EXACT',
             },
           },
           description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3045,18 +1212,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 106,
+              value: 96,
               modifier: 'EXACT',
             },
             end: {
-              value: 126,
+              value: 117,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM2',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3064,18 +1253,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 127,
+              value: 118,
               modifier: 'EXACT',
             },
             end: {
-              value: 142,
+              value: 139,
               modifier: 'EXACT',
             },
           },
           description: 'Cytoplasmic',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3083,18 +1294,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 143,
+              value: 140,
               modifier: 'EXACT',
             },
             end: {
-              value: 163,
+              value: 169,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM3',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3102,18 +1335,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 164,
+              value: 170,
               modifier: 'EXACT',
             },
             end: {
-              value: 178,
+              value: 176,
               modifier: 'EXACT',
             },
           },
           description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3121,18 +1376,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 179,
+              value: 177,
               modifier: 'EXACT',
             },
             end: {
-              value: 201,
+              value: 193,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM4',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3140,18 +1417,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
+              value: 194,
+              modifier: 'EXACT',
+            },
+            end: {
               value: 202,
               modifier: 'EXACT',
             },
-            end: {
-              value: 208,
-              modifier: 'EXACT',
-            },
           },
           description: 'Cytoplasmic',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3159,18 +1458,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 209,
+              value: 203,
               modifier: 'EXACT',
             },
             end: {
-              value: 229,
+              value: 221,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM5',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3178,18 +1499,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 230,
+              value: 222,
               modifier: 'EXACT',
             },
             end: {
-              value: 277,
+              value: 275,
               modifier: 'EXACT',
             },
           },
           description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3197,18 +1540,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 278,
+              value: 276,
               modifier: 'EXACT',
             },
             end: {
-              value: 298,
+              value: 295,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM6',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3216,18 +1581,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 299,
+              value: 296,
               modifier: 'EXACT',
             },
             end: {
-              value: 313,
+              value: 309,
               modifier: 'EXACT',
             },
           },
           description: 'Cytoplasmic',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3235,18 +1622,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 314,
+              value: 310,
               modifier: 'EXACT',
             },
             end: {
-              value: 334,
+              value: 331,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM7',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3254,18 +1663,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 335,
+              value: 332,
               modifier: 'EXACT',
             },
             end: {
-              value: 380,
+              value: 375,
               modifier: 'EXACT',
             },
           },
           description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3273,18 +1704,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 381,
+              value: 376,
               modifier: 'EXACT',
             },
             end: {
-              value: 401,
+              value: 406,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM8',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3292,26 +1745,48 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 402,
+              value: 407,
               modifier: 'EXACT',
             },
             end: {
+              value: 422,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Cytoplasmic',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
+          ],
+        },
+        {
+          type: 'Transmembrane',
+          location: {
+            start: {
               value: 423,
-              modifier: 'EXACT',
-            },
-          },
-          description: 'Cytoplasmic',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000255',
-            },
-          ],
-        },
-        {
-          type: 'Transmembrane',
-          location: {
-            start: {
-              value: 424,
               modifier: 'EXACT',
             },
             end: {
@@ -3319,10 +1794,32 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM9',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3334,14 +1831,36 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               modifier: 'EXACT',
             },
             end: {
-              value: 455,
+              value: 451,
               modifier: 'EXACT',
             },
           },
           description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3349,18 +1868,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 456,
+              value: 452,
               modifier: 'EXACT',
             },
             end: {
-              value: 476,
+              value: 477,
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Helical; Name=TM10',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3368,18 +1909,40 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Topological domain',
           location: {
             start: {
-              value: 477,
+              value: 478,
               modifier: 'EXACT',
             },
             end: {
-              value: 484,
+              value: 481,
               modifier: 'EXACT',
             },
           },
           description: 'Cytoplasmic',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3387,75 +1950,81 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
-              value: 485,
+              value: 482,
               modifier: 'EXACT',
             },
             end: {
+              value: 504,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Helical; Name=TM11',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
+          ],
+        },
+        {
+          type: 'Topological domain',
+          location: {
+            start: {
               value: 505,
               modifier: 'EXACT',
             },
-          },
-          description: 'Helical',
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000255',
-            },
-          ],
-        },
-        {
-          type: 'Topological domain',
-          location: {
-            start: {
-              value: 506,
-              modifier: 'EXACT',
-            },
             end: {
-              value: 526,
+              value: 525,
               modifier: 'EXACT',
             },
           },
           description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
             },
-          ],
-        },
-        {
-          type: 'Intramembrane',
-          location: {
-            start: {
-              value: 527,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 563,
-              modifier: 'EXACT',
-            },
-          },
-          description: 'Helical',
-          evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
             },
-          ],
-        },
-        {
-          type: 'Topological domain',
-          location: {
-            start: {
-              value: 564,
-              modifier: 'EXACT',
-            },
-            end: {
-              value: 643,
-              modifier: 'EXACT',
-            },
-          },
-          description: 'Extracellular',
-          evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3463,7 +2032,130 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Transmembrane',
           location: {
             start: {
+              value: 526,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 547,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Helical; Name=TM12',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
+          ],
+        },
+        {
+          type: 'Topological domain',
+          location: {
+            start: {
+              value: 548,
+              modifier: 'EXACT',
+            },
+            end: {
               value: 644,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Cytoplasmic',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
+          ],
+        },
+        {
+          type: 'Transmembrane',
+          location: {
+            start: {
+              value: 645,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 662,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Helical; Name=TM13',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
+          ],
+        },
+        {
+          type: 'Topological domain',
+          location: {
+            start: {
+              value: 663,
               modifier: 'EXACT',
             },
             end: {
@@ -3471,10 +2163,32 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               modifier: 'EXACT',
             },
           },
-          description: 'Helical',
+          description: 'Extracellular',
           evidences: [
             {
-              evidenceCode: 'ECO:0000255',
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3616,6 +2330,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               modifier: 'EXACT',
             },
             end: {
+              value: 610,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000250',
+              source: 'UniProtKB',
+              id: 'P11170',
+            },
+          ],
+        },
+        {
+          type: 'Disulfide bond',
+          location: {
+            start: {
+              value: 255,
+              modifier: 'EXACT',
+            },
+            end: {
               value: 511,
               modifier: 'EXACT',
             },
@@ -3626,6 +2361,26 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               evidenceCode: 'ECO:0000269',
               source: 'PubMed',
               id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -3648,6 +2403,26 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               source: 'PubMed',
               id: '34880492',
             },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
           ],
         },
         {
@@ -3669,6 +2444,26 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               source: 'PubMed',
               id: '34880492',
             },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
           ],
         },
         {
@@ -3689,6 +2484,26 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               evidenceCode: 'ECO:0000269',
               source: 'PubMed',
               id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '37217492',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
             },
           ],
         },
@@ -7101,12 +5916,66 @@ const mock: SearchResults<UniProtkbAPIModel> = {
             'FUNCTION',
             'TRANSPORTER ACTIVITY',
             'ACTIVITY REGULATION',
+            'SUBCELLULAR LOCATION',
             'DOMAIN',
             'MUTAGENESIS OF TRP-67; SER-77; HIS-83; ASP-204; THR-287; TRP-291; ASN-363; SER-396; GLN-451; LEU-452; ASP-454; GLN-457; THR-460; TRP-641; HIS-660 AND ALA-661',
+          ],
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SL8',
+            },
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7SLA',
+            },
           ],
         },
         {
           referenceNumber: 14,
+          citation: {
+            id: '37217492',
+            citationType: 'journal article',
+            authors: ['Cui W.', 'Niu Y.', 'Sun Z.', 'Liu R.', 'Chen L.'],
+            citationCrossReferences: [
+              {
+                database: 'PubMed',
+                id: '37217492',
+              },
+              {
+                database: 'DOI',
+                id: '10.1038/s41467-023-38720-1',
+              },
+            ],
+            title:
+              'Structures of human SGLT in the occluded state reveal conformational changes during sugar transport.',
+            publicationDate: '2023',
+            journal: 'Nat. Commun.',
+            firstPage: '2920',
+            lastPage: '2920',
+            volume: '14',
+          },
+          referencePositions: [
+            'STRUCTURE BY ELECTRON MICROSCOPY (3.26 ANGSTROMS) IN COMPLEX WITH PDZK1IP1/MAP17 AND GLUCOSE ANALOG',
+            'FUNCTION',
+            'TRANSPORTER ACTIVITY',
+            'ACTIVITY REGULATION',
+            'SUBCELLULAR LOCATION',
+            'TOPOLOGY',
+            'DISULFIDE BONDS',
+          ],
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007744',
+              source: 'PDB',
+              id: '7YNI',
+            },
+          ],
+        },
+        {
+          referenceNumber: 15,
           citation: {
             id: '2008213',
             citationType: 'journal article',
@@ -7138,7 +6007,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           referencePositions: ['VARIANT GGM ASN-28'],
         },
         {
-          referenceNumber: 15,
+          referenceNumber: 16,
           citation: {
             id: '8563765',
             citationType: 'journal article',
@@ -7174,7 +6043,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
-          referenceNumber: 16,
+          referenceNumber: 17,
           citation: {
             id: '10036327',
             citationType: 'journal article',
@@ -7208,7 +6077,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           referencePositions: ['VARIANTS GGM ARG-318 AND VAL-468'],
         },
         {
-          referenceNumber: 17,
+          referenceNumber: 18,
           citation: {
             id: '11406349',
             citationType: 'journal article',
@@ -8138,7 +7007,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           properties: [
             {
               key: 'antibodies',
-              value: '387 antibodies from 35 providers',
+              value: '366 antibodies from 34 providers',
             },
           ],
         },
@@ -9217,6 +8086,20 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           ],
         },
         {
+          database: 'FunFam',
+          id: '1.20.1730.10:FF:000005',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'sodium/glucose cotransporter 1 isoform X1',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+        {
           database: 'Gene3D',
           id: '1.20.1730.10',
           properties: [
@@ -9385,14 +8268,13 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         },
         countByFeatureType: {
           Chain: 1,
-          'Topological domain': 14,
-          Transmembrane: 13,
-          Intramembrane: 1,
+          'Topological domain': 15,
+          Transmembrane: 14,
           'Binding site': 1,
           Site: 3,
           'Modified residue': 1,
           Glycosylation: 1,
-          'Disulfide bond': 4,
+          'Disulfide bond': 5,
           'Alternative sequence': 1,
           'Natural variant': 25,
           Mutagenesis: 23,
@@ -9402,6 +8284,1998 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           'Beta strand': 7,
         },
         uniParcId: 'UPI00001359EA',
+      },
+    },
+    {
+      entryType: 'UniProtKB reviewed (Swiss-Prot)',
+      primaryAccession: 'P19926',
+      uniProtkbId: 'AGP_ECOLI',
+      entryAudit: {
+        firstPublicDate: '1991-02-01',
+        lastAnnotationUpdateDate: '2024-11-27',
+        lastSequenceUpdateDate: '1991-02-01',
+        entryVersion: 176,
+        sequenceVersion: 1,
+      },
+      annotationScore: 5,
+      organism: {
+        scientificName: 'Escherichia coli (strain K12)',
+        taxonId: 83333,
+        lineage: [
+          'Bacteria',
+          'Pseudomonadota',
+          'Gammaproteobacteria',
+          'Enterobacterales',
+          'Enterobacteriaceae',
+          'Escherichia',
+        ],
+      },
+      proteinExistence: '1: Evidence at protein level',
+      proteinDescription: {
+        recommendedName: {
+          fullName: {
+            value: 'Glucose-1-phosphatase',
+          },
+          shortNames: [
+            {
+              value: 'G1Pase',
+            },
+          ],
+          ecNumbers: [
+            {
+              value: '3.1.3.10',
+            },
+          ],
+        },
+        flag: 'Precursor',
+      },
+      genes: [
+        {
+          geneName: {
+            value: 'agp',
+          },
+          orderedLocusNames: [
+            {
+              value: 'b1002',
+            },
+            {
+              value: 'JW0987',
+            },
+          ],
+        },
+      ],
+      comments: [
+        {
+          texts: [
+            {
+              value:
+                'Absolutely required for the growth of E.coli in a high-phosphate medium containing G-1-P as the sole carbon source',
+            },
+          ],
+          commentType: 'FUNCTION',
+        },
+        {
+          commentType: 'CATALYTIC ACTIVITY',
+          reaction: {
+            name: 'alpha-D-glucose 1-phosphate + H2O = D-glucose + phosphate',
+            reactionCrossReferences: [
+              {
+                database: 'Rhea',
+                id: 'RHEA:19933',
+              },
+              {
+                database: 'ChEBI',
+                id: 'CHEBI:4167',
+              },
+              {
+                database: 'ChEBI',
+                id: 'CHEBI:15377',
+              },
+              {
+                database: 'ChEBI',
+                id: 'CHEBI:43474',
+              },
+              {
+                database: 'ChEBI',
+                id: 'CHEBI:58601',
+              },
+            ],
+            ecNumber: '3.1.3.10',
+          },
+        },
+        {
+          texts: [
+            {
+              value:
+                'Independent from inorganic phosphate availability, and apparently submitted to catabolite repression, it is positively controlled by cAMP and the cAMP receptor protein',
+            },
+          ],
+          commentType: 'ACTIVITY REGULATION',
+        },
+        {
+          commentType: 'BIOPHYSICOCHEMICAL PROPERTIES',
+          phDependence: {
+            texts: [
+              {
+                value: 'Optimum pH is about 4.',
+              },
+            ],
+          },
+        },
+        {
+          texts: [
+            {
+              evidences: [
+                {
+                  evidenceCode: 'ECO:0000269',
+                  source: 'PubMed',
+                  id: '12782623',
+                },
+              ],
+              value: 'Homodimer',
+            },
+          ],
+          commentType: 'SUBUNIT',
+        },
+        {
+          commentType: 'SUBCELLULAR LOCATION',
+          subcellularLocations: [
+            {
+              location: {
+                value: 'Periplasm',
+                id: 'SL-0200',
+              },
+            },
+          ],
+        },
+        {
+          texts: [
+            {
+              evidences: [
+                {
+                  evidenceCode: 'ECO:0000305',
+                },
+              ],
+              value: 'Belongs to the histidine acid phosphatase family',
+            },
+          ],
+          commentType: 'SIMILARITY',
+        },
+      ],
+      features: [
+        {
+          type: 'Signal',
+          location: {
+            start: {
+              value: 1,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 22,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '2153660',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '9298646',
+            },
+          ],
+        },
+        {
+          type: 'Chain',
+          location: {
+            start: {
+              value: 23,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 413,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Glucose-1-phosphatase',
+          featureId: 'PRO_0000023948',
+        },
+        {
+          type: 'Active site',
+          location: {
+            start: {
+              value: 40,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 40,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Nucleophile',
+        },
+        {
+          type: 'Active site',
+          location: {
+            start: {
+              value: 312,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 312,
+              modifier: 'EXACT',
+            },
+          },
+          description: 'Proton donor',
+        },
+        {
+          type: 'Binding site',
+          location: {
+            start: {
+              value: 39,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 39,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          ligand: {
+            name: 'substrate',
+          },
+        },
+        {
+          type: 'Binding site',
+          location: {
+            start: {
+              value: 43,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 43,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          ligand: {
+            name: 'substrate',
+          },
+        },
+        {
+          type: 'Binding site',
+          location: {
+            start: {
+              value: 116,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 116,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          ligand: {
+            name: 'substrate',
+          },
+        },
+        {
+          type: 'Binding site',
+          location: {
+            start: {
+              value: 218,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 218,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          ligand: {
+            name: 'substrate',
+          },
+        },
+        {
+          type: 'Binding site',
+          location: {
+            start: {
+              value: 311,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 313,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          ligand: {
+            name: 'substrate',
+          },
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 29,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 38,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 47,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 49,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 50,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 55,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 73,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 92,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 98,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 100,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 106,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 111,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 115,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 128,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Turn',
+          location: {
+            start: {
+              value: 147,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 149,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 159,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 174,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 178,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 188,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 190,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 192,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Turn',
+          location: {
+            start: {
+              value: 194,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 199,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Turn',
+          location: {
+            start: {
+              value: 204,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 206,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 210,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 212,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 220,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 223,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 224,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 240,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Turn',
+          location: {
+            start: {
+              value: 245,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 247,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 248,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 251,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 258,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 274,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 277,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 283,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 285,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 294,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Turn',
+          location: {
+            start: {
+              value: 295,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 301,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 304,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 309,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 312,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 321,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 333,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 336,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 341,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 349,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Turn',
+          location: {
+            start: {
+              value: 350,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 353,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 354,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 363,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 366,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 371,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 377,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 379,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Beta strand',
+          location: {
+            start: {
+              value: 382,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 385,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 401,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 411,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '1NT4',
+            },
+          ],
+        },
+      ],
+      keywords: [
+        {
+          id: 'KW-0002',
+          category: 'Technical term',
+          name: '3D-structure',
+        },
+        {
+          id: 'KW-0903',
+          category: 'Technical term',
+          name: 'Direct protein sequencing',
+        },
+        {
+          id: 'KW-0378',
+          category: 'Molecular function',
+          name: 'Hydrolase',
+        },
+        {
+          id: 'KW-0574',
+          category: 'Cellular component',
+          name: 'Periplasm',
+        },
+        {
+          id: 'KW-1185',
+          category: 'Technical term',
+          name: 'Reference proteome',
+        },
+        {
+          id: 'KW-0732',
+          category: 'Domain',
+          name: 'Signal',
+        },
+      ],
+      references: [
+        {
+          referenceNumber: 1,
+          citation: {
+            id: '2153660',
+            citationType: 'journal article',
+            authors: ['Pradel E.', 'Marck C.', 'Boquet P.L.'],
+            citationCrossReferences: [
+              {
+                database: 'PubMed',
+                id: '2153660',
+              },
+              {
+                database: 'DOI',
+                id: '10.1128/jb.172.2.802-807.1990',
+              },
+            ],
+            title:
+              'Nucleotide sequence and transcriptional analysis of the Escherichia coli agp gene encoding periplasmic acid glucose-1-phosphatase.',
+            publicationDate: '1990',
+            journal: 'J. Bacteriol.',
+            firstPage: '802',
+            lastPage: '807',
+            volume: '172',
+          },
+          referencePositions: [
+            'NUCLEOTIDE SEQUENCE [GENOMIC DNA]',
+            'PROTEIN SEQUENCE OF 23-31',
+          ],
+          referenceComments: [
+            {
+              value: 'K12',
+              type: 'STRAIN',
+            },
+          ],
+        },
+        {
+          referenceNumber: 2,
+          citation: {
+            id: '8905232',
+            citationType: 'journal article',
+            authors: [
+              'Oshima T.',
+              'Aiba H.',
+              'Baba T.',
+              'Fujita K.',
+              'Hayashi K.',
+              'Honjo A.',
+              'Ikemoto K.',
+              'Inada T.',
+              'Itoh T.',
+              'Kajihara M.',
+              'Kanai K.',
+              'Kashimoto K.',
+              'Kimura S.',
+              'Kitagawa M.',
+              'Makino K.',
+              'Masuda S.',
+              'Miki T.',
+              'Mizobuchi K.',
+              'Mori H.',
+              'Motomura K.',
+              'Nakamura Y.',
+              'Nashimoto H.',
+              'Nishio Y.',
+              'Saito N.',
+              'Sampei G.',
+              'Seki Y.',
+              'Tagami H.',
+              'Takemoto K.',
+              'Wada C.',
+              'Yamamoto Y.',
+              'Yano M.',
+              'Horiuchi T.',
+            ],
+            citationCrossReferences: [
+              {
+                database: 'PubMed',
+                id: '8905232',
+              },
+              {
+                database: 'DOI',
+                id: '10.1093/dnares/3.3.137',
+              },
+            ],
+            title:
+              'A 718-kb DNA sequence of the Escherichia coli K-12 genome corresponding to the 12.7-28.0 min region on the linkage map.',
+            publicationDate: '1996',
+            journal: 'DNA Res.',
+            firstPage: '137',
+            lastPage: '155',
+            volume: '3',
+          },
+          referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
+          referenceComments: [
+            {
+              value: 'K12 / W3110 / ATCC 27325 / DSM 5911',
+              type: 'STRAIN',
+            },
+          ],
+        },
+        {
+          referenceNumber: 3,
+          citation: {
+            id: '9278503',
+            citationType: 'journal article',
+            authors: [
+              'Blattner F.R.',
+              'Plunkett G. III',
+              'Bloch C.A.',
+              'Perna N.T.',
+              'Burland V.',
+              'Riley M.',
+              'Collado-Vides J.',
+              'Glasner J.D.',
+              'Rode C.K.',
+              'Mayhew G.F.',
+              'Gregor J.',
+              'Davis N.W.',
+              'Kirkpatrick H.A.',
+              'Goeden M.A.',
+              'Rose D.J.',
+              'Mau B.',
+              'Shao Y.',
+            ],
+            citationCrossReferences: [
+              {
+                database: 'PubMed',
+                id: '9278503',
+              },
+              {
+                database: 'DOI',
+                id: '10.1126/science.277.5331.1453',
+              },
+            ],
+            title: 'The complete genome sequence of Escherichia coli K-12.',
+            publicationDate: '1997',
+            journal: 'Science',
+            firstPage: '1453',
+            lastPage: '1462',
+            volume: '277',
+          },
+          referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
+          referenceComments: [
+            {
+              value: 'K12 / MG1655 / ATCC 47076',
+              type: 'STRAIN',
+            },
+          ],
+        },
+        {
+          referenceNumber: 4,
+          citation: {
+            id: '16738553',
+            citationType: 'journal article',
+            authors: [
+              'Hayashi K.',
+              'Morooka N.',
+              'Yamamoto Y.',
+              'Fujita K.',
+              'Isono K.',
+              'Choi S.',
+              'Ohtsubo E.',
+              'Baba T.',
+              'Wanner B.L.',
+              'Mori H.',
+              'Horiuchi T.',
+            ],
+            citationCrossReferences: [
+              {
+                database: 'PubMed',
+                id: '16738553',
+              },
+              {
+                database: 'DOI',
+                id: '10.1038/msb4100049',
+              },
+            ],
+            title:
+              'Highly accurate genome sequences of Escherichia coli K-12 strains MG1655 and W3110.',
+            publicationDate: '2006',
+            journal: 'Mol. Syst. Biol.',
+            firstPage: 'E1',
+            lastPage: 'E5',
+            volume: '2',
+          },
+          referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
+          referenceComments: [
+            {
+              value: 'K12 / W3110 / ATCC 27325 / DSM 5911',
+              type: 'STRAIN',
+            },
+          ],
+        },
+        {
+          referenceNumber: 5,
+          citation: {
+            id: '9298646',
+            citationType: 'journal article',
+            authors: ['Link A.J.', 'Robison K.', 'Church G.M.'],
+            citationCrossReferences: [
+              {
+                database: 'PubMed',
+                id: '9298646',
+              },
+              {
+                database: 'DOI',
+                id: '10.1002/elps.1150180807',
+              },
+            ],
+            title:
+              'Comparing the predicted and observed properties of proteins encoded in the genome of Escherichia coli K-12.',
+            publicationDate: '1997',
+            journal: 'Electrophoresis',
+            firstPage: '1259',
+            lastPage: '1313',
+            volume: '18',
+          },
+          referencePositions: ['PROTEIN SEQUENCE OF 23-34'],
+          referenceComments: [
+            {
+              value: 'K12 / EMG2',
+              type: 'STRAIN',
+            },
+          ],
+        },
+        {
+          referenceNumber: 6,
+          citation: {
+            id: '12782623',
+            citationType: 'journal article',
+            authors: ['Lee D.C.', 'Cottrill M.A.', 'Forsberg C.W.', 'Jia Z.'],
+            citationCrossReferences: [
+              {
+                database: 'PubMed',
+                id: '12782623',
+              },
+              {
+                database: 'DOI',
+                id: '10.1074/jbc.m213154200',
+              },
+            ],
+            title:
+              'Functional insights revealed by the crystal structures of Escherichia coli glucose-1-phosphatase.',
+            publicationDate: '2003',
+            journal: 'J. Biol. Chem.',
+            firstPage: '31412',
+            lastPage: '31418',
+            volume: '278',
+          },
+          referencePositions: [
+            'X-RAY CRYSTALLOGRAPHY (2.4 ANGSTROMS) OF 23-413 IN COMPLEX WITH GLUCOSE 1-PHOSPHATE',
+          ],
+        },
+      ],
+      uniProtKBCrossReferences: [
+        {
+          database: 'EMBL',
+          id: 'M33807',
+          properties: [
+            {
+              key: 'ProteinId',
+              value: 'AAA23426.1',
+            },
+            {
+              key: 'Status',
+              value: '-',
+            },
+            {
+              key: 'MoleculeType',
+              value: 'Genomic_DNA',
+            },
+          ],
+        },
+        {
+          database: 'EMBL',
+          id: 'U00096',
+          properties: [
+            {
+              key: 'ProteinId',
+              value: 'AAC74087.1',
+            },
+            {
+              key: 'Status',
+              value: '-',
+            },
+            {
+              key: 'MoleculeType',
+              value: 'Genomic_DNA',
+            },
+          ],
+        },
+        {
+          database: 'EMBL',
+          id: 'AP009048',
+          properties: [
+            {
+              key: 'ProteinId',
+              value: 'BAA35769.1',
+            },
+            {
+              key: 'Status',
+              value: '-',
+            },
+            {
+              key: 'MoleculeType',
+              value: 'Genomic_DNA',
+            },
+          ],
+        },
+        {
+          database: 'PIR',
+          id: 'JV0087',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'JV0087',
+            },
+          ],
+        },
+        {
+          database: 'RefSeq',
+          id: 'NP_415522.1',
+          properties: [
+            {
+              key: 'NucleotideSequenceId',
+              value: 'NC_000913.3',
+            },
+          ],
+        },
+        {
+          database: 'RefSeq',
+          id: 'WP_001044279.1',
+          properties: [
+            {
+              key: 'NucleotideSequenceId',
+              value: 'NZ_SSZK01000002.1',
+            },
+          ],
+        },
+        {
+          database: 'PDB',
+          id: '1NT4',
+          properties: [
+            {
+              key: 'Method',
+              value: 'X-ray',
+            },
+            {
+              key: 'Resolution',
+              value: '2.40 A',
+            },
+            {
+              key: 'Chains',
+              value: 'A/B=23-413',
+            },
+          ],
+        },
+        {
+          database: 'PDB',
+          id: '6RMR',
+          properties: [
+            {
+              key: 'Method',
+              value: 'X-ray',
+            },
+            {
+              key: 'Resolution',
+              value: '2.50 A',
+            },
+            {
+              key: 'Chains',
+              value: 'A/B=23-413',
+            },
+          ],
+        },
+        {
+          database: 'PDBsum',
+          id: '1NT4',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'PDBsum',
+          id: '6RMR',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'AlphaFoldDB',
+          id: 'P19926',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'SMR',
+          id: 'P19926',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'BioGRID',
+          id: '4259551',
+          properties: [
+            {
+              key: 'Interactions',
+              value: '16',
+            },
+          ],
+        },
+        {
+          database: 'DIP',
+          id: 'DIP-2905N',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'IntAct',
+          id: 'P19926',
+          properties: [
+            {
+              key: 'Interactions',
+              value: '3',
+            },
+          ],
+        },
+        {
+          database: 'STRING',
+          id: '511145.b1002',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'DrugBank',
+          id: 'DB02843',
+          properties: [
+            {
+              key: 'GenericName',
+              value: 'alpha-D-glucose-1-phosphate',
+            },
+          ],
+        },
+        {
+          database: 'jPOST',
+          id: 'P19926',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'PaxDb',
+          id: '511145-b1002',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'EnsemblBacteria',
+          id: 'AAC74087',
+          properties: [
+            {
+              key: 'ProteinId',
+              value: 'AAC74087',
+            },
+            {
+              key: 'GeneId',
+              value: 'b1002',
+            },
+          ],
+        },
+        {
+          database: 'GeneID',
+          id: '945773',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'KEGG',
+          id: 'ecj:JW0987',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'KEGG',
+          id: 'eco:b1002',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'KEGG',
+          id: 'ecoc:C3026_06100',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'PATRIC',
+          id: 'fig|1411691.4.peg.1269',
+          properties: [
+            {
+              key: 'GeneDesignation',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'EchoBASE',
+          id: 'EB0032',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'eggNOG',
+          id: 'ENOG502Z7K9',
+          properties: [
+            {
+              key: 'ToxonomicScope',
+              value: 'Bacteria',
+            },
+          ],
+        },
+        {
+          database: 'HOGENOM',
+          id: 'CLU_030561_2_1_6',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'InParanoid',
+          id: 'P19926',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'OMA',
+          id: 'IKTDQQW',
+          properties: [
+            {
+              key: 'Fingerprint',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'OrthoDB',
+          id: '395886at2',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'PhylomeDB',
+          id: 'P19926',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'BioCyc',
+          id: 'EcoCyc:GLUCOSE-1-PHOSPHAT-MONOMER',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'BioCyc',
+          id: 'MetaCyc:GLUCOSE-1-PHOSPHAT-MONOMER',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'EvolutionaryTrace',
+          id: 'P19926',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'PRO',
+          id: 'PR:P19926',
+          properties: [
+            {
+              key: 'Description',
+              value: '-',
+            },
+          ],
+        },
+        {
+          database: 'Proteomes',
+          id: 'UP000000318',
+          properties: [
+            {
+              key: 'Component',
+              value: 'Chromosome',
+            },
+          ],
+        },
+        {
+          database: 'Proteomes',
+          id: 'UP000000625',
+          properties: [
+            {
+              key: 'Component',
+              value: 'Chromosome',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0030288',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'C:outer membrane-bounded periplasmic space',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IDA:EcoCyc',
+            },
+          ],
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '15911532',
+            },
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '24140104',
+            },
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '2844729',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0016158',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'F:3-phytase activity',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IDA:EcoCyc',
+            },
+          ],
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '12455612',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0008877',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'F:glucose-1-phosphatase activity',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IDA:EcoCyc',
+            },
+          ],
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '12455612',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0050308',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'F:sugar-phosphatase activity',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IBA:GO_Central',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0006007',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'P:glucose catabolic process',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IMP:EcoCyc',
+            },
+          ],
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000315',
+              source: 'PubMed',
+              id: '1648777',
+            },
+            {
+              evidenceCode: 'ECO:0000315',
+              source: 'PubMed',
+              id: '2542226',
+            },
+          ],
+        },
+        {
+          database: 'CDD',
+          id: 'cd07061',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'HP_HAP_like',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+        {
+          database: 'Gene3D',
+          id: '3.40.50.1240',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'Phosphoglycerate mutase-like',
+            },
+            {
+              key: 'MatchStatus',
+              value: '2',
+            },
+          ],
+        },
+        {
+          database: 'InterPro',
+          id: 'IPR033379',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'Acid_Pase_AS',
+            },
+          ],
+        },
+        {
+          database: 'InterPro',
+          id: 'IPR000560',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'His_Pase_clade-2',
+            },
+          ],
+        },
+        {
+          database: 'InterPro',
+          id: 'IPR029033',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'His_PPase_superfam',
+            },
+          ],
+        },
+        {
+          database: 'InterPro',
+          id: 'IPR050645',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'Histidine_acid_phosphatase',
+            },
+          ],
+        },
+        {
+          database: 'PANTHER',
+          id: 'PTHR11567',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'ACID PHOSPHATASE-RELATED',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+        {
+          database: 'PANTHER',
+          id: 'PTHR11567:SF135',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'GLUCOSE-1-PHOSPHATASE',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+        {
+          database: 'Pfam',
+          id: 'PF00328',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'His_Phos_2',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+        {
+          database: 'SUPFAM',
+          id: 'SSF53254',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'Phosphoglycerate mutase-like',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+        {
+          database: 'PROSITE',
+          id: 'PS00616',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'HIS_ACID_PHOSPHAT_1',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+        {
+          database: 'PROSITE',
+          id: 'PS00778',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'HIS_ACID_PHOSPHAT_2',
+            },
+            {
+              key: 'MatchStatus',
+              value: '1',
+            },
+          ],
+        },
+      ],
+      sequence: {
+        value:
+          'MNKTLIAAAVAGIVLLASNAQAQTVPEGYQLQQVLMMSRHNLRAPLANNGSVLEQSTPNKWPEWDVPGGQLTTKGGVLEVYMGHYMREWLAEQGMVKSGECPPPYTVYAYANSLQRTVATAQFFITGAFPGCDIPVHHQEKMGTMDPTFNPVITDDSAAFSEQAVAAMEKELSKLQLTDSYQLLEKIVNYKDSPACKEKQQCSLVDGKNTFSAKYQQEPGVSGPLKVGNSLVDAFTLQYYEGFPMDQVAWGEIKSDQQWKVLSKLKNGYQDSLFTSPEVARNVAKPLVSYIDKALVTDRTSAPKITVLVGHDSNIASLLTALDFKPYQLHDQNERTPIGGKIVFQRWHDSKANRDLMKIEYVYQSAEQLRNADALTLQAPAQRVTLELSGCPIDADGFCPMDKFDSVLNEAVK',
+        length: 413,
+        molWeight: 45683,
+        crc64: 'ADADAD3639D0D6AB',
+        md5: '59C6E65346097099D739383B53092172',
+      },
+      extraAttributes: {
+        countByCommentType: {
+          FUNCTION: 1,
+          'CATALYTIC ACTIVITY': 1,
+          'ACTIVITY REGULATION': 1,
+          'BIOPHYSICOCHEMICAL PROPERTIES': 1,
+          SUBUNIT: 1,
+          'SUBCELLULAR LOCATION': 1,
+          SIMILARITY: 1,
+        },
+        countByFeatureType: {
+          Signal: 1,
+          Chain: 1,
+          'Active site': 2,
+          'Binding site': 5,
+          'Beta strand': 11,
+          Helix: 15,
+          Turn: 6,
+        },
+        uniParcId: 'UPI00001256FB',
       },
     },
   ],

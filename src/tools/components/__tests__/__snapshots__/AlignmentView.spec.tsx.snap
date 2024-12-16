@@ -44,7 +44,7 @@ exports[`AlignmentView Align should render 1`] = `
             name="view"
             type="radio"
           />
-          Overview
+          Continuous
         </label>
         <label>
           <input
@@ -3237,7 +3237,7 @@ exports[`AlignmentView BLAST should render 1`] = `
             name="view"
             type="radio"
           />
-          Overview
+          Continuous
         </label>
         <label>
           <input
