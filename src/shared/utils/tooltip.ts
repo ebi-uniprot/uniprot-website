@@ -162,21 +162,21 @@ export const showTooltipAtCoordinates = (
   const cleanup = autoUpdate(reference, tooltip, update);
 
   document.body.append(tooltip);
-  document.body.addEventListener('click', hideTooltip, true);
-  document.body.addEventListener('scroll', hideTooltip, true);
-  document.body.addEventListener('wheel', hideTooltip, true);
+  document.body.addEventListener('click', interactionHandler, true);
+  document.body.addEventListener('scroll', interactionHandler, true);
+  document.body.addEventListener('wheel', interactionHandler, true);
 
-  function hideTooltip(e?: Event) {
+  function interactionHandler(e?: Event) {
     const target = e?.target as Node | null;
     // if scroll/wheel is within the tooltip element, do not remove the tooltip
     if (target && !tooltip.contains(target)) {
       tooltip?.remove();
       cleanup?.();
-      document.body.removeEventListener('click', hideTooltip, true);
-      document.body.removeEventListener('scroll', hideTooltip, true);
-      document.body.removeEventListener('wheel', hideTooltip, true);
+      document.body.removeEventListener('click', interactionHandler, true);
+      document.body.removeEventListener('scroll', interactionHandler, true);
+      document.body.removeEventListener('wheel', interactionHandler, true);
     }
   }
 
-  return hideTooltip;
+  return interactionHandler;
 };
