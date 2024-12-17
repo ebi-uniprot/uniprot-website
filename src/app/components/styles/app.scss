@@ -56,6 +56,10 @@ protvista-manager {
   }
 }
 
+table {
+  border-collapse: collapse;
+}
+
 // TODO: remove as part of TRM-26871
 .protvista-uniprot-structure__structure protvista-structure {
   z-index: 10 !important;
