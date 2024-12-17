@@ -56,7 +56,6 @@ exports[`AlignmentView Align should render 1`] = `
       </fieldset>
     </div>
     <div>
-      <protvista-tooltip />
       <section
         class="alignment-grid"
         data-testid="alignment-view"
@@ -70,30 +69,2694 @@ exports[`AlignmentView Align should render 1`] = `
           class="track"
         >
           <div>
-            <protvista-track
+            <nightingale-track
+              display-end="-1"
+              display-start="1"
               height="7"
               highlight="1:107"
-              layout="non-overlapping"
+              highlight-color="#FFEB3B66"
               length="957"
-            />
-            <protvista-track
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              <svg
+                class="container"
+                height="7"
+              >
+                <g
+                  class="sequence-features"
+                >
+                  <g
+                    class="feature-group"
+                    id="g_0"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L-0.01044932079414838,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10.010449320794148,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10.010449320794148,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_1"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.15673981191222572,0L-0.15673981191222572,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(9.561128526645769,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(9.561128526645769,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_2"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.2507836990595611,0L-0.2507836990595611,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(9.362591431556949,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(9.362591431556949,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_3"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.02089864158829676,0L-0.02089864158829676,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(8.996865203761756,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(8.996865203761756,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_4"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.10449320794148381,0L-0.10449320794148381,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(8.923719958202717,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(8.923719958202717,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_5"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.02089864158829676,0L-0.02089864158829676,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(8.756530825496343,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(8.756530825496343,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_6"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.3657262277951933,0L-0.3657262277951933,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(8.662486938349007,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(8.662486938349007,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_7"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.01044932079414838,0L-0.01044932079414838,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.6802507836990594,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.6802507836990594,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_8"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.5538140020898642,0L-0.5538140020898642,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.001044932079415,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.001044932079415,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_9"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.175548589341693,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.175548589341693,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_10"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.579937304075235,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.579937304075235,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_11"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.6374085684430512,0L-0.6374085684430512,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.433646812957158,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.433646812957158,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_12"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.1671891327063741,0L-0.1671891327063741,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.5736677115987456,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.5736677115987456,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_13"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-3.385579937304075,0L-3.385579937304075,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.385579937304075,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.385579937304075,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_14"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L0,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(-4.096133751306166,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(-4.096133751306166,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g
+                  class="highlighted"
+                />
+                <g
+                  class="margin"
+                />
+              </svg>
+            </nightingale-track>
+            <nightingale-track
+              display-end="-1"
+              display-start="1"
               height="7"
               highlight="1:107"
-              layout="non-overlapping"
+              highlight-color="#FFEB3B66"
               length="957"
-            />
-            <protvista-track
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              <svg
+                class="container"
+                height="7"
+              >
+                <g
+                  class="sequence-features"
+                >
+                  <g
+                    class="feature-group"
+                    id="g_15"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L-0.01044932079414838,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10.010449320794148,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10.010449320794148,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_16"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.5015673981191222,0L-0.5015673981191222,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_17"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.2612330198537095,0L-0.2612330198537095,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(9.47753396029258,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(9.47753396029258,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_18"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-2.2675026123301985,0L-2.2675026123301985,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(9.184952978056426,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(9.184952978056426,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_19"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.09404388714733543,0L-0.09404388714733543,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.90700104493208,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.90700104493208,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_20"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.03134796238244514,0L-0.03134796238244514,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.77115987460815,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.77115987460815,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_21"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-1.5569487983281087,0L-1.5569487983281087,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.698014629049112,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.698014629049112,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_22"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-1.3375130616509927,0L-1.3375130616509927,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.099268547544409,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.099268547544409,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_23"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.2821316614420063,0L-0.2821316614420063,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.699059561128527,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.699059561128527,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_24"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.052246603970741906,0L-0.052246603970741906,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.364681295715779,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.364681295715779,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_25"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.07314524555903866,0L-0.07314524555903866,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.0094043887147333,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.0094043887147333,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_26"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.13584117032392895,0L-0.13584117032392895,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.7899686520376177,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.7899686520376177,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_27"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.2612330198537095,0L-0.2612330198537095,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.6332288401253923,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.6332288401253923,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_28"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.07314524555903866,0L-0.07314524555903866,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.3615464994775337,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.3615464994775337,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_29"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.17763845350052246,0L-0.17763845350052246,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.9435736677115987,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.9435736677115987,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_30"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.08359456635318704,0L-0.08359456635318704,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.661442006269592,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.661442006269592,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_31"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.13584117032392895,0L-0.13584117032392895,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.5151515151515156,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.5151515151515156,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_32"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.03134796238244514,0L-0.03134796238244514,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.3688610240334373,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.3688610240334373,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_33"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.3343782654127482,0L-0.3343782654127482,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.285266457680251,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.285266457680251,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_34"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.22988505747126436,0L-0.22988505747126436,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(0.8986415882967602,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(0.8986415882967602,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_35"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.08359456635318704,0L-0.08359456635318704,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(0.6583072100313476,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(0.6583072100313476,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_36"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.04179728317659352,0L-0.04179728317659352,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(0.40752351097178696,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(0.40752351097178696,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_37"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L0,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(-1.9540229885057485,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(-1.9540229885057485,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g
+                  class="highlighted"
+                />
+                <g
+                  class="margin"
+                />
+              </svg>
+            </nightingale-track>
+            <nightingale-track
+              display-end="-1"
+              display-start="1"
               height="7"
               highlight="1:107"
-              layout="non-overlapping"
+              highlight-color="#FFEB3B66"
               length="957"
-            />
-            <protvista-track
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              <svg
+                class="container"
+                height="7"
+              >
+                <g
+                  class="sequence-features"
+                >
+                  <g
+                    class="feature-group"
+                    id="g_38"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L-0.01044932079414838,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10.010449320794148,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10.010449320794148,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_39"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.12539184952978055,0L-0.12539184952978055,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(8.244514106583072,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(8.244514106583072,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_40"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.13584117032392895,0L-0.13584117032392895,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.54440961337513,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.54440961337513,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_41"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.06269592476489028,0L-0.06269592476489028,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.345872518286312,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.345872518286312,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_42"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.20898641588296762,0L-0.20898641588296762,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.272727272727273,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.272727272727273,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_43"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.219435736677116,0L-0.219435736677116,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.032392894461861,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.032392894461861,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_44"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.3239289446185998,0L-0.3239289446185998,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.77115987460815,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.77115987460815,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_45"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.07314524555903866,0L-0.07314524555903866,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.311389759665621,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.311389759665621,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_46"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.10449320794148381,0L-0.10449320794148381,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.185997910135841,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.185997910135841,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_47"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.0188087774294665,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.0188087774294665,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_48"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.09404388714733543,0L-0.09404388714733543,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.841170323928945,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.841170323928945,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_49"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.24033437826541276,0L-0.24033437826541276,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.6217345872518285,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.6217345872518285,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_50"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.06269592476489028,0L-0.06269592476489028,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.318704284221526,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.318704284221526,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_51"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.14629049111807732,0L-0.14629049111807732,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.890282131661442,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.890282131661442,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_52"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.052246603970741906,0L-0.052246603970741906,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.691745036572623,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.691745036572623,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_53"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.15673981191222572,0L-0.15673981191222572,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.608150470219435,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.608150470219435,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_54"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.06269592476489028,0L-0.06269592476489028,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.420062695924765,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.420062695924765,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_55"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.20898641588296762,0L-0.20898641588296762,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.242424242424242,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.242424242424242,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_56"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.04179728317659352,0L-0.04179728317659352,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.022988505747126,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.022988505747126,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_57"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.7001044932079415,0L-0.7001044932079415,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.9498432601880875,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.9498432601880875,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_58"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.0512016718913273,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.0512016718913273,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_59"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.13584117032392895,0L-0.13584117032392895,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.7899686520376177,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.7899686520376177,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_60"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.01044932079414838,0L-0.01044932079414838,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.6332288401253923,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.6332288401253923,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_61"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.29258098223615464,0L-0.29258098223615464,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.6123301985370952,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.6123301985370952,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_62"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.10449320794148381,0L-0.10449320794148381,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.8704284221525604,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.8704284221525604,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_63"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.01044932079414838,0L-0.01044932079414838,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.661442006269592,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.661442006269592,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_64"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L0,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(-6.196447230929991,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(-6.196447230929991,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g
+                  class="highlighted"
+                />
+                <g
+                  class="margin"
+                />
+              </svg>
+            </nightingale-track>
+            <nightingale-track
+              display-end="-1"
+              display-start="1"
               height="7"
               highlight="1:107"
-              layout="non-overlapping"
+              highlight-color="#FFEB3B66"
               length="957"
-            />
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              <svg
+                class="container"
+                height="7"
+              >
+                <g
+                  class="sequence-features"
+                >
+                  <g
+                    class="feature-group"
+                    id="g_65"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L-0.01044932079414838,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10.010449320794148,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10.010449320794148,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_66"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.12539184952978055,0L-0.12539184952978055,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(8.244514106583072,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(8.244514106583072,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_67"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.13584117032392895,0L-0.13584117032392895,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.54440961337513,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.54440961337513,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_68"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.06269592476489028,0L-0.06269592476489028,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.345872518286312,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.345872518286312,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_69"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.20898641588296762,0L-0.20898641588296762,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.272727272727273,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.272727272727273,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_70"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.219435736677116,0L-0.219435736677116,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(7.032392894461861,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(7.032392894461861,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_71"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.3239289446185998,0L-0.3239289446185998,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.77115987460815,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.77115987460815,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_72"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.07314524555903866,0L-0.07314524555903866,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.311389759665621,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.311389759665621,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_73"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.10449320794148381,0L-0.10449320794148381,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.185997910135841,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.185997910135841,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_74"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(6.0188087774294665,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(6.0188087774294665,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_75"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.09404388714733543,0L-0.09404388714733543,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.841170323928945,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.841170323928945,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_76"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.24033437826541276,0L-0.24033437826541276,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.6217345872518285,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.6217345872518285,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_77"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.06269592476489028,0L-0.06269592476489028,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(5.318704284221526,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(5.318704284221526,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_78"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.14629049111807732,0L-0.14629049111807732,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.890282131661442,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.890282131661442,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_79"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.052246603970741906,0L-0.052246603970741906,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.691745036572623,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.691745036572623,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_80"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.15673981191222572,0L-0.15673981191222572,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.608150470219435,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.608150470219435,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_81"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.06269592476489028,0L-0.06269592476489028,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.420062695924765,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.420062695924765,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_82"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.20898641588296762,0L-0.20898641588296762,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.242424242424242,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.242424242424242,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_83"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.04179728317659352,0L-0.04179728317659352,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(4.022988505747126,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(4.022988505747126,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_84"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.7001044932079415,0L-0.7001044932079415,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.9498432601880875,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.9498432601880875,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_85"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(3.0512016718913273,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(3.0512016718913273,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_86"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.13584117032392895,0L-0.13584117032392895,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.7899686520376177,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.7899686520376177,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_87"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.01044932079414838,0L-0.01044932079414838,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.6332288401253923,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.6332288401253923,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_88"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.29258098223615464,0L-0.29258098223615464,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(2.6123301985370952,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(2.6123301985370952,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_89"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.10449320794148381,0L-0.10449320794148381,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.8704284221525604,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.8704284221525604,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_90"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-0.01044932079414838,0L-0.01044932079414838,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(1.661442006269592,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(1.661442006269592,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_91"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L0,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(-6.196447230929991,-5)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(-6.196447230929991,-5)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g
+                  class="highlighted"
+                />
+                <g
+                  class="margin"
+                />
+              </svg>
+            </nightingale-track>
           </div>
         </div>
         <span
@@ -105,11 +2768,290 @@ exports[`AlignmentView Align should render 1`] = `
         <div
           class="track"
         >
-          <protvista-track
+          <nightingale-track
+            display-end="957"
+            display-start="1"
+            height="7"
             highlight="1:107"
-            layout="non-overlapping"
+            highlight-color="#FFEB3B66"
             length="957"
-          />
+            min-height="10"
+            min-width="10"
+            style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+          >
+            <!---->
+            <svg
+              class="container"
+              height="7"
+            >
+              <g
+                class="sequence-features"
+              >
+                <g
+                  class="feature-group"
+                  id="g_id1"
+                >
+                  <g
+                    class="location-group"
+                  >
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-0.14629049111807732,0L-0.14629049111807732,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(8.443051201671892,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(8.443051201671892,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="line feature"
+                        d="M0,8.5 L-0.6165099268547545,8.5"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(8.296760710553814,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(8.296760710553814,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-0.01044932079414838,0L-0.01044932079414838,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(7.6802507836990594,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(7.6802507836990594,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="line feature"
+                        d="M0,8.5 L-0.6687565308254964,8.5"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(7.6698014629049105,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(7.6698014629049105,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-0.5538140020898642,0L-0.5538140020898642,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(7.001044932079415,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(7.001044932079415,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="line feature"
+                        d="M0,8.5 L-0.2716823406478579,8.5"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(6.447230929989551,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(6.447230929989551,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(6.175548589341693,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(6.175548589341693,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="line feature"
+                        d="M0,8.5 L-0.4806687565308255,8.5"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(6.0606060606060606,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(6.0606060606060606,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-0.11494252873563218,0L-0.11494252873563218,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(5.579937304075235,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(5.579937304075235,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="line feature"
+                        d="M0,8.5 L-0.03134796238244514,8.5"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(5.464994775339603,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(5.464994775339603,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-0.6374085684430512,0L-0.6374085684430512,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(5.433646812957158,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(5.433646812957158,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="line feature"
+                        d="M0,8.5 L-1.2225705329153604,8.5"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(4.796238244514106,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(4.796238244514106,-5)"
+                        width="0"
+                      />
+                    </g>
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-0.01044932079414838,0L-0.01044932079414838,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(3.5736677115987456,-5)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(3.5736677115987456,-5)"
+                        width="0"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g
+                class="highlighted"
+              />
+              <g
+                class="margin"
+              />
+            </svg>
+          </nightingale-track>
         </div>
         <div
           class="track-label track-label--align-labels"
@@ -210,15 +3152,16 @@ exports[`AlignmentView Align should render 1`] = `
         <div
           class="track"
         >
-          <protvista-manager
-            attributes="displaystart displayend"
-            displayend="106"
-            displaystart="1"
+          <nightingale-manager
+            reflected-attributes="highlight,display-start,display-end"
+            style="display: block; line-height: 0;"
           >
-            <protvista-navigation
+            <nightingale-navigation
+              height="40"
               length="957"
             />
-          </protvista-manager>
+            <!---->
+          </nightingale-manager>
         </div>
         <div
           class="right-coord"
@@ -306,7 +3249,6 @@ exports[`AlignmentView BLAST should render 1`] = `
       </fieldset>
     </div>
     <div>
-      <protvista-tooltip />
       <section
         class="alignment-grid"
         data-testid="alignment-view"
@@ -320,18 +3262,230 @@ exports[`AlignmentView BLAST should render 1`] = `
           class="track"
         >
           <div>
-            <protvista-track
+            <nightingale-track
+              display-end="-1"
+              display-start="1"
               height="15"
               highlight="1:64"
-              layout="non-overlapping"
+              highlight-color="#FFEB3B66"
               length="565"
-            />
-            <protvista-track
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              <svg
+                class="container"
+                height="15"
+              >
+                <g
+                  class="sequence-features"
+                >
+                  <g
+                    class="feature-group"
+                    id="g_0"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L-0.017699115044247787,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10.017699115044248,-1)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10.017699115044248,-1)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_1"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-10,0L-10,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10,-1)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10,-1)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_2"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L0,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(0,-1)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(0,-1)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g
+                  class="highlighted"
+                />
+                <g
+                  class="margin"
+                />
+              </svg>
+            </nightingale-track>
+            <nightingale-track
+              display-end="-1"
+              display-start="1"
               height="15"
               highlight="1:64"
-              layout="non-overlapping"
+              highlight-color="#FFEB3B66"
               length="565"
-            />
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              <svg
+                class="container"
+                height="15"
+              >
+                <g
+                  class="sequence-features"
+                >
+                  <g
+                    class="feature-group"
+                    id="g_3"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L-0.017699115044247787,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10.017699115044248,-1)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10.017699115044248,-1)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_4"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L-10,0L-10,17L0,17Z"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10,-1)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10,-1)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="feature-group"
+                    id="g_5"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="line feature"
+                          d="M0,8.5 L0,8.5"
+                          stroke="#014371"
+                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(0,-1)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(0,-1)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g
+                  class="highlighted"
+                />
+                <g
+                  class="margin"
+                />
+              </svg>
+            </nightingale-track>
           </div>
         </div>
         <span
@@ -343,11 +3497,62 @@ exports[`AlignmentView BLAST should render 1`] = `
         <div
           class="track"
         >
-          <protvista-track
+          <nightingale-track
+            display-end="565"
+            display-start="1"
+            height="15"
             highlight="1:64"
-            layout="non-overlapping"
+            highlight-color="#FFEB3B66"
             length="565"
-          />
+            min-height="10"
+            min-width="10"
+            style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+          >
+            <!---->
+            <svg
+              class="container"
+              height="15"
+            >
+              <g
+                class="sequence-features"
+              >
+                <g
+                  class="feature-group"
+                  id="g_cb1e3e80-227f-11eb-8c7f-bd249b5a2490"
+                >
+                  <g
+                    class="location-group"
+                  >
+                    <g
+                      class="fragment-group"
+                    >
+                      <path
+                        class="rectangle feature"
+                        d="M0,0L-2.6902654867256635,0L-2.6902654867256635,17L0,17Z"
+                        stroke="#9999FF"
+                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                        transform="translate(8.690265486725664,-1)"
+                      />
+                      <rect
+                        class="outer-rectangle feature"
+                        height="17"
+                        stroke="transparent"
+                        style="fill: transparent;"
+                        transform="translate(8.690265486725664,-1)"
+                        width="0"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g
+                class="highlighted"
+              />
+              <g
+                class="margin"
+              />
+            </svg>
+          </nightingale-track>
         </div>
         <div
           class="track-label track-label--align-labels"
@@ -374,15 +3579,16 @@ exports[`AlignmentView BLAST should render 1`] = `
         <div
           class="track"
         >
-          <protvista-manager
-            attributes="displaystart displayend"
-            displayend="63"
-            displaystart="1"
+          <nightingale-manager
+            reflected-attributes="highlight,display-start,display-end"
+            style="display: block; line-height: 0;"
           >
-            <protvista-navigation
+            <nightingale-navigation
+              height="40"
               length="565"
             />
-          </protvista-manager>
+            <!---->
+          </nightingale-manager>
         </div>
         <div
           class="right-coord"

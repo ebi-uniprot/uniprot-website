@@ -11,19 +11,53 @@ import {
 import { Button, ControlledDropdown } from 'franklin-sites';
 import cn from 'classnames';
 
+import useExpandTable from '../../hooks/useExpandTable';
+
 import styles from './styles/table.module.scss';
 
 const Table = ({
   children,
   className,
+  expandable,
+  id,
   ...props
-}: HTMLAttributes<HTMLTableElement>) => (
-  <div className={styles.container}>
+}: HTMLAttributes<HTMLTableElement> & {
+  expandable?: boolean;
+  id?: string;
+}) => {
+  const [containerRef, expandTable, setExpandTable, showButton] =
+    useExpandTable(expandable);
+
+  return expandable ? (
+    <div>
+      <div
+        ref={containerRef}
+        className={cn(styles.container, {
+          [styles.collapsed]: expandable && !expandTable,
+        })}
+      >
+        <table className={cn(styles.table, className)} id={id} {...props}>
+          {children}
+        </table>
+      </div>
+      {(showButton || expandTable) && (
+        <div className={styles['expand-button-container']}>
+          <Button
+            variant="primary"
+            onClick={() => setExpandTable((current) => !current)}
+            id={id && `${id}-expand-button`}
+          >
+            {expandTable ? 'Collapse' : 'Expand'} table
+          </Button>
+        </div>
+      )}
+    </div>
+  ) : (
     <table className={cn(styles.table, className)} {...props}>
       {children}
     </table>
-  </div>
-);
+  );
+};
 
 type HeadProps = HTMLAttributes<HTMLTableSectionElement> & {
   toggleAll?: boolean;
@@ -41,8 +75,9 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
       const buttons = button
         .closest('table')
         ?.querySelectorAll<HTMLButtonElement>(
-          // get only the direct children, not the ones within another inner table
-          `:scope > tbody > tr > td > button[aria-expanded="${!expand}"]`
+          // get only the direct children, not the ones within another inner table and
+          // use td:first-child to avoid selecting publication tags if present in the row
+          `:scope > tbody > tr > td:first-child > button[aria-expanded="${!expand}"]`
         );
       for (const button of buttons || []) {
         button.click();
@@ -137,6 +172,7 @@ const Row = ({
   className,
   extraContent,
   isOdd,
+  onClick,
   ...props
 }: HTMLAttributes<HTMLTableRowElement> & {
   extraContent?: ReactNode;
@@ -148,19 +184,17 @@ const Row = ({
 
   const buttonId = useId();
 
-  const handleClick: MouseEventHandler<HTMLElement> | undefined =
-    hasExtraContent
-      ? (event) => {
-          if (
-            (event.target as HTMLElement).closest(
-              'a, button:not([aria-controls]), input'
-            )
-          ) {
-            return;
-          }
-          setExpanded((expanded) => !expanded);
-        }
-      : undefined;
+  const handleClick: MouseEventHandler<HTMLTableRowElement> = (event) => {
+    onClick?.(event);
+    if (
+      hasExtraContent &&
+      !(event.target as HTMLElement).closest(
+        'a, button:not([aria-controls]), input'
+      )
+    ) {
+      setExpanded((expanded) => !expanded);
+    }
+  };
 
   return (
     <Fragment>

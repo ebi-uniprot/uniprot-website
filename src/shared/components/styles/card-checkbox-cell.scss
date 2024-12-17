@@ -1,5 +1,3 @@
-@import 'franklin-sites/src/styles/colours';
-
 // Same classnames as in franklin
 .data-list .checkbox-cell {
   height: 100%;
@@ -20,7 +18,7 @@
       bottom: 0;
       left: 0;
       margin: 0;
-      background: $colour-sea-blue;
+      background: var(--fr--color-sea-blue);
       border-radius: 50%;
       opacity: 0;
 
