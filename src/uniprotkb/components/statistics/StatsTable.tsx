@@ -1,9 +1,11 @@
 import { useState, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { LongNumber, Button } from 'franklin-sites';
 
 import { CategoryName, StatisticsCategory } from './StatisticsPage';
 
 import styles from './styles/statistics-page.module.scss';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 const tableCollapsedRows = 10 as const;
 // TODO: create a function to determine collapsable.
@@ -180,7 +182,18 @@ const StatsTable = ({
                 {/* Entry count */}
                 {hasEntryCount && (
                   <td className={styles.end}>
-                    <LongNumber>{row.entryCount}</LongNumber>
+                    {row.query ? (
+                      <Link
+                        to={{
+                          pathname: LocationToPath[Location.UniProtKBResults],
+                          search: `query=${row.query}`,
+                        }}
+                      >
+                        <LongNumber>{row.entryCount}</LongNumber>
+                      </Link>
+                    ) : (
+                      <LongNumber>{row.entryCount}</LongNumber>
+                    )}
                   </td>
                 )}
                 {/* Percent */}
