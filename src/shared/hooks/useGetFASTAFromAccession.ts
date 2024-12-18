@@ -14,7 +14,7 @@ import { Namespace } from '../types/namespaces';
 import { SearchResults } from '../types/results';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
-import { UniParcLiteAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { FileFormat } from '../types/resultsDownload';
 
 const groupByNamespace = ({ id }: IdMaybeWithRange) => accessionToNamespace(id);
@@ -67,8 +67,9 @@ const useGetFASTAFromAccesion = (
             new Set(groups[Namespace.uniparc].map(({ id }) => id))
           ).sort(),
           {
+            facets: null,
             namespace: Namespace.uniparc,
-            format: FileFormat.fasta,
+            columns: ['upi', 'sequence'],
           }
         )
       : null;
@@ -81,8 +82,7 @@ const useGetFASTAFromAccesion = (
       useDataApi<SearchResults<UniProtkbAPIModel>>(uniProtKBURL),
     [Namespace.uniref]:
       useDataApi<SearchResults<UniRefLiteAPIModel>>(uniRefURL),
-    [Namespace.uniparc]:
-      useDataApi<SearchResults<UniParcLiteAPIModel>>(uniParcURL),
+    [Namespace.uniparc]: useDataApi<SearchResults<UniParcAPIModel>>(uniParcURL),
   };
 
   const loading =
@@ -93,23 +93,20 @@ const useGetFASTAFromAccesion = (
   let fasta = '';
 
   if (!loading) {
-    let isFastaPopulated = false;
+    let isUniprotKbDataAdded = false;
     for (const idMaybeWithRange of idsMaybeWithRange || []) {
       const namespace = groupByNamespace(idMaybeWithRange);
 
-      // UniProtKB and UniParc accessions URL fetches FASTA directly
-      if (
-        namespace === Namespace.uniprotkb ||
-        (namespace === Namespace.uniparc && !isFastaPopulated)
-      ) {
+      // UniProtKB accessions URL fetches FASTA directly
+      if (namespace === Namespace.uniprotkb && !isUniprotKbDataAdded) {
         fasta += `\n\n${data[namespace].data}`;
-        isFastaPopulated = true;
+        isUniprotKbDataAdded = true;
       }
 
       const entry = (
         data[namespace].data?.results as
           | undefined
-          | Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcLiteAPIModel>
+          | Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>
       )?.find(
         (entry) =>
           getIdKeyForNamespace(namespace)(entry) === idMaybeWithRange.id
