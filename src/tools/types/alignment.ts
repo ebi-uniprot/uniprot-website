@@ -21,8 +21,8 @@ export type ConservationOptions = {
 };
 
 export type NightingaleChangeEvent = {
-  eventtype: string;
-  feature: { protvistaFeatureId: string };
+  eventType: string;
+  feature: { accession: string };
   coords: number[];
 };
 

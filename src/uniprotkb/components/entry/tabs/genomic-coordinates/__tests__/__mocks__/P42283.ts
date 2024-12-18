@@ -1,7 +1,7 @@
 import { GenomicEntry } from '../../types';
 
 // Source: https://www.ebi.ac.uk/proteins/api/coordinates?accession=P42283-1%2CQ7KQZ4-2%2CQ7KQZ4-1%2CQ7KQZ4-3%2CQ867Z4-2%2CP42284-3%2CQ867Z4-1%2CQ9V5M6-2%2CQ867Z4-3%2CQ7KQZ4-4%2CP42284-1%2CQ9V5M3-1%2CQ9V5M3-2%2CQ9V5M6-1%2CQ9V5M6-3%2CQ9V5M6-4%2CQ867Z4-5%2CP42284-2%2CQ9V5M3-3%2CQ9V5M3-4%2CQ9V5M3-5%2CQ9V5M6-5
-// Retrieved: 2024-11-26
+// Retrieved: 2024-12-10
 const mock: GenomicEntry[] = [
   {
     accession: 'P42283-1',
@@ -890,7 +890,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089347',
         ensemblTranslationId: 'FBpp0088381',
-        nucleotideId: 'AE013599.5',
       },
       {
         genomicLocation: {
@@ -1757,7 +1756,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089357',
         ensemblTranslationId: 'FBpp0088391',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -1889,7 +1887,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089362',
         ensemblTranslationId: 'FBpp0088396',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -2314,7 +2311,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089363',
         ensemblTranslationId: 'FBpp0088949',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -2492,7 +2488,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089346',
         ensemblTranslationId: 'FBpp0088380',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -3291,7 +3286,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089343',
         ensemblTranslationId: 'FBpp0088377',
-        nucleotideId: 'AE013599.5',
       },
       {
         genomicLocation: {
@@ -4066,7 +4060,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089345',
         ensemblTranslationId: 'FBpp0088379',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -4302,7 +4295,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089344',
         ensemblTranslationId: 'FBpp0088378',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -4458,7 +4450,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089342',
         ensemblTranslationId: 'FBpp0088376',
-        nucleotideId: 'AE013599.5',
       },
       {
         genomicLocation: {
@@ -4589,7 +4580,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089349',
         ensemblTranslationId: 'FBpp0088383',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -4745,7 +4735,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089352',
         ensemblTranslationId: 'FBpp0088386',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -5432,7 +5421,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089350',
         ensemblTranslationId: 'FBpp0088384',
-        nucleotideId: 'AE013599.5',
       },
       {
         genomicLocation: {
@@ -6095,7 +6083,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0343132',
         ensemblTranslationId: 'FBpp0309831',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -6274,7 +6261,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089348',
         ensemblTranslationId: 'FBpp0088382',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -6430,7 +6416,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089353',
         ensemblTranslationId: 'FBpp0088387',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -6586,7 +6571,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089351',
         ensemblTranslationId: 'FBpp0088385',
-        nucleotideId: 'AE013599.5',
       },
       {
         genomicLocation: {
@@ -6717,7 +6701,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089359',
         ensemblTranslationId: 'FBpp0088393',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -6873,7 +6856,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089361',
         ensemblTranslationId: 'FBpp0088395',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -7029,7 +7011,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089364',
         ensemblTranslationId: 'FBpp0088950',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -7213,7 +7194,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089365',
         ensemblTranslationId: 'FBpp0088951',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -7397,7 +7377,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089366',
         ensemblTranslationId: 'FBpp0088948',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -8241,7 +8220,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089355',
         ensemblTranslationId: 'FBpp0088389',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -8397,7 +8375,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089360',
         ensemblTranslationId: 'FBpp0088394',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -8630,7 +8607,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089356',
         ensemblTranslationId: 'FBpp0088390',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },
@@ -8866,7 +8842,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0100286',
         ensemblTranslationId: 'FBpp0099680',
-        nucleotideId: 'AE013599.5',
       },
     ],
   },

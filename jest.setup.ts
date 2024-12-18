@@ -22,6 +22,8 @@ jest.mock('interaction-viewer', () => null);
 
 jest.mock('/shared/custom-elements/NightingaleMSA', () => jest.fn());
 
+jest.mock('@nightingale-elements/nightingale-navigation', () => jest.fn());
+
 jest.mock('swagger-ui-react', () => null);
 
 global.beforeEach(() => {
@@ -51,3 +53,38 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useId: mockedUseId,
 }));
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).ResizeObserver = class ResizeObserver {
+  constructor(callback: ResizeObserverCallback) {
+    this.callback = callback;
+  }
+
+  observe(target: Element) {
+    this.callback([{ target } as ResizeObserverEntry], this);
+  }
+
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  unobserve(target: Element) {
+    // Mock implementation
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  disconnect() {
+    // Mock implementation
+  }
+
+  private callback: ResizeObserverCallback;
+};
+
+global.ResizeObserver = ResizeObserver;
+
+/* "Fail on console error" util */
+// Uncomment to have jest stop when a console error is shown in order to fix it
+// Recommended to use with Jest's "--bail" option
+// const { error } = console;
+// // eslint-disable-next-line no-console
+// console.error = (message, ...rest) => {
+//   error.apply(console, [message, ...rest]); // keep default behaviour
+//   throw message instanceof Error ? message : new Error(message);
+// };

@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2024-11-26
+// Retrieved: 2024-12-10
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -7690,12 +7690,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'DNA replication',
           id: 'GO:0006260',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'DNA ligation',
-          id: 'GO:0006266',
           aspect: 'biological_process',
         },
         {

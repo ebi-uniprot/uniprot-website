@@ -26,7 +26,6 @@ export type GenomicCoordinate = {
   ensemblTranscriptId?: string;
   // Sometimes not from Ensembl
   ensemblTranslationId?: string;
-  nucleotideId?: string;
 };
 
 export type GenomicLocation = {
