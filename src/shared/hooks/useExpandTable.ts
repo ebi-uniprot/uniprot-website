@@ -9,7 +9,7 @@ const useExpandTable = (
   containerRef: React.RefObject<HTMLDivElement>,
   expandTable: boolean | null,
   setExpandTable: React.Dispatch<React.SetStateAction<boolean | null>>,
-  showButton: boolean
+  showButton: boolean,
 ] => {
   const [showButton, setShowButton] = useState(Boolean(expandable));
   const [expandTable, setExpandTable] = useState<boolean | null>(null);

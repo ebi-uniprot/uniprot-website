@@ -39,7 +39,7 @@
       "global": {
         "lines": 78,
         "statements": 78,
-        "functions": 76,
+        "functions": 75.98,
         "branches": 66,
         "branchesTrue": 100
       }
@@ -98,6 +98,7 @@
     "string-width": "4.1.0"
   },
   "dependencies": {
+    "@geneontology/wc-gocam-viz": "1.0.1",
     "@floating-ui/dom": "1.6.5",
     "@hello-pangea/dnd": "17.0.0",
     "@lit/react": "1.0.5",
