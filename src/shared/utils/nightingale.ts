@@ -11,10 +11,8 @@ export const withinRange = (
   nightingaleViewRange?: NightingaleViewRange
 ) =>
   nightingaleViewRange
-    ? (nightingaleViewRange['display-start'] <= featureStart &&
-        featureStart <= nightingaleViewRange['display-end']) ||
-      (nightingaleViewRange['display-start'] <= featureEnd &&
-        featureEnd <= nightingaleViewRange['display-end'])
+    ? featureEnd >= nightingaleViewRange['display-start'] &&
+      nightingaleViewRange['display-end'] >= featureStart
     : true;
 
 export const getRowId = (data: ProcessedFeature) => data.accession;
