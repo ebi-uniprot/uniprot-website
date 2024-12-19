@@ -25,7 +25,8 @@ const entryToFASTAWithHeaders = (
     | APISequenceData
     | UniRefAPIModel
     | UniRefLiteAPIModel,
-  modifications?: Modifications
+  modifications?: Modifications,
+  releaseDate?: Date
 ): string => {
   let sequence =
     ('representativeMember' in entry
@@ -48,10 +49,16 @@ const entryToFASTAWithHeaders = (
   try {
     if ('uniParcId' in entry) {
       // UniParc entry
+      let releaseDateUniParcFormat;
+      if (releaseDate) {
+        // Don't use 'toISOString()' as it will be different depending on the timezone of the user
+        releaseDateUniParcFormat = `${releaseDate.getFullYear()}-${releaseDate.getMonth() + 1}-${releaseDate.getDate()}`;
+      }
+
       sequence = `>${entry.uniParcId}${
-        entry.uniParcCrossReferences
+        entry.mostRecentCrossRefUpdated && releaseDateUniParcFormat
           ? ` status=${
-              entry.uniParcCrossReferences.some((xref) => xref.active)
+              entry.mostRecentCrossRefUpdated === releaseDateUniParcFormat
                 ? 'active'
                 : 'inactive'
             }`
