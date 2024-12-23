@@ -21,7 +21,7 @@ const extractGoCamId = (url: string) => {
   return m?.groups?.goCamId;
 };
 
-const getGoCamStructures = (data: GoCamModels[] = []) => {
+export const getGoCamStructures = (data: GoCamModels[] = []) => {
   const idToItem = new Map<string, { id: string; label: string }>();
   for (const d of data) {
     const id = extractGoCamId(d.gocam);
