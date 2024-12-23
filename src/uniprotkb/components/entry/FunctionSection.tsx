@@ -367,31 +367,36 @@ const FunctionSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      <ErrorBoundary>
-        <Tabs>
-          <Tab title="GO annotations">
-            <Suspense fallback={<Loader />}>
-              <GoRibbon
-                primaryAccession={primaryAccession}
-                goTerms={data.goTerms}
-                geneNamesData={data.geneNamesData}
-                organismData={data.organismData}
-              />
-            </Suspense>
-          </Tab>
-          <Tab
-            title={
-              <>
-                GO-CAM Models<Chip compact>New</Chip>
-              </>
-            }
-          >
-            <Suspense fallback={<Loader />}>
-              <GoCam primaryAccession={primaryAccession} />
-            </Suspense>
-          </Tab>
-        </Tabs>
-      </ErrorBoundary>
+      {
+        // TODO: confirm that if no GO terms then no GO-CAM models
+        !!data.goTerms?.size && (
+          <ErrorBoundary>
+            <Tabs>
+              <Tab title="GO annotations">
+                <Suspense fallback={<Loader />}>
+                  <GoRibbon
+                    primaryAccession={primaryAccession}
+                    goTerms={data.goTerms}
+                    geneNamesData={data.geneNamesData}
+                    organismData={data.organismData}
+                  />
+                </Suspense>
+              </Tab>
+              <Tab
+                title={
+                  <>
+                    GO-CAM Models<Chip compact>New</Chip>
+                  </>
+                }
+              >
+                <Suspense fallback={<Loader />}>
+                  <GoCam primaryAccession={primaryAccession} />
+                </Suspense>
+              </Tab>
+            </Tabs>
+          </ErrorBoundary>
+        )
+      }
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration
