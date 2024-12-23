@@ -42,10 +42,6 @@ export const getPeptideSearchFormInitialState = (
     ...initialFormValues,
     [PeptideSearchFields.name]: {
       ...initialFormValues[PeptideSearchFields.name],
-      // default to true if it's been set through the history state
-      userSelected: Boolean(
-        initialFormValues[PeptideSearchFields.name].selected
-      ),
     },
   },
   parsedSequences:
