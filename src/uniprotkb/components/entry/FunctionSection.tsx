@@ -368,7 +368,8 @@ const FunctionSection = ({
         sequence={sequence}
       />
       {
-        // TODO: confirm that if no GO terms then no GO-CAM models
+        // If no GO terms then no GO-CAM models. From Antonia Lock:
+        // "I assume that any go cams that we display, would also be integrated in the go releases, otherwise I would question the quality of the model"
         !!data.goTerms?.size && (
           <ErrorBoundary>
             <Tabs>
