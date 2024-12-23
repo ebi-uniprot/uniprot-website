@@ -16,9 +16,7 @@ interface GoCamModelAnnotation {
   'value-type'?: ValueType;
 }
 
-enum ValueType {
-  IRI = 'IRI',
-}
+type ValueType = 'IRI';
 
 interface Fact {
   subject: string;

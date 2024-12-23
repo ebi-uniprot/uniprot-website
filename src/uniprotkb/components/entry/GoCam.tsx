@@ -35,7 +35,7 @@ export const getGoCamStructures = (data: GoCamModels[] = []) => {
   return idToItem;
 };
 
-const isUniprotCurated = (goCamModel: GoCamModelInfo) =>
+export const isUniprotCurated = (goCamModel: GoCamModelInfo) =>
   goCamModel?.annotations?.some(
     ({ key, value }) =>
       key === 'providedBy' && value === 'https://www.uniprot.org'
