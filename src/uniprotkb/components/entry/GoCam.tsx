@@ -95,14 +95,6 @@ const GoCam = ({ primaryAccession }: Props) => {
         <Loader />
       </>
     );
-  } else if (allGoCamIdsResponse.error) {
-    content = (
-      <ErrorHandler
-        status={allGoCamIdsResponse.status}
-        error={allGoCamIdsResponse.error}
-        noReload
-      />
-    );
   } else if (
     !goCamIdToItem.size ||
     (Array.isArray(uniprotGoCamIds) && !uniprotGoCamIds.length)
@@ -117,6 +109,14 @@ const GoCam = ({ primaryAccession }: Props) => {
           Browse all available UniProt curated GO-CAM models.
         </ExternalLink>
       </>
+    );
+  } else if (allGoCamIdsResponse.error) {
+    content = (
+      <ErrorHandler
+        status={allGoCamIdsResponse.status}
+        error={allGoCamIdsResponse.error}
+        noReload
+      />
     );
   } else if (!isSmallScreen && selectedId && !!uniprotGoCamIds?.length) {
     content = (
