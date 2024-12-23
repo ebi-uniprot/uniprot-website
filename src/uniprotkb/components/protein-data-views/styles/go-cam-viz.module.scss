@@ -1,0 +1,56 @@
+@import 'franklin-sites/src/styles/colours';
+
+.go-cam-viz-container {
+  margin-bottom: 0.25rem;
+
+  wc-gocam-viz {
+    font-size: 1rem;
+
+    &::part(activities-panel) {
+      border-left: 1px solid black;
+      padding-left: 1.5rem;
+      width: 28%;
+    }
+
+    &::part(gocam-title) {
+      visibility: hidden;
+    }
+
+    &::part(gocam-panel) {
+      padding-right: 1.5rem;
+    }
+
+    &::part(legend-header) {
+      padding-top: 0.5rem;
+      border-bottom: 1px solid black;
+    }
+
+    &::part(process) {
+      padding: 1rem;
+      background-color: #e4e8eb;
+      margin-bottom: 1rem;
+    }
+
+    &::part(gene-product),
+    &::part(function-label) {
+      border-left: 0.125rem solid #{$colour-vivid-cerulean};
+      padding-left: 0.25rem;
+      margin-left: -0.5rem;
+    }
+
+    &::part(function-label) {
+      margin-bottom: 0.333rem;
+    }
+
+    --activity-background-active: #{$colour-sea-blue};
+    --activity-color-active: #{$white};
+    --activity-padding: 0.75rem 0.5rem;
+    --graph-height: 33vh;
+    --button-background: #{$colour-sea-blue};
+    --button-background-hover: #{darken($colour-sea-blue, 3%)};
+    --button-color: #{$white};
+    --button-border-radius: 0;
+    --process-label-border-color: black;
+    --panel-header-padding: 0 0 1rem 0;
+  }
+}

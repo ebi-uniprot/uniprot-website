@@ -27,21 +27,24 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
         >
           Complex viewer
         </h3>
-        <div
-          class="viewer-ids-container"
-        >
-          <div
-            aria-expanded="false"
-            aria-haspopup="true"
-            class="dropdown"
-          >
-            <button
-              class="button primary"
-              type="button"
+        <div>
+          <label>
+            Select complex
+            <select
+              class="id-select"
             >
-              CPX-1062 Amyloid-beta protein 40/42 complex
-            </button>
-          </div>
+              <option
+                value="CPX-1062"
+              >
+                CPX-1062 Amyloid-beta protein 40/42 complex
+              </option>
+              <option
+                value="CPX-1069"
+              >
+                CPX-1069 Amyloid-beta protein 40 complex
+              </option>
+            </select>
+          </label>
           <div
             class="loader-container"
           >
@@ -56,20 +59,19 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
           >
             View interactors in UniProtKB
           </a>
-          <br />
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/complexportal/complex/CPX-1062"
-            rel="noopener"
-            target="_blank"
-          >
-            View CPX-1062 in Complex Portal
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
         </div>
+        <a
+          class="external-link"
+          href="https://www.ebi.ac.uk/complexportal/complex/CPX-1062"
+          rel="noopener"
+          target="_blank"
+        >
+          View CPX-1062 in Complex Portal
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
         <h3>
           Protein-protein interaction databases
         </h3>

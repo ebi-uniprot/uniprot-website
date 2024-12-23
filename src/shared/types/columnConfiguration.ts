@@ -11,5 +11,5 @@ export type ColumRenderer<Schema extends Record<string, unknown>> = {
 export type ColumnConfiguration<
   Columns,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Schema extends Record<string, unknown> = any
+  Schema extends Record<string, unknown> = any,
 > = Map<Columns, ColumRenderer<Schema>>;
