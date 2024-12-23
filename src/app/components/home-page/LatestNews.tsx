@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Drosophila flies are born with four pairs of chromosomes in each of their cells. It is the genetic heritage they receive from their genitors...';
+  "There are about 8 billion people living on our planet today. It's a lot. But consider the following: one human body harbours about 380 trillion viruses and 39 trillion bacteria - both on our skin and underneath it...";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -357,21 +357,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/274/"
+            url="https://www.proteinspotlight.org/back_issues/275/"
             noIcon
           >
-            On dosing and compensating
+            Unconventional
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/274/"
+          url="https://www.proteinspotlight.org/back_issues/275/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt274.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt275.jpg"
             alt=""
             width="123"
             height="129"
