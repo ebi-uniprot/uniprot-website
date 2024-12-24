@@ -140,8 +140,7 @@ const UniProtKBEntryConfig: {
     id: EntrySection.SimilarProteins,
     sectionContent: (data) => (
       <SimilarProteinsSection
-        isoforms={data[EntrySection.SimilarProteins]}
-        primaryAccession={data.primaryAccession}
+        {...data[EntrySection.SimilarProteins]}
         key={EntrySection.SimilarProteins}
       />
     ),
