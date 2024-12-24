@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 
 import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
-
-import useSafeState from '../../../../shared/hooks/useSafeState';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
@@ -21,8 +19,10 @@ import {
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { IsoformsAndCluster } from './SimilarProteins';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { stringifyQuery } from '../../../../shared/utils/url';
 
 type Props = {
+  canonical: string;
   clusterType: string;
   isoformsAndClusters: IsoformsAndCluster[];
 };
@@ -35,77 +35,89 @@ type HasSimilarProteins = {
   uniprotkbQuery: string;
 };
 
-const canonicalIsoformRE = /-1$/;
-
-const getUniprotkbQuery = (cluster: UniRefLiteAPIModel, isoforms: string[]) =>
+const getUniprotkbQuery = (
+  cluster: UniRefLiteAPIModel,
+  isoforms: string[],
+  canonical: string
+) =>
   `(uniref_cluster_${cluster.entryType.replace('UniRef', '')}:${
     cluster.id
   })${isoforms
     .map(
-      (isoform) => ` NOT (accession:${isoform.replace(canonicalIsoformRE, '')})`
+      (isoform) =>
+        ` NOT (accession:${isoform === canonical ? isoform.replace(/-\d+$/, '') : isoform})`
     )
     .join('')}`;
 
 const SimilarProteinsTabContent = ({
+  canonical,
   clusterType,
   isoformsAndClusters,
 }: Props) => {
-  const [partitionedProteins, setPartitionedProteins] = useSafeState<
+  const [partitionedProteins, setPartitionedProteins] = useState<
     [string[], HasSimilarProteins[]]
   >([[], []]);
-  const [loading, setLoading] = useSafeState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const controller = new AbortController();
     const promises = isoformsAndClusters.map(({ isoforms, cluster }) => {
       if (isoforms.length <= 1 && cluster.memberCount <= 1) {
         return null;
       }
       const url = apiUrls.search.search({
         namespace: Namespace.uniprotkb,
-        query: getUniprotkbQuery(cluster, isoforms),
+        query: getUniprotkbQuery(cluster, isoforms, canonical),
         facets: null,
         columns,
         size: 10,
       });
       return fetchData<{
         results: UniProtkbAPIModel[];
-      }>(url);
+      }>(url, undefined, { signal: controller.signal });
     });
-    Promise.all(promises).then((responses) => {
-      const hasSimilar: HasSimilarProteins[] = [];
-      const noSimilar: string[] = [];
-      for (const [isoformsAndCluster, response] of zip(
-        isoformsAndClusters,
-        responses
-      )) {
-        /* istanbul ignore if */
-        if (!isoformsAndCluster) {
-          break; // Shouldn't happen, used to restrict types
+    Promise.all(promises).then(
+      (responses) => {
+        const hasSimilar: HasSimilarProteins[] = [];
+        const noSimilar: string[] = [];
+        for (const [isoformsAndCluster, response] of zip(
+          isoformsAndClusters,
+          responses
+        )) {
+          /* istanbul ignore if */
+          if (!isoformsAndCluster) {
+            break; // Shouldn't happen, used to restrict types
+          }
+          const { isoforms, cluster } = isoformsAndCluster;
+          const total = +(response?.headers?.['x-total-results'] || 0);
+          if (total && response?.data.results && isoforms && cluster) {
+            hasSimilar.push({
+              total,
+              isoforms,
+              cluster,
+              uniprotkbResults: response?.data.results,
+              uniprotkbQuery: getUniprotkbQuery(cluster, isoforms, canonical),
+            });
+          } else if (isoforms) {
+            noSimilar.push(...isoforms);
+          }
         }
-        const { isoforms, cluster } = isoformsAndCluster;
-        const total = +(response?.headers?.['x-total-results'] || 0);
-        if (total && response?.data.results && isoforms && cluster) {
-          hasSimilar.push({
-            total,
-            isoforms,
-            cluster,
-            uniprotkbResults: response?.data.results,
-            uniprotkbQuery: getUniprotkbQuery(cluster, isoforms),
-          });
-        } else if (isoforms) {
-          noSimilar.push(...isoforms);
-        }
+        setPartitionedProteins([noSimilar, hasSimilar]);
+        setLoading(false);
+      },
+      () => {
+        /* ignore fetch errors */
       }
-      setPartitionedProteins([noSimilar, hasSimilar]);
-      setLoading(false);
-    });
-  }, [isoformsAndClusters, setLoading, setPartitionedProteins]);
+    );
+    return () => controller.abort();
+  }, [isoformsAndClusters, canonical]);
 
   if (loading) {
     return <Loader />;
   }
 
   const [noSimilarProteins, hasSimilarProteins] = partitionedProteins;
+
   return (
     <>
       {hasSimilarProteins.map(
@@ -119,14 +131,12 @@ const SimilarProteinsTabContent = ({
                 </span>
               ))}
             </h4>
-            <section>
-              <SimilarProteinsTable
-                cluster={cluster}
-                total={total}
-                uniprotkbResults={uniprotkbResults}
-                uniprotkbQuery={uniprotkbQuery}
-              />
-            </section>
+            <SimilarProteinsTable
+              cluster={cluster}
+              total={total}
+              uniprotkbResults={uniprotkbResults}
+              uniprotkbQuery={uniprotkbQuery}
+            />
             <hr />
           </section>
         )
@@ -141,15 +151,13 @@ const SimilarProteinsTabContent = ({
               </span>
             ))}
           </h4>
-          <section>
-            {`No similar proteins at ${
-              uniRefEntryTypeToPercent[clusterType as UniRefEntryType]
-            } identity for ${pluralise(
-              'this isoform.',
-              noSimilarProteins.length,
-              'these isoforms.'
-            )}`}
-          </section>
+          {`No similar proteins at ${
+            uniRefEntryTypeToPercent[clusterType as UniRefEntryType]
+          } identity for ${pluralise(
+            'this isoform.',
+            noSimilarProteins.length,
+            'these isoforms.'
+          )}`}
           <hr />
         </section>
       )}
@@ -157,15 +165,17 @@ const SimilarProteinsTabContent = ({
         className="button primary"
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=${isoformsAndClusters
-            .map(
-              ({ cluster }) =>
-                `uniref_cluster_${clusterType.replace('UniRef', '')}:${
-                  cluster.id
-                }`
-            )
-            .sort()
-            .join(' OR ')}`,
+          search: stringifyQuery({
+            query: isoformsAndClusters
+              .map(
+                ({ cluster }) =>
+                  `uniref_cluster_${clusterType.replace('UniRef', '')}:${
+                    cluster.id
+                  }`
+              )
+              .sort()
+              .join(' OR '),
+          }),
         }}
       >
         View all

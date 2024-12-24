@@ -18,10 +18,10 @@ import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 const axiosMock = new MockAdapter(axios);
 axiosMock
   // find clusters for canonical
-  .onGet(/\/uniref\/search\?query=\(uniprot_id:P05067\)/)
+  .onGet(/query=%28uniprot_id%3DP05067%29/)
   .reply(200, unirefP05067)
   // find clusters for isoform 4
-  .onGet(/\/uniref\/search\?query=\(uniprot_id:P05067-4\)/)
+  .onGet(/query=%28uniprot_id%3DP05067-4%29/)
   .reply(200, unirefP05067isoform4)
   // find members of cluster (always same response for testing)
   .onGet(/\/uniprotkb\/search/)
@@ -35,7 +35,7 @@ describe('SimilarProteins tests', () => {
       rendered = customRender(
         <SimilarProteins
           isoforms={['P05067-1', 'P05067-4']}
-          primaryAccession="P05067"
+          canonical="P05067-1"
         />
       );
     });
@@ -55,7 +55,7 @@ describe('SimilarProteins tests', () => {
   it('should navigate to correct search page when clicking "View all"', async () => {
     fireEvent.click(screen.getByRole('link', { name: 'View all' }));
     expect(rendered.history.location.search).toEqual(
-      '?query=uniref_cluster_100:UniRef100_P05067 OR uniref_cluster_100:UniRef100_P05067-4'
+      '?query=uniref_cluster_100%3AUniRef100_P05067+OR+uniref_cluster_100%3AUniRef100_P05067-4'
     );
     expect(rendered.history.location.pathname).toEqual('/uniprotkb');
   });
