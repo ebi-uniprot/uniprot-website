@@ -4,7 +4,7 @@ import {
   Redirect,
   RouteChildrenProps,
   useHistory,
-} from 'react-router-dom';
+} from 'react-router';
 import { Card, Loader } from 'franklin-sites';
 import {
   Attributes,
@@ -122,7 +122,6 @@ const HelpEntryContent = ({
           // Don't navigate away!
           event.preventDefault();
           // And just replace the current URL with the next page
-          // eslint-disable-next-line uniprot-website/use-config-location
           history.push(href.replace(sameAppURL, '/'));
         } else {
           // analytics, similar as in InstrumentedExternalLink

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ExpandableList, HeroContainer, LongNumber } from 'franklin-sites';
 
 import ResultsData from '../../../../shared/components/results/ResultsData';
@@ -129,7 +129,6 @@ const IDMappingResultTable = ({
                     <LongNumber>{activeLength}</LongNumber>
                   </strong>{' '}
                   <Link
-                    // eslint-disable-next-line uniprot-website/use-config-location
                     to={(location) => ({
                       ...location,
                       search: stringifyQuery({ query: 'active:true' }),
@@ -144,7 +143,6 @@ const IDMappingResultTable = ({
                 <LongNumber>{obsoleteLength}</LongNumber>
               </strong>{' '}
               <Link
-                // eslint-disable-next-line uniprot-website/use-config-location
                 to={(location) => ({
                   ...location,
                   search: stringifyQuery({ query: 'active:false' }),

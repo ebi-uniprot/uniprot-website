@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import joinUrl from 'url-join';

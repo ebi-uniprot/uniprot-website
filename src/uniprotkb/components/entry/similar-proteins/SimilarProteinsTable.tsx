@@ -1,5 +1,5 @@
 import { DataTable, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
@@ -10,6 +10,7 @@ import {
   Location,
   getEntryPath,
 } from '../../../../app/config/urls';
+import { stringifyQuery } from '../../../../shared/utils/url';
 
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
@@ -22,7 +23,7 @@ export const columns = [
   UniProtKBColumn.reviewed,
   UniProtKBColumn.organismName,
   UniProtKBColumn.proteinName,
-  UniProtKBColumn.sequence,
+  UniProtKBColumn.length,
 ];
 
 const columnConfig = [
@@ -85,7 +86,7 @@ const SimilarProteinsTable = ({
       <Link
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=${uniprotkbQuery}`,
+          search: stringifyQuery({ query: uniprotkbQuery }),
         }}
       >
         {'View '}

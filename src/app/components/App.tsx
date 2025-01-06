@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
-} from 'react-router-dom';
+} from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -42,6 +42,20 @@ import pkg from '../../../package.json';
 // eslint-disable-next-line import/no-unresolved
 import 'franklin-sites/franklin.css';
 import './styles/app.scss';
+
+// This is hackery is to prevent define being repeatedly called for the same
+// name. This has been observed in Variant viewer and Feature viewer tabs.
+const originalDefine = customElements.define;
+function newDefine(
+  this: typeof customElements.define,
+  name: string,
+  constructor: CustomElementConstructor
+) {
+  if (!customElements.get(name)) {
+    originalDefine.call(this, name, constructor);
+  }
+}
+customElements.define = newDefine;
 
 if (process.env.NODE_ENV !== 'development') {
   SentryInit({

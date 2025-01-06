@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import cn from 'classnames';
 
 import useUniProtDataVersion from '../../hooks/useUniProtDataVersion';

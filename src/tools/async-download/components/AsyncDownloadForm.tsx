@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useEffect, useReducer } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 

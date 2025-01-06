@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P0DTR4
-// Retrieved: 2024-11-26
+// Retrieved: 2024-12-10
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P0DTR4',

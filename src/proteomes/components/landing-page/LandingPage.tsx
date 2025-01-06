@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import {
   ExternalLink,
   LongNumber,

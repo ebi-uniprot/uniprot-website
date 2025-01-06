@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Loader, Card } from 'franklin-sites';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { SetOptional } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';

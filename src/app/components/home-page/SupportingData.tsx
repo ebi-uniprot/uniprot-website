@@ -1,5 +1,5 @@
 import { HeroContainer, DecoratedListItem } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import cn from 'classnames';
 
 import { Location, LocationToPath } from '../../config/urls';

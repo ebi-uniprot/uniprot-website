@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router';
 import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';

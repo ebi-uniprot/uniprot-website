@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { SlidingPanel } from 'franklin-sites';
 
 import EntryDownload, { Dataset } from './EntryDownload';

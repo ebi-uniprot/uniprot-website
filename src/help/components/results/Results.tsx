@@ -1,5 +1,5 @@
 import { ChangeEvent, useState, useEffect, useMemo, ReactNode } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { RouteChildrenProps } from 'react-router';
 import {
   DataListWithLoader,
   HelpIcon,

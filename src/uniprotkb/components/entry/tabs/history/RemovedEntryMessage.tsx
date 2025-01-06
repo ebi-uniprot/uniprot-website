@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import listFormat from '../../../../../shared/utils/listFormat';
 import { stringifyQuery } from '../../../../../shared/utils/url';

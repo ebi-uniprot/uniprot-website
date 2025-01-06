@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHistory, generatePath, useRouteMatch } from 'react-router-dom';
+import { useHistory, generatePath, useRouteMatch } from 'react-router';
 
 import { LocationToPath, Location } from '../../app/config/urls';
 
@@ -7,7 +7,7 @@ import { LocationToPath, Location } from '../../app/config/urls';
 const weirdTypos = /^ |.html?$|;|&.*$/g;
 
 const useMatchWithRedirect = <
-  T extends { accession?: string; subPage?: string }
+  T extends { accession?: string; subPage?: string },
 >(
   location: Location,
   possibleSubPages: Record<string, string>,

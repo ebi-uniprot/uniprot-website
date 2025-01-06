@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import { frame } from 'timing-functions';

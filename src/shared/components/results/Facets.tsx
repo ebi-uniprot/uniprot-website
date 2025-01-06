@@ -1,5 +1,5 @@
 import { FC, ReactNode, HTMLAttributes, Children } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { ExpandableList, formatLargeNumber } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -135,7 +135,6 @@ export const Facet: FC<
           return (
             <Link
               key={`${data.name}_${value}`}
-              // eslint-disable-next-line uniprot-website/use-config-location
               to={to}
               className={cn({ [styles['facet-active']]: isActive })}
               onClick={facetClickHandler}

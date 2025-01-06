@@ -9,7 +9,7 @@ import {
   select,
   interpolate as d3interpolate,
 } from 'd3';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { StatisticsItem } from '../statistics/StatisticsPage';
 
@@ -204,7 +204,6 @@ const PieChart = ({
             <foreignObject>
               {datum.to ? (
                 <Link
-                  // eslint-disable-next-line uniprot-website/use-config-location
                   to={datum.to}
                   title={`Search for the ${datum.entryCount} entries with ${type}: ${datum.name}`}
                 >

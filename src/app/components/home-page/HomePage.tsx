@@ -7,7 +7,7 @@ import {
   useRef,
   useCallback,
 } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';

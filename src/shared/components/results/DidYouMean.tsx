@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { orderBy, truncate } from 'lodash-es';
 import { Loader, Message, sequenceProcessor } from 'franklin-sites';
 import { sleep } from 'timing-functions';

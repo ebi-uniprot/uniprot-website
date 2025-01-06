@@ -1,4 +1,4 @@
-import { generatePath, matchPath } from 'react-router-dom';
+import { generatePath, matchPath } from 'react-router';
 import { partial } from 'lodash-es';
 import { LocationDescriptorObject } from 'history';
 

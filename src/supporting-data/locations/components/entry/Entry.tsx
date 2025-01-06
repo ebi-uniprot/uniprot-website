@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Loader, Card, InfoList } from 'franklin-sites';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router';
 import cn from 'classnames';
 import { LocationDescriptor } from 'history';
 

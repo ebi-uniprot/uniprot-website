@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -76,7 +76,6 @@ DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
         const databaseInfo = databaseToDatabaseInfo[databaseType];
         if (databaseInfo) {
           idNode = (
-            // eslint-disable-next-line uniprot-website/use-config-location
             <ExternalLink
               url={processUrlTemplate(databaseInfo.uriLink, { id })}
             >

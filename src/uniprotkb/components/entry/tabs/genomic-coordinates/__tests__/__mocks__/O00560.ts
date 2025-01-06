@@ -1,7 +1,7 @@
 import { GenomicEntry } from '../../types';
 
 // Source: https://www.ebi.ac.uk/proteins/api/coordinates?accession=O00560
-// Retrieved: 2024-11-26
+// Retrieved: 2024-12-10
 const mock: GenomicEntry[] = [
   {
     accession: 'O00560',
@@ -1521,7 +1521,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'ENSG00000137575',
         ensemblTranscriptId: 'ENST00000413219',
         ensemblTranslationId: 'ENSP00000411771',
-        nucleotideId: 'CM000670.2',
       },
       {
         genomicLocation: {
@@ -2999,7 +2998,6 @@ const mock: GenomicEntry[] = [
         ensemblGeneId: 'ENSG00000137575',
         ensemblTranscriptId: 'ENST00000260130',
         ensemblTranslationId: 'ENSP00000260130',
-        nucleotideId: 'CM000670.2',
       },
     ],
   },

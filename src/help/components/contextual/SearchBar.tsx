@@ -1,7 +1,7 @@
 import { SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
 import { useMemo, useEffect, useCallback, ChangeEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import { stringifyQuery } from '../../../shared/utils/url';
 

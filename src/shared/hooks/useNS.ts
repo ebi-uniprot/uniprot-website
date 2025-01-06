@@ -1,4 +1,4 @@
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router';
 import {
   allSearchResultLocations,
   getJobResultsLocation,

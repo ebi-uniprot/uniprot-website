@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 import { HistogramFilter } from 'franklin-sites';
 
 import { Facets } from '../../../../shared/components/results/Facets';
@@ -74,7 +74,6 @@ const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
     }
 
     history.replace(
-      // eslint-disable-next-line uniprot-website/use-config-location
       getLocationObjForParams({ pathname, selectedFacets: nextFacets })
     );
   };

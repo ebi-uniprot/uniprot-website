@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { select } from 'd3';
 
 import useSize from '../../../../shared/hooks/useSize';

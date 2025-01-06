@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ExternalLink } from 'franklin-sites';
 
 import Timeline from '../components/entry/Timeline';

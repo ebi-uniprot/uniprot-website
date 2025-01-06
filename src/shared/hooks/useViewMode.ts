@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
@@ -80,13 +80,10 @@ const useViewMode = (
   const setViewMode = useCallback(
     (vm: ViewMode) => {
       if (fromUrl) {
-        history.push(
-          // eslint-disable-next-line uniprot-website/use-config-location
-          {
-            pathname: history.location.pathname,
-            search: stringifyQuery({ ...urlParams, view: vm }),
-          }
-        );
+        history.push({
+          pathname: history.location.pathname,
+          search: stringifyQuery({ ...urlParams, view: vm }),
+        });
       } else {
         setViewModeFromStorage(vm);
       }

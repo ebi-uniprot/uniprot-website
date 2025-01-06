@@ -1,6 +1,5 @@
-/* eslint-disable uniprot-website/use-config-location */
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import cn from 'classnames';
 import { RequireExactlyOne } from 'type-fest';
 import { LocationDescriptor } from 'history';

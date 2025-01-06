@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Loader, DataListWithLoader, LongNumber } from 'franklin-sites';
 
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';

@@ -61,7 +61,6 @@ const getConfigFor = ({
         // make all dependencies using react and related use our versions
         react: path.resolve('./node_modules/react'),
         'react-dom': path.resolve('./node_modules/react-dom'),
-        'react-router-dom': path.resolve('./node_modules/react-router-dom'),
         // other packages
         classnames: path.resolve('./node_modules/classnames'),
         // go package uses a slightly earlier version of axios, link it to ours
@@ -138,9 +137,6 @@ const getConfigFor = ({
             // We use realpathSync otherwise doesn't work with symlinks
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
-            fs.realpathSync(
-              `${__dirname}/node_modules/tippy.js/dist/tippy.css`
-            ),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
             fs.realpathSync(`${__dirname}/node_modules/swagger-ui-react`),
             fs.realpathSync(
@@ -195,9 +191,8 @@ const getConfigFor = ({
         },
         // SVGs from nightingale and protvista packages
         {
-          test: /\.svg$/,
+          test: /\.svg$/i,
           include: [
-            fs.realpathSync(`${__dirname}/node_modules/protvista-datatable`),
             fs.realpathSync(`${__dirname}/node_modules/protvista-uniprot`),
           ],
           loader: 'svg-inline-loader',

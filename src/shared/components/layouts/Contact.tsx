@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { EnvelopeIcon } from 'franklin-sites';
 
 import ExternalLink from '../ExternalLink';

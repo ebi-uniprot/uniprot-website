@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { InfoList, ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -28,7 +28,6 @@ const ProteinName = ({
 }) => (
   <>
     {withLink ? (
-      // eslint-disable-next-line uniprot-website/use-config-location
       <Link to={(location) => ({ ...location, hash: stringToID(value) })}>
         {value}
       </Link>

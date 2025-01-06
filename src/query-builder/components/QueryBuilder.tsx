@@ -7,7 +7,7 @@ import {
   CSSProperties,
   useCallback,
 } from 'react';
-import { generatePath, useNavigate, useLocation } from 'react-router-dom';
+import { generatePath, useNavigate, useLocation } from 'react-router';
 import { frame } from 'timing-functions';
 import { Loader, Button, Message } from 'franklin-sites';
 

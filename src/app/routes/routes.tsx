@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { type RouteObject } from 'react-router-dom';
+import { type RouteObject } from 'react-router';
 
 import App from '../components/App';
 import GlobalContext from '../contexts/Global';

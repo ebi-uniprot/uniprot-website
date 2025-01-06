@@ -5,7 +5,7 @@ import {
   SetStateAction,
   useRef,
 } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { schedule } from 'timing-functions';
 
 import useSafeState from './useSafeState';
@@ -18,7 +18,7 @@ const useItemSelect = (
   // helper function to be used most of the times
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void,
   // escape hatch to use the state setter. Only use on controlled checkboxes!!!
-  setSelectedItems: Dispatch<SetStateAction<string[]>>
+  setSelectedItems: Dispatch<SetStateAction<string[]>>,
 ] => {
   const [selectedItems, setSelectedItems] = useSafeState<string[]>([]);
   const location = useLocation();

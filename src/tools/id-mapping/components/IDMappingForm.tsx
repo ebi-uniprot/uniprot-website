@@ -6,7 +6,7 @@ import {
   useEffect,
   CSSProperties,
 } from 'react';
-import { Link, generatePath, useHistory } from 'react-router-dom';
+import { Link, generatePath, useHistory } from 'react-router';
 import {
   PageIntro,
   Message,

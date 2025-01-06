@@ -1,5 +1,5 @@
 import { Tile, HeroContainer } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { Link, generatePath } from 'react-router';
 import cn from 'classnames';
 
 import { LocationToPath, Location } from '../../config/urls';

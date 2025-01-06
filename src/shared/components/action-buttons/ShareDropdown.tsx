@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { Dropdown, Button, ShareNodesIcon } from 'franklin-sites';
 import { createPath } from 'history';
 

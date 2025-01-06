@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, useState } from 'react';
 import { InfoList, Sequence, LongNumber } from 'franklin-sites';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router';
 
 import ExternalLink from '../ExternalLink';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';

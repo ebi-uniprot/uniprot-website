@@ -1,5 +1,5 @@
 import { History } from 'history';
-import { Redirect, Route, Router, useLocation } from 'react-router-dom';
+import { Redirect, Route, Router, useLocation } from 'react-router';
 import {
   misspeltHelpTuple,
   redirectFromTo,

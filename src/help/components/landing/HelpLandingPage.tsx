@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
 import cn from 'classnames';
 

@@ -7,36 +7,50 @@ import {
   lazy,
   ReactNode,
   Suspense,
+  useId,
 } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
-import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
 import { PartialDeep, SetRequired } from 'type-fest';
-
-import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
-import { transformData, TransformedVariant } from 'protvista-variation-adapter';
+import {
+  ProteinsAPIVariation,
+  transformData,
+} from '@nightingale-elements/nightingale-variation';
+import NightingaleManager from '@nightingale-elements/nightingale-manager';
+import { filterConfig } from 'protvista-uniprot';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
-import DatatableWrapper from '../../../../../shared/components/views/DatatableWrapper';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
+import NightingaleManagerComponent from '../../../../../shared/custom-elements/NightingaleManager';
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../../../shared/components/table/TableFromData';
 
 import useDataApi from '../../../../../shared/hooks/useDataApi';
-import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNightingaleFeatureTableScroll';
 
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
+
 import { sortByLocation } from '../../../../utils';
 import { getEntryPath } from '../../../../../app/config/urls';
+import {
+  NightingaleViewRange,
+  withinRange,
+} from '../../../../../shared/utils/nightingale';
+
+import { VARIANT_COUNT_LIMIT } from '../../../../../shared/config/limits';
 
 import { Evidence } from '../../../../types/modelTypes';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { TabLocation } from '../../../../types/entry';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
+import { TransformedVariant } from '../../../../types/variation';
 
 import styles from './styles/variation-viewer.module.scss';
 import tabsStyles from '../styles/tabs-styles.module.scss';
@@ -48,9 +62,6 @@ const VisualVariationView = lazy(
       /* webpackChunkName: "visual-variation-view" */ '../../../protein-data-views/VisualVariationView'
     )
 );
-
-// hardcoded threshold
-export const VARIANT_COUNT_LIMIT = 2_000;
 
 type ProteinsAPIEvidence = SetRequired<
   PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
@@ -75,53 +86,320 @@ const isUniProt = (string: string) => string === 'UniProt';
 const sortProvenanceByUniProtFirst = (a: string, b: string) =>
   +isUniProt(b) - +isUniProt(a);
 
-type ObjWithVariants = { variants: TransformedVariant[] };
+const groupByCategory = (filters: FilterConfig, category: string) =>
+  filters.filter((f) => f.type.name === category);
 
-type Filter = {
-  category: string;
-  filterFn: (obj: ObjWithVariants[]) => ObjWithVariants[];
-};
+type FilterConfig = typeof filterConfig;
+type FilterConfigItem = FilterConfig[0];
 
-// copied/adapted logic from protvista-variation
-const deepArrayOperation = (
-  arrays: ObjWithVariants[][],
-  operation: typeof union | typeof intersection
-) => {
-  if (!arrays || arrays.length <= 0) {
-    return null;
-  }
-  const firstArray = arrays[0];
-  // Iterate over positions
-  firstArray.forEach((position, i) => {
-    const filteredVariants = arrays.map((array) => array[i].variants);
-    /* eslint-disable no-param-reassign */
-    position.variants = operation(...filteredVariants);
-  });
-  return firstArray;
-};
+const getFilter = (haystack: FilterConfig, needle: FilterConfigItem) =>
+  haystack?.find((f) => f.name === needle.name);
 
-// copied/adapted logic from protvista-variation
-const applyFilters = (variants: TransformedVariant[], filters: Filter[]) => {
+// copied/adapted logic from protvista-uniprot
+const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
   if (!filters.length) {
     return variants;
   }
 
-  const originalData: ObjWithVariants[] = [{ variants }];
+  const activeFilters = filterConfig.filter((f) => filters.includes(f.name));
+  const consequenceFilters = groupByCategory(activeFilters, 'consequence');
+  const provenanceFilters = groupByCategory(activeFilters, 'provenance');
 
-  const groupedFilters = groupBy(filters, 'category');
-  const filteredGroups = Object.values(groupedFilters).map((filterGroup) => {
-    const filteredData = filterGroup.map((filterItem) =>
-      filterItem.filterFn(originalData)
+  const selectedConsequenceFilters = activeFilters
+    .map((f) => getFilter(consequenceFilters, f))
+    .filter(Boolean);
+  const selectedProvenanceFilters = activeFilters
+    .map((f) => getFilter(provenanceFilters, f))
+    .filter(Boolean);
+
+  const filteredVariants = variants
+    ?.filter((variant) =>
+      selectedConsequenceFilters.some((filter) =>
+        filter?.filterPredicate(variant)
+      )
+    )
+    .filter((variant) =>
+      selectedProvenanceFilters.some((filter) =>
+        filter?.filterPredicate(variant)
+      )
     );
-    // Basically, *within* groups, logical OR...
-    return deepArrayOperation(filteredData, union) || [];
-  });
-
-  const transformedData =
-    // ... and, *across* groups, logical AND
-    deepArrayOperation(filteredGroups, intersection) || [];
-  return transformedData[0]?.variants;
+  return filteredVariants;
 };
+
+const getHighlightedCoordinates = (feature?: TransformedVariant) =>
+  feature?.begin && feature?.end
+    ? `${feature.begin}:${feature.end}`
+    : undefined;
+
+const getRowId = (data: TransformedVariant) => data.accession;
+
+const getColumns = (
+  primaryAccession: string
+): TableFromDataColumn<TransformedVariant>[] => [
+  {
+    id: 'variant-id',
+    label: (
+      <>
+        Variant
+        <br />
+        ID(s)
+      </>
+    ),
+    render: (data) => (
+      <>
+        {
+          // note that the type needs to be updated, xrefs is optional on association object
+          Array.from(new Set(data.xrefs?.map((xref) => xref.id)))
+            .sort(sortIDByUniProtFirst)
+            .map((id, i) => (
+              <Fragment key={id}>
+                {i !== 0 && <br />}
+                <span className={cn({ [helper.bold]: isUniProtID(id) })}>
+                  {id}
+                </span>
+              </Fragment>
+            ))
+        }
+      </>
+    ),
+  },
+  {
+    id: 'position',
+    label: 'Position(s)',
+    render: (data) =>
+      `${data.start}${+data.end === data.start ? '' : `-${data.end}`}`,
+  },
+  {
+    id: 'change',
+    label: 'Change',
+    render: (data) => {
+      let from: ReactNode = data.wildType;
+      if (!data.wildType) {
+        from = <em>missing</em>;
+      } else if (data.wildType.length > 3) {
+        from = (
+          <>
+            {data.wildType.slice(0, 2)}
+            <EllipsisReveal>{data.wildType.slice(2)}</EllipsisReveal>
+          </>
+        );
+      }
+
+      let to: ReactNode = data.alternativeSequence;
+      if (!data.alternativeSequence) {
+        to = <em>missing</em>;
+      } else if (data.alternativeSequence.length > 3) {
+        to = (
+          <>
+            {data.alternativeSequence.slice(0, 2)}
+            <EllipsisReveal>{data.alternativeSequence.slice(2)}</EllipsisReveal>
+          </>
+        );
+      }
+
+      const change = (
+        <>
+          {from}
+          {'>'}
+          {to}
+        </>
+      );
+
+      return (
+        <span className={styles.change}>
+          {data.consequenceType !== '-' &&
+          data.wildType?.length === 1 &&
+          data.alternativeSequence?.length === 1 ? (
+            <ExternalLink
+              url={externalUrls.ProtVar(
+                `${primaryAccession} ${data.wildType}${data.start}${data.alternativeSequence}`
+              )}
+              title="View in ProtVar"
+              noIcon
+            >
+              {change}
+            </ExternalLink>
+          ) : (
+            change
+          )}
+        </span>
+      );
+    },
+  },
+  {
+    id: 'description',
+    label: 'Description',
+    render: (data) => {
+      const uniProtEvidences = data.evidences?.map(
+        (evidence: ProteinsAPIEvidence) =>
+          ({
+            evidenceCode: evidence.code,
+            id: evidence?.source?.id,
+            source: evidence?.source?.name,
+            url: evidence?.source?.url,
+          }) as Evidence
+      );
+
+      return data.descriptions?.length ? (
+        Array.from(data.descriptions)
+          .sort(sortDescriptionByUniProtFirst)
+          .map((description) => (
+            <div
+              key={description.value}
+              className={cn({ [helper.bold]: hasUniProtSource(description) })}
+            >
+              {`${description.value} (${description.sources.join(', ')})`}
+              <UniProtKBEvidenceTag evidences={uniProtEvidences} />
+            </div>
+          ))
+      ) : (
+        <UniProtKBEvidenceTag evidences={uniProtEvidences} />
+      );
+    },
+  },
+  {
+    id: 'clinical-significance',
+    label: (
+      <>
+        Clinical
+        <br />
+        significance
+      </>
+    ),
+    render: (data) =>
+      data.clinicalSignificances?.map((clinicalSignificance, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={i}>
+          {i !== 0 && <br />}
+          <span
+            key={`${clinicalSignificance.sources.join('-')}-${
+              clinicalSignificance.type
+            }`}
+          >
+            {`${clinicalSignificance.type} (${clinicalSignificance.sources.join(
+              ', '
+            )})`}
+          </span>
+        </Fragment>
+      )),
+  },
+  {
+    id: 'provenance',
+    label: 'Provenance',
+    render: (data) =>
+      Array.from(
+        new Set(
+          data.xrefNames.map((name) => (name === 'uniprot' ? 'UniProt' : name))
+        )
+      )
+        .sort(sortProvenanceByUniProtFirst)
+        .map((name, i) => (
+          <Fragment key={name}>
+            {i !== 0 && <br />}
+            <span className={cn({ [helper.bold]: isUniProt(name) })}>
+              {name}
+            </span>
+          </Fragment>
+        )),
+  },
+];
+
+const RowExtraContent = (data: TransformedVariant) => (
+  <Fragment>
+    <div>
+      <strong>Consequence: </strong>
+      {data.consequenceType}
+    </div>
+    {data.predictions?.length ? (
+      <div>
+        <strong>Predictions: </strong>
+        {data.predictions?.map((pred) => (
+          <div
+            key={[
+              pred.predAlgorithmNameType,
+              pred.predictionValType,
+              pred.score,
+              pred.sources,
+            ].join('-')}
+          >
+            {`- ${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+          </div>
+        ))}
+      </div>
+    ) : null}
+    <div>
+      <strong>Somatic: </strong> {data.somaticStatus === 1 ? 'Yes' : 'No'}
+    </div>
+    {data.populationFrequencies?.length ? (
+      <div>
+        <strong>Population frequencies: </strong>
+        {data.populationFrequencies?.map((populationFrequency) => (
+          <div
+            key={`${populationFrequency.source}-${populationFrequency.populationName}`}
+          >
+            {`- ${populationFrequency.populationName}: ${populationFrequency.frequency} (${populationFrequency.source})`}
+          </div>
+        ))}
+      </div>
+    ) : null}
+    <div>
+      <strong>Accession: </strong> {data.accession}
+    </div>
+    {data.codon && (
+      <div>
+        <strong>Codon: </strong> {data.codon}
+      </div>
+    )}
+    <div>
+      <strong>Consequence type: </strong> {data.consequenceType}
+    </div>
+    <div>
+      <strong>Cytogenetic band: </strong> {data.cytogeneticBand}
+    </div>
+    <div>
+      <strong>Genomic location: </strong> {data.genomicLocation?.join(', ')}
+    </div>
+    {data.locations?.length ? (
+      <div>
+        <strong>Locations: </strong>
+        {data.locations?.map((location) => (
+          <div key={`${location.loc}-${location.source}-${location.seqId}`}>
+            {`- ${location.loc} (${location.source}:${location.seqId})`}
+          </div>
+        ))}
+      </div>
+    ) : null}
+    {data.association?.length ? (
+      <div>
+        <strong>Disease association: </strong>
+        {data.association?.map((association) => (
+          <div key={`${association.name}-${association.description}`}>
+            {'- '}
+            {association.name}
+          </div>
+        ))}
+      </div>
+    ) : null}
+    <div>
+      <strong>Source type: </strong> {data.sourceType?.replace(/_/g, ' ')}
+    </div>
+    {/* note that the type needs to be updated, xrefs is optional on association object */}
+    {/* Also, some xrefs don't have URLs... type should be optional */}
+    {data.xrefs?.length ? (
+      <div>
+        <strong>Cross-references: </strong>
+        {data.xrefs?.map((xref) => (
+          <div key={`${xref.name}-${xref.id}`}>
+            {'- '}
+            <ExternalLink url={xref.url}>
+              {xref.name}: {xref.id}
+            </ExternalLink>
+          </div>
+        ))}
+      </div>
+    ) : null}
+  </Fragment>
+);
 
 type VariationViewProps = {
   importedVariants: number | 'loading';
@@ -135,6 +413,13 @@ const VariationViewer = ({
   title,
 }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
+  const [highlightedVariant, setHighlightedVariant] =
+    useState<TransformedVariant>();
+  const [nightingaleViewRange, setNightingaleViewRange] =
+    useState<NightingaleViewRange>();
+  const tableId = useId();
+  const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
+
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllVariants = searchParams.get('loadVariants');
 
@@ -150,8 +435,8 @@ const VariationViewer = ({
       shouldRender ? apiUrls.proteinsApi.variation(primaryAccession) : undefined
     );
 
-  const [filters, setFilters] = useState([]);
-  const managerRef = useRef<HTMLElement>(null);
+  const [filters, setFilters] = useState<string[]>([]);
+  const managerRef = useRef<NightingaleManager>(null);
   useEffect(() => {
     const { current: element } = managerRef;
 
@@ -163,13 +448,18 @@ const VariationViewer = ({
       const { detail } = event as CustomEvent;
       if (detail?.type === 'filters') {
         setFilters(detail.value);
+      } else if (detail?.eventType === 'click' && detail?.feature) {
+        setHighlightedVariant(detail.feature);
+        tableScroll(detail.feature);
+      } else if (detail?.['display-start'] && detail?.['display-end']) {
+        setNightingaleViewRange(detail);
       }
     };
 
     element.addEventListener('change', listener);
     // eslint-disable-next-line consistent-return
     return () => element.removeEventListener('change', listener);
-  }, [data]);
+  }, [data, tableScroll]);
   // 'data' is not directly used in the effect, but we know it's when we're
   // ready to attach the event listener and avoid re-calling this on each render
 
@@ -192,15 +482,10 @@ const VariationViewer = ({
 
   // Filter data on every filter interaction out of the memoised sorted data
   const filteredVariants = useMemo(
-    () => sortedVariants && applyFilters(sortedVariants, filters),
-    [sortedVariants, filters]
-  );
-
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
     () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
+      sortedVariants &&
+      applyFilters(sortedVariants as TransformedVariant[], filters),
+    [sortedVariants, filters]
   );
 
   if (loading || importedVariants === 'loading') {
@@ -278,307 +563,15 @@ const VariationViewer = ({
     );
   }
 
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Variant
-            <br />
-            ID(s)
-          </th>
-          <th>Position(s)</th>
-          <th>Change</th>
-          <th>Description</th>
-          <th>
-            Clinical
-            <br />
-            significance
-          </th>
-          <th>Provenance</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
-        {filteredVariants.map((variantFeature) => {
-          let position = variantFeature.start;
-          if (variantFeature.start !== variantFeature.end) {
-            position += `-${variantFeature.end}`;
-          }
-
-          const uniProtEvidences = variantFeature.evidences?.map(
-            (evidence: ProteinsAPIEvidence) =>
-              ({
-                evidenceCode: evidence.code,
-                id: evidence?.source?.id,
-                source: evidence?.source?.name,
-                url: evidence?.source?.url,
-              } as Evidence)
-          );
-
-          let from: ReactNode = variantFeature.wildType;
-          if (!variantFeature.wildType) {
-            from = <em>missing</em>;
-          } else if (variantFeature.wildType.length > 3) {
-            from = (
-              <>
-                {variantFeature.wildType.slice(0, 2)}
-                <EllipsisReveal>
-                  {variantFeature.wildType.slice(2)}
-                </EllipsisReveal>
-              </>
-            );
-          }
-
-          let to: ReactNode = variantFeature.alternativeSequence;
-          if (!variantFeature.alternativeSequence) {
-            to = <em>missing</em>;
-          } else if (variantFeature.alternativeSequence.length > 3) {
-            to = (
-              <>
-                {variantFeature.alternativeSequence.slice(0, 2)}
-                <EllipsisReveal>
-                  {variantFeature.alternativeSequence.slice(2)}
-                </EllipsisReveal>
-              </>
-            );
-          }
-
-          const change = (
-            <>
-              {from}
-              {'>'}
-              {to}
-            </>
-          );
-
-          return (
-            <Fragment key={variantFeature.protvistaFeatureId}>
-              <tr
-                data-id={variantFeature.protvistaFeatureId}
-                data-start={variantFeature.start}
-                data-end={variantFeature.end}
-              >
-                <td>
-                  {Array.from(
-                    // note that the type needs to be updated, xrefs is optional on association object
-                    new Set(variantFeature.xrefs?.map((xref) => xref.id))
-                  )
-                    .sort(sortIDByUniProtFirst)
-                    .map((id, i) => (
-                      <Fragment key={id}>
-                        {i !== 0 && <br />}
-                        <span
-                          className={cn({ [helper.bold]: isUniProtID(id) })}
-                        >
-                          {id}
-                        </span>
-                      </Fragment>
-                    ))}
-                </td>
-                <td>{position}</td>
-                <td className={styles.change}>
-                  {variantFeature.consequenceType !== '-' &&
-                  variantFeature.wildType?.length === 1 &&
-                  variantFeature.alternativeSequence?.length === 1 ? (
-                    <ExternalLink
-                      url={externalUrls.ProtVar(
-                        `${primaryAccession} ${variantFeature.wildType}${variantFeature.start}${variantFeature.alternativeSequence}`
-                      )}
-                      title="View in ProtVar"
-                      noIcon
-                    >
-                      {change}
-                    </ExternalLink>
-                  ) : (
-                    change
-                  )}
-                  {!variantFeature.wildType &&
-                    !variantFeature.alternativeSequence && <em>missing</em>}
-                </td>
-                <td translate="yes">
-                  {variantFeature.descriptions?.length ? (
-                    Array.from(variantFeature.descriptions)
-                      .sort(sortDescriptionByUniProtFirst)
-                      .map((description) => (
-                        <div
-                          key={description.value}
-                          className={cn({
-                            [helper.bold]: hasUniProtSource(description),
-                          })}
-                        >
-                          {`${description.value} (${description.sources.join(
-                            ', '
-                          )})`}
-                          <UniProtKBEvidenceTag evidences={uniProtEvidences} />
-                        </div>
-                      ))
-                  ) : (
-                    <UniProtKBEvidenceTag evidences={uniProtEvidences} />
-                  )}
-                </td>
-                <td translate="yes">
-                  {variantFeature.clinicalSignificances?.map(
-                    (clinicalSignificance, i) => (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <Fragment key={i}>
-                        {i !== 0 && <br />}
-                        <span
-                          key={`${clinicalSignificance.sources.join('-')}-${
-                            clinicalSignificance.type
-                          }`}
-                        >
-                          {`${
-                            clinicalSignificance.type
-                          } (${clinicalSignificance.sources.join(', ')})`}
-                        </span>
-                      </Fragment>
-                    )
-                  )}
-                </td>
-                <td>
-                  {Array.from(
-                    new Set(
-                      // 'uniprot' gets injected somehow in
-                      // 'protvista-variation-adapter' transformData, remove it
-                      variantFeature.xrefNames.map((name) =>
-                        name === 'uniprot' ? 'UniProt' : name
-                      )
-                    )
-                  )
-                    .sort(sortProvenanceByUniProtFirst)
-                    .map((name, i) => (
-                      <Fragment key={name}>
-                        {i !== 0 && <br />}
-                        <span
-                          className={cn({ [helper.bold]: isUniProt(name) })}
-                        >
-                          {name}
-                        </span>
-                      </Fragment>
-                    ))}
-                </td>
-              </tr>
-              <tr
-                data-group-for={variantFeature.protvistaFeatureId}
-                data-start={variantFeature.start}
-                data-end={variantFeature.end}
-              >
-                <td>
-                  <div>
-                    <strong>Consequence: </strong>
-                    {variantFeature.consequenceType}
-                  </div>
-                  {variantFeature.predictions?.length ? (
-                    <div>
-                      <strong>Predictions: </strong>
-                      {variantFeature.predictions?.map((pred) => (
-                        <div
-                          key={[
-                            pred.predAlgorithmNameType,
-                            pred.predictionValType,
-                            pred.score,
-                            pred.sources,
-                          ].join('-')}
-                        >
-                          {`- ${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                  <div>
-                    <strong>Somatic: </strong>{' '}
-                    {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
-                  </div>
-                  {variantFeature.populationFrequencies?.length ? (
-                    <div>
-                      <strong>Population frequencies: </strong>
-                      {variantFeature.populationFrequencies?.map(
-                        (populationFrequency) => (
-                          <div
-                            key={`${populationFrequency.source}-${populationFrequency.populationName}`}
-                          >
-                            {`- ${populationFrequency.populationName}: ${populationFrequency.frequency} (${populationFrequency.source})`}
-                          </div>
-                        )
-                      )}
-                    </div>
-                  ) : null}
-                  <div>
-                    <strong>Accession: </strong> {variantFeature.accession}
-                  </div>
-                  {variantFeature.codon && (
-                    <div>
-                      <strong>Codon: </strong> {variantFeature.codon}
-                    </div>
-                  )}
-                  <div>
-                    <strong>Consequence type: </strong>{' '}
-                    {variantFeature.consequenceType}
-                  </div>
-                  <div>
-                    <strong>Cytogenetic band: </strong>{' '}
-                    {variantFeature.cytogeneticBand}
-                  </div>
-                  <div>
-                    <strong>Genomic location: </strong>{' '}
-                    {variantFeature.genomicLocation?.join(', ')}
-                  </div>
-                  {variantFeature.locations?.length ? (
-                    <div>
-                      <strong>Locations: </strong>
-                      {variantFeature.locations?.map((location) => (
-                        <div key={`${location.loc}-${location.seqId}`}>
-                          {`- ${location.loc} (${location.source}:${location.seqId})`}
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                  {variantFeature.association?.length ? (
-                    <div>
-                      <strong>Disease association: </strong>
-                      {variantFeature.association?.map((association) => (
-                        <div
-                          key={`${association.name}-${association.description}`}
-                        >
-                          {'- '}
-                          {association.name}
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                  <div>
-                    <strong>Source type: </strong>{' '}
-                    {variantFeature.sourceType.replace(/_/g, ' ')}
-                  </div>
-                  {/* note that the type needs to be updated, xrefs is optional on association object */}
-                  {/* Also, some xrefs don't have URLs... type should be optional */}
-                  {variantFeature.xrefs?.length ? (
-                    <div>
-                      <strong>Cross-references: </strong>
-                      {variantFeature.xrefs?.map((xref) => (
-                        <div key={`${xref.name}-${xref.id}`}>
-                          {'- '}
-                          <ExternalLink url={xref.url}>
-                            {xref.name}: {xref.id}
-                          </ExternalLink>
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                </td>
-              </tr>
-            </Fragment>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-
   if (isSmallScreen) {
     return (
       <section>
         {title && <h2>{title}</h2>}
-        <DatatableWrapper>{table}</DatatableWrapper>
+        <TableFromData
+          columns={getColumns(primaryAccession)}
+          data={filteredVariants}
+          getRowId={getRowId}
+        />
       </section>
     );
   }
@@ -593,15 +586,34 @@ const VariationViewer = ({
         />
       )}
       <EntryDownloadButton handleToggle={handleToggleDownload} />
-      <managerElement.name
-        attributes="highlight displaystart displayend activefilters filters selectedid"
+      <NightingaleManagerComponent
+        reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
         ref={managerRef}
+        highlight={getHighlightedCoordinates(highlightedVariant)}
       >
         <Suspense fallback={null}>
-          <VisualVariationView {...transformedData} />
+          <VisualVariationView
+            sequence={transformedData.sequence}
+            variants={filteredVariants}
+          />
         </Suspense>
-        <DatatableWrapper alwaysExpanded>{table}</DatatableWrapper>
-      </managerElement.name>
+      </NightingaleManagerComponent>
+      <TableFromData
+        id={tableId}
+        columns={getColumns(primaryAccession)}
+        data={filteredVariants}
+        getRowId={getRowId}
+        onRowClick={setHighlightedVariant}
+        rowExtraContent={RowExtraContent}
+        markBackground={(datum) =>
+          typeof highlightedVariant?.accession !== 'undefined' &&
+          datum.accession === highlightedVariant.accession
+        }
+        markBorder={(datum) =>
+          Boolean(nightingaleViewRange) &&
+          withinRange(+datum.begin, +datum.end, nightingaleViewRange)
+        }
+      />
     </section>
   );
 };

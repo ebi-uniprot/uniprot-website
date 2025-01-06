@@ -5,7 +5,7 @@ import {
   useState,
   HTMLAttributes,
 } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { sleep, schedule } from 'timing-functions';
 import cn from 'classnames';
 
@@ -199,7 +199,6 @@ const InPageNav = ({
       {sections.map(({ id, label, disabled }) => (
         <li key={id} className={cn({ [styles.disabled]: disabled })}>
           <Link
-            // eslint-disable-next-line uniprot-website/use-config-location
             to={`#${id}`}
             className={cn({ [styles.active]: active === id })}
           >

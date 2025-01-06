@@ -1,5 +1,5 @@
 import { useState, Suspense, useMemo, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';

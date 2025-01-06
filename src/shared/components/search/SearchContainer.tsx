@@ -8,7 +8,7 @@ import {
   SyntheticEvent,
   useMemo,
 } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import { SearchAction, WebSite, WithContext } from 'schema-dts';
 

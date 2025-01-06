@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { partition } from 'lodash-es';
 
 import useLocalStorage from './useLocalStorage';

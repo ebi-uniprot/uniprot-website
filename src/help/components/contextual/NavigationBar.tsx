@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MemoryHistory } from 'history';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Button, ExternalLinkIcon } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -51,7 +51,6 @@ const NavigationBar = ({ localHistory }: { localHistory: MemoryHistory }) => {
       </Link>
       <Link
         // the panel's current location will be passed to the global history
-        // eslint-disable-next-line uniprot-website/use-config-location
         to={localHistory.location}
         target="external_help"
         title="Open current content in full page"

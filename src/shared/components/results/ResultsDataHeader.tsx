@@ -1,6 +1,6 @@
 import { Message, PageIntro } from 'franklin-sites';
 import { FC, memo, ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import ResultsButtons from './ResultsButtons';
 

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router';
 import { Loader } from 'franklin-sites';
 
 import { Facets, Facet } from './Facets';

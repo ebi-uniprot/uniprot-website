@@ -1,5 +1,5 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
-import { useRouteMatch, useHistory, generatePath } from 'react-router-dom';
+import { useRouteMatch, useHistory, generatePath } from 'react-router';
 import { frame } from 'timing-functions';
 
 import ContextualHelpContainer from './ContextualHelpContainer';
@@ -40,7 +40,7 @@ const ContextualHelp = () => {
   useEffect(() => {
     const eventHandler = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
-      const isInTooltip = Boolean(element.closest('[data-tippy-root'));
+      const isInTooltip = Boolean(element.closest('[role=tooltip]'));
       // If it's a click within a tooltip, stop the propagation of the event
       if (isInTooltip) {
         event.stopPropagation();

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { sequenceProcessor } from 'franklin-sites';
 
 import { parseIdsFromSearchParams } from '../utils/urls';
@@ -81,7 +81,6 @@ function useInitialFormParameters<
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
     if (history.location?.search) {
-      // eslint-disable-next-line uniprot-website/use-config-location
       history.replace({
         pathname: history.location.pathname,
       });

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 

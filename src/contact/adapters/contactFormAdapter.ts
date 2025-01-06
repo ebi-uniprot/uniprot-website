@@ -6,7 +6,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { AxiosRequestConfig } from 'axios';
 import { LocationDescriptor } from 'history';
 
@@ -117,7 +117,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
       // Clear the current form (just in case)
       document.querySelector<HTMLFormElement>('main form')?.reset();
       // Navigate the user to previous page, or to the homepage if not possible
-      // eslint-disable-next-line uniprot-website/use-config-location
       history.push(referrer || LocationToPath[Location.Home]);
     }
   }, [sendData.data, dispatch, history, referrer]);

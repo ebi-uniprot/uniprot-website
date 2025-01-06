@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router';
 import { groupBy } from 'lodash-es';
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
 

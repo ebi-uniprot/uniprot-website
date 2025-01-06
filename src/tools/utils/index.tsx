@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { AxiosResponse } from 'axios';
 import { BytesNumber, LongNumber } from 'franklin-sites';
 

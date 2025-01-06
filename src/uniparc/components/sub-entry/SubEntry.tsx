@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Redirect, useRouteMatch } from 'react-router-dom';
+import { Link, Redirect, useRouteMatch } from 'react-router';
 import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';

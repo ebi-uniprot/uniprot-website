@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { Location as HistoryLocation } from 'history';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { generatePath, Link, useLocation } from 'react-router';
 import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 

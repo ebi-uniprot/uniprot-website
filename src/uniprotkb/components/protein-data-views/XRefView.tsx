@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -163,18 +163,12 @@ export const XRef = ({
     }
   }
 
-  // Remove the below logic once configure endpoint returns the correct URL for FunFam - http://www.cathdb.info/version/latest/funfam/%id
-  let revisedUriLink;
-  if (database === 'FunFam') {
-    revisedUriLink = 'http://www.cathdb.info/version/latest/funfam/%id';
-  }
-
   // Remove links from the xref which are the same (ie same url and text).
   // An example of where duplicate links would be displayed is P0A879
   const linkAttributes = uniqWith(
     [
       // Main link attributes
-      { url: processUrlTemplate(revisedUriLink || uriLink, params), text },
+      { url: processUrlTemplate(uriLink, params), text },
       // Property links
       ...propertyLinkAttributes,
     ],

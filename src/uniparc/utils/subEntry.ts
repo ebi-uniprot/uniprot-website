@@ -1,4 +1,4 @@
-import { generatePath } from 'react-router-dom';
+import { generatePath } from 'react-router';
 import { maxBy } from 'lodash-es';
 
 import { Location, LocationToPath } from '../../app/config/urls';

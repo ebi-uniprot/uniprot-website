@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Card, FullViewIcon, LongNumber } from 'franklin-sites';
 
 import XRefView from '../protein-data-views/XRefView';

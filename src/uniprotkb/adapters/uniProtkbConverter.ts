@@ -115,7 +115,10 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
-  [EntrySection.SimilarProteins]: string[];
+  [EntrySection.SimilarProteins]: {
+    canonical: string;
+    isoforms: string[];
+  };
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping

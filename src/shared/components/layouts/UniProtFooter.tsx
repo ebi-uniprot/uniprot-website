@@ -1,5 +1,5 @@
 import { memo, HTMLAttributes } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Link, generatePath } from 'react-router';
 import { CitedIcon } from 'franklin-sites';
 import cn from 'classnames';
 

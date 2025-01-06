@@ -7,7 +7,7 @@ import {
   Suspense,
   memo,
 } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { generatePath, Link, useLocation } from 'react-router';
 import { schedule } from 'timing-functions';
 import { sumBy } from 'lodash-es';
 import {

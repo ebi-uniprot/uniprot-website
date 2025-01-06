@@ -1,11 +1,6 @@
 import { Tabs, Tab } from 'franklin-sites';
 import { useEffect } from 'react';
-import {
-  generatePath,
-  Link,
-  useHistory,
-  useRouteMatch,
-} from 'react-router-dom';
+import { generatePath, Link, useHistory, useRouteMatch } from 'react-router';
 
 import DocumentationTab from './ApiDocumentationTab';
 

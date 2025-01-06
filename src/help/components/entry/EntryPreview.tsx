@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useCallback, useMemo, useEffect } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { RouteChildrenProps } from 'react-router';
 import { Chip, CodeBlock } from 'franklin-sites';
 import fm from 'front-matter';
 

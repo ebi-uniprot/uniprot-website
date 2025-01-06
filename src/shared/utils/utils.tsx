@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getURLToJobWithData } from '../../app/config/urls';
 import { JobTypes } from '../../tools/types/toolsJobTypes';

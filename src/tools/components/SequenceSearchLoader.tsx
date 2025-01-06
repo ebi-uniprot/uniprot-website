@@ -14,6 +14,7 @@ import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequenc
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import useDataApi from '../../shared/hooks/useDataApi';
+import useUniProtDataVersion from '../../shared/hooks/useUniProtDataVersion';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
@@ -97,6 +98,8 @@ const SequenceSearchLoader = forwardRef<
   const [pasteLoading, setPasteLoading] = useState(false);
   const dispatch = useMessagesDispatch();
 
+  const release = useUniProtDataVersion();
+
   useImperativeHandle(ref, () => ({
     reset: () => setAccessionOrID(''),
   }));
@@ -142,7 +145,7 @@ const SequenceSearchLoader = forwardRef<
       return;
     }
 
-    const sequence = `${entryToFASTAWithHeaders(entry)}\n`;
+    const sequence = `${entryToFASTAWithHeaders(entry, undefined, release?.releaseDate)}\n`;
 
     if (sequence === sequenceRef.current) {
       // if the new generated sequence would be the same than the previously
@@ -165,7 +168,7 @@ const SequenceSearchLoader = forwardRef<
         name: nameFromEntry(entry),
       },
     ]);
-  }, [entry, onLoad, urlForAccessionOrID, accessionOrID]);
+  }, [entry, onLoad, urlForAccessionOrID, accessionOrID, release]);
 
   const handlePaste = useCallback(
     async (event: ClipboardEvent) => {
@@ -211,7 +214,7 @@ const SequenceSearchLoader = forwardRef<
             }
 
             parsedSequences.push({
-              raw: `${entryToFASTAWithHeaders(data)}\n`,
+              raw: `${entryToFASTAWithHeaders(data, undefined, release?.releaseDate)}\n`,
               // no need to fill the rest, it will be parsed again later
               header: '',
               sequence: '',
@@ -258,7 +261,7 @@ const SequenceSearchLoader = forwardRef<
         setPasteLoading(false);
       }
     },
-    [onLoad, dispatch, accessionOrID, setAccessionOrID]
+    [onLoad, release, dispatch, accessionOrID]
   );
 
   return (

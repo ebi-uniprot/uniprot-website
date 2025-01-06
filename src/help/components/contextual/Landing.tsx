@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { throttle } from 'lodash-es';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import cn from 'classnames';
 
 import ExternalLink from '../../../shared/components/ExternalLink';

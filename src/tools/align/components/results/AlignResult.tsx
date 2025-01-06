@@ -1,5 +1,5 @@
 import { useEffect, useState, lazy, Suspense, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';

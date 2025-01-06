@@ -1,5 +1,5 @@
 import { Fragment, useLayoutEffect, useMemo, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { EllipsisReveal } from 'franklin-sites';
 
 import useDataApi from '../../hooks/useDataApi';

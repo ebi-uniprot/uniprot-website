@@ -1,5 +1,5 @@
 import { Tile, HeroContainer, ToolboxIcon } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import cn from 'classnames';
 
 import BlastIllustration from '../../../images/blast_illustration.img.svg';

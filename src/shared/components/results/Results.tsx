@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { Loader } from 'franklin-sites';
 
 import useNS from '../../hooks/useNS';

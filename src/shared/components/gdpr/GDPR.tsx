@@ -1,4 +1,4 @@
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import { Button } from 'franklin-sites';
 
 import { LocationToPath, Location } from '../../../app/config/urls';

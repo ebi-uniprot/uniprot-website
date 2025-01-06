@@ -1,4 +1,4 @@
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router';
 import { Loader } from 'franklin-sites';
 
 import Overview from './Overview';

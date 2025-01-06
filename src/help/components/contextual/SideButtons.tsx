@@ -1,5 +1,5 @@
-import { useEffect, MouseEventHandler, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, MouseEventHandler } from 'react';
+import { Link } from 'react-router';
 import cn from 'classnames';
 import { sleep } from 'timing-functions';
 
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const SideButtons = ({ displayHelp, onClick }: Props) => {
-  const [displayFeedback, setDisplayFeedback] = useState(false);
+  // const [displayFeedback, setDisplayFeedback] = useState(false);
 
   useEffect(() => {
     // Checking if there is a scroll bar
@@ -52,15 +52,15 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
           }
         }
 
-        return;
+        // return;
       }
-      setDisplayFeedback(true);
+      // setDisplayFeedback(true);
     });
   }, []);
 
   return (
     <span className={sideButtonStyles.container}>
-      <a
+      {/* <a
         className={cn(
           sideButtonStyles['side-button'],
           sideButtonStyles.feedback,
@@ -74,7 +74,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
         tabIndex={-1}
       >
         Feedback
-      </a>
+      </a> */}
       <Link
         to={LocationToPath[Location.HelpResults]}
         onClick={onClick}

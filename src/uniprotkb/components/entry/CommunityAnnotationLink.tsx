@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import { Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { Loader } from 'franklin-sites';
 
 import BlastResultLocalFacets from './BlastResultLocalFacets';

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 
@@ -89,14 +89,12 @@ const SimilarProteinsTabContent = ({ clusterType, clusters }: Props) => {
       {hasSimilarProteins.map(
         ({ total, cluster, uniprotkbResults, uniprotkbQuery }) => (
           <section key={cluster.id} className="text-block">
-            <section>
-              <SimilarProteinsTable
-                cluster={cluster}
-                total={total}
-                uniprotkbResults={uniprotkbResults}
-                uniprotkbQuery={uniprotkbQuery}
-              />
-            </section>
+            <SimilarProteinsTable
+              cluster={cluster}
+              total={total}
+              uniprotkbResults={uniprotkbResults}
+              uniprotkbQuery={uniprotkbQuery}
+            />
             <hr />
           </section>
         )
@@ -111,15 +109,13 @@ const SimilarProteinsTabContent = ({ clusterType, clusters }: Props) => {
               </span>
             ))}
           </h4>
-          <section>
-            {`No similar proteins at ${
-              uniRefEntryTypeToPercent[clusterType as UniRefEntryType]
-            } identity for ${pluralise(
-              'this isoform.',
-              noSimilarProteins.length,
-              'these isoforms.'
-            )}`}
-          </section>
+          {`No similar proteins at ${
+            uniRefEntryTypeToPercent[clusterType as UniRefEntryType]
+          } identity for ${pluralise(
+            'this isoform.',
+            noSimilarProteins.length,
+            'these isoforms.'
+          )}`}
           <hr />
         </section>
       )}

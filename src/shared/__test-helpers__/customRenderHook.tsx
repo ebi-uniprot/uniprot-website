@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
+import { Router } from 'react-router';
 
 function getCustomRenderHook<TProps, TResult>(
   hook: (props: TProps) => TResult

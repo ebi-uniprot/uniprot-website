@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Card, ExternalLink, InfoList, Message } from 'franklin-sites';
 
 import CoordinateTable from './CoordinateTable';

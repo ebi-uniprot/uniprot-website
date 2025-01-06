@@ -1,5 +1,5 @@
 import { Suspense, useState, useCallback, FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { Button, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
@@ -52,7 +52,6 @@ const TaxonomyFacet: FC<
             <li key={clause.id}>
               <Link
                 className={facetsStyles['facet-active']}
-                // eslint-disable-next-line uniprot-website/use-config-location
                 to={(location) => ({
                   ...location,
                   search: stringifyQuery({

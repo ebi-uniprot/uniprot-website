@@ -8,7 +8,7 @@ import {
   ChangeEvent,
   useCallback,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 import {
   DownloadIcon,
   // StatisticsIcon,

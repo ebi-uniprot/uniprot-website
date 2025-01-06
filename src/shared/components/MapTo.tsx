@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
+import { Link, LinkProps, useRouteMatch } from 'react-router';
 import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
@@ -238,7 +238,6 @@ export const MapToDropdownBasic = ({
       {config.map(({ key, count, label, to }) =>
         count ? (
           <li key={key}>
-            {/* eslint-disable-next-line uniprot-website/use-config-location */}
             <Link to={to}>
               {label} (<LongNumber>{count}</LongNumber>)
             </Link>
@@ -313,7 +312,6 @@ export const mapToLinks = (
   ).filter((stat) => 'text' in stat);
   return (filter ? enrichedStatistics.filter(filter) : enrichedStatistics).map(
     (stat) => (
-      // eslint-disable-next-line uniprot-website/use-config-location
       <Link to={stat.to} key={stat.key}>
         {stat.text}
       </Link>

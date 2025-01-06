@@ -6,7 +6,7 @@ import {
   useReducer,
   useEffect,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { Chip, ExternalLink, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';

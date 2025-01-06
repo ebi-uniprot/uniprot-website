@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { partialRight } from 'lodash-es';
 import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 

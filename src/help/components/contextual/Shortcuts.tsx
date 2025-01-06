@@ -1,4 +1,4 @@
-import { Link, Router } from 'react-router-dom';
+import { Link, Router } from 'react-router';
 import { CitedIcon, EnvelopeIcon, HelpIcon } from 'franklin-sites';
 import { History } from 'history';
 

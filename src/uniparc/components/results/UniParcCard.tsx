@@ -1,5 +1,5 @@
 import { Card, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import BasketStatus from '../../../basket/BasketStatus';

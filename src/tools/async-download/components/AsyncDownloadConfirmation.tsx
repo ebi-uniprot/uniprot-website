@@ -9,7 +9,7 @@ import {
   Message,
 } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import useNSQuery from '../../../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';

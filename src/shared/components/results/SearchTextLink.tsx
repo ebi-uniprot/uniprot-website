@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 type SearchTextLinkProps = {
   query: string;
@@ -6,10 +6,5 @@ type SearchTextLinkProps = {
 };
 
 export const SearchTextLink = ({ query, text }: SearchTextLinkProps) => (
-  <Link
-    // eslint-disable-next-line uniprot-website/use-config-location
-    to={{ search: `query=${query}` }}
-  >
-    {text}
-  </Link>
+  <Link to={{ search: `query=${query}` }}>{text}</Link>
 );

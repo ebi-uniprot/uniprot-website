@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ExternalLink, InfoList, Loader } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
@@ -132,7 +132,6 @@ const SubEntryOverview = ({ data }: Props) => {
       content: data.entry.sequence && (
         <>
           {`${data.entry.sequence?.length} `}
-          {/* eslint-disable-next-line uniprot-website/use-config-location */}
           <Link to={`#${EntrySection.Sequence}`}>(go to sequence)</Link>
         </>
       ),

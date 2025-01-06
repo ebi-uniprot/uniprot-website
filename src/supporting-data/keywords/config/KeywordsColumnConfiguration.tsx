@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -114,9 +114,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.links, {
   render: ({ links }) =>
     links?.length ? (
       <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-        {links?.map((link) => (
-          <ExternalLink key={link} url={link} tidyUrl />
-        ))}
+        {links?.map((link) => <ExternalLink key={link} url={link} tidyUrl />)}
       </ExpandableList>
     ) : null,
 });

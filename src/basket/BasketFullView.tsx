@@ -1,4 +1,4 @@
-import { useMatch } from 'react-router-dom';
+import { useMatch } from 'react-router';
 import { Loader, PageIntro } from 'franklin-sites';
 
 import HTMLHead from '../shared/components/HTMLHead';

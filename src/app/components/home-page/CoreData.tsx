@@ -1,5 +1,5 @@
 import { Tile, SwissProtIcon, TremblIcon, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import cn from 'classnames';
 
 import useDataApi from '../../../shared/hooks/useDataApi';

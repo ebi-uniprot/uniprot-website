@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ExpandableList, ExternalLink } from 'franklin-sites';
 
 import { JournalInfo } from '../components/LiteratureCitation';

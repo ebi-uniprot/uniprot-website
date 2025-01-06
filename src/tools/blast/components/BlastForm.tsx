@@ -13,7 +13,7 @@ import {
   SpinnerIcon,
   sequenceProcessor,
 } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
@@ -315,7 +315,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro translate="no" heading={title} />
+      <PageIntro
+        translate="no"
+        heading={<span data-article-id="blast-submission">{title}</span>}
+      />
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}

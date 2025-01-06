@@ -6,7 +6,7 @@ import {
   LongNumber,
 } from 'franklin-sites';
 import { useCallback, useEffect, useRef } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import cn from 'classnames';
 
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';

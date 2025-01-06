@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Card, DataTable, LongNumber } from 'franklin-sites';
 
 import useItemSelect from '../../../shared/hooks/useItemSelect';

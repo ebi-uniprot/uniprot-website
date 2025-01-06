@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Message } from 'franklin-sites';
 
 import ErrorComponent from '../../../shared/components/error-pages/ErrorComponent';

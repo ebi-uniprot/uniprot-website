@@ -1,6 +1,6 @@
 import { Card } from 'franklin-sites';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';

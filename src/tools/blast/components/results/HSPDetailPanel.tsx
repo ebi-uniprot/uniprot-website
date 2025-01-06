@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { Loader, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -64,7 +64,9 @@ const convertHSPtoMSAInputs = (
       features:
         extra && 'features' in extra
           ? processFeaturesData(
-              removeFeaturesWithUnknownModifier(extra.features)
+              removeFeaturesWithUnknownModifier(extra.features),
+              hitAccession,
+              hsp_hseq
             )
           : [],
     },

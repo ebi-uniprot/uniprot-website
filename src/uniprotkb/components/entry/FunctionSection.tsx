@@ -1,6 +1,6 @@
 import { lazy, Suspense, Fragment, memo } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 

@@ -13,7 +13,7 @@ import {
   SpinnerIcon,
   sequenceProcessor,
 } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 // TODO: find a way to export this transparently from franklin
@@ -212,7 +212,9 @@ const AlignForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro heading={title} translate="no" />
+      <PageIntro
+        heading={<span data-article-id="sequence-alignments">{title}</span>}
+      />
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}

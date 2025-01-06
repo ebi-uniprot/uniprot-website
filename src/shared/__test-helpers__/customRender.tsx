@@ -3,7 +3,7 @@
  * https://testing-library.com/docs/react-testing-library/setup#custom-render
  */
 import { ReactElement, Component, Dispatch, ReactNode } from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
 import { HelmetProvider } from 'react-helmet-async';
 import { render, RenderOptions } from '@testing-library/react';

@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
 import { Card, Loader, LongNumber } from 'franklin-sites';
-import { Link, useMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router';
 import { schemeReds } from 'd3';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';

@@ -1,5 +1,5 @@
 import { Fragment, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Message } from 'franklin-sites';
 
 import useDataApi from '../../shared/hooks/useDataApi';

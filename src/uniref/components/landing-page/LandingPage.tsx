@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import { ExternalLink, LongNumber, Loader } from 'franklin-sites';
 import { fromPairs } from 'lodash-es';
 import joinUrl from 'url-join';

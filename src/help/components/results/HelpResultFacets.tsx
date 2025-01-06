@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import helpURL from '../../config/apiUrls';
 import ResultsFacets from '../../../shared/components/results/ResultsFacets';

@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import { Except } from 'type-fest';

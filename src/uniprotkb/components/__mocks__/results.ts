@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=glucose&size=2
-// Retrieved: 2024-11-26
+// Retrieved: 2024-12-10
 const mock: SearchResults<UniProtkbAPIModel> = {
   facets: [
     {

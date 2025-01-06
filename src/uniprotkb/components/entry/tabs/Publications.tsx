@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, Fragment } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { Card, Loader, DataListWithLoader, InfoList } from 'franklin-sites';
 import { Except, SetRequired, Simplify } from 'type-fest';
 import { groupBy, capitalize } from 'lodash-es';

@@ -1,5 +1,5 @@
 import { ExternalLink } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import {
   formatEvidenceContent,
@@ -37,7 +37,6 @@ const EvidenceLink = ({
   }
 
   return isInternal ? (
-    // eslint-disable-next-line uniprot-website/use-config-location
     <Link to={renderedURL} className={className}>
       {content}
     </Link>

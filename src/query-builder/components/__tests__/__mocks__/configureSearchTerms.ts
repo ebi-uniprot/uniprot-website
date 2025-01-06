@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2024-11-26
+// Retrieved: 2024-12-10
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -26,6 +26,17 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'P53_HUMAN',
+  },
+  {
+    id: 'sec_acc',
+    label: 'Secondary Accession',
+    itemType: 'single',
+    term: 'sec_acc',
+    dataType: 'string',
+    fieldType: 'general',
+    example: 'B2R5V1',
+    regex:
+      '(?i)([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])(-[0-9]+)?',
   },
   {
     id: 'protein_name_field',
@@ -978,7 +989,7 @@ const configureSearchTerms = [
             term: 'ft_carbohyd',
             dataType: 'string',
             fieldType: 'general',
-            example: 'cysteine',
+            example: 'GlcNAc',
           },
           {
             id: 'ft_carbohyd_exp',
@@ -986,7 +997,7 @@ const configureSearchTerms = [
             term: 'ft_carbohyd_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'cysteine',
+            example: 'GlcNAc',
           },
         ],
       },

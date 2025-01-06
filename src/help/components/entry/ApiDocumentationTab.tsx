@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { Location as HistoryLocation } from 'history';
 import { Card, Loader, Chip } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
@@ -134,6 +134,13 @@ const AugmentingLayoutPlugin = () => ({
               in JSON
             </p>
           )}
+          <p>
+            We have chosen to apply the{' '}
+            <ExternalLink url="https://creativecommons.org/licenses/by/4.0/">
+              Creative Commons Attribution 4.0 International (CC BY 4.0) License
+            </ExternalLink>{' '}
+            to all copyrightable parts of our databases
+          </p>
         </div>
       );
     },

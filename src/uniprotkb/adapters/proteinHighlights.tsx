@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { LocationDescriptorObject } from 'history';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../app/config/urls';
 
@@ -163,7 +163,6 @@ const getProteinHighlights = ({
         count || 0
       )}`;
       return (
-        // eslint-disable-next-line uniprot-website/use-config-location
         <Link to={to} key={name}>
           {name}
         </Link>

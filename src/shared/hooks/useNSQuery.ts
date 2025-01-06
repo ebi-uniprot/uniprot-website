@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import useNS from './useNS';
 import useViewMode, { ViewMode } from './useViewMode';

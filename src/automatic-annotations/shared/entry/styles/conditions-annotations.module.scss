@@ -1,6 +1,5 @@
 @import 'franklin-sites/src/styles/mixins';
 @import 'franklin-sites/src/styles/settings';
-@import 'franklin-sites/src/styles/colours';
 
 .conditions-annotations {
   margin-bottom: $global-margin;
@@ -15,7 +14,7 @@
       left: 0;
       bottom: 0;
       width: 1ch;
-      background-color: $colour-sapphire-blue;
+      background-color: var(--fr--color-sapphire-blue);
     }
   }
 }
@@ -56,29 +55,29 @@
   margin-bottom: 0;
 
   & > li {
-    border-color: $colour-sapphire-blue;
+    border-color: var(--fr--color-sapphire-blue);
     border-style: solid;
     border-width: 0 0 1em 1ch;
 
     .extra & {
-      border-color: $colour-sea-blue;
+      border-color: var(--fr--color-sea-blue);
     }
   }
 
   & .statement {
-    background-color: $colour-sapphire-blue;
+    background-color: var(--fr--color-sapphire-blue);
 
     &::before {
-      background-color: $colour-sapphire-blue;
+      background-color: var(--fr--color-sapphire-blue);
     }
   }
 
   .extra & {
     & .statement {
-      background-color: $colour-sea-blue;
+      background-color: var(--fr--color-sea-blue);
 
       &::before {
-        background-color: $colour-sea-blue;
+        background-color: var(--fr--color-sea-blue);
       }
     }
   }
@@ -96,10 +95,10 @@
     height: 0;
     border-left: 0.8em solid transparent;
     border-right: 0.8em solid transparent;
-    border-top: $global-margin solid $colour-sapphire-blue;
+    border-top: $global-margin solid var(--fr--color-sapphire-blue);
 
     .extra & {
-      border-top-color: $colour-sea-blue;
+      border-top-color: var(--fr--color-sea-blue);
     }
 
     @include fs-breakpoints('large') {
@@ -123,15 +122,15 @@
     }
   }
 
-  border-color: $colour-weldon-blue;
+  border-color: var(--fr--color-weldon-blue);
   border-style: solid;
   border-width: 0 0 1em 1ch;
 
   & .statement {
-    background-color: $colour-weldon-blue;
+    background-color: var(--fr--color-weldon-blue);
 
     &::before {
-      background-color: $colour-weldon-blue;
+      background-color: var(--fr--color-weldon-blue);
     }
   }
 }
@@ -146,7 +145,7 @@
 }
 
 .statement {
-  background-color: $colour-sapphire-blue;
+  background-color: var(--fr--color-sapphire-blue);
   color: white;
   padding: 0 1px;
   text-transform: uppercase;
@@ -193,10 +192,10 @@
     height: 0;
     border-top: 0.8em solid transparent;
     border-bottom: 0.8em solid transparent;
-    border-left: $global-margin solid $colour-sapphire-blue;
+    border-left: $global-margin solid var(--fr--color-sapphire-blue);
 
     .extra & {
-      border-left-color: $colour-sea-blue;
+      border-left-color: var(--fr--color-sea-blue);
     }
 
     @include fs-breakpoints('large') {
@@ -209,7 +208,7 @@
 .extra {
   position: relative;
   margin-top: $global-margin;
-  border-bottom: $global-margin solid $colour-sea-blue;
+  border-bottom: $global-margin solid var(--fr--color-sea-blue);
 
   &::before {
     content: '';
@@ -218,11 +217,11 @@
     top: 0;
     bottom: 0;
     width: 1ch;
-    background-color: $colour-sea-blue;
+    background-color: var(--fr--color-sea-blue);
   }
 
   & > .statement {
-    background-color: $colour-sea-blue;
+    background-color: var(--fr--color-sea-blue);
     padding-left: 1ch;
     margin-bottom: $global-margin;
   }
