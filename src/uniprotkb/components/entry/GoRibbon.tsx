@@ -258,7 +258,7 @@ const GoRibbon = ({
 
   return (
     <div className="GoRibbon">
-      <div className={styles.preamble} data-article-id="gene_ontology">
+      <div className={styles.preamble} data-article-id="gene-ontology">
         Gene Ontology (GO) annotations organized by slimming set.
       </div>
       <div className={styles['quickgo-link']}>
