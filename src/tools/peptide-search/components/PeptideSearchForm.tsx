@@ -15,6 +15,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import ChecksumSuggester from '../../components/ChecksumSuggester';
+import { DowntimeWarning } from '../../components/DowntimeWarning';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
@@ -233,6 +234,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro heading={title} />
+      <DowntimeWarning>Peptide Search</DowntimeWarning>
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}
