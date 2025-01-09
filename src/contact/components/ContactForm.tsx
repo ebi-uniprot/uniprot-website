@@ -18,7 +18,6 @@ import { createPath } from 'history';
 import HTMLHead from '../../shared/components/HTMLHead';
 import ContactLink from './ContactLink';
 import ExternalLink from '../../shared/components/ExternalLink';
-import { DowntimeWarning } from '../../tools/components/DowntimeWarning';
 
 import {
   useFormLogic,
@@ -113,7 +112,6 @@ Website version: ${GIT_COMMIT_HASH}`.trim(),
         />
       </HTMLHead>
       <PageIntro heading="Contact us" />
-      <DowntimeWarning>Peptide Search and ID mapping</DowntimeWarning>
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />

@@ -11,24 +11,6 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
       Peptide search
     </h1>
   </div>
-  <div
-    class="message message--warning"
-    role="status"
-  >
-    <div
-      class="message__side-border"
-    />
-    <test-file-stub
-      classname="message--icon-align-top"
-      height="1.125em"
-      width="1.125em"
-    />
-    <div
-      class="message__title"
-    >
-      Unexpected server issues are causing Peptide Search to be unstable at moment, we are working on it. If you encounter an error, please come back later to retry.
-    </div>
-  </div>
   <form
     aria-label="Peptide Search job submission form"
   >
