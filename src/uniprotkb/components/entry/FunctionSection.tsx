@@ -1,9 +1,8 @@
 import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message } from 'franklin-sites';
+import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
 import HTMLHead from '../../../shared/components/HTMLHead';
 import FreeTextView, {
   RichText,
@@ -44,6 +43,8 @@ import CommunityCuration from './CommunityCuration';
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
+
+const GoCam = lazy(() => import(/* webpackChunkName: "go-cam" */ './GoCam'));
 
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
@@ -366,16 +367,37 @@ const FunctionSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <GoRibbon
-            primaryAccession={primaryAccession}
-            goTerms={data.goTerms}
-            geneNamesData={data.geneNamesData}
-            organismData={data.organismData}
-          />
-        </Suspense>
-      </ErrorBoundary>
+      {
+        // If no GO terms then no GO-CAM models. From Antonia Lock:
+        // "I assume that any go cams that we display, would also be integrated in the go releases, otherwise I would question the quality of the model"
+        !!data.goTerms?.size && (
+          <ErrorBoundary>
+            <Tabs>
+              <Tab title="GO annotations">
+                <Suspense fallback={<Loader />}>
+                  <GoRibbon
+                    primaryAccession={primaryAccession}
+                    goTerms={data.goTerms}
+                    geneNamesData={data.geneNamesData}
+                    organismData={data.organismData}
+                  />
+                </Suspense>
+              </Tab>
+              <Tab
+                title={
+                  <>
+                    GO-CAM Models<Chip compact>New</Chip>
+                  </>
+                }
+              >
+                <Suspense fallback={<Loader />}>
+                  <GoCam primaryAccession={primaryAccession} />
+                </Suspense>
+              </Tab>
+            </Tabs>
+          </ErrorBoundary>
+        )
+      }
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration
