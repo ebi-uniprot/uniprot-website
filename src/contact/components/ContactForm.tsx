@@ -77,13 +77,13 @@ const ContactForm = () => {
   }
 
   const context = useMemo(() => {
-    const isTranslatedWebsite = translatedWebsite();
+    const websiteTranslation = translatedWebsite();
     let context = `${locationState?.formValues?.context || ''}
 Referred from: ${globalThis.location.origin}${referrerValue}
 User browser: ${navigator.userAgent}
 Website version: ${GIT_COMMIT_HASH}`.trim();
-    if (isTranslatedWebsite) {
-      context += `\nWebsite translated to: ${isTranslatedWebsite}`;
+    if (websiteTranslation) {
+      context += `\nWebsite translated to: ${websiteTranslation}`;
     }
     return context;
   }, [locationState?.formValues?.context, referrerValue]);

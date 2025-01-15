@@ -264,7 +264,7 @@ const DidYouMean = ({
     content = <Loader />;
   }
 
-  const isTranslatedWebsite = useMemo(() => translatedWebsite(), []);
+  const websiteTranslation = useMemo(() => translatedWebsite(), []);
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
@@ -276,7 +276,7 @@ const DidYouMean = ({
             If you can&apos;t find what you are looking for, please{' '}
             <ContactLink>contact us</ContactLink>.
           </p>
-          {isTranslatedWebsite && (
+          {websiteTranslation && (
             <p>
               Even though you translated the website,{' '}
               <strong>make sure that your query is in English</strong>.
