@@ -19,6 +19,8 @@ import HTMLHead from '../../shared/components/HTMLHead';
 import ContactLink from './ContactLink';
 import ExternalLink from '../../shared/components/ExternalLink';
 
+import { translatedWebsite } from '../../shared/utils/translatedWebsite';
+
 import {
   useFormLogic,
   ContactLocationState,
@@ -74,14 +76,17 @@ const ContactForm = () => {
     }
   }
 
-  const context = useMemo(
-    () =>
-      `${locationState?.formValues?.context || ''}
+  const context = useMemo(() => {
+    const websiteTranslation = translatedWebsite();
+    let context = `${locationState?.formValues?.context || ''}
 Referred from: ${globalThis.location.origin}${referrerValue}
 User browser: ${navigator.userAgent}
-Website version: ${GIT_COMMIT_HASH}`.trim(),
-    [locationState?.formValues?.context, referrerValue]
-  );
+Website version: ${GIT_COMMIT_HASH}`.trim();
+    if (websiteTranslation) {
+      context += `\nWebsite translated to: ${websiteTranslation}`;
+    }
+    return context;
+  }, [locationState?.formValues?.context, referrerValue]);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
