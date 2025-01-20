@@ -268,7 +268,11 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.checksum, {
-  ...getLabelAndTooltip('Checksum', 'Cyclic redundancy check value (CRC64)'),
+  ...getLabelAndTooltip(
+    'Checksum',
+    'Cyclic redundancy check value (CRC64)',
+    'checksum'
+  ),
   render: ({ sequence: { crc64 } }) => crc64,
 });
 

@@ -7,7 +7,7 @@
 @supports selector(:has(*)) {
   /* Target the message only if there's a protvista-structure with the
   "structureid" attribute set to something that looks like an AFDB ID */
-  .container:has(protvista-structure[structureid^='AF']) {
+  .container:has(nightingale-structure[structure-id^='AF']) {
     & :global(.message) {
       /* Display and revert to the default style of the message */
       display: grid;

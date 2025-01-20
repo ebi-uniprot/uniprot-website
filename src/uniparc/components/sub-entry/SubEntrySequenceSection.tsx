@@ -7,6 +7,8 @@ import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntry';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 const SubEntrySequenceSection = ({
   data,
 }: {
@@ -26,8 +28,8 @@ const SubEntrySequenceSection = ({
       content: <LongNumber>{sequence.molWeight}</LongNumber>,
     },
     {
-      title: <span data-article-id="checksum">Checksum</span>,
-      content: sequence.crc64,
+      title: <span data-article-id="checksum">MD5 Checksum</span>,
+      content: <span className={helper['break-anywhere']}>{sequence.md5}</span>,
     },
     {
       title: 'Source',
