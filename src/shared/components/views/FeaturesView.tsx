@@ -156,7 +156,7 @@ function FeaturesView<T extends ProcessedFeature>({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
-            onFeatureClick={(feature) => handleFeatureClick(feature as T)}
+            onFeatureClick={handleFeatureClick}
             onViewRangeChange={handleViewRangeChange}
             highlightedFeature={highlightedFeature}
           />

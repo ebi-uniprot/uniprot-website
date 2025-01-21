@@ -15,6 +15,8 @@ type Props = {
   nightingaleNavigationGetter?: () => NightingaleNavigation | null;
 };
 
+export const AA_ZOOMED = 29 as const;
+
 const NightingaleZoomTool = ({
   length,
   nightingaleNavigationRef,
@@ -43,7 +45,7 @@ const NightingaleZoomTool = ({
       } else if (operation === 'zoom-out') {
         k = -scaleFactor;
       } else if (operation === 'zoom-in-seq') {
-        k = displayEnd - displayStart - 29;
+        k = displayEnd - displayStart - AA_ZOOMED;
       }
       const newEnd = displayEnd - k;
       let newStart = displayStart;

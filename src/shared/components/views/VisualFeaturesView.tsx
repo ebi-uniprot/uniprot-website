@@ -10,6 +10,7 @@ import NightingaleSequenceComponent from '../../custom-elements/NightingaleSeque
 import NightingalTrackComponent from '../../custom-elements/NightingaleTrack';
 import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
 import NightingaleZoomTool, {
+  AA_ZOOMED,
   iconSize,
 } from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
 import EntryDownloadPanel from '../entry/EntryDownloadPanel';
@@ -37,7 +38,7 @@ type Props<T> = {
   sequence: string;
   trackHeight?: number;
   noLinkToFullView?: boolean;
-  onFeatureClick: (feature: T) => void;
+  onFeatureClick: (feature: T) => void; // NOTE: make sure this is memoized with a callback in the consumer
   onViewRangeChange: (range: NightingaleViewRange) => void;
   highlightedFeature?: T;
 };
@@ -74,7 +75,26 @@ function VisualFeaturesView<T extends ProcessedFeature>({
     return () => {
       document.removeEventListener('change', eventHandler);
     };
-  }, [trackRef, features, onFeatureClick]);
+  }, [features, onFeatureClick]);
+
+  useEffect(() => {
+    if (navigationRef.current) {
+      const minStart = Math.min(
+        ...features.map((f) => f.start),
+        sequence.length - AA_ZOOMED
+      );
+      navigationRef.current.dispatchEvent(
+        new CustomEvent('change', {
+          detail: {
+            'display-start': minStart,
+            'display-end': minStart + AA_ZOOMED,
+          },
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+    }
+  }, [features, sequence.length]);
 
   // NightingaleManager view range event handler
   useEffect(() => {
