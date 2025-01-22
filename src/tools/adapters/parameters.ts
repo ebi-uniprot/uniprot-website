@@ -36,7 +36,7 @@ const parseTaxa = (
   for (const taxid of string.split(',')) {
     const cleaned = taxid.trim();
     if (!cleaned) {
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     taxa.push({
       id: cleaned,
@@ -186,7 +186,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           filter,
           gapalign,
           taxids,
-          // eslint-disable-next-line camelcase
+
           negative_taxids,
           stype,
           sequence,

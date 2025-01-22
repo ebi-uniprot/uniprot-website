@@ -302,7 +302,6 @@ const useColumns = (
 
       // TODO: this changes the URL from encoded to decoded which is different to the facet behavior
       history.push(
-        // eslint-disable-next-line uniprot-website/use-config-location
         getLocationObjForParams({
           pathname: history.location.pathname,
           query,

@@ -25,7 +25,6 @@ describe('GDPR', () => {
       screen.queryByRole('link', { name: 'Privacy Notice' })
     ).not.toBeInTheDocument();
     await waitFor(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(true);
     });
   });

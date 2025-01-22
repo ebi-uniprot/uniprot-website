@@ -514,7 +514,7 @@ const Entry = () => {
                   >
                     Add a publication
                   </a>
-                  {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                  {}
                   <ContactLink
                     to={{
                       pathname: LocationToPath[Location.ContactUpdate],

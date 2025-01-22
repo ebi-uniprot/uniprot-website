@@ -25,7 +25,7 @@ const inputParamsXMLToObject = (
       }
     }
     if (!(key && value)) {
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     out[key] = value.trim();
   }

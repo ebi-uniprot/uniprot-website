@@ -129,7 +129,7 @@ export const createGappedFeature = (
   let proteinIndex = from;
   const fragments: { start: number; end: number; shape?: 'line' }[] = [];
   let match;
-  // eslint-disable-next-line no-cond-assign
+
   while ((match = BLOCK.exec(sequence)) !== null) {
     if (match?.groups?.protein) {
       if (
@@ -166,7 +166,7 @@ export const createGappedFeature = (
   if (fragments.length > 1) {
     gappedFeature.locations = [{ fragments }];
   }
-  // eslint-disable-next-line consistent-return
+
   return gappedFeature;
 };
 

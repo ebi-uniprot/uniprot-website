@@ -24,7 +24,6 @@ jest.mock('../ProteinProcessingSection', () => ({
 
 describe('Entry view', () => {
   beforeAll(() => {
-    // eslint-disable-next-line no-console
     console.warn = jest.fn();
   });
 

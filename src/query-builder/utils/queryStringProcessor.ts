@@ -13,7 +13,7 @@ export const stringify = (clauses: Clause[] = []): string => {
 
     if (!query.length) {
       // empty field, ignore it
-      continue; // eslint-disable-line no-continue
+      continue;
     }
 
     let queryJoined: string;
@@ -138,7 +138,7 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
     } else {
       if (!chunk && index === 0) {
         // that's normal when the string starts with an operator, just skip it
-        continue; // eslint-disable-line no-continue
+        continue;
       }
       // for every other item (even) should be the content of the clause
       const [key, value] = splitClause(chunk);
@@ -153,7 +153,7 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
           // if it's a length key, modify the last inserted
           // corresponding clause and skip
           correspondingClause.queryBits[key] = value;
-          continue; // eslint-disable-line no-continue
+          continue;
         }
       }
 
@@ -167,7 +167,7 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
         );
         if (correspondingClause) {
           correspondingClause.queryBits[key] = value;
-          continue; // eslint-disable-line no-continue
+          continue;
         }
       }
 

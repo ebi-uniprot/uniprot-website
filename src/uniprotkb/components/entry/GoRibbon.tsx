@@ -205,7 +205,6 @@ const GoRibbon = ({
     // @ts-ignore
     node.data = data;
 
-    // eslint-disable-next-line consistent-return
     return () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

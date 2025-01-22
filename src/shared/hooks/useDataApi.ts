@@ -71,15 +71,9 @@ type Action<T> =
     }
   | { type: ActionType.ERROR; error: CustomError };
 
-// eslint-disable-next-line consistent-return
 const createReducer =
   <T>() =>
-  (
-    state: UseDataAPIState<T>,
-    action: Action<T>
-    // eslint-disable-next-line consistent-return
-  ): UseDataAPIState<T> => {
-    // eslint-disable-next-line default-case
+  (state: UseDataAPIState<T>, action: Action<T>): UseDataAPIState<T> => {
     switch (action.type) {
       case ActionType.INIT:
         return {
@@ -208,7 +202,7 @@ function useDataApi<T>(
     );
 
     // handle unmounting of the hook
-    // eslint-disable-next-line consistent-return
+
     return () => {
       source.cancel();
       didCancel = true;
@@ -224,11 +218,11 @@ function useDataApi<T>(
           const messageMatch = message.match(invalidFieldMessage);
           const invalidField = messageMatch?.groups?.field;
           if (!messageMatch) {
-            continue; // eslint-disable-line no-continue
+            continue;
           }
           const nsMatch = state.url?.match(namespacedURL);
           if (!nsMatch?.groups?.namespace) {
-            continue; // eslint-disable-line no-continue
+            continue;
           }
           const key =
             `table columns for ${nsMatch?.groups?.namespace}` as UserPreferenceKey;

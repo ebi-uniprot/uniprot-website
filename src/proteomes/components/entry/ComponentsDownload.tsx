@@ -346,7 +346,7 @@ const ComponentsDownload = ({
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        {}
         <a
           href={downloadUrl}
           className={cn('button', 'primary')}
