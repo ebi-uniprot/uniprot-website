@@ -4,6 +4,8 @@ import { useMediumScreen } from '../../hooks/useMatchMedia';
 
 import { Sequence as SequenceType } from '../../types/sequence';
 
+import helper from '../../styles/helper.module.scss';
+
 const SimpleSequence = ({ sequence }: { sequence: SequenceType }) => {
   const mediumScreen = useMediumScreen();
 
@@ -17,8 +19,8 @@ const SimpleSequence = ({ sequence }: { sequence: SequenceType }) => {
       content: <LongNumber>{sequence.molWeight}</LongNumber>,
     },
     {
-      title: <span data-article-id="checksum">Checksum</span>,
-      content: sequence.crc64,
+      title: <span data-article-id="checksum">MD5 Checksum</span>,
+      content: <span className={helper['break-anywhere']}>{sequence.md5}</span>,
     },
   ];
 

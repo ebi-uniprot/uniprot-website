@@ -48,8 +48,6 @@ export const getAlignFormInitialState = (
     ...initialFormValues,
     [AlignFields.name]: {
       ...initialFormValues[AlignFields.name],
-      // default to true if it's been set through the history state
-      userSelected: Boolean(initialFormValues[AlignFields.name].selected),
     },
   },
   parsedSequences: sequenceProcessor(
