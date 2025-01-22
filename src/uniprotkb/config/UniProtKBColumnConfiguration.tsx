@@ -363,7 +363,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
     <ExpandableList displayNumberOfHiddenItems descriptionString="locations">
       {data[EntrySection.NamesAndTaxonomy].geneLocations?.map(
         ({ geneEncodingType, value }) => (
-          <span>
+          <span key={`${geneEncodingType}-${value}`}>
             {geneEncodingType} {value}
           </span>
         )

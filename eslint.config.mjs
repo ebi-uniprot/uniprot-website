@@ -66,6 +66,7 @@ export default [
       'reactHooks/exhaustive-deps': 'warn',
       'reactHooks/rules-of-hooks': 'error',
       'react/destructuring-assignment': 'off',
+      'react/display-name': 'off',
       'react/function-component-definition': 'off',
       'react/jsx-filename-extension': [
         1,

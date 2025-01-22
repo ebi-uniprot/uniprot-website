@@ -4,6 +4,7 @@ import axios, {
   AxiosError,
   AxiosRequestConfig,
   AxiosProgressEvent,
+  isCancel,
 } from 'axios';
 import joinUrl from 'url-join';
 
@@ -151,6 +152,7 @@ function useDataApi<T>(
     dispatch({ type: ActionType.INIT, url });
 
     // variables to handle cancellation
+    // eslint-disable-next-line import/no-named-as-default-member
     const source = axios.CancelToken.source();
 
     // to keep track of the last time we dispatched a progress action
@@ -194,7 +196,7 @@ function useDataApi<T>(
         if (error.response?.status && error.response.status !== 404) {
           logging.error(error, { tags: { origin: 'useDataApi', url } });
         }
-        if (axios.isCancel(error) || didCancel) {
+        if (isCancel(error) || didCancel) {
           return;
         }
         dispatch({ type: ActionType.ERROR, error });

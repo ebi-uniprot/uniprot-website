@@ -114,7 +114,7 @@
     "@sentry/types": "8.31.0",
     "@swissprot/rhea-reaction-visualizer": "0.0.21",
     "@swissprot/swissbiopics-visualizer": "0.0.28",
-    "axios": "1.7.7",
+    "axios": "1.7.9",
     "classnames": "2.5.1",
     "complexviewer": "2.2.2",
     "core-js": "3.38.1",

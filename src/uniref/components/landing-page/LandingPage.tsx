@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ExternalLink, LongNumber, Loader } from 'franklin-sites';
