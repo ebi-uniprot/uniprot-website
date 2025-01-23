@@ -20,8 +20,12 @@ This protein is associated with several diseases, including Alzheimer disease 1 
 Important domains of APP include the E1 and E2 domains, as well as the BPTI/Kunitz inhibitor domain, which are significant for its function. Post-translational modifications (PTMs) include proteolytic processing, N- and O-glycosylation, phosphorylation, and sulfation. These modifications are crucial for its activity and processing, influencing interactions and stability within cellular environments.`;
 
 const SummaryTab = ({ accession }: { accession: string }) => (
-  <>
-    <HeroContainer headingContent="Disclaimer">
+  <Card header={<h2>✨ AI-generated summary ✨</h2>}>
+    <HeroContainer
+      headingContent="Disclaimer"
+      headingLevel="h3"
+      headingClassName="medium"
+    >
       <em>
         The following summary has been generated using AI methods combined with
         the{' '}
@@ -45,15 +49,13 @@ const SummaryTab = ({ accession }: { accession: string }) => (
         about this summary.
       </em>
     </HeroContainer>
-    <Card header={<h2>✨ AI-generated summary ✨</h2>}>
-      <FreeTextView
-        comments={mockData.split(/\s*\n\s*/).map((paragraph) => ({
-          commentType: 'FUNCTION',
-          texts: [{ value: paragraph }],
-        }))}
-      />
-    </Card>
-  </>
+    <FreeTextView
+      comments={mockData.split(/\s*\n\s*/).map((paragraph) => ({
+        commentType: 'FUNCTION',
+        texts: [{ value: paragraph }],
+      }))}
+    />
+  </Card>
 );
 
 export default SummaryTab;
