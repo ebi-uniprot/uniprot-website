@@ -18,7 +18,7 @@ import { createPath } from 'history';
 import HTMLHead from '../../shared/components/HTMLHead';
 import ContactLink from './ContactLink';
 import ExternalLink from '../../shared/components/ExternalLink';
-import DowntimeWarning from '../../tools/components/DowntimeWarning';
+import { translatedWebsite } from '../../shared/utils/translatedWebsite';
 
 import {
   useFormLogic,
@@ -75,14 +75,17 @@ const ContactForm = () => {
     }
   }
 
-  const context = useMemo(
-    () =>
-      `${locationState?.formValues?.context || ''}
+  const context = useMemo(() => {
+    const websiteTranslation = translatedWebsite();
+    let context = `${locationState?.formValues?.context || ''}
 Referred from: ${globalThis.location.origin}${referrerValue}
 User browser: ${navigator.userAgent}
-Website version: ${GIT_COMMIT_HASH}`.trim(),
-    [locationState?.formValues?.context, referrerValue]
-  );
+Website version: ${GIT_COMMIT_HASH}`.trim();
+    if (websiteTranslation) {
+      context += `\nWebsite translated to: ${websiteTranslation}`;
+    }
+    return context;
+  }, [locationState?.formValues?.context, referrerValue]);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
@@ -113,7 +116,6 @@ Website version: ${GIT_COMMIT_HASH}`.trim(),
         />
       </HTMLHead>
       <PageIntro heading="Contact us" />
-      <DowntimeWarning>Peptide Search and ID mapping</DowntimeWarning>
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />

@@ -38,12 +38,16 @@ import {
 } from '../../../uniprotkb/adapters/sequenceConverter';
 import { Namespace } from '../../types/namespaces';
 
+import helper from '../../styles/helper.module.scss';
 import styles from './styles/sequence-view.module.css';
 
 export type SequenceData = {
   value: string;
   length: number;
   molWeight: number;
+  /**
+   * @deprecated Should use MD5 instead
+   */
   crc64: string;
   md5: string;
 };
@@ -94,8 +98,10 @@ const SequenceInfo = ({
       content: lastUpdateDate,
     },
     {
-      title: <span data-article-id="checksum">Checksum</span>,
-      content: dataToDisplay && dataToDisplay.crc64,
+      title: <span data-article-id="checksum">MD5 Checksum</span>,
+      content: dataToDisplay && (
+        <span className={helper['break-anywhere']}>{dataToDisplay.md5}</span>
+      ),
     },
   ];
 

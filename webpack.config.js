@@ -21,6 +21,7 @@ const getConfigFor = ({
   isUx,
   isLiveReload,
   isTest,
+  isLMIC,
   hasStats,
   gitCommitHash,
   gitCommitState,
@@ -270,6 +271,7 @@ const getConfigFor = ({
         GIT_COMMIT_HASH: JSON.stringify(gitCommitHash),
         GIT_COMMIT_STATE: JSON.stringify(gitCommitState),
         GIT_BRANCH: JSON.stringify(gitBranch),
+        LMIC: JSON.stringify(isLMIC),
       }),
       !isLiveReload &&
         isModern &&
@@ -421,12 +423,15 @@ module.exports = (env, argv) => {
     throw new Error('API_PREFIX must be set');
   }
 
+  const isLMIC = Boolean(env.LMIC);
+
   const modernConfig = getConfigFor({
     isModern: true,
     isDev,
     isUx,
     isLiveReload,
     isTest,
+    isLMIC,
     hasStats: !!env.STATS,
     gitCommitHash,
     gitCommitState,
@@ -457,6 +462,7 @@ module.exports = (env, argv) => {
       isUx,
       isLiveReload,
       isTest,
+      isLMIC,
       hasStats: !!env.STATS,
       gitCommitHash,
       gitCommitState,

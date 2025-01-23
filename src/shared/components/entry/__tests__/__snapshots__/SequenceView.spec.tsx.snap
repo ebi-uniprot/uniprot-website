@@ -294,13 +294,17 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
               <span
                 data-article-id="checksum"
               >
-                Checksum
+                MD5 Checksum
               </span>
             </div>
             <div
               class="decorated-list-item__content"
             >
-              ASSDFFFDSAASDDSDFSASDF
+              <span
+                class="break-anywhere"
+              >
+                C899F597B1B5D205357C9FAEDA9FF553
+              </span>
             </div>
           </div>
         </li>

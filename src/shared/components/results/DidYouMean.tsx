@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useMemo, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { orderBy, truncate } from 'lodash-es';
 import { Loader, Message, sequenceProcessor } from 'franklin-sites';
@@ -12,6 +12,7 @@ import useSafeState from '../../hooks/useSafeState';
 
 import fetchData from '../../utils/fetchData';
 import { stringifyQuery, stringifyUrl } from '../../utils/url';
+import { translatedWebsite } from '../../utils/translatedWebsite';
 
 import {
   searchLocations,
@@ -73,6 +74,7 @@ const QuerySuggestionListItem = ({
               }}
               key={query}
               className={styles['query-suggestion-link']}
+              translate="no"
             >
               {cleanedQuery}
             </Link>
@@ -95,6 +97,7 @@ const PeptideSearchSuggestion = ({
         pathname: LocationToPath[Location.PeptideSearch],
         search: `peps=${potentialPeptide}`,
       }}
+      translate="no"
     >
       {truncate(potentialPeptide, truncateOptions)}?
     </Link>
@@ -261,28 +264,36 @@ const DidYouMean = ({
     content = <Loader />;
   }
 
+  const websiteTranslation = useMemo(() => translatedWebsite(), []);
+
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
-      <small>
-        {heading}
-        {content}
-        {renderContent && (
-          <>
+      {heading}
+      {content}
+      {renderContent && (
+        <>
+          <p>
             If you can&apos;t find what you are looking for, please{' '}
             <ContactLink>contact us</ContactLink>.
-            {currentNamespace === Namespace.uniparc ? (
-              <p>
-                Some cross-references, when there are too many of them on a
-                UniParc entry, are not indexed.
-                <br />
-                If you think your search corresponds to one of these, do{' '}
-                <ContactLink>get in touch</ContactLink> so we can provide you
-                the data.
-              </p>
-            ) : null}
-          </>
-        )}
-      </small>
+          </p>
+          {websiteTranslation && (
+            <p>
+              Even though you translated the website,{' '}
+              <strong>make sure that your query is in English</strong>.
+            </p>
+          )}
+          {currentNamespace === Namespace.uniparc ? (
+            <p>
+              Some cross-references, when there are too many of them on a
+              UniParc entry, are not indexed.
+              <br />
+              If you think your search corresponds to one of these, do{' '}
+              <ContactLink>get in touch</ContactLink> so we can provide you the
+              data.
+            </p>
+          ) : null}
+        </>
+      )}
     </Message>
   );
 };
