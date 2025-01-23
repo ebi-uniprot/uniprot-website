@@ -221,7 +221,7 @@ function FeaturesView<T extends ProcessedFeature>({
         }
         onRowClick={setHighlightedFeature}
         expandable={!inResultsTable}
-        onNavigationClick={handleNavigationClick}
+        onNavigationClick={!isSmallScreen && handleNavigationClick}
       />
     </>
   );

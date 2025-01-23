@@ -77,7 +77,9 @@ type Props<T> = {
   noTranslateBody?: boolean;
   expandable?: boolean;
   id?: string;
-  onNavigationClick: (navigationType: NavigationType, feature: T) => void;
+  onNavigationClick?:
+    | false
+    | ((navigationType: NavigationType, feature: T) => void);
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -155,19 +157,21 @@ function TableFromData<T>({
               extraContent={
                 rowExtraContent && (
                   <td colSpan={columns.length}>
-                    <div
-                      className={cn(
-                        'button-group',
-                        styles['feature-navigation-buttons']
-                      )}
-                    >
-                      <Button
-                        variant="secondary"
-                        onClick={() => onNavigationClick?.('ZOOM-TO', datum)}
+                    {onNavigationClick && (
+                      <div
+                        className={cn(
+                          'button-group',
+                          styles['feature-navigation-buttons']
+                        )}
                       >
-                        Navigate to feature
-                      </Button>
-                    </div>
+                        <Button
+                          variant="secondary"
+                          onClick={() => onNavigationClick?.('ZOOM-TO', datum)}
+                        >
+                          Navigate to feature
+                        </Button>
+                      </div>
+                    )}
                     {rowExtraContent(datum)}
                   </td>
                 )
