@@ -41,6 +41,7 @@ type Props<T> = {
   onFeatureClick: (feature: T) => void; // NOTE: make sure this is memoized with a callback in the consumer
   onViewRangeChange: (range: NightingaleViewRange) => void;
   highlightedFeature?: T;
+  range: [number, number] | null;
 };
 
 function VisualFeaturesView<T extends ProcessedFeature>({
@@ -51,13 +52,13 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   onFeatureClick,
   onViewRangeChange,
   highlightedFeature,
+  range,
 }: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
   const trackRef = useRef<NightingaleTrack>(null);
   const managerRef = useRef<NightingaleManager>(null);
   const navigationRef = useRef<NightingaleNavigation>(null);
-
   // NightingaleTrack data loading and feature click event handler
   useEffect(() => {
     const eventHandler = (e: Event) => {
@@ -78,12 +79,12 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   }, [features, onFeatureClick]);
 
   useEffect(() => {
-    if (navigationRef.current) {
+    if (managerRef.current) {
       const minStart = Math.min(
         ...features.map((f) => f.start),
         sequence.length - AA_ZOOMED
       );
-      navigationRef.current.dispatchEvent(
+      managerRef.current.dispatchEvent(
         new CustomEvent('change', {
           detail: {
             'display-start': minStart,
@@ -113,6 +114,21 @@ function VisualFeaturesView<T extends ProcessedFeature>({
       document.removeEventListener('change', eventHandler);
     };
   }, [managerRef, onViewRangeChange]);
+
+  useEffect(() => {
+    if (managerRef.current && range) {
+      managerRef.current.dispatchEvent(
+        new CustomEvent('change', {
+          detail: {
+            'display-start': range[0],
+            'display-end': range[1],
+          },
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+    }
+  }, [range]);
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);

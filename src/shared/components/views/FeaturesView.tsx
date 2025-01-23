@@ -67,6 +67,28 @@ export type FeatureColumnConfiguration<T> = {
   getOption?: (data: T) => string | number; // Fallback if render fn doesn't return string or number
 };
 
+export type NavigationType = 'ZOOM-TO';
+
+const computeRange = (
+  navigationType: NavigationType,
+  featureRange: [number, number],
+  navigationRange: [number, number]
+): [number, number] => {
+  if (navigationType === 'ZOOM-TO') {
+    return [
+      Math.min(navigationRange[0], featureRange[0]),
+      Math.max(navigationRange[1], featureRange[1]),
+    ];
+  }
+  // if (navigationType === 'ZOOM-IN') {
+  //   return [featureRange[0], featureRange[0] + AA_ZOOMED];
+  // }
+  // if (navigationType === 'ZOOM-OUT') {
+  //   return [featureRange[0] - 1, featureRange[1] + 1];
+  // }
+  return navigationRange;
+};
+
 type FeatureViewProps<T extends ProcessedFeature> = {
   sequence?: string;
   features: T[];
@@ -100,6 +122,7 @@ function FeaturesView<T extends ProcessedFeature>({
   const [highlightedFeature, setHighlightedFeature] = useState<T | undefined>();
   const [nightingaleViewRange, setNightingaleViewRange] =
     useState<NightingaleViewRange>();
+  const [range, setRange] = useState<[number, number] | null>(null);
   const tableId = useId();
   const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
 
@@ -121,6 +144,23 @@ function FeaturesView<T extends ProcessedFeature>({
       tableScroll(feature);
     },
     [tableScroll]
+  );
+
+  const handleNavigationClick = useCallback(
+    (navigationType: NavigationType, feature: T) => {
+      if (nightingaleViewRange) {
+        const foo = computeRange(
+          navigationType,
+          [+feature.start, +feature.end],
+          [
+            nightingaleViewRange['display-start'],
+            nightingaleViewRange['display-end'],
+          ]
+        );
+        setRange(foo);
+      }
+    },
+    [nightingaleViewRange]
   );
 
   return !features.length ? null : (
@@ -156,9 +196,12 @@ function FeaturesView<T extends ProcessedFeature>({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
-            onFeatureClick={handleFeatureClick}
+            onFeatureClick={
+              handleFeatureClick as (feature: ProcessedFeature) => void
+            }
             onViewRangeChange={handleViewRangeChange}
             highlightedFeature={highlightedFeature}
+            range={range}
           />
         </LazyComponent>
       )}
@@ -178,6 +221,7 @@ function FeaturesView<T extends ProcessedFeature>({
         }
         onRowClick={setHighlightedFeature}
         expandable={!inResultsTable}
+        onNavigationClick={handleNavigationClick}
       />
     </>
   );

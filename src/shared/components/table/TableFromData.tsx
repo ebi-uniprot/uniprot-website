@@ -1,8 +1,10 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { Message } from 'franklin-sites';
+import { Button, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import Table from './Table';
+
+import { NavigationType } from '../views/FeaturesView';
 
 import styles from './styles/table.module.scss';
 
@@ -75,6 +77,7 @@ type Props<T> = {
   noTranslateBody?: boolean;
   expandable?: boolean;
   id?: string;
+  onNavigationClick: (navigationType: NavigationType, feature: T) => void;
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -88,6 +91,7 @@ function TableFromData<T>({
   markBackground,
   markBorder,
   noTranslateBody,
+  onNavigationClick,
   expandable = true,
   ...props
 }: Props<T>) {
@@ -150,7 +154,22 @@ function TableFromData<T>({
               isOdd={index % 2 === 1}
               extraContent={
                 rowExtraContent && (
-                  <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
+                  <td colSpan={columns.length}>
+                    <div
+                      className={cn(
+                        'button-group',
+                        styles['feature-navigation-buttons']
+                      )}
+                    >
+                      <Button
+                        variant="secondary"
+                        onClick={() => onNavigationClick?.('ZOOM-TO', datum)}
+                      >
+                        Navigate to feature
+                      </Button>
+                    </div>
+                    {rowExtraContent(datum)}
+                  </td>
                 )
               }
               key={getRowId(datum)}

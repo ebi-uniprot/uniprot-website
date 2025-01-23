@@ -52,6 +52,15 @@
   & th {
     padding: 0.2rem 1ch;
     border-block-start: 1px solid var(--table_border);
+
+    & .feature-navigation-buttons {
+      margin-top: 0.5rem;
+      margin-bottom: -0.5rem;
+
+      button {
+        padding: 0.33em;
+      }
+    }
   }
 
   & thead :global(.dropdown) > button {
