@@ -89,6 +89,12 @@
     &,
     & + .extra-content {
       border-color: rgb(214, 214, 214);
+
+      &:has(td):has(.feature-navigation-buttons) {
+        td .feature-navigation-buttons {
+          display: none;
+        }
+      }
     }
   }
 
