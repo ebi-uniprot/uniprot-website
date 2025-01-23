@@ -80,15 +80,12 @@ function VisualFeaturesView<T extends ProcessedFeature>({
 
   useEffect(() => {
     if (managerRef.current) {
-      const minStart = Math.min(
-        ...features.map((f) => f.start),
-        sequence.length - AA_ZOOMED
-      );
+      const minStart = Math.min(...features.map((f) => f.start));
       managerRef.current.dispatchEvent(
         new CustomEvent('change', {
           detail: {
             'display-start': minStart,
-            'display-end': minStart + AA_ZOOMED,
+            'display-end': Math.min(minStart + AA_ZOOMED, sequence.length),
           },
           bubbles: true,
           cancelable: true,
