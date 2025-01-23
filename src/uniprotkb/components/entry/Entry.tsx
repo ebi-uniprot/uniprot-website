@@ -96,6 +96,11 @@ const legacyToNewSubPages = {
   'variants-viewer': TabLocation.VariantViewer,
 };
 
+const SummaryTab = lazy(
+  () =>
+    import(/* webpackChunkName: "uniprotkb-entry-summary" */ './tabs/Summary')
+);
+
 const VariationViewerTab = lazy(
   () =>
     import(
@@ -464,6 +469,30 @@ const Entry = () => {
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
         <Tabs active={match.params.subPage}>
+          {LMIC ? (
+            <Tab
+              title={
+                <Link
+                  className={isObsolete ? helper.disabled : undefined}
+                  tabIndex={isObsolete ? -1 : undefined}
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    accession,
+                    TabLocation.Summary
+                  )}
+                >
+                  ✨ AI summary ✨
+                </Link>
+              }
+              id={TabLocation.Summary}
+            >
+              <Suspense fallback={<Loader />}>
+                <ErrorBoundary>
+                  <SummaryTab accession={accession} />
+                </ErrorBoundary>
+              </Suspense>
+            </Tab>
+          ) : null}
           <Tab
             title={
               <Link

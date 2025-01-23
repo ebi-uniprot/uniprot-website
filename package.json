@@ -82,7 +82,8 @@
     "globals": {
       "BASE_URL": "/",
       "API_PREFIX": "/<testing>/api",
-      "GIT_COMMIT_HASH": "#git_commit_id"
+      "GIT_COMMIT_HASH": "#git_commit_id",
+      "LMIC": false
     },
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.ts"
