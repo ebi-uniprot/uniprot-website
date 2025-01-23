@@ -20,8 +20,9 @@ const DevDeploymentWarning = () => {
           <small>
             {`This is a fallback version of `}
             <a href="https://www.uniprot.org">www.uniprot.org</a>. We will
-            endeavour to get the main website up and running as soon as
-            possible.
+            endeavor to get the main website up and running as soon as possible.
+            Furthermore UniParc, UniRef and Proteomes will be inaccessible on
+            this fallback service due to technical limitations.
           </small>
         </Message>
       ) : null}
