@@ -22,7 +22,7 @@ const useJobFromUrl = (): JobFromUrl => {
     () => getJobResultsLocation(location.pathname),
     [location.pathname]
   );
-  const match = useMatch<'id' | 'namespace', string>(
+  const match = useMatch(
     jobResultsLocation && jobResultsLocation in LocationToPath
       ? LocationToPath[jobResultsLocation]
       : ''

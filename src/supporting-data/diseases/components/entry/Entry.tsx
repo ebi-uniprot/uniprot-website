@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Redirect, useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -42,7 +42,7 @@ const DiseasesEntry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   let redirectTo = '';
-  if (Number.isFinite(+accession)) {
+  if (accession && Number.isFinite(+accession)) {
     redirectTo = `DI-${accession.padStart(5, '0')}`;
   }
 
@@ -52,7 +52,9 @@ const DiseasesEntry = () => {
     );
 
   if (redirectTo) {
-    return <Redirect to={getEntryPath(Namespace.diseases, redirectTo)} />;
+    return (
+      <Navigate replace to={getEntryPath(Namespace.diseases, redirectTo)} />
+    );
   }
 
   if (error || (!loading && !data)) {

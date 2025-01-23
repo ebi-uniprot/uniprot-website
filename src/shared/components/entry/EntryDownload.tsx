@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router';
+import { Link, useMatch } from 'react-router';
 import { Button, ExternalLink, LongNumber } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import cn from 'classnames';
@@ -321,10 +321,11 @@ const EntryDownload = ({
   featureTypes,
   sequence,
 }: EntryDownloadProps) => {
-  const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
-    allEntryPages
-  );
-  const { namespace, accession } = match?.params || {};
+  const match = useMatch(allEntryPages);
+  const { namespace, accession } = (match?.params || {}) as {
+    namespace: Namespace | undefined;
+    accession: string | undefined;
+  };
 
   const [downloadColumns, setDownloadColumns] = useState(columns);
   const [fileFormats, setFileFormats] = useState(

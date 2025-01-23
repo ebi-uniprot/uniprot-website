@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useRouteMatch } from 'react-router';
+import { useMatch } from 'react-router';
 import { groupBy } from 'lodash-es';
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
@@ -67,7 +67,7 @@ const PtmExchangeEvidenceTag = ({
   evidences?: Evidence[];
   confidenceScore?: ConfidenceScore;
 }) => {
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = useMatch(allEntryPages);
   if (!entryPageMatch || !evidences) {
     return null;
   }

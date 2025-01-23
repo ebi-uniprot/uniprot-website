@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Redirect, useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -43,7 +43,9 @@ const UniRuleEntry = () => {
   }
 
   if (accession !== data.uniRuleId) {
-    return <Redirect to={getEntryPath(Namespace.unirule, data.uniRuleId)} />;
+    return (
+      <Navigate replace to={getEntryPath(Namespace.unirule, data.uniRuleId)} />
+    );
   }
 
   const hasRelated = Boolean(

@@ -1,5 +1,5 @@
 import { Fragment, FC, ReactNode, useContext } from 'react';
-import { Link, useRouteMatch } from 'react-router';
+import { Link, useMatch } from 'react-router';
 import { ExternalLink } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -203,7 +203,7 @@ const FreeTextView: FC<React.PropsWithChildren<FreeTextProps>> = ({
   articleId,
   showMolecule = true,
 }) => {
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = useMatch(allEntryPages);
 
   if (!comments?.length) {
     return null;

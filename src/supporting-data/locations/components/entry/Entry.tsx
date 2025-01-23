@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Loader, Card, InfoList } from 'franklin-sites';
-import { Redirect, useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import cn from 'classnames';
-import { LocationDescriptor } from 'history';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
@@ -15,7 +14,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import { getEntryPathFor } from '../../../../app/config/urls';
+import { getEntryPath } from '../../../../app/config/urls';
 
 import {
   Namespace,
@@ -49,14 +48,10 @@ const LocationsEntry = () => {
   const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  let redirectTo: LocationDescriptor | null = null;
+  let redirectTo = '';
   // If the accession is a number not prefixed with "SL-"
-  if (reNumber.test(accession)) {
-    redirectTo = {
-      pathname: getEntryPathFor(Namespace.locations)(
-        `SL-${accession.padStart(4, '0')}`
-      ),
-    };
+  if (accession && reNumber.test(accession)) {
+    redirectTo = `SL-${accession.padStart(4, '0')}`;
   }
 
   const { data, loading, error, status, progress, isStale } =
@@ -67,7 +62,7 @@ const LocationsEntry = () => {
     );
 
   if (redirectTo) {
-    return <Redirect to={redirectTo} />;
+    <Navigate replace to={getEntryPath(Namespace.locations, redirectTo)} />;
   }
 
   if (error || (!loading && !data)) {

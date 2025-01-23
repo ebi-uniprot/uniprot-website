@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { History } from 'history';
+import { useNavigate } from 'react-router';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { APIModel } from '../types/apiModel';
 
 const useResultsToEntryRedirect = (
-  history: History<unknown>,
   direct: boolean | undefined,
   hasMoreData: boolean,
   allResults: APIModel[],
@@ -12,6 +11,8 @@ const useResultsToEntryRedirect = (
   getIdKey: (datum: APIModel) => string,
   query: string
 ) => {
+  const navigate = useNavigate();
+
   // redirect to entry directly when...
   useEffect(() => {
     const trimmedQuery = query.toUpperCase().trim();
@@ -32,7 +33,7 @@ const useResultsToEntryRedirect = (
         // ... or matches the UniProtKB ID ...
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
-        history.replace(getEntryPathForEntry(uniqueItem));
+        navigate(getEntryPathForEntry(uniqueItem), { replace: true });
       }
     } else if (
       // Limit it to the first set of results as the exact match is very likely in the top results and it applies only for UniProtKB
@@ -47,11 +48,11 @@ const useResultsToEntryRedirect = (
           trimmedQuery
       );
       if (firstMatch) {
-        history.replace(getEntryPathForEntry(firstMatch));
+        navigate(getEntryPathForEntry(firstMatch), { replace: true });
       }
     }
   }, [
-    history,
+    navigate,
     direct,
     hasMoreData,
     allResults,

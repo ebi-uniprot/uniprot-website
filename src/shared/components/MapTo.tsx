@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Link, LinkProps, useRouteMatch } from 'react-router';
+import { Link, LinkProps, useMatch } from 'react-router';
 import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
@@ -265,13 +265,11 @@ export const MapToDropdown = ({
   children = 'View proteins',
   fieldNameOverride,
 }: MapToDropdownProps) => {
-  const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
-    allSupportingDataAndAAEntryLocations
-  );
+  const match = useMatch(allSupportingDataAndAAEntryLocations);
   const { namespace, accession: accessionFromPath } = match?.params || {};
   const fieldName =
     fieldNameOverride ||
-    (namespace && namespaceToUniProtKBFieldMap.get(namespace));
+    (namespace && namespaceToUniProtKBFieldMap.get(namespace as Namespace));
 
   if (!(statistics && namespace && accessionFromPath && fieldName)) {
     return null;

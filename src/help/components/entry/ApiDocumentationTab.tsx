@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, Outlet } from 'react-router';
 import { Location as HistoryLocation } from 'history';
 import { Card, Loader, Chip } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
@@ -102,7 +102,9 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
       <HTMLHead title="UniProt website API documentation" />
       <Card className={styles.content}>
         <ErrorBoundary>
-          <BaseLayout />
+          <BaseLayout>
+            <Outlet />
+          </BaseLayout>
         </ErrorBoundary>
       </Card>
     </SidebarLayout>

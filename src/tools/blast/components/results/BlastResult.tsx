@@ -105,12 +105,6 @@ enum TabLocation {
   APIRequest = 'api-request',
 }
 
-type Params = {
-  id: string;
-  namespace?: (typeof blastNamespaces)[number];
-  subPage?: TabLocation;
-};
-
 // custom hook to get data from the input parameters endpoint, input sequence
 // then parse it and merge it.
 // This is kinda 'faking' useDataApi for the kind of object it outputs
@@ -185,7 +179,7 @@ const enrich = (
 const BlastResult = () => {
   const location = useLocation();
 
-  const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
+  const match = useMatchWithRedirect(Location.BlastResult, TabLocation);
 
   const [hspDetailPanel, setHspDetailPanel] = useState<Except<
     HSPDetailPanelProps,

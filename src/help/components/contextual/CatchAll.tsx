@@ -1,5 +1,5 @@
 import { History } from 'history';
-import { Redirect, Route, Router, useLocation } from 'react-router';
+import { Navigate, Route, Router, useLocation } from 'react-router';
 import {
   misspeltHelpTuple,
   redirectFromTo,
@@ -13,13 +13,13 @@ const CatchAll = ({ globalHistory }: Props) => {
 
   if (newPathname) {
     // Redirect in the panel's context
-    return <Redirect to={{ ...location, pathname: newPathname }} />;
+    return <Navigate replace to={{ ...location, pathname: newPathname }} />;
   }
 
   // Reinject the global history context to redirect in the navigator
   return (
     <Router history={globalHistory}>
-      <Route render={() => <Redirect to={location} />} />
+      <Route render={() => <Navigate replace to={location} />} />
     </Router>
   );
 };

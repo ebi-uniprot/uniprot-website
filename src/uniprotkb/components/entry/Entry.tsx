@@ -1,5 +1,5 @@
 import { useMemo, useEffect, Suspense, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router';
+import { Link, Navigate, useHistory } from 'react-router';
 import { Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
@@ -150,10 +150,7 @@ const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
 const Entry = () => {
   const dispatch = useMessagesDispatch();
   const history = useHistory();
-  const match = useMatchWithRedirect<{
-    accession: string;
-    subPage?: TabLocation;
-  }>(
+  const match = useMatchWithRedirect(
     Location.UniProtKBEntry,
     TabLocation,
     TabLocation.Entry,
@@ -313,7 +310,7 @@ const Entry = () => {
       }
       frame().then(() => {
         // If accession contains version, it should be redirected to History tab
-        const activeTab = match?.params.accession.includes('.')
+        const activeTab = match?.params.accession?.includes('.')
           ? TabLocation.History
           : TabLocation.Entry;
         history.replace(getEntryPath(Namespace.uniprotkb, newEntry, activeTab));
@@ -325,7 +322,7 @@ const Entry = () => {
   }, [dispatch, redirectedTo]);
 
   useEffect(() => {
-    if (match?.params.accession.includes('-')) {
+    if (match?.params.accession?.includes('-')) {
       const [accession] = match.params.accession.split('-');
       history.replace({
         pathname: getEntryPath(
@@ -343,30 +340,26 @@ const Entry = () => {
       transformedData.inactiveReason
   );
 
-  // Redirect to history when obsolete and not merged into a single new one
-  useEffect(() => {
-    if (
-      isObsolete &&
-      match?.params.accession &&
-      match?.params.subPage !== TabLocation.History
-    ) {
-      frame().then(() => {
-        history.replace(
-          getEntryPath(
-            Namespace.uniprotkb,
-            match?.params.accession,
-            TabLocation.History
-          )
-        );
-      });
-    }
-    // (I hope) I know what I'm doing here, I want to stick with whatever value
-    // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isObsolete]);
-
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
+
+  // Redirect to history when obsolete and not merged into a single new one
+  if (
+    isObsolete &&
+    match?.params.accession &&
+    match?.params.subPage !== TabLocation.History
+  ) {
+    return (
+      <Navigate
+        replace
+        to={getEntryPath(
+          Namespace.uniprotkb,
+          match?.params.accession,
+          TabLocation.History
+        )}
+      />
+    );
+  }
 
   if (
     loading ||
@@ -619,7 +612,8 @@ const Entry = () => {
             onFocus={FeatureViewerTab.preload}
           >
             {smallScreen ? (
-              <Redirect
+              <Navigate
+                replace
                 to={getEntryPath(
                   Namespace.uniprotkb,
                   accession,

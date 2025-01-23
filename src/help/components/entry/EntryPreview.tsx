@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useCallback, useMemo, useEffect } from 'react';
-import { RouteChildrenProps } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Chip, CodeBlock } from 'franklin-sites';
 import fm from 'front-matter';
 
@@ -60,12 +60,10 @@ const Category = ({ category }: { category: string }) => {
   );
 };
 
-const EntryPreview = ({
-  match,
-  location,
-  history,
-}: RouteChildrenProps<{ accession: string }, string>) => {
-  const isReleaseNotes = match?.path.includes('release-notes');
+const EntryPreview = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isReleaseNotes = location.pathname.includes('release-notes');
 
   const [url, setUrl] = useState(location.state || '');
   const { data } = useDataApi<string>(url);
@@ -102,12 +100,8 @@ const EntryPreview = ({
     return [parsedData, otherAttributes];
   }, [data, isReleaseNotes]);
 
-  useEffect(() => {
-    history.replace({ ...history.location, state: url });
-  }, [history, url]);
-
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const url = event.target.value.trim();
+    let url = event.target.value.trim();
     if (!url || !url.startsWith('https://')) {
       return;
     }
@@ -115,21 +109,18 @@ const EntryPreview = ({
       // we don't have the raw file, try to find it
       const ghWikiMatch = url.match(ghWikiRE);
       if (ghWikiMatch?.groups) {
-        setUrl(
-          `https://raw.githubusercontent.com/wiki/${ghWikiMatch.groups.user}/${ghWikiMatch.groups.project}/${ghWikiMatch.groups.file}.md`
-        );
-        return;
+        url = `https://raw.githubusercontent.com/wiki/${ghWikiMatch.groups.user}/${ghWikiMatch.groups.project}/${ghWikiMatch.groups.file}.md`;
       }
 
       const ghNormalMatch = url.match(ghNormalRE);
       if (ghNormalMatch?.groups) {
-        setUrl(
-          `https://raw.githubusercontent.com/${ghNormalMatch.groups.user}/${ghNormalMatch.groups.project}/${ghNormalMatch.groups.filepath}`
-        );
-        return;
+        url = `https://raw.githubusercontent.com/${ghNormalMatch.groups.user}/${ghNormalMatch.groups.project}/${ghNormalMatch.groups.filepath}`;
       }
     }
     setUrl(url);
+    // Sets the URL in the location state to allow reload of page
+    // TODO: check that this works as intended...
+    navigate('.', { replace: true, state: url });
   }, []);
 
   // Note: copy structure of "normal" help entry page in order to preview it

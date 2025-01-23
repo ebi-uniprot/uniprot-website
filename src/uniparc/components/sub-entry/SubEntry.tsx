@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Redirect, useRouteMatch } from 'react-router';
+import { Link, Navigate, useMatch } from 'react-router';
 import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
@@ -44,11 +44,7 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
-  const match = useRouteMatch<{
-    accession: string;
-    subPage: string;
-    subEntryId: string;
-  }>(LocationToPath[Location.UniParcSubEntry]);
+  const match = useMatch(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const { accession, subEntryId, subPage } = match?.params || {};
   const baseURL = apiUrls.entry.entry(
@@ -77,7 +73,8 @@ const SubEntry = () => {
   );
   if (!transformedData) {
     return (
-      <Redirect
+      <Navigate
+        replace
         to={{
           pathname: LocationToPath[Location.UniParcResults],
           search: `query=(dbid:${subEntryId})`,
@@ -172,7 +169,8 @@ const SubEntry = () => {
           id={TabLocation.FeatureViewer}
         >
           {smallScreen ? (
-            <Redirect
+            <Navigate
+              replace
               to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
             />
           ) : (

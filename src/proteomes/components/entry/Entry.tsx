@@ -1,4 +1,4 @@
-import { useRouteMatch } from 'react-router';
+import { useMatch } from 'react-router';
 import { Loader } from 'franklin-sites';
 
 import Overview from './Overview';
@@ -27,9 +27,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 const Entry = () => {
-  const match = useRouteMatch<{ accession: string }>(
-    LocationToPath[Location.ProteomesEntry]
-  );
+  const match = useMatch(LocationToPath[Location.ProteomesEntry]);
 
   const accession = match?.params.accession;
 

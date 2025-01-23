@@ -112,13 +112,8 @@ const useParamsData = (
   return paramsData;
 };
 
-type Params = {
-  id: string;
-  subPage?: TabLocation;
-};
-
 const AlignResult = () => {
-  const match = useMatchWithRedirect<Params>(Location.AlignResult, TabLocation);
+  const match = useMatchWithRedirect(Location.AlignResult, TabLocation);
 
   const [selectedEntries, , setSelectedEntries] = useItemSelect();
   const handleEntrySelection = useCallback(

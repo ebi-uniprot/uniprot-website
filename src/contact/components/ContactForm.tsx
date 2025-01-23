@@ -1,5 +1,5 @@
 import { useId, useMemo, ChangeEvent } from 'react';
-import { generatePath, Link, useLocation, useRouteMatch } from 'react-router';
+import { generatePath, Link, useLocation, useMatch } from 'react-router';
 import {
   Button,
   PageIntro,
@@ -46,9 +46,10 @@ const validity = (
 
 const ContactForm = () => {
   const formId = useId();
-  const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
-  const { state: locationState, search } = useLocation<ContactLocationState>();
+  const isUpdate = !!useMatch(LocationToPath[Location.ContactUpdate]);
+  const { state, search } = useLocation();
 
+  const locationState = state as ContactLocationState;
   let referrerValue = '';
   if (locationState?.referrer) {
     referrerValue =

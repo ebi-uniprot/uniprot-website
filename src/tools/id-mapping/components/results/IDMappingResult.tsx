@@ -99,18 +99,9 @@ enum TabLocation {
   APIRequest = 'api-request',
 }
 
-type Params = {
-  id: string;
-  namespace?: (typeof IDMappingNamespaces)[number];
-  subPage?: TabLocation;
-};
-
 const IDMappingResult = () => {
   const location = useLocation();
-  const match = useMatchWithRedirect<Params>(
-    Location.IDMappingResult,
-    TabLocation
-  );
+  const match = useMatchWithRedirect(Location.IDMappingResult, TabLocation);
   const idMappingDetails = useIDMappingDetails();
   const {
     data: detailsData,

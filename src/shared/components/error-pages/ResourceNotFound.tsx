@@ -110,7 +110,7 @@ const ResourceNotFound = ({ error, ...props }: ResourceNotFoundProps) => {
         <HTMLHead>
           <meta httpEquiv="refresh" content={`0; URL=${newURL}`} />
         </HTMLHead>
-        <Navigate to={newLocation} />
+        <Navigate replace to={newLocation} />
       </>
     );
   }

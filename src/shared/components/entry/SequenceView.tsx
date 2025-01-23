@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, useState } from 'react';
 import { InfoList, Sequence, LongNumber } from 'franklin-sites';
-import { Link, useHistory } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 import ExternalLink from '../ExternalLink';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
@@ -74,7 +74,7 @@ const SequenceInfo = ({
 }: SequenceInfoProps) => {
   const [isoformToFetch, setIsoformToFetch] = useState<string>();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { data, loading } = useDataApi<UniProtkbAPIModel>(
     isoformToFetch && apiUrls.entry.entry(isoformToFetch, Namespace.uniprotkb)
@@ -122,7 +122,7 @@ const SequenceInfo = ({
           accession={isoformId}
           downloadUrl={apiUrls.entry.sequenceFasta(isoformId)}
           onBlastClick={() =>
-            history.push(LocationToPath[Location.Blast], {
+            navigate(LocationToPath[Location.Blast], {
               parameters: { sequence: dataToDisplay?.value },
             })
           }

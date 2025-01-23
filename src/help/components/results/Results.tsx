@@ -1,5 +1,5 @@
 import { ChangeEvent, useState, useEffect, useMemo, ReactNode } from 'react';
-import { RouteChildrenProps } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import {
   DataListWithLoader,
   HelpIcon,
@@ -45,12 +45,10 @@ type Props = {
   inPanel?: boolean;
 };
 
-const Results = ({
-  history,
-  location,
-  match,
-  inPanel,
-}: RouteChildrenProps & Props) => {
+const Results = ({ inPanel }: Props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [searchValue, setSearchValue] = useState<string>(() => {
     const sp = new URLSearchParams(location.search);
     const query = sp.get('query');
@@ -60,7 +58,7 @@ const Results = ({
     return query;
   });
 
-  const isReleaseNotes = match?.path.includes('release-notes');
+  const isReleaseNotes = location.pathname.includes('release-notes');
   const parsed = Object.fromEntries(new URLSearchParams(location.search));
 
   const {
@@ -82,19 +80,22 @@ const Results = ({
   const replaceLocation = useMemo(
     () =>
       debounce((searchValue: string, isReleaseNotes) => {
-        history.replace({
-          pathname:
-            LocationToPath[
-              isReleaseNotes
-                ? Location.ReleaseNotesResults
-                : Location.HelpResults
-            ],
-          search: stringifyQuery(history.location.search, {
-            query: searchValue || '*',
-          }),
-        });
+        navigate(
+          {
+            pathname:
+              LocationToPath[
+                isReleaseNotes
+                  ? Location.ReleaseNotesResults
+                  : Location.HelpResults
+              ],
+            search: stringifyQuery(location.search, {
+              query: searchValue || '*',
+            }),
+          },
+          { replace: true }
+        );
       }, 500),
-    [history]
+    [navigate, location.search]
   );
 
   useEffect(() => {

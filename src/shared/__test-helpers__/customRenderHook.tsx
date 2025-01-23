@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { Router } from 'react-router';
+import { Router, MemoryRouter } from 'react-router';
 
 function getCustomRenderHook<TProps, TResult>(
   hook: (props: TProps) => TResult
@@ -10,9 +10,14 @@ function getCustomRenderHook<TProps, TResult>(
     if (path) {
       history.push(path, state);
     }
-    return renderHook(hook, {
-      wrapper: ({ children }) => <Router history={history}>{children}</Router>,
+    const returned = renderHook(hook, {
+      // TODO: fixme, find a way to test location of memory router
+      wrapper: ({ children }) => (
+        <MemoryRouter history={history}>{children}</MemoryRouter>
+      ),
     });
+
+    return { ...returned, history };
   };
 }
 

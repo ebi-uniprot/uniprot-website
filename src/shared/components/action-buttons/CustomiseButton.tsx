@@ -1,5 +1,5 @@
 import { FormEvent, Suspense, useState, useEffect } from 'react';
-import { useLocation, useRouteMatch } from 'react-router';
+import { useLocation, useMatch } from 'react-router';
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 import { frame } from 'timing-functions';
 
@@ -29,7 +29,7 @@ const CustomiseTable = lazy(
 
 const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
-  const isEntryPage = Boolean(useRouteMatch(allEntryPages));
+  const isEntryPage = Boolean(useMatch(allEntryPages));
   const { pathname } = useLocation();
   const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
   const [localStorageColumns, setLocalStorageColumns] = useLocalStorage(

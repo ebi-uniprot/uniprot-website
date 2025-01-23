@@ -84,11 +84,6 @@ enum TabLocation {
   APIRequest = 'api-request',
 }
 
-type Params = {
-  id: string;
-  subPage?: TabLocation;
-};
-
 enum ServerJobParameters {
   QueryPetides = 'QueryPetides',
   TaxonIds = 'TaxonIds',
@@ -97,10 +92,7 @@ enum ServerJobParameters {
 }
 
 const PeptideSearchResult = () => {
-  const match = useMatchWithRedirect<Params>(
-    Location.PeptideSearchResult,
-    TabLocation
-  );
+  const match = useMatchWithRedirect(Location.PeptideSearchResult, TabLocation);
 
   const jobID = match?.params.id || '';
   const {

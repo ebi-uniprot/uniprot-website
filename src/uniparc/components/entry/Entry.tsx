@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Redirect } from 'react-router';
+import { Link, Navigate } from 'react-router';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import joinUrl from 'url-join';
@@ -50,10 +50,7 @@ export enum TabLocation {
 }
 
 const Entry = () => {
-  const match = useMatchWithRedirect<{
-    accession: string;
-    subPage?: TabLocation;
-  }>(Location.UniParcEntry, TabLocation);
+  const match = useMatchWithRedirect(Location.UniParcEntry, TabLocation);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
 
@@ -194,7 +191,8 @@ const Entry = () => {
           id={TabLocation.FeatureViewer}
         >
           {smallScreen ? (
-            <Redirect
+            <Navigate
+              replace
               to={getEntryPath(
                 Namespace.uniparc,
                 match.params.accession,

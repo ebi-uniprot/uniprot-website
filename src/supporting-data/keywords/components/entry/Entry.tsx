@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Loader, Card, InfoList } from 'franklin-sites';
-import { Redirect, useParams } from 'react-router';
-import { LocationDescriptor } from 'history';
+import { Navigate, useParams } from 'react-router';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
@@ -14,7 +13,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import { getEntryPathFor } from '../../../../app/config/urls';
+import { getEntryPath } from '../../../../app/config/urls';
 
 import {
   Namespace,
@@ -44,14 +43,10 @@ const KeywordsEntry = () => {
   const { accession } = useParams<{ accession: string }>();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  let redirectTo: LocationDescriptor | null = null;
+  let redirectTo = '';
   // If the accession is a number not prefixed with "KW-"
-  if (reNumber.test(accession)) {
-    redirectTo = {
-      pathname: getEntryPathFor(Namespace.keywords)(
-        `KW-${accession.padStart(4, '0')}`
-      ),
-    };
+  if (accession && reNumber.test(accession)) {
+    redirectTo = `KW-${accession.padStart(4, '0')}`;
   }
 
   const { data, loading, error, status, progress } =
@@ -62,7 +57,9 @@ const KeywordsEntry = () => {
     );
 
   if (redirectTo) {
-    return <Redirect to={redirectTo} />;
+    return (
+      <Navigate replace to={getEntryPath(Namespace.keywords, redirectTo)} />
+    );
   }
 
   if (error || (!loading && !data)) {

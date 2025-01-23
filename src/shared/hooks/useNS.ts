@@ -1,4 +1,4 @@
-import { useHistory, useRouteMatch } from 'react-router';
+import { useLocation, useMatch } from 'react-router';
 import {
   allSearchResultLocations,
   getJobResultsLocation,
@@ -11,19 +11,15 @@ const findNamespace = (potentialNS: string) =>
   Object.values(Namespace).find((ns) => ns === potentialNS);
 
 const useNS = (override?: Namespace): Namespace | undefined => {
-  const match = useRouteMatch<{
-    namespace: Namespace;
-  }>(allSearchResultLocations);
+  const match = useMatch(allSearchResultLocations);
 
-  const history = useHistory();
-  const jobResultsLocation = getJobResultsLocation(history.location.pathname);
+  const location = useLocation();
+  const jobResultsLocation = getJobResultsLocation(location.pathname);
 
-  const toolMatch = useRouteMatch<{
-    namespace?: string;
-  }>(
+  const toolMatch = useMatch(
     jobResultsLocation && jobResultsLocation in LocationToPath
       ? LocationToPath[jobResultsLocation]
-      : []
+      : ''
   );
   const jobResultsNamespace = toolMatch?.params.namespace;
 
@@ -35,7 +31,7 @@ const useNS = (override?: Namespace): Namespace | undefined => {
     return findNamespace(jobResultsNamespace);
   }
 
-  if (!match) {
+  if (!match?.params.namespace) {
     return undefined;
   }
 

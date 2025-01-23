@@ -1,21 +1,20 @@
 import { useEffect } from 'react';
-import { useHistory, generatePath, useRouteMatch } from 'react-router';
+import { useNavigate, useMatch, useLocation, generatePath } from 'react-router';
 
 import { LocationToPath, Location } from '../../app/config/urls';
 
 // Typos identified in Google Search Console of websites linking to wrong URL
 const weirdTypos = /^ |.html?$|;|&.*$/g;
 
-const useMatchWithRedirect = <
-  T extends { accession?: string; subPage?: string },
->(
+const useMatchWithRedirect = (
   location: Location,
   possibleSubPages: Record<string, string>,
   defaultSubPage?: string,
   redirect?: Record<string, string>
 ) => {
-  const history = useHistory();
-  const match = useRouteMatch<T>(LocationToPath[location]);
+  const navigate = useNavigate();
+  const historyLocation = useLocation();
+  const match = useMatch(LocationToPath[location]);
 
   useEffect(() => {
     if (!match) {
@@ -30,26 +29,32 @@ const useMatchWithRedirect = <
         .replaceAll(weirdTypos, '')
         .toUpperCase();
       if (accession !== cleanedAccession) {
-        history.replace({
-          ...history.location,
-          pathname: generatePath(LocationToPath[location], {
-            ...match.params,
-            accession: cleanedAccession,
-          }),
-        });
+        navigate(
+          {
+            ...historyLocation,
+            pathname: generatePath(LocationToPath[location], {
+              ...match.params,
+              accession: cleanedAccession,
+            }),
+          },
+          { replace: true }
+        );
         return;
       }
     }
     const { subPage } = match.params;
     // if the subpage matches a redirect pattern, redirect to new subpage
     if (subPage && redirect?.[subPage]) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[location], {
-          ...match.params,
-          subPage: redirect[subPage],
-        }),
-      });
+      navigate(
+        {
+          ...historyLocation,
+          pathname: generatePath(LocationToPath[location], {
+            ...match.params,
+            subPage: redirect[subPage],
+          }),
+        },
+        { replace: true }
+      );
       return;
     }
     const subPageValues = Object.values(possibleSubPages);
@@ -59,15 +64,18 @@ const useMatchWithRedirect = <
       // if URL doesn't finish with an a valid subpage redirect to the default
       !subPageValues.includes(subPage)
     ) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[location], {
-          ...match.params,
-          subPage: defaultSubPage || subPageValues[0],
-        }),
-      });
+      navigate(
+        {
+          ...historyLocation,
+          pathname: generatePath(LocationToPath[location], {
+            ...match.params,
+            subPage: defaultSubPage || subPageValues[0],
+          }),
+        },
+        { replace: true }
+      );
     }
-  }, [match, history, location, defaultSubPage, possibleSubPages, redirect]);
+  }, [match, navigate, location, defaultSubPage, possibleSubPages, redirect]);
 
   return match;
 };

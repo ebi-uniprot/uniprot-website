@@ -1,9 +1,10 @@
 import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
 import {
   generatePath,
-  Redirect,
-  RouteChildrenProps,
-  useHistory,
+  useLocation,
+  useParams,
+  useNavigate,
+  Navigate,
 } from 'react-router';
 import { Card, Loader } from 'franklin-sites';
 import {
@@ -100,13 +101,12 @@ const HelpEntryContent = ({
   data,
   upperHeadingLevel = 'h1',
 }: HelpEntryContentProps) => {
-  const history = useHistory();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    document
-      .getElementById(history.location.hash.substring(1))
-      ?.scrollIntoView();
-  }, [history.location.hash]);
+    document.getElementById(location.hash.substring(1))?.scrollIntoView();
+  }, [location.hash]);
 
   // Hijack clicks on content
   const handleClick = useCallback<MouseEventHandler<HTMLElement>>(
@@ -122,7 +122,7 @@ const HelpEntryContent = ({
           // Don't navigate away!
           event.preventDefault();
           // And just replace the current URL with the next page
-          history.push(href.replace(sameAppURL, '/'));
+          navigate(href.replace(sameAppURL, '/'));
         } else {
           // analytics, similar as in InstrumentedExternalLink
           const url = new URL(href);
@@ -163,14 +163,12 @@ type Props = {
   overrideContent?: HelpEntryResponse;
 };
 
-const HelpEntry = ({
-  history,
-  match,
-  inPanel,
-  overrideContent,
-}: RouteChildrenProps<{ accession: string }> & Props) => {
-  const accession = match?.params.accession;
-  const isReleaseNotes = match?.path.includes('release-notes');
+const HelpEntry = ({ inPanel, overrideContent }: Props) => {
+  const { accession } = useParams();
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const isReleaseNotes = location.pathname.includes('release-notes');
 
   let url = null;
   if (!overrideContent) {
@@ -186,13 +184,16 @@ const HelpEntry = ({
       return;
     }
     // if the accession has slashes, replace with dashes
-    history.replace({
-      ...history.location,
-      pathname: generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-        accession: accession.replaceAll('/', '-'),
-      }),
-    });
-  }, [isReleaseNotes, accession, history]);
+    navigate(
+      {
+        ...location,
+        pathname: generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+          accession: accession.replaceAll('/', '-'),
+        }),
+      },
+      { replace: true }
+    );
+  }, [isReleaseNotes, accession, navigate]);
 
   const {
     data: loadedData,
@@ -225,7 +226,8 @@ const HelpEntry = ({
 
   if (error || !data) {
     return (
-      <Redirect
+      <Navigate
+        replace
         to={{
           pathname: LocationToPath[Location.HelpResults],
           search: stringifyQuery({

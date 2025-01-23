@@ -1,5 +1,5 @@
 import { Fragment, memo } from 'react';
-import { Link, useRouteMatch } from 'react-router';
+import { Link, useMatch } from 'react-router';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
 
@@ -148,7 +148,7 @@ const DiseaseInvolvementEntry = ({
   accession,
 }: DiseaseInvolvementEntryProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = useMatch(allEntryPages);
   const { disease, molecule, note } = comment;
 
   if (!disease && !note) {

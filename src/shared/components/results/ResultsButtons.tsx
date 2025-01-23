@@ -8,7 +8,7 @@ import {
   ChangeEvent,
   useCallback,
 } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import {
   DownloadIcon,
   // StatisticsIcon,
@@ -109,7 +109,7 @@ const ResultsButtons: FC<
   } = useViewMode(namespaceOverride, disableCardToggle);
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
     useColumnNames({ namespaceOverride });
-  const history = useHistory();
+  const location = useLocation();
   const { pathname } = useLocation();
   const dispatch = useMessagesDispatch();
 
@@ -121,7 +121,7 @@ const ResultsButtons: FC<
       invalidUrlViewMode,
       invalidUrlColumnNames,
     ].filter(Boolean) as InvalidParamValue[];
-    const [, unknownParams] = getParamsFromURL(history.location.search);
+    const [, unknownParams] = getParamsFromURL(location.search);
     if (invalidParamValues.length || unknownParams.length) {
       const content = (
         <>
@@ -162,12 +162,7 @@ const ResultsButtons: FC<
         })
       );
     }
-  }, [
-    dispatch,
-    history.location.search,
-    invalidUrlColumnNames,
-    invalidUrlViewMode,
-  ]);
+  }, [dispatch, location.search, invalidUrlColumnNames, invalidUrlViewMode]);
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
