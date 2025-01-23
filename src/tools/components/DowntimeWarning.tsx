@@ -35,7 +35,7 @@ type Props = {
 //   </Message>
 // );
 
-export const DowntimeWarning = ({ children }: Props) => (
+const DowntimeWarning = ({ children }: Props) => (
   <Message level="warning">
     Unexpected server issues are causing {children} to be unstable at moment, we
     are working on it. If you encounter an error, please come back later to

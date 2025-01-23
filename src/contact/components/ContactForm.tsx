@@ -18,7 +18,7 @@ import { createPath } from 'history';
 import HTMLHead from '../../shared/components/HTMLHead';
 import ContactLink from './ContactLink';
 import ExternalLink from '../../shared/components/ExternalLink';
-import { DowntimeWarning } from '../../tools/components/DowntimeWarning';
+import DowntimeWarning from '../../tools/components/DowntimeWarning';
 
 import {
   useFormLogic,

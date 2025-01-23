@@ -13,6 +13,7 @@ export default [
   ...typescriptEslint.configs.recommended,
   react.configs.flat.recommended,
   importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
   jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   {
@@ -97,6 +98,7 @@ export default [
         node: {
           extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
         },
+        typescript: true
       },
       react: {
         version: "detect",
