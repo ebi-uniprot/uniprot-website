@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import {
   useCallback,
   useState,
@@ -94,7 +93,7 @@ const BlastSummaryTrack = ({
           }
         }
         const color = scoringColorDict[selectedScoring];
-        // eslint-disable-next-line no-param-reassign
+
         node.data = [
           {
             accession: v1().toString(),

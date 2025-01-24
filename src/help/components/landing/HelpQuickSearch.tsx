@@ -89,6 +89,7 @@ const HelpQuickSearch = () => {
             history.push(allArticlesLocation);
           }
         }}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />
       {!!allArticles?.length && !!infoData?.length && searchValue && (

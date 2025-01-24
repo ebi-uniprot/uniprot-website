@@ -22,7 +22,7 @@ describe('useBasket hook', () => {
         [Namespace.uniparc, new Set()],
       ])
     );
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],
       [Namespace.uniref]: [],
@@ -78,7 +78,7 @@ describe('useBasket hook', () => {
         [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
       ])
     );
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],
       [Namespace.uniref]: [],
@@ -111,7 +111,7 @@ describe('useBasket hook', () => {
         [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
       ])
     );
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],
       [Namespace.uniref]: [],

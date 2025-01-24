@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import AbstractSectionTable from './AbstractSectionTable';
 
 import { mergeToMap } from './utils';

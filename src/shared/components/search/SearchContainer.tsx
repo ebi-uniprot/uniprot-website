@@ -305,6 +305,7 @@ const SearchContainer = ({
           onNamespaceChange={setSearchspace}
           selectedNamespace={searchspace}
           secondaryButtons={secondaryButtons}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={isOnHomePage}
         />
         {isOnHomePage && (

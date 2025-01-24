@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this, lines-between-class-members */
 import { screen, waitFor } from '@testing-library/react';
 
 import InPageNav from '../InPageNav';

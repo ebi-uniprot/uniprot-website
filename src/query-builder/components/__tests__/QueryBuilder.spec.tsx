@@ -84,7 +84,7 @@ describe('QueryBuilder', () => {
       '[data-testid="search__clause"]'
     );
     fireEvent.click(dropdownButton);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     const entryNameFieldOption = getByText(clause!, /Entry Name \[ID\]/);
     fireEvent.click(entryNameFieldOption);
     entryNameField = screen.queryByPlaceholderText('P53_HUMAN');

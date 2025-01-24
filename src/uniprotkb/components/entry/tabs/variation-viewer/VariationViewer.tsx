@@ -457,7 +457,7 @@ const VariationViewer = ({
     };
 
     element.addEventListener('change', listener);
-    // eslint-disable-next-line consistent-return
+
     return () => element.removeEventListener('change', listener);
   }, [data, tableScroll]);
   // 'data' is not directly used in the effect, but we know it's when we're

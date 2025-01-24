@@ -196,7 +196,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     dispatch(resetFormState());
 
     // imperatively reset SequenceSearchLoader... 😷
-    // eslint-disable-next-line no-unused-expressions
+
     sslRef.current?.reset();
   };
 
@@ -286,7 +286,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
         sendGtagEventJobSubmit(JobTypes.BLAST, { target: parameters.database });
         // Ensure there's a bit of wait between creating the jobs in order to
         // have different creation times and have consistent ordering.
-        // eslint-disable-next-line no-await-in-loop
+
         await sleep(0);
       }
 

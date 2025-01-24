@@ -152,7 +152,6 @@ const Abstract: FC<React.PropsWithChildren<AbstractProps>> = ({
       </Button>
       {display && (
         <p
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: cleanText(abstract, {
               ...cleanTextDefaultOptions,

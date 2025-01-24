@@ -77,7 +77,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     }
     const modifiedFormData = modifyFormData(formData, token);
 
-    // eslint-disable-next-line consistent-return
     return {
       method: 'POST',
       data: modifiedFormData,
@@ -117,7 +116,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
       // Clear the current form (just in case)
       document.querySelector<HTMLFormElement>('main form')?.reset();
       // Navigate the user to previous page, or to the homepage if not possible
-      // eslint-disable-next-line uniprot-website/use-config-location
       history.push(referrer || LocationToPath[Location.Home]);
     }
   }, [sendData.data, dispatch, history, referrer]);

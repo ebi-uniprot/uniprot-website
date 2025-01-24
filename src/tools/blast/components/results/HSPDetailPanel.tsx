@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Loader, SlidingPanel } from 'franklin-sites';

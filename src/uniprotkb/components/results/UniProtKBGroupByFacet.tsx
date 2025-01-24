@@ -1,4 +1,3 @@
-/* eslint-disable uniprot-website/use-config-location */
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';

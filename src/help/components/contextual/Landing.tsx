@@ -179,12 +179,10 @@ const getAllArticles = () => {
     }
     /* istanbul ignore if */
     if (!articleId) {
-      // eslint-disable-next-line no-continue
       continue; // shouldn't happen
     }
     // If this article was already in the page, and visible
     if (inPageArticles.get(articleId)) {
-      // eslint-disable-next-line no-continue
       continue;
     }
     const rect = element.getBoundingClientRect();

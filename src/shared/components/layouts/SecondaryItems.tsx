@@ -109,7 +109,7 @@ const ToolsDashboard = () => {
       });
     });
     ro.observe(document.body);
-    // eslint-disable-next-line consistent-return
+
     return () => ro.unobserve(document.body);
   }, [display, setButtonX]);
 
@@ -193,7 +193,7 @@ const Basket = () => {
       });
     });
     ro.observe(document.body);
-    // eslint-disable-next-line consistent-return
+
     return () => ro.unobserve(document.body);
   }, [display, setButtonX]);
 

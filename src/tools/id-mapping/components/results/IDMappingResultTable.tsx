@@ -129,7 +129,6 @@ const IDMappingResultTable = ({
                     <LongNumber>{activeLength}</LongNumber>
                   </strong>{' '}
                   <Link
-                    // eslint-disable-next-line uniprot-website/use-config-location
                     to={(location) => ({
                       ...location,
                       search: stringifyQuery({ query: 'active:true' }),
@@ -144,7 +143,6 @@ const IDMappingResultTable = ({
                 <LongNumber>{obsoleteLength}</LongNumber>
               </strong>{' '}
               <Link
-                // eslint-disable-next-line uniprot-website/use-config-location
                 to={(location) => ({
                   ...location,
                   search: stringifyQuery({ query: 'active:false' }),

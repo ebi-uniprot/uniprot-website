@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 import App from './app/components/App';
 import GlobalContext from './app/contexts/Global';
 
-// eslint-disable-next-line no-console
 console.info(
   `Built with git commit ${GIT_COMMIT_HASH} ${
     GIT_COMMIT_STATE
@@ -33,7 +32,6 @@ if ('serviceWorker' in navigator && navigator.serviceWorker) {
   ).then((serviceWorkerModule) => {
     if (obsoleteHosts.has(window.location.host)) {
       serviceWorkerModule.unregister().finally(() => {
-        // eslint-disable-next-line no-restricted-globals
         location.replace('https://www.uniprot.org');
       });
     } else {
@@ -44,13 +42,11 @@ if ('serviceWorker' in navigator && navigator.serviceWorker) {
     }
   });
 } else if (obsoleteHosts.has(window.location.host)) {
-  // eslint-disable-next-line no-restricted-globals
   location.replace('https://www.uniprot.org');
 }
 
 /* Page tracking */
 if (process.env.NODE_ENV !== 'development') {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const title = document.querySelector('title')!;
 
   let previousHref: null | string;

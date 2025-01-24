@@ -9,7 +9,6 @@ export type MessagesAction = ActionType<typeof messagesActions>;
 let fallbackId = 0;
 
 const messagesReducers = (
-  // eslint-disable-next-line default-param-last
   state: MessagesState = messagesInitialState,
   action: MessagesAction
 ): MessagesState => {
@@ -19,7 +18,6 @@ const messagesReducers = (
       if (action.payload.id) {
         payload = action.payload as MessageType;
       } else {
-        // eslint-disable-next-line no-plusplus
         payload = { ...action.payload, id: `default-id-${++fallbackId}` };
       }
       return {

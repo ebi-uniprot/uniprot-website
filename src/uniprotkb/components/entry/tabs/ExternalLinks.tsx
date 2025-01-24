@@ -16,7 +16,7 @@ type EntryExternalLinksProps = {
   transformedData: UniProtkbUIModel;
 };
 
-export type EntryExternalLinks = {
+type EntryExternalLinks = {
   xrefData: XrefUIModel[];
 };
 

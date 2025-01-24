@@ -54,7 +54,6 @@ const LazyComponent: FC<React.PropsWithChildren<Props>> = ({
     [rootMargin, render]
   );
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (render === undefined && observer && ref.current && !wasShown) {
       observer.observe(ref.current);

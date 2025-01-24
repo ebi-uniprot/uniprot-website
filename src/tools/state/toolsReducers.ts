@@ -16,7 +16,6 @@ export type ToolsAction = ActionType<typeof toolsActions>;
 const store = new JobStore(Stores.METADATA);
 
 const toolsReducers = (
-  // eslint-disable-next-line default-param-last
   state: ToolsState = toolsInitialState,
   action: ToolsAction
 ): ToolsState => {

@@ -99,7 +99,6 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
                 // eslint-disable-next-line react/no-array-index-key
                 <Fragment key={index}>
                   {text}{' '}
-                  {/* eslint-disable-next-line uniprot-website/use-config-location */}
                   <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
                 </Fragment>
               );

@@ -230,7 +230,6 @@ describe('Download with ID mapping results', () => {
   it('should not display column selection for results which map to a non-uniprot namespace and have correct download link', () => {
     customRender(
       <IDMappingDetailsContext.Provider
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
         value={{ loading: false, data: SimpleMappingDetails }}
       >
         <Download
@@ -255,7 +254,6 @@ describe('Download with ID mapping results', () => {
   it('should display column selection for results which map to a uniprot namespace and have correct download link', async () => {
     customRender(
       <IDMappingDetailsContext.Provider
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
         value={{ loading: false, data: UniProtkbMappingDetails }}
       >
         <Download

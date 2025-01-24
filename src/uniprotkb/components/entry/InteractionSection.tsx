@@ -285,7 +285,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           <h3 data-article-id="complex_viewer">Complex viewer</h3>
           <div className={styles['viewer-ids-container']}>
             <Dropdown
-              // eslint-disable-next-line react/no-unstable-nested-components
               visibleElement={(onClick: () => unknown) => (
                 <Button variant="primary" onClick={onClick}>
                   {complexString}
