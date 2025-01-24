@@ -15,14 +15,14 @@ const DnsDowntimeWarning = () => {
         >
           <small>
             {`Essential maintenance is planned to begin on
-            ${new Date('January 28, 2025').toDateString()}. The website may be temporarily unavailable. Please use our fallback: `}
+            ${new Date('January 24, 2025').toDateString()}. The website may be temporarily unavailable. Please use our fallback: `}
             <a
               href="https://wwwdev.ebi.ac.uk/uniprot/front-end/fallback/"
               rel="nofollow"
             >
               https://wwwdev.ebi.ac.uk/uniprot/front-end/fallback/
             </a>
-            {` during this time.`}
+            {` in case of any outage.`}
           </small>
         </Message>
       ) : null}
