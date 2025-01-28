@@ -24,7 +24,7 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 
 import { LocationToPath, Location } from '../../config/urls';
-import { facebook, linkedIn, twitterX } from '../../config/socialUrls';
+import { linkedIn, twitterX } from '../../config/socialUrls';
 
 import dataToSchema, { isCourseOnsite } from './training.structured';
 
@@ -32,7 +32,6 @@ import styles from './styles/non-critical.module.scss';
 
 import LinkedInLogo from '../../../images/linkedin-logo.svg';
 import XLogo from '../../../images/x-logo.svg';
-import FacebookLogo from '../../../images/facebook-logo.svg';
 
 import traingImg from '../../../images/training.jpg';
 
@@ -174,9 +173,6 @@ const NeedHelp = () => {
           noIcon
         >
           <XLogo width="2em" />
-        </ExternalLink>
-        <ExternalLink url={facebook} title="UniProt posts on Facebook" noIcon>
-          <FacebookLogo width="2em" />
         </ExternalLink>
       </div>
       <div
