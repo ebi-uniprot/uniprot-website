@@ -1,3 +1,4 @@
+export const linkedIn = 'https://www.linkedin.com/company/uniprot/';
 export const twitterX = 'https://twitter.com/uniprot';
 export const facebook = 'https://www.facebook.com/uniprot.org';
 export const youtube = 'https://www.youtube.com/user/uniprotvideos';
