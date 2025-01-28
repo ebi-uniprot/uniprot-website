@@ -16,6 +16,47 @@ exports[`BlastForm test Renders the form 1`] = `
       </span>
     </h1>
   </div>
+  <div
+    class="message message--warning"
+    role="status"
+  >
+    <div
+      class="message__side-border"
+    />
+    <test-file-stub
+      classname="message--icon-align-top"
+      height="1.125em"
+      width="1.125em"
+    />
+    <div
+      class="message__title"
+    >
+      Scheduled maintenance will cause BLAST to have less available resources between the following time:
+      <div
+        class="time"
+      >
+        99/99/9999, 00:00:00
+        <span
+          class="spaced"
+        >
+          to
+        </span>
+        99/99/9999, 00:00:00
+        <span
+          class="spaced"
+        >
+          (UTC time zone)
+        </span>
+      </div>
+      Your job might be queued longer than usual.
+      <br />
+      Please try submitting jobs before or after this period. In addition, running jobs might be interrupted and so might need to be resubmitted  
+      <test-file-stub
+        width="1em"
+      />
+      .
+    </div>
+  </div>
   <form
     aria-label="BLAST job submission form"
   >
