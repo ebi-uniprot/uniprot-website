@@ -75,6 +75,7 @@ type Action<T> =
 const createReducer =
   <T>() =>
   (state: UseDataAPIState<T>, action: Action<T>): UseDataAPIState<T> => {
+    // eslint-disable-next-line default-case
     switch (action.type) {
       case ActionType.INIT:
         return {

@@ -94,7 +94,8 @@ export default [
       'react/require-default-props': 'off',
       'react/static-property-placement': 'off',
       'camelcase': 'error',
-      'class-methods-use-this': 'error'   
+      'class-methods-use-this': 'error',
+      'default-case': 'error'
     },
     settings: {
       'import/resolver': {

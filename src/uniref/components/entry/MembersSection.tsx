@@ -169,7 +169,7 @@ const RelatedClusters = memo(
     const baseSearchString = `query=(cluster:${id})`;
     // "Expand" to related *lower* identity clusters, redirect to entry page
     // "List" related *higher* identity clusters
-
+    // eslint-disable-next-line default-case
     switch (identity) {
       case 50:
         return (
