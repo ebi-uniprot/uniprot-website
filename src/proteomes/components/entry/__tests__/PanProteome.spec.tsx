@@ -30,6 +30,7 @@ describe('PanProteome', () => {
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
     expect(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       screen.getByText(customisedData.taxonomy.scientificName!, {
         exact: false,
       })

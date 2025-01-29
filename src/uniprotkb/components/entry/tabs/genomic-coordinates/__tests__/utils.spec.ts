@@ -11,6 +11,7 @@ describe('groupCoordinates', () => {
 describe('sortExons', () => {
   it('sorts exons according to their genomic coordinates', () => {
     expect(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       Array.from(P42283[0].gnCoordinate![0].genomicLocation.exon).sort(
         sortExons()
       )
@@ -19,6 +20,7 @@ describe('sortExons', () => {
 
   it('sorts exons according to their genomic coordinates, for reverse strands', () => {
     expect(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       Array.from(P42283[0].gnCoordinate![0].genomicLocation.exon).sort(
         sortExons(true)
       )

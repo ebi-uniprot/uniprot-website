@@ -47,6 +47,7 @@ if ('serviceWorker' in navigator && navigator.serviceWorker) {
 
 /* Page tracking */
 if (process.env.NODE_ENV !== 'development') {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const title = document.querySelector('title')!;
 
   let previousHref: null | string;

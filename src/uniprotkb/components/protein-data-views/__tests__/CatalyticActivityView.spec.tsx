@@ -80,6 +80,7 @@ describe('ReactionDirection component', () => {
   it('should render ReactionDirection when one physiologicalReactions is present', () => {
     const { asFragment } = customRender(
       <ReactionDirection
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         physiologicalReactions={physiologicalReactions!.slice(0, 1)}
       />
     );
@@ -88,6 +89,7 @@ describe('ReactionDirection component', () => {
 
   it('should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards)', () => {
     const { asFragment } = customRender(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       <ReactionDirection physiologicalReactions={physiologicalReactions!} />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -101,9 +103,8 @@ describe('ReactionDirection component', () => {
     const { asFragment } = customRender(
       <ReactionDirection
         physiologicalReactions={[
-          ...physiologicalReactions!,
-
-          ...physiologicalReactions!,
+          ...physiologicalReactions!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+          ...physiologicalReactions!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
         ]}
       />
     );

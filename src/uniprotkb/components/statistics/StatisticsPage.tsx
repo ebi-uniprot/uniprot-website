@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState } from 'react';
 import { Card, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';

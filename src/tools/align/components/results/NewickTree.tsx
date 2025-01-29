@@ -171,6 +171,7 @@ const NewickTree: FC<React.PropsWithChildren<NewickTreeProps>> = ({
       .classed('end-link', true)
       .attr('d', (d) =>
         pm({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           source: d.parent!,
           target: d,
         })
@@ -309,6 +310,7 @@ const NewickTree: FC<React.PropsWithChildren<NewickTreeProps>> = ({
               }
             }
             return pm({
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               source: d.parent!,
               target: fakeTarget,
             });

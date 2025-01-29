@@ -319,7 +319,7 @@ const EntryHistoryList = ({
                 events[event.eventType] = [];
               }
               // I've just checked above if it's not defined, I know it is now
-
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               events[event.eventType]!.push(event.targetAccession);
             }
 
