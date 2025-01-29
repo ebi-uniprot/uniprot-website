@@ -49,12 +49,6 @@ export default [
       'default-case': 'error',
       'default-param-last': 'error',
       'import/extensions': 'off',
-      'import/prefer-default-export': 'off',
-      'jsx-a11y/control-has-associated-label': 'error',
-      'jsx-a11y/label-has-associated-control': 'off',
-      'jsx-a11y/label-has-for': 'off',
-      'jsx-no-lambda': 'off',
-      'jsx-no-multiline-js': 'off',
       'import/no-extraneous-dependencies': [
         'error',
         {
@@ -67,6 +61,14 @@ export default [
           ],
         },
       ],
+      'import/prefer-default-export': 'off',
+      'jsx-a11y/control-has-associated-label': 'error',
+      'jsx-a11y/label-has-associated-control': 'off',
+      'jsx-a11y/label-has-for': 'off',
+      'jsx-no-lambda': 'off',
+      'jsx-no-multiline-js': 'off',
+      
+      'no-await-in-loop': 'error',
       'no-restricted-syntax': 'off',
       'no-shadow': 'off',
       'no-use-before-define': 'off',

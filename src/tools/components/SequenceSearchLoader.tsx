@@ -203,7 +203,7 @@ const SequenceSearchLoader = forwardRef<
             if (!url) {
               continue;
             }
-
+            // eslint-disable-next-line no-await-in-loop
             let { data } = await fetchData<NetworkResponses>(url);
             if ('results' in data) {
               [data] = data.results;

@@ -81,7 +81,7 @@ const toolsMiddleware = (
         toolsDispatch(deleteJob(internalID));
       } else if (job.status === Status.FINISHED) {
         // job is finished and should still be present on the server
-
+        // eslint-disable-next-line no-await-in-loop
         await checkJobStatus(job);
       }
     }
