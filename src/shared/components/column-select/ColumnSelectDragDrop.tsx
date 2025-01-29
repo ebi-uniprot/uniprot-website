@@ -1,6 +1,4 @@
 import { FC, useEffect, useRef } from 'react';
-import { Chip } from 'franklin-sites';
-import cn from 'classnames';
 
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
@@ -32,7 +30,13 @@ const ColumnSelectDragDrop: FC<
     previousColumns.current = columns;
   }, [columns]);
 
-  return <HorizontalSortableList />;
+  return (
+    <HorizontalSortableList
+      items={columns}
+      onDragDrop={onDragDrop}
+      onRemove={onRemove}
+    />
+  );
 
   // (
   //   <DragDropContext
