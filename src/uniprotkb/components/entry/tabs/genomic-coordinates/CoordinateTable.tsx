@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Chip, LongNumber } from 'franklin-sites';
@@ -303,7 +304,6 @@ const CoordinateExtraContent = ({
             <th>Exon ID</th>
             <th>UniProtKB Isoform</th>
             <th>Position(s)</th>
-            {}
             <th />
           </Table.Head>
           <Table.Body data={exons}>

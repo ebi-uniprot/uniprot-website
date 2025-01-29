@@ -43,9 +43,14 @@ export default [
       ],
       '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
       '@typescript-eslint/prefer-interface': 'off',
+      camelcase: 'error',
+      'class-methods-use-this': 'error',
       curly: ['error', 'all'],
+      'default-case': 'error',
+      'default-param-last': 'error',
       'import/extensions': 'off',
       'import/prefer-default-export': 'off',
+      'jsx-a11y/control-has-associated-label': 'error',
       'jsx-a11y/label-has-associated-control': 'off',
       'jsx-a11y/label-has-for': 'off',
       'jsx-no-lambda': 'off',
@@ -93,10 +98,6 @@ export default [
       'react/react-in-jsx-scope': 'off',
       'react/require-default-props': 'off',
       'react/static-property-placement': 'off',
-      'camelcase': 'error',
-      'class-methods-use-this': 'error',
-      'default-case': 'error',
-      'default-param-last': 'error'
     },
     settings: {
       'import/resolver': {

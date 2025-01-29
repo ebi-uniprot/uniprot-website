@@ -288,6 +288,7 @@ const ProteinExistenceTable = ({
               <td>
                 {proteinExistenceToNumber.get(name)}: {label}
               </td>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
               <td className={styles.end}>
                 <Link
                   to={{
