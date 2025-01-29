@@ -95,7 +95,8 @@ export default [
       'react/static-property-placement': 'off',
       'camelcase': 'error',
       'class-methods-use-this': 'error',
-      'default-case': 'error'
+      'default-case': 'error',
+      'default-param-last': 'error'
     },
     settings: {
       'import/resolver': {

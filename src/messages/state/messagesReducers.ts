@@ -9,6 +9,7 @@ export type MessagesAction = ActionType<typeof messagesActions>;
 let fallbackId = 0;
 
 const messagesReducers = (
+  // eslint-disable-next-line default-param-last
   state: MessagesState = messagesInitialState,
   action: MessagesAction
 ): MessagesState => {
