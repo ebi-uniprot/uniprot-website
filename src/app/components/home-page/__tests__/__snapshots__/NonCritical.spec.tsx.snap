@@ -838,10 +838,10 @@ exports[`non-critical HomePage component should render 1`] = `
       <br />
       <a
         class="external-link"
-        href="https://twitter.com/uniprot"
+        href="https://www.linkedin.com/company/uniprot/"
         rel="noopener"
         target="_blank"
-        title="UniProt posts on X (formerly Twitter)"
+        title="UniProt posts on LinkedIn"
       >
         <test-file-stub
           width="2em"
@@ -849,10 +849,10 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
       <a
         class="external-link"
-        href="https://www.facebook.com/uniprot.org"
+        href="https://x.com/uniprot"
         rel="noopener"
         target="_blank"
-        title="UniProt posts on Facebook"
+        title="UniProt posts on X (formerly Twitter)"
       >
         <test-file-stub
           width="2em"
