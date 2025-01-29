@@ -1,10 +1,10 @@
 import { FC, useEffect, useRef } from 'react';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Chip } from 'franklin-sites';
 import cn from 'classnames';
 
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
+import HorizontalSortableList from './HorizontalSortableList';
 
 import './styles/column-select-drag-drop.scss';
 
@@ -32,53 +32,55 @@ const ColumnSelectDragDrop: FC<
     previousColumns.current = columns;
   }, [columns]);
 
-  return (
-    <DragDropContext
-      onDragEnd={(result) => {
-        if (result.destination) {
-          onDragDrop(result.source.index, result.destination.index);
-        }
-      }}
-    >
-      <Droppable droppableId="droppable" direction="horizontal">
-        {(droppableProvided) => (
-          <div
-            ref={droppableProvided.innerRef}
-            className="column-select-drag-drop__list"
-            {...droppableProvided.droppableProps}
-          >
-            {columns.map(({ itemId, label }, index) => (
-              <Draggable
-                key={itemId}
-                draggableId={itemId}
-                index={index}
-                disableInteractiveElementBlocking
-              >
-                {(draggableProvided, snapshot) => (
-                  <div
-                    ref={draggableProvided.innerRef}
-                    {...draggableProvided.draggableProps}
-                    {...draggableProvided.dragHandleProps}
-                  >
-                    <Chip
-                      disabled={false}
-                      onRemove={() => onRemove(itemId)}
-                      className={cn({
-                        'chip--dragging': snapshot.isDragging,
-                      })}
-                    >
-                      {label}
-                    </Chip>
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {droppableProvided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
-  );
+  return <HorizontalSortableList />;
+
+  // (
+  //   <DragDropContext
+  //     onDragEnd={(result) => {
+  //       if (result.destination) {
+  //         onDragDrop(result.source.index, result.destination.index);
+  //       }
+  //     }}
+  //   >
+  //     <Droppable droppableId="droppable" direction="horizontal">
+  //       {(droppableProvided) => (
+  //         <div
+  //           ref={droppableProvided.innerRef}
+  //           className="column-select-drag-drop__list"
+  //           {...droppableProvided.droppableProps}
+  //         >
+  //           {columns.map(({ itemId, label }, index) => (
+  //             <Draggable
+  //               key={itemId}
+  //               draggableId={itemId}
+  //               index={index}
+  //               disableInteractiveElementBlocking
+  //             >
+  //               {(draggableProvided, snapshot) => (
+  //                 <div
+  //                   ref={draggableProvided.innerRef}
+  //                   {...draggableProvided.draggableProps}
+  //                   {...draggableProvided.dragHandleProps}
+  //                 >
+  //                   <Chip
+  //                     disabled={false}
+  //                     onRemove={() => onRemove(itemId)}
+  //                     className={cn({
+  //                       'chip--dragging': snapshot.isDragging,
+  //                     })}
+  //                   >
+  //                     {label}
+  //                   </Chip>
+  //                 </div>
+  //               )}
+  //             </Draggable>
+  //           ))}
+  //           {droppableProvided.placeholder}
+  //         </div>
+  //       )}
+  //     </Droppable>
+  //   </DragDropContext>
+  // );
 };
 
 export default ColumnSelectDragDrop;
