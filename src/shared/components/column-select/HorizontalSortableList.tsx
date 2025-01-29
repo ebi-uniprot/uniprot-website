@@ -14,8 +14,8 @@ import {
 
 import SortableItem from './SortableItem';
 
-const HorizontalSortableList = () => {
-  const [items, setItems] = useState(['A', 'B', 'C', 'D', 'E']);
+const HorizontalSortableList = ({ items: foo }) => {
+  const [items, setItems] = useState(foo.map((item) => item.label));
 
   // Create sensors to detect pointer (mouse, touch, etc.)
   const sensors = useSensors(
