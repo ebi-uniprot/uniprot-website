@@ -105,7 +105,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
           filter,
           gapalign: gapped,
           taxids: stringifyTaxa(taxIDs),
-          negative_taxids: stringifyTaxa(negativeTaxIDs),
+          negative_taxids: stringifyTaxa(negativeTaxIDs), // eslint-disable-line camelcase
           stype,
           sequence,
           database,
@@ -186,8 +186,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           filter,
           gapalign,
           taxids,
-
-          negative_taxids,
+          negative_taxids, // eslint-disable-line camelcase
           stype,
           sequence,
           database,

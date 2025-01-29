@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useMemo } from 'react';
 import { groupBy } from 'lodash-es';
 

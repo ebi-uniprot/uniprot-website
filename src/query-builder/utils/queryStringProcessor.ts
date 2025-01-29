@@ -177,7 +177,7 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
         currentClause.searchTerm.term = 'go';
         currentClause.queryBits = {
           go: value,
-          go_evidence: goKeyMatch.groups?.evidence || '',
+          go_evidence: goKeyMatch.groups?.evidence || '', // eslint-disable-line camelcase
         };
       } else {
         // term

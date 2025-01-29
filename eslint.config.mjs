@@ -92,7 +92,8 @@ export default [
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/require-default-props': 'off',
-      'react/static-property-placement': 'off',    
+      'react/static-property-placement': 'off',
+      'camelcase': 'error'   
     },
     settings: {
       'import/resolver': {

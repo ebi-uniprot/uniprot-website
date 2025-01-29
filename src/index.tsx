@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 

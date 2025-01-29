@@ -89,9 +89,9 @@ const fallback: PayloadEBISearch['entries'][0] = {
     location: ['Online'],
     venue: ['Online'],
     status: [],
-    date_time_clean: [],
-    start_date: [],
-    end_date: [],
+    date_time_clean: [], // eslint-disable-line camelcase
+    start_date: [], // eslint-disable-line camelcase
+    end_date: [], // eslint-disable-line camelcase
     city: [],
     country: [],
   },
