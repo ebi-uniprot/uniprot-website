@@ -67,8 +67,8 @@ export default [
       'jsx-a11y/label-has-for': 'off',
       'jsx-no-lambda': 'off',
       'jsx-no-multiline-js': 'off',
-      
       'no-await-in-loop': 'error',
+      'no-bitwise': 'error',
       'no-restricted-syntax': 'off',
       'no-shadow': 'off',
       'no-use-before-define': 'off',

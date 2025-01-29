@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 // Adapted from https://www.myersdaily.org/joseph/javascript/md5.js
 type Number4 = [number, number, number, number];
 type Number16 = [
