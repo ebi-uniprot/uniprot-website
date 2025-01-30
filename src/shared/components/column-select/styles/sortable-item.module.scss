@@ -1,0 +1,15 @@
+.sortable-item {
+  margin: 0 5px;
+  user-select: none;
+  cursor: grab;
+  position: relative;
+  --main-chip-color: var(--fr--color-sea-blue);
+
+  &:hover {
+    --main-chip-color: var(--fr--color-vivid-cerulean);
+  }
+
+  &[aria-pressed='true'] {
+    --main-chip-color: var(--fr--color-vivid-cerulean);
+  }
+}

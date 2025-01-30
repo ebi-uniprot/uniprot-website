@@ -817,7 +817,7 @@ const EntryDownload = ({
           <>
             <legend data-article-id="customize">Customize columns</legend>
             <ColumnSelect
-              onChange={(columns) => setDownloadColumns(columns)}
+              onColumnChange={(columns) => setDownloadColumns(columns)}
               selectedColumns={downloadColumns}
               namespace={namespace}
               isEntryPage={namespace === Namespace.uniparc}

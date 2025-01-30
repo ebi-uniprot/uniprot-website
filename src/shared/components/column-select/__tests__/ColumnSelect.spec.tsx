@@ -14,7 +14,7 @@ import '../../../../uniprotkb/components/__mocks__/mockApi';
 describe('ColumnSelect component', () => {
   // testing implementation?
   let rendered: ReturnType<typeof customRender>;
-  let onChange: jest.Mock;
+  let onColumnChange: jest.Mock;
   const selectedColumns = [
     UniProtKBColumn.accession,
     UniProtKBColumn.proteinName,
@@ -23,10 +23,10 @@ describe('ColumnSelect component', () => {
   const namespace = Namespace.uniprotkb;
 
   beforeEach(async () => {
-    onChange = jest.fn();
+    onColumnChange = jest.fn();
     rendered = customRender(
       <ColumnSelect
-        onChange={onChange}
+        onColumnChange={onColumnChange}
         selectedColumns={selectedColumns}
         namespace={namespace}
       />,
@@ -46,21 +46,21 @@ describe('ColumnSelect component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should call onChange when unselected item is clicked and do so with selected columns and new item', () => {
+  it('should call onColumnChange when unselected item is clicked and do so with selected columns and new item', () => {
     // Open Names & Taxonomy to render contents
     fireEvent.click(screen.getByRole('button', { name: /Names & Taxonomy/ }));
     fireEvent.click(screen.getByRole('checkbox', { name: 'Gene Names' }));
-    expect(onChange).toHaveBeenCalledWith([
+    expect(onColumnChange).toHaveBeenCalledWith([
       ...selectedColumns,
       UniProtKBColumn.geneNames,
     ]);
   });
 
-  it('should call onChange when already selected item is clicked and do so with selected columns without clicked item', () => {
+  it('should call onColumnChange when already selected item is clicked and do so with selected columns without clicked item', () => {
     // Open Names & Taxonomy to render contents
     fireEvent.click(screen.getByRole('button', { name: /Names & Taxonomy/ }));
     fireEvent.click(screen.getByRole('checkbox', { name: 'Protein names' }));
-    expect(onChange).toHaveBeenCalledWith(
+    expect(onColumnChange).toHaveBeenCalledWith(
       selectedColumns.filter((c) => c !== UniProtKBColumn.proteinName)
     );
   });

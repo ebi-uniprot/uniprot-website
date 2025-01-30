@@ -17,7 +17,7 @@ describe('CustomiseTable component', () => {
   let rendered: RenderResult;
   const onSubmit = jest.fn();
   const onReset = jest.fn();
-  const onChange = jest.fn();
+  const onColumnChange = jest.fn();
   const onCancel = jest.fn();
   const selectedColumns = [
     UniProtKBColumn.accession,
@@ -30,7 +30,7 @@ describe('CustomiseTable component', () => {
       <CustomiseTable
         onSubmit={onSubmit}
         onReset={onReset}
-        onChange={onChange}
+        onColumnChange={onColumnChange}
         onCancel={onCancel}
         namespace={Namespace.uniprotkb}
         isEntryPage={false}
