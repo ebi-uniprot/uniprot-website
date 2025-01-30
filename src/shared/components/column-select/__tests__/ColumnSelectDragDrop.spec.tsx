@@ -6,8 +6,6 @@ import ColumnSelectDragDrop, {
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
-// TODO: test that some other way, the testing library for react-beautiful-dnd
-// TODO: seems to be outdated (or will soon be) because it's firing warnings
 describe('ColumnSelectDragDrop component', () => {
   let props: ColumnSelectDragDropProps;
   let rendered: RenderResult;
