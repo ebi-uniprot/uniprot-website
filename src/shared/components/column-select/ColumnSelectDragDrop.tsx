@@ -7,6 +7,10 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
+  restrictToHorizontalAxis,
+  restrictToFirstScrollableAncestor,
+} from '@dnd-kit/modifiers';
+import {
   SortableContext,
   horizontalListSortingStrategy,
 } from '@dnd-kit/sortable';
@@ -16,7 +20,7 @@ import SortableItem from './SortableItem';
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
 
-import './styles/column-select-drag-drop.scss';
+import styles from './styles/column-select-drag-drop.module.scss';
 
 type Props = {
   columns: SelectedColumn[];
@@ -49,9 +53,13 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }: Props) => {
   }, [columns]);
 
   return (
-    <DndContext sensors={sensors} onDragEnd={onDragDrop}>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={onDragDrop}
+      modifiers={[restrictToHorizontalAxis, restrictToFirstScrollableAncestor]}
+    >
       <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
-        <div style={{ display: 'flex', overflowX: 'auto' }}>
+        <div className={styles['column-select-drag-drop']}>
           {columns.map((column) => (
             <SortableItem key={column.id} id={column.id} onRemove={onRemove}>
               {column.label}
