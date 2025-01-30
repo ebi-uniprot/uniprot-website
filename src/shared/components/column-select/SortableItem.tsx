@@ -3,13 +3,15 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Chip } from 'franklin-sites';
 
-interface SortableItemProps {
-  id: string;
-  onRemove: (id: string) => void;
-  children: ReactNode;
-}
+import { Column } from '../../config/columns';
 
-const SortableItem = ({ id, children, onRemove }: SortableItemProps) => {
+type Props = {
+  id: Column;
+  onRemove: (id: Column) => void;
+  children: ReactNode;
+};
+
+const SortableItem = ({ id, children, onRemove }: Props) => {
   const {
     attributes,
     listeners,
