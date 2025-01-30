@@ -44,7 +44,9 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }: Props) => {
     // a user selects a new column. This is to make it clear to the user that
     // their column selection has been registered and is present in the list.
     if (columns.length > previousColumns.current.length) {
-      const dndList = document.querySelector('.column-select-drag-drop__list');
+      const dndList = document.querySelector(
+        `.${styles['column-select-drag-drop']}`
+      );
       if (dndList) {
         dndList.scrollLeft = dndList.scrollWidth;
       }
