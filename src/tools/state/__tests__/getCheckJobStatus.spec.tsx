@@ -34,7 +34,7 @@ beforeAll(() => {
   window.fetch = jest.fn();
   mock = new MockAdapter(axios);
   jest.spyOn(Date, 'now').mockImplementation(() => 0);
-
+  // eslint-disable-next-line no-console
   console.error = jest.fn();
 });
 

@@ -26,7 +26,7 @@ const SimilarityView = ({ children, justLinks }: SimilarityViewProps) => {
   const familyLink = (term: string, link?: string) => {
     const [plainText, family] = splitFamilyFromPlainText(term);
 
-    linkIndex++;
+    linkIndex += 1;
 
     return (
       <Fragment key={family}>

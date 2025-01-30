@@ -19,7 +19,8 @@ const messagesReducers = (
       if (action.payload.id) {
         payload = action.payload as MessageType;
       } else {
-        payload = { ...action.payload, id: `default-id-${++fallbackId}` };
+        fallbackId += 1;
+        payload = { ...action.payload, id: `default-id-${fallbackId}` };
       }
       return {
         ...state,

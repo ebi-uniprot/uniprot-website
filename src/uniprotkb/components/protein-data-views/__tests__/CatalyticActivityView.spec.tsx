@@ -14,6 +14,7 @@ import catalyticActivityUIData from './__mocks__/catalyticActivityUIData';
 
 describe('CatalyticActivityView component', () => {
   beforeAll(() => {
+    // eslint-disable-next-line no-console
     console.warn = jest.fn();
   });
 
@@ -99,6 +100,7 @@ describe('ReactionDirection component', () => {
   });
 
   it('should not render a ReactionDirection when more than two physiologicalReactions are present and to have raised the approriate error in the console', () => {
+    // eslint-disable-next-line no-console
     console.error = jest.fn();
     const { asFragment } = customRender(
       <ReactionDirection

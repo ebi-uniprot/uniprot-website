@@ -9,6 +9,7 @@ import {
 import { GoEvidenceType } from '../../types/modelTypes';
 
 beforeAll(() => {
+  // eslint-disable-next-line no-console
   console.warn = jest.fn();
 });
 

@@ -78,13 +78,14 @@ export const filterBlastByFacets = (
 
   // filter function
   return (hit: BlastHit) => {
+    // eslint-disable-next-line no-labels
     outer: for (const { name, min, max } of parsedFacets) {
       const keyName = blastFacetToKeyName[name as BlastFacet] as keyof BlastHsp;
       for (const hsp of hit.hit_hsps) {
         const value = hsp[keyName] as number;
         if (value >= min && value <= max) {
           // if any of the value is within range, skip to check next facet
-          continue outer;
+          continue outer; // eslint-disable-line no-labels
         }
       }
       // if none of the values was within range, this hit needs to be excluded

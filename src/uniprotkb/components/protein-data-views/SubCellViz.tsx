@@ -150,10 +150,11 @@ let instanceId = 0;
 
 const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
   ({ uniProtLocations, goLocations, taxonId, children }) => {
+    instanceId += 1;
     const instanceName = useRef(
       `${canonicalName}-${
         uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
-      }-${++instanceId}`
+      }-${instanceId}`
     );
 
     const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');

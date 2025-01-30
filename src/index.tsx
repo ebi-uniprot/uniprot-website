@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import App from './app/components/App';
 import GlobalContext from './app/contexts/Global';
 
+// eslint-disable-next-line no-console
 console.info(
   `Built with git commit ${GIT_COMMIT_HASH} ${
     GIT_COMMIT_STATE

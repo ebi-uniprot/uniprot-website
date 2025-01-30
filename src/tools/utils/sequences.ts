@@ -128,9 +128,9 @@ export const createGappedFeature = (
 
   let proteinIndex = from;
   const fragments: { start: number; end: number; shape?: 'line' }[] = [];
-  let match;
+  const match = BLOCK.exec(sequence);
 
-  while ((match = BLOCK.exec(sequence)) !== null) {
+  while (match !== null) {
     if (match?.groups?.protein) {
       if (
         proteinIndex + match[0].length >= feature.start &&

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';
 
