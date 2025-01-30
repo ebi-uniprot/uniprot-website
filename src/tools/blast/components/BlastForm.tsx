@@ -432,7 +432,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
                       2
                     }ch`,
                   }}
-                  placeholder={'"my job title"'}
+                  placeholder="my job title"
                   value={formValues[BlastFields.name].selected as string}
                   onFocus={(event) => {
                     if (!formValues[BlastFields.name].userSelected) {
