@@ -14,9 +14,9 @@ describe('ColumnSelectDragDrop component', () => {
   beforeEach(async () => {
     props = {
       columns: [
-        { itemId: UniProtKBColumn.id, label: 'Entry Name' },
-        { itemId: UniProtKBColumn.proteinName, label: 'Protein names' },
-        { itemId: UniProtKBColumn.geneNames, label: 'Gene Names' },
+        { id: UniProtKBColumn.id, label: 'Entry Name' },
+        { id: UniProtKBColumn.proteinName, label: 'Protein names' },
+        { id: UniProtKBColumn.geneNames, label: 'Gene Names' },
       ],
       onDragDrop: jest.fn(),
       onRemove: jest.fn(),

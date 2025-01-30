@@ -22,13 +22,17 @@ import { Column } from '../../config/columns';
 
 import styles from './styles/column-select-drag-drop.module.scss';
 
-type Props = {
+export type ColumnSelectDragDropProps = {
   columns: SelectedColumn[];
   onDragDrop: (event: DragEndEvent) => void;
   onRemove: (columnId: Column) => void;
 };
 
-const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }: Props) => {
+const ColumnSelectDragDrop = ({
+  columns,
+  onDragDrop,
+  onRemove,
+}: ColumnSelectDragDropProps) => {
   // Create sensors to detect pointer (mouse, touch, etc.)
   const sensors = useSensors(
     useSensor(PointerSensor, {
