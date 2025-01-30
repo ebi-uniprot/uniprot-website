@@ -1,21 +1,38 @@
-import { FC, useEffect, useRef } from 'react';
-import { DragEndEvent } from '@dnd-kit/core';
+import { useEffect, useRef } from 'react';
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  horizontalListSortingStrategy,
+} from '@dnd-kit/sortable';
+
+import SortableItem from './SortableItem';
 
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
-import HorizontalSortableList from './HorizontalSortableList';
 
 import './styles/column-select-drag-drop.scss';
 
-export type ColumnSelectDragDropProps = {
+type Props = {
   columns: SelectedColumn[];
   onDragDrop: (event: DragEndEvent) => void;
   onRemove: (columnId: Column) => void;
 };
 
-const ColumnSelectDragDrop: FC<
-  React.PropsWithChildren<ColumnSelectDragDropProps>
-> = ({ columns, onDragDrop, onRemove }) => {
+const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }: Props) => {
+  // Create sensors to detect pointer (mouse, touch, etc.)
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    })
+  );
   const previousColumns = useRef(columns);
 
   useEffect(() => {
@@ -32,11 +49,17 @@ const ColumnSelectDragDrop: FC<
   }, [columns]);
 
   return (
-    <HorizontalSortableList
-      items={columns}
-      onDragDrop={onDragDrop}
-      onRemove={onRemove}
-    />
+    <DndContext sensors={sensors} onDragEnd={onDragDrop}>
+      <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
+        <div style={{ display: 'flex', overflowX: 'auto' }}>
+          {columns.map((column) => (
+            <SortableItem key={column.id} id={column.id} onRemove={onRemove}>
+              {column.label}
+            </SortableItem>
+          ))}
+        </div>
+      </SortableContext>
+    </DndContext>
   );
 };
 

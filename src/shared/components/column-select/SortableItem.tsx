@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Chip } from 'franklin-sites';
@@ -6,7 +6,7 @@ import { Chip } from 'franklin-sites';
 interface SortableItemProps {
   id: string;
   onRemove: (id: string) => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const SortableItem = ({ id, children, onRemove }: SortableItemProps) => {
