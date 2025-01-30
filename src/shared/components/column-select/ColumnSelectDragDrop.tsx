@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
+import { DragEndEvent } from '@dnd-kit/core';
 
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
@@ -8,7 +9,7 @@ import './styles/column-select-drag-drop.scss';
 
 export type ColumnSelectDragDropProps = {
   columns: SelectedColumn[];
-  onDragDrop: (srcIndex: number, destIndex: number) => void;
+  onDragDrop: (event: DragEndEvent) => void;
   onRemove: (columnId: Column) => void;
 };
 
@@ -37,54 +38,6 @@ const ColumnSelectDragDrop: FC<
       onRemove={onRemove}
     />
   );
-
-  // (
-  //   <DragDropContext
-  //     onDragEnd={(result) => {
-  //       if (result.destination) {
-  //         onDragDrop(result.source.index, result.destination.index);
-  //       }
-  //     }}
-  //   >
-  //     <Droppable droppableId="droppable" direction="horizontal">
-  //       {(droppableProvided) => (
-  //         <div
-  //           ref={droppableProvided.innerRef}
-  //           className="column-select-drag-drop__list"
-  //           {...droppableProvided.droppableProps}
-  //         >
-  //           {columns.map(({ itemId, label }, index) => (
-  //             <Draggable
-  //               key={itemId}
-  //               draggableId={itemId}
-  //               index={index}
-  //               disableInteractiveElementBlocking
-  //             >
-  //               {(draggableProvided, snapshot) => (
-  //                 <div
-  //                   ref={draggableProvided.innerRef}
-  //                   {...draggableProvided.draggableProps}
-  //                   {...draggableProvided.dragHandleProps}
-  //                 >
-  //                   <Chip
-  //                     disabled={false}
-  //                     onRemove={() => onRemove(itemId)}
-  //                     className={cn({
-  //                       'chip--dragging': snapshot.isDragging,
-  //                     })}
-  //                   >
-  //                     {label}
-  //                   </Chip>
-  //                 </div>
-  //               )}
-  //             </Draggable>
-  //           ))}
-  //           {droppableProvided.placeholder}
-  //         </div>
-  //       )}
-  //     </Droppable>
-  //   </DragDropContext>
-  // );
 };
 
 export default ColumnSelectDragDrop;

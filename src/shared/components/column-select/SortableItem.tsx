@@ -6,9 +6,10 @@ import { Chip } from 'franklin-sites';
 interface SortableItemProps {
   id: string;
   onRemove: (id: string) => void;
+  children: React.ReactNode;
 }
 
-const SortableItem = ({ id, onRemove }: SortableItemProps) => {
+const SortableItem = ({ id, children, onRemove }: SortableItemProps) => {
   const {
     attributes,
     listeners,
@@ -40,7 +41,7 @@ const SortableItem = ({ id, onRemove }: SortableItemProps) => {
       {...listeners}
       onRemove={() => onRemove(id)}
     >
-      {id}
+      {children}
     </Chip>
   );
 };
