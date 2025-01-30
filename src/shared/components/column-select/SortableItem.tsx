@@ -5,6 +5,8 @@ import { Chip } from 'franklin-sites';
 
 import { Column } from '../../config/columns';
 
+import styles from './styles/sortable-item.module.scss';
+
 type Props = {
   id: Column;
   onRemove: (id: Column) => void;
@@ -26,19 +28,13 @@ const SortableItem = ({ id, children, onRemove }: Props) => {
     transform: CSS.Translate.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    margin: '8px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    userSelect: 'none',
-    cursor: 'grab',
-    position: 'relative',
   };
 
   return (
     <Chip
       innerRef={setNodeRef}
       style={style}
+      className={styles['sortable-item']}
       {...attributes}
       {...listeners}
       onRemove={() => onRemove(id)}
