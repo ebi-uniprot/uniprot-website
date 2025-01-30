@@ -95,18 +95,11 @@ const ColumnSelect: FC<React.PropsWithChildren<ColumnSelectProps>> = ({
       loading
         ? []
         : removableSelectedColumns
-            .map((itemId) => {
-              const label = getLabel(fieldData, namespace, itemId);
-              return (
-                label !== null && {
-                  id: itemId,
-                  label,
-                }
-              );
-            })
-            .filter((d: SelectedColumn | boolean): d is SelectedColumn =>
-              Boolean(d)
-            ),
+            .map((id) => ({
+              id,
+              label: getLabel(fieldData, namespace, id),
+            }))
+            .filter((c): c is SelectedColumn => Boolean(c.label)),
     [fieldData, loading, namespace, removableSelectedColumns]
   );
 
