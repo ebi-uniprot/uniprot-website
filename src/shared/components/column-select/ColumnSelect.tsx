@@ -20,7 +20,7 @@ import {
   SelectedColumn,
 } from '../../../uniprotkb/types/resultsTypes';
 
-import './styles/column-select.scss';
+import styles from './styles/column-select.module.scss';
 
 type ColumnSelectProps = {
   selectedColumns: string[]; // Includes primary key columns but no _full xref columns
@@ -116,7 +116,7 @@ const ColumnSelect: FC<React.PropsWithChildren<ColumnSelectProps>> = ({
 
   return (
     <>
-      <div className="column-select">
+      <div className={styles['column-select']}>
         <ColumnSelectDragDrop
           columns={fieldDataForSelectedColumns}
           onDragDrop={handleDragDrop}
