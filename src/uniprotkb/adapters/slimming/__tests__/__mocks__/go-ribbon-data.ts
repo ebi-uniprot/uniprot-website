@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876

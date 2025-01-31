@@ -28,6 +28,7 @@ describe('entryToFASTAWithHeaders', () => {
       entryToFASTAWithHeaders(
         uniParcModelData as UniParcLiteAPIModel,
         undefined,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         new Date(uniParcModelData.mostRecentCrossRefUpdated!)
       )
     ).toMatchSnapshot();

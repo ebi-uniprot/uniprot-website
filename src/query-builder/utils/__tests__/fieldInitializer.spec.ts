@@ -6,7 +6,7 @@ describe('field initializer', () => {
   it('should return autocomplete name value when provided', () => {
     expect(
       initializer(getSearchTerm('organism_name_field'), {
-        organism_name: 'human',
+        organism_name: 'human', // eslint-disable-line camelcase
       })
     ).toEqual('human');
   });
@@ -15,7 +15,7 @@ describe('field initializer', () => {
       initializer(
         getSearchTerm('organism_name_field'),
         {
-          organism_id: '9606',
+          organism_id: '9606', // eslint-disable-line camelcase
         },
         true
       )

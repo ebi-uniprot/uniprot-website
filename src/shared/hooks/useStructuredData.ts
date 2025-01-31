@@ -47,7 +47,7 @@ const useStructuredData = <Schema extends Thing>(
     script.current.type = 'application/ld+json';
     document.head.appendChild(script.current);
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line reactHooks/exhaustive-deps
       inject.current.cancel();
       if (script.current) {
         document.head.removeChild(script.current);

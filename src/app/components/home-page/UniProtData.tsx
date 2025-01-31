@@ -41,7 +41,7 @@ const UniProtData = () => (
         />
       }
       backgroundColor="var(--fr--color-independence)"
-      // eslint-disable-next-line jsx-a11y/control-has-associated-label, jsx-a11y/anchor-has-content
+      // eslint-disable-next-line jsx-a11y/anchor-has-content, jsx-a11y/control-has-associated-label
       link={<a href={ftpUrls.uniprot} />}
       gradient
     >

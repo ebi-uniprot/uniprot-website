@@ -204,7 +204,6 @@ const PieChart = ({
             <foreignObject>
               {datum.to ? (
                 <Link
-                  // eslint-disable-next-line uniprot-website/use-config-location
                   to={datum.to}
                   title={`Search for the ${datum.entryCount} entries with ${type}: ${datum.name}`}
                 >

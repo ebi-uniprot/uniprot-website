@@ -133,8 +133,8 @@ const DownloadAPIURL = ({
     return (
       <div className={styles['api-url']} ref={scrollRef}>
         <CodeBlock lightMode>
+          {/* eslint-disable-next-line react/jsx-curly-brace-presence */}
           {
-            // eslint-disable-next-line react/jsx-curly-brace-presence
             "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint."
           }
         </CodeBlock>

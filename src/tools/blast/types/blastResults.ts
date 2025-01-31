@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /* Results as given by the server */
 import { Program, SType, Filter, Matrix } from './blastServerParameters';
 

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { BlastResults } from '../../blast/types/blastResults';
 
 const mock: BlastResults = {

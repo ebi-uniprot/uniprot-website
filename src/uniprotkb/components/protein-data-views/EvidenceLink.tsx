@@ -37,7 +37,6 @@ const EvidenceLink = ({
   }
 
   return isInternal ? (
-    // eslint-disable-next-line uniprot-website/use-config-location
     <Link to={renderedURL} className={className}>
       {content}
     </Link>

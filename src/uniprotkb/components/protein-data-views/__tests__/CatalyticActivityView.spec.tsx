@@ -105,10 +105,8 @@ describe('ReactionDirection component', () => {
     const { asFragment } = customRender(
       <ReactionDirection
         physiologicalReactions={[
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          ...physiologicalReactions!,
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          ...physiologicalReactions!,
+          ...physiologicalReactions!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+          ...physiologicalReactions!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
         ]}
       />
     );

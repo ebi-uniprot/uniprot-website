@@ -21,7 +21,6 @@ const dataToSchema = (
     TabLocation.Entry
   )}`;
 
-  // eslint-disable-next-line consistent-return
   return {
     '@context': [
       {

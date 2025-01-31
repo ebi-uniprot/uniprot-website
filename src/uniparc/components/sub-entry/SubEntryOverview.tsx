@@ -132,7 +132,6 @@ const SubEntryOverview = ({ data }: Props) => {
       content: data.entry.sequence && (
         <>
           {`${data.entry.sequence?.length} `}
-          {/* eslint-disable-next-line uniprot-website/use-config-location */}
           <Link to={`#${EntrySection.Sequence}`}>(go to sequence)</Link>
         </>
       ),

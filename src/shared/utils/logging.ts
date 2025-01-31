@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';

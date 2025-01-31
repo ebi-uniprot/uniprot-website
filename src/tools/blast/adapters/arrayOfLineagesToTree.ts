@@ -29,7 +29,7 @@ const arrayOfLineagesToTree = (lineages?: string[][]) => {
       // extract higher organism to process
       const currentOrganism = lineage.shift();
       if (!currentOrganism) {
-        continue; // eslint-disable-line no-continue
+        continue;
       }
       // find it in the current node's children
       let currentOrganismNode = currentNode.children.find(

@@ -121,7 +121,7 @@ const SubcellularLocationWithVizView: FC<
       const evidenceData = getEvidenceCodeData(
         getEcoNumberFromGoEvidenceType(properties.GoEvidenceType)
       );
-      // eslint-disable-next-line consistent-return
+
       return {
         id: goId,
         reviewed: evidenceData?.manual,

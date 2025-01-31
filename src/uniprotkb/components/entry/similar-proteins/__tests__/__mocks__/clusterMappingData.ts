@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { UniRefLiteAPIModel } from '../../../../../../uniref/adapters/uniRefConverter';
 
 /*

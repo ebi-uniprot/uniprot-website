@@ -413,7 +413,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                         .length + 2
                     }ch`,
                   }}
-                  placeholder={'"my job title"'}
+                  placeholder="my job title"
                   value={formValues[IDMappingFields.name].selected as string}
                   onFocus={(event) => {
                     if (!formValues[IDMappingFields.name].userSelected) {

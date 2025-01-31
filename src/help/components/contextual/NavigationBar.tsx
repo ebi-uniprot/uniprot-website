@@ -51,7 +51,6 @@ const NavigationBar = ({ localHistory }: { localHistory: MemoryHistory }) => {
       </Link>
       <Link
         // the panel's current location will be passed to the global history
-        // eslint-disable-next-line uniprot-website/use-config-location
         to={localHistory.location}
         target="external_help"
         title="Open current content in full page"

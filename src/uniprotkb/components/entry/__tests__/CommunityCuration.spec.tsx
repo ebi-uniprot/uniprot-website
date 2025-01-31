@@ -28,6 +28,7 @@ describe('groupByCommunityAnnotation', () => {
   it('should group by community annotation and sort all references by submission date and then sort all annotations by latest reference submission date', () => {
     expect(
       Array.from(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         groupByCommunityAnnotation(EntrySection.NamesAndTaxonomy, mock)!
       ).map(([annotation, references]) => [
         annotation,

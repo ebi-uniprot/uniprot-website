@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import AbstractSectionTable from './AbstractSectionTable';
 
 import { mergeToMap } from './utils';
@@ -21,6 +20,7 @@ const UniqueReferencesTable = ({
       tableData={[
         {
           header: <>Unique references</>,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           data: map.get('UNIQUE_CITATION_ID')!,
           accessor: 'count',
         },

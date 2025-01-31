@@ -245,7 +245,6 @@ export const getLocationEntryPath = (location: Location, accession: string) =>
 export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
-// eslint-disable-next-line consistent-return
 export const jobTypeToPath = (type: JobTypes, job?: Job) => {
   switch (type) {
     case JobTypes.ALIGN:

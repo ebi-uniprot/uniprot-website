@@ -74,7 +74,6 @@ const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
     }
 
     history.replace(
-      // eslint-disable-next-line uniprot-website/use-config-location
       getLocationObjForParams({ pathname, selectedFacets: nextFacets })
     );
   };

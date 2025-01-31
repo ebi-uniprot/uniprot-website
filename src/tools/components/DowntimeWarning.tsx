@@ -19,7 +19,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const DowntimeWarning = ({ children }: Props) => (
+const DowntimeWarning = ({ children }: Props) => (
   <Message level="warning">
     Scheduled maintenance will cause {children} to be unavailable at the
     following time:

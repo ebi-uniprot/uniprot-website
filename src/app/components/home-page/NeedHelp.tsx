@@ -64,9 +64,9 @@ export type PayloadEBISearch = {
       location: string[];
       // More precise venue
       venue: string[];
-      date_time_clean: string[]; // eslint-disable-line camelcase
-      start_date: string[]; // eslint-disable-line camelcase
-      end_date: string[]; // eslint-disable-line camelcase
+      date_time_clean: string[];
+      start_date: string[];
+      end_date: string[];
       status: string[];
     };
     fieldURLs: Array<{
@@ -89,9 +89,9 @@ const fallback: PayloadEBISearch['entries'][0] = {
     location: ['Online'],
     venue: ['Online'],
     status: [],
-    date_time_clean: [],
-    start_date: [],
-    end_date: [],
+    date_time_clean: [], // eslint-disable-line camelcase
+    start_date: [], // eslint-disable-line camelcase
+    end_date: [], // eslint-disable-line camelcase
     city: [],
     country: [],
   },
@@ -312,7 +312,6 @@ const NeedHelp = () => {
             {seminar?.fields.title[0].length <= 100 && (
               <p
                 className={styles.description}
-                // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{
                   __html: cleanText(seminar?.fields.description[0], {
                     ...cleanTextDefaultOptions,

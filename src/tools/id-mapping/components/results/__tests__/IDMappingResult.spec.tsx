@@ -34,10 +34,7 @@ mock
 
 const renderIDMappingResult = (route: string, data: MappingDetails) =>
   customRender(
-    <IDMappingDetailsContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{ loading: false, data }}
-    >
+    <IDMappingDetailsContext.Provider value={{ loading: false, data }}>
       <IDMappingResult />
     </IDMappingDetailsContext.Provider>,
     {

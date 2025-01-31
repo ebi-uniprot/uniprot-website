@@ -1,4 +1,3 @@
-/* eslint-disable uniprot-website/use-config-location */
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';

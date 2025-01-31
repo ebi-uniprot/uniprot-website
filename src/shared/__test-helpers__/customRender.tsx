@@ -67,6 +67,7 @@ class Wrapper extends Component<WrapperProps> {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   componentWillUnmount() {
     window.localStorage.clear();
   }

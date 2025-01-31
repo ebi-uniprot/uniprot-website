@@ -167,7 +167,6 @@ const AlignmentView = ({
         return;
       }
 
-      // eslint-disable-next-line consistent-return
       return alignment.flatMap(
         ({ sequence, features = [] }, index) =>
           features

@@ -278,7 +278,6 @@ ${Object.entries(job.parameters)
                 {actualHits === 0 && job.type !== JobTypes.ID_MAPPING ? (
                   <span>Completed</span>
                 ) : (
-                  // eslint-disable-next-line uniprot-website/use-config-location
                   <Link to={jobLink}>Completed</Link>
                 )}{' '}
                 <span
@@ -299,7 +298,6 @@ ${Object.entries(job.parameters)
         }
         return (
           <>
-            {/* eslint-disable-next-line uniprot-website/use-config-location */}
             <Link to={jobLink}>Completed</Link>
             <Seen job={job} />
           </>

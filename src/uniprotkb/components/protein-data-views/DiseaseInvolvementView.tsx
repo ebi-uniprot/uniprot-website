@@ -276,7 +276,7 @@ type DiseaseInvolvementProps = {
   includeTitle?: boolean;
 };
 
-export const DiseaseInvolvementView = ({
+const DiseaseInvolvementView = ({
   comments,
   features,
   primaryAccession: accession,

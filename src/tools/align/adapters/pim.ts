@@ -18,13 +18,13 @@ export default (string: string): PIM => {
   for (const line of string.split('\n')) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#')) {
-      continue; // eslint-disable-line no-continue
+      continue;
     }
 
     const match = trimmed.match(re);
 
     if (!match) {
-      continue; // eslint-disable-line no-continue
+      continue;
     }
 
     const values = match[2].split(whitespaces).map((text) => parseFloat(text));

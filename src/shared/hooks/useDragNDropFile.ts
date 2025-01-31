@@ -106,7 +106,6 @@ const useDragNDropFile = ({
 
     document.body.appendChild(overlayRef.current);
 
-    // eslint-disable-next-line consistent-return
     return () => {
       if (overlayRef.current) {
         document.body.removeChild(overlayRef.current);
@@ -142,7 +141,7 @@ const useDragNDropFile = ({
     dndTarget.addEventListener('dragexit', handleDraggingOut);
     dndTarget.addEventListener('dragleave', handleDraggingOut);
     dndTarget.addEventListener('drop', handleDrop);
-    // eslint-disable-next-line consistent-return
+
     return () => {
       dndTarget.removeEventListener('drag', handleDraggingIn);
       dndTarget.removeEventListener('dragstart', handleDraggingIn);

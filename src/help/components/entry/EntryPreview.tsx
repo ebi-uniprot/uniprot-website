@@ -205,7 +205,7 @@ const EntryPreview = ({
                 </dl>
               )}
               {Object.entries(otherAttributes || {}).map(([key, value]) => (
-                <dl>
+                <dl key={key}>
                   <dt>{key} ❌ ignored/invalid field</dt>
                   <dd>{`${value}`}</dd>
                 </dl>

@@ -4,6 +4,7 @@ import axios, {
   AxiosError,
   AxiosRequestConfig,
   AxiosProgressEvent,
+  isCancel,
 } from 'axios';
 import joinUrl from 'url-join';
 
@@ -71,14 +72,9 @@ type Action<T> =
     }
   | { type: ActionType.ERROR; error: CustomError };
 
-// eslint-disable-next-line consistent-return
 const createReducer =
   <T>() =>
-  (
-    state: UseDataAPIState<T>,
-    action: Action<T>
-    // eslint-disable-next-line consistent-return
-  ): UseDataAPIState<T> => {
+  (state: UseDataAPIState<T>, action: Action<T>): UseDataAPIState<T> => {
     // eslint-disable-next-line default-case
     switch (action.type) {
       case ActionType.INIT:
@@ -157,6 +153,7 @@ function useDataApi<T>(
     dispatch({ type: ActionType.INIT, url });
 
     // variables to handle cancellation
+    // eslint-disable-next-line import/no-named-as-default-member
     const source = axios.CancelToken.source();
 
     // to keep track of the last time we dispatched a progress action
@@ -200,7 +197,7 @@ function useDataApi<T>(
         if (error.response?.status && error.response.status !== 404) {
           logging.error(error, { tags: { origin: 'useDataApi', url } });
         }
-        if (axios.isCancel(error) || didCancel) {
+        if (isCancel(error) || didCancel) {
           return;
         }
         dispatch({ type: ActionType.ERROR, error });
@@ -208,7 +205,7 @@ function useDataApi<T>(
     );
 
     // handle unmounting of the hook
-    // eslint-disable-next-line consistent-return
+
     return () => {
       source.cancel();
       didCancel = true;
@@ -224,11 +221,11 @@ function useDataApi<T>(
           const messageMatch = message.match(invalidFieldMessage);
           const invalidField = messageMatch?.groups?.field;
           if (!messageMatch) {
-            continue; // eslint-disable-line no-continue
+            continue;
           }
           const nsMatch = state.url?.match(namespacedURL);
           if (!nsMatch?.groups?.namespace) {
-            continue; // eslint-disable-line no-continue
+            continue;
           }
           const key =
             `table columns for ${nsMatch?.groups?.namespace}` as UserPreferenceKey;

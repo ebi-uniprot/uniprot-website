@@ -201,7 +201,7 @@ const SequenceSearchLoader = forwardRef<
           try {
             const url = getURLForAccessionOrID(acc);
             if (!url) {
-              continue; // eslint-disable-line no-continue
+              continue;
             }
             // eslint-disable-next-line no-await-in-loop
             let { data } = await fetchData<NetworkResponses>(url);

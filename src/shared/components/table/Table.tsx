@@ -232,6 +232,7 @@ const Row = ({
           hidden={!expanded}
         >
           {/* Placeholder cell for the expand toggle column */}
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <td />
           {expanded && extraContent}
         </tr>

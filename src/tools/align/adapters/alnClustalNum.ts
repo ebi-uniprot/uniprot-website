@@ -1,4 +1,3 @@
-/* eslint-disable no-continue */
 /*
 See the following for reference:
 https://www.ebi.ac.uk/seqdb/confluence/display/JDSAT/Multiple+Sequence+Alignment+Tool+Output+Examples#MultipleSequenceAlignmentToolOutputExamples-ClustalOmegaproteinoutputexamples:

@@ -45,7 +45,6 @@ const toolsMiddleware = (
 
   const submitJob = getSubmitJob(toolsDispatch, stateRef, messagesDispatch);
 
-  // eslint-disable-next-line consistent-return
   const pollJobMapper = (job: Job) => {
     if (job.status === Status.CREATED) {
       return submitJob(job);

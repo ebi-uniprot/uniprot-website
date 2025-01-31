@@ -28,12 +28,12 @@ const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
   for (const { name, value } of facets) {
     if (!localFacets.includes(name as BlastFacet)) {
       // skip, it's just a server facet
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     const match = value.match(urlBoundsRE);
     if (!match) {
       // not in the right format 🤷🏽‍♂️
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     const [, min, max] = match;
     let parsedMin = -Infinity;
@@ -43,7 +43,7 @@ const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
       parsedMin = parseFloat(min);
       if (Number.isNaN(parsedMin)) {
         // not a parsable number 🤷🏽‍♂️
-        continue; // eslint-disable-line no-continue
+        continue;
       }
     }
     if (max !== '*') {
@@ -51,7 +51,7 @@ const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
       parsedMax = parseFloat(max);
       if (Number.isNaN(parsedMax)) {
         // not a parsable number 🤷🏽‍♂️
-        continue; // eslint-disable-line no-continue
+        continue;
       }
     }
     output.push({ name, min: parsedMin, max: parsedMax });
@@ -85,7 +85,7 @@ export const filterBlastByFacets = (
         const value = hsp[keyName] as number;
         if (value >= min && value <= max) {
           // if any of the value is within range, skip to check next facet
-          continue outer; // eslint-disable-line no-continue, no-labels
+          continue outer; // eslint-disable-line no-labels
         }
       }
       // if none of the values was within range, this hit needs to be excluded
