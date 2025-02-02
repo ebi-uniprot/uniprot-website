@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Chip, LongNumber } from 'franklin-sites';
@@ -214,6 +213,7 @@ const CoordinateRow = ({
         if (!exon) {
           return (
             <Fragment key={isoformID}>
+              {/* eslint-disable jsx-a11y/control-has-associated-label */}
               <td className={styles.coordinates} />
               <td className={styles.coordinates}>―</td>
               <td className={styles.coordinates} />
