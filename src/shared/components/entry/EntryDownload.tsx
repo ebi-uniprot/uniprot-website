@@ -842,7 +842,6 @@ const EntryDownload = ({
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
-        {}
         <a
           href={downloadUrl}
           className={cn('button', 'primary')}
