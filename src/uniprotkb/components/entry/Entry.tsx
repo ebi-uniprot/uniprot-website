@@ -514,7 +514,6 @@ const Entry = () => {
                   >
                     Add a publication
                   </a>
-                  {}
                   <ContactLink
                     to={{
                       pathname: LocationToPath[Location.ContactUpdate],
