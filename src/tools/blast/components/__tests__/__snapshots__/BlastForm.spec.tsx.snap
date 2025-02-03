@@ -31,7 +31,7 @@ exports[`BlastForm test Renders the form 1`] = `
     <div
       class="message__title"
     >
-      Scheduled maintenance will cause BLAST to have less available resources between the following time:
+      Scheduled maintenance will cause BLAST to have less available resources between the following times:
       <div
         class="time"
       >
@@ -48,7 +48,7 @@ exports[`BlastForm test Renders the form 1`] = `
           (UTC time zone)
         </span>
       </div>
-      Your job might be queued longer than usual.
+      Your job might be queued for longer than usual.
       <br />
       Please try submitting jobs before or after this period. In addition, running jobs might be interrupted and so might need to be resubmitted  
       <test-file-stub

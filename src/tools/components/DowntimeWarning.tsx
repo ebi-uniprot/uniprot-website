@@ -27,14 +27,14 @@ type Props = {
 export const DowntimeWarning = ({ children }: Props) => (
   <Message level="warning">
     Scheduled maintenance will cause {children} to have less available resources
-    between the following time:
+    between the following times:
     <div className={styles.time}>
       {from.toLocaleString()}
       <span className={styles.spaced}>to</span>
       {to.toLocaleString()}
       <TZ />
     </div>
-    Your job might be queued longer than usual.
+    Your job might be queued for longer than usual.
     <br />
     Please try submitting jobs before or after this period. In addition, running
     jobs might be interrupted and so might need to be resubmitted&nbsp;&nbsp;
