@@ -6784,13 +6784,17 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <span
                       data-article-id="checksum"
                     >
-                      Checksum
+                      MD5 Checksum
                     </span>
                   </div>
                   <div
                     class="decorated-list-item__content"
                   >
-                    55C1AD3F8018D0D7
+                    <span
+                      class="break-anywhere"
+                    >
+                      039C552B925111332BC709163762F597
+                    </span>
                   </div>
                 </div>
               </li>

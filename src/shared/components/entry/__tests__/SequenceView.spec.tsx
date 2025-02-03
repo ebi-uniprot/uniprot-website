@@ -62,9 +62,13 @@ describe('SequenceView component', () => {
     const viewSequenceButton = screen.getByRole('button', {
       name: /Show sequence/i,
     });
-    expect(screen.queryByText(/ABCSSDDD/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/C899F597B1B5D205357C9FAEDA9FF554/)
+    ).not.toBeInTheDocument();
     fireEvent.click(viewSequenceButton);
-    const sequence = await screen.findByText(/ABCSSDDD/);
+    const sequence = await screen.findByText(
+      /C899F597B1B5D205357C9FAEDA9FF554/
+    );
     expect(sequence).toBeInTheDocument();
   });
 

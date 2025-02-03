@@ -59,12 +59,12 @@ describe('newicktree', () => {
 
   it('should match snapshot', () => {
     const nodes1 = Array.from(traverseTree(newicktree(file1)));
-    expect(nodes1).toMatchSnapshot();
+    expect(nodes1).toMatchSnapshot('phylotree1');
 
     const nodes2 = Array.from(traverseTree(newicktree(file2)));
-    expect(nodes2).toMatchSnapshot();
+    expect(nodes2).toMatchSnapshot('phylotree2');
 
     const nodes3 = Array.from(traverseTree(newicktree(file3)));
-    expect(nodes3).toMatchSnapshot();
+    expect(nodes3).toMatchSnapshot('phylotree3');
   });
 });
