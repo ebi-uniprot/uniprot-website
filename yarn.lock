@@ -1291,20 +1291,11 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@geneontology/dbxrefs@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@geneontology/dbxrefs/-/dbxrefs-1.0.16.tgz#7cd5c03912e910786609d5f7351474b86615a946"
-  integrity sha512-zKvbcfs+LU4ZnUo00A5ae0V+FVMIM4ftxcfKtJWmtnLKwWy1sOn2y36HGcz/rEmLwd2zBApKJ0ojmgBH416Q5Q==
+"@geneontology/wc-gocam-viz@1.1.1-beta.3":
+  version "1.1.1-beta.3"
+  resolved "https://registry.yarnpkg.com/@geneontology/wc-gocam-viz/-/wc-gocam-viz-1.1.1-beta.3.tgz#3dd1c3d61fd3d6b014142db710a2f64fd23a175f"
+  integrity sha512-Gd2K9zZVlRsyIJ6lJJKKC77GWbjNQrhjzdq+j+1Ub6wXUBnVCtkG1Q78dn2PVcDPTTnTjy2BNtn8wZkkV0lx4g==
   dependencies:
-    axios "^0.21.1"
-    js-yaml "^4.0.0"
-
-"@geneontology/wc-gocam-viz@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-gocam-viz/-/wc-gocam-viz-1.0.1.tgz#62af9cd6ff4e3e5e6ab5bccdc9a8ee0d2ec633de"
-  integrity sha512-J2znuLcqIZoX7phSLPmJ8P2Ak1UhNxvNEOksskX41sOw47X0IrcBsIoMhSp9asmqLYNgyF4plOX9ehmHW9mFZQ==
-  dependencies:
-    "@geneontology/dbxrefs" "^1.0.16"
     "@stencil/core" "^4.1.0"
     bbop-graph-noctua "0.0.35"
     cytoscape "^3.16.1"
@@ -1312,7 +1303,9 @@
     cytoscape-cose-bilkent "^4.1.0"
     cytoscape-dagre "^2.4.0"
     graphlib "^2.1.8"
+    js-yaml "^4.1.0"
     lodash "^4.17.21"
+    moment "^2.30.1"
     uuid "^8.3.2"
 
 "@hello-pangea/dnd@17.0.0":
@@ -4122,13 +4115,6 @@ axios@1.7.7:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
-
-axios@^0.21.1:
-  version "0.21.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
-  dependencies:
-    follow-redirects "^1.14.0"
 
 axios@^1.7.4:
   version "1.7.9"
@@ -7024,7 +7010,7 @@ fluture@^6.1.0:
     sanctuary-type-classes "^6.0.0"
     sanctuary-type-identifiers "^2.0.0"
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.0, follow-redirects@^1.15.6:
+follow-redirects@^1.0.0, follow-redirects@^1.15.6:
   version "1.15.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.9.tgz#a604fa10e443bf98ca94228d9eebcc2e8a2c8ee1"
   integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
@@ -8906,7 +8892,7 @@ js-file-download@^0.4.12:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
-js-yaml@=4.1.0, js-yaml@^4.0.0, js-yaml@^4.1.0:
+js-yaml@=4.1.0, js-yaml@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
   integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
@@ -10109,6 +10095,11 @@ molstar@3.44.0:
     gl "^6.0.2"
     jpeg-js "^0.4.4"
     pngjs "^6.0.0"
+
+moment@^2.30.1:
+  version "2.30.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
+  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
 
 mrmime@^2.0.0:
   version "2.0.0"
