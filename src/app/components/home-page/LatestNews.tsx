@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  "There are about 8 billion people living on our planet today. It's a lot. But consider the following: one human body harbours about 380 trillion viruses and 39 trillion bacteria - both on our skin and underneath it...";
+  'Chimpanzees use twigs to catch ants. Crows use roads to crack nuts. Humans too have always been good at diverting things for their own benefit - far more than any other species for that matter. We use water to make electricity...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -357,21 +357,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/275/"
+            url="https://www.proteinspotlight.org/back_issues/276/"
             noIcon
           >
-            Unconventional
+            Yellow
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/275/"
+          url="https://www.proteinspotlight.org/back_issues/276/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt275.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt276.jpg"
             alt=""
             width="123"
             height="129"
