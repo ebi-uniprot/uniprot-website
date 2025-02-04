@@ -12,7 +12,7 @@ import { partition } from 'lodash-es';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
-import { DowntimeWarning } from '../../components/DowntimeWarning';
+import DowntimeWarning from '../../components/DowntimeWarning';
 
 import useToolsState from '../../../shared/hooks/useToolsState';
 import useDashboardPollingEffect from '../hooks/useDashboardPollingEffect';
