@@ -1,4 +1,3 @@
-/* eslint-disable uniprot-website/use-config-location */
 import { ReactNode, useCallback, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';

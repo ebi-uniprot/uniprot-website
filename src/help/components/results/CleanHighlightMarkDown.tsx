@@ -13,7 +13,6 @@ const cleanTextOptions = {
 
 const CleanHighlightMarkDown = ({ md }: { md: string }) => (
   <span
-    // eslint-disable-next-line react/no-danger
     dangerouslySetInnerHTML={{
       __html: parseMarkdown(md, cleanTextOptions, true),
     }}

@@ -213,6 +213,7 @@ const CoordinateRow = ({
         if (!exon) {
           return (
             <Fragment key={isoformID}>
+              {/* eslint-disable jsx-a11y/control-has-associated-label */}
               <td className={styles.coordinates} />
               <td className={styles.coordinates}>―</td>
               <td className={styles.coordinates} />
@@ -303,7 +304,6 @@ const CoordinateExtraContent = ({
             <th>Exon ID</th>
             <th>UniProtKB Isoform</th>
             <th>Position(s)</th>
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <th />
           </Table.Head>
           <Table.Body data={exons}>

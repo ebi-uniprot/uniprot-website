@@ -104,7 +104,6 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     for (const { primaryAccession, sequence, features } of uniprotkbResults
       ?.data?.results || []) {
       if (!sequence) {
-        // eslint-disable-next-line no-continue
         continue;
       }
       const sequencedAndFeatures = {

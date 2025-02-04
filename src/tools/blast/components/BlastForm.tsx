@@ -197,7 +197,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     dispatch(resetFormState());
 
     // imperatively reset SequenceSearchLoader... 😷
-    // eslint-disable-next-line no-unused-expressions
+
     sslRef.current?.reset();
   };
 
@@ -434,7 +434,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
                       2
                     }ch`,
                   }}
-                  placeholder={'"my job title"'}
+                  placeholder="my job title"
                   value={formValues[BlastFields.name].selected as string}
                   onFocus={(event) => {
                     if (!formValues[BlastFields.name].userSelected) {

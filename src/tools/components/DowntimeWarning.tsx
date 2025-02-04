@@ -24,7 +24,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const DowntimeWarning = ({ children }: Props) => (
+const DowntimeWarning = ({ children }: Props) => (
   <Message level="warning">
     Scheduled maintenance will cause {children} to have less available resources
     between the following times:

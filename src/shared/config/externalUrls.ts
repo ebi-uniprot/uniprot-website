@@ -45,7 +45,7 @@ const externalUrls = {
       `https://www.ebi.ac.uk/interpro/api/entry/all/protein/uniprot/${id}`,
       {
         type: 'domain',
-        page_size: 100,
+        page_size: 100, // eslint-disable-line camelcase
         format: fileFormatToUrlParameter[format],
       }
     ),

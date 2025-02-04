@@ -52,6 +52,7 @@ const compare = (a?: string, b?: string) => {
     return 1;
   }
   // a and b will exist here
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return b!.localeCompare(a!);
 };
 

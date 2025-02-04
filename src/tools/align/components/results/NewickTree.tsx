@@ -141,11 +141,11 @@ const NewickTree: FC<React.PropsWithChildren<NewickTreeProps>> = ({
           el.setAttribute('height', `${correctedHeight}`);
 
           maxNameLength = Math.max(maxNameLength, correctedWidth);
-          // eslint-disable-next-line no-param-reassign
+
           d.textSize = correctedWidth;
         } else {
           maxNameLength = Math.max(maxNameLength, width);
-          // eslint-disable-next-line no-param-reassign
+
           d.textSize = width;
         }
       })
@@ -189,7 +189,6 @@ const NewickTree: FC<React.PropsWithChildren<NewickTreeProps>> = ({
       .attr('d', pm)
       // keep a reference to the corresponding DOM element in the object
       .each((d, i, domArray) => {
-        // eslint-disable-next-line no-param-reassign
         d.target.linkDOM = domArray[i];
       });
 
@@ -328,7 +327,6 @@ const NewickTree: FC<React.PropsWithChildren<NewickTreeProps>> = ({
       DEBOUNCE_DELAY
     );
 
-    // eslint-disable-next-line consistent-return
     return () => {
       redrawRef.current?.cancel();
       svg.selectAll('g.links path').remove();

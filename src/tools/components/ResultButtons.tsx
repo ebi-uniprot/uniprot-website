@@ -73,7 +73,7 @@ export const ResubmitButton = ({
         if (!idCleaned || !url) {
           return;
         }
-        // eslint-disable-next-line consistent-return
+
         return fetchData<TaxonomyAPIModel>(url).then((response) => {
           const taxonName = `${response?.data?.scientificName} [${idCleaned}]`;
           taxonMapping.set(idCleaned, taxonName);
@@ -144,6 +144,7 @@ const ResultButtons = ({
   if (jobType === JobTypes.BLAST) {
     align = [
       align,
+      // eslint-disable-next-line react/jsx-key
       <AlignButton
         selectedEntries={selectedEntries}
         textSuffix={`selected ${pluralise(

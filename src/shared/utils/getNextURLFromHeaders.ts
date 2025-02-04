@@ -8,7 +8,7 @@ const getNextURLFromHeaders = (parsedHeaders?: AxiosResponse['headers']) => {
   }
 
   const match = re.exec(parsedHeaders.link);
-  // eslint-disable-next-line consistent-return
+
   return match?.[1];
 };
 
