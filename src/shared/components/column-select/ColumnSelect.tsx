@@ -10,7 +10,7 @@ import useDataApi from '../../hooks/useDataApi';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 
-import { moveItemInArray, removeItemFromList } from '../../utils/utils';
+import { moveItemInArray, removeItemFromArray } from '../../utils/utils';
 import { getLabel, prepareFieldData } from './utils';
 
 import { Namespace } from '../../types/namespaces';
@@ -54,7 +54,7 @@ const ColumnSelect: FC<React.PropsWithChildren<ColumnSelectProps>> = ({
       onColumnChange([
         ...primaryKeyColumns,
         ...(index >= 0
-          ? removeItemFromList(removableSelectedColumns, index)
+          ? removeItemFromArray(removableSelectedColumns, index)
           : [...removableSelectedColumns, itemId]),
       ]);
     },

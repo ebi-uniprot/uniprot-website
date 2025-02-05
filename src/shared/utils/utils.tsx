@@ -30,8 +30,8 @@ export function moveItemInArray<T>(array: T[], from: number, to: number): T[] {
   return newArray;
 }
 
-export function removeItemFromList<T>(list: T[], index: number) {
-  return [...list.slice(0, index), ...list.slice(index + 1)];
+export function removeItemFromArray<T>(array: T[], index: number) {
+  return [...array.slice(0, index), ...array.slice(index + 1)];
 }
 
 export const hasContent = (obj: Record<Key, unknown>) =>
