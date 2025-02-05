@@ -19,7 +19,7 @@
     "jest-coverage-ratchet": "jest-coverage-ratchet",
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
     "prettier": "prettier src --write",
-    "test": "npm-run-all --continue-on-error test:lint test:types test:unit",
+    "test": "npm-run-all test:lint test:types test:unit",
     "test:lint": "eslint src --cache --cache-location 'node_modules/.cache'",
     "test:types": "tsc",
     "test:unit": "jest --coverage",
