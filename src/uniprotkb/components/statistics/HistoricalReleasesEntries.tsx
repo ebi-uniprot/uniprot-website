@@ -39,6 +39,10 @@ const processResults = (results: Results): StatisticsTypeToDateCount => {
     UNREVIEWED: counter(),
   };
   for (const { entryCount, releaseDate, statisticsType } of results) {
+    // TODO: remove this once the data is made available
+    if (releaseDate.startsWith('2011')) {
+      continue;
+    }
     processed[statisticsType][releaseDate] += entryCount;
     processed.UNIPROTKB[releaseDate] += entryCount;
   }
