@@ -24,6 +24,7 @@ import SequenceSearchLoader, {
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import ChecksumSuggester from '../../components/ChecksumSuggester';
+import DowntimeWarning from '../../components/DowntimeWarning';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
@@ -196,7 +197,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     dispatch(resetFormState());
 
     // imperatively reset SequenceSearchLoader... 😷
-    // eslint-disable-next-line no-unused-expressions
+
     sslRef.current?.reset();
   };
 
@@ -319,6 +320,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
         translate="no"
         heading={<span data-article-id="blast-submission">{title}</span>}
       />
+      <DowntimeWarning>BLAST</DowntimeWarning>
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}
@@ -432,7 +434,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
                       2
                     }ch`,
                   }}
-                  placeholder={'"my job title"'}
+                  placeholder="my job title"
                   value={formValues[BlastFields.name].selected as string}
                   onFocus={(event) => {
                     if (!formValues[BlastFields.name].userSelected) {

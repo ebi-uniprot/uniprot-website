@@ -122,7 +122,6 @@ const HelpEntryContent = ({
           // Don't navigate away!
           event.preventDefault();
           // And just replace the current URL with the next page
-          // eslint-disable-next-line uniprot-website/use-config-location
           history.push(href.replace(sameAppURL, '/'));
         } else {
           // analytics, similar as in InstrumentedExternalLink
@@ -151,11 +150,7 @@ const HelpEntryContent = ({
   // event delegation here, not actually doing anything with the div
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    <div
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: html }}
-      onClick={handleClick}
-    />
+    <div dangerouslySetInnerHTML={{ __html: html }} onClick={handleClick} />
   );
 };
 

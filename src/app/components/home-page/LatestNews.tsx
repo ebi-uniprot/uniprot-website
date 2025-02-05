@@ -33,7 +33,6 @@ const getWordsUpTo = (text: string, max: number) => {
   return output;
 };
 
-// eslint-disable-next-line arrow-body-style
 const LatestNews = () => {
   // CORS issues if using those directly
   // const proteinSpotlightData = useDataApi<string>(

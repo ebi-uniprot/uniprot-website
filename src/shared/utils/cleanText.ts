@@ -72,7 +72,7 @@ const cleanText = (text: string | null | undefined, options: IOptions) => {
   if (!text) {
     return '';
   }
-  return sanitizeHtml(text, options); // eslint-disable-line consistent-return
+  return sanitizeHtml(text, options);
 };
 
 export default cleanText;

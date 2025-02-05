@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const indent = (string: string, indentation = '  ', levels = 1) =>
   string
     .split('\n')

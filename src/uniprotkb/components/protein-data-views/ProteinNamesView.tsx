@@ -28,7 +28,6 @@ const ProteinName = ({
 }) => (
   <>
     {withLink ? (
-      // eslint-disable-next-line uniprot-website/use-config-location
       <Link to={(location) => ({ ...location, hash: stringToID(value) })}>
         {value}
       </Link>

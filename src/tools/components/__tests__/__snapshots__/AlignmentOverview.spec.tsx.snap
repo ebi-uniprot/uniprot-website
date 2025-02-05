@@ -34,17 +34,17 @@ exports[`AlignmentOverview BLAST should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,8.5 L-0.013315579227696406,8.5"
+                  d="M0,8.5 L0,8.5"
                   stroke="#014371"
                   style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(9.48069241011984,-3.5)"
+                  transform="translate(10,-3.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
                   height="17"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(9.48069241011984,-3.5)"
+                  transform="translate(10,-3.5)"
                   width="0"
                 />
               </g>
@@ -62,17 +62,17 @@ exports[`AlignmentOverview BLAST should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L-3.022636484687084,0L-3.022636484687084,17L0,17Z"
+                  d="M0,0L0,0L0,17L0,17Z"
                   stroke="#014371"
                   style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(9.467376830892144,-3.5)"
+                  transform="translate(10,-3.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
                   height="17"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(9.467376830892144,-3.5)"
+                  transform="translate(10,-3.5)"
                   width="0"
                 />
               </g>
@@ -90,17 +90,17 @@ exports[`AlignmentOverview BLAST should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,8.5 L-4.194407456724368,8.5"
+                  d="M0,8.5 L0,8.5"
                   stroke="#014371"
                   style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(6.4447403462050605,-3.5)"
+                  transform="translate(10,-3.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
                   height="17"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(6.4447403462050605,-3.5)"
+                  transform="translate(10,-3.5)"
                   width="0"
                 />
               </g>
@@ -146,17 +146,17 @@ exports[`AlignmentOverview BLAST should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,8.5 L-0.5459387483355527,8.5"
+                  d="M0,8.5 L0,8.5"
                   stroke="#014371"
                   style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10.013315579227696,-3.5)"
+                  transform="translate(10,-3.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
                   height="17"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10.013315579227696,-3.5)"
+                  transform="translate(10,-3.5)"
                   width="0"
                 />
               </g>
@@ -174,17 +174,17 @@ exports[`AlignmentOverview BLAST should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L-3.022636484687084,0L-3.022636484687084,17L0,17Z"
+                  d="M0,0L0,0L0,17L0,17Z"
                   stroke="#014371"
                   style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(9.467376830892144,-3.5)"
+                  transform="translate(10,-3.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
                   height="17"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(9.467376830892144,-3.5)"
+                  transform="translate(10,-3.5)"
                   width="0"
                 />
               </g>
@@ -202,17 +202,17 @@ exports[`AlignmentOverview BLAST should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,8.5 L-6.4447403462050605,8.5"
+                  d="M0,8.5 L0,8.5"
                   stroke="#014371"
                   style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(6.4447403462050605,-3.5)"
+                  transform="translate(10,-3.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
                   height="17"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(6.4447403462050605,-3.5)"
+                  transform="translate(10,-3.5)"
                   width="0"
                 />
               </g>
