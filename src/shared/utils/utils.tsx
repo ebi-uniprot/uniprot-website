@@ -20,19 +20,18 @@ export const pluralise = (singular: string, count: number, plural?: string) => {
   return `${singular}s`;
 };
 
-export function moveItemInList<T>(
-  list: T[],
-  srcIndex: number,
-  destIndex: number
-) {
-  const result = Array.from(list);
-  const [removed] = result.splice(srcIndex, 1);
-  result.splice(destIndex, 0, removed);
-  return result;
+export function moveItemInArray<T>(array: T[], from: number, to: number): T[] {
+  const newArray = array.slice();
+  newArray.splice(
+    to < 0 ? newArray.length + to : to,
+    0,
+    newArray.splice(from, 1)[0]
+  );
+  return newArray;
 }
 
-export function removeItemFromList<T>(list: T[], index: number) {
-  return [...list.slice(0, index), ...list.slice(index + 1)];
+export function removeItemFromArray<T>(array: T[], index: number) {
+  return [...array.slice(0, index), ...array.slice(index + 1)];
 }
 
 export const hasContent = (obj: Record<Key, unknown>) =>

@@ -323,7 +323,7 @@ const ComponentsDownload = ({
         <>
           <legend data-article-id="customize">Customize columns</legend>
           <ColumnSelect
-            onChange={setSelectedColumns}
+            onColumnChange={setSelectedColumns}
             selectedColumns={selectedColumns}
             namespace={namespace}
           />
