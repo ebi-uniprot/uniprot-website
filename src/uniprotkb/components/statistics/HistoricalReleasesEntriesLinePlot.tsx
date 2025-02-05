@@ -29,11 +29,10 @@ type Props = {
   bounds?: Bounds;
 };
 
-const START_DATE = new Date(1995, 8, 1);
+const START_DATE = new Date(1986, 9, 1);
 
 const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
-
   const renderPlot = useCallback((dateCounts: DateCount[], bounds: Bounds) => {
     const chart = select(svgRef.current).select('g');
 
