@@ -1,7 +1,9 @@
 import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
 import uniProtKBEntryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
-import uniParcModelData from '../../../uniparc/__mocks__/uniParcEntryModelData';
+import uniParcModelData from '../../../uniparc/__mocks__/uniParcLightEntryModelData';
+
+import { UniParcLiteAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 describe('entryToFASTAWithHeaders', () => {
   describe('UniProtKB entry', () => {
@@ -21,8 +23,25 @@ describe('entryToFASTAWithHeaders', () => {
     });
   });
 
-  it('should handle UniParc entries', () => {
-    expect(entryToFASTAWithHeaders(uniParcModelData)).toMatchSnapshot();
+  it('should handle UniParc entries, active', () => {
+    expect(
+      entryToFASTAWithHeaders(
+        uniParcModelData as UniParcLiteAPIModel,
+        undefined,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        new Date(uniParcModelData.mostRecentCrossRefUpdated!)
+      )
+    ).toMatchSnapshot();
+  });
+
+  it('should handle UniParc entries, inactive', () => {
+    expect(
+      entryToFASTAWithHeaders(
+        uniParcModelData as UniParcLiteAPIModel,
+        undefined,
+        new Date()
+      )
+    ).toMatchSnapshot();
   });
 
   describe('fallback gracefully when lacking metadata', () => {

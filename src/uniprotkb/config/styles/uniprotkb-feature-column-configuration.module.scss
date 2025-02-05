@@ -1,0 +1,18 @@
+@import 'franklin-sites/src/styles/colours';
+
+.Gold {
+  --main-chip-color: #{var(--fr--color-reviewed)};
+}
+
+.Silver {
+  --main-chip-color: #{var(--fr--color-weldon-blue)};
+}
+
+.Bronze {
+  --main-chip-color: #{var(--fr--color-bronze)};
+}
+
+.sequence {
+  max-width: 60vw;
+  overflow-wrap: break-word;
+}

@@ -10,6 +10,7 @@ import {
   keysToLowerCase,
   counter,
   defaultdict,
+  excludeKeys,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -153,5 +154,18 @@ describe('defaultdict', () => {
     dd.foo.push(300);
     dd.baz.push(500);
     expect(dd).toMatchObject({ foo: [100, 300], bar: [200], baz: [500] });
+  });
+});
+
+describe('excludeKeys', () => {
+  it('should exclude specified keys', () => {
+    expect(excludeKeys({ a: 1, b: 2, c: 3 }, ['a', 'b'])).toEqual({ c: 3 });
+  });
+  it('should return object if keys do not exits', () => {
+    expect(excludeKeys({ a: 1, b: 2, c: 3 }, ['y', 'z'])).toEqual({
+      a: 1,
+      b: 2,
+      c: 3,
+    });
   });
 });

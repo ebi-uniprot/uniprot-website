@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Dropdown, Tab, Tabs } from 'franklin-sites';
+import { Button, Card, Dropdown } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -8,7 +8,9 @@ import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -104,6 +106,82 @@ const interactionSorter = (a: Interaction, b: Interaction) => {
   return 0;
 };
 
+const getRowId = (data: Interaction) =>
+  `${data.interactantOne.intActId}${data.interactantTwo.intActId}`;
+
+const columns: TableFromDataColumn<Interaction>[] = [
+  {
+    id: 'type',
+    label: 'Type',
+    render: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'), // NOTE: Add 'SELF'
+    filter: (data, input) =>
+      (data.organismDiffer ? 'XENO' : 'BINARY') === input,
+  },
+  {
+    id: 'entry-1',
+    label: 'Entry 1',
+    render: (data) =>
+      data.interactantOne.uniProtKBAccession ? (
+        <Link
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            data.interactantOne.uniProtKBAccession
+          )}
+        >
+          {data.interactantOne.geneName} {data.interactantOne.chainId}{' '}
+          {data.interactantOne.uniProtKBAccession}
+        </Link>
+      ) : (
+        <>
+          {data.interactantOne.geneName} {data.interactantOne.chainId}
+        </>
+      ),
+    getOption: (data) => data.interactantOne.uniProtKBAccession || 'Other',
+    filter: (data, input) =>
+      (data.interactantOne.uniProtKBAccession || 'Other') === input,
+  },
+  {
+    id: 'entry-2',
+    label: 'Entry 2',
+    render: (data) =>
+      data.interactantTwo.uniProtKBAccession ? (
+        <Link
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            data.interactantTwo.uniProtKBAccession
+          )}
+        >
+          {data.interactantTwo.geneName} {data.interactantTwo.chainId}{' '}
+          {data.interactantTwo.uniProtKBAccession}
+        </Link>
+      ) : (
+        <>
+          {data.interactantTwo.geneName} {data.interactantTwo.chainId}
+        </>
+      ),
+  },
+  {
+    id: 'number-of-experiments',
+    label: 'Number of experiments',
+    render: (data) => data.numberOfExperiments,
+  },
+  {
+    id: 'intact',
+    label: <span translate="no">IntAct</span>,
+    render: (data) => (
+      <ExternalLink
+        url={getIntActQueryUrl(
+          data.interactantOne.intActId,
+          data.interactantTwo.intActId,
+          data.interactantOne.uniProtKBAccession
+        )}
+      >
+        {data.interactantOne.intActId}, {data.interactantTwo.intActId}
+      </ExternalLink>
+    ),
+  },
+];
+
 type Props = {
   data: UIModel;
   primaryAccession: string;
@@ -164,92 +242,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  const displayVizTab = complexPortalXrefs.size > 0;
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th data-filter="type">Type</th>
-          <th data-filter="entry_1">Entry 1</th>
-          <th>Entry 2</th>
-          <th>Number of experiments</th>
-          <th translate="no">Intact</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
-        {tableData.map((interaction) => (
-          <tr
-            key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
-          >
-            <td
-              data-filter="type"
-              data-filter-value={interaction.organismDiffer ? 'XENO' : 'BINARY'}
-            >
-              {/* NOTE: Add 'SELF' */}
-              {interaction.organismDiffer ? 'XENO' : 'BINARY'}
-            </td>
-            <td
-              data-filter="entry_1"
-              data-filter-value={
-                interaction.interactantOne.uniProtKBAccession || 'Other'
-              }
-            >
-              {interaction.interactantOne.uniProtKBAccession ? (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantOne.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantOne.geneName}{' '}
-                  {interaction.interactantOne.chainId}{' '}
-                  {interaction.interactantOne.uniProtKBAccession}
-                </Link>
-              ) : (
-                <>
-                  {interaction.interactantOne.geneName}{' '}
-                  {interaction.interactantOne.chainId}
-                </>
-              )}
-            </td>
-            <td>
-              {interaction.interactantTwo.uniProtKBAccession ? (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantTwo.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantTwo.geneName}{' '}
-                  {interaction.interactantTwo.chainId}{' '}
-                  {interaction.interactantTwo.uniProtKBAccession}
-                </Link>
-              ) : (
-                <>
-                  {interaction.interactantTwo.geneName}{' '}
-                  {interaction.interactantTwo.chainId}
-                </>
-              )}
-            </td>
-            <td>{interaction.numberOfExperiments}</td>
-            <td>
-              <ExternalLink
-                url={getIntActQueryUrl(
-                  interaction.interactantOne.intActId,
-                  interaction.interactantTwo.intActId,
-                  interaction.interactantOne.uniProtKBAccession
-                )}
-              >
-                {interaction.interactantOne.intActId},{' '}
-                {interaction.interactantTwo.intActId}
-              </ExternalLink>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
   const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
   const complexName =
     complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
@@ -279,67 +271,66 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           <LazyComponent render={isSmallScreen ? false : undefined}>
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
-          <DatatableWrapper>{table}</DatatableWrapper>
+          <TableFromData
+            columns={columns}
+            data={tableData}
+            getRowId={getRowId}
+            noTranslateBody
+          />
         </>
       ) : null}
 
-      {displayVizTab && !isSmallScreen && (
-        <Tabs className={styles['visualisation-tabs']}>
-          {complexPortalXrefs.size ? (
-            <Tab cache title="Complex viewer">
-              <div className={styles['viewer-ids-container']}>
-                <Dropdown
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  visibleElement={(onClick: () => unknown) => (
-                    <Button variant="primary" onClick={onClick}>
-                      {complexString}
-                    </Button>
-                  )}
-                >
-                  <ul className={styles['ids-list']}>
-                    {Array.from(complexPortalXrefs.values()).map(
-                      ({ id, properties }) => (
-                        <li key={id}>
-                          <Button
-                            variant="tertiary"
-                            key={id}
-                            id={id}
-                            onClick={(event) => {
-                              setViewerID(
-                                (event.target as HTMLButtonElement).id
-                              );
-                              clickOnDropdown(
-                                event.target as HTMLButtonElement
-                              );
-                            }}
-                          >
-                            {id} {properties?.EntryName || ''}
-                          </Button>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </Dropdown>
-                <LazyComponent>
-                  <ComplexViewer complexID={complexId} />
-                </LazyComponent>
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: stringifyQuery({
-                      query: `(xref:complexportal-${complexId})`,
-                    }),
-                  }}
-                >
-                  View interactors in UniProtKB
-                </Link>
-              </div>
-              <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
-                View {complexId} in Complex Portal
-              </ExternalLink>
-            </Tab>
-          ) : null}
-        </Tabs>
+      {complexPortalXrefs.size > 0 && !isSmallScreen && (
+        <>
+          <h3 data-article-id="complex_viewer">Complex viewer</h3>
+          <div className={styles['viewer-ids-container']}>
+            <Dropdown
+              // eslint-disable-next-line react/no-unstable-nested-components
+              visibleElement={(onClick: () => unknown) => (
+                <Button variant="primary" onClick={onClick}>
+                  {complexString}
+                </Button>
+              )}
+            >
+              <ul className={styles['ids-list']}>
+                {Array.from(complexPortalXrefs.values()).map(
+                  ({ id, properties }) => (
+                    <li key={id}>
+                      <Button
+                        variant="tertiary"
+                        key={id}
+                        id={id}
+                        onClick={(event) => {
+                          setViewerID((event.target as HTMLButtonElement).id);
+                          clickOnDropdown(event.target as HTMLButtonElement);
+                        }}
+                      >
+                        {id} {properties?.EntryName || ''}
+                      </Button>
+                    </li>
+                  )
+                )}
+              </ul>
+            </Dropdown>
+            <LazyComponent>
+              <ComplexViewer complexID={complexId} />
+            </LazyComponent>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: stringifyQuery({
+                  query: `(xref:complexportal-${complexId})`,
+                }),
+              }}
+            >
+              View interactors in UniProtKB
+            </Link>
+            <br />
+            <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+              View {complexId} in Complex Portal
+            </ExternalLink>
+          </div>
+        </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>

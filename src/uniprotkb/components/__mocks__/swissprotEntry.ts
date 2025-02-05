@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P05067.json
-// Retrieved: 2024-10-01
+// Retrieved: 2025-02-04
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P05067',
@@ -33,9 +33,9 @@ const mock: UniProtkbAPIModel = {
   uniProtkbId: 'A4_HUMAN',
   entryAudit: {
     firstPublicDate: '1987-08-13',
-    lastAnnotationUpdateDate: '2024-10-02',
+    lastAnnotationUpdateDate: '2024-11-27',
     lastSequenceUpdateDate: '1991-11-01',
-    entryVersion: 313,
+    entryVersion: 314,
     sequenceVersion: 3,
   },
   annotationScore: 5,
@@ -556,15 +556,6 @@ const mock: UniProtkbAPIModel = {
     {
       texts: [
         {
-          value:
-            'N-APP binds TNFRSF21 triggering caspase activation and degeneration of both neuronal cell bodies (via caspase-3) and axons (via caspase-6)',
-        },
-      ],
-      commentType: 'FUNCTION',
-    },
-    {
-      texts: [
-        {
           evidences: [
             {
               evidenceCode: 'ECO:0000250',
@@ -679,11 +670,6 @@ const mock: UniProtkbAPIModel = {
             {
               evidenceCode: 'ECO:0000269',
               source: 'PubMed',
-              id: '19225519',
-            },
-            {
-              evidenceCode: 'ECO:0000269',
-              source: 'PubMed',
               id: '19366692',
             },
             {
@@ -783,7 +769,7 @@ const mock: UniProtkbAPIModel = {
             },
           ],
           value:
-            'Binds, via its C-terminus, to the PID domain of several cytoplasmic proteins, including APBB family members, the APBA family, MAPK8IP1, SHC1 and, NUMB and DAB1 (By similarity). Binding to DAB1 inhibits its serine phosphorylation (By similarity). Interacts (via NPXY motif) with DAB2 (via PID domain); the interaction is impaired by tyrosine phosphorylation of the NPXY motif. Also interacts with GPCR-like protein BPP, APPBP1, IB1, KNS2 (via its TPR domains), APPBP2 (via BaSS) and DDB1. In vitro, it binds MAPT via the MT-binding domains (By similarity). Associates with microtubules in the presence of ATP and in a kinesin-dependent manner (By similarity). Interacts, through a C-terminal domain, with GNAO1. Amyloid-beta protein 42 binds CHRNA7 in hippocampal neurons. Amyloid-beta associates with HADH2. Soluble APP binds, via its N-terminal head, to FBLN1. Interacts with CPEB1 and AGER (By similarity). Interacts with ANKS1B and TNFRSF21. Interacts with ITM2B. Interacts with ITM2C. Interacts with IDE. Can form homodimers; dimerization is enhanced in the presence of Cu(2+) ions (PubMed:25122912). Can form homodimers; this is promoted by heparin binding. Amyloid-beta protein 40 interacts with S100A9. CTF-alpha product of APP interacts with GSAP. Isoform APP695 interacts with SORL1 (via N-terminal ectodomain); this interaction retains APP in the trans-Golgi network and reduces processing into soluble APP-alpha and amyloid-beta peptides (PubMed:16174740, PubMed:16407538, PubMed:17855360, PubMed:24523320). The C99 fragment also interacts with SORL1 (PubMed:16407538). Isoform APP751 interacts with SORL1 (PubMed:16174740). Isoform APP770 interacts with SORL1 (PubMed:16174740). Interacts with PLD3. Interacts with VDAC1 (PubMed:25168729). Interacts with NSG1; could regulate APP processing (By similarity). Amyloid-beta protein 42 interacts with FPR2 (PubMed:11689470). Interacts with SYT7 (By similarity). Interacts (via transmembrane region) with PSEN1; the interaction is direct (PubMed:30630874). Interacts with LRRK2 (PubMed:28720718). Interacts (via cytoplasmic domain) with KIF5B (PubMed:23011729). Interacts (via C-terminus) with APBB2/FE65L1 (via C-terminus) (PubMed:14527950, PubMed:8855266). Interacts (via intracellular domain) with APBB3 (PubMed:10081969)',
+            'Binds, via its C-terminus, to the PID domain of several cytoplasmic proteins, including APBB family members, the APBA family, MAPK8IP1, SHC1 and, NUMB and DAB1 (By similarity). Binding to DAB1 inhibits its serine phosphorylation (By similarity). Interacts (via NPXY motif) with DAB2 (via PID domain); the interaction is impaired by tyrosine phosphorylation of the NPXY motif. Also interacts with GPCR-like protein BPP, APPBP1, IB1, KNS2 (via its TPR domains), APPBP2 (via BaSS) and DDB1. In vitro, it binds MAPT via the MT-binding domains (By similarity). Associates with microtubules in the presence of ATP and in a kinesin-dependent manner (By similarity). Interacts, through a C-terminal domain, with GNAO1. Amyloid-beta protein 42 binds CHRNA7 in hippocampal neurons. Amyloid-beta associates with HADH2. Soluble APP binds, via its N-terminal head, to FBLN1. Interacts with CPEB1 and AGER (By similarity). Interacts with ANKS1B. Interacts with ITM2B. Interacts with ITM2C. Interacts with IDE. Can form homodimers; dimerization is enhanced in the presence of Cu(2+) ions (PubMed:25122912). Can form homodimers; this is promoted by heparin binding. Amyloid-beta protein 40 interacts with S100A9. CTF-alpha product of APP interacts with GSAP. Isoform APP695 interacts with SORL1 (via N-terminal ectodomain); this interaction retains APP in the trans-Golgi network and reduces processing into soluble APP-alpha and amyloid-beta peptides (PubMed:16174740, PubMed:16407538, PubMed:17855360, PubMed:24523320). The C99 fragment also interacts with SORL1 (PubMed:16407538). Isoform APP751 interacts with SORL1 (PubMed:16174740). Isoform APP770 interacts with SORL1 (PubMed:16174740). Interacts with PLD3. Interacts with VDAC1 (PubMed:25168729). Interacts with NSG1; could regulate APP processing (By similarity). Amyloid-beta protein 42 interacts with FPR2 (PubMed:11689470). Interacts with SYT7 (By similarity). Interacts (via transmembrane region) with PSEN1; the interaction is direct (PubMed:30630874). Interacts with LRRK2 (PubMed:28720718). Interacts (via cytoplasmic domain) with KIF5B (PubMed:23011729). Interacts (via C-terminus) with APBB2/FE65L1 (via C-terminus) (PubMed:14527950, PubMed:8855266). Interacts (via intracellular domain) with APBB3 (PubMed:10081969)',
         },
       ],
       commentType: 'SUBUNIT',
@@ -8058,6 +8044,27 @@ const mock: UniProtkbAPIModel = {
       commentType: 'SIMILARITY',
     },
     {
+      texts: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000305',
+              source: 'PubMed',
+              id: '19225519',
+            },
+            {
+              evidenceCode: 'ECO:0000305',
+              source: 'PubMed',
+              id: '38110576',
+            },
+          ],
+          value:
+            'Was reported to bind TNFRSF21 triggering caspase activation and degeneration of both neuronal cell bodies (via caspase-3) and axons (via caspase-6) (PubMed:19225519). This work was later retracted (PubMed:38110576)',
+        },
+      ],
+      commentType: 'CAUTION',
+    },
+    {
       commentType: 'SEQUENCE CAUTION',
       sequenceCautionType: 'Miscellaneous discrepancy',
       sequence: 'AAA58727.1',
@@ -14098,6 +14105,27 @@ const mock: UniProtkbAPIModel = {
       type: 'Beta strand',
       location: {
         start: {
+          value: 718,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 720,
+          modifier: 'EXACT',
+        },
+      },
+      description: '',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0007829',
+          source: 'PDB',
+          id: '8X52',
+        },
+      ],
+    },
+    {
+      type: 'Beta strand',
+      location: {
+        start: {
           value: 721,
           modifier: 'EXACT',
         },
@@ -18037,14 +18065,41 @@ const mock: UniProtkbAPIModel = {
         lastPage: '989',
         volume: '457',
       },
-      referencePositions: [
-        'FUNCTION',
-        'PROTEOLYTIC CLEAVAGE',
-        'INTERACTION WITH TNFRSF21',
-      ],
+      referencePositions: ['RETRACTED PAPER'],
     },
     {
       referenceNumber: 99,
+      citation: {
+        id: '38110576',
+        citationType: 'journal article',
+        authors: [
+          'Nikolaev A.',
+          'McLaughlin T.',
+          "O'Leary D.D.M.",
+          'Tessier-Lavigne M.',
+        ],
+        citationCrossReferences: [
+          {
+            database: 'PubMed',
+            id: '38110576',
+          },
+          {
+            database: 'DOI',
+            id: '10.1038/s41586-023-06943-3',
+          },
+        ],
+        title:
+          'Retraction Note: APP binds DR6 to trigger axon pruning and neuron death via distinct caspases.',
+        publicationDate: '2024',
+        journal: 'Nature',
+        firstPage: '204',
+        lastPage: '204',
+        volume: '625',
+      },
+      referencePositions: ['CAUTION', 'RETRACTION NOTICE OF PUBMED:19225519'],
+    },
+    {
+      referenceNumber: 100,
       citation: {
         id: '19901339',
         citationType: 'journal article',
@@ -18089,7 +18144,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['FUNCTION', 'INTERACTION WITH AGER'],
     },
     {
-      referenceNumber: 100,
+      referenceNumber: 101,
       citation: {
         id: '20580937',
         citationType: 'journal article',
@@ -18125,7 +18180,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['SUBCELLULAR LOCATION'],
     },
     {
-      referenceNumber: 101,
+      referenceNumber: 102,
       citation: {
         id: '20811458',
         citationType: 'journal article',
@@ -18163,7 +18218,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH GSAP'],
     },
     {
-      referenceNumber: 102,
+      referenceNumber: 103,
       citation: {
         id: '21269460',
         citationType: 'journal article',
@@ -18199,7 +18254,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 103,
+      referenceNumber: 104,
       citation: {
         id: '21712440',
         citationType: 'journal article',
@@ -18239,7 +18294,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 104,
+      referenceNumber: 105,
       citation: {
         id: '23011729',
         citationType: 'journal article',
@@ -18273,7 +18328,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['FUNCTION', 'INTERACTION WITH KIF5B'],
     },
     {
-      referenceNumber: 105,
+      referenceNumber: 106,
       citation: {
         id: '22457725',
         citationType: 'journal article',
@@ -18299,7 +18354,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH S100A9'],
     },
     {
-      referenceNumber: 106,
+      referenceNumber: 107,
       citation: {
         id: '24275569',
         citationType: 'journal article',
@@ -18345,7 +18400,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 107,
+      referenceNumber: 108,
       citation: {
         id: '24336208',
         citationType: 'journal article',
@@ -18457,7 +18512,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH PLD3'],
     },
     {
-      referenceNumber: 108,
+      referenceNumber: 109,
       citation: {
         id: '25168729',
         citationType: 'journal article',
@@ -18489,7 +18544,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH VDAC1'],
     },
     {
-      referenceNumber: 109,
+      referenceNumber: 110,
       citation: {
         id: '24523320',
         citationType: 'journal article',
@@ -18528,7 +18583,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['INTERACTION WITH SORL1'],
     },
     {
-      referenceNumber: 110,
+      referenceNumber: 111,
       citation: {
         id: '26091039',
         citationType: 'journal article',
@@ -18570,7 +18625,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['PHOSPHORYLATION AT SER-441 AND TYR-497'],
     },
     {
-      referenceNumber: 111,
+      referenceNumber: 112,
       citation: {
         id: '28720718',
         citationType: 'journal article',
@@ -18615,7 +18670,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 112,
+      referenceNumber: 113,
       citation: {
         id: '2125487',
         citationType: 'journal article',
@@ -18647,7 +18702,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['X-RAY CRYSTALLOGRAPHY (1.5 ANGSTROMS) OF 287-344'],
     },
     {
-      referenceNumber: 113,
+      referenceNumber: 114,
       citation: {
         id: '1718421',
         citationType: 'journal article',
@@ -18685,7 +18740,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 289-344'],
     },
     {
-      referenceNumber: 114,
+      referenceNumber: 115,
       citation: {
         id: '7516706',
         citationType: 'journal article',
@@ -18716,7 +18771,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-699'],
     },
     {
-      referenceNumber: 115,
+      referenceNumber: 116,
       citation: {
         id: '7588758',
         citationType: 'journal article',
@@ -18750,7 +18805,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-711'],
     },
     {
-      referenceNumber: 116,
+      referenceNumber: 117,
       citation: {
         id: '8973180',
         citationType: 'journal article',
@@ -18782,7 +18837,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 696-706'],
     },
     {
-      referenceNumber: 117,
+      referenceNumber: 118,
       citation: {
         id: '9300481',
         citationType: 'journal article',
@@ -18816,7 +18871,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 118,
+      referenceNumber: 119,
       citation: {
         id: '9693002',
         citationType: 'journal article',
@@ -18848,7 +18903,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-711'],
     },
     {
-      referenceNumber: 119,
+      referenceNumber: 120,
       citation: {
         id: '10201399',
         citationType: 'journal article',
@@ -18886,7 +18941,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['X-RAY CRYSTALLOGRAPHY (1.8 ANGSTROMS) OF 28-123'],
     },
     {
-      referenceNumber: 120,
+      referenceNumber: 121,
       citation: {
         id: '10821838',
         citationType: 'journal article',
@@ -18921,7 +18976,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE OF CAA-APP VARIANTS'],
     },
     {
-      referenceNumber: 121,
+      referenceNumber: 122,
       citation: {
         id: '10940221',
         citationType: 'journal article',
@@ -18958,7 +19013,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 681-706'],
     },
     {
-      referenceNumber: 122,
+      referenceNumber: 123,
       citation: {
         id: '10940222',
         citationType: 'journal article',
@@ -18984,7 +19039,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['STRUCTURE BY NMR OF 672-699'],
     },
     {
-      referenceNumber: 123,
+      referenceNumber: 124,
       citation: {
         id: '12611883',
         citationType: 'journal article',
@@ -19036,7 +19091,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 124,
+      referenceNumber: 125,
       citation: {
         id: '15304215',
         citationType: 'journal article',
@@ -19067,7 +19122,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 125,
+      referenceNumber: 126,
       citation: {
         id: '17051221',
         citationType: 'journal article',
@@ -19095,7 +19150,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 126,
+      referenceNumber: 127,
       citation: {
         id: '17909280',
         citationType: 'journal article',
@@ -19124,7 +19179,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 127,
+      referenceNumber: 128,
       citation: {
         id: '17239395',
         citationType: 'journal article',
@@ -19192,7 +19247,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 128,
+      referenceNumber: 129,
       citation: {
         id: '17895381',
         citationType: 'journal article',
@@ -19231,7 +19286,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 129,
+      referenceNumber: 130,
       citation: {
         id: '19923222',
         citationType: 'journal article',
@@ -19284,7 +19339,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 130,
+      referenceNumber: 131,
       citation: {
         id: '20212142',
         citationType: 'journal article',
@@ -19323,7 +19378,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 131,
+      referenceNumber: 132,
       citation: {
         id: '22584060',
         citationType: 'journal article',
@@ -19364,7 +19419,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 132,
+      referenceNumber: 133,
       citation: {
         id: '22654059',
         citationType: 'journal article',
@@ -19409,7 +19464,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 133,
+      referenceNumber: 134,
       citation: {
         id: '25122912',
         citationType: 'journal article',
@@ -19465,7 +19520,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 134,
+      referenceNumber: 135,
       citation: {
         id: '26898943',
         citationType: 'journal article',
@@ -19511,7 +19566,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 135,
+      referenceNumber: 136,
       citation: {
         id: '28570778',
         citationType: 'journal article',
@@ -19555,7 +19610,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 136,
+      referenceNumber: 137,
       citation: {
         id: '28882996',
         citationType: 'journal article',
@@ -19603,7 +19658,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 137,
+      referenceNumber: 138,
       citation: {
         id: '29282295',
         citationType: 'journal article',
@@ -19654,7 +19709,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 138,
+      referenceNumber: 139,
       citation: {
         id: '30630874',
         citationType: 'journal article',
@@ -19694,7 +19749,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 139,
+      referenceNumber: 140,
       citation: {
         id: '1363811',
         citationType: 'journal article',
@@ -19719,7 +19774,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['REVIEW ON VARIANTS'],
     },
     {
-      referenceNumber: 140,
+      referenceNumber: 141,
       citation: {
         id: '2111584',
         citationType: 'journal article',
@@ -19755,7 +19810,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP GLN-693'],
     },
     {
-      referenceNumber: 141,
+      referenceNumber: 142,
       citation: {
         id: '1671712',
         citationType: 'journal article',
@@ -19803,7 +19858,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
-      referenceNumber: 142,
+      referenceNumber: 143,
       citation: {
         id: '1908231',
         citationType: 'journal article',
@@ -19835,7 +19890,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
-      referenceNumber: 143,
+      referenceNumber: 144,
       citation: {
         id: '1678058',
         citationType: 'journal article',
@@ -19873,7 +19928,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
-      referenceNumber: 144,
+      referenceNumber: 145,
       citation: {
         id: '1944558',
         citationType: 'journal article',
@@ -19911,7 +19966,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-717'],
     },
     {
-      referenceNumber: 145,
+      referenceNumber: 146,
       citation: {
         id: '1925564',
         citationType: 'journal article',
@@ -19937,7 +19992,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 PHE-717'],
     },
     {
-      referenceNumber: 146,
+      referenceNumber: 147,
       citation: {
         id: '1415269',
         citationType: 'journal article',
@@ -19984,7 +20039,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-693'],
     },
     {
-      referenceNumber: 147,
+      referenceNumber: 148,
       citation: {
         id: '1303239',
         citationType: 'journal article',
@@ -20023,7 +20078,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-692'],
     },
     {
-      referenceNumber: 148,
+      referenceNumber: 149,
       citation: {
         id: '1302033',
         citationType: 'journal article',
@@ -20057,7 +20112,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 670-LYS-MET-671 DELINS ASN-LEU'],
     },
     {
-      referenceNumber: 149,
+      referenceNumber: 150,
       citation: {
         id: '1465129',
         citationType: 'journal article',
@@ -20095,7 +20150,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 150,
+      referenceNumber: 151,
       citation: {
         id: '1307241',
         citationType: 'journal article',
@@ -20129,7 +20184,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT VAL-713'],
     },
     {
-      referenceNumber: 151,
+      referenceNumber: 152,
       citation: {
         id: '1303275',
         citationType: 'journal article',
@@ -20164,7 +20219,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 THR-713'],
     },
     {
-      referenceNumber: 152,
+      referenceNumber: 153,
       citation: {
         id: '8267572',
         citationType: 'journal article',
@@ -20196,7 +20251,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANTS AD1 ILE-717 AND PHE-717'],
     },
     {
-      referenceNumber: 153,
+      referenceNumber: 154,
       citation: {
         id: '8154870',
         citationType: 'journal article',
@@ -20229,7 +20284,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT ASP-665'],
     },
     {
-      referenceNumber: 154,
+      referenceNumber: 155,
       citation: {
         id: '8290042',
         citationType: 'journal article',
@@ -20262,7 +20317,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 PHE-717'],
     },
     {
-      referenceNumber: 155,
+      referenceNumber: 156,
       citation: {
         id: '8577393',
         citationType: 'journal article',
@@ -20298,7 +20353,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
-      referenceNumber: 156,
+      referenceNumber: 157,
       citation: {
         id: '8886002',
         citationType: 'journal article',
@@ -20337,7 +20392,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 157,
+      referenceNumber: 158,
       citation: {
         id: '9328472',
         citationType: 'journal article',
@@ -20379,7 +20434,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 VAL-716'],
     },
     {
-      referenceNumber: 158,
+      referenceNumber: 159,
       citation: {
         id: '9754958',
         citationType: 'journal article',
@@ -20419,7 +20474,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 159,
+      referenceNumber: 160,
       citation: {
         id: '10097173',
         citationType: 'journal article',
@@ -20457,7 +20512,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 160,
+      referenceNumber: 161,
       citation: {
         id: '10631141',
         citationType: 'journal article',
@@ -20495,7 +20550,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-717'],
     },
     {
-      referenceNumber: 161,
+      referenceNumber: 162,
       citation: {
         id: '10665499',
         citationType: 'journal article',
@@ -20530,7 +20585,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 PRO-723'],
     },
     {
-      referenceNumber: 162,
+      referenceNumber: 163,
       citation: {
         id: '10867787',
         citationType: 'journal article',
@@ -20562,7 +20617,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 LEU-717'],
     },
     {
-      referenceNumber: 163,
+      referenceNumber: 164,
       citation: {
         id: '11063718',
         citationType: 'journal article',
@@ -20606,7 +20661,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 164,
+      referenceNumber: 165,
       citation: {
         id: '10677483',
         citationType: 'journal article',
@@ -20641,7 +20696,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      referenceNumber: 165,
+      referenceNumber: 166,
       citation: {
         id: '11409420',
         citationType: 'journal article',
@@ -20673,7 +20728,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP ASN-694'],
     },
     {
-      referenceNumber: 166,
+      referenceNumber: 167,
       citation: {
         id: '11311152',
         citationType: 'journal article',
@@ -20705,7 +20760,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['CHARACTERIZATION OF VARIANT AD1 GLY-692'],
     },
     {
-      referenceNumber: 167,
+      referenceNumber: 168,
       citation: {
         id: '11528419',
         citationType: 'journal article',
@@ -20744,7 +20799,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 GLY-693'],
     },
     {
-      referenceNumber: 168,
+      referenceNumber: 169,
       citation: {
         id: '12034808',
         citationType: 'journal article',
@@ -20780,7 +20835,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ALA-714'],
     },
     {
-      referenceNumber: 169,
+      referenceNumber: 170,
       citation: {
         id: '12654973',
         citationType: 'journal article',
@@ -20816,7 +20871,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP ASN-694'],
     },
     {
-      referenceNumber: 170,
+      referenceNumber: 171,
       citation: {
         id: '15365148',
         citationType: 'journal article',
@@ -20857,7 +20912,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 THR-713'],
     },
     {
-      referenceNumber: 171,
+      referenceNumber: 172,
       citation: {
         id: '16178030',
         citationType: 'journal article',
@@ -20897,7 +20952,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT CAA-APP VAL-705'],
     },
     {
-      referenceNumber: 172,
+      referenceNumber: 173,
       citation: {
         id: '15668448',
         citationType: 'journal article',
@@ -20935,7 +20990,7 @@ const mock: UniProtkbAPIModel = {
       referencePositions: ['VARIANT AD1 ILE-714'],
     },
     {
-      referenceNumber: 173,
+      referenceNumber: 174,
       citation: {
         id: '20697050',
         citationType: 'journal article',
@@ -26058,6 +26113,114 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDB',
+      id: '8KEW',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/F/G=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8KF1',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8KF3',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.50 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8KF4',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.00 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8KF5',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.40 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8KF6',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.70 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
       id: '8OL2',
       properties: [
         {
@@ -26220,6 +26383,60 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDB',
+      id: '8OT1',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.59 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OT3',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.73 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OT4',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.97 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
       id: '8OTF',
       properties: [
         {
@@ -26233,6 +26450,114 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'Chains',
           value: 'A/B/C/D/E/F=1-770',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OVK',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.88 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OVM',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.24 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OWD',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.28 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OWE',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.75 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OWJ',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.75 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '8OWK',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.86 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-711',
         },
       ],
     },
@@ -28258,6 +28583,66 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDBsum',
+      id: '8KEW',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8KF1',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8KF3',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8KF4',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8KF5',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8KF6',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
       id: '8OL2',
       properties: [
         {
@@ -28348,7 +28733,97 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDBsum',
+      id: '8OT1',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OT3',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OT4',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
       id: '8OTF',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OVK',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OVM',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OWD',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OWE',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OWJ',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '8OWK',
       properties: [
         {
           key: 'Description',
@@ -28769,6 +29244,16 @@ const mock: UniProtkbAPIModel = {
     {
       database: 'EMDB',
       id: 'EMD-32862',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-37170',
       properties: [
         {
           key: 'Description',
@@ -29333,7 +29818,7 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'glycosylation',
           value:
-            '26 sites, 4 N-linked glycans (1 site), 5 O-linked glycans (22 sites)',
+            '26 sites, 13 N-linked glycans (2 sites), 6 O-linked glycans (22 sites)',
         },
       ],
     },
@@ -29583,7 +30068,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '4794 antibodies from 54 providers',
+          value: '4319 antibodies from 53 providers',
         },
       ],
     },
@@ -31699,6 +32184,20 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0010467',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:gene expression',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:0006878',
       properties: [
         {
@@ -31967,6 +32466,34 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0010466',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:negative regulation of peptidase activity',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:UniProtKB-KW',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:1905607',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:negative regulation of presynapse assembly',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:0050885',
       properties: [
         {
@@ -31989,14 +32516,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IMP:UniProtKB',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000315',
-          source: 'PubMed',
-          id: '19225519',
+          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -32845,6 +33365,76 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'FunFam',
+      id: '3.30.1490.140:FF:000001',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Amyloid beta (A4) protein b',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'FunFam',
+      id: '3.90.570.10:FF:000001',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Amyloid beta A4 protein',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'FunFam',
+      id: '4.10.230.10:FF:000001',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Amyloid beta A4 protein',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'FunFam',
+      id: '4.10.410.10:FF:000001',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Amyloid beta A4 protein',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
+      database: 'FunFam',
+      id: '1.20.120.770:FF:000001',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Amyloid beta A4 protein-like isoform 1',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
+        },
+      ],
+    },
+    {
       database: 'Gene3D',
       id: '1.20.120.770',
       properties: [
@@ -33430,7 +34020,7 @@ const mock: UniProtkbAPIModel = {
   },
   extraAttributes: {
     countByCommentType: {
-      FUNCTION: 5,
+      FUNCTION: 4,
       SUBUNIT: 1,
       INTERACTION: 468,
       'SUBCELLULAR LOCATION': 7,
@@ -33443,6 +34033,7 @@ const mock: UniProtkbAPIModel = {
       DISEASE: 2,
       MISCELLANEOUS: 7,
       SIMILARITY: 1,
+      CAUTION: 1,
       'SEQUENCE CAUTION': 1,
       'WEB RESOURCE': 3,
     },
@@ -33467,7 +34058,7 @@ const mock: UniProtkbAPIModel = {
       Mutagenesis: 41,
       'Sequence conflict': 5,
       Helix: 16,
-      'Beta strand': 29,
+      'Beta strand': 30,
       Turn: 6,
     },
     uniParcId: 'UPI000002DB1C',

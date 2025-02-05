@@ -117,7 +117,7 @@ exports[`QueryBuilder should render 1`] = `
           <label>
             Gene Name [GN]
             <input
-              placeholder="ydj1"
+              placeholder="YDJ1"
               translate="no"
               type="text"
               value=""
@@ -184,7 +184,7 @@ exports[`QueryBuilder should render 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="human"
+                  placeholder="mammalia"
                   type="search"
                   value=""
                 />
@@ -269,7 +269,7 @@ exports[`QueryBuilder should render 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="chromosomal"
+                  placeholder="activator"
                   type="search"
                   value=""
                 />

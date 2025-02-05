@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 import { SearchTermType } from '../../../types/searchTypes';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2024-10-01
+// Retrieved: 2025-02-04
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -28,13 +28,24 @@ const configureSearchTerms = [
     example: 'P53_HUMAN',
   },
   {
+    id: 'sec_acc',
+    label: 'Secondary Accession',
+    itemType: 'single',
+    term: 'sec_acc',
+    dataType: 'string',
+    fieldType: 'general',
+    example: 'B2R5V1',
+    regex:
+      '(?i)([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])(-[0-9]+)?',
+  },
+  {
     id: 'protein_name_field',
     label: 'Protein Name [DE]',
     itemType: 'single',
     term: 'protein_name',
     dataType: 'string',
     fieldType: 'general',
-    example: 'mas5',
+    example: 'Elastin',
   },
   {
     id: 'gene_field',
@@ -43,7 +54,7 @@ const configureSearchTerms = [
     term: 'gene',
     dataType: 'string',
     fieldType: 'general',
-    example: 'ydj1',
+    example: 'YDJ1',
   },
   {
     id: 'organism_name_field',
@@ -63,7 +74,7 @@ const configureSearchTerms = [
     term: 'taxonomy_name',
     dataType: 'string',
     fieldType: 'general',
-    example: 'human',
+    example: 'mammalia',
     autoComplete: '/suggester?dict=taxonomy&query=?',
     autoCompleteQueryTerm: 'taxonomy_id',
   },
@@ -978,7 +989,7 @@ const configureSearchTerms = [
             term: 'ft_carbohyd',
             dataType: 'string',
             fieldType: 'general',
-            example: 'cysteine',
+            example: 'GlcNAc',
           },
           {
             id: 'ft_carbohyd_exp',
@@ -986,7 +997,7 @@ const configureSearchTerms = [
             term: 'ft_carbohyd_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'cysteine',
+            example: 'GlcNAc',
           },
         ],
       },
@@ -1449,7 +1460,7 @@ const configureSearchTerms = [
         term: 'mass',
         dataType: 'integer',
         fieldType: 'range',
-        example: '[441126 TO 441126]',
+        example: '[10000 TO 11000]',
       },
       {
         id: 'length_range',
@@ -1635,7 +1646,7 @@ const configureSearchTerms = [
             term: 'cc_sc_eterm',
             dataType: 'string',
             fieldType: 'general',
-            example: 'translated',
+            example: 'truncated',
           },
           {
             id: 'cc_sc_epred',
@@ -3772,6 +3783,15 @@ const configureSearchTerms = [
         itemType: 'group',
         items: [
           {
+            id: 'xref_antifam',
+            label: 'AntiFam',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'antifam-',
+          },
+          {
             id: 'xref_cdd',
             label: 'CDD',
             itemType: 'single',
@@ -3779,6 +3799,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cdd-',
+          },
+          {
+            id: 'xref_funfam',
+            label: 'FunFam',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'funfam-',
           },
           {
             id: 'xref_gene3d',
@@ -3969,7 +3998,7 @@ const configureSearchTerms = [
         term: 'date_created',
         dataType: 'date',
         fieldType: 'range',
-        example: '[2018-03-04 TO 2018-03-08]',
+        example: '[2023-05-13 TO 2024-05-13]',
       },
       {
         id: 'date_modified',
@@ -3978,7 +4007,7 @@ const configureSearchTerms = [
         term: 'date_modified',
         dataType: 'date',
         fieldType: 'range',
-        example: '[2018-03-04 TO 2018-03-08]',
+        example: '[2023-05-13 TO 2024-05-13]',
       },
       {
         id: 'date_sequence_modified',
@@ -3987,7 +4016,7 @@ const configureSearchTerms = [
         term: 'date_sequence_modified',
         dataType: 'date',
         fieldType: 'range',
-        example: '[2018-03-04 TO 2018-03-08]',
+        example: '[2023-05-13 TO 2024-05-13]',
       },
     ],
   },
@@ -4141,7 +4170,7 @@ const configureSearchTerms = [
         term: 'chebi',
         dataType: 'string',
         fieldType: 'general',
-        example: '29105',
+        example: '35155',
         autoComplete: '/suggester?dict=chebi&query=?',
         autoCompleteQueryTerm: 'chebi',
       },
@@ -4163,7 +4192,7 @@ const configureSearchTerms = [
     term: 'keyword',
     dataType: 'string',
     fieldType: 'general',
-    example: 'chromosomal',
+    example: 'activator',
     autoComplete: '/suggester?dict=keyword&query=?',
     autoCompleteQueryTerm: 'keyword',
   },
@@ -4215,7 +4244,7 @@ const configureSearchTerms = [
         term: 'lit_title',
         dataType: 'string',
         fieldType: 'general',
-        example: 'protein',
+        example: 'apoptosis',
       },
       {
         id: 'lit_citation_id',
@@ -4233,7 +4262,7 @@ const configureSearchTerms = [
         term: 'computational_pubmed_id',
         dataType: 'string',
         fieldType: 'general',
-        example: '15165820',
+        example: '1697263',
       },
       {
         id: 'community_pubmed_id',
@@ -4242,7 +4271,7 @@ const configureSearchTerms = [
         term: 'community_pubmed_id',
         dataType: 'string',
         fieldType: 'general',
-        example: '15165820',
+        example: '30699149',
       },
     ],
   },
@@ -4279,7 +4308,7 @@ const configureSearchTerms = [
     term: 'scope',
     dataType: 'string',
     fieldType: 'general',
-    example: 'microtubule',
+    example: 'function',
   },
   {
     id: 'reviewed',

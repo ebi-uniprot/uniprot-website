@@ -241,13 +241,13 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     class="decorated-list-item__content"
                   >
                     <span>
-                       each reference proteome, protein FASTA files (composed of 
+                       
                       <span
                         class="match-highlight"
                       >
                         canonical
                       </span>
-                       and additional sequences), gene
+                       and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and database
                     </span>
                   </div>
                 </div>

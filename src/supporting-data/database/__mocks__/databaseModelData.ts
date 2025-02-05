@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 
 // Source: database/search?query=embl&size=2
-// Retrieved: 2024-10-01
+// Retrieved: 2025-02-04
 const mock: SearchResults<DatabaseAPIModel> = {
   results: [
     {
@@ -16,8 +16,8 @@ const mock: SearchResults<DatabaseAPIModel> = {
       dbUrl: 'https://www.ebi.ac.uk/ena/browser/view/%s',
       category: 'Sequence databases',
       statistics: {
-        reviewedProteinCount: 559358,
-        unreviewedProteinCount: 232527154,
+        reviewedProteinCount: 559745,
+        unreviewedProteinCount: 237863507,
       },
     },
     {
@@ -34,8 +34,8 @@ const mock: SearchResults<DatabaseAPIModel> = {
       dbUrl: 'https://www.ensembl.org/id/%s',
       category: 'Genome annotation databases',
       statistics: {
-        reviewedProteinCount: 18411,
-        unreviewedProteinCount: 761,
+        reviewedProteinCount: 18417,
+        unreviewedProteinCount: 755,
       },
     },
   ],

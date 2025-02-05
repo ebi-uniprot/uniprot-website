@@ -58,6 +58,8 @@ import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
+import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
+
 import dataToSchema from './entry.structured';
 
 import {
@@ -135,6 +137,9 @@ const HistoryTab = lazy(
       /* webpackChunkName: "uniprotkb-entry-history" */ './tabs/history/History'
     )
 );
+
+// Watch out, hardcoded!
+const AFDB_CUTOFF_DATE = new Date('2021-09-30');
 
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
@@ -316,7 +321,7 @@ const Entry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [dispatch, redirectedTo]);
 
   useEffect(() => {
@@ -357,7 +362,7 @@ const Entry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [isObsolete]);
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
@@ -396,6 +401,12 @@ const Entry = () => {
   } else {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
+
+  const isAFDBOutOfSync =
+    new Date(
+      transformedData?.sequences.entryAudit?.lastSequenceUpdateDate ||
+        '2000-01-01'
+    ) > AFDB_CUTOFF_DATE;
 
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} error={error} fullPage />;
@@ -451,367 +462,369 @@ const Entry = () => {
           <ProteinOverview data={data} />
         </ErrorBoundary>
       )}
-      <Tabs active={match.params.subPage}>
-        <Tab
-          title={
-            <Link
-              className={isObsolete ? helper.disabled : undefined}
-              tabIndex={isObsolete ? -1 : undefined}
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                accession,
-                TabLocation.Entry
-              )}
-            >
-              Entry
-            </Link>
-          }
-          id={TabLocation.Entry}
-        >
-          {!isObsolete && data.sequence && (
-            <>
-              {displayDownloadPanel && (
-                <EntryDownloadPanel
-                  handleToggle={handleToggleDownload}
-                  isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
-                  sequence={data.sequence.value}
-                />
-              )}
-              <div className="button-group">
-                <ToolsDropdown
-                  selectedEntries={[accession]}
-                  blast
-                  align={
-                    listOfIsoformAccessions.length > 1 && (
-                      <AlignButton
-                        selectedEntries={listOfIsoformAccessions}
-                        textSuffix="isoforms"
-                      />
-                    )
-                  }
-                  mapID
-                />
-                <EntryDownloadButton handleToggle={handleToggleDownload} />
-                <AddToBasketButton selectedEntries={accession} />
-                <CommunityAnnotationLink accession={accession} />
-                <a
-                  href={externalUrls.CommunityCurationAdd(accession)}
-                  className="button tertiary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Add a publication
-                </a>
-                {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <ContactLink
-                  to={{
-                    pathname: LocationToPath[Location.ContactUpdate],
-                    search: stringifyQuery({
-                      entry: accession,
-                      entryType:
-                        transformedData?.entryType === EntryType.REVIEWED
-                          ? 'Reviewed (Swiss-Prot)'
-                          : 'Unreviewed (TrEMBL)',
-                    }),
-                  }}
-                  className="button tertiary"
-                >
-                  Entry feedback
-                </ContactLink>
-              </div>
-              <EntryMain
-                transformedData={transformedData}
-                importedVariants={importedVariants}
-                communityReferences={communityReferences}
-                isoforms={listOfIsoformNames}
-              />
-            </>
-          )}
-        </Tab>
-        <Tab
-          title={
-            <Link
-              className={cn({
-                [helper.disabled]:
-                  importedVariants === 'loading' || !importedVariants,
-                loading: importedVariants === 'loading',
-              })}
-              tabIndex={
-                importedVariants !== 'loading' && importedVariants
-                  ? undefined
-                  : -1
-              }
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                accession,
-                importedVariants === 'loading' || !importedVariants
-                  ? TabLocation.Entry
-                  : TabLocation.VariantViewer
-              )}
-            >
-              Variant viewer
-              {data.sequence &&
-                !mediumScreen &&
-                importedVariants !== 'loading' &&
-                importedVariants > 0 && (
-                  <>
-                    {' '}
-                    <Chip compact>
-                      <LongNumber>{importedVariants}</LongNumber>
-                    </Chip>
-                  </>
-                )}
-            </Link>
-          }
-          id={TabLocation.VariantViewer}
-          onPointerOver={VariationViewerTab.preload}
-          onFocus={VariationViewerTab.preload}
-        >
-          <Suspense fallback={<Loader />}>
-            <ErrorBoundary>
-              <HTMLHead
-                title={[
-                  pageTitle,
-                  'Variants viewer',
-                  searchableNamespaceLabels[Namespace.uniprotkb],
-                ]}
-              />
-              {data.sequence && (
-                <VariationViewerTab
-                  importedVariants={importedVariants}
-                  primaryAccession={accession}
-                  title="Variants"
-                />
-              )}
-            </ErrorBoundary>
-          </Suspense>
-        </Tab>
-        <Tab
-          title={
-            smallScreen ? null : (
+      <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
+        <Tabs active={match.params.subPage}>
+          <Tab
+            title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
                   Namespace.uniprotkb,
                   accession,
-                  TabLocation.FeatureViewer
+                  TabLocation.Entry
                 )}
               >
-                Feature viewer
+                Entry
               </Link>
-            )
-          }
-          id={TabLocation.FeatureViewer}
-          onPointerOver={FeatureViewerTab.preload}
-          onFocus={FeatureViewerTab.preload}
-        >
-          {smallScreen ? (
-            <Redirect
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                accession,
-                TabLocation.Entry
-              )}
-            />
-          ) : (
+            }
+            id={TabLocation.Entry}
+          >
+            {!isObsolete && data.sequence && (
+              <>
+                {displayDownloadPanel && (
+                  <EntryDownloadPanel
+                    handleToggle={handleToggleDownload}
+                    isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+                    sequence={data.sequence.value}
+                  />
+                )}
+                <div className="button-group">
+                  <ToolsDropdown
+                    selectedEntries={[accession]}
+                    blast
+                    align={
+                      listOfIsoformAccessions.length > 1 && (
+                        <AlignButton
+                          selectedEntries={listOfIsoformAccessions}
+                          textSuffix="isoforms"
+                        />
+                      )
+                    }
+                    mapID
+                  />
+                  <EntryDownloadButton handleToggle={handleToggleDownload} />
+                  <AddToBasketButton selectedEntries={accession} />
+                  <CommunityAnnotationLink accession={accession} />
+                  <a
+                    href={externalUrls.CommunityCurationAdd(accession)}
+                    className="button tertiary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Add a publication
+                  </a>
+                  <ContactLink
+                    to={{
+                      pathname: LocationToPath[Location.ContactUpdate],
+                      search: stringifyQuery({
+                        entry: accession,
+                        entryType:
+                          transformedData?.entryType === EntryType.REVIEWED
+                            ? 'Reviewed (Swiss-Prot)'
+                            : 'Unreviewed (TrEMBL)',
+                      }),
+                    }}
+                    className="button tertiary"
+                  >
+                    Entry feedback
+                  </ContactLink>
+                </div>
+                <EntryMain
+                  transformedData={transformedData}
+                  importedVariants={importedVariants}
+                  communityReferences={communityReferences}
+                  isoforms={listOfIsoformNames}
+                />
+              </>
+            )}
+          </Tab>
+          <Tab
+            title={
+              <Link
+                className={cn({
+                  [helper.disabled]:
+                    importedVariants === 'loading' || !importedVariants,
+                  loading: importedVariants === 'loading',
+                })}
+                tabIndex={
+                  importedVariants !== 'loading' && importedVariants
+                    ? undefined
+                    : -1
+                }
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  accession,
+                  importedVariants === 'loading' || !importedVariants
+                    ? TabLocation.Entry
+                    : TabLocation.VariantViewer
+                )}
+              >
+                Variant viewer
+                {data.sequence &&
+                  !mediumScreen &&
+                  importedVariants !== 'loading' &&
+                  importedVariants > 0 && (
+                    <>
+                      {' '}
+                      <Chip compact>
+                        <LongNumber>{importedVariants}</LongNumber>
+                      </Chip>
+                    </>
+                  )}
+              </Link>
+            }
+            id={TabLocation.VariantViewer}
+            onPointerOver={VariationViewerTab.preload}
+            onFocus={VariationViewerTab.preload}
+          >
             <Suspense fallback={<Loader />}>
               <ErrorBoundary>
                 <HTMLHead
                   title={[
                     pageTitle,
-                    'Feature viewer',
+                    'Variants viewer',
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
                 {data.sequence && (
-                  <FeatureViewerTab
-                    accession={accession}
+                  <VariationViewerTab
                     importedVariants={importedVariants}
-                    sequence={data.sequence.value}
+                    primaryAccession={accession}
+                    title="Variants"
                   />
                 )}
               </ErrorBoundary>
             </Suspense>
-          )}
-        </Tab>
-        <Tab
-          title={
-            <Link
-              className={cn({
-                [helper.disabled]:
-                  hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates,
-                loading: hasGenomicCoordinates === 'loading',
-              })}
-              tabIndex={
-                hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates
-                  ? undefined
-                  : -1
-              }
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                accession,
-                hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
-                  ? TabLocation.Entry
-                  : TabLocation.GenomicCoordinates
-              )}
-            >
-              Genomic coordinates
-            </Link>
-          }
-          id={TabLocation.GenomicCoordinates}
-          onPointerOver={GenomicCoordinatesTab.preload}
-          onFocus={GenomicCoordinatesTab.preload}
-        >
-          <Suspense fallback={<Loader />}>
-            <ErrorBoundary>
-              <HTMLHead
-                title={[
-                  pageTitle,
-                  'Genomic coordinates',
-                  searchableNamespaceLabels[Namespace.uniprotkb],
-                ]}
-              />
-              <GenomicCoordinatesTab
-                primaryAccession={accession}
-                isoforms={
-                  transformedData[EntrySection.Sequence].alternativeProducts
-                    ?.isoforms
-                }
-                maneSelect={
-                  // Get all unique unversioned MANE-Select IDs
-                  new Set(
-                    transformedData[EntrySection.Sequence].xrefData
-                      ?.find(
-                        (xrefDatum) =>
-                          xrefDatum.category === DatabaseCategory.GENOME
-                      )
-                      ?.databases.find(
-                        (database) => database.database === 'MANE-Select'
-                      )
-                      ?.xrefs.map((xref) => xref.id?.split('.')[0])
-                      .filter((id: string | undefined): id is string =>
-                        Boolean(id)
-                      )
-                  )
-                }
-                title={
-                  <span data-article-id="genomic-coordinates">
-                    Genomic coordinates
-                  </span>
-                }
-              />
-            </ErrorBoundary>
-          </Suspense>
-        </Tab>
-        <Tab
-          title={
-            <Link
-              className={isObsolete ? helper.disabled : undefined}
-              tabIndex={isObsolete ? -1 : undefined}
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                accession,
-                TabLocation.Publications
-              )}
-            >
-              Publications
-            </Link>
-          }
-          id={TabLocation.Publications}
-          onPointerOver={PublicationsTab.preload}
-          onFocus={PublicationsTab.preload}
-        >
-          <Suspense fallback={<Loader />}>
-            <ErrorBoundary>
-              <div className="button-group">
-                <CommunityAnnotationLink accession={accession} />
-                <a
-                  href={externalUrls.CommunityCurationAdd(accession)}
-                  className="button tertiary"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          </Tab>
+          <Tab
+            title={
+              smallScreen ? null : (
+                <Link
+                  className={isObsolete ? helper.disabled : undefined}
+                  tabIndex={isObsolete ? -1 : undefined}
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    accession,
+                    TabLocation.FeatureViewer
+                  )}
                 >
-                  Add a publication
-                </a>
-              </div>
-              <HTMLHead
-                title={[
-                  pageTitle,
-                  'Publications',
-                  searchableNamespaceLabels[Namespace.uniprotkb],
-                ]}
+                  Feature viewer
+                </Link>
+              )
+            }
+            id={TabLocation.FeatureViewer}
+            onPointerOver={FeatureViewerTab.preload}
+            onFocus={FeatureViewerTab.preload}
+          >
+            {smallScreen ? (
+              <Redirect
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  accession,
+                  TabLocation.Entry
+                )}
               />
-              <PublicationsTab accession={accession} />
-            </ErrorBoundary>
-          </Suspense>
-        </Tab>
-        <Tab
-          title={
-            <Link
-              className={isObsolete ? helper.disabled : undefined}
-              tabIndex={isObsolete ? -1 : undefined}
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                accession,
-                TabLocation.ExternalLinks
-              )}
-            >
-              External links
-            </Link>
-          }
-          id={TabLocation.ExternalLinks}
-          onPointerOver={ExternalLinksTab.preload}
-          onFocus={ExternalLinksTab.preload}
-        >
-          <Suspense fallback={<Loader />}>
-            <ErrorBoundary>
-              <HTMLHead
-                title={[
-                  pageTitle,
-                  'External links',
-                  searchableNamespaceLabels[Namespace.uniprotkb],
-                ]}
-              />
-              <ExternalLinksTab transformedData={transformedData} />
-            </ErrorBoundary>
-          </Suspense>
-        </Tab>
-        <Tab
-          title={
-            <Link
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                accession,
-                TabLocation.History
-              )}
-            >
-              History
-            </Link>
-          }
-          id={TabLocation.History}
-          onPointerOver={HistoryTab.preload}
-          onFocus={HistoryTab.preload}
-        >
-          <Suspense fallback={<Loader />}>
-            <ErrorBoundary>
-              <HTMLHead
-                title={[
-                  isObsolete ? accession : pageTitle,
-                  'History',
-                  searchableNamespaceLabels[Namespace.uniprotkb],
-                ]}
-              />
-              <HistoryTab
-                accession={isObsolete ? match.params.accession : accession}
-                lastVersion={data.entryAudit?.entryVersion}
-                uniparc={data.extraAttributes?.uniParcId}
-                reason={data.inactiveReason}
-              />
-            </ErrorBoundary>
-          </Suspense>
-        </Tab>
-      </Tabs>
+            ) : (
+              <Suspense fallback={<Loader />}>
+                <ErrorBoundary>
+                  <HTMLHead
+                    title={[
+                      pageTitle,
+                      'Feature viewer',
+                      searchableNamespaceLabels[Namespace.uniprotkb],
+                    ]}
+                  />
+                  {data.sequence && (
+                    <FeatureViewerTab
+                      accession={accession}
+                      importedVariants={importedVariants}
+                      sequence={data.sequence.value}
+                    />
+                  )}
+                </ErrorBoundary>
+              </Suspense>
+            )}
+          </Tab>
+          <Tab
+            title={
+              <Link
+                className={cn({
+                  [helper.disabled]:
+                    hasGenomicCoordinates === 'loading' ||
+                    !hasGenomicCoordinates,
+                  loading: hasGenomicCoordinates === 'loading',
+                })}
+                tabIndex={
+                  hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates
+                    ? undefined
+                    : -1
+                }
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  accession,
+                  hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
+                    ? TabLocation.Entry
+                    : TabLocation.GenomicCoordinates
+                )}
+              >
+                Genomic coordinates
+              </Link>
+            }
+            id={TabLocation.GenomicCoordinates}
+            onPointerOver={GenomicCoordinatesTab.preload}
+            onFocus={GenomicCoordinatesTab.preload}
+          >
+            <Suspense fallback={<Loader />}>
+              <ErrorBoundary>
+                <HTMLHead
+                  title={[
+                    pageTitle,
+                    'Genomic coordinates',
+                    searchableNamespaceLabels[Namespace.uniprotkb],
+                  ]}
+                />
+                <GenomicCoordinatesTab
+                  primaryAccession={accession}
+                  isoforms={
+                    transformedData[EntrySection.Sequence].alternativeProducts
+                      ?.isoforms
+                  }
+                  maneSelect={
+                    // Get all unique unversioned MANE-Select IDs
+                    new Set(
+                      transformedData[EntrySection.Sequence].xrefData
+                        ?.find(
+                          (xrefDatum) =>
+                            xrefDatum.category === DatabaseCategory.GENOME
+                        )
+                        ?.databases.find(
+                          (database) => database.database === 'MANE-Select'
+                        )
+                        ?.xrefs.map((xref) => xref.id?.split('.')[0])
+                        .filter((id: string | undefined): id is string =>
+                          Boolean(id)
+                        )
+                    )
+                  }
+                  title={
+                    <span data-article-id="genomic-coordinates">
+                      Genomic coordinates
+                    </span>
+                  }
+                />
+              </ErrorBoundary>
+            </Suspense>
+          </Tab>
+          <Tab
+            title={
+              <Link
+                className={isObsolete ? helper.disabled : undefined}
+                tabIndex={isObsolete ? -1 : undefined}
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  accession,
+                  TabLocation.Publications
+                )}
+              >
+                Publications
+              </Link>
+            }
+            id={TabLocation.Publications}
+            onPointerOver={PublicationsTab.preload}
+            onFocus={PublicationsTab.preload}
+          >
+            <Suspense fallback={<Loader />}>
+              <ErrorBoundary>
+                <div className="button-group">
+                  <CommunityAnnotationLink accession={accession} />
+                  <a
+                    href={externalUrls.CommunityCurationAdd(accession)}
+                    className="button tertiary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Add a publication
+                  </a>
+                </div>
+                <HTMLHead
+                  title={[
+                    pageTitle,
+                    'Publications',
+                    searchableNamespaceLabels[Namespace.uniprotkb],
+                  ]}
+                />
+                <PublicationsTab accession={accession} />
+              </ErrorBoundary>
+            </Suspense>
+          </Tab>
+          <Tab
+            title={
+              <Link
+                className={isObsolete ? helper.disabled : undefined}
+                tabIndex={isObsolete ? -1 : undefined}
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  accession,
+                  TabLocation.ExternalLinks
+                )}
+              >
+                External links
+              </Link>
+            }
+            id={TabLocation.ExternalLinks}
+            onPointerOver={ExternalLinksTab.preload}
+            onFocus={ExternalLinksTab.preload}
+          >
+            <Suspense fallback={<Loader />}>
+              <ErrorBoundary>
+                <HTMLHead
+                  title={[
+                    pageTitle,
+                    'External links',
+                    searchableNamespaceLabels[Namespace.uniprotkb],
+                  ]}
+                />
+                <ExternalLinksTab transformedData={transformedData} />
+              </ErrorBoundary>
+            </Suspense>
+          </Tab>
+          <Tab
+            title={
+              <Link
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  accession,
+                  TabLocation.History
+                )}
+              >
+                History
+              </Link>
+            }
+            id={TabLocation.History}
+            onPointerOver={HistoryTab.preload}
+            onFocus={HistoryTab.preload}
+          >
+            <Suspense fallback={<Loader />}>
+              <ErrorBoundary>
+                <HTMLHead
+                  title={[
+                    isObsolete ? accession : pageTitle,
+                    'History',
+                    searchableNamespaceLabels[Namespace.uniprotkb],
+                  ]}
+                />
+                <HistoryTab
+                  accession={isObsolete ? match.params.accession : accession}
+                  lastVersion={data.entryAudit?.entryVersion}
+                  uniparc={data.extraAttributes?.uniParcId}
+                  reason={data.inactiveReason}
+                />
+              </ErrorBoundary>
+            </Suspense>
+          </Tab>
+        </Tabs>
+      </AFDBOutOfSyncContext.Provider>
     </SidebarLayout>
   );
 };

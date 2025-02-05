@@ -39,9 +39,22 @@ import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
-// eslint-disable-next-line import/no-unresolved
 import 'franklin-sites/franklin.css';
 import './styles/app.scss';
+
+// This is hackery is to prevent define being repeatedly called for the same
+// name. This has been observed in Variant viewer and Feature viewer tabs.
+const originalDefine = customElements.define;
+function newDefine(
+  this: typeof customElements.define,
+  name: string,
+  constructor: CustomElementConstructor
+) {
+  if (!customElements.get(name)) {
+    originalDefine.call(this, name, constructor);
+  }
+}
+customElements.define = newDefine;
 
 if (process.env.NODE_ENV !== 'development') {
   SentryInit({
@@ -105,6 +118,12 @@ const ProteomesLandingPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-landing" */ '../../proteomes/components/landing-page/LandingPage'
+    )
+);
+const UniRefLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-landing" */ '../../uniref/components/landing-page/LandingPage'
     )
 );
 // Statistics pages
@@ -282,6 +301,12 @@ const HelpResults = lazy(
       /* webpackChunkName: "help-results" */ '../../help/components/results/Results'
     )
 );
+const ApiDocumentationPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "documentation" */ '../../help/components/entry/ApiDocumentation'
+    )
+);
 
 // Contact
 const ContactForm = lazy(
@@ -367,7 +392,9 @@ const RedirectToStarSearch = (
     case Namespace.proteomes:
       LandingPage = ProteomesLandingPage;
       break;
-    // NOTE: add cases whenever we start implementing other landing pages
+    case Namespace.uniref:
+      LandingPage = UniRefLandingPage;
+      break;
     default:
       return (
         <Redirect
@@ -566,6 +593,10 @@ const App = () => {
             <Route
               path={LocationToPath[Location.ReleaseNotesResults]}
               component={HelpResults}
+            />
+            <Route
+              path={LocationToPath[Location.Documentation]}
+              component={ApiDocumentationPage}
             />
             {/* Contact */}
             <Route

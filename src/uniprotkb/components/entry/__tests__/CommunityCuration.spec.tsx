@@ -1,34 +1,14 @@
 import { screen } from '@testing-library/react';
 
-import CommunityCuration from '../CommunityCuration';
+import CommunityCuration, {
+  groupByCommunityAnnotation,
+} from '../CommunityCuration';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import { Reference } from '../../../../supporting-data/citations/adapters/citationsConverter';
-import EntrySection from '../../../types/entrySection';
+import mock from './__mocks__/communityCurationData';
 
-const mock: Reference[] = [
-  {
-    source: {
-      name: 'ORCID',
-      id: '0000-0001-6057-9374',
-    },
-    citationId: '36301857',
-    sourceCategories: [
-      'Function',
-      'Expression',
-      'Interaction',
-      'Subcellular Location',
-    ],
-    communityAnnotation: {
-      proteinOrGene: 'Epicuticlin',
-      function:
-        'Disordered proteins organized in tandem repeats with molecular recognition features and tyrosine motifs (Pfam02756 and Pfam02757). The epicuticlins form the insoluble outermost layer of the cuticle and can interact with cuticular collagens.',
-      comment:
-        'The cDNA AJ408886 is one of several sequences of nematodes, which is now identified as forming the epicuticlin structure of nematodes.',
-    },
-  },
-];
+import EntrySection from '../../../types/entrySection';
 
 describe('Community annotatation', () => {
   it('should render the community annotation content', async () => {
@@ -39,7 +19,35 @@ describe('Community annotatation', () => {
         communityReferences={mock}
       />
     );
-    expect(await screen.findByText('Epicuticlin')).toBeInTheDocument();
+    expect(await screen.findByText(/Spike glycoprotein/)).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
+  });
+});
+
+describe('groupByCommunityAnnotation', () => {
+  it('should group by community annotation and sort all references by submission date and then sort all annotations by latest reference submission date', () => {
+    expect(
+      Array.from(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        groupByCommunityAnnotation(EntrySection.NamesAndTaxonomy, mock)!
+      ).map(([annotation, references]) => [
+        annotation,
+        references.map((r) => r.communityAnnotation?.submissionDate),
+      ])
+    ).toEqual([
+      ['Spike glycoprotein; S.', ['2023-06-28']],
+      [
+        'S',
+        [
+          '2023-05-28',
+          '2023-05-28',
+          '2023-05-28',
+          '2022-01-28',
+          '2021-12-28',
+          undefined,
+        ],
+      ],
+      ['Spike S.', ['2022-01-05']],
+    ]);
   });
 });

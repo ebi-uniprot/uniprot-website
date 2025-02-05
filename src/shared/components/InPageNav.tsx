@@ -7,12 +7,14 @@ import styles from './styles/in-page-nav.module.scss';
 
 const GRANULARITY = 11;
 
+export type InPageNavSection = {
+  id: string;
+  label: string;
+  disabled?: boolean;
+};
+
 type Props = {
-  sections: Array<{
-    id: string;
-    label: string;
-    disabled?: boolean;
-  }>;
+  sections: InPageNavSection[];
   rootElement?: string | HTMLElement;
 };
 
@@ -94,7 +96,6 @@ const InPageNav = ({
         }
       });
 
-    // eslint-disable-next-line consistent-return
     return () => elements.forEach((element) => io.unobserve(element));
   }, [sections, history]);
 
@@ -190,9 +191,8 @@ const InPageNav = ({
     <ul className={styles['in-page-nav']} {...props}>
       <div ref={marker} className={styles.marker} />
       {sections.map(({ id, label, disabled }) => (
-        <li key={label} className={cn({ [styles.disabled]: disabled })}>
+        <li key={id} className={cn({ [styles.disabled]: disabled })}>
           <Link
-            // eslint-disable-next-line uniprot-website/use-config-location
             to={`#${id}`}
             className={cn({ [styles.active]: active === id })}
           >

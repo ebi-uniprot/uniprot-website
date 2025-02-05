@@ -77,6 +77,10 @@ export const getFileFormatsOptions = (
     ) {
       return [FileFormat.fastaSubsequence, ...fileFormatsOptions];
     }
+    // TODO: remove filter once the API supports embeddings id mapping downloads
+    if (job.jobResultsNamespace === Namespace.uniprotkb) {
+      return fileFormatsOptions.filter((ff) => ff !== FileFormat.embeddings);
+    }
   }
   return fileFormatsOptions;
 };
@@ -358,6 +362,8 @@ export const getIsAsyncDownload = (
     ((state.selectedFileFormat === FileFormat.embeddings &&
       !getFtpFilenamesAndUrls(state, props, location, job)) ||
       getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
+  (props.namespace === Namespace.uniparc &&
+    getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
   (props.namespace === Namespace.uniref &&
     getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
   isAsyncDownloadIdMapping(state, props, job);
@@ -408,6 +414,15 @@ export const getExtraContent = (
   }
   return null;
 };
+
+export const getIsUniParcLightResponse = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>
+) =>
+  props.namespace === Namespace.uniparc &&
+  (state.selectedFileFormat === FileFormat.json ||
+    state.selectedFileFormat === FileFormat.xml ||
+    state.selectedFileFormat === FileFormat.rdfXml);
 
 export const getRedirectToIDMapping = (
   state: DownloadState,

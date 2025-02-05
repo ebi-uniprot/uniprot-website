@@ -44,8 +44,6 @@ export const getIDMappingFormInitialState = (
     ...initialFormValues,
     [IDMappingFields.name]: {
       ...initialFormValues[IDMappingFields.name],
-      // default to true if it's been set through the history state
-      userSelected: Boolean(initialFormValues[IDMappingFields.name].selected),
     },
   },
   textIDs: (initialFormValues[IDMappingFields.ids]?.selected as string[])?.join(

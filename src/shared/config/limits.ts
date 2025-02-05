@@ -13,3 +13,6 @@ export const MAX_PEPTIDE_FACETS_OR_DOWNLOAD = 1_000;
 // just because, no actual known limit
 export const PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH = 7;
 export const PEPTIDE_SEARCH_SEQUENCES_COUNT = 100;
+
+// Feature viewer and variation viewer
+export const VARIANT_COUNT_LIMIT = 2_000;

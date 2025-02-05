@@ -24,14 +24,14 @@ const TaxonomicScope = ({
   for (const conditionSet of mainRule?.conditionSets || []) {
     for (const condition of conditionSet.conditions || []) {
       if (condition.type !== 'taxon') {
-        continue; // eslint-disable-line no-continue
+        continue;
       }
       for (const conditionValue of condition.conditionValues || []) {
         // This shouldn't happen
         /* istanbul ignore if */
         if (!conditionValue.cvId) {
           logging.warn(`No cvId field in taxon for "${conditionValue.value}"`);
-          continue; // eslint-disable-line no-continue
+          continue;
         }
         const taxonId = +conditionValue.cvId;
         if (!taxonScopeMap.has(taxonId)) {

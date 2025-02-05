@@ -1,31 +1,28 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Loader, Message } from 'franklin-sites';
 
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-import NightingaleZoomTool, {
-  ZoomOperations,
-} from '../../protein-data-views/NightingaleZoomTool';
+import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Dataset } from '../../../../shared/components/entry/EntryDownload';
-import { VARIANT_COUNT_LIMIT } from './variation-viewer/VariationViewer';
 import { getEntryPath } from '../../../../app/config/urls';
+import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
+
+import { VARIANT_COUNT_LIMIT } from '../../../../shared/config/limits';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../types/entry';
+import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 
 import tabsStyles from './styles/tabs-styles.module.scss';
 
-interface ProtvistaManager extends HTMLElement {
-  displaystart: number;
-  displayend: number;
-}
+const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
 const FeatureViewer = ({
   accession,
@@ -38,54 +35,56 @@ const FeatureViewer = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const protvistaUniprotRef = useRef<HTMLElement>(null);
+  const hideTooltip = useRef<ReturnType<
+    typeof showTooltipAtCoordinates
+  > | null>(null);
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession)
   );
 
-  const protvistaElement = useCustomElement(
+  const protvistaUniprotElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'),
     'protvista-uniprot'
   );
 
-  const handleZoom = useCallback(
-    (operation: ZoomOperations) => {
-      if (!protvistaElement.defined || !protvistaUniprotRef.current) {
-        return;
-      }
-      const manager: ProtvistaManager | null =
-        protvistaUniprotRef.current.querySelector('protvista-manager');
-      if (!manager) {
-        return;
-      }
-      // Following logic is lifted from ProtvistaZoomTool
-      const scaleFactor = sequence.length / 5;
-      const { displayend, displaystart } = manager;
-      let k = 0;
-      if (operation === 'zoom-in') {
-        k = scaleFactor;
-      } else if (operation === 'zoom-out') {
-        k = -scaleFactor;
-      } else if (operation === 'zoom-in-seq') {
-        k = displayend - displaystart - 29;
-      }
-      const newEnd = displayend - k;
-      let newStart = displaystart;
-      // if we've reached the end when zooming out, remove from start
-      if (newEnd > sequence.length) {
-        newStart -= newEnd - sequence.length;
-      }
-      if (displaystart < newEnd) {
-        manager.setAttribute('displaystart', Math.max(1, newStart).toString());
-        manager.setAttribute(
-          'displayend',
-          Math.min(newEnd, sequence.length).toString()
-        );
-      }
+  const onProtvistaUniprotChange = useCallback((e: Event) => {
+    const { detail } = e as CustomEvent;
+    if (hideTooltipEvents.has(detail?.eventType)) {
+      hideTooltip.current?.();
+    }
+    if (
+      detail?.eventType === 'click' &&
+      detail?.feature?.tooltipContent &&
+      e.target
+    ) {
+      const [x, y] = detail.coords;
+      const { feature } = detail;
+      const title =
+        feature.type && feature.start && feature.end
+          ? `<h4>${feature.type} ${feature.start}-${feature.end}</h4><hr />`
+          : '';
+      const content = `${title}${detail.feature.tooltipContent}`;
+      hideTooltip.current = showTooltipAtCoordinates(x, y, content);
+    }
+  }, []);
+
+  useEffect(() => {
+    const ref = protvistaUniprotRef.current;
+    ref?.addEventListener('change', onProtvistaUniprotChange);
+  }, [onProtvistaUniprotChange, protvistaUniprotElement]);
+
+  useEffect(
+    () => () => {
+      hideTooltip.current?.();
+      protvistaUniprotRef.current?.removeEventListener(
+        'change',
+        onProtvistaUniprotChange
+      );
     },
-    [protvistaElement.defined, sequence]
+    [onProtvistaUniprotChange]
   );
 
   const searchParams = new URLSearchParams(useLocation().search);
@@ -120,13 +119,20 @@ const FeatureViewer = ({
       {data?.features && (
         <>
           {shouldRender && (
-            <NightingaleZoomTool length={sequence.length} onZoom={handleZoom} />
+            <NightingaleZoomTool
+              length={sequence.length}
+              nightingaleNavigationGetter={() =>
+                protvistaUniprotRef.current?.querySelector(
+                  'nightingale-navigation'
+                ) || null
+              }
+            />
           )}
           <EntryDownloadButton handleToggle={handleToggleDownload} />
         </>
       )}
       {shouldRender ? (
-        <protvistaElement.name
+        <protvistaUniprotElement.name
           accession={accession}
           ref={protvistaUniprotRef}
         />

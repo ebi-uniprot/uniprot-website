@@ -1,7 +1,7 @@
 import { DataDBModel } from '../../../entry/XRefsSection';
 
 // Source: configure/uniparc/allDatabases
-// Retrieved: 2024-07-25
+// Retrieved: 2025-02-04
 const allDatabases: DataDBModel = [
   {
     name: 'EG_BACTERIA',

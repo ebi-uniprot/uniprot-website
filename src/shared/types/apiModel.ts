@@ -1,6 +1,9 @@
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import {
+  UniParcAPIModel,
+  UniParcXRef,
+} from '../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
 
 import {
@@ -26,6 +29,7 @@ export type APIModel =
   | UniProtkbAPIModel
   | UniRefLiteAPIModel
   | UniParcAPIModel
+  | UniParcXRef
   | ProteomesAPIModel
   | TaxonomyAPIModel
   | KeywordsAPIModel

@@ -8,6 +8,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import PDBView from './PDBView';
 import EMBLView from './EMBLView';
 import { RichText } from './FreeTextView';
+import { AFDBOutOfSync } from './AFDBOutOfSync';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -271,12 +272,15 @@ const XRefsGroupedByCategory = ({
         </Link>
       ),
       content: (
-        <DatabaseList
-          xrefsGoupedByDatabase={database}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-          databaseToDatabaseInfo={databaseToDatabaseInfo}
-        />
+        <>
+          <DatabaseList
+            xrefsGoupedByDatabase={database}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+            databaseToDatabaseInfo={databaseToDatabaseInfo}
+          />
+          {database.database === 'AlphaFoldDB' && <AFDBOutOfSync />}
+        </>
       ),
     };
   });

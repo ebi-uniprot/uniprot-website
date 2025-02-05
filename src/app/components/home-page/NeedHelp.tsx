@@ -24,14 +24,14 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 
 import { LocationToPath, Location } from '../../config/urls';
-import { facebook, twitterX } from '../../config/socialUrls';
+import { linkedIn, twitterX } from '../../config/socialUrls';
 
 import dataToSchema, { isCourseOnsite } from './training.structured';
 
 import styles from './styles/non-critical.module.scss';
 
+import LinkedInLogo from '../../../images/linkedin-logo.svg';
 import XLogo from '../../../images/x-logo.svg';
-import FacebookLogo from '../../../images/facebook-logo.svg';
 
 import traingImg from '../../../images/training.jpg';
 
@@ -64,9 +64,9 @@ export type PayloadEBISearch = {
       location: string[];
       // More precise venue
       venue: string[];
-      date_time_clean: string[]; // eslint-disable-line camelcase
-      start_date: string[]; // eslint-disable-line camelcase
-      end_date: string[]; // eslint-disable-line camelcase
+      date_time_clean: string[];
+      start_date: string[];
+      end_date: string[];
       status: string[];
     };
     fieldURLs: Array<{
@@ -89,9 +89,9 @@ const fallback: PayloadEBISearch['entries'][0] = {
     location: ['Online'],
     venue: ['Online'],
     status: [],
-    date_time_clean: [],
-    start_date: [],
-    end_date: [],
+    date_time_clean: [], // eslint-disable-line camelcase
+    start_date: [], // eslint-disable-line camelcase
+    end_date: [], // eslint-disable-line camelcase
     city: [],
     country: [],
   },
@@ -164,15 +164,15 @@ const NeedHelp = () => {
           Contact us
         </ContactLink>
         <br />
+        <ExternalLink url={linkedIn} title="UniProt posts on LinkedIn" noIcon>
+          <LinkedInLogo width="2em" />
+        </ExternalLink>
         <ExternalLink
           url={twitterX}
           title="UniProt posts on X (formerly Twitter)"
           noIcon
         >
           <XLogo width="2em" />
-        </ExternalLink>
-        <ExternalLink url={facebook} title="UniProt posts on Facebook" noIcon>
-          <FacebookLogo width="2em" />
         </ExternalLink>
       </div>
       <div
@@ -312,7 +312,6 @@ const NeedHelp = () => {
             {seminar?.fields.title[0].length <= 100 && (
               <p
                 className={styles.description}
-                // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{
                   __html: cleanText(seminar?.fields.description[0], {
                     ...cleanTextDefaultOptions,

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { groupBy } from 'lodash-es';
 
+import useUniProtDataVersion from './useUniProtDataVersion';
 import useDataApi from './useDataApi';
 
 import apiUrls from '../config/apiUrls/apiUrls';
@@ -14,7 +15,10 @@ import { Namespace } from '../types/namespaces';
 import { SearchResults } from '../types/results';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import {
+  UniParcAPIModel,
+  UniParcLiteAPIModel,
+} from '../../uniparc/adapters/uniParcConverter';
 import { FileFormat } from '../types/resultsDownload';
 
 const groupByNamespace = ({ id }: IdMaybeWithRange) => accessionToNamespace(id);
@@ -22,6 +26,8 @@ const groupByNamespace = ({ id }: IdMaybeWithRange) => accessionToNamespace(id);
 const useGetFASTAFromAccesion = (
   idsMaybeWithRange?: IdMaybeWithRange[] | null
 ) => {
+  const release = useUniProtDataVersion();
+
   const [uniProtKBURL, uniRefURL, uniParcURL] = useMemo(() => {
     const groups = groupBy(idsMaybeWithRange, groupByNamespace);
 
@@ -69,7 +75,7 @@ const useGetFASTAFromAccesion = (
           {
             facets: null,
             namespace: Namespace.uniparc,
-            columns: ['upi', 'active', 'sequence'],
+            columns: ['upi', 'sequence', 'last_seen'],
           }
         )
       : null;
@@ -106,18 +112,22 @@ const useGetFASTAFromAccesion = (
       const entry = (
         data[namespace].data?.results as
           | undefined
-          | Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>
+          | Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcLiteAPIModel>
       )?.find(
         (entry) =>
           getIdKeyForNamespace(namespace)(entry) === idMaybeWithRange.id
       );
       if (entry) {
-        fasta += `\n\n${entryToFASTAWithHeaders(entry, {
-          subsets:
-            idMaybeWithRange.start && idMaybeWithRange.end
-              ? [{ start: idMaybeWithRange.start, end: idMaybeWithRange.end }]
-              : [],
-        })}`;
+        fasta += `\n\n${entryToFASTAWithHeaders(
+          entry,
+          {
+            subsets:
+              idMaybeWithRange.start && idMaybeWithRange.end
+                ? [{ start: idMaybeWithRange.start, end: idMaybeWithRange.end }]
+                : [],
+          },
+          release?.releaseDate
+        )}`;
       }
     }
   }

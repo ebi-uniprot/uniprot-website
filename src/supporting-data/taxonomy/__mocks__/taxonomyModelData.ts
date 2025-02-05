@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 // Source: taxonomy/search?size=2&query=primate
-// Retrieved: 2024-10-01
+// Retrieved: 2025-02-04
 const mock: SearchResults<TaxonomyAPIModel> = {
   results: [
     {

@@ -16,7 +16,7 @@
       "accession": "P05066",
       "features": [
         {
-          "protvistaFeatureId": "cb1e3e80-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e80-227f-11eb-8c7f-bd249b5a2490",
           "start": 75,
           "end": 226,
           "startModifier": "EXACT",
@@ -25,7 +25,7 @@
           "description": "Photolyase/cryptochrome alpha/beta"
         },
         {
-          "protvistaFeatureId": "cb1e3e81-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e81-227f-11eb-8c7f-bd249b5a2490",
           "start": 338,
           "end": 342,
           "startModifier": "EXACT",
@@ -39,7 +39,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e82-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e82-227f-11eb-8c7f-bd249b5a2490",
           "start": 482,
           "end": 484,
           "startModifier": "EXACT",
@@ -53,7 +53,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e83-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e83-227f-11eb-8c7f-bd249b5a2490",
           "start": 384,
           "end": 391,
           "startModifier": "EXACT",
@@ -67,7 +67,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e84-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e84-227f-11eb-8c7f-bd249b5a2490",
           "start": 451,
           "end": 452,
           "startModifier": "EXACT",
@@ -81,7 +81,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e85-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e85-227f-11eb-8c7f-bd249b5a2490",
           "start": 326,
           "end": 326,
           "startModifier": "EXACT",
@@ -95,7 +95,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e86-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e86-227f-11eb-8c7f-bd249b5a2490",
           "start": 514,
           "end": 514,
           "startModifier": "EXACT",
@@ -109,7 +109,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e87-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e87-227f-11eb-8c7f-bd249b5a2490",
           "start": 416,
           "end": 416,
           "startModifier": "EXACT",
@@ -123,7 +123,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e88-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e88-227f-11eb-8c7f-bd249b5a2490",
           "start": 469,
           "end": 469,
           "startModifier": "EXACT",
@@ -137,7 +137,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e89-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e89-227f-11eb-8c7f-bd249b5a2490",
           "start": 492,
           "end": 492,
           "startModifier": "EXACT",
@@ -151,7 +151,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e8a-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e8a-227f-11eb-8c7f-bd249b5a2490",
           "start": 387,
           "end": 387,
           "startModifier": "EXACT",
@@ -167,7 +167,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e8b-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e8b-227f-11eb-8c7f-bd249b5a2490",
           "start": 463,
           "end": 463,
           "startModifier": "EXACT",
@@ -183,7 +183,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e8c-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e8c-227f-11eb-8c7f-bd249b5a2490",
           "start": 507,
           "end": 507,
           "startModifier": "EXACT",
@@ -199,7 +199,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e8d-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e8d-227f-11eb-8c7f-bd249b5a2490",
           "start": 517,
           "end": 517,
           "startModifier": "EXACT",
@@ -208,7 +208,7 @@
           "description": "Reduces substrate binding 10-fold."
         },
         {
-          "protvistaFeatureId": "cb1e3e8e-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e8e-227f-11eb-8c7f-bd249b5a2490",
           "start": 77,
           "end": 77,
           "startModifier": "EXACT",
@@ -222,7 +222,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e8f-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e8f-227f-11eb-8c7f-bd249b5a2490",
           "start": 165,
           "end": 165,
           "startModifier": "EXACT",
@@ -236,7 +236,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e90-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e90-227f-11eb-8c7f-bd249b5a2490",
           "start": 169,
           "end": 169,
           "startModifier": "EXACT",
@@ -250,7 +250,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e91-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e91-227f-11eb-8c7f-bd249b5a2490",
           "start": 200,
           "end": 200,
           "startModifier": "EXACT",
@@ -264,7 +264,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e92-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e92-227f-11eb-8c7f-bd249b5a2490",
           "start": 351,
           "end": 351,
           "startModifier": "EXACT",
@@ -278,7 +278,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e93-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e93-227f-11eb-8c7f-bd249b5a2490",
           "start": 365,
           "end": 365,
           "startModifier": "EXACT",
@@ -292,7 +292,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "cb1e3e94-227f-11eb-8c7f-bd249b5a2490",
+          "accession": "cb1e3e94-227f-11eb-8c7f-bd249b5a2490",
           "start": 473,
           "end": 473,
           "startModifier": "EXACT",
@@ -320,7 +320,7 @@
       "accession": "P05066",
       "features": [
         {
-          "protvistaFeatureId": "id1",
+          "accession": "id1",
           "start": 75,
           "end": 226,
           "startModifier": "EXACT",
@@ -329,7 +329,7 @@
           "description": "Photolyase/cryptochrome alpha/beta"
         },
         {
-          "protvistaFeatureId": "id2",
+          "accession": "id2",
           "start": 338,
           "end": 342,
           "startModifier": "EXACT",
@@ -358,7 +358,7 @@
       "accession": "P05067",
       "features": [
         {
-          "protvistaFeatureId": "8751c02f-2336-11eb-92aa-bfb3fff0c9c0",
+          "accession": "8751c02f-2336-11eb-92aa-bfb3fff0c9c0",
           "start": 1,
           "end": 17,
           "startModifier": "EXACT",
@@ -384,7 +384,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "PRO_0000000088",
+          "accession": "PRO_0000000088",
           "featureId": "PRO_0000000088",
           "start": 18,
           "end": 770,
@@ -409,7 +409,7 @@
       "accession": "P05062",
       "features": [
         {
-          "protvistaFeatureId": "8751c0da-2336-11eb-92aa-bfb3fff0c9c0",
+          "accession": "8751c0da-2336-11eb-92aa-bfb3fff0c9c0",
           "start": 1,
           "end": 1,
           "startModifier": "EXACT",
@@ -430,7 +430,7 @@
           ]
         },
         {
-          "protvistaFeatureId": "PRO_0000216940",
+          "accession": "PRO_0000216940",
           "featureId": "PRO_0000216940",
           "start": 2,
           "end": 364,
@@ -455,7 +455,7 @@
       "accession": "P05064",
       "features": [
         {
-          "protvistaFeatureId": "PRO_0000216937",
+          "accession": "PRO_0000216937",
           "featureId": "PRO_0000216937",
           "start": 2,
           "end": 364,
@@ -465,7 +465,7 @@
           "description": "Fructose-bisphosphate aldolase A"
         },
         {
-          "protvistaFeatureId": "8751e737-2336-11eb-92aa-bfb3fff0c9c0",
+          "accession": "8751e737-2336-11eb-92aa-bfb3fff0c9c0",
           "start": 188,
           "end": 188,
           "startModifier": "EXACT",

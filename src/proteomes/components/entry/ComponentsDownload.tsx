@@ -323,7 +323,7 @@ const ComponentsDownload = ({
         <>
           <legend data-article-id="customize">Customize columns</legend>
           <ColumnSelect
-            onChange={setSelectedColumns}
+            onColumnChange={setSelectedColumns}
             selectedColumns={selectedColumns}
             namespace={namespace}
           />
@@ -346,7 +346,6 @@ const ComponentsDownload = ({
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
           href={downloadUrl}
           className={cn('button', 'primary')}

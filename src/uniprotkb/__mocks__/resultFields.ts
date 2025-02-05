@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2024-10-01
+// Retrieved: 2025-02-04
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -1631,6 +1631,12 @@ const mock = [
     id: 'family_and_domain',
     fields: [
       {
+        label: 'AntiFam',
+        name: 'xref_antifam',
+        isMultiValueCrossReference: true,
+        id: 'family_and_domain/antifam',
+      },
+      {
         label: 'CDD',
         name: 'xref_cdd',
         isMultiValueCrossReference: true,
@@ -1640,6 +1646,12 @@ const mock = [
         label: 'DisProt',
         name: 'xref_disprot',
         id: 'family_and_domain/disprot',
+      },
+      {
+        label: 'FunFam',
+        name: 'xref_funfam',
+        isMultiValueCrossReference: true,
+        id: 'family_and_domain/funfam',
       },
       {
         label: 'Gene3D',

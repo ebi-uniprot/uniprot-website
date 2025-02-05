@@ -9,7 +9,7 @@ import keywordsModelData from '../../../supporting-data/keywords/__mocks__/keywo
 import locationsModelData from '../../../supporting-data/locations/__mocks__/locationsModelData';
 import proteomesEntryModelData from '../../../proteomes/__mocks__/proteomesEntryModelData';
 import taxonomyModelData from '../../../supporting-data/taxonomy/__mocks__/taxonomyModelData';
-import uniparcModelData from '../../../uniparc/__mocks__/uniParcEntryModelData';
+import uniparcModelData from '../../../uniparc/__mocks__/uniParcLightEntryModelData';
 import uniprotkbModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import unirefModelData from '../../../uniref/__mocks__/uniRefResultsData';
 import uniruleModelData from '../../../automatic-annotations/unirule/__mocks__/uniRuleModelData';

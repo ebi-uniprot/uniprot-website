@@ -96,9 +96,15 @@ const columns: ColumDescriptor[] = [
   {
     name: 'organisms',
     label: 'Organisms',
-    render: ({ organismName, organismTaxId }) => (
-      <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismName}</Link>
-    ),
+    render: ({ organismName, organismTaxId, memberIdType }) => {
+      const link = (
+        <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismName}</Link>
+      );
+      if (memberIdType === 'UniParc') {
+        return <>{link}, …</>;
+      }
+      return link;
+    },
   },
   {
     name: 'organismIDs',
@@ -142,7 +148,7 @@ const columns: ColumDescriptor[] = [
   {
     name: 'roles',
     label: 'Roles',
-    // eslint-disable-next-line consistent-return
+
     render: (member) => {
       if (member.seed && 'sequence' in member) {
         return 'seed & representative';
@@ -158,19 +164,11 @@ const columns: ColumDescriptor[] = [
 ];
 
 const RelatedClusters = memo(
-  ({
-    identity,
-    id,
-  }: {
-    identity: Identity;
-    id: string;
-    // eslint-disable-next-line consistent-return
-  }) => {
+  ({ identity, id }: { identity: Identity; id: string }) => {
     const pathname = LocationToPath[Location.UniRefResults];
     const baseSearchString = `query=(cluster:${id})`;
     // "Expand" to related *lower* identity clusters, redirect to entry page
     // "List" related *higher* identity clusters
-
     // eslint-disable-next-line default-case
     switch (identity) {
       case 50:

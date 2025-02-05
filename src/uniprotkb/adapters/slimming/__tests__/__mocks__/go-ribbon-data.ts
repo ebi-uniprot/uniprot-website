@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 import { AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2024-10-01
+// Retrieved: 2025-02-04
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -278,7 +279,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'The chemical reactions and pathways resulting in the breakdown of substances, including the breakdown of carbon compounds with the liberation of energy for use by the cell or organism.',
+            'A cellular process consisting of the biochemical pathways by which a living organism breaks down substances. This includes the breakdown of carbon compounds with the liberation of energy for use by the cell or organism.',
           id: 'GO:0009056',
           label: 'catabolic process',
           type: 'Term',
@@ -524,7 +525,7 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0019081', 'GO:0046598'],
+            terms: ['GO:0046598', 'GO:0019081'],
             nb_classes: 2,
             nb_annotations: 4,
           },

@@ -76,6 +76,7 @@ export enum Location {
   // Help
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
+  Documentation = 'Documentation',
   // Release Notes
   ReleaseNotesEntry = 'ReleaseNotesEntry',
   ReleaseNotesResults = 'ReleaseNotesResults',
@@ -133,6 +134,7 @@ export const LocationToPath: Record<Location, string> = {
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
+  [Location.Documentation]: '/api-documentation/:definition?',
   // News
   [Location.ReleaseNotesEntry]: '/release-notes/:accession+',
   [Location.ReleaseNotesResults]: '/release-notes',
@@ -243,7 +245,6 @@ export const getLocationEntryPath = (location: Location, accession: string) =>
 export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
-// eslint-disable-next-line consistent-return
 export const jobTypeToPath = (type: JobTypes, job?: Job) => {
   switch (type) {
     case JobTypes.ALIGN:

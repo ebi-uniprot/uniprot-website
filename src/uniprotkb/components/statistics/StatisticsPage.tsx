@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
 import { Card, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
@@ -290,6 +289,7 @@ const ProteinExistenceTable = ({
               <td>
                 {proteinExistenceToNumber.get(name)}: {label}
               </td>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
               <td className={styles.end}>
                 <Link
                   to={{
