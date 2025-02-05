@@ -21,6 +21,7 @@ import UniqueReferencesTable from './UniqueReferencesTable';
 import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 import InPageNav from '../../../shared/components/InPageNav';
+import HistoricalReleaseEntryCounts from './HistoricalReleasesEntries';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -647,12 +648,14 @@ const StatisticsPage = () => {
           query, a link has been provided. In some instances, due to the nature
           of the statistic, no query link is possible.
         </p>
+
         <IntroductionEntriesTable
           uniprotkbData={uniprotkbData.AUDIT}
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
           releaseDate={release.releaseDate}
         />
+        <HistoricalReleaseEntryCounts />
         <IntroductionSequenceTable
           uniprotkbData={uniprotkbData.SEQUENCE_STATS}
           reviewedData={reviewedData.SEQUENCE_STATS}
