@@ -42,17 +42,13 @@ const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
     const xScale = scaleTime()
       .domain([START_DATE, endYear]) // units: Date
       .range([0, width]); // units: pixels
-    chart
-      .select<SVGGElement>('.x-axis')
-      .transition()
-      .duration(1_000)
-      .call(
-        axisBottom(xScale)
-          .ticks(timeYear.every(4))
-          .tickFormat((d: Date | { valueOf(): number }) =>
-            timeFormat('%Y')(new Date(d.valueOf()))
-          )
-      );
+    chart.select<SVGGElement>('.x-axis').call(
+      axisBottom(xScale)
+        .ticks(timeYear.every(4))
+        .tickFormat((d: Date | { valueOf(): number }) =>
+          timeFormat('%Y')(new Date(d.valueOf()))
+        )
+    );
 
     // y-axis
     const yScale = scaleLinear()
@@ -62,15 +58,11 @@ const HistoricalReleasesEntriesLinePlot = ({ dateCounts, bounds }: Props) => {
 
     chart
       .select<SVGGElement>('.y-axis')
-      .transition()
-      .duration(1_000)
       .call(axisLeft(yScale).tickFormat(format('.2s')));
 
     chart
       .select(`.${styles.line}`)
       .datum(dateCounts)
-      .transition()
-      .duration(1_000)
       .attr('opacity', 1)
       .attr(
         'd',
