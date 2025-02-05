@@ -3,7 +3,7 @@ import { AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2024-12-10
+// Retrieved: 2025-02-04
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
