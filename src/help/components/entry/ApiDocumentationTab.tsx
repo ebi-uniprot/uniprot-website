@@ -45,7 +45,6 @@ const OperationTag = ({
       <h1 id={tagNameToId(tagDetails.get('name'))} className="medium">
         {tagDetails.get('name')}
       </h1>
-      {/* eslint-disable-next-line react/no-danger */}
       <p dangerouslySetInnerHTML={{ __html: tagDetails.get('description') }} />
       <hr />
       {children}

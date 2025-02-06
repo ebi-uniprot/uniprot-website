@@ -111,6 +111,7 @@ const GoRibbon = ({
 
       // SlimSets based on Taxonomy
       const slimSetByTaxon = {
+        // eslint-disable-next-line camelcase
         goslim_plant: [
           'Viridiplantae',
           'Bangiophyceae',
@@ -205,7 +206,6 @@ const GoRibbon = ({
     // @ts-ignore
     node.data = data;
 
-    // eslint-disable-next-line consistent-return
     return () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

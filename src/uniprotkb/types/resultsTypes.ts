@@ -18,7 +18,7 @@ export const getApiSortDirection = (direction: SortDirection) =>
 export type SelectedFacet = { name: string; value: string };
 
 export type SelectedColumn = {
-  itemId: Column;
+  id: Column;
   label: string;
 };
 

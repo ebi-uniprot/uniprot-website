@@ -99,7 +99,7 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
 
             if (match) {
               const [, id] = match;
-              // Set only the ID like Gene3D once configure endpoint returns the correct URL for FunFam - http://www.cathdb.info/version/latest/funfam/%id
+              // https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
               funFamURL = `http://www.cathdb.info/version/latest/funfam/${id}`;
             }
           }

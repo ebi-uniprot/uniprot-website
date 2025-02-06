@@ -39,7 +39,7 @@ const useExpandTable = (
   }, [expandable, expandTable, params.accession]);
 
   // Only show expand button if expandable=true and there is more content that the container
-  // eslint-disable-next-line consistent-return
+
   useLayoutEffect(() => {
     if (expandable && containerRef.current) {
       const mo = new MutationObserver(() => {

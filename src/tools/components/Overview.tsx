@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
 import NightingaleTrack, {

@@ -49,7 +49,7 @@ const parseAndMatchQuery = (
   for (const clause of parsedQuery) {
     if (clause.searchTerm.term === 'All') {
       validatedQuery.push(clause);
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     const matching = flattened.filter(
       ({ term }) => term === clause.searchTerm.term

@@ -33,7 +33,6 @@ const getWordsUpTo = (text: string, max: number) => {
   return output;
 };
 
-// eslint-disable-next-line arrow-body-style
 const LatestNews = () => {
   // CORS issues if using those directly
   // const proteinSpotlightData = useDataApi<string>(
@@ -124,6 +123,28 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2025-02-05-release',
+                  })}
+                >
+                  UniProt release 2025_01
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The &apos;dark&apos; side of male contraception | Changes to the
+                controlled vocabulary of human diseases | Changes to the...
               </p>
             </article>
           </li>
@@ -238,29 +259,6 @@ const LatestNews = () => {
                 CMV infections: plants beaten at their own game | Changes to the
                 controlled vocabulary of human diseases | Changes to the
                 controlled vocabulary for PTMs
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-01-24-release',
-                  })}
-                >
-                  UniProt release 2024_01
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Vitamin K beyond coagulation | Cross-references to EMDB |
-                Cross-references to JaponicusDB | Changes to the controlled
-                vocabulary...
               </p>
             </article>
           </li>

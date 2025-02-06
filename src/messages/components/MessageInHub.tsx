@@ -20,7 +20,7 @@ const MessageInHub = ({ level, content, id, displayTime }: MessageType) => {
       return;
     }
     const timeout = setTimeout(handleDismiss, displayTime);
-    // eslint-disable-next-line consistent-return
+
     return () => clearTimeout(timeout);
   }, [handleDismiss, displayTime, content]);
   // ↑ add 'content' to dependencies: in case same id, but changed content

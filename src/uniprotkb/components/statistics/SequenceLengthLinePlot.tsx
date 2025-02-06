@@ -78,7 +78,6 @@ const SequenceLengthLinePlot = ({ counts }: Props) => {
           .x((_, index) => xScale(index) || 0)
           .y((d) => yScale(d) || 0)
       );
-    // Keeping an empty comment here otherwise somehow prettier messes things
   }, []);
 
   useEffect(() => {

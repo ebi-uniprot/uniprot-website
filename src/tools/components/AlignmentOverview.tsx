@@ -26,7 +26,6 @@ const AlignmentOverviewTrack = ({
   const setTrackData = useCallback(
     (node: { data: Feature[] } | null): void => {
       if (node) {
-        // eslint-disable-next-line no-param-reassign
         node.data = data;
       }
     },
