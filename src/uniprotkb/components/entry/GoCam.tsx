@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
+import pMap from 'p-map';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import GoCamViz from '../protein-data-views/GoCamViz';
@@ -8,6 +9,7 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import fetchData from '../../../shared/utils/fetchData';
+import { heuristic } from '../../../tools/state/utils/heuristic';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -59,23 +61,26 @@ const GoCam = ({ primaryAccession }: Props) => {
   );
 
   useEffect(() => {
-    if (goCamIdToItem.size) {
-      const promises = Array.from(goCamIdToItem.keys()).map((id) =>
-        fetchData<GoCamModelInfo>(externalUrls.GeneOntologyModelInfo(id)).then(
-          (response) => ({
+    async function fetchGoCamModels() {
+      if (goCamIdToItem.size) {
+        const mapper = (id: string) =>
+          fetchData<GoCamModelInfo>(
+            externalUrls.GeneOntologyModelInfo(id)
+          ).then((response) => ({
             id,
             data: response.data,
-          })
-        )
-      );
-      Promise.all(promises).then((results) => {
+          }));
+        const results = await pMap(Array.from(goCamIdToItem.keys()), mapper, {
+          concurrency: heuristic.concurrency,
+        });
         setUniprotGoCamIds(
           results
             .filter(({ data }) => isUniprotCurated(data))
             .map(({ id }) => id)
         );
-      });
+      }
     }
+    fetchGoCamModels();
   }, [goCamIdToItem]);
 
   useEffect(() => {
