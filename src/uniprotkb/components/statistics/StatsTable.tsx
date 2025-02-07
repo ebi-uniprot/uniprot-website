@@ -4,8 +4,10 @@ import { LongNumber, Button } from 'franklin-sites';
 
 import { CategoryName, StatisticsCategory } from './StatisticsPage';
 
-import styles from './styles/statistics-page.module.scss';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { Location, LocationToPath } from '../../../app/config/urls';
+
+import styles from './styles/statistics-page.module.scss';
 
 const tableCollapsedRows = 10 as const;
 // TODO: create a function to determine collapsable.
@@ -186,7 +188,7 @@ const StatsTable = ({
                       <Link
                         to={{
                           pathname: LocationToPath[Location.UniProtKBResults],
-                          search: `query=${row.query}`,
+                          search: stringifyQuery({ query: row.query }),
                         }}
                       >
                         <LongNumber>{row.entryCount}</LongNumber>
