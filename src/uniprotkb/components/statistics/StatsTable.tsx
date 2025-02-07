@@ -148,6 +148,9 @@ const StatsTable = ({
             const percent =
               hasPercent &&
               ((row.count / category.totalCount) * 100).toFixed(2);
+            const perEntryAverage = (row.count / numberReleaseEntries).toFixed(
+              2
+            );
             const abbreviation =
               abbreviationLabel &&
               nameToAbbreviation &&
@@ -207,7 +210,7 @@ const StatsTable = ({
                 {/* Per-entry average */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>
-                    {(row.count / numberReleaseEntries).toFixed(2)}
+                    {perEntryAverage === '0.00' ? '<0.01' : perEntryAverage}
                   </td>
                 )}
                 {/* Description */}
