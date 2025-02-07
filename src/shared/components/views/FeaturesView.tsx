@@ -1,22 +1,30 @@
-import { Fragment, lazy, ReactNode, useMemo } from 'react';
-import TransformedVariant from 'protvista-variation-adapter';
+import {
+  Fragment,
+  lazy,
+  ReactNode,
+  useCallback,
+  useId,
+  useMemo,
+  useState,
+} from 'react';
+import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
-import DatatableWrapper from './DatatableWrapper';
+import TableFromData from '../table/TableFromData';
 
-import useCustomElement from '../../hooks/useCustomElement';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 import FeatureType from '../../../uniprotkb/types/featureType';
-import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
+import { NightingaleViewRange } from '../../utils/nightingale';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -31,9 +39,8 @@ export type Fragment = {
 
 export type LocationModifier = 'EXACT' | 'OUTSIDE' | 'UNSURE' | 'UNKNOWN';
 
-export type ProcessedFeature = {
-  protvistaFeatureId: string;
-  featureId?: string;
+export type ProcessedFeature = Feature & {
+  id?: string; // Used for the feature ID eg PRO_0000381966 while Feature.accession used as the UUID
   start: number;
   end: number;
   startModifier?: LocationModifier;
@@ -42,8 +49,8 @@ export type ProcessedFeature = {
   description?: ReactNode;
   evidences?: Evidence[];
   sequence?: string;
-  locations?: { fragments: Fragment[] }[];
   source?: string;
+  primaryAccession?: string;
   // PTM specific
   confidenceScore?: ConfidenceScore;
   // Binding site
@@ -52,47 +59,71 @@ export type ProcessedFeature = {
   ligandDescription?: string;
 };
 
-type FeatureProps<T> = {
-  features: T[];
-  table: JSX.Element;
-  trackHeight?: number;
-  sequence?: string;
-  withTitle?: boolean;
-  noLinkToFullView?: boolean;
+export type FeatureColumnConfiguration<T> = {
+  id: string;
+  label: ReactNode;
+  filter?: (data: T, input: string) => boolean;
+  render: (data: T) => ReactNode;
+  getOption?: (data: T) => string | number; // Fallback if render fn doesn't return string or number
 };
 
-export type GenericFeature =
-  | ProcessedFeature
-  | TransformedVariant
-  | UniParcProcessedFeature;
+type FeatureViewProps<T extends ProcessedFeature> = {
+  sequence?: string;
+  features: T[];
+  rowExtraContent?: (datum: T) => ReactNode;
+  getRowId: (datum: T) => string;
+  columns: FeatureColumnConfiguration<T>[];
+  trackHeight?: number;
+  withTitle?: boolean;
+  noLinkToFullView?: boolean;
+  markBackground?: (markedData: T) => ((data: T) => boolean) | undefined;
+  markBorder?: (
+    nightingaleViewRange: NightingaleViewRange
+  ) => (datum: T) => boolean;
+  inResultsTable?: boolean;
+};
 
-const FeaturesView = <T extends GenericFeature>({
+function FeaturesView<T extends ProcessedFeature>({
   sequence,
   features,
-  table,
   trackHeight,
   withTitle = true,
   noLinkToFullView,
-}: FeatureProps<T>) => {
+  rowExtraContent,
+  getRowId,
+  markBackground,
+  markBorder,
+  columns,
+  inResultsTable,
+}: FeatureViewProps<T>) {
   const isSmallScreen = useSmallScreen();
-
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
-  );
+  const [highlightedFeature, setHighlightedFeature] = useState<T | undefined>();
+  const [nightingaleViewRange, setNightingaleViewRange] =
+    useState<NightingaleViewRange>();
+  const tableId = useId();
+  const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
     [features]
   );
 
-  if (features.length === 0) {
-    return null;
-  }
+  const handleViewRangeChange = useCallback(
+    (coordinates: NightingaleViewRange) => {
+      setNightingaleViewRange(coordinates);
+    },
+    []
+  );
 
-  return (
+  const handleFeatureClick = useCallback(
+    (feature: T) => {
+      setHighlightedFeature(feature);
+      tableScroll(feature);
+    },
+    [tableScroll]
+  );
+
+  return !features.length ? null : (
     <>
       {withTitle && (
         <>
@@ -115,26 +146,41 @@ const FeaturesView = <T extends GenericFeature>({
           </p>
         </>
       )}
-      {managerElement.defined ? (
-        <managerElement.name attributes="highlight displaystart displayend selectedid">
-          {sequence && (
-            <LazyComponent
-              render={isSmallScreen ? false : undefined}
-              fallback={null}
-            >
-              <VisualFeaturesView
-                features={features}
-                sequence={sequence}
-                trackHeight={trackHeight}
-                noLinkToFullView={noLinkToFullView}
-              />
-            </LazyComponent>
-          )}
-          <DatatableWrapper>{table}</DatatableWrapper>
-        </managerElement.name>
-      ) : null}
+      {sequence && (
+        <LazyComponent
+          render={isSmallScreen ? false : undefined}
+          fallback={null}
+        >
+          <VisualFeaturesView
+            features={features}
+            sequence={sequence}
+            trackHeight={trackHeight}
+            noLinkToFullView={noLinkToFullView}
+            onFeatureClick={(feature) => handleFeatureClick(feature as T)}
+            onViewRangeChange={handleViewRangeChange}
+            highlightedFeature={highlightedFeature}
+          />
+        </LazyComponent>
+      )}
+      <TableFromData
+        id={tableId}
+        data={features}
+        columns={columns}
+        rowExtraContent={rowExtraContent}
+        getRowId={getRowId}
+        markBackground={
+          markBackground &&
+          highlightedFeature &&
+          markBackground(highlightedFeature)
+        }
+        markBorder={
+          markBorder && nightingaleViewRange && markBorder(nightingaleViewRange)
+        }
+        onRowClick={setHighlightedFeature}
+        expandable={!inResultsTable}
+      />
     </>
   );
-};
+}
 
 export default FeaturesView;

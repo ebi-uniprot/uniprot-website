@@ -105,7 +105,7 @@ exports[`HomePage component should render 1`] = `
           <a
             href="/help/about"
           >
-            © 2002 – 2024 UniProt consortium
+            © 2002 – 2025 UniProt consortium
           </a>
         </p>
         <p>
@@ -357,10 +357,10 @@ exports[`HomePage component should render 1`] = `
           >
             <a
               class="external-link"
-              href="https://twitter.com/uniprot"
+              href="https://www.linkedin.com/company/uniprot/"
               rel="noopener"
               target="_blank"
-              title="UniProt posts on X (formerly Twitter)"
+              title="UniProt posts on LinkedIn"
             >
               <test-file-stub
                 width="3ch"
@@ -368,10 +368,10 @@ exports[`HomePage component should render 1`] = `
             </a>
             <a
               class="external-link"
-              href="https://www.facebook.com/uniprot.org"
+              href="https://x.com/uniprot"
               rel="noopener"
               target="_blank"
-              title="UniProt posts on Facebook"
+              title="UniProt posts on X (formerly Twitter)"
             >
               <test-file-stub
                 width="3ch"
@@ -394,17 +394,6 @@ exports[`HomePage component should render 1`] = `
               rel="noopener"
               target="_blank"
               title="UniProt blog"
-            >
-              <test-file-stub
-                width="3ch"
-              />
-            </a>
-            <a
-              class="external-link"
-              href="https://groups.google.com/forum/#!forum/ebi-proteins-api"
-              rel="noopener"
-              target="_blank"
-              title="UniProt Google Group"
             >
               <test-file-stub
                 width="3ch"

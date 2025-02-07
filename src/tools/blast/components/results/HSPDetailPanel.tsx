@@ -64,7 +64,9 @@ const convertHSPtoMSAInputs = (
       features:
         extra && 'features' in extra
           ? processFeaturesData(
-              removeFeaturesWithUnknownModifier(extra.features)
+              removeFeaturesWithUnknownModifier(extra.features),
+              hitAccession,
+              hsp_hseq
             )
           : [],
     },

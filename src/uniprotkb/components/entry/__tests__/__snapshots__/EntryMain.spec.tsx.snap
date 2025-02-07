@@ -366,222 +366,174 @@ exports[`Entry view should render 1`] = `
             Isoform 3
           </a>
         </h4>
-        <protvista-datatable>
-          <table
-            class="kinetics-table"
-          >
-            <thead>
-              <tr>
-                <th
-                  class="no-text-transform"
-                >
-                   KM 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   SUBSTRATE 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   pH 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   TEMPERATURE[C] 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   NOTES 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   EVIDENCE 
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td
-                  class="no-wrap"
-                >
-                  2.0999999046325684 μM
-                </td>
-                <td>
-                  sub1
-                </td>
-                <td />
-                <td />
-                <td />
-                <td>
-                  <button
-                    aria-controls="7"
-                    aria-expanded="false"
-                    class="svg-colour-reviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      PROSITE-ProRule annotation
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="7"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </protvista-datatable>
-        <protvista-datatable>
-          <table
-            class="kinetics-table"
-          >
-            <thead>
-              <tr>
-                <th
-                  class="no-text-transform"
-                >
-                   Vmax 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   pH 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   TEMPERATURE[C] 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   NOTES 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   EVIDENCE 
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td
-                  class="no-wrap"
-                >
-                  1 μnit1
-                </td>
-                <td />
-                <td />
-                <td>
-                  1
-                </td>
-                <td>
-                  <button
-                    aria-controls="8"
-                    aria-expanded="false"
-                    class="svg-colour-reviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      PROSITE-ProRule annotation
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="8"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </protvista-datatable>
-        <div
-          class="text-block"
+        <table
+          class="table kinetics-table"
         >
-          value1.
-          <button
-            aria-controls="9"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
+          <thead
+            class=""
           >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
+            <tr
+              class="row"
             >
-              PROSITE-ProRule annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="9"
-          />
-        </div>
-        <h3
-          data-article-id="biophysicochemical_properties#3-ph-dependence"
-        >
-          pH Dependence
-        </h3>
-        <div
-          class="text-block"
-        >
-          value1.
-          <button
-            aria-controls="10"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
+              <th />
+              <th
+                class="no-text-transform"
+              >
+                 KM 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 SUBSTRATE 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 pH 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 TEMPERATURE[C] 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 NOTES 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 EVIDENCE 
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class=""
           >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
+            <tr
+              class="row"
             >
-              PROSITE-ProRule annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="10"
-          />
-        </div>
-        <h3
-          data-article-id="biophysicochemical_properties#4-rodex-potential"
+              <td />
+              <td
+                class="no-wrap"
+              >
+                2.0999999046325684 μM
+              </td>
+              <td>
+                sub1
+              </td>
+              <td />
+              <td />
+              <td />
+              <td>
+                <button
+                  aria-controls="8"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    PROSITE-ProRule annotation
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="8"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="table kinetics-table"
         >
-          Redox Potential
-        </h3>
+          <thead
+            class=""
+          >
+            <tr
+              class="row"
+            >
+              <th />
+              <th
+                class="no-text-transform"
+              >
+                 Vmax 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 pH 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 TEMPERATURE[C] 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 NOTES 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 EVIDENCE 
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row"
+            >
+              <td />
+              <td
+                class="no-wrap"
+              >
+                1 μnit1
+              </td>
+              <td />
+              <td />
+              <td>
+                1
+              </td>
+              <td>
+                <button
+                  aria-controls="10"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    PROSITE-ProRule annotation
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="10"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div
           class="text-block"
         >
@@ -610,9 +562,9 @@ exports[`Entry view should render 1`] = `
           />
         </div>
         <h3
-          data-article-id="biophysicochemical_properties#5-temperature-dependence"
+          data-article-id="biophysicochemical_properties#3-ph-dependence"
         >
-          Temperature Dependence
+          pH Dependence
         </h3>
         <div
           class="text-block"
@@ -639,6 +591,70 @@ exports[`Entry view should render 1`] = `
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
             id="12"
+          />
+        </div>
+        <h3
+          data-article-id="biophysicochemical_properties#4-rodex-potential"
+        >
+          Redox Potential
+        </h3>
+        <div
+          class="text-block"
+        >
+          value1.
+          <button
+            aria-controls="13"
+            aria-expanded="false"
+            class="svg-colour-reviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              PROSITE-ProRule annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="13"
+          />
+        </div>
+        <h3
+          data-article-id="biophysicochemical_properties#5-temperature-dependence"
+        >
+          Temperature Dependence
+        </h3>
+        <div
+          class="text-block"
+        >
+          value1.
+          <button
+            aria-controls="14"
+            aria-expanded="false"
+            class="svg-colour-reviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              PROSITE-ProRule annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="14"
           />
         </div>
         <div
@@ -741,7 +757,7 @@ exports[`Entry view should render 1`] = `
                 <strong>
                   rec full Name 
                   <button
-                    aria-controls="13"
+                    aria-controls="15"
                     aria-expanded="false"
                     class="svg-colour-reviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -760,7 +776,7 @@ exports[`Entry view should render 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="13"
+                    id="15"
                   />
                 </strong>
               </div>
@@ -816,7 +832,7 @@ exports[`Entry view should render 1`] = `
                     </a>
                     )
                     <button
-                      aria-controls="14"
+                      aria-controls="16"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -835,7 +851,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="14"
+                      id="16"
                     />
                   </li>
                 </ul>
@@ -856,7 +872,7 @@ exports[`Entry view should render 1`] = `
               >
                 recommended short name 
                 <button
-                  aria-controls="15"
+                  aria-controls="17"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -875,7 +891,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="15"
+                  id="17"
                 />
               </div>
             </div>
@@ -898,52 +914,6 @@ exports[`Entry view should render 1`] = `
                   <li>
                     a full alt Name 
                     <button
-                      aria-controls="16"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        PROSITE-ProRule annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="16"
-                    />
-                     (short alt name1 
-                    <button
-                      aria-controls="17"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        PROSITE-ProRule annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="17"
-                    />
-                    )  (EC:1.2.3.3
-                    <button
                       aria-controls="18"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
@@ -964,6 +934,52 @@ exports[`Entry view should render 1`] = `
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
                       id="18"
+                    />
+                     (short alt name1 
+                    <button
+                      aria-controls="19"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        PROSITE-ProRule annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="19"
+                    />
+                    )  (EC:1.2.3.3
+                    <button
+                      aria-controls="20"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        PROSITE-ProRule annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="20"
                     />
                     ) 
                     <small>
@@ -1001,7 +1017,7 @@ exports[`Entry view should render 1`] = `
                       </a>
                       )
                       <button
-                        aria-controls="19"
+                        aria-controls="21"
                         aria-expanded="false"
                         class="svg-colour-reviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
@@ -1020,7 +1036,7 @@ exports[`Entry view should render 1`] = `
                       <div
                         class="evidence-tag-content "
                         data-testid="evidence-tag-content"
-                        id="19"
+                        id="21"
                       />
                     </small>
                   </li>
@@ -1051,7 +1067,7 @@ exports[`Entry view should render 1`] = `
                     </a>
                      
                     <button
-                      aria-controls="20"
+                      aria-controls="22"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1070,11 +1086,11 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="20"
+                      id="22"
                     />
                      (containsrecommended short name 
                     <button
-                      aria-controls="21"
+                      aria-controls="23"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1093,7 +1109,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="21"
+                      id="23"
                     />
                     )  (EC:1.2.3.4 (
                     <a
@@ -1129,7 +1145,7 @@ exports[`Entry view should render 1`] = `
                     </a>
                     )
                     <button
-                      aria-controls="22"
+                      aria-controls="24"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1148,7 +1164,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="22"
+                      id="24"
                     />
                     ) 
                     <small>
@@ -1190,7 +1206,7 @@ exports[`Entry view should render 1`] = `
                           </a>
                           )
                           <button
-                            aria-controls="23"
+                            aria-controls="25"
                             aria-expanded="false"
                             class="svg-colour-reviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1209,7 +1225,7 @@ exports[`Entry view should render 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="23"
+                            id="25"
                           />
                         </li>
                       </ul>
@@ -1219,52 +1235,6 @@ exports[`Entry view should render 1`] = `
                       Alternative names: 
                     </i>
                     containsa full alt Name 
-                    <button
-                      aria-controls="24"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        PROSITE-ProRule annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="24"
-                    />
-                     (containsshort alt name1 
-                    <button
-                      aria-controls="25"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        PROSITE-ProRule annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="25"
-                    />
-                    )  (EC:1.2.3.3
                     <button
                       aria-controls="26"
                       aria-expanded="false"
@@ -1287,29 +1257,7 @@ exports[`Entry view should render 1`] = `
                       data-testid="evidence-tag-content"
                       id="26"
                     />
-                    ) 
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                Submitted names
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    sub full Name 
+                     (containsshort alt name1 
                     <button
                       aria-controls="27"
                       aria-expanded="false"
@@ -1332,7 +1280,7 @@ exports[`Entry view should render 1`] = `
                       data-testid="evidence-tag-content"
                       id="27"
                     />
-                     (EC:1.2.3.5
+                    )  (EC:1.2.3.3
                     <button
                       aria-controls="28"
                       aria-expanded="false"
@@ -1368,6 +1316,74 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
+                Submitted names
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    sub full Name 
+                    <button
+                      aria-controls="29"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        PROSITE-ProRule annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="29"
+                    />
+                     (EC:1.2.3.5
+                    <button
+                      aria-controls="30"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        PROSITE-ProRule annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="30"
+                    />
+                    ) 
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
                 Biotech name
               </div>
               <div
@@ -1375,7 +1391,7 @@ exports[`Entry view should render 1`] = `
               >
                 biotech 
                 <button
-                  aria-controls="29"
+                  aria-controls="31"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -1394,7 +1410,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="29"
+                  id="31"
                 />
               </div>
             </div>
@@ -1413,7 +1429,7 @@ exports[`Entry view should render 1`] = `
               >
                 allergen 
                 <button
-                  aria-controls="30"
+                  aria-controls="32"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -1432,7 +1448,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="30"
+                  id="32"
                 />
               </div>
             </div>
@@ -1455,7 +1471,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     cd antigen 
                     <button
-                      aria-controls="31"
+                      aria-controls="33"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1474,7 +1490,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="31"
+                      id="33"
                     />
                   </li>
                 </ul>
@@ -1499,7 +1515,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     inn antigen 
                     <button
-                      aria-controls="32"
+                      aria-controls="34"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1518,7 +1534,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="32"
+                      id="34"
                     />
                   </li>
                 </ul>
@@ -1549,7 +1565,7 @@ exports[`Entry view should render 1`] = `
                 <strong>
                   includesrec full Name 
                   <button
-                    aria-controls="33"
+                    aria-controls="35"
                     aria-expanded="false"
                     class="svg-colour-reviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -1568,7 +1584,7 @@ exports[`Entry view should render 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="33"
+                    id="35"
                   />
                 </strong>
               </div>
@@ -1624,7 +1640,7 @@ exports[`Entry view should render 1`] = `
                     </a>
                     )
                     <button
-                      aria-controls="34"
+                      aria-controls="36"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1643,7 +1659,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="34"
+                      id="36"
                     />
                   </li>
                 </ul>
@@ -1664,7 +1680,7 @@ exports[`Entry view should render 1`] = `
               >
                 includesrecommended short name 
                 <button
-                  aria-controls="35"
+                  aria-controls="37"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -1683,7 +1699,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="35"
+                  id="37"
                 />
               </div>
             </div>
@@ -1706,52 +1722,6 @@ exports[`Entry view should render 1`] = `
                   <li>
                     includesa full alt Name 
                     <button
-                      aria-controls="36"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        PROSITE-ProRule annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="36"
-                    />
-                     (includesshort alt name1 
-                    <button
-                      aria-controls="37"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        PROSITE-ProRule annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="37"
-                    />
-                    )  (EC:1.2.3.3
-                    <button
                       aria-controls="38"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
@@ -1772,6 +1742,52 @@ exports[`Entry view should render 1`] = `
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
                       id="38"
+                    />
+                     (includesshort alt name1 
+                    <button
+                      aria-controls="39"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        PROSITE-ProRule annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="39"
+                    />
+                    )  (EC:1.2.3.3
+                    <button
+                      aria-controls="40"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        PROSITE-ProRule annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="40"
                     />
                     ) 
                     <small>
@@ -1809,7 +1825,7 @@ exports[`Entry view should render 1`] = `
                       </a>
                       )
                       <button
-                        aria-controls="39"
+                        aria-controls="41"
                         aria-expanded="false"
                         class="svg-colour-reviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
@@ -1828,7 +1844,7 @@ exports[`Entry view should render 1`] = `
                       <div
                         class="evidence-tag-content "
                         data-testid="evidence-tag-content"
-                        id="39"
+                        id="41"
                       />
                     </small>
                   </li>
@@ -1850,7 +1866,7 @@ exports[`Entry view should render 1`] = `
               >
                 biotech 
                 <button
-                  aria-controls="40"
+                  aria-controls="42"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -1869,7 +1885,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="40"
+                  id="42"
                 />
               </div>
             </div>
@@ -1888,7 +1904,7 @@ exports[`Entry view should render 1`] = `
               >
                 allergen 
                 <button
-                  aria-controls="41"
+                  aria-controls="43"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -1907,7 +1923,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="41"
+                  id="43"
                 />
               </div>
             </div>
@@ -1930,7 +1946,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     cd antigen 
                     <button
-                      aria-controls="42"
+                      aria-controls="44"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1949,7 +1965,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="42"
+                      id="44"
                     />
                   </li>
                 </ul>
@@ -1974,7 +1990,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     inn antigen 
                     <button
-                      aria-controls="43"
+                      aria-controls="45"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1993,7 +2009,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="43"
+                      id="45"
                     />
                   </li>
                 </ul>
@@ -2027,85 +2043,9 @@ exports[`Entry view should render 1`] = `
                   >
                     some Gene 
                     <button
-                      aria-controls="44"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="44"
-                    />
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item"
-                >
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    Synonyms
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    some Syn 
-                    <button
-                      aria-controls="45"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="45"
-                    />
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item"
-                >
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    ORF names
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    some orf 
-                    <button
                       aria-controls="46"
                       aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -2116,7 +2056,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 publication
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -2134,12 +2074,12 @@ exports[`Entry view should render 1`] = `
                   <div
                     class="decorated-list-item__title tiny"
                   >
-                    Ordered locus names
+                    Synonyms
                   </div>
                   <div
                     class="decorated-list-item__content"
                   >
-                    some locus 
+                    some Syn 
                     <button
                       aria-controls="47"
                       aria-expanded="false"
@@ -2161,6 +2101,82 @@ exports[`Entry view should render 1`] = `
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
                       id="47"
+                    />
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    ORF names
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    some orf 
+                    <button
+                      aria-controls="48"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="48"
+                    />
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Ordered locus names
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    some locus 
+                    <button
+                      aria-controls="49"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="49"
                     />
                   </div>
                 </div>
@@ -2191,7 +2207,7 @@ exports[`Entry view should render 1`] = `
                 >
                   Cyanelle geneLocation value
                   <button
-                    aria-controls="48"
+                    aria-controls="50"
                     aria-expanded="false"
                     class="svg-colour-reviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -2210,7 +2226,7 @@ exports[`Entry view should render 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="48"
+                    id="50"
                   />
                 </div>
               </div>
@@ -2283,7 +2299,7 @@ exports[`Entry view should render 1`] = `
                   scientific name (common name) (synonyms 1)
                 </a>
                 <button
-                  aria-controls="49"
+                  aria-controls="51"
                   aria-expanded="false"
                   class="svg-colour-unreviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -2302,7 +2318,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="49"
+                  id="51"
                 />
               </div>
             </div>
@@ -2438,7 +2454,7 @@ exports[`Entry view should render 1`] = `
             role="tablist"
           >
             <div
-              aria-controls="51"
+              aria-controls="53"
               class="tabs__header__item tabs__header__item--active"
               data-target="0"
               data-testid="tab-title"
@@ -2448,7 +2464,7 @@ exports[`Entry view should render 1`] = `
               UniProt Annotation
             </div>
             <div
-              aria-controls="51"
+              aria-controls="53"
               class="tabs__header__item"
               data-target="1"
               data-testid="tab-title"
@@ -2460,7 +2476,7 @@ exports[`Entry view should render 1`] = `
           </div>
           <div
             data-testid="tab-content"
-            id="51"
+            id="53"
             role="tabpanel"
           >
             <div
@@ -2488,56 +2504,6 @@ exports[`Entry view should render 1`] = `
                   </strong>
                    
                   <button
-                    aria-controls="52"
-                    aria-expanded="false"
-                    class="svg-colour-unreviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      automatic annotation
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="52"
-                  />
-                  ; topology value 
-                  <button
-                    aria-controls="53"
-                    aria-expanded="false"
-                    class="svg-colour-unreviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      automatic annotation
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="53"
-                  />
-                </div>
-                <div
-                  class="text-block"
-                >
-                  Note: value.
-                  <button
                     aria-controls="54"
                     aria-expanded="false"
                     class="svg-colour-unreviewed evidence-tag"
@@ -2558,6 +2524,56 @@ exports[`Entry view should render 1`] = `
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
                     id="54"
+                  />
+                  ; topology value 
+                  <button
+                    aria-controls="55"
+                    aria-expanded="false"
+                    class="svg-colour-unreviewed evidence-tag"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                    >
+                      automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="55"
+                  />
+                </div>
+                <div
+                  class="text-block"
+                >
+                  Note: value.
+                  <button
+                    aria-controls="56"
+                    aria-expanded="false"
+                    class="svg-colour-unreviewed evidence-tag"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                    >
+                      automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="56"
                   />
                 </div>
               </section>
@@ -2615,7 +2631,7 @@ exports[`Entry view should render 1`] = `
           class="text-block"
         >
           <button
-            aria-controls="55"
+            aria-controls="57"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2634,7 +2650,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="55"
+            id="57"
           />
         </span>
         <ul
@@ -2658,7 +2674,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     value2
                     <button
-                      aria-controls="56"
+                      aria-controls="58"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2677,7 +2693,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="56"
+                      id="58"
                     />
                   </li>
                 </ul>
@@ -2748,7 +2764,7 @@ exports[`Entry view should render 1`] = `
         >
           value.
           <button
-            aria-controls="57"
+            aria-controls="59"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2767,7 +2783,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="57"
+            id="59"
           />
         </div>
         <h4
@@ -2784,7 +2800,7 @@ exports[`Entry view should render 1`] = `
         >
           value.
           <button
-            aria-controls="58"
+            aria-controls="60"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2803,7 +2819,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="58"
+            id="60"
           />
         </div>
       </div>
@@ -2844,135 +2860,141 @@ exports[`Entry view should render 1`] = `
             width="100"
           />
         </div>
-        <div
-          class="datatable-wrapper"
+        <table
+          class="table"
         >
-          <protvista-datatable
-            filter-scroll="true"
+          <thead
+            class=""
           >
-            <table>
-              <thead>
-                <tr>
-                  <th
-                    data-filter="type"
+            <tr
+              class="row"
+            >
+              <th />
+              <th>
+                Type
+              </th>
+              <th>
+                Entry 1
+                <br />
+                <select>
+                  <option
+                    value="All"
                   >
-                    Type
-                  </th>
-                  <th
-                    data-filter="entry_1"
+                    All
+                  </option>
+                  <option
+                    value="P12345"
                   >
-                    Entry 1
-                  </th>
-                  <th>
-                    Entry 2
-                  </th>
-                  <th>
-                    Number of experiments
-                  </th>
-                  <th
-                    translate="no"
+                    P12345
+                  </option>
+                  <option
+                    value="P21802"
                   >
-                    Intact
-                  </th>
-                </tr>
-              </thead>
-              <tbody
-                translate="no"
-              >
-                <tr>
-                  <td
-                    data-filter="type"
-                    data-filter-value="XENO"
-                  >
-                    XENO
-                  </td>
-                  <td
-                    data-filter="entry_1"
-                    data-filter-value="P12345"
-                  >
-                    <a
-                      href="/uniprotkb/P12345"
-                    >
-                      gen PROC_12345 P12345
-                    </a>
-                  </td>
-                  <td>
-                    <a
-                      href="/uniprotkb/P21802"
-                    >
-                      gene1 PROC_123454 P21802
-                    </a>
-                  </td>
-                  <td>
-                    6
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="//www.ebi.ac.uk/intact/search?query=(id:EBI-00011 AND id:EBI-00012)#interactor"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      EBI-00011, EBI-00012
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    data-filter="type"
-                    data-filter-value="XENO"
-                  >
-                    XENO
-                  </td>
-                  <td
-                    data-filter="entry_1"
-                    data-filter-value="P21802"
-                  >
-                    <a
-                      href="/uniprotkb/P21802"
-                    >
-                      gen PROC_12344 P21802
-                    </a>
-                  </td>
-                  <td>
-                    <a
-                      href="/uniprotkb/P12345#P12345-1"
-                    >
-                      gene1 PROC_12347 P12345-1
-                    </a>
-                  </td>
-                  <td>
-                    3
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="//www.ebi.ac.uk/intact/search?query=(id:EBI-0001 AND id:EBI-0002)#interactor"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      EBI-0001, EBI-0002
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </protvista-datatable>
-          <button
-            class="button primary toggle-button"
-            type="button"
+                    P21802
+                  </option>
+                </select>
+              </th>
+              <th>
+                Entry 2
+              </th>
+              <th>
+                Number of experiments
+              </th>
+              <th>
+                <span
+                  translate="no"
+                >
+                  IntAct
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class=""
+            translate="no"
           >
-            Expand table
-          </button>
-        </div>
+            <tr
+              class="row"
+              data-id="EBI-00011EBI-00012"
+            >
+              <td />
+              <td>
+                XENO
+              </td>
+              <td>
+                <a
+                  href="/uniprotkb/P12345"
+                >
+                  gen PROC_12345 P12345
+                </a>
+              </td>
+              <td>
+                <a
+                  href="/uniprotkb/P21802"
+                >
+                  gene1 PROC_123454 P21802
+                </a>
+              </td>
+              <td>
+                6
+              </td>
+              <td>
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/intact/search?query=(id:EBI-00011 AND id:EBI-00012)#interactor"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  EBI-00011, EBI-00012
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
+            </tr>
+            <tr
+              class="row odd"
+              data-id="EBI-0001EBI-0002"
+            >
+              <td />
+              <td>
+                XENO
+              </td>
+              <td>
+                <a
+                  href="/uniprotkb/P21802"
+                >
+                  gen PROC_12344 P21802
+                </a>
+              </td>
+              <td>
+                <a
+                  href="/uniprotkb/P12345#P12345-1"
+                >
+                  gene1 PROC_12347 P12345-1
+                </a>
+              </td>
+              <td>
+                3
+              </td>
+              <td>
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/intact/search?query=(id:EBI-0001 AND id:EBI-0002)#interactor"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  EBI-0001, EBI-0002
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -3143,7 +3165,7 @@ exports[`Entry view should render 1`] = `
                       #keyword value
                     </a>
                     <button
-                      aria-controls="59"
+                      aria-controls="63"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3162,7 +3184,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="59"
+                      id="63"
                     />
                   </li>
                 </ul>
@@ -3349,7 +3371,7 @@ exports[`Entry view should render 1`] = `
               >
                 syn value
                 <button
-                  aria-controls="60"
+                  aria-controls="64"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -3368,7 +3390,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="60"
+                  id="64"
                 />
               </div>
             </div>
@@ -3448,7 +3470,7 @@ exports[`Entry view should render 1`] = `
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
           <button
-            aria-controls="61"
+            aria-controls="65"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -3467,7 +3489,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="61"
+            id="65"
           />
         </section>
         <h3
@@ -3483,7 +3505,7 @@ exports[`Entry view should render 1`] = `
           </h4>
           Molecular mass is 2.1 Da. Determined by LSI. note value
           <button
-            aria-controls="62"
+            aria-controls="66"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -3502,7 +3524,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="62"
+            id="66"
           />
         </section>
         <h3
@@ -3518,7 +3540,7 @@ exports[`Entry view should render 1`] = `
             <span>
               1 
               <button
-                aria-controls="63"
+                aria-controls="67"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -3537,7 +3559,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="63"
+                id="67"
               />
             </span>
           </div>
@@ -3545,7 +3567,7 @@ exports[`Entry view should render 1`] = `
             <span>
               value 
               <button
-                aria-controls="64"
+                aria-controls="68"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -3564,7 +3586,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="64"
+                id="68"
               />
             </span>
           </div>
@@ -3971,85 +3993,93 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           Kinetics
         </h3>
-        <protvista-datatable>
-          <table
-            class="kinetics-table"
+        <table
+          class="table kinetics-table"
+        >
+          <thead
+            class=""
           >
-            <thead>
-              <tr>
-                <th
-                  class="no-text-transform"
+            <tr
+              class="row"
+            >
+              <th />
+              <th
+                class="no-text-transform"
+              >
+                 KM 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 SUBSTRATE 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 pH 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 TEMPERATURE[C] 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 NOTES 
+              </th>
+              <th
+                class="no-text-transform"
+              >
+                 EVIDENCE 
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row"
+            >
+              <td />
+              <td
+                class="no-wrap"
+              >
+                340 μM
+              </td>
+              <td>
+                A antigen type 1 penta-MU
+              </td>
+              <td />
+              <td />
+              <td />
+              <td>
+                <button
+                  aria-controls="8"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
                 >
-                   KM 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   SUBSTRATE 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   pH 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   TEMPERATURE[C] 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   NOTES 
-                </th>
-                <th
-                  class="no-text-transform"
-                >
-                   EVIDENCE 
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td
-                  class="no-wrap"
-                >
-                  340 μM
-                </td>
-                <td>
-                  A antigen type 1 penta-MU
-                </td>
-                <td />
-                <td />
-                <td />
-                <td>
-                  <button
-                    aria-controls="7"
-                    aria-expanded="false"
-                    class="svg-colour-reviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      1 publication
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="7"
+                  <test-file-stub
+                    height="12"
+                    width="12"
                   />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </protvista-datatable>
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="8"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <h3
           data-article-id="biophysicochemical_properties#3-ph-dependence"
         >
@@ -4060,7 +4090,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           Optimum pH is 8.0.
           <button
-            aria-controls="8"
+            aria-controls="9"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -4079,7 +4109,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="8"
+            id="9"
           />
         </div>
         <h3>
@@ -4094,475 +4124,467 @@ exports[`Entry view should render for non-human entry 1`] = `
           </span>
           .
         </p>
-        <protvista-manager
-          attributes="highlight displaystart displayend selectedid"
+        <table
+          class="table"
         >
-          <div
-            class="datatable-wrapper"
+          <thead
+            class=""
           >
-            <protvista-datatable
-              filter-scroll="true"
+            <tr
+              class="row"
             >
-              <table>
-                <thead>
-                  <tr>
-                    <th
-                      data-filter="type"
-                    >
-                      Type
-                    </th>
-                    <th>
-                      ID
-                    </th>
-                    <th>
-                      Position(s)
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    data-end="87"
-                    data-id="0"
-                    data-start="87"
+              <th>
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="dropdown"
+                >
+                  <button
+                    class="button tertiary"
+                    type="button"
                   >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Binding site"
-                    >
-                      Binding site
-                    </td>
-                    <td />
-                    <td>
-                      87
-                    </td>
-                    <td
-                      id="description87"
-                    >
-                      substrate
-                      <button
-                        aria-controls="9"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="9"
-                      />
-                      <button
-                        aria-controls="10"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="10"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="87"
-                    data-group-for="0"
-                    data-start="87"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      S
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="123"
-                    data-id="1"
-                    data-start="123"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Binding site"
-                    >
-                      Binding site
-                    </td>
-                    <td />
-                    <td>
-                      123
-                    </td>
-                    <td
-                      id="description123"
-                    >
-                      substrate
-                      <button
-                        aria-controls="11"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="11"
-                      />
-                      <button
-                        aria-controls="12"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="12"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="123"
-                    data-group-for="1"
-                    data-start="123"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      H
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="126"
-                    data-id="2"
-                    data-start="126"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Binding site"
-                    >
-                      Binding site
-                    </td>
-                    <td />
-                    <td>
-                      126
-                    </td>
-                    <td
-                      id="description126"
-                    >
-                      a divalent metal cation (
-                      <a
-                        href="/uniprotkb?query=ft_binding:"CHEBI:60240""
-                      >
-                        UniProtKB
-                      </a>
-                       | 
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        ChEBI
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      )
-                      <button
-                        aria-controls="13"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="13"
-                      />
-                      <button
-                        aria-controls="14"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="14"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="126"
-                    data-group-for="2"
-                    data-start="126"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      D
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="236"
-                    data-id="3"
-                    data-start="236"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Binding site"
-                    >
-                      Binding site
-                    </td>
-                    <td />
-                    <td>
-                      236
-                    </td>
-                    <td
-                      id="description236"
-                    >
-                      substrate
-                      <button
-                        aria-controls="15"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="15"
-                      />
-                      <button
-                        aria-controls="16"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="16"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="236"
-                    data-group-for="3"
-                    data-start="236"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      Y
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="278"
-                    data-id="4"
-                    data-start="278"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Binding site"
-                    >
-                      Binding site
-                    </td>
-                    <td />
-                    <td>
-                      278
-                    </td>
-                    <td
-                      id="description278"
-                    >
-                      a divalent metal cation (
-                      <a
-                        href="/uniprotkb?query=ft_binding:"CHEBI:60240""
-                      >
-                        UniProtKB
-                      </a>
-                       | 
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        ChEBI
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      )
-                      <button
-                        aria-controls="17"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="17"
-                      />
-                      <button
-                        aria-controls="18"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="18"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="278"
-                    data-group-for="4"
-                    data-start="278"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      H
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
+                    ±
+                  </button>
+                </div>
+              </th>
+              <th>
+                Type
+              </th>
+              <th>
+                ID
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Description
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row has-extra-content"
+              data-id="0"
             >
-              Expand table
-            </button>
-          </div>
-        </protvista-manager>
+              <td>
+                <button
+                  aria-controls="11"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Binding site
+              </td>
+              <td />
+              <td>
+                87
+              </td>
+              <td>
+                substrate
+                <button
+                  aria-controls="12"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="12"
+                />
+                <button
+                  aria-controls="13"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    Combined sources
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="13"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="11"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="1"
+            >
+              <td>
+                <button
+                  aria-controls="14"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Binding site
+              </td>
+              <td />
+              <td>
+                123
+              </td>
+              <td>
+                substrate
+                <button
+                  aria-controls="15"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="15"
+                />
+                <button
+                  aria-controls="16"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    Combined sources
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="16"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="14"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="2"
+            >
+              <td>
+                <button
+                  aria-controls="17"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Binding site
+              </td>
+              <td />
+              <td>
+                126
+              </td>
+              <td>
+                a divalent metal cation (
+                <a
+                  href="/uniprotkb?query=ft_binding:"CHEBI:60240""
+                >
+                  UniProtKB
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ChEBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                )
+                <button
+                  aria-controls="18"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="18"
+                />
+                <button
+                  aria-controls="19"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    Combined sources
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="19"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="17"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="3"
+            >
+              <td>
+                <button
+                  aria-controls="20"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Binding site
+              </td>
+              <td />
+              <td>
+                236
+              </td>
+              <td>
+                substrate
+                <button
+                  aria-controls="21"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="21"
+                />
+                <button
+                  aria-controls="22"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    Combined sources
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="22"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="20"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="4"
+            >
+              <td>
+                <button
+                  aria-controls="23"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Binding site
+              </td>
+              <td />
+              <td>
+                278
+              </td>
+              <td>
+                a divalent metal cation (
+                <a
+                  href="/uniprotkb?query=ft_binding:"CHEBI:60240""
+                >
+                  UniProtKB
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ChEBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                )
+                <button
+                  aria-controls="24"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="24"
+                />
+                <button
+                  aria-controls="25"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    Combined sources
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="25"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="23"
+            >
+              <td />
+            </tr>
+          </tbody>
+        </table>
         <div
           class="GoRibbon"
         >
@@ -4587,116 +4609,119 @@ exports[`Entry view should render for non-human entry 1`] = `
               />
             </a>
           </div>
-          <div
-            class="datatable-wrapper"
+          <table
+            class="table"
           >
-            <protvista-datatable
-              filter-scroll="true"
+            <thead
+              class=""
             >
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      Aspect
-                    </th>
-                    <th>
-                      Term
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Molecular Function
-                    </td>
-                    <td>
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        hydrolase activity, acting on glycosyl bonds
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      <button
-                        aria-controls="35"
-                        aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Source:UniProtKB-KW
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="35"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Molecular Function
-                    </td>
-                    <td>
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        metal ion binding
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      <button
-                        aria-controls="36"
-                        aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Source:UniProtKB-KW
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="36"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
+              <tr
+                class="row"
+              >
+                <th />
+                <th>
+                  Aspect
+                </th>
+                <th>
+                  Term
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class=""
             >
-              Expand table
-            </button>
-          </div>
+              <tr
+                class="row"
+                data-id="GO:0016798"
+              >
+                <td />
+                <td>
+                  Molecular Function
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/QuickGO/term/GO:0016798"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    hydrolase activity, acting on glycosyl bonds
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                  <button
+                    aria-controls="56"
+                    aria-expanded="false"
+                    class="svg-colour-unreviewed evidence-tag"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                    >
+                      Source:UniProtKB-KW
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="56"
+                  />
+                </td>
+              </tr>
+              <tr
+                class="row odd"
+                data-id="GO:0046872"
+              >
+                <td />
+                <td>
+                  Molecular Function
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/QuickGO/term/GO:0046872"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    metal ion binding
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                  <button
+                    aria-controls="58"
+                    aria-expanded="false"
+                    class="svg-colour-unreviewed evidence-tag"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                    >
+                      Source:UniProtKB-KW
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="58"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <h3
           data-article-id="keywords"
@@ -4862,7 +4887,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <strong>
                   A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                   <button
-                    aria-controls="21"
+                    aria-controls="30"
                     aria-expanded="false"
                     class="svg-colour-reviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -4881,7 +4906,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="21"
+                    id="30"
                   />
                 </strong>
               </div>
@@ -4937,7 +4962,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     </a>
                     )
                     <button
-                      aria-controls="22"
+                      aria-controls="31"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4956,7 +4981,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="22"
+                      id="31"
                     />
                   </li>
                 </ul>
@@ -4981,7 +5006,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     CBM32 
                     <button
-                      aria-controls="23"
+                      aria-controls="32"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5000,13 +5025,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="23"
+                      id="32"
                     />
                   </li>
                   <li>
                     FpGalNAc deacetylase (FpGalNAcDeAc 
                     <button
-                      aria-controls="24"
+                      aria-controls="33"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5025,7 +5050,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="24"
+                      id="33"
                     />
                     ) 
                   </li>
@@ -5183,327 +5208,319 @@ exports[`Entry view should render for non-human entry 1`] = `
           </span>
           .
         </p>
-        <protvista-manager
-          attributes="highlight displaystart displayend selectedid"
+        <table
+          class="table"
         >
-          <div
-            class="datatable-wrapper"
+          <thead
+            class=""
           >
-            <protvista-datatable
-              filter-scroll="true"
+            <tr
+              class="row"
             >
-              <table>
-                <thead>
-                  <tr>
-                    <th
-                      data-filter="type"
-                    >
-                      Type
-                    </th>
-                    <th>
-                      ID
-                    </th>
-                    <th>
-                      Position(s)
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    data-end="90"
-                    data-id="5"
-                    data-start="90"
+              <th>
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="dropdown"
+                >
+                  <button
+                    class="button tertiary"
+                    type="button"
                   >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Mutagenesis"
-                    >
-                      Mutagenesis
-                    </td>
-                    <td />
-                    <td>
-                      90
-                    </td>
-                    <td
-                      id="description90"
-                    >
-                      Loss of deacetylase activity.
-                      <button
-                        aria-controls="25"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="25"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="90"
-                    data-group-for="5"
-                    data-start="90"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      E → A or L
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="125"
-                    data-id="6"
-                    data-start="125"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Mutagenesis"
-                    >
-                      Mutagenesis
-                    </td>
-                    <td />
-                    <td>
-                      125
-                    </td>
-                    <td
-                      id="description125"
-                    >
-                      5-fold reduction in deacetylase rate.
-                      <button
-                        aria-controls="26"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="26"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="125"
-                    data-group-for="6"
-                    data-start="125"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      C → A or S
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="126"
-                    data-id="7"
-                    data-start="126"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Mutagenesis"
-                    >
-                      Mutagenesis
-                    </td>
-                    <td />
-                    <td>
-                      126
-                    </td>
-                    <td
-                      id="description126"
-                    >
-                      Dramatic reduction in deacetylase rate.
-                      <button
-                        aria-controls="27"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="27"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="126"
-                    data-group-for="7"
-                    data-start="126"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      D → N
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="278"
-                    data-id="8"
-                    data-start="278"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Mutagenesis"
-                    >
-                      Mutagenesis
-                    </td>
-                    <td />
-                    <td>
-                      278
-                    </td>
-                    <td
-                      id="description278"
-                    >
-                      Very dramatic reduction in deacetylase rate.
-                      <button
-                        aria-controls="28"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="28"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="278"
-                    data-group-for="8"
-                    data-start="278"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      H → A or F
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="341"
-                    data-id="9"
-                    data-start="341"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Mutagenesis"
-                    >
-                      Mutagenesis
-                    </td>
-                    <td />
-                    <td>
-                      341
-                    </td>
-                    <td
-                      id="description341"
-                    >
-                      3000-fold reduction in deacetylase rate.
-                      <button
-                        aria-controls="29"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="29"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                  <tr
-                    data-end="341"
-                    data-group-for="9"
-                    data-start="341"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      Y → F
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
+                    ±
+                  </button>
+                </div>
+              </th>
+              <th>
+                Type
+              </th>
+              <th>
+                ID
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Description
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row has-extra-content"
+              data-id="5"
             >
-              Expand table
-            </button>
-          </div>
-        </protvista-manager>
+              <td>
+                <button
+                  aria-controls="35"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Mutagenesis
+              </td>
+              <td />
+              <td>
+                90
+              </td>
+              <td>
+                Loss of deacetylase activity.
+                <button
+                  aria-controls="36"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="36"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="35"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="6"
+            >
+              <td>
+                <button
+                  aria-controls="37"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Mutagenesis
+              </td>
+              <td />
+              <td>
+                125
+              </td>
+              <td>
+                5-fold reduction in deacetylase rate.
+                <button
+                  aria-controls="38"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="38"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="37"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="7"
+            >
+              <td>
+                <button
+                  aria-controls="39"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Mutagenesis
+              </td>
+              <td />
+              <td>
+                126
+              </td>
+              <td>
+                Dramatic reduction in deacetylase rate.
+                <button
+                  aria-controls="40"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="40"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="39"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="8"
+            >
+              <td>
+                <button
+                  aria-controls="41"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Mutagenesis
+              </td>
+              <td />
+              <td>
+                278
+              </td>
+              <td>
+                Very dramatic reduction in deacetylase rate.
+                <button
+                  aria-controls="42"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="42"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="41"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="9"
+            >
+              <td>
+                <button
+                  aria-controls="43"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Mutagenesis
+              </td>
+              <td />
+              <td>
+                341
+              </td>
+              <td>
+                3000-fold reduction in deacetylase rate.
+                <button
+                  aria-controls="44"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="44"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="43"
+            >
+              <td />
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -5735,383 +5752,395 @@ exports[`Entry view should render for non-human entry 1`] = `
           </span>
           .
         </p>
-        <protvista-manager
-          attributes="highlight displaystart displayend selectedid"
+        <table
+          class="table"
         >
-          <div
-            class="datatable-wrapper"
+          <thead
+            class=""
           >
-            <protvista-datatable
-              filter-scroll="true"
+            <tr
+              class="row"
             >
-              <table>
-                <thead>
-                  <tr>
-                    <th
-                      data-filter="type"
-                    >
-                      Type
-                    </th>
-                    <th>
-                      ID
-                    </th>
-                    <th>
-                      Position(s)
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    data-end="402"
-                    data-id="11"
-                    data-start="180"
+              <th>
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="dropdown"
+                >
+                  <button
+                    class="button tertiary"
+                    type="button"
                   >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Region"
-                    >
-                      Region
-                    </td>
-                    <td />
-                    <td>
-                      180-402
-                    </td>
-                    <td
-                      id="description180-402"
-                    >
-                      Deacetylase activity
-                      <button
-                        aria-controls="30"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="30"
-                      />
-                    </td>
-                    <td>
-                      <div
-                        class="button-group"
-                      >
-                        <div
-                          aria-expanded="false"
-                          aria-haspopup="true"
-                          class="dropdown"
-                        >
-                          <button
-                            class="button tertiary"
-                            type="button"
-                          >
-                            <test-file-stub
-                              width="1.4ch"
-                            />
-                            Tools
-                          </button>
-                        </div>
-                        <button
-                          class="button tertiary no-small"
-                          title="Add 1 entry to the basket"
-                          type="button"
-                        >
-                          <test-file-stub />
-                          Add
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="402"
-                    data-group-for="11"
-                    data-start="180"
+                    ±
+                  </button>
+                </div>
+              </th>
+              <th>
+                Type
+                <br />
+                <select>
+                  <option
+                    value="All"
                   >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      WSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSF
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="605"
-                    data-id="10"
-                    data-start="494"
+                    All
+                  </option>
+                  <option
+                    value="Region"
                   >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Domain"
-                    >
-                      Domain
-                    </td>
-                    <td />
-                    <td>
-                      494-605
-                    </td>
-                    <td
-                      id="description494-605"
-                    >
-                      F5/8 type C
-                      <button
-                        aria-controls="31"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          PROSITE-ProRule annotation
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="31"
-                      />
-                    </td>
-                    <td>
-                      <div
-                        class="button-group"
-                      >
-                        <div
-                          aria-expanded="false"
-                          aria-haspopup="true"
-                          class="dropdown"
-                        >
-                          <button
-                            class="button tertiary"
-                            type="button"
-                          >
-                            <test-file-stub
-                              width="1.4ch"
-                            />
-                            Tools
-                          </button>
-                        </div>
-                        <button
-                          class="button tertiary no-small"
-                          title="Add 1 entry to the basket"
-                          type="button"
-                        >
-                          <test-file-stub />
-                          Add
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="605"
-                    data-group-for="10"
-                    data-start="494"
+                    Region
+                  </option>
+                  <option
+                    value="Domain"
                   >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      SDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDW
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="765"
-                    data-id="12"
-                    data-start="502"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Region"
-                    >
-                      Region
-                    </td>
-                    <td />
-                    <td>
-                      502-765
-                    </td>
-                    <td
-                      id="description502-765"
-                    >
-                      CBM32 carbohydrate-binding domain
-                      <button
-                        aria-controls="32"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="32"
-                      />
-                    </td>
-                    <td>
-                      <div
-                        class="button-group"
-                      >
-                        <div
-                          aria-expanded="false"
-                          aria-haspopup="true"
-                          class="dropdown"
-                        >
-                          <button
-                            class="button tertiary"
-                            type="button"
-                          >
-                            <test-file-stub
-                              width="1.4ch"
-                            />
-                            Tools
-                          </button>
-                        </div>
-                        <button
-                          class="button tertiary no-small"
-                          title="Add 1 entry to the basket"
-                          type="button"
-                        >
-                          <test-file-stub />
-                          Add
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="765"
-                    data-group-for="12"
-                    data-start="502"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      VENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFD
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="772"
-                    data-id="13"
-                    data-start="515"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Region"
-                    >
-                      Region
-                    </td>
-                    <td />
-                    <td>
-                      515-772
-                    </td>
-                    <td
-                      id="description515-772"
-                    >
-                      Not required for activity on soluble substrates
-                      <button
-                        aria-controls="33"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="33"
-                      />
-                    </td>
-                    <td>
-                      <div
-                        class="button-group"
-                      >
-                        <div
-                          aria-expanded="false"
-                          aria-haspopup="true"
-                          class="dropdown"
-                        >
-                          <button
-                            class="button tertiary"
-                            type="button"
-                          >
-                            <test-file-stub
-                              width="1.4ch"
-                            />
-                            Tools
-                          </button>
-                        </div>
-                        <button
-                          class="button tertiary no-small"
-                          title="Add 1 entry to the basket"
-                          type="button"
-                        >
-                          <test-file-stub />
-                          Add
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="772"
-                    data-group-for="13"
-                    data-start="515"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      TATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
+                    Domain
+                  </option>
+                </select>
+              </th>
+              <th>
+                ID
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Description
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row has-extra-content"
+              data-id="11"
             >
-              Expand table
-            </button>
-          </div>
-        </protvista-manager>
+              <td>
+                <button
+                  aria-controls="46"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Region
+              </td>
+              <td />
+              <td>
+                180-402
+              </td>
+              <td>
+                Deacetylase activity
+                <button
+                  aria-controls="47"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="47"
+                />
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      <test-file-stub
+                        width="1.4ch"
+                      />
+                      Tools
+                    </button>
+                  </div>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="46"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="10"
+            >
+              <td>
+                <button
+                  aria-controls="48"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Domain
+              </td>
+              <td />
+              <td>
+                494-605
+              </td>
+              <td>
+                F5/8 type C
+                <button
+                  aria-controls="49"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    PROSITE-ProRule annotation
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="49"
+                />
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      <test-file-stub
+                        width="1.4ch"
+                      />
+                      Tools
+                    </button>
+                  </div>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="48"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="12"
+            >
+              <td>
+                <button
+                  aria-controls="50"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Region
+              </td>
+              <td />
+              <td>
+                502-765
+              </td>
+              <td>
+                CBM32 carbohydrate-binding domain
+                <button
+                  aria-controls="51"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="51"
+                />
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      <test-file-stub
+                        width="1.4ch"
+                      />
+                      Tools
+                    </button>
+                  </div>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="50"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="13"
+            >
+              <td>
+                <button
+                  aria-controls="52"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Region
+              </td>
+              <td />
+              <td>
+                515-772
+              </td>
+              <td>
+                Not required for activity on soluble substrates
+                <button
+                  aria-controls="53"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="53"
+                />
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      <test-file-stub
+                        width="1.4ch"
+                      />
+                      Tools
+                    </button>
+                  </div>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="52"
+            >
+              <td />
+            </tr>
+          </tbody>
+        </table>
         <h3
           data-article-id="domain_cc"
         >
@@ -6122,7 +6151,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures.
           <button
-            aria-controls="34"
+            aria-controls="54"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -6141,7 +6170,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="34"
+            id="54"
           />
         </div>
         <h3
@@ -6852,13 +6881,17 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <span
                       data-article-id="checksum"
                     >
-                      Checksum
+                      MD5 Checksum
                     </span>
                   </div>
                   <div
                     class="decorated-list-item__content"
                   >
-                    55C1AD3F8018D0D7
+                    <span
+                      class="break-anywhere"
+                    >
+                      039C552B925111332BC709163762F597
+                    </span>
                   </div>
                 </div>
               </li>

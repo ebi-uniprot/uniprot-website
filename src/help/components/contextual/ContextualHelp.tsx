@@ -40,7 +40,7 @@ const ContextualHelp = () => {
   useEffect(() => {
     const eventHandler = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
-      const isInTooltip = Boolean(element.closest('[data-tippy-root'));
+      const isInTooltip = Boolean(element.closest('[role=tooltip]'));
       // If it's a click within a tooltip, stop the propagation of the event
       if (isInTooltip) {
         event.stopPropagation();

@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Drosophila flies are born with four pairs of chromosomes in each of their cells. It is the genetic heritage they receive from their genitors...';
+  'Chimpanzees use twigs to catch ants. Crows use roads to crack nuts. Humans too have always been good at diverting things for their own benefit - far more than any other species for that matter. We use water to make electricity...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -33,7 +33,6 @@ const getWordsUpTo = (text: string, max: number) => {
   return output;
 };
 
-// eslint-disable-next-line arrow-body-style
 const LatestNews = () => {
   // CORS issues if using those directly
   // const proteinSpotlightData = useDataApi<string>(
@@ -124,6 +123,28 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2025-02-05-release',
+                  })}
+                >
+                  UniProt release 2025_01
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The &apos;dark&apos; side of male contraception | Changes to the
+                controlled vocabulary of human diseases | Changes to the...
               </p>
             </article>
           </li>
@@ -241,29 +262,6 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-01-24-release',
-                  })}
-                >
-                  UniProt release 2024_01
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Vitamin K beyond coagulation | Cross-references to EMDB |
-                Cross-references to JaponicusDB | Changes to the controlled
-                vocabulary...
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
@@ -357,21 +355,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/274/"
+            url="https://www.proteinspotlight.org/back_issues/276/"
             noIcon
           >
-            On dosing and compensating
+            Yellow
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/274/"
+          url="https://www.proteinspotlight.org/back_issues/276/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt274.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt276.jpg"
             alt=""
             width="123"
             height="129"

@@ -23,9 +23,24 @@ describe('entryToFASTAWithHeaders', () => {
     });
   });
 
-  it('should handle UniParc entries', () => {
+  it('should handle UniParc entries, active', () => {
     expect(
-      entryToFASTAWithHeaders(uniParcModelData as UniParcLiteAPIModel)
+      entryToFASTAWithHeaders(
+        uniParcModelData as UniParcLiteAPIModel,
+        undefined,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        new Date(uniParcModelData.mostRecentCrossRefUpdated!)
+      )
+    ).toMatchSnapshot();
+  });
+
+  it('should handle UniParc entries, inactive', () => {
+    expect(
+      entryToFASTAWithHeaders(
+        uniParcModelData as UniParcLiteAPIModel,
+        undefined,
+        new Date()
+      )
     ).toMatchSnapshot();
   });
 

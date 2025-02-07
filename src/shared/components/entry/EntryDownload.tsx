@@ -817,7 +817,7 @@ const EntryDownload = ({
           <>
             <legend data-article-id="customize">Customize columns</legend>
             <ColumnSelect
-              onChange={(columns) => setDownloadColumns(columns)}
+              onColumnChange={(columns) => setDownloadColumns(columns)}
               selectedColumns={downloadColumns}
               namespace={namespace}
               isEntryPage={namespace === Namespace.uniparc}
@@ -842,7 +842,6 @@ const EntryDownload = ({
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
           href={downloadUrl}
           className={cn('button', 'primary')}

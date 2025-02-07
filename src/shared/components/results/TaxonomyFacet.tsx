@@ -52,7 +52,6 @@ const TaxonomyFacet: FC<
             <li key={clause.id}>
               <Link
                 className={facetsStyles['facet-active']}
-                // eslint-disable-next-line uniprot-website/use-config-location
                 to={(location) => ({
                   ...location,
                   search: stringifyQuery({

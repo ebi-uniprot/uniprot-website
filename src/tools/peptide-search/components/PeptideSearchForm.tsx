@@ -319,7 +319,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
                         .length + 2
                     }ch`,
                   }}
-                  placeholder={'"my job title"'}
+                  placeholder="my job title"
                   value={
                     formValues[PeptideSearchFields.name].selected as string
                   }

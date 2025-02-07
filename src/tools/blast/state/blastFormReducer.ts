@@ -32,8 +32,6 @@ export const getBlastFormInitialState = (
     ...initialFormValues,
     [BlastFields.name]: {
       ...initialFormValues[BlastFields.name],
-      // default to true if it's been set through the history state
-      userSelected: Boolean(initialFormValues[BlastFields.name].selected),
     },
   },
   parsedSequences: sequenceProcessor(

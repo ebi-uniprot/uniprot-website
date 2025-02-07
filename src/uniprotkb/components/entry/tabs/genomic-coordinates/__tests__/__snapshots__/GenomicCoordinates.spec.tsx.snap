@@ -255,469 +255,465 @@ exports[`GenomicCoordinates component renders on data 1`] = `
               </li>
             </ul>
           </section>
-          <div
-            class="container"
+          <table
+            class="table coordinates-table no-wrap"
           >
-            <table
-              class="table coordinates-table no-wrap"
+            <thead
+              class=""
             >
-              <thead
-                class=""
+              <tr
+                class="row"
               >
-                <tr
-                  class="row"
-                >
-                  <th>
-                    <div
-                      aria-expanded="false"
-                      aria-haspopup="true"
-                      class="dropdown"
-                    >
-                      <button
-                        class="button tertiary"
-                        type="button"
-                      >
-                        ±
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    Exon coordinates
-                  </th>
-                  <th
-                    colspan="4"
-                    title="Protein coordinates for O00560 mapping to specific exons. Click to view isoform"
+                <th>
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
                   >
-                    <a
-                      href="/uniprotkb/O00560/entry"
+                    <button
+                      class="button tertiary"
+                      type="button"
                     >
-                      O00560
-                    </a>
-                  </th>
-                </tr>
-              </thead>
-              <tbody
-                class=""
+                      ±
+                    </button>
+                  </div>
+                </th>
+                <th>
+                  Exon coordinates
+                </th>
+                <th
+                  colspan="4"
+                  title="Protein coordinates for O00560 mapping to specific exons. Click to view isoform"
+                >
+                  <a
+                    href="/uniprotkb/O00560/entry"
+                  >
+                    O00560
+                  </a>
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class=""
+            >
+              <tr
+                class="row odd has-extra-content"
               >
-                <tr
-                  class="row odd has-extra-content"
+                <td>
+                  <button
+                    aria-controls="1"
+                    aria-expanded="false"
+                    type="button"
+                  >
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58565034-58565084"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    8:58,565,034 - 58,565,084
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="1"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58565034-58565084"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,565,034 - 58,565,084
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    1
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    17
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content odd"
-                  hidden=""
-                  id="1"
+                  1
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-                <tr
-                  class="row has-extra-content"
+                  -
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="2"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58570887-58570965"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,570,887 - 58,570,965
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
+                  17
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content odd"
+                hidden=""
+                id="1"
+              >
+                <td />
+              </tr>
+              <tr
+                class="row has-extra-content"
+              >
+                <td>
+                  <button
+                    aria-controls="2"
+                    aria-expanded="false"
+                    type="button"
                   >
-                    18
-                  </td>
-                  <td
-                    class="coordinates"
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58570887-58570965"
+                    rel="noopener"
+                    target="_blank"
                   >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    44
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content"
-                  hidden=""
-                  id="2"
+                    8:58,570,887 - 58,570,965
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-                <tr
-                  class="row odd has-extra-content"
+                  18
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="3"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58572205-58572314"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,572,205 - 58,572,314
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    44
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    80
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content odd"
-                  hidden=""
-                  id="3"
+                  -
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-                <tr
-                  class="row has-extra-content"
+                  44
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content"
+                hidden=""
+                id="2"
+              >
+                <td />
+              </tr>
+              <tr
+                class="row odd has-extra-content"
+              >
+                <td>
+                  <button
+                    aria-controls="3"
+                    aria-expanded="false"
+                    type="button"
+                  >
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58572205-58572314"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    8:58,572,205 - 58,572,314
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="4"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58575900-58576061"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,575,900 - 58,576,061
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    81
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    134
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content"
-                  hidden=""
-                  id="4"
+                  44
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-                <tr
-                  class="row odd has-extra-content"
+                  -
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="5"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58578033-58578208"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,578,033 - 58,578,208
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
+                  80
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content odd"
+                hidden=""
+                id="3"
+              >
+                <td />
+              </tr>
+              <tr
+                class="row has-extra-content"
+              >
+                <td>
+                  <button
+                    aria-controls="4"
+                    aria-expanded="false"
+                    type="button"
                   >
-                    135
-                  </td>
-                  <td
-                    class="coordinates"
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58575900-58576061"
+                    rel="noopener"
+                    target="_blank"
                   >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    193
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content odd"
-                  hidden=""
-                  id="5"
+                    8:58,575,900 - 58,576,061
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-                <tr
-                  class="row has-extra-content"
+                  81
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="6"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58579623-58579794"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,579,623 - 58,579,794
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    193
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    250
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content"
-                  hidden=""
-                  id="6"
+                  -
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-                <tr
-                  class="row odd has-extra-content"
+                  134
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content"
+                hidden=""
+                id="4"
+              >
+                <td />
+              </tr>
+              <tr
+                class="row odd has-extra-content"
+              >
+                <td>
+                  <button
+                    aria-controls="5"
+                    aria-expanded="false"
+                    type="button"
+                  >
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58578033-58578208"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    8:58,578,033 - 58,578,208
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="7"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58580517-58580608"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,580,517 - 58,580,608
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    251
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    281
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content odd"
-                  hidden=""
-                  id="7"
+                  135
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-                <tr
-                  class="row has-extra-content"
+                  -
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td>
-                    <button
-                      aria-controls="8"
-                      aria-expanded="false"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/9606/Location/View?r=8:58581686-58581737"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      8:58,581,686 - 58,581,737
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                  </td>
-                  <td
-                    class="coordinates"
+                  193
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content odd"
+                hidden=""
+                id="5"
+              >
+                <td />
+              </tr>
+              <tr
+                class="row has-extra-content"
+              >
+                <td>
+                  <button
+                    aria-controls="6"
+                    aria-expanded="false"
+                    type="button"
                   >
-                    281
-                  </td>
-                  <td
-                    class="coordinates"
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58579623-58579794"
+                    rel="noopener"
+                    target="_blank"
                   >
-                    -
-                  </td>
-                  <td
-                    class="coordinates"
-                  >
-                    298
-                  </td>
-                  <td
-                    class="coordinates"
-                  />
-                </tr>
-                <tr
-                  class="row extra-content"
-                  hidden=""
-                  id="8"
+                    8:58,579,623 - 58,579,794
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
                 >
-                  <td />
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                  193
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  -
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  250
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content"
+                hidden=""
+                id="6"
+              >
+                <td />
+              </tr>
+              <tr
+                class="row odd has-extra-content"
+              >
+                <td>
+                  <button
+                    aria-controls="7"
+                    aria-expanded="false"
+                    type="button"
+                  >
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58580517-58580608"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    8:58,580,517 - 58,580,608
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  251
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  -
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  281
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content odd"
+                hidden=""
+                id="7"
+              >
+                <td />
+              </tr>
+              <tr
+                class="row has-extra-content"
+              >
+                <td>
+                  <button
+                    aria-controls="8"
+                    aria-expanded="false"
+                    type="button"
+                  >
+                    +
+                  </button>
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="https://www.ensembl.org/9606/Location/View?r=8:58581686-58581737"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    8:58,581,686 - 58,581,737
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  281
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  -
+                </td>
+                <td
+                  class="coordinates"
+                >
+                  298
+                </td>
+                <td
+                  class="coordinates"
+                />
+              </tr>
+              <tr
+                class="row extra-content"
+                hidden=""
+                id="8"
+              >
+                <td />
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

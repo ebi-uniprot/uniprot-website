@@ -10,7 +10,7 @@ export const getListOfIsoformAccessions = (data?: UniProtkbAPIModel) => {
   for (const comment of data.comments) {
     // filter out all the non-"Alternative Products" comments
     if (comment.commentType !== 'ALTERNATIVE PRODUCTS') {
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     for (const isoform of comment.isoforms) {
       for (const isoformId of isoform.isoformIds) {
@@ -44,7 +44,7 @@ export const getPropertyValue = (
   return found ? found.value : null;
 };
 
-type Sortable = { start: number | string; end: number | string };
+type Sortable = { start: number | string; end?: number | string };
 export const sortByLocation = (a: Sortable, b: Sortable) => {
   const aStart = +a.start;
   const aEnd = a.end ? +a.end : -Infinity;

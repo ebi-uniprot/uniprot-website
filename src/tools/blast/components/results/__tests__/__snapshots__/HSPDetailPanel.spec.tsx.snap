@@ -78,7 +78,6 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
         </fieldset>
       </div>
       <div>
-        <protvista-tooltip />
         <div
           class="alignment-grid alignment-wrapped"
           data-testid="alignment-wrapped-view"
@@ -230,7 +229,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
         </fieldset>
       </div>
       <div>
-        <protvista-tooltip />
         <section
           class="alignment-grid"
           data-testid="alignment-view"
@@ -244,18 +242,232 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             class="track"
           >
             <div>
-              <protvista-track
+              <nightingale-track
+                display-end="-1"
+                display-start="1"
                 height="15"
                 highlight="418:421"
-                layout="non-overlapping"
+                highlight-color="#FFEB3B66"
                 length="486"
-              />
-              <protvista-track
+                min-height="10"
+                min-width="10"
+                style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+              >
+                <!---->
+                <svg
+                  class="container"
+                  height="15"
+                  width="10"
+                >
+                  <g
+                    class="sequence-features"
+                  >
+                    <g
+                      class="feature-group"
+                      id="g_1"
+                    >
+                      <g
+                        class="location-group"
+                      >
+                        <g
+                          class="fragment-group"
+                        >
+                          <path
+                            class="line feature"
+                            d="M0,8.5 L0,8.5"
+                            stroke="#014371"
+                            style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                            transform="translate(10,-1)"
+                          />
+                          <rect
+                            class="outer-rectangle feature"
+                            height="17"
+                            stroke="transparent"
+                            style="fill: transparent;"
+                            transform="translate(10,-1)"
+                            width="0"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="feature-group"
+                      id="g_2"
+                    >
+                      <g
+                        class="location-group"
+                      >
+                        <g
+                          class="fragment-group"
+                        >
+                          <path
+                            class="rectangle feature"
+                            d="M0,0L0,0L0,17L0,17Z"
+                            stroke="#014371"
+                            style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                            transform="translate(10,-1)"
+                          />
+                          <rect
+                            class="outer-rectangle feature"
+                            height="17"
+                            stroke="transparent"
+                            style="fill: transparent;"
+                            transform="translate(10,-1)"
+                            width="0"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="feature-group"
+                      id="g_3"
+                    >
+                      <g
+                        class="location-group"
+                      >
+                        <g
+                          class="fragment-group"
+                        >
+                          <path
+                            class="line feature"
+                            d="M0,8.5 L0,8.5"
+                            stroke="#014371"
+                            style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                            transform="translate(10,-1)"
+                          />
+                          <rect
+                            class="outer-rectangle feature"
+                            height="17"
+                            stroke="transparent"
+                            style="fill: transparent;"
+                            transform="translate(10,-1)"
+                            width="0"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="highlighted"
+                  />
+                  <g
+                    class="margin"
+                  />
+                </svg>
+              </nightingale-track>
+              <nightingale-track
+                display-end="-1"
+                display-start="1"
                 height="15"
                 highlight="418:421"
-                layout="non-overlapping"
+                highlight-color="#FFEB3B66"
                 length="486"
-              />
+                min-height="10"
+                min-width="10"
+                style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+              >
+                <!---->
+                <svg
+                  class="container"
+                  height="15"
+                  width="10"
+                >
+                  <g
+                    class="sequence-features"
+                  >
+                    <g
+                      class="feature-group"
+                      id="g_4"
+                    >
+                      <g
+                        class="location-group"
+                      >
+                        <g
+                          class="fragment-group"
+                        >
+                          <path
+                            class="line feature"
+                            d="M0,8.5 L0,8.5"
+                            stroke="#014371"
+                            style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                            transform="translate(10,-1)"
+                          />
+                          <rect
+                            class="outer-rectangle feature"
+                            height="17"
+                            stroke="transparent"
+                            style="fill: transparent;"
+                            transform="translate(10,-1)"
+                            width="0"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="feature-group"
+                      id="g_5"
+                    >
+                      <g
+                        class="location-group"
+                      >
+                        <g
+                          class="fragment-group"
+                        >
+                          <path
+                            class="rectangle feature"
+                            d="M0,0L0,0L0,17L0,17Z"
+                            stroke="#014371"
+                            style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                            transform="translate(10,-1)"
+                          />
+                          <rect
+                            class="outer-rectangle feature"
+                            height="17"
+                            stroke="transparent"
+                            style="fill: transparent;"
+                            transform="translate(10,-1)"
+                            width="0"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="feature-group"
+                      id="g_6"
+                    >
+                      <g
+                        class="location-group"
+                      >
+                        <g
+                          class="fragment-group"
+                        >
+                          <path
+                            class="line feature"
+                            d="M0,8.5 L0,8.5"
+                            stroke="#014371"
+                            style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                            transform="translate(10,-1)"
+                          />
+                          <rect
+                            class="outer-rectangle feature"
+                            height="17"
+                            stroke="transparent"
+                            style="fill: transparent;"
+                            transform="translate(10,-1)"
+                            width="0"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <g
+                    class="highlighted"
+                  />
+                  <g
+                    class="margin"
+                  />
+                </svg>
+              </nightingale-track>
             </div>
           </div>
           <span
@@ -267,11 +479,63 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           <div
             class="track"
           >
-            <protvista-track
+            <nightingale-track
+              display-end="486"
+              display-start="1"
+              height="15"
               highlight="418:421"
-              layout="non-overlapping"
+              highlight-color="#FFEB3B66"
               length="486"
-            />
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              <svg
+                class="container"
+                height="15"
+                width="10"
+              >
+                <g
+                  class="sequence-features"
+                >
+                  <g
+                    class="feature-group"
+                    id="g_0"
+                  >
+                    <g
+                      class="location-group"
+                    >
+                      <g
+                        class="fragment-group"
+                      >
+                        <path
+                          class="rectangle feature"
+                          d="M0,0L0,0L0,17L0,17Z"
+                          stroke="#CC9933"
+                          style="fill: #CC9933; fill-opacity: 0.9; stroke-opacity: 0.9;"
+                          transform="translate(10,-1)"
+                        />
+                        <rect
+                          class="outer-rectangle feature"
+                          height="17"
+                          stroke="transparent"
+                          style="fill: transparent;"
+                          transform="translate(10,-1)"
+                          width="0"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g
+                  class="highlighted"
+                />
+                <g
+                  class="margin"
+                />
+              </svg>
+            </nightingale-track>
           </div>
           <div
             class="track-label track-label--align-labels"
@@ -298,15 +562,16 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           <div
             class="track"
           >
-            <protvista-manager
-              attributes="displaystart displayend"
-              displayend="3"
-              displaystart="1"
+            <nightingale-manager
+              reflected-attributes="highlight,display-start,display-end"
+              style="display: block; line-height: 0;"
             >
-              <protvista-navigation
+              <nightingale-navigation
+                height="40"
                 length="28"
               />
-            </protvista-manager>
+              <!---->
+            </nightingale-manager>
           </div>
           <div
             class="right-coord"

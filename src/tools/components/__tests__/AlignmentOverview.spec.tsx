@@ -2,7 +2,7 @@ import customRender from '../../../shared/__test-helpers__/customRender';
 
 import AlignmentOverview from '../AlignmentOverview';
 
-import { BLAST as mockData } from '../__mocks__/featureShapesMocks.json';
+import mockData from '../__mocks__/featureShapesMocks';
 
 describe('AlignmentOverview', () => {
   describe('BLAST', () => {
@@ -11,7 +11,7 @@ describe('AlignmentOverview', () => {
       rendered = customRender(
         <AlignmentOverview
           data={mockData.data}
-          height="10"
+          trackHeight={10}
           length={mockData.length}
           highlight={mockData.highlight}
         />
@@ -27,7 +27,7 @@ describe('AlignmentOverview', () => {
       const { asFragment } = customRender(
         <AlignmentOverview
           data={[]}
-          height="10"
+          trackHeight={10}
           length={mockData.length}
           highlight={mockData.highlight}
         />

@@ -1,12 +1,18 @@
-/* eslint-disable no-param-reassign */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Loader } from 'franklin-sites';
+import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import NightingaleTrack, {
+  Feature,
+} from '@nightingale-elements/nightingale-track';
+import NightingaleManager from '@nightingale-elements/nightingale-manager';
+
+import NightingaleNavigationComponent from '../../shared/custom-elements/NightingaleNavigation';
+import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
+import NightingaleManagerComponent from '../../shared/custom-elements/NightingaleManager';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
 
-import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
   getFullAlignmentSegments,
   getEndCoordinate,
@@ -20,8 +26,8 @@ import './styles/alignment-view.scss';
 
 // Do we have this defined somewhere else?
 type EventDetail = {
-  displaystart: string;
-  displayend: string;
+  'display-start': string;
+  'display-end': string;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -48,7 +54,6 @@ const AlignOverview = ({
   updateTooltip,
 }: AlignmentComponentProps) => {
   const containerRef = useRef<HTMLElement>(null);
-  const navigationRef = useRef<HTMLElement>(null);
   const [highlightPosition, setHighlightPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
@@ -58,7 +63,10 @@ const AlignOverview = ({
   >([undefined, undefined]);
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlightPositions = useCallback(
-    ({ displaystart, displayend }: EventDetail) => {
+    ({
+      'display-start': displaystart,
+      'display-end': displayend,
+    }: EventDetail) => {
       if (
         typeof displaystart === 'undefined' ||
         typeof displayend === 'undefined'
@@ -98,23 +106,21 @@ const AlignOverview = ({
     },
     [alignment, initialDisplayEnd]
   );
-  const managerRef = useCallback(
-    (node: {
-      addEventListener: (
-        name: 'change',
-        event: ({ detail }: { detail: EventDetail }) => void
-      ) => void;
-      setAttribute: (
-        attributre: 'displaystart' | 'displayend' | 'height',
-        value: number
-      ) => void;
-    }): void => {
+  const navigationRef = useCallback(
+    (node: NightingaleNavigation) => {
       if (node && initialDisplayEnd) {
-        node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
-          findHighlightPositions(detail)
+        node['display-start'] = 1;
+        node['display-end'] = initialDisplayEnd;
+      }
+    },
+    [initialDisplayEnd]
+  );
+  const managerRef = useCallback(
+    (node: NightingaleManager | null): void => {
+      if (node && initialDisplayEnd) {
+        node.addEventListener('change', (event) =>
+          findHighlightPositions((event as CustomEvent).detail)
         );
-        node.setAttribute('displaystart', 1);
-        node.setAttribute('displayend', initialDisplayEnd);
         setHighlightPosition(
           (highlight) =>
             highlight || `${tracksOffset}:${tracksOffset + initialDisplayEnd}`
@@ -123,9 +129,6 @@ const AlignOverview = ({
     },
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
-
-  const navigationHeight =
-    navigationRef.current?.getClientRects()?.[0]?.height || 0;
 
   useEffect(() => {
     const handler = handleEvent(updateTooltip) as (e: Event) => void;
@@ -136,49 +139,27 @@ const AlignOverview = ({
     };
   }, [updateTooltip]);
 
-  const trackElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
-  );
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
-  );
-  const ceDefined =
-    trackElement.defined && navigationElement.defined && managerElement.defined;
-
   const setFeatureTrackData = useCallback(
-    (node: { data: ReturnType<typeof createGappedFeature>[] }): void => {
-      if (node && ceDefined && activeAnnotation && activeAlignment?.sequence) {
+    (node: NightingaleTrack | null): void => {
+      if (node && activeAnnotation && activeAlignment?.sequence) {
         node.data = activeAnnotation
           // The Overview feature track always starts from the start of the protein
           // hence the need to have `from` := 1
           .map((f) => createGappedFeature(f, activeAlignment?.sequence, 1))
-          .filter(Boolean);
+          .filter((f): f is Feature => Boolean(f));
       }
     },
-    [activeAlignment?.sequence, activeAnnotation, ceDefined]
+    [activeAlignment?.sequence, activeAnnotation]
   );
-
-  const overviewHeight = (
-    alignment && alignment.length > 10 ? alignment.length * 3 : 30
-  ).toString();
 
   const alignmentOverviewData = useMemo(
     () => (alignment ? getFullAlignmentSegments(alignment) : []),
     [alignment]
   );
+
+  const overviewHeight =
+    alignment && alignment.length > 10 ? alignment.length * 3 : 30;
+  const trackHeight = Math.floor(overviewHeight / alignmentOverviewData.length);
 
   useEffect(() => {
     const displayEndValue = Math.round(alignmentLength / widthOfAA);
@@ -190,10 +171,6 @@ const AlignOverview = ({
     }
   }, [alignmentLength, alignment, displayPosition]);
 
-  if (!ceDefined) {
-    return <Loader />;
-  }
-
   return (
     <section
       data-testid="alignment-view"
@@ -204,7 +181,7 @@ const AlignOverview = ({
       <span className="track-label">Overview</span>
       <div className="track">
         <AlignmentOverview
-          height={overviewHeight}
+          trackHeight={trackHeight}
           length={totalLength}
           highlight={highlightPosition}
           data={alignmentOverviewData}
@@ -216,11 +193,13 @@ const AlignOverview = ({
       </span>
       <div className="track">
         {annotation && (
-          <trackElement.name
+          <NightingalTrackComponent
             ref={setFeatureTrackData}
             length={totalLength}
-            layout="non-overlapping"
             highlight={highlightPosition}
+            display-start={1}
+            display-end={totalLength}
+            height={trackHeight}
           />
         )}
       </div>
@@ -244,23 +223,15 @@ const AlignOverview = ({
           </AlignLabel>
         ))}
       </div>
-      <div
-        className="track"
-        // Need to set this explicitly as for some reason the MSA will come up a few
-        // pixels longer and will mess up the alignment with the left/right labels.
-        style={{
-          height: navigationHeight
-            ? navigationHeight + alignment.length * sequenceHeight
-            : 'undefined',
-        }}
-      >
-        <managerElement.name
+      <div className="track">
+        <NightingaleManagerComponent
           ref={managerRef}
-          attributes="displaystart displayend"
+          reflected-attributes="highlight,display-start,display-end"
         >
-          <navigationElement.name
+          <NightingaleNavigationComponent
             ref={navigationRef}
             length={alignmentLength}
+            height={40}
           />
           <NightingaleMSA
             ref={setMSAAttributes}
@@ -272,11 +243,9 @@ const AlignOverview = ({
             tile-height={sequenceHeight}
             features={selectedMSAFeatures}
             onFeatureClick={onMSAFeatureClick}
-            display-start={displayPosition[0]}
-            display-end={displayPosition[1]}
             {...conservationOptions}
           />
-        </managerElement.name>
+        </NightingaleManagerComponent>
       </div>
       <div className="right-coord">
         {alignment.map((s) => (
@@ -287,7 +256,7 @@ const AlignOverview = ({
                     s.sequence,
                     displayPosition[1] ?? initialDisplayEnd ?? 0
                   )
-                : displayPosition[1] ?? initialDisplayEnd ?? 0
+                : (displayPosition[1] ?? initialDisplayEnd ?? 0)
             )}
           </div>
         ))}

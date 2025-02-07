@@ -45,7 +45,6 @@ const OperationTag = ({
       <h1 id={tagNameToId(tagDetails.get('name'))} className="medium">
         {tagDetails.get('name')}
       </h1>
-      {/* eslint-disable-next-line react/no-danger */}
       <p dangerouslySetInnerHTML={{ __html: tagDetails.get('description') }} />
       <hr />
       {children}
@@ -134,6 +133,13 @@ const AugmentingLayoutPlugin = () => ({
               in JSON
             </p>
           )}
+          <p>
+            We have chosen to apply the{' '}
+            <ExternalLink url="https://creativecommons.org/licenses/by/4.0/">
+              Creative Commons Attribution 4.0 International (CC BY 4.0) License
+            </ExternalLink>{' '}
+            to all copyrightable parts of our databases
+          </p>
         </div>
       );
     },
