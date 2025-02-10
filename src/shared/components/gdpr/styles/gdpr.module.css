@@ -1,23 +1,24 @@
 @import 'franklin-sites/src/styles/common/z-index';
 
-$black: #000;
-
 .gdpr-section {
   width: 100%;
   font-size: 0.85rem;
   padding: 1rem 2rem;
   position: fixed;
   bottom: 0;
-  background-color: lighten($black, 0.2);
+  background-color: black;
   color: #fff;
-  z-index: $z-index-high + 3;
+  z-index: 9999;
 
   a {
     color: #fff;
   }
 
+  p {
+    margin-block-end: 1em;
+  }
+
   button {
-    margin-left: 2rem;
-    margin-bottom: 0;
+    float: right;
   }
 }

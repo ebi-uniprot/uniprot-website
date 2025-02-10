@@ -56,7 +56,7 @@ function newDefine(
 }
 customElements.define = newDefine;
 
-if (process.env.NODE_ENV !== 'development') {
+if (process.env.NODE_ENV !== 'development' && window.gdpr) {
   SentryInit({
     // Key
     dsn: 'https://474bb7c44e8b4a99ba4e408b5a64569b@o308327.ingest.sentry.io/5996901',

@@ -12,5 +12,7 @@ interface HJ {
 declare global {
   interface Window {
     hj?: HJ;
+    // Below added by logic in inlined script in index.ejs
+    gdpr?: boolean;
   }
 }

@@ -68,59 +68,59 @@
         </script>
       <% } %>
     <% } else { %>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-V6TXEC4BDF"
-    ></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
+      window.gdpr = true;
+      try {
+        window.gdpr = JSON.parse(window.localStorage.getItem('gdpr')) || false;
+      } catch (error) { /* ignore */ }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script>
+      if (window.gdpr) {
+        const head = document.getElementsByTagName('head')[0];
+        const script = document.createElement('script');
+        script.setAttribute('async', '');
+        script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=G-V6TXEC4BDF')
+        head.appendChild(script);
 
-      // GA4
-      gtag('config', 'G-V6TXEC4BDF', {
-        anonymize_ip: true,
-        allow_google_signals: false,
-        allow_ad_personalization_signals: false,
-        restricted_data_processing: true,
-        custom_map: {
-          dimension1: 'result_view',
-          metric1: 'result_view_set',
-        },
-        send_page_view: false,
-      });
-      // UA
-      gtag('config', 'UA-6228219-1', {
-        anonymize_ip: true,
-        allow_google_signals: false,
-        allow_ad_personalization_signals: false,
-        restricted_data_processing: true,
-        custom_map: {
-          dimension1: 'result_view',
-          metric1: 'result_view_set',
-        },
-        send_page_view: false,
-      });
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        // GA4
+        gtag('config', 'G-V6TXEC4BDF', {
+          anonymize_ip: true,
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false,
+          restricted_data_processing: true,
+          custom_map: {
+            dimension1: 'result_view',
+            metric1: 'result_view_set',
+          },
+          send_page_view: false,
+        });
+      }
     </script>
 
     <!-- Hotjar Tracking Code -->
     <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2638207, hjsv: 6 };
-        a = o.getElementsByTagName('head')[0];
-        r = o.createElement('script');
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+      if (window.gdpr) {
+        (function (h, o, t, j, a, r) {
+          h.hj =
+            h.hj ||
+            function () {
+              (h.hj.q = h.hj.q || []).push(arguments);
+            };
+          h._hjSettings = { hjid: 2638207, hjsv: 6 };
+          a = o.getElementsByTagName('head')[0];
+          r = o.createElement('script');
+          r.async = 1;
+          r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+      }
     </script>
     <% } %>
 

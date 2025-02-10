@@ -5,13 +5,18 @@ exports[`GDPR should render 1`] = `
   <div
     class="gdpr-section"
   >
-    We'd like to inform you that we have updated our 
-    <a
-      href="/help/privacy"
-    >
-      Privacy Notice
-    </a>
-     to comply with Europe’s new General Data Protection Regulation (GDPR) that applies since 25 May 2018.
+    <p>
+      We'd like to inform you that we have updated our 
+      <a
+        href="/help/privacy"
+      >
+        Privacy Notice
+      </a>
+       to comply with Europe's new General Data Protection Regulation (GDPR) that applies since 25 May 2018.
+    </p>
+    <p>
+      UniProt uses Google Analytics, Hotjar and Sentry as third-party analytics services to collect information about website performance and how users navigate through and use our sites to help us design better interfaces. We do not use any of these services to track you individually or collect personal data.
+    </p>
     <button
       class="button secondary"
       type="button"
