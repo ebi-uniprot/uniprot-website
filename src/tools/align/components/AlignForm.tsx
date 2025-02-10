@@ -23,7 +23,6 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SequenceSearchLoader from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import { DowntimeWarning } from '../../components/DowntimeWarning';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
@@ -136,7 +135,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
     dispatch(resetFormState());
 
     // imperatively reset SequenceSearchLoader... 😷
-    // eslint-disable-next-line no-unused-expressions
+
     (sslRef.current as unknown as { reset: () => void }).reset();
   };
 
@@ -216,7 +215,6 @@ const AlignForm = ({ initialFormValues }: Props) => {
       <PageIntro
         heading={<span data-article-id="sequence-alignments">{title}</span>}
       />
-      <DowntimeWarning>Align</DowntimeWarning>
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}

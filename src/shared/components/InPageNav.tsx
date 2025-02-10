@@ -96,7 +96,6 @@ const InPageNav = ({
         }
       });
 
-    // eslint-disable-next-line consistent-return
     return () => elements.forEach((element) => io.unobserve(element));
   }, [sections, history]);
 
@@ -194,7 +193,6 @@ const InPageNav = ({
       {sections.map(({ id, label, disabled }) => (
         <li key={id} className={cn({ [styles.disabled]: disabled })}>
           <Link
-            // eslint-disable-next-line uniprot-website/use-config-location
             to={`#${id}`}
             className={cn({ [styles.active]: active === id })}
           >

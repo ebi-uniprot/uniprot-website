@@ -1,7 +1,11 @@
 import { useState, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { LongNumber, Button } from 'franklin-sites';
 
 import { CategoryName, StatisticsCategory } from './StatisticsPage';
+
+import { stringifyQuery } from '../../../shared/utils/url';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import styles from './styles/statistics-page.module.scss';
 
@@ -144,6 +148,9 @@ const StatsTable = ({
             const percent =
               hasPercent &&
               ((row.count / category.totalCount) * 100).toFixed(2);
+            const perEntryAverage = (row.count / numberReleaseEntries).toFixed(
+              2
+            );
             const abbreviation =
               abbreviationLabel &&
               nameToAbbreviation &&
@@ -180,7 +187,18 @@ const StatsTable = ({
                 {/* Entry count */}
                 {hasEntryCount && (
                   <td className={styles.end}>
-                    <LongNumber>{row.entryCount}</LongNumber>
+                    {row.query ? (
+                      <Link
+                        to={{
+                          pathname: LocationToPath[Location.UniProtKBResults],
+                          search: stringifyQuery({ query: row.query }),
+                        }}
+                      >
+                        <LongNumber>{row.entryCount}</LongNumber>
+                      </Link>
+                    ) : (
+                      <LongNumber>{row.entryCount}</LongNumber>
+                    )}
                   </td>
                 )}
                 {/* Percent */}
@@ -192,7 +210,7 @@ const StatsTable = ({
                 {/* Per-entry average */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>
-                    {(row.count / numberReleaseEntries).toFixed(2)}
+                    {perEntryAverage === '0.00' ? '<0.01' : perEntryAverage}
                   </td>
                 )}
                 {/* Description */}

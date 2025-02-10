@@ -1,7 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: configure/idmapping/fields
-// Retrieved: 2024-12-10
+// Retrieved: 2025-02-04
 const data: IDMappingFormConfig = {
   groups: [
     {

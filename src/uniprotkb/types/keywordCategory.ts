@@ -1,6 +1,6 @@
 // Should probably  live somewhere in `supporting-data/keywords`
 
-export type KeywordCategory =
+type KeywordCategory =
   | 'Biological process'
   | 'Cellular component'
   | 'Coding sequence diversity'

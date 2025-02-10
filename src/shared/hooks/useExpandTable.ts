@@ -9,7 +9,7 @@ const useExpandTable = (
   containerRef: React.RefObject<HTMLDivElement>,
   expandTable: boolean | null,
   setExpandTable: React.Dispatch<React.SetStateAction<boolean | null>>,
-  showButton: boolean
+  showButton: boolean,
 ] => {
   const [showButton, setShowButton] = useState(Boolean(expandable));
   const [expandTable, setExpandTable] = useState<boolean | null>(null);
@@ -39,7 +39,7 @@ const useExpandTable = (
   }, [expandable, expandTable, params.accession]);
 
   // Only show expand button if expandable=true and there is more content that the container
-  // eslint-disable-next-line consistent-return
+
   useLayoutEffect(() => {
     if (expandable && containerRef.current) {
       const mo = new MutationObserver(() => {

@@ -33,7 +33,7 @@ describe('IDMappingForm test', () => {
       'P31946 P62258 ALBU_HUMAN EFTU_ECOLI'
     );
     const jobNameInput =
-      screen.getByPlaceholderText<HTMLInputElement>('"my job title"');
+      screen.getByPlaceholderText<HTMLInputElement>('my job title');
     const initialToDatabaseButton = screen.getByRole('button', {
       name: 'UniProtKB',
     });
@@ -62,7 +62,7 @@ describe('IDMappingForm test', () => {
     );
     fireEvent.change(idInput, { target: { value: 'P31946 P62258' } });
     const jobNameInput =
-      screen.getByPlaceholderText<HTMLInputElement>('"my job title"');
+      screen.getByPlaceholderText<HTMLInputElement>('my job title');
     expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniProtKB');
     fireEvent.change(idInput, {
       target: { value: 'P31946 ALBU_HUMAN' },
@@ -99,7 +99,7 @@ describe('IDMappingForm test', () => {
     expect(idInput.value).toBeFalsy();
     expect(screen.queryByText('UniProtKB AC/ID')).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText<HTMLInputElement>('"my job title"').value
+      screen.getByPlaceholderText<HTMLInputElement>('my job title').value
     ).toBeFalsy();
     fireEvent.click(
       screen.getByRole('button', {

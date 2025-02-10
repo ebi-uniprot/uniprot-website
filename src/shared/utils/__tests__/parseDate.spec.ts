@@ -7,7 +7,7 @@ const testCases: [
   input?: string | number | Date,
   year?: number,
   month?: number, // starts at 0
-  day?: number // starts at 1
+  day?: number, // starts at 1
 ][] = [
   ['2021', 2021, undefined, undefined],
   ['2021-12', 2021, 11, undefined],

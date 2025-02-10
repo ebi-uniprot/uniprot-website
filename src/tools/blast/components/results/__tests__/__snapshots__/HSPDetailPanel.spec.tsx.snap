@@ -274,17 +274,17 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                         >
                           <path
                             class="line feature"
-                            d="M0,8.5 L-0.061728395061728406,8.5"
+                            d="M0,8.5 L0,8.5"
                             stroke="#014371"
                             style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                            transform="translate(1.481481481481481,-1)"
+                            transform="translate(10,-1)"
                           />
                           <rect
                             class="outer-rectangle feature"
                             height="17"
                             stroke="transparent"
                             style="fill: transparent;"
-                            transform="translate(1.481481481481481,-1)"
+                            transform="translate(10,-1)"
                             width="0"
                           />
                         </g>
@@ -302,17 +302,17 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                         >
                           <path
                             class="rectangle feature"
-                            d="M0,0L-0.5761316872427984,0L-0.5761316872427984,17L0,17Z"
+                            d="M0,0L0,0L0,17L0,17Z"
                             stroke="#014371"
                             style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                            transform="translate(1.4197530864197532,-1)"
+                            transform="translate(10,-1)"
                           />
                           <rect
                             class="outer-rectangle feature"
                             height="17"
                             stroke="transparent"
                             style="fill: transparent;"
-                            transform="translate(1.4197530864197532,-1)"
+                            transform="translate(10,-1)"
                             width="0"
                           />
                         </g>
@@ -333,14 +333,14 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                             d="M0,8.5 L0,8.5"
                             stroke="#014371"
                             style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                            transform="translate(0.8436213991769552,-1)"
+                            transform="translate(10,-1)"
                           />
                           <rect
                             class="outer-rectangle feature"
                             height="17"
                             stroke="transparent"
                             style="fill: transparent;"
-                            transform="translate(0.8436213991769552,-1)"
+                            transform="translate(10,-1)"
                             width="0"
                           />
                         </g>
@@ -387,17 +387,17 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                         >
                           <path
                             class="line feature"
-                            d="M0,8.5 L-8.600823045267491,8.5"
+                            d="M0,8.5 L0,8.5"
                             stroke="#014371"
                             style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                            transform="translate(10.020576131687243,-1)"
+                            transform="translate(10,-1)"
                           />
                           <rect
                             class="outer-rectangle feature"
                             height="17"
                             stroke="transparent"
                             style="fill: transparent;"
-                            transform="translate(10.020576131687243,-1)"
+                            transform="translate(10,-1)"
                             width="0"
                           />
                         </g>
@@ -415,17 +415,17 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                         >
                           <path
                             class="rectangle feature"
-                            d="M0,0L-0.5761316872427984,0L-0.5761316872427984,17L0,17Z"
+                            d="M0,0L0,0L0,17L0,17Z"
                             stroke="#014371"
                             style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                            transform="translate(1.4197530864197532,-1)"
+                            transform="translate(10,-1)"
                           />
                           <rect
                             class="outer-rectangle feature"
                             height="17"
                             stroke="transparent"
                             style="fill: transparent;"
-                            transform="translate(1.4197530864197532,-1)"
+                            transform="translate(10,-1)"
                             width="0"
                           />
                         </g>
@@ -443,17 +443,17 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                         >
                           <path
                             class="line feature"
-                            d="M0,8.5 L-0.8436213991769549,8.5"
+                            d="M0,8.5 L0,8.5"
                             stroke="#014371"
                             style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                            transform="translate(0.8436213991769552,-1)"
+                            transform="translate(10,-1)"
                           />
                           <rect
                             class="outer-rectangle feature"
                             height="17"
                             stroke="transparent"
                             style="fill: transparent;"
-                            transform="translate(0.8436213991769552,-1)"
+                            transform="translate(10,-1)"
                             width="0"
                           />
                         </g>
@@ -511,17 +511,17 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L-0.1440329218106996,0L-0.1440329218106996,17L0,17Z"
+                          d="M0,0L0,0L0,17L0,17Z"
                           stroke="#CC9933"
                           style="fill: #CC9933; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(9.979423868312757,-1)"
+                          transform="translate(10,-1)"
                         />
                         <rect
                           class="outer-rectangle feature"
                           height="17"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(9.979423868312757,-1)"
+                          transform="translate(10,-1)"
                           width="0"
                         />
                       </g>
