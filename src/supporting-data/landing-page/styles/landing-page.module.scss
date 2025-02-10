@@ -1,0 +1,10 @@
+@import 'franklin-sites/src/styles/settings';
+
+.landing-page {
+  margin-block: 2 * $global-margin;
+}
+
+.image-container {
+  display: grid;
+  place-items: center;
+}

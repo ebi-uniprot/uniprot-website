@@ -28,7 +28,11 @@ const SupportingData = () => (
         'uniprot-grid-cell--medium-span-3'
       )}
     >
-      <h2 className={styles['supporting-data__header']}>Supporting Data</h2>
+      <h2 className={styles['supporting-data__header']}>
+        <Link to={LocationToPath[Location.SupportingData]}>
+          Supporting Data
+        </Link>
+      </h2>
     </div>
     <div
       className={cn(
