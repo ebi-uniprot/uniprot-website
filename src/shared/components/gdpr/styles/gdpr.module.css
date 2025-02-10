@@ -3,19 +3,16 @@
 .gdpr-section {
   width: 100%;
   font-size: 0.85rem;
-  padding: 1rem 2rem;
+  padding: 2rem 2rem;
   position: fixed;
   bottom: 0;
   background-color: black;
   color: #fff;
   z-index: 9999;
+  font-size: large;
 
   a {
     color: #fff;
-  }
-
-  p {
-    margin-block-end: 1em;
   }
 
   button {
