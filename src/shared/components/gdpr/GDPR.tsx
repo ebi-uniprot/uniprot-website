@@ -37,7 +37,7 @@ const GDPR = () => {
         >
           Privacy Notice
         </Link>{' '}
-        to comply with Europe&apos;s new General Data Protection Regulation
+        to comply with Europe&apos;s General Data Protection Regulation
         (GDPR) that applies since 25 May 2018.
       </p>
       <p>
