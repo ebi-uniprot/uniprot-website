@@ -50,7 +50,10 @@
     --button-background-hover: #{darken($colour-sea-blue, 3%)};
     --button-color: #{$white};
     --button-border-radius: 0;
-    --process-label-border-color: black;
+    --process-label-border-width: 2px 2px 2px 2px;
+    --process-label-padding: 5px;
+    --process-label-border-color: #{$colour-vivid-cerulean};
+    --process-label-background: #{$colour-sky-white};
     --panel-header-padding: 0 0 1rem 0;
   }
 }
