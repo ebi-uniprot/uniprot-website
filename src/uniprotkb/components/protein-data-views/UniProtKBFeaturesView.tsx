@@ -36,6 +36,8 @@ type FeatureLocation = {
 
 export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze';
 
+export type Modification = 'Phosphorylation' | 'SUMOylation';
+
 export type FeatureDatum = {
   type: FeatureType;
   featureId?: string;

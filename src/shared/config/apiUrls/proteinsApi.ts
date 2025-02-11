@@ -35,15 +35,22 @@ export const variation = (accession: string, format?: FileFormat) => {
 export const proteins = (accession: string) =>
   joinUrl(proteinsApiPrefix, 'proteins', accession);
 
-export const proteomics = (accession: string, format?: FileFormat) => {
-  const url = joinUrl(proteinsApiPrefix, 'proteomics', accession);
+export const proteomicsNonPtm = (accession: string, format?: FileFormat) => {
+  const url = joinUrl(proteinsApiPrefix, 'proteomics', 'nonPtm', accession);
   return stringifyUrl(url, {
     format: format ? fileFormatToUrlParameter[format] : undefined,
   });
 };
 
 export const proteomicsPtm = (accession: string, format?: FileFormat) => {
-  const url = joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession);
+  const url = joinUrl(proteinsApiPrefix, 'proteomics', 'ptm', accession);
+  return stringifyUrl(url, {
+    format: format ? fileFormatToUrlParameter[format] : undefined,
+  });
+};
+
+export const proteomicsHpp = (accession: string, format?: FileFormat) => {
+  const url = joinUrl(proteinsApiPrefix, 'proteomics', 'hpp', accession);
   return stringifyUrl(url, {
     format: format ? fileFormatToUrlParameter[format] : undefined,
   });
@@ -58,13 +65,6 @@ export const mutagenesis = (accession: string, format?: FileFormat) => {
 
 export const antigen = (accession: string, format?: FileFormat) => {
   const url = joinUrl(proteinsApiPrefix, 'antigen', accession);
-  return stringifyUrl(url, {
-    format: format ? fileFormatToUrlParameter[format] : undefined,
-  });
-};
-
-export const hpp = (accession: string, format?: FileFormat) => {
-  const url = joinUrl(proteinsApiPrefix, 'hpp', accession);
   return stringifyUrl(url, {
     format: format ? fileFormatToUrlParameter[format] : undefined,
   });

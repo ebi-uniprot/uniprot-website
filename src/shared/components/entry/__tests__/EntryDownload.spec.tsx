@@ -58,7 +58,7 @@ describe('EntryDownload', () => {
     });
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
-        'https://www.ebi.ac.uk/proteins/api/proteomics-ptm/P05067?format=json'
+        'https://www.ebi.ac.uk/proteins/api/proteomics/ptm/P05067?format=json'
       )
     );
   });
