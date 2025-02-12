@@ -8,7 +8,7 @@ import styles from './styles/downtime-warning.module.scss';
 // Make sure to watch out for summer time:
 // GMT / UK winter time: +00:00
 // BST / UK summer time: +01:00
-const from = new Date('2025-02-13T08:00:00-05:00');
+const from = new Date('2025-02-13T11:30:00-05:00');
 // const to = new Date('2025-02-05T11:30:00+00:00');
 
 const TZ = () => {
