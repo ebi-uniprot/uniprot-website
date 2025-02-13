@@ -75,7 +75,15 @@ const useMatchWithRedirect = (
         { replace: true }
       );
     }
-  }, [match, navigate, location, defaultSubPage, possibleSubPages, redirect]);
+  }, [
+    match,
+    navigate,
+    location,
+    defaultSubPage,
+    possibleSubPages,
+    redirect,
+    historyLocation,
+  ]);
 
   return match;
 };

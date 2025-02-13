@@ -200,7 +200,7 @@ const enrichStatistics = (
       if (!config) {
         return;
       }
-      // eslint-disable-next-line consistent-return
+
       return {
         key: key as keyof Statistics | 'proteinCount',
         count: value,

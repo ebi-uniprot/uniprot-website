@@ -102,7 +102,7 @@ const TaxonomyEntry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [dispatch, mainData.redirectedTo]);
 
   if (mainData.error || (!mainData.loading && !mainData.data)) {

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
 import { Card, Loader, LongNumber } from 'franklin-sites';
-import { Link, useMatch } from 'react-router';
+import { Link } from 'react-router';
 import { schemeReds } from 'd3';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -22,6 +21,7 @@ import UniqueReferencesTable from './UniqueReferencesTable';
 import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 import InPageNav from '../../../shared/components/InPageNav';
+import HistoricalReleaseEntryCounts from './HistoricalReleasesEntries';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -74,6 +74,7 @@ export type StatisticsItem = {
   entryCount: number;
   label?: string;
   description?: string;
+  query?: string;
 };
 
 export type StatisticsCategory = {
@@ -106,8 +107,7 @@ const IntroductionEntriesTable = ({
     reviewedData.items,
     unreviewedData.items
   );
-  console.log(useMatch(LocationToPath[Location.UniProtKBStatistics]));
-  console.log(useMatch(LocationToPath[Location.UniProtKBResults]));
+
   return (
     <>
       <AbstractSectionTable
@@ -291,6 +291,7 @@ const ProteinExistenceTable = ({
               <td>
                 {proteinExistenceToNumber.get(name)}: {label}
               </td>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
               <td className={styles.end}>
                 <Link
                   to={{
@@ -649,12 +650,14 @@ const StatisticsPage = () => {
           query, a link has been provided. In some instances, due to the nature
           of the statistic, no query link is possible.
         </p>
+
         <IntroductionEntriesTable
           uniprotkbData={uniprotkbData.AUDIT}
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
           releaseDate={release.releaseDate}
         />
+        <HistoricalReleaseEntryCounts />
         <IntroductionSequenceTable
           uniprotkbData={uniprotkbData.SEQUENCE_STATS}
           reviewedData={reviewedData.SEQUENCE_STATS}

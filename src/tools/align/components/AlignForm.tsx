@@ -135,7 +135,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
     dispatch(resetFormState());
 
     // imperatively reset SequenceSearchLoader... 😷
-    // eslint-disable-next-line no-unused-expressions
+
     (sslRef.current as unknown as { reset: () => void }).reset();
   };
 

@@ -39,7 +39,6 @@ import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
-// eslint-disable-next-line import/no-unresolved
 import 'franklin-sites/franklin.css';
 import './styles/app.scss';
 

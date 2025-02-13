@@ -3,8 +3,7 @@ import { ApiDocsDefinition } from '../types/apiDocumentation';
 export const apiDocsDefinitionToString = new Map([
   [ApiDocsDefinition.uniprotkb, 'UniProtKB'],
   [ApiDocsDefinition.uniref, 'UniRef'],
-  // Disable until backend is more confident about it
-  // [ApiDocsDefinition.uniparc, 'UniParc'],
+  [ApiDocsDefinition.uniparc, 'UniParc'],
   [ApiDocsDefinition.proteomes, 'Proteomes'],
   [ApiDocsDefinition.support_data, 'Supporting Data'],
   [ApiDocsDefinition.aa, 'Automatic Annotation'],

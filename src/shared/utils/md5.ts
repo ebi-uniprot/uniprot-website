@@ -1,6 +1,4 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
-
 // Adapted from https://www.myersdaily.org/joseph/javascript/md5.js
 type Number4 = [number, number, number, number];
 type Number16 = [
@@ -112,6 +110,7 @@ function cmn(
   s: number,
   t: number
 ): number {
+  // eslint-disable-next-line no-param-reassign
   a = add32(add32(a, q), add32(x, t));
   return add32((a << s) | (a >>> (32 - s)), b);
 }
@@ -173,6 +172,7 @@ function md51(s: string): Number4 {
     md5cycle(state, md5blk(s.substring(i - 64, i)));
   }
 
+  // eslint-disable-next-line no-param-reassign
   s = s.substring(i - 64);
 
   let tail: Number16 = Array(16).fill(0) as Number16;

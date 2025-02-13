@@ -123,7 +123,6 @@ CitationsColumnConfiguration.set(CitationsColumn.litAbstract, {
   render: ({ citation }) =>
     citation?.literatureAbstract && (
       <div
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: cleanText(citation.literatureAbstract, {
             ...cleanTextDefaultOptions,

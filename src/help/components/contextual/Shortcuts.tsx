@@ -23,7 +23,6 @@ const Shortcuts = ({ globalHistory }: { globalHistory: History }) => (
         Help center
       </Link>
       {/* Blocked until we manage to get the contact page changes in main */}
-      {/* eslint-disable-next-line */}
       <ContactLink>
         <EnvelopeIcon width={iconWidth} />
         Contact us

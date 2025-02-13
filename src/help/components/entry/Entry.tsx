@@ -130,7 +130,7 @@ const HelpEntryContent = ({
         }
       }
     },
-    [history]
+    [navigate]
   );
 
   const html = useMemo(() => {
@@ -150,11 +150,7 @@ const HelpEntryContent = ({
   // event delegation here, not actually doing anything with the div
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    <div
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: html }}
-      onClick={handleClick}
-    />
+    <div dangerouslySetInnerHTML={{ __html: html }} onClick={handleClick} />
   );
 };
 
@@ -193,7 +189,7 @@ const HelpEntry = ({ inPanel, overrideContent }: Props) => {
       },
       { replace: true }
     );
-  }, [isReleaseNotes, accession, navigate]);
+  }, [isReleaseNotes, accession, navigate, location]);
 
   const {
     data: loadedData,

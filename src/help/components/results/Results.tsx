@@ -124,6 +124,7 @@ const Results = ({ inPanel }: Props) => {
         }
         placeholder="Search"
         value={searchValue}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />
     </div>

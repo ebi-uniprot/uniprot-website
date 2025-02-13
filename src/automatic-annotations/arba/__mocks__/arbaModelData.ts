@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 
 // Source: arba/search?query=insulin&size=2
-// Retrieved: 2024-12-10
+// Retrieved: 2025-02-04
 const mock: SearchResults<ARBAAPIModel> = {
   results: [
     {

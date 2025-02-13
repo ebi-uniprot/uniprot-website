@@ -55,6 +55,7 @@ export enum UniParcColumn {
   smart = 'SMART',
   supfam = 'SUPFAM',
   ncbifam = 'NCBIfam',
+  funfam = 'FUNFAM',
   from = 'from',
 }
 
@@ -394,6 +395,13 @@ UniParcColumnConfiguration.set(UniParcColumn.supfam, {
 UniParcColumnConfiguration.set(UniParcColumn.ncbifam, {
   label: 'NCBIfam',
   render: partialRight(familyAndDomainRenderer, 'NCBIfam'),
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.funfam, {
+  label: 'FUNFAM',
+  render: partialRight(familyAndDomainRenderer, 'FUNFAM', (id: string) =>
+    externalUrls.Funfam(id)
+  ),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.from, fromColumnConfig);

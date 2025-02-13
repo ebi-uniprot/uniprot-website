@@ -24,9 +24,8 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
   const setNightingaleVariation = useCallback(
     (node: NightingaleVariation) => {
       if (node && sequence && variants) {
-        // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;
-        // eslint-disable-next-line no-param-reassign
+
         node.data = { sequence, variants };
       }
     },

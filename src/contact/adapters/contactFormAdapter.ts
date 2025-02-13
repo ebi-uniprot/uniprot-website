@@ -77,7 +77,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     }
     const modifiedFormData = modifyFormData(formData, token);
 
-    // eslint-disable-next-line consistent-return
     return {
       method: 'POST',
       data: modifiedFormData,

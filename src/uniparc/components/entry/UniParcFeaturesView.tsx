@@ -94,14 +94,8 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
           let revisedDatabaseId;
           let funFamURL = '';
           if (database === 'FUNFAM') {
-            const funfamIDRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+:FF:\d+)/;
-            const match = databaseId.match(funfamIDRegEx);
-
-            if (match) {
-              const [, id] = match;
-              // Set only the ID like Gene3D once configure endpoint returns the correct URL for FunFam - http://www.cathdb.info/version/latest/funfam/%id
-              funFamURL = `http://www.cathdb.info/version/latest/funfam/${id}`;
-            }
+            // Temporary until https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
+            funFamURL = externalUrls.Funfam(databaseId);
           }
           if (database === 'Gene3D') {
             const gene3dRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+)/;

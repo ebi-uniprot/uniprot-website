@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
 import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { Location as HistoryLocation } from 'history';
 import { generatePath, Link, useLocation } from 'react-router';
@@ -50,6 +49,7 @@ import {
   filterFullXrefColumns,
   getCountForCustomisableSet,
   getIsUniParcLightResponse,
+  fullToStandardColumnName,
 } from './downloadUtils';
 
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -379,10 +379,12 @@ const Download = (props: DownloadProps<JobTypes>) => {
         <>
           <legend data-article-id="customize">Customize columns</legend>
           <ColumnSelect
-            onChange={(columns) =>
+            onColumnChange={(columns) =>
               dispatch(updateSelectedColumns(columns, fieldData))
             }
-            selectedColumns={state.selectedColumns}
+            selectedColumns={state.selectedColumns.map((column) =>
+              fullToStandardColumnName(column)
+            )}
             namespace={columnsNamespace}
             isDownload
           />

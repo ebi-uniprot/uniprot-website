@@ -69,6 +69,15 @@ table {
   }
 }
 
+// Refactor as part of TRM-32372
+.protvista-uniprot-structure__meta .theme-selection {
+  white-space: nowrap;
+
+  & .am-disabled label {
+    cursor: not-allowed;
+  }
+}
+
 .zoom-image-container img {
   width: 100%;
 }

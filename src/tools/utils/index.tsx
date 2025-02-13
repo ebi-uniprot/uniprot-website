@@ -20,13 +20,11 @@ import { Status } from '../types/toolsStatuses';
 import { ToolsState } from '../state/toolsInitialState';
 import { ServerStatus } from '../async-download/types/asyncDownloadServerStatus';
 
-const reHex = /^[a-f\d]+$/;
-
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
   [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
-  [JobTypes.ASYNC_DOWNLOAD]: reHex,
-  [JobTypes.ID_MAPPING]: reHex,
+  [JobTypes.ASYNC_DOWNLOAD]: /^\w+$/,
+  [JobTypes.ID_MAPPING]: /^\w+$/,
   [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/i,
 };
 

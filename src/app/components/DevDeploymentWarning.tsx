@@ -18,10 +18,9 @@ const DevDeploymentWarning = () => {
           onDismiss={() => setDismissed(true)}
         >
           <small>
-            {`This is a fallback version of `}
-            <a href="https://www.uniprot.org">www.uniprot.org</a>. We will
-            endeavour to get the main website up and running as soon as
-            possible.
+            {`This is a development version of `}
+            <a href="https://www.uniprot.org">www.uniprot.org</a>
+            {` |  git branch: ${GIT_BRANCH} |  API: ${API_PREFIX}`}
           </small>
         </Message>
       ) : null}

@@ -102,7 +102,6 @@ const InPageNav = ({
         }
       });
 
-    // eslint-disable-next-line consistent-return
     return () => elements.forEach((element) => io.unobserve(element));
   }, [sections]);
 

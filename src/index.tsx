@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router';
@@ -36,7 +37,6 @@ if ('serviceWorker' in navigator && navigator.serviceWorker) {
   ).then((serviceWorkerModule) => {
     if (obsoleteHosts.has(window.location.host)) {
       serviceWorkerModule.unregister().finally(() => {
-        // eslint-disable-next-line no-restricted-globals
         location.replace('https://www.uniprot.org');
       });
     } else {
@@ -47,7 +47,6 @@ if ('serviceWorker' in navigator && navigator.serviceWorker) {
     }
   });
 } else if (obsoleteHosts.has(window.location.host)) {
-  // eslint-disable-next-line no-restricted-globals
   location.replace('https://www.uniprot.org');
 }
 

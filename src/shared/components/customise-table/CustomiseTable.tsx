@@ -16,7 +16,7 @@ type CustomiseTableProps = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   onReset: (e: FormEvent<HTMLFormElement>) => void;
   onCancel: (e: MouseEvent<HTMLButtonElement>) => void;
-  onChange: (columns: Column[]) => void;
+  onColumnChange: (columns: Column[]) => void;
 };
 
 const CustomiseTable = ({
@@ -25,7 +25,7 @@ const CustomiseTable = ({
   columns,
   onSubmit,
   onReset,
-  onChange,
+  onColumnChange,
   onCancel,
 }: CustomiseTableProps) => (
   <form
@@ -36,7 +36,7 @@ const CustomiseTable = ({
     } table columns form`}
   >
     <ColumnSelect
-      onChange={onChange}
+      onColumnChange={onColumnChange}
       selectedColumns={columns}
       namespace={namespace}
       isEntryPage={isEntryPage}

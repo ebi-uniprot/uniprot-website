@@ -62,7 +62,6 @@ const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
 export const redirectFromTo = (
   from: string,
   redirectEntries: Iterable<RedirectEntry> = redirectMap.entries()
-  // eslint-disable-next-line consistent-return
 ) => {
   for (const [pattern, replacement] of redirectEntries) {
     if (pattern.test(from)) {

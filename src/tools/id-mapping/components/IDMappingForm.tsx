@@ -22,6 +22,7 @@ import cn from 'classnames';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
+import DowntimeWarning from '../../components/DowntimeWarning';
 
 import { pluralise } from '../../../shared/utils/utils';
 
@@ -268,6 +269,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
     <>
       <HTMLHead title={title} />
       <PageIntro heading={title} />
+      <DowntimeWarning>ID Mapping</DowntimeWarning>
       <form
         onSubmit={submitIDMappingJob}
         onReset={handleReset}
@@ -413,7 +415,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                         .length + 2
                     }ch`,
                   }}
-                  placeholder={'"my job title"'}
+                  placeholder="my job title"
                   value={formValues[IDMappingFields.name].selected as string}
                   onFocus={(event) => {
                     if (!formValues[IDMappingFields.name].userSelected) {

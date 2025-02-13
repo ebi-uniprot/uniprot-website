@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { ComponentProps } from 'react';
 import { SlidingPanel } from 'franklin-sites';
 

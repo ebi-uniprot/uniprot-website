@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useCallback, useMemo, useEffect } from 'react';
+import { useState, ChangeEvent, useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Chip, CodeBlock } from 'franklin-sites';
 import fm from 'front-matter';
@@ -100,28 +100,31 @@ const EntryPreview = () => {
     return [parsedData, otherAttributes];
   }, [data, isReleaseNotes]);
 
-  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    let url = event.target.value.trim();
-    if (!url || !url.startsWith('https://')) {
-      return;
-    }
-    if (url.startsWith('https://github.com/')) {
-      // we don't have the raw file, try to find it
-      const ghWikiMatch = url.match(ghWikiRE);
-      if (ghWikiMatch?.groups) {
-        url = `https://raw.githubusercontent.com/wiki/${ghWikiMatch.groups.user}/${ghWikiMatch.groups.project}/${ghWikiMatch.groups.file}.md`;
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      let url = event.target.value.trim();
+      if (!url || !url.startsWith('https://')) {
+        return;
       }
+      if (url.startsWith('https://github.com/')) {
+        // we don't have the raw file, try to find it
+        const ghWikiMatch = url.match(ghWikiRE);
+        if (ghWikiMatch?.groups) {
+          url = `https://raw.githubusercontent.com/wiki/${ghWikiMatch.groups.user}/${ghWikiMatch.groups.project}/${ghWikiMatch.groups.file}.md`;
+        }
 
-      const ghNormalMatch = url.match(ghNormalRE);
-      if (ghNormalMatch?.groups) {
-        url = `https://raw.githubusercontent.com/${ghNormalMatch.groups.user}/${ghNormalMatch.groups.project}/${ghNormalMatch.groups.filepath}`;
+        const ghNormalMatch = url.match(ghNormalRE);
+        if (ghNormalMatch?.groups) {
+          url = `https://raw.githubusercontent.com/${ghNormalMatch.groups.user}/${ghNormalMatch.groups.project}/${ghNormalMatch.groups.filepath}`;
+        }
       }
-    }
-    setUrl(url);
-    // Sets the URL in the location state to allow reload of page
-    // TODO: check that this works as intended...
-    navigate('.', { replace: true, state: url });
-  }, []);
+      setUrl(url);
+      // Sets the URL in the location state to allow reload of page
+      // TODO: check that this works as intended...
+      navigate('.', { replace: true, state: url });
+    },
+    [navigate]
+  );
 
   // Note: copy structure of "normal" help entry page in order to preview it
   // Maybe we should just use the actual help entry page?
@@ -196,7 +199,7 @@ const EntryPreview = () => {
                 </dl>
               )}
               {Object.entries(otherAttributes || {}).map(([key, value]) => (
-                <dl>
+                <dl key={key}>
                   <dt>{key} ❌ ignored/invalid field</dt>
                   <dd>{`${value}`}</dd>
                 </dl>
