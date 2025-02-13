@@ -1,6 +1,5 @@
 import { useMemo, Dispatch, SetStateAction, useEffect } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
 import ResultsData from '../shared/components/results/ResultsData';
@@ -30,7 +29,6 @@ import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
 import { UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
 
-import helper from '../shared/styles/helper.module.scss';
 import styles from './styles/basket-mini-view.module.scss';
 
 const uniProtKBColumns = [
