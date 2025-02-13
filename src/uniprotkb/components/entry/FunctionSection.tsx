@@ -372,7 +372,7 @@ const FunctionSection = ({
         // "I assume that any go cams that we display, would also be integrated in the go releases, otherwise I would question the quality of the model"
         !!data.goTerms?.size && (
           <ErrorBoundary>
-            <Tabs>
+            <Tabs bordered>
               <Tab title="GO annotations">
                 <Suspense fallback={<Loader />}>
                   <GoRibbon
