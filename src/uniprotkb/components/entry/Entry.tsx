@@ -799,15 +799,19 @@ const Entry = () => {
           </Tab>
           <Tab
             title={
-              <Link
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.History
-                )}
-              >
-                History
-              </Link>
+              match.params.subPage === TabLocation.History ? (
+                'History'
+              ) : (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    accession,
+                    TabLocation.History
+                  )}
+                >
+                  History
+                </Link>
+              )
             }
             id={TabLocation.History}
             onPointerOver={HistoryTab.preload}
