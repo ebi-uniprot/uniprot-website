@@ -39,6 +39,7 @@ import {
 } from '../../types/commentTypes';
 import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 import CommunityCuration from './CommunityCuration';
+import { EntryType } from '../../../shared/config/entryTypeIcon';
 
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
@@ -281,6 +282,8 @@ const FunctionSection = ({
       (comment) => !(comment as FreeTextComment).molecule?.includes('Isoform')
     );
 
+  const reviewed = data.entryType === EntryType.REVIEWED;
+
   return (
     <Card
       header={
@@ -384,10 +387,17 @@ const FunctionSection = ({
                 </Suspense>
               </Tab>
               <Tab
+                disabled={!reviewed}
                 title={
-                  <>
+                  <span
+                    title={
+                      reviewed
+                        ? 'GO-CAM models from the Gene Ontology knowledgebase may be available for this entry.'
+                        : 'GO-CAM models are only available for reviewed entries.'
+                    }
+                  >
                     GO-CAM Models<Chip compact>New</Chip>
-                  </>
+                  </span>
                 }
               >
                 <Suspense fallback={<Loader />}>
