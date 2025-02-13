@@ -227,8 +227,7 @@ const BasketMiniView = ({ onFullView }: { onFullView: () => void }) => {
         title={`UniProtKB${
           uniprotkbIds?.size ? ` (${uniprotkbIds.size})` : ''
         }`}
-        className={cn({ [helper.disabled]: !uniprotkbIds?.size })}
-        tabIndex={!uniprotkbIds?.size ? -1 : 0}
+        disabled={!uniprotkbIds?.size}
       >
         {uniprotkbIds?.size ? (
           <BasketMiniViewTab
@@ -242,8 +241,7 @@ const BasketMiniView = ({ onFullView }: { onFullView: () => void }) => {
       </Tab>
       <Tab
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
-        className={cn({ [helper.disabled]: !unirefIds?.size })}
-        tabIndex={!unirefIds?.size ? -1 : 0}
+        disabled={!unirefIds?.size}
         // If the previous doesn't have content, select this one
         defaultSelected={!uniprotkbIds?.size && !!unirefIds?.size}
       >
@@ -259,8 +257,7 @@ const BasketMiniView = ({ onFullView }: { onFullView: () => void }) => {
       </Tab>
       <Tab
         title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
-        className={cn({ [helper.disabled]: !uniparcIds?.size })}
-        tabIndex={!uniparcIds?.size ? -1 : 0}
+        disabled={!uniparcIds?.size}
         // If none of the previous has content, select this one
         defaultSelected={!(uniprotkbIds?.size || unirefIds?.size)}
       >
