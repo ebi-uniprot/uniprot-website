@@ -465,6 +465,7 @@ const Entry = () => {
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
         <Tabs active={match.params.subPage}>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -540,6 +541,7 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
+            disabled={importedVariants === 'loading' || !importedVariants}
             title={
               <Link
                 className={cn({
@@ -598,6 +600,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               smallScreen ? null : (
                 <Link
@@ -647,6 +650,9 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
+            disabled={
+              hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
+            }
             title={
               <Link
                 className={cn({
@@ -717,6 +723,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -759,6 +766,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
