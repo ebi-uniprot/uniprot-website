@@ -31,6 +31,10 @@
       margin-bottom: 1rem;
     }
 
+    &::part(process-label) {
+      display: none;
+    }
+
     &::part(gene-product),
     &::part(function-label) {
       border-left: 0.125rem solid #{$colour-vivid-cerulean};
@@ -50,6 +54,7 @@
     --button-background-hover: #{darken($colour-sea-blue, 3%)};
     --button-color: #{$white};
     --button-border-radius: 0;
+
     --process-label-border-width: 2px 2px 2px 2px;
     --process-label-padding: 5px;
     --process-label-border-color: #{$colour-vivid-cerulean};
