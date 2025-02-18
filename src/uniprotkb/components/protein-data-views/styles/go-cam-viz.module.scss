@@ -1,5 +1,3 @@
-@import 'franklin-sites/src/styles/colours';
-
 .go-cam-viz-container {
   margin-bottom: 0.25rem;
 
@@ -27,7 +25,7 @@
 
     &::part(process) {
       padding: 1rem;
-      background-color: #e4e8eb;
+      background-color: var(--fr--color-platinum);
       margin-bottom: 1rem;
     }
 
@@ -37,7 +35,7 @@
 
     &::part(gene-product),
     &::part(function-label) {
-      border-left: 0.125rem solid #{$colour-vivid-cerulean};
+      border-left: 0.125rem solid var(--fr--color-sapphire-blue);
       padding-left: 0.25rem;
       margin-left: -0.5rem;
     }
@@ -46,19 +44,23 @@
       margin-bottom: 0.333rem;
     }
 
-    --activity-background-active: #{$colour-sea-blue};
-    --activity-color-active: #{$white};
+    --activity-background-active: var(--fr--color-sea-blue);
+    --activity-color-active: var(--fr--color-sky-white);
     --activity-padding: 0.75rem 0.5rem;
     --graph-height: 33vh;
-    --button-background: #{$colour-sea-blue};
-    --button-background-hover: #{darken($colour-sea-blue, 3%)};
-    --button-color: #{$white};
+    --button-background: var(--fr--color-sea-blue);
+    --button-background-hover: color-mix(
+      in srgb,
+      var(--fr--color-sea-blue),
+      black 3%
+    );
+    --button-color: var(--fr--color-sky-white);
     --button-border-radius: 0;
 
     --process-label-border-width: 2px 2px 2px 2px;
     --process-label-padding: 5px;
-    --process-label-border-color: #{$colour-vivid-cerulean};
-    --process-label-background: #{$colour-sky-white};
+    --process-label-border-color: var(--fr--color-sapphire-blue);
+    --process-label-background: var(--fr--color-sky-white);
     --panel-header-padding: 0 0 1rem 0;
   }
 }
