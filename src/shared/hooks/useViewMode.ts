@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
@@ -44,7 +44,7 @@ const useViewMode = (
   });
   const [viewModeFromStorage, setViewModeFromStorage] =
     useLocalStorage<ViewMode>('view-mode', defaultViewMode);
-  const history = useHistory();
+  const navigate = useNavigate();
   const locationSearch = useLocation().search;
 
   let viewMode: ViewMode = normalize(viewModeFromStorage);
@@ -80,15 +80,15 @@ const useViewMode = (
   const setViewMode = useCallback(
     (vm: ViewMode) => {
       if (fromUrl) {
-        history.push({
-          pathname: history.location.pathname,
+        navigate({
+          pathname: '.',
           search: stringifyQuery({ ...urlParams, view: vm }),
         });
       } else {
         setViewModeFromStorage(vm);
       }
     },
-    [fromUrl, history, setViewModeFromStorage, urlParams]
+    [fromUrl, navigate, setViewModeFromStorage, urlParams]
   );
 
   return { viewMode, setViewMode, invalidUrlViewMode, fromUrl };

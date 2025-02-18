@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useEffect, useReducer } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
@@ -74,7 +74,7 @@ const AsyncDownloadForm = ({
   inputParamsData,
 }: Props<JobTypes>) => {
   const dispatchTools = useToolsDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
   const { jobId } = useJobFromUrl();
@@ -130,12 +130,12 @@ const AsyncDownloadForm = ({
       // navigate to the dashboard, but not immediately, to give the impression that
       // something is happening
       sleep(1000).then(() => {
-        history.push(LocationToPath[Location.Dashboard]);
+        navigate(LocationToPath[Location.Dashboard]);
         onClose();
 
         // We emit an action containing only the parameters and the type of job
         // the reducer will be in charge of generating a proper job object for
-        // internal state. Dispatching after history.push so that pop-up messages (as a
+        // internal state. Dispatching after navigate so that pop-up messages (as a
         // side-effect of createJob) cannot mount immediately before navigating away.
         dispatchTools(
           createJob(

@@ -1,5 +1,5 @@
 import { useState, Suspense, ReactNode } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { sleep } from 'timing-functions';
 import {
   Button,
@@ -37,7 +37,7 @@ export const ResubmitButton = ({
   jobType,
   inputParamsData,
 }: ResubmitButtonProps<JobTypes>) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [disabled, setDisabled] = useState(false);
 
@@ -94,7 +94,7 @@ export const ResubmitButton = ({
       taxonMapping
     );
 
-    history.push(jobTypeToPath(jobType), { parameters });
+    navigate(jobTypeToPath(jobType), { parameters });
   };
 
   return (

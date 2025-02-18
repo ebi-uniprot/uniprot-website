@@ -10,7 +10,7 @@ import {
   ReactNode,
   useMemo,
 } from 'react';
-import { Link, useHistory } from 'react-router';
+import { Link, useNavigate, useLocation } from 'react-router';
 import {
   Card,
   ReSubmitIcon,
@@ -24,7 +24,6 @@ import {
   Chip,
   EllipsisReveal,
 } from 'franklin-sites';
-import { LocationDescriptor } from 'history';
 import cn from 'classnames';
 
 import { updateJob, deleteJob } from '../../state/toolsActions';
@@ -399,7 +398,7 @@ interface ActionsProps {
 }
 
 const Actions = ({ job, onDelete }: ActionsProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useToolsDispatch();
 
   return (
@@ -420,8 +419,10 @@ const Actions = ({ job, onDelete }: ActionsProps) => {
           title="resubmit this job"
           onClick={(event) => {
             event.stopPropagation();
-            history.push(jobTypeToPath(job.type), {
-              parameters: { ...job.parameters, name: job.title },
+            navigate(jobTypeToPath(job.type), {
+              state: {
+                parameters: { ...job.parameters, name: job.title },
+              },
             });
           }}
         >
@@ -476,22 +477,18 @@ interface RowProps {
   hasExpired?: boolean;
 }
 
-interface CustomLocationState {
-  parameters?: Job['parameters'][];
-}
-
 const Row = memo(({ job, hasExpired }: RowProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const firstTime = useRef<boolean>(true);
 
-  const history = useHistory<CustomLocationState | undefined>();
+  const location = useLocation();
   const dispatch = useToolsDispatch();
   const reducedMotion = useReducedMotion();
 
   // For async download
   let jobUrl: string | undefined;
   // For everything else
-  let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
+  let jobLink;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
     if (job.type === JobTypes.ASYNC_DOWNLOAD) {
       const urlConfig = asyncDownloadUrlObjectCreator(
@@ -525,7 +522,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
     if (!(ref.current && 'animate' in ref.current)) {
       return;
     }
-    if (!history.location?.state?.parameters?.includes?.(job.parameters)) {
+    if (!location.state?.parameters?.includes?.(job.parameters)) {
       return;
     }
     ref.current.animate(
@@ -533,7 +530,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       reducedMotion ? keyframesForStatusUpdate : keyframesForNew,
       animationOptionsForNew
     );
-  }, [history, job.parameters, reducedMotion]);
+  }, [location, job.parameters, reducedMotion]);
 
   // if the status of the current job changes, make it "flash"
   useLayoutEffect(() => {
