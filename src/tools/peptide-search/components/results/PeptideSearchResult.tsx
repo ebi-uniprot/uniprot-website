@@ -182,10 +182,10 @@ const PeptideSearchResult = () => {
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
   const {
     loading: facetInititialLoading,
-    headers: facetHeaders,
+    // headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['x-total-results'];
+  // const facetTotal = facetHeaders?.['x-total-results'];
 
   const converter = useMemo(() => {
     const pepSeq = jobInputParameters.peps;
@@ -207,9 +207,9 @@ const PeptideSearchResult = () => {
     total = +resultsDataTotal;
   }
   // needs to be set at the end to avoid being overidden
-  if (facetTotal !== undefined) {
-    total = +facetTotal;
-  }
+  // if (facetTotal !== undefined) {
+  //   total = +facetTotal;
+  // }
 
   if (jobResultError || !match) {
     return (
