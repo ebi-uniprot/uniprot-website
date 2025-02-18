@@ -7,6 +7,18 @@
     margin-bottom: 1rem;
   }
 
+  .node-description {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+
+    .node-chip {
+      --main-chip-color: black;
+      vertical-align: baseline;
+      margin-left: 0.125rem;
+      margin-right: 0.125rem;
+    }
+  }
+
   select.id-select {
     width: fit-content;
     display: block;

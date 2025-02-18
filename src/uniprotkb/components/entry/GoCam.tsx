@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { ExternalLink, Loader } from 'franklin-sites';
+import { Chip, ExternalLink, Loader } from 'franklin-sites';
 import pMap from 'p-map';
+import cn from 'classnames';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import GoCamViz from '../protein-data-views/GoCamViz';
@@ -43,6 +44,21 @@ export const isUniprotCurated = (goCamModel: GoCamModelInfo) =>
       key === 'providedBy' && value === 'https://www.uniprot.org'
   );
 
+export const getUniprotNode = (
+  primaryAccession: string,
+  goCamModel: GoCamModelInfo
+) => {
+  const idToFind = `UniProtKB:${primaryAccession}`;
+  for (const individual of goCamModel.individuals) {
+    for (const type of individual.type) {
+      if (type.id === idToFind) {
+        return type.label;
+      }
+    }
+  }
+  return null;
+};
+
 type Props = {
   primaryAccession: string;
 };
@@ -53,7 +69,12 @@ const GoCam = ({ primaryAccession }: Props) => {
   const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
     isSmallScreen ? null : externalUrls.GeneOntologyModels(primaryAccession)
   );
-  const [uniprotGoCamIds, setUniprotGoCamIds] = useState<string[] | null>(null);
+  const [goCamIdToNode, setGoCamIdToNode] = useState<Map<
+    string,
+    string | null
+  > | null>(null);
+
+  const uniprotGoCamIds = goCamIdToNode && Array.from(goCamIdToNode.keys());
 
   const goCamIdToItem = useMemo(
     () => getGoCamStructures(allGoCamIdsResponse.data),
@@ -73,21 +94,28 @@ const GoCam = ({ primaryAccession }: Props) => {
         const results = await pMap(Array.from(goCamIdToItem.keys()), mapper, {
           concurrency: heuristic.concurrency,
         });
-        setUniprotGoCamIds(
-          results
-            .filter(({ data }) => isUniprotCurated(data))
-            .map(({ id }) => id)
+        setGoCamIdToNode(
+          new Map(
+            results
+              .filter(({ data }) => isUniprotCurated(data))
+              .map(({ id, data }) => [
+                id,
+                getUniprotNode(primaryAccession, data),
+              ])
+          )
         );
       }
     }
     fetchGoCamModels();
-  }, [goCamIdToItem]);
+  }, [goCamIdToItem, primaryAccession]);
 
   useEffect(() => {
     if (uniprotGoCamIds?.[0]) {
       setSelectedId(uniprotGoCamIds[0]);
     }
   }, [uniprotGoCamIds]);
+
+  const selectedIdNode = selectedId && goCamIdToNode?.get(selectedId);
 
   let content: ReactNode;
   const loadingUniprotGoCamIds = goCamIdToItem.size && uniprotGoCamIds === null;
@@ -144,6 +172,16 @@ const GoCam = ({ primaryAccession }: Props) => {
             ))}
           </select>
         </label>
+        {selectedIdNode && (
+          <div className={styles['node-description']}>
+            The{' '}
+            <Chip className={cn('secondary', styles['node-chip'])}>
+              {selectedIdNode}
+            </Chip>{' '}
+            node in this visualization corresponds to the current (
+            {primaryAccession}) UniProtKB entry page.
+          </div>
+        )}
         <GoCamViz id={selectedId} />
         <ExternalLink
           url={externalUrls.NoctuaAlliancePathwayPreview(selectedId)}
