@@ -180,12 +180,8 @@ const PeptideSearchResult = () => {
   });
   const facetApiObject =
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
-  const {
-    loading: facetInititialLoading,
-    // headers: facetHeaders,
-    isStale: facetHasStaleData,
-  } = facetApiObject;
-  // const facetTotal = facetHeaders?.['x-total-results'];
+  const { loading: facetInititialLoading, isStale: facetHasStaleData } =
+    facetApiObject;
 
   const converter = useMemo(() => {
     const pepSeq = jobInputParameters.peps;
@@ -202,14 +198,12 @@ const PeptideSearchResult = () => {
 
   useMarkJobAsSeen(resultsDataObject?.allResults.length, match?.params.id);
 
+  // Don't use the response with facets for this, there's a bug returning 0 for
+  // results when combining facets and isoforms
   let total: undefined | number;
   if (resultsDataTotal !== undefined) {
     total = +resultsDataTotal;
   }
-  // needs to be set at the end to avoid being overidden
-  // if (facetTotal !== undefined) {
-  //   total = +facetTotal;
-  // }
 
   if (jobResultError || !match) {
     return (
