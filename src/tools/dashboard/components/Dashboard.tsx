@@ -12,7 +12,6 @@ import { partition } from 'lodash-es';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
-import DowntimeWarning from '../../components/DowntimeWarning';
 
 import useToolsState from '../../../shared/hooks/useToolsState';
 import useDashboardPollingEffect from '../hooks/useDashboardPollingEffect';
@@ -39,15 +38,12 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   // Trigger effects related to the rendering of the dashboard into view
   useDashboardPollingEffect();
 
-  const fullPageContent = onFullView ? (
-    <DowntimeWarning>ID Mapping & Peptide Search</DowntimeWarning>
-  ) : (
+  const fullPageContent = onFullView ? null : (
     <>
       <HTMLHead title="Tool results">
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <PageIntro heading="Tool results" />
-      <DowntimeWarning>ID Mapping & Peptide Search</DowntimeWarning>
     </>
   );
 

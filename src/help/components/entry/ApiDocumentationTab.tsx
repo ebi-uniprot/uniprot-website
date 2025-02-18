@@ -12,7 +12,6 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import InPageNav from '../../../shared/components/InPageNav';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DowntimeWarning from '../../../tools/components/DowntimeWarning';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -100,9 +99,6 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
       }
     >
       <HTMLHead title="UniProt website API documentation" />
-      {Array.from(tagIds.values())[0] === 'ID_Mapping_results' ? (
-        <DowntimeWarning>ID Mapping</DowntimeWarning>
-      ) : null}
       <Card className={styles.content}>
         <ErrorBoundary>
           <BaseLayout />

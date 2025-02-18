@@ -5,7 +5,7 @@ import { CommunityAnnotationIcon } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-// import externalUrls from '../../../shared/config/externalUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { TabLocation } from '../../types/entry';
@@ -21,8 +21,7 @@ type CommunityAnnotationLinkProps = {
 const CommunityAnnotationLink: FC<
   React.PropsWithChildren<CommunityAnnotationLinkProps>
 > = ({ accession }) => {
-  // const url = externalUrls.CommunityCurationGetByAccession(accession);
-  const url = `https://rest.uniprot.org/uniprotkb/${accession}/publications?facetFilter=%28types%3A%220%22%29`;
+  const url = externalUrls.CommunityCurationGetByAccession(accession);
   const { headers } = useDataApi(url, fetchOptions);
   const nSubmissions = +(headers?.['x-total-results'] || 0);
   if (!nSubmissions) {
