@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Loader } from 'franklin-sites';
 import * as goCamVizLoader from '@geneontology/wc-gocam-viz/loader';
+
+import useSafeState from '../../../shared/hooks/useSafeState';
 
 import styles from './styles/go-cam-viz.module.scss';
 
@@ -9,7 +11,7 @@ type Props = {
 };
 
 const GoCamViz = ({ id }: Props) => {
-  const [defined, setDefined] = useState(false);
+  const [defined, setDefined] = useSafeState(false);
   useEffect(() => {
     goCamVizLoader.defineCustomElements();
     customElements.whenDefined('wc-gocam-viz').then(() => {
