@@ -55,7 +55,8 @@ export const getUniprotNode = (
   for (const individual of goCamModel.individuals) {
     for (const type of individual.type) {
       if (type.id === idToFind) {
-        return type.label;
+        // Exclude the organism eg Hsap
+        return type.label.split(' ').slice(0, -1).join(' ');
       }
     }
   }
