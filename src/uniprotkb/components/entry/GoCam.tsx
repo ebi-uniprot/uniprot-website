@@ -8,6 +8,7 @@ import GoCamViz from '../protein-data-views/GoCamViz';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useSafeState from '../../../shared/hooks/useSafeState';
 
 import fetchData from '../../../shared/utils/fetchData';
 import { heuristic } from '../../../tools/state/utils/heuristic';
@@ -69,7 +70,7 @@ const GoCam = ({ primaryAccession }: Props) => {
   const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
     isSmallScreen ? null : externalUrls.GeneOntologyModels(primaryAccession)
   );
-  const [goCamIdToNode, setGoCamIdToNode] = useState<Map<
+  const [goCamIdToNode, setGoCamIdToNode] = useSafeState<Map<
     string,
     string | null
   > | null>(null);
@@ -107,7 +108,7 @@ const GoCam = ({ primaryAccession }: Props) => {
       }
     }
     fetchGoCamModels();
-  }, [goCamIdToItem, primaryAccession]);
+  }, [goCamIdToItem, primaryAccession, setGoCamIdToNode]);
 
   useEffect(() => {
     if (uniprotGoCamIds?.[0]) {
