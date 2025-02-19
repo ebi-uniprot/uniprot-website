@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Chip, ExternalLink, Loader } from 'franklin-sites';
+import axios from 'axios';
 import pMap from 'p-map';
 import cn from 'classnames';
 
@@ -12,6 +13,7 @@ import useSafeState from '../../../shared/hooks/useSafeState';
 
 import fetchData from '../../../shared/utils/fetchData';
 import { heuristic } from '../../../tools/state/utils/heuristic';
+import * as logging from '../../../shared/utils/logging';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -83,33 +85,55 @@ const GoCam = ({ primaryAccession }: Props) => {
   );
 
   useEffect(() => {
+    // eslint-disable-next-line import/no-named-as-default-member
+    const cancelTokenSource = axios.CancelToken.source();
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    signal.addEventListener('abort', () => {
+      cancelTokenSource.cancel('Operation canceled by the user.');
+    });
+
     async function fetchGoCamModels() {
       if (goCamIdToItem.size) {
         const mapper = (id: string) =>
           fetchData<GoCamModelInfo>(
-            externalUrls.GeneOntologyModelInfo(id)
+            externalUrls.GeneOntologyModelInfo(id),
+            cancelTokenSource.token
           ).then((response) => ({
             id,
             data: response.data,
           }));
-        const results = await pMap(Array.from(goCamIdToItem.keys()), mapper, {
-          concurrency: heuristic.concurrency,
-        });
-        setGoCamIdToNode(
-          new Map(
-            results
-              .filter(({ data }) => isUniprotCurated(data))
-              .map(({ id, data }) => [
-                id,
-                getUniprotNode(primaryAccession, data),
-              ])
-          )
-        );
+        try {
+          const results = await pMap(Array.from(goCamIdToItem.keys()), mapper, {
+            concurrency: heuristic.concurrency,
+            signal,
+          });
+          setGoCamIdToNode(
+            new Map(
+              results
+                .filter(({ data }) => isUniprotCurated(data))
+                .map(({ id, data }) => [
+                  id,
+                  getUniprotNode(primaryAccession, data),
+                ])
+            )
+          );
+        } catch (error) {
+          if (error instanceof Error) {
+            if (error.name === 'AbortError') {
+              // The operation was aborted; silently bail
+              return;
+            }
+            logging.error(error);
+          }
+        }
       }
     }
     fetchGoCamModels();
+    return () => {
+      abortController.abort();
+    };
   }, [goCamIdToItem, primaryAccession, setGoCamIdToNode]);
-
   useEffect(() => {
     if (uniprotGoCamIds?.[0]) {
       setSelectedId(uniprotGoCamIds[0]);
