@@ -38,22 +38,17 @@ interface IndividualAnnotation {
   value: string;
 }
 
-enum Key {
-  Contributor = 'contributor',
-  Date = 'date',
-  HintLayoutX = 'hint-layout-x',
-  HintLayoutY = 'hint-layout-y',
-  ProvidedBy = 'providedBy',
-  Source = 'source',
-  With = 'with',
-}
+type Key =
+  | 'contributor'
+  | 'date'
+  | 'hint-layout-x'
+  | 'hint-layout-y'
+  | 'providedBy'
+  | 'source'
+  | 'with';
 
 interface RootTypeElement {
-  type: TypeEnum;
+  type: 'class';
   id: string;
   label: string;
-}
-
-enum TypeEnum {
-  Class = 'class',
 }
