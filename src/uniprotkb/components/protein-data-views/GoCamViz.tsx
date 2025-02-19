@@ -17,7 +17,7 @@ const GoCamViz = ({ id }: Props) => {
     customElements.whenDefined('wc-gocam-viz').then(() => {
       setDefined(true);
     });
-  }, []);
+  }, [setDefined]);
 
   return (
     <div className={styles['go-cam-viz-container']}>
