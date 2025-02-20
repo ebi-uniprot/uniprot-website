@@ -25,7 +25,7 @@
 
     &::part(process) {
       padding: 1rem;
-      background-color: var(--fr--color-platinum);
+      background-color: var(--fr--color-sky-white);
       margin-bottom: 1rem;
     }
 
@@ -37,15 +37,18 @@
     &::part(function-label) {
       border-left: 0.125rem solid var(--fr--color-sapphire-blue);
       padding-left: 0.25rem;
+      padding-right: 0;
       margin-left: -0.5rem;
+      font-weight: bolder;
     }
 
     &::part(function-label) {
       margin-bottom: 0.333rem;
     }
 
-    --activity-background-active: var(--fr--color-sky-white);
+    --activity-background-active: var(--fr--color-platinum);
     --activity-color-active: var(--fr--color-sapphire-blue);
+    --activity-color: var(--fr--color-sapphire-blue);
     --activity-padding: 1rem;
     --graph-height: 33vh;
     --button-background: var(--fr--color-sea-blue);
@@ -63,5 +66,10 @@
     --process-label-background: var(--fr--color-sky-white);
     --panel-header-padding: 0 0 1rem 0;
     --process-padding: 1rem;
+
+    --node-align-items: flex: start;
+    --node-border-color: var(--fr--color-gainsborough);
+    --node-border-width: 1px 0 0 0;
+    --node-padding: 0;
   }
 }
