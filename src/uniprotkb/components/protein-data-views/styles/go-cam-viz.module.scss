@@ -6,7 +6,7 @@
 
     &::part(activities-panel) {
       border-left: 1px solid black;
-      padding-left: 1.5rem;
+      padding-left: 1rem;
       width: 28%;
     }
 
@@ -15,7 +15,7 @@
     }
 
     &::part(gocam-panel) {
-      padding-right: 1.5rem;
+      padding-right: 1rem;
     }
 
     &::part(legend-header) {
@@ -24,7 +24,7 @@
     }
 
     &::part(process) {
-      padding: 1rem;
+      padding: 0;
       background-color: var(--fr--color-sky-white);
       margin-bottom: 1rem;
     }
@@ -49,7 +49,7 @@
     --activity-background-active: var(--fr--color-platinum);
     --activity-color-active: var(--fr--color-sapphire-blue);
     --activity-color: var(--fr--color-sapphire-blue);
-    --activity-padding: 1rem;
+    --activity-padding: 0 0.25rem;
     --graph-height: 33vh;
     --button-background: var(--fr--color-sea-blue);
     --button-background-hover: color-mix(
@@ -64,7 +64,7 @@
     --process-label-padding: 5px;
     --process-label-border-color: var(--fr--color-sapphire-blue);
     --process-label-background: var(--fr--color-sky-white);
-    --panel-header-padding: 0 0 1rem 0;
+    --panel-header-padding: 0 0 0.25rem 0;
     --process-padding: 1rem;
 
     --node-align-items: flex: start;
