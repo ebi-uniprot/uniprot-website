@@ -205,7 +205,7 @@ const GoCam = ({ primaryAccession }: Props) => {
               {selectedIdNode}
             </Chip>{' '}
             node in this visualization corresponds to the current (
-            {primaryAccession}) UniProtKB entry page.
+            {primaryAccession}) UniProtKB entry.
           </div>
         )}
         <GoCamViz id={selectedId} />
