@@ -47,6 +47,7 @@
 
     &::part(activity) {
       margin-bottom: 1rem;
+      font-weight: bold;
     }
 
     --activity-background-active: var(--fr--color-platinum);
@@ -59,8 +60,9 @@
     --button-background-hover: color-mix(
       in srgb,
       var(--fr--color-sea-blue),
-      black 3%
+      black 10%
     );
+
     --button-color: var(--fr--color-sky-white);
     --button-border-radius: 0;
 
