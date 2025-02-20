@@ -396,7 +396,7 @@ const FunctionSection = ({
                         : 'GO-CAM models are only available for reviewed entries.'
                     }
                   >
-                    GO-CAM Models<Chip compact>New</Chip>
+                    GO-CAM models<Chip compact>New</Chip>
                   </span>
                 }
               >
