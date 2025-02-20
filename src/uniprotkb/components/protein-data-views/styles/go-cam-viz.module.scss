@@ -44,9 +44,9 @@
       margin-bottom: 0.333rem;
     }
 
-    --activity-background-active: var(--fr--color-platinum);
-    // --activity-color-active: var(--fr--color-sky-white);
-    // --activity-padding: 0.75rem 0.5rem;
+    --activity-background-active: var(--fr--color-sky-white);
+    --activity-color-active: var(--fr--color-sapphire-blue);
+    --activity-padding: 1rem;
     --graph-height: 33vh;
     --button-background: var(--fr--color-sea-blue);
     --button-background-hover: color-mix(
@@ -62,5 +62,6 @@
     --process-label-border-color: var(--fr--color-sapphire-blue);
     --process-label-background: var(--fr--color-sky-white);
     --panel-header-padding: 0 0 1rem 0;
+    --process-padding: 1rem;
   }
 }
