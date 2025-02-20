@@ -52,6 +52,11 @@
 
     --activity-background-active: var(--fr--color-platinum);
     --activity-color-active: var(--fr--color-sapphire-blue);
+    --activity-color-link-hover: color-mix(
+      in srgb,
+      var(--fr--color-sapphire-blue) 90%,
+      white 10%
+    );
     --activity-color: var(--fr--color-sapphire-blue);
     --activity-padding: 0 0.25rem 0.25rem 0.25rem;
     --activity-border-width: 0;
@@ -59,7 +64,7 @@
     --button-background: var(--fr--color-sea-blue);
     --button-background-hover: color-mix(
       in srgb,
-      var(--fr--color-sea-blue),
+      var(--fr--color-sea-blue) 90%,
       black 10%
     );
 
