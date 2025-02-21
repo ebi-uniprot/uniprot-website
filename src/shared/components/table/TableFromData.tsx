@@ -6,10 +6,11 @@ import Table from './Table';
 
 import { NavigationType } from '../views/FeaturesView';
 
+import { MIN_ROWS_TO_EXPAND } from './constants';
+
 import styles from './styles/table.module.scss';
 
 const UNFILTERED_OPTION = 'All' as const;
-const MIN_ROWS_TO_EXPAND = 10 as const;
 
 type TableHeaderFromDataProps<T> = {
   column: TableFromDataColumn<T>;

@@ -16,6 +16,7 @@ import { useSmallScreen } from '../../hooks/useMatchMedia';
 import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
+import { MIN_ROWS_TO_EXPAND } from '../table/constants';
 
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
@@ -220,7 +221,7 @@ function FeaturesView<T extends ProcessedFeature>({
           markBorder && nightingaleViewRange && markBorder(nightingaleViewRange)
         }
         onRowClick={setHighlightedFeature}
-        expandable={!inResultsTable}
+        expandable={!inResultsTable && features.length > MIN_ROWS_TO_EXPAND}
         onNavigationClick={!isSmallScreen && handleNavigationClick}
       />
     </>

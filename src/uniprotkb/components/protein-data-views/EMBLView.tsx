@@ -9,6 +9,8 @@ import {
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
 
+import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
+
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 
@@ -76,7 +78,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
   )?.uriLink;
 
   return (
-    <Table expandable={data.length > 10}>
+    <Table expandable={data.length > MIN_ROWS_TO_EXPAND}>
       <Table.Head>
         <th>Nucleotide Sequence</th>
         <th>Protein Sequence</th>
