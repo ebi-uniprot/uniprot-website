@@ -41,6 +41,8 @@ import { Reference } from '../../../supporting-data/citations/adapters/citations
 import CommunityCuration from './CommunityCuration';
 import { EntryType } from '../../../shared/config/entryTypeIcon';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
@@ -375,7 +377,7 @@ const FunctionSection = ({
         // "I assume that any go cams that we display, would also be integrated in the go releases, otherwise I would question the quality of the model"
         !!data.goTerms?.size && (
           <ErrorBoundary>
-            <Tabs bordered>
+            <Tabs bordered className={helper['padding-top-small']}>
               <Tab title="GO annotations">
                 <Suspense fallback={<Loader />}>
                   <GoRibbon
