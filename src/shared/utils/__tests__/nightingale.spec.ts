@@ -1,4 +1,5 @@
-import { withinRange } from '../nightingale';
+import { ProcessedFeature } from '../../components/views/FeaturesView';
+import { getZoomedInRange, withinRange } from '../nightingale';
 
 describe('withinRange', () => {
   const testCases: [number, number, number, number, boolean][] = [
@@ -22,6 +23,29 @@ describe('withinRange', () => {
           'display-end': nightingaleEnd,
         })
       ).toEqual(expected);
+    }
+  );
+});
+
+describe('getZoomedInRange', () => {
+  const sequenceLength = 100;
+  const testCases = [
+    // description, features, range
+    ['start', [{ start: 1 }, { start: 25 }], [1, 30]],
+    ['end', [{ start: 100 }], [71, 100]],
+    ['near start', [{ start: 7 }, { start: 25 }], [2, 31]],
+    ['near end', [{ start: 90 }], [71, 100]],
+    ['middle', [{ start: 50 }, { start: 90 }], [45, 74]],
+  ];
+  test.each(testCases)(
+    'should handle feature that is %s of sequence',
+    (_, features, range) => {
+      expect(
+        getZoomedInRange(features as ProcessedFeature[], sequenceLength)
+      ).toEqual({
+        'display-start': range[0],
+        'display-end': range[1],
+      });
     }
   );
 });

@@ -10,7 +10,6 @@ import NightingaleSequenceComponent from '../../custom-elements/NightingaleSeque
 import NightingalTrackComponent from '../../custom-elements/NightingaleTrack';
 import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
 import NightingaleZoomTool, {
-  AA_ZOOMED,
   iconSize,
 } from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
 import EntryDownloadPanel from '../entry/EntryDownloadPanel';
@@ -22,7 +21,10 @@ import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents'
 import { TabLocation } from '../../../uniprotkb/types/entry';
 import { Namespace } from '../../types/namespaces';
 import { Dataset } from '../entry/EntryDownload';
-import { NightingaleViewRange } from '../../utils/nightingale';
+import {
+  getZoomedInRange,
+  NightingaleViewRange,
+} from '../../utils/nightingale';
 import { ProcessedFeature } from './FeaturesView';
 
 import styles from './styles/visual-features-view.module.scss';
@@ -82,13 +84,9 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   // Initially zoom to the AA level
   useEffect(() => {
     if (managerRef.current) {
-      const minStart = Math.min(...features.map((f) => f.start));
       managerRef.current.dispatchEvent(
         new CustomEvent('change', {
-          detail: {
-            'display-start': minStart,
-            'display-end': Math.min(minStart + AA_ZOOMED, sequence.length),
-          },
+          detail: getZoomedInRange(features, sequence.length),
           bubbles: true,
           cancelable: true,
         })
