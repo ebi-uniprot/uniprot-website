@@ -150,7 +150,7 @@ function FeaturesView<T extends ProcessedFeature>({
   const handleNavigationClick = useCallback(
     (navigationType: NavigationType, feature: T) => {
       if (nightingaleViewRange) {
-        const foo = computeRange(
+        const range = computeRange(
           navigationType,
           [+feature.start, +feature.end],
           [
@@ -158,7 +158,7 @@ function FeaturesView<T extends ProcessedFeature>({
             nightingaleViewRange['display-end'],
           ]
         );
-        setRange(foo);
+        setRange(range);
       }
     },
     [nightingaleViewRange]

@@ -59,6 +59,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   const trackRef = useRef<NightingaleTrack>(null);
   const managerRef = useRef<NightingaleManager>(null);
   const navigationRef = useRef<NightingaleNavigation>(null);
+
   // NightingaleTrack data loading and feature click event handler
   useEffect(() => {
     const eventHandler = (e: Event) => {
@@ -78,6 +79,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
     };
   }, [features, onFeatureClick]);
 
+  // Initially zoom to the AA level
   useEffect(() => {
     if (managerRef.current) {
       const minStart = Math.min(...features.map((f) => f.start));
@@ -94,7 +96,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
     }
   }, [features, sequence.length]);
 
-  // NightingaleManager view range event handler
+  // Call onViewRangeChange when NightingaleManager view range changes
   useEffect(() => {
     const eventHandler = (e: Event) => {
       const { detail } = e as CustomEvent<
@@ -112,6 +114,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
     };
   }, [managerRef, onViewRangeChange]);
 
+  // Dispatch range change event to NightingaleManager
   useEffect(() => {
     if (managerRef.current && range) {
       managerRef.current.dispatchEvent(
