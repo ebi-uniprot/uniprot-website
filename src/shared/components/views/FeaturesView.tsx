@@ -14,6 +14,7 @@ import TableFromData from '../table/TableFromData';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
+import { useAnimateRange } from '../../hooks/useAnimateRange'; // our new custom hook
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 import { MIN_ROWS_TO_EXPAND } from '../table/constants';
@@ -81,12 +82,6 @@ const computeRange = (
       Math.max(navigationRange[1], featureRange[1]),
     ];
   }
-  // if (navigationType === 'ZOOM-IN') {
-  //   return [featureRange[0], featureRange[0] + AA_ZOOMED];
-  // }
-  // if (navigationType === 'ZOOM-OUT') {
-  //   return [featureRange[0] - 1, featureRange[1] + 1];
-  // }
   return navigationRange;
 };
 
@@ -147,21 +142,24 @@ function FeaturesView<T extends ProcessedFeature>({
     [tableScroll]
   );
 
+  const animateRange = useAnimateRange(setRange);
+
   const handleNavigationClick = useCallback(
     (navigationType: NavigationType, feature: T) => {
       if (nightingaleViewRange) {
-        const range = computeRange(
+        const currentRange: [number, number] = [
+          nightingaleViewRange['display-start'],
+          nightingaleViewRange['display-end'],
+        ];
+        const targetRange = computeRange(
           navigationType,
           [+feature.start, +feature.end],
-          [
-            nightingaleViewRange['display-start'],
-            nightingaleViewRange['display-end'],
-          ]
+          currentRange
         );
-        setRange(range);
+        animateRange(currentRange, targetRange);
       }
     },
-    [nightingaleViewRange]
+    [nightingaleViewRange, animateRange]
   );
 
   return !features.length ? null : (
