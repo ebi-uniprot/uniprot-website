@@ -70,3 +70,13 @@ export async function* linearTimed(
   // Ensure the final value is exactly end
   yield end;
 }
+
+export async function* rangeTimed(
+  start: [number, number],
+  end: [number, number]
+): AsyncGenerator<[number, number], void, unknown> {
+  const distance = [end[0] - start[0], end[1] - start[1]];
+  for await (const a of linearTimed(0, 1, 1000, 10)) {
+    yield [start[0] + a * distance[0], start[1] + a * distance[1]];
+  }
+}

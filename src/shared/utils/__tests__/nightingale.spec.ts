@@ -1,5 +1,10 @@
 import { ProcessedFeature } from '../../components/views/FeaturesView';
-import { getZoomedInRange, linearTimed, withinRange } from '../nightingale';
+import {
+  getZoomedInRange,
+  linearTimed,
+  rangeTimed,
+  withinRange,
+} from '../nightingale';
 
 describe('withinRange', () => {
   const testCases: [number, number, number, number, boolean][] = [
@@ -80,5 +85,37 @@ describe('linearTimed', () => {
     }
 
     expect(result).toEqual(expected);
+  });
+});
+
+describe('rangeTimed', () => {
+  it('should yield correctly interpolated coordinates from [0,0] to [10,20]', async () => {
+    const start: [number, number] = [0, 0];
+    const end: [number, number] = [10, 20];
+
+    const expected: [number, number][] = [
+      [1, 2],
+      [2, 4],
+      [3, 6],
+      [4, 8],
+      [5, 10],
+      [6, 12],
+      [7, 14],
+      [8, 16],
+      [9, 18],
+      [10, 20],
+    ];
+
+    const results: [number, number][] = [];
+    for await (const result of rangeTimed(start, end)) {
+      results.push(result);
+    }
+
+    expect(results.length).toBe(expected.length);
+
+    for (const [index, result] of results.entries()) {
+      expect(result[0]).toBeCloseTo(expected[index][0]);
+      expect(result[1]).toBeCloseTo(expected[index][1]);
+    }
   });
 });
