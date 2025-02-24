@@ -1,3 +1,5 @@
+import { sleep } from 'timing-functions';
+
 import { AA_ZOOMED } from '../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
 import { ProcessedFeature } from '../components/views/FeaturesView';
 
@@ -52,3 +54,19 @@ export const getZoomedInRange = (
     'display-end': displayStart + AA_ZOOMED,
   };
 };
+
+export async function* linearTimed(
+  start: number,
+  end: number,
+  time: number,
+  steps: number
+): AsyncGenerator<number, void, unknown> {
+  const stepSize = (end - start) / steps;
+  const stepTime = time / steps;
+  for (let step = 1; step < steps; step++) {
+    await sleep(stepTime);
+    yield start + step * stepSize;
+  }
+  // Ensure the final value is exactly end
+  yield end;
+}

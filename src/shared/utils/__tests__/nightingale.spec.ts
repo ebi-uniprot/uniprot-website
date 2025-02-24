@@ -1,5 +1,5 @@
 import { ProcessedFeature } from '../../components/views/FeaturesView';
-import { getZoomedInRange, withinRange } from '../nightingale';
+import { getZoomedInRange, linearTimed, withinRange } from '../nightingale';
 
 describe('withinRange', () => {
   const testCases: [number, number, number, number, boolean][] = [
@@ -48,4 +48,37 @@ describe('getZoomedInRange', () => {
       });
     }
   );
+});
+
+describe('linearTimed', () => {
+  it('should yield the expected sequence for multiple steps', async () => {
+    const start = 0;
+    const end = 10;
+    const time = 1000; // not actually used
+    const steps = 5;
+    const expected = [2, 4, 6, 8, 10];
+
+    const result: number[] = [];
+    for await (const value of linearTimed(start, end, time, steps)) {
+      result.push(value);
+    }
+
+    expect(result).toEqual(expected);
+  });
+
+  it('should yield only the final value when steps is 1', async () => {
+    const start = 0;
+    const end = 10;
+    const time = 1000; // not actually used
+    const steps = 1;
+    // When steps === 1, the loop body is skipped and only end is yielded.
+    const expected = [10];
+
+    const result: number[] = [];
+    for await (const value of linearTimed(start, end, time, steps)) {
+      result.push(value);
+    }
+
+    expect(result).toEqual(expected);
+  });
 });
