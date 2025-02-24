@@ -1,4 +1,3 @@
-/* eslint-disable react/no-this-in-sfc */
 import { FC, memo, useEffect, useRef } from 'react';
 import '@swissprot/swissbiopics-visualizer';
 import { groupBy } from 'lodash-es';
@@ -151,10 +150,11 @@ let instanceId = 0;
 
 const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
   ({ uniProtLocations, goLocations, taxonId, children }) => {
+    instanceId += 1;
     const instanceName = useRef(
       `${canonicalName}-${
         uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
-      }-${++instanceId}` // eslint-disable-line no-plusplus
+      }-${instanceId}`
     );
 
     const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');

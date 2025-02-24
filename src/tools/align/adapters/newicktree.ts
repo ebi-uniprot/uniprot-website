@@ -11,7 +11,7 @@ const assignDistanceFromRoot = (node: NewickTreeNode, isRoot = false) => {
   }
   for (const child of node.children) {
     if (typeof child.distance === 'undefined') {
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     // taking absolute value, as to be consistent with other tools out there 🤷🏽‍♂️
     child.distanceFromRoot =

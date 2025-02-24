@@ -94,7 +94,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
                 isEntryPage={isEntryPage}
                 namespace={namespace}
                 columns={columns}
-                onChange={setColumns}
+                onColumnChange={setColumns}
                 onReset={handleReset}
                 onSubmit={handleSubmit}
                 onCancel={handleCancel}

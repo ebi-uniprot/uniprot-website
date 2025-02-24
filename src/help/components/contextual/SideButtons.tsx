@@ -39,7 +39,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
       if (document.querySelector(surveyId)) {
         if (scrollBarWidth) {
           const hjButton = document.querySelector<HTMLElement>(
-            `${surveyId} > div > div > div`
+            `${surveyId} > div > div > div > div > div:nth-child(2)`
           );
 
           if (hjButton) {

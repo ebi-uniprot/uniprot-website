@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import ExternalLink from '../../../shared/components/ExternalLink';
 
 import Table from '../../../shared/components/table/Table';

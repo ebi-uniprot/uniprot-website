@@ -19,7 +19,6 @@ import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
-import DnsDowntimeWarning from './DnsDowntimeWarning';
 import DevDeploymentWarning from './DevDeploymentWarning';
 import Covid19RedirectWarning from './Covid19RedirectWarning';
 
@@ -40,7 +39,6 @@ import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
-// eslint-disable-next-line import/no-unresolved
 import 'franklin-sites/franklin.css';
 import './styles/app.scss';
 
@@ -424,7 +422,6 @@ const App = () => {
           content={description}
         />
       </Helmet>
-      <DnsDowntimeWarning />
       <DevDeploymentWarning />
       <Covid19RedirectWarning />
       <BaseLayout>

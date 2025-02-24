@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Clause } from '../../../types/searchTypes';
 
 import { getSearchTerm } from '../../../components/__tests__/__mocks__/configureSearchTerms';

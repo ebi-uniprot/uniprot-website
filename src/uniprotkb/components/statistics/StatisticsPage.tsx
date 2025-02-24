@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
 import { Card, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
@@ -22,6 +21,7 @@ import UniqueReferencesTable from './UniqueReferencesTable';
 import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 import InPageNav from '../../../shared/components/InPageNav';
+import HistoricalReleaseEntryCounts from './HistoricalReleasesEntries';
 
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -74,6 +74,7 @@ export type StatisticsItem = {
   entryCount: number;
   label?: string;
   description?: string;
+  query?: string;
 };
 
 export type StatisticsCategory = {
@@ -289,6 +290,7 @@ const ProteinExistenceTable = ({
               <td>
                 {proteinExistenceToNumber.get(name)}: {label}
               </td>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
               <td className={styles.end}>
                 <Link
                   to={{
@@ -647,12 +649,14 @@ const StatisticsPage = () => {
           query, a link has been provided. In some instances, due to the nature
           of the statistic, no query link is possible.
         </p>
+
         <IntroductionEntriesTable
           uniprotkbData={uniprotkbData.AUDIT}
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
           releaseDate={release.releaseDate}
         />
+        <HistoricalReleaseEntryCounts />
         <IntroductionSequenceTable
           uniprotkbData={uniprotkbData.SEQUENCE_STATS}
           reviewedData={reviewedData.SEQUENCE_STATS}

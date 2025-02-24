@@ -7,3 +7,4 @@ variables:
   CHART_FALLBACK: 'uniprot-website-fallback'
   CHART_DEV: 'uniprot-website-dev'
   CHART_UX: 'uniprot-website-ux'
+  CHART_LMIC: 'uniprot-website-lmic'

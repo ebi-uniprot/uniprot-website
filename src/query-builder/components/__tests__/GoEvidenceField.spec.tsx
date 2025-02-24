@@ -6,7 +6,7 @@ import { getSearchTerm } from './__mocks__/configureSearchTerms';
 const props: GoEvidenceFieldProps = {
   handleChange: jest.fn(),
   field: getSearchTerm('go_evidence'),
-  initialValue: { go_evidence: 'manual' },
+  initialValue: { go_evidence: 'manual' }, // eslint-disable-line camelcase
 };
 
 describe('GoEvidenceField component', () => {
@@ -32,7 +32,7 @@ describe('GoEvidenceField component', () => {
       target: { value: 'automatic' },
     });
     expect(props.handleChange).toBeCalledWith({
-      go_evidence: 'automatic',
+      go_evidence: 'automatic', // eslint-disable-line camelcase
     });
   });
 });

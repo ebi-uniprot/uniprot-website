@@ -200,7 +200,7 @@ const enrichStatistics = (
       if (!config) {
         return;
       }
-      // eslint-disable-next-line consistent-return
+
       return {
         key: key as keyof Statistics | 'proteinCount',
         count: value,
@@ -238,7 +238,6 @@ export const MapToDropdownBasic = ({
       {config.map(({ key, count, label, to }) =>
         count ? (
           <li key={key}>
-            {/* eslint-disable-next-line uniprot-website/use-config-location */}
             <Link to={to}>
               {label} (<LongNumber>{count}</LongNumber>)
             </Link>
@@ -313,7 +312,6 @@ export const mapToLinks = (
   ).filter((stat) => 'text' in stat);
   return (filter ? enrichedStatistics.filter(filter) : enrichedStatistics).map(
     (stat) => (
-      // eslint-disable-next-line uniprot-website/use-config-location
       <Link to={stat.to} key={stat.key}>
         {stat.text}
       </Link>

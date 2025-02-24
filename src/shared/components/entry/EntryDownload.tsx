@@ -94,9 +94,9 @@ export enum Dataset {
   variation = 'Variations (includes UniProtKB)',
   mutagenesis = 'Mutagenesis (includes UniProtKB)',
   coordinates = 'Genomic Coordinates',
-  proteomics = 'Proteomics',
+  proteomicsNonPtm = 'Proteomics-nonPTM',
   proteomicsPtm = 'Proteomics-PTM',
-  hpp = 'Human Proteome Project',
+  ProteomicsHpp = 'Human Proteome Project',
   epitope = 'Epitope',
   antigen = 'Antigen',
   interProRepresentativeDomains = 'InterPro Representative Domains',
@@ -111,9 +111,9 @@ const uniprotKBEntryDatasets = {
     Dataset.variation,
     Dataset.mutagenesis,
     Dataset.coordinates,
-    Dataset.proteomics,
+    Dataset.proteomicsNonPtm,
     Dataset.proteomicsPtm,
-    Dataset.hpp,
+    Dataset.ProteomicsHpp,
     Dataset.epitope,
     Dataset.antigen,
     Dataset.interProRepresentativeDomains,
@@ -224,16 +224,16 @@ const getEntryDownloadUrl = (
       return apiUrls.proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
       return apiUrls.proteinsApi.variation(accession, fileFormat);
-    case Dataset.proteomics:
-      return apiUrls.proteinsApi.proteomics(accession, fileFormat);
+    case Dataset.proteomicsNonPtm:
+      return apiUrls.proteinsApi.proteomicsNonPtm(accession, fileFormat);
     case Dataset.proteomicsPtm:
       return apiUrls.proteinsApi.proteomicsPtm(accession, fileFormat);
+    case Dataset.ProteomicsHpp:
+      return apiUrls.proteinsApi.proteomicsHpp(accession, fileFormat);
     case Dataset.mutagenesis:
       return apiUrls.proteinsApi.mutagenesis(accession, fileFormat);
     case Dataset.antigen:
       return apiUrls.proteinsApi.antigen(accession, fileFormat);
-    case Dataset.hpp:
-      return apiUrls.proteinsApi.hpp(accession, fileFormat);
     case Dataset.epitope:
       return apiUrls.proteinsApi.epitope(accession, fileFormat);
     case Dataset.interProRepresentativeDomains:
@@ -386,9 +386,9 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
-  const proteinsApiProteomics = useDataApi(
+  const proteinsApiProteomicsNonPtm = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? apiUrls.proteinsApi.proteomics(accession)
+      ? apiUrls.proteinsApi.proteomicsNonPtm(accession)
       : '',
     { method: 'HEAD' }
   );
@@ -396,6 +396,13 @@ const EntryDownload = ({
   const proteinsApiPTMs = useDataApi(
     namespace === Namespace.uniprotkb && accession
       ? apiUrls.proteinsApi.proteomicsPtm(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiHpp = useDataApi(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.proteinsApi.proteomicsHpp(accession)
       : '',
     { method: 'HEAD' }
   );
@@ -410,13 +417,6 @@ const EntryDownload = ({
   const proteinsApiAntigen = useDataApi(
     namespace === Namespace.uniprotkb && accession
       ? apiUrls.proteinsApi.antigen(accession)
-      : '',
-    { method: 'HEAD' }
-  );
-
-  const proteinsApiHpp = useDataApi(
-    namespace === Namespace.uniprotkb && accession
-      ? apiUrls.proteinsApi.hpp(accession)
       : '',
     { method: 'HEAD' }
   );
@@ -478,8 +478,11 @@ const EntryDownload = ({
   ) {
     availableDatasets.push(Dataset.variation);
   }
-  if (!proteinsApiProteomics.loading && proteinsApiProteomics.status === 200) {
-    availableDatasets.push(Dataset.proteomics);
+  if (
+    !proteinsApiProteomicsNonPtm.loading &&
+    proteinsApiProteomicsNonPtm.status === 200
+  ) {
+    availableDatasets.push(Dataset.proteomicsNonPtm);
   }
   if (!proteinsApiPTMs.loading && proteinsApiPTMs.status === 200) {
     availableDatasets.push(Dataset.proteomicsPtm);
@@ -494,7 +497,7 @@ const EntryDownload = ({
     availableDatasets.push(Dataset.antigen);
   }
   if (!proteinsApiHpp.loading && proteinsApiHpp.status === 200) {
-    availableDatasets.push(Dataset.hpp);
+    availableDatasets.push(Dataset.ProteomicsHpp);
   }
   if (!proteinsApiEpitope.loading && proteinsApiEpitope.status === 200) {
     availableDatasets.push(Dataset.epitope);
@@ -534,11 +537,11 @@ const EntryDownload = ({
       //   setFileFormats(proteinsAPIVariationFormats);
       //   break;
       case Dataset.variation:
-      case Dataset.proteomics:
+      case Dataset.proteomicsNonPtm:
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
       case Dataset.antigen:
-      case Dataset.hpp:
+      case Dataset.ProteomicsHpp:
       case Dataset.epitope:
       case Dataset.mutagenesis:
         setFileFormats(proteinsAPICommonFormats);
@@ -690,7 +693,7 @@ const EntryDownload = ({
         There are additional PTM data available from large scale studies for
         this entry. It is provided by the{' '}
         <ExternalLink
-          url={`${apiUrls.proteinsApi.proteinsApiPrefix}/doc/#/proteomics-ptm`}
+          url={`${apiUrls.proteinsApi.proteinsApiPrefix}/doc/#/ptm`}
         >
           Proteomics-ptm
         </ExternalLink>{' '}
@@ -817,7 +820,7 @@ const EntryDownload = ({
           <>
             <legend data-article-id="customize">Customize columns</legend>
             <ColumnSelect
-              onChange={(columns) => setDownloadColumns(columns)}
+              onColumnChange={(columns) => setDownloadColumns(columns)}
               selectedColumns={downloadColumns}
               namespace={namespace}
               isEntryPage={namespace === Namespace.uniparc}
@@ -842,7 +845,6 @@ const EntryDownload = ({
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
           href={downloadUrl}
           className={cn('button', 'primary')}

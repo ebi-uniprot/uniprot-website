@@ -261,14 +261,14 @@ exports[`UniRefColumnConfiguration component should render column "sequence": se
 exports[`UniRefColumnConfiguration component should render column "types": types 1`] = `
 <DocumentFragment>
   <span
-    class="entry-title__status icon--uniparc"
-    title="This marks a UniParc entry"
+    class="entry-title__status icon--unreviewed"
+    title="This marks an unreviewed UniProtKB entry"
   >
     <test-file-stub />
   </span>
   <span
-    class="entry-title__status icon--unreviewed"
-    title="This marks an unreviewed UniProtKB entry"
+    class="entry-title__status icon--uniparc"
+    title="This marks a UniParc entry"
   >
     <test-file-stub />
   </span>
