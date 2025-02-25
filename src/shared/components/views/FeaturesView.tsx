@@ -16,6 +16,12 @@ import { useSmallScreen } from '../../hooks/useMatchMedia';
 import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 import { useAnimateRange } from '../../hooks/useAnimateRange'; // our new custom hook
 
+import {
+  computeTargetRange,
+  NavigationType,
+  NightingaleViewRange,
+} from '../../utils/nightingale';
+
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 import { MIN_ROWS_TO_EXPAND } from '../table/constants';
 
@@ -26,7 +32,6 @@ import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-import { NightingaleViewRange } from '../../utils/nightingale';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -67,22 +72,6 @@ export type FeatureColumnConfiguration<T> = {
   filter?: (data: T, input: string) => boolean;
   render: (data: T) => ReactNode;
   getOption?: (data: T) => string | number; // Fallback if render fn doesn't return string or number
-};
-
-export type NavigationType = 'ZOOM-TO';
-
-const computeRange = (
-  navigationType: NavigationType,
-  featureRange: [number, number],
-  navigationRange: [number, number]
-): [number, number] => {
-  if (navigationType === 'ZOOM-TO') {
-    return [
-      Math.min(navigationRange[0], featureRange[0]),
-      Math.max(navigationRange[1], featureRange[1]),
-    ];
-  }
-  return navigationRange;
 };
 
 type FeatureViewProps<T extends ProcessedFeature> = {
@@ -151,11 +140,10 @@ function FeaturesView<T extends ProcessedFeature>({
           nightingaleViewRange['display-start'],
           nightingaleViewRange['display-end'],
         ];
-        const targetRange = computeRange(
-          navigationType,
-          [+feature.start, +feature.end],
-          currentRange
-        );
+        const targetRange = computeTargetRange(navigationType, currentRange, [
+          +feature.start,
+          +feature.end,
+        ]);
         animateRange(currentRange, targetRange);
       }
     },

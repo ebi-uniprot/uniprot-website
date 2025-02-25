@@ -79,11 +79,32 @@ export async function* rangeTimed(
   end: [number, number]
 ): AsyncGenerator<[number, number], void, unknown> {
   const distance = [end[0] - start[0], end[1] - start[1]];
-  // Approximation of how large a range change is needed
-  const aaChange = (distance[0] + distance[1]) / 2;
+  // RMS to get approximation range change magnitude
+  const aaChange = (0.5 * (distance[0] ** 2 + distance[1] ** 2)) ** 0.5;
   const time = TIME_PER_AA * aaChange;
   const steps = STEPS_PER_AA * aaChange;
   for await (const a of linearTimed(0, 1, time, steps)) {
     yield [start[0] + a * distance[0], start[1] + a * distance[1]];
   }
 }
+
+export type NavigationType = 'ZOOM' | 'PAN';
+
+export const computeTargetRange = (
+  navigationType: NavigationType,
+  navigationRange: [number, number],
+  featureRange: [number, number]
+): [number, number] => {
+  if (navigationType === 'ZOOM') {
+    return [
+      Math.min(navigationRange[0], featureRange[0]),
+      Math.max(navigationRange[1], featureRange[1]),
+    ];
+  }
+  if (navigationType === 'PAN') {
+    const width = navigationRange[1] - navigationRange[0];
+    const start = Math.max(1, featureRange[0] - width / 2);
+    return [start, start + width];
+  }
+  return navigationRange;
+};

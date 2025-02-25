@@ -4,9 +4,9 @@ import cn from 'classnames';
 
 import Table from './Table';
 
-import { NavigationType } from '../views/FeaturesView';
-
 import { MIN_ROWS_TO_EXPAND } from './constants';
+
+import { NavigationType } from '../../utils/nightingale';
 
 import styles from './styles/table.module.scss';
 
@@ -167,9 +167,15 @@ function TableFromData<T>({
                       >
                         <Button
                           variant="secondary"
-                          onClick={() => onNavigationClick?.('ZOOM-TO', datum)}
+                          onClick={() => onNavigationClick?.('PAN', datum)}
                         >
-                          Navigate to feature
+                          Navigate to feature (PAN)
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          onClick={() => onNavigationClick?.('ZOOM', datum)}
+                        >
+                          Navigate to feature (ZOOM)
                         </Button>
                       </div>
                     )}
