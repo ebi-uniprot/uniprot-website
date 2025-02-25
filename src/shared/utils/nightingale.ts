@@ -62,6 +62,7 @@ export async function* linearTimed(
   steps: number
 ): AsyncGenerator<number, void, unknown> {
   const stepSize = (end - start) / steps;
+  // Note that sleep time is inaccurate below 50ms
   const stepTime = time / steps;
   for (let step = 1; step < steps; step++) {
     await sleep(stepTime);
@@ -71,18 +72,13 @@ export async function* linearTimed(
   yield end;
 }
 
-const TIME_PER_AA = 1 / 2;
-const STEPS_PER_AA = 1 / 10;
-
 export async function* rangeTimed(
   start: [number, number],
   end: [number, number]
 ): AsyncGenerator<[number, number], void, unknown> {
   const distance = [end[0] - start[0], end[1] - start[1]];
-  // RMS to get approximation range change magnitude
-  const aaChange = (0.5 * (distance[0] ** 2 + distance[1] ** 2)) ** 0.5;
-  const time = TIME_PER_AA * aaChange;
-  const steps = STEPS_PER_AA * aaChange;
+  const time = 500;
+  const steps = 20;
   for await (const a of linearTimed(0, 1, time, steps)) {
     yield [start[0] + a * distance[0], start[1] + a * distance[1]];
   }
