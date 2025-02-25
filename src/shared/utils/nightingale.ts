@@ -86,21 +86,33 @@ export async function* rangeTimed(
 
 export type NavigationType = 'ZOOM' | 'PAN';
 
-export const computeTargetRange = (
+export const getTargetRange = (
   navigationType: NavigationType,
   navigationRange: [number, number],
-  featureRange: [number, number]
+  featureRange: [number, number],
+  sequenceLength: number
 ): [number, number] => {
   if (navigationType === 'ZOOM') {
-    return [
-      Math.min(navigationRange[0], featureRange[0]),
-      Math.max(navigationRange[1], featureRange[1]),
-    ];
+    const featureLength = featureRange[1] - featureRange[0] + 1;
+    if (featureLength >= sequenceLength) {
+      return [1, sequenceLength];
+    }
+    const padding = Math.max(featureLength, (AA_ZOOMED - featureLength) / 2);
+    const start = featureRange[0] - padding;
+    const end = featureRange[1] + padding;
+    if (start < 1) {
+      return [1, Math.max(Math.min(end, sequenceLength), AA_ZOOMED)];
+    }
+    if (end > sequenceLength) {
+      return [Math.max(1, start - AA_ZOOMED), sequenceLength];
+    }
+    return [Math.round(start), Math.round(end)];
   }
   if (navigationType === 'PAN') {
     const width = navigationRange[1] - navigationRange[0];
     const start = Math.max(1, featureRange[0] - width / 2);
-    return [start, start + width];
+    const end = start + width;
+    return [Math.round(start), Math.round(end)];
   }
   return navigationRange;
 };

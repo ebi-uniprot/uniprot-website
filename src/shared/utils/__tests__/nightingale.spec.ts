@@ -4,6 +4,7 @@ import {
   linearTimed,
   rangeTimed,
   withinRange,
+  getTargetRange,
 } from '../nightingale';
 
 describe('withinRange', () => {
@@ -118,4 +119,52 @@ describe('rangeTimed', () => {
       expect(result[1]).toBeCloseTo(expected[index][1]);
     }
   });
+});
+
+describe('getTargetRange', () => {
+  /*
+  featureProportion = 1/3;
+  const featureLength = featureRange[1] - featureRange[0]
+
+  */
+  const sequenceLength = 1000;
+  const testCases = [
+    [
+      [1, 10], // Feature start/end
+      [1, 29], // Expected nightingale range
+    ],
+    [
+      [1, 1000],
+      [1, 1000],
+    ],
+    [
+      [10, 110],
+      [1, 211],
+    ],
+    [
+      [200, 800],
+      [1, 1000],
+    ],
+    [
+      [500, 550],
+      [449, 601],
+    ],
+    [
+      [999, 999],
+      [956, 1000],
+    ],
+  ];
+  test.each(testCases)(
+    'for feature with start/end: %s compute target range %s',
+    (featureRange, targetRange) => {
+      expect(
+        getTargetRange(
+          'ZOOM',
+          [0, 0],
+          featureRange as [number, number],
+          sequenceLength
+        )
+      ).toEqual(targetRange);
+    }
+  );
 });
