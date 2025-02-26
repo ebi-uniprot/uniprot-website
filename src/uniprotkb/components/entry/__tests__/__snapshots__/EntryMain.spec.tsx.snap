@@ -4577,7 +4577,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           </tbody>
         </table>
         <div
-          class="tabs"
+          class="tabs padding-top-small"
         >
           <div
             class="tabs__header"
@@ -4604,7 +4604,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <span
                 title="GO-CAM models from the Gene Ontology knowledgebase may be available for this entry."
               >
-                GO-CAM Models
+                GO-CAM models
                 <button
                   class="chip chip--compact"
                   type="button"
