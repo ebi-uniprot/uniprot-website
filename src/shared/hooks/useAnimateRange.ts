@@ -5,7 +5,7 @@ type AnimationController = {
   cancelled: boolean;
 };
 
-export function useAnimateRange(setRange: (range: [number, number]) => void) {
+function useAnimateRange(setRange: (range: [number, number]) => void) {
   const animationRef = useRef<AnimationController | null>(null);
 
   const animateRange = useCallback(
@@ -37,3 +37,5 @@ export function useAnimateRange(setRange: (range: [number, number]) => void) {
 
   return animateRange;
 }
+
+export default useAnimateRange;

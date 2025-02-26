@@ -14,7 +14,8 @@ import TableFromData from '../table/TableFromData';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
-import { useAnimateRange } from '../../hooks/useAnimateRange'; // our new custom hook
+import useAnimateRange from '../../hooks/useAnimateRange';
+import useFeatureViewScrollSync from '../../hooks/useFeatureViewScrollSync';
 
 import {
   getTargetRange,
@@ -110,6 +111,7 @@ function FeaturesView<T extends ProcessedFeature>({
   const [range, setRange] = useState<[number, number] | null>(null);
   const tableId = useId();
   const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
+  useFeatureViewScrollSync(tableId);
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
