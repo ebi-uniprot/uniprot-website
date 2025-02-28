@@ -17,7 +17,7 @@ const UniProtKBStatsTabs = ({
 }: Props) => (
   <>
     {title && <h3>{title}</h3>}
-    <Tabs>
+    <Tabs bordered>
       <Tab title="UniProtKB">{uniprotkb}</Tab>
       <Tab title={<ReviewedLabel />}>{reviewed}</Tab>
       <Tab title={<UnreviewedLabel />}>{unreviewed}</Tab>

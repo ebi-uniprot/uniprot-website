@@ -26,3 +26,6 @@ report.*.json
 # Yalc (yarn link alternative)
 .yalc/
 yalc.lock
+
+# Local Netlify folder
+.netlify

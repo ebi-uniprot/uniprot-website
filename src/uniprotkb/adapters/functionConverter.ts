@@ -1,4 +1,11 @@
 import { groupBy } from 'lodash-es';
+
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../shared/config/entryTypeIcon';
+import { convertSection, UIModel } from './sectionConverter';
+
 import {
   CommentType,
   AbsorptionComment,
@@ -11,14 +18,12 @@ import {
 import KeywordCategory from '../types/keywordCategory';
 import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
-import { convertSection, UIModel } from './sectionConverter';
 import {
   UniProtkbAPIModel,
   UniProtKBSimplifiedTaxonomy,
 } from './uniProtkbConverter';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
-
 import { UniProtKBColumn } from '../types/columnTypes';
 import { GeneNamesData } from './namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -92,6 +97,7 @@ export type FunctionUIModel = {
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
   organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
+  entryType?: EntryType;
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
@@ -237,6 +243,7 @@ const convertFunction = (
 
   convertedSection.geneNamesData = data?.genes;
   convertedSection.organismData = data?.organism;
+  convertedSection.entryType = getEntryTypeFromString(data?.entryType);
 
   const aspectGroupedGoTerms = getAspectGroupedGoTerms(
     uniProtKBCrossReferences

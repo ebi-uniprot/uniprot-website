@@ -168,7 +168,7 @@ const SubcellularLocationWithVizView: FC<
   }
 
   const fallback = (
-    <Tabs>
+    <Tabs bordered>
       <Tab cache title="UniProt Annotation">
         {uniprotTextContent}
       </Tab>
@@ -184,7 +184,7 @@ const SubcellularLocationWithVizView: FC<
 
   return (
     <LazyComponent fallback={fallback}>
-      <Tabs>
+      <Tabs bordered>
         <Tab cache title="UniProt Annotation">
           {uniprotTabContent}
         </Tab>
