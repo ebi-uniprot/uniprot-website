@@ -135,11 +135,21 @@ const GoCam = ({ primaryAccession }: Props) => {
       abortController.abort();
     };
   }, [goCamIdToItem, primaryAccession, setGoCamIdToNode]);
+
   useEffect(() => {
     if (uniprotGoCamIds?.[0]) {
       setSelectedId(uniprotGoCamIds[0]);
     }
   }, [uniprotGoCamIds]);
+
+  const showGoCamViz =
+    !isSmallScreen && selectedId && !!uniprotGoCamIds?.length;
+
+  useEffect(() => {
+    if (showGoCamViz && window && typeof window.hj === 'function') {
+      window.hj('event', 'gocam_viz_shown');
+    }
+  }, [showGoCamViz]);
 
   const selectedIdNode = selectedId && goCamIdToNode?.get(selectedId);
 
@@ -177,7 +187,7 @@ const GoCam = ({ primaryAccession }: Props) => {
         noReload
       />
     );
-  } else if (!isSmallScreen && selectedId && !!uniprotGoCamIds?.length) {
+  } else if (showGoCamViz) {
     content = (
       <>
         <div className={styles.preamble} data-article-id="gene-ontology">
