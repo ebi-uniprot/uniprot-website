@@ -210,7 +210,9 @@ const GoCam = ({ primaryAccession }: Props) => {
         )}
         <GoCamViz id={selectedId} />
         <ExternalLink
-          url={externalUrls.NoctuaAlliancePathwayPreview(selectedId)}
+          url={externalUrls.NoctuaAlliancePathwayPreview(
+            `gomodel:${selectedId}`
+          )}
         >
           View in Noctua Alliance Pathway Preview
         </ExternalLink>
