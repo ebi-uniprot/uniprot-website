@@ -146,6 +146,12 @@ const GoCam = ({ primaryAccession }: Props) => {
     !isSmallScreen && selectedId && !!uniprotGoCamIds?.length;
 
   useEffect(() => {
+    if (window && typeof window.hj === 'function') {
+      window.hj('event', 'gocam_viz_tab_opened');
+    }
+  }, []);
+
+  useEffect(() => {
     if (showGoCamViz && window && typeof window.hj === 'function') {
       window.hj('event', 'gocam_viz_shown');
     }
