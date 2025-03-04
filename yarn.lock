@@ -1373,10 +1373,10 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@geneontology/wc-gocam-viz@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-gocam-viz/-/wc-gocam-viz-1.1.1.tgz#97970b36dc22a04b8743c96b65d5bc451858e901"
-  integrity sha512-aY4IHoz/JW0odU+s0U/zR5TiQbOT8urZuN3624vCGarbUhDHOCOaCAQkX2CgufqUaf6Hm6+4fRFOPDTzpIX8Dg==
+"@geneontology/wc-gocam-viz@1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@geneontology/wc-gocam-viz/-/wc-gocam-viz-1.1.2.tgz#65ebdccae828a468536cf6f41035af1ce0feddf2"
+  integrity sha512-2Hw7jH9K8DBfNhu8iyfBvXwCYbEUjkGIg1psMnQerSuSjFDg/9PTIouFUWrOaVRE8csfkwpS6UATscpcoJjb/Q==
   dependencies:
     "@stencil/core" "^4.1.0"
     bbop-graph-noctua "0.0.35"
@@ -1387,7 +1387,6 @@
     graphlib "^2.1.8"
     js-yaml "^4.1.0"
     lodash "^4.17.21"
-    moment "^2.30.1"
     uuid "^8.3.2"
 
 "@humanfs/core@^0.19.1":
@@ -10310,11 +10309,6 @@ molstar@3.44.0:
     gl "^6.0.2"
     jpeg-js "^0.4.4"
     pngjs "^6.0.0"
-
-moment@^2.30.1:
-  version "2.30.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
-  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
 
 mrmime@^2.0.0:
   version "2.0.0"
