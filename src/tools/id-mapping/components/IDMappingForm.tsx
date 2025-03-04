@@ -433,12 +433,12 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
           {geneWithoutTaxonWarning && (
             <Message level="warning">
               <small>
-                You are about to submit a list of gene names without taxonomy
-                restriction. Are you sure you do not want to specify a taxon or
+                You are about to submit a list of gene names without organism
+                restriction. Are you sure you do not want to specify an
                 organism?
                 <br />
                 Gene name mappings against all organisms can produce extremely
-                long lists of UniProtKB IDs and may even cause the mapping
+                long lists of UniProtKB entries and may even cause the mapping
                 service to fail.
               </small>
             </Message>
