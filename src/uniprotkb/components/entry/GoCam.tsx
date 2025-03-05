@@ -107,16 +107,18 @@ const GoCam = ({ primaryAccession }: Props) => {
             concurrency: heuristic.concurrency,
             signal,
           });
+          const filteredResults = results.filter(({ data }) =>
+            isUniprotCurated(data)
+          );
           setGoCamIdToNode(
             new Map(
-              results
-                .filter(({ data }) => isUniprotCurated(data))
-                .map(({ id, data }) => [
-                  id,
-                  getUniprotNode(primaryAccession, data),
-                ])
+              filteredResults.map(({ id, data }) => [
+                id,
+                getUniprotNode(primaryAccession, data),
+              ])
             )
           );
+          setSelectedId(filteredResults[0]?.id || null);
         } catch (error) {
           if (error instanceof Error) {
             if (error.name === 'AbortError') {
@@ -133,12 +135,6 @@ const GoCam = ({ primaryAccession }: Props) => {
       abortController.abort();
     };
   }, [goCamIdToItem, primaryAccession, setGoCamIdToNode]);
-
-  useEffect(() => {
-    if (uniprotGoCamIds?.[0]) {
-      setSelectedId(uniprotGoCamIds[0]);
-    }
-  }, [uniprotGoCamIds]);
 
   const showGoCamViz = selectedId && !!uniprotGoCamIds?.length;
 
