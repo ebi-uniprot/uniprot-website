@@ -7,7 +7,13 @@ import {
   useEffect,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Chip, ExternalLink, PageIntro, SpinnerIcon } from 'franklin-sites';
+import {
+  Chip,
+  ExternalLink,
+  PageIntro,
+  SpinnerIcon,
+  Message,
+} from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
@@ -160,6 +166,15 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       )
     );
   };
+
+  const peptideWithoutTaxonWarning = Boolean(
+    formValues[PeptideSearchFields.peps].selected &&
+      !(
+        formValues[PeptideSearchFields.taxIds].selected as
+          | undefined
+          | SelectedTaxon[]
+      )?.length
+  );
 
   // form event handlers
   const handleReset = (event: FormEvent) => {
@@ -362,8 +377,25 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               )}
             </section>
           </details>
+          {peptideWithoutTaxonWarning && (
+            <Message level="warning">
+              <small>
+                You are about to submit a peptide search without organism
+                restriction. Are you sure you do not want to specify an
+                organism?
+                <br />
+                Peptide searches against all organisms can produce extremely
+                long lists of UniProtKB entries and may even cause the search to
+                fail.
+              </small>
+            </Message>
+          )}
           <section
-            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+            className={cn(
+              'tools-form-section',
+              peptideWithoutTaxonWarning && 'tools-form-warning-submit',
+              !peptideWithoutTaxonWarning && sticky['sticky-bottom-right']
+            )}
           >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (

@@ -24,7 +24,6 @@ import SequenceSearchLoader, {
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import ChecksumSuggester from '../../components/ChecksumSuggester';
-import DowntimeWarning from '../../components/DowntimeWarning';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
@@ -320,7 +319,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
         translate="no"
         heading={<span data-article-id="blast-submission">{title}</span>}
       />
-      <DowntimeWarning>BLAST</DowntimeWarning>
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}

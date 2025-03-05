@@ -2251,6 +2251,7 @@ exports[`Entry view should render 1`] = `
                 >
                   9606 
                 </a>
+                (
                 <a
                   class="external-link"
                   href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
@@ -2263,6 +2264,7 @@ exports[`Entry view should render 1`] = `
                     width="12.5"
                   />
                 </a>
+                )
               </div>
             </div>
           </li>
@@ -4993,6 +4995,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 >
                   292800 
                 </a>
+                (
                 <a
                   class="external-link"
                   href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=292800"
@@ -5005,6 +5008,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     width="12.5"
                   />
                 </a>
+                )
               </div>
             </div>
           </li>

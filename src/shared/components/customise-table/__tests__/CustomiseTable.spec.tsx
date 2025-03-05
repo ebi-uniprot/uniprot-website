@@ -38,6 +38,8 @@ describe('CustomiseTable component', () => {
       />
     );
     await waitFor(() => screen.getAllByRole('button'));
+    // wait for the drag and drop library to have instantiated itself
+    await waitFor(() => screen.getByRole('status'));
   });
 
   afterEach(() => {

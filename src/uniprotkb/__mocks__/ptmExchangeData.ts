@@ -1,6 +1,6 @@
 import { ProteomicsPtm } from '../types/proteomicsPtm';
 
-// Source: https://www.ebi.ac.uk/proteins/api/proteomics-ptm/Q653S1
+// Source: https://www.ebi.ac.uk/proteins/api/proteomics/ptm/Q653S1
 // Retrieved: 2025-02-04
 // TODO: replace this with a human entry when it is released
 const data: ProteomicsPtm = {

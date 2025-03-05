@@ -74,6 +74,7 @@ export type StatisticsItem = {
   entryCount: number;
   label?: string;
   description?: string;
+  query?: string;
 };
 
 export type StatisticsCategory = {
