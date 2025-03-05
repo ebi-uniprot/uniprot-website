@@ -1,4 +1,4 @@
-import { lazy, Suspense, Fragment, memo } from 'react';
+import { lazy, Suspense, Fragment, memo, useState, useEffect } from 'react';
 import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -256,6 +256,17 @@ const FunctionSection = ({
     (reference) => reference.communityAnnotation?.function
   );
 
+  // This state and the following useEffect are used to determine
+  // if the GO-CAM tab should be displayed. This is to handle the
+  // following situations:
+  // 1. User always has small screen: never show GO-CAM tab
+  // 2. User had small screen but increased size: show GO-CAM tab
+  // 3. User had big screen but reduced it: continue to show GO-CAM tab
+  const [showGoCamTab, setShowGoCamTab] = useState(!isSmallScreen);
+  useEffect(() => {
+    setShowGoCamTab((v) => v || !isSmallScreen);
+  }, [isSmallScreen]);
+
   if (!hasContent(data) && !functionRelatedReferences.length) {
     return null;
   }
@@ -391,20 +402,24 @@ const FunctionSection = ({
               <Tab
                 disabled={!reviewed}
                 title={
-                  <span
-                    title={
-                      reviewed
-                        ? 'GO-CAM models from the Gene Ontology knowledgebase may be available for this entry.'
-                        : 'GO-CAM models are only available for reviewed entries.'
-                    }
-                  >
-                    GO-CAM models<Chip compact>New</Chip>
-                  </span>
+                  showGoCamTab ? (
+                    <span
+                      title={
+                        reviewed
+                          ? 'GO-CAM models from the Gene Ontology knowledgebase may be available for this entry.'
+                          : 'GO-CAM models are only available for reviewed entries.'
+                      }
+                    >
+                      GO-CAM models<Chip compact>New</Chip>
+                    </span>
+                  ) : null
                 }
               >
-                <Suspense fallback={<Loader />}>
-                  <GoCam primaryAccession={primaryAccession} />
-                </Suspense>
+                {showGoCamTab ? (
+                  <Suspense fallback={<Loader />}>
+                    <GoCam primaryAccession={primaryAccession} />
+                  </Suspense>
+                ) : null}
               </Tab>
             </Tabs>
           </ErrorBoundary>

@@ -7,7 +7,6 @@ import cn from 'classnames';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import GoCamViz from '../protein-data-views/GoCamViz';
 
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useSafeState from '../../../shared/hooks/useSafeState';
 
@@ -68,10 +67,9 @@ type Props = {
 };
 
 const GoCam = ({ primaryAccession }: Props) => {
-  const isSmallScreen = useSmallScreen();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
-    isSmallScreen ? null : externalUrls.GeneOntologyModels(primaryAccession)
+    externalUrls.GeneOntologyModels(primaryAccession)
   );
   const [goCamIdToNode, setGoCamIdToNode] = useSafeState<Map<
     string,
@@ -142,8 +140,7 @@ const GoCam = ({ primaryAccession }: Props) => {
     }
   }, [uniprotGoCamIds]);
 
-  const showGoCamViz =
-    !isSmallScreen && selectedId && !!uniprotGoCamIds?.length;
+  const showGoCamViz = selectedId && !!uniprotGoCamIds?.length;
 
   useEffect(() => {
     if (window && typeof window.hj === 'function') {
