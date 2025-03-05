@@ -5,7 +5,6 @@ import {
   useRef,
   useReducer,
   useEffect,
-  CSSProperties,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
@@ -71,9 +70,6 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
-interface Style extends CSSProperties {
-  '--main-color': string;
-}
 
 const FormSelect: FC<
   React.PropsWithChildren<{
@@ -179,9 +175,6 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
           | SelectedTaxon[]
       )?.length
   );
-  const submitStyle: Style | undefined = peptideWithoutTaxonWarning
-    ? { '--main-color': 'var(--fr--color-warning)' }
-    : undefined;
 
   // form event handlers
   const handleReset = (event: FormEvent) => {
@@ -398,7 +391,11 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
             </Message>
           )}
           <section
-            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+            className={cn(
+              'tools-form-section',
+              peptideWithoutTaxonWarning && 'tools-form-warning-submit',
+              !peptideWithoutTaxonWarning && sticky['sticky-bottom-right']
+            )}
           >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
@@ -413,7 +410,6 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
                 type="submit"
                 disabled={submitDisabled}
                 onClick={submitPeptideSearchJob}
-                style={submitStyle}
               >
                 {parsedSequences.length <= 1
                   ? 'Run Peptide Search'

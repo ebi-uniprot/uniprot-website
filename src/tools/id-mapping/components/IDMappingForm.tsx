@@ -1,11 +1,4 @@
-import {
-  useRef,
-  FormEvent,
-  useMemo,
-  useReducer,
-  useEffect,
-  CSSProperties,
-} from 'react';
+import { useRef, FormEvent, useMemo, useReducer, useEffect } from 'react';
 import { Link, generatePath, useHistory } from 'react-router-dom';
 import {
   PageIntro,
@@ -78,10 +71,6 @@ import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 
-interface Style extends CSSProperties {
-  '--main-color': string;
-}
-
 export type TreeDataNode = {
   label: string;
   id: string;
@@ -148,9 +137,6 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
       formValues['From Database'].selected === 'Gene_Name' &&
       !formValues.Taxons.selected
   );
-  const submitStyle: Style | undefined = geneWithoutTaxonWarning
-    ? { '--main-color': 'var(--fr--color-warning)' }
-    : undefined;
 
   const submitIDMappingJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
@@ -444,7 +430,11 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
             </Message>
           )}
           <section
-            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+            className={cn(
+              'tools-form-section',
+              geneWithoutTaxonWarning && 'tools-form-warning-submit',
+              !geneWithoutTaxonWarning && sticky['sticky-bottom-right']
+            )}
           >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
@@ -459,7 +449,6 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 type="submit"
                 disabled={submitDisabled}
                 onClick={submitIDMappingJob}
-                style={submitStyle}
               >
                 Map{' '}
                 {parsedIDs.length ? (
