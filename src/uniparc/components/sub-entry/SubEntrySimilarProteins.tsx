@@ -36,7 +36,7 @@ const SimilarProteins = ({ uniparcId }: Props) => {
     unirefData.data.results.length &&
     groupBy(unirefData.data.results, 'entryType');
   return mappingData ? (
-    <Tabs>
+    <Tabs bordered>
       {Object.entries(uniRefEntryTypeToPercent).map(
         ([clusterType, percentValue]) => (
           <Tab

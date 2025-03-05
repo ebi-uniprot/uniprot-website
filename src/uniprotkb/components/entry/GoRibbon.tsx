@@ -258,7 +258,9 @@ const GoRibbon = ({
 
   return (
     <div className="GoRibbon">
-      <h3 data-article-id="gene_ontology">GO annotations</h3>
+      <div className={styles.preamble} data-article-id="gene-ontology">
+        Gene Ontology (GO) annotations organized by slimming set.
+      </div>
       <div className={styles['quickgo-link']}>
         <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
           Access the complete set of GO annotations on QuickGO{' '}
