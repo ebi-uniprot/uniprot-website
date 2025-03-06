@@ -103,7 +103,7 @@ const SimilarProteins = ({
   }
 
   return mappingData ? (
-    <Tabs>
+    <Tabs bordered>
       {Object.entries(uniRefEntryTypeToPercent).map(
         ([clusterType, percentValue]) => (
           <Tab

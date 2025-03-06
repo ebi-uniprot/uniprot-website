@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Chimpanzees use twigs to catch ants. Crows use roads to crack nuts. Humans too have always been good at diverting things for their own benefit - far more than any other species for that matter. We use water to make electricity...';
+  'Snowdrops are here. The tips of daffodil shoots are pushing through the soil, and soft grey buds are preparing to burst on the magnolias. These are reminders that winter marks the end of one life cycle while spring marks the one about to begin...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -355,21 +355,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/276/"
+            url="https://www.proteinspotlight.org/back_issues/277/"
             noIcon
           >
-            Yellow
+            The dormant ribosome
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/276/"
+          url="https://www.proteinspotlight.org/back_issues/277/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt276.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt277.jpg"
             alt=""
             width="123"
             height="129"
