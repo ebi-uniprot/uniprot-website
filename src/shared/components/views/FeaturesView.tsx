@@ -7,6 +7,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { frame } from 'timing-functions';
 import { Feature } from '@nightingale-elements/nightingale-track';
 
 import LazyComponent from '../LazyComponent';
@@ -111,7 +112,8 @@ function FeaturesView<T extends ProcessedFeature>({
   const [range, setRange] = useState<[number, number] | null>(null);
   const tableId = useId();
   const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
-  useFeatureViewScrollSync(tableId);
+  const [disableFeatureViewScrollSync, enableFeatureViewScrollSync] =
+    useFeatureViewScrollSync(tableId);
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
@@ -148,10 +150,19 @@ function FeaturesView<T extends ProcessedFeature>({
           [+feature.start, +feature.end],
           sequence.length
         );
-        animateRange(currentRange, targetRange);
+        disableFeatureViewScrollSync(); // Don't scroll table
+        animateRange(currentRange, targetRange)
+          .then(frame)
+          .then(enableFeatureViewScrollSync);
       }
     },
-    [nightingaleViewRange, animateRange, sequence]
+    [
+      nightingaleViewRange,
+      sequence,
+      disableFeatureViewScrollSync,
+      animateRange,
+      enableFeatureViewScrollSync,
+    ]
   );
 
   return !features.length ? null : (
