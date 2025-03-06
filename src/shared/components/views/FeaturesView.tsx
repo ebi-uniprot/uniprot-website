@@ -144,6 +144,7 @@ function FeaturesView<T extends ProcessedFeature>({
           [+feature.start, +feature.end],
           sequence.length
         );
+        setHighlightedFeature(feature);
         disableFeatureViewScrollSync(); // Don't scroll table
         animateRange(currentRange, targetRange)
           .then(frame)
