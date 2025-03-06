@@ -133,7 +133,7 @@ function FeaturesView<T extends ProcessedFeature>({
 
   const animateRange = useAnimateRange(setRange);
 
-  const handleNavigationClick = useCallback(
+  const navigate = useCallback(
     (feature: T) => {
       if (nightingaleViewRange && sequence) {
         const currentRange: [number, number] = [
@@ -216,9 +216,13 @@ function FeaturesView<T extends ProcessedFeature>({
         markBorder={
           markBorder && nightingaleViewRange && markBorder(nightingaleViewRange)
         }
-        onRowClick={setHighlightedFeature}
+        onRowClick={(f) => {
+          setHighlightedFeature(f);
+          if (!isSmallScreen) {
+            navigate(f);
+          }
+        }}
         expandable={!inResultsTable && features.length > MIN_ROWS_TO_EXPAND}
-        onNavigationClick={!isSmallScreen && handleNavigationClick}
       />
     </>
   );
