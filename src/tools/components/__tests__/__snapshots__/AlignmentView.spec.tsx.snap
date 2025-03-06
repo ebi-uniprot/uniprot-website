@@ -100,17 +100,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -128,17 +128,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -156,17 +156,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -184,17 +184,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -212,17 +212,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -240,17 +240,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -268,17 +268,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -296,17 +296,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -324,17 +324,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -352,17 +352,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -380,17 +380,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -408,17 +408,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -436,17 +436,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -464,17 +464,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -492,17 +492,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -548,17 +548,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -576,17 +576,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -604,17 +604,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -632,17 +632,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -660,17 +660,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -688,17 +688,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -716,17 +716,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -744,17 +744,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -772,17 +772,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -800,17 +800,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -828,17 +828,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -856,17 +856,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -884,17 +884,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -912,17 +912,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -940,17 +940,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -968,17 +968,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -996,17 +996,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1024,17 +1024,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1052,17 +1052,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1080,17 +1080,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1108,17 +1108,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1136,17 +1136,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1164,17 +1164,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1220,17 +1220,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1248,17 +1248,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1276,17 +1276,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1304,17 +1304,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1332,17 +1332,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1360,17 +1360,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1388,17 +1388,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1416,17 +1416,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1444,17 +1444,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1472,17 +1472,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1500,17 +1500,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1528,17 +1528,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1556,17 +1556,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1584,17 +1584,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1612,17 +1612,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1640,17 +1640,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1668,17 +1668,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1696,17 +1696,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1724,17 +1724,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1752,17 +1752,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1780,17 +1780,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1808,17 +1808,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1836,17 +1836,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1864,17 +1864,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1892,17 +1892,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1920,17 +1920,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -1948,17 +1948,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2004,17 +2004,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2032,17 +2032,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2060,17 +2060,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2088,17 +2088,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2116,17 +2116,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2144,17 +2144,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2172,17 +2172,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2200,17 +2200,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2228,17 +2228,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2256,17 +2256,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2284,17 +2284,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2312,17 +2312,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2340,17 +2340,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2368,17 +2368,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2396,17 +2396,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2424,17 +2424,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2452,17 +2452,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2480,17 +2480,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2508,17 +2508,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2536,17 +2536,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2564,17 +2564,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2592,17 +2592,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2620,17 +2620,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2648,17 +2648,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2676,17 +2676,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2704,17 +2704,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,5L0,5Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2732,17 +2732,17 @@ exports[`AlignmentView Align should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,2.5 L0,2.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="5"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-5)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -2799,17 +2799,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,5L0,5Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2818,17 +2818,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="line feature"
-                        d="M0,8.5 L0,8.5"
+                        d="M0,2.5 L0,2.5"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2837,17 +2837,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,5L0,5Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2856,17 +2856,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="line feature"
-                        d="M0,8.5 L0,8.5"
+                        d="M0,2.5 L0,2.5"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2875,17 +2875,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,5L0,5Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2894,17 +2894,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="line feature"
-                        d="M0,8.5 L0,8.5"
+                        d="M0,2.5 L0,2.5"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2913,17 +2913,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,5L0,5Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2932,17 +2932,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="line feature"
-                        d="M0,8.5 L0,8.5"
+                        d="M0,2.5 L0,2.5"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2951,17 +2951,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,5L0,5Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2970,17 +2970,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="line feature"
-                        d="M0,8.5 L0,8.5"
+                        d="M0,2.5 L0,2.5"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -2989,17 +2989,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,5L0,5Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -3008,17 +3008,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="line feature"
-                        d="M0,8.5 L0,8.5"
+                        d="M0,2.5 L0,2.5"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -3027,17 +3027,17 @@ exports[`AlignmentView Align should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,5L0,5Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="5"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-5)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
@@ -3293,17 +3293,17 @@ exports[`AlignmentView BLAST should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,6.5 L0,6.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="13"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -3321,17 +3321,17 @@ exports[`AlignmentView BLAST should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,13L0,13Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="13"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -3349,17 +3349,17 @@ exports[`AlignmentView BLAST should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,6.5 L0,6.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="13"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -3405,17 +3405,17 @@ exports[`AlignmentView BLAST should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,6.5 L0,6.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="13"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -3433,17 +3433,17 @@ exports[`AlignmentView BLAST should render 1`] = `
                       >
                         <path
                           class="rectangle feature"
-                          d="M0,0L0,0L0,17L0,17Z"
+                          d="M0,0L0,0L0,13L0,13Z"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="13"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -3461,17 +3461,17 @@ exports[`AlignmentView BLAST should render 1`] = `
                       >
                         <path
                           class="line feature"
-                          d="M0,8.5 L0,8.5"
+                          d="M0,6.5 L0,6.5"
                           stroke="#014371"
                           style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                         />
                         <rect
                           class="outer-rectangle feature"
-                          height="17"
+                          height="13"
                           stroke="transparent"
                           style="fill: transparent;"
-                          transform="translate(10,-1)"
+                          transform="translate(10,1)"
                           width="0"
                         />
                       </g>
@@ -3528,17 +3528,17 @@ exports[`AlignmentView BLAST should render 1`] = `
                     >
                       <path
                         class="rectangle feature"
-                        d="M0,0L0,0L0,17L0,17Z"
+                        d="M0,0L0,0L0,13L0,13Z"
                         stroke="#9999FF"
                         style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,-1)"
+                        transform="translate(10,1)"
                       />
                       <rect
                         class="outer-rectangle feature"
-                        height="17"
+                        height="13"
                         stroke="transparent"
                         style="fill: transparent;"
-                        transform="translate(10,-1)"
+                        transform="translate(10,1)"
                         width="0"
                       />
                     </g>
