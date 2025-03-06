@@ -6,8 +6,6 @@ import Table from './Table';
 
 import { MIN_ROWS_TO_EXPAND } from './constants';
 
-import { NavigationType } from '../../utils/nightingale';
-
 import styles from './styles/table.module.scss';
 
 const UNFILTERED_OPTION = 'All' as const;
@@ -78,9 +76,7 @@ type Props<T> = {
   noTranslateBody?: boolean;
   expandable?: boolean;
   id?: string;
-  onNavigationClick?:
-    | false
-    | ((navigationType: NavigationType, feature: T) => void);
+  onNavigationClick?: false | ((feature: T) => void);
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -159,25 +155,16 @@ function TableFromData<T>({
                 rowExtraContent && (
                   <td colSpan={columns.length}>
                     {onNavigationClick && (
-                      <div
+                      <Button
+                        variant="secondary"
+                        onClick={() => onNavigationClick?.(datum)}
                         className={cn(
                           'button-group',
-                          styles['feature-navigation-buttons']
+                          styles['feature-navigation-button']
                         )}
                       >
-                        <Button
-                          variant="secondary"
-                          onClick={() => onNavigationClick?.('PAN', datum)}
-                        >
-                          Navigate to feature (PAN)
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          onClick={() => onNavigationClick?.('ZOOM', datum)}
-                        >
-                          Navigate to feature (ZOOM)
-                        </Button>
-                      </div>
+                        Navigate to feature
+                      </Button>
                     )}
                     {rowExtraContent(datum)}
                   </td>

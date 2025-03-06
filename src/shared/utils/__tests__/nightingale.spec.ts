@@ -162,12 +162,7 @@ describe('getTargetRange', () => {
     'for feature with start/end: %s compute target range %s',
     (featureRange, targetRange) => {
       expect(
-        getTargetRange(
-          'ZOOM',
-          [0, 0],
-          featureRange as [number, number],
-          sequenceLength
-        )
+        getTargetRange(featureRange as [number, number], sequenceLength)
       ).toEqual(targetRange);
     }
   );

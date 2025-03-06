@@ -18,11 +18,7 @@ import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureT
 import useAnimateRange from '../../hooks/useAnimateRange';
 import useFeatureViewScrollSync from '../../hooks/useFeatureViewScrollSync';
 
-import {
-  getTargetRange,
-  NavigationType,
-  NightingaleViewRange,
-} from '../../utils/nightingale';
+import { getTargetRange, NightingaleViewRange } from '../../utils/nightingale';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 import { MIN_ROWS_TO_EXPAND } from '../table/constants';
@@ -138,15 +134,13 @@ function FeaturesView<T extends ProcessedFeature>({
   const animateRange = useAnimateRange(setRange);
 
   const handleNavigationClick = useCallback(
-    (navigationType: NavigationType, feature: T) => {
+    (feature: T) => {
       if (nightingaleViewRange && sequence) {
         const currentRange: [number, number] = [
           nightingaleViewRange['display-start'],
           nightingaleViewRange['display-end'],
         ];
         const targetRange = getTargetRange(
-          navigationType,
-          currentRange,
           [+feature.start, +feature.end],
           sequence.length
         );

@@ -53,7 +53,7 @@
     padding: 0.2rem 1ch;
     border-block-start: 1px solid var(--table_border);
 
-    & .feature-navigation-buttons {
+    & .feature-navigation-button {
       margin-top: 0.5rem;
       margin-bottom: -0.5rem;
 
@@ -90,8 +90,8 @@
     & + .extra-content {
       border-color: rgb(214, 214, 214);
 
-      &:has(td):has(.feature-navigation-buttons) {
-        td .feature-navigation-buttons {
+      &:has(td):has(.feature-navigation-button) {
+        td .feature-navigation-button {
           display: none;
         }
       }
