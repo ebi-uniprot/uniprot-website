@@ -64,7 +64,8 @@ export async function* linearTimed(
   const stepSize = (end - start) / steps;
   // Note that sleep time is inaccurate below 50ms
   const stepTime = time / steps;
-  for (let step = 1; step < steps; step++) {
+  for (let step = 1; step < steps; step += 1) {
+    // eslint-disable-next-line no-await-in-loop
     await sleep(stepTime);
     yield start + step * stepSize;
   }

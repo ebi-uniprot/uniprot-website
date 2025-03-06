@@ -95,15 +95,25 @@ describe('rangeTimed', () => {
     const end: [number, number] = [10, 20];
 
     const expected: [number, number][] = [
+      [0.5, 1],
       [1, 2],
+      [1.5, 3],
       [2, 4],
+      [2.5, 5],
       [3, 6],
+      [3.5, 7],
       [4, 8],
+      [4.5, 9],
       [5, 10],
+      [5.5, 11],
       [6, 12],
+      [6.5, 13],
       [7, 14],
+      [7.5, 15],
       [8, 16],
+      [8.5, 17],
       [9, 18],
+      [9.5, 19],
       [10, 20],
     ];
 
@@ -111,7 +121,6 @@ describe('rangeTimed', () => {
     for await (const result of rangeTimed(start, end)) {
       results.push(result);
     }
-
     expect(results.length).toBe(expected.length);
 
     for (const [index, result] of results.entries()) {
@@ -122,11 +131,6 @@ describe('rangeTimed', () => {
 });
 
 describe('getTargetRange', () => {
-  /*
-  featureProportion = 1/3;
-  const featureLength = featureRange[1] - featureRange[0]
-
-  */
   const sequenceLength = 1000;
   const testCases = [
     [
