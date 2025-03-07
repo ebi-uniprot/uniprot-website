@@ -38,6 +38,12 @@ export const getZoomedInRange = (
   features: ProcessedFeature[],
   sequenceLength: number
 ): NightingaleViewRange => {
+  if (sequenceLength <= AA_ZOOMED) {
+    return {
+      'display-start': 1,
+      'display-end': sequenceLength,
+    };
+  }
   const OFFSET = 5;
   const minStart = Math.min(...features.map((feature) => feature.start));
   const displayStart =
