@@ -13,6 +13,10 @@ import useSafeState from '../../../shared/hooks/useSafeState';
 import fetchData from '../../../shared/utils/fetchData';
 import { heuristic } from '../../../tools/state/utils/heuristic';
 import * as logging from '../../../shared/utils/logging';
+import {
+  sendGtagEventGoCamVizTabOpened,
+  sendGtagEventGoCamVizShown,
+} from '../../../shared/utils/gtagEvents';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -139,16 +143,14 @@ const GoCam = ({ primaryAccession }: Props) => {
   const showGoCamViz = selectedId && !!uniprotGoCamIds?.length;
 
   useEffect(() => {
-    if (window && typeof window.hj === 'function') {
-      window.hj('event', 'gocam_viz_tab_opened');
-    }
-  }, []);
+    sendGtagEventGoCamVizTabOpened(primaryAccession);
+  }, [primaryAccession]);
 
   useEffect(() => {
-    if (showGoCamViz && window && typeof window.hj === 'function') {
-      window.hj('event', 'gocam_viz_shown');
+    if (showGoCamViz) {
+      sendGtagEventGoCamVizShown(primaryAccession);
     }
-  }, [showGoCamViz]);
+  }, [primaryAccession, showGoCamViz]);
 
   const selectedIdNode = selectedId && goCamIdToNode?.get(selectedId);
 
