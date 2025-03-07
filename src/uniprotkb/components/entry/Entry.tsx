@@ -450,7 +450,23 @@ const Entry = () => {
         <ErrorBoundary>
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
-          />
+          >
+            {/** Below: experiment with OpenGraph and related */}
+            {/* @ts-expect-error og tags */}
+            <meta name="twitter:label1" value="Protein Name" />
+            <meta
+              name="twitter:data1"
+              // @ts-expect-error og tags
+              value={data.proteinDescription?.recommendedName?.fullName.value}
+            />
+            {/* @ts-expect-error og tags */}
+            <meta name="twitter:label2" value="Gene Name" />
+            <meta
+              name="twitter:data1"
+              // @ts-expect-error og tags
+              value={data.genes?.[0]?.geneName?.value}
+            />
+          </HTMLHead>
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
