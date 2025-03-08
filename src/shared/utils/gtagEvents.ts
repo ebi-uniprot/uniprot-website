@@ -15,6 +15,9 @@ type GtagEventName =
   | 'copy_share_results_url_click'
   | 'feature_data_table_view_click'
   | 'feature_viewer_full_view_click'
+  | 'job_submit'
+  | 'gocam_viz_shown'
+  | 'gocam_viz_tab_opened'
   | 'outbound_link_click'
   | 'panel_advanced_search_close'
   | 'panel_advanced_search_open'
@@ -30,8 +33,7 @@ type GtagEventName =
   | 'panel_results_download_open'
   | 'results_view_mode_click'
   | 'results_view_mode_popup_click'
-  | 'results_view_render'
-  | 'job_submit';
+  | 'results_view_render';
 
 /*
 | Reason     | User action                |
@@ -203,4 +205,11 @@ export const sendGtagEventJobSubmit = (
   parameters?: Record<string, string>
 ) => {
   sendGtagEvent('job_submit', { job_type: job, ...parameters });
+};
+
+export const sendGtagEventGoCamVizTabOpened = (accession: string) => {
+  sendGtagEvent('gocam_viz_tab_opened', { accession });
+};
+export const sendGtagEventGoCamVizShown = (accession: string) => {
+  sendGtagEvent('gocam_viz_shown', { accession });
 };

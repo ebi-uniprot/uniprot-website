@@ -1,4 +1,3 @@
-import { ProcessedFeature } from '../../components/views/FeaturesView';
 import {
   getZoomedInRange,
   linearTimed,
@@ -33,21 +32,48 @@ describe('withinRange', () => {
   );
 });
 
+// Define the feature type expected by getZoomedInRange
+type ProcessedFeature = {
+  start: number;
+  end?: number;
+};
+
+// Define a tuple type for each test case
+type TestCase = [
+  description: string,
+  sequenceLength: number,
+  features: ProcessedFeature[],
+  range: [number, number],
+];
+
 describe('getZoomedInRange', () => {
-  const sequenceLength = 100;
-  const testCases = [
-    // description, features, range
-    ['start', [{ start: 1 }, { start: 25 }], [1, 30]],
-    ['end', [{ start: 100 }], [71, 100]],
-    ['near start', [{ start: 7 }, { start: 25 }], [2, 31]],
-    ['near end', [{ start: 90 }], [71, 100]],
-    ['middle', [{ start: 50 }, { start: 90 }], [45, 74]],
+  const testCases: TestCase[] = [
+    // description, sequenceLength, features, range
+    ['start', 100, [{ start: 1 }, { start: 25 }], [1, 30]],
+    ['end', 100, [{ start: 100 }], [71, 100]],
+    ['near start', 100, [{ start: 7 }, { start: 25 }], [2, 31]],
+    ['near end', 100, [{ start: 90 }], [71, 100]],
+    ['middle', 100, [{ start: 50 }, { start: 90 }], [45, 74]],
+    [
+      'within AA zoomed level',
+      16,
+      [
+        { start: 5, end: 5 },
+        { start: 7, end: 7 },
+        { start: 11, end: 14 },
+        { start: 13, end: 16 },
+        { start: 14, end: 14 },
+      ],
+      [1, 16],
+    ],
   ];
+
   test.each(testCases)(
     'should handle feature that is %s of sequence',
-    (_, features, range) => {
+    (_description, sequenceLength, features, range) => {
       expect(
-        getZoomedInRange(features as ProcessedFeature[], sequenceLength)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        getZoomedInRange(features as any[], sequenceLength)
       ).toEqual({
         'display-start': range[0],
         'display-end': range[1],
