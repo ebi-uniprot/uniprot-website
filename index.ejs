@@ -5,13 +5,35 @@
     <title>UniProt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- theming, generated and adapted from https://realfavicongenerator.net/ -->
-    <meta name="theme-color" content="#00639a" />
-
-    <!-- Loading optimisations -->
+    <!-- Loading optimisations, these need to be as high as possible -->
     <link rel="preconnect" href="https://rest.uniprot.org/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- theming, generated and adapted from https://realfavicongenerator.net/ -->
+    <meta name="theme-color" content="#00639a" />
+
+    <!-- Open Graph (OG) tags for Facebook, WhatsApp, LinkedIn, Slack, Discord, and more -->
+    <meta property="og:title" content="UniProt" />
+    <meta property="og:description" content="UniProt is the world's leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information." />
+    <meta property="og:image" content="https://www.uniprot.org/og-uniprot-wide-logo-1200x630.png" />
+    <meta property="og:url" content="https://www.uniprot.org/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="UniProt" />
+
+    <!-- Additional OG images for different aspect ratios -->
+    <meta property="og:image" content="https://www.uniprot.org/og-uniprot-square-logo-1200x1200.png" />  <!-- Square version for WhatsApp -->
+    <meta property="og:image:alt" content="UniProt logo" />
+
+    <!-- Twitter-specific card tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="uniprot.org">
+    <meta property="twitter:url" content="https://www.uniprot.org">
+    <meta name="twitter:title" content="UniProt" />
+    <meta name="twitter:description" content="UniProt is the world's leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information." />
+    <meta name="twitter:image" content="https://www.uniprot.org/og-uniprot-wide-logo-1200x600.png" />
+    <meta name="twitter:image:alt" content="UniProt logo" />
+
     <!-- font loading -->
     <link
       href="https://fonts.googleapis.com/css?family=Lato:400,700|Source+Sans+Pro:600,700&display=optional"
@@ -20,19 +42,19 @@
 
     <% if (!isLiveReload) { %>
     <!-- OpenSearch -->
-    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="UniProt">
+    <link rel="search" type="application/opensearchdescription+xml" href="https://www.uniprot.org/opensearch.xml" title="UniProt">
     <!-- icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.uniprot.org/apple-touch-icon.png" />
     <link
       rel="shortcut icon"
       type="image/png"
       sizes="144x144"
-      href="/mstile-144x144.png"
+      href="https://www.uniprot.org/mstile-144x144.png"
     />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.uniprot.org/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.uniprot.org/favicon-16x16.png" />
     <!-- PWA manifest -->
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="https://www.uniprot.org/manifest.json" />
 
     <% } if (isDev) { %>
     <!-- Prevent indexing when the website is not public -->
