@@ -1,4 +1,4 @@
-// Correponds to eg https://www.ebi.ac.uk/proteins/api/proteomics-ptm/Q653S1
+// Correponds to eg https://www.ebi.ac.uk/proteins/api/proteomics/ptm/Q653S1
 
 import { ConfidenceScore } from '../components/protein-data-views/UniProtKBFeaturesView';
 

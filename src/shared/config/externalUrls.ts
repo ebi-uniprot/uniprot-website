@@ -24,6 +24,15 @@ const externalUrls = {
     `https://www.ebi.ac.uk/intact/complex-ws/export/${id}`,
   ComplexPortal: (id: string) =>
     `https://www.ebi.ac.uk/complexportal/complex/${id}`,
+  // GO-CAM
+  GeneOntologyModels: (id: string) =>
+    `https://api.geneontology.org/api/gp/UniProtKB:${id}/models`,
+  GeneOntologyModelInfo: (id: string) =>
+    `https://api.geneontology.org/api/go-cam/gomodel:${id}`,
+  GeneOntologyUniprotCuratedModels:
+    'https://geneontology.cloud/browse/g:UniProt',
+  NoctuaAlliancePathwayPreview: (id: string) =>
+    `http://noctua.geneontology.org/workbench/noctua-alliance-pathway-preview/?model_id=${id}`,
   // rule
   HAMAPRule: (id: string | number) => `//hamap.expasy.org/unirule/${id}`,
   ProRule: (id: string | number) => `//prosite.expasy.org/unirule/${id}`,

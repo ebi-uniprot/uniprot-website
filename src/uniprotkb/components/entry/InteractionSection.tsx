@@ -1,6 +1,6 @@
 import { lazy, useMemo, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Dropdown } from 'franklin-sites';
+import { Card } from 'franklin-sites';
 
 import { SetRequired } from 'type-fest/source/set-required';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -36,15 +36,6 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { Xref } from '../../../shared/types/apiModel';
 
 import styles from './styles/interaction-section.module.scss';
-
-const clickOnDropdown = (element: HTMLElement) => {
-  (
-    element.closest('.dropdown')?.firstElementChild as
-      | HTMLElement
-      | null
-      | undefined
-  )?.click();
-};
 
 const interactionSorter = (a: Interaction, b: Interaction) => {
   // Normalise what we'll sort on
@@ -243,9 +234,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | undefined;
 
   const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
-  const complexName =
-    complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
-  const complexString = `${complexId} ${complexName}`;
 
   return (
     <Card
@@ -283,35 +271,24 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {complexPortalXrefs.size > 0 && !isSmallScreen && (
         <>
           <h3 data-article-id="complex_viewer">Complex viewer</h3>
-          <div className={styles['viewer-ids-container']}>
-            <Dropdown
-              // eslint-disable-next-line react/no-unstable-nested-components
-              visibleElement={(onClick: () => unknown) => (
-                <Button variant="primary" onClick={onClick}>
-                  {complexString}
-                </Button>
-              )}
-            >
-              <ul className={styles['ids-list']}>
+          <div>
+            <label>
+              Select complex
+              <select
+                value={complexId}
+                onChange={(e) => setViewerID(e.target.value)}
+                className={styles['id-select']}
+              >
                 {Array.from(complexPortalXrefs.values()).map(
                   ({ id, properties }) => (
-                    <li key={id}>
-                      <Button
-                        variant="tertiary"
-                        key={id}
-                        id={id}
-                        onClick={(event) => {
-                          setViewerID((event.target as HTMLButtonElement).id);
-                          clickOnDropdown(event.target as HTMLButtonElement);
-                        }}
-                      >
-                        {id} {properties?.EntryName || ''}
-                      </Button>
-                    </li>
+                    <option value={id} key={id}>
+                      {`${id} ${properties?.EntryName || ''}`}
+                    </option>
                   )
                 )}
-              </ul>
-            </Dropdown>
+              </select>
+            </label>
+
             <LazyComponent>
               <ComplexViewer complexID={complexId} />
             </LazyComponent>
@@ -325,11 +302,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
             >
               View interactors in UniProtKB
             </Link>
-            <br />
-            <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
-              View {complexId} in Complex Portal
-            </ExternalLink>
           </div>
+          <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+            View {complexId} in Complex Portal
+          </ExternalLink>
         </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

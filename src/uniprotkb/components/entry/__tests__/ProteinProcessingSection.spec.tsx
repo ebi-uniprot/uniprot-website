@@ -15,12 +15,12 @@ const axiosMock = new MockAdapter(axios);
 axiosMock
   // Humans should (eventually) have PTMeXchange data so just using
   .onGet(
-    `https://www.ebi.ac.uk/proteins/api/proteomics-ptm/${mockHumanData.primaryAccession}`
+    `https://www.ebi.ac.uk/proteins/api/proteomics/ptm/${mockHumanData.primaryAccession}`
   )
   .reply(200, mockPtmExchangeData)
   // Assumed that flavonifractor plautii won't have PTMeXchange data
   .onGet(
-    `https://www.ebi.ac.uk/proteins/api/proteomics-ptm/${mockNonHumanData.primaryAccession}`
+    `https://www.ebi.ac.uk/proteins/api/proteomics/ptm/${mockNonHumanData.primaryAccession}`
   )
   .reply(404);
 

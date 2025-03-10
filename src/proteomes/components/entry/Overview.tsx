@@ -114,6 +114,10 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
       ),
     },
     {
+      title: `Taxon ID`,
+      content: <TaxonomyView data={data.taxonomy} displayOnlyID />,
+    },
+    {
       title: (
         <span data-article-id="proteome_terminology#genome-assembly">
           Genome assembly and annotation

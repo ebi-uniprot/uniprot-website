@@ -11,7 +11,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
     >
       <div
         aria-controls="1"
-        class="tabs__header__item tabs__header__item--active"
+        class="tabs__header__item tabs__header__item--bordered tabs__header__item--active"
         data-target="UniRef100"
         data-testid="tab-title"
         role="tab"
@@ -21,7 +21,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
       </div>
       <div
         aria-controls="1"
-        class="tabs__header__item"
+        class="tabs__header__item tabs__header__item--bordered"
         data-target="UniRef90"
         data-testid="tab-title"
         role="tab"
@@ -31,7 +31,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
       </div>
       <div
         aria-controls="1"
-        class="tabs__header__item"
+        class="tabs__header__item tabs__header__item--bordered"
         data-target="UniRef50"
         data-testid="tab-title"
         role="tab"

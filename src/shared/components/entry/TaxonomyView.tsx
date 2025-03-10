@@ -33,7 +33,7 @@ const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
       <Link
         to={getEntryPath(Namespace.taxonomy, taxonId)}
       >{`${taxonId} `}</Link>
-      <ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>
+      (<ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>)
     </>
   );
 };

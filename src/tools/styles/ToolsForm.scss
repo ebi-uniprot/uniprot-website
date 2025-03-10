@@ -76,6 +76,13 @@
   }
 }
 
+.tools-form-warning-submit {
+  float: right;
+
+  & button.button[type='submit'] {
+    --main-color: var(--fr--color-warning);
+  }
+}
 .tools-form-advanced > summary {
   overflow: hidden;
   cursor: pointer;

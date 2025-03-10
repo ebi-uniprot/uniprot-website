@@ -1,9 +1,8 @@
-import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message } from 'franklin-sites';
+import { lazy, Suspense, Fragment, memo, useState, useEffect } from 'react';
+import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
 import HTMLHead from '../../../shared/components/HTMLHead';
 import FreeTextView, {
   RichText,
@@ -40,10 +39,15 @@ import {
 } from '../../types/commentTypes';
 import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 import CommunityCuration from './CommunityCuration';
+import { EntryType } from '../../../shared/config/entryTypeIcon';
+
+import helper from '../../../shared/styles/helper.module.scss';
 
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
+
+const GoCam = lazy(() => import(/* webpackChunkName: "go-cam" */ './GoCam'));
 
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
@@ -252,6 +256,17 @@ const FunctionSection = ({
     (reference) => reference.communityAnnotation?.function
   );
 
+  // This state and the following useEffect are used to determine
+  // if the GO-CAM tab should be displayed. This is to handle the
+  // following situations:
+  // 1. User always has small screen: never show GO-CAM tab
+  // 2. User had small screen but increased size: show GO-CAM tab
+  // 3. User had big screen but reduced it: continue to show GO-CAM tab
+  const [showGoCamTab, setShowGoCamTab] = useState(!isSmallScreen);
+  useEffect(() => {
+    setShowGoCamTab((v) => v || !isSmallScreen);
+  }, [isSmallScreen]);
+
   if (!hasContent(data) && !functionRelatedReferences.length) {
     return null;
   }
@@ -279,6 +294,8 @@ const FunctionSection = ({
     ?.filter(
       (comment) => !(comment as FreeTextComment).molecule?.includes('Isoform')
     );
+
+  const reviewed = data.entryType === EntryType.REVIEWED;
 
   return (
     <Card
@@ -366,16 +383,48 @@ const FunctionSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <GoRibbon
-            primaryAccession={primaryAccession}
-            goTerms={data.goTerms}
-            geneNamesData={data.geneNamesData}
-            organismData={data.organismData}
-          />
-        </Suspense>
-      </ErrorBoundary>
+      {
+        // If no GO terms then no GO-CAM models. From Antonia Lock:
+        // "I assume that any go cams that we display, would also be integrated in the go releases, otherwise I would question the quality of the model"
+        !!data.goTerms?.size && (
+          <ErrorBoundary>
+            <Tabs bordered className={helper['padding-top-small']}>
+              <Tab title="GO annotations">
+                <Suspense fallback={<Loader />}>
+                  <GoRibbon
+                    primaryAccession={primaryAccession}
+                    goTerms={data.goTerms}
+                    geneNamesData={data.geneNamesData}
+                    organismData={data.organismData}
+                  />
+                </Suspense>
+              </Tab>
+              <Tab
+                disabled={!reviewed}
+                title={
+                  showGoCamTab ? (
+                    <span
+                      title={
+                        reviewed
+                          ? 'GO-CAM models from the Gene Ontology knowledgebase may be available for this entry.'
+                          : 'GO-CAM models are only available for reviewed entries.'
+                      }
+                    >
+                      GO-CAM models<Chip compact>New</Chip>
+                    </span>
+                  ) : null
+                }
+              >
+                {showGoCamTab ? (
+                  <Suspense fallback={<Loader />}>
+                    <GoCam primaryAccession={primaryAccession} />
+                  </Suspense>
+                ) : null}
+              </Tab>
+            </Tabs>
+          </ErrorBoundary>
+        )
+      }
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration

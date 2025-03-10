@@ -455,7 +455,23 @@ const Entry = () => {
         <ErrorBoundary>
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
-          />
+          >
+            {/** Below: experiment with OpenGraph and related */}
+            {/* @ts-expect-error og tags */}
+            <meta name="twitter:label1" value="Protein Name" />
+            <meta
+              name="twitter:data1"
+              // @ts-expect-error og tags
+              value={data.proteinDescription?.recommendedName?.fullName.value}
+            />
+            {/* @ts-expect-error og tags */}
+            <meta name="twitter:label2" value="Gene Name" />
+            <meta
+              name="twitter:data1"
+              // @ts-expect-error og tags
+              value={data.genes?.[0]?.geneName?.value}
+            />
+          </HTMLHead>
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -494,6 +510,7 @@ const Entry = () => {
             </Tab>
           ) : null}
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -569,6 +586,7 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
+            disabled={importedVariants === 'loading' || !importedVariants}
             title={
               <Link
                 className={cn({
@@ -627,6 +645,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               smallScreen ? null : (
                 <Link
@@ -676,6 +695,9 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
+            disabled={
+              hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
+            }
             title={
               <Link
                 className={cn({
@@ -746,6 +768,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -788,6 +811,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -820,15 +844,19 @@ const Entry = () => {
           </Tab>
           <Tab
             title={
-              <Link
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.History
-                )}
-              >
-                History
-              </Link>
+              match.params.subPage === TabLocation.History ? (
+                'History'
+              ) : (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    accession,
+                    TabLocation.History
+                  )}
+                >
+                  History
+                </Link>
+              )
             }
             id={TabLocation.History}
             onPointerOver={HistoryTab.preload}
