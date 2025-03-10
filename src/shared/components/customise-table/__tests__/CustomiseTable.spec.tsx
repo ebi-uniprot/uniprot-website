@@ -47,14 +47,7 @@ describe('CustomiseTable component', () => {
   });
 
   it('should render', () => {
-    const { asFragment, container } = rendered;
-
-    // Remove DndKit dynamic accessibility nodes which inconsistently appear/disappear from the snapshot
-    const dndNodes = container.querySelectorAll(
-      '[id^="DndDescribedBy"], [id^="DndLiveRegion"]'
-    );
-    dndNodes.forEach((node) => node.parentElement?.removeChild(node));
-
+    const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
