@@ -1,13 +1,14 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { Message } from 'franklin-sites';
+import { Button, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import Table from './Table';
 
+import { MIN_ROWS_TO_EXPAND } from './constants';
+
 import styles from './styles/table.module.scss';
 
 const UNFILTERED_OPTION = 'All' as const;
-const MIN_ROWS_TO_EXPAND = 10 as const;
 
 type TableHeaderFromDataProps<T> = {
   column: TableFromDataColumn<T>;
@@ -75,6 +76,7 @@ type Props<T> = {
   noTranslateBody?: boolean;
   expandable?: boolean;
   id?: string;
+  onNavigationClick?: false | ((feature: T) => void);
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -88,6 +90,7 @@ function TableFromData<T>({
   markBackground,
   markBorder,
   noTranslateBody,
+  onNavigationClick,
   expandable = true,
   ...props
 }: Props<T>) {
@@ -150,7 +153,21 @@ function TableFromData<T>({
               isOdd={index % 2 === 1}
               extraContent={
                 rowExtraContent && (
-                  <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
+                  <td colSpan={columns.length}>
+                    {onNavigationClick && (
+                      <Button
+                        variant="secondary"
+                        onClick={() => onNavigationClick?.(datum)}
+                        className={cn(
+                          'button-group',
+                          styles['feature-navigation-button']
+                        )}
+                      >
+                        Navigate to feature
+                      </Button>
+                    )}
+                    {rowExtraContent(datum)}
+                  </td>
                 )
               }
               key={getRowId(datum)}
