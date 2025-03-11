@@ -1,62 +1,37 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from 'react';
+import { useSyncExternalStore } from 'react';
+
+import { ToolsState } from '../../tools/state/toolsInitialState';
 
 type Listener = () => void;
-function useJobState() {
-  const [state, setState] = useState();
-  const listeners = useRef<Listener[]>([]);
 
-  useEffect(() => {
-    if (!window.SharedWorker) {
-      console.warn('SharedWorker is not supported in this browser.');
-      return;
+const worker = window.SharedWorker
+  ? new SharedWorker(new URL('../workers/tools.ts', import.meta.url))
+  : null;
+
+let listeners: Listener[] = [];
+let state: ToolsState = null;
+
+if (worker) {
+  worker.port.onmessage = (e) => {
+    state = e.data.state;
+    console.log('Message received from worker', e);
+    for (const listener of listeners) {
+      listener();
     }
-    const myWorker = new SharedWorker(
-      new URL('../workers/tools.ts', import.meta.url)
-    );
+  };
+}
 
-    myWorker.port.onmessage = (e) => {
-      setState(e.data.state);
-      console.log('Message received from worker', e);
-    };
+const subscribe = (listener: Listener) => {
+  listeners = [...listeners, listener];
+  return () => {
+    listeners = listeners.filter((l) => l !== listener);
+  };
+};
 
-    // myWorker.port.onerror = (error) => {
-    //   console.error('Worker error:', error);
-    // };
+const getSnapshot = () => state;
 
-    // Close port on cleanup
-    return () => {
-      myWorker.port.close();
-    };
-  }, []);
-
-  const subscribe = useMemo(
-    () => (listener: Listener) => {
-      listeners.current.push(listener);
-      // Remove listener on cleanup
-      return () => {
-        listeners.current = listeners.current.filter((l) => l !== listener);
-      };
-    },
-    []
-  );
-
-  const getSnapshot = useMemo(() => {
-    return () => state;
-  }, [state]);
-
-  // Whenever state changes, notify subscribers
-  useEffect(() => {
-    listeners.current.forEach((listener) => listener());
-  }, [state]);
-
-  const store = useSyncExternalStore(subscribe, getSnapshot);
-  return store;
+function useJobState() {
+  return useSyncExternalStore(subscribe, getSnapshot);
 }
 
 export default useJobState;
