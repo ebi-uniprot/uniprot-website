@@ -6,7 +6,6 @@ import { Router } from 'react-router-dom';
 
 // app own context providers
 import { MessagesProvider } from '../../shared/contexts/Messages';
-import { ToolsProvider } from '../../shared/contexts/Tools';
 import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
 import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
 
@@ -21,11 +20,9 @@ const GlobalContext: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
       <HelmetProvider>
         <MessagesProvider>
           {/* Order is important, tools needs to be within messages */}
-          <ToolsProvider>
-            <UniProtDataProvider>
-              <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
-            </UniProtDataProvider>
-          </ToolsProvider>
+          <UniProtDataProvider>
+            <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
+          </UniProtDataProvider>
         </MessagesProvider>
       </HelmetProvider>
     </ErrorBoundary>

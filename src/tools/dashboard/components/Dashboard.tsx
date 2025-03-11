@@ -29,6 +29,8 @@ const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
   const tools = useJobsState();
 
+  console.log(tools);
+
   const [activeJobs, expiredJobs] = useMemo(() => {
     const jobs = Array.from(Object.values(tools ?? {})).sort(sortNewestFirst);
     const now = Date.now();

@@ -34,7 +34,7 @@ const useDashboardPollingEffect = () => {
       // Remove visibility change event listener
       document.removeEventListener('visibilitychange', onVisibilityChange);
     };
-  }, [dispatch]);
+  }, []);
 };
 
 export default useDashboardPollingEffect;

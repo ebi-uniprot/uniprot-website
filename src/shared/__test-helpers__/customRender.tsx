@@ -16,7 +16,6 @@ import {
   MessagesDispatchContext,
   MessagesStateContext,
 } from '../contexts/Messages';
-import { ToolsDispatchContext, ToolsStateContext } from '../contexts/Tools';
 import {
   DatabaseInfoMapsContext,
   UniProtDataVersionContext,
@@ -73,35 +72,22 @@ class Wrapper extends Component<WrapperProps> {
   }
 
   render() {
-    const {
-      children,
-      path,
-      history,
-      messagesDispatch,
-      messagesState,
-      toolsDispatch,
-      toolsState,
-    } = this.props;
+    const { children, path, history, messagesDispatch, messagesState } =
+      this.props;
     return (
       <HelmetProvider>
         <Router history={history}>
           <MessagesDispatchContext.Provider value={messagesDispatch}>
             <MessagesStateContext.Provider value={messagesState}>
-              <ToolsDispatchContext.Provider value={toolsDispatch}>
-                <ToolsStateContext.Provider value={toolsState}>
-                  <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
-                    <UniProtDataVersionContext.Provider
-                      value={uniProtDataVersion}
-                    >
-                      {path ? (
-                        <Route path={path} render={() => children} />
-                      ) : (
-                        children
-                      )}
-                    </UniProtDataVersionContext.Provider>
-                  </DatabaseInfoMapsContext.Provider>
-                </ToolsStateContext.Provider>
-              </ToolsDispatchContext.Provider>
+              <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
+                <UniProtDataVersionContext.Provider value={uniProtDataVersion}>
+                  {path ? (
+                    <Route path={path} render={() => children} />
+                  ) : (
+                    children
+                  )}
+                </UniProtDataVersionContext.Provider>
+              </DatabaseInfoMapsContext.Provider>
             </MessagesStateContext.Provider>
           </MessagesDispatchContext.Provider>
         </Router>
