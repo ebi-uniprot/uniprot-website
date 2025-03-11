@@ -24,7 +24,7 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useBasket from '../../hooks/useBasket';
 import useSafeState from '../../hooks/useSafeState';
-import useToolsState from '../../hooks/useToolsState';
+import useJobState from '../../hooks/useJobsState';
 
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
@@ -74,7 +74,8 @@ const statusesToNotify = new Set([
 ]);
 
 const ToolsDashboard = () => {
-  const tools = useToolsState();
+  // TODO: rename all tools to jobs
+  const tools = useJobState();
   const { pathname } = useLocation();
 
   const count = useMemo(() => {

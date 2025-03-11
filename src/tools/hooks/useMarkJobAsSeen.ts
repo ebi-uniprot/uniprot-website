@@ -2,9 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useToolsDispatch from '../../shared/hooks/useToolsDispatch';
-import useToolsState from '../../shared/hooks/useToolsState';
 
 import { updateJob } from '../state/toolsActions';
+import useJobsState from '../../shared/hooks/useJobsState';
 
 import { Status } from '../types/toolsStatuses';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -17,7 +17,7 @@ const useMarkJobAsSeen = (
   dataOrDataPresence: unknown,
   id?: FinishedJob<JobTypes>['remoteID']
 ) => {
-  const tools = useToolsState();
+  const tools = useJobsState();
   const dispatch = useToolsDispatch();
   const location = useLocation<undefined | LocationStateFromJobLink>();
 

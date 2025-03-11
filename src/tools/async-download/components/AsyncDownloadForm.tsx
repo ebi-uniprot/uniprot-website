@@ -8,7 +8,6 @@ import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
 import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
-import useToolsState from '../../../shared/hooks/useToolsState';
 
 import {
   asyncDownloadFormDataReducer,
@@ -29,7 +28,7 @@ import initialFormValues, {
 import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import { dispatchJobs } from '../../../shared/hooks/useJobsState';
+import useJobsState, { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { FileFormat } from '../../../shared/types/resultsDownload';
@@ -77,7 +76,7 @@ const AsyncDownloadForm = ({
   const reducedMotion = useReducedMotion();
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
   const { jobId } = useJobFromUrl();
-  const tools = useToolsState();
+  const tools = useJobsState();
 
   const isIdMappingResult = Boolean(jobType === JobTypes.ID_MAPPING && jobId);
   let jobTitle = '';

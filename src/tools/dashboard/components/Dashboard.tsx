@@ -13,8 +13,8 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
-import useToolsState from '../../../shared/hooks/useToolsState';
 import useDashboardPollingEffect from '../hooks/useDashboardPollingEffect';
+import useJobsState from '../../../shared/hooks/useJobsState';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -27,7 +27,7 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
 const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
-  const tools = useToolsState();
+  const tools = useJobsState();
 
   const [activeJobs, expiredJobs] = useMemo(() => {
     const jobs = Array.from(Object.values(tools ?? {})).sort(sortNewestFirst);
