@@ -9,7 +9,7 @@ import {
 } from 'react';
 
 import useMessagesDispatch from '../hooks/useMessagesDispatch';
-import useJobState from '../hooks/useJobState';
+import useJobState from '../hooks/useJobsState';
 
 import toolsInitialState, {
   ToolsState,
