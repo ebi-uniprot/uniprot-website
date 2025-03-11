@@ -3,7 +3,6 @@ import pMap from 'p-map';
 
 import { deleteJob, POLL_JOBS } from './toolsActions';
 
-import rehydrateJobs from './rehydrateJobs';
 import getCheckJobStatus from './getCheckJobStatus';
 import getSubmitJob from './getSubmitJob';
 
@@ -94,11 +93,11 @@ const toolsMiddleware = (
   });
 
   // Rehydrate jobs, run only once in the application lifetime
-  rehydrateJobs(toolsDispatch).then(() => {
-    pollJobs.schedule(0);
-    // don't check that rightaway, to avoid using up important connections
-    expiredJobs.schedule(5_000);
-  });
+  // rehydrateJobs(toolsDispatch).then(() => {
+  pollJobs.schedule(0);
+  // don't check that rightaway, to avoid using up important connections
+  expiredJobs.schedule(5_000);
+  // });
 
   // Middleware reducer to trigger middleware logic
   return (action) => {

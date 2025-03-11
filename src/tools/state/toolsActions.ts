@@ -29,9 +29,6 @@ export function createJob<T extends JobTypes>(
   });
 }
 
-export const rehydrateJobs = (jobs: { [internalID: string]: Job }) =>
-  action(REHYDRATE_JOBS, { jobs });
-
 export const updateJob = (id: Job['internalID'], partialJob: Partial<Job>) =>
   action(UPDATE_JOB, { id, partialJob });
 
