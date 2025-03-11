@@ -6,7 +6,7 @@ import messagesInitialState, {
 import messagesReducers, {
   MessagesAction,
 } from '../../messages/state/messagesReducers';
-import { jobsSharedWorker } from '../hooks/useJobsState';
+// import { jobsSharedWorker } from '../hooks/useJobsState';
 
 export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
   () => {
@@ -20,10 +20,10 @@ export const MessagesStateContext =
 export const MessagesProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(messagesReducers, messagesInitialState);
 
-  jobsSharedWorker?.port.addEventListener('message', (message) => {
-    console.log('in messages', message);
-    // TODO: dispatch with new messages
-  });
+  // jobsSharedWorker?.port.addEventListener('message', (message) => {
+  //   console.log('in messages', message);
+  //   // TODO: dispatch with new messages
+  // });
 
   return (
     <MessagesDispatchContext.Provider value={dispatch}>

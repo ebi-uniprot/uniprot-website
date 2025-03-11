@@ -6,7 +6,6 @@ import { sleep } from 'timing-functions';
 import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
 import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
 import useToolsState from '../../../shared/hooks/useToolsState';
@@ -30,6 +29,7 @@ import initialFormValues, {
 import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { FileFormat } from '../../../shared/types/resultsDownload';
@@ -73,7 +73,6 @@ const AsyncDownloadForm = ({
   jobType,
   inputParamsData,
 }: Props<JobTypes>) => {
-  const dispatchTools = useToolsDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
@@ -137,7 +136,7 @@ const AsyncDownloadForm = ({
         // the reducer will be in charge of generating a proper job object for
         // internal state. Dispatching after history.push so that pop-up messages (as a
         // side-effect of createJob) cannot mount immediately before navigating away.
-        dispatchTools(
+        dispatchJobs(
           createJob(
             getJobParameters(downloadUrlOptions, isIdMappingResult, jobId),
             JobTypes.ASYNC_DOWNLOAD,
@@ -152,15 +151,7 @@ const AsyncDownloadForm = ({
     },
     // NOTE: maybe no point using useCallback if all the values of the form
     // cause this to be re-created. Maybe review submit callback in all 4 forms?
-    [
-      history,
-      onClose,
-      dispatchTools,
-      downloadUrlOptions,
-      isIdMappingResult,
-      jobId,
-      formValues,
-    ]
+    [history, onClose, downloadUrlOptions, isIdMappingResult, jobId, formValues]
   );
 
   if (showConfirmation) {

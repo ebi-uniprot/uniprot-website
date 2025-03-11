@@ -38,11 +38,10 @@ import {
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-
+import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -111,7 +110,6 @@ const AlignForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatchTools = useToolsDispatch();
   const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
@@ -172,7 +170,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      dispatchTools(
+      dispatchJobs(
         createJob(
           parameters,
           JobTypes.ALIGN,

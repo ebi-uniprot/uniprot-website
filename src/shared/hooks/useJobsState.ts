@@ -2,11 +2,14 @@ import { useSyncExternalStore } from 'react';
 
 // TODO: for consistency rename everything to Jobs rather than Tools as Async Download is a job but not necessarily a tool
 import { ToolsState } from '../../tools/state/toolsInitialState';
+import { ToolsAction } from '../workers/jobs/actionHandler';
 
 type Listener = () => void;
 
 export const jobsSharedWorker = window.SharedWorker
-  ? new SharedWorker(new URL('../workers/jobs.ts', import.meta.url))
+  ? new SharedWorker(
+      new URL('../workers/jobs/sharedWorker.ts', import.meta.url)
+    )
   : null;
 
 let listeners: Listener[] = [];
@@ -28,6 +31,9 @@ const subscribe = (listener: Listener) => {
     listeners = listeners.filter((l) => l !== listener);
   };
 };
+
+export const dispatchJobs = (job: ToolsAction) =>
+  jobsSharedWorker?.port.postMessage(job);
 
 const getSnapshot = () => state;
 

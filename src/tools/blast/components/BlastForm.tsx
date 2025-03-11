@@ -33,7 +33,6 @@ import {
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { truncateTaxonLabel } from '../../utils';
@@ -46,6 +45,7 @@ import {
 } from '../state/blastFormActions';
 import { getAutoMatrixFor } from '../utils';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 import { BLAST_LIMIT } from '../../../shared/config/limits';
 
@@ -127,7 +127,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatchTools = useToolsDispatch();
   const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
@@ -274,7 +273,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             }`;
           }
         }
-        dispatchTools(
+        dispatchJobs(
           createJob(
             multipleParameters[i],
             JobTypes.BLAST,

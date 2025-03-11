@@ -18,7 +18,6 @@ import ChecksumSuggester from '../../components/ChecksumSuggester';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -36,6 +35,7 @@ import {
 
 import { truncateTaxonLabel } from '../../utils';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 import {
   PEPTIDE_SEARCH_SEQUENCES_COUNT,
@@ -111,7 +111,6 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatchTools = useToolsDispatch();
   const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
@@ -201,7 +200,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      dispatchTools(
+      dispatchJobs(
         createJob(
           parameters,
           JobTypes.PEPTIDE_SEARCH,

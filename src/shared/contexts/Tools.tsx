@@ -9,7 +9,6 @@ import {
 } from 'react';
 
 import useMessagesDispatch from '../hooks/useMessagesDispatch';
-import useJobState from '../hooks/useJobsState';
 
 import toolsInitialState, {
   ToolsState,
@@ -26,9 +25,6 @@ export const ToolsStateContext = createContext<ToolsState>(toolsInitialState);
 export const ToolsProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(toolsReducers, toolsInitialState);
   const messagesDispatch = useMessagesDispatch();
-  const jobs = useJobState();
-
-  console.log(jobs);
 
   const stateRef = useRef(state);
   // on state change

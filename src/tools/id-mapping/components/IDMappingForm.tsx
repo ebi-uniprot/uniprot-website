@@ -27,7 +27,6 @@ import { pluralise } from '../../../shared/utils/utils';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -75,6 +74,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 
@@ -107,7 +107,6 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatchTools = useToolsDispatch();
   const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
@@ -193,7 +192,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      dispatchTools(
+      dispatchJobs(
         createJob(
           parameters,
           JobTypes.ID_MAPPING,
