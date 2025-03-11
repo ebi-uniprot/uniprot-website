@@ -1,19 +1,16 @@
 import { useEffect } from 'react';
 
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
-
 import { pollJobs } from '../../state/toolsActions';
 import { heuristic } from '../../state/utils/heuristic';
+import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 const useDashboardPollingEffect = () => {
-  const dispatch = useToolsDispatch();
-
   useEffect(() => {
     // Visibility change event listener
     const onVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         // Do an immediate check when the dashboard gets visible
-        dispatch(pollJobs());
+        dispatchJobs(pollJobs());
         // Speed up polls
         heuristic.dashboardSpeedUpFactor = 4;
       } else {

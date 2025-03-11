@@ -1,10 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import useToolsDispatch from '../../shared/hooks/useToolsDispatch';
-
 import { updateJob } from '../state/toolsActions';
-import useJobsState from '../../shared/hooks/useJobsState';
+import useJobsState, { dispatchJobs } from '../../shared/hooks/useJobsState';
 
 import { Status } from '../types/toolsStatuses';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -18,7 +16,6 @@ const useMarkJobAsSeen = (
   id?: FinishedJob<JobTypes>['remoteID']
 ) => {
   const tools = useJobsState();
-  const dispatch = useToolsDispatch();
   const location = useLocation<undefined | LocationStateFromJobLink>();
 
   const jobs = useMemo(() => {
@@ -50,9 +47,9 @@ const useMarkJobAsSeen = (
     // But if we do get data, it means we can render the page and we can mark
     // the page result as "seen"
     for (const job of jobs) {
-      dispatch(updateJob(job.internalID, { seen: true }));
+      dispatchJobs(updateJob(job.internalID, { seen: true }));
     }
-  }, [dispatch, dataOrDataPresence, jobs, id]);
+  }, [dataOrDataPresence, jobs, id]);
 };
 
 export default useMarkJobAsSeen;

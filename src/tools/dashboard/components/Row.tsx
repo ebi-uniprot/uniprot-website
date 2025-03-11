@@ -36,7 +36,6 @@ import {
 } from '../../../app/config/urls';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { pluralise } from '../../../shared/utils/utils';
@@ -45,6 +44,7 @@ import * as logging from '../../../shared/utils/logging';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 import { databaseValueToName } from '../../blast/config/BlastFormData';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
@@ -67,13 +67,12 @@ interface NameProps {
 }
 
 const Name = ({ children, id }: NameProps) => {
-  const dispatch = useToolsDispatch();
   const [text, setText] = useState(children || '');
 
   const handleBlur = () => {
     const cleanedText = text.trim();
     if (cleanedText !== children) {
-      dispatch(updateJob(id, { title: text }));
+      dispatchJobs(updateJob(id, { title: text }));
     }
   };
 
@@ -124,14 +123,12 @@ const Time = ({ children }: TimeProps) => {
 };
 
 const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
-  const dispatch = useToolsDispatch();
-
   if (job.seen) {
     return null;
   }
 
   const markAsRead = () => {
-    dispatch(updateJob(job.internalID, { seen: true }));
+    dispatchJobs(updateJob(job.internalID, { seen: true }));
   };
 
   return (
@@ -400,7 +397,6 @@ interface ActionsProps {
 
 const Actions = ({ job, onDelete }: ActionsProps) => {
   const history = useHistory();
-  const dispatch = useToolsDispatch();
 
   return (
     <span className="dashboard__body__actions">
@@ -409,7 +405,7 @@ const Actions = ({ job, onDelete }: ActionsProps) => {
         title="keep this job"
         onClick={(event) => {
           event.stopPropagation();
-          dispatch(updateJob(job.internalID, { saved: !job.saved }));
+          dispatchJobs(updateJob(job.internalID, { saved: !job.saved }));
         }}
       >
         {job.saved ? '★' : '☆'}
@@ -485,7 +481,6 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const firstTime = useRef<boolean>(true);
 
   const history = useHistory<CustomLocationState | undefined>();
-  const dispatch = useToolsDispatch();
   const reducedMotion = useReducedMotion();
 
   // For async download
@@ -509,13 +504,13 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const handleDelete = () => {
     const { internalID } = job;
     if (reducedMotion || !(ref.current && 'animate' in ref.current)) {
-      dispatch(deleteJob(internalID));
+      dispatchJobs(deleteJob(internalID));
       return;
     }
     ref.current.animate(
       KeyframesForDelete,
       animationOptionsForDelete
-    ).onfinish = () => dispatch(deleteJob(internalID));
+    ).onfinish = () => dispatchJobs(deleteJob(internalID));
   };
 
   // if the state of the current location contains the parameters from this job,
