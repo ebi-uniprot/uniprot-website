@@ -60,7 +60,7 @@ const checkJobStatus = async (
     }
 
     // get a new reference to the job
-    let currentStateOfJob = store.get(job.internalID);
+    let currentStateOfJob = await store.get(job.internalID);
     // check that the job is still in the state (it might have been removed)
     if (!currentStateOfJob) {
       return;
@@ -108,7 +108,7 @@ const checkJobStatus = async (
       const results = response?.data;
 
       // get a new reference to the job
-      currentStateOfJob = store.get(job.internalID);
+      currentStateOfJob = await store.get(job.internalID);
       // check that the job is still in the state (it might have been removed)
       if (!currentStateOfJob) {
         return;
@@ -151,7 +151,7 @@ const checkJobStatus = async (
       });
 
       // get a new reference to the job
-      currentStateOfJob = store.get(job.internalID);
+      currentStateOfJob = await store.get(job.internalID);
       // check that the job is still in the state (it might have been removed)
       if (!currentStateOfJob) {
         return;
@@ -179,7 +179,7 @@ const checkJobStatus = async (
       });
 
       // get a new reference to the job
-      currentStateOfJob = store.get(job.internalID);
+      currentStateOfJob = await store.get(job.internalID);
       if (!currentStateOfJob) {
         return;
       }
