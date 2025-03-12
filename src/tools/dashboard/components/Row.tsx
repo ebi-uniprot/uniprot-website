@@ -44,7 +44,6 @@ import * as logging from '../../../shared/utils/logging';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 import { databaseValueToName } from '../../blast/config/BlastFormData';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
@@ -56,6 +55,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
 import './styles/Dashboard.scss';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>

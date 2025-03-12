@@ -74,7 +74,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import { dispatchJobs } from '../../../shared/hooks/useJobsState';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 

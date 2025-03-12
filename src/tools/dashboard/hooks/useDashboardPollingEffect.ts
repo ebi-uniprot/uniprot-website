@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { pollJobs } from '../../state/toolsActions';
 import { heuristic } from '../../state/utils/heuristic';
-import { dispatchJobs } from '../../../shared/hooks/useJobsState';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const useDashboardPollingEffect = () => {
   useEffect(() => {

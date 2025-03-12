@@ -28,7 +28,7 @@ import initialFormValues, {
 import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import useJobsState, { dispatchJobs } from '../../../shared/hooks/useJobsState';
+import useJobsState from '../../../shared/hooks/useJobsState';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { FileFormat } from '../../../shared/types/resultsDownload';
@@ -40,6 +40,7 @@ import { FormParameters } from '../types/asyncDownloadFormParameters';
 import { DownloadUrlOptions } from '../../../shared/types/results';
 
 import '../../styles/ToolsForm.scss';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const getJobParameters = (
   downloadUrlOptions: DownloadUrlOptions,

@@ -45,7 +45,6 @@ import {
 } from '../state/blastFormActions';
 import { getAutoMatrixFor } from '../utils';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import { dispatchJobs } from '../../../shared/hooks/useJobsState';
 
 import { BLAST_LIMIT } from '../../../shared/config/limits';
 
@@ -80,6 +79,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 

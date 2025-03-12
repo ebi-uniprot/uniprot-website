@@ -2,11 +2,12 @@ import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { updateJob } from '../state/toolsActions';
-import useJobsState, { dispatchJobs } from '../../shared/hooks/useJobsState';
+import useJobsState from '../../shared/hooks/useJobsState';
 
 import { Status } from '../types/toolsStatuses';
 import { JobTypes } from '../types/toolsJobTypes';
 import { FinishedJob } from '../types/toolsJob';
+import { dispatchJobs } from '../../shared/workers/jobs/getSharedWorker';
 
 export type LocationStateFromJobLink = { internalID: string };
 
