@@ -67,6 +67,9 @@ const gtagFn: Gtag.Gtag = (...args) => {
   }
 };
 
+// Note that for any parameters that are sent, if you want to observe
+// the values within GA4 explorations, they need to be set up in the
+// GA4 UI at Admin > Data display > Custom definitions
 /* istanbul ignore next */
 const sendGtagEvent = (
   eventName: GtagEventName,
