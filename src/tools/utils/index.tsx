@@ -162,7 +162,7 @@ export const getServerErrorDescription = (error: ServerError | string) => {
   return data.messages.join('; ');
 };
 
-type getJobMessageProps = {
+export type GetJobMessageProps = {
   job: Job;
   nHits?: number;
   fileSizeBytes?: number;
@@ -176,7 +176,7 @@ export const getJobMessage = ({
   fileSizeBytes,
   errorDescription,
   url,
-}: getJobMessageProps) => {
+}: GetJobMessageProps) => {
   const message = {
     id: job.internalID,
     format: MessageFormat.POP_UP,

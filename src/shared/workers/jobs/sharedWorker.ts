@@ -1,11 +1,12 @@
 import getJobs from './getJobs';
-import actionHandler, { ToolsAction } from './actionHandler';
-import checkJobStatus from './checkJobStatus';
+import { getActionHandler, ToolsAction } from './actionHandler';
 
 import JobStore from '../../../tools/utils/storage';
 import { Stores } from '../../../tools/utils/stores';
 import { ToolsState } from '../../../tools/state/toolsInitialState';
 import { MessagesAction } from '../../../messages/state/messagesReducers';
+import jobPoller from './jobPoller';
+import { GetJobMessageProps } from '../../../tools/utils';
 
 const jobStore = new JobStore(Stores.METADATA);
 
@@ -17,23 +18,26 @@ export type JobSharedWorkerMessage = MessageEvent<{
   messageAction?: MessagesAction;
 }>;
 
+export type ActionFoo = {
+  state?: ToolsState;
+  jobAction?: ToolsAction;
+  messageAction?: GetJobMessageProps;
+};
+
 sharedWorker.onconnect = async (event) => {
   const port = event.ports[0];
-  console.log('here');
 
+  // Rehydrate jobs
   const jobs = await getJobs(jobStore);
-  console.log(jobs);
-  const job = Object.values(jobs)[0];
-  checkJobStatus(job, jobStore, port);
   port.postMessage({ state: jobs });
 
+  const actionHandler = getActionHandler(jobStore, port);
+  await jobPoller(actionHandler, jobStore);
   port.onmessage = async (e: JobSharedWorkerMessage) => {
-    console.log(e);
     const jobAction = e.data.jobAction;
     if (jobAction) {
-      actionHandler(jobAction, jobStore);
-      const jobs = await getJobs(jobStore);
-      port.postMessage({ state: jobs });
+      await actionHandler({ jobAction });
+      await jobPoller(actionHandler, jobStore);
     }
   };
 };

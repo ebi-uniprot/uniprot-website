@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
 
-import { pollJobs } from '../../state/toolsActions';
 import { heuristic } from '../../state/utils/heuristic';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
+// Need to rewrite this to communicate with the shared worker
 const useDashboardPollingEffect = () => {
   useEffect(() => {
     // Visibility change event listener
     const onVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         // Do an immediate check when the dashboard gets visible
-        dispatchJobs(pollJobs());
+        // dispatchJobs(pollJobs());
         // Speed up polls
         heuristic.dashboardSpeedUpFactor = 4;
       } else {

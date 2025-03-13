@@ -5,6 +5,5 @@ export const jobsSharedWorker = window.SharedWorker
   : null;
 
 export const dispatchJobs = (jobAction: ToolsAction) => {
-  console.log(jobAction, jobsSharedWorker);
   jobsSharedWorker?.port.postMessage({ jobAction });
 };

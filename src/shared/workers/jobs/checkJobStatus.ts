@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-import { addMessage } from '../../../messages/state/messagesActions';
 import { updateJob } from '../../../tools/state/toolsActions';
 import * as logging from '../../utils/logging';
 
@@ -12,7 +11,6 @@ import {
   checkForResponseError,
   isJobAlreadyFinished,
   isJobIncomplete,
-  getJobMessage,
 } from '../../../tools/utils';
 import fetchData from '../../utils/fetchData';
 
@@ -28,11 +26,12 @@ import {
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { Status } from '../../../tools/types/toolsStatuses';
 import JobStore from '../../../tools/utils/storage';
+import { ActionFoo } from './sharedWorker';
 
 const checkJobStatus = async (
   job: NewJob | RunningJob | FinishedJob<JobTypes>,
-  store: JobStore,
-  port: MessagePort
+  actionHandler: (action: ActionFoo) => void,
+  store: JobStore
 ) => {
   const urlConfig =
     job.type === JobTypes.ASYNC_DOWNLOAD
@@ -43,7 +42,7 @@ const checkJobStatus = async (
 
   try {
     // we use plain fetch as through Axios we cannot block redirects
-    const response = await window.fetch(urlConfig.statusUrl(job.remoteID), {
+    const response = await fetch(urlConfig.statusUrl(job.remoteID), {
       headers: {
         Accept: 'text/plain,application/json',
       },
@@ -78,22 +77,22 @@ const checkJobStatus = async (
         await response.json();
       if (errorResponse.errors?.[0]) {
         const error = errorResponse.errors[0];
-        port.postMessage(
-          updateJob(job.internalID, {
+        await actionHandler({
+          jobAction: updateJob(job.internalID, {
             timeLastUpdate: Date.now(),
             status,
             errorDescription: error.message,
-          })
-        );
+          }),
+        });
       }
     }
     if (isJobIncomplete(status)) {
-      port.postMessage(
-        updateJob(job.internalID, {
+      await actionHandler({
+        jobAction: updateJob(job.internalID, {
           status,
           progress,
-        })
-      );
+        }),
+      });
       return;
     }
     // job finished, handle differently depending on job type
@@ -120,7 +119,7 @@ const checkJobStatus = async (
       }
 
       if (!results?.hits) {
-        port.postMessage({
+        await actionHandler({
           jobAction: updateJob(job.internalID, {
             status: Status.FAILURE,
           }),
@@ -133,19 +132,17 @@ const checkJobStatus = async (
         );
       }
 
-      port.postMessage({
+      await actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
           data: { hits: results.hits.length },
         }),
-        messageAction: addMessage(
-          getJobMessage({
-            job: currentStateOfJob,
-            nHits: results.hits.length,
-          })
-        ),
+        messageAction: {
+          job: currentStateOfJob,
+          nHits: results.hits.length,
+        },
       });
     } else if (job.type === JobTypes.ID_MAPPING && idMappingResultsUrl) {
       // only ID Mapping jobs
@@ -163,16 +160,14 @@ const checkJobStatus = async (
 
       const hits: string = response.headers['x-total-results'] || '0';
 
-      port.postMessage({
+      await actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
           data: { hits: +hits },
         }),
-        messageAction: addMessage(
-          getJobMessage({ job: currentStateOfJob, nHits: +hits })
-        ),
+        messageAction: { job: currentStateOfJob, nHits: +hits },
       });
     } else if (job.type === JobTypes.ASYNC_DOWNLOAD) {
       // Only Async Download jobs
@@ -190,20 +185,18 @@ const checkJobStatus = async (
 
       const fileSizeBytes = +response.headers['content-length'] || 0;
 
-      port.postMessage({
+      await actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
           data: { fileSizeBytes },
         }),
-        messageAction: addMessage(
-          getJobMessage({
-            job: currentStateOfJob,
-            fileSizeBytes,
-            url: resultUrl,
-          })
-        ),
+        messageAction: {
+          job: currentStateOfJob,
+          fileSizeBytes,
+          url: resultUrl,
+        },
       });
     } else if (job.type === JobTypes.PEPTIDE_SEARCH) {
       // Only Peptide Search jobs
@@ -212,26 +205,24 @@ const checkJobStatus = async (
         hits =
           (await response.text()).split(/\s*,\s*/).filter(Boolean)?.length || 0;
       }
-      port.postMessage({
+      await actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
           data: { hits },
         }),
-        messageAction: addMessage(
-          getJobMessage({ job: currentStateOfJob, nHits: hits })
-        ),
+        messageAction: { job: currentStateOfJob, nHits: hits },
       });
     } else {
       // Align
-      port.postMessage({
+      await actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
         }),
-        messageAction: addMessage(getJobMessage({ job: currentStateOfJob })),
+        messageAction: { job: currentStateOfJob },
       });
     }
   } catch (error) {

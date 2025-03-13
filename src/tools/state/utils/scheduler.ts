@@ -19,7 +19,7 @@ export class Scheduler {
   schedule(delay: number) {
     if (this.#currentSchedule) {
       // Clear any possible previously scheduled run
-      window.clearTimeout(this.#currentSchedule);
+      clearTimeout(this.#currentSchedule);
     }
     if (
       // If the runner is currently running, no need to schedule more runs
@@ -31,7 +31,7 @@ export class Scheduler {
       return;
     }
 
-    this.#currentSchedule = window.setTimeout(async () => {
+    this.#currentSchedule = setTimeout(async () => {
       this.#currentlyRunning = true;
       // Wait for the browser to not be busy
       await schedule();
@@ -42,6 +42,7 @@ export class Scheduler {
       this.#currentlyRunning = false;
       // Recursively call the scheduler to run the runner again in <x> ms
       this.schedule(nextDelay);
-    }, delay);
+    }, delay) as unknown as number;
+    // TODO: fix this type
   }
 }

@@ -10,10 +10,9 @@ type Listener = () => void;
 let listeners: Listener[] = [];
 let state: ToolsState = null;
 
-console.log(jobsSharedWorker);
+// console.log(jobsSharedWorker);
 if (jobsSharedWorker) {
   jobsSharedWorker.port.onmessage = (e) => {
-    console.log('Message received from worker', e);
     if (e.data.state) {
       state = e.data.state;
     }
