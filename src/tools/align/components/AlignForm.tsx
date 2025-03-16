@@ -41,7 +41,8 @@ import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import { createJob } from '../../state/toolsActions';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
@@ -62,7 +63,6 @@ import { ALIGN_LIMIT } from '../../../shared/config/limits';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 

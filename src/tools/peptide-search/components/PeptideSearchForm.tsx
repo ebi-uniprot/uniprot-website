@@ -21,7 +21,6 @@ import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
-import { createJob } from '../../state/toolsActions';
 import {
   getPeptideSearchFormDataReducer,
   getPeptideSearchFormInitialState,
@@ -35,6 +34,8 @@ import {
 
 import { truncateTaxonLabel } from '../../utils';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 
 import {
   PEPTIDE_SEARCH_SEQUENCES_COUNT,
@@ -61,7 +62,6 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 

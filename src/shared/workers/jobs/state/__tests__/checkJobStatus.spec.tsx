@@ -2,7 +2,7 @@ import { Dispatch, MutableRefObject } from 'react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import getCheckJobStatus from '../getCheckJobStatus';
+import checkJobStatus from '../checkJobStatus';
 
 import runningJob from '../../__mocks__/internal-jobs/running';
 
@@ -22,12 +22,7 @@ import { ToolsState } from '../toolsInitialState';
 import { MessagesAction } from '../../../messages/state/messagesReducers';
 
 let mock: MockAdapter;
-let checkJobStatus: ReturnType<typeof getCheckJobStatus>;
 
-const dispatch: jest.Mock<Dispatch<ToolsAction>> = jest.fn();
-const stateRef: MutableRefObject<ToolsState> = {
-  current: { [runningJob.internalID]: runningJob },
-};
 const messagesDispatch: jest.Mock<Dispatch<MessagesAction>> = jest.fn();
 
 beforeAll(() => {
@@ -36,10 +31,6 @@ beforeAll(() => {
   jest.spyOn(Date, 'now').mockImplementation(() => 0);
   // eslint-disable-next-line no-console
   console.error = jest.fn();
-});
-
-beforeEach(() => {
-  checkJobStatus = getCheckJobStatus(dispatch, stateRef, messagesDispatch);
 });
 
 afterEach(() => {

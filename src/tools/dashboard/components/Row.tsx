@@ -27,7 +27,7 @@ import {
 import { LocationDescriptor } from 'history';
 import cn from 'classnames';
 
-import { updateJob, deleteJob } from '../../state/toolsActions';
+// import { updateJob, deleteJob } from '../../state/toolsActions';
 
 import {
   jobTypeToPath,
@@ -45,17 +45,27 @@ import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 import { databaseValueToName } from '../../blast/config/BlastFormData';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 
-import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
-import { Status } from '../../types/toolsStatuses';
+// import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
+// import { Status } from '../../types/toolsStatuses';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 import { FormParameters } from '../../types/toolsFormParameters';
 import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
 import { SelectedTaxon } from '../../types/toolsFormData';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import {
+  updateJob,
+  deleteJob,
+} from '../../../shared/workers/jobs/state/toolsActions';
+import {
+  FailedJob,
+  FinishedJob,
+  Job,
+} from '../../../shared/workers/jobs/types/toolsJob';
+import { Status } from '../../../shared/workers/jobs/types/toolsStatuses';
 
 import './styles/Dashboard.scss';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>

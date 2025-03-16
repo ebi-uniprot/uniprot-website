@@ -37,7 +37,7 @@ import {
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
-import { Status } from '../../../tools/types/toolsStatuses';
+import { Status } from '../../workers/jobs/types/toolsStatuses';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
 import helper from '../../styles/helper.module.scss';

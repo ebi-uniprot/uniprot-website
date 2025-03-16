@@ -1,24 +1,13 @@
 import { MutableRefObject } from 'react';
-import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-import { BytesNumber, LongNumber } from 'franklin-sites';
 
-import { pluralise } from '../../shared/utils/utils';
-import * as logging from '../../shared/utils/logging';
+import * as logging from '../../../utils/logging';
 
-import { Location, jobTypeToPath } from '../../app/config/urls';
-
-import {
-  MessageFormat,
-  MessageLevel,
-  MessageTag,
-} from '../../messages/types/messagesTypes';
-
-import { Job } from '../types/toolsJob';
-import { JobTypes } from '../types/toolsJobTypes';
-import { Status } from '../types/toolsStatuses';
+import { ServerStatus } from '../../../../tools/async-download/types/asyncDownloadServerStatus';
+import { JobTypes } from '../../../../tools/types/toolsJobTypes';
 import { ToolsState } from '../state/toolsInitialState';
-import { ServerStatus } from '../async-download/types/asyncDownloadServerStatus';
+import { Job } from '../types/toolsJob';
+import { Status } from '../types/toolsStatuses';
 
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
@@ -161,103 +150,6 @@ export const getServerErrorDescription = (error: ServerError | string) => {
   }
   return data.messages.join('; ');
 };
-
-export type GetJobMessageProps = {
-  job: Job;
-  nHits?: number;
-  fileSizeBytes?: number;
-  errorDescription?: string;
-  url?: string;
-};
-
-export const getJobMessage = ({
-  job,
-  nHits,
-  fileSizeBytes,
-  errorDescription,
-  url,
-}: GetJobMessageProps) => {
-  const message = {
-    id: job.internalID,
-    format: MessageFormat.POP_UP,
-    tag: MessageTag.JOB,
-    omitAndDeleteAtLocations: [Location.Dashboard],
-  };
-
-  // Error message
-  if (errorDescription) {
-    return {
-      ...message,
-      content: errorDescription,
-      level: MessageLevel.FAILURE,
-    };
-  }
-
-  // Success message
-  let jobName;
-  if (job.title) {
-    jobName = `"${job.title}"`;
-  } else if ('remoteID' in job) {
-    jobName = job.remoteID;
-  } else {
-    jobName = '';
-  }
-
-  let jobNameNode;
-  if (url) {
-    jobNameNode = (
-      <a href={url} target="_blank" rel="noreferrer">
-        {jobName}
-      </a>
-    );
-  } else if (
-    'remoteID' in job &&
-    job.remoteID &&
-    (nHits !== 0 || fileSizeBytes !== 0)
-  ) {
-    const location = {
-      pathname: jobTypeToPath(job.type, job),
-      state: { internalID: job.internalID },
-    };
-    jobNameNode = <Link to={location}>{jobName}</Link>;
-  } else {
-    jobNameNode = jobName;
-  }
-
-  let quantityMessage;
-  if (typeof nHits !== 'undefined') {
-    quantityMessage = (
-      <>
-        {', found '}
-        <LongNumber>{nHits}</LongNumber>
-        {` ${pluralise('hit', nHits)}`}
-      </>
-    );
-  } else if (typeof fileSizeBytes !== 'undefined') {
-    quantityMessage = (
-      <>
-        {', '}
-        <BytesNumber>{fileSizeBytes}</BytesNumber> file generated
-      </>
-    );
-  }
-
-  return {
-    ...message,
-    content: (
-      <>
-        {job.type} job {jobNameNode}
-        {' finished'}
-        {quantityMessage}
-      </>
-    ),
-    level: MessageLevel.SUCCESS,
-  };
-};
-
-// Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens [9606]
-export const truncateTaxonLabel = (label: string) =>
-  label.replace(/ *\([^)]*\) */g, ' ');
 
 export const checkForResponseError = (response: Response, status: Status) => {
   if (!response.ok && status !== Status.FAILURE && status !== Status.ERRORED) {

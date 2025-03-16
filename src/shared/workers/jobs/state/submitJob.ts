@@ -1,19 +1,19 @@
-import { formParametersToServerParameters } from '../../../tools/adapters/parameters';
+import { formParametersToServerParameters } from '../../../../tools/adapters/parameters';
 import toolsURLs, {
   asyncDownloadUrlObjectCreator,
-} from '../../../tools/config/urls';
-import { updateJob } from '../../../tools/state/toolsActions';
-import { FormParameters } from '../../../tools/types/toolsFormParameters';
-import { CreatedJob, Job } from '../../../tools/types/toolsJob';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { Status } from '../../../tools/types/toolsStatuses';
+} from '../../../../tools/config/urls';
+import { FormParameters } from '../../../../tools/types/toolsFormParameters';
+import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import { ActionFoo } from '../sharedWorker';
+import { CreatedJob, Job } from '../types/toolsJob';
+import { Status } from '../types/toolsStatuses';
 import {
   getServerErrorDescription,
   getRemoteIDFromResponse,
   ServerError,
-} from '../../../tools/utils';
-import JobStore from '../../../tools/utils/storage';
-import { ActionFoo } from './sharedWorker';
+} from '../utils';
+import JobStore from '../utils/storage';
+import { updateJob } from './toolsActions';
 
 const getFormJobUrlAndBody = (job: CreatedJob) => {
   // specific logic to transform FormParameters to ServerParameters

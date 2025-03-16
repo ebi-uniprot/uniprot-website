@@ -1,14 +1,14 @@
 import pMap from 'p-map';
-import { deleteJob } from '../../../tools/state/toolsActions';
-import { heuristic } from '../../../tools/state/utils/heuristic';
-import { Job } from '../../../tools/types/toolsJob';
-import { Status } from '../../../tools/types/toolsStatuses';
-import JobStore from '../../../tools/utils/storage';
-import getJobs from './getJobs';
-import submitJob from './submitJob';
-import checkJobStatus from './checkJobStatus';
+import JobStore from './utils/storage';
+import getJobs from './state/getJobs';
+import submitJob from './state/submitJob';
+import checkJobStatus from './state/checkJobStatus';
 import { ActionFoo } from './sharedWorker';
-import { Scheduler } from '../../../tools/state/utils/scheduler';
+import { deleteJob } from './state/toolsActions';
+import { Job } from './types/toolsJob';
+import { Status } from './types/toolsStatuses';
+import { heuristic } from './utils/heuristic';
+import { Scheduler } from './utils/scheduler';
 
 const BASE_POLLING_INTERVAL = 1_000 * 15; // 15 seconds baseline / minimum
 // See ./utils/heuristic.ts possible changing factors => min 15s, max 4min

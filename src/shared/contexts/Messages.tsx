@@ -9,7 +9,7 @@ import messagesReducers, {
 import { jobsSharedWorker } from '../workers/jobs/getSharedWorker';
 import { JobSharedWorkerMessage } from '../workers/jobs/sharedWorker';
 import { addMessage } from '../../messages/state/messagesActions';
-import { getJobMessage } from '../../tools/utils';
+import getJobMessage from '../../messages/utils/';
 
 export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
   () => {
@@ -28,7 +28,6 @@ export const MessagesProvider = ({ children }: { children: ReactNode }) => {
     (e: JobSharedWorkerMessage) => {
       const messageAction = e.data.messageAction;
       if (messageAction) {
-        console.log(messageAction);
         dispatch(addMessage(getJobMessage(messageAction)));
       }
     }

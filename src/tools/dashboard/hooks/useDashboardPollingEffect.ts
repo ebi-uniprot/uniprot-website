@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { heuristic } from '../../state/utils/heuristic';
+import { heuristic } from '../../../shared/workers/jobs/utils/heuristic';
 
 // Need to rewrite this to communicate with the shared worker
 const useDashboardPollingEffect = () => {

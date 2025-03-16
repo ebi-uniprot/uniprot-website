@@ -1,12 +1,12 @@
-import getJobs from './getJobs';
-import { getActionHandler, ToolsAction } from './actionHandler';
+import getJobs from './state/getJobs';
+import { getActionHandler, ToolsAction } from './state/actionHandler';
 
-import JobStore from '../../../tools/utils/storage';
-import { Stores } from '../../../tools/utils/stores';
-import { ToolsState } from '../../../tools/state/toolsInitialState';
+import JobStore from './utils/storage';
+import { Stores } from './utils/stores';
+import { ToolsState } from './state/toolsInitialState';
 import { MessagesAction } from '../../../messages/state/messagesReducers';
 import jobPoller from './jobPoller';
-import { GetJobMessageProps } from '../../../tools/utils';
+import { GetJobMessageArgs } from '../../../messages/utils';
 
 const jobStore = new JobStore(Stores.METADATA);
 
@@ -21,7 +21,7 @@ export type JobSharedWorkerMessage = MessageEvent<{
 export type ActionFoo = {
   state?: ToolsState;
   jobAction?: ToolsAction;
-  messageAction?: GetJobMessageProps;
+  messageAction?: GetJobMessageArgs;
 };
 
 sharedWorker.onconnect = async (event) => {

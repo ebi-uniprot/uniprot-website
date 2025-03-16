@@ -31,7 +31,7 @@ import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../../messages/state/messagesActions';
-import { createJob } from '../../state/toolsActions';
+import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 import {
   getIDMappingFormDataReducer,
   getIDMappingFormInitialState,
@@ -45,6 +45,7 @@ import {
 
 import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 
@@ -74,7 +75,6 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 

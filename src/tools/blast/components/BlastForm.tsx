@@ -35,8 +35,6 @@ import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
-import { truncateTaxonLabel } from '../../utils';
-import { createJob } from '../../state/toolsActions';
 import {
   resetFormState,
   updateParsedSequences,
@@ -80,6 +78,8 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { truncateTaxonLabel } from '../../utils';
+import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 

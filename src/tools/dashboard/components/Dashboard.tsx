@@ -18,7 +18,7 @@ import useJobsState from '../../../shared/hooks/useJobsState';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import { Job } from '../../types/toolsJob';
+import { Job } from '../../../shared/workers/jobs/types/toolsJob';
 
 import './styles/Dashboard.scss';
 
