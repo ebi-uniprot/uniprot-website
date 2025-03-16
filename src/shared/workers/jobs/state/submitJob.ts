@@ -4,7 +4,7 @@ import toolsURLs, {
 } from '../../../../tools/config/urls';
 import { FormParameters } from '../../../../tools/types/toolsFormParameters';
 import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-import { ActionFoo } from '../sharedWorker';
+import { JobSharedWorkerMessage } from '../sharedWorker';
 import { CreatedJob, Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import {
@@ -40,7 +40,7 @@ const getAsyncDownloadUrlAndBody = (job: CreatedJob) => {
 
 const submitJob = async (
   job: CreatedJob,
-  actionHandler: (action: ActionFoo) => void,
+  actionHandler: (action: JobSharedWorkerMessage) => void,
   jobStore: JobStore
 ) => {
   try {

@@ -13,7 +13,7 @@ import {
 import fetchData from '../../../utils/fetchData';
 
 import JobStore from '../utils/storage';
-import { ActionFoo } from '../sharedWorker';
+import { JobSharedWorkerMessage } from '../sharedWorker';
 import { BlastResults } from '../../../../tools/blast/types/blastResults';
 import toolsURLs, {
   asyncDownloadUrlObjectCreator,
@@ -26,7 +26,7 @@ import { Status } from '../types/toolsStatuses';
 
 const checkJobStatus = async (
   job: NewJob | RunningJob | FinishedJob<JobTypes>,
-  actionHandler: (action: ActionFoo) => void,
+  actionHandler: (action: JobSharedWorkerMessage) => void,
   store: JobStore
 ) => {
   const urlConfig =

@@ -7,7 +7,7 @@ import messagesReducers, {
   MessagesAction,
 } from '../../messages/state/messagesReducers';
 import { jobsSharedWorker } from '../workers/jobs/getSharedWorker';
-import { JobSharedWorkerMessage } from '../workers/jobs/sharedWorker';
+import { JobSharedWorkerMessageEvent } from '../workers/jobs/sharedWorker';
 import { addMessage } from '../../messages/state/messagesActions';
 import getJobMessage from '../../messages/utils/';
 
@@ -25,7 +25,7 @@ export const MessagesProvider = ({ children }: { children: ReactNode }) => {
 
   jobsSharedWorker?.port.addEventListener(
     'message',
-    (e: JobSharedWorkerMessage) => {
+    (e: JobSharedWorkerMessageEvent) => {
       const messageAction = e.data.messageAction;
       if (messageAction) {
         dispatch(addMessage(getJobMessage(messageAction)));

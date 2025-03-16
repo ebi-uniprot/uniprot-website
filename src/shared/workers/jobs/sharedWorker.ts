@@ -4,25 +4,21 @@ import { getActionHandler, ToolsAction } from './state/actionHandler';
 import JobStore from './utils/storage';
 import { Stores } from './utils/stores';
 import { ToolsState } from './state/toolsInitialState';
-import { MessagesAction } from '../../../messages/state/messagesReducers';
 import jobPoller from './jobPoller';
 import { GetJobMessageArgs } from '../../../messages/utils';
+import * as logging from '../../utils/logging';
 
 const jobStore = new JobStore(Stores.METADATA);
 
 const sharedWorker = self as unknown as SharedWorkerGlobalScope;
 
-export type JobSharedWorkerMessage = MessageEvent<{
-  state?: ToolsState;
-  jobAction?: ToolsAction;
-  messageAction?: MessagesAction;
-}>;
-
-export type ActionFoo = {
+export type JobSharedWorkerMessage = {
   state?: ToolsState;
   jobAction?: ToolsAction;
   messageAction?: GetJobMessageArgs;
 };
+
+export type JobSharedWorkerMessageEvent = MessageEvent<JobSharedWorkerMessage>;
 
 sharedWorker.onconnect = async (event) => {
   const port = event.ports[0];
@@ -33,8 +29,8 @@ sharedWorker.onconnect = async (event) => {
 
   const actionHandler = getActionHandler(jobStore, port);
   await jobPoller(actionHandler, jobStore);
-  port.onmessage = async (e: JobSharedWorkerMessage) => {
-    const jobAction = e.data.jobAction;
+  port.onmessage = async (e: JobSharedWorkerMessageEvent) => {
+    const { jobAction } = e.data;
     if (jobAction) {
       await actionHandler({ jobAction });
       await jobPoller(actionHandler, jobStore);
@@ -42,6 +38,6 @@ sharedWorker.onconnect = async (event) => {
   };
 };
 
-sharedWorker.onerror = async (e) => {
-  console.error(e);
+sharedWorker.onerror = async (error) => {
+  logging.error(error);
 };

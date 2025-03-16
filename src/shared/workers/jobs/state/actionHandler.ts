@@ -7,18 +7,19 @@ import { CreatedJob, Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import JobStore from '../utils/storage';
 import getJobs from './getJobs';
-import { ActionFoo } from '../sharedWorker';
+import { JobSharedWorkerMessage } from '../sharedWorker';
 
 export type ToolsAction = ActionType<typeof toolsActions>;
 
 export const getActionHandler =
-  (jobStore: JobStore, port: MessagePort) => async (action: ActionFoo) => {
+  (jobStore: JobStore, port: MessagePort) =>
+  async (action: JobSharedWorkerMessage) => {
     const { jobAction, messageAction } = action;
     if (jobAction) {
       await actionHandler(jobAction, jobStore);
     }
     const jobs = await getJobs(jobStore);
-    const m = { state: jobs };
+    const m: JobSharedWorkerMessage = { state: jobs };
     if (messageAction) {
       m.messageAction = messageAction;
     }

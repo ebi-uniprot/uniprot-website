@@ -3,7 +3,7 @@ import JobStore from './utils/storage';
 import getJobs from './state/getJobs';
 import submitJob from './state/submitJob';
 import checkJobStatus from './state/checkJobStatus';
-import { ActionFoo } from './sharedWorker';
+import { JobSharedWorkerMessage } from './sharedWorker';
 import { deleteJob } from './state/toolsActions';
 import { Job } from './types/toolsJob';
 import { Status } from './types/toolsStatuses';
@@ -28,7 +28,7 @@ const getJobsToCheck = async (jobStore: JobStore) =>
   );
 
 const jobPoller = async (
-  actionHandler: (action: ActionFoo) => void,
+  actionHandler: (action: JobSharedWorkerMessage) => void,
   jobStore: JobStore
 ) => {
   const pollJobMapper = async (job: Job) => {
