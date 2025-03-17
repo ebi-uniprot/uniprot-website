@@ -12,7 +12,7 @@ import { JobSharedWorkerMessage } from '../sharedWorker';
 export type ToolsAction = ActionType<typeof toolsActions>;
 
 export const getActionHandler =
-  (jobStore: JobStore, port: MessagePort) =>
+  (jobStore: JobStore, broadcast: (message: JobSharedWorkerMessage) => void) =>
   async (action: JobSharedWorkerMessage) => {
     const { jobAction, messageAction } = action;
     if (jobAction) {
@@ -23,7 +23,7 @@ export const getActionHandler =
     if (messageAction) {
       m.messageAction = messageAction;
     }
-    port.postMessage(m);
+    broadcast(m);
   };
 
 async function actionHandler(action: ToolsAction, jobStore: JobStore) {

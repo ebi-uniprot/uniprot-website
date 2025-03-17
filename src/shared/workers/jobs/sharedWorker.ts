@@ -20,15 +20,27 @@ export type JobSharedWorkerMessage = {
 
 export type JobSharedWorkerMessageEvent = MessageEvent<JobSharedWorkerMessage>;
 
+const connectedPorts: MessagePort[] = [];
+
+const broadcast = (message: JobSharedWorkerMessage) => {
+  for (const port of connectedPorts) {
+    port.postMessage(message);
+  }
+};
+
 sharedWorker.onconnect = async (event) => {
   const port = event.ports[0];
+  connectedPorts.push(port);
+  if (port.start) {
+    port.start();
+  }
 
   // Rehydrate jobs
-  const jobs = await getJobs(jobStore);
-  port.postMessage({ state: jobs });
+  broadcast({ state: await getJobs(jobStore) });
 
-  const actionHandler = getActionHandler(jobStore, port);
+  const actionHandler = getActionHandler(jobStore, broadcast);
   await jobPoller(actionHandler, jobStore);
+
   port.onmessage = async (e: JobSharedWorkerMessageEvent) => {
     const { jobAction } = e.data;
     if (jobAction) {
