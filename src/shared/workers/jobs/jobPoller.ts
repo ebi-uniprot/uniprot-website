@@ -63,8 +63,7 @@ const jobPoller = async (
     for (const [internalID, job] of Object.entries(await getJobs(jobStore))) {
       if (now - job.timeCreated > AUTO_DELETE_TIME && !job.saved) {
         // job is older than 14 days
-        // eslint-disable-next-line no-await-in-loop
-        await actionHandler({ jobAction: deleteJob(internalID) });
+        actionHandler({ jobAction: deleteJob(internalID) });
       } else if (job.status === Status.FINISHED) {
         // job is finished and should still be present on the server
         // eslint-disable-next-line no-await-in-loop

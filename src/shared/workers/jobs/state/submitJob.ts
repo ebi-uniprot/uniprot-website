@@ -83,7 +83,7 @@ const submitJob = async (
     }
 
     if (job.type === JobTypes.ASYNC_DOWNLOAD) {
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           status: Status.NEW,
           remoteID,
@@ -91,7 +91,7 @@ const submitJob = async (
         }),
       });
     } else {
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           status: Status.QUEUED,
           remoteID,
@@ -117,7 +117,7 @@ const submitJob = async (
     if (!currentStateOfJob) {
       return;
     }
-    await actionHandler({
+    actionHandler({
       jobAction: updateJob(job.internalID, {
         status: Status.FAILURE,
         errorDescription,

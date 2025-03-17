@@ -73,7 +73,7 @@ const checkJobStatus = async (
         await response.json();
       if (errorResponse.errors?.[0]) {
         const error = errorResponse.errors[0];
-        await actionHandler({
+        actionHandler({
           jobAction: updateJob(job.internalID, {
             timeLastUpdate: Date.now(),
             status,
@@ -83,7 +83,7 @@ const checkJobStatus = async (
       }
     }
     if (isJobIncomplete(status)) {
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           status,
           progress,
@@ -115,7 +115,7 @@ const checkJobStatus = async (
       }
 
       if (!results?.hits) {
-        await actionHandler({
+        actionHandler({
           jobAction: updateJob(job.internalID, {
             status: Status.FAILURE,
           }),
@@ -128,7 +128,7 @@ const checkJobStatus = async (
         );
       }
 
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
@@ -156,7 +156,7 @@ const checkJobStatus = async (
 
       const hits: string = response.headers['x-total-results'] || '0';
 
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
@@ -181,7 +181,7 @@ const checkJobStatus = async (
 
       const fileSizeBytes = +response.headers['content-length'] || 0;
 
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
@@ -201,7 +201,7 @@ const checkJobStatus = async (
         hits =
           (await response.text()).split(/\s*,\s*/).filter(Boolean)?.length || 0;
       }
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
@@ -212,7 +212,7 @@ const checkJobStatus = async (
       });
     } else {
       // Align
-      await actionHandler({
+      actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
