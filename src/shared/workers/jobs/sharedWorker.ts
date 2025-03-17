@@ -31,6 +31,7 @@ const broadcast = (message: JobSharedWorkerMessage) => {
 sharedWorker.onconnect = async (event) => {
   const port = event.ports[0];
   connectedPorts.push(port);
+  // Add try catch here
   if (port.start) {
     port.start();
   }
@@ -39,7 +40,6 @@ sharedWorker.onconnect = async (event) => {
   broadcast({ state: await getJobs(jobStore) });
 
   const actionHandler = getActionHandler(jobStore, broadcast);
-  await jobPoller(actionHandler, jobStore);
 
   port.onmessage = async (e: JobSharedWorkerMessageEvent) => {
     const { jobAction } = e.data;
@@ -48,6 +48,9 @@ sharedWorker.onconnect = async (event) => {
       await jobPoller(actionHandler, jobStore);
     }
   };
+
+  // Initial job polling
+  await jobPoller(actionHandler, jobStore);
 };
 
 sharedWorker.onerror = async (error) => {
