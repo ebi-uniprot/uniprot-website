@@ -13,6 +13,7 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { allEntryPages, getEntryPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
 
 import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -80,7 +81,7 @@ const DiseaseVariants = ({
   variants: FeatureDatum[];
   accession: string;
 }) => (
-  <Table expandable>
+  <Table expandable={variants.length > MIN_ROWS_TO_EXPAND}>
     <Table.Head>
       <th>Variant ID</th>
       <th>Position(s)</th>

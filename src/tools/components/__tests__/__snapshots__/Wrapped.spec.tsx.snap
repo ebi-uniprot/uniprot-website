@@ -155,17 +155,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L0,0L0,13L0,13Z"
+                  d="M0,0L0,0L0,15L0,15Z"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -174,17 +174,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,6.5 L0,6.5"
+                  d="M0,7.5 L0,7.5"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -193,17 +193,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L0,0L0,13L0,13Z"
+                  d="M0,0L0,0L0,15L0,15Z"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -212,17 +212,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,6.5 L0,6.5"
+                  d="M0,7.5 L0,7.5"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -231,17 +231,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L0,0L0,13L0,13Z"
+                  d="M0,0L0,0L0,15L0,15Z"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -250,17 +250,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,6.5 L0,6.5"
+                  d="M0,7.5 L0,7.5"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -269,17 +269,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L0,0L0,13L0,13Z"
+                  d="M0,0L0,0L0,15L0,15Z"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -288,17 +288,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,6.5 L0,6.5"
+                  d="M0,7.5 L0,7.5"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -307,17 +307,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L0,0L0,13L0,13Z"
+                  d="M0,0L0,0L0,15L0,15Z"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -326,17 +326,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,6.5 L0,6.5"
+                  d="M0,7.5 L0,7.5"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -345,17 +345,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L0,0L0,13L0,13Z"
+                  d="M0,0L0,0L0,15L0,15Z"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -364,17 +364,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="line feature"
-                  d="M0,6.5 L0,6.5"
+                  d="M0,7.5 L0,7.5"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
@@ -383,17 +383,17 @@ exports[`WrappedRow should render 1`] = `
               >
                 <path
                   class="rectangle feature"
-                  d="M0,0L0,0L0,13L0,13Z"
+                  d="M0,0L0,0L0,15L0,15Z"
                   stroke="#9999FF"
                   style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                 />
                 <rect
                   class="outer-rectangle feature"
-                  height="13"
+                  height="15"
                   stroke="transparent"
                   style="fill: transparent;"
-                  transform="translate(10,22)"
+                  transform="translate(10,12.5)"
                   width="0"
                 />
               </g>
