@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import initializer from '../utils/fieldInitializer';
-
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import initializer from '../utils/fieldInitializer';
 
 export type GoEvidenceFieldProps = {
   field: SearchTermType;

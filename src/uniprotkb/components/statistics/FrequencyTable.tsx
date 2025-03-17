@@ -1,14 +1,11 @@
-import { ReactNode } from 'react';
 import { LocationDescriptorObject } from 'history';
+import { ReactNode } from 'react';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
-import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
-
-import { frequencySort, merge } from './utils';
-
 import { StatisticsItem, TableProps } from './StatisticsPage';
-
 import styles from './styles/statistics-page.module.scss';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+import { frequencySort, merge } from './utils';
 
 type Props = TableProps & {
   header: ReactNode;

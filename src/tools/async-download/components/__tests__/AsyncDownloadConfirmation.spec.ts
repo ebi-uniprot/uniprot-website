@@ -1,8 +1,6 @@
-import { getFacetString } from '../AsyncDownloadConfirmation';
-
 import { FacetObject } from '../../../../shared/types/results';
-
 import mockResults from '../../../../uniprotkb/components/__mocks__/results';
+import { getFacetString } from '../AsyncDownloadConfirmation';
 
 describe('getFacetString', () => {
   it('should create facet string', () => {

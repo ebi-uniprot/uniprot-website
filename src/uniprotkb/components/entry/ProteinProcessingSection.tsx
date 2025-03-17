@@ -1,22 +1,19 @@
-import { memo } from 'react';
 import { Card, Loader } from 'franklin-sites';
+import { memo } from 'react';
 
-import EntrySection from '../../types/entrySection';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import KeywordView from '../protein-data-views/KeywordView';
-import XRefView from '../protein-data-views/XRefView';
-import FreeTextView from '../protein-data-views/FreeTextView';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { hasContent } from '../../../shared/utils/utils';
 import { convertPtmExchangeFeatures } from '../../adapters/ptmExchangeFeaturesConverter';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import { FreeTextComment } from '../../types/commentTypes';
-import { ProteomicsPtm } from '../../types/proteomicsPtm';
 import { UIModel } from '../../adapters/sectionConverter';
+import { FreeTextComment } from '../../types/commentTypes';
+import EntrySection from '../../types/entrySection';
+import { ProteomicsPtm } from '../../types/proteomicsPtm';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import FreeTextView from '../protein-data-views/FreeTextView';
+import KeywordView from '../protein-data-views/KeywordView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import XRefView from '../protein-data-views/XRefView';
 
 type Props = {
   data: UIModel;

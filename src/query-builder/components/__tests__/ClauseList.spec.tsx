@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 
 import { createEmptyClause } from '../../utils/clause';
-
 import ClauseList from '../ClauseList';
 
 const props = {

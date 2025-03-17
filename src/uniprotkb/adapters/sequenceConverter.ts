@@ -1,29 +1,30 @@
 import { groupBy } from 'lodash-es';
+
+import { SequenceData } from '../../shared/components/entry/SequenceView';
+import { Xref } from '../../shared/types/apiModel';
 import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { UniProtKBColumn } from '../types/columnTypes';
+import {
+  AlternativeProductsComment,
+  FreeTextComment,
+  MassSpectrometryComment,
+  RNAEditingComment,
+  SequenceCautionComment,
+} from '../types/commentTypes';
+import EntrySection from '../types/entrySection';
+import FeatureType, { SequenceFeatures } from '../types/featureType';
+import KeywordCategory from '../types/keywordCategory';
+import { DatabaseInfoMaps } from '../utils/database';
 import {
   getKeywordsForCategories,
   KeywordUIModel,
 } from '../utils/KeywordsUtil';
-import KeywordCategory from '../types/keywordCategory';
-import FeatureType, { SequenceFeatures } from '../types/featureType';
 import {
+  getJoinedXrefs,
   getXrefsForSection,
   XrefUIModel,
-  getJoinedXrefs,
 } from '../utils/xrefUtils';
-import EntrySection from '../types/entrySection';
-import { SequenceData } from '../../shared/components/entry/SequenceView';
-import {
-  AlternativeProductsComment,
-  SequenceCautionComment,
-  MassSpectrometryComment,
-  FreeTextComment,
-  RNAEditingComment,
-} from '../types/commentTypes';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { Xref } from '../../shared/types/apiModel';
-import { UniProtKBColumn } from '../types/columnTypes';
-import { DatabaseInfoMaps } from '../utils/database';
 
 export type Flag =
   | 'Precursor'

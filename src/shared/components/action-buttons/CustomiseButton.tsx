@@ -1,23 +1,19 @@
-import { FormEvent, Suspense, useState, useEffect } from 'react';
-import { useLocation, useRouteMatch } from 'react-router-dom';
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
+import { FormEvent, Suspense, useEffect, useState } from 'react';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
+import { allEntryPages } from '../../../app/config/urls';
+import { nsToDefaultColumns } from '../../config/columns';
 import useLocalStorage from '../../hooks/useLocalStorage';
-
-import lazy from '../../utils/lazy';
+import { Namespace } from '../../types/namespaces';
 import {
   PanelFormCloseReason,
   sendGtagEventPanelCustomiseColumnsClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
-import { nsToDefaultColumns } from '../../config/columns';
-import { allEntryPages } from '../../../app/config/urls';
-
-import { Namespace } from '../../types/namespaces';
-
+import lazy from '../../utils/lazy';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/customise-button.module.scss';
 
 const CustomiseTable = lazy(

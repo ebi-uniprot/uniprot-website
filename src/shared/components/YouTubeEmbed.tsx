@@ -1,9 +1,9 @@
+import 'lite-youtube-embed/src/lite-yt-embed.css';
+
 import { HTMLAttributes } from 'react';
-import ExternalLink from './ExternalLink';
 
 import useCustomElement from '../hooks/useCustomElement';
-
-import 'lite-youtube-embed/src/lite-yt-embed.css';
+import ExternalLink from './ExternalLink';
 
 type Props = {
   videoid: string;

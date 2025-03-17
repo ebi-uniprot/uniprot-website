@@ -1,14 +1,13 @@
-import { ActionType } from 'typesafe-actions';
 import { truncate } from 'lodash-es';
+import { ActionType } from 'typesafe-actions';
 
 import { PEPTIDE_SEARCH_SEQUENCES_COUNT } from '../../../shared/config/limits';
-import * as peptideSearchFormActions from './peptideSearchFormActions';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
-
 import {
   PeptideSearchFields,
   PeptideSearchFormValues,
 } from '../config/PeptideSearchFormData';
+import * as peptideSearchFormActions from './peptideSearchFormActions';
 
 type PeptideSearchFormState = {
   formValues: PeptideSearchFormValues;

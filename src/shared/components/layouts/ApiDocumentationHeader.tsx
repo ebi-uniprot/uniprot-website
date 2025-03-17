@@ -1,5 +1,5 @@
-import { Header } from 'franklin-sites';
 import cn from 'classnames';
+import { Header } from 'franklin-sites';
 
 import styles from './styles/documentation-header.module.scss';
 

@@ -1,47 +1,42 @@
-import { useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import '../../../shared/components/entry/styles/entry-page.scss';
+
 import { Loader } from 'franklin-sites';
 import { partition } from 'lodash-es';
+import { useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
-import HTMLHead from '../../../shared/components/HTMLHead';
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import Overview from '../data-views/Overview';
-import EntryMain from './EntryMain';
-import MembersFacets from './MembersFacets';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+  MessageTag,
+  MessageType,
+} from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
-import { MapToDropdownBasic } from '../../../shared/components/MapTo';
-import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
-
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import { MapToDropdownBasic } from '../../../shared/components/MapTo';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-
-import { addMessage } from '../../../messages/state/messagesActions';
-
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import uniRefConverter, {
-  UniRefLiteAPIModel,
-} from '../../adapters/uniRefConverter';
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageType,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-
-import '../../../shared/components/entry/styles/entry-page.scss';
+import uniRefConverter, {
+  UniRefLiteAPIModel,
+} from '../../adapters/uniRefConverter';
+import Overview from '../data-views/Overview';
+import EntryMain from './EntryMain';
+import MembersFacets from './MembersFacets';
 
 const Entry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);

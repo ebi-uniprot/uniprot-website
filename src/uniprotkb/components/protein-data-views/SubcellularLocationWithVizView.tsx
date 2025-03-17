@@ -1,24 +1,20 @@
-import { FC, lazy, ReactNode, ReactElement } from 'react';
-import { Tabs, Tab, HeroContainer } from 'franklin-sites';
+import { HeroContainer, Tab, Tabs } from 'franklin-sites';
+import { FC, lazy, ReactElement, ReactNode } from 'react';
 
-import SubcellularLocationView from './SubcellularLocationView';
-import SubcellularLocationGOView from './SubcellularLocationGOView';
 import LazyComponent from '../../../shared/components/LazyComponent';
-
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import {
-  getEvidenceCodeData,
-  getEcoNumberFromGoEvidenceType,
-  getEcoNumberFromString,
-} from '../../config/evidenceCodes';
-
 import * as logging from '../../../shared/utils/logging';
-
-import { SubcellularLocationComment } from '../../types/commentTypes';
 import { Lineage } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
+import {
+  getEcoNumberFromGoEvidenceType,
+  getEcoNumberFromString,
+  getEvidenceCodeData,
+} from '../../config/evidenceCodes';
+import { SubcellularLocationComment } from '../../types/commentTypes';
+import SubcellularLocationGOView from './SubcellularLocationGOView';
+import SubcellularLocationView from './SubcellularLocationView';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz =

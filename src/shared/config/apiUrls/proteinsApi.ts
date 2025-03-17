@@ -1,10 +1,8 @@
 import joinUrl from 'url-join';
 
-import { stringifyUrl } from '../../utils/url';
-
-import { fileFormatToUrlParameter } from '../resultsDownload';
-
 import { FileFormat } from '../../types/resultsDownload';
+import { stringifyUrl } from '../../utils/url';
+import { fileFormatToUrlParameter } from '../resultsDownload';
 
 export const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
 

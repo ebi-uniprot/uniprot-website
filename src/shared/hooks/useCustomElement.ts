@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-import useSafeState from './useSafeState';
-
 import * as logging from '../utils/logging';
+import useSafeState from './useSafeState';
 
 const isSupported = 'customElements' in window;
 

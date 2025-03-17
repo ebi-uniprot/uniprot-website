@@ -1,15 +1,12 @@
 import { screen } from '@testing-library/react';
-import { Route } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { Route } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import Entry from '../Entry';
-
-import { LocationToPath, Location } from '../../../../app/config/urls';
-
 import mockData from '../../__mocks__/helpEntryModelData';
+import Entry from '../Entry';
 
 const mock = new MockAdapter(axios);
 

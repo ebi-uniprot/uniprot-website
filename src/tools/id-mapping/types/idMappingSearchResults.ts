@@ -1,9 +1,8 @@
 /* Results as given by the server */
-import { ServerParameters } from './idMappingServerParameters';
-
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import { ServerParameters } from './idMappingServerParameters';
 
 export type MappingAPIModel = MappingWarningsErrors & {
   from: string;

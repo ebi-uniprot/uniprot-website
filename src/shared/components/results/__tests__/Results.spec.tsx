@@ -1,12 +1,10 @@
-import { screen, waitFor, fireEvent } from '@testing-library/react';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
 
-import Results from '../Results';
-
-import customRender from '../../../__test-helpers__/customRender';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
+import customRender from '../../../__test-helpers__/customRender';
+import Results from '../Results';
 
 jest.mock('../SearchSuggestions', () => ({
   __esModule: true,

@@ -1,14 +1,14 @@
+import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { clientsClaim } from 'workbox-core';
+import { ExpirationPlugin } from 'workbox-expiration';
 import {
   cleanupOutdatedCaches,
   // precacheAndRoute,
   // createHandlerBoundToURL,
 } from 'workbox-precaching';
-import { clientsClaim } from 'workbox-core';
 import { registerRoute /* , NavigationRoute */, Route } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
 
 import { CacheName } from './shared-types';
 

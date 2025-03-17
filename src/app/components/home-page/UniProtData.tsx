@@ -1,15 +1,13 @@
-import { Tile, HeroContainer } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
-
-import { LocationToPath, Location } from '../../config/urls';
-import ftpUrls from '../../../shared/config/ftpUrls';
+import { HeroContainer, Tile } from 'franklin-sites';
+import { generatePath, Link } from 'react-router-dom';
 
 import FTPIllustration from '../../../images/ftp_illustration.img.svg';
 import ProgrammaticIllustration from '../../../images/programmatic_illustration.img.svg';
-import TechDocIllustration from '../../../images/tech_doc_illustration.img.svg';
 import SubmitDataIllustration from '../../../images/submit-data_illustration.img.svg';
-
+import TechDocIllustration from '../../../images/tech_doc_illustration.img.svg';
+import ftpUrls from '../../../shared/config/ftpUrls';
+import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 
 const UniProtData = () => (

@@ -1,36 +1,33 @@
+import './styles/results-view.scss';
+
+import { HistogramFilter } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { HistogramFilter } from 'franklin-sites';
 
 import { Facets } from '../../../../shared/components/results/Facets';
-
+import facetsStyles from '../../../../shared/components/results/styles/facets.module.scss';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import helper from '../../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
+import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 import {
   getLocationObjForParams,
   getParamsFromURL,
 } from '../../../../uniprotkb/utils/resultsUtils';
+import { BlastFacet, BlastHit } from '../../types/blastResults';
 import {
-  localFacets,
+  blastFacetToKeyName,
+  blastFacetToNiceName,
+  filterBlastByFacets,
   getBounds,
   getDataPoints,
   getFacetBounds,
-  filterBlastByFacets,
-  blastFacetToKeyName,
-  blastFacetToNiceName,
+  localFacets,
 } from '../../utils/blastFacetDataUtils';
-import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-
-import { SearchResults } from '../../../../shared/types/results';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { Namespace } from '../../../../shared/types/namespaces';
-import { BlastFacet, BlastHit } from '../../types/blastResults';
-import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
-
-import helper from '../../../../shared/styles/helper.module.scss';
-import facetsStyles from '../../../../shared/components/results/styles/facets.module.scss';
-import './styles/results-view.scss';
 
 type Range = [start: number, end: number];
 

@@ -1,26 +1,22 @@
 import { Dispatch, MutableRefObject } from 'react';
 
-import { formParametersToServerParameters } from '../adapters/parameters';
-
-import {
-  getRemoteIDFromResponse,
-  getServerErrorDescription,
-  getJobMessage,
-  ServerError,
-} from '../utils';
-
 import { addMessage } from '../../messages/state/messagesActions';
-import { updateJob } from './toolsActions';
-
-import toolsURLs, { asyncDownloadUrlObjectCreator } from '../config/urls';
-
-import { ToolsAction } from './toolsReducers';
-import { ToolsState } from './toolsInitialState';
 import { MessagesAction } from '../../messages/state/messagesReducers';
-import { Status } from '../types/toolsStatuses';
+import { formParametersToServerParameters } from '../adapters/parameters';
+import toolsURLs, { asyncDownloadUrlObjectCreator } from '../config/urls';
+import { FormParameters } from '../types/toolsFormParameters';
 import { CreatedJob } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
-import { FormParameters } from '../types/toolsFormParameters';
+import { Status } from '../types/toolsStatuses';
+import {
+  getJobMessage,
+  getRemoteIDFromResponse,
+  getServerErrorDescription,
+  ServerError,
+} from '../utils';
+import { updateJob } from './toolsActions';
+import { ToolsState } from './toolsInitialState';
+import { ToolsAction } from './toolsReducers';
 
 const getFormJobUrlAndBody = (job: CreatedJob) => {
   // specific logic to transform FormParameters to ServerParameters

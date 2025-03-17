@@ -1,14 +1,12 @@
-import TaxonomyColumnConfiguration, {
-  TaxonomyColumn,
-} from '../TaxonomyColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/taxonomyModelData';
 import taxonomyConverter, {
   TaxonomyAPIModel,
   TaxonomyUIModel,
 } from '../../adapters/taxonomyConverter';
-
-import data from '../../__mocks__/taxonomyModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import TaxonomyColumnConfiguration, {
+  TaxonomyColumn,
+} from '../TaxonomyColumnConfiguration';
 
 jest.mock('../../../../tools/utils/storage');
 

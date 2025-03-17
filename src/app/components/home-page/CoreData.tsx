@@ -1,22 +1,18 @@
-import { Tile, SwissProtIcon, TremblIcon, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { LongNumber, SwissProtIcon, Tile, TremblIcon } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
+import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
+import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
+import SpeciesIllustration from '../../../images/species_illustration.img.svg';
+import UniProtKBIllustration from '../../../images/uniprotkb_illustration.img.svg';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { Location, LocationToPath } from '../../config/urls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
 import { FacetsEnum } from '../../../uniprotkb/config/UniProtKBFacetConfiguration';
-
+import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
-
-import UniProtKBIllustration from '../../../images/uniprotkb_illustration.img.svg';
-import SpeciesIllustration from '../../../images/species_illustration.img.svg';
-import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
-import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 
 const UniProtKBLinks = () => {
   const { data } = useDataApi<SearchResults<never>>(

@@ -1,16 +1,12 @@
 /* eslint-disable camelcase */
 import ExternalLink from '../../../shared/components/ExternalLink';
-
 import Table from '../../../shared/components/table/Table';
-
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Xref } from '../../../shared/types/apiModel';
 import {
   getDatabaseInfoAttribute,
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
-
-import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 
 const EMBLXrefProperties: Record<string, string> = {

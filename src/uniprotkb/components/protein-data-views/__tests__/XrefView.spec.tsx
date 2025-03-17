@@ -3,17 +3,14 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import XRefView, {
-  getPropertyString,
-  getPropertyLinkAttributes,
-} from '../XRefView';
-
-import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
-
-import xrefs from './__mocks__/xrefUIData';
+import { PropertyKey } from '../../../types/modelTypes';
 import databaseInfo from '../../../utils/__tests__/__mocks__/databaseInfo';
+import XRefView, {
+  getPropertyLinkAttributes,
+  getPropertyString,
+} from '../XRefView';
+import xrefs from './__mocks__/xrefUIData';
 
 const mock = new MockAdapter(axios);
 mock.onGet(/\/configure\/uniprotkb\/allDatabases/).reply(200, databaseInfo);

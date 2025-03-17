@@ -1,12 +1,10 @@
-import { lazy, memo } from 'react';
 import { Card } from 'franklin-sites';
+import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
-
-import { getEntrySectionNameAndId } from '../../../utils/entrySection';
-
 import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 
 const SimilarProteins = lazy(
   () => import(/* webpackChunkName: "similar-proteins" */ './SimilarProteins')

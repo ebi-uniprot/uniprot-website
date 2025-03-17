@@ -1,18 +1,15 @@
 import { useMemo } from 'react';
 
-import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { nameToQueryKingdoms } from '../statistics/taxonomyQueries';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 import apiUrls from '../../config/apiUrls/apiUrls';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
 import {
   StatisticsItem,
   StatisticsPayload,
 } from '../statistics/StatisticsPage';
+import { nameToQueryKingdoms } from '../statistics/taxonomyQueries';
 
 type StatisticsChartProps = {
   releaseNumber?: string;

@@ -1,34 +1,28 @@
-import { useMemo, Dispatch, SetStateAction, useEffect } from 'react';
+import { BinIcon, Button, FullViewIcon, Tab, Tabs } from 'franklin-sites';
+import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
-import ResultsData from '../shared/components/results/ResultsData';
-import EmptyBasket from './EmptyBasket';
+import { Location, LocationToPath } from '../app/config/urls';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
-
+import ResultsData from '../shared/components/results/ResultsData';
 import useBasket, { Basket } from '../shared/hooks/useBasket';
-import useItemSelect from '../shared/hooks/useItemSelect';
-import usePagination from '../shared/hooks/usePagination';
-import useNSQuery from '../shared/hooks/useNSQuery';
-import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
-
-import { reIds } from '../tools/utils/urls';
-import { getIdKeyForData } from '../shared/utils/getIdKey';
-
-import { LocationToPath, Location } from '../app/config/urls';
-
-import { Namespace } from '../shared/types/namespaces';
 import {
   ColumnDescriptor,
   getColumnsToDisplay,
 } from '../shared/hooks/useColumns';
-
+import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
+import useItemSelect from '../shared/hooks/useItemSelect';
+import useNSQuery from '../shared/hooks/useNSQuery';
+import usePagination from '../shared/hooks/usePagination';
 import { APIModel } from '../shared/types/apiModel';
-import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
-import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
+import { Namespace } from '../shared/types/namespaces';
+import { getIdKeyForData } from '../shared/utils/getIdKey';
+import { reIds } from '../tools/utils/urls';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
 import { UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
-
+import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
+import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
+import EmptyBasket from './EmptyBasket';
 import styles from './styles/basket-mini-view.module.scss';
 
 const uniProtKBColumns = [

@@ -1,5 +1,5 @@
-import { Fragment, FC } from 'react';
-import { InfoList, ExpandableList } from 'franklin-sites';
+import { ExpandableList, InfoList } from 'franklin-sites';
+import { FC, Fragment } from 'react';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 

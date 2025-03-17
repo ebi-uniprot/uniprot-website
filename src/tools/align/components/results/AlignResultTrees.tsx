@@ -1,17 +1,14 @@
-import { FC, useState } from 'react';
+import './styles/AlignResultTrees.scss';
+
 import { Loader } from 'franklin-sites';
+import { FC, useState } from 'react';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import NewickTree from './NewickTree';
-
 import useDataApi from '../../../../shared/hooks/useDataApi';
-
 import toolsURLs from '../../../config/urls';
-
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { SequenceInfo } from '../../utils/useSequenceInfo';
-
-import './styles/AlignResultTrees.scss';
+import NewickTree from './NewickTree';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);
 

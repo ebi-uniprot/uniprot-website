@@ -1,12 +1,12 @@
-import {
-  PeptideSearchFormAction,
-  getPeptideSearchFormDataReducer,
-  getPeptideSearchFormInitialState,
-} from '../peptideSearchFormReducer';
-import * as actions from '../peptideSearchFormActions';
 import defaultFormValues, {
   PeptideSearchFields,
 } from '../../config/PeptideSearchFormData';
+import * as actions from '../peptideSearchFormActions';
+import {
+  getPeptideSearchFormDataReducer,
+  getPeptideSearchFormInitialState,
+  PeptideSearchFormAction,
+} from '../peptideSearchFormReducer';
 
 describe('peptidesearchFormReducer', () => {
   it('should reset with new form values when provided then reset to default if not provided', () => {

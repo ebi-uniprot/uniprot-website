@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
-import { MessageType } from '../types/messagesTypes';
 
+import { MessageType } from '../types/messagesTypes';
 import * as messagesActions from './messagesActions';
 import messagesInitialState, { MessagesState } from './messagesInitialState';
 

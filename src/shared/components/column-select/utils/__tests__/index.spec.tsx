@@ -1,8 +1,6 @@
-import { prepareFieldData, getLabel } from '..';
-
 import { UniProtKBColumn } from '../../../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../../../types/namespaces';
-
+import { getLabel, prepareFieldData } from '..';
 import fieldData from './__mocks__/fieldData';
 
 describe('prepareFieldData', () => {

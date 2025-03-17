@@ -2,13 +2,10 @@ import { Fragment } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import Table from '../../../shared/components/table/Table';
-
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Xref } from '../../../shared/types/apiModel';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { getPDBMirrorsInfo } from '../../config/database';
-
-import { Xref } from '../../../shared/types/apiModel';
 
 const processData = (xrefs: Xref[]) =>
   xrefs.map(({ id, properties }) => {

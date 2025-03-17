@@ -1,16 +1,14 @@
-import { FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
+import { FC, useMemo } from 'react';
 
-import AlignmentView, { View, Tool } from '../../../components/AlignmentView';
-
-import alnClustalNum from '../../adapters/alnClustalNum';
-
-import {
-  SequenceInfo,
-  ParsedSequenceAndFeatures,
-} from '../../utils/useSequenceInfo';
-import { AlnClustalNum, AlnClustalSequence } from '../../types/alignResults';
 import { ProcessedFeature } from '../../../../shared/components/views/FeaturesView';
+import AlignmentView, { Tool, View } from '../../../components/AlignmentView';
+import alnClustalNum from '../../adapters/alnClustalNum';
+import { AlnClustalNum, AlnClustalSequence } from '../../types/alignResults';
+import {
+  ParsedSequenceAndFeatures,
+  SequenceInfo,
+} from '../../utils/useSequenceInfo';
 
 type AlignResultOverviewProps = {
   data: string;

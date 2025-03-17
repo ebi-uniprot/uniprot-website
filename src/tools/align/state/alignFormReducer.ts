@@ -2,12 +2,10 @@ import { sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { ActionType } from 'typesafe-actions';
 
-import * as alignFormActions from './alignFormActions';
-import { pluralise } from '../../../shared/utils/utils';
-
 import { ALIGN_LIMIT } from '../../../shared/config/limits';
-
+import { pluralise } from '../../../shared/utils/utils';
 import { AlignFields, AlignFormValues } from '../config/AlignFormData';
+import * as alignFormActions from './alignFormActions';
 
 type AlignFormState = {
   formValues: AlignFormValues;

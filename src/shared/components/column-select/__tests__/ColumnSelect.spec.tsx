@@ -1,15 +1,12 @@
-import { fireEvent, waitFor, screen } from '@testing-library/react';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import ColumnSelect from '../ColumnSelect';
-
-import { Namespace } from '../../../types/namespaces';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { SearchResultsLocations } from '../../../../app/config/urls';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import customRender from '../../../__test-helpers__/customRender';
+import { Namespace } from '../../../types/namespaces';
+import ColumnSelect from '../ColumnSelect';
 
 describe('ColumnSelect component', () => {
   // testing implementation?

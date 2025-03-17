@@ -1,12 +1,10 @@
+import { fireEvent, screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { fireEvent, screen } from '@testing-library/react';
-
-import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import IDMappingForm from '../IDMappingForm';
 
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import IDMappingForm from '../IDMappingForm';
 import mockIDMappingFormConfig from './__mocks__/idMappingFormConfig';
 
 const mock = new MockAdapter(axios);

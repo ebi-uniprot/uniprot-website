@@ -1,11 +1,10 @@
-import { generatePath, Link } from 'react-router-dom';
-import { Button } from 'franklin-sites';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import useLocalStorage from '../../hooks/useLocalStorage';
-
 import './styles/gdpr.scss';
+
+import { Button } from 'franklin-sites';
+import { generatePath, Link } from 'react-router-dom';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const GDPR = () => {
   const [token, setToken] = useLocalStorage<null | boolean>('gdpr', null);

@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
-import { MemoryHistory } from 'history';
-import { Link } from 'react-router-dom';
-import { Button, ExternalLinkIcon } from 'franklin-sites';
 import cn from 'classnames';
+import { Button, ExternalLinkIcon } from 'franklin-sites';
+import { MemoryHistory } from 'history';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/navigation-bar.module.scss';
 

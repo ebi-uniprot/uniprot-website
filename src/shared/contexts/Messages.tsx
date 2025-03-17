@@ -1,4 +1,4 @@
-import { createContext, Dispatch, useReducer, ReactNode } from 'react';
+import { createContext, Dispatch, ReactNode, useReducer } from 'react';
 
 import messagesInitialState, {
   MessagesState,

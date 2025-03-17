@@ -1,35 +1,26 @@
-import {
-  useCallback,
-  useMemo,
-  useRef,
-  SetStateAction,
-  Dispatch,
-  useEffect,
-  lazy,
-} from 'react';
-import { debounce } from 'lodash-es';
 import { Region } from '@nightingale-elements/nightingale-msa';
 import NightingaleTrack, {
   Feature,
 } from '@nightingale-elements/nightingale-track';
-
-import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
-
-import useSize from '../../shared/hooks/useSize';
-import useSafeState from '../../shared/hooks/useSafeState';
-import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
-
-import { MsaColorScheme } from '../config/msaColorSchemes';
+import { debounce } from 'lodash-es';
+import {
+  Dispatch,
+  lazy,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
-import {
-  createGappedFeature,
-  getEndCoordinate,
-  MSAFeature,
-} from '../utils/sequences';
-import AlignLabel from '../align/components/results/AlignLabel';
-
+import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
+import useSafeState from '../../shared/hooks/useSafeState';
+import useSize from '../../shared/hooks/useSize';
+import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
 import FeatureType from '../../uniprotkb/types/featureType';
+import AlignLabel from '../align/components/results/AlignLabel';
+import { MsaColorScheme } from '../config/msaColorSchemes';
 import {
   AlignmentComponentProps,
   ConservationOptions,
@@ -38,6 +29,11 @@ import {
   OnMSAFeatureClick,
   UpdateTooltip,
 } from '../types/alignment';
+import {
+  createGappedFeature,
+  getEndCoordinate,
+  MSAFeature,
+} from '../utils/sequences';
 
 const NightingaleMSA = lazy(
   () =>

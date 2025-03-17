@@ -1,25 +1,20 @@
-import { Dispatch, MutableRefObject } from 'react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-
-import getCheckJobStatus from '../getCheckJobStatus';
-
-import runningJob from '../../__mocks__/internal-jobs/running';
-
-import { Status } from '../../types/toolsStatuses';
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
-
-import { UPDATE_JOB } from '../toolsActions';
+import { Dispatch, MutableRefObject } from 'react';
 
 import { Location } from '../../../app/config/urls';
-
-import { ToolsAction } from '../toolsReducers';
-import { ToolsState } from '../toolsInitialState';
 import { MessagesAction } from '../../../messages/state/messagesReducers';
+import {
+  MessageFormat,
+  MessageLevel,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
+import runningJob from '../../__mocks__/internal-jobs/running';
+import { Status } from '../../types/toolsStatuses';
+import getCheckJobStatus from '../getCheckJobStatus';
+import { UPDATE_JOB } from '../toolsActions';
+import { ToolsState } from '../toolsInitialState';
+import { ToolsAction } from '../toolsReducers';
 
 let mock: MockAdapter;
 let checkJobStatus: ReturnType<typeof getCheckJobStatus>;

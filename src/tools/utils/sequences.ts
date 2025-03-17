@@ -4,9 +4,9 @@ import {
 } from '@nightingale-elements/nightingale-track';
 import { v1 } from 'uuid';
 
-import { MSAInput } from '../types/alignment';
-import { FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import { FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { MSAInput } from '../types/alignment';
 
 export const findSequenceSegments = (seq: string) => {
   const ranges: number[][] = [];

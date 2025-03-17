@@ -1,16 +1,14 @@
 import { screen } from '@testing-library/react';
 
-import MessageManagerContainer from '../MessageManagerContainer';
-
-import customRender from '../../../shared/__test-helpers__/customRender';
-
 import { Location } from '../../../app/config/urls';
+import customRender from '../../../shared/__test-helpers__/customRender';
+import { MessagesState } from '../../state/messagesInitialState';
 import {
   MessageFormat,
   MessageLevel,
   MessageType,
 } from '../../types/messagesTypes';
-import { MessagesState } from '../../state/messagesInitialState';
+import MessageManagerContainer from '../MessageManagerContainer';
 
 const getState = ({
   content,

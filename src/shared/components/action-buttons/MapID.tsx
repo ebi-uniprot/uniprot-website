@@ -1,11 +1,8 @@
-import ToolsButton from './ToolsButton';
-
-import { fromCleanMapper } from '../../utils/getIdKey';
-
-import { ID_MAPPING_LIMIT } from '../../config/limits';
-
 import { Location } from '../../../app/config/urls';
+import { ID_MAPPING_LIMIT } from '../../config/limits';
 import { Namespace } from '../../types/namespaces';
+import { fromCleanMapper } from '../../utils/getIdKey';
+import ToolsButton from './ToolsButton';
 
 type MapIDButtonProps = {
   selectedEntries: string[];

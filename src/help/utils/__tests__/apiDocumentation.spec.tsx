@@ -4,7 +4,6 @@ import {
   getTagIdsAndSections,
   tagNameToId,
 } from '../apiDocumentation';
-
 import unirefOpenApi from './__mocks__/unirefOpenApi';
 
 describe('tagNameToId', () => {

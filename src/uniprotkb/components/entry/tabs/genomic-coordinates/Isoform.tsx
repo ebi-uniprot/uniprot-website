@@ -1,15 +1,13 @@
+import cn from 'classnames';
 import { Chip, ExternalLink, InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
 
-import GenomicLoc from './GenomicLoc';
-
-import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
 import { getEntryPathFor } from '../../../../../app/config/urls';
-
 import { Namespace } from '../../../../../shared/types/namespaces';
-import { TabLocation } from '../../../../types/entry';
+import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
 import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
+import { TabLocation } from '../../../../types/entry';
+import GenomicLoc from './GenomicLoc';
 import { FlatGenomicEntry } from './types';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);

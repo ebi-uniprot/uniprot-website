@@ -1,9 +1,7 @@
-import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
-
-import uniProtKBEntryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import uniParcModelData from '../../../uniparc/__mocks__/uniParcLightEntryModelData';
-
 import { UniParcLiteAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import uniProtKBEntryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
+import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
 describe('entryToFASTAWithHeaders', () => {
   describe('UniProtKB entry', () => {

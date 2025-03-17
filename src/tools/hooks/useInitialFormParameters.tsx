@@ -1,13 +1,11 @@
+import { sequenceProcessor } from 'franklin-sites';
 import { useEffect, useMemo, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { sequenceProcessor } from 'franklin-sites';
-
-import { parseIdsFromSearchParams } from '../utils/urls';
 
 import { Location, LocationToPath } from '../../app/config/urls';
-
-import { SelectedTaxon } from '../types/toolsFormData';
 import useGetFASTAFromAccesion from '../../shared/hooks/useGetFASTAFromAccession';
+import { SelectedTaxon } from '../types/toolsFormData';
+import { parseIdsFromSearchParams } from '../utils/urls';
 
 interface CustomLocationState<T> {
   parameters?: Partial<T>;

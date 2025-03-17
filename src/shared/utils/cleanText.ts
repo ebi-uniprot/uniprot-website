@@ -3,7 +3,8 @@
  * library's configuration
  */
 import deepFreeze from 'deep-freeze';
-import sanitizeHtml, { defaults, IOptions, Attributes } from 'sanitize-html';
+import sanitizeHtml, { Attributes, defaults, IOptions } from 'sanitize-html';
+
 import styles from './styles/clean-text.module.scss';
 
 export type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'strong';

@@ -1,10 +1,5 @@
-import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
-
-// import usePrefetch from './usePrefetch';
-import useDataApi from './useDataApi';
-
-import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
+import { useEffect, useState } from 'react';
 
 import { APIModel } from '../types/apiModel';
 import {
@@ -12,6 +7,9 @@ import {
   SearchResultsWarning,
   Suggestion,
 } from '../types/results';
+import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
+// import usePrefetch from './usePrefetch';
+import useDataApi from './useDataApi';
 
 export type PaginatedResults<R extends APIModel = APIModel> = {
   allResults: R[];

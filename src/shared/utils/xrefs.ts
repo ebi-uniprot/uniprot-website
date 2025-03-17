@@ -1,7 +1,6 @@
-import * as logging from './logging';
-
 import { AttributesItem } from '../../uniprotkb/types/databaseRefs';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
+import * as logging from './logging';
 
 export const processUrlTemplate = (
   urlTemplate: string | null | undefined,

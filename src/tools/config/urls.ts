@@ -1,19 +1,18 @@
 import deepFreeze from 'deep-freeze';
 import joinUrl from 'url-join';
 
+import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
+import { Column } from '../../shared/config/columns';
+import { Namespace } from '../../shared/types/namespaces';
+import { DownloadUrlOptions } from '../../shared/types/results';
 import { getSearchParams, stringifyUrl } from '../../shared/utils/url';
-
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
   SelectedFacet,
   SortDirection,
 } from '../../uniprotkb/types/resultsTypes';
 import { JobTypes } from '../types/toolsJobTypes';
-import { Column } from '../../shared/config/columns';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
-import { Namespace } from '../../shared/types/namespaces';
-import { DownloadUrlOptions } from '../../shared/types/results';
-import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
-import apiUrls from '../../shared/config/apiUrls/apiUrls';
 
 type CommonResultFormats =
   | 'out' // raw output of the tool

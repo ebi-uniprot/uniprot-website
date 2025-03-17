@@ -1,15 +1,24 @@
 import { Location as HistoryLocation } from 'history';
 
+import { Location } from '../../../../app/config/urls';
+import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
+import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
+import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import { JobFromUrl } from '../../../hooks/useJobFromUrl';
-
+import { Namespace } from '../../../types/namespaces';
+import { FileFormat } from '../../../types/resultsDownload';
+import { DownloadProps } from '../Download';
+import { getDownloadInitialState } from '../downloadReducer';
 import {
   getColumnsNamespace,
+  getCountForCustomisableSet,
   getDownloadCount,
   getDownloadOptions,
   getExtraContent,
   getFtpFilenamesAndUrls,
   getIsAsyncDownload,
-  isAsyncDownloadIdMapping,
   getIsEmbeddings,
   getIsTooLargeForEmbeddings,
   getPreviewCount,
@@ -17,21 +26,9 @@ import {
   getPreviewOptions,
   getRedirectToIDMapping,
   hasColumns,
+  isAsyncDownloadIdMapping,
   isSubsequenceFrom,
-  getCountForCustomisableSet,
 } from '../downloadUtils';
-
-import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
-import { getDownloadInitialState } from '../downloadReducer';
-
-import { Location } from '../../../../app/config/urls';
-import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { FileFormat } from '../../../types/resultsDownload';
-import { Namespace } from '../../../types/namespaces';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-import { DownloadProps } from '../Download';
-import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
 
 const subsequenceData = 'P05067[1-12345],P12345[5-15]';
 const notSubsequenceData = 'P05067[1-12345],P12345';

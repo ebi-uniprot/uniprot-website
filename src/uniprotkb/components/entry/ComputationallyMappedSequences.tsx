@@ -1,30 +1,24 @@
-import { useMemo, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { DataTable, Message } from 'franklin-sites';
+import { ReactNode, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { MessageLevel } from '../../../messages/types/messagesTypes';
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
-
-import AccessionView from '../../../shared/components/results/AccessionView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
-
+import AccessionView from '../../../shared/components/results/AccessionView';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import { pluralise } from '../../../shared/utils/utils';
-import apiUrls from '../../config/apiUrls/apiUrls';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
-
-import { SearchResults } from '../../../shared/types/results';
-import { Flag } from '../../adapters/sequenceConverter';
-import { MessageLevel } from '../../../messages/types/messagesTypes';
-import { Sequence } from '../../../shared/types/sequence';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-
 import helper from '../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
+import { Sequence } from '../../../shared/types/sequence';
+import { pluralise } from '../../../shared/utils/utils';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { Flag } from '../../adapters/sequenceConverter';
+import apiUrls from '../../config/apiUrls/apiUrls';
 
 type ProteinEntryLight = {
   id: string;

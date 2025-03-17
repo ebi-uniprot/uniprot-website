@@ -1,7 +1,6 @@
 import { memo, ReactNode } from 'react';
 
 import { ColumRenderer } from '../../types/columnConfiguration';
-
 import styles from './styles/render-columns-in-card.module.scss';
 
 /**

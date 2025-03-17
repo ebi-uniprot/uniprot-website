@@ -1,10 +1,8 @@
-import { lazy, memo } from 'react';
 import { Card } from 'franklin-sites';
+import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../shared/components/LazyComponent';
-
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
-
 import SubEntrySection from '../../types/subEntry';
 
 const SubEntrySimilarProteins = lazy(

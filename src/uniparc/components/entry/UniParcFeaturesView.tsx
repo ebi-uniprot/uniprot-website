@@ -2,20 +2,17 @@ import { useMemo } from 'react';
 import { v1 } from 'uuid';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
 import externalUrls from '../../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { stringToColour } from '../../../shared/utils/color';
+import { markBackground, markBorder } from '../../../shared/utils/nightingale';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
-import { markBorder, markBackground } from '../../../shared/utils/nightingale';
-
 import { SequenceFeature } from '../../adapters/uniParcConverter';
-import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 
 export type UniParcProcessedFeature = ProcessedFeature & {
   database: string;

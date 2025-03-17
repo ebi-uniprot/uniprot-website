@@ -1,25 +1,20 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-
-import IDMappingResult, { findUriLink } from '../IDMappingResult';
-
-import { IDMappingDetailsContext } from '../../../../../shared/contexts/IDMappingDetails';
+import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
+import { IDMappingDetailsContext } from '../../../../../shared/contexts/IDMappingDetails';
 import { stringifyQuery } from '../../../../../shared/utils/url';
-
+import { MappingDetails } from '../../../types/idMappingSearchResults';
+import idMappingFields from '../../__tests__/__mocks__/idMappingFormConfig';
 import SimpleMappingData from '../__mocks__/SimpleMapping';
 import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
+import tooManyIDsForFacetsDetails from '../__mocks__/tooManyIDsForFacetsDetails';
+import tooManyIDsForFacetsResults from '../__mocks__/tooManyIDsForFacetsResults';
+import tooManyIDsForMappingDetails from '../__mocks__/tooManyIDsForMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
 import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
-import idMappingFields from '../../__tests__/__mocks__/idMappingFormConfig';
-import tooManyIDsForFacetsResults from '../__mocks__/tooManyIDsForFacetsResults';
-import tooManyIDsForFacetsDetails from '../__mocks__/tooManyIDsForFacetsDetails';
-import tooManyIDsForMappingDetails from '../__mocks__/tooManyIDsForMappingDetails';
-
-import { MappingDetails } from '../../../types/idMappingSearchResults';
+import IDMappingResult, { findUriLink } from '../IDMappingResult';
 
 const mock = new MockAdapter(axios);
 mock

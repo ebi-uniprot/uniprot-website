@@ -1,7 +1,5 @@
 import ExternalLink from '../../../../shared/components/ExternalLink';
-
 import externalUrls from '../../../../shared/config/externalUrls';
-
 import { Information } from '../../../shared/model';
 
 const Source = ({ source }: { source?: Information['oldRuleNum'] }) => {
