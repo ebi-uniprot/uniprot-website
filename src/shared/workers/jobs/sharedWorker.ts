@@ -4,9 +4,9 @@ import { getActionHandler, ToolsAction } from './state/actionHandler';
 import JobStore from './utils/storage';
 import { Stores } from './utils/stores';
 import { ToolsState } from './state/toolsInitialState';
-import jobPoller from './jobPoller';
 import { GetJobMessageArgs } from '../../../messages/utils';
 import * as logging from '../../utils/logging';
+import getJobPoller from './jobPoller';
 
 const jobStore = new JobStore(Stores.METADATA);
 
@@ -40,17 +40,18 @@ sharedWorker.onconnect = async (event) => {
   broadcast({ state: await getJobs(jobStore) });
 
   const actionHandler = getActionHandler(jobStore, broadcast);
+  const jobPoller = getJobPoller(jobStore, actionHandler);
 
   port.onmessage = async (e: JobSharedWorkerMessageEvent) => {
     const { jobAction } = e.data;
     if (jobAction) {
       await actionHandler({ jobAction });
-      await jobPoller(actionHandler, jobStore);
+      await jobPoller();
     }
   };
 
   // Initial job polling
-  await jobPoller(actionHandler, jobStore);
+  await jobPoller();
 };
 
 sharedWorker.onerror = async (error) => {
