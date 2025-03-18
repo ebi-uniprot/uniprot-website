@@ -8,7 +8,6 @@ import {
   Suggestion,
 } from '../types/results';
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
-// import usePrefetch from './usePrefetch';
 import useDataApi from './useDataApi';
 
 export type PaginatedResults<R extends APIModel = APIModel> = {
@@ -47,7 +46,6 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     suggesstions: undefined,
   }));
 
-  // usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<R[]>([]);
 
   // Reset conditions, when any of the things in the dep array changes

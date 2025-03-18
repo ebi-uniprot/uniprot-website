@@ -21,7 +21,6 @@ import TaxonomyCard from '../../supporting-data/taxonomy/components/results/Taxo
 import { UniParcLiteAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import UniParcCard from '../../uniparc/components/results/UniParcCard';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-// card renderers for card views
 import UniProtKBCard from '../../uniprotkb/components/results/UniProtKBCard';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import UniRefCard from '../../uniref/components/results/UniRefCard';

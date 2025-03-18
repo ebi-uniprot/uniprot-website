@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
 import AnalysisTools from './AnalysisTools';
-// Sections
 import CoreData from './CoreData';
 import LatestNews from './LatestNews';
 import NeedHelp from './NeedHelp';

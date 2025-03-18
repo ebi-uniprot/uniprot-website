@@ -1,11 +1,9 @@
 import { FC } from 'react';
-// library context providers
 import { HelmetProvider } from 'react-helmet-async';
 import { Router } from 'react-router-dom';
 
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
-// app own context providers
 import { MessagesProvider } from '../../shared/contexts/Messages';
 import { ToolsProvider } from '../../shared/contexts/Tools';
 import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
