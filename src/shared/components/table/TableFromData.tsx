@@ -1,10 +1,9 @@
-import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { Message } from 'franklin-sites';
 import cn from 'classnames';
-
-import Table from './Table';
+import { Message } from 'franklin-sites';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 
 import styles from './styles/table.module.scss';
+import Table from './Table';
 
 const UNFILTERED_OPTION = 'All' as const;
 const MIN_ROWS_TO_EXPAND = 10 as const;

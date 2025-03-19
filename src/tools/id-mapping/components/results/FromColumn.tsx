@@ -1,13 +1,11 @@
 import { createContext, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import AccessionView from '../../../../shared/components/results/AccessionView';
-
-import { reUniProtKBAccession } from '../../../../uniprotkb/utils/regexes';
-
 import { Namespace } from '../../../../shared/types/namespaces';
+import { reUniProtKBAccession } from '../../../../uniprotkb/utils/regexes';
 import { MappingFlat } from '../../types/idMappingSearchResults';
-import { LocationToPath, Location } from '../../../../app/config/urls';
 
 export const IDMappingFromContext = createContext<Namespace | undefined>(
   undefined

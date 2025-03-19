@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
-
 import { pollJobs } from '../../state/toolsActions';
 import { heuristic } from '../../state/utils/heuristic';
 

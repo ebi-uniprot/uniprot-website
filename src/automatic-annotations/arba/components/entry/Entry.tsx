@@ -1,24 +1,21 @@
+import { Loader } from 'franklin-sites';
 import { useState } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
-import { Loader } from 'franklin-sites';
 
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
-import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
-import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
-
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
+import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { ARBAAPIModel } from '../../adapters/arbaConverter';
 
 const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {

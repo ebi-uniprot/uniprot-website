@@ -1,8 +1,6 @@
 import AbstractSectionTable from './AbstractSectionTable';
-
-import { mergeToMap } from './utils';
-
 import { TableProps } from './StatisticsPage';
+import { mergeToMap } from './utils';
 
 const UniqueReferencesTable = ({
   uniprotkbData,

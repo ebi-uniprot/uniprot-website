@@ -1,32 +1,29 @@
-import { useId, useMemo, ChangeEvent } from 'react';
+import cn from 'classnames';
+import {
+  Button,
+  ErrorIcon,
+  Message,
+  PageIntro,
+  SuccessIcon,
+} from 'franklin-sites';
+import { createPath } from 'history';
+import { ChangeEvent, useId, useMemo } from 'react';
 import {
   generatePath,
   Link,
   useLocation,
   useRouteMatch,
 } from 'react-router-dom';
-import {
-  Button,
-  PageIntro,
-  ErrorIcon,
-  SuccessIcon,
-  Message,
-} from 'franklin-sites';
-import cn from 'classnames';
-import { createPath } from 'history';
 
-import HTMLHead from '../../shared/components/HTMLHead';
-import ContactLink from './ContactLink';
+import { Location, LocationToPath } from '../../app/config/urls';
 import ExternalLink from '../../shared/components/ExternalLink';
+import HTMLHead from '../../shared/components/HTMLHead';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
-
 import {
-  useFormLogic,
   ContactLocationState,
+  useFormLogic,
 } from '../adapters/contactFormAdapter';
-
-import { LocationToPath, Location } from '../../app/config/urls';
-
+import ContactLink from './ContactLink';
 import styles from './styles/contact-form.module.scss';
 
 // ARIA hide all of these, are the state is available in the form already

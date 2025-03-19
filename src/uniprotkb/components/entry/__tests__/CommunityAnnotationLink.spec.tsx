@@ -1,10 +1,8 @@
 import { screen } from '@testing-library/react';
 
-import CommunityAnnotationLink from '../CommunityAnnotationLink';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
-
 import customRender from '../../../../shared/__test-helpers__/customRender';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import CommunityAnnotationLink from '../CommunityAnnotationLink';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 

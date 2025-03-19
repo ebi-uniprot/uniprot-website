@@ -1,11 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import EntryPublicationsFacets from '../EntryPublicationsFacets';
-
 import useDataApi from '../../../../shared/hooks/useDataApi';
-
+import EntryPublicationsFacets from '../EntryPublicationsFacets';
 import data from './__mocks__/entryPublicationsData';
 
 jest.mock('../../../../shared/hooks/useDataApi');

@@ -1,16 +1,14 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
-import AccessionView from '../../../shared/components/results/AccessionView';
-import GeneOntologies from '../../../shared/components/results/GeneOntologies';
+import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-
-import { LocationsAPIModel } from '../adapters/locationsConverter';
+import AccessionView from '../../../shared/components/results/AccessionView';
+import GeneOntologies from '../../../shared/components/results/GeneOntologies';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+import { LocationsAPIModel } from '../adapters/locationsConverter';
 
 export enum LocationsColumn {
   category = 'category',
@@ -105,9 +103,7 @@ LocationsColumnConfiguration.set(LocationsColumn.links, {
   render: ({ links }) =>
     links?.length ? (
       <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-        {links?.map((link) => (
-          <ExternalLink key={link} url={link} tidyUrl />
-        ))}
+        {links?.map((link) => <ExternalLink key={link} url={link} tidyUrl />)}
       </ExpandableList>
     ) : null,
 });

@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import { Button, ControlledDropdown } from 'franklin-sites';
 import {
   Fragment,
   HTMLAttributes,
@@ -8,11 +10,8 @@ import {
   useId,
   useState,
 } from 'react';
-import { Button, ControlledDropdown } from 'franklin-sites';
-import cn from 'classnames';
 
 import useExpandTable from '../../hooks/useExpandTable';
-
 import styles from './styles/table.module.scss';
 
 const Table = ({

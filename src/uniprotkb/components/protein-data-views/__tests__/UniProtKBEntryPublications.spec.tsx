@@ -1,12 +1,9 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
-
-import mockUniProtKBEntryPublications from './__mocks__/uniprotKBEntryPublications.json';
-
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
+import mockUniProtKBEntryPublications from './__mocks__/uniprotKBEntryPublications.json';
 
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
 

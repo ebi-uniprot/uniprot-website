@@ -2,13 +2,10 @@ import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import SearchSuggestions from '../SearchSuggestions';
-
-import { Namespace } from '../../../types/namespaces';
-
 import configureSearchTerms from '../../../../query-builder/components/__tests__/__mocks__/configureSearchTerms';
+import customRender from '../../../__test-helpers__/customRender';
+import { Namespace } from '../../../types/namespaces';
+import SearchSuggestions from '../SearchSuggestions';
 
 const mock = new MockAdapter(axios);
 

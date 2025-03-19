@@ -2,13 +2,11 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { ContentType } from '../../../shared/types/resultsDownload';
-
 import resultFields from '../../__mocks__/resultFields';
+import mockFasta from './fasta.json';
+import noResults from './noResults.json';
 import results from './results';
 import entry from './swissprotEntry';
-
-import noResults from './noResults.json';
-import mockFasta from './fasta.json';
 
 const mock = new MockAdapter(axios);
 mock

@@ -1,10 +1,7 @@
-import ToolsButton from './ToolsButton';
-
-import { fromCleanMapper } from '../../utils/getIdKey';
-
-import { ALIGN_LIMIT } from '../../config/limits';
-
 import { Location } from '../../../app/config/urls';
+import { ALIGN_LIMIT } from '../../config/limits';
+import { fromCleanMapper } from '../../utils/getIdKey';
+import ToolsButton from './ToolsButton';
 
 const isDisabled = (n: number) => n <= 1 || n > ALIGN_LIMIT;
 

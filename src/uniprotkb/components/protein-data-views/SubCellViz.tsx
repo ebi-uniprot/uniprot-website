@@ -1,13 +1,12 @@
-import { FC, memo, useEffect, useRef } from 'react';
 import '@swissprot/swissbiopics-visualizer';
+import './styles/sub-cell-viz.scss';
+
 import { groupBy } from 'lodash-es';
+import { FC, memo, useEffect, useRef } from 'react';
 import { RequireExactlyOne } from 'type-fest';
 
-import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
-
 import { addTooltip } from '../../../shared/utils/tooltip';
-
-import './styles/sub-cell-viz.scss';
+import { SubCellularLocation, VizTab } from './SubcellularLocationWithVizView';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted

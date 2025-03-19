@@ -1,13 +1,10 @@
-import { SearchTextLink } from './SearchTextLink';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import { stringifyUrl } from '../../utils/url';
-import apiUrls from '../../config/apiUrls/apiUrls';
-
-import { SearchResults } from '../../types/results';
-import { Namespace } from '../../types/namespaces';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import useDataApi from '../../hooks/useDataApi';
+import { Namespace } from '../../types/namespaces';
+import { SearchResults } from '../../types/results';
+import { stringifyUrl } from '../../utils/url';
+import { SearchTextLink } from './SearchTextLink';
 
 const OrganismSuggestion = ({
   query,

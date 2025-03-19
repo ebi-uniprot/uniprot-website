@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState, HTMLAttributes } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { sleep, schedule, frame } from 'timing-functions';
 import cn from 'classnames';
+import { HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { frame, schedule, sleep } from 'timing-functions';
 
 import styles from './styles/in-page-nav.module.scss';
 

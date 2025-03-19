@@ -1,4 +1,6 @@
 import { ReactNode } from 'react';
+
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
   SelectedFacet,
   SortDirection,
@@ -6,7 +8,6 @@ import {
 import { Column } from '../config/columns';
 import { Namespace } from './namespaces';
 import { FileFormat } from './resultsDownload';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 
 export type FacetValue<Label extends ReactNode = string> = {
   // if from API, a simple string and always there,

@@ -1,6 +1,6 @@
-import { useId } from 'react';
-
 import './styles/card-checkbox-cell.scss';
+
+import { useId } from 'react';
 
 const CardCheckboxCell = ({ id }: { id: string }) => {
   const labelId = useId();

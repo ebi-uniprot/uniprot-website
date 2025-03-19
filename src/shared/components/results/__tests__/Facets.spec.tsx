@@ -1,10 +1,8 @@
 import { screen } from '@testing-library/react';
 
-import { Facet, Facets, stringify, parse, CustomParsedQuery } from '../Facets';
-
 import customRender from '../../../__test-helpers__/customRender';
-
-import facets, { statusFacet, proteinsWithFacet } from './__mocks__/facets';
+import { CustomParsedQuery, Facet, Facets, parse, stringify } from '../Facets';
+import facets, { proteinsWithFacet, statusFacet } from './__mocks__/facets';
 
 describe('<Facet />', () => {
   it('should render facet with few data', () => {

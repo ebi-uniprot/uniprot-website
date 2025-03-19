@@ -1,85 +1,79 @@
+import '../../styles/ToolsForm.scss';
+
+import cn from 'classnames';
+import {
+  Chip,
+  PageIntro,
+  sequenceProcessor,
+  SequenceSubmission,
+  SpinnerIcon,
+} from 'franklin-sites';
 import {
   FC,
   FormEvent,
   MouseEvent,
-  useRef,
-  useReducer,
   useEffect,
+  useReducer,
+  useRef,
 } from 'react';
-import {
-  Chip,
-  SequenceSubmission,
-  PageIntro,
-  SpinnerIcon,
-  sequenceProcessor,
-} from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import cn from 'classnames';
 
-import HTMLHead from '../../../shared/components/HTMLHead';
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import { BLAST_LIMIT } from '../../../shared/config/limits';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
+import sticky from '../../../shared/styles/sticky.module.scss';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import SequenceSearchLoader, {
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
-import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import ChecksumSuggester from '../../components/ChecksumSuggester';
-
-import { addMessage } from '../../../messages/state/messagesActions';
-import {
-  getBlastFormInitialState,
-  getBlastFormDataReducer,
-} from '../state/blastFormReducer';
-
-import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-
-import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
+import { SelectedTaxon } from '../../types/toolsFormData';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { truncateTaxonLabel } from '../../utils';
+import defaultFormValues, {
+  BlastFields,
+  BlastFormValue,
+  BlastFormValues,
+  excludeTaxonForDB,
+} from '../config/BlastFormData';
 import {
   resetFormState,
   updateParsedSequences,
   updateSelected,
   updateSending,
 } from '../state/blastFormActions';
-import { getAutoMatrixFor } from '../utils';
-import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-
-import { BLAST_LIMIT } from '../../../shared/config/limits';
-
-import { JobTypes } from '../../types/toolsJobTypes';
+import {
+  getBlastFormDataReducer,
+  getBlastFormInitialState,
+} from '../state/blastFormReducer';
 import { FormParameters } from '../types/blastFormParameters';
 import {
-  SType,
-  Sequence,
-  Matrix,
-  GapAlign,
   Database,
   Exp,
   Filter,
-  Scores,
+  GapAlign,
   HSPs,
+  Matrix,
+  Scores,
+  Sequence,
+  SType,
 } from '../types/blastServerParameters';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import defaultFormValues, {
-  BlastFormValues,
-  BlastFormValue,
-  BlastFields,
-  excludeTaxonForDB,
-} from '../config/BlastFormData';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
-import { SelectedTaxon } from '../../types/toolsFormData';
-
-import sticky from '../../../shared/styles/sticky.module.scss';
-import '../../styles/ToolsForm.scss';
+import { getAutoMatrixFor } from '../utils';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 

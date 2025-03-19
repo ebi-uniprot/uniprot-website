@@ -1,26 +1,23 @@
-import { useMemo } from 'react';
+import './styles/XRefsSection.scss';
+
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
+import { useMemo } from 'react';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
-
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-import useXref from './hooks/useXref';
-
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import usePagination from '../../../shared/hooks/usePagination';
+import helper from '../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
+import { UniParcUIModel, UniParcXRef } from '../../adapters/uniParcConverter';
 import {
   defaultColumns,
   getUniParcXRefsColumns,
 } from '../../config/UniParcXRefsColumnConfiguration';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import { UniParcUIModel, UniParcXRef } from '../../adapters/uniParcConverter';
 import EntrySection from '../../types/entrySection';
-import { Namespace } from '../../../shared/types/namespaces';
-import usePagination from '../../../shared/hooks/usePagination';
-
-import helper from '../../../shared/styles/helper.module.scss';
-import './styles/XRefsSection.scss';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import useXref from './hooks/useXref';
 
 export type DataDBModel = Array<{
   name: string;

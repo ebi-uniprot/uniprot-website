@@ -1,9 +1,7 @@
 import { render } from '@testing-library/react';
 
-import Field from '../Field';
-
 import { DataType, SearchTermType } from '../../types/searchTypes';
-
+import Field from '../Field';
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const handleChange = jest.fn();

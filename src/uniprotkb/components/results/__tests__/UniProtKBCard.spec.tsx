@@ -1,8 +1,6 @@
-import UniProtKBCard from '../UniProtKBCard';
-
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import data from '../../../__mocks__/uniProtKBEntryModelData';
+import UniProtKBCard from '../UniProtKBCard';
 
 let rendered: ReturnType<typeof customRender>;
 

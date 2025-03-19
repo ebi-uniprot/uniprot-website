@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react';
 import { noop } from 'lodash-es';
+import { useEffect, useMemo } from 'react';
 
 const support = document.createElement('link').relList?.supports?.('prefetch');
 

@@ -1,14 +1,12 @@
 import joinUrl from 'url-join';
 
-import { stringifyUrl } from '../../utils/url';
-import { fileFormatToUrlParameter } from '../resultsDownload';
-
-import { searchPrefix } from './search';
-import { apiPrefix } from './apiPrefix';
-
 import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
+import { stringifyUrl } from '../../utils/url';
 import { Column } from '../columns';
+import { fileFormatToUrlParameter } from '../resultsDownload';
+import { apiPrefix } from './apiPrefix';
+import { searchPrefix } from './search';
 
 export const entry = (
   id: string | undefined,

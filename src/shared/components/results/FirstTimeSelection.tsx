@@ -1,15 +1,12 @@
+import { Button } from 'franklin-sites';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Button } from 'franklin-sites';
-
-import { ViewMode } from '../../hooks/useViewMode';
-
-import { sendGtagEventViewMode } from '../../utils/gtagEvents';
-
-import styles from './styles/first-time-selection.module.scss';
 
 import CardsViewImg from '../../../images/cards-view.jpg';
 import TableViewImg from '../../../images/table-view.jpg';
+import { ViewMode } from '../../hooks/useViewMode';
+import { sendGtagEventViewMode } from '../../utils/gtagEvents';
+import styles from './styles/first-time-selection.module.scss';
 
 const FirstTimeSelection = ({
   setViewMode,

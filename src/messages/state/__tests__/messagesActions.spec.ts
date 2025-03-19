@@ -1,13 +1,13 @@
 /**
  * @jest-environment node
  */
-import * as actions from '../messagesActions';
 import {
-  MessageLevel,
   MessageFormat,
-  MessageType,
+  MessageLevel,
   MessageTag,
+  MessageType,
 } from '../../types/messagesTypes';
+import * as actions from '../messagesActions';
 
 describe('messages actions', () => {
   it('should create a ADD_MESSAGE action', () => {

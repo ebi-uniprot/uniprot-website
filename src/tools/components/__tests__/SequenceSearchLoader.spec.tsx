@@ -1,11 +1,9 @@
-import { screen, fireEvent } from '@testing-library/react';
-
-import SequenceSearchLoader from '../SequenceSearchLoader';
+import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
-
-import entryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import useDataApi from '../../../shared/hooks/useDataApi';
+import entryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
+import SequenceSearchLoader from '../SequenceSearchLoader';
 
 jest.mock('../../../shared/hooks/useDataApi', () => jest.fn());
 

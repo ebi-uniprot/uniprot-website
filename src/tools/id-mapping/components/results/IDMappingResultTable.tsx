@@ -1,26 +1,21 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList, HeroContainer, LongNumber } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
-import ResultsData from '../../../../shared/components/results/ResultsData';
+import { getEntryPath } from '../../../../app/config/urls';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
-
-import { IDMappingFromContext } from './FromColumn';
-
+import ResultsData from '../../../../shared/components/results/ResultsData';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
-
-import { rawDBToNamespace } from '../../utils';
-import { pluralise } from '../../../../shared/utils/utils';
+import { PaginatedResults } from '../../../../shared/hooks/usePagination';
+import { Namespace } from '../../../../shared/types/namespaces';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 import { stringifyQuery } from '../../../../shared/utils/url';
-import { getEntryPath } from '../../../../app/config/urls';
-
-import { Namespace } from '../../../../shared/types/namespaces';
+import { pluralise } from '../../../../shared/utils/utils';
 import { TabLocation } from '../../../../uniparc/components/entry/Entry';
-import { PaginatedResults } from '../../../../shared/hooks/usePagination';
-import { MappingDetails } from '../../types/idMappingSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
+import { MappingDetails } from '../../types/idMappingSearchResults';
 import { PublicServerParameters } from '../../types/idMappingServerParameters';
-
+import { rawDBToNamespace } from '../../utils';
+import { IDMappingFromContext } from './FromColumn';
 import styles from './styles/id-mapping-result-table.module.scss';
 
 type IDMappingResultTableProps = {

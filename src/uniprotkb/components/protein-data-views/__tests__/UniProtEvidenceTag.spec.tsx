@@ -1,10 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import UniProtKBEvidenceTag from '../UniProtKBEvidenceTag';
-
 import { Evidence } from '../../../types/modelTypes';
+import UniProtKBEvidenceTag from '../UniProtKBEvidenceTag';
 
 describe('UniProtKBEvidenceTag components', () => {
   it('should render automatic annotation', () => {

@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -7,19 +6,18 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
-  restrictToHorizontalAxis,
   restrictToFirstScrollableAncestor,
+  restrictToHorizontalAxis,
 } from '@dnd-kit/modifiers';
 import {
-  SortableContext,
   horizontalListSortingStrategy,
+  SortableContext,
 } from '@dnd-kit/sortable';
-
-import SortableItem from './SortableItem';
+import { useEffect, useRef } from 'react';
 
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
-
+import SortableItem from './SortableItem';
 import styles from './styles/column-select-drag-drop.module.scss';
 
 export type ColumnSelectDragDropProps = {

@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
-
-import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
-
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import fetchData from '../../../../shared/utils/fetchData';
-import listFormat from '../../../../shared/utils/listFormat';
-import { pluralise } from '../../../../shared/utils/utils';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import { Namespace } from '../../../../shared/types/namespaces';
+import fetchData from '../../../../shared/utils/fetchData';
+import listFormat from '../../../../shared/utils/listFormat';
+import { stringifyQuery } from '../../../../shared/utils/url';
+import { pluralise } from '../../../../shared/utils/utils';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
@@ -18,8 +17,7 @@ import {
 } from '../../../../uniref/adapters/uniRefConverter';
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { IsoformsAndCluster } from './SimilarProteins';
-import { Namespace } from '../../../../shared/types/namespaces';
-import { stringifyQuery } from '../../../../shared/utils/url';
+import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
 
 type Props = {
   canonical: string;

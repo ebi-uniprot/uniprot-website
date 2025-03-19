@@ -1,12 +1,9 @@
+import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
+import mock from '../../__mocks__/uniRefResultsData';
+import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 import UniRefColumnConfiguration, {
   UniRefColumn,
 } from '../UniRefColumnConfiguration';
-
-import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
-
-import mock from '../../__mocks__/uniRefResultsData';
-
-import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
 jest.mock('../../../tools/utils/storage');
 

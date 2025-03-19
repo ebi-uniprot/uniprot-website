@@ -1,30 +1,25 @@
-import { useRouteMatch } from 'react-router-dom';
+import '../../../shared/components/entry/styles/entry-page.scss';
+
 import { Loader } from 'franklin-sites';
+import { useRouteMatch } from 'react-router-dom';
 
-import Overview from './Overview';
-import EntryMain from './EntryMain';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
-
-import proteomesConverter, {
-  ProteomesAPIModel,
-} from '../../adapters/proteomesConverter';
-import generatePageTitle from '../../adapters/generatePageTitle';
-
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import '../../../shared/components/entry/styles/entry-page.scss';
+import generatePageTitle from '../../adapters/generatePageTitle';
+import proteomesConverter, {
+  ProteomesAPIModel,
+} from '../../adapters/proteomesConverter';
+import EntryMain from './EntryMain';
+import Overview from './Overview';
 
 const Entry = () => {
   const match = useRouteMatch<{ accession: string }>(

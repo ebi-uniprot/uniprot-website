@@ -1,21 +1,17 @@
-import { Fragment, useState, FC } from 'react';
-import { Loader } from 'franklin-sites';
+import './styles/AlignResultPIM.scss';
+
 import cn from 'classnames';
+import { Loader } from 'franklin-sites';
+import { FC, Fragment, useState } from 'react';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import AlignLabel from './AlignLabel';
-
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import toolsURLs from '../../../config/urls';
+import { JobTypes } from '../../../types/toolsJobTypes';
 import pim from '../../adapters/pim';
 import getExponentialContrast from '../../utils/getExponentialContrast';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
-
-import toolsURLs from '../../../config/urls';
-
-import { JobTypes } from '../../../types/toolsJobTypes';
 import { SequenceInfo } from '../../utils/useSequenceInfo';
-
-import './styles/AlignResultPIM.scss';
+import AlignLabel from './AlignLabel';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);
 

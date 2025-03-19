@@ -1,8 +1,6 @@
 import customRender from '../../../shared/__test-helpers__/customRender';
-
-import MessageHub from '../MessageHub';
-
 import { MessageFormat, MessageLevel } from '../../types/messagesTypes';
+import MessageHub from '../MessageHub';
 
 const messages = [
   {

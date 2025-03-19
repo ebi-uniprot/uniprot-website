@@ -2,18 +2,15 @@ import { Message, PageIntro } from 'franklin-sites';
 import { FC, memo, ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
-import ResultsButtons from './ResultsButtons';
-
-import useNS from '../../hooks/useNS';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-
 import {
   Location,
   LocationToPath,
   toolsResultsLocationToLabel,
 } from '../../../app/config/urls';
-
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useNS from '../../hooks/useNS';
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
+import ResultsButtons from './ResultsButtons';
 
 const ResultsDataHeader: FC<
   React.PropsWithChildren<{

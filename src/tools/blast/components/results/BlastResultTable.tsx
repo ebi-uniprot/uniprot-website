@@ -1,36 +1,34 @@
 /* eslint-disable camelcase */
+import './styles/BlastResultTable.scss';
+
+import NightingaleTrack from '@nightingale-elements/nightingale-track';
+import cn from 'classnames';
+import { Button, Chip, DataTable, Loader } from 'franklin-sites';
 import {
-  useCallback,
-  useState,
-  useRef,
-  useMemo,
   Dispatch,
   SetStateAction,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
-import { DataTable, Chip, Loader, Button } from 'franklin-sites';
-import cn from 'classnames';
-import { v1 } from 'uuid';
 import { Except } from 'type-fest';
-import NightingaleTrack from '@nightingale-elements/nightingale-track';
+import { v1 } from 'uuid';
 
-import { HSPDetailPanelProps } from './HSPDetailPanel';
-
-import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
+import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
+import NightingaleNavigationComponent from '../../../../shared/custom-elements/NightingaleNavigation';
+import NightingalTrackComponent from '../../../../shared/custom-elements/NightingaleTrack';
 import useColumns, {
   ColumnDescriptor,
 } from '../../../../shared/hooks/useColumns';
-
+import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import { SearchableNamespace } from '../../../../shared/types/namespaces';
-import { BlastResults, BlastHsp } from '../../types/blastResults';
-import { EnrichedBlastHit } from './BlastResult';
-
-import './styles/BlastResultTable.scss';
+import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
-import NightingalTrackComponent from '../../../../shared/custom-elements/NightingaleTrack';
-import NightingaleNavigationComponent from '../../../../shared/custom-elements/NightingaleNavigation';
+import { BlastHsp, BlastResults } from '../../types/blastResults';
+import { EnrichedBlastHit } from './BlastResult';
+import { HSPDetailPanelProps } from './HSPDetailPanel';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',

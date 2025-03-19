@@ -3,12 +3,10 @@ import { useLocation } from 'react-router-dom';
 
 import useToolsDispatch from '../../shared/hooks/useToolsDispatch';
 import useToolsState from '../../shared/hooks/useToolsState';
-
 import { updateJob } from '../state/toolsActions';
-
-import { Status } from '../types/toolsStatuses';
-import { JobTypes } from '../types/toolsJobTypes';
 import { FinishedJob } from '../types/toolsJob';
+import { JobTypes } from '../types/toolsJobTypes';
+import { Status } from '../types/toolsStatuses';
 
 export type LocationStateFromJobLink = { internalID: string };
 

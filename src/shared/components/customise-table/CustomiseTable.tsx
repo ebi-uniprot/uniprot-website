@@ -1,13 +1,11 @@
-import { FormEvent, MouseEvent } from 'react';
-import { Button } from 'franklin-sites';
 import cn from 'classnames';
+import { Button } from 'franklin-sites';
+import { FormEvent, MouseEvent } from 'react';
 
-import ColumnSelect from '../column-select/ColumnSelect';
-
-import { Namespace } from '../../types/namespaces';
 import { Column } from '../../config/columns';
-
 import sticky from '../../styles/sticky.module.scss';
+import { Namespace } from '../../types/namespaces';
+import ColumnSelect from '../column-select/ColumnSelect';
 
 type CustomiseTableProps = {
   isEntryPage: boolean;

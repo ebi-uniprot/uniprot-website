@@ -3,17 +3,15 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
 import SimilarProteins, { getClusterMapping } from '../SimilarProteins';
-
 import {
   allAccessions,
   clusterData,
   mapping,
 } from './__mocks__/clusterMappingData';
+import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 import unirefP05067 from './__mocks__/unirefP05067';
 import unirefP05067isoform4 from './__mocks__/unirefP05067-4';
-import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 
 const axiosMock = new MockAdapter(axios);
 axiosMock

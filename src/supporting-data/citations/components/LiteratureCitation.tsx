@@ -1,42 +1,39 @@
-import { createElement, useState, FC, Fragment, HTMLAttributes } from 'react';
-import { Link } from 'react-router-dom';
+import '../../../shared/styles/literature-citation.scss';
+
 import cn from 'classnames';
 import {
   Bubble,
   Button,
-  PublicationIcon,
-  ComputerMappedIcon,
   CommunityAnnotationIcon,
+  ComputerMappedIcon,
+  EllipsisReveal,
+  PublicationIcon,
   SwissProtIcon,
   TremblIcon,
-  EllipsisReveal,
 } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
+import { createElement, FC, Fragment, HTMLAttributes, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { SetOptional } from 'type-fest';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
 
 import {
   getEntryPath,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
-
-import parseDate from '../../../shared/utils/parseDate';
+import { Namespace } from '../../../shared/types/namespaces';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
 } from '../../../shared/utils/cleanText';
-
+import parseDate from '../../../shared/utils/parseDate';
 import {
   CitationsAPIModel,
   CitationType,
   formatCitationData,
 } from '../adapters/citationsConverter';
-import { Namespace } from '../../../shared/types/namespaces';
-
-import '../../../shared/styles/literature-citation.scss';
 
 type AuthorProps = {
   authors?: string[];

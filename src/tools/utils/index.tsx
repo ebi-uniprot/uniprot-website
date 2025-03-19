@@ -1,24 +1,21 @@
-import { MutableRefObject } from 'react';
-import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { BytesNumber, LongNumber } from 'franklin-sites';
+import { MutableRefObject } from 'react';
+import { Link } from 'react-router-dom';
 
-import { pluralise } from '../../shared/utils/utils';
-import * as logging from '../../shared/utils/logging';
-
-import { Location, jobTypeToPath } from '../../app/config/urls';
-
+import { jobTypeToPath, Location } from '../../app/config/urls';
 import {
   MessageFormat,
   MessageLevel,
   MessageTag,
 } from '../../messages/types/messagesTypes';
-
+import * as logging from '../../shared/utils/logging';
+import { pluralise } from '../../shared/utils/utils';
+import { ServerStatus } from '../async-download/types/asyncDownloadServerStatus';
+import { ToolsState } from '../state/toolsInitialState';
 import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
-import { ToolsState } from '../state/toolsInitialState';
-import { ServerStatus } from '../async-download/types/asyncDownloadServerStatus';
 
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,

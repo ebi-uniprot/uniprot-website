@@ -1,14 +1,12 @@
-import ARBAColumnConfiguration, {
-  ARBAColumn,
-} from '../ARBAColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/arbaModelData';
 import databaseConverter, {
   ARBAAPIModel,
   ARBAUIModel,
 } from '../../adapters/arbaConverter';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
-
-import data from '../../__mocks__/arbaModelData';
+import ARBAColumnConfiguration, {
+  ARBAColumn,
+} from '../ARBAColumnConfiguration';
 
 jest.mock('../../../../tools/utils/storage');
 

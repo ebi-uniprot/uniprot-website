@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import {
   Button,
   CodeBlock,
@@ -7,28 +8,22 @@ import {
 } from 'franklin-sites';
 import { useCallback, useEffect, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import cn from 'classnames';
 
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
-import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   copyFailureMessage,
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
-
-import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
-import { splitUrl, stringifyUrl } from '../../utils/url';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import {
   DOWNLOAD_SIZE_LIMIT,
   DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED,
 } from '../../config/limits';
-import apiUrls from '../../config/apiUrls/apiUrls';
-
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
 import { Namespace } from '../../types/namespaces';
-
+import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
+import { splitUrl, stringifyUrl } from '../../utils/url';
 import styles from './styles/download-api-url.module.scss';
 
 const reIdMapping = new RegExp(

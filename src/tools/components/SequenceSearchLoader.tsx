@@ -1,46 +1,42 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  ChangeEvent,
-  ClipboardEvent,
-  KeyboardEvent,
-  forwardRef,
-  useImperativeHandle,
-  useCallback,
-} from 'react';
 import { EllipsisReveal, SearchInput, sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
-
-import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
-import useDataApi from '../../shared/hooks/useDataApi';
-import useUniProtDataVersion from '../../shared/hooks/useUniProtDataVersion';
+import {
+  ChangeEvent,
+  ClipboardEvent,
+  forwardRef,
+  KeyboardEvent,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 
 import { addMessage } from '../../messages/state/messagesActions';
-
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../shared/components/entry/EntryTypeIcon';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
-
+import useDataApi from '../../shared/hooks/useDataApi';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
+import useUniProtDataVersion from '../../shared/hooks/useUniProtDataVersion';
+import { Namespace } from '../../shared/types/namespaces';
+import { SearchResults } from '../../shared/types/results';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
+import fetchData from '../../shared/utils/fetchData';
+import * as logging from '../../shared/utils/logging';
+import { stringifyUrl } from '../../shared/utils/url';
 import {
   reUniParc,
   reUniProtKBAccession,
   reUniRefAccession,
 } from '../../uniprotkb/utils/regexes';
-import fetchData from '../../shared/utils/fetchData';
-import { stringifyUrl } from '../../shared/utils/url';
-import * as logging from '../../shared/utils/logging';
-
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../messages/types/messagesTypes';
-import { Namespace } from '../../shared/types/namespaces';
 import { APISequenceData } from '../blast/types/apiSequenceData';
-import {
-  getEntryTypeFromString,
-  EntryType,
-} from '../../shared/components/entry/EntryTypeIcon';
-import { SearchResults } from '../../shared/types/results';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim();

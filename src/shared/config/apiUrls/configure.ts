@@ -1,8 +1,7 @@
 import joinUrl from 'url-join';
 
-import { apiPrefix } from './apiPrefix';
-
 import { Namespace } from '../../types/namespaces';
+import { apiPrefix } from './apiPrefix';
 
 // All result fields except supporting data reference fields
 export const resultsFields = (namespace: Namespace, isEntry?: boolean) =>

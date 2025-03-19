@@ -1,8 +1,6 @@
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
 import ResultsData from '../../../../shared/components/results/ResultsData';
-
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
-
 import { APIModel } from '../../../../shared/types/apiModel';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { FormParameters } from '../../types/peptideSearchFormParameters';

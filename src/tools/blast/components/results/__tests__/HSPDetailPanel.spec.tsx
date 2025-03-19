@@ -1,16 +1,12 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import HSPDetailPanel from '../HSPDetailPanel';
-
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
-import useSize from '../../../../../shared/hooks/useSize';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
-
-import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated';
-import modelData from '../../../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
-
+import useSize from '../../../../../shared/hooks/useSize';
 import { Namespace } from '../../../../../shared/types/namespaces';
+import modelData from '../../../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
+import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated';
+import HSPDetailPanel from '../HSPDetailPanel';
 
 jest.mock('../../../../../shared/hooks/useDataApi', () => jest.fn());
 jest.mock('../../../../../shared/hooks/useSize', () => jest.fn());

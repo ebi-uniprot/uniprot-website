@@ -1,5 +1,4 @@
 import customRender from '../../../__test-helpers__/customRender';
-
 import UniProtFooter from '../UniProtFooter';
 
 describe('HomePage component', () => {

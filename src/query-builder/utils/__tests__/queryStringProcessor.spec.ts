@@ -2,7 +2,6 @@
  * @jest-environment node
  */
 import { parse, stringify } from '../queryStringProcessor';
-
 import testData from './__mocks__/clauseQueryTestData';
 
 describe('search querystring stringifier', () => {

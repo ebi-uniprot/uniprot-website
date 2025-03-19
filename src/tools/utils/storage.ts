@@ -1,4 +1,4 @@
-import { openDB, IDBPDatabase } from 'idb';
+import { IDBPDatabase, openDB } from 'idb';
 
 import { Stores } from './stores';
 

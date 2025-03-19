@@ -1,10 +1,8 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
-import ARBACard from '../ARBACard';
-
 import arbaData from '../../../__mocks__/arbaModelData';
+import ARBACard from '../ARBACard';
 
 describe('ARBACard tests', () => {
   it('should render the card component', () => {
