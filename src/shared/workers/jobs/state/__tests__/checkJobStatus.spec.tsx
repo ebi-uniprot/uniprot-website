@@ -1,29 +1,17 @@
-import { Dispatch, MutableRefObject } from 'react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import checkJobStatus from '../checkJobStatus';
 
-import runningJob from '../../__mocks__/internal-jobs/running';
+import runningJob from './__mocks__/running';
 
 import { Status } from '../../types/toolsStatuses';
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
 
 import { UPDATE_JOB } from '../toolsActions';
 
-import { Location } from '../../../app/config/urls';
-
-import { ToolsAction } from '../toolsReducers';
-import { ToolsState } from '../toolsInitialState';
-import { MessagesAction } from '../../../messages/state/messagesReducers';
+// import { Location } from '../../../app/config/urls';
 
 let mock: MockAdapter;
-
-const messagesDispatch: jest.Mock<Dispatch<MessagesAction>> = jest.fn();
 
 beforeAll(() => {
   window.fetch = jest.fn();
