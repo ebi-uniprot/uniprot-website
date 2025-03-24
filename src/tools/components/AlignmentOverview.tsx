@@ -1,7 +1,7 @@
 import { Feature } from '@nightingale-elements/nightingale-track';
 import { memo, useCallback } from 'react';
 
-import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
+import NightingalTrackCanvasComponent from '../../shared/custom-elements/NightingaleTrackCanvas';
 
 type AlignmentOverviewProps = {
   trackHeight: number;
@@ -33,7 +33,7 @@ const AlignmentOverviewTrack = ({
   );
 
   return (
-    <NightingalTrackComponent
+    <NightingalTrackCanvasComponent
       height={height}
       ref={setTrackData}
       length={length}

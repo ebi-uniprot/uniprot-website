@@ -27,7 +27,9 @@ axiosMock
 describe('ProteinProcessingSection', () => {
   beforeAll(() => {
     jest.mock('@nightingale-elements/nightingale-sequence', () => jest.fn());
-    jest.mock('@nightingale-elements/nightingale-track', () => jest.fn());
+    jest.mock('@nightingale-elements/nightingale-track-canvas', () =>
+      jest.fn()
+    );
   });
 
   it('should render when PTMeXchange is available', async () => {
