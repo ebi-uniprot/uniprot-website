@@ -9,7 +9,6 @@ const useDashboardPollingEffect = () => {
     const onVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         // Do an immediate check when the dashboard gets visible
-        // dispatchJobs(pollJobs());
         // Speed up polls
         heuristic.dashboardSpeedUpFactor = 4;
       } else {
