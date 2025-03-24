@@ -13,6 +13,7 @@ import { FinishedJob, Job } from '../../shared/workers/jobs/types/toolsJob';
 import { databaseToNamespace } from '../../tools/blast/config/BlastFormData';
 import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
 import { Database } from '../../tools/blast/types/blastServerParameters';
+import { FormParameters as IdMappingFormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 export const IDMappingNamespaces = [

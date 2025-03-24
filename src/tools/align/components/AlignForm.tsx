@@ -51,6 +51,10 @@ import {
   updateSelected,
   updateSending,
 } from '../state/alignFormActions';
+import {
+  getAlignFormDataReducer,
+  getAlignFormInitialState,
+} from '../state/alignFormReducer';
 import { FormParameters } from '../types/alignFormParameters';
 import { ServerParameters } from '../types/alignServerParameters';
 
