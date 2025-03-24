@@ -1,6 +1,5 @@
-import extractAccession from '../extractAccession';
-
 import { Namespace } from '../../../../shared/types/namespaces';
+import extractAccession from '../extractAccession';
 
 describe('extractDescription', () => {
   const testCases = [

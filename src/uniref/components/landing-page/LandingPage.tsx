@@ -1,29 +1,24 @@
 /* eslint-disable react/jsx-key */
+import { ExternalLink, Loader, LongNumber } from 'franklin-sites';
+import { fromPairs } from 'lodash-es';
 import { ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { ExternalLink, LongNumber, Loader } from 'franklin-sites';
-import { fromPairs } from 'lodash-es';
 import joinUrl from 'url-join';
 
-import HTMLHead from '../../../shared/components/HTMLHead';
-// import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import ftpUrls from '../../../shared/config/ftpUrls';
-import { stringifyQuery } from '../../../shared/utils/url';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { SearchResults } from '../../../shared/types/results';
-import { Namespace } from '../../../shared/types/namespaces';
-import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
-
-import styles from './styles/landing-page.module.scss';
-
-import ClusterLanding100Illustration from '../../../images/cluster_landing_100_illustration.img.svg';
-import ClusterLanding90Illustration from '../../../images/cluster_landing_90_illustration.img.svg';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ClusterLanding50Illustration from '../../../images/cluster_landing_50_illustration.img.svg';
+import ClusterLanding90Illustration from '../../../images/cluster_landing_90_illustration.img.svg';
+import ClusterLanding100Illustration from '../../../images/cluster_landing_100_illustration.img.svg';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import ftpUrls from '../../../shared/config/ftpUrls';
+// import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
+import { stringifyQuery } from '../../../shared/utils/url';
+import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
+import styles from './styles/landing-page.module.scss';
 
 const documentationLinks = [
   {

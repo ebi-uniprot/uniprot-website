@@ -1,17 +1,13 @@
+import { waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { waitFor } from '@testing-library/react';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import getCustomRenderHook from '../../../shared/__test-helpers__/customRenderHook';
-
-import useInitialFormParameters from '../useInitialFormParameters';
-
 import { stringifyUrl } from '../../../shared/utils/url';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
 import defaultAlignFormValues from '../../align/config/AlignFormData';
 import defaultPeptideSearchFormValues from '../../peptide-search/config/PeptideSearchFormData';
+import useInitialFormParameters from '../useInitialFormParameters';
 
 describe('useInitialFormParameters: Align', () => {
   const customRenderHook = getCustomRenderHook(() =>

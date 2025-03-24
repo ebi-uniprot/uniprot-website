@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { SearchTextLink } from './SearchTextLink';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-import { stringifyUrl } from '../../utils/url';
-
-import { SearchResults } from '../../types/results';
-import { Namespace } from '../../types/namespaces';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import useDataApi from '../../hooks/useDataApi';
+import { Namespace } from '../../types/namespaces';
+import { SearchResults } from '../../types/results';
+import { stringifyUrl } from '../../utils/url';
+import { SearchTextLink } from './SearchTextLink';
 
 const ProteomeSuggestion = ({
   query,

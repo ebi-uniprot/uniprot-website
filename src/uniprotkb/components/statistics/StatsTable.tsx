@@ -1,12 +1,10 @@
-import { useState, useRef, useCallback } from 'react';
+import { Button, LongNumber } from 'franklin-sites';
+import { useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LongNumber, Button } from 'franklin-sites';
 
-import { CategoryName, StatisticsCategory } from './StatisticsPage';
-
-import { stringifyQuery } from '../../../shared/utils/url';
 import { Location, LocationToPath } from '../../../app/config/urls';
-
+import { stringifyQuery } from '../../../shared/utils/url';
+import { CategoryName, StatisticsCategory } from './StatisticsPage';
 import styles from './styles/statistics-page.module.scss';
 
 const tableCollapsedRows = 10 as const;

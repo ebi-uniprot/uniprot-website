@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useHistory, generatePath, useRouteMatch } from 'react-router-dom';
+import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
 
-import { LocationToPath, Location } from '../../app/config/urls';
+import { Location, LocationToPath } from '../../app/config/urls';
 
 // Typos identified in Google Search Console of websites linking to wrong URL
 const weirdTypos = /^ |.html?$|;|&.*$/g;
 
 const useMatchWithRedirect = <
-  T extends { accession?: string; subPage?: string }
+  T extends { accession?: string; subPage?: string },
 >(
   location: Location,
   possibleSubPages: Record<string, string>,

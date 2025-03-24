@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { sleep, schedule } from 'timing-functions';
+import { schedule, sleep } from 'timing-functions';
 
 import useSafeState from './useSafeState';
 

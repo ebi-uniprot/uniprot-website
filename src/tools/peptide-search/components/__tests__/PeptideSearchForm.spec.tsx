@@ -1,12 +1,10 @@
+import { fireEvent, screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { screen, fireEvent } from '@testing-library/react';
-
-import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import PeptideSearchForm from '../PeptideSearchForm';
 
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import PeptideSearchForm from '../PeptideSearchForm';
 
 const mock = new MockAdapter(axios);
 mock.onGet().reply(200, mockSuggesterApi.response);

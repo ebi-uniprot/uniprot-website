@@ -1,4 +1,5 @@
-import { screen, act } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
+
 import { ColumnConfiguration } from '../types/columnConfiguration';
 import customRender from './customRender';
 

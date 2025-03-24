@@ -1,15 +1,13 @@
 import {
-  render,
-  screen,
   fireEvent,
+  render,
   RenderResult,
+  screen,
 } from '@testing-library/react';
 
-import RangeField from '../RangeField';
-
-import { getSearchTerm } from './__mocks__/configureSearchTerms';
-
 import { FieldProps } from '../Field';
+import RangeField from '../RangeField';
+import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const props: FieldProps = {
   field: getSearchTerm('length_range'),

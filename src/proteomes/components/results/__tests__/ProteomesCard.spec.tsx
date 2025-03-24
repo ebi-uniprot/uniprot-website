@@ -1,10 +1,8 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import ProteomesCard from '../ProteomesCard';
-
 import proteomesData from '../../../__mocks__/proteomesEntryModelData';
+import ProteomesCard from '../ProteomesCard';
 
 describe('ProteomesCard tests', () => {
   it('should render the card component', () => {

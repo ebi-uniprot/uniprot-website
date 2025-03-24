@@ -2,15 +2,15 @@
  * @jest-environment node
  */
 import {
-  hasContent,
-  pluralise,
-  formatPercentage,
-  deepFindAllByKey,
   addBlastLinksToFreeText,
-  keysToLowerCase,
   counter,
+  deepFindAllByKey,
   defaultdict,
   excludeKeys,
+  formatPercentage,
+  hasContent,
+  keysToLowerCase,
+  pluralise,
 } from '../utils';
 
 describe('Model Utils', () => {

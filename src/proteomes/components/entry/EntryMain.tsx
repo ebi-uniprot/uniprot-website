@@ -1,11 +1,9 @@
-import { memo, Suspense } from 'react';
 import { Loader } from 'franklin-sites';
+import { memo, Suspense } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
-import ProteomesEntryConfig from '../../config/ProteomesEntryConfig';
-
 import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+import ProteomesEntryConfig from '../../config/ProteomesEntryConfig';
 
 type EntryMainProps = {
   transformedData: ProteomesUIModel;

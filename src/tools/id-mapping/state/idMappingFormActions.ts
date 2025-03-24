@@ -1,9 +1,9 @@
 import { action } from 'typesafe-actions';
 
 import {
+  IDMappingFields,
   IDMappingFormValue,
   IDMappingFormValues,
-  IDMappingFields,
 } from '../config/idMappingFormData';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';

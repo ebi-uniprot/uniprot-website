@@ -1,8 +1,7 @@
 import { screen } from '@testing-library/react';
-import { Namespace } from '../../../types/namespaces';
 
 import customRender from '../../../__test-helpers__/customRender';
-
+import { Namespace } from '../../../types/namespaces';
 import AccessionView from '../AccessionView';
 
 describe('AccessionView', () => {

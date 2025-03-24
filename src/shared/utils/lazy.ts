@@ -1,4 +1,4 @@
-import { lazy as reactLazy, ComponentType, LazyExoticComponent } from 'react';
+import { ComponentType, lazy as reactLazy, LazyExoticComponent } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type LazyComponent<T extends ComponentType<React.PropsWithChildren<any>>> =

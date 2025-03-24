@@ -1,21 +1,19 @@
+import { EvidenceTag, ExpandableList } from 'franklin-sites';
+import { groupBy } from 'lodash-es';
 import { memo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { groupBy } from 'lodash-es';
-import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
-import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink from './EvidenceLink';
+import { allEntryPages } from '../../../app/config/urls';
 import { pluralise } from '../../../shared/utils/utils';
-
 import {
-  getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
+  getEvidenceCodeData,
   labels,
 } from '../../config/evidenceCodes';
-import { allEntryPages } from '../../../app/config/urls';
-
 import { Evidence } from '../../types/modelTypes';
+import EvidenceLink from './EvidenceLink';
+import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 
 export enum EvidenceTagSourceTypes {
   PUBMED = 'PubMed',

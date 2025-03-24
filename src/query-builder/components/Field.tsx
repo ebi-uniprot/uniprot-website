@@ -1,13 +1,12 @@
 import { FC } from 'react';
 
-import RangeField from './RangeField';
-import EnumOrBooleanField from './EnumOrBooleanField';
-import TextField from './TextField';
-import GoEvidenceField from './GoEvidenceField';
-import ExperimentalEvidenceField from './ExperimentalEvidenceField';
-import AutocompleteField from './AutocompleteField';
-
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import AutocompleteField from './AutocompleteField';
+import EnumOrBooleanField from './EnumOrBooleanField';
+import ExperimentalEvidenceField from './ExperimentalEvidenceField';
+import GoEvidenceField from './GoEvidenceField';
+import RangeField from './RangeField';
+import TextField from './TextField';
 
 export type FieldProps = {
   field: SearchTermType;

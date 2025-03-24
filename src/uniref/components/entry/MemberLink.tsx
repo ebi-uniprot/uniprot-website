@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
-
 import { Namespace } from '../../../shared/types/namespaces';
 
 const MemberLink: FC<React.PropsWithChildren<{ accession: string }>> = ({

@@ -1,11 +1,9 @@
-import { memo, Suspense } from 'react';
 import { Loader } from 'franklin-sites';
+import { memo, Suspense } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
-import UniRefEntryConfig from '../../config/UniRefEntryConfig';
-
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
+import UniRefEntryConfig from '../../config/UniRefEntryConfig';
 
 type EntryMainProps = {
   transformedData: UniRefUIModel;

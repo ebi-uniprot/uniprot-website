@@ -1,5 +1,4 @@
 import { extractFromFreeText } from '../KineticsTableView';
-
 import mock from './__mocks__/kineticsData';
 
 describe('Kinetics section', () => {

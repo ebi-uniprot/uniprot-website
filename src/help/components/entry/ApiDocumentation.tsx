@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'franklin-sites';
+import { Tab, Tabs } from 'franklin-sites';
 import { useEffect } from 'react';
 import {
   generatePath,
@@ -7,12 +7,10 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 
-import DocumentationTab from './ApiDocumentationTab';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
-
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
+import DocumentationTab from './ApiDocumentationTab';
 
 const ApiDocumentation = () => {
   const history = useHistory();

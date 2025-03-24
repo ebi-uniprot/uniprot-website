@@ -1,10 +1,10 @@
-import EntrySection from '../types/entrySection';
-import { DatabaseCategory } from '../types/databaseRefs';
-import {
-  DatabaseToDatabaseInfo,
-  DatabaseCategoryToNames,
-} from '../utils/database';
 import externalUrls from '../../shared/config/externalUrls';
+import { DatabaseCategory } from '../types/databaseRefs';
+import EntrySection from '../types/entrySection';
+import {
+  DatabaseCategoryToNames,
+  DatabaseToDatabaseInfo,
+} from '../utils/database';
 
 export const selectDatabases =
   (databaseCategoryToNames: Map<DatabaseCategory, string[]>) =>

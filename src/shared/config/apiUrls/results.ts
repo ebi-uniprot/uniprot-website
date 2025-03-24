@@ -1,25 +1,23 @@
 import joinUrl from 'url-join';
 
 import {
-  SortDirection,
   getApiSortDirection,
+  SortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
+import { Namespace } from '../../types/namespaces';
+import { DownloadUrlOptions } from '../../types/results';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   createFacetsQueryString,
   createSelectedQueryString,
   stringifyUrl,
 } from '../../utils/url';
-
 import {
-  fileFormatToUrlParameter,
   fileFormatsWithColumns,
+  fileFormatToUrlParameter,
 } from '../resultsDownload';
 import { apiPrefix } from './apiPrefix';
 import { searchPrefix } from './search';
-
-import { Namespace } from '../../types/namespaces';
-import { FileFormat } from '../../types/resultsDownload';
-import { DownloadUrlOptions } from '../../types/results';
 
 const streamPrefix = (namespace: Namespace) =>
   joinUrl(apiPrefix, namespace, 'stream');

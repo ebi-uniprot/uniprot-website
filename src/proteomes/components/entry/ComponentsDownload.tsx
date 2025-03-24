@@ -1,31 +1,26 @@
-import { useState, ChangeEvent, useMemo } from 'react';
-import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
+import { Button, LongNumber } from 'franklin-sites';
+import { ChangeEvent, useMemo, useState } from 'react';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
-
-import useColumnNames from '../../../shared/hooks/useColumnNames';
-
+import styles from '../../../shared/components/download/styles/download.module.scss';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
 import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
 import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
-import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
-
+import useColumnNames from '../../../shared/hooks/useColumnNames';
+import sticky from '../../../shared/styles/sticky.module.scss';
+import { Statistics } from '../../../shared/types/apiModel';
 import { Namespace } from '../../../shared/types/namespaces';
+import { DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import {
-  DownloadPanelFormCloseReason,
   DownloadMethod,
+  DownloadPanelFormCloseReason,
 } from '../../../shared/utils/gtagEvents';
-import { Statistics } from '../../../shared/types/apiModel';
-import { DownloadUrlOptions } from '../../../shared/types/results';
-
-import sticky from '../../../shared/styles/sticky.module.scss';
-import styles from '../../../shared/components/download/styles/download.module.scss';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
 
 const getPreviewFileFormat = (
   fileFormat: FileFormat

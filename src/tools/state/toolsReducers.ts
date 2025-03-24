@@ -1,15 +1,12 @@
 import { ActionType } from 'typesafe-actions';
 import { v1 } from 'uuid';
 
-import JobStore from '../utils/storage';
-
-import * as toolsActions from './toolsActions';
-
-import toolsInitialState, { ToolsState } from './toolsInitialState';
-
 import { CreatedJob, Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
+import JobStore from '../utils/storage';
 import { Stores } from '../utils/stores';
+import * as toolsActions from './toolsActions';
+import toolsInitialState, { ToolsState } from './toolsInitialState';
 
 export type ToolsAction = ActionType<typeof toolsActions>;
 

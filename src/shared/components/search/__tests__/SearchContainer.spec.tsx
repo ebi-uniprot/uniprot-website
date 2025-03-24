@@ -1,10 +1,8 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
-
-import SearchContainer from '../SearchContainer';
-
 import { Namespace } from '../../../types/namespaces';
+import SearchContainer from '../SearchContainer';
 
 describe('Search component on home page', () => {
   let rendered: ReturnType<typeof customRender>;

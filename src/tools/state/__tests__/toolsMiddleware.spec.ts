@@ -1,17 +1,15 @@
-import { Dispatch, MutableRefObject } from 'react';
-import { sleep } from 'timing-functions';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { Dispatch, MutableRefObject } from 'react';
+import { sleep } from 'timing-functions';
 
-import toolsMiddleware from '../toolsMiddleware';
-
-import { ToolsAction } from '../toolsReducers';
-import { ToolsState } from '../toolsInitialState';
 import { MessagesAction } from '../../../messages/state/messagesReducers';
+import createdJob from '../../__mocks__/internal-jobs/created';
 import JobStore from '../../utils/storage';
 import { Stores } from '../../utils/stores';
-
-import createdJob from '../../__mocks__/internal-jobs/created';
+import { ToolsState } from '../toolsInitialState';
+import toolsMiddleware from '../toolsMiddleware';
+import { ToolsAction } from '../toolsReducers';
 
 const axiosMock = new MockAdapter(axios);
 

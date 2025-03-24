@@ -1,10 +1,10 @@
 import { useHistory, useRouteMatch } from 'react-router-dom';
+
 import {
   allSearchResultLocations,
   getJobResultsLocation,
   LocationToPath,
 } from '../../app/config/urls';
-
 import { Namespace } from '../types/namespaces';
 
 const findNamespace = (potentialNS: string) =>

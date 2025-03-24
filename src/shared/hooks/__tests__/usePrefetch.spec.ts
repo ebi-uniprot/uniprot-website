@@ -1,6 +1,6 @@
-import { getByTestId, renderHook } from '@testing-library/react';
-
 import './__mocks__/relListSupportMock';
+
+import { getByTestId, renderHook } from '@testing-library/react';
 
 import usePrefetch from '../usePrefetch';
 

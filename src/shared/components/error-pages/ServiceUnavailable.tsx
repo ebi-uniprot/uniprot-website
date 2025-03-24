@@ -1,8 +1,7 @@
-import { HTMLAttributes, useEffect } from 'react';
 import { Message } from 'franklin-sites';
+import { HTMLAttributes, useEffect } from 'react';
 
 import ErrorComponent from './ErrorComponent';
-
 import ArtWork from './svgs/503.img.svg';
 
 const BACKOFF = [5, 20] as const;

@@ -1,8 +1,6 @@
 import customRender from '../../../shared/__test-helpers__/customRender';
-
-import AlignmentOverview from '../AlignmentOverview';
-
 import mockData from '../__mocks__/featureShapesMocks';
+import AlignmentOverview from '../AlignmentOverview';
 
 describe('AlignmentOverview', () => {
   describe('BLAST', () => {

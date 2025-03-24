@@ -1,10 +1,8 @@
-import { BasketIcon } from 'franklin-sites';
 import cn from 'classnames';
+import { BasketIcon } from 'franklin-sites';
 
 import useBasket from '../shared/hooks/useBasket';
-
 import accessionToNamespace from '../shared/utils/accessionToNamespace';
-
 import styles from './styles/basket-status.module.scss';
 
 type Props = { id?: string; className?: string };

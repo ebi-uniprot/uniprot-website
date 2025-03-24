@@ -1,40 +1,36 @@
-import { lazy, useMemo, memo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
-
+import { lazy, memo, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { SetRequired } from 'type-fest/source/set-required';
+
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import EntrySection from '../../types/entrySection';
-import FreeTextView from '../protein-data-views/FreeTextView';
-import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import TableFromData, {
   TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
-
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import { hasContent } from '../../../shared/utils/utils';
 import externalUrls, {
   getIntActQueryUrl,
 } from '../../../shared/config/externalUrls';
-import {
-  getEntryPath,
-  LocationToPath,
-  Location,
-} from '../../../app/config/urls';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import { Xref } from '../../../shared/types/apiModel';
+import { Namespace } from '../../../shared/types/namespaces';
 import { stringifyQuery } from '../../../shared/utils/url';
-
+import { hasContent } from '../../../shared/utils/utils';
+import { UIModel } from '../../adapters/sectionConverter';
 import {
   FreeTextComment,
   Interaction,
   InteractionComment,
 } from '../../types/commentTypes';
-import { UIModel } from '../../adapters/sectionConverter';
-import { Namespace } from '../../../shared/types/namespaces';
-import { Xref } from '../../../shared/types/apiModel';
-
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import FreeTextView from '../protein-data-views/FreeTextView';
+import XRefView from '../protein-data-views/XRefView';
 import styles from './styles/interaction-section.module.scss';
 
 const interactionSorter = (a: Interaction, b: Interaction) => {

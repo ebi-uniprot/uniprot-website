@@ -1,12 +1,10 @@
-import { RichText, TextView } from '../protein-data-views/FreeTextView';
-import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
-
+import Table from '../../../shared/components/table/Table';
+import helper from '../../../shared/styles/helper.module.scss';
 import { KineticParameters } from '../../adapters/functionConverter';
 import { Evidence } from '../../types/modelTypes';
-
-import helper from '../../../shared/styles/helper.module.scss';
+import { RichText, TextView } from '../protein-data-views/FreeTextView';
+import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/kinetics-table.module.scss';
-import Table from '../../../shared/components/table/Table';
 
 const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+-?(([0-9]*[.])?[0-9]+)?)/;
 const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;

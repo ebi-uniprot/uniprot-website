@@ -1,8 +1,7 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import DownloadAPIURL, { getSearchURL } from '../DownloadAPIURL';
-
 import customRender from '../../../__test-helpers__/customRender';
+import DownloadAPIURL, { getSearchURL } from '../DownloadAPIURL';
 
 const apiURL = 'https://foo.org';
 

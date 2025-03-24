@@ -1,7 +1,7 @@
 import axios, { AxiosPromise, AxiosRequestConfig, CancelToken } from 'axios';
 
-import { keysToLowerCase } from './utils';
 import { sendGtagEventApiData } from './gtagEvents';
+import { keysToLowerCase } from './utils';
 
 axios.interceptors.response.use((response) => {
   if (

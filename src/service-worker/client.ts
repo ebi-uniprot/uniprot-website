@@ -1,9 +1,7 @@
 import { Workbox } from 'workbox-window';
 
 import { sendGtagEventCacheUpdate } from '../shared/utils/gtagEvents';
-
 import { needsReload } from './reload-flag';
-
 import { CacheName } from './shared-types';
 
 // No need to test if serviceWorker is supported, we tested that before loading

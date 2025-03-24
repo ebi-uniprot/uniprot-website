@@ -1,18 +1,14 @@
 import { ExpandableList, Loader, Message } from 'franklin-sites';
 
-import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
+import { MessageLevel } from '../../../messages/types/messagesTypes';
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
-
-import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
-import { MessageLevel } from '../../../messages/types/messagesTypes';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
-
+import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
+import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 import style from './styles/inline-publication.module.scss';
 
 const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {

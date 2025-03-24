@@ -1,10 +1,8 @@
 import { LongNumber, Sequence } from 'franklin-sites';
 
 import { useMediumScreen } from '../../hooks/useMatchMedia';
-
-import { Sequence as SequenceType } from '../../types/sequence';
-
 import helper from '../../styles/helper.module.scss';
+import { Sequence as SequenceType } from '../../types/sequence';
 
 const SimpleSequence = ({ sequence }: { sequence: SequenceType }) => {
   const mediumScreen = useMediumScreen();

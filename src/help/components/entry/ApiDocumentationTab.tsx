@@ -1,20 +1,22 @@
+import 'swagger-ui-react/swagger-ui.css';
+
+import { Card, Chip, Loader } from 'franklin-sites';
+import { Location as HistoryLocation } from 'history';
+import type { OpenAPIV3 } from 'openapi-types';
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Location as HistoryLocation } from 'history';
-import { Card, Loader, Chip } from 'franklin-sites';
 import SwaggerUI from 'swagger-ui-react';
 import { frame } from 'timing-functions';
-import type { OpenAPIV3 } from 'openapi-types';
 
-import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
-import InPageNav from '../../../shared/components/InPageNav';
 import ExternalLink from '../../../shared/components/ExternalLink';
-
+import HTMLHead from '../../../shared/components/HTMLHead';
+import InPageNav from '../../../shared/components/InPageNav';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import useDataApi from '../../../shared/hooks/useDataApi';
-
+import apiUrls from '../../config/apiUrls';
+import { ApiDocsDefinition } from '../../types/apiDocumentation';
 import {
   getIdToOperation,
   getLayoutAction,
@@ -23,12 +25,6 @@ import {
   tagNameToId,
 } from '../../utils/apiDocumentation';
 import { requestSnippets, snippetPlugins } from '../../utils/apiSnippets';
-
-import apiUrls from '../../config/apiUrls';
-
-import { ApiDocsDefinition } from '../../types/apiDocumentation';
-
-import 'swagger-ui-react/swagger-ui.css';
 import styles from './styles/api-documentation.module.scss';
 
 const OperationTag = ({

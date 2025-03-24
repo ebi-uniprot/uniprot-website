@@ -1,5 +1,5 @@
 import { Feature } from '@nightingale-elements/nightingale-track';
-import { useCallback, memo } from 'react';
+import { memo, useCallback } from 'react';
 
 import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
 

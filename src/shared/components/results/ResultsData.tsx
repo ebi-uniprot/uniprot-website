@@ -1,3 +1,11 @@
+import cn from 'classnames';
+import {
+  DataListWithLoader,
+  DataTableWithLoader,
+  EllipsisReveal,
+  Loader,
+  Message,
+} from 'franklin-sites';
 import {
   Dispatch,
   Fragment,
@@ -6,39 +14,26 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import {
-  DataTableWithLoader,
-  DataListWithLoader,
-  Loader,
-  EllipsisReveal,
-  Message,
-} from 'franklin-sites';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
-import cn from 'classnames';
-
-import UniProtKBGroupBy from '../../../uniprotkb/components/results/UniProtKBGroupBy';
-
-import useNS from '../../hooks/useNS';
-import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
-import useViewMode from '../../hooks/useViewMode';
-import { useSmallScreen } from '../../hooks/useMatchMedia';
-import useResultsToEntryRedirect from '../../hooks/useResultsToEntryRedirect';
-
-import { getIdKeyForData } from '../../utils/getIdKey';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import {
   getEntryPathFor,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
+import UniProtKBGroupBy from '../../../uniprotkb/components/results/UniProtKBGroupBy';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import getCardRenderer from '../../config/resultsCardRenderers';
-
-import { Namespace, SearchableNamespace } from '../../types/namespaces';
-import { APIModel } from '../../types/apiModel';
-import { PaginatedResults } from '../../hooks/usePagination';
 import { Basket } from '../../hooks/useBasket';
-
+import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNS from '../../hooks/useNS';
+import { PaginatedResults } from '../../hooks/usePagination';
+import useResultsToEntryRedirect from '../../hooks/useResultsToEntryRedirect';
+import useViewMode from '../../hooks/useViewMode';
+import { APIModel } from '../../types/apiModel';
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
+import { getIdKeyForData } from '../../utils/getIdKey';
 import styles from './styles/results-data.module.scss';
 
 type Props = {

@@ -1,15 +1,13 @@
+import './styles/blast-result-taxonomy.scss';
+
+import { ChevronDownIcon, DoughnutChart } from 'franklin-sites';
 import { useMemo, useState } from 'react';
-import { DoughnutChart, ChevronDownIcon } from 'franklin-sites';
 
-import { EnrichedData } from './BlastResult';
-
+import { pluralise } from '../../../../shared/utils/utils';
 import arrayOfLineagesToTree, {
   TaxNode,
 } from '../../adapters/arrayOfLineagesToTree';
-
-import { pluralise } from '../../../../shared/utils/utils';
-
-import './styles/blast-result-taxonomy.scss';
+import { EnrichedData } from './BlastResult';
 
 type TaxItemProps = {
   taxNode: TaxNode;

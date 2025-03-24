@@ -2,14 +2,11 @@ import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
-import { getParamsFromURL } from '../../utils/resultsUtils';
-import apiUrls from '../../config/apiUrls/apiUrls';
-
 import ResultsFacets from '../../../shared/components/results/ResultsFacets';
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import { FacetObject } from '../../../shared/types/results';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import { getParamsFromURL } from '../../utils/resultsUtils';
 
 const EntryPublicationsFacets: FC<
   React.PropsWithChildren<{ accession: string }>

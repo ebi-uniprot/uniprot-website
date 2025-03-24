@@ -1,11 +1,9 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
-
-import AlignmentView, { Tool, View } from '../AlignmentView';
 import { MSAInput } from '../../types/alignment';
-
 import mockData from '../__mocks__/msaMocks.json';
+import AlignmentView, { Tool, View } from '../AlignmentView';
 
 describe('AlignmentView', () => {
   describe('BLAST', () => {

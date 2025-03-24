@@ -1,7 +1,6 @@
-import { getAllKeywords } from '../KeywordsUtil';
-import uniProtKbConverter from '../../adapters/uniProtkbConverter';
-
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import uniProtKbConverter from '../../adapters/uniProtkbConverter';
+import { getAllKeywords } from '../KeywordsUtil';
 import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 
 describe('KeywordsUtil', () => {

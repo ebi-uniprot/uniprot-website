@@ -1,19 +1,16 @@
-import ProteomeSuggestion from './ProteomeSuggestion';
-import OrganismSuggestion from './OrganismSuggestion';
-import { SearchTextLink } from './SearchTextLink';
-
-import useDataApi from '../../hooks/useDataApi';
-
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
-import { stringifyUrl } from '../../utils/url';
+import useDataApi from '../../hooks/useDataApi';
+import { Namespace } from '../../types/namespaces';
+import { SearchResults } from '../../types/results';
 import {
   modifyQueryWithSuggestions,
   taxonHierarchySearchTerms,
 } from '../../utils/searchSuggestions';
-
-import { SearchResults } from '../../types/results';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { Namespace } from '../../types/namespaces';
+import { stringifyUrl } from '../../utils/url';
+import OrganismSuggestion from './OrganismSuggestion';
+import ProteomeSuggestion from './ProteomeSuggestion';
+import { SearchTextLink } from './SearchTextLink';
 
 const TaxonomyLevelsSuggestion = ({
   query,

@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
-import { Loader } from 'franklin-sites';
 import * as goCamVizLoader from '@geneontology/wc-gocam-viz/loader';
+import { Loader } from 'franklin-sites';
+import { useEffect } from 'react';
 
 import useSafeState from '../../../shared/hooks/useSafeState';
-
 import styles from './styles/go-cam-viz.module.scss';
 
 type Props = {

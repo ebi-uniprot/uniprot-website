@@ -1,17 +1,15 @@
+import { Card } from 'franklin-sites';
 import { memo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Card } from 'franklin-sites';
 
 import {
   getLocationEntryPath,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
-
-import CleanHighlightMarkDown from './CleanHighlightMarkDown';
-import parseDate from '../../../shared/utils/parseDate';
-
 import styles from '../../../shared/styles/helper.module.scss';
+import parseDate from '../../../shared/utils/parseDate';
+import CleanHighlightMarkDown from './CleanHighlightMarkDown';
 
 type Props = {
   id: string;

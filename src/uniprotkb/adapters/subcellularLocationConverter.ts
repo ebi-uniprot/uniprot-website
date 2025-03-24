@@ -1,17 +1,16 @@
-import { convertSection, UIModel } from './sectionConverter';
+import { Xref } from '../../shared/types/apiModel';
 import { hasContent } from '../../shared/utils/utils';
-
+import { UniProtKBColumn } from '../types/columnTypes';
+import { CommentType } from '../types/commentTypes';
+import { SubcellularLocationFeatures } from '../types/featureType';
+import KeywordCategory from '../types/keywordCategory';
+import { Evidence, GoEvidenceType } from '../types/modelTypes';
+import { DatabaseInfoMaps } from '../utils/database';
+import { convertSection, UIModel } from './sectionConverter';
 import {
   UniProtkbAPIModel,
   UniProtKBSimplifiedTaxonomy,
 } from './uniProtkbConverter';
-import { Xref } from '../../shared/types/apiModel';
-import KeywordCategory from '../types/keywordCategory';
-import { SubcellularLocationFeatures } from '../types/featureType';
-import { CommentType } from '../types/commentTypes';
-import { Evidence, GoEvidenceType } from '../types/modelTypes';
-import { UniProtKBColumn } from '../types/columnTypes';
-import { DatabaseInfoMaps } from '../utils/database';
 
 const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 

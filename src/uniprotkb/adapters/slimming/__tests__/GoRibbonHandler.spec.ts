@@ -1,11 +1,9 @@
+import { TaxonomyDatum } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { GeneNamesData } from '../../namesAndTaxonomyConverter';
 import { getCategories, getSubjects } from '../GORibbonHandler';
-
 import slimmedData from './__mocks__/slimmedData';
 import goSlimAGR from './__mocks__/slimSet';
 import termsToSlim from './__mocks__/termsToSlim';
-
-import { GeneNamesData } from '../../namesAndTaxonomyConverter';
-import { TaxonomyDatum } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 const geneNamesData: GeneNamesData = [{ geneName: { value: 'TP53' } }];
 const organismData: TaxonomyDatum = {

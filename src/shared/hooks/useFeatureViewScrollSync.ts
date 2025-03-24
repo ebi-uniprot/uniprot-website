@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+
 import tableStyles from '../components/table/styles/table.module.scss';
 
 type ObserverControls = [() => void, () => void];

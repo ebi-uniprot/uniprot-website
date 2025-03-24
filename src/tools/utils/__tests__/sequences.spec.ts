@@ -1,20 +1,18 @@
-import {
-  findSequenceSegments,
-  // getFullAlignmentSegments,
-  getNumberOfInsertions,
-  getEndCoordinate,
-  createGappedFeature,
-  removeFeaturesWithUnknownModifier,
-  findSequenceFeature,
-} from '../sequences';
-
 import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
-import { MSAInput } from '../../types/alignment';
-
+import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 // import featuresMock from '../__mocks__/features.json';
 // import sequenceChunkPairsMock from '../__mocks__/sequences.json';
 import { Align as alignment } from '../../components/__mocks__/msaMocks.json';
-import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { MSAInput } from '../../types/alignment';
+import {
+  createGappedFeature,
+  findSequenceFeature,
+  findSequenceSegments,
+  getEndCoordinate,
+  // getFullAlignmentSegments,
+  getNumberOfInsertions,
+  removeFeaturesWithUnknownModifier,
+} from '../sequences';
 
 describe('Tool sequences utils', () => {
   it('should find segments', () => {

@@ -1,55 +1,52 @@
+import './styles/search-container.scss';
+
+import { Button, MainSearch, SlidingPanel } from 'franklin-sites';
 import {
-  useState,
-  useEffect,
   Fragment,
   HTMLAttributes,
-  useCallback,
   Suspense,
   SyntheticEvent,
+  useCallback,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import { SearchAction, WebSite, WithContext } from 'schema-dts';
-
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-import useIDMappingDetails from '../../hooks/useIDMappingDetails';
-import useStructuredData from '../../hooks/useStructuredData';
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
-import { useSmallScreen } from '../../hooks/useMatchMedia';
-
-import lazy from '../../utils/lazy';
-import { addMessage } from '../../../messages/state/messagesActions';
-import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
-import { stringifyQuery } from '../../utils/url';
 
 import {
   Location,
   LocationToPath,
   SearchResultsLocations,
 } from '../../../app/config/urls';
-import {
-  Namespace,
-  searchableNamespaceLabels,
-  SearchableNamespace,
-  Searchspace,
-  toolResults,
-  searchspaceLabels,
-} from '../../types/namespaces';
+import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
-
-import './styles/search-container.scss';
+import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import useStructuredData from '../../hooks/useStructuredData';
+import {
+  Namespace,
+  SearchableNamespace,
+  searchableNamespaceLabels,
+  Searchspace,
+  searchspaceLabels,
+  toolResults,
+} from '../../types/namespaces';
 import {
   PanelFormCloseReason,
   sendGtagEventPanelAdvancedSearchClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
+import lazy from '../../utils/lazy';
+import { stringifyQuery } from '../../utils/url';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 const QueryBuilder = lazy(
   () =>

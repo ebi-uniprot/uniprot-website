@@ -1,29 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import cn from 'classnames';
 import { Button, ExternalLink, LongNumber } from 'franklin-sites';
 import { pick } from 'lodash-es';
-import cn from 'classnames';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 
-import DownloadPreview from '../download/DownloadPreview';
-import DownloadAPIURL from '../download/DownloadAPIURL';
-import ColumnSelect from '../column-select/ColumnSelect';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-import uniparcApiUrls from '../../../uniparc/config/apiUrls';
-import unirefApiUrls from '../../../uniref/config/apiUrls';
-import externalUrls from '../../config/externalUrls';
 import {
   allEntryPages,
   getLocationEntryPathFor,
   Location,
 } from '../../../app/config/urls';
-import { stringifyUrl } from '../../utils/url';
-
-import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
-import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
-import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
+import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
+import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as proteomesFFED } from '../../../proteomes/config/download';
 import { fileFormatEntryDownload as citationsFFED } from '../../../supporting-data/citations/config/download';
 import { fileFormatEntryDownload as databaseFFED } from '../../../supporting-data/database/config/download';
@@ -31,20 +18,28 @@ import { fileFormatEntryDownload as diseasesFFED } from '../../../supporting-dat
 import { fileFormatEntryDownload as keywordsFFED } from '../../../supporting-data/keywords/config/download';
 import { fileFormatEntryDownload as locationsFFED } from '../../../supporting-data/locations/config/download';
 import { fileFormatEntryDownload as taxonomyFFED } from '../../../supporting-data/taxonomy/config/download';
-import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
-import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
-
-import { FileFormat } from '../../types/resultsDownload';
+import uniparcApiUrls from '../../../uniparc/config/apiUrls';
+import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import unirefApiUrls from '../../../uniref/config/apiUrls';
+import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import { Column } from '../../config/columns';
+import externalUrls from '../../config/externalUrls';
+import useDataApi from '../../hooks/useDataApi';
+import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
-import { Column } from '../../config/columns';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-
-import sticky from '../../styles/sticky.module.scss';
+import { stringifyUrl } from '../../utils/url';
+import ColumnSelect from '../column-select/ColumnSelect';
+import DownloadAPIURL from '../download/DownloadAPIURL';
+import DownloadPreview from '../download/DownloadPreview';
 import styles from '../download/styles/download.module.scss';
 
 const formatMap = new Map<Namespace, FileFormat[]>([

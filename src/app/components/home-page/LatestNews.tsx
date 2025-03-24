@@ -1,11 +1,9 @@
-import { Chip, HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
+import { Chip, HeroContainer } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import { LocationToPath, Location } from '../../config/urls';
-
+import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)

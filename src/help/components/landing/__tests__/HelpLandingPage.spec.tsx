@@ -1,5 +1,4 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import HelpLandingPage from '../HelpLandingPage';
 
 jest.mock(

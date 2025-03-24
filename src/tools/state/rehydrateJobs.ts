@@ -1,13 +1,11 @@
 import { Dispatch } from 'react';
 import { schedule } from 'timing-functions';
 
-import { Stores } from '../utils/stores';
-import JobStore from '../utils/storage';
-
-import { rehydrateJobs as rehydrateJobsActionCreator } from './toolsActions';
-
-import { ToolsAction } from './toolsReducers';
 import { Job } from '../types/toolsJob';
+import JobStore from '../utils/storage';
+import { Stores } from '../utils/stores';
+import { rehydrateJobs as rehydrateJobsActionCreator } from './toolsActions';
+import { ToolsAction } from './toolsReducers';
 
 const rehydrateJobs = async (dispatch: Dispatch<ToolsAction>) => {
   // Wait for browser idleness

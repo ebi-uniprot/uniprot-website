@@ -1,12 +1,11 @@
 import { HTMLAttributes, lazy, Suspense } from 'react';
 
-import HTMLHead from '../HTMLHead';
+import { CustomError } from '../../hooks/useDataApi';
 import ErrorBoundary from '../error-component/ErrorBoundary';
+import HTMLHead from '../HTMLHead';
+import NordVPNIssue from './NordVPNIssue';
 import ResourceNotFound from './ResourceNotFound';
 import ServiceUnavailable from './ServiceUnavailable';
-import NordVPNIssue from './NordVPNIssue';
-
-import { CustomError } from '../../hooks/useDataApi';
 
 const UniProtFooter = lazy(
   () => import(/* webpackChunkName: "footer" */ '../layouts/UniProtFooter')

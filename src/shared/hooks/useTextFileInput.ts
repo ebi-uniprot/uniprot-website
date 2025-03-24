@@ -1,9 +1,9 @@
 import {
-  useEffect,
-  useCallback,
-  useRef,
-  ReactElement,
   MutableRefObject,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
 } from 'react';
 
 import useDragNDropFile from './useDragNDropFile';

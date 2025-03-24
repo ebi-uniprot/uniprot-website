@@ -1,5 +1,4 @@
-import { Fragment, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import {
   EllipsisReveal,
   InfoList,
@@ -7,44 +6,41 @@ import {
   // InformationIcon,
 } from 'franklin-sites';
 import { isEqual, pullAll /* , omit */ } from 'lodash-es';
-import cn from 'classnames';
+import { Fragment, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
+import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { Namespace } from '../../../shared/types/namespaces';
+import listFormat from '../../../shared/utils/listFormat';
+import * as logging from '../../../shared/utils/logging';
+import { pluralise } from '../../../shared/utils/utils';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
+import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
 // import AccessionView from '../../../shared/components/results/AccessionView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
-import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
-import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
 import LigandDescriptionView from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-
-import listFormat from '../../../shared/utils/listFormat';
-import { pluralise } from '../../../shared/utils/utils';
-import { getEntryPath } from '../../../app/config/urls';
-import * as logging from '../../../shared/utils/logging';
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
-import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
-import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
-import {
-  CaseRule,
-  Rule,
-  Condition,
-  RuleException,
-  Annotation,
-  ConditionSet,
-  PositionFeatureSet,
-  Range,
-  SAMFeatureSet,
-} from '../model';
-import { Namespace } from '../../../shared/types/namespaces';
 import {
   CatalyticActivityComment,
   CofactorComment,
 } from '../../../uniprotkb/types/commentTypes';
 import { DatabaseInfoMaps } from '../../../uniprotkb/utils/database';
-
+import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
+import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
+import {
+  Annotation,
+  CaseRule,
+  Condition,
+  ConditionSet,
+  PositionFeatureSet,
+  Range,
+  Rule,
+  RuleException,
+  SAMFeatureSet,
+} from '../model';
 import styles from './styles/conditions-annotations.module.scss';
 
 type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };

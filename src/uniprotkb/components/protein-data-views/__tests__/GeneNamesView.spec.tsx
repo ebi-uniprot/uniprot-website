@@ -1,7 +1,5 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import GeneNamesView from '../GeneNamesView';
-
 import GeneNamesUIData from './__mocks__/geneNamesUIData';
 
 describe('GeneNames', () => {

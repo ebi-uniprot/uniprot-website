@@ -1,13 +1,12 @@
 import { ActionType } from 'typesafe-actions';
 
-import * as asyncDownloadFormActions from './asyncDownloadFormActions';
-
+import { DownloadUrlOptions } from '../../../shared/types/results';
+import { FileFormat } from '../../../shared/types/resultsDownload';
 import {
   AsyncDownloadFields,
   AsyncDownloadFormValues,
 } from '../config/asyncDownloadFormData';
-import { DownloadUrlOptions } from '../../../shared/types/results';
-import { FileFormat } from '../../../shared/types/resultsDownload';
+import * as asyncDownloadFormActions from './asyncDownloadFormActions';
 
 export type AsyncDownloadFormState = {
   formValues: AsyncDownloadFormValues;

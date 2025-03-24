@@ -1,10 +1,9 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Location } from 'history';
-
-import ErrorComponent from './ErrorComponent';
+import { Component, ErrorInfo, ReactNode } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import * as logging from '../../utils/logging';
+import ErrorComponent from './ErrorComponent';
 
 type ErrorBoundaryProps = RouteComponentProps & {
   children: ReactNode;

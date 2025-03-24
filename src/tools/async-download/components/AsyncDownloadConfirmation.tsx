@@ -1,4 +1,5 @@
-import { keyBy } from 'lodash-es';
+import '../../styles/ToolsForm.scss';
+
 import {
   Button,
   Card,
@@ -9,21 +10,18 @@ import {
   Message,
 } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { keyBy } from 'lodash-es';
 import { generatePath, Link } from 'react-router-dom';
 
-import useNSQuery from '../../../shared/hooks/useNSQuery';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import { FormParameters } from '../types/asyncDownloadFormParameters';
+import useNSQuery from '../../../shared/hooks/useNSQuery';
 import { APIModel } from '../../../shared/types/apiModel';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import { FacetObject, SearchResults } from '../../../shared/types/results';
 import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
-import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-
+import { FormParameters } from '../types/asyncDownloadFormParameters';
 import styles from './styles/async-download-confirmation.module.scss';
-import '../../styles/ToolsForm.scss';
 
 export const getFacetString = (
   facetData: FacetObject<string>[],

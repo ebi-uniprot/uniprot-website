@@ -1,19 +1,15 @@
-import { FC } from 'react';
-import { Loader, CodeBlock } from 'franklin-sites';
 import cn from 'classnames';
+import { CodeBlock, Loader } from 'franklin-sites';
+import { FC } from 'react';
 
-import ExternalLink from '../../shared/components/ExternalLink';
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
-
+import ExternalLink from '../../shared/components/ExternalLink';
 import { UseDataAPIState } from '../../shared/hooks/useDataApi';
-
 import toolsURLs from '../config/urls';
-
-import { PublicServerParameters } from '../types/toolsServerParameters';
-import { JobTypes } from '../types/toolsJobTypes';
 import { FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
 import { SelectedTaxon } from '../types/toolsFormData';
-
+import { JobTypes } from '../types/toolsJobTypes';
+import { PublicServerParameters } from '../types/toolsServerParameters';
 import styles from './styles/extra-tabs.module.css';
 
 // exclude data that is just there as information and cannot be set

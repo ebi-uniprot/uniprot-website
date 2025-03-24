@@ -1,10 +1,10 @@
+import defaultFormValues, { AlignFields } from '../../config/AlignFormData';
+import * as actions from '../alignFormActions';
 import {
   AlignFormAction,
   getAlignFormDataReducer,
   getAlignFormInitialState,
 } from '../alignFormReducer';
-import * as actions from '../alignFormActions';
-import defaultFormValues, { AlignFields } from '../../config/AlignFormData';
 
 describe('alignFormReducer', () => {
   it('should reset with new form values when provided then reset to default if not provided', () => {

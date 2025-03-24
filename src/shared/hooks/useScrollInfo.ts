@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { schedule, sleep } from 'timing-functions';
 
 type Direction = null | 'up' | 'down';

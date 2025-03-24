@@ -1,9 +1,9 @@
 import {
+  getTargetRange,
   getZoomedInRange,
   linearTimed,
   rangeTimed,
   withinRange,
-  getTargetRange,
 } from '../nightingale';
 
 describe('withinRange', () => {

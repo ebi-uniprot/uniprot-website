@@ -1,10 +1,8 @@
+import { axisBottom, axisLeft, line, scaleLinear, select } from 'd3';
 import { memo, useCallback, useEffect, useRef } from 'react';
-import { select, scaleLinear, axisBottom, axisLeft, line } from 'd3';
 
 import { warn } from '../../../shared/utils/logging';
-
 import { StatisticsItem } from './StatisticsPage';
-
 import styles from './styles/sequence-length-line-plot.module.scss';
 
 // Specify the chart’s dimensions.

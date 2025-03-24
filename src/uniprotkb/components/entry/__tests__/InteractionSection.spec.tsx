@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
-import InteractionSection from '../InteractionSection';
-import customRender from '../../../../shared/__test-helpers__/customRender';
 
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import InteractionSection from '../InteractionSection';
 import data, { dataWithNoXref } from './__mocks__/interactionComplexesData';
 
 describe('InteractionSection', () => {

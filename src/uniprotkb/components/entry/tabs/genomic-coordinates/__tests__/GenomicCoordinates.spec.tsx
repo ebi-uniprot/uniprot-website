@@ -1,11 +1,8 @@
 import { render } from '@testing-library/react';
 
 import customRender from '../../../../../../shared/__test-helpers__/customRender';
-
-import GenomicCoordinates from '../GenomicCoordinates';
-
 import useDataApi from '../../../../../../shared/hooks/useDataApi';
-
+import GenomicCoordinates from '../GenomicCoordinates';
 import O00560 from './__mocks__/O00560';
 
 jest.mock('../../../../../../shared/hooks/useDataApi');

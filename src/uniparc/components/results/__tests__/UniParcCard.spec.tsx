@@ -1,12 +1,9 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import UniParcCard from '../UniParcCard';
-
-import { UniParcLiteAPIModel } from '../../../adapters/uniParcConverter';
-
 import data from '../../../__mocks__/uniParcLightEntryModelData';
+import { UniParcLiteAPIModel } from '../../../adapters/uniParcConverter';
+import UniParcCard from '../UniParcCard';
 
 describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {

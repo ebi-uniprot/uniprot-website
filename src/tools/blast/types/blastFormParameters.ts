@@ -1,17 +1,17 @@
+import { SelectedTaxon } from '../../types/toolsFormData';
 import {
-  SType,
+  Alignments,
   Database,
   Exp,
-  Matrix,
   Filter,
   GapAlign,
-  Scores,
-  Alignments,
-  Program,
-  Sequence,
   HSPs,
+  Matrix,
+  Program,
+  Scores,
+  Sequence,
+  SType,
 } from './blastServerParameters';
-import { SelectedTaxon } from '../../types/toolsFormData';
 
 export type FormParameters = {
   stype: SType;

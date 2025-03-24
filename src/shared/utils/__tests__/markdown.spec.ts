@@ -1,5 +1,4 @@
 import { cleanTextDefaultOptions } from '../cleanText';
-
 import { parseMarkdown } from '../markdown';
 
 describe('parseMarkdown', () => {

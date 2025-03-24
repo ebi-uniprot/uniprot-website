@@ -1,5 +1,6 @@
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { action } from 'typesafe-actions';
+
 import {
   BlastFields,
   BlastFormValue,

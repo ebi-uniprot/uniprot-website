@@ -1,21 +1,17 @@
-import { Dispatch, MutableRefObject } from 'react';
 import pMap from 'p-map';
+import { Dispatch, MutableRefObject } from 'react';
 
-import { deleteJob, POLL_JOBS } from './toolsActions';
-
-import rehydrateJobs from './rehydrateJobs';
-import getCheckJobStatus from './getCheckJobStatus';
-import getSubmitJob from './getSubmitJob';
-
-import { Scheduler } from './utils/scheduler';
-import { heuristic } from './utils/heuristic';
-
+import { MessagesAction } from '../../messages/state/messagesReducers';
 import { Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
-
+import getCheckJobStatus from './getCheckJobStatus';
+import getSubmitJob from './getSubmitJob';
+import rehydrateJobs from './rehydrateJobs';
+import { deleteJob, POLL_JOBS } from './toolsActions';
 import { ToolsState } from './toolsInitialState';
 import { ToolsAction } from './toolsReducers';
-import { MessagesAction } from '../../messages/state/messagesReducers';
+import { heuristic } from './utils/heuristic';
+import { Scheduler } from './utils/scheduler';
 
 const BASE_POLLING_INTERVAL = 1_000 * 15; // 15 seconds baseline / minimum
 // See ./utils/heuristic.ts possible changing factors => min 15s, max 4min

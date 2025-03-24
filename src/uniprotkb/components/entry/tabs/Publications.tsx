@@ -1,38 +1,33 @@
-import { useState, useEffect, useMemo, Fragment } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Card, Loader, DataListWithLoader, InfoList } from 'franklin-sites';
-import { Except, SetRequired, Simplify } from 'type-fest';
-import { groupBy, capitalize } from 'lodash-es';
+import { Card, DataListWithLoader, InfoList, Loader } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { capitalize, groupBy } from 'lodash-es';
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Except, SetRequired, Simplify } from 'type-fest';
 
-import ExternalLink from '../../../../shared/components/ExternalLink';
+import { Location, LocationToPath } from '../../../../app/config/urls';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-
+import ExternalLink from '../../../../shared/components/ExternalLink';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
-
-import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
-import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
-
+import { Namespace } from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
 import {
   addBlastLinksToFreeText,
   pluralise,
 } from '../../../../shared/utils/utils';
-import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { getParamsFromURL } from '../../../utils/resultsUtils';
 import { processUrlTemplate } from '../../../../shared/utils/xrefs';
-
-import { Location, LocationToPath } from '../../../../app/config/urls';
-
 import {
   CitationsAPIModel,
   Reference,
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
-import { Namespace } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';
+import { getParamsFromURL } from '../../../utils/resultsUtils';
 
 type PublicationsReferenceProps = {
   references: Reference[];

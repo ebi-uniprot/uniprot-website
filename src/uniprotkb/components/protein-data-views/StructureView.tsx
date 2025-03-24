@@ -1,9 +1,7 @@
 import { Loader } from 'franklin-sites';
 
-import { AFDBOutOfSync } from './AFDBOutOfSync';
-
 import useCustomElement from '../../../shared/hooks/useCustomElement';
-
+import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';
 
 const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {

@@ -1,18 +1,17 @@
 /**
  * @jest-environment node
  */
+import { Location } from '../../../app/config/urls';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import {
-  QueryStringArg,
   createFacetsQueryString,
   createSelectedQueryString,
   getLocationForPathname,
+  QueryStringArg,
   splitUrl,
   stringifyQuery,
   stringifyUrl,
 } from '../url';
-
-import { Location } from '../../../app/config/urls';
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 
 describe('getLocationForPathname', () => {
   const pathnameToLocation = {

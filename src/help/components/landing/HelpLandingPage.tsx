@@ -1,31 +1,28 @@
+import cn from 'classnames';
+import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
 import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
-import cn from 'classnames';
 
-import HelpQuickSearch from './HelpQuickSearch';
+import {
+  getLocationEntryPathFor,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import HTMLHead from '../../../shared/components/HTMLHead';
 import Contact from '../../../shared/components/layouts/Contact';
+import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
+import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
+import HelpQuickSearch from './HelpQuickSearch';
 import IllustratedListTile, {
   IllustratedListTileProps,
 } from './IllustratedListTile';
-import HTMLHead from '../../../shared/components/HTMLHead';
-import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
-import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
-import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPathFor,
-} from '../../../app/config/urls';
-
-import DB from './svgs/db.img.svg';
+import landing from './styles/help-landing-page.module.scss';
 import Cog from './svgs/cog.img.svg';
+import DB from './svgs/db.img.svg';
+import Reader from './svgs/reader.img.svg';
 import TalkingPerson from './svgs/talking-person.img.svg';
 import Terminal from './svgs/terminal.img.svg';
-import Reader from './svgs/reader.img.svg';
-
-import landing from './styles/help-landing-page.module.scss';
 
 const UniProtFooter = lazy(
   () =>
