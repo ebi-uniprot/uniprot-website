@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import './styles/BlastResultTable.scss';
 
-import NightingaleTrack from '@nightingale-elements/nightingale-track';
+import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import cn from 'classnames';
 import { Button, Chip, DataTable, Loader } from 'franklin-sites';
 import {
@@ -17,7 +17,7 @@ import { v1 } from 'uuid';
 
 import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
 import NightingaleNavigationComponent from '../../../../shared/custom-elements/NightingaleNavigation';
-import NightingalTrackComponent from '../../../../shared/custom-elements/NightingaleTrack';
+import NightingaleTrackCanvasComponent from '../../../../shared/custom-elements/NightingaleTrackCanvas';
 import useColumns, {
   ColumnDescriptor,
 } from '../../../../shared/hooks/useColumns';
@@ -37,9 +37,10 @@ const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
 };
 
 const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
-  hsp_identity: 'var(--fr--color-sapphire-blue)',
-  hsp_score: 'var(--fr--color-coyote-brown)',
-  hsp_expect: 'var(--fr--color-outer-space)',
+  // Canvas is not taking the colours when passed as custom properties
+  hsp_identity: '#014371', // $colour-sapphire-blue
+  hsp_score: '#966336', // $color-coyote-brown
+  hsp_expect: '#374343', // $color-outer-space
 };
 
 type BlastSummaryTrackProps = {
@@ -66,7 +67,7 @@ const BlastSummaryTrack = ({
   const { hsp_query_from, hsp_query_to } = hsp;
 
   const setTrackData = useCallback(
-    (node: NightingaleTrack | null): void => {
+    (node: NightingaleTrackCanvas | null): void => {
       if (node) {
         /**
          * TODO - would be nice to add gaps
@@ -124,7 +125,7 @@ const BlastSummaryTrack = ({
   return (
     <div className="data-table__blast-hsp__tracks">
       <section className="data-table__blast-hsp__blast-track">
-        <NightingalTrackComponent
+        <NightingaleTrackCanvasComponent
           data-testid="blast-summary-track"
           length={queryLength}
           height={10}

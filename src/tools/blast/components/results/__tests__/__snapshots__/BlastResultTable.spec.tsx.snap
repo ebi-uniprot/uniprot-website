@@ -197,7 +197,7 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
                 <section
                   class="data-table__blast-hsp__blast-track"
                 >
-                  <nightingale-track
+                  <nightingale-track-canvas
                     data-testid="blast-summary-track"
                     style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
                     title="Start: 3
