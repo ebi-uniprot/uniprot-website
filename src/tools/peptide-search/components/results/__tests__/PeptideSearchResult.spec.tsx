@@ -4,10 +4,10 @@ import MockAdapter from 'axios-mock-adapter';
 import { ReactNode } from 'react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
+import { FinishedJob } from '../../../../../shared/workers/jobs/types/toolsJob';
+import { Status } from '../../../../../shared/workers/jobs/types/toolsStatuses';
 import uniprotkbResults from '../../../../../uniprotkb/components/__mocks__/results';
-import { FinishedJob } from '../../../../types/toolsJob';
 import { JobTypes } from '../../../../types/toolsJobTypes';
-import { Status } from '../../../../types/toolsStatuses';
 import PeptideSearchResult from '../PeptideSearchResult';
 
 jest.mock('../../../../../shared/components/layouts/SideBarLayout', () => ({

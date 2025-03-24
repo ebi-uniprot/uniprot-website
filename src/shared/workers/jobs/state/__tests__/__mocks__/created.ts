@@ -1,6 +1,6 @@
-import { CreatedJob } from '../../types/toolsJob';
-import { JobTypes } from '../../types/toolsJobTypes';
-import { Status } from '../../types/toolsStatuses';
+import { JobTypes } from '../../../../../../tools/types/toolsJobTypes';
+import { CreatedJob } from '../../../types/toolsJob';
+import { Status } from '../../../types/toolsStatuses';
 
 const ONE_MINUTE_AGO = Date.now() - 1000 * 60;
 

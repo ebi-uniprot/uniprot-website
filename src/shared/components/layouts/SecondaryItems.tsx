@@ -35,6 +35,7 @@ import {
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
 import { Status } from '../../workers/jobs/types/toolsStatuses';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/secondary-items.module.scss';
 
 const BasketMiniView = lazy(

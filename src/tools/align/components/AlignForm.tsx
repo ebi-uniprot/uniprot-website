@@ -32,7 +32,6 @@ import { ALIGN_LIMIT } from '../../../shared/config/limits';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
@@ -40,7 +39,6 @@ import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import SequenceSearchLoader from '../../components/SequenceSearchLoader';
-import { createJob } from '../../state/toolsActions';
 import { JobTypes } from '../../types/toolsJobTypes';
 import defaultFormValues, {
   AlignFields,

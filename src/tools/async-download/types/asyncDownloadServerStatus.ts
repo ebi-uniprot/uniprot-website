@@ -1,4 +1,4 @@
-import { Status } from '../../types/toolsStatuses';
+import { Status } from '../../../shared/workers/jobs/types/toolsStatuses';
 
 export type ServerStatus = {
   jobStatus: Status;

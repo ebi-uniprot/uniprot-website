@@ -11,8 +11,6 @@ import { JsonValue, SetRequired } from 'type-fest';
 
 import { MessagesState } from '../../messages/state/messagesInitialState';
 import { MessagesAction } from '../../messages/state/messagesReducers';
-import { ToolsState } from '../../tools/state/toolsInitialState';
-import { ToolsAction } from '../../tools/state/toolsReducers';
 import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
 import {
@@ -23,6 +21,8 @@ import {
   DatabaseInfoMapsContext,
   UniProtDataVersionContext,
 } from '../contexts/UniProtData';
+import { ToolsAction } from '../workers/jobs/state/actionHandler';
+import { ToolsState } from '../workers/jobs/state/toolsInitialState';
 
 type ExtraRenderOptions = {
   // For react-router

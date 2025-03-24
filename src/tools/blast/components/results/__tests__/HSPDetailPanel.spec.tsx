@@ -5,8 +5,8 @@ import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useSize from '../../../../../shared/hooks/useSize';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import modelData from '../../../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
-import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated';
 import HSPDetailPanel from '../HSPDetailPanel';
+import blastResultsMockData from './__mocks__/example-truncated';
 
 jest.mock('../../../../../shared/hooks/useDataApi', () => jest.fn());
 jest.mock('../../../../../shared/hooks/useSize', () => jest.fn());

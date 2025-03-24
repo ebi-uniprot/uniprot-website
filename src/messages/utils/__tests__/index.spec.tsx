@@ -1,6 +1,6 @@
 import customRender from '../../../shared/__test-helpers__/customRender';
-import createdJob from '../../../tools/__mocks__/internal-jobs/created';
-import runningJob from '../../../tools/__mocks__/internal-jobs/running';
+import createdJob from '../../../shared/workers/jobs/state/__tests__/__mocks__/created';
+import runningJob from '../../../shared/workers/jobs/state/__tests__/__mocks__/running';
 import getJobMessage from '..';
 
 describe('getJobMessage', () => {

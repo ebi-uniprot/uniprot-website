@@ -73,6 +73,7 @@ import {
   Sequence,
   SType,
 } from '../types/blastServerParameters';
+import { getAutoMatrixFor } from '../utils';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
