@@ -1,7 +1,8 @@
 import joinUrl from 'url-join';
-import { fileFormatToUrlParameter } from './resultsDownload';
-import { stringifyUrl } from '../utils/url';
+
 import { FileFormat } from '../types/resultsDownload';
+import { stringifyUrl } from '../utils/url';
+import { fileFormatToUrlParameter } from './resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
 const externalUrls = {

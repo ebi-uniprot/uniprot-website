@@ -1,10 +1,7 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import Components from '../Components';
-
-import proteomesConverter from '../../../adapters/proteomesConverter';
-
 import mockData from '../../../__mocks__/proteomesEntryModelData';
+import proteomesConverter from '../../../adapters/proteomesConverter';
+import Components from '../Components';
 
 describe('Components view', () => {
   it('should render', () => {

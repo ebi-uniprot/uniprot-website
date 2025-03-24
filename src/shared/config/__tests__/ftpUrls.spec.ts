@@ -1,6 +1,6 @@
-import { getUniprotFtpFilenamesAndUrls, simplifyQuery } from '../ftpUrls';
-import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
+import { getUniprotFtpFilenamesAndUrls, simplifyQuery } from '../ftpUrls';
 
 describe('simplifyQuery', () => {
   const testCases: [string, string | null][] = [

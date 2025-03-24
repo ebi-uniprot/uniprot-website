@@ -1,9 +1,8 @@
+import { Clause } from '../../query-builder/types/searchTypes';
 import {
   parse,
   stringify,
 } from '../../query-builder/utils/queryStringProcessor';
-
-import { Clause } from '../../query-builder/types/searchTypes';
 
 export const taxonHierarchySearchTerms = ['taxonomy_id', 'organism_id'];
 

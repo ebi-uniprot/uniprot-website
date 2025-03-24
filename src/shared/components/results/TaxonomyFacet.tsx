@@ -1,21 +1,16 @@
-import { Suspense, useState, useCallback, FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { Button, SlidingPanel } from 'franklin-sites';
-
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-
-import lazy from '../../utils/lazy';
+import { FC, Suspense, useCallback, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import {
   parse,
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
-import { stringifyQuery } from '../../utils/url';
-
+import useJobFromUrl from '../../hooks/useJobFromUrl';
 import { SearchableNamespace } from '../../types/namespaces';
-
+import lazy from '../../utils/lazy';
+import { stringifyQuery } from '../../utils/url';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import facetsStyles from './styles/facets.module.scss';
 
 const QueryBuilder = lazy(

@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import UniProtKBFeaturesView from '../UniProtKBFeaturesView';
-
 import FeaturesUIData from './__mocks__/featuresUIData';
 
 jest.mock('../../../../shared/components/views/FeaturesView', () => ({

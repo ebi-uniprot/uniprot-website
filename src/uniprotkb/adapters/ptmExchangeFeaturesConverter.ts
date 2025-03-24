@@ -1,14 +1,13 @@
 import * as logging from '../../shared/utils/logging';
-import { phosphorylate, sumoylate } from '../utils/aa';
-
-import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
-import { Evidence } from '../types/modelTypes';
+import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 import {
   ConfidenceScore,
   FeatureDatum,
   Modification,
 } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
+import { Evidence } from '../types/modelTypes';
+import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
+import { phosphorylate, sumoylate } from '../utils/aa';
 
 const convertPtmExchangePtms = (
   ptms: PTM[],

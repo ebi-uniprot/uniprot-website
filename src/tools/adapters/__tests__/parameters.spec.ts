@@ -1,11 +1,10 @@
+import { FormParameters } from '../../types/toolsFormParameters';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { PublicServerParameters } from '../../types/toolsServerParameters';
 import {
   formParametersToServerParameters,
   serverParametersToFormParameters,
 } from '../parameters';
-
-import { FormParameters } from '../../types/toolsFormParameters';
-import { PublicServerParameters } from '../../types/toolsServerParameters';
-import { JobTypes } from '../../types/toolsJobTypes';
 
 describe('tools adapter tests', () => {
   describe('Align', () => {

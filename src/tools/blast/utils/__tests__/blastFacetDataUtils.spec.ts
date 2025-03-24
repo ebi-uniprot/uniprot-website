@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
+import { BlastHit, BlastResults } from '../../types/blastResults';
 import {
   filterBlastDataForResults,
-  getDataPoints,
   getBounds,
+  getDataPoints,
   getFacetBounds,
 } from '../blastFacetDataUtils';
-
-import { BlastResults, BlastHit } from '../../types/blastResults';
 
 const a = { hit_hsps: [{ hsp_score: 100, hsp_identity: 10, hsp_expect: 0.1 }] };
 const b = { hit_hsps: [{ hsp_score: 102, hsp_identity: 11, hsp_expect: 0.2 }] };

@@ -1,17 +1,16 @@
-import { stringifyQuery } from '../../shared/utils/url';
-
 import { Column } from '../../shared/config/columns';
+import { ViewMode } from '../../shared/hooks/useViewMode';
+import { Namespace } from '../../shared/types/namespaces';
+import { stringifyQuery } from '../../shared/utils/url';
+import { Interactant } from '../adapters/interactionConverter';
+import { GroupBy } from '../config/apiUrls/groupBy';
 import { SortableColumn } from '../types/columnTypes';
+import { InteractionType } from '../types/commentTypes';
 import {
+  ReceivedFieldData,
   SelectedFacet,
   SortDirection,
-  ReceivedFieldData,
 } from '../types/resultsTypes';
-import { Interactant } from '../adapters/interactionConverter';
-import { InteractionType } from '../types/commentTypes';
-import { ViewMode } from '../../shared/hooks/useViewMode';
-import { GroupBy } from '../config/apiUrls/groupBy';
-import { Namespace } from '../../shared/types/namespaces';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {

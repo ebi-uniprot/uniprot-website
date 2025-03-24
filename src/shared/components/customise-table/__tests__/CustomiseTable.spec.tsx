@@ -1,17 +1,16 @@
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
 import {
   fireEvent,
-  waitFor,
-  screen,
   render,
   RenderResult,
+  screen,
+  waitFor,
 } from '@testing-library/react';
-
-import CustomiseTable from '../CustomiseTable';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../../types/namespaces';
+import CustomiseTable from '../CustomiseTable';
 
 describe('CustomiseTable component', () => {
   let rendered: RenderResult;
@@ -47,14 +46,7 @@ describe('CustomiseTable component', () => {
   });
 
   it('should render', () => {
-    const { asFragment, container } = rendered;
-
-    // Remove DndKit dynamic accessibility nodes which inconsistently appear/disappear from the snapshot
-    const dndNodes = container.querySelectorAll(
-      '[id^="DndDescribedBy"], [id^="DndLiveRegion"]'
-    );
-    dndNodes.forEach((node) => node.parentElement?.removeChild(node));
-
+    const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 

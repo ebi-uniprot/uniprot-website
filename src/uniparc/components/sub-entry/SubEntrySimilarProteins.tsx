@@ -1,19 +1,16 @@
+import { Loader, Tab, Tabs } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
-import { Loader, Tabs, Tab } from 'franklin-sites';
-
-import SubEntrySimilarProteinsTabContent from './SubEntrySimilarProteinsTabContent';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../uniref/adapters/uniRefConverter';
-import { SearchResults } from '../../../shared/types/results';
+import SubEntrySimilarProteinsTabContent from './SubEntrySimilarProteinsTabContent';
 
 export type ClusterMapping = Record<
   UniRefEntryType,

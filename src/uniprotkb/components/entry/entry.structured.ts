@@ -1,11 +1,9 @@
 import { WithContext } from 'schema-dts';
 
 import { getEntryPath } from '../../../app/config/urls';
-
 import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation } from '../../types/entry';
-
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { TabLocation } from '../../types/entry';
 
 const dataToSchema = (
   data?: UniProtkbAPIModel

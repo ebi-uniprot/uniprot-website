@@ -1,18 +1,14 @@
-import { ReactNode } from 'react';
-import MockAdapter from 'axios-mock-adapter';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
-import { fireEvent, waitFor, screen, act } from '@testing-library/react';
+import MockAdapter from 'axios-mock-adapter';
+import { ReactNode } from 'react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import Entry from '../Entry';
-
 import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import uniprotkbApiUrls from '../../../config/apiUrls/apiUrls';
-
 import { Namespace } from '../../../../shared/types/namespaces';
-
 import entryData from '../../../__mocks__/uniProtKBEntryModelData';
+import uniprotkbApiUrls from '../../../config/apiUrls/apiUrls';
+import Entry from '../Entry';
 import entryPublicationsData from './__mocks__/entryPublicationsData';
 
 const { primaryAccession } = entryData;

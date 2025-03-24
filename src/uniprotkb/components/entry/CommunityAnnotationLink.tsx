@@ -1,13 +1,11 @@
-import { FC } from 'react';
-import { generatePath, Link } from 'react-router-dom';
 import { Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import externalUrls from '../../../shared/config/externalUrls';
+import { FC } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { TabLocation } from '../../types/entry';
 
 const fetchOptions: { method: Method } = {

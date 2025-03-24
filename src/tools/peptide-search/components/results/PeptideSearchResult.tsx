@@ -1,5 +1,3 @@
-import { useMemo, lazy, Suspense } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Loader,
   LongNumber,
@@ -9,48 +7,45 @@ import {
   Tabs,
 } from 'franklin-sites';
 import { partialRight } from 'lodash-es';
+import { lazy, Suspense, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
+import {
+  changePathnameOnly,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
+import HTMLHead from '../../../../shared/components/HTMLHead';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../../shared/config/limits';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-import useNSQuery from '../../../../shared/hooks/useNSQuery';
-import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
+import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
-
-import HTMLHead from '../../../../shared/components/HTMLHead';
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
-import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
-import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-
-import toolsURLs from '../../../config/urls';
-import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
+import helper from '../../../../shared/styles/helper.module.scss';
 import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import {
-  Location,
-  changePathnameOnly,
-  LocationToPath,
-} from '../../../../app/config/urls';
-import peptideSearchConverter from '../../adapters/peptideSearchConverter';
-
-import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../../shared/config/limits';
-
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../../../shared/types/results';
-import { PeptideSearchResults } from '../../types/peptideSearchResults';
-import { JobTypes } from '../../../types/toolsJobTypes';
-import { FormParameters } from '../../types/peptideSearchFormParameters';
 import {
   TaxonomyAPIModel,
   TaxonomyDatum,
 } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-
-import helper from '../../../../shared/styles/helper.module.scss';
-import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import toolsURLs from '../../../config/urls';
+import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import { JobTypes } from '../../../types/toolsJobTypes';
+import peptideSearchConverter from '../../adapters/peptideSearchConverter';
+import { FormParameters } from '../../types/peptideSearchFormParameters';
+import { PeptideSearchResults } from '../../types/peptideSearchResults';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);

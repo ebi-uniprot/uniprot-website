@@ -1,13 +1,11 @@
-import AdvancedSearchSuggestion from './AdvancedSearchSuggestion';
-import ExactFieldSuggestion from './ExactFieldSuggestion';
-import TaxonomyLevelsSuggestion from './TaxonomyLevelsSuggestion';
-
+import { Namespace } from '../../types/namespaces';
 import {
   exactMatchSearchTerms,
   taxonHierarchySearchTerms,
 } from '../../utils/searchSuggestions';
-
-import { Namespace } from '../../types/namespaces';
+import AdvancedSearchSuggestion from './AdvancedSearchSuggestion';
+import ExactFieldSuggestion from './ExactFieldSuggestion';
+import TaxonomyLevelsSuggestion from './TaxonomyLevelsSuggestion';
 
 const simpleQuery = /^[a-zA-Z0-9]+$/;
 

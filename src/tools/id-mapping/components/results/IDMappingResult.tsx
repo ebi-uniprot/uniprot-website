@@ -1,39 +1,42 @@
-import { useMemo, lazy, Suspense } from 'react';
 import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
-import { Link, useLocation } from 'react-router-dom';
 import { partition, uniqBy } from 'lodash-es';
+import { lazy, Suspense, useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import HTMLHead from '../../../../shared/components/HTMLHead';
-import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
-import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import JobErrorPage from '../../../../shared/components/error-pages/full-pages/JobErrorPage';
-
-import usePagination from '../../../../shared/hooks/usePagination';
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
-import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import useColumnNames from '../../../../shared/hooks/useColumnNames';
-
-import { rawDBToNamespace } from '../../utils';
-import toolsURLs from '../../../config/urls';
-import idMappingConverter from '../../adapters/idMappingConverter';
-import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import * as logging from '../../../../shared/utils/logging';
-
-import { defaultFacets } from '../../../../shared/config/facets';
-
-import { SearchResults } from '../../../../shared/types/results';
-import { JobTypes } from '../../../types/toolsJobTypes';
 import {
   changePathnameOnly,
   IDMappingNamespaces,
   Location,
 } from '../../../../app/config/urls';
+import { MessageLevel } from '../../../../messages/types/messagesTypes';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import JobErrorPage from '../../../../shared/components/error-pages/full-pages/JobErrorPage';
+import HTMLHead from '../../../../shared/components/HTMLHead';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import { defaultFacets } from '../../../../shared/config/facets';
+import useColumnNames from '../../../../shared/hooks/useColumnNames';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
+import usePagination from '../../../../shared/hooks/usePagination';
+import {
+  Namespace,
+  namespaceAndToolsLabels,
+} from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
+import * as logging from '../../../../shared/utils/logging';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
+import toolsURLs from '../../../config/urls';
+import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import { JobTypes } from '../../../types/toolsJobTypes';
+import idMappingConverter from '../../adapters/idMappingConverter';
+import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
 import {
   MappingAPIModel,
   MappingErrorCode,
@@ -41,17 +44,9 @@ import {
   MappingWarningCode,
   MappingWarningsErrors,
 } from '../../types/idMappingSearchResults';
-import {
-  Namespace,
-  namespaceAndToolsLabels,
-} from '../../../../shared/types/namespaces';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
-import { MessageLevel } from '../../../../messages/types/messagesTypes';
 import { ServerParameters } from '../../types/idMappingServerParameters';
-
+import { rawDBToNamespace } from '../../utils';
 import styles from './styles/id-mapping-result.module.scss';
-import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);

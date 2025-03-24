@@ -1,8 +1,6 @@
-import StatsTable from './StatsTable';
-
-import { setAminoAcidsTotalCount } from './utils';
-
 import { StatisticsCategory } from './StatisticsPage';
+import StatsTable from './StatsTable';
+import { setAminoAcidsTotalCount } from './utils';
 
 const nameToThreeLetterCode = new Map([
   ['AMINO_ACID_X', 'Xaa'],

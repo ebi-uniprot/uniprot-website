@@ -1,47 +1,41 @@
-import { lazy, Suspense, Fragment, memo, useState, useEffect } from 'react';
 import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import { Fragment, lazy, memo, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import HTMLHead from '../../../shared/components/HTMLHead';
-import FreeTextView, {
-  RichText,
-  TextView,
-} from '../protein-data-views/FreeTextView';
-import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
-import KeywordView from '../protein-data-views/KeywordView';
-import XRefView from '../protein-data-views/XRefView';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
-import KineticsTableView from './KineticsTableView';
-import ExternalLink from '../../../shared/components/ExternalLink';
-
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import externalUrls from '../../../shared/config/externalUrls';
-
 import { Location, LocationToPath } from '../../../app/config/urls';
-
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import { EntryType } from '../../../shared/config/entryTypeIcon';
+import externalUrls from '../../../shared/config/externalUrls';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import helper from '../../../shared/styles/helper.module.scss';
 import { hasContent } from '../../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 import {
-  FunctionUIModel,
-  BioPhysicoChemicalProperties,
   Absorption,
+  BioPhysicoChemicalProperties,
+  FunctionUIModel,
   KineticParameters,
 } from '../../adapters/functionConverter';
-import EntrySection from '../../types/entrySection';
 import {
   CatalyticActivityComment,
   CofactorComment,
   FreeTextComment,
 } from '../../types/commentTypes';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
+import FreeTextView, {
+  RichText,
+  TextView,
+} from '../protein-data-views/FreeTextView';
+import KeywordView from '../protein-data-views/KeywordView';
+import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import XRefView from '../protein-data-views/XRefView';
 import CommunityCuration from './CommunityCuration';
-import { EntryType } from '../../../shared/config/entryTypeIcon';
-
-import helper from '../../../shared/styles/helper.module.scss';
+import KineticsTableView from './KineticsTableView';
 
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')

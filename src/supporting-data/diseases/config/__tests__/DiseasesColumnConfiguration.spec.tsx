@@ -1,14 +1,12 @@
-import DiseasesColumnConfiguration, {
-  DiseasesColumn,
-} from '../DiseasesColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/diseasesModelData';
 import diseasesConverter, {
   DiseasesAPIModel,
   DiseasesUIModel,
 } from '../../adapters/diseasesConverter';
-
-import data from '../../__mocks__/diseasesModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import DiseasesColumnConfiguration, {
+  DiseasesColumn,
+} from '../DiseasesColumnConfiguration';
 
 jest.mock('../../../../tools/utils/storage');
 

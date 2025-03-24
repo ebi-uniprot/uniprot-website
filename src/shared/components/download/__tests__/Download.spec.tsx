@@ -1,23 +1,18 @@
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import Download from '../Download';
-
-import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
-
-import { stringifyQuery } from '../../../utils/url';
-
-import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
-
-import { FileFormat } from '../../../types/resultsDownload';
-import { Namespace } from '../../../types/namespaces';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-
-import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 import SimpleMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/SimpleMappingDetails';
 import UniProtkbMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
-import '../../../../uniprotkb/components/__mocks__/mockApi';
+import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import customRender from '../../../__test-helpers__/customRender';
+import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
+import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
+import { Namespace } from '../../../types/namespaces';
+import { FileFormat } from '../../../types/resultsDownload';
+import { stringifyQuery } from '../../../utils/url';
+import Download from '../Download';
 
 const initialColumns = [
   UniProtKBColumn.accession,

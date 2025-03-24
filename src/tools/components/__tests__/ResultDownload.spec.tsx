@@ -1,6 +1,7 @@
-import { screen, fireEvent, render } from '@testing-library/react';
-import ResultDownload from '../ResultDownload';
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import { JobTypes } from '../../types/toolsJobTypes';
+import ResultDownload from '../ResultDownload';
 
 describe('Blast results download', () => {
   jest.spyOn(document.body, 'appendChild');

@@ -1,12 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import joinUrl from 'url-join';
 
-import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-
-import { stringifyUrl } from '../../../../shared/utils/url';
 import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
-
 import { Namespace } from '../../../../shared/types/namespaces';
+import { stringifyUrl } from '../../../../shared/utils/url';
+import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 
 enum XRefFacetEnum {
   Status = 'status',

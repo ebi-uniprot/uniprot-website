@@ -1,22 +1,20 @@
 /* eslint-disable camelcase */
-import { useMemo } from 'react';
 import { groupBy } from 'lodash-es';
+import { useMemo } from 'react';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { stringifyUrl } from '../../../shared/utils/url';
 import * as logging from '../../../shared/utils/logging';
-
+import { stringifyUrl } from '../../../shared/utils/url';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniProtKBSimplifiedTaxonomy } from '../uniProtkbConverter';
 import {
-  GoTerm,
-  GroupedGoTerms,
-  GOTermID,
   GOAspectName,
   goAspects,
+  GoTerm,
+  GOTermID,
+  GroupedGoTerms,
 } from '../functionConverter';
 import { GeneNamesData } from '../namesAndTaxonomyConverter';
+import { UniProtKBSimplifiedTaxonomy } from '../uniProtkbConverter';
 
 const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';

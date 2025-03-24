@@ -1,7 +1,5 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import KeywordView from '../KeywordView';
-
 import KeywordUIData from './__mocks__/keywordUIData';
 
 describe('Keyword', () => {

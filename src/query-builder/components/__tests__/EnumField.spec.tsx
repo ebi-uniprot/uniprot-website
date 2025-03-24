@@ -1,7 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import EnumOrBooleanField from '../EnumOrBooleanField';
-
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const props = {

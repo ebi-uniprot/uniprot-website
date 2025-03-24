@@ -1,10 +1,8 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react';
-
-import ResultsFacets from '../ResultsFacets';
-
-import customRender from '../../../__test-helpers__/customRender';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import results from '../../../../uniprotkb/components/__mocks__/results';
+import customRender from '../../../__test-helpers__/customRender';
+import ResultsFacets from '../ResultsFacets';
 
 describe('ResultsFacets', () => {
   const resultsFacets = (route: string) =>

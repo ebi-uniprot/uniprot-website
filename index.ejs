@@ -14,10 +14,12 @@
     <meta name="theme-color" content="#00639a" />
 
     <!-- Open Graph (OG) tags for Facebook, WhatsApp, LinkedIn, Slack, Discord, and more -->
+    <meta property="og:logo" content="https://www.uniprot.org/android-chrome-512x512.png" />
     <meta property="og:title" content="UniProt" />
     <meta property="og:description" content="UniProt is the world's leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information." />
     <meta property="og:image" content="https://www.uniprot.org/og-uniprot-wide-logo-1200x630.png" />
-    <meta property="og:url" content="https://www.uniprot.org/" />
+    <!-- Below needs to be the canonical of each page -->
+    <!-- <meta property="og:url" content="https://www.uniprot.org/" /> -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="UniProt" />
 
@@ -114,18 +116,6 @@
         },
         send_page_view: false,
       });
-      // UA
-      gtag('config', 'UA-6228219-1', {
-        anonymize_ip: true,
-        allow_google_signals: false,
-        allow_ad_personalization_signals: false,
-        restricted_data_processing: true,
-        custom_map: {
-          dimension1: 'result_view',
-          metric1: 'result_view_set',
-        },
-        send_page_view: false,
-      });
     </script>
 
     <!-- Hotjar Tracking Code -->
@@ -186,11 +176,13 @@
           If you are not seeing anything on this page, it might be for multiple
           reasons:
           <ul>
-            <li>
-              <strong>You might have JavaScript disabled</strong>: make sure to
-              enable JavaScript on your browser, or use a browser that supports
-              JavaScript.
-            </li>
+            <noscript>
+              <li>
+                <strong>You might have JavaScript disabled</strong>: make sure
+                to enable JavaScript on your browser, or use a browser that
+                supports JavaScript.
+              </li>
+            </noscript>
             <li>
               <strong>You might have an outdated browser</strong>: make sure
               that your browser is up to date as older versions might not work

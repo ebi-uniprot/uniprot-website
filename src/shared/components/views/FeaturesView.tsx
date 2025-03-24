@@ -1,3 +1,4 @@
+import { Feature } from '@nightingale-elements/nightingale-track';
 import {
   Fragment,
   lazy,
@@ -8,28 +9,23 @@ import {
   useState,
 } from 'react';
 import { frame } from 'timing-functions';
-import { Feature } from '@nightingale-elements/nightingale-track';
-
-import LazyComponent from '../LazyComponent';
-import TableFromData from '../table/TableFromData';
-
-import { useSmallScreen } from '../../hooks/useMatchMedia';
-import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
-import useAnimateRange from '../../hooks/useAnimateRange';
-import useFeatureViewScrollSync from '../../hooks/useFeatureViewScrollSync';
-
-import { getTargetRange, NightingaleViewRange } from '../../utils/nightingale';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
-import { MIN_ROWS_TO_EXPAND } from '../table/constants';
-
-import FeatureType from '../../../uniprotkb/types/featureType';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
+import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import FeatureType from '../../../uniprotkb/types/featureType';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import useAnimateRange from '../../hooks/useAnimateRange';
+import useFeatureViewScrollSync from '../../hooks/useFeatureViewScrollSync';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
+import { getTargetRange, NightingaleViewRange } from '../../utils/nightingale';
+import LazyComponent from '../LazyComponent';
+import { MIN_ROWS_TO_EXPAND } from '../table/constants';
+import TableFromData from '../table/TableFromData';
 
 const VisualFeaturesView = lazy(
   () =>

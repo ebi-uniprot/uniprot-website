@@ -2,7 +2,6 @@ import { Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { getLocationEntryPath, Location } from '../../../app/config/urls';
-
 import styles from './styles/error-component.module.scss';
 
 const ErrorComponent = () => (

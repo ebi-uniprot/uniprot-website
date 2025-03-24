@@ -1,12 +1,9 @@
+import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/uniparcXrefsModelData';
+import { UniParcXRef } from '../../adapters/uniParcConverter';
 import UniParcXRefsColumnConfiguration, {
   UniParcXRefsColumn,
 } from '../UniParcXRefsColumnConfiguration';
-
-import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
-
-import { UniParcXRef } from '../../adapters/uniParcConverter';
-
-import data from '../../__mocks__/uniparcXrefsModelData';
 
 jest.mock('../../../tools/utils/storage');
 

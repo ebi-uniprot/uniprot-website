@@ -1,4 +1,4 @@
-import { useMemo, ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { v1 } from 'uuid';
 
 import FeaturesView, {
@@ -6,28 +6,24 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-import LigandDescriptionView, {
-  Ligand,
-  LigandPart,
-} from './LigandDescriptionView';
-
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
+import { Xref } from '../../../shared/types/apiModel';
 import listFormat from '../../../shared/utils/listFormat';
 import {
   getRowId,
   markBackground,
   markBorder,
 } from '../../../shared/utils/nightingale';
-
-import { Evidence } from '../../types/modelTypes';
-import FeatureType from '../../types/featureType';
-import { Xref } from '../../../shared/types/apiModel';
-
 import {
-  UniProtKBFeatureExtraContent,
   columnConfiguration,
+  UniProtKBFeatureExtraContent,
 } from '../../config/UniProtKBFeatureColumnConfiguration';
+import FeatureType from '../../types/featureType';
+import { Evidence } from '../../types/modelTypes';
+import LigandDescriptionView, {
+  Ligand,
+  LigandPart,
+} from './LigandDescriptionView';
 
 type FeatureLocation = {
   value: number;

@@ -1,26 +1,23 @@
 /* eslint-disable camelcase */
+import './styles/HSPDetailPanel.scss';
+
+import { Loader, SlidingPanel } from 'franklin-sites';
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Loader, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import AlignmentView, { View, Tool } from '../../../components/AlignmentView';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
-
-import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
-import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-
-import { BlastHsp } from '../../types/blastResults';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import AlignmentView, { Tool, View } from '../../../components/AlignmentView';
 import { MSAInput } from '../../../types/alignment';
-
-import './styles/HSPDetailPanel.scss';
+import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
+import { BlastHsp } from '../../types/blastResults';
 
 export type HSPDetailPanelProps = {
   hsp: BlastHsp;

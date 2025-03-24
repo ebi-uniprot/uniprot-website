@@ -1,14 +1,11 @@
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { screen, fireEvent, waitFor } from '@testing-library/react';
 
-import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import BlastForm from '../BlastForm';
-
-import { LocationToPath, Location } from '../../../../app/config/urls';
-
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import BlastForm from '../BlastForm';
 
 const mock = new MockAdapter(axios);
 mock.onGet().reply(200, mockSuggesterApi.response);

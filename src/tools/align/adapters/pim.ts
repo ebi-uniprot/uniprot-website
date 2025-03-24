@@ -1,6 +1,5 @@
-import extractAccession from '../utils/extractAccession';
-
 import { PIM } from '../types/alignResults';
+import extractAccession from '../utils/extractAccession';
 
 // match indices: ([1])   (                           [2])
 const re = /^\d+: (\S*)\s+(((\d{1,3}\.\d{2}|(-?nan))\s*)+)$/;

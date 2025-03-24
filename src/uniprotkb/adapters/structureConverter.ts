@@ -1,11 +1,12 @@
 import { groupBy } from 'lodash-es';
-import { StructureFeatures } from '../types/featureType';
-import { convertSection, UIModel } from './sectionConverter';
-import EntrySection from '../types/entrySection';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+
 import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
+import EntrySection from '../types/entrySection';
+import { StructureFeatures } from '../types/featureType';
 import { DatabaseInfoMaps } from '../utils/database';
+import { convertSection, UIModel } from './sectionConverter';
+import { UniProtkbAPIModel } from './uniProtkbConverter';
 
 type GroupedStructureInfo = { [key: string]: Xref[] };
 

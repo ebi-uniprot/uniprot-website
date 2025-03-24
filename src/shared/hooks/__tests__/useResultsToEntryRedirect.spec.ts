@@ -1,15 +1,12 @@
 import { renderHook } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
-import useResultsToEntryRedirect from '../useResultsToEntryRedirect';
-
 import { getEntryPathFor } from '../../../app/config/urls';
-import { getIdKeyForData } from '../../utils/getIdKey';
-
-import { Namespace } from '../../types/namespaces';
-import { APIModel } from '../../types/apiModel';
-
 import results from '../../../uniprotkb/components/__mocks__/results';
+import { APIModel } from '../../types/apiModel';
+import { Namespace } from '../../types/namespaces';
+import { getIdKeyForData } from '../../utils/getIdKey';
+import useResultsToEntryRedirect from '../useResultsToEntryRedirect';
 
 describe('useResultsToEntryRedirect', () => {
   it('should redirect to the entry page when query matches the accession of the only result', () => {

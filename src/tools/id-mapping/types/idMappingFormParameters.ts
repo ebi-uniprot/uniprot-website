@@ -1,5 +1,5 @@
-import { From, To } from './idMappingServerParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
+import { From, To } from './idMappingServerParameters';
 
 export type FormParameters = {
   from: From;

@@ -1,14 +1,12 @@
-import KeywordsColumnConfiguration, {
-  KeywordsColumn,
-} from '../KeywordsColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/keywordsModelData';
 import citationsConverter, {
   KeywordsAPIModel,
   KeywordsUIModel,
 } from '../../adapters/keywordsConverter';
-
-import data from '../../__mocks__/keywordsModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import KeywordsColumnConfiguration, {
+  KeywordsColumn,
+} from '../KeywordsColumnConfiguration';
 
 jest.mock('../../../../tools/utils/storage');
 

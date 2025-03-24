@@ -1,8 +1,7 @@
-import apiUrls from '../apiUrls/apiUrls';
-
-import { FileFormat } from '../../types/resultsDownload';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
+import apiUrls from '../apiUrls/apiUrls';
 
 describe('apiUrls.search.search', () => {
   it('should generate facet url', () => {

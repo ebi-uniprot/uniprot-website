@@ -1,10 +1,8 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
-import ChildNavigation from '../ChildNavigation';
-
 import taxonomyData from '../../../__mocks__/taxonomyModelData';
+import ChildNavigation from '../ChildNavigation';
 
 describe('ChildNavigation', () => {
   it('should render, one', () => {

@@ -1,6 +1,5 @@
-import MessageInHub from './MessageInHub';
-
 import { MessageType } from '../types/messagesTypes';
+import MessageInHub from './MessageInHub';
 
 type Props = {
   messages: MessageType[];

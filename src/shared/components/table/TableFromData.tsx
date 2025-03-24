@@ -1,12 +1,10 @@
-import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { Button, Message } from 'franklin-sites';
 import cn from 'classnames';
-
-import Table from './Table';
+import { Button, Message } from 'franklin-sites';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { MIN_ROWS_TO_EXPAND } from './constants';
-
 import styles from './styles/table.module.scss';
+import Table from './Table';
 
 const UNFILTERED_OPTION = 'All' as const;
 

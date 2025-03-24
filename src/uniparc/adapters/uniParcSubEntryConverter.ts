@@ -1,9 +1,9 @@
 import { getSource, getXRefsForId, isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
+  databaseToEntryType,
   UniParcLiteAPIModel,
   UniParcUIModel,
   UniParcXRef,
-  databaseToEntryType,
 } from './uniParcConverter';
 
 export type UniParcSubEntryUIModel = {

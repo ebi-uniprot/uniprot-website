@@ -1,21 +1,18 @@
-import { memo } from 'react';
 import { Card } from 'franklin-sites';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import { KeywordList } from '../protein-data-views/KeywordView';
-import ProteinOverview from '../protein-data-views/ProteinOverviewView';
+import { getEntryPath } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
-
-import getProteinHighlights from '../../adapters/proteinHighlights';
-import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
-import { getEntryPath } from '../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import { Namespace } from '../../../shared/types/namespaces';
-
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
+import getProteinHighlights from '../../adapters/proteinHighlights';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
+import { KeywordList } from '../protein-data-views/KeywordView';
+import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 
 const getIdKey = getIdKeyForNamespace(Namespace.uniprotkb);
 

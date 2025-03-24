@@ -1,5 +1,4 @@
 import { groupByGene, sortExons } from '../utils';
-
 import P42283 from './__mocks__/P42283';
 
 describe('groupCoordinates', () => {

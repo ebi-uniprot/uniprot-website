@@ -1,8 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
-import { modifyFormData, useFormLogic } from '../contactFormAdapter';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
+import { modifyFormData, useFormLogic } from '../contactFormAdapter';
 
 jest.mock('../../../shared/hooks/useDataApi');
 

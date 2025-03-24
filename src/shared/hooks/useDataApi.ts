@@ -1,26 +1,24 @@
-import { useEffect, useReducer, useRef } from 'react';
 import axios, {
-  AxiosResponse,
   AxiosError,
-  AxiosRequestConfig,
   AxiosProgressEvent,
+  AxiosRequestConfig,
+  AxiosResponse,
   isCancel,
 } from 'axios';
+import { useEffect, useReducer, useRef } from 'react';
 import joinUrl from 'url-join';
 
-import useMessagesDispatch from './useMessagesDispatch';
-
-import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
-import * as logging from '../utils/logging';
-import { apiPrefix } from '../config/apiUrls/apiPrefix';
-
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
+import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { Namespace } from '../types/namespaces';
+import fetchData from '../utils/fetchData';
+import * as logging from '../utils/logging';
 import { UserPreferenceKey } from './useLocalStorage';
+import useMessagesDispatch from './useMessagesDispatch';
 
 export type CustomError = AxiosError<undefined | { messages?: string[] }>;
 

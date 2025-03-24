@@ -1,14 +1,12 @@
 import { ReactNode } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import UniProtHeader from './UniProtHeader';
-import ApiDocumentationHeader from './ApiDocumentationHeader';
-import ErrorBoundary from '../error-component/ErrorBoundary';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import MessageManagerContainer from '../../../messages/components/MessageManagerContainer';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
+import ErrorBoundary from '../error-component/ErrorBoundary';
+import ApiDocumentationHeader from './ApiDocumentationHeader';
 import styles from './styles/base-layout.module.scss';
+import UniProtHeader from './UniProtHeader';
 
 const BaseLayout = ({ children }: { children: ReactNode }) => (
   <div className={styles['base-layout']}>

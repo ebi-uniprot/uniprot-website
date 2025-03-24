@@ -1,14 +1,11 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import { PanProteome } from '../PanProteome';
-
+import data from '../../../__mocks__/proteomesEntryModelData';
 import proteomesConverter, {
   ProteomesUIModel,
 } from '../../../adapters/proteomesConverter';
-
-import data from '../../../__mocks__/proteomesEntryModelData';
+import { PanProteome } from '../PanProteome';
 
 describe('PanProteome', () => {
   it('should not render if no panproteome', () => {

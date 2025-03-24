@@ -1,4 +1,5 @@
 import { Button, DownloadIcon } from 'franklin-sites';
+
 import lazy from '../../utils/lazy';
 
 const EntryDownloadComponent = lazy(

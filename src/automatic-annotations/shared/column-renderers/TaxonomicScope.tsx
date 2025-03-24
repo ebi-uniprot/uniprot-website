@@ -1,15 +1,12 @@
 import { ExpandableList } from 'franklin-sites';
 
-import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-
+import helper from '../../../shared/styles/helper.module.scss';
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
+import * as logging from '../../../shared/utils/logging';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-
-import * as logging from '../../../shared/utils/logging';
-
-import helper from '../../../shared/styles/helper.module.scss';
 
 type CustomTaxonScope = {
   negative: boolean;

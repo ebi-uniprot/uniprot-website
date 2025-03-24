@@ -1,7 +1,7 @@
-import { Status } from './toolsStatuses';
-import { JobTypes } from './toolsJobTypes';
-import { FormParameters } from './toolsFormParameters';
 import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
+import { FormParameters } from './toolsFormParameters';
+import { JobTypes } from './toolsJobTypes';
+import { Status } from './toolsStatuses';
 
 /* Job as defined inside the web application */
 interface BaseJob<T extends JobTypes> {

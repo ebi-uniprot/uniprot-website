@@ -1,17 +1,15 @@
-import { useCallback, useRef } from 'react';
-import NightingaleVariation from '@nightingale-elements/nightingale-variation';
-import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
 import { Filter } from '@nightingale-elements/nightingale-filter';
+import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import NightingaleVariation from '@nightingale-elements/nightingale-variation';
+import { colorConfig, filterConfig } from 'protvista-uniprot';
+import { useCallback, useRef } from 'react';
 
-import { filterConfig, colorConfig } from 'protvista-uniprot';
+import NightingaleFilterComponent from '../../../shared/custom-elements/NightingaleFilter';
 import NightingaleNavigationComponent from '../../../shared/custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../../shared/custom-elements/NightingaleSequence';
 import NightingaleVariationComponent from '../../../shared/custom-elements/NightingaleVariation';
-import NightingaleFilterComponent from '../../../shared/custom-elements/NightingaleFilter';
-import NightingaleZoomTool from './NightingaleZoomTool';
-
 import { TransformedVariant } from '../../types/variation';
-
+import NightingaleZoomTool from './NightingaleZoomTool';
 import styles from './styles/visual-variation-view.module.scss';
 
 type VariationViewProps = {

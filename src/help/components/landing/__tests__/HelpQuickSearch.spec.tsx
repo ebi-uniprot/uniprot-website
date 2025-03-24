@@ -3,11 +3,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import HelpQuickSearch from '../HelpQuickSearch';
-
-// TODO: replace with mocks when API is stable
 import helpData from '../../__mocks__/helpSearchModelData';
+import HelpQuickSearch from '../HelpQuickSearch';
 
 jest.mock('lodash-es', () => ({
   debounce: (fn: unknown) => fn,

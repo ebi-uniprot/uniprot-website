@@ -1,21 +1,20 @@
 import { Fragment, ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
-import listFormat from '../../../../../shared/utils/listFormat';
-import { stringifyQuery } from '../../../../../shared/utils/url';
-
 import {
+  getEntryPath,
   Location,
   LocationToPath,
-  getEntryPath,
 } from '../../../../../app/config/urls';
 import { Namespace } from '../../../../../shared/types/namespaces';
-import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
+import listFormat from '../../../../../shared/utils/listFormat';
+import { stringifyQuery } from '../../../../../shared/utils/url';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/components/entry/Entry';
 import {
   DeletedReason,
   InactiveEntryReason,
 } from '../../../../adapters/uniProtkbConverter';
+import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
 
 type RemovedEntryHeadingProps = {
   accession: string;

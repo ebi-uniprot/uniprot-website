@@ -1,46 +1,43 @@
+import '../../styles/ToolsForm.scss';
+
+import { Chip, LongNumber, Message, SpinnerIcon } from 'franklin-sites';
 import { FormEvent, useCallback, useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
-import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
-
-import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
-import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useToolsState from '../../../shared/hooks/useToolsState';
-
+import { Namespace } from '../../../shared/types/namespaces';
+import { DownloadUrlOptions } from '../../../shared/types/results';
+import { FileFormat } from '../../../shared/types/resultsDownload';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
+import { createJob } from '../../state/toolsActions';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { PublicServerParameters } from '../../types/toolsServerParameters';
+import { Status } from '../../types/toolsStatuses';
+import initialFormValues, {
+  AsyncDownloadFields,
+} from '../config/asyncDownloadFormData';
+import {
+  updateConfirmation,
+  updateDownloadUrlOptions,
+  updateSelected,
+  updateSending,
+} from '../state/asyncDownloadFormActions';
 import {
   asyncDownloadFormDataReducer,
   getAsyncDownloadFormInitialState,
   isExcel,
   isUncompressed,
 } from '../state/asyncDownloadFormReducer';
-import { createJob } from '../../state/toolsActions';
-import {
-  updateSelected,
-  updateSending,
-  updateDownloadUrlOptions,
-  updateConfirmation,
-} from '../state/asyncDownloadFormActions';
-import initialFormValues, {
-  AsyncDownloadFields,
-} from '../config/asyncDownloadFormData';
-import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
-import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
-import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { FileFormat } from '../../../shared/types/resultsDownload';
-import { JobTypes } from '../../types/toolsJobTypes';
-import { Namespace } from '../../../shared/types/namespaces';
-import { Status } from '../../types/toolsStatuses';
-import { PublicServerParameters } from '../../types/toolsServerParameters';
 import { FormParameters } from '../types/asyncDownloadFormParameters';
-import { DownloadUrlOptions } from '../../../shared/types/results';
-
-import '../../styles/ToolsForm.scss';
+import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
 
 const getJobParameters = (
   downloadUrlOptions: DownloadUrlOptions,

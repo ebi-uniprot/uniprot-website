@@ -1,8 +1,8 @@
 import { flatten } from 'lodash-es';
 
-import KeywordCategory from '../types/keywordCategory';
-import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { UIModel } from '../adapters/sectionConverter';
+import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import KeywordCategory from '../types/keywordCategory';
 import { Evidence } from '../types/modelTypes';
 
 // TODO: types should maybe eventually come from supporting-data/keywords
