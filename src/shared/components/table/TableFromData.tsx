@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Button, Message } from 'franklin-sites';
+import { Message } from 'franklin-sites';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { MIN_ROWS_TO_EXPAND } from './constants';
@@ -74,7 +74,6 @@ type Props<T> = {
   noTranslateBody?: boolean;
   expandable?: boolean;
   id?: string;
-  onNavigationClick?: false | ((feature: T) => void);
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
@@ -88,7 +87,6 @@ function TableFromData<T>({
   markBackground,
   markBorder,
   noTranslateBody,
-  onNavigationClick,
   expandable = true,
   ...props
 }: Props<T>) {
@@ -151,21 +149,7 @@ function TableFromData<T>({
               isOdd={index % 2 === 1}
               extraContent={
                 rowExtraContent && (
-                  <td colSpan={columns.length}>
-                    {onNavigationClick && (
-                      <Button
-                        variant="secondary"
-                        onClick={() => onNavigationClick?.(datum)}
-                        className={cn(
-                          'button-group',
-                          styles['feature-navigation-button']
-                        )}
-                      >
-                        Navigate to feature
-                      </Button>
-                    )}
-                    {rowExtraContent(datum)}
-                  </td>
+                  <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
                 )
               }
               key={getRowId(datum)}
