@@ -1,6 +1,5 @@
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
-
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
 

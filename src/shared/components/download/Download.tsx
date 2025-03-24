@@ -1,72 +1,66 @@
-import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
-import { Location as HistoryLocation } from 'history';
-import { generatePath, Link, useLocation } from 'react-router-dom';
-import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
+import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
+import { Location as HistoryLocation } from 'history';
+import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
+import { generatePath, Link, useLocation } from 'react-router-dom';
 
-import ColumnSelect from '../column-select/ColumnSelect';
-import DownloadPreview from './DownloadPreview';
-import DownloadAPIURL from './DownloadAPIURL';
-import ExternalLink from '../ExternalLink';
-import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
-
-import useColumnNames from '../../hooks/useColumnNames';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-import useDataApi from '../../hooks/useDataApi';
-
-import {
-  DownloadSelectOptions,
-  downloadReducer,
-  getDownloadInitialState,
-  ExtraContent,
-} from './downloadReducer';
-import {
-  updateSelectedFileFormat,
-  updateSelectedColumns,
-  updateDownloadSelect,
-  updateCompressed,
-  updateExtraContent,
-  updateDisableForm,
-  updateFullXref,
-} from './downloadActions';
-import { prepareFieldData } from '../column-select/utils';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import {
-  getColumnsNamespace,
-  getDownloadCount,
-  getDownloadOptions,
-  getPreviewOptions,
-  getFtpFilenamesAndUrls,
-  getIsAsyncDownload,
-  getRedirectToIDMapping,
-  getExtraContent,
-  getIsEmbeddings,
-  getPreviewCount,
-  isAsyncDownloadIdMapping,
-  showColumnSelect,
-  filterFullXrefColumns,
-  getCountForCustomisableSet,
-  getIsUniParcLightResponse,
-  fullToStandardColumnName,
-} from './downloadUtils';
-
+import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
-
-import { FileFormat } from '../../types/resultsDownload';
+import useColumnNames from '../../hooks/useColumnNames';
+import useDataApi from '../../hooks/useDataApi';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import helper from '../../styles/helper.module.scss';
+import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-
-import sticky from '../../styles/sticky.module.scss';
+import ColumnSelect from '../column-select/ColumnSelect';
+import { prepareFieldData } from '../column-select/utils';
+import ExternalLink from '../ExternalLink';
+import {
+  updateCompressed,
+  updateDisableForm,
+  updateDownloadSelect,
+  updateExtraContent,
+  updateFullXref,
+  updateSelectedColumns,
+  updateSelectedFileFormat,
+} from './downloadActions';
+import DownloadAPIURL from './DownloadAPIURL';
+import DownloadPreview from './DownloadPreview';
+import {
+  downloadReducer,
+  DownloadSelectOptions,
+  ExtraContent,
+  getDownloadInitialState,
+} from './downloadReducer';
+import {
+  filterFullXrefColumns,
+  fullToStandardColumnName,
+  getColumnsNamespace,
+  getCountForCustomisableSet,
+  getDownloadCount,
+  getDownloadOptions,
+  getExtraContent,
+  getFtpFilenamesAndUrls,
+  getIsAsyncDownload,
+  getIsEmbeddings,
+  getIsUniParcLightResponse,
+  getPreviewCount,
+  getPreviewOptions,
+  getRedirectToIDMapping,
+  isAsyncDownloadIdMapping,
+  showColumnSelect,
+} from './downloadUtils';
 import styles from './styles/download.module.scss';
-import helper from '../../styles/helper.module.scss';
 
 export type DownloadProps<T extends JobTypes> = {
   query?: string;

@@ -1,9 +1,8 @@
-import { lazy } from 'react';
 import { Card } from 'franklin-sites';
-
-import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
+import { lazy } from 'react';
 
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntry';
 
 const StructureView = lazy(

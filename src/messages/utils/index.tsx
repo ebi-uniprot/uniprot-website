@@ -1,12 +1,13 @@
-import { LongNumber, BytesNumber } from 'franklin-sites';
+import { BytesNumber, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import { Location, jobTypeToPath } from '../../app/config/urls';
+
+import { jobTypeToPath, Location } from '../../app/config/urls';
 import { pluralise } from '../../shared/utils/utils';
 import { Job } from '../../shared/workers/jobs/types/toolsJob';
 import {
   MessageFormat,
-  MessageTag,
   MessageLevel,
+  MessageTag,
 } from '../types/messagesTypes';
 
 export type GetJobMessageArgs = {

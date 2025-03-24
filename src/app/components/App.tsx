@@ -1,46 +1,41 @@
-import { lazy, Suspense, FC } from 'react';
-import {
-  Route,
-  Switch,
-  RouteChildrenProps,
-  Redirect,
-  generatePath,
-} from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { Loader } from 'franklin-sites';
-import { sleep } from 'timing-functions';
+import 'franklin-sites/franklin.css';
+import './styles/app.scss';
+
 import {
   init as SentryInit,
-  setTag as sentrySetTag,
   reactRouterV5BrowserTracingIntegration,
+  setTag as sentrySetTag,
 } from '@sentry/react';
+import { Loader } from 'franklin-sites';
+import { FC, lazy, Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
+import {
+  generatePath,
+  Redirect,
+  Route,
+  RouteChildrenProps,
+  Switch,
+} from 'react-router-dom';
+import { sleep } from 'timing-functions';
 
-import BaseLayout from '../../shared/components/layouts/BaseLayout';
-import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
+import pkg from '../../../package.json';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
-import DevDeploymentWarning from './DevDeploymentWarning';
-import Covid19RedirectWarning from './Covid19RedirectWarning';
-
-import history from '../../shared/utils/browserHistory';
-import { stringifyUrl, stringifyQuery } from '../../shared/utils/url';
-
-import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import BaseLayout from '../../shared/components/layouts/BaseLayout';
+import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import useReloadApp from '../../shared/hooks/useReloadApp';
-
+import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
+import history from '../../shared/utils/browserHistory';
+import { stringifyQuery, stringifyUrl } from '../../shared/utils/url';
+import description from '../config/description';
 import {
   allSearchResultLocations,
   Location,
   LocationToPath,
 } from '../config/urls';
-import description from '../config/description';
-
-import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
-
-import pkg from '../../../package.json';
-
-import 'franklin-sites/franklin.css';
-import './styles/app.scss';
+import Covid19RedirectWarning from './Covid19RedirectWarning';
+import DevDeploymentWarning from './DevDeploymentWarning';
 
 // This is hackery is to prevent define being repeatedly called for the same
 // name. This has been observed in Variant viewer and Feature viewer tabs.

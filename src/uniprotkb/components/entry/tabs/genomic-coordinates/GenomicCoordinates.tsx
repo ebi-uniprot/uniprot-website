@@ -1,21 +1,17 @@
-import { ReactNode, useState } from 'react';
 import { Loader } from 'franklin-sites';
+import { ReactNode, useState } from 'react';
 
-import GeneEntry from './GeneEntry';
-import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
-import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
-
-import useDataApi from '../../../../../shared/hooks/useDataApi';
-
-import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
-import { groupByGene } from './utils';
-
-import { Isoform } from '../../../../types/commentTypes';
-import { GenomicEntry } from './types';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
-
+import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
+import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
+import { Isoform } from '../../../../types/commentTypes';
 import tabsStyles from '../styles/tabs-styles.module.scss';
+import GeneEntry from './GeneEntry';
+import { GenomicEntry } from './types';
+import { groupByGene } from './utils';
 
 type GenomicCoordinatesProps = {
   primaryAccession: string;

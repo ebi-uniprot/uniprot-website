@@ -1,12 +1,11 @@
-import getJobs from './state/getJobs';
-import { getActionHandler, ToolsAction } from './state/actionHandler';
-
-import JobStore from './utils/storage';
-import { Stores } from './utils/stores';
-import { ToolsState } from './state/toolsInitialState';
 import { GetJobMessageArgs } from '../../../messages/utils';
 import * as logging from '../../utils/logging';
 import getJobPoller from './jobPoller';
+import { getActionHandler, ToolsAction } from './state/actionHandler';
+import getJobs from './state/getJobs';
+import { ToolsState } from './state/toolsInitialState';
+import JobStore from './utils/storage';
+import { Stores } from './utils/stores';
 
 const jobStore = new JobStore(Stores.METADATA);
 

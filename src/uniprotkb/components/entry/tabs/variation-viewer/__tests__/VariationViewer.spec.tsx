@@ -1,11 +1,8 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../../../shared/__test-helpers__/customRender';
-
-import VariationViewer from '../VariationViewer';
-
 import useDataApi from '../../../../../../shared/hooks/useDataApi';
-
+import VariationViewer from '../VariationViewer';
 import P0DPR0 from './__mocks__/P0DPR0';
 
 jest.mock('../../../../../../shared/hooks/useDataApi');

@@ -1,15 +1,15 @@
-import { memo, useCallback, useEffect, useRef } from 'react';
 import {
-  select,
-  scaleLinear,
   axisBottom,
   axisLeft,
-  line,
-  scaleTime,
   format,
+  line,
+  scaleLinear,
+  scaleTime,
+  select,
   timeFormat,
   timeYear,
 } from 'd3';
+import { memo, useCallback, useEffect, useRef } from 'react';
 
 import styles from './styles/historical-release-entries-line-plot.module.scss';
 

@@ -1,10 +1,10 @@
 import {
-  computePosition,
-  flip,
-  shift,
-  offset,
   arrow,
   autoUpdate,
+  computePosition,
+  flip,
+  offset,
+  shift,
 } from '@floating-ui/dom';
 
 import styles from './styles/tooltip.module.scss';

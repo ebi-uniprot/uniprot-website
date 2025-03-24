@@ -1,14 +1,11 @@
 import { screen } from '@testing-library/react';
 
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import EntrySection from '../../../types/entrySection';
 import CommunityCuration, {
   groupByCommunityAnnotation,
 } from '../CommunityCuration';
-
-import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import mock from './__mocks__/communityCurationData';
-
-import EntrySection from '../../../types/entrySection';
 
 describe('Community annotatation', () => {
   it('should render the community annotation content', async () => {

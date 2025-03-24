@@ -2,9 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 
-import newicktree from '../newicktree';
-
 import { NewickTreeNode } from '../../types/alignResults';
+import newicktree from '../newicktree';
 
 const readFile = promisify(fs.readFile);
 

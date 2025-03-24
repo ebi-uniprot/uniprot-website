@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
+
 import alnClustalNum from '../alnClustalNum';
 
 const readFile = promisify(fs.readFile);

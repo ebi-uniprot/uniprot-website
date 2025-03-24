@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
 import AutocompleteField from '../AutocompleteField';
-
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const field = getSearchTerm('organism_name_field');

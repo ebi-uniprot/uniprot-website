@@ -1,6 +1,5 @@
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import * as logging from '../../shared/utils/logging';
-
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
 const featureColumnHeaders: Partial<

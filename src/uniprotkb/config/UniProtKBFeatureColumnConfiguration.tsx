@@ -1,19 +1,16 @@
 import { Card, Chip, ExternalLink } from 'franklin-sites';
 
-import PtmExchangeEvidenceTag from '../components/protein-data-views/PtmExchangeEvidenceTag';
-import UniProtKBEvidenceTag from '../components/protein-data-views/UniProtKBEvidenceTag';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
-import { RichText } from '../components/protein-data-views/FreeTextView';
 import CopyButton from '../../shared/components/action-buttons/Copy';
 import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
-
-import externalUrls from '../../shared/config/externalUrls';
-
 import {
   FeatureColumnConfiguration,
   ProcessedFeature,
 } from '../../shared/components/views/FeaturesView';
-
+import externalUrls from '../../shared/config/externalUrls';
+import { RichText } from '../components/protein-data-views/FreeTextView';
+import PtmExchangeEvidenceTag from '../components/protein-data-views/PtmExchangeEvidenceTag';
+import UniProtKBEvidenceTag from '../components/protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/uniprotkb-feature-column-configuration.module.scss';
 
 // TODO: use getLabelAndTooltip?

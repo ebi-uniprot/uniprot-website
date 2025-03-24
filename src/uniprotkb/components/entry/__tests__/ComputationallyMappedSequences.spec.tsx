@@ -1,10 +1,8 @@
 import { screen } from '@testing-library/react';
 
-import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
 import data from './__mocks__/genecentric';
 
 jest.mock('../../../../shared/hooks/useDataApi');

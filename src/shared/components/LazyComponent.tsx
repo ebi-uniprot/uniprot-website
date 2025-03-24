@@ -1,16 +1,15 @@
+import { Loader } from 'franklin-sites';
 import {
   FC,
   ReactNode,
-  useState,
-  useRef,
+  Suspense,
   useEffect,
   useMemo,
-  Suspense,
+  useRef,
+  useState,
 } from 'react';
-import { Loader } from 'franklin-sites';
 
 import ErrorBoundary from './error-component/ErrorBoundary';
-
 import baseLayoutStyles from './layouts/styles/base-layout.module.scss';
 
 const defaultFallback = <Loader />;

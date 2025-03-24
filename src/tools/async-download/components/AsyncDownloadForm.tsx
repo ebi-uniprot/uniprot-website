@@ -1,46 +1,43 @@
+import '../../styles/ToolsForm.scss';
+
+import { Chip, LongNumber, Message, SpinnerIcon } from 'franklin-sites';
 import { FormEvent, useCallback, useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
-import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
-
-import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
 import useJobsState from '../../../shared/hooks/useJobsState';
-
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
+import { Namespace } from '../../../shared/types/namespaces';
+import { DownloadUrlOptions } from '../../../shared/types/results';
+import { FileFormat } from '../../../shared/types/resultsDownload';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
+import { Status } from '../../../shared/workers/jobs/types/toolsStatuses';
+import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { PublicServerParameters } from '../../types/toolsServerParameters';
+import initialFormValues, {
+  AsyncDownloadFields,
+} from '../config/asyncDownloadFormData';
+import {
+  updateConfirmation,
+  updateDownloadUrlOptions,
+  updateSelected,
+  updateSending,
+} from '../state/asyncDownloadFormActions';
 import {
   asyncDownloadFormDataReducer,
   getAsyncDownloadFormInitialState,
   isExcel,
   isUncompressed,
 } from '../state/asyncDownloadFormReducer';
-import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
-import {
-  updateSelected,
-  updateSending,
-  updateDownloadUrlOptions,
-  updateConfirmation,
-} from '../state/asyncDownloadFormActions';
-import initialFormValues, {
-  AsyncDownloadFields,
-} from '../config/asyncDownloadFormData';
-import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
-import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
-import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { FileFormat } from '../../../shared/types/resultsDownload';
-import { JobTypes } from '../../types/toolsJobTypes';
-import { Namespace } from '../../../shared/types/namespaces';
-import { Status } from '../../../shared/workers/jobs/types/toolsStatuses';
-import { PublicServerParameters } from '../../types/toolsServerParameters';
 import { FormParameters } from '../types/asyncDownloadFormParameters';
-import { DownloadUrlOptions } from '../../../shared/types/results';
-
-import '../../styles/ToolsForm.scss';
+import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
 
 const getJobParameters = (
   downloadUrlOptions: DownloadUrlOptions,

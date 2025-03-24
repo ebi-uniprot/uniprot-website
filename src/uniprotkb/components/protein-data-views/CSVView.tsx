@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { EllipsisReveal } from 'franklin-sites';
+import { FC } from 'react';
 
 import { deepFindAllByKey } from '../../../shared/utils/utils';
 

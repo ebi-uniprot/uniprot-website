@@ -1,7 +1,7 @@
-import { fireEvent, screen } from '@testing-library/react';
-import InteractionSection from '../InteractionSection';
-import customRender from '../../../../shared/__test-helpers__/customRender';
+import { screen } from '@testing-library/react';
 
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import InteractionSection from '../InteractionSection';
 import data, { dataWithNoXref } from './__mocks__/interactionComplexesData';
 
 describe('InteractionSection', () => {
@@ -11,19 +11,10 @@ describe('InteractionSection', () => {
     );
     await screen.findByText('Complex viewer');
     expect(asFragment()).toMatchSnapshot();
-
-    const dropdownButton = screen.getByRole<HTMLButtonElement>('button');
-    expect(dropdownButton).toHaveTextContent(
-      'CPX-1062 Amyloid-beta protein 40/42 complex'
-    );
-    fireEvent.click(dropdownButton);
-    const selectButton = screen.getByText(/CPX-1069/, {
-      selector: '.button.tertiary',
+    const defaultOption = screen.getByRole<HTMLOptionElement>('option', {
+      name: 'CPX-1062 Amyloid-beta protein 40/42 complex',
     });
-    fireEvent.click(selectButton, { target: { innerText: 'CPX-1069' } });
-    expect(dropdownButton).toHaveTextContent(
-      'CPX-1069 Amyloid-beta protein 40 complex'
-    );
+    expect(defaultOption.selected).toBe(true);
   });
 
   it('Should not render the viewer tab if there are no xrefs from complex portal', async () => {

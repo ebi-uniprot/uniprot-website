@@ -1,10 +1,9 @@
-import { MutableRefObject } from 'react';
 import { AxiosResponse } from 'axios';
-
-import * as logging from '../../../utils/logging';
+import { MutableRefObject } from 'react';
 
 import { ServerStatus } from '../../../../tools/async-download/types/asyncDownloadServerStatus';
 import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import * as logging from '../../../utils/logging';
 import { ToolsState } from '../state/toolsInitialState';
 import { Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';

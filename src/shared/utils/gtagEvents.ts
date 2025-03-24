@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { ComponentProps } from 'react';
 import { SlidingPanel } from 'franklin-sites';
+import { ComponentProps } from 'react';
 
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 import { Column } from '../config/columns';
 import { ViewMode } from '../hooks/useViewMode';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 type GtagEventName =
   | 'api_data_load_fail'
@@ -15,6 +15,9 @@ type GtagEventName =
   | 'copy_share_results_url_click'
   | 'feature_data_table_view_click'
   | 'feature_viewer_full_view_click'
+  | 'job_submit'
+  | 'gocam_viz_shown'
+  | 'gocam_viz_tab_opened'
   | 'outbound_link_click'
   | 'panel_advanced_search_close'
   | 'panel_advanced_search_open'
@@ -30,8 +33,7 @@ type GtagEventName =
   | 'panel_results_download_open'
   | 'results_view_mode_click'
   | 'results_view_mode_popup_click'
-  | 'results_view_render'
-  | 'job_submit';
+  | 'results_view_render';
 
 /*
 | Reason     | User action                |
@@ -65,6 +67,9 @@ const gtagFn: Gtag.Gtag = (...args) => {
   }
 };
 
+// Note that for any parameters that are sent, if you want to observe
+// the values within GA4 explorations, they need to be set up in the
+// GA4 UI at Admin > Data display > Custom definitions
 /* istanbul ignore next */
 const sendGtagEvent = (
   eventName: GtagEventName,
@@ -203,4 +208,11 @@ export const sendGtagEventJobSubmit = (
   parameters?: Record<string, string>
 ) => {
   sendGtagEvent('job_submit', { job_type: job, ...parameters });
+};
+
+export const sendGtagEventGoCamVizTabOpened = (accession: string) => {
+  sendGtagEvent('gocam_viz_tab_opened', { accession });
+};
+export const sendGtagEventGoCamVizShown = (accession: string) => {
+  sendGtagEvent('gocam_viz_shown', { accession });
 };

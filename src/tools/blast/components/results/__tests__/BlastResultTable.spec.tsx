@@ -1,13 +1,10 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
-import BlastResultTable from '../BlastResultTable';
-
 import { Namespace } from '../../../../../shared/types/namespaces';
-
-import data from '../../../../__mocks__/server-jobs/example-truncated';
 import noHits from '../../../../__mocks__/server-jobs/example-empty';
+import data from '../../../../__mocks__/server-jobs/example-truncated';
+import BlastResultTable from '../BlastResultTable';
 
 describe('BlastResultTable tests', () => {
   it('should render, and toggle the extra HSPs', async () => {

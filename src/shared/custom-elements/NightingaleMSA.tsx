@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { EventName, createComponent } from '@lit/react';
+import { createComponent, EventName } from '@lit/react';
 import NightingaleMSA from '@nightingale-elements/nightingale-msa';
+import * as React from 'react';
 
 export type OnFeatureClick = CustomEvent<{ id: string; event: MouseEvent }>;
 

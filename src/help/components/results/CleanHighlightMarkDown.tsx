@@ -1,7 +1,7 @@
+import './styles/highlight.scss';
+
 import { cleanTextDefaultOptions } from '../../../shared/utils/cleanText';
 import { parseMarkdown } from '../../../shared/utils/markdown';
-
-import './styles/highlight.scss';
 
 const cleanTextOptions = {
   ...cleanTextDefaultOptions,

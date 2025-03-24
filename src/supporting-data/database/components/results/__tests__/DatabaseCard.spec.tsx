@@ -1,10 +1,8 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
-import DatabaseCard from '../DatabaseCard';
-
 import databaseData from '../../../__mocks__/databaseModelData';
+import DatabaseCard from '../DatabaseCard';
 
 describe('DatabaseCard tests', () => {
   it('should render the card component', () => {

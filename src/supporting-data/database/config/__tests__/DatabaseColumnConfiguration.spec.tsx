@@ -1,14 +1,12 @@
-import DatabaseColumnConfiguration, {
-  DatabaseColumn,
-} from '../DatabaseColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/databaseModelData';
 import databaseConverter, {
   DatabaseAPIModel,
   DatabaseUIModel,
 } from '../../adapters/databaseConverter';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
-
-import data from '../../__mocks__/databaseModelData';
+import DatabaseColumnConfiguration, {
+  DatabaseColumn,
+} from '../DatabaseColumnConfiguration';
 
 jest.mock('../../../../tools/utils/storage');
 

@@ -1,26 +1,24 @@
 import joinUrl from 'url-join';
 
+import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import {
+  getApiSortDirection,
+  SelectedFacet,
+  SortDirection,
+} from '../../../uniprotkb/types/resultsTypes';
+import { Facets } from '../../types/facets';
+import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   createFacetsQueryString,
   excludeLocalBlastFacets,
   getSearchParams,
-  stringifyUrl,
   SearchOptions,
+  stringifyUrl,
 } from '../../utils/url';
-
-import { apiPrefix } from './apiPrefix';
 import { defaultFacets } from '../facets';
 import { fileFormatToUrlParameter } from '../resultsDownload';
-
-import {
-  SelectedFacet,
-  SortDirection,
-  getApiSortDirection,
-} from '../../../uniprotkb/types/resultsTypes';
-import { Namespace } from '../../types/namespaces';
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import { Facets } from '../../types/facets';
-import { FileFormat } from '../../types/resultsDownload';
+import { apiPrefix } from './apiPrefix';
 
 export const searchPrefix = (namespace: Namespace = Namespace.uniprotkb) =>
   joinUrl(apiPrefix, namespace, 'search');

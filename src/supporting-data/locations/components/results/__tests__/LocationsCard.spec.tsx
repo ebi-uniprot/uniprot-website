@@ -1,10 +1,8 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
-import LocationsCard from '../LocationsCard';
-
 import locationsData from '../../../__mocks__/locationsModelData';
+import LocationsCard from '../LocationsCard';
 
 describe('CitationCard tests', () => {
   it('should render the card component', () => {

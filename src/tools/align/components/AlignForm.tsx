@@ -1,68 +1,60 @@
+import '../../styles/ToolsForm.scss';
+
+import cn from 'classnames';
 import {
+  PageIntro,
+  sequenceProcessor,
+  SequenceSubmission,
+  SpinnerIcon,
+} from 'franklin-sites';
+import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor'; // TODO: find a way to export this transparently from franklin
+import {
+  FC,
   FormEvent,
   MouseEvent,
-  useRef,
-  FC,
-  useReducer,
   useCallback,
   useEffect,
+  useReducer,
+  useRef,
 } from 'react';
-import {
-  SequenceSubmission,
-  PageIntro,
-  SpinnerIcon,
-  sequenceProcessor,
-} from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import cn from 'classnames';
-// TODO: find a way to export this transparently from franklin
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-import HTMLHead from '../../../shared/components/HTMLHead';
-import SequenceSearchLoader from '../../components/SequenceSearchLoader';
-import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
-  getAlignFormDataReducer,
-  getAlignFormInitialState,
-} from '../state/alignFormReducer';
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import { ALIGN_LIMIT } from '../../../shared/config/limits';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
+import sticky from '../../../shared/styles/sticky.module.scss';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
+import SequenceSearchLoader from '../../components/SequenceSearchLoader';
+import { createJob } from '../../state/toolsActions';
+import { JobTypes } from '../../types/toolsJobTypes';
+import defaultFormValues, {
+  AlignFields,
+  AlignFormValue,
+  AlignFormValues,
+} from '../config/AlignFormData';
 import {
   resetFormState,
   updateParsedSequences,
   updateSelected,
   updateSending,
 } from '../state/alignFormActions';
-
-import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-
-import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
-import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
-
-import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
 import { ServerParameters } from '../types/alignServerParameters';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import defaultFormValues, {
-  AlignFormValues,
-  AlignFormValue,
-  AlignFields,
-} from '../config/AlignFormData';
-import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
-import { ALIGN_LIMIT } from '../../../shared/config/limits';
-
-import sticky from '../../../shared/styles/sticky.module.scss';
-import '../../styles/ToolsForm.scss';
 
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 

@@ -1,15 +1,13 @@
 import { render, screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import CatalyticActivityView, {
   getRheaId,
   isRheaReactionReference,
-  RheaReactionVisualizer,
   ReactionDirection,
+  RheaReactionVisualizer,
   ZoomModalContent,
 } from '../CatalyticActivityView';
-
 import catalyticActivityUIData from './__mocks__/catalyticActivityUIData';
 
 describe('CatalyticActivityView component', () => {

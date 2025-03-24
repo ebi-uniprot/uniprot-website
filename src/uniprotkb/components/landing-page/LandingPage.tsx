@@ -1,33 +1,29 @@
-import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import {
   ExternalLink,
   LongNumber,
   SwissProtIcon,
   TremblIcon,
 } from 'franklin-sites';
-import cn from 'classnames';
-
-import StatisticsChart from './StatisticsChart';
-import HTMLHead from '../../../shared/components/HTMLHead';
-import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
+import { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
-  LocationToPath,
-  Location,
   getLocationEntryPath,
+  Location,
+  LocationToPath,
 } from '../../../app/config/urls';
-import ftpUrls from '../../../shared/config/ftpUrls';
-import { stringifyQuery } from '../../../shared/utils/url';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { SearchResults } from '../../../shared/types/results';
+import ftpUrls from '../../../shared/config/ftpUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { FacetsEnum } from '../../config/UniProtKBFacetConfiguration';
-
+import StatisticsChart from './StatisticsChart';
 import styles from './styles/landing-page.module.scss';
 
 const availableFTPFormats = {

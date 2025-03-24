@@ -1,8 +1,8 @@
 import { action } from 'typesafe-actions';
 
-import { Job } from '../types/toolsJob';
 import { FormParameters } from '../../../../tools/types/toolsFormParameters';
 import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import { Job } from '../types/toolsJob';
 
 export const REHYDRATE_JOBS = 'REHYDRATE_JOBS';
 export const CREATE_JOB = 'CREATE_JOB';

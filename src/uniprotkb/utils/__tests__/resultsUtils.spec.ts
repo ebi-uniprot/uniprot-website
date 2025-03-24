@@ -1,16 +1,14 @@
+import { Namespace } from '../../../shared/types/namespaces';
+import resultFields from '../../__mocks__/resultFields';
+import { Interactant } from '../../adapters/interactionConverter';
+import { InteractionType } from '../../types/commentTypes';
+import { ReceivedFieldData } from '../../types/resultsTypes';
 import {
   escapeInvalidSearchFieldQueryWithColon,
   getSortableColumnToSortColumn,
   isInvalidSearchFieldQueryWithColon,
   sortInteractionData,
 } from '../resultsUtils';
-
-import { ReceivedFieldData } from '../../types/resultsTypes';
-
-import resultFields from '../../__mocks__/resultFields';
-import { Interactant } from '../../adapters/interactionConverter';
-import { InteractionType } from '../../types/commentTypes';
-import { Namespace } from '../../../shared/types/namespaces';
 
 describe('getSortableColumnToSortColumn', () => {
   it('should return columns with the sortField property', () => {

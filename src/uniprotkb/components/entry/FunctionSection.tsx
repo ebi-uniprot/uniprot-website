@@ -1,49 +1,47 @@
-import { lazy, Suspense, Fragment, memo } from 'react';
-import { Card, Loader, Message } from 'franklin-sites';
+import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import { Fragment, lazy, memo, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
-import HTMLHead from '../../../shared/components/HTMLHead';
-import FreeTextView, {
-  RichText,
-  TextView,
-} from '../protein-data-views/FreeTextView';
-import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
-import KeywordView from '../protein-data-views/KeywordView';
-import XRefView from '../protein-data-views/XRefView';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
-import KineticsTableView from './KineticsTableView';
-import ExternalLink from '../../../shared/components/ExternalLink';
-
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import externalUrls from '../../../shared/config/externalUrls';
-
 import { Location, LocationToPath } from '../../../app/config/urls';
-
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import { EntryType } from '../../../shared/config/entryTypeIcon';
+import externalUrls from '../../../shared/config/externalUrls';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import helper from '../../../shared/styles/helper.module.scss';
 import { hasContent } from '../../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
+import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 import {
-  FunctionUIModel,
-  BioPhysicoChemicalProperties,
   Absorption,
+  BioPhysicoChemicalProperties,
+  FunctionUIModel,
   KineticParameters,
 } from '../../adapters/functionConverter';
-import EntrySection from '../../types/entrySection';
 import {
   CatalyticActivityComment,
   CofactorComment,
   FreeTextComment,
 } from '../../types/commentTypes';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
+import FreeTextView, {
+  RichText,
+  TextView,
+} from '../protein-data-views/FreeTextView';
+import KeywordView from '../protein-data-views/KeywordView';
+import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import XRefView from '../protein-data-views/XRefView';
 import CommunityCuration from './CommunityCuration';
+import KineticsTableView from './KineticsTableView';
 
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
+
+const GoCam = lazy(() => import(/* webpackChunkName: "go-cam" */ './GoCam'));
 
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
@@ -252,6 +250,17 @@ const FunctionSection = ({
     (reference) => reference.communityAnnotation?.function
   );
 
+  // This state and the following useEffect are used to determine
+  // if the GO-CAM tab should be displayed. This is to handle the
+  // following situations:
+  // 1. User always has small screen: never show GO-CAM tab
+  // 2. User had small screen but increased size: show GO-CAM tab
+  // 3. User had big screen but reduced it: continue to show GO-CAM tab
+  const [showGoCamTab, setShowGoCamTab] = useState(!isSmallScreen);
+  useEffect(() => {
+    setShowGoCamTab((v) => v || !isSmallScreen);
+  }, [isSmallScreen]);
+
   if (!hasContent(data) && !functionRelatedReferences.length) {
     return null;
   }
@@ -279,6 +288,8 @@ const FunctionSection = ({
     ?.filter(
       (comment) => !(comment as FreeTextComment).molecule?.includes('Isoform')
     );
+
+  const reviewed = data.entryType === EntryType.REVIEWED;
 
   return (
     <Card
@@ -366,16 +377,48 @@ const FunctionSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <GoRibbon
-            primaryAccession={primaryAccession}
-            goTerms={data.goTerms}
-            geneNamesData={data.geneNamesData}
-            organismData={data.organismData}
-          />
-        </Suspense>
-      </ErrorBoundary>
+      {
+        // If no GO terms then no GO-CAM models. From Antonia Lock:
+        // "I assume that any go cams that we display, would also be integrated in the go releases, otherwise I would question the quality of the model"
+        !!data.goTerms?.size && (
+          <ErrorBoundary>
+            <Tabs bordered className={helper['padding-top-small']}>
+              <Tab title="GO annotations">
+                <Suspense fallback={<Loader />}>
+                  <GoRibbon
+                    primaryAccession={primaryAccession}
+                    goTerms={data.goTerms}
+                    geneNamesData={data.geneNamesData}
+                    organismData={data.organismData}
+                  />
+                </Suspense>
+              </Tab>
+              <Tab
+                disabled={!reviewed}
+                title={
+                  showGoCamTab ? (
+                    <span
+                      title={
+                        reviewed
+                          ? 'GO-CAM models from the Gene Ontology knowledgebase may be available for this entry.'
+                          : 'GO-CAM models are only available for reviewed entries.'
+                      }
+                    >
+                      GO-CAM models<Chip compact>New</Chip>
+                    </span>
+                  ) : null
+                }
+              >
+                {showGoCamTab ? (
+                  <Suspense fallback={<Loader />}>
+                    <GoCam primaryAccession={primaryAccession} />
+                  </Suspense>
+                ) : null}
+              </Tab>
+            </Tabs>
+          </ErrorBoundary>
+        )
+      }
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration

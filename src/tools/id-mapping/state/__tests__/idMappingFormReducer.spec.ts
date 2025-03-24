@@ -1,12 +1,12 @@
-import {
-  IDMappingFormAction,
-  getIDMappingFormDataReducer,
-  getIDMappingFormInitialState,
-} from '../idMappingFormReducer';
-import * as actions from '../idMappingFormActions';
 import defaultFormValues, {
   IDMappingFields,
 } from '../../config/idMappingFormData';
+import * as actions from '../idMappingFormActions';
+import {
+  getIDMappingFormDataReducer,
+  getIDMappingFormInitialState,
+  IDMappingFormAction,
+} from '../idMappingFormReducer';
 
 describe('idmappingFormReducer', () => {
   it('should reset with new form values when provided then reset to default if not provided', () => {

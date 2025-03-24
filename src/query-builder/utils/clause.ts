@@ -1,5 +1,4 @@
 import { Namespace } from '../../shared/types/namespaces';
-
 import { Clause, SearchTermType } from '../types/searchTypes';
 
 export const getAllTerm = (): SearchTermType => ({

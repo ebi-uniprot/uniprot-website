@@ -1,16 +1,11 @@
 import { FC } from 'react';
-
-// library context providers
 import { HelmetProvider } from 'react-helmet-async';
 import { Router } from 'react-router-dom';
 
-// app own context providers
+import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
+import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
 import { MessagesProvider } from '../../shared/contexts/Messages';
 import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
-import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
-
-import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
-
 import history from '../../shared/utils/browserHistory';
 
 const GlobalContext: FC<React.PropsWithChildren<unknown>> = ({ children }) => (

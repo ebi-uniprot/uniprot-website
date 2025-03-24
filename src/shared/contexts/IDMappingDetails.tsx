@@ -1,13 +1,11 @@
 import { createContext, ReactNode } from 'react';
 
+import { Location } from '../../app/config/urls';
+import toolsURLs from '../../tools/config/urls';
+import { MappingDetails } from '../../tools/id-mapping/types/idMappingSearchResults';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 import useDataApi, { UseDataAPIState } from '../hooks/useDataApi';
 import useJobFromUrl from '../hooks/useJobFromUrl';
-
-import toolsURLs from '../../tools/config/urls';
-
-import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { MappingDetails } from '../../tools/id-mapping/types/idMappingSearchResults';
-import { Location } from '../../app/config/urls';
 
 const idMappingURLs = toolsURLs(JobTypes.ID_MAPPING);
 

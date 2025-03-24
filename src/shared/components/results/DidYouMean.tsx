@@ -1,35 +1,30 @@
+import { Loader, Message, sequenceProcessor } from 'franklin-sites';
+import { orderBy, truncate } from 'lodash-es';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { orderBy, truncate } from 'lodash-es';
-import { Loader, Message, sequenceProcessor } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
+import {
+  Location,
+  LocationToPath,
+  searchLocations,
+} from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
 import ChecksumSuggester from '../../../tools/components/ChecksumSuggester';
-
-import useNS from '../../hooks/useNS';
-import useSafeState from '../../hooks/useSafeState';
-
-import fetchData from '../../utils/fetchData';
-import { stringifyQuery, stringifyUrl } from '../../utils/url';
-import { translatedWebsite } from '../../utils/translatedWebsite';
-
-import {
-  searchLocations,
-  LocationToPath,
-  Location,
-} from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../config/limits';
-
+import useNS from '../../hooks/useNS';
+import useSafeState from '../../hooks/useSafeState';
+import { APIModel } from '../../types/apiModel';
 import {
   Namespace,
   SearchableNamespace,
   searchableNamespaceLabels,
 } from '../../types/namespaces';
 import { Suggestion } from '../../types/results';
-import { APIModel } from '../../types/apiModel';
-
+import fetchData from '../../utils/fetchData';
+import { translatedWebsite } from '../../utils/translatedWebsite';
+import { stringifyQuery, stringifyUrl } from '../../utils/url';
 import styles from './styles/did-you-mean.module.scss';
 
 // example input: '( abc )' -> capturing group: 'abc'

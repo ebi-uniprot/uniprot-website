@@ -1,20 +1,18 @@
-import { ReactElement } from 'react';
 import { LocationDescriptorObject } from 'history';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../app/config/urls';
-
-import { pluralise } from '../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../utils/entrySection';
-
-import { Namespace } from '../../shared/types/namespaces';
-import { TabLocation } from '../types/entry';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
 import {
   EntryType,
   getEntryTypeFromString,
 } from '../../shared/components/entry/EntryTypeIcon';
+import { Namespace } from '../../shared/types/namespaces';
+import { pluralise } from '../../shared/utils/utils';
+import { TabLocation } from '../types/entry';
 import EntrySection from '../types/entrySection';
+import { getEntrySectionNameAndId } from '../utils/entrySection';
+import { UniProtkbAPIModel } from './uniProtkbConverter';
 
 enum highlightSection {
   domains = 'domain',

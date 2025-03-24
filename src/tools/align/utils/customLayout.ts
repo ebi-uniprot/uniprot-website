@@ -1,8 +1,7 @@
 import { HierarchyPointNode } from 'd3';
 
-import { polarToX, polarToY } from './trigonometry';
-
 import { NewickTreeNode } from '../types/alignResults';
+import { polarToX, polarToY } from './trigonometry';
 
 export interface CustomHierarchyNode
   extends HierarchyPointNode<NewickTreeNode> {

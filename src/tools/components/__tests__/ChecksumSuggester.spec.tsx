@@ -1,9 +1,9 @@
+import { screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { screen, waitFor } from '@testing-library/react';
 
-import ChecksumSuggester from '../ChecksumSuggester';
 import customRender from '../../../shared/__test-helpers__/customRender';
+import ChecksumSuggester from '../ChecksumSuggester';
 
 const mock = new MockAdapter(axios);
 mock.onGet().reply(200, {

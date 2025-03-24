@@ -1,62 +1,48 @@
+import './styles/Dashboard.scss';
+
+import cn from 'classnames';
 import {
-  memo,
-  useLayoutEffect,
-  useRef,
-  useState,
-  useCallback,
-  MouseEvent,
-  KeyboardEvent,
-  ChangeEvent,
-  ReactNode,
-  useMemo,
-} from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import {
-  Card,
-  ReSubmitIcon,
   BinIcon,
-  SpinnerIcon,
-  EditIcon,
-  WarningTriangleIcon,
   Bubble,
   Button,
   BytesNumber,
+  Card,
   Chip,
+  EditIcon,
   EllipsisReveal,
+  ReSubmitIcon,
+  SpinnerIcon,
+  WarningTriangleIcon,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
-import cn from 'classnames';
-
-// import { updateJob, deleteJob } from '../../state/toolsActions';
+import {
+  ChangeEvent,
+  memo,
+  ReactNode,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 import {
   jobTypeToPath,
-  LocationToPath,
   Location,
+  LocationToPath,
 } from '../../../app/config/urls';
-
-import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { pluralise } from '../../../shared/utils/utils';
-import parseDate from '../../../shared/utils/parseDate';
-import * as logging from '../../../shared/utils/logging';
-import { asyncDownloadUrlObjectCreator } from '../../config/urls';
-import { databaseValueToName } from '../../blast/config/BlastFormData';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-// import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
-// import { Status } from '../../types/toolsStatuses';
-import { JobTypes } from '../../types/toolsJobTypes';
-import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
-import { FormParameters } from '../../types/toolsFormParameters';
-import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
-import { SelectedTaxon } from '../../types/toolsFormData';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import * as logging from '../../../shared/utils/logging';
+import parseDate from '../../../shared/utils/parseDate';
+import { pluralise } from '../../../shared/utils/utils';
 import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
 import {
-  updateJob,
   deleteJob,
+  updateJob,
 } from '../../../shared/workers/jobs/state/toolsActions';
 import {
   FailedJob,
@@ -64,8 +50,13 @@ import {
   Job,
 } from '../../../shared/workers/jobs/types/toolsJob';
 import { Status } from '../../../shared/workers/jobs/types/toolsStatuses';
-
-import './styles/Dashboard.scss';
+import { databaseValueToName } from '../../blast/config/BlastFormData';
+import { asyncDownloadUrlObjectCreator } from '../../config/urls';
+import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
+import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
+import { SelectedTaxon } from '../../types/toolsFormData';
+import { FormParameters } from '../../types/toolsFormParameters';
+import { JobTypes } from '../../types/toolsJobTypes';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>

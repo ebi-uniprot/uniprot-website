@@ -1,25 +1,20 @@
 import { Card, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import { getEntryPath } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
-
-import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
-
-import { getEntryPath } from '../../../app/config/urls';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
+import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import { pluralise } from '../../../shared/utils/utils';
-
+import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
-import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
-
-import { Namespace } from '../../../shared/types/namespaces';
-import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
-
-import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
 const mainInfoColumns = [
   UniParcColumn.firstSeen,

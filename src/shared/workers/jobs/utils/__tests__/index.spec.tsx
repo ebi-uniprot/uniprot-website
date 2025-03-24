@@ -1,14 +1,13 @@
+import { JobTypes } from '../../../../../tools/types/toolsJobTypes';
+import { Job } from '../../types/toolsJob';
+import { Status } from '../../types/toolsStatuses';
 import {
   getServerErrorDescription,
+  isJobAlreadyFinished,
+  isJobIncomplete,
   isValidServerID,
   ServerError,
-  isJobIncomplete,
-  isJobAlreadyFinished,
 } from '..';
-
-import { Status } from '../../types/toolsStatuses';
-import { Job } from '../../types/toolsJob';
-import { JobTypes } from '../../../../../tools/types/toolsJobTypes';
 
 describe('isValidServerID', () => {
   it('should recognise a valid server ID', () => {

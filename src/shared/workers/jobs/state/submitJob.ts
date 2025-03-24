@@ -8,8 +8,8 @@ import { JobSharedWorkerMessage } from '../sharedWorker';
 import { CreatedJob, Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import {
-  getServerErrorDescription,
   getRemoteIDFromResponse,
+  getServerErrorDescription,
   ServerError,
 } from '../utils';
 import JobStore from '../utils/storage';

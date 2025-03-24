@@ -1,18 +1,15 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
-import { useRouteMatch, useHistory, generatePath } from 'react-router-dom';
+import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
-import ContextualHelpContainer from './ContextualHelpContainer';
-import SideButtons from './SideButtons';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import useMatchMedia from '../../../shared/hooks/useMatchMedia';
-
 import {
   sendGtagEventPanelClose,
   sendGtagEventPanelHelpOpen,
 } from '../../../shared/utils/gtagEvents';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
+import ContextualHelpContainer from './ContextualHelpContainer';
+import SideButtons from './SideButtons';
 
 const ContextualHelp = () => {
   const history = useHistory();

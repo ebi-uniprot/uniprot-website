@@ -1,15 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import checkJobStatus from '../checkJobStatus';
-
-import runningJob from './__mocks__/running';
-
 import { Status } from '../../types/toolsStatuses';
-
+import checkJobStatus from '../checkJobStatus';
 import { UPDATE_JOB } from '../toolsActions';
-
-// import { Location } from '../../../app/config/urls';
+import runningJob from './__mocks__/running';
 
 let mock: MockAdapter;
 

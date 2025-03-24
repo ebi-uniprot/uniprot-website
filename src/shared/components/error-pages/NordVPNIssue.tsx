@@ -1,9 +1,8 @@
-import { HTMLAttributes } from 'react';
 import { Message } from 'franklin-sites';
+import { HTMLAttributes } from 'react';
 
-import ErrorComponent from './ErrorComponent';
 import ExternalLink from '../ExternalLink';
-
+import ErrorComponent from './ErrorComponent';
 import ArtWork from './svgs/no-results-found.img.svg';
 
 const NordVPNIssue = (props: HTMLAttributes<HTMLDivElement>) => (

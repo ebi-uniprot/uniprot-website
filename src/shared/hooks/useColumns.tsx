@@ -1,61 +1,54 @@
+import { BinIcon, Button } from 'franklin-sites';
 import {
-  useMemo,
-  ReactNode,
   Dispatch,
+  MutableRefObject,
+  ReactNode,
   SetStateAction,
   useCallback,
-  useRef,
   useEffect,
-  MutableRefObject,
+  useMemo,
+  useRef,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { BinIcon, Button } from 'franklin-sites';
 
-import useDataApi from './useDataApi';
-import useNS from './useNS';
-import useColumnNames from './useColumnNames';
-import useDatabaseInfoMaps from './useDatabaseInfoMaps';
-
-import apiUrls from '../config/apiUrls/apiUrls';
-import { getIdKeyForData } from '../utils/getIdKey';
-import {
-  getParamsFromURL,
-  getSortableColumnToSortColumn,
-  getLocationObjForParams,
-} from '../../uniprotkb/utils/resultsUtils';
-import { showTooltip } from '../utils/tooltip';
-import * as logging from '../utils/logging';
-
-import { mainNamespaces, Namespace } from '../types/namespaces';
-import { Column, ColumnConfigurations } from '../config/columns';
+import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
+import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
+import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
+import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
+import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
+import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
+import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import uniProtKbConverter, {
+  UniProtkbAPIModel,
+} from '../../uniprotkb/adapters/uniProtkbConverter';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
   ReceivedFieldData,
   SortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { APIModel } from '../types/apiModel';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
-
-import uniProtKbConverter, {
-  UniProtkbAPIModel,
-} from '../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
-import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
-
-import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
-import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
-import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
-import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
-import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
-
-import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
-import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
-
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
-
-import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+  getSortableColumnToSortColumn,
+} from '../../uniprotkb/utils/resultsUtils';
+import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import apiUrls from '../config/apiUrls/apiUrls';
+import { Column, ColumnConfigurations } from '../config/columns';
+import { APIModel } from '../types/apiModel';
+import { mainNamespaces, Namespace } from '../types/namespaces';
+import { getIdKeyForData } from '../utils/getIdKey';
+import * as logging from '../utils/logging';
+import { showTooltip } from '../utils/tooltip';
 import { Basket } from './useBasket';
+import useColumnNames from './useColumnNames';
+import useDataApi from './useDataApi';
+import useDatabaseInfoMaps from './useDatabaseInfoMaps';
+import useNS from './useNS';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;

@@ -1,6 +1,5 @@
-import { getAllTerm } from './clause';
-
 import { Clause, Operator } from '../types/searchTypes';
+import { getAllTerm } from './clause';
 
 const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;
 

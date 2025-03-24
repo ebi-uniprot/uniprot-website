@@ -1,14 +1,11 @@
-import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
-
+import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/uniProtKBEntryModelData';
 import uniProtKbConverter, {
   UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
-import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
-
 import { UniProtKBColumn } from '../../types/columnTypes';
-
-import data from '../../__mocks__/uniProtKBEntryModelData';
 import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
+import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 
 jest.mock('../../../tools/utils/storage');
 

@@ -1,22 +1,18 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
-import { throttle } from 'lodash-es';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { throttle } from 'lodash-es';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls';
-import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import {
   getLocationEntryPathFor,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
-
+import ExternalLink from '../../../shared/components/ExternalLink';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
+import apiUrls from '../../config/apiUrls';
 import { HelpEntryResponse } from '../../types/apiModel';
-
 import styles from './styles/landing.module.scss';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);

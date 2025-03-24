@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import { LongNumber } from 'franklin-sites';
+import { memo } from 'react';
 
 import { pluralise } from '../utils/utils';
 

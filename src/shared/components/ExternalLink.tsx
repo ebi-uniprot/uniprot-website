@@ -1,5 +1,5 @@
-import { MouseEventHandler, MouseEvent } from 'react';
 import { ExternalLink } from 'franklin-sites';
+import { MouseEvent, MouseEventHandler } from 'react';
 
 import { sendGtagEventOutboundLinkClick } from '../utils/gtagEvents';
 

@@ -1,12 +1,9 @@
+import { CodeBlock, Loader } from 'franklin-sites';
 import { FC } from 'react';
-import { Loader, CodeBlock } from 'franklin-sites';
 
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
-
 import useDataApi from '../../shared/hooks/useDataApi';
-
 import toolsURLs from '../config/urls';
-
 import { JobTypes } from '../types/toolsJobTypes';
 
 const TextOutput: FC<

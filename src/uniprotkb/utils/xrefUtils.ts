@@ -1,19 +1,20 @@
 import { groupBy } from 'lodash-es';
+
+import { Xref } from '../../shared/types/apiModel';
+import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 import {
-  implicitDatabaseDRPresence,
-  implicitDatabaseDRAbsence,
   implicitDatabaseAlwaysInclude,
+  implicitDatabaseDRAbsence,
+  implicitDatabaseDRPresence,
   implicitDatabaseGenePatternOrganism,
-  implicitDatabaseSimilarityComment,
   implicitDatabasesEC,
+  implicitDatabaseSimilarityComment,
   PDBMirrors,
 } from '../config/database';
-import EntrySection from '../types/entrySection';
-import { DatabaseCategory } from '../types/databaseRefs';
 import { FreeTextComment } from '../types/commentTypes';
-import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
+import { DatabaseCategory } from '../types/databaseRefs';
+import EntrySection from '../types/entrySection';
 import { ValueWithEvidence } from '../types/modelTypes';
-import { Xref } from '../../shared/types/apiModel';
 import { DatabaseInfoMaps, ImplicitDatabaseXRefs } from './database';
 
 export type XrefsGoupedByDatabase = {

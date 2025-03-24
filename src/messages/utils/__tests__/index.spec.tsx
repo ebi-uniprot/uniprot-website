@@ -1,8 +1,7 @@
-import getJobMessage from '..';
 import customRender from '../../../shared/__test-helpers__/customRender';
-
 import createdJob from '../../../tools/__mocks__/internal-jobs/created';
 import runningJob from '../../../tools/__mocks__/internal-jobs/running';
+import getJobMessage from '..';
 
 describe('getJobMessage', () => {
   it('should create an error message object', () => {

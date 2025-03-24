@@ -1,5 +1,4 @@
 import getCustomRenderHook from '../../__test-helpers__/customRenderHook';
-
 import useJobFromUrl from '../useJobFromUrl';
 
 describe('useInitialFormParameters', () => {

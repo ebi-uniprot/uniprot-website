@@ -1,12 +1,9 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import XRefsSection from '../XRefsSection';
-
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
-
 import uniParcData from '../../../__mocks__/uniParcLightEntryModelData';
 import uniparcXrefsData from '../../../__mocks__/uniparcXrefsModelData';
+import XRefsSection from '../XRefsSection';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 jest.mock('../../../../shared/hooks/usePagination');

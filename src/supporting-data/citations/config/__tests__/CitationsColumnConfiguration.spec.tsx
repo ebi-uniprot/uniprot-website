@@ -1,14 +1,12 @@
-import CitationsColumnConfiguration, {
-  CitationsColumn,
-} from '../CitationsColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/citationsModelData';
 import citationsConverter, {
   CitationsAPIModel,
   CitationsUIModel,
 } from '../../adapters/citationsConverter';
-
-import data from '../../__mocks__/citationsModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import CitationsColumnConfiguration, {
+  CitationsColumn,
+} from '../CitationsColumnConfiguration';
 
 jest.mock('../../../../tools/utils/storage');
 

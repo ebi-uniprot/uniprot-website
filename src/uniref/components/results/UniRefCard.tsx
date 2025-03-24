@@ -1,20 +1,17 @@
 import { Card } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
+import { getEntryPath } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
-
-import { getEntryPath } from '../../../app/config/urls';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
+import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-
+import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 import UniRefColumnConfiguration, {
   UniRefColumn,
 } from '../../config/UniRefColumnConfiguration';
-
-import { Namespace } from '../../../shared/types/namespaces';
-import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
 const getIdKey = getIdKeyForNamespace(Namespace.uniref);
 

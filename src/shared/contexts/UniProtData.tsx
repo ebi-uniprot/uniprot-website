@@ -1,7 +1,7 @@
-import { createContext, useEffect, useMemo, ReactNode } from 'react';
+import { createContext, ReactNode, useEffect, useMemo } from 'react';
 
-import useDataApi from '../hooks/useDataApi';
-
+import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
+import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
 import {
   DatabaseInfoMaps,
   getDatabaseInfoMaps,
@@ -9,11 +9,9 @@ import {
   isDatabaseColumn,
 } from '../../uniprotkb/utils/database';
 import apiUrls from '../config/apiUrls/apiUrls';
-import * as logging from '../utils/logging';
-
+import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
-import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
-import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
+import * as logging from '../utils/logging';
 
 export type UniProtDataVersion = {
   releaseNumber: string;

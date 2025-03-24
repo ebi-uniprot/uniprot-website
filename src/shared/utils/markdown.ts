@@ -1,6 +1,7 @@
 import { Marked } from 'marked';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
 import { IOptions } from 'sanitize-html';
+
 import cleanText from './cleanText';
 
 const options = { async: false } as const;

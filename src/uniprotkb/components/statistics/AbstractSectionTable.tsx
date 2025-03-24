@@ -1,16 +1,13 @@
 /* eslint-disable react/no-array-index-key */
-import { ReactNode } from 'react';
 import cn from 'classnames';
+import { ReactNode } from 'react';
 
-import CountLinkOrNothing from './CountLinkOrNothing';
-import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringifyQuery } from '../../../shared/utils/url';
-
-import { MergedStatistics } from './utils';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
+import CountLinkOrNothing from './CountLinkOrNothing';
 import styles from './styles/statistics-page.module.scss';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+import { MergedStatistics } from './utils';
 
 type AbstractSectionTableProps = {
   title: ReactNode;

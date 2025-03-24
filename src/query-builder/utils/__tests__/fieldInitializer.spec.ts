@@ -1,6 +1,5 @@
-import initializer from '../fieldInitializer';
-
 import { getSearchTerm } from '../../components/__tests__/__mocks__/configureSearchTerms';
+import initializer from '../fieldInitializer';
 
 describe('field initializer', () => {
   it('should return autocomplete name value when provided', () => {

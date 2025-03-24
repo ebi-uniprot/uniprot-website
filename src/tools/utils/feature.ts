@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import urljoin from 'url-join';
+
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import {
   Ligand,

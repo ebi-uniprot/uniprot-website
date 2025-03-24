@@ -1,9 +1,7 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 
 import { Namespace } from '../../types/namespaces';
-
 import useBasket from '../useBasket';
-
 import { localStorageCache } from '../useLocalStorage';
 
 describe('useBasket hook', () => {

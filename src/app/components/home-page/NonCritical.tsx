@@ -1,11 +1,10 @@
 import { memo } from 'react';
 
-// Sections
-import CoreData from './CoreData';
-import SupportingData from './SupportingData';
-import LatestNews from './LatestNews';
 import AnalysisTools from './AnalysisTools';
+import CoreData from './CoreData';
+import LatestNews from './LatestNews';
 import NeedHelp from './NeedHelp';
+import SupportingData from './SupportingData';
 import UniProtData from './UniProtData';
 
 const HomePageNonCritical = () => (

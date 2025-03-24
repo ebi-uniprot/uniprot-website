@@ -1,52 +1,47 @@
-import { ReactNode, useCallback, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import {
   Button,
   ExternalLink,
+  formatLargeNumber,
   Loader,
   LongNumber,
   Message,
   SpinnerIcon,
   WarningTriangleIcon,
-  formatLargeNumber,
 } from 'franklin-sites';
 import { sumBy } from 'lodash-es';
-
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
-
-import { addMessage } from '../../../messages/state/messagesActions';
-import { getParamsFromURL } from '../../utils/resultsUtils';
-import { getSearchParams, stringifyQuery } from '../../../shared/utils/url';
-import {
-  getGroupBySuggesterUrl,
-  getPercentageLabel,
-  getGroupBySuggesterTitle,
-  groupByToLabel,
-  groupByToTerm,
-} from './UniProtKBGroupByUtils';
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import { ReactNode, useCallback, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import {
-  LocationToPath,
-  Location,
   getEntryPath,
+  Location,
+  LocationToPath,
 } from '../../../app/config/urls';
+import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import { Namespace } from '../../../shared/types/namespaces';
+import { getSearchParams, stringifyQuery } from '../../../shared/utils/url';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import { GroupBy } from '../../config/apiUrls/groupBy';
-
+import { getParamsFromURL } from '../../utils/resultsUtils';
 import styles from './styles/group-by.module.scss';
+import {
+  getGroupBySuggesterTitle,
+  getGroupBySuggesterUrl,
+  getPercentageLabel,
+  groupByToLabel,
+  groupByToTerm,
+} from './UniProtKBGroupByUtils';
 
 const HISTOGRAM_WIDTH = 300;
 

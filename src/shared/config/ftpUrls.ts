@@ -1,8 +1,8 @@
 import { capitalize } from 'lodash-es';
 import joinUrl from 'url-join';
 
-import { FileFormat } from '../types/resultsDownload';
 import { Namespace } from '../types/namespaces';
+import { FileFormat } from '../types/resultsDownload';
 
 const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 

@@ -1,11 +1,9 @@
-import { useCallback, useState } from 'react';
-import { Button, Loader, Message } from 'franklin-sites';
 import * as complexviewer from 'complexviewer';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
+import { Button, Loader, Message } from 'franklin-sites';
+import { useCallback, useState } from 'react';
 
 import externalUrls from '../../../shared/config/externalUrls';
-
+import useDataApi from '../../../shared/hooks/useDataApi';
 import styles from './styles/complex-viewer.module.scss';
 
 type ComplexPortalData = {

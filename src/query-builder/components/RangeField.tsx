@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
-
 import { FieldProps } from './Field';
 
 const RangeField = ({ field, handleChange, initialValue }: FieldProps) => {

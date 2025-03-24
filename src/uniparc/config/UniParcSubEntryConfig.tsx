@@ -1,12 +1,10 @@
-import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
+import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
-
-import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
-
+import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
 import EntrySection from '../types/subEntry';
-import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
+import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
 const uniParcSubEntryConfig: Record<
   EntrySection,

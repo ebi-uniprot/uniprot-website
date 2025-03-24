@@ -16,10 +16,8 @@
   }
 }
 
-.viewer-ids-container {
-  margin: 0.5rem 0 1rem 0;
-
-  .ids-list {
-    max-height: 15rem;
-  }
+select.id-select {
+  width: fit-content;
+  display: block;
+  margin-bottom: 0.5rem;
 }
