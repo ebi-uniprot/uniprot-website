@@ -1,4 +1,4 @@
-import { Job } from '../types/toolsJob';
+import { Job } from '../types/job';
 import JobStore from '../utils/storage';
 
 const getJobs = async (jobStore: JobStore) => {

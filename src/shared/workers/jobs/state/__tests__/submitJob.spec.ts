@@ -1,17 +1,17 @@
 import { Dispatch, MutableRefObject } from 'react';
 
 import { JobSharedWorkerMessage } from '../../jobSharedWorker';
-import { Status } from '../../types/toolsStatuses';
+import { Status } from '../../types/jobStatuses';
 import JobStore from '../../utils/storage';
-import { ToolsAction } from '../actionHandler';
+import { JobAction } from '../actionHandler';
+import { updateJob } from '../jobActions';
+import { JobsState } from '../jobsInitialState';
 import submitJob from '../submitJob';
-import { updateJob } from '../toolsActions';
-import { ToolsState } from '../toolsInitialState';
 import createdJob from './__mocks__/created';
 
-const dispatch: jest.Mock<Dispatch<ToolsAction>> = jest.fn();
+const dispatch: jest.Mock<Dispatch<JobAction>> = jest.fn();
 const messagesDispatch: jest.Mock = jest.fn();
-const stateRef: MutableRefObject<ToolsState> = {
+const stateRef: MutableRefObject<JobsState> = {
   current: { [createdJob.internalID]: createdJob },
 };
 const jobStore = {

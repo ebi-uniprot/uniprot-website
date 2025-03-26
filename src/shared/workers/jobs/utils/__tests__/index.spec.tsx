@@ -1,6 +1,6 @@
-import { JobTypes } from '../../../../../tools/types/toolsJobTypes';
-import { Job } from '../../types/toolsJob';
-import { Status } from '../../types/toolsStatuses';
+import { JobTypes } from '../../../../../jobs/types/jobTypes';
+import { Job } from '../../types/job';
+import { Status } from '../../types/jobStatuses';
 import {
   getServerErrorDescription,
   isJobAlreadyFinished,

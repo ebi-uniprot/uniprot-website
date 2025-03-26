@@ -1,6 +1,6 @@
-import { JobTypes } from '../../../../../../tools/types/toolsJobTypes';
-import { RunningJob } from '../../../types/toolsJob';
-import { Status } from '../../../types/toolsStatuses';
+import { JobTypes } from '../../../../../../jobs/types/jobTypes';
+import { RunningJob } from '../../../types/job';
+import { Status } from '../../../types/jobStatuses';
 
 const now = Date.now();
 const ONE_MINUTE_AGO = now - 1000 * 60;

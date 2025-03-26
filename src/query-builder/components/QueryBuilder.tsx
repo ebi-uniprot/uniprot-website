@@ -20,6 +20,8 @@ import {
   SearchResultsLocations,
   toolsResultsLocationToLabel,
 } from '../../app/config/urls';
+import { rawDBToNamespace } from '../../jobs/id-mapping/utils';
+import { JobTypes } from '../../jobs/types/jobTypes';
 import { addMessage } from '../../messages/state/messagesActions';
 import {
   MessageFormat,
@@ -41,8 +43,6 @@ import {
 } from '../../shared/types/namespaces';
 import { stringifyQuery } from '../../shared/utils/url';
 import { pluralise } from '../../shared/utils/utils';
-import { rawDBToNamespace } from '../../tools/id-mapping/utils';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
 import { Clause, SearchTermType } from '../types/searchTypes';
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';

@@ -2,13 +2,13 @@ import { ActionType } from 'typesafe-actions';
 import { v1 } from 'uuid';
 
 import { JobSharedWorkerMessage } from '../jobSharedWorker';
-import { CreatedJob, Job } from '../types/toolsJob';
-import { Status } from '../types/toolsStatuses';
+import { CreatedJob, Job } from '../types/job';
+import { Status } from '../types/jobStatuses';
 import JobStore from '../utils/storage';
 import getJobs from './getJobs';
-import * as toolsActions from './toolsActions';
+import * as jobActions from './jobActions';
 
-export type ToolsAction = ActionType<typeof toolsActions>;
+export type JobAction = ActionType<typeof jobActions>;
 
 export const getActionHandler =
   (jobStore: JobStore, broadcast: (message: JobSharedWorkerMessage) => void) =>
@@ -25,10 +25,10 @@ export const getActionHandler =
     broadcast(m);
   };
 
-async function actionHandler(action: ToolsAction, jobStore: JobStore) {
+async function actionHandler(action: JobAction, jobStore: JobStore) {
   switch (action.type) {
     // add job
-    case toolsActions.CREATE_JOB: {
+    case jobActions.CREATE_JOB: {
       const now = Date.now();
       const newJob: CreatedJob = {
         status: Status.CREATED,
@@ -47,13 +47,13 @@ async function actionHandler(action: ToolsAction, jobStore: JobStore) {
     }
 
     // remove job
-    case toolsActions.DELETE_JOB: {
+    case jobActions.DELETE_JOB: {
       await jobStore.del(action.payload);
       break;
     }
 
     // update job from internal ID and partial job info
-    case toolsActions.UPDATE_JOB: {
+    case jobActions.UPDATE_JOB: {
       const originalJob = await jobStore.get(action.payload.id);
       // in case we try to update a job that doesn't exist anymore, just bail
       if (!originalJob) {

@@ -1,19 +1,19 @@
-import { formParametersToServerParameters } from '../../../../tools/adapters/parameters';
+import { formParametersToServerParameters } from '../../../../jobs/adapters/parameters';
 import toolsURLs, {
   asyncDownloadUrlObjectCreator,
-} from '../../../../tools/config/urls';
-import { FormParameters } from '../../../../tools/types/toolsFormParameters';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+} from '../../../../jobs/config/urls';
+import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
 import { JobSharedWorkerMessage } from '../jobSharedWorker';
-import { CreatedJob, Job } from '../types/toolsJob';
-import { Status } from '../types/toolsStatuses';
+import { CreatedJob, Job } from '../types/job';
+import { Status } from '../types/jobStatuses';
 import {
   getRemoteIDFromResponse,
   getServerErrorDescription,
   ServerError,
 } from '../utils';
 import JobStore from '../utils/storage';
-import { updateJob } from './toolsActions';
+import { updateJob } from './jobActions';
 
 const getFormJobUrlAndBody = (job: CreatedJob) => {
   // specific logic to transform FormParameters to ServerParameters

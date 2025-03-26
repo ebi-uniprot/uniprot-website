@@ -1,17 +1,17 @@
 import { AxiosResponse } from 'axios';
 
-import { BlastResults } from '../../../../tools/blast/types/blastResults';
+import { BlastResults } from '../../../../jobs/blast/types/blastResults';
 import toolsURLs, {
   asyncDownloadUrlObjectCreator,
-} from '../../../../tools/config/urls';
-import { MappingError } from '../../../../tools/id-mapping/types/idMappingSearchResults';
-import { FormParameters } from '../../../../tools/types/toolsFormParameters';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+} from '../../../../jobs/config/urls';
+import { MappingError } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
+import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
 import fetchData from '../../../utils/fetchData';
 import * as logging from '../../../utils/logging';
 import { JobSharedWorkerMessage } from '../jobSharedWorker';
-import { FinishedJob, Job, NewJob, RunningJob } from '../types/toolsJob';
-import { Status } from '../types/toolsStatuses';
+import { FinishedJob, Job, NewJob, RunningJob } from '../types/job';
+import { Status } from '../types/jobStatuses';
 import {
   checkForResponseError,
   getStatusFromResponse,
@@ -19,7 +19,7 @@ import {
   isJobIncomplete,
 } from '../utils';
 import JobStore from '../utils/storage';
-import { updateJob } from './toolsActions';
+import { updateJob } from './jobActions';
 
 const checkJobStatus = async (
   job: NewJob | RunningJob | FinishedJob<JobTypes>,

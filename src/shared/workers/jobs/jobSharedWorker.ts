@@ -1,9 +1,9 @@
 import { GetJobMessageArgs } from '../../../messages/utils';
 import * as logging from '../../utils/logging';
 import getJobPoller from './jobPoller';
-import { getActionHandler, ToolsAction } from './state/actionHandler';
+import { getActionHandler, JobAction } from './state/actionHandler';
 import getJobs from './state/getJobs';
-import { ToolsState } from './state/toolsInitialState';
+import { JobsState } from './state/jobsInitialState';
 import JobStore from './utils/storage';
 import { Stores } from './utils/stores';
 
@@ -12,8 +12,8 @@ const jobStore = new JobStore(Stores.METADATA);
 const sharedWorker = self as unknown as SharedWorkerGlobalScope;
 
 export type JobSharedWorkerMessage = {
-  state?: ToolsState;
-  jobAction?: ToolsAction;
+  state?: JobsState;
+  jobAction?: JobAction;
   messageAction?: GetJobMessageArgs;
 };
 

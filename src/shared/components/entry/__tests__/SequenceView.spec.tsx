@@ -1,8 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
-import { FormParameters } from '../../../../tools/types/toolsFormParameters';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
 import customRender from '../../../__test-helpers__/customRender';
 import useDataApi from '../../../hooks/useDataApi';
 import SequenceView from '../SequenceView';

@@ -21,8 +21,8 @@ import {
   DatabaseInfoMapsContext,
   UniProtDataVersionContext,
 } from '../contexts/UniProtData';
-import { ToolsAction } from '../workers/jobs/state/actionHandler';
-import { ToolsState } from '../workers/jobs/state/toolsInitialState';
+import { JobAction } from '../workers/jobs/state/actionHandler';
+import { JobsState } from '../workers/jobs/state/jobsInitialState';
 
 type ExtraRenderOptions = {
   // For react-router
@@ -33,8 +33,8 @@ type ExtraRenderOptions = {
   // For app context
   messagesState?: MessagesState;
   messagesDispatch?: jest.Mock<Dispatch<MessagesAction>>;
-  toolsState?: ToolsState;
-  toolsDispatch?: jest.Mock<Dispatch<ToolsAction>>;
+  JobsState?: JobsState;
+  toolsDispatch?: jest.Mock<Dispatch<JobAction>>;
 };
 
 type WrapperProps = { children: ReactNode } & RenderOptions &
@@ -44,7 +44,7 @@ type WrapperProps = { children: ReactNode } & RenderOptions &
     | 'initialLocalStorage'
     | 'messagesState'
     | 'messagesDispatch'
-    | 'toolsState'
+    | 'JobsState'
     | 'toolsDispatch'
   >;
 
@@ -101,7 +101,7 @@ const customRender = (
     initialLocalStorage = {},
     messagesState = {},
     messagesDispatch = jest.fn(),
-    toolsState = {},
+    JobsState = {},
     toolsDispatch = jest.fn(),
     ...options
   }: RenderOptions &
@@ -117,7 +117,7 @@ const customRender = (
         initialLocalStorage={initialLocalStorage}
         messagesState={messagesState}
         messagesDispatch={messagesDispatch}
-        toolsState={toolsState}
+        JobsState={JobsState}
         toolsDispatch={toolsDispatch}
         {...props}
       />

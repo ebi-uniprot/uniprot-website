@@ -10,7 +10,7 @@ import {
   searchLocations,
 } from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
-import ChecksumSuggester from '../../../tools/components/ChecksumSuggester';
+import ChecksumSuggester from '../../../jobs/components/ChecksumSuggester';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../config/limits';
 import useNS from '../../hooks/useNS';

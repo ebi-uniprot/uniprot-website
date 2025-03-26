@@ -34,7 +34,7 @@ import {
 } from '../../utils/gtagEvents';
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
-import { Status } from '../../workers/jobs/types/toolsStatuses';
+import { Status } from '../../workers/jobs/types/jobStatuses';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/secondary-items.module.scss';
 
@@ -48,7 +48,7 @@ const BasketMiniView = lazy(
 const Dashboard = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "dashboard" */ '../../../jobs/dashboard/components/Dashboard'
     )
 );
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { jobTypeToPath, Location } from '../../app/config/urls';
 import { pluralise } from '../../shared/utils/utils';
-import { Job } from '../../shared/workers/jobs/types/toolsJob';
+import { Job } from '../../shared/workers/jobs/types/job';
 import {
   MessageFormat,
   MessageLevel,

@@ -1,4 +1,4 @@
-import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { JobTypes } from '../../jobs/types/jobTypes';
 
 export enum Namespace {
   // Main data

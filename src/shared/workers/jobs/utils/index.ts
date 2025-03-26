@@ -1,12 +1,12 @@
 import { AxiosResponse } from 'axios';
 import { MutableRefObject } from 'react';
 
-import { ServerStatus } from '../../../../tools/async-download/types/asyncDownloadServerStatus';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import { ServerStatus } from '../../../../jobs/async-download/types/asyncDownloadServerStatus';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
 import * as logging from '../../../utils/logging';
-import { ToolsState } from '../state/toolsInitialState';
-import { Job } from '../types/toolsJob';
-import { Status } from '../types/toolsStatuses';
+import { JobsState } from '../state/jobsInitialState';
+import { Job } from '../types/job';
+import { Status } from '../types/jobStatuses';
 
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
@@ -158,7 +158,7 @@ export const checkForResponseError = (response: Response, status: Status) => {
 
 export const getCurrentStateOfJob = (
   job: Job,
-  stateRef: MutableRefObject<ToolsState>
+  stateRef: MutableRefObject<JobsState>
 ) => {
   // stateRef not hydrated yet
   if (!stateRef.current) {

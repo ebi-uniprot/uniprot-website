@@ -2,11 +2,11 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { GetJobMessageArgs } from '../../../../../messages/utils';
-import { Status } from '../../types/toolsStatuses';
+import { Status } from '../../types/jobStatuses';
 import JobStore from '../../utils/storage';
-import { ToolsAction } from '../actionHandler';
+import { JobAction } from '../actionHandler';
 import checkJobStatus from '../checkJobStatus';
-import { updateJob } from '../toolsActions';
+import { updateJob } from '../jobActions';
 import runningJob from './__mocks__/running';
 
 let mock: MockAdapter;
@@ -24,7 +24,7 @@ const jobStore = {
 
 // Our action handler calls the dispatch functions so we can assert on the calls
 const actionHandler = jest.fn(
-  (action: { jobAction?: ToolsAction; messageAction?: GetJobMessageArgs }) => {
+  (action: { jobAction?: JobAction; messageAction?: GetJobMessageArgs }) => {
     if (action.jobAction) {
       dispatch(action.jobAction);
     }

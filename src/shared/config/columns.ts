@@ -8,6 +8,12 @@ import UniRuleColumnConfiguration, {
   primaryKeyColumns as primaryKeyColumnsUniRule,
   UniRuleColumn,
 } from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
+import {
+  defaultColumns as defaultIdMappingColumns,
+  IDMappingColumn,
+  IdMappingColumnConfiguration,
+  primaryKeyColumns as primaryKeyColumnsIdMapping,
+} from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
 import ProteomesColumnConfiguration, {
   defaultColumns as defaultProteomesColumns,
   primaryKeyColumns as primaryKeyColumnsProteomes,
@@ -43,12 +49,6 @@ import TaxonomyColumnConfiguration, {
   primaryKeyColumns as primaryKeyColumnsTaxonomy,
   TaxonomyColumn,
 } from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
-import {
-  defaultColumns as defaultIdMappingColumns,
-  IDMappingColumn,
-  IdMappingColumnConfiguration,
-  primaryKeyColumns as primaryKeyColumnsIdMapping,
-} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import UniParcColumnConfiguration, {
   defaultColumns as defaultUniParcColumns,
   primaryKeyColumns as primaryKeyColumnsUniParc,
