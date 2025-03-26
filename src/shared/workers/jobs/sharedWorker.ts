@@ -19,40 +19,55 @@ export type JobSharedWorkerMessage = {
 
 export type JobSharedWorkerMessageEvent = MessageEvent<JobSharedWorkerMessage>;
 
+// Keep track of all connected MessagePorts so we can broadcast updates to all of them.
 const connectedPorts: MessagePort[] = [];
 
+// Function to broadcast a message to all connected ports.
 const broadcast = (message: JobSharedWorkerMessage) => {
   for (const port of connectedPorts) {
-    port.postMessage(message);
-  }
-};
-
-sharedWorker.onconnect = async (event) => {
-  const port = event.ports[0];
-  connectedPorts.push(port);
-  // Add try catch here
-  if (port.start) {
-    port.start();
-  }
-
-  // Rehydrate jobs
-  broadcast({ state: await getJobs(jobStore) });
-
-  const actionHandler = getActionHandler(jobStore, broadcast);
-  const jobPoller = getJobPoller(jobStore, actionHandler);
-
-  port.onmessage = async (e: JobSharedWorkerMessageEvent) => {
-    const { jobAction } = e.data;
-    if (jobAction) {
-      await actionHandler({ jobAction });
-      await jobPoller();
+    try {
+      port.postMessage(message);
+    } catch (error) {
+      logging.error(`Jobs SharedWorker > broadcasting message error: ${error}`);
     }
-  };
-
-  // Initial job polling
-  await jobPoller();
+  }
 };
 
-sharedWorker.onerror = async (error) => {
-  logging.error(error);
+// Catch unhandled errors in the worker's global scope.
+sharedWorker.addEventListener('error', (error: ErrorEvent) => {
+  logging.error(`Jobs SharedWorker > unhandled error: ${error}`);
+});
+
+// Handle new connections from clients.
+sharedWorker.onconnect = async (event) => {
+  try {
+    const port = event.ports[0];
+    connectedPorts.push(port);
+
+    // Rehydrate jobs from persistent storage and broadcast state to all clients.
+    const jobs = await getJobs(jobStore);
+    broadcast({ state: jobs });
+
+    const actionHandler = getActionHandler(jobStore, broadcast);
+    const jobPoller = getJobPoller(jobStore, actionHandler);
+
+    // Listen for incoming messages.
+    port.onmessage = async (e: JobSharedWorkerMessageEvent) => {
+      try {
+        const { jobAction } = e.data;
+        if (jobAction) {
+          await actionHandler({ jobAction });
+          await jobPoller();
+        }
+      } catch (error) {
+        logging.error(
+          `Jobs SharedWorker > Error handling port message: ${error}`
+        );
+      }
+    };
+    // Initial polling cycle.
+    await jobPoller();
+  } catch (error) {
+    logging.error(`Jobs SharedWorker > onconnect error: ${error}`);
+  }
 };
