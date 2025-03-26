@@ -59,7 +59,7 @@ export const getJobScheduler = (
   });
 };
 
-export const getExpiredJobScheduler = (
+export const getFinishedJobScheduler = (
   jobStore: JobStore,
   actionHandler: (action: JobSharedWorkerMessage) => void
 ) =>
