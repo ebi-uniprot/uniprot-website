@@ -23,7 +23,11 @@ jest.mock('interaction-viewer', () => null);
 
 jest.mock('/shared/custom-elements/NightingaleMSA', () => jest.fn());
 
-jest.mock('/shared/workers/jobs/getSharedWorker', () => jest.fn());
+jest.mock('/shared/workers/jobs/getSharedWorker', () => ({
+  __esModule: true,
+  default: jest.fn(),
+  dispatchJobs: jest.fn(),
+}));
 
 jest.mock('@nightingale-elements/nightingale-navigation', () => jest.fn());
 
