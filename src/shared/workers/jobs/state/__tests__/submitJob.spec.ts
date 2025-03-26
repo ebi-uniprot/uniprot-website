@@ -1,6 +1,6 @@
 import { Dispatch, MutableRefObject } from 'react';
 
-import { JobSharedWorkerMessage } from '../../sharedWorker';
+import { JobSharedWorkerMessage } from '../../jobSharedWorker';
 import { Status } from '../../types/toolsStatuses';
 import JobStore from '../../utils/storage';
 import { ToolsAction } from '../actionHandler';

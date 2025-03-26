@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react';
 
-import { jobsSharedWorker } from '../workers/jobs/getSharedWorker';
+import { jobsSharedWorker } from '../workers/jobs/getJobSharedWorker';
 // TODO: for consistency rename everything to Jobs rather than Tools as Async Download is a job but not necessarily a tool
 import { ToolsState } from '../workers/jobs/state/toolsInitialState';
 

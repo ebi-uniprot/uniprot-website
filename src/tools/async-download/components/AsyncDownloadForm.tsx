@@ -15,7 +15,7 @@ import { DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 import { Status } from '../../../shared/workers/jobs/types/toolsStatuses';
 import { getJobName } from '../../id-mapping/state/idMappingFormReducer';

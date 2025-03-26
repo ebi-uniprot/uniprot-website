@@ -4,7 +4,7 @@ import toolsURLs, {
 } from '../../../../tools/config/urls';
 import { FormParameters } from '../../../../tools/types/toolsFormParameters';
 import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-import { JobSharedWorkerMessage } from '../sharedWorker';
+import { JobSharedWorkerMessage } from '../jobSharedWorker';
 import { CreatedJob, Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import {

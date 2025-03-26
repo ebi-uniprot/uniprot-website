@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useJobsState from '../../shared/hooks/useJobsState';
-import { dispatchJobs } from '../../shared/workers/jobs/getSharedWorker';
+import { dispatchJobs } from '../../shared/workers/jobs/getJobSharedWorker';
 import { updateJob } from '../../shared/workers/jobs/state/toolsActions';
 import { FinishedJob } from '../../shared/workers/jobs/types/toolsJob';
 import { Status } from '../../shared/workers/jobs/types/toolsStatuses';

@@ -1,12 +1,12 @@
 import { ActionType } from 'typesafe-actions';
 import { v1 } from 'uuid';
 
-import { JobSharedWorkerMessage } from '../sharedWorker';
-import * as toolsActions from '../state/toolsActions';
+import { JobSharedWorkerMessage } from '../jobSharedWorker';
 import { CreatedJob, Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import JobStore from '../utils/storage';
 import getJobs from './getJobs';
+import * as toolsActions from './toolsActions';
 
 export type ToolsAction = ActionType<typeof toolsActions>;
 

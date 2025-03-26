@@ -8,8 +8,8 @@ import messagesReducers, {
   MessagesAction,
 } from '../../messages/state/messagesReducers';
 import getJobMessage from '../../messages/utils/';
-import { jobsSharedWorker } from '../workers/jobs/getSharedWorker';
-import { JobSharedWorkerMessageEvent } from '../workers/jobs/sharedWorker';
+import { jobsSharedWorker } from '../workers/jobs/getJobSharedWorker';
+import { JobSharedWorkerMessageEvent } from '../workers/jobs/jobSharedWorker';
 
 export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
   () => {

@@ -35,7 +35,7 @@ import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import SequenceSearchLoader from '../../components/SequenceSearchLoader';

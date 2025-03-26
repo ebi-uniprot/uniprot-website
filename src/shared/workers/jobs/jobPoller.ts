@@ -1,6 +1,6 @@
 import pMap from 'p-map';
 
-import { JobSharedWorkerMessage } from './sharedWorker';
+import { JobSharedWorkerMessage } from './jobSharedWorker';
 import checkJobStatus from './state/checkJobStatus';
 import getJobs from './state/getJobs';
 import submitJob from './state/submitJob';

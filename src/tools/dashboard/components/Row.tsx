@@ -41,7 +41,7 @@ import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import * as logging from '../../../shared/utils/logging';
 import parseDate from '../../../shared/utils/parseDate';
 import { pluralise } from '../../../shared/utils/utils';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import {
   deleteJob,
   updateJob,

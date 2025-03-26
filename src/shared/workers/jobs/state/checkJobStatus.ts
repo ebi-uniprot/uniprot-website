@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-import * as logging from '../../../../shared/utils/logging';
 import { BlastResults } from '../../../../tools/blast/types/blastResults';
 import toolsURLs, {
   asyncDownloadUrlObjectCreator,
@@ -9,8 +8,8 @@ import { MappingError } from '../../../../tools/id-mapping/types/idMappingSearch
 import { FormParameters } from '../../../../tools/types/toolsFormParameters';
 import { JobTypes } from '../../../../tools/types/toolsJobTypes';
 import fetchData from '../../../utils/fetchData';
-import { JobSharedWorkerMessage } from '../sharedWorker';
-import { updateJob } from '../state/toolsActions';
+import * as logging from '../../../utils/logging';
+import { JobSharedWorkerMessage } from '../jobSharedWorker';
 import { FinishedJob, Job, NewJob, RunningJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import {
@@ -20,6 +19,7 @@ import {
   isJobIncomplete,
 } from '../utils';
 import JobStore from '../utils/storage';
+import { updateJob } from './toolsActions';
 
 const checkJobStatus = async (
   job: NewJob | RunningJob | FinishedJob<JobTypes>,

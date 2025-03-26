@@ -34,7 +34,7 @@ import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { pluralise } from '../../../shared/utils/utils';
-import { dispatchJobs } from '../../../shared/workers/jobs/getSharedWorker';
+import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/toolsActions';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import { SelectedTaxon } from '../../types/toolsFormData';
