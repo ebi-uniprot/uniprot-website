@@ -2,15 +2,14 @@ import './styles/alignment-view.scss';
 
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
 import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
-import NightingaleTrack, {
-  Feature,
-} from '@nightingale-elements/nightingale-track';
+import { Feature } from '@nightingale-elements/nightingale-track';
+import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import NightingaleManagerComponent from '../../shared/custom-elements/NightingaleManager';
 import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
 import NightingaleNavigationComponent from '../../shared/custom-elements/NightingaleNavigation';
-import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
+import NightingaleTrackCanvasComponent from '../../shared/custom-elements/NightingaleTrackCanvas';
 import AlignLabel from '../align/components/results/AlignLabel';
 import { AlignmentComponentProps } from '../types/alignment';
 import {
@@ -137,7 +136,7 @@ const AlignOverview = ({
   }, [updateTooltip]);
 
   const setFeatureTrackData = useCallback(
-    (node: NightingaleTrack | null): void => {
+    (node: NightingaleTrackCanvas | null): void => {
       if (node && activeAnnotation && activeAlignment?.sequence) {
         node.data = activeAnnotation
           // The Overview feature track always starts from the start of the protein
@@ -190,7 +189,7 @@ const AlignOverview = ({
       </span>
       <div className="track">
         {annotation && (
-          <NightingalTrackComponent
+          <NightingaleTrackCanvasComponent
             ref={setFeatureTrackData}
             length={totalLength}
             highlight={highlightPosition}
