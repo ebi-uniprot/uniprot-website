@@ -1,6 +1,6 @@
 import { GetJobMessageArgs } from '../../../messages/utils';
 import * as logging from '../../utils/logging';
-import getJobPoller from './jobPoller';
+import { getExpiredJobScheduler, getJobScheduler } from './jobPoller';
 import { getActionHandler, JobAction } from './state/actionHandler';
 import getJobs from './state/getJobs';
 import { JobsState } from './state/jobsInitialState';
@@ -49,7 +49,8 @@ sharedWorker.onconnect = async (event) => {
     broadcast({ state: jobs });
 
     const actionHandler = getActionHandler(jobStore, broadcast);
-    const jobPoller = getJobPoller(jobStore, actionHandler);
+    const jobScheduler = getJobScheduler(jobStore, actionHandler);
+    const expiredJobScheduler = getExpiredJobScheduler(jobStore, actionHandler);
 
     // Listen for incoming messages.
     port.onmessage = async (e: JobSharedWorkerMessageEvent) => {
@@ -57,7 +58,7 @@ sharedWorker.onconnect = async (event) => {
         const { jobAction } = e.data;
         if (jobAction) {
           await actionHandler({ jobAction });
-          await jobPoller();
+          jobScheduler.schedule(0);
         }
       } catch (error) {
         logging.error(
@@ -66,7 +67,9 @@ sharedWorker.onconnect = async (event) => {
       }
     };
     // Initial polling cycle.
-    await jobPoller();
+    jobScheduler.schedule(0);
+    // don't check that rightaway, to avoid using up important connections
+    expiredJobScheduler.schedule(5_000);
   } catch (error) {
     logging.error(`Jobs SharedWorker > onconnect error: ${error}`);
   }
