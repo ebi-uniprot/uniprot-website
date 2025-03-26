@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { getURLToJobWithData } from '../../app/config/urls';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { JobTypes } from '../../jobs/types/jobTypes';
 
 export type Key = string | number | symbol;
 

@@ -1,9 +1,9 @@
 import { Location as HistoryLocation } from 'history';
 
 import { Location } from '../../../../app/config/urls';
-import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+import { IDMappingColumn } from '../../../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import { MappingDetails } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
 import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
 import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import { JobFromUrl } from '../../../hooks/useJobFromUrl';

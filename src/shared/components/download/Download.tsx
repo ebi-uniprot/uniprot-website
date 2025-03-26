@@ -5,9 +5,9 @@ import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import AsyncDownloadForm from '../../../jobs/async-download/components/AsyncDownloadForm';
+import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';

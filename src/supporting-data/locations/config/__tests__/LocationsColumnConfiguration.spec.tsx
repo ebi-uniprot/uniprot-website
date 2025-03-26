@@ -8,7 +8,7 @@ import LocationsColumnConfiguration, {
   LocationsColumn,
 } from '../LocationsColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: LocationsUIModel = locationsConverter(data[0]);
 describe('LocationsColumnConfiguration component', () => {

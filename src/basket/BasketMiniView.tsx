@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../app/config/urls';
+import { reIds } from '../jobs/utils/urls';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 import ResultsData from '../shared/components/results/ResultsData';
 import useBasket, { Basket } from '../shared/hooks/useBasket';
@@ -17,7 +18,6 @@ import usePagination from '../shared/hooks/usePagination';
 import { APIModel } from '../shared/types/apiModel';
 import { Namespace } from '../shared/types/namespaces';
 import { getIdKeyForData } from '../shared/utils/getIdKey';
-import { reIds } from '../tools/utils/urls';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
 import { UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';

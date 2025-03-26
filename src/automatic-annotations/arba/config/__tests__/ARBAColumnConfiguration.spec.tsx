@@ -8,7 +8,7 @@ import ARBAColumnConfiguration, {
   ARBAColumn,
 } from '../ARBAColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: ARBAUIModel = databaseConverter(data[0]);
 
