@@ -1,3 +1,4 @@
+import { ChangeEvent, useId } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -7,13 +8,25 @@ import { LocationToPath, Location } from '../../app/config/urls';
 
 import styles from './styles/landing-page.module.scss';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
-
-// import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
+import { Button } from 'franklin-sites';
+import { useFormLogic } from '../../contact/adapters/contactFormAdapter';
 
 const metaDescription =
   'The Supporting Data section enhances UniProt by providing curated and automated datasets that enrich protein entries with detailed annotations, including keywords, localization, functions, taxonomy, and literature citations.';
 
 const LandingPage = () => {
+  const formId = useId();
+
+  const { handleSubmit, handleChange, sending } = useFormLogic();
+
+  const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.setCustomValidity(
+      e.target.value.trim().length >= 3
+        ? ''
+        : 'Please enter more details about the database'
+    );
+  };
+
   return (
     <SingleColumnLayout>
       <div className={styles['landing-page']}>
@@ -29,7 +42,7 @@ const LandingPage = () => {
               styles['image-container']
             )}
           >
-            {/* <img src={ArchiveIllustration} width={250} height={250} alt="" /> */}
+            {/* <img src={SupportingData} width={250} height={250} alt="" /> */}
           </div>
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
             The Supporting Data section enhances the functionality of UniProt by
@@ -165,7 +178,7 @@ const LandingPage = () => {
             </p>
           </div>
           {/* Automatic Annotations */}
-          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
+          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6">
             <h2>Automatic Annotations</h2>
             <p>
               The Automatic Annotations section in UniProt provides functional
@@ -184,6 +197,75 @@ const LandingPage = () => {
               annotate a broader range of protein sequences, including those
               with less-established functional data.
             </p>
+          </div>
+          {/* Data integration form */}
+          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6">
+            <h2>Expand Your Reach: Connect Your Database with UniProt</h2>
+            <p>
+              If you would like your database to be linked with UniProt to
+              expand its integration with protein-related data, please fill out
+              this form, and a member of our team will be in contact.
+            </p>
+            <form aria-label="Data integration form" onSubmit={handleSubmit}>
+              {/* Name */}
+              <label htmlFor={`name-${formId}`}>Submitter&apos;s Name *</label>
+              <input
+                type="text"
+                name="name"
+                placeholder=" "
+                id={`name-${formId}`}
+                maxLength={100}
+                onChange={handleChange}
+                required
+              />
+              {/* Email */}
+              <label htmlFor={`email-${formId}`}>Contact email *</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="myemail@example.com"
+                id={`email-${formId}`}
+                required
+                minLength={4}
+                maxLength={100}
+                onChange={handleChange}
+              />
+              {/* Database name */}
+              <label htmlFor={`database-name-${formId}`}>Database name *</label>
+              <input
+                type="text"
+                name="database-name"
+                placeholder=" "
+                id={`database-name-${formId}`}
+                required
+                maxLength={100}
+                onChange={handleChange}
+              />
+              {/* Message */}
+              <label htmlFor={`message-${formId}`}>Message *</label>
+              <textarea
+                name="message"
+                placeholder="my message"
+                id={`message-${formId}`}
+                required
+                minLength={1}
+                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                  handleTextareaChange(event);
+                  handleChange(event);
+                }}
+              />
+              {/* 🍯 */}
+              <input
+                type="text"
+                name="requiredForRobots"
+                // Make sure it's NOT reachable, on purpose
+                tabIndex={-1}
+                aria-hidden="true"
+              />
+              <Button type="submit" disabled={sending}>{`Send${
+                sending ? 'ing' : ''
+              } message`}</Button>
+            </form>
           </div>
         </section>
       </div>

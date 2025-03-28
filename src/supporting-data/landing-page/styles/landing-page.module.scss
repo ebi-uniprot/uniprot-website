@@ -2,6 +2,15 @@
 
 .landing-page {
   margin-block: 2 * $global-margin;
+
+  form {
+    // Hide the honeypot from the view
+    [name='requiredForRobots'] {
+      position: absolute;
+      top: -100%;
+      left: -100%;
+    }
+  }
 }
 
 .image-container {
