@@ -1,15 +1,13 @@
+import cn from 'classnames';
+import { Button } from 'franklin-sites';
 import { ChangeEvent, useId } from 'react';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
 
-import HTMLHead from '../../shared/components/HTMLHead';
-
-import { LocationToPath, Location } from '../../app/config/urls';
-
-import styles from './styles/landing-page.module.scss';
-import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
-import { Button } from 'franklin-sites';
+import { Location, LocationToPath } from '../../app/config/urls';
 import { useFormLogic } from '../../contact/adapters/contactFormAdapter';
+import HTMLHead from '../../shared/components/HTMLHead';
+import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
+import styles from './styles/landing-page.module.scss';
 
 const metaDescription =
   'The Supporting Data section enhances UniProt by providing curated and automated datasets that enrich protein entries with detailed annotations, including keywords, localization, functions, taxonomy, and literature citations.';
