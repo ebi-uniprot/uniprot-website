@@ -1,10 +1,10 @@
 import { capitalize } from 'lodash-es';
 import joinUrl from 'url-join';
 
-import { FileFormat } from '../types/resultsDownload';
 import { Namespace } from '../types/namespaces';
+import { FileFormat } from '../types/resultsDownload';
 
-const ftpUniProt = 'https://ftp.ebi.ac.uk/pub/databases/uniprot/';
+const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
 const ftpUrls = {
   uniprot: ftpUniProt,

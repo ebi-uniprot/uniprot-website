@@ -1,34 +1,31 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import './styles/AlignmentView.scss';
+
 import { TreeSelect } from 'franklin-sites';
 import { getFeatureTooltip } from 'protvista-uniprot';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import Wrapped from './Wrapped';
-import Overview from './Overview';
-
+import { showTooltipAtCoordinates } from '../../shared/utils/tooltip';
+import FeatureType from '../../uniprotkb/types/featureType';
 import {
-  MsaColorScheme,
   colorSchemeTree,
+  MsaColorScheme,
   msaColorSchemeToString,
 } from '../config/msaColorSchemes';
-
-import {
-  findSequenceFeature,
-  getFullAlignmentLength,
-  getMSAFeature,
-  MSAFeature,
-} from '../utils/sequences';
-import { prepareFeatureForTooltip } from '../utils/feature';
-import { showTooltipAtCoordinates } from '../../shared/utils/tooltip';
-
-import FeatureType from '../../uniprotkb/types/featureType';
 import {
   ConservationOptions,
   MSAInput,
   OnMSAFeatureClick,
   UpdateTooltip,
 } from '../types/alignment';
-
-import './styles/AlignmentView.scss';
+import { prepareFeatureForTooltip } from '../utils/feature';
+import {
+  findSequenceFeature,
+  getFullAlignmentLength,
+  getMSAFeature,
+  MSAFeature,
+} from '../utils/sequences';
+import Overview from './Overview';
+import Wrapped from './Wrapped';
 
 export enum View {
   overview = 'Overview',
@@ -230,14 +227,10 @@ const AlignmentView = ({
           yOffset = rect.y;
         }
       }
-      const title =
-        preparedFeature.type && preparedFeature.start && preparedFeature.end
-          ? `<h4>${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}</h4>`
-          : '';
       hideTooltip.current = showTooltipAtCoordinates(
         x,
         y - yOffset,
-        `${title}${getFeatureTooltip(preparedFeature)}`
+        getFeatureTooltip(preparedFeature)
       );
     },
     [alignment, containerSelector]

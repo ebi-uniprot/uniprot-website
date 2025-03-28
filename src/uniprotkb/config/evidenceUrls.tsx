@@ -1,9 +1,8 @@
 import { generatePath } from 'react-router-dom';
 
-import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import { processUrlTemplate } from '../../shared/utils/xrefs';
-
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
+import { processUrlTemplate } from '../../shared/utils/xrefs';
 
 type InternalSource =
   | 'ARBA'
@@ -86,7 +85,7 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
 
 const ensemblGenomeslUrl = 'https://www.ensemblgenomes.org/id/%value';
 const proteomicsMappingReadmeUrl =
-  'https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README';
+  'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README';
 const proteomeXchangeUrl =
   'https://proteomecentral.proteomexchange.org/dataset/%value';
 

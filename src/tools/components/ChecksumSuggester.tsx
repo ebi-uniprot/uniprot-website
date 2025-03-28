@@ -1,22 +1,18 @@
+import { Message } from 'franklin-sites';
 import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Message } from 'franklin-sites';
 
-import useDataApi from '../../shared/hooks/useDataApi';
-
-import md5 from '../../shared/utils/md5';
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
-import { pluralise } from '../../shared/utils/utils';
-import { stringifyUrl } from '../../shared/utils/url';
-
-import apiUrls from '../../shared/config/apiUrls/apiUrls';
-
-import { Namespace } from '../../shared/types/namespaces';
-import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
-import { SearchResults } from '../../shared/types/results';
-
 import styles from '../../shared/components/results/styles/did-you-mean.module.scss';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../shared/hooks/useDataApi';
+import { Namespace } from '../../shared/types/namespaces';
+import { SearchResults } from '../../shared/types/results';
+import md5 from '../../shared/utils/md5';
+import { stringifyUrl } from '../../shared/utils/url';
+import { pluralise } from '../../shared/utils/utils';
+import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 
 type Props = {
   sequence?: string;

@@ -1,94 +1,84 @@
-import { useMemo, useEffect, Suspense, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import { Loader, Tabs, Tab, Chip, LongNumber } from 'franklin-sites';
+import '../../../shared/components/entry/styles/entry-page.scss';
+
 import cn from 'classnames';
+import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
-import EntrySection, {
-  entrySectionToCommunityAnnotationField,
-} from '../../types/entrySection';
-import ContactLink from '../../../contact/components/ContactLink';
-
-import HTMLHead from '../../../shared/components/HTMLHead';
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import ProteinOverview from '../protein-data-views/ProteinOverviewView';
-import EntryPublicationsFacets from './EntryPublicationsFacets';
-import EntryMain from './EntryMain';
-
-import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
-import AlignButton from '../../../shared/components/action-buttons/Align';
-import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
-import CommunityAnnotationLink from './CommunityAnnotationLink';
-import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import ContactLink from '../../../contact/components/ContactLink';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import AlignButton from '../../../shared/components/action-buttons/Align';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
-
-import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
-
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
+import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import {
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
+import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
-
-import { addMessage } from '../../../messages/state/messagesActions';
-
-import { getListOfIsoformAccessions } from '../../utils';
-import { hasContent } from '../../../shared/utils/utils';
-import lazy from '../../../shared/utils/lazy';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import externalUrls from '../../../shared/config/externalUrls';
-import { stringifyQuery } from '../../../shared/utils/url';
-import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
-
-import uniProtKbConverter, {
-  UniProtkbAPIModel,
-  UniProtkbUIModel,
-} from '../../adapters/uniProtkbConverter';
-import generatePageTitle from '../../adapters/generatePageTitle';
-import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
-import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
-
-import dataToSchema from './entry.structured';
-
-import {
-  LocationToPath,
-  Location,
-  getEntryPath,
-} from '../../../app/config/urls';
+import helper from '../../../shared/styles/helper.module.scss';
+import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
-import { TabLocation } from '../../types/entry';
 import { SearchResults } from '../../../shared/types/results';
+import lazy from '../../../shared/utils/lazy';
+import { stringifyQuery } from '../../../shared/utils/url';
+import { hasContent } from '../../../shared/utils/utils';
 import {
   CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
+import generatePageTitle from '../../adapters/generatePageTitle';
+import uniProtKbConverter, {
+  UniProtkbAPIModel,
+  UniProtkbUIModel,
+} from '../../adapters/uniProtkbConverter';
+import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
+import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 import { DatabaseCategory } from '../../types/databaseRefs';
-
-import helper from '../../../shared/styles/helper.module.scss';
-import sticky from '../../../shared/styles/sticky.module.scss';
-import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import '../../../shared/components/entry/styles/entry-page.scss';
+import { TabLocation } from '../../types/entry';
+import EntrySection, {
+  entrySectionToCommunityAnnotationField,
+} from '../../types/entrySection';
+import { getListOfIsoformAccessions } from '../../utils';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import ProteinOverview from '../protein-data-views/ProteinOverviewView';
+import CommunityAnnotationLink from './CommunityAnnotationLink';
+import dataToSchema from './entry.structured';
+import EntryMain from './EntryMain';
+import EntryPublicationsFacets from './EntryPublicationsFacets';
+import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 
 const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
@@ -450,7 +440,23 @@ const Entry = () => {
         <ErrorBoundary>
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
-          />
+          >
+            {/** Below: experiment with OpenGraph and related */}
+            {/* @ts-expect-error og tags */}
+            <meta name="twitter:label1" value="Protein Name" />
+            <meta
+              name="twitter:data1"
+              // @ts-expect-error og tags
+              value={data.proteinDescription?.recommendedName?.fullName.value}
+            />
+            {/* @ts-expect-error og tags */}
+            <meta name="twitter:label2" value="Gene Name" />
+            <meta
+              name="twitter:data1"
+              // @ts-expect-error og tags
+              value={data.genes?.[0]?.geneName?.value}
+            />
+          </HTMLHead>
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -465,6 +471,7 @@ const Entry = () => {
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
         <Tabs active={match.params.subPage}>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -540,6 +547,7 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
+            disabled={importedVariants === 'loading' || !importedVariants}
             title={
               <Link
                 className={cn({
@@ -598,6 +606,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               smallScreen ? null : (
                 <Link
@@ -647,6 +656,9 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
+            disabled={
+              hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
+            }
             title={
               <Link
                 className={cn({
@@ -717,6 +729,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -759,6 +772,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
+            disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -791,15 +805,19 @@ const Entry = () => {
           </Tab>
           <Tab
             title={
-              <Link
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.History
-                )}
-              >
-                History
-              </Link>
+              match.params.subPage === TabLocation.History ? (
+                'History'
+              ) : (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    accession,
+                    TabLocation.History
+                  )}
+                >
+                  History
+                </Link>
+              )
             }
             id={TabLocation.History}
             onPointerOver={HistoryTab.preload}

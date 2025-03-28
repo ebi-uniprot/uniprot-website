@@ -1,7 +1,7 @@
 import { action } from 'typesafe-actions';
 
-import { Job } from '../types/toolsJob';
 import { FormParameters } from '../types/toolsFormParameters';
+import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 
 export const REHYDRATE_JOBS = 'REHYDRATE_JOBS';

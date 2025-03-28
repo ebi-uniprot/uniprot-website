@@ -1,10 +1,9 @@
-import { render, fireEvent, RenderResult } from '@testing-library/react';
+import { fireEvent, render, RenderResult } from '@testing-library/react';
 
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import ColumnSelectDragDrop, {
   ColumnSelectDragDropProps,
 } from '../ColumnSelectDragDrop';
-
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 describe('ColumnSelectDragDrop component', () => {
   let props: ColumnSelectDragDropProps;

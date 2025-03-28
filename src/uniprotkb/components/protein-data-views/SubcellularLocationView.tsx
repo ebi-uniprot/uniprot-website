@@ -1,15 +1,13 @@
-import { Link } from 'react-router-dom';
-import { LocationPinIcon } from 'franklin-sites';
+import './styles/sub-cell-viz.scss';
 
-import { TextView } from './FreeTextView';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import { LocationPinIcon } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
-
-import { SubcellularLocationComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
-
-import './styles/sub-cell-viz.scss';
+import { SubcellularLocationComment } from '../../types/commentTypes';
+import { TextView } from './FreeTextView';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 const getSwissBioPicLocationId = (id: string) => `${id.replace('-', '')}term`;
 

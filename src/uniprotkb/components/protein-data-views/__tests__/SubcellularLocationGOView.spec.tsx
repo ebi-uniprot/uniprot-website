@@ -1,11 +1,9 @@
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import mockGoXrefs from '../../../__mocks__/goXrefs';
+import { getAndPrepareSubcellGoXrefs } from '../../../adapters/subcellularLocationConverter';
 import SubcellularLocationGOView, {
   getSwissBioPicLocationId,
 } from '../SubcellularLocationGOView';
-
-import customRender from '../../../../shared/__test-helpers__/customRender';
-import { getAndPrepareSubcellGoXrefs } from '../../../adapters/subcellularLocationConverter';
-
-import mockGoXrefs from '../../../__mocks__/goXrefs';
 
 describe('getSwissBioPicLocationId', () => {
   it('should remove colon and leading zeros', () => {

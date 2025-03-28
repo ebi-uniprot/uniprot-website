@@ -1,31 +1,28 @@
-import { Dispatch, MutableRefObject } from 'react';
 import { AxiosResponse } from 'axios';
+import { Dispatch, MutableRefObject } from 'react';
 
-import fetchData from '../../shared/utils/fetchData';
-import {
-  getStatusFromResponse,
-  getJobMessage,
-  isJobIncomplete,
-  getCurrentStateOfJob,
-  isJobAlreadyFinished,
-  checkForResponseError,
-} from '../utils';
-import * as logging from '../../shared/utils/logging';
-
-import toolsURLs, { asyncDownloadUrlObjectCreator } from '../config/urls';
-
-import { updateJob } from './toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
-
-import { ToolsState } from './toolsInitialState';
-import { ToolsAction } from './toolsReducers';
 import { MessagesAction } from '../../messages/state/messagesReducers';
-import { RunningJob, FinishedJob, NewJob } from '../types/toolsJob';
-import { Status } from '../types/toolsStatuses';
+import fetchData from '../../shared/utils/fetchData';
+import * as logging from '../../shared/utils/logging';
 import { BlastResults } from '../blast/types/blastResults';
-import { JobTypes } from '../types/toolsJobTypes';
+import toolsURLs, { asyncDownloadUrlObjectCreator } from '../config/urls';
 import { MappingError } from '../id-mapping/types/idMappingSearchResults';
 import { FormParameters } from '../types/toolsFormParameters';
+import { FinishedJob, NewJob, RunningJob } from '../types/toolsJob';
+import { JobTypes } from '../types/toolsJobTypes';
+import { Status } from '../types/toolsStatuses';
+import {
+  checkForResponseError,
+  getCurrentStateOfJob,
+  getJobMessage,
+  getStatusFromResponse,
+  isJobAlreadyFinished,
+  isJobIncomplete,
+} from '../utils';
+import { updateJob } from './toolsActions';
+import { ToolsState } from './toolsInitialState';
+import { ToolsAction } from './toolsReducers';
 
 type GetCheckJobState = (
   dispatch: Dispatch<ToolsAction>,

@@ -1,17 +1,15 @@
-import { FC, CSSProperties, useCallback, MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
+import './styles/AlignLabel.scss';
+
 import cn from 'classnames';
 import { noop } from 'lodash-es';
-
-import { MSAInput } from '../../../types/alignment';
-import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
+import { CSSProperties, FC, MouseEvent, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import accessionToNamespace from '../../../../shared/utils/accessionToNamespace';
-
+import { MSAInput } from '../../../types/alignment';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
-
-import './styles/AlignLabel.scss';
 
 type AlignLabelProps = {
   accession?: string;

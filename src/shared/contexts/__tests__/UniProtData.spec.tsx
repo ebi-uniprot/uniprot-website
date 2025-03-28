@@ -1,5 +1,5 @@
-import { databaseInfoColumnsSanityCheck } from '../UniProtData';
 import { warn } from '../../utils/logging';
+import { databaseInfoColumnsSanityCheck } from '../UniProtData';
 
 jest.mock('../../../uniprotkb/types/columnTypes', () => ({
   UniProtKBColumn: {

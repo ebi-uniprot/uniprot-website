@@ -1,15 +1,12 @@
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { Fragment } from 'react';
-import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-
 import { getEntryPath } from '../../../app/config/urls';
-
 import { Namespace } from '../../../shared/types/namespaces';
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
-
 import styles from './styles/keyword-view.module.scss';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 type KeywordListProps = {
   keywords: Keyword[];

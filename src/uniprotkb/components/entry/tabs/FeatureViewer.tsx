@@ -1,25 +1,20 @@
+import { Loader, Message } from 'franklin-sites';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Loader, Message } from 'franklin-sites';
 
-import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
-import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import useCustomElement from '../../../../shared/hooks/useCustomElement';
-
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import { Dataset } from '../../../../shared/components/entry/EntryDownload';
 import { getEntryPath } from '../../../../app/config/urls';
-import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
-
+import { Dataset } from '../../../../shared/components/entry/EntryDownload';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { VARIANT_COUNT_LIMIT } from '../../../../shared/config/limits';
-
+import useCustomElement from '../../../../shared/hooks/useCustomElement';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
-import { TabLocation } from '../../../types/entry';
+import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
-
+import { TabLocation } from '../../../types/entry';
+import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 import tabsStyles from './styles/tabs-styles.module.scss';
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
@@ -61,13 +56,11 @@ const FeatureViewer = ({
       e.target
     ) {
       const [x, y] = detail.coords;
-      const { feature } = detail;
-      const title =
-        feature.type && feature.start && feature.end
-          ? `<h4>${feature.type} ${feature.start}-${feature.end}</h4><hr />`
-          : '';
-      const content = `${title}${detail.feature.tooltipContent}`;
-      hideTooltip.current = showTooltipAtCoordinates(x, y, content);
+      hideTooltip.current = showTooltipAtCoordinates(
+        x,
+        y,
+        detail.feature.tooltipContent
+      );
     }
   }, []);
 

@@ -1,6 +1,5 @@
-import { polarToX, polarToY } from './trigonometry';
-
 import { CustomHierarchyNode } from './customLayout';
+import { polarToX, polarToY } from './trigonometry';
 
 const pathMaker =
   (circularLayout: boolean) =>

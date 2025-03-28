@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
 import { History } from 'history';
+import { useEffect } from 'react';
+
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { APIModel } from '../types/apiModel';
 

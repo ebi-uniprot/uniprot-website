@@ -2,20 +2,17 @@ import { useMemo } from 'react';
 import { v1 } from 'uuid';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
 import externalUrls from '../../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { stringToColour } from '../../../shared/utils/color';
+import { markBackground, markBorder } from '../../../shared/utils/nightingale';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
-import { markBorder, markBackground } from '../../../shared/utils/nightingale';
-
 import { SequenceFeature } from '../../adapters/uniParcConverter';
-import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 
 export type UniParcProcessedFeature = ProcessedFeature & {
   database: string;
@@ -94,14 +91,8 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
           let revisedDatabaseId;
           let funFamURL = '';
           if (database === 'FUNFAM') {
-            const funfamIDRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+:FF:\d+)/;
-            const match = databaseId.match(funfamIDRegEx);
-
-            if (match) {
-              const [, id] = match;
-              // https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
-              funFamURL = `http://www.cathdb.info/version/latest/funfam/${id}`;
-            }
+            // Temporary until https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
+            funFamURL = externalUrls.Funfam(databaseId);
           }
           if (database === 'Gene3D') {
             const gene3dRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+)/;

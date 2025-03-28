@@ -1,36 +1,33 @@
-import { useLocation } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
-
-import useNS from '../../hooks/useNS';
-import useDataApiWithStale from '../../hooks/useDataApiWithStale';
-import useNSQuery from '../../hooks/useNSQuery';
-import useItemSelect from '../../hooks/useItemSelect';
-import usePagination from '../../hooks/usePagination';
-import useDataApi from '../../hooks/useDataApi';
-
-import HTMLHead from '../HTMLHead';
-import ResultsData from './ResultsData';
-import ResultsFacets from './ResultsFacets';
-import { SidebarLayout } from '../layouts/SideBarLayout';
-import NoResultsPage from '../error-pages/full-pages/NoResultsPage';
-import ErrorHandler from '../error-pages/ErrorHandler';
-import ErrorBoundary from '../error-component/ErrorBoundary';
-import ResultsDataHeader from './ResultsDataHeader';
-import SearchSuggestions from './SearchSuggestions';
-import DidYouMean from './DidYouMean';
+import { useLocation } from 'react-router-dom';
 
 import {
   escapeInvalidSearchFieldQueryWithColon,
   getParamsFromURL,
   isInvalidSearchFieldQueryWithColon,
 } from '../../../uniprotkb/utils/resultsUtils';
-
+import useDataApi from '../../hooks/useDataApi';
+import useDataApiWithStale from '../../hooks/useDataApiWithStale';
+import useItemSelect from '../../hooks/useItemSelect';
+import useNS from '../../hooks/useNS';
+import useNSQuery from '../../hooks/useNSQuery';
+import usePagination from '../../hooks/usePagination';
+import { APIModel } from '../../types/apiModel';
 import {
-  searchableNamespaceLabels,
   SearchableNamespace,
+  searchableNamespaceLabels,
 } from '../../types/namespaces';
 import { SearchResults, Suggestion } from '../../types/results';
-import { APIModel } from '../../types/apiModel';
+import ErrorBoundary from '../error-component/ErrorBoundary';
+import ErrorHandler from '../error-pages/ErrorHandler';
+import NoResultsPage from '../error-pages/full-pages/NoResultsPage';
+import HTMLHead from '../HTMLHead';
+import { SidebarLayout } from '../layouts/SideBarLayout';
+import DidYouMean from './DidYouMean';
+import ResultsData from './ResultsData';
+import ResultsDataHeader from './ResultsDataHeader';
+import ResultsFacets from './ResultsFacets';
+import SearchSuggestions from './SearchSuggestions';
 
 const Results = () => {
   const ns = useNS();

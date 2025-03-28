@@ -1,24 +1,19 @@
 import { Dispatch, MutableRefObject } from 'react';
 
-import getSubmitJob from '../getSubmitJob';
-
-import createdJob from '../../__mocks__/internal-jobs/created';
-
-import { Status } from '../../types/toolsStatuses';
+import { Location } from '../../../app/config/urls';
+import { ADD_MESSAGE } from '../../../messages/state/messagesActions';
+import { MessagesAction } from '../../../messages/state/messagesReducers';
 import {
-  MessageLevel,
   MessageFormat,
+  MessageLevel,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
-
+import createdJob from '../../__mocks__/internal-jobs/created';
+import { Status } from '../../types/toolsStatuses';
+import getSubmitJob from '../getSubmitJob';
 import { UPDATE_JOB } from '../toolsActions';
-import { ADD_MESSAGE } from '../../../messages/state/messagesActions';
-
-import { Location } from '../../../app/config/urls';
-
-import { ToolsAction } from '../toolsReducers';
 import { ToolsState } from '../toolsInitialState';
-import { MessagesAction } from '../../../messages/state/messagesReducers';
+import { ToolsAction } from '../toolsReducers';
 
 let submitJob: ReturnType<typeof getSubmitJob>;
 

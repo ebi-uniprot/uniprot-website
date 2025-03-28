@@ -1,33 +1,35 @@
 import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import customRender from '../../../../shared/__test-helpers__/customRender';
-import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
-import ProteinProcessingSection from '../ProteinProcessingSection';
 
-import mockHumanData from '../../../__mocks__/uniProtKBEntryModelData';
-import mockPtmExchangeData from '../../../__mocks__/ptmExchangeData';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 import mockNonHumanData from '../../../__mocks__/nonHumanEntryModelData';
-import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMaps';
+import mockPtmExchangeData from '../../../__mocks__/ptmExchangeData';
+import mockHumanData from '../../../__mocks__/uniProtKBEntryModelData';
+import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
+import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMaps';
+import ProteinProcessingSection from '../ProteinProcessingSection';
 
 const axiosMock = new MockAdapter(axios);
 axiosMock
   // Humans should (eventually) have PTMeXchange data so just using
   .onGet(
-    `https://www.ebi.ac.uk/proteins/api/proteomics-ptm/${mockHumanData.primaryAccession}`
+    `https://www.ebi.ac.uk/proteins/api/proteomics/ptm/${mockHumanData.primaryAccession}`
   )
   .reply(200, mockPtmExchangeData)
   // Assumed that flavonifractor plautii won't have PTMeXchange data
   .onGet(
-    `https://www.ebi.ac.uk/proteins/api/proteomics-ptm/${mockNonHumanData.primaryAccession}`
+    `https://www.ebi.ac.uk/proteins/api/proteomics/ptm/${mockNonHumanData.primaryAccession}`
   )
   .reply(404);
 
 describe('ProteinProcessingSection', () => {
   beforeAll(() => {
     jest.mock('@nightingale-elements/nightingale-sequence', () => jest.fn());
-    jest.mock('@nightingale-elements/nightingale-track', () => jest.fn());
+    jest.mock('@nightingale-elements/nightingale-track-canvas', () =>
+      jest.fn()
+    );
   });
 
   it('should render when PTMeXchange is available', async () => {

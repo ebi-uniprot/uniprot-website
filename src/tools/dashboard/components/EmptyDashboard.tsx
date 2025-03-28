@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom';
 import { Message } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorComponent from '../../../shared/components/error-pages/ErrorComponent';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
 import ArtWork from './svg/empty-dashboard.img.svg';
 
 const ErrorMessage = () => (

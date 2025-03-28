@@ -1,10 +1,8 @@
 import { LongNumber } from 'franklin-sites';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
-
-import { GenomicLocation } from './types';
-
 import helper from '../../../../../shared/styles/helper.module.scss';
+import { GenomicLocation } from './types';
 
 export const getEnsemblLink = (
   taxID: number,

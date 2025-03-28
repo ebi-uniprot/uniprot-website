@@ -1,10 +1,8 @@
-import { screen, fireEvent } from '@testing-library/react';
-
-import EntryDownload, { Dataset } from '../EntryDownload';
-
-import { FileFormat } from '../../../types/resultsDownload';
+import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
+import { FileFormat } from '../../../types/resultsDownload';
+import EntryDownload, { Dataset } from '../EntryDownload';
 
 describe('EntryDownload', () => {
   let onCloseMock: jest.Mock;
@@ -58,7 +56,7 @@ describe('EntryDownload', () => {
     });
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
-        'https://www.ebi.ac.uk/proteins/api/proteomics-ptm/P05067?format=json'
+        'https://www.ebi.ac.uk/proteins/api/proteomics/ptm/P05067?format=json'
       )
     );
   });

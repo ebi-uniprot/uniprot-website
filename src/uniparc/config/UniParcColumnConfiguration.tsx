@@ -1,23 +1,19 @@
+import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
+import { partialRight } from 'lodash-es';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { partialRight } from 'lodash-es';
-import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 
+import { getEntryPath } from '../../app/config/urls';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../shared/components/ExternalLink';
 import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyView from '../../shared/components/entry/TaxonomyView';
-
-import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
-
 import externalUrls from '../../shared/config/externalUrls';
-import { getEntryPath } from '../../app/config/urls';
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-
+import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
-
-import { Namespace } from '../../shared/types/namespaces';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import {
   SequenceFeature,
   UniParcLiteAPIModel,
@@ -55,6 +51,7 @@ export enum UniParcColumn {
   smart = 'SMART',
   supfam = 'SUPFAM',
   ncbifam = 'NCBIfam',
+  funfam = 'FUNFAM',
   from = 'from',
 }
 
@@ -394,6 +391,13 @@ UniParcColumnConfiguration.set(UniParcColumn.supfam, {
 UniParcColumnConfiguration.set(UniParcColumn.ncbifam, {
   label: 'NCBIfam',
   render: partialRight(familyAndDomainRenderer, 'NCBIfam'),
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.funfam, {
+  label: 'FUNFAM',
+  render: partialRight(familyAndDomainRenderer, 'FUNFAM', (id: string) =>
+    externalUrls.Funfam(id)
+  ),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.from, fromColumnConfig);

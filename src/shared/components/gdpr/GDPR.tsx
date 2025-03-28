@@ -1,11 +1,10 @@
-import { generatePath, Link } from 'react-router-dom';
-import { Button } from 'franklin-sites';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import useLocalStorage from '../../hooks/useLocalStorage';
-
 import './styles/gdpr.scss';
+
+import { Button } from 'franklin-sites';
+import { generatePath, Link } from 'react-router-dom';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const GDPR = () => {
   const [token, setToken] = useLocalStorage<null | boolean>('gdpr', null);
@@ -16,7 +15,9 @@ const GDPR = () => {
 
   return (
     <div className="gdpr-section">
-      {`We'd like to inform you that we have updated our `}
+      This website requires cookies, and the limited processing of your personal
+      data in order to function. By using the site you are agreeing to this as
+      outlined in our{' '}
       <Link
         to={generatePath(LocationToPath[Location.HelpEntry], {
           accession: 'privacy',
@@ -24,9 +25,9 @@ const GDPR = () => {
       >
         Privacy Notice
       </Link>
-      {` to comply with Europe’s new General Data Protection Regulation (GDPR) that applies since 25 May 2018.`}
+      .
       <Button variant="secondary" onClick={() => setToken(true)}>
-        Accept
+        I agree, dismiss this banner
       </Button>
     </div>
   );

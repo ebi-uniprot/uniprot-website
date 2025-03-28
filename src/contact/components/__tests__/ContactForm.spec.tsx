@@ -1,15 +1,12 @@
 import { screen } from '@testing-library/react';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import customRender from '../../../shared/__test-helpers__/customRender';
-
-import ContactForm from '../ContactForm';
-
 import {
   useFormLogic,
   UseFormLogicReturnType,
 } from '../../adapters/contactFormAdapter';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
+import ContactForm from '../ContactForm';
 
 jest.mock('../../adapters/contactFormAdapter');
 const handleSubmit = jest.fn();

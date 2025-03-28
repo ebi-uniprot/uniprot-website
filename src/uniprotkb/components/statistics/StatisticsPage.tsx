@@ -1,51 +1,48 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState } from 'react';
-import { Card, Loader, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
+import { Card, Loader, LongNumber } from 'franklin-sites';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import HTMLHead from '../../../shared/components/HTMLHead';
+import InPageNav from '../../../shared/components/InPageNav';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import LazyComponent from '../../../shared/components/LazyComponent';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
+import { stringifyQuery } from '../../../shared/utils/url';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import AbstractSectionTable from './AbstractSectionTable';
 import AminoAcidBarPlot from './AminoAcidBarPlot';
-import UniProtKBStatsTabs from './UniProtKBStatsTabs';
-import FrequencyTable from './FrequencyTable';
+import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import CountLinkOrNothing from './CountLinkOrNothing';
-import UniProtKBStatsTable from './UniProtKBStatsTable';
+import FrequencyTable from './FrequencyTable';
+import HistoricalReleaseEntryCounts from './HistoricalReleasesEntries';
 import ReviewedSequenceCorrections from './ReviewedSequenceCorrections';
 import SequenceLengthLinePlot from './SequenceLengthLinePlot';
-import AbstractSectionTable from './AbstractSectionTable';
-import UniqueReferencesTable from './UniqueReferencesTable';
-import AminoAcidCompositionTable from './AminoAcidCompositionTable';
-import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
-import InPageNav from '../../../shared/components/InPageNav';
-
-import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { stringifyQuery } from '../../../shared/utils/url';
+import styles from './styles/statistics-page.module.scss';
 import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
-import apiUrls from '../../config/apiUrls/apiUrls';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+import UniProtKBStatsTable from './UniProtKBStatsTable';
+import UniProtKBStatsTabs from './UniProtKBStatsTabs';
+import UniqueReferencesTable from './UniqueReferencesTable';
 import {
-  MergedStatisticsItem,
   getEncodedLocations,
+  getNumberReleaseEntries,
   getSequenceSizeLocation,
   getUniqueAuthorString,
   merge,
+  MergedStatisticsItem,
   mergeToMap,
-  getNumberReleaseEntries,
 } from './utils';
-
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPath,
-} from '../../../app/config/urls';
-
-import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import styles from './styles/statistics-page.module.scss';
 
 export type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -73,6 +70,7 @@ export type StatisticsItem = {
   entryCount: number;
   label?: string;
   description?: string;
+  query?: string;
 };
 
 export type StatisticsCategory = {
@@ -647,12 +645,14 @@ const StatisticsPage = () => {
           query, a link has been provided. In some instances, due to the nature
           of the statistic, no query link is possible.
         </p>
+
         <IntroductionEntriesTable
           uniprotkbData={uniprotkbData.AUDIT}
           reviewedData={reviewedData.AUDIT}
           unreviewedData={unreviewedData.AUDIT}
           releaseDate={release.releaseDate}
         />
+        <HistoricalReleaseEntryCounts />
         <IntroductionSequenceTable
           uniprotkbData={uniprotkbData.SEQUENCE_STATS}
           reviewedData={reviewedData.SEQUENCE_STATS}

@@ -110,6 +110,22 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
   );
 }
 
+export function defaultdict<T>(defaultFactory: () => T) {
+  return new Proxy<Record<string | symbol, T>>(
+    {},
+    {
+      get: (dict, key: string | symbol) => {
+        if (!(key in dict)) {
+          dict[key] = defaultFactory();
+        }
+        return dict[key];
+      },
+    }
+  );
+}
+
+export const counter = (initialCount = 0) => defaultdict(() => initialCount);
+
 export function excludeKeys<T>(
   o?: Record<Key, T>,
   keys?: Key[]

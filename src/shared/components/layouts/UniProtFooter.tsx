@@ -1,25 +1,22 @@
-import { memo, HTMLAttributes } from 'react';
-import { Link, generatePath } from 'react-router-dom';
-import { CitedIcon } from 'franklin-sites';
 import cn from 'classnames';
-
-import ExternalLink from '../ExternalLink';
-import ReleaseInfo from './ReleaseInfo';
-import Contact from './Contact';
+import { CitedIcon } from 'franklin-sites';
+import { HTMLAttributes, memo } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-
-import helper from '../../styles/helper.module.scss';
-import footer from './styles/footer.module.scss';
-
-import UniProtLogo from '../../../images/uniprot-logo.img.svg';
-import EMBLEBILogo from '../../../images/embl-ebi-logo.img.svg';
-import PIRLogo from '../../../images/pir-logo.jpg';
-import SIBLogo from '../../../images/sib-logo.png';
-import SERILogo from '../../../images/seri-logo.png';
-import ElixirCDRLogo from '../../../images/elixir-cdr.png';
-import GBCGCBRLogo from '../../../images/gbc-gcbr.img.svg';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
+import ElixirCDRLogo from '../../../images/elixir-cdr.png';
+import EMBLEBILogo from '../../../images/embl-ebi-logo.img.svg';
+import GBCGCBRLogo from '../../../images/gbc-gcbr.img.svg';
+import PIRLogo from '../../../images/pir-logo.jpg';
+import SERILogo from '../../../images/seri-logo.png';
+import SIBLogo from '../../../images/sib-logo.png';
+import UniProtLogo from '../../../images/uniprot-logo.img.svg';
+import helper from '../../styles/helper.module.scss';
+import ExternalLink from '../ExternalLink';
+import Contact from './Contact';
+import ReleaseInfo from './ReleaseInfo';
+import footer from './styles/footer.module.scss';
 
 const FooterConsortium = () => (
   <div className={footer.consortium}>

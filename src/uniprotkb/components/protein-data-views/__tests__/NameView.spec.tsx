@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import NameView from '../NameView';
 
 describe('NameView component', () => {

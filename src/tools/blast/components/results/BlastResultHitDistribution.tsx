@@ -1,12 +1,11 @@
-import { FC, useRef, useMemo, useState } from 'react';
-import { Histogram, Loader } from 'franklin-sites';
-import cn from 'classnames';
+import '../styles/BlastResultHitDistribution.scss';
 
-import { getDataPoints, getBounds } from '../../utils/blastFacetDataUtils';
+import cn from 'classnames';
+import { Histogram, Loader } from 'franklin-sites';
+import { FC, useMemo, useRef, useState } from 'react';
 
 import { BlastFacet, BlastHit } from '../../types/blastResults';
-
-import '../styles/BlastResultHitDistribution.scss';
+import { getBounds, getDataPoints } from '../../utils/blastFacetDataUtils';
 
 const nBinOptions = ['auto', 5, 10, 25, 50, 100] as const;
 
@@ -20,7 +19,7 @@ const BlastResultHitDistribution: FC<
   React.PropsWithChildren<BlastResultHitDistributionProps>
 > = ({ loading, allHits, filteredHits }) => {
   const [nBinsValue, setNBinsValue] =
-    useState<typeof nBinOptions[number]>('auto');
+    useState<(typeof nBinOptions)[number]>('auto');
 
   const values = useMemo(
     () => getDataPoints(filteredHits || []),
@@ -58,7 +57,7 @@ const BlastResultHitDistribution: FC<
               setNBinsValue(
                 event.target.value === 'auto'
                   ? event.target.value
-                  : (+event.target.value as typeof nBinOptions[number])
+                  : (+event.target.value as (typeof nBinOptions)[number])
               )
             }
           >

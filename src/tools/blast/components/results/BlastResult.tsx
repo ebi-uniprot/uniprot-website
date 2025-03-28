@@ -1,56 +1,50 @@
-import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
+import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Except } from 'type-fest';
-
-import HTMLHead from '../../../../shared/components/HTMLHead';
-import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
-import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
-import BlastResultSidebar from './BlastResultSidebar';
-import ResultButtons from '../../../components/ResultButtons';
-
-import useDataApi, {
-  UseDataAPIState,
-} from '../../../../shared/hooks/useDataApi';
-import useItemSelect from '../../../../shared/hooks/useItemSelect';
-import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
-import useColumnNames from '../../../../shared/hooks/useColumnNames';
-
-import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import {
-  filterBlastDataForResults,
-  filterBlastByFacets,
-} from '../../utils/blastFacetDataUtils';
-import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
-
-import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import {
   blastNamespaces,
   changePathnameOnly,
   Location,
 } from '../../../../app/config/urls';
-import toolsURLs from '../../../config/urls';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import HTMLHead from '../../../../shared/components/HTMLHead';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-
+import useColumnNames from '../../../../shared/hooks/useColumnNames';
+import useDataApi, {
+  UseDataAPIState,
+} from '../../../../shared/hooks/useDataApi';
+import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
+import helper from '../../../../shared/styles/helper.module.scss';
 import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import { SearchResults } from '../../../../shared/types/results';
-import { BlastResults, BlastHit } from '../../types/blastResults';
-import { JobTypes } from '../../../types/toolsJobTypes';
-import { PublicServerParameters } from '../../types/blastServerParameters';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-
-import helper from '../../../../shared/styles/helper.module.scss';
-import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import ResultButtons from '../../../components/ResultButtons';
+import toolsURLs from '../../../config/urls';
+import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import { JobTypes } from '../../../types/toolsJobTypes';
+import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
+import { BlastHit, BlastResults } from '../../types/blastResults';
+import { PublicServerParameters } from '../../types/blastServerParameters';
+import {
+  filterBlastByFacets,
+  filterBlastDataForResults,
+} from '../../utils/blastFacetDataUtils';
+import BlastResultSidebar from './BlastResultSidebar';
+import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);

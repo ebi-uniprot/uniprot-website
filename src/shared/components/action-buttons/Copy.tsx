@@ -1,13 +1,11 @@
-import { FC } from 'react';
 import { Button, CopyIcon } from 'franklin-sites';
-
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import { FC } from 'react';
 
 import {
   copyFailureMessage,
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
-
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import helper from '../../styles/helper.module.scss';
 
 const isCopySupported = Boolean(

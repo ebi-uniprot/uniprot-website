@@ -1,14 +1,12 @@
-import UniParcColumnConfiguration, {
-  UniParcColumn,
-} from '../UniParcColumnConfiguration';
-
+import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/uniParcLightEntryModelData';
 import uniParcConverter, {
   UniParcLiteAPIModel,
   UniParcUIModel,
 } from '../../adapters/uniParcConverter';
-import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
-
-import data from '../../__mocks__/uniParcLightEntryModelData';
+import UniParcColumnConfiguration, {
+  UniParcColumn,
+} from '../UniParcColumnConfiguration';
 
 jest.mock('../../../tools/utils/storage');
 

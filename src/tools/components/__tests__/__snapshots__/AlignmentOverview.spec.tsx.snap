@@ -3,7 +3,7 @@
 exports[`AlignmentOverview BLAST should render 1`] = `
 <DocumentFragment>
   <div>
-    <nightingale-track
+    <nightingale-track-canvas
       display-end="-1"
       display-start="1"
       height="10"
@@ -15,107 +15,41 @@ exports[`AlignmentOverview BLAST should render 1`] = `
       style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
     >
       <!---->
-      <svg
+      
+      
+      <div
         class="container"
-        height="10"
       >
-        <g
-          class="sequence-features"
+        
+        
+        <div
+          style="position: relative; z-index: 0;"
         >
-          <g
-            class="feature-group"
-            id="g_1"
+          
+          
+          <canvas
+            style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 10px;"
+          />
+          
+          
+          <svg
+            height="10"
+            width="10"
           >
             <g
-              class="location-group"
-            >
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,8.5 L0,8.5"
-                  stroke="#014371"
-                  style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,-3.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="17"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,-3.5)"
-                  width="0"
-                />
-              </g>
-            </g>
-          </g>
-          <g
-            class="feature-group"
-            id="g_2"
-          >
-            <g
-              class="location-group"
-            >
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,17L0,17Z"
-                  stroke="#014371"
-                  style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,-3.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="17"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,-3.5)"
-                  width="0"
-                />
-              </g>
-            </g>
-          </g>
-          <g
-            class="feature-group"
-            id="g_3"
-          >
-            <g
-              class="location-group"
-            >
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,8.5 L0,8.5"
-                  stroke="#014371"
-                  style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,-3.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="17"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,-3.5)"
-                  width="0"
-                />
-              </g>
-            </g>
-          </g>
-        </g>
-        <g
-          class="highlighted"
-        />
-        <g
-          class="margin"
-        />
-      </svg>
-    </nightingale-track>
-    <nightingale-track
+              class="highlighted"
+            />
+          </svg>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </nightingale-track-canvas>
+    <nightingale-track-canvas
       display-end="-1"
       display-start="1"
       height="10"
@@ -127,106 +61,40 @@ exports[`AlignmentOverview BLAST should render 1`] = `
       style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
     >
       <!---->
-      <svg
+      
+      
+      <div
         class="container"
-        height="10"
       >
-        <g
-          class="sequence-features"
+        
+        
+        <div
+          style="position: relative; z-index: 0;"
         >
-          <g
-            class="feature-group"
-            id="g_4"
+          
+          
+          <canvas
+            style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 10px;"
+          />
+          
+          
+          <svg
+            height="10"
+            width="10"
           >
             <g
-              class="location-group"
-            >
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,8.5 L0,8.5"
-                  stroke="#014371"
-                  style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,-3.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="17"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,-3.5)"
-                  width="0"
-                />
-              </g>
-            </g>
-          </g>
-          <g
-            class="feature-group"
-            id="g_5"
-          >
-            <g
-              class="location-group"
-            >
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,17L0,17Z"
-                  stroke="#014371"
-                  style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,-3.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="17"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,-3.5)"
-                  width="0"
-                />
-              </g>
-            </g>
-          </g>
-          <g
-            class="feature-group"
-            id="g_6"
-          >
-            <g
-              class="location-group"
-            >
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,8.5 L0,8.5"
-                  stroke="#014371"
-                  style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,-3.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="17"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,-3.5)"
-                  width="0"
-                />
-              </g>
-            </g>
-          </g>
-        </g>
-        <g
-          class="highlighted"
-        />
-        <g
-          class="margin"
-        />
-      </svg>
-    </nightingale-track>
+              class="highlighted"
+            />
+          </svg>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </nightingale-track-canvas>
   </div>
 </DocumentFragment>
 `;

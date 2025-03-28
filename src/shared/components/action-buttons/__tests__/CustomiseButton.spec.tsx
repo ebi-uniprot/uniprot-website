@@ -1,23 +1,19 @@
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
 import {
   fireEvent,
-  waitFor,
-  screen,
   getByTestId,
+  screen,
+  waitFor,
 } from '@testing-library/react';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import CustomiseButton from '../CustomiseButton';
-
-import { localStorageCache } from '../../../hooks/useLocalStorage';
-
 import { SearchResultsLocations } from '../../../../app/config/urls';
-import { nsToDefaultColumns } from '../../../config/columns';
-
-import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
+import customRender from '../../../__test-helpers__/customRender';
+import { nsToDefaultColumns } from '../../../config/columns';
+import { localStorageCache } from '../../../hooks/useLocalStorage';
+import { Namespace } from '../../../types/namespaces';
+import CustomiseButton from '../CustomiseButton';
 
 const namespace = Namespace.uniprotkb;
 const route = SearchResultsLocations[namespace];

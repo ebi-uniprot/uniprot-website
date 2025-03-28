@@ -1,22 +1,18 @@
+import { Loader } from 'franklin-sites';
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Loader } from 'franklin-sites';
 
-import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-
-import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-
-import { FacetsEnum as FacetsEnumUniProtKB } from '../../../../uniprotkb/config/UniProtKBFacetConfiguration';
-import { defaultFacets as defaultFacetsUniParc } from '../../../../uniparc/config/UniParcFacetConfiguration';
-
-import { SearchResults } from '../../../../shared/types/results';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
+import { defaultFacets as defaultFacetsUniParc } from '../../../../uniparc/config/UniParcFacetConfiguration';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { FacetsEnum as FacetsEnumUniProtKB } from '../../../../uniprotkb/config/UniProtKBFacetConfiguration';
+import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import { BlastHit } from '../../types/blastResults';
+import BlastResultLocalFacets from './BlastResultLocalFacets';
 
 // Same as default, but with OtherOrganism in the middle too
 const defaultFacetsUniProtKB = [

@@ -1,20 +1,18 @@
 import { matchPath } from 'react-router-dom';
 
-import { fromCleanMapper } from './getIdKey';
-
+import { Location, LocationToPath } from '../../app/config/urls';
+import { BlastFacet } from '../../tools/blast/types/blastResults';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
+  getApiSortDirection,
   SelectedFacet,
   SortDirection,
-  getApiSortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { defaultFacets } from '../config/facets';
-
-import { Location, LocationToPath } from '../../app/config/urls';
-import { Namespace } from '../types/namespaces';
 import { Column } from '../config/columns';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
-import { BlastFacet } from '../../tools/blast/types/blastResults';
+import { defaultFacets } from '../config/facets';
 import { Facets } from '../types/facets';
+import { Namespace } from '../types/namespaces';
+import { fromCleanMapper } from './getIdKey';
 
 export const getLocationForPathname = (pathname: string) => {
   const found = Object.entries(LocationToPath).find(([, path]) =>

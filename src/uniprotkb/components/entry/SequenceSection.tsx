@@ -1,22 +1,20 @@
-import { memo } from 'react';
 import { Card } from 'franklin-sites';
+import { memo } from 'react';
 
-import EntrySection from '../../types/entrySection';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import KeywordView from '../protein-data-views/KeywordView';
-import XRefView from '../protein-data-views/XRefView';
 import SequenceView, {
-  SequenceCautionView,
   MassSpectrometryView,
   RNAEditingView,
+  SequenceCautionView,
 } from '../../../shared/components/entry/SequenceView';
-import FreeTextView from '../protein-data-views/FreeTextView';
-import ComputationalyMappedSequences from './ComputationallyMappedSequences';
-
 import { hasContent } from '../../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import FreeTextView from '../protein-data-views/FreeTextView';
+import KeywordView from '../protein-data-views/KeywordView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import XRefView from '../protein-data-views/XRefView';
+import ComputationalyMappedSequences from './ComputationallyMappedSequences';
 
 type Props = {
   data: SequenceUIModel;

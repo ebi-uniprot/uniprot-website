@@ -1,12 +1,10 @@
 import { EvidenceTag } from 'franklin-sites';
 
 import * as logging from '../../../shared/utils/logging';
-
 import {
   getEcoNumberFromGoEvidenceType,
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
-
 import { GoEvidenceType } from '../../types/modelTypes';
 
 const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {

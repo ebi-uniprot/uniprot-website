@@ -2,16 +2,19 @@
  * This tries to follow what is detailed here:
  * https://testing-library.com/docs/react-testing-library/setup#custom-render
  */
-import { ReactElement, Component, Dispatch, ReactNode } from 'react';
-import { Router, Route } from 'react-router-dom';
-import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
-import { HelmetProvider } from 'react-helmet-async';
 import { render, RenderOptions } from '@testing-library/react';
+import { createMemoryHistory, LocationState, MemoryHistory } from 'history';
+import { Component, Dispatch, ReactElement, ReactNode } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import { Route, Router } from 'react-router-dom';
+import { JsonValue, SetRequired } from 'type-fest';
 
-import { SetRequired, JsonValue } from 'type-fest';
-
+import { MessagesState } from '../../messages/state/messagesInitialState';
+import { MessagesAction } from '../../messages/state/messagesReducers';
+import { ToolsState } from '../../tools/state/toolsInitialState';
+import { ToolsAction } from '../../tools/state/toolsReducers';
+import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
-
 import {
   MessagesDispatchContext,
   MessagesStateContext,
@@ -21,13 +24,6 @@ import {
   DatabaseInfoMapsContext,
   UniProtDataVersionContext,
 } from '../contexts/UniProtData';
-
-import { MessagesState } from '../../messages/state/messagesInitialState';
-import { MessagesAction } from '../../messages/state/messagesReducers';
-import { ToolsState } from '../../tools/state/toolsInitialState';
-import { ToolsAction } from '../../tools/state/toolsReducers';
-
-import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 
 type ExtraRenderOptions = {
   // For react-router

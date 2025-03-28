@@ -1,46 +1,41 @@
+import cn from 'classnames';
 import {
-  useMemo,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  Suspense,
+  BasketIcon,
+  Bubble,
+  EnvelopeIcon,
+  Loader,
+  SlidingPanel,
+  ToolboxIcon,
+} from 'franklin-sites';
+import { sumBy } from 'lodash-es';
+import {
   memo,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { schedule } from 'timing-functions';
-import { sumBy } from 'lodash-es';
-import {
-  EnvelopeIcon,
-  BasketIcon,
-  ToolboxIcon,
-  Bubble,
-  SlidingPanel,
-  Loader,
-} from 'franklin-sites';
-import cn from 'classnames';
 
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import { Status } from '../../../tools/types/toolsStatuses';
 import useBasket from '../../hooks/useBasket';
 import useSafeState from '../../hooks/useSafeState';
 import useToolsState from '../../hooks/useToolsState';
-
-import lazy from '../../utils/lazy';
-import { pluralise } from '../../utils/utils';
+import helper from '../../styles/helper.module.scss';
+import { Namespace } from '../../types/namespaces';
 import {
   PanelCloseReason,
   sendGtagEventPanelClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import { Namespace } from '../../types/namespaces';
-import { Status } from '../../../tools/types/toolsStatuses';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
-
-import helper from '../../styles/helper.module.scss';
+import lazy from '../../utils/lazy';
+import { pluralise } from '../../utils/utils';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/secondary-items.module.scss';
 
 const BasketMiniView = lazy(

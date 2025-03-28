@@ -1,6 +1,5 @@
-import { UniProtkbUIModel } from './uniProtkbConverter';
-
 import EntrySection from '../types/entrySection';
+import { UniProtkbUIModel } from './uniProtkbConverter';
 
 export default (data: UniProtkbUIModel) => {
   const geneName =

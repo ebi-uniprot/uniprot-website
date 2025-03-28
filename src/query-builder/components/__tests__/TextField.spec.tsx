@@ -1,10 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { FieldProps } from '../Field';
-
-import { getSearchTerm } from './__mocks__/configureSearchTerms';
-
 import TextField from '../TextField';
+import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 describe('TextField', () => {
   const props: FieldProps = {
@@ -84,8 +82,8 @@ describe('TextField', () => {
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(propsPrefix.handleChange).toBeCalledWith(
       {
-        [propsPrefix.field
-          .term]: `${propsPrefix.field.valuePrefix}${updatedValue}`,
+        [propsPrefix.field.term]:
+          `${propsPrefix.field.valuePrefix}${updatedValue}`,
       },
       false
     );

@@ -26,9 +26,12 @@ const HTMLHead = ({ title, titleLoading, children }: Props) => {
     <Helmet>
       {/* If titleLoading undefined, or false, then set as "loaded" */}
       {renderedTitle || titleLoading ? (
-        <title translate="no" data-loaded={!titleLoading}>
-          {renderedTitle}
-        </title>
+        <>
+          <title translate="no" data-loaded={!titleLoading}>
+            {renderedTitle}
+          </title>
+          <meta property="og:title" content={renderedTitle} />
+        </>
       ) : null}
       {children}
     </Helmet>

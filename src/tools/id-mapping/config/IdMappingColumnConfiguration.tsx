@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import From from '../components/results/FromColumn';
-
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import From from '../components/results/FromColumn';
 import {
   MappingFlat,
-  MappingTo,
   MappingFrom,
+  MappingTo,
 } from '../types/idMappingSearchResults';
 
 export enum IDMappingColumn {

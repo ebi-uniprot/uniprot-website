@@ -1,18 +1,13 @@
+import { groupBy } from 'lodash-es';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { groupBy } from 'lodash-es';
-
-import MessageHub from './MessageHub';
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import useMessagesState from '../../shared/hooks/useMessagesState';
-
-import { deleteMessage } from '../state/messagesActions';
-
 import { getLocationForPathname } from '../../shared/utils/url';
-
+import { deleteMessage } from '../state/messagesActions';
 import { MessageFormat } from '../types/messagesTypes';
-
+import MessageHub from './MessageHub';
 import styles from './styles/popup-message-hub.module.scss';
 
 const MessageManager = () => {

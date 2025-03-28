@@ -1,17 +1,16 @@
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
 import {
   fireEvent,
-  waitFor,
-  screen,
   render,
   RenderResult,
+  screen,
+  waitFor,
 } from '@testing-library/react';
-
-import CustomiseTable from '../CustomiseTable';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../../types/namespaces';
+import CustomiseTable from '../CustomiseTable';
 
 describe('CustomiseTable component', () => {
   let rendered: RenderResult;
@@ -38,6 +37,8 @@ describe('CustomiseTable component', () => {
       />
     );
     await waitFor(() => screen.getAllByRole('button'));
+    // wait for the drag and drop library to have instantiated itself
+    await waitFor(() => screen.getByRole('status'));
   });
 
   afterEach(() => {

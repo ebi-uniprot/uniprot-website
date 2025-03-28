@@ -1,8 +1,9 @@
 import { screen } from '@testing-library/react';
-import EntryPublications from '../tabs/Publications';
-import mockPublicationsData from './__mocks__/entryPublicationsData';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import EntryPublications from '../tabs/Publications';
+import mockPublicationsData from './__mocks__/entryPublicationsData';
 
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
 

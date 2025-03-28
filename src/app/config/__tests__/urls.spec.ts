@@ -1,3 +1,4 @@
+import { Namespace } from '../../../shared/types/namespaces';
 import {
   getEntryPath,
   getEntryPathFor,
@@ -5,8 +6,6 @@ import {
   getLocationEntryPathFor,
   Location,
 } from '../urls';
-
-import { Namespace } from '../../../shared/types/namespaces';
 
 describe('getEntryPath', () => {
   it('should correctly form entry path', () => {

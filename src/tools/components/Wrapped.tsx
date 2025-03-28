@@ -1,35 +1,25 @@
+import { Region } from '@nightingale-elements/nightingale-msa';
+import { Feature } from '@nightingale-elements/nightingale-track';
+import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
+import { debounce } from 'lodash-es';
 import {
+  Dispatch,
+  lazy,
+  SetStateAction,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
-  SetStateAction,
-  Dispatch,
-  useEffect,
-  lazy,
 } from 'react';
-import { debounce } from 'lodash-es';
-import { Region } from '@nightingale-elements/nightingale-msa';
-import NightingaleTrack, {
-  Feature,
-} from '@nightingale-elements/nightingale-track';
-
-import NightingalTrackComponent from '../../shared/custom-elements/NightingaleTrack';
-
-import useSize from '../../shared/hooks/useSize';
-import useSafeState from '../../shared/hooks/useSafeState';
-import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
-
-import { MsaColorScheme } from '../config/msaColorSchemes';
 
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
-import {
-  createGappedFeature,
-  getEndCoordinate,
-  MSAFeature,
-} from '../utils/sequences';
-import AlignLabel from '../align/components/results/AlignLabel';
-
+import NightingaleTrackCanvasComponent from '../../shared/custom-elements/NightingaleTrackCanvas';
+import useSafeState from '../../shared/hooks/useSafeState';
+import useSize from '../../shared/hooks/useSize';
+import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
 import FeatureType from '../../uniprotkb/types/featureType';
+import AlignLabel from '../align/components/results/AlignLabel';
+import { MsaColorScheme } from '../config/msaColorSchemes';
 import {
   AlignmentComponentProps,
   ConservationOptions,
@@ -38,6 +28,11 @@ import {
   OnMSAFeatureClick,
   UpdateTooltip,
 } from '../types/alignment';
+import {
+  createGappedFeature,
+  getEndCoordinate,
+  MSAFeature,
+} from '../utils/sequences';
 
 const NightingaleMSA = lazy(
   () =>
@@ -120,7 +115,7 @@ export const WrappedRow = ({
   lastRow,
 }: WrappedRowProps) => {
   const setFeatureTrackData = useCallback(
-    (node: NightingaleTrack | null): void => {
+    (node: NightingaleTrackCanvas | null): void => {
       if (node && activeAlignment?.sequence) {
         node.data = activeAnnotation
           .map((f) =>
@@ -234,7 +229,7 @@ export const WrappedRow = ({
       </span>
       <div className="track annotation-track" style={{ width }}>
         {annotation && !delayRender && (
-          <NightingalTrackComponent
+          <NightingaleTrackCanvasComponent
             ref={setFeatureTrackData}
             display-start={trackStart}
             display-end={trackEnd}

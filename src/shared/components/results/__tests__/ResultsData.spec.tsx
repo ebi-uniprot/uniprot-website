@@ -1,12 +1,9 @@
 import { screen } from '@testing-library/react';
 
-import ResultsData from '../ResultsData';
-
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-
-import customRender from '../../../__test-helpers__/customRender';
-
 import results from '../../../../uniprotkb/components/__mocks__/results';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import customRender from '../../../__test-helpers__/customRender';
+import ResultsData from '../ResultsData';
 
 describe('ResultsData component', () => {
   it('should render the table view', async () => {

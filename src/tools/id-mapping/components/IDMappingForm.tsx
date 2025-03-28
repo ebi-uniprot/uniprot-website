@@ -1,86 +1,68 @@
+import '../../styles/ToolsForm.scss';
+
+import cn from 'classnames';
 import {
-  useRef,
-  FormEvent,
-  useMemo,
-  useReducer,
-  useEffect,
-  CSSProperties,
-} from 'react';
-import { Link, generatePath, useHistory } from 'react-router-dom';
-import {
-  PageIntro,
-  Message,
-  TreeSelect,
-  SpinnerIcon,
+  ExternalLink,
   Loader,
   LongNumber,
-  ExternalLink,
+  Message,
+  PageIntro,
+  SpinnerIcon,
+  TreeSelect,
 } from 'franklin-sites';
+import { FormEvent, useEffect, useMemo, useReducer, useRef } from 'react';
+import { generatePath, Link, useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import cn from 'classnames';
 
-import HTMLHead from '../../../shared/components/HTMLHead';
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
-import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-
-import { pluralise } from '../../../shared/utils/utils';
-
+import HTMLHead from '../../../shared/components/HTMLHead';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import ftpUrls from '../../../shared/config/ftpUrls';
+import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { addMessage } from '../../../messages/state/messagesActions';
+import sticky from '../../../shared/styles/sticky.module.scss';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
+import { pluralise } from '../../../shared/utils/utils';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import { createJob } from '../../state/toolsActions';
-import {
-  getIDMappingFormDataReducer,
-  getIDMappingFormInitialState,
-} from '../state/idMappingFormReducer';
+import { SelectedTaxon } from '../../types/toolsFormData';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { truncateTaxonLabel } from '../../utils';
+import defaultFormValues, {
+  IDMappingFields,
+  IDMappingFormValues,
+} from '../config/idMappingFormData';
 import {
   resetFormState,
   updateInputTextIDs,
   updateSelected,
   updateSending,
 } from '../state/idMappingFormActions';
-
-import { getTreeData } from '../utils';
-import { truncateTaxonLabel } from '../../utils';
-import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
-import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-
-import { ID_MAPPING_LIMIT } from '../../../shared/config/limits';
-import ftpUrls from '../../../shared/config/ftpUrls';
-
-import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import defaultFormValues, {
-  IDMappingFields,
-  IDMappingFormValues,
-} from '../config/idMappingFormData';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import { JobTypes } from '../../types/toolsJobTypes';
 import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
+  getIDMappingFormDataReducer,
+  getIDMappingFormInitialState,
+} from '../state/idMappingFormReducer';
 import {
   IDMappingFormConfig,
-  IDMappingRule,
   IDMappingGroupItem,
+  IDMappingRule,
 } from '../types/idMappingFormConfig';
 import { FormParameters } from '../types/idMappingFormParameters';
-import { SelectedTaxon } from '../../types/toolsFormData';
-
-import sticky from '../../../shared/styles/sticky.module.scss';
-import '../../styles/ToolsForm.scss';
+import { getTreeData } from '../utils';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
-
-interface Style extends CSSProperties {
-  '--main-color': string;
-}
 
 export type TreeDataNode = {
   label: string;
@@ -148,9 +130,6 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
       formValues['From Database'].selected === 'Gene_Name' &&
       !formValues.Taxons.selected
   );
-  const submitStyle: Style | undefined = geneWithoutTaxonWarning
-    ? { '--main-color': 'var(--fr--color-warning)' }
-    : undefined;
 
   const submitIDMappingJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
@@ -433,18 +412,22 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
           {geneWithoutTaxonWarning && (
             <Message level="warning">
               <small>
-                You are about to submit a list of gene names without taxonomy
-                restriction. Are you sure you do not want to specify a taxon or
+                You are about to submit a list of gene names without organism
+                restriction. Are you sure you do not want to specify an
                 organism?
                 <br />
                 Gene name mappings against all organisms can produce extremely
-                long lists of UniProtKB IDs and may even cause the mapping
+                long lists of UniProtKB entries and may even cause the mapping
                 service to fail.
               </small>
             </Message>
           )}
           <section
-            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+            className={cn(
+              'tools-form-section',
+              geneWithoutTaxonWarning && 'tools-form-warning-submit',
+              !geneWithoutTaxonWarning && sticky['sticky-bottom-right']
+            )}
           >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
@@ -459,7 +442,6 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 type="submit"
                 disabled={submitDisabled}
                 onClick={submitIDMappingJob}
-                style={submitStyle}
               >
                 Map{' '}
                 {parsedIDs.length ? (

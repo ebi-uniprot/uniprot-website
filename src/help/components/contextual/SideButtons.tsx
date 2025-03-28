@@ -1,12 +1,11 @@
-import { useEffect, MouseEventHandler } from 'react';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { MouseEventHandler, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import sideButtonStyles from './styles/side-buttons.module.scss';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import baseStyles from '../../../shared/components/layouts/styles/base-layout.module.scss';
+import sideButtonStyles from './styles/side-buttons.module.scss';
 
 type Props = {
   displayHelp: boolean;
@@ -39,7 +38,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
       if (document.querySelector(surveyId)) {
         if (scrollBarWidth) {
           const hjButton = document.querySelector<HTMLElement>(
-            `${surveyId} > div > div > div > div > div`
+            `${surveyId} > div > div > div > div > div:nth-child(2)`
           );
 
           if (hjButton) {

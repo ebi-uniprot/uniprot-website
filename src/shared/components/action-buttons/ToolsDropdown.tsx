@@ -1,13 +1,11 @@
+import { Button, Dropdown, ToolboxIcon } from 'franklin-sites';
 import { ComponentProps, ReactNode } from 'react';
-import { Dropdown, Button, ToolboxIcon } from 'franklin-sites';
-
-import MapIDButton from './MapID';
-import BlastButton from './Blast';
-import AlignButton from './Align';
 
 import useNS from '../../hooks/useNS';
-
 import { Namespace } from '../../types/namespaces';
+import AlignButton from './Align';
+import BlastButton from './Blast';
+import MapIDButton from './MapID';
 
 const visibleElement = (onClick: () => unknown) => (
   <Button variant="tertiary" onClick={onClick}>

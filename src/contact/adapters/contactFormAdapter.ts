@@ -1,27 +1,25 @@
-import {
-  useState,
-  useCallback,
-  FormEventHandler,
-  useMemo,
-  useEffect,
-  useRef,
-} from 'react';
-import { useHistory } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
 import { LocationDescriptor } from 'history';
+import {
+  FormEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useHistory } from 'react-router-dom';
 
-import useDataApi from '../../shared/hooks/useDataApi';
-import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
-
-import apiUrls from '../config/apiUrls';
+import { Location, LocationToPath } from '../../app/config/urls';
 import { addMessage } from '../../messages/state/messagesActions';
-import { stringifyUrl } from '../../shared/utils/url';
-
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
-import { Location, LocationToPath } from '../../app/config/urls';
+import useDataApi from '../../shared/hooks/useDataApi';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
+import { stringifyUrl } from '../../shared/utils/url';
+import apiUrls from '../config/apiUrls';
 
 export type ContactLocationState =
   | undefined

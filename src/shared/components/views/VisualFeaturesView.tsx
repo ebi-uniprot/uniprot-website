@@ -1,29 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
-import { FullViewIcon } from 'franklin-sites';
-import { Link, useParams } from 'react-router-dom';
-import NightingaleTrack from '@nightingale-elements/nightingale-track';
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
 import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
+import { FullViewIcon } from 'franklin-sites';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
-import NightingaleSequenceComponent from '../../custom-elements/NightingaleSequence';
-import NightingalTrackComponent from '../../custom-elements/NightingaleTrack';
-import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
+import { getEntryPath } from '../../../app/config/urls';
 import NightingaleZoomTool, {
   iconSize,
 } from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
-import EntryDownloadPanel from '../entry/EntryDownloadPanel';
-import EntryDownloadButton from '../entry/EntryDownloadButton';
-
-import { getEntryPath } from '../../../app/config/urls';
-import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
-
 import { TabLocation } from '../../../uniprotkb/types/entry';
+import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
+import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
+import NightingaleSequenceComponent from '../../custom-elements/NightingaleSequence';
+import NightingaleTrackCanvasComponent from '../../custom-elements/NightingaleTrackCanvas';
 import { Namespace } from '../../types/namespaces';
-import { Dataset } from '../entry/EntryDownload';
+import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
 import { NightingaleViewRange } from '../../utils/nightingale';
+import { Dataset } from '../entry/EntryDownload';
+import EntryDownloadButton from '../entry/EntryDownloadButton';
+import EntryDownloadPanel from '../entry/EntryDownloadPanel';
 import { ProcessedFeature } from './FeaturesView';
-
 import styles from './styles/visual-features-view.module.scss';
 
 function getHighlightedCoordinates<T extends ProcessedFeature>(feature?: T) {
@@ -53,7 +50,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
 }: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
-  const trackRef = useRef<NightingaleTrack>(null);
+  const trackRef = useRef<NightingaleTrackCanvas>(null);
   const managerRef = useRef<NightingaleManager>(null);
   const navigationRef = useRef<NightingaleNavigation>(null);
 
@@ -141,7 +138,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
           length={sequence.length}
           height={40}
         />
-        <NightingalTrackComponent
+        <NightingaleTrackCanvasComponent
           ref={trackRef}
           length={sequence.length}
           layout="non-overlapping"

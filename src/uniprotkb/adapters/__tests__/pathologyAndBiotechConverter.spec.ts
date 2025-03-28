@@ -1,8 +1,7 @@
-import diseaseAndDrugs from '../diseaseAndDrugs';
-import { convertXrefProperties } from '../uniProtkbConverter';
-
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
 import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
+import diseaseAndDrugs from '../diseaseAndDrugs';
+import { convertXrefProperties } from '../uniProtkbConverter';
 
 describe('Disease and Drugs data converter', () => {
   it('should convert the data', () => {

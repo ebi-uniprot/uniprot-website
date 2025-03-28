@@ -1,33 +1,28 @@
+import cn from 'classnames';
+import { Button, ExternalLink, LongNumber } from 'franklin-sites';
 import { useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { Button, ExternalLink, LongNumber } from 'franklin-sites';
-import cn from 'classnames';
 
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
+import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 import HTMLHead from '../../../shared/components/HTMLHead';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import ftpUrls from '../../../shared/config/ftpUrls';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
 import {
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
-
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPath,
-} from '../../../app/config/urls';
-import ftpUrls from '../../../shared/config/ftpUrls';
-import { stringifyQuery } from '../../../shared/utils/url';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { FacetsEnum } from '../../config/UniParcFacetConfiguration';
-
 import styles from './styles/landing-page.module.scss';
-
-import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 
 // TODO: when we do have videos for UniParc, update list and expose
 // const tutorialsInfo = [
@@ -255,17 +250,17 @@ const LandingPage = () => {
               <br />
               <ul>
                 <li>
-                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/xml/all/">
+                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/xml/all/">
                     xml
                   </ExternalLink>
                 </li>
                 <li>
-                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/fasta/active/">
+                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/fasta/active/">
                     fasta
                   </ExternalLink>
                 </li>
                 <li>
-                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/READMEE">
+                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/README">
                     README
                   </ExternalLink>
                 </li>

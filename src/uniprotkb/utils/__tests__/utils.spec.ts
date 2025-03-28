@@ -1,5 +1,5 @@
-import { transfromProperties, getPropertyValue } from '../index';
 import { PropertyKey } from '../../types/modelTypes';
+import { getPropertyValue, transfromProperties } from '../index';
 
 const testingProperties = [
   { key: PropertyKey.Project, value: 'foo' },

@@ -1,7 +1,6 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { mockDownloadUrlOptions } from '../../state/__tests__/asyncDownloadFormReducer.spec';
-
 import AsyncDownloadForm from '../AsyncDownloadForm';
 
 describe('AsyncDownloadForm', () => {

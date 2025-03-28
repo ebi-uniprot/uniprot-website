@@ -1,67 +1,67 @@
+import '../../styles/ToolsForm.scss';
+
+import cn from 'classnames';
+import {
+  Chip,
+  ExternalLink,
+  Message,
+  PageIntro,
+  SpinnerIcon,
+} from 'franklin-sites';
 import {
   FC,
   FormEvent,
   MouseEvent,
-  useRef,
-  useReducer,
   useEffect,
+  useReducer,
+  useRef,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Chip, ExternalLink, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
-import cn from 'classnames';
 
-import HTMLHead from '../../../shared/components/HTMLHead';
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
-import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import ChecksumSuggester from '../../components/ChecksumSuggester';
-
+import HTMLHead from '../../../shared/components/HTMLHead';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import {
+  PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH,
+  PEPTIDE_SEARCH_SEQUENCES_COUNT,
+} from '../../../shared/config/limits';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-
-import { addMessage } from '../../../messages/state/messagesActions';
+import sticky from '../../../shared/styles/sticky.module.scss';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
+import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import ChecksumSuggester from '../../components/ChecksumSuggester';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import { createJob } from '../../state/toolsActions';
-import {
-  getPeptideSearchFormDataReducer,
-  getPeptideSearchFormInitialState,
-} from '../state/peptideSearchFormReducer';
+import { SelectedTaxon } from '../../types/toolsFormData';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { truncateTaxonLabel } from '../../utils';
+import defaultFormValues, {
+  PeptideSearchFields,
+  PeptideSearchFormValue,
+  PeptideSearchFormValues,
+} from '../config/PeptideSearchFormData';
 import {
   resetFormState,
   updatePeptideSequences,
   updateSelected,
   updateSending,
 } from '../state/peptideSearchFormActions';
-
-import { truncateTaxonLabel } from '../../utils';
-import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-
 import {
-  PEPTIDE_SEARCH_SEQUENCES_COUNT,
-  PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH,
-} from '../../../shared/config/limits';
-
-import { JobTypes } from '../../types/toolsJobTypes';
+  getPeptideSearchFormDataReducer,
+  getPeptideSearchFormInitialState,
+} from '../state/peptideSearchFormReducer';
 import { FormParameters } from '../types/peptideSearchFormParameters';
-import { peps, lEQi, spOnly } from '../types/peptideSearchServerParameters';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import defaultFormValues, {
-  PeptideSearchFormValues,
-  PeptideSearchFormValue,
-  PeptideSearchFields,
-} from '../config/PeptideSearchFormData';
-import { SelectedTaxon } from '../../types/toolsFormData';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
-
-import sticky from '../../../shared/styles/sticky.module.scss';
-import '../../styles/ToolsForm.scss';
+import { lEQi, peps, spOnly } from '../types/peptideSearchServerParameters';
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
@@ -160,6 +160,15 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       )
     );
   };
+
+  const peptideWithoutTaxonWarning = Boolean(
+    formValues[PeptideSearchFields.peps].selected &&
+      !(
+        formValues[PeptideSearchFields.taxIds].selected as
+          | undefined
+          | SelectedTaxon[]
+      )?.length
+  );
 
   // form event handlers
   const handleReset = (event: FormEvent) => {
@@ -362,8 +371,25 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               )}
             </section>
           </details>
+          {peptideWithoutTaxonWarning && (
+            <Message level="warning">
+              <small>
+                You are about to submit a peptide search without organism
+                restriction. Are you sure you do not want to specify an
+                organism?
+                <br />
+                Peptide searches against all organisms can produce extremely
+                long lists of UniProtKB entries and may even cause the search to
+                fail.
+              </small>
+            </Message>
+          )}
           <section
-            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+            className={cn(
+              'tools-form-section',
+              peptideWithoutTaxonWarning && 'tools-form-warning-submit',
+              !peptideWithoutTaxonWarning && sticky['sticky-bottom-right']
+            )}
           >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (

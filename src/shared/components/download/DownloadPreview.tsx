@@ -2,13 +2,10 @@ import { CodeBlock, Loader } from 'franklin-sites';
 import { useMemo } from 'react';
 import { JsonObject } from 'type-fest';
 
+import { fileFormatToContentType } from '../../config/resultsDownload';
 import useDataApi from '../../hooks/useDataApi';
 import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
-
-import { fileFormatToContentType } from '../../config/resultsDownload';
-
 import { FileFormat } from '../../types/resultsDownload';
-
 import styles from './styles/download-preview.module.scss';
 
 type Props = {

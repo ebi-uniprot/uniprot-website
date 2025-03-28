@@ -1,32 +1,28 @@
-import { useState, Suspense, ReactNode } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { sleep } from 'timing-functions';
 import {
   Button,
   DownloadIcon,
   ReSubmitIcon,
   SlidingPanel,
 } from 'franklin-sites';
-
-import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
-import AlignButton from '../../shared/components/action-buttons/Align';
-import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
-import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
-import CustomiseButton from '../../shared/components/action-buttons/CustomiseButton';
-
-import { serverParametersToFormParameters } from '../adapters/parameters';
+import { ReactNode, Suspense, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { sleep } from 'timing-functions';
 
 import { jobTypeToPath } from '../../app/config/urls';
+import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
+import AlignButton from '../../shared/components/action-buttons/Align';
+import CustomiseButton from '../../shared/components/action-buttons/CustomiseButton';
+import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
+import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
-
+import { Namespace } from '../../shared/types/namespaces';
 import fetchData from '../../shared/utils/fetchData';
 import lazy from '../../shared/utils/lazy';
 import { pluralise } from '../../shared/utils/utils';
-
-import { PublicServerParameters } from '../types/toolsServerParameters';
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { serverParametersToFormParameters } from '../adapters/parameters';
 import { JobTypes } from '../types/toolsJobTypes';
-import { Namespace } from '../../shared/types/namespaces';
+import { PublicServerParameters } from '../types/toolsServerParameters';
 
 type ResubmitButtonProps<T extends JobTypes> = {
   jobType: T;

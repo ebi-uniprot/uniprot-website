@@ -1,3 +1,4 @@
+import { Feature } from '@nightingale-elements/nightingale-track';
 import {
   Fragment,
   lazy,
@@ -7,24 +8,20 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Feature } from '@nightingale-elements/nightingale-track';
-
-import LazyComponent from '../LazyComponent';
-import TableFromData from '../table/TableFromData';
-
-import { useSmallScreen } from '../../hooks/useMatchMedia';
-import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
-
-import FeatureType from '../../../uniprotkb/types/featureType';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
+import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import FeatureType from '../../../uniprotkb/types/featureType';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
 import { NightingaleViewRange } from '../../utils/nightingale';
+import LazyComponent from '../LazyComponent';
+import TableFromData from '../table/TableFromData';
 
 const VisualFeaturesView = lazy(
   () =>

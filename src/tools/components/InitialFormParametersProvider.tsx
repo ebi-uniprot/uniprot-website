@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
 import { Loader } from 'franklin-sites';
+import { useEffect } from 'react';
 
 import * as logging from '../../shared/utils/logging';
-
 import useInitialFormParameters, {
   FormValues,
 } from '../hooks/useInitialFormParameters';

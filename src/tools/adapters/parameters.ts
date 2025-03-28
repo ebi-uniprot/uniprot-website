@@ -1,14 +1,13 @@
 import { sequenceProcessor } from 'franklin-sites';
 
 import * as logging from '../../shared/utils/logging';
-
-import {
-  ServerParameters,
-  PublicServerParameters,
-} from '../types/toolsServerParameters';
+import { SelectedTaxon } from '../types/toolsFormData';
 import { FormParameters } from '../types/toolsFormParameters';
 import { JobTypes } from '../types/toolsJobTypes';
-import { SelectedTaxon } from '../types/toolsFormData';
+import {
+  PublicServerParameters,
+  ServerParameters,
+} from '../types/toolsServerParameters';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
 const LOW_PRIORITY_EMAIL = 'uuw_dev_low_priority_no_reply@uniprot.org';

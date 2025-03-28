@@ -1,23 +1,20 @@
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { InfoList, ExpandableList } from 'franklin-sites';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import externalUrls from '../../../shared/config/externalUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { stringToID } from '../../utils';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import externalUrls from '../../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
 import {
+  ProteinDescription,
   ProteinNames,
   ProteinNamesData,
-  ProteinDescription,
 } from '../../adapters/namesAndTaxonomyConverter';
 import { ValueWithEvidence } from '../../types/modelTypes';
+import { stringToID } from '../../utils';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 const ProteinName = ({
   value,

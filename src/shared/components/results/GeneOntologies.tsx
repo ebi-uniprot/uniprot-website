@@ -1,9 +1,8 @@
 import { ExpandableList, ExternalLink } from 'franklin-sites';
-import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
-
-import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
 
 import { KeywordsAPIModel } from '../../../supporting-data/keywords/adapters/keywordsConverter';
+import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
+import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
 
 const GeneOntologies = ({ geneOntologies }: Partial<KeywordsAPIModel>) => {
   const databaseInfoMaps = useDatabaseInfoMaps();

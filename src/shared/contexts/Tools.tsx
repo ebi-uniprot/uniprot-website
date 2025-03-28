@@ -1,20 +1,19 @@
 import {
   createContext,
   Dispatch,
-  useReducer,
-  useEffect,
-  useRef,
   ReactNode,
+  useEffect,
   useMemo,
+  useReducer,
+  useRef,
 } from 'react';
-
-import useMessagesDispatch from '../hooks/useMessagesDispatch';
 
 import toolsInitialState, {
   ToolsState,
 } from '../../tools/state/toolsInitialState';
 import toolsMiddleware from '../../tools/state/toolsMiddleware';
 import toolsReducers, { ToolsAction } from '../../tools/state/toolsReducers';
+import useMessagesDispatch from '../hooks/useMessagesDispatch';
 
 export const ToolsDispatchContext = createContext<Dispatch<ToolsAction>>(() => {
   /* */

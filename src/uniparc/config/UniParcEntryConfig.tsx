@@ -1,8 +1,7 @@
+import { UniParcUIModel } from '../adapters/uniParcConverter';
 import SequenceSection from '../components/entry/SequenceSection';
 import XRefsSection from '../components/entry/XRefsSection';
-
 import EntrySection from '../types/entrySection';
-import { UniParcUIModel } from '../adapters/uniParcConverter';
 
 const UniParcEntryConfig: {
   id: EntrySection;

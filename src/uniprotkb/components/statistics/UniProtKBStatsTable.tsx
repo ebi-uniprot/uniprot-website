@@ -1,7 +1,6 @@
-import UniProtKBStatsTabs from './UniProtKBStatsTabs';
-import StatsTable from './StatsTable';
-
 import { CategoryName, CategoryToStatistics } from './StatisticsPage';
+import StatsTable from './StatsTable';
+import UniProtKBStatsTabs from './UniProtKBStatsTabs';
 
 type Props = {
   categoryName: CategoryName;

@@ -2,8 +2,8 @@ import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequenc
 import { action } from 'typesafe-actions';
 
 import {
-  AlignFormValue,
   AlignFields,
+  AlignFormValue,
   AlignFormValues,
 } from '../config/AlignFormData';
 

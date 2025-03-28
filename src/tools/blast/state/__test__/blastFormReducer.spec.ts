@@ -1,10 +1,10 @@
+import defaultFormValues, { BlastFields } from '../../config/BlastFormData';
+import * as actions from '../blastFormActions';
 import {
   BlastFormAction,
   getBlastFormDataReducer,
   getBlastFormInitialState,
 } from '../blastFormReducer';
-import * as actions from '../blastFormActions';
-import defaultFormValues, { BlastFields } from '../../config/BlastFormData';
 
 describe('blastFormReducer', () => {
   it('should reset with new form values when provided then reset to default if not provided', () => {

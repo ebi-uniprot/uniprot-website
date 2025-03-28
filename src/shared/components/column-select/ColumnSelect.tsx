@@ -1,26 +1,20 @@
-import { FC, useCallback, useMemo } from 'react';
+import { DragEndEvent } from '@dnd-kit/core';
 import { AccordionSearch, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
-import { DragEndEvent } from '@dnd-kit/core';
-
-import ColumnSelectDragDrop from './ColumnSelectDragDrop';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
-
-import { moveItemInArray, removeItemFromArray } from '../../utils/utils';
-import { getLabel, prepareFieldData } from './utils';
-
-import { Namespace } from '../../types/namespaces';
+import { FC, useCallback, useMemo } from 'react';
 
 import {
   ReceivedFieldData,
   SelectedColumn,
 } from '../../../uniprotkb/types/resultsTypes';
-
+import apiUrls from '../../config/apiUrls/apiUrls';
+import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
+import useDataApi from '../../hooks/useDataApi';
+import { Namespace } from '../../types/namespaces';
+import { moveItemInArray, removeItemFromArray } from '../../utils/utils';
+import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import styles from './styles/column-select.module.scss';
+import { getLabel, prepareFieldData } from './utils';
 
 type ColumnSelectProps = {
   selectedColumns: string[]; // Includes primary key columns but no _full xref columns

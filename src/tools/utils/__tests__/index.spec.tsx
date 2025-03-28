@@ -1,21 +1,18 @@
 import customRender from '../../../shared/__test-helpers__/customRender';
-
-import {
-  getServerErrorDescription,
-  getJobMessage,
-  isValidServerID,
-  truncateTaxonLabel,
-  ServerError,
-  isJobIncomplete,
-  isJobAlreadyFinished,
-} from '..';
-
-import { JobTypes } from '../../types/toolsJobTypes';
-
 import createdJob from '../../__mocks__/internal-jobs/created';
 import runningJob from '../../__mocks__/internal-jobs/running';
-import { Status } from '../../types/toolsStatuses';
 import { Job } from '../../types/toolsJob';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { Status } from '../../types/toolsStatuses';
+import {
+  getJobMessage,
+  getServerErrorDescription,
+  isJobAlreadyFinished,
+  isJobIncomplete,
+  isValidServerID,
+  ServerError,
+  truncateTaxonLabel,
+} from '..';
 
 describe('isValidServerID', () => {
   it('should recognise a valid server ID', () => {
