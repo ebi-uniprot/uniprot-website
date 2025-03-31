@@ -56,6 +56,7 @@ const SubcellularLocationView = ({ comments }: Props) => {
                       {location.id ? (
                         <Link
                           to={getEntryPath(Namespace.locations, location.id)}
+                          className="sub-cell-viz__location-id"
                         >
                           {location.value}
                         </Link>

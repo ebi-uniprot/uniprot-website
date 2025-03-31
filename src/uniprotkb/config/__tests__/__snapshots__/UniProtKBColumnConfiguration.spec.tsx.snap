@@ -598,6 +598,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
       />
       <strong>
         <a
+          class="sub-cell-viz__location-id"
           href="/locations/id1"
         >
           location value
