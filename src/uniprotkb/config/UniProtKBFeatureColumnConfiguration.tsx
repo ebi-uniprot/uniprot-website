@@ -33,23 +33,30 @@ export const columnConfiguration: FeatureColumnConfiguration<ProcessedFeature>[]
     {
       id: 'id',
       label: 'ID',
-      render: (data) =>
-        data.type === 'Natural variant' &&
-        data.startModifier !== 'UNSURE' &&
-        data.startModifier !== 'UNKNOWN' &&
-        // Expasy links are only valid for SNPs (e.g. "R → G":)
-        data.sequence?.length === 5 &&
-        data.id ? (
-          <ExternalLink
-            url={externalUrls.UniProt(data.id)}
-            title="View in Expasy"
-            noIcon
-          >
-            {data.id}
-          </ExternalLink>
-        ) : (
-          data.id
-        ),
+      render: (data) => {
+        if (!data.id) {
+          return null;
+        }
+        if (
+          data.type === 'Natural variant' &&
+          data.startModifier !== 'UNSURE' &&
+          data.startModifier !== 'UNKNOWN' &&
+          // Expasy links are only valid for SNPs (e.g. "R → G":)
+          data.sequence?.length === 5
+        ) {
+          return (
+            <ExternalLink
+              url={externalUrls.UniProt(data.id)}
+              title="View in Expasy"
+              noIcon
+              id={data.id}
+            >
+              {data.id}
+            </ExternalLink>
+          );
+        }
+        return <span id={data.id}>{data.id}</span>;
+      },
     },
     {
       id: 'position',
