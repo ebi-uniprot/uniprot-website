@@ -608,17 +608,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/277/"
+          href="https://www.proteinspotlight.org/back_issues/278/"
           rel="noopener"
           target="_blank"
         >
-          The dormant ribosome
+          Relay
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/277/"
+        href="https://www.proteinspotlight.org/back_issues/278/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -627,14 +627,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt277.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt278.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Snowdrops  are  here.  The  tips  of  daffodil  shoots  are  pushing  through  the  soil,  and  soft  grey  buds  are  preparing  to  burst  on  the  magnolias.  These  are  reminders  that  winter  marks  the  end  of  one  life  cycle  while  spring  marks  the  one  about  to  begin...
+          Life  is  a  powerful  force.  From  the  moment  it  appeared  on  Earth  -  which  is  estimated  at  roughly  4.5  billion  years  ago  -  it  has  never  ceased  to  find  ways  of  continuing...
       </p>
     </article>
   </section>
