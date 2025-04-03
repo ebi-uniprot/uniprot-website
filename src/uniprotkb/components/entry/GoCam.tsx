@@ -14,7 +14,7 @@ import {
   sendGtagEventGoCamVizTabOpened,
 } from '../../../shared/utils/gtagEvents';
 import * as logging from '../../../shared/utils/logging';
-import { heuristic } from '../../../tools/state/utils/heuristic';
+import { heuristic } from '../../../shared/workers/jobs/utils/heuristic';
 import { GoCamModelInfo, GoCamModels } from '../../types/goCamTypes';
 import GoCamViz from '../protein-data-views/GoCamViz';
 import styles from './styles/go-cam.module.scss';

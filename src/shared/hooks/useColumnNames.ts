@@ -2,7 +2,7 @@ import { partition } from 'lodash-es';
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { IDMappingColumn } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
 import { defaultColumns } from '../../uniparc/config/UniParcColumnConfiguration';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';

@@ -2,8 +2,8 @@ import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import SimpleMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/SimpleMappingDetails';
-import UniProtkbMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
+import SimpleMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/SimpleMappingDetails';
+import UniProtkbMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import customRender from '../../../__test-helpers__/customRender';

@@ -211,56 +211,56 @@ const ARBAEntryPage = lazy(
 const BlastResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "blast-result" */ '../../tools/blast/components/results/BlastResult'
+      /* webpackChunkName: "blast-result" */ '../../jobs/blast/components/results/BlastResult'
     )
 );
 const BlastForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "blast-form" */ '../../tools/blast/components/BlastForm'
+      /* webpackChunkName: "blast-form" */ '../../jobs/blast/components/BlastForm'
     )
 );
 const AlignResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "align-result" */ '../../tools/align/components/results/AlignResult'
+      /* webpackChunkName: "align-result" */ '../../jobs/align/components/results/AlignResult'
     )
 );
 const AlignForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
+      /* webpackChunkName: "align-form" */ '../../jobs/align/components/AlignForm'
     )
 );
 const IDMappingResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
+      /* webpackChunkName: "id-mapping-result" */ '../../jobs/id-mapping/components/results/IDMappingResult'
     )
 );
 const IDMappingForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+      /* webpackChunkName: "id-mapping-form" */ '../../jobs/id-mapping/components/IDMappingForm'
     )
 );
 const PeptideSearchResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
+      /* webpackChunkName: "peptide-search-result" */ '../../jobs/peptide-search/components/results/PeptideSearchResult'
     )
 );
 const PeptideSearchForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
+      /* webpackChunkName: "peptide-search-form" */ '../../jobs/peptide-search/components/PeptideSearchForm'
     )
 );
 
 const Dashboard = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "dashboard" */ '../../jobs/dashboard/components/Dashboard'
     )
 );
 

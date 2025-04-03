@@ -1,5 +1,6 @@
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadARBA } from '../../automatic-annotations/arba/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniRule } from '../../automatic-annotations/unirule/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadIDMapping } from '../../jobs/id-mapping/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadProteomes } from '../../proteomes/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadCitations } from '../../supporting-data/citations/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadDatabase } from '../../supporting-data/database/config/download';
@@ -7,7 +8,6 @@ import { fileFormatsResultsDownload as fileFormatsResultsDownloadDiseases } from
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadKeywords } from '../../supporting-data/keywords/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadLocations } from '../../supporting-data/locations/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadTaxonomy } from '../../supporting-data/taxonomy/config/download';
-import { fileFormatsResultsDownload as fileFormatsResultsDownloadIDMapping } from '../../tools/id-mapping/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniParc } from '../../uniparc/config/download';
 import {
   fileFormatHistoryDownload as fileFormatsResultsDownloadUniSave,

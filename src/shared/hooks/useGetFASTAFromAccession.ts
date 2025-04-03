@@ -1,7 +1,7 @@
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { IdMaybeWithRange } from '../../tools/utils/urls';
+import { IdMaybeWithRange } from '../../jobs/utils/urls';
 import {
   UniParcAPIModel,
   UniParcLiteAPIModel,

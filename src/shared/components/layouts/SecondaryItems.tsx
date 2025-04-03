@@ -22,10 +22,9 @@ import { schedule } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
-import { Status } from '../../../tools/types/toolsStatuses';
 import useBasket from '../../hooks/useBasket';
+import useJobState from '../../hooks/useJobsState';
 import useSafeState from '../../hooks/useSafeState';
-import useToolsState from '../../hooks/useToolsState';
 import helper from '../../styles/helper.module.scss';
 import { Namespace } from '../../types/namespaces';
 import {
@@ -35,6 +34,7 @@ import {
 } from '../../utils/gtagEvents';
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
+import { Status } from '../../workers/jobs/types/jobStatuses';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/secondary-items.module.scss';
 
@@ -48,7 +48,7 @@ const BasketMiniView = lazy(
 const Dashboard = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "dashboard" */ '../../../jobs/dashboard/components/Dashboard'
     )
 );
 
@@ -69,7 +69,8 @@ const statusesToNotify = new Set([
 ]);
 
 const ToolsDashboard = () => {
-  const tools = useToolsState();
+  // TODO: rename all tools to jobs
+  const tools = useJobState();
   const { pathname } = useLocation();
 
   const count = useMemo(() => {
