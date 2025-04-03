@@ -2,11 +2,11 @@ import cn from 'classnames';
 import { Message } from 'franklin-sites';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 
+import { MIN_ROWS_TO_EXPAND } from './constants';
 import styles from './styles/table.module.scss';
 import Table from './Table';
 
 const UNFILTERED_OPTION = 'All' as const;
-const MIN_ROWS_TO_EXPAND = 10 as const;
 
 type TableHeaderFromDataProps<T> = {
   column: TableFromDataColumn<T>;
