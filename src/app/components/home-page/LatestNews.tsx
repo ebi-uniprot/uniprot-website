@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Snowdrops are here. The tips of daffodil shoots are pushing through the soil, and soft grey buds are preparing to burst on the magnolias. These are reminders that winter marks the end of one life cycle while spring marks the one about to begin...';
+  'Life is a powerful force. From the moment it appeared on Earth - which is estimated at roughly 4.5 billion years ago - it has never ceased to find ways of continuing...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -353,21 +353,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/277/"
+            url="https://www.proteinspotlight.org/back_issues/278/"
             noIcon
           >
-            The dormant ribosome
+            Relay
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/277/"
+          url="https://www.proteinspotlight.org/back_issues/278/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt277.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt278.jpg"
             alt=""
             width="123"
             height="129"

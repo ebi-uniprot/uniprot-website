@@ -125,7 +125,7 @@ exports[`WrappedRow should render 1`] = `
     class="track annotation-track"
     style="width: 810px;"
   >
-    <nightingale-track
+    <nightingale-track-canvas
       display-end="46"
       display-start="1"
       height="40"
@@ -136,278 +136,40 @@ exports[`WrappedRow should render 1`] = `
       style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
     >
       <!---->
-      <svg
+      
+      
+      <div
         class="container"
-        height="40"
       >
-        <g
-          class="sequence-features"
+        
+        
+        <div
+          style="position: relative; z-index: 0;"
         >
-          <g
-            class="feature-group"
-            id="g_a1bdae00-235f-11eb-9899-4330e39f65ae"
+          
+          
+          <canvas
+            style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 40px;"
+          />
+          
+          
+          <svg
+            height="40"
+            width="10"
           >
             <g
-              class="location-group"
-            >
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,15L0,15Z"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,7.5 L0,7.5"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,15L0,15Z"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,7.5 L0,7.5"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,15L0,15Z"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,7.5 L0,7.5"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,15L0,15Z"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,7.5 L0,7.5"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,15L0,15Z"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,7.5 L0,7.5"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,15L0,15Z"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="line feature"
-                  d="M0,7.5 L0,7.5"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-              <g
-                class="fragment-group"
-              >
-                <path
-                  class="rectangle feature"
-                  d="M0,0L0,0L0,15L0,15Z"
-                  stroke="#9999FF"
-                  style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                  transform="translate(10,12.5)"
-                />
-                <rect
-                  class="outer-rectangle feature"
-                  height="15"
-                  stroke="transparent"
-                  style="fill: transparent;"
-                  transform="translate(10,12.5)"
-                  width="0"
-                />
-              </g>
-            </g>
-          </g>
-        </g>
-        <g
-          class="highlighted"
-        />
-        <g
-          class="margin"
-        />
-      </svg>
-    </nightingale-track>
+              class="highlighted"
+            />
+          </svg>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </nightingale-track-canvas>
   </div>
 </DocumentFragment>
 `;

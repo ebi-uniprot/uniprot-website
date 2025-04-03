@@ -69,7 +69,7 @@ exports[`AlignmentView Align should render 1`] = `
           class="track"
         >
           <div>
-            <nightingale-track
+            <nightingale-track-canvas
               display-end="-1"
               display-start="1"
               height="7"
@@ -81,443 +81,41 @@ exports[`AlignmentView Align should render 1`] = `
               style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
             >
               <!---->
-              <svg
+              
+      
+              <div
                 class="container"
-                height="7"
               >
-                <g
-                  class="sequence-features"
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
                 >
-                  <g
-                    class="feature-group"
-                    id="g_0"
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
                   >
                     <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_1"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_2"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_3"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_4"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_5"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_6"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_7"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_8"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_9"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_10"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_11"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_12"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_13"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_14"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
-            <nightingale-track
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
               display-end="-1"
               display-start="1"
               height="7"
@@ -529,667 +127,41 @@ exports[`AlignmentView Align should render 1`] = `
               style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
             >
               <!---->
-              <svg
+              
+      
+              <div
                 class="container"
-                height="7"
               >
-                <g
-                  class="sequence-features"
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
                 >
-                  <g
-                    class="feature-group"
-                    id="g_15"
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
                   >
                     <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_16"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_17"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_18"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_19"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_20"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_21"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_22"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_23"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_24"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_25"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_26"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_27"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_28"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_29"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_30"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_31"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_32"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_33"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_34"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_35"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_36"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_37"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
-            <nightingale-track
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
               display-end="-1"
               display-start="1"
               height="7"
@@ -1201,779 +173,41 @@ exports[`AlignmentView Align should render 1`] = `
               style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
             >
               <!---->
-              <svg
+              
+      
+              <div
                 class="container"
-                height="7"
               >
-                <g
-                  class="sequence-features"
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
                 >
-                  <g
-                    class="feature-group"
-                    id="g_38"
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
                   >
                     <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_39"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_40"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_41"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_42"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_43"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_44"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_45"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_46"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_47"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_48"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_49"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_50"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_51"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_52"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_53"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_54"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_55"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_56"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_57"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_58"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_59"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_60"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_61"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_62"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_63"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_64"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
-            <nightingale-track
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
               display-end="-1"
               display-start="1"
               height="7"
@@ -1985,778 +219,40 @@ exports[`AlignmentView Align should render 1`] = `
               style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
             >
               <!---->
-              <svg
+              
+      
+              <div
                 class="container"
-                height="7"
               >
-                <g
-                  class="sequence-features"
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
                 >
-                  <g
-                    class="feature-group"
-                    id="g_65"
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
                   >
                     <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_66"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_67"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_68"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_69"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_70"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_71"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_72"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_73"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_74"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_75"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_76"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_77"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_78"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_79"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_80"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_81"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_82"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_83"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_84"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_85"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_86"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_87"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_88"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_89"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_90"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,5L0,5Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_91"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,2.5 L0,2.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="5"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
           </div>
         </div>
         <span
@@ -2768,7 +264,7 @@ exports[`AlignmentView Align should render 1`] = `
         <div
           class="track"
         >
-          <nightingale-track
+          <nightingale-track-canvas
             display-end="957"
             display-start="1"
             height="7"
@@ -2780,278 +276,40 @@ exports[`AlignmentView Align should render 1`] = `
             style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
           >
             <!---->
-            <svg
+            
+      
+            <div
               class="container"
-              height="7"
             >
-              <g
-                class="sequence-features"
+              
+        
+              <div
+                style="position: relative; z-index: 0;"
               >
-                <g
-                  class="feature-group"
-                  id="g_id1"
+                
+          
+                <canvas
+                  style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                />
+                
+          
+                <svg
+                  height="7"
+                  width="10"
                 >
                   <g
-                    class="location-group"
-                  >
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,5L0,5Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="line feature"
-                        d="M0,2.5 L0,2.5"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,5L0,5Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="line feature"
-                        d="M0,2.5 L0,2.5"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,5L0,5Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="line feature"
-                        d="M0,2.5 L0,2.5"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,5L0,5Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="line feature"
-                        d="M0,2.5 L0,2.5"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,5L0,5Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="line feature"
-                        d="M0,2.5 L0,2.5"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,5L0,5Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="line feature"
-                        d="M0,2.5 L0,2.5"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,5L0,5Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="5"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-              <g
-                class="highlighted"
-              />
-              <g
-                class="margin"
-              />
-            </svg>
-          </nightingale-track>
+                    class="highlighted"
+                  />
+                </svg>
+                
+        
+              </div>
+              
+      
+            </div>
+            
+    
+          </nightingale-track-canvas>
         </div>
         <div
           class="track-label track-label--align-labels"
@@ -3262,7 +520,7 @@ exports[`AlignmentView BLAST should render 1`] = `
           class="track"
         >
           <div>
-            <nightingale-track
+            <nightingale-track-canvas
               display-end="-1"
               display-start="1"
               height="15"
@@ -3274,107 +532,41 @@ exports[`AlignmentView BLAST should render 1`] = `
               style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
             >
               <!---->
-              <svg
+              
+      
+              <div
                 class="container"
-                height="15"
               >
-                <g
-                  class="sequence-features"
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
                 >
-                  <g
-                    class="feature-group"
-                    id="g_0"
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 15px;"
+                  />
+                  
+          
+                  <svg
+                    height="15"
+                    width="10"
                   >
                     <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,6.5 L0,6.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_1"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,13L0,13Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_2"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,6.5 L0,6.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
-            <nightingale-track
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
               display-end="-1"
               display-start="1"
               height="15"
@@ -3386,106 +578,40 @@ exports[`AlignmentView BLAST should render 1`] = `
               style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
             >
               <!---->
-              <svg
+              
+      
+              <div
                 class="container"
-                height="15"
               >
-                <g
-                  class="sequence-features"
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
                 >
-                  <g
-                    class="feature-group"
-                    id="g_3"
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 15px;"
+                  />
+                  
+          
+                  <svg
+                    height="15"
+                    width="10"
                   >
                     <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,6.5 L0,6.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_4"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="rectangle feature"
-                          d="M0,0L0,0L0,13L0,13Z"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                  <g
-                    class="feature-group"
-                    id="g_5"
-                  >
-                    <g
-                      class="location-group"
-                    >
-                      <g
-                        class="fragment-group"
-                      >
-                        <path
-                          class="line feature"
-                          d="M0,6.5 L0,6.5"
-                          stroke="#014371"
-                          style="fill: #014371; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                          transform="translate(10,1)"
-                        />
-                        <rect
-                          class="outer-rectangle feature"
-                          height="13"
-                          stroke="transparent"
-                          style="fill: transparent;"
-                          transform="translate(10,1)"
-                          width="0"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g
-                  class="highlighted"
-                />
-                <g
-                  class="margin"
-                />
-              </svg>
-            </nightingale-track>
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
           </div>
         </div>
         <span
@@ -3497,7 +623,7 @@ exports[`AlignmentView BLAST should render 1`] = `
         <div
           class="track"
         >
-          <nightingale-track
+          <nightingale-track-canvas
             display-end="565"
             display-start="1"
             height="15"
@@ -3509,50 +635,40 @@ exports[`AlignmentView BLAST should render 1`] = `
             style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
           >
             <!---->
-            <svg
+            
+      
+            <div
               class="container"
-              height="15"
             >
-              <g
-                class="sequence-features"
+              
+        
+              <div
+                style="position: relative; z-index: 0;"
               >
-                <g
-                  class="feature-group"
-                  id="g_cb1e3e80-227f-11eb-8c7f-bd249b5a2490"
+                
+          
+                <canvas
+                  style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 15px;"
+                />
+                
+          
+                <svg
+                  height="15"
+                  width="10"
                 >
                   <g
-                    class="location-group"
-                  >
-                    <g
-                      class="fragment-group"
-                    >
-                      <path
-                        class="rectangle feature"
-                        d="M0,0L0,0L0,13L0,13Z"
-                        stroke="#9999FF"
-                        style="fill: #9999FF; fill-opacity: 0.9; stroke-opacity: 0.9;"
-                        transform="translate(10,1)"
-                      />
-                      <rect
-                        class="outer-rectangle feature"
-                        height="13"
-                        stroke="transparent"
-                        style="fill: transparent;"
-                        transform="translate(10,1)"
-                        width="0"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-              <g
-                class="highlighted"
-              />
-              <g
-                class="margin"
-              />
-            </svg>
-          </nightingale-track>
+                    class="highlighted"
+                  />
+                </svg>
+                
+        
+              </div>
+              
+      
+            </div>
+            
+    
+          </nightingale-track-canvas>
         </div>
         <div
           class="track-label track-label--align-labels"

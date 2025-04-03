@@ -93,7 +93,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               height="40"
               length="10"
             />
-            <nightingale-track
+            <nightingale-track-canvas
               height="40"
               layout="non-overlapping"
               length="10"
@@ -206,7 +206,11 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                 Chain
               </td>
               <td>
-                id value CHAIN
+                <span
+                  id="id value CHAIN"
+                >
+                  id value CHAIN
+                </span>
               </td>
               <td>
                 2-8
@@ -490,7 +494,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               height="40"
               length="772"
             />
-            <nightingale-track
+            <nightingale-track-canvas
               height="40"
               layout="non-overlapping"
               length="772"
@@ -663,7 +667,11 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                 Chain
               </td>
               <td>
-                PRO_0000448571
+                <span
+                  id="PRO_0000448571"
+                >
+                  PRO_0000448571
+                </span>
               </td>
               <td>
                 28-772

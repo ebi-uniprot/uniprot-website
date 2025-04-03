@@ -1,6 +1,6 @@
 import NightingaleManager from '@nightingale-elements/nightingale-manager';
 import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
-import NightingaleTrack from '@nightingale-elements/nightingale-track';
+import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import { FullViewIcon } from 'franklin-sites';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { TabLocation } from '../../../uniprotkb/types/entry';
 import NightingaleManagerComponent from '../../custom-elements/NightingaleManager';
 import NightingaleNavigationComponent from '../../custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../custom-elements/NightingaleSequence';
-import NightingalTrackComponent from '../../custom-elements/NightingaleTrack';
+import NightingaleTrackCanvasComponent from '../../custom-elements/NightingaleTrackCanvas';
 import { Namespace } from '../../types/namespaces';
 import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
 import {
@@ -55,7 +55,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
 }: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
-  const trackRef = useRef<NightingaleTrack>(null);
+  const trackRef = useRef<NightingaleTrackCanvas>(null);
   const managerRef = useRef<NightingaleManager>(null);
   const navigationRef = useRef<NightingaleNavigation>(null);
 
@@ -172,7 +172,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
           length={sequence.length}
           height={40}
         />
-        <NightingalTrackComponent
+        <NightingaleTrackCanvasComponent
           ref={trackRef}
           length={sequence.length}
           layout="non-overlapping"
