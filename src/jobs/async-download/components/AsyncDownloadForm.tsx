@@ -10,6 +10,8 @@ import useJobFromUrl from '../../../shared/hooks/useJobFromUrl';
 import useJobsState from '../../../shared/hooks/useJobsState';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
+import useSupportsJobs from '../../../shared/hooks/useSupportsJobs';
+import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
@@ -75,6 +77,8 @@ const AsyncDownloadForm = ({
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
   const { jobId } = useJobFromUrl();
   const tools = useJobsState();
+
+  const supportsJobs = useSupportsJobs();
 
   const isIdMappingResult = Boolean(jobType === JobTypes.ID_MAPPING && jobId);
   let jobTitle = '';
@@ -151,6 +155,21 @@ const AsyncDownloadForm = ({
     [history, onClose, downloadUrlOptions, isIdMappingResult, jobId, formValues]
   );
 
+  if (!supportsJobs) {
+    return (
+      <section ref={scrollRef} className={helper['padding-top-small']}>
+        <Message level="failure">
+          <h4>Job submission and results not available on this device.</h4>
+          Your download request is too large (<LongNumber>{count}</LongNumber>)
+          for immediate download, and requires job submission to generate the
+          file on the UniProt server. However, it looks like your current device
+          or browser doesn&apos;t support job submission or result viewing.
+          Please switch to a modern browser on a desktop or laptop computer to
+          proceed.
+        </Message>
+      </section>
+    );
+  }
   if (showConfirmation) {
     return (
       <AsyncDownloadConfirmation

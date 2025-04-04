@@ -25,6 +25,7 @@ import { ContactLocationState } from '../../../contact/adapters/contactFormAdapt
 import useBasket from '../../hooks/useBasket';
 import useJobState from '../../hooks/useJobsState';
 import useSafeState from '../../hooks/useSafeState';
+import useSupportsJobs from '../../hooks/useSupportsJobs';
 import helper from '../../styles/helper.module.scss';
 import { Namespace } from '../../types/namespaces';
 import {
@@ -260,22 +261,25 @@ const Basket = () => {
   );
 };
 
-const SecondaryItems = () => (
-  <>
-    <ToolsDashboard />
-    <Basket />
-    <Link<ContactLocationState>
-      to={(location) => ({
-        pathname: LocationToPath[Location.ContactGeneric],
-        state: { referrer: location },
-      })}
-      title="Contact"
-      className={styles['secondary-item']}
-    >
-      <EnvelopeIcon width={secondaryItemIconSize} />
-    </Link>
-    <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
-  </>
-);
+const SecondaryItems = () => {
+  const supportsJobs = useSupportsJobs();
+  return (
+    <>
+      {supportsJobs && <ToolsDashboard />}
+      <Basket />
+      <Link<ContactLocationState>
+        to={(location) => ({
+          pathname: LocationToPath[Location.ContactGeneric],
+          state: { referrer: location },
+        })}
+        title="Contact"
+        className={styles['secondary-item']}
+      >
+        <EnvelopeIcon width={secondaryItemIconSize} />
+      </Link>
+      <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
+    </>
+  );
+};
 
 export default memo(SecondaryItems);

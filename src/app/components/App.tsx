@@ -23,13 +23,12 @@ import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary
 import GDPR from '../../shared/components/gdpr/GDPR';
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
-import { useSmallScreen } from '../../shared/hooks/useMatchMedia';
 import useReloadApp from '../../shared/hooks/useReloadApp';
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
 import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 import history from '../../shared/utils/browserHistory';
 import { stringifyQuery, stringifyUrl } from '../../shared/utils/url';
-import { supportsSharedWorker } from '../../shared/workers/jobs/utils';
 import description from '../config/description';
 import {
   allSearchResultLocations,
@@ -414,16 +413,8 @@ const RedirectToStarSearch = (
 };
 
 const IfSupportsJobs = ({ children }: React.PropsWithChildren) => {
-  const smallScreen = useSmallScreen();
-  return (
-    <>
-      {smallScreen || !supportsSharedWorker ? (
-        <JobsNotSupportedPage />
-      ) : (
-        children
-      )}
-    </>
-  );
+  const supportsJobs = useSupportsJobs();
+  return <>{supportsJobs ? children : <JobsNotSupportedPage />}</>;
 };
 
 const App = () => {
