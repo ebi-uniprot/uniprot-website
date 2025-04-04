@@ -69,21 +69,20 @@ const statusesToNotify = new Set([
   Status.ERRORED,
 ]);
 
-const ToolsDashboard = () => {
-  // TODO: rename all tools to jobs
-  const tools = useJobState();
+const JobsDashboard = () => {
+  const jobs = useJobState();
   const { pathname } = useLocation();
 
   const count = useMemo(() => {
     const now = new Date();
-    return Object.values(tools ?? {}).filter(
+    return Object.values(jobs ?? {}).filter(
       (job) =>
         'seen' in job &&
         job.seen === false &&
         statusesToNotify.has(job.status) &&
         now.getTime() - new Date(job.timeCreated).getTime() < SEVEN_DAYS
     ).length;
-  }, [tools]);
+  }, [jobs]);
 
   const [display, setDisplay] = useState(false);
   const close = useCallback((reason: PanelCloseReason) => {
@@ -123,7 +122,7 @@ const ToolsDashboard = () => {
           sendGtagEventPanelOpen('job_dashboard');
           setDisplay(true);
         }}
-        title="Tools dashboard"
+        title="Jobs dashboard"
         className={cn(styles['secondary-item'], helper['no-small'])}
         onPointerOver={Dashboard.preload}
         onFocus={Dashboard.preload}
@@ -145,7 +144,7 @@ const ToolsDashboard = () => {
               to={LocationToPath[Location.Dashboard]}
               onClick={() => close('full-view')}
             >
-              <ToolboxIcon width="0.8em" /> Tool results
+              <ToolboxIcon width="0.8em" /> Job results
             </Link>
           }
           position="right"
@@ -265,7 +264,7 @@ const SecondaryItems = () => {
   const supportsJobs = useSupportsJobs();
   return (
     <>
-      {supportsJobs && <ToolsDashboard />}
+      {supportsJobs && <JobsDashboard />}
       <Basket />
       <Link<ContactLocationState>
         to={(location) => ({
