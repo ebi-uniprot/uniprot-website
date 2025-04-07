@@ -160,12 +160,12 @@ const AsyncDownloadForm = ({
       <section ref={scrollRef} className={helper['padding-top-small']}>
         <Message level="failure">
           <h4>Job submission and results not available on this device.</h4>
-          Your download request is too large (<LongNumber>{count}</LongNumber>)
-          for immediate download, and requires job submission to generate the
-          file on the UniProt server. However, it looks like your current device
-          or browser doesn&apos;t support job submission or result viewing.
-          Please switch to a modern browser on a desktop or laptop computer to
-          proceed.
+          <p className={helper['padding-top-small']}>
+            This download request is too large (<LongNumber>{count}</LongNumber>
+            ) for immediate download and requires a job submission, which
+            isn&apos;t supported on your current device or browser. Please use a
+            modern browser on a desktop or laptop to continue.
+          </p>
         </Message>
       </section>
     );
