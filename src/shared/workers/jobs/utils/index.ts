@@ -189,4 +189,6 @@ const incompleteStatuses = new Set([
 export const isJobIncomplete = (status: Status) =>
   incompleteStatuses.has(status);
 
-export const supportsSharedWorker = Boolean(window.SharedWorker);
+export const supportsSharedWorker = Boolean(
+  typeof window !== 'undefined' && window.SharedWorker
+);
