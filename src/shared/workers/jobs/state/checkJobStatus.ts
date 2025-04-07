@@ -146,7 +146,6 @@ const checkJobStatus = async (
       // get a new reference to the job
       currentStateOfJob = await store.get<Job>(job.internalID);
       // check that the job is still in the state (it might have been removed)
-      // TODO: I don't think we need to be so careful about state updates so consider removing all of these refetches for job state
       if (!currentStateOfJob) {
         return;
       }
