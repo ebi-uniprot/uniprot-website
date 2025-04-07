@@ -2,66 +2,34 @@
 
 exports[`AsyncDownloadForm should render 1`] = `
 <DocumentFragment>
-  <form
-    aria-label="Async download job submission form"
+  <section
+    class="padding-top-small"
   >
-    <fieldset>
-      <section
-        class="tools-form-section tools-form-section--compact"
+    <div
+      class="message message--failure"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
       >
-        <section
-          class="tools-form-section__item tools-form-section__item--full-width"
+        <h4>
+          Job submission and results not available on this device.
+        </h4>
+        <p
+          class="padding-top-small"
         >
-          <h4>
-            File Generation Needed 
-            <button
-              class="chip chip--compact"
-              type="button"
-            >
-              beta
-            </button>
-          </h4>
-          Your download request is too large (1) for immediate download.
-          <br />
-          <span
-            data-article-id="file-generation-download"
-          >
-            Please submit a job to generate this file on the UniProt server which you can download when ready.
-          </span>
-        </section>
-        <section
-          class="tools-form-section__item tools-form-section__item--compact"
-        >
-          <label>
-            Name your File Generation job
-            <input
-              autocomplete="off"
-              data-hj-allow="true"
-              maxlength="100"
-              name="title"
-              placeholder="my job title"
-              style="width: 36ch;"
-              type="text"
-              value="P05067 UniProtKB_AC-ID → UniProtKB"
-            />
-          </label>
-        </section>
-      </section>
-      <section
-        class="tools-form-section tools-form-section--right"
-      >
-        <section
-          class="button-group tools-form-section__buttons"
-        >
-          <button
-            class="button primary"
-            type="submit"
-          >
-            Submit
-          </button>
-        </section>
-      </section>
-    </fieldset>
-  </form>
+          This download request is too large (1) for immediate download and requires a job submission, which isn't supported on your current device or browser. Please use a modern browser on a desktop or laptop to continue.
+        </p>
+      </div>
+    </div>
+  </section>
 </DocumentFragment>
 `;
