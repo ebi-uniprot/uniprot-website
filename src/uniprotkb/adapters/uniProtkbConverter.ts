@@ -1,3 +1,4 @@
+import { PeptideSearchMatch } from '../../jobs/peptide-search/components/PeptideSearchMatches';
 import {
   EntryType,
   getEntryTypeFromString,
@@ -9,7 +10,6 @@ import {
   Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
 import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import Comment, { CommentType } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';

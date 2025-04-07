@@ -17,14 +17,14 @@ import {
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import { ResubmitButton } from '../../../jobs/components/ResultButtons';
+import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { ResubmitButton } from '../../../tools/components/ResultButtons';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 import {
   getParamsFromURL,
   InvalidParamValue,

@@ -25,6 +25,7 @@ import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import useReloadApp from '../../shared/hooks/useReloadApp';
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
 import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 import history from '../../shared/utils/browserHistory';
 import { stringifyQuery, stringifyUrl } from '../../shared/utils/url';
@@ -211,56 +212,56 @@ const ARBAEntryPage = lazy(
 const BlastResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "blast-result" */ '../../tools/blast/components/results/BlastResult'
+      /* webpackChunkName: "blast-result" */ '../../jobs/blast/components/results/BlastResult'
     )
 );
 const BlastForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "blast-form" */ '../../tools/blast/components/BlastForm'
+      /* webpackChunkName: "blast-form" */ '../../jobs/blast/components/BlastForm'
     )
 );
 const AlignResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "align-result" */ '../../tools/align/components/results/AlignResult'
+      /* webpackChunkName: "align-result" */ '../../jobs/align/components/results/AlignResult'
     )
 );
 const AlignForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
+      /* webpackChunkName: "align-form" */ '../../jobs/align/components/AlignForm'
     )
 );
 const IDMappingResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
+      /* webpackChunkName: "id-mapping-result" */ '../../jobs/id-mapping/components/results/IDMappingResult'
     )
 );
 const IDMappingForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+      /* webpackChunkName: "id-mapping-form" */ '../../jobs/id-mapping/components/IDMappingForm'
     )
 );
 const PeptideSearchResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
+      /* webpackChunkName: "peptide-search-result" */ '../../jobs/peptide-search/components/results/PeptideSearchResult'
     )
 );
 const PeptideSearchForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
+      /* webpackChunkName: "peptide-search-form" */ '../../jobs/peptide-search/components/PeptideSearchForm'
     )
 );
 
 const Dashboard = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "dashboard" */ '../../jobs/dashboard/components/Dashboard'
     )
 );
 
@@ -315,6 +316,13 @@ const ResourceNotFoundPage = lazy(
   () =>
     import(
       /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFound'
+    )
+);
+
+const JobsNotSupportedPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "jobs-not-supported" */ '../../shared/components/error-pages/JobsNotSupported'
     )
 );
 
@@ -402,6 +410,11 @@ const RedirectToStarSearch = (
       <LandingPage />
     </SingleColumnLayout>
   );
+};
+
+const IfSupportsJobs = ({ children }: React.PropsWithChildren) => {
+  const supportsJobs = useSupportsJobs();
+  return <>{supportsJobs ? children : <JobsNotSupportedPage />}</>;
 };
 
 const App = () => {
@@ -500,58 +513,84 @@ const App = () => {
             {/* Tools */}
             <Route
               path={LocationToPath[Location.BlastResult]}
-              component={BlastResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <BlastResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.Blast]}
               render={() => (
-                <SingleColumnLayout>
-                  <BlastForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <BlastForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.AlignResult]}
-              component={AlignResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <AlignResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.Align]}
               render={() => (
-                <SingleColumnLayout>
-                  <AlignForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <AlignForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.PeptideSearchResult]}
-              component={PeptideSearchResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <PeptideSearchResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.PeptideSearch]}
               render={() => (
-                <SingleColumnLayout>
-                  <PeptideSearchForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <PeptideSearchForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.IDMappingResult]}
-              component={IDMappingResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <IDMappingResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (
-                <SingleColumnLayout>
-                  <IDMappingForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <IDMappingForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.Dashboard]}
               render={() => (
-                <SingleColumnLayout>
-                  <Dashboard />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <Dashboard />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             {/* Basket */}

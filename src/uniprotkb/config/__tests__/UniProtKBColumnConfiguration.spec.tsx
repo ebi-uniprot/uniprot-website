@@ -7,7 +7,7 @@ import { UniProtKBColumn } from '../../types/columnTypes';
 import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
 import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../shared/workers/jobs/utils/storage');
 
 const transformedData: UniProtkbUIModel = uniProtKbConverter(
   data,

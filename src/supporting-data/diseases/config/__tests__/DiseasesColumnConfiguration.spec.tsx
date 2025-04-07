@@ -8,7 +8,7 @@ import DiseasesColumnConfiguration, {
   DiseasesColumn,
 } from '../DiseasesColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: DiseasesUIModel = diseasesConverter(data[0]);
 

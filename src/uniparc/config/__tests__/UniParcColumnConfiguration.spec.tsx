@@ -8,7 +8,7 @@ import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../UniParcColumnConfiguration';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../shared/workers/jobs/utils/storage');
 
 const transformedData: UniParcUIModel = uniParcConverter(data);
 

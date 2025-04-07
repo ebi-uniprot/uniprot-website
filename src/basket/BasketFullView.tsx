@@ -2,6 +2,7 @@ import { Loader, PageIntro } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 
 import { basketNamespaces, Location, LocationToPath } from '../app/config/urls';
+import { reIds } from '../jobs/utils/urls';
 import HTMLHead from '../shared/components/HTMLHead';
 import { SidebarLayout } from '../shared/components/layouts/SideBarLayout';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
@@ -19,7 +20,6 @@ import {
   searchableNamespaceLabels,
 } from '../shared/types/namespaces';
 import { SearchResults } from '../shared/types/results';
-import { reIds } from '../tools/utils/urls';
 import { updateResultsWithAccessionSubsets } from './BasketMiniView';
 import EmptyBasket from './EmptyBasket';
 

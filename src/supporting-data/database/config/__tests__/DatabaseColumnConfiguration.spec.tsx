@@ -8,7 +8,7 @@ import DatabaseColumnConfiguration, {
   DatabaseColumn,
 } from '../DatabaseColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: DatabaseUIModel = databaseConverter(data[0]);
 

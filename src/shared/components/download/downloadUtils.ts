@@ -1,8 +1,8 @@
 import { Location as HistoryLocation } from 'history';
 
 import { Location } from '../../../app/config/urls';
-import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { fileFormatsUnenrichedResultsDownload } from '../../../jobs/id-mapping/config/download';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
