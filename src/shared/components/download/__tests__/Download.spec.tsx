@@ -1,5 +1,10 @@
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
+jest.mock('../../../hooks/useSupportsJobs', () => ({
+  __esModule: true,
+  default: () => true,
+}));
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import SimpleMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/SimpleMappingDetails';
@@ -280,6 +285,7 @@ describe('Download with file generation job', () => {
   it('should show file generation form then confirmation with form elements disabled', async () => {
     Element.prototype.scrollIntoView = jest.fn();
     const onCloseMock = jest.fn();
+
     customRender(
       <Download
         totalNumberResults={DOWNLOAD_SIZE_LIMIT + 1}

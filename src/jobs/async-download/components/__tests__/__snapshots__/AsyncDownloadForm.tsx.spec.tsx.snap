@@ -21,7 +21,7 @@ exports[`AsyncDownloadForm should render 1`] = `
         class="message__title"
       >
         <h4>
-          Job submission and results not available on this device.
+          Job submission and results not available on this device
         </h4>
         <p
           class="padding-top-small"

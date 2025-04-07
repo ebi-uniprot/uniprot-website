@@ -159,7 +159,7 @@ const AsyncDownloadForm = ({
     return (
       <section ref={scrollRef} className={helper['padding-top-small']}>
         <Message level="failure">
-          <h4>Job submission and results not available on this device.</h4>
+          <h4>Job submission and results not available on this device</h4>
           <p className={helper['padding-top-small']}>
             This download request is too large (<LongNumber>{count}</LongNumber>
             ) for immediate download and requires a job submission, which
