@@ -205,7 +205,7 @@ const Row = ({
   isOdd,
   onClick,
   ...props
-}: HTMLAttributes<HTMLTableRowElement> & {
+}: Omit<HTMLAttributes<HTMLTableRowElement>, 'onClick'> & {
   extraContent?: ReactNode;
   isOdd: boolean;
   onClick?: (expanded: boolean) => void;
