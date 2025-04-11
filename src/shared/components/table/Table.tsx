@@ -221,7 +221,7 @@ const Row = ({
       ?.querySelector<HTMLButtonElement>(
         ':scope > thead > tr > th > div[aria-expanded="true"]'
       );
-    if (!toggleAllExpnaded) {
+    if (!toggleAllExpnaded && !expanded) {
       onClick?.(event);
     }
     if (
