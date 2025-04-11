@@ -68,7 +68,7 @@ type Props<T> = {
   columns: TableFromDataColumn<T>[];
   rowExtraContent?: (datum: T) => React.ReactNode;
   getRowId: (datum: T) => string;
-  onRowClick?: (datum: T) => void;
+  onRowClick?: (datum: T, expanded: boolean) => void;
   markBackground?: (datum: T) => boolean;
   markBorder?: (datum: T) => boolean;
   noTranslateBody?: boolean;
@@ -153,7 +153,7 @@ function TableFromData<T>({
                 )
               }
               key={getRowId(datum)}
-              onClick={() => onRowClick?.(datum)}
+              onClick={(expanded: boolean) => onRowClick?.(datum, expanded)}
               className={cn({
                 [styles['mark-background']]: markBackground?.(datum),
                 [styles['mark-border']]: markBorder?.(datum),

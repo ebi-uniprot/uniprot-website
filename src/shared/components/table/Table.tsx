@@ -208,6 +208,7 @@ const Row = ({
 }: HTMLAttributes<HTMLTableRowElement> & {
   extraContent?: ReactNode;
   isOdd: boolean;
+  onClick?: (expanded: boolean) => void;
 }) => {
   const hasExtraContent = Boolean(extraContent);
 
@@ -216,13 +217,13 @@ const Row = ({
   const buttonId = useId();
 
   const handleClick: MouseEventHandler<HTMLTableRowElement> = (event) => {
-    const toggleAllExpnaded = (event.target as HTMLElement)
+    const toggleAllExpanded = (event.target as HTMLElement)
       .closest('table')
       ?.querySelector<HTMLButtonElement>(
         ':scope > thead > tr > th > div[aria-expanded="true"]'
       );
-    if (!toggleAllExpnaded && !expanded) {
-      onClick?.(event);
+    if (!toggleAllExpanded) {
+      onClick?.(!expanded);
     }
     if (
       hasExtraContent &&
