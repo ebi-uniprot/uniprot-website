@@ -29,7 +29,7 @@ import styles from './styles/visual-features-view.module.scss';
 function getHighlightedCoordinates<T extends ProcessedFeature>(feature?: T) {
   return feature?.start && feature?.end
     ? `${feature.start}:${feature.end}`
-    : undefined;
+    : '0:0'; // this is a hack but undefined doesn't work
 }
 
 type Props<T> = {
