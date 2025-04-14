@@ -99,7 +99,7 @@ export const groupByGenomicCoordinates = (
                 )
               : entry.sequence.slice(
                   exon.proteinLocation.begin.position - 1,
-                  exon.proteinLocation.end.position - 1
+                  exon.proteinLocation.end.position
                 ),
             accessionWithCoordinates: `${entry.accession}[${
               exon.proteinLocation.position
