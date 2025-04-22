@@ -129,6 +129,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2025-04-23-release.md',
+                  })}
+                >
+                  UniProt release 2025_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Brain property: no trespassing | Cross-references to CD-CODE |
+                Cross-references to STRENDA-DB | Cross-references to YCharOS
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2025-02-05-release',
                   })}
                 >
@@ -234,29 +256,6 @@ const LatestNews = () => {
                 The culprit for extreme morning sickness identified | Removal of
                 the cross-references to Genevisible | Removal of the
                 cross-references to SWISS-2DPAGE
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-03-27-release',
-                  })}
-                >
-                  UniProt release 2024_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                CMV infections: plants beaten at their own game | Changes to the
-                controlled vocabulary of human diseases | Changes to the
-                controlled vocabulary for PTMs
               </p>
             </article>
           </li>
