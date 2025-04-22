@@ -89,15 +89,8 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
           // Additional prefix 'G3DSA:' in UniParc will be removed in https://www.ebi.ac.uk/panda/jira/browse/TRM-32164.
           // Adjust the below logic accordingly
           let revisedDatabaseId;
-          let funFamURL = '';
-          if (database === 'FUNFAM') {
-            // Temporary until https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
-            funFamURL = externalUrls.Funfam(databaseId);
-          }
-          if (database === 'Gene3D') {
-            const gene3dRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+)/;
-            const match = databaseId.match(gene3dRegEx);
-            revisedDatabaseId = match?.[1];
+          if (database === 'FunFam' || database === 'Gene3D') {
+            revisedDatabaseId = databaseId.replace('G3DSA:', '');
           }
 
           return (
@@ -110,10 +103,6 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
                 >
                   {databaseId}
                 </ExternalLink>
-              )}
-              {/* Need to be removed when FUNFAM is added in 2024_06 */}
-              {database === 'FUNFAM' && funFamURL && (
-                <ExternalLink url={funFamURL}>{databaseId}</ExternalLink>
               )}
             </>
           );
