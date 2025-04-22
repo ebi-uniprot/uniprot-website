@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
 
 // Source: unirule/search?query=insulin&size=2
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const mock: SearchResults<UniRuleAPIModel> = {
   results: [
     {
@@ -192,7 +192,7 @@ const mock: SearchResults<UniRuleAPIModel> = {
       ],
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 1889,
+        unreviewedProteinCount: 1920,
       },
       createdDate: '2012-07-03',
       modifiedDate: '2018-11-13',
@@ -369,7 +369,7 @@ const mock: SearchResults<UniRuleAPIModel> = {
       ],
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 43,
+        unreviewedProteinCount: 44,
       },
       createdDate: '2015-05-22',
       modifiedDate: '2018-11-13',

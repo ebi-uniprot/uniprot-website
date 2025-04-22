@@ -3,7 +3,7 @@ import { AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -209,7 +209,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'A organ system process carried out by any of the organs or tissues of neurological system.',
+            'An organ system process carried out by any of the organs or tissues of the neurological system.',
           id: 'GO:0050877',
           label: 'nervous system process',
           type: 'Term',
@@ -441,8 +441,12 @@ const goRibbonData: AGRRibbonData = {
       groups: {
         'GO:0003674': {
           ALL: {
-            nb_classes: 3,
-            nb_annotations: 69,
+            nb_classes: 5,
+            nb_annotations: 73,
+          },
+          IEA: {
+            nb_classes: 4,
+            nb_annotations: 4,
           },
           IDA: {
             nb_classes: 1,
@@ -459,8 +463,12 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0003824': {
           ALL: {
-            nb_classes: 2,
-            nb_annotations: 6,
+            nb_classes: 4,
+            nb_annotations: 10,
+          },
+          IEA: {
+            nb_classes: 4,
+            nb_annotations: 4,
           },
           IDA: {
             nb_classes: 1,
@@ -485,16 +493,20 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150': {
           ALL: {
-            nb_classes: 4,
-            nb_annotations: 8,
+            nb_classes: 5,
+            nb_annotations: 12,
           },
           TAS: {
             nb_classes: 1,
             nb_annotations: 1,
           },
+          IEA: {
+            nb_classes: 1,
+            nb_annotations: 3,
+          },
           IDA: {
-            nb_classes: 2,
-            nb_annotations: 5,
+            nb_classes: 3,
+            nb_annotations: 6,
           },
           IMP: {
             nb_classes: 1,
@@ -508,7 +520,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0019538': {
           ALL: {
             nb_classes: 2,
-            nb_annotations: 4,
+            nb_annotations: 7,
+          },
+          IEA: {
+            nb_classes: 1,
+            nb_annotations: 3,
           },
           IDA: {
             nb_classes: 1,
@@ -525,9 +541,9 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0046598', 'GO:0019081'],
-            nb_classes: 2,
-            nb_annotations: 4,
+            terms: ['GO:0019081', 'GO:0046598', 'GO:0098670'],
+            nb_classes: 3,
+            nb_annotations: 5,
           },
           TAS: {
             terms: ['GO:0019081'],
@@ -535,19 +551,23 @@ const goRibbonData: AGRRibbonData = {
             nb_annotations: 1,
           },
           IDA: {
-            terms: ['GO:0046598'],
-            nb_classes: 1,
-            nb_annotations: 3,
+            terms: ['GO:0046598', 'GO:0098670'],
+            nb_classes: 2,
+            nb_annotations: 4,
           },
         },
         'GO:0005575': {
           ALL: {
-            nb_classes: 4,
-            nb_annotations: 16,
+            nb_classes: 5,
+            nb_annotations: 23,
+          },
+          IEA: {
+            nb_classes: 3,
+            nb_annotations: 6,
           },
           TAS: {
             nb_classes: 2,
-            nb_annotations: 6,
+            nb_annotations: 7,
           },
           IDA: {
             nb_classes: 2,
@@ -561,7 +581,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005576': {
           ALL: {
             nb_classes: 2,
-            nb_annotations: 4,
+            nb_annotations: 6,
+          },
+          IEA: {
+            nb_classes: 1,
+            nb_annotations: 2,
           },
           TAS: {
             nb_classes: 1,
@@ -575,7 +599,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005886': {
           ALL: {
             nb_classes: 1,
-            nb_annotations: 9,
+            nb_annotations: 12,
+          },
+          IEA: {
+            nb_classes: 1,
+            nb_annotations: 2,
           },
           IDA: {
             nb_classes: 1,
@@ -583,7 +611,7 @@ const goRibbonData: AGRRibbonData = {
           },
           TAS: {
             nb_classes: 1,
-            nb_annotations: 5,
+            nb_annotations: 6,
           },
         },
         'GO:0005634': {
@@ -598,14 +626,19 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0005575-other': {
           ALL: {
-            terms: [],
-            nb_classes: 0,
-            nb_annotations: 0,
+            terms: ['GO:0016020'],
+            nb_classes: 1,
+            nb_annotations: 2,
+          },
+          IEA: {
+            terms: ['GO:0016020'],
+            nb_classes: 1,
+            nb_annotations: 2,
           },
         },
       },
-      nb_classes: 11,
-      nb_annotations: 93,
+      nb_classes: 15,
+      nb_annotations: 108,
       label: 'TMPRSS2',
       taxon_id: 'NCBITaxon:9606',
       taxon_label: 'Homo sapiens',
