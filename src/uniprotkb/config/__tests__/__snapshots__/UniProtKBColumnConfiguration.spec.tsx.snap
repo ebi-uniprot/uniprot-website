@@ -2238,6 +2238,10 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_cazy"
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ccds": xref_ccds 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_cd_code": xref_cd_code 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_cd-code": xref_cd-code 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_cdd": xref_cdd 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_cgd": xref_cgd 1`] = `<DocumentFragment />`;
@@ -2584,6 +2588,10 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_smart
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_smr": xref_smr 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_strenda_db": xref_strenda_db 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_strenda-db": xref_strenda-db 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_string": xref_string 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_supfam": xref_supfam 1`] = `<DocumentFragment />`;
@@ -2621,5 +2629,7 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_wbpar
 exports[`UniProtKBColumnConfiguration component should render column "xref_wormbase": xref_wormbase 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_xenbase": xref_xenbase 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_ycharos": xref_ycharos 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_zfin": xref_zfin 1`] = `<DocumentFragment />`;
