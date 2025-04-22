@@ -7,7 +7,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
   >
     <div
       class="busco-view__track"
-      style="--s: 37.126269956458636%; --d: 62.40203193033382%; --f: 0.02902757619738752%;"
+      style="--s: 37.14078374455733%; --d: 62.38751814223512%; --f: 0.02902757619738752%;"
     />
     <div
       class="busco-view__report"
@@ -152,7 +152,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
 
 exports[`ProteomesColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>
-  Outlier (high value)
+  Unknown
 </DocumentFragment>
 `;
 
@@ -398,7 +398,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    83,401
+    83,374
   </a>
 </DocumentFragment>
 `;

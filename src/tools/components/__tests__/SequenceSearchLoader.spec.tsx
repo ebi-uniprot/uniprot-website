@@ -23,11 +23,11 @@ describe('SequenceSearchLoader tests', () => {
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toHaveBeenLastCalledWith([
       {
-        name: 'sp|P21802|uniprot_id',
+        name: 'sp|P21802|uniprotkb',
         sequence: 'SAPSQDFMRF',
         header:
-          '>sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5',
-        raw: '>sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF\n',
+          '>sp|P21802|uniprotkb rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5',
+        raw: '>sp|P21802|uniprotkb rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF\n',
         valid: true,
       },
     ]);

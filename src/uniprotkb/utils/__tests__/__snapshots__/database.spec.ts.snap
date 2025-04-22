@@ -41,6 +41,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PlantReactome",
       "ENZYME",
       "PathwayCommons",
+      "STRENDA-DB",
     ],
     "FMD": [
       "AntiFam",
@@ -108,6 +109,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PGenN",
       "ORCID",
       "PubTator",
+      "CD-CODE",
     ],
     "ORG": [
       "ArachnoServer",
@@ -161,6 +163,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ABCD",
       "Antibodypedia",
       "CPTC",
+      "YCharOS",
     ],
     "PFAM": [
       "Allergome",
@@ -253,6 +256,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "BioMuta": "GVD",
     "CAZy": "PFAM",
     "CCDS": "SEQ",
+    "CD-CODE": "MISC",
     "CDD": "FMD",
     "CGD": "ORG",
     "CORUM": "PPI",
@@ -395,6 +399,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "SMR": "3DS",
     "SOURCE_MGI": "MISC",
     "SOURCE_MIM": "MISC",
+    "STRENDA-DB": "EAP",
     "STRING": "PPI",
     "SUPFAM": "FMD",
     "SWISS-MODEL-Workspace": "3DS",
@@ -416,6 +421,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "WBParaSite": "GMA",
     "WormBase": "ORG",
     "Xenbase": "ORG",
+    "YCharOS": "PAM",
     "ZFIN": "ORG",
     "dbSNP": "GVD",
     "dictyBase": "ORG",
@@ -654,6 +660,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "CCDS",
       "name": "CCDS",
       "uriLink": "https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=%id",
+    },
+    "CD-CODE": {
+      "attributes": [
+        {
+          "name": "EntryName",
+          "xmlTag": "entry name",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "CD-CODE",
+      "name": "CD-CODE",
+      "uriLink": "https://cd-code.org/condensate/%id",
     },
     "CDD": {
       "attributes": [
@@ -2532,6 +2550,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "SOURCE_MIM",
       "uriLink": "https://puma.princeton.edu/cgi-bin/source/sourceResult?criteria=%GeneName&choice=Gene&option=Symbol&organism=Hs",
     },
+    "STRENDA-DB": {
+      "attributes": [
+        {
+          "name": "ExperimentDescription",
+          "xmlTag": "experiment description",
+        },
+      ],
+      "category": "EAP",
+      "displayName": "STRENDA-DB",
+      "name": "STRENDA-DB",
+      "uriLink": "https://beilstein-strenda-db.org/strenda/public/doiQuery.xhtml?doi=10.22011/strenda_db.%id",
+    },
     "STRING": {
       "attributes": [
         {
@@ -2811,6 +2841,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "Xenbase",
       "uriLink": "https://www.xenbase.org/gene/showgene.do?method=display&geneId=%id",
     },
+    "YCharOS": {
+      "attributes": [
+        {
+          "name": "antibodies",
+          "xmlTag": "antibodies",
+        },
+      ],
+      "category": "PAM",
+      "displayName": "YCharOS",
+      "name": "YCharOS",
+      "uriLink": "https://f1000research.com/gateways/ycharos?selectedDomain=&n0=text&o0=&v0=%id",
+    },
     "ZFIN": {
       "attributes": [
         {
@@ -3016,10 +3058,12 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PGenN",
       "ORCID",
       "PubTator",
+      "CD-CODE",
       "DNASU",
       "ABCD",
       "Antibodypedia",
       "CPTC",
+      "YCharOS",
       "ArachnoServer",
       "Araport",
       "CGD",
@@ -3113,6 +3157,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PlantReactome",
       "ENZYME",
       "PathwayCommons",
+      "STRENDA-DB",
       "Allergome",
       "CAZy",
       "ESTHER",

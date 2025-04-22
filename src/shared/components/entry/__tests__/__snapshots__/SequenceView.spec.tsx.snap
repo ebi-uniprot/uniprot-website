@@ -161,7 +161,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           </a>
            or sequence clusters in 
           <a
-            href="/uniref?query=(uniprot_id:P05067)"
+            href="/uniref?query=(uniprotkb:P05067)"
           >
             UniRef
           </a>
@@ -402,7 +402,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           </a>
            or sequence clusters in 
           <a
-            href="/uniref?query=(uniprot_id:P05067-2)"
+            href="/uniref?query=(uniprotkb:P05067-2)"
           >
             UniRef
           </a>

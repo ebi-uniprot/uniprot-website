@@ -69,8 +69,7 @@ const SimilarProteins = ({
         apiUrls.search.search({
           namespace: Namespace.uniref,
           query: stringifyQuery({
-            // eslint-disable-next-line camelcase
-            uniprot_id:
+            uniprotkb:
               accession === canonical
                 ? accession.replace(/-\d+$/, '')
                 : accession,

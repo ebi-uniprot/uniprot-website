@@ -161,7 +161,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
           </a>
            or sequence clusters in 
           <a
-            href="/uniref?query=(uniprot_id:isoID1)"
+            href="/uniref?query=(uniprotkb:isoID1)"
           >
             UniRef
           </a>
@@ -1508,7 +1508,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go_p": go_
 
 exports[`UniProtKBColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  uniprot_id
+  uniprotkb
 </DocumentFragment>
 `;
 
@@ -2238,8 +2238,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_cazy"
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ccds": xref_ccds 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_cd_code": xref_cd_code 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_cd-code": xref_cd-code 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_cdd": xref_cdd 1`] = `<DocumentFragment />`;
@@ -2587,8 +2585,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_signo
 exports[`UniProtKBColumnConfiguration component should render column "xref_smart": xref_smart 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_smr": xref_smr 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_strenda_db": xref_strenda_db 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_strenda-db": xref_strenda-db 1`] = `<DocumentFragment />`;
 
