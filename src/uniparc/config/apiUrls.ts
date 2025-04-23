@@ -7,6 +7,7 @@ import { stringifyUrl } from '../../shared/utils/url';
 
 const databases = (
   upid: string,
+  xrefId?: string,
   stream?: boolean,
   options: {
     format?: FileFormat.tsv | FileFormat.json;
@@ -18,6 +19,10 @@ const databases = (
   const url = stream
     ? joinUrl(apiPrefix, 'uniparc', upid, 'databases', 'stream')
     : joinUrl(apiPrefix, 'uniparc', upid, 'databases');
+
+  if (xrefId) {
+    return stringifyUrl(url, { id: xrefId });
+  }
   return stringifyUrl(url, {
     format: fileFormatToUrlParameter[options.format || FileFormat.json],
     size: options.size,

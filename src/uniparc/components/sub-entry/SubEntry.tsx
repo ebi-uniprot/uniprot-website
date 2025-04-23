@@ -27,8 +27,13 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
+import { SearchResults } from '../../../shared/types/results';
+import {
+  UniParcLiteAPIModel,
+  UniParcXRef,
+} from '../../adapters/uniParcConverter';
 import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
+import uniparcApiUrls from '../../config/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import SubEntrySection, { TabLocation } from '../../types/subEntry';
 import { getSubEntryPath } from '../../utils/subEntry';
@@ -46,13 +51,22 @@ const SubEntry = () => {
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const { accession, subEntryId, subPage } = match?.params || {};
-  const baseURL = apiUrls.entry.entry(
+
+  const baseURL = `${apiUrls.entry.entry(
     subEntryId && accession,
     Namespace.uniparc
-  );
-  const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
+  )}/light`;
+  const xrefIdURL = accession
+    ? uniparcApiUrls.databases(accession, subEntryId)
+    : '';
 
-  if (uniparcData.error || !match || !accession || !subEntryId) {
+  const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
+  const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
+
+  if (uniparcData.loading) {
+    return <Loader progress={uniparcData.progress} />;
+  }
+  if (uniparcData.error || !uniparcData.data) {
     return (
       <ErrorHandler
         status={uniparcData.status}
@@ -62,15 +76,32 @@ const SubEntry = () => {
     );
   }
 
-  if (!uniparcData.data) {
-    return <Loader progress={uniparcData.progress} />;
+  if (
+    subEntryData.error ||
+    !subEntryData.data ||
+    !match ||
+    !accession ||
+    !subEntryId
+  ) {
+    return (
+      <ErrorHandler
+        status={subEntryData.status}
+        error={subEntryData.error}
+        fullPage
+      />
+    );
+  }
+  if (subEntryData.loading) {
+    return <Loader progress={subEntryData.progress} />;
   }
 
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryId
+    subEntryData.data?.results[0]
   );
+
   if (!transformedData) {
+    // TODO: is it needed?
     return (
       <Redirect
         to={{
