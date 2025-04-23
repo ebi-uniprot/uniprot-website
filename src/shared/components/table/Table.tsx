@@ -14,7 +14,6 @@ import {
 } from 'react';
 import { frame } from 'timing-functions';
 
-// import { frame } from 'timing-functions';
 import useExpandTable from '../../hooks/useExpandTable';
 import styles from './styles/table.module.scss';
 
