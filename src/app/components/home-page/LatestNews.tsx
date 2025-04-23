@@ -129,7 +129,7 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2025-04-23-release.md',
+                    accession: '2025-04-23-release',
                   })}
                 >
                   UniProt release 2025_02
