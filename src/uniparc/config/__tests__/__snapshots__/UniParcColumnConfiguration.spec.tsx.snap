@@ -2,8 +2,6 @@
 
 exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "FUNFAM": FUNFAM 1`] = `<DocumentFragment />`;
-
 exports[`UniParcColumnConfiguration component should render column "FunFam": FunFam 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "Gene3D": Gene3D 1`] = `<DocumentFragment />`;
