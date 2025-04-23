@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Snowdrops are here. The tips of daffodil shoots are pushing through the soil, and soft grey buds are preparing to burst on the magnolias. These are reminders that winter marks the end of one life cycle while spring marks the one about to begin...';
+  'Life is a powerful force. From the moment it appeared on Earth - which is estimated at roughly 4.5 billion years ago - it has never ceased to find ways of continuing...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -121,6 +121,28 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2025-04-23-release',
+                  })}
+                >
+                  UniProt release 2025_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Brain property: no trespassing | Cross-references to CD-CODE |
+                Cross-references to STRENDA-DB | Cross-references to YCharOS
               </p>
             </article>
           </li>
@@ -237,29 +259,6 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-03-27-release',
-                  })}
-                >
-                  UniProt release 2024_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                CMV infections: plants beaten at their own game | Changes to the
-                controlled vocabulary of human diseases | Changes to the
-                controlled vocabulary for PTMs
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
@@ -353,21 +352,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/277/"
+            url="https://www.proteinspotlight.org/back_issues/278/"
             noIcon
           >
-            The dormant ribosome
+            Relay
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/277/"
+          url="https://www.proteinspotlight.org/back_issues/278/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt277.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt278.jpg"
             alt=""
             width="123"
             height="129"

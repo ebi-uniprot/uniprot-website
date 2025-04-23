@@ -7,7 +7,7 @@ type Payload = {
 };
 
 // Source: uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const mock: Payload = {
   facets: [
     {
@@ -18,17 +18,17 @@ const mock: Payload = {
         {
           label: '100%',
           value: '1.0',
-          count: 1226791,
+          count: 1273948,
         },
         {
           label: '90%',
           value: '0.9',
-          count: 458205,
+          count: 470481,
         },
         {
           label: '50%',
           value: '0.5',
-          count: 68826,
+          count: 69732,
         },
       ],
     },
@@ -68,7 +68,7 @@ const mock: Payload = {
         },
       },
       seedId: 'A0A3E1E969',
-      memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)', 'UniParc'],
+      memberIdTypes: ['UniParc', 'UniProtKB Unreviewed (TrEMBL)'],
       members: [
         'A0A3E1E969',
         'B4CTX8',
@@ -113,11 +113,11 @@ const mock: Payload = {
           aspect: 'GO Molecular Function',
         },
         {
-          goId: 'GO:0008876',
+          goId: 'GO:0009055',
           aspect: 'GO Molecular Function',
         },
         {
-          goId: 'GO:0009055',
+          goId: 'GO:0016491',
           aspect: 'GO Molecular Function',
         },
       ],

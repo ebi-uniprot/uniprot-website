@@ -143,7 +143,6 @@ export const functionFeaturesToColumns: Readonly<
   'DNA binding': UniProtKBColumn.ftDnaBind,
   'Active site': UniProtKBColumn.ftActSite,
   'Binding site': UniProtKBColumn.ftBinding,
-  BINDING: UniProtKBColumn.ftBinding,
   Site: UniProtKBColumn.ftSite,
 };
 

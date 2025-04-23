@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -1103,6 +1103,12 @@ const mock = [
         name: 'xref_dnasu',
         id: 'protocols_and_materials/dnasu',
       },
+      {
+        label: 'YCharOS',
+        name: 'xref_ycharos',
+        isMultiValueCrossReference: true,
+        id: 'protocols_and_materials/ycharos',
+      },
     ],
   },
   {
@@ -1508,6 +1514,12 @@ const mock = [
         id: 'enzyme_and_pathway/signor',
       },
       {
+        label: 'STRENDA-DB',
+        name: 'xref_strenda-db',
+        isMultiValueCrossReference: true,
+        id: 'enzyme_and_pathway/strenda-db',
+      },
+      {
         label: 'SignaLink',
         name: 'xref_signalink',
         id: 'enzyme_and_pathway/signalink',
@@ -1530,6 +1542,12 @@ const mock = [
         name: 'xref_biogrid-orcs',
         isMultiValueCrossReference: true,
         id: 'other/biogrid-orcs',
+      },
+      {
+        label: 'CD-CODE',
+        name: 'xref_cd-code',
+        isMultiValueCrossReference: true,
+        id: 'other/cd-code',
       },
       {
         label: 'ChiTaRS',

@@ -43,7 +43,6 @@ const externalUrls = {
       'G3DSA:',
       ''
     )}`,
-  // Temporary until https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
   Funfam: (id: string) =>
     `http://www.cathdb.info/version/latest/funfam/${`${id}`.replace(
       'G3DSA:',

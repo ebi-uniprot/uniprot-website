@@ -14,7 +14,7 @@ exports[`Entry basic should render main 1`] = `
       >
         <test-file-stub />
       </span>
-      P21802 · uniprot_id
+      P21802 · uniprotkb
     </span>
   </h1>
   <ul

@@ -206,7 +206,11 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                 Chain
               </td>
               <td>
-                id value CHAIN
+                <span
+                  id="id value CHAIN"
+                >
+                  id value CHAIN
+                </span>
               </td>
               <td>
                 2-8
@@ -663,7 +667,11 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                 Chain
               </td>
               <td>
-                PRO_0000448571
+                <span
+                  id="PRO_0000448571"
+                >
+                  PRO_0000448571
+                </span>
               </td>
               <td>
                 28-772

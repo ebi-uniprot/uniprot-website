@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -2534,6 +2534,44 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'GeneDesignation',
         xmlTag: 'gene designation',
+      },
+    ],
+  },
+  {
+    name: 'CD-CODE',
+    displayName: 'CD-CODE',
+    category: 'MISC',
+    uriLink: 'https://cd-code.org/condensate/%id',
+    attributes: [
+      {
+        name: 'EntryName',
+        xmlTag: 'entry name',
+      },
+    ],
+  },
+  {
+    name: 'STRENDA-DB',
+    displayName: 'STRENDA-DB',
+    category: 'EAP',
+    uriLink:
+      'https://beilstein-strenda-db.org/strenda/public/doiQuery.xhtml?doi=10.22011/strenda_db.%id',
+    attributes: [
+      {
+        name: 'ExperimentDescription',
+        xmlTag: 'experiment description',
+      },
+    ],
+  },
+  {
+    name: 'YCharOS',
+    displayName: 'YCharOS',
+    category: 'PAM',
+    uriLink:
+      'https://f1000research.com/gateways/ycharos?selectedDomain=&n0=text&o0=&v0=%id',
+    attributes: [
+      {
+        name: 'antibodies',
+        xmlTag: 'antibodies',
       },
     ],
   },

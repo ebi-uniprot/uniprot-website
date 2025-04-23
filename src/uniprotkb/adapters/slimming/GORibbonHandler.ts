@@ -30,6 +30,9 @@ export type SlimSet = {
     aspect: GOAspectName;
     associations?: null; // WTF?
   }[];
+  role: string;
+  taxIds: string;
+  shortLabel: string;
 };
 
 type GOSLimSets = {
