@@ -43,6 +43,11 @@ const externalUrls = {
       'G3DSA:',
       ''
     )}`,
+  Funfam: (id: string) =>
+    `http://www.cathdb.info/version/latest/funfam/${`${id}`.replace(
+      'G3DSA:',
+      ''
+    )}`,
   InterProEntry: (id: string | number) =>
     `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm: string | number) =>
