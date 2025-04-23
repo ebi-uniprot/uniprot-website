@@ -3409,7 +3409,7 @@ exports[`Entry view should render 1`] = `
                 </a>
                  or sequence clusters in 
                 <a
-                  href="/uniref?query=(uniprot_id:isoID1)"
+                  href="/uniref?query=(uniprotkb:isoID1)"
                 >
                   UniRef
                 </a>
@@ -5055,7 +5055,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                Bacteria &gt; Bacillota &gt; Clostridia &gt; Eubacteriales &gt; Oscillospiraceae &gt; Flavonifractor
+                Bacteria &gt; Bacillati &gt; Bacillota &gt; Clostridia &gt; Eubacteriales &gt; Oscillospiraceae &gt; Flavonifractor
               </div>
             </div>
           </li>
@@ -6178,6 +6178,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                     </a>
                     Galactose-binding domain-like 2 hits
                   </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.cathdb.info/superfamily/2.115.10.20"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      2.115.10.20
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    Glycosyl hydrolase domain, family 43 1 hit
+                  </li>
                 </ul>
               </div>
             </div>
@@ -6676,7 +6691,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </a>
                  or sequence clusters in 
                 <a
-                  href="/uniref?query=(uniprot_id:P0DTR4)"
+                  href="/uniref?query=(uniprotkb:P0DTR4)"
                 >
                   UniRef
                 </a>

@@ -67,7 +67,7 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.uniref]: [
     'Transcription factors',
     'identity:1.0',
-    'uniprot_id:q9h9k5 AND identity:1.0',
+    'uniprotkb:q9h9k5 AND identity:1.0',
     'Human',
   ],
   [Namespace.uniparc]: ['UPI000000000B', 'P05067', 'APP', 'database:RefSeq'],

@@ -172,6 +172,7 @@ export enum UniProtKBColumn {
   xrefCazy = 'xref_cazy',
   xrefCcds = 'xref_ccds',
   xrefCdd = 'xref_cdd',
+  xrefCdCode = 'xref_cd-code',
   xrefCgd = 'xref_cgd',
   xrefChembl = 'xref_chembl',
   xrefChitars = 'xref_chitars',
@@ -304,6 +305,7 @@ export enum UniProtKBColumn {
   xrefSignor = 'xref_signor',
   xrefSmart = 'xref_smart',
   xrefSmr = 'xref_smr',
+  xrefStrendaDb = 'xref_strenda-db',
   xrefString = 'xref_string',
   xrefSupfam = 'xref_supfam',
   xrefSwisslipids = 'xref_swisslipids',
@@ -324,6 +326,7 @@ export enum UniProtKBColumn {
   xrefWbparasite = 'xref_wbparasite',
   xrefWormbase = 'xref_wormbase',
   xrefXenbase = 'xref_xenbase',
+  xrefYCharOS = 'xref_ycharos',
   xrefZfin = 'xref_zfin',
   from = 'from', // id mapping
   match = 'match', // peptide search
