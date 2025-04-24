@@ -8,14 +8,14 @@ const ftpUniProt = 'https://ftp.ebi.ac.uk/pub/databases/uniprot/';
 
 const ftpUrls = {
   uniprot: ftpUniProt,
-  uniprotkb: joinUrl(ftpUniProt, 'knowledgebase/complete'),
+  uniprotkb: joinUrl(ftpUniProt, 'knowledgebase'),
   uniprotkbReviewed: joinUrl(
     ftpUniProt,
-    'knowledgebase/complete/uniprot_sprot'
+    'knowledgebase/uniprot_sprot'
   ),
   uniprotkbUnreviewed: joinUrl(
     ftpUniProt,
-    'knowledgebase/complete/uniprot_trembl'
+    'knowledgebase/uniprot_trembl'
   ),
   referenceProteomes: (id?: string, superkingdom?: string, taxonId?: number) =>
     joinUrl(
