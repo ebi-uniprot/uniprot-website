@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import 'interaction-viewer';
 import 'swagger-ui-react';
+
 import { resetUuidV1 } from './__mocks__/uuid';
 
 global.gtag = () => {
@@ -21,6 +22,12 @@ jest.mock('/shared/hooks/useCustomElement', () => ({
 jest.mock('interaction-viewer', () => null);
 
 jest.mock('/shared/custom-elements/NightingaleMSA', () => jest.fn());
+
+jest.mock('/shared/workers/jobs/getJobSharedWorker', () => ({
+  __esModule: true,
+  default: jest.fn(),
+  dispatchJobs: jest.fn(),
+}));
 
 jest.mock('@nightingale-elements/nightingale-navigation', () => jest.fn());
 

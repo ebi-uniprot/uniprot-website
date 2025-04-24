@@ -7,7 +7,7 @@ import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../ProteomesColumnConfiguration';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../shared/workers/jobs/utils/storage');
 
 const transformedData: ProteomesUIModel = proteomesConverter(data);
 

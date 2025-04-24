@@ -1,6 +1,7 @@
 import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
 import { HelpAPIModel } from '../../help/types/apiModel';
+import { MappingAPIModel } from '../../jobs/id-mapping/types/idMappingSearchResults';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
 import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
@@ -11,7 +12,6 @@ import {
   Rank,
   TaxonomyAPIModel,
 } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import {
   UniParcAPIModel,
   UniParcXRef,

@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../shared/components/ExternalLink';
 import AccessionView from '../../shared/components/results/AccessionView';
@@ -13,7 +14,6 @@ import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import {
   SequenceFeature,
   UniParcLiteAPIModel,

@@ -19,13 +19,13 @@ import {
   LocationToPath,
   SearchResultsLocations,
 } from '../../../app/config/urls';
+import { rawDBToNamespace } from '../../../jobs/id-mapping/utils';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import useIDMappingDetails from '../../hooks/useIDMappingDetails';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import { useSmallScreen } from '../../hooks/useMatchMedia';

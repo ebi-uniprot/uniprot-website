@@ -8,7 +8,7 @@ import CitationsColumnConfiguration, {
   CitationsColumn,
 } from '../CitationsColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: CitationsUIModel = citationsConverter(data[0]);
 

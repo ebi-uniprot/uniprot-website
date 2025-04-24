@@ -22,10 +22,10 @@ import { schedule } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
-import { Status } from '../../../tools/types/toolsStatuses';
 import useBasket from '../../hooks/useBasket';
+import useJobState from '../../hooks/useJobsState';
 import useSafeState from '../../hooks/useSafeState';
-import useToolsState from '../../hooks/useToolsState';
+import useSupportsJobs from '../../hooks/useSupportsJobs';
 import helper from '../../styles/helper.module.scss';
 import { Namespace } from '../../types/namespaces';
 import {
@@ -35,6 +35,7 @@ import {
 } from '../../utils/gtagEvents';
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
+import { Status } from '../../workers/jobs/types/jobStatuses';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/secondary-items.module.scss';
 
@@ -48,7 +49,7 @@ const BasketMiniView = lazy(
 const Dashboard = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "dashboard" */ '../../../jobs/dashboard/components/Dashboard'
     )
 );
 
@@ -68,20 +69,20 @@ const statusesToNotify = new Set([
   Status.ERRORED,
 ]);
 
-const ToolsDashboard = () => {
-  const tools = useToolsState();
+const JobsDashboard = () => {
+  const jobs = useJobState();
   const { pathname } = useLocation();
 
   const count = useMemo(() => {
     const now = new Date();
-    return Object.values(tools ?? {}).filter(
+    return Object.values(jobs ?? {}).filter(
       (job) =>
         'seen' in job &&
         job.seen === false &&
         statusesToNotify.has(job.status) &&
         now.getTime() - new Date(job.timeCreated).getTime() < SEVEN_DAYS
     ).length;
-  }, [tools]);
+  }, [jobs]);
 
   const [display, setDisplay] = useState(false);
   const close = useCallback((reason: PanelCloseReason) => {
@@ -121,7 +122,7 @@ const ToolsDashboard = () => {
           sendGtagEventPanelOpen('job_dashboard');
           setDisplay(true);
         }}
-        title="Tools dashboard"
+        title="Jobs dashboard"
         className={cn(styles['secondary-item'], helper['no-small'])}
         onPointerOver={Dashboard.preload}
         onFocus={Dashboard.preload}
@@ -143,7 +144,7 @@ const ToolsDashboard = () => {
               to={LocationToPath[Location.Dashboard]}
               onClick={() => close('full-view')}
             >
-              <ToolboxIcon width="0.8em" /> Tool results
+              <ToolboxIcon width="0.8em" /> Job results
             </Link>
           }
           position="right"
@@ -259,22 +260,25 @@ const Basket = () => {
   );
 };
 
-const SecondaryItems = () => (
-  <>
-    <ToolsDashboard />
-    <Basket />
-    <Link<ContactLocationState>
-      to={(location) => ({
-        pathname: LocationToPath[Location.ContactGeneric],
-        state: { referrer: location },
-      })}
-      title="Contact"
-      className={styles['secondary-item']}
-    >
-      <EnvelopeIcon width={secondaryItemIconSize} />
-    </Link>
-    <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
-  </>
-);
+const SecondaryItems = () => {
+  const supportsJobs = useSupportsJobs();
+  return (
+    <>
+      {supportsJobs && <JobsDashboard />}
+      <Basket />
+      <Link<ContactLocationState>
+        to={(location) => ({
+          pathname: LocationToPath[Location.ContactGeneric],
+          state: { referrer: location },
+        })}
+        title="Contact"
+        className={styles['secondary-item']}
+      >
+        <EnvelopeIcon width={secondaryItemIconSize} />
+      </Link>
+      <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
+    </>
+  );
+};
 
 export default memo(SecondaryItems);

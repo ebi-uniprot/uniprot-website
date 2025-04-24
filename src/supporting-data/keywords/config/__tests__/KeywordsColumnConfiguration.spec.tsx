@@ -8,7 +8,7 @@ import KeywordsColumnConfiguration, {
   KeywordsColumn,
 } from '../KeywordsColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: KeywordsUIModel = citationsConverter(data[0]);
 describe('KeywordsColumnConfiguration component', () => {

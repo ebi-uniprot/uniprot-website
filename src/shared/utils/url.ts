@@ -1,7 +1,7 @@
 import { matchPath } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
-import { BlastFacet } from '../../tools/blast/types/blastResults';
+import { BlastFacet } from '../../jobs/blast/types/blastResults';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
   getApiSortDirection,
