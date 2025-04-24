@@ -1,4 +1,4 @@
-import { getSource, isSourceDatabase } from '../utils/subEntry';
+import { isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
   databaseToEntryType,
   UniParcLiteAPIModel,
@@ -24,12 +24,13 @@ const uniParcSubEntryConverter = (
   if (!subEntryData) {
     return null;
   }
+
   const isUniprotkbEntry = Boolean(
     subEntryData.database && databaseToEntryType.has(subEntryData.database)
   );
 
   const isSource = isSourceDatabase(subEntryData.database);
-  const source = isSource ? undefined : getSource(subEntryData.organism);
+  const source = isSource ? undefined : subEntryData;
 
   return {
     entry: transformedEntryData,
