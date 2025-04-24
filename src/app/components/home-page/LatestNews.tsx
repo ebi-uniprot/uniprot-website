@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
 
 const proteinSpotlightAbstract =
-  'Life is a powerful force. From the moment it appeared on Earth - which is estimated at roughly 4.5 billion years ago - it has never ceased to find ways of continuing...';
+  'Spermatozoa. There are no other cells in humans - or indeed in any other animals - that have the capacity to wriggle and move forward the way spermatozoa do. Blood cells may dash around our bodies but they can only do so because they are swept up in the pulse and flow of blood...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -352,21 +352,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/278/"
+            url="https://www.proteinspotlight.org/back_issues/279/"
             noIcon
           >
-            Relay
+            A dark kinase
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/278/"
+          url="https://www.proteinspotlight.org/back_issues/279/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt278.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt279.jpg"
             alt=""
             width="123"
             height="129"
