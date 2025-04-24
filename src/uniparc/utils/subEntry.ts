@@ -5,9 +5,6 @@ import { Location, LocationToPath } from '../../app/config/urls';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniParcXRef } from '../adapters/uniParcConverter';
 
-export const getXRefsForId = (id: string, xrefs?: UniParcXRef[]) =>
-  xrefs?.find((xref) => xref.id === id);
-
 export const getSubEntryPath = (
   accession: string,
   subEntryId: string,
