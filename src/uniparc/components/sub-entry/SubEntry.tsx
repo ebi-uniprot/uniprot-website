@@ -63,20 +63,19 @@ const SubEntry = () => {
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
 
-  if (uniparcData.loading) {
-    return <Loader progress={uniparcData.progress} />;
-  }
-  if (uniparcData.error || !uniparcData.data) {
+  if (uniparcData.loading || subEntryData.loading) {
     return (
-      <ErrorHandler
-        status={uniparcData.status}
-        error={uniparcData.error}
-        fullPage
+      <Loader
+        progress={
+          uniparcData.loading ? uniparcData.progress : subEntryData.progress
+        }
       />
     );
   }
 
   if (
+    uniparcData.error ||
+    !uniparcData.data ||
     subEntryData.error ||
     !subEntryData.data ||
     !match ||
@@ -85,14 +84,11 @@ const SubEntry = () => {
   ) {
     return (
       <ErrorHandler
-        status={subEntryData.status}
-        error={subEntryData.error}
+        status={uniparcData.error ? uniparcData.status : subEntryData.status}
+        error={uniparcData.error || subEntryData.error}
         fullPage
       />
     );
-  }
-  if (subEntryData.loading) {
-    return <Loader progress={subEntryData.progress} />;
   }
 
   const transformedData = uniParcSubEntryConverter(
@@ -101,7 +97,6 @@ const SubEntry = () => {
   );
 
   if (!transformedData) {
-    // TODO: is it needed?
     return (
       <Redirect
         to={{
