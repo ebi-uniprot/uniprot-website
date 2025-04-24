@@ -140,7 +140,6 @@ function FeaturesView<T extends ProcessedFeature>({
           [+feature.start, +feature.end],
           sequence.length
         );
-        setHighlightedFeature(feature);
         disableFeatureViewScrollSync(); // Don't scroll table
         animateRange(currentRange, targetRange)
           .then(frame)
@@ -212,10 +211,14 @@ function FeaturesView<T extends ProcessedFeature>({
         markBorder={
           markBorder && nightingaleViewRange && markBorder(nightingaleViewRange)
         }
-        onRowClick={(f) => {
-          setHighlightedFeature(f);
-          if (!isSmallScreen) {
-            navigate(f);
+        onRowClick={(f, expanded) => {
+          if (f.accession === highlightedFeature?.accession || !expanded) {
+            setHighlightedFeature(undefined);
+          } else {
+            setHighlightedFeature(f);
+            if (!isSmallScreen) {
+              navigate(f);
+            }
           }
         }}
         expandable={!inResultsTable && features.length > MIN_ROWS_TO_EXPAND}
