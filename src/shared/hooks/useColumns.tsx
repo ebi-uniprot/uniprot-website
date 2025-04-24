@@ -13,6 +13,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { MappingAPIModel } from '../../jobs/id-mapping/types/idMappingSearchResults';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
 import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
@@ -20,7 +21,6 @@ import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseas
 import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
 import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import uniProtKbConverter, {
   UniProtkbAPIModel,

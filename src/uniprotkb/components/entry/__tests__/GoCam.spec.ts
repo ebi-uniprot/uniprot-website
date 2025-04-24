@@ -45,6 +45,14 @@ describe('getGoCamStructures', () => {
             'IRGQ promotes degradation of misfolded MHC class I proteins b promoting their degradation by autophagy (Human).',
         },
       ],
+      [
+        '6796b94c00001787',
+        {
+          id: '6796b94c00001787',
+          label:
+            'RAB33B recruitment of ATG16L1-ATG12-ATG5 complex to phagophore (Human)',
+        },
+      ],
     ]);
     expect(getGoCamStructures(models)).toEqual(goCamIdToItem);
   });

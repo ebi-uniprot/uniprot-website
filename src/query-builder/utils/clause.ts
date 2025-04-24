@@ -29,7 +29,7 @@ export const createEmptyClause = (id: number): Clause => ({
 export const defaultQueryFor = (namespace: Namespace) => {
   switch (namespace) {
     case Namespace.uniref:
-      return '(name:) AND (taxonomy_name:) AND (identity:) AND (uniprot_id:) AND ';
+      return '(name:) AND (taxonomy_name:) AND (identity:) AND (uniprotkb:) AND ';
     case Namespace.uniparc:
       return '(proteome:) AND (uniprotkb:) AND (dbid:) AND (checksum:) AND ';
     // case Namespace.proteomes:

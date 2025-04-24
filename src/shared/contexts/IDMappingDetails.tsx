@@ -1,9 +1,9 @@
 import { createContext, ReactNode } from 'react';
 
 import { Location } from '../../app/config/urls';
-import toolsURLs from '../../tools/config/urls';
-import { MappingDetails } from '../../tools/id-mapping/types/idMappingSearchResults';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
+import toolsURLs from '../../jobs/config/urls';
+import { MappingDetails } from '../../jobs/id-mapping/types/idMappingSearchResults';
+import { JobTypes } from '../../jobs/types/jobTypes';
 import useDataApi, { UseDataAPIState } from '../hooks/useDataApi';
 import useJobFromUrl from '../hooks/useJobFromUrl';
 

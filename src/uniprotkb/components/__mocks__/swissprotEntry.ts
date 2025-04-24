@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P05067.json
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P05067',
@@ -33,9 +33,9 @@ const mock: UniProtkbAPIModel = {
   uniProtkbId: 'A4_HUMAN',
   entryAudit: {
     firstPublicDate: '1987-08-13',
-    lastAnnotationUpdateDate: '2024-11-27',
+    lastAnnotationUpdateDate: '2025-04-09',
     lastSequenceUpdateDate: '1991-11-01',
-    entryVersion: 314,
+    entryVersion: 316,
     sequenceVersion: 3,
   },
   annotationScore: 5,
@@ -525,10 +525,20 @@ const mock: UniProtkbAPIModel = {
       texts: [
         {
           value:
-            'Amyloid-beta peptides are lipophilic metal chelators with metal-reducing activity. Bind transient metals such as copper, zinc and iron. In vitro, can reduce Cu(2+) and Fe(3+) to Cu(+) and Fe(2+), respectively. Amyloid-beta protein 42 is a more effective reductant than amyloid-beta protein 40. Amyloid-beta peptides bind to lipoproteins and apolipoproteins E and J in the CSF and to HDL particles in plasma, inhibiting metal-catalyzed oxidation of lipoproteins. APP42-beta may activate mononuclear phagocytes in the brain and elicit inflammatory responses. Promotes both tau aggregation and TPK II-mediated phosphorylation. Interaction with overexpressed HADH2 leads to oxidative stress and neurotoxicity. Also binds GPC1 in lipid rafts',
+            'Amyloid-beta peptides are lipophilic metal chelators with metal-reducing activity. Bind transient metals such as copper, zinc and iron. In vitro, can reduce Cu(2+) and Fe(3+) to Cu(+) and Fe(2+), respectively. Amyloid-beta peptides bind to lipoproteins and apolipoproteins E and J in the CSF and to HDL particles in plasma, inhibiting metal-catalyzed oxidation of lipoproteins. Promotes both tau aggregation and TPK II-mediated phosphorylation. Interaction with overexpressed HADH2 leads to oxidative stress and neurotoxicity. Also binds GPC1 in lipid rafts',
         },
       ],
       commentType: 'FUNCTION',
+    },
+    {
+      texts: [
+        {
+          value:
+            'More effective reductant than amyloid-beta protein 40. May activate mononuclear phagocytes in the brain and elicit inflammatory responses',
+        },
+      ],
+      commentType: 'FUNCTION',
+      molecule: 'Amyloid-beta protein 42',
     },
     {
       texts: [
@@ -769,10 +779,131 @@ const mock: UniProtkbAPIModel = {
             },
           ],
           value:
-            'Binds, via its C-terminus, to the PID domain of several cytoplasmic proteins, including APBB family members, the APBA family, MAPK8IP1, SHC1 and, NUMB and DAB1 (By similarity). Binding to DAB1 inhibits its serine phosphorylation (By similarity). Interacts (via NPXY motif) with DAB2 (via PID domain); the interaction is impaired by tyrosine phosphorylation of the NPXY motif. Also interacts with GPCR-like protein BPP, APPBP1, IB1, KNS2 (via its TPR domains), APPBP2 (via BaSS) and DDB1. In vitro, it binds MAPT via the MT-binding domains (By similarity). Associates with microtubules in the presence of ATP and in a kinesin-dependent manner (By similarity). Interacts, through a C-terminal domain, with GNAO1. Amyloid-beta protein 42 binds CHRNA7 in hippocampal neurons. Amyloid-beta associates with HADH2. Soluble APP binds, via its N-terminal head, to FBLN1. Interacts with CPEB1 and AGER (By similarity). Interacts with ANKS1B. Interacts with ITM2B. Interacts with ITM2C. Interacts with IDE. Can form homodimers; dimerization is enhanced in the presence of Cu(2+) ions (PubMed:25122912). Can form homodimers; this is promoted by heparin binding. Amyloid-beta protein 40 interacts with S100A9. CTF-alpha product of APP interacts with GSAP. Isoform APP695 interacts with SORL1 (via N-terminal ectodomain); this interaction retains APP in the trans-Golgi network and reduces processing into soluble APP-alpha and amyloid-beta peptides (PubMed:16174740, PubMed:16407538, PubMed:17855360, PubMed:24523320). The C99 fragment also interacts with SORL1 (PubMed:16407538). Isoform APP751 interacts with SORL1 (PubMed:16174740). Isoform APP770 interacts with SORL1 (PubMed:16174740). Interacts with PLD3. Interacts with VDAC1 (PubMed:25168729). Interacts with NSG1; could regulate APP processing (By similarity). Amyloid-beta protein 42 interacts with FPR2 (PubMed:11689470). Interacts with SYT7 (By similarity). Interacts (via transmembrane region) with PSEN1; the interaction is direct (PubMed:30630874). Interacts with LRRK2 (PubMed:28720718). Interacts (via cytoplasmic domain) with KIF5B (PubMed:23011729). Interacts (via C-terminus) with APBB2/FE65L1 (via C-terminus) (PubMed:14527950, PubMed:8855266). Interacts (via intracellular domain) with APBB3 (PubMed:10081969)',
+            'Binds, via its C-terminus, to the PID domain of several cytoplasmic proteins, including APBB family members, the APBA family, MAPK8IP1, SHC1 and, NUMB and DAB1 (By similarity). Binding to DAB1 inhibits its serine phosphorylation (By similarity). Interacts (via NPXY motif) with DAB2 (via PID domain); the interaction is impaired by tyrosine phosphorylation of the NPXY motif. Also interacts with GPCR-like protein BPP, APPBP1, IB1, KNS2 (via its TPR domains), APPBP2 (via BaSS) and DDB1. In vitro, it binds MAPT via the MT-binding domains (By similarity). Associates with microtubules in the presence of ATP and in a kinesin-dependent manner (By similarity). Interacts, through a C-terminal domain, with GNAO1. Amyloid-beta protein 42 binds CHRNA7 in hippocampal neurons. Interacts with CPEB1 and AGER (By similarity). Interacts with ANKS1B. Interacts with ITM2B. Interacts with ITM2C. Interacts with IDE (PubMed:17051221). Homodimerizes; dimerization is enhanced in the presence of Cu(2+) ions and is promoted by heparin binding (PubMed:25122912, PubMed:20212142). Interacts with PLD3. Interacts with VDAC1 (PubMed:25168729). Interacts with NSG1; could regulate APP processing (By similarity). Interacts with SYT7 (By similarity). Interacts (via transmembrane region) with PSEN1; the interaction is direct (PubMed:30630874). Interacts with LRRK2 (PubMed:28720718). Interacts (via cytoplasmic domain) with KIF5B (PubMed:23011729). Interacts (via C-terminus) with APBB2/FE65L1 (via C-terminus) (PubMed:14527950, PubMed:8855266). Interacts (via intracellular domain) with APBB3 (PubMed:10081969). Amyloid-beta associates with HADH2 (PubMed:9338779). Soluble APP binds, via its N-terminal head, to FBLN1',
         },
       ],
       commentType: 'SUBUNIT',
+    },
+    {
+      texts: [
+        {
+          value: 'Interacts with S100A9',
+        },
+      ],
+      commentType: 'SUBUNIT',
+      molecule: 'Amyloid-beta protein 40',
+    },
+    {
+      texts: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '11689470',
+            },
+          ],
+          value: 'Interacts with FPR2',
+        },
+      ],
+      commentType: 'SUBUNIT',
+      molecule: 'Amyloid-beta protein 42',
+    },
+    {
+      texts: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '20811458',
+            },
+          ],
+          value: 'Interacts with GSAP',
+        },
+      ],
+      commentType: 'SUBUNIT',
+      molecule: 'C83',
+    },
+    {
+      texts: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '16174740',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '16407538',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '17855360',
+            },
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '24523320',
+            },
+          ],
+          value:
+            'Interacts with SORL1 (via N-terminal ectodomain); this interaction retains APP in the trans-Golgi network and reduces processing into soluble APP-alpha and amyloid-beta peptides',
+        },
+      ],
+      commentType: 'SUBUNIT',
+      molecule: 'Isoform APP695',
+    },
+    {
+      texts: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '16407538',
+            },
+          ],
+          value: 'Interacts with SORL1',
+        },
+      ],
+      commentType: 'SUBUNIT',
+      molecule: 'C99',
+    },
+    {
+      texts: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '16174740',
+            },
+          ],
+          value: 'Interacts with SORL1',
+        },
+      ],
+      commentType: 'SUBUNIT',
+      molecule: 'Isoform APP751',
+    },
+    {
+      texts: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000269',
+              source: 'PubMed',
+              id: '16174740',
+            },
+          ],
+          value: 'Interacts with SORL1',
+        },
+      ],
+      commentType: 'SUBUNIT',
+      molecule: 'Isoform APP770',
     },
     {
       commentType: 'INTERACTION',
@@ -1355,7 +1486,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtKBAccession: 'P0DP25',
+            uniProtKBAccession: 'P62158',
             geneName: 'CALM3',
             intActId: 'EBI-397435',
           },
@@ -8739,11 +8870,11 @@ const mock: UniProtkbAPIModel = {
       type: 'Compositional bias',
       location: {
         start: {
-          value: 195,
+          value: 194,
           modifier: 'EXACT',
         },
         end: {
-          value: 210,
+          value: 207,
           modifier: 'EXACT',
         },
       },
@@ -8760,11 +8891,11 @@ const mock: UniProtkbAPIModel = {
       type: 'Compositional bias',
       location: {
         start: {
-          value: 225,
+          value: 228,
           modifier: 'EXACT',
         },
         end: {
-          value: 263,
+          value: 264,
           modifier: 'EXACT',
         },
       },
@@ -8781,15 +8912,15 @@ const mock: UniProtkbAPIModel = {
       type: 'Compositional bias',
       location: {
         start: {
-          value: 267,
+          value: 268,
           modifier: 'EXACT',
         },
         end: {
-          value: 284,
+          value: 281,
           modifier: 'EXACT',
         },
       },
-      description: 'Polar residues',
+      description: 'Low complexity',
       evidences: [
         {
           evidenceCode: 'ECO:0000256',
@@ -22696,7 +22827,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'NucleotideSequenceId',
-          value: 'NM_000484.3',
+          value: 'NM_000484.4',
         },
       ],
       isoformId: 'P05067-1',
@@ -22718,7 +22849,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'NucleotideSequenceId',
-          value: 'NM_001136129.2',
+          value: 'NM_001136129.3',
         },
       ],
       isoformId: 'P05067-10',
@@ -22749,7 +22880,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'NucleotideSequenceId',
-          value: 'NM_001204301.1',
+          value: 'NM_001204301.2',
         },
       ],
       isoformId: 'P05067-9',
@@ -22760,7 +22891,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'NucleotideSequenceId',
-          value: 'NM_001204302.1',
+          value: 'NM_001204302.2',
         },
       ],
       isoformId: 'P05067-7',
@@ -22771,10 +22902,21 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'NucleotideSequenceId',
-          value: 'NM_001204303.1',
+          value: 'NM_001204303.2',
         },
       ],
       isoformId: 'P05067-3',
+    },
+    {
+      database: 'RefSeq',
+      id: 'NP_001372182.1',
+      properties: [
+        {
+          key: 'NucleotideSequenceId',
+          value: 'NM_001385253.1',
+        },
+      ],
+      isoformId: 'P05067-6',
     },
     {
       database: 'RefSeq',
@@ -22782,7 +22924,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'NucleotideSequenceId',
-          value: 'NM_201413.2',
+          value: 'NM_201413.3',
         },
       ],
       isoformId: 'P05067-8',
@@ -22793,7 +22935,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'NucleotideSequenceId',
-          value: 'NM_201414.2',
+          value: 'NM_201414.3',
         },
       ],
       isoformId: 'P05067-4',
@@ -26742,6 +26884,42 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'PDB',
+      id: '9CZN',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.60 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T=680-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9CZP',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T=680-713',
+        },
+      ],
+    },
+    {
       database: 'PDBsum',
       id: '1AAP',
       properties: [
@@ -28932,6 +29110,26 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'PDBsum',
+      id: '9CZN',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9CZP',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
       database: 'AlphaFoldDB',
       id: 'P05067',
       properties: [
@@ -29243,7 +29441,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
-      id: 'EMD-32862',
+      id: 'EMD-37170',
       properties: [
         {
           key: 'Description',
@@ -29253,7 +29451,47 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
-      id: 'EMD-37170',
+      id: 'EMD-37195',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-37197',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-37198',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-37199',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-37200',
       properties: [
         {
           key: 'Description',
@@ -29333,6 +29571,26 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
+      id: 'EMD-46422',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-46424',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
       id: 'EMD-9751',
       properties: [
         {
@@ -29377,7 +29635,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '2362',
+          value: '2363',
         },
       ],
     },
@@ -29477,7 +29735,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '896',
+          value: '899',
         },
       ],
     },
@@ -29818,7 +30076,7 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'glycosylation',
           value:
-            '26 sites, 13 N-linked glycans (2 sites), 6 O-linked glycans (22 sites)',
+            '26 sites, 13 N-linked glycans (3 sites), 6 O-linked glycans (22 sites)',
         },
       ],
     },
@@ -30058,7 +30316,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '71 sequenced antibodies',
+          value: '137 sequenced antibodies',
         },
       ],
     },
@@ -30068,7 +30326,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '4319 antibodies from 53 providers',
+          value: '5148 antibodies from 55 providers',
         },
       ],
     },
@@ -30079,6 +30337,16 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'Description',
           value: '-',
+        },
+      ],
+    },
+    {
+      database: 'YCharOS',
+      id: 'P05067',
+      properties: [
+        {
+          key: 'antibodies',
+          value: 'Tested 11 antibodies from 5 manufacturers',
         },
       ],
     },
@@ -30473,7 +30741,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'OMA',
-      id: 'RERMSQX',
+      id: 'THRVQKC',
       properties: [
         {
           key: 'Fingerprint',
@@ -30483,7 +30751,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'OrthoDB',
-      id: '2907766at2759',
+      id: '6147836at2759',
       properties: [
         {
           key: 'Description',
@@ -30747,6 +31015,36 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'CD-CODE',
+      id: '2C639066',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Synthetic Condensate 000143',
+        },
+      ],
+    },
+    {
+      database: 'CD-CODE',
+      id: '8C2F96ED',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Centrosome',
+        },
+      ],
+    },
+    {
+      database: 'CD-CODE',
+      id: '9F779CC8',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Nuclear body',
+        },
+      ],
+    },
+    {
       database: 'ChiTaRS',
       id: 'APP',
       properties: [
@@ -30844,6 +31142,27 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'ExpressionPatterns',
           value: 'baseline and differential',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0106003',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:amyloid-beta complex',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IDA:UniProt',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000314',
+          source: 'PubMed',
+          id: '33239400',
         },
       ],
     },
@@ -31078,6 +31397,27 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0031901',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:early endosome membrane',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IDA:UniProt',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000314',
+          source: 'PubMed',
+          id: '16174740',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:0005783',
       properties: [
         {
@@ -31212,7 +31552,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:UniProtKB',
+          value: 'IDA:HPA',
         },
       ],
       evidences: [
@@ -31267,6 +31607,20 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IEA:UniProtKB-SubCell',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0043231',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:intracellular membrane-bounded organelle',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IDA:HPA',
         },
       ],
     },
@@ -31791,6 +32145,11 @@ const mock: UniProtkbAPIModel = {
         },
       ],
       evidences: [
+        {
+          evidenceCode: 'ECO:0000314',
+          source: 'PubMed',
+          id: '16174740',
+        },
         {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',
@@ -32466,20 +32825,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0010466',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of peptidase activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:UniProtKB-KW',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:1905607',
       properties: [
         {
@@ -32907,48 +33252,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0033138',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of peptidyl-serine phosphorylation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000315',
-          source: 'PubMed',
-          id: '19660551',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0010800',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of peptidyl-threonine phosphorylation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IMP:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000315',
-          source: 'PubMed',
-          id: '19660551',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0051247',
       properties: [
         {
@@ -32963,27 +33266,6 @@ const mock: UniProtkbAPIModel = {
       evidences: [
         {
           evidenceCode: 'ECO:0000315',
-          source: 'PubMed',
-          id: '11404397',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0001934',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:positive regulation of protein phosphorylation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IDA:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000314',
           source: 'PubMed',
           id: '11404397',
         },
@@ -33115,27 +33397,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0050730',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:regulation of peptidyl-tyrosine phosphorylation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IGI:ARUK-UCL',
-        },
-      ],
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000316',
-          source: 'PubMed',
-          id: '21857966',
         },
       ],
     },
@@ -34020,8 +34281,8 @@ const mock: UniProtkbAPIModel = {
   },
   extraAttributes: {
     countByCommentType: {
-      FUNCTION: 4,
-      SUBUNIT: 1,
+      FUNCTION: 5,
+      SUBUNIT: 8,
       INTERACTION: 468,
       'SUBCELLULAR LOCATION': 7,
       'ALTERNATIVE PRODUCTS': 11,

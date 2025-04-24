@@ -8,7 +8,7 @@ import UniRuleColumnConfiguration, {
   UniRuleColumn,
 } from '../UniRuleColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: UniRuleUIModel = databaseConverter(data[1]);
 

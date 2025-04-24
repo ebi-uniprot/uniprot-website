@@ -13,6 +13,8 @@ import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';
 import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
 import getFeatureLabelAndTooltip from '../../help/config/featureColumnHeaders';
+import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import { PeptideSearchMatches } from '../../jobs/peptide-search/components/PeptideSearchMatches';
 import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
@@ -40,8 +42,6 @@ import {
   CitationXRef,
   CitationXRefDB,
 } from '../../supporting-data/citations/adapters/citationsConverter';
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 // import KineticsTableView from '../components/entry/KineticsTableView';

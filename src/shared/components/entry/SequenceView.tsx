@@ -157,7 +157,7 @@ const SeeAlso = ({ isoform }: { isoform: string }) => (
     <Link
       to={{
         pathname: LocationToPath[Location.UniRefResults],
-        search: `query=(uniprot_id:${isoform.replace(firstIsoformRE, '')})`,
+        search: `query=(uniprotkb:${isoform.replace(firstIsoformRE, '')})`,
       }}
     >
       UniRef

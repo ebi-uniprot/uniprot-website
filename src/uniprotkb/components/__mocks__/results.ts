@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=glucose&size=2
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const mock: SearchResults<UniProtkbAPIModel> = {
   facets: [
     {
@@ -13,12 +13,12 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Reviewed (Swiss-Prot)',
           value: 'true',
-          count: 14376,
+          count: 16474,
         },
         {
           label: 'Unreviewed (TrEMBL)',
           value: 'false',
-          count: 3002781,
+          count: 3305315,
         },
       ],
     },
@@ -30,27 +30,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Rat',
           value: '10116',
-          count: 1984,
+          count: 2125,
         },
         {
           label: 'Human',
           value: '9606',
-          count: 1840,
+          count: 1868,
         },
         {
           label: 'A. thaliana',
           value: '3702',
-          count: 1674,
+          count: 1630,
         },
         {
           label: 'Mouse',
           value: '10090',
-          count: 1423,
+          count: 1445,
         },
         {
-          label: 'Rice',
-          value: '39947',
-          count: 961,
+          label: 'Bovine',
+          value: '9913',
+          count: 945,
         },
       ],
     },
@@ -62,192 +62,192 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: '3D structure',
           value: '1',
-          count: 2516,
+          count: 2758,
         },
         {
           label: 'Active site',
           value: '2',
-          count: 579544,
+          count: 641871,
         },
         {
           label: 'Activity regulation',
           value: '3',
-          count: 38872,
+          count: 40289,
         },
         {
           label: 'Allergen',
           value: '4',
-          count: 24,
+          count: 25,
         },
         {
           label: 'Alternative products (isoforms)',
           value: '5',
-          count: 1182,
+          count: 1207,
         },
         {
           label: 'Alternative splicing',
           value: '6',
-          count: 1110,
+          count: 1135,
         },
         {
           label: 'Beta strand',
           value: '7',
-          count: 1670,
+          count: 1782,
         },
         {
           label: 'Binary interaction',
           value: '8',
-          count: 1419,
+          count: 1472,
         },
         {
           label: 'Binding site',
           value: '9',
-          count: 587064,
+          count: 645180,
         },
         {
           label: 'Biophysicochemical properties',
           value: '10',
-          count: 1397,
+          count: 1459,
         },
         {
           label: 'Biotechnological use',
           value: '11',
-          count: 140,
+          count: 154,
         },
         {
           label: 'Catalytic activity',
           value: '13',
-          count: 1249588,
+          count: 1369197,
         },
         {
           label: 'Chain',
           value: '14',
-          count: 246381,
+          count: 254396,
         },
         {
           label: 'Cofactors',
           value: '15',
-          count: 740190,
+          count: 793797,
         },
         {
           label: 'Coiled-coil',
           value: '16',
-          count: 63768,
+          count: 69943,
         },
         {
           label: 'Compositional bias',
           value: '17',
-          count: 219434,
+          count: 340242,
         },
         {
           label: 'Cross-link',
           value: '18',
-          count: 588,
+          count: 689,
         },
         {
           label: 'Developmental stage',
           value: '19',
-          count: 692,
+          count: 703,
         },
         {
           label: 'Disease',
           value: '20',
-          count: 440,
+          count: 446,
         },
         {
           label: 'Disruption phenotype',
           value: '21',
-          count: 1400,
+          count: 1449,
         },
         {
           label: 'Disulfide bond',
           value: '22',
-          count: 11178,
+          count: 13989,
         },
         {
           label: 'DNA binding',
           value: '23',
-          count: 1034,
+          count: 1612,
         },
         {
           label: 'Domain',
           value: '24',
-          count: 2201784,
+          count: 2434414,
         },
         {
           label: 'Function',
           value: '25',
-          count: 698371,
+          count: 789983,
         },
         {
           label: 'Glycosylation',
           value: '26',
-          count: 2076,
+          count: 2130,
         },
         {
           label: 'Helix',
           value: '27',
-          count: 1759,
+          count: 1875,
         },
         {
           label: 'Induction',
           value: '28',
-          count: 1957,
+          count: 4815,
         },
         {
           label: 'Initiator methionine',
           value: '29',
-          count: 836,
+          count: 39818,
         },
         {
           label: 'Intramembrane',
           value: '30',
-          count: 64,
+          count: 66,
         },
         {
           label: 'Lipidation',
           value: '31',
-          count: 303,
+          count: 316,
         },
         {
           label: 'Mass spectrometry',
           value: '32',
-          count: 131,
+          count: 142,
         },
         {
           label: 'Modified residue',
           value: '34',
-          count: 109301,
+          count: 107651,
         },
         {
           label: 'Motif',
           value: '35',
-          count: 10113,
+          count: 6662,
         },
         {
           label: 'Mutagenesis',
           value: '36',
-          count: 1473,
+          count: 1531,
         },
         {
           label: 'Natural variant',
           value: '37',
-          count: 901,
+          count: 925,
         },
         {
           label: 'Non-standard residue',
           value: '38',
-          count: 31,
+          count: 35,
         },
         {
           label: 'Pathway',
           value: '40',
-          count: 736326,
+          count: 786308,
         },
         {
           label: 'Peptide',
           value: '41',
-          count: 301,
+          count: 308,
         },
         {
           label: 'Pharmaceutical use',
@@ -257,57 +257,57 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Polymorphism',
           value: '43',
-          count: 82,
+          count: 85,
         },
         {
           label: 'Propeptide',
           value: '44',
-          count: 499,
+          count: 518,
         },
         {
           label: 'PTM comments',
           value: '45',
-          count: 34743,
+          count: 36183,
         },
         {
           label: 'Region',
           value: '46',
-          count: 440257,
+          count: 509699,
         },
         {
           label: 'Repeat',
           value: '47',
-          count: 10207,
+          count: 11333,
         },
         {
           label: 'RNA editing',
           value: '48',
-          count: 2,
+          count: 6,
         },
         {
           label: 'Signal peptide',
           value: '49',
-          count: 234245,
+          count: 240295,
         },
         {
           label: 'Subcellular location',
           value: '50',
-          count: 925927,
+          count: 1006019,
         },
         {
           label: 'Subunit structure',
           value: '51',
-          count: 357991,
+          count: 427086,
         },
         {
           label: 'Tissue specificity',
           value: '52',
-          count: 2462,
+          count: 2513,
         },
         {
           label: 'Topological domain',
           value: '53',
-          count: 1248,
+          count: 1324,
         },
         {
           label: 'Toxic dose',
@@ -317,22 +317,22 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Transit peptide',
           value: '55',
-          count: 370,
+          count: 378,
         },
         {
           label: 'Transmembrane',
           value: '56',
-          count: 669015,
+          count: 695764,
         },
         {
           label: 'Turn',
           value: '57',
-          count: 1545,
+          count: 1647,
         },
         {
           label: 'Zinc finger',
           value: '58',
-          count: 350,
+          count: 357,
         },
       ],
     },
@@ -344,27 +344,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Homology',
           value: '3',
-          count: 2148750,
+          count: 2384070,
         },
         {
           label: 'Predicted',
           value: '4',
-          count: 838745,
+          count: 904761,
         },
         {
           label: 'Transcript level',
           value: '2',
-          count: 19715,
+          count: 22549,
         },
         {
           label: 'Protein level',
           value: '1',
-          count: 9926,
+          count: 10385,
         },
         {
           label: 'Uncertain',
           value: '5',
-          count: 21,
+          count: 24,
         },
       ],
     },
@@ -375,23 +375,23 @@ const mock: SearchResults<UniProtkbAPIModel> = {
       values: [
         {
           value: '5',
-          count: 9949,
+          count: 16076,
         },
         {
           value: '4',
-          count: 61724,
+          count: 65424,
         },
         {
           value: '3',
-          count: 340814,
+          count: 410265,
         },
         {
           value: '2',
-          count: 1104175,
+          count: 1247030,
         },
         {
           value: '1',
-          count: 1500495,
+          count: 1582994,
         },
       ],
     },
@@ -403,27 +403,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: '1 - 200',
           value: '[1 TO 200]',
-          count: 288465,
+          count: 300936,
         },
         {
           label: '201 - 400',
           value: '[201 TO 400]',
-          count: 1120678,
+          count: 1299601,
         },
         {
           label: '401 - 600',
           value: '[401 TO 600]',
-          count: 1121423,
+          count: 1164434,
         },
         {
           label: '601 - 800',
           value: '[601 TO 800]',
-          count: 289307,
+          count: 349100,
         },
         {
           label: '>= 801',
           value: '[801 TO *]',
-          count: 197284,
+          count: 207718,
         },
       ],
     },
@@ -436,9 +436,9 @@ const mock: SearchResults<UniProtkbAPIModel> = {
       uniProtkbId: 'SC5A1_HUMAN',
       entryAudit: {
         firstPublicDate: '1990-01-01',
-        lastAnnotationUpdateDate: '2024-11-27',
+        lastAnnotationUpdateDate: '2025-04-09',
         lastSequenceUpdateDate: '1990-01-01',
-        entryVersion: 222,
+        entryVersion: 224,
         sequenceVersion: 1,
       },
       annotationScore: 5,
@@ -3897,7 +3897,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
             {
               evidenceCode: 'ECO:0007829',
               source: 'PDB',
-              id: '7YNI',
+              id: '7WMV',
             },
           ],
         },
@@ -3940,6 +3940,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               evidenceCode: 'ECO:0007829',
               source: 'PDB',
               id: '7SLA',
+            },
+          ],
+        },
+        {
+          type: 'Helix',
+          location: {
+            start: {
+              value: 55,
+              modifier: 'EXACT',
+            },
+            end: {
+              value: 58,
+              modifier: 'EXACT',
+            },
+          },
+          description: '',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0007829',
+              source: 'PDB',
+              id: '7WMV',
             },
           ],
         },
@@ -4338,7 +4359,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
             {
               evidenceCode: 'ECO:0007829',
               source: 'PDB',
-              id: '7YNI',
+              id: '7WMV',
             },
           ],
         },
@@ -4934,7 +4955,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           type: 'Helix',
           location: {
             start: {
-              value: 628,
+              value: 622,
               modifier: 'EXACT',
             },
             end: {
@@ -4947,7 +4968,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
             {
               evidenceCode: 'ECO:0007829',
               source: 'PDB',
-              id: '7YNI',
+              id: '7WMV',
             },
           ],
         },
@@ -6562,7 +6583,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           properties: [
             {
               key: 'NucleotideSequenceId',
-              value: 'NM_000343.3',
+              value: 'NM_000343.4',
             },
           ],
           isoformId: 'P13866-1',
@@ -6573,7 +6594,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           properties: [
             {
               key: 'NucleotideSequenceId',
-              value: 'NM_001256314.1',
+              value: 'NM_001256314.2',
             },
           ],
           isoformId: 'P13866-2',
@@ -7007,7 +7028,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           properties: [
             {
               key: 'antibodies',
-              value: '366 antibodies from 34 providers',
+              value: '383 antibodies from 35 providers',
             },
           ],
         },
@@ -7282,7 +7303,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         },
         {
           database: 'OMA',
-          id: 'PQMIHKF',
+          id: 'TTIGWDT',
           properties: [
             {
               key: 'Fingerprint',
@@ -7292,7 +7313,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         },
         {
           database: 'OrthoDB',
-          id: '74094at2759',
+          id: '6132759at2759',
           properties: [
             {
               key: 'Description',
@@ -7388,6 +7409,16 @@ const mock: SearchResults<UniProtkbAPIModel> = {
             {
               key: 'hits',
               value: '14 hits in 1151 CRISPR screens',
+            },
+          ],
+        },
+        {
+          database: 'CD-CODE',
+          id: '91857CE7',
+          properties: [
+            {
+              key: 'EntryName',
+              value: 'Nucleolus',
             },
           ],
         },
@@ -7551,6 +7582,20 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         },
         {
           database: 'GO',
+          id: 'GO:0005794',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'C:Golgi apparatus',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IDA:HPA',
+            },
+          ],
+        },
+        {
+          database: 'GO',
           id: 'GO:0043229',
           properties: [
             {
@@ -7581,6 +7626,20 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               evidenceCode: 'ECO:0000304',
               source: 'PubMed',
               id: '14986005',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0031965',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'C:nuclear membrane',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IDA:HPA',
             },
           ],
         },
@@ -7666,6 +7725,42 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               source: 'PubMed',
               id: '20980548',
             },
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '26945065',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0005412',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'F:D-glucose:sodium symporter activity',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'IDA:UniProtKB',
+            },
+          ],
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '34880492',
+            },
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '35077764',
+            },
+            {
+              evidenceCode: 'ECO:0000314',
+              source: 'PubMed',
+              id: '8836035',
+            },
           ],
         },
         {
@@ -7719,58 +7814,6 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               evidenceCode: 'ECO:0000314',
               source: 'PubMed',
               id: '35077764',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0005355',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'F:glucose transmembrane transporter activity',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'IDA:ARUK-UCL',
-            },
-          ],
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '26945065',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0005412',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'F:glucose:sodium symporter activity',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'IDA:UniProtKB',
-            },
-          ],
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '34880492',
-            },
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '35077764',
-            },
-            {
-              evidenceCode: 'ECO:0000314',
-              source: 'PubMed',
-              id: '8836035',
             },
           ],
         },
@@ -7851,39 +7894,11 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         },
         {
           database: 'GO',
-          id: 'GO:0015756',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'P:fucose transmembrane transport',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'ISS:ARUK-UCL',
-            },
-          ],
-        },
-        {
-          database: 'GO',
-          id: 'GO:0015757',
-          properties: [
-            {
-              key: 'GoTerm',
-              value: 'P:galactose transmembrane transport',
-            },
-            {
-              key: 'GoEvidenceType',
-              value: 'ISS:ARUK-UCL',
-            },
-          ],
-        },
-        {
-          database: 'GO',
           id: 'GO:0098708',
           properties: [
             {
               key: 'GoTerm',
-              value: 'P:glucose import across plasma membrane',
+              value: 'P:D-glucose import across plasma membrane',
             },
             {
               key: 'GoEvidenceType',
@@ -7909,7 +7924,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           properties: [
             {
               key: 'GoTerm',
-              value: 'P:glucose transmembrane transport',
+              value: 'P:D-glucose transmembrane transport',
             },
             {
               key: 'GoEvidenceType',
@@ -7921,6 +7936,34 @@ const mock: SearchResults<UniProtkbAPIModel> = {
               evidenceCode: 'ECO:0000314',
               source: 'PubMed',
               id: '8836035',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0015756',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'P:fucose transmembrane transport',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'ISS:ARUK-UCL',
+            },
+          ],
+        },
+        {
+          database: 'GO',
+          id: 'GO:0015757',
+          properties: [
+            {
+              key: 'GoTerm',
+              value: 'P:galactose transmembrane transport',
+            },
+            {
+              key: 'GoEvidenceType',
+              value: 'ISS:ARUK-UCL',
             },
           ],
         },
@@ -7986,7 +8029,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           properties: [
             {
               key: 'GoTerm',
-              value: 'P:renal glucose absorption',
+              value: 'P:renal D-glucose absorption',
             },
             {
               key: 'GoEvidenceType',
@@ -8279,7 +8322,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           'Natural variant': 25,
           Mutagenesis: 23,
           'Sequence conflict': 1,
-          Helix: 34,
+          Helix: 35,
           Turn: 11,
           'Beta strand': 7,
         },
@@ -8292,9 +8335,9 @@ const mock: SearchResults<UniProtkbAPIModel> = {
       uniProtkbId: 'AGP_ECOLI',
       entryAudit: {
         firstPublicDate: '1991-02-01',
-        lastAnnotationUpdateDate: '2024-11-27',
+        lastAnnotationUpdateDate: '2025-04-09',
         lastSequenceUpdateDate: '1991-02-01',
-        entryVersion: 176,
+        entryVersion: 178,
         sequenceVersion: 1,
       },
       annotationScore: 5,
@@ -8303,6 +8346,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         taxonId: 83333,
         lineage: [
           'Bacteria',
+          'Pseudomonadati',
           'Pseudomonadota',
           'Gammaproteobacteria',
           'Enterobacterales',
@@ -9894,7 +9938,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         },
         {
           database: 'OMA',
-          id: 'IKTDQQW',
+          id: 'EYLYQST',
           properties: [
             {
               key: 'Fingerprint',

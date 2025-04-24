@@ -41,7 +41,7 @@ exports[`UniProtKBCard component should render 1`] = `
               >
                 <test-file-stub />
               </span>
-              P21802 · uniprot_id
+              P21802 · uniprotkb
             </span>
           </a>
         </h2>

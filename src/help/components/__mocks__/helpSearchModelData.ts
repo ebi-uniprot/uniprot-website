@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -294,7 +294,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'cross_references_section',
       title: 'Cross-references section',
-      lastModified: '2023-04-21',
+      lastModified: '2025-02-04',
       type: 'help',
       categories: ['Cross-references', 'manual'],
       matches: {
@@ -324,18 +324,6 @@ const helpModelData: HelpSearchResponse = {
       matches: {
         content: [
           ' by default in the entry (also called the <span class="match-highlight">canonical</span> sequence) is usually the most common polymorphic',
-        ],
-      },
-    },
-    {
-      id: 'rna_editing',
-      title: 'RNA editing',
-      lastModified: '2023-01-16',
-      type: 'help',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          ' sequence is fully edited, the <span class="match-highlight">canonical</span> protein sequence displayed by default in the entry corresponds to',
         ],
       },
     },
@@ -411,7 +399,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'redundancy',
       title: 'How redundant are the UniProt databases?',
-      lastModified: '2022-12-23',
+      lastModified: '2025-02-04',
       type: 'help',
       categories: [
         'UniParc',
@@ -424,6 +412,18 @@ const helpModelData: HelpSearchResponse = {
       matches: {
         content: [
           ' variety and protein diversity represented in UniProtKB? What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms',
+        ],
+      },
+    },
+    {
+      id: 'rna_editing',
+      title: 'RNA editing',
+      lastModified: '2025-03-05',
+      type: 'help',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          ' When the mRNA sequence is fully edited, the <span class="match-highlight">canonical</span> protein sequence displayed by default in the',
         ],
       },
     },

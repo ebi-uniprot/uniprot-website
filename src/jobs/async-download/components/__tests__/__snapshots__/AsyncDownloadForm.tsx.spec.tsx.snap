@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AsyncDownloadForm should render 1`] = `
+<DocumentFragment>
+  <section
+    class="padding-top-small"
+  >
+    <div
+      class="message message--failure"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        <h4>
+          Job submission and results not available on this device
+        </h4>
+        <p
+          class="padding-top-small"
+        >
+          This download request is too large (1) for immediate download and requires a job submission, which isn't supported on your current device or browser. Please use a modern browser on a desktop or laptop to continue.
+        </p>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

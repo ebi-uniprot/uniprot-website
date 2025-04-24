@@ -5,7 +5,7 @@ import UniRefColumnConfiguration, {
   UniRefColumn,
 } from '../UniRefColumnConfiguration';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../shared/workers/jobs/utils/storage');
 
 describe('UniRefColumnConfiguration component', () => {
   testColumnConfiguration<UniRefColumn, Partial<UniRefLiteAPIModel>>(
