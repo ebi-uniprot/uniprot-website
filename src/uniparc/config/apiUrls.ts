@@ -31,7 +31,7 @@ export const proteomeFasta = (upid: string, stream?: boolean) => {
     ? joinUrl(apiPrefix, 'uniparc', 'proteome', upid, 'stream')
     : joinUrl(apiPrefix, 'uniparc', 'proteome', upid);
   return stringifyUrl(baseUrl, {
-    format: FileFormat.fasta,
+    format: fileFormatToUrlParameter[FileFormat.fasta],
   });
 };
 

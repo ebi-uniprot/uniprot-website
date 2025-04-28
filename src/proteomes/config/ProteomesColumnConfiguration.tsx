@@ -182,7 +182,13 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
         >
           <LongNumber>{proteinCount}</LongNumber>
         </Link>{' '}
-        (<a href={proteomeFasta(id, true)}>FASTA</a>)
+        {shouldPointToUniParc ? (
+          <>
+            (<a href={proteomeFasta(id, true)}>FASTA</a>)
+          </>
+        ) : (
+          ''
+        )}
       </>
     );
   },
