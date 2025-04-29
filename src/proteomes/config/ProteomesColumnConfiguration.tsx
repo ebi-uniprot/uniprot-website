@@ -1,4 +1,4 @@
-import { ExpandableList, LongNumber } from 'franklin-sites';
+import { Chip, ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
@@ -181,10 +181,16 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
           }}
         >
           <LongNumber>{proteinCount}</LongNumber>
-        </Link>{' '}
+        </Link>
         {shouldPointToUniParc ? (
           <>
-            (<a href={proteomeFasta(id, true)}>FASTA</a>)
+            <br />
+            <a href={proteomeFasta(id, true)}>
+              Download FASTA for all UniParc entries
+            </a>
+            <small>
+              <Chip>Beta</Chip>
+            </small>
           </>
         ) : (
           ''
