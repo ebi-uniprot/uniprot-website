@@ -95,6 +95,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(24094);
@@ -166,6 +167,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.selectedFileFormat = FileFormat.tsv;
@@ -242,6 +244,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'url';
@@ -342,6 +345,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'generate';
@@ -441,6 +445,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'generate';
@@ -523,6 +528,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(1);
@@ -612,6 +618,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(335578);
@@ -685,6 +692,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'ftp';
@@ -760,6 +768,7 @@ describe('Download Utils', () => {
       disableForm: false,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.selectedFileFormat = FileFormat.embeddings;
@@ -834,6 +843,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.text);
     expect(getDownloadCount(state, props)).toEqual(306);
@@ -920,6 +930,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaSubsequence);
     expect(getDownloadCount(state, props)).toEqual(1);
@@ -999,6 +1010,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 2,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getCountForCustomisableSet(state, props)).toEqual({
       totalCount: 3,
