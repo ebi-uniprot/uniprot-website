@@ -189,7 +189,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
               Download FASTA for all UniParc entries
             </a>
             <small>
-              <Chip>Beta</Chip>
+              <Chip>New</Chip>
             </small>
           </>
         ) : (

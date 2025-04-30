@@ -1,5 +1,11 @@
 import cn from 'classnames';
-import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
+import {
+  Button,
+  Chip,
+  DownloadIcon,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import { Location as HistoryLocation } from 'history';
 import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
@@ -30,6 +36,7 @@ import {
   updateDisableForm,
   updateDownloadSelect,
   updateExtraContent,
+  updateFastaHeader,
   updateFullXref,
   updateSelectedColumns,
   updateSelectedFileFormat,
@@ -57,6 +64,7 @@ import {
   getPreviewOptions,
   getRedirectToIDMapping,
   isAsyncDownloadIdMapping,
+  isUniParcProteomeSearch,
   showColumnSelect,
 } from './downloadUtils';
 import styles from './styles/download.module.scss';
@@ -130,6 +138,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleFullXrefChange = () => {
     dispatch(updateFullXref(!state.fullXref));
     dispatch(updateSelectedColumns(state.selectedColumns, fieldData));
+  };
+
+  const handleFastaHeaderChange = () => {
+    dispatch(updateFastaHeader(!state.newFastaHeader));
   };
 
   // Variables derived from state, props, location and/or job
@@ -296,6 +308,30 @@ const Download = (props: DownloadProps<JobTypes>) => {
           </select>
         </label>
       </fieldset>
+      {/* UniParc-proteome FASTA option */}
+      {isUniParcProteomeSearch(state, props, downloadOptions.query) && (
+        <fieldset>
+          <p className={styles['new-fasta-header']}>
+            Improved FASTA header
+            <small>
+              <Chip>New</Chip>
+            </small>
+            <br />
+            There are improvements made to the FASTA header for an UniParc entry
+            associated with redundant proteomes.
+            <label>
+              <input
+                aria-label="uniparc proteome-specific FASTA"
+                type="checkbox"
+                name="proteome FASTA"
+                checked={state.newFastaHeader}
+                onChange={handleFastaHeaderChange}
+              />
+              Proceed with the recommended header
+            </label>
+          </p>
+        </fieldset>
+      )}
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset disabled={state.disableForm}>

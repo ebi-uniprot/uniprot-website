@@ -57,6 +57,7 @@ export const download = ({
   accessions,
   download: isDownload = true,
   jobId,
+  uniparcProteomeFastaHeader,
 }: DownloadUrlOptions) => {
   // If the consumer of this fn has specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
@@ -147,6 +148,28 @@ export const download = ({
   // ID Mapping Async Download
   if (jobId) {
     parameters.jobId = jobId;
+  }
+
+  // UniParc proteome fasta endpoint
+  if (uniparcProteomeFastaHeader) {
+    const match = query?.match(/upid:(UP\d+)/);
+    if (match) {
+      const proteomeId = match[1];
+      if (size) {
+        endpoint = joinUrl(apiPrefix, namespace, 'proteome', proteomeId);
+      } else {
+        endpoint = joinUrl(
+          apiPrefix,
+          namespace,
+          'proteome',
+          proteomeId,
+          'stream'
+        );
+      }
+    }
+    return stringifyUrl(endpoint, {
+      format: fileFormatToUrlParameter[fileFormat],
+    });
   }
   return stringifyUrl(endpoint, parameters);
 };

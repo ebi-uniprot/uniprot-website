@@ -41,6 +41,7 @@ const reSubsequenceFrom = new RegExp(
   `(${reUniProtKBAccession.source})${reSubsequence.source}`,
   'i'
 );
+const reProteomeId = /upid:UP\d+/;
 
 export const isSubsequenceFrom = (ids: string) =>
   // Note that current API implementation expects from IDs to be either:
@@ -199,6 +200,24 @@ export const isXrefWithFullOption = (
   return false;
 };
 
+export const isUniParcProteomeSearch = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  query: string | undefined
+) => {
+  if (
+    props.namespace === Namespace.uniparc &&
+    state.selectedFileFormat === FileFormat.fasta &&
+    !state.nSelectedEntries
+  ) {
+    const match = query?.match(reProteomeId);
+    if (match && match.length === 1) {
+      return true;
+    }
+  }
+  return false;
+};
+
 export const filterFullXrefColumns = (
   columns: string[],
   fieldData: FieldData
@@ -278,6 +297,10 @@ export const getDownloadOptions = (
 
   if (hasColumns(state, props, job)) {
     downloadOptions.columns = state.selectedColumns;
+  }
+
+  if (isUniParcProteomeSearch(state, props, query)) {
+    downloadOptions.uniparcProteomeFastaHeader = state.newFastaHeader;
   }
   return downloadOptions;
 };

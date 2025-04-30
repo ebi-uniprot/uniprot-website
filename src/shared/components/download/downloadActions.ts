@@ -12,6 +12,7 @@ export const UPDATE_COMPRESSED = 'UPDATE_COMPRESSED' as const;
 export const UPDATE_EXTRA_CONTENT = 'UPDATE_EXTRA_CONTENT' as const;
 export const UPDATE_DISABLE_FORM = 'UPDATE_DISABLE_FORM' as const;
 export const UPDATE_FULL_XREF = 'UPDATE_FULL_XREF' as const;
+export const UPDATE_FASTA_HEADER = 'UPDATE_FASTA_HEADER' as const;
 
 export const updateSelectedColumns = (
   columns: string[],
@@ -35,3 +36,6 @@ export const updateDisableForm = (disableForm: boolean) =>
 
 export const updateFullXref = (fullXref: boolean) =>
   action(UPDATE_FULL_XREF, { fullXref });
+
+export const updateFastaHeader = (newFastaHeader: boolean) =>
+  action(UPDATE_FASTA_HEADER, { newFastaHeader });
