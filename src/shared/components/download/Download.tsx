@@ -141,7 +141,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   };
 
   const handleFastaHeaderChange = () => {
-    dispatch(updateFastaHeader(!state.newFastaHeader));
+    dispatch(updateFastaHeader(!state.proteomeFastaHeader));
   };
 
   // Variables derived from state, props, location and/or job
@@ -324,7 +324,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
                 aria-label="uniparc proteome-specific FASTA"
                 type="checkbox"
                 name="proteome FASTA"
-                checked={state.newFastaHeader}
+                checked={state.proteomeFastaHeader}
                 onChange={handleFastaHeaderChange}
               />
               Proceed with the recommended header

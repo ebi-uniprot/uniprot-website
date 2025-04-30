@@ -300,7 +300,7 @@ export const getDownloadOptions = (
   }
 
   if (isUniParcProteomeSearch(state, props, query)) {
-    downloadOptions.uniparcProteomeFastaHeader = state.newFastaHeader;
+    downloadOptions.uniparcProteomeFastaHeader = state.proteomeFastaHeader;
   }
   return downloadOptions;
 };

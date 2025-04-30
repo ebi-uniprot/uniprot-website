@@ -37,5 +37,5 @@ export const updateDisableForm = (disableForm: boolean) =>
 export const updateFullXref = (fullXref: boolean) =>
   action(UPDATE_FULL_XREF, { fullXref });
 
-export const updateFastaHeader = (newFastaHeader: boolean) =>
-  action(UPDATE_FASTA_HEADER, { newFastaHeader });
+export const updateFastaHeader = (proteomeFastaHeader: boolean) =>
+  action(UPDATE_FASTA_HEADER, { proteomeFastaHeader });
