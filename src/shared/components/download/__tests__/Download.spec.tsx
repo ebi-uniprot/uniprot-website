@@ -9,6 +9,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import SimpleMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/SimpleMappingDetails';
 import UniProtkbMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
+import { UniParcColumn } from '../../../../uniparc/config/UniParcColumnConfiguration';
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import customRender from '../../../__test-helpers__/customRender';
@@ -160,6 +161,54 @@ describe('Download with passed query and selectedQuery props', () => {
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(stringifyQuery({ query: `(${selectedQuery})` }))
+    );
+  });
+});
+
+describe('Download uniparc entries with passed proteome id as query', () => {
+  it('should display proteome-specific url for FASTA only', async () => {
+    const namespace = Namespace.uniparc;
+    const onCloseMock = jest.fn();
+    const query = '(upid:UP000001478)';
+    const numberSelectedEntries = 0;
+    const totalNumberResults = 4042;
+
+    customRender(
+      <Download
+        query={query}
+        numberSelectedEntries={numberSelectedEntries}
+        totalNumberResults={totalNumberResults}
+        onClose={onCloseMock}
+        namespace={namespace}
+      />,
+      {
+        route: '/uniprotkb?query=nod2',
+        initialLocalStorage: {
+          'table columns for uniparc': [UniParcColumn.accession],
+        },
+      }
+    );
+    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        '/uniparc/proteome/UP000001478/stream?format=fasta'
+      )
+    );
+    fireEvent.click(
+      screen.getByLabelText('Proceed with the recommended header')
+    );
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
+    );
+    fireEvent.click(
+      screen.getByLabelText('Proceed with the recommended header')
+    );
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );
   });
 });

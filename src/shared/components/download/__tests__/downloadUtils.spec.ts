@@ -28,6 +28,7 @@ import {
   hasColumns,
   isAsyncDownloadIdMapping,
   isSubsequenceFrom,
+  isUniParcProteomeSearch,
 } from '../downloadUtils';
 
 const subsequenceData = 'P05067[1-12345],P12345[5-15]';
@@ -1033,5 +1034,56 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(1);
+  });
+  test('UniParc entries with upid in the query', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 4042,
+      namespace: Namespace.uniparc,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+
+    const location: HistoryLocation = {
+      pathname: '/uniparc',
+      search: '?query=upid:UP000001478',
+      hash: '',
+      key: 'foo',
+      state: undefined,
+    };
+    const job: JobFromUrl = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+
+    const downloadOptions = {
+      compressed: true,
+      fileFormat: FileFormat.fasta,
+      namespace: Namespace.uniparc,
+      query: 'upid:UP000001478',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'upi',
+      accessions: undefined,
+      base: undefined,
+      sortColumn: undefined,
+      sortDirection: undefined,
+      uniparcProteomeFastaHeader: true,
+    };
+
+    expect(getDownloadOptions(state, props, location, job)).toEqual(
+      downloadOptions
+    );
+
+    expect(
+      isUniParcProteomeSearch(state, props, downloadOptions.query)
+    ).toEqual(true);
   });
 });
