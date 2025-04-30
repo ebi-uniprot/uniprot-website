@@ -81,15 +81,17 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   // Initially zoom to the AA level
   useEffect(() => {
     if (managerRef.current) {
+      const zoomedInRange = getZoomedInRange(features, sequence.length);
+      onViewRangeChange(zoomedInRange);
       managerRef.current.dispatchEvent(
         new CustomEvent('change', {
-          detail: getZoomedInRange(features, sequence.length),
+          detail: zoomedInRange,
           bubbles: true,
           cancelable: true,
         })
       );
     }
-  }, [features, sequence.length]);
+  }, [features, onViewRangeChange, sequence.length]);
 
   // Call onViewRangeChange when NightingaleManager view range changes
   useEffect(() => {
