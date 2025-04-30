@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import { useFormLogic } from '../../contact/adapters/contactFormAdapter';
+import SupportingDataIllustration from '../../images/supporting_data_illustration.png';
 import HTMLHead from '../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import styles from './styles/landing-page.module.scss';
@@ -40,7 +41,12 @@ const LandingPage = () => {
               styles['image-container']
             )}
           >
-            {/* <img src={SupportingData} width={250} height={250} alt="" /> */}
+            <img
+              src={SupportingDataIllustration}
+              width={300}
+              height={300}
+              alt=""
+            />
           </div>
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
             The Supporting Data section enhances the functionality of UniProt by
