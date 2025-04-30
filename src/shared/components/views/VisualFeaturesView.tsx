@@ -16,7 +16,10 @@ import NightingaleSequenceComponent from '../../custom-elements/NightingaleSeque
 import NightingaleTrackCanvasComponent from '../../custom-elements/NightingaleTrackCanvas';
 import { Namespace } from '../../types/namespaces';
 import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
-import { NightingaleViewRange } from '../../utils/nightingale';
+import {
+  getZoomedInRange,
+  NightingaleViewRange,
+} from '../../utils/nightingale';
 import { Dataset } from '../entry/EntryDownload';
 import EntryDownloadButton from '../entry/EntryDownloadButton';
 import EntryDownloadPanel from '../entry/EntryDownloadPanel';
@@ -26,7 +29,7 @@ import styles from './styles/visual-features-view.module.scss';
 function getHighlightedCoordinates<T extends ProcessedFeature>(feature?: T) {
   return feature?.start && feature?.end
     ? `${feature.start}:${feature.end}`
-    : undefined;
+    : '0:0'; // this is a hack but undefined doesn't work
 }
 
 type Props<T> = {
@@ -34,9 +37,10 @@ type Props<T> = {
   sequence: string;
   trackHeight?: number;
   noLinkToFullView?: boolean;
-  onFeatureClick: (feature: T) => void;
+  onFeatureClick: (feature: T) => void; // NOTE: make sure this is memoized with a callback in the consumer
   onViewRangeChange: (range: NightingaleViewRange) => void;
   highlightedFeature?: T;
+  range: [number, number] | null;
 };
 
 function VisualFeaturesView<T extends ProcessedFeature>({
@@ -47,6 +51,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   onFeatureClick,
   onViewRangeChange,
   highlightedFeature,
+  range,
 }: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const params = useParams<{ accession: string }>();
@@ -71,9 +76,22 @@ function VisualFeaturesView<T extends ProcessedFeature>({
     return () => {
       document.removeEventListener('change', eventHandler);
     };
-  }, [trackRef, features, onFeatureClick]);
+  }, [features, onFeatureClick]);
 
-  // NightingaleManager view range event handler
+  // Initially zoom to the AA level
+  useEffect(() => {
+    if (managerRef.current) {
+      managerRef.current.dispatchEvent(
+        new CustomEvent('change', {
+          detail: getZoomedInRange(features, sequence.length),
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+    }
+  }, [features, sequence.length]);
+
+  // Call onViewRangeChange when NightingaleManager view range changes
   useEffect(() => {
     const eventHandler = (e: Event) => {
       const { detail } = e as CustomEvent<
@@ -90,6 +108,22 @@ function VisualFeaturesView<T extends ProcessedFeature>({
       document.removeEventListener('change', eventHandler);
     };
   }, [managerRef, onViewRangeChange]);
+
+  // Dispatch range change event to NightingaleManager
+  useEffect(() => {
+    if (managerRef.current && range) {
+      managerRef.current.dispatchEvent(
+        new CustomEvent('change', {
+          detail: {
+            'display-start': range[0],
+            'display-end': range[1],
+          },
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+    }
+  }, [range]);
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
