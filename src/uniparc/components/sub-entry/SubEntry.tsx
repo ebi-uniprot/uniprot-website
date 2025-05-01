@@ -38,6 +38,7 @@ import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import SubEntrySection, { TabLocation } from '../../types/subEntry';
 import { getSubEntryPath } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
+import SubEntryInactive from './SubEntryInactive';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
@@ -149,6 +150,7 @@ const SubEntry = () => {
             }
           />
         </h1>
+        <SubEntryInactive data={transformedData} />
         <SubEntryOverview data={transformedData} />
       </ErrorBoundary>
       <Tabs active={subPage}>
