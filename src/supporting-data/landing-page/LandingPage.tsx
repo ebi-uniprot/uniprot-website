@@ -11,7 +11,7 @@ import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumn
 import styles from './styles/landing-page.module.scss';
 
 const metaDescription =
-  'The Supporting Data section enhances UniProt by providing curated and automated datasets that enrich protein entries with detailed annotations, including keywords, localization, functions, taxonomy, and literature citations.';
+  'Supporting Data enhances UniProt by providing curated and automated datasets that enrich protein entries with detailed annotations, including keywords, localization, functions, taxonomy, and literature citations.';
 
 const LandingPage = () => {
   const formId = useId();
@@ -49,16 +49,16 @@ const LandingPage = () => {
             />
           </div>
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
-            The Supporting Data section enhances the functionality of UniProt by
-            providing curated and automated datasets that enrich protein entries
-            with detailed information. This section covers keywords, subcellular
+            The Supporting Data presented within this page enhances the
+            functionality of UniProt by providing curated and automatically
+            generated datasets that enrich protein entries with detailed
+            information. Supporting Data includes keywords, subcellular
             localization, automatic annotations, functional insights, taxonomy
-            and literature citations. By integrating these data points, it
-            allows researchers to explore proteins more comprehensively,
-            uncovering their roles, interactions, and evolutionary significance.
-            The Supporting Data section serves as a vital resource for making
-            UniProt entries more informative and accessible for biological and
-            biomedical research.
+            and literature citations. By integrating this data, it allows
+            researchers to explore proteins more comprehensively, uncovering
+            their roles, interactions, and evolutionary significance. Supporting
+            Data serves as a vital resource for making UniProt entries more
+            informative and accessible for biological and biomedical research.
           </div>
 
           {/* Categories */}
@@ -77,11 +77,9 @@ const LandingPage = () => {
             </h3>
             <p>
               Keywords in UniProt provide standardized terms that summarize the
-              main features and attributes of a protein entry.
-            </p>
-            <p>
-              Categories include: Biological Process, Molecular Function,
-              Technical Terms, Ligands and Cofactors, and Applications.
+              main features and attributes of a protein entry. Categories
+              include: Biological Process, Molecular Function, Technical Terms,
+              Ligands and Cofactors, and Applications.
             </p>
           </div>
           {/* Subcellular Location */}
@@ -93,16 +91,14 @@ const LandingPage = () => {
                   search: 'query=*',
                 }}
               >
-                Subcellular Location
+                Subcellular Locations
               </Link>
             </h3>
             <p>
               Specifies where the protein is located within a cell or organism,
-              providing insight into its potential role.
-            </p>
-            <p>
-              Experimental evidence or computational predictions supporting the
-              localization are often included.
+              providing insight into its potential role. Experimental evidence
+              or computational predictions supporting the localization are often
+              included.
             </p>
           </div>
           {/* Literature Citations */}
@@ -119,11 +115,8 @@ const LandingPage = () => {
             </h3>
             <p>
               Direct references to scientific studies supporting protein
-              annotations.
-            </p>
-            <p>
-              Includes experimental evidence such as enzymatic activities,
-              protein interactions, or structural data.
+              annotations. Includes experimental evidence such as enzymatic
+              activities, protein interactions, or structural data.
             </p>
           </div>
           {/* Taxonomy */}
@@ -174,11 +167,8 @@ const LandingPage = () => {
             </h3>
             <p>
               Provides insights into the relationship between proteins and human
-              health.
-            </p>
-            <p>
-              Includes disease annotations, pathogenesis information, variants
-              linked to diseases, and links to drug databases.
+              health. Includes disease annotations, pathogenesis information,
+              variants linked to diseases, and links to drug databases.
             </p>
           </div>
           {/* Automatic Annotations */}
