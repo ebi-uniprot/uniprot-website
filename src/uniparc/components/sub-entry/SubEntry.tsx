@@ -136,7 +136,10 @@ const SubEntry = () => {
             accession,
             searchableNamespaceLabels[Namespace.uniparc],
           ]}
-        />
+        >
+          {/* Keep while not publicly available */}
+          <meta name="robots" content="noindex" />
+        </HTMLHead>
         <h1>
           <EntryTitle
             mainTitle="UniParc"
