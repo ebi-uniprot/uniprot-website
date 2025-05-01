@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import { useFormLogic } from '../../contact/adapters/contactFormAdapter';
-import SupportingDataIllustration from '../../images/supporting_data_illustration.png';
+import SupportingDataIllustration from '../../images/Supporting_data_illustration.jpg';
 import HTMLHead from '../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import styles from './styles/landing-page.module.scss';
