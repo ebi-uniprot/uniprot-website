@@ -19,7 +19,7 @@ function SubEntryInactive({ data }: { data: UniParcSubEntryUIModel }) {
     if (event && event?.deletedReason) {
       return (
         <Message level="info">
-          <strong>This entry is no longer active</strong>
+          <strong>This entry is no longer active in UniProtKB</strong>
           <div>
             Reason:{' '}
             <strong data-article-id="deleted_accessions">
